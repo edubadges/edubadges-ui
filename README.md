@@ -1,4 +1,4 @@
-### edubages-ui
+#### [edubages-ui](#edubages-ui)
 
 ```
 yarn install
