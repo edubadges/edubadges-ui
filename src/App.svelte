@@ -2,6 +2,7 @@
     import {Route, Router, navigate} from "svelte-routing";
     import {onMount} from "svelte";
 
+    import {default as Student} from './routes/student/Main.svelte'
     import {Landing, NotFound, EditName, Migration, MigrationError, Password, RememberMe, Home} from './routes'
     import {Header, Footer } from "./components";
     import {me, configuration} from "./api";
@@ -169,5 +170,27 @@
         <Footer/>
     </div>
 {:else}
-    <div class="loader"></div>
+     <div class="loader"></div>
+     <div class="myconext">
+        <Header/>
+        <div class="content">
+            <Router url="{url}">
+                <Route path="/" component={Student}/>
+                <Route path="/backpack">
+                    <Home bookmark="backpack"/>
+                </Route>
+                <Route path="/badge-requests">
+                    <Home bookmark="badge-requests"/>
+                </Route>
+                <Route path="/collections">
+                    <Home bookmark="collections"/>
+                </Route>
+                <Route path="/profile">
+                    <Home bookmark="profile"/>
+                </Route>
+                <Route component={NotFound}/>
+            </Router>
+        </div>
+        <Footer/>
+    </div>
 {/if}
