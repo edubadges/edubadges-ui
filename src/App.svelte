@@ -1,16 +1,9 @@
 <script>
-    import Footer from "./components/Footer.svelte";
     import {Route, Router, navigate} from "svelte-routing";
     import {onMount} from "svelte";
-    import Landing from "./routes/Landing.svelte";
-    import NotFound from "./routes/NotFound.svelte";
-    import EditName from "./routes/EditName.svelte";
-    import Migration from "./routes/Migration.svelte";
-    import MigrationError from "./routes/MigrationError.svelte";
-    import Password from "./routes/Password.svelte";
-    import RememberMe from "./routes/RememberMe.svelte";
-    import Home from "./routes/Home.svelte";
-    import Header from "./components/Header.svelte";
+
+    import {Landing, NotFound, EditName, Migration, MigrationError, Password, RememberMe, Home} from './routes'
+    import {Header, Footer } from "./components";
     import {me, configuration} from "./api";
     import {user, config, redirectPath} from "./stores/user";
     import I18n from "i18n-js";
