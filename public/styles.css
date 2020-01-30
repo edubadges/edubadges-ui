@@ -1,0 +1,120 @@
+html {
+    box-sizing: border-box;
+    font-size: 16px;
+    line-height: 22px;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+@font-face {
+    font-family: "Proxima Nova";
+    font-weight: 300;
+    src: url("/fonts/proxima_nova/proximanovasoft-regular-webfont.woff2") format("woff2"),
+    url("/fonts/proxima_nova/proximanovasoft-regular-webfont.woff") format("woff");
+}
+
+@font-face {
+    font-family: "Proxima Nova";
+    font-weight: 500;
+    src: url("/fonts/proxima_nova/proximanovasoft-medium-webfont.woff2") format("woff2"),
+    url("/fonts/proxima_nova/proximanovasoft-medium-webfont.woff") format("woff");
+}
+
+@font-face {
+    font-family: "Proxima Nova";
+    font-weight: 600;
+    src: url("/fonts/proxima_nova/proximanovasoft-semibold-webfont.woff2") format("woff2"),
+    url("/fonts/proxima_nova/proximanovasoft-semibold-webfont.woff") format("woff");
+}
+
+@font-face {
+    font-family: "Source Sans Pro";
+    font-weight: 300;
+    src: url("/fonts/source_sans_pro/sourcesanspro-regular-webfont.woff2") format("woff2"),
+    url("/fonts/source_sans_pro/sourcesanspro-regular-webfont.woff") format("woff");
+}
+
+@font-face {
+    font-family: "Source Sans Pro";
+    font-weight: 600;
+    src: url("/fonts/source_sans_pro/sourcesanspro-semibold-webfont.woff2") format("woff2"),
+    url("/fonts/source_sans_pro/sourcesanspro-semibold-webfont.woff") format("woff");
+}
+
+body {
+    font-family: "Source Sans Pro", sans-serif;
+    font-size: 16px;
+    background-color: #5daff1;
+}
+
+body, h1, h2, h3, h4, h5, h6, p, ol, ul {
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+a, a:visited {
+    color: #0077c8;
+    text-decoration: none;
+}
+
+label, span {
+    line-height: 18px;
+}
+
+p {
+    line-height: 22px;
+}
+
+h1, h2, h3 {
+    font-family: Proxima Nova, sans-serif;
+}
+
+h1 {
+    font-size: 40px;
+    line-height: 40px;
+    font-weight: normal;
+}
+
+h2 {
+    font-size: 32px;
+    line-height: 34px;
+    font-weight: bold;
+}
+
+h3 {
+    font-size: 28px;
+    line-height: 30px;
+    font-weight: bold;
+}
+
+@media (max-width: 580px) {
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    thead tr {
+        display: none;
+    }
+
+    td {
+        position: relative;
+        width: 100% !important;
+    }
+
+    .options a:not(:first-child) {
+        margin-left: 0 !important;
+        margin-top: 25px !important;
+    }
+}
