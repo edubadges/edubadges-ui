@@ -15,11 +15,13 @@
 
         display: flex;
         flex-direction: column;
+
+        box-shadow: 0 0 8px rgba(0,0,0, 0.4);
     }
 
     @media (min-width: 600px) {
-        .app{
-            padding: 0 40px;
+        :global(body) {
+            margin: 0 40px;
         }
     }
 
