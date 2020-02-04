@@ -8,44 +8,29 @@
 </script>
 
 <style>
-    :global(:root) {
-        --color-primary-blue: #0061b0;
-        --color-primary-green: #008738;
-        --color-primary-black: #202020;
-        --color-primary-red: #d00000;
-        --color-primary-grey: #c4cdd5;
-        --width-app: 1244px;
-    }
-
-    .edubadges {
+    .app {
+        width: 100%;
         max-width: var(--width-app);
-        margin: 0 auto;
         min-height: 100vh;
+        margin: 0 auto;
 
         display: flex;
         flex-direction: column;
     }
 
+    @media (min-width: 600px) {
+        .app{
+            padding: 0 15px;
+        }
+    }
+
     .content {
         flex: 1;
         background-color: white;
-        width: 100%;
-        margin: 0 auto;
-        border-left: 2px solid var(--color-primary-blue);
-        border-right: 2px solid var(--color-primary-blue);
-        border-bottom-left-radius: 10px;
-        border-bottom-right-radius: 10px;
-        border-bottom: 4px solid var(--color-primary-blue);
-    }
-
-    @media (min-width: 600px) {
-        .edubadges {
-            margin: 0 15px;
-        }
     }
 </style>
 
-<div class="edubadges">
+<div class="app">
     <Header/>
 
     <div class="content">

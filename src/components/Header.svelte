@@ -6,11 +6,8 @@
 
 <style>
     .header {
-        width: 100%;
-        max-width: var(--width-app);
         padding: 6px 13px;
-
-        background-color: #D8D8D8;
+        background-color: var(--color-primary-grey);
     }
 </style>
 
