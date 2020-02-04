@@ -1,3 +1,5 @@
+import mockIssuer from '../mockJsons/issuers.json';
+
 //Internal API
 let csrfToken = null;
 
@@ -71,4 +73,11 @@ export function logout() {
 
 export function forgetMe() {
   return fetchDelete("/myconext/api/sp/forget");
+}
+
+// mockJsons payloads
+export function issuers() {
+    return new Promise((resolve, reject) => {
+      resolve(mockIssuer);
+    });
 }

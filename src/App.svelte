@@ -3,6 +3,8 @@
     import {Route, Router, navigate} from "svelte-routing";
     import {onMount} from "svelte";
     import Landing from "./routes/Landing.svelte";
+    import ProcessToken from "./routes/ProcessToken.svelte";
+    import MyComponent from "./routes/MyComponent.svelte";
     import NotFound from "./routes/NotFound.svelte";
     import EditName from "./routes/EditName.svelte";
     import Migration from "./routes/Migration.svelte";
@@ -14,9 +16,10 @@
     import {me, configuration} from "./api";
     import {user, config, redirectPath} from "./stores/user";
     import I18n from "i18n-js";
+    import { role } from "./util/role";
 
     export let url = "";
-    let loaded = false;
+    let loaded = true;
 
     onMount(() => configuration()
             .then(json => {
@@ -25,7 +28,7 @@
                 me()
                         .then(json => {
                             loaded = true;
-                            $user = {$user, ...json, guest: false};
+                            $user = {$user, ...json, loggedIn: true};
                         })
                         .catch(() => {
                             loaded = true;
@@ -136,7 +139,7 @@
         }
     }
 </style>
-{#if loaded && !$user.guest}
+{#if loaded && $user['loggedIn'] && $user['role'] === role.STUDENT}
     <div class="myconext">
         <Header/>
         <div class="content">
@@ -159,11 +162,40 @@
                 <Route path="/password" component={Password}/>
                 <Route path="/rememberme" component={RememberMe}/>
                 <Route component={NotFound}/>
+                <Route path="/test" component={MyComponent}/>
             </Router>
         </div>
         <Footer/>
     </div>
-{:else if loaded && $user.guest}
+{:else if loaded && $user['loggedIn'] && $user['role'] === role.TEACHER}
+    <div class="myconext">
+        <Header/>
+        <div class="content">
+            <Router url="{url}">
+                <Route path="/" component={Home}/>
+                <Route path="/profile">
+                    <Home bookmark="profile"/>
+                </Route>
+                <Route path="/account">
+                    <Home bookmark="account"/>
+                </Route>
+                <Route path="/security">
+                    <Home bookmark="security"/>
+                </Route>
+                <Route path="/landing" component={Landing}/>
+                <Route path="/edit" component={EditName}/>
+                <Route path="/migration">
+                    <Home bookmark="migration"/>
+                </Route>
+                <Route path="/password" component={Password}/>
+                <Route path="/rememberme" component={RememberMe}/>
+                <Route component={NotFound}/>
+                <Route path="/test" component={MyComponent}/>
+            </Router>
+        </div>
+        <Footer/>
+    </div>
+{:else if loaded}
     <div class="myconext">
         <Header/>
         <div class="content">
@@ -171,6 +203,7 @@
                 <Route path="/" component={Landing}/>
                 <Route path="/landing" component={Landing}/>
                 <Route path="/migration-error" component={MigrationError}/>
+                <Route path="/auth/login/*" let:params component={ProcessToken}/>
             </Router>
         </div>
         <Footer/>

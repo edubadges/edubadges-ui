@@ -1,22 +1,27 @@
 import { writable } from "svelte/store";
+import { role } from "../util/role";
 
 export const user = writable({
   id: "",
   email: "",
   givenName: "",
   familyName: "",
-  guest: true,
+  loggedIn: false,
+  role: role.GUEST,
   schacHomeOrganization: "",
   uid: "",
   usePassword: false,
-  rememberMe: true
+  rememberMe: true,
 });
 
 export const config = writable({
   loginUrl: "",
+  serverUrl: "http://127.0.0.1:8000",
   baseDomain: "",
   migrationLandingPageUrl: "",
-  myConextUrlGuestIdp: ""
+  myConextUrlGuestIdp: "",
+  studentDomain: "edu_id",
+  teacherDomain: "surf_conext"
 });
 
 export const redirectPath = writable("");
