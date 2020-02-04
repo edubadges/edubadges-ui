@@ -1,4 +1,6 @@
 <script>
+    import {userRole} from "../../stores/user";
+
     export let bookmark;
 
 	import { onMount } from 'svelte';

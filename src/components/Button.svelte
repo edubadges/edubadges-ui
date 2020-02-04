@@ -11,6 +11,7 @@
 </script>
 <style>
     .button {
+        margin: 5px;
         background-color: #0077c8;
         border-radius: 8px;
         padding: 10px 20px;

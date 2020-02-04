@@ -4,22 +4,13 @@
     import logo from "../img/logo_SURFconext_blue.svg";
     import openConextLogo from "../img/logo_OPEN_conext_blue.svg";
     import {navigate} from "svelte-routing";
-    import {logout} from "../api";
-    import {user} from "../stores/user";
+    import {userLoggedIn, userRole} from "../stores/user";
     import Button from "./Button.svelte";
 
     const logoutUser = () => {
-        logout().then(() => {
-            $user = {
-                id: "",
-                email: "",
-                givenName: "",
-                familyName: "",
-                loggedIn: false,
-                usePassword: false
-            };
-            navigate("/landing?logout=true");
-        });
+        $userLoggedIn = false;
+        $userRole = "";
+        navigate("/");
     }
 
 </script>
@@ -67,7 +58,7 @@
         </a>
     </div>
     <h1>{I18n.ts("header.title")}</h1>
-    {#if $user.loggedIn}
+    {#if $userLoggedIn}
         <div class="logout">
             <Button href="/logout" label={I18n.t("header.logout")} onClick={logoutUser} className="cancel small"/>
         </div>

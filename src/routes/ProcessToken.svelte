@@ -2,16 +2,13 @@
     import {userLoggedIn, userRole} from "../stores/user"
     import {navigate} from "svelte-routing";
     import {role} from "../util/role";
-    // const page = { stores };
 
     const validateToken = () => {
         $userLoggedIn = true;
-        console.log($userLoggedIn, $userRole);
-        console.log($userLoggedIn && $userRole === role.STUDENT);
-        // navigate("/test");
+        navigate("/");
     };
 
-    const token = window.location.href.split("=")[1];
+    const token = window.location.href.split("=")[1]; // TODO: use request param
 
 </script>
 

@@ -52,7 +52,7 @@
 
     <div class="content">
         <Router>
-            {#if $userLoggedIn && $userRole === role.STUDENT}
+            {#if $userLoggedIn === "true" && $userRole === role.STUDENT}
                 <Route path="/" component={Student}/>
                 <Route path="/backpack">
                     <Student bookmark="backpack"/>
@@ -67,7 +67,7 @@
                     <Student bookmark="profile"/>
                 </Route>
 
-            {:else if $userLoggedIn && $userRole === role.TEACHER}
+            {:else if $userLoggedIn === "true" && $userRole === role.TEACHER}
                 <Route path="/" component={Teacher}/>
 
             {:else}
