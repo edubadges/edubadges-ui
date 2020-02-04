@@ -17,19 +17,18 @@
         --width-app: 1244px;
     }
 
-    .myconext {
+    .edubadges {
+        max-width: var(--width-app);
+        margin: 0 auto;
+        min-height: 100vh;
+
         display: flex;
         flex-direction: column;
-        height: 100%;
-        margin-bottom: 100px;
     }
 
     .content {
-        display: flex;
-        flex-direction: column;
+        flex: 1;
         background-color: white;
-        align-items: stretch;
-        max-width: var(--width-app);
         width: 100%;
         margin: 0 auto;
         border-left: 2px solid var(--color-primary-blue);
@@ -39,13 +38,9 @@
         border-bottom: 4px solid var(--color-primary-blue);
     }
 
-    @media (max-width: 1250px) {
-        .myconext {
+    @media (min-width: 600px) {
+        .edubadges {
             margin: 0 15px;
-        }
-
-        .content {
-            width: 100%;
         }
     }
 </style>
