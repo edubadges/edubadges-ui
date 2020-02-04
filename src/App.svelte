@@ -1,37 +1,15 @@
 <script>
-    import Footer from "./components/Footer.svelte";
     import {Route, Router, navigate} from "svelte-routing";
-    import {onMount} from "svelte";
-    import Landing from "./routes/Landing.svelte";
+    import {default as Student} from './routes/student/Main.svelte'
+    import {default as Teacher} from './routes/teacher/Main.svelte'
+    import {NotFound, Login} from './routes'
+    import {Header, Footer} from "./components";
+    import {userRole, userLoggedIn} from "./stores/user";
     import ProcessToken from "./routes/ProcessToken.svelte";
-    import MyComponent from "./routes/MyComponent.svelte";
-    import NotFound from "./routes/NotFound.svelte";
-    import EditName from "./routes/EditName.svelte";
-    import Migration from "./routes/Migration.svelte";
-    import MigrationError from "./routes/MigrationError.svelte";
-    import Password from "./routes/Password.svelte";
-    import RememberMe from "./routes/RememberMe.svelte";
-    import Home from "./routes/Home.svelte";
-    import Header from "./components/Header.svelte";
-    import {me, configuration} from "./api";
-    import {user, userRole, userLoggedIn, config, redirectPath} from "./stores/user";
-    import I18n from "i18n-js";
     import { role } from "./util/role";
-
-    export let url = "";
-    let loaded = true;
-
-    onMount(() => {
-        console.log(loaded);
-        // if($userLoggedIn) {
-        //     navigate("/test");
-        // }
-    });
-
 </script>
 
 <style>
-
     :global(:root) {
         --color-primary-blue: #0061b0;
         --color-primary-green: #008738;
@@ -41,19 +19,18 @@
         --width-app: 1244px;
     }
 
-    .myconext {
+    .edubadges {
+        max-width: var(--width-app);
+        margin: 0 auto;
+        min-height: 100vh;
+
         display: flex;
         flex-direction: column;
-        height: 100%;
-        margin-bottom: 100px;
     }
 
     .content {
-        display: flex;
-        flex-direction: column;
+        flex: 1;
         background-color: white;
-        align-items: stretch;
-        max-width: var(--width-app);
         width: 100%;
         margin: 0 auto;
         border-left: 2px solid var(--color-primary-blue);
@@ -63,130 +40,43 @@
         border-bottom: 4px solid var(--color-primary-blue);
     }
 
-    @media (max-width: 1250px) {
-        .myconext {
+    @media (min-width: 600px) {
+        .edubadges {
             margin: 0 15px;
-        }
-
-        .content {
-            width: 100%;
-        }
-    }
-
-    .loader:empty,
-    .loader:empty:after {
-        border-radius: 50%;
-        width: 10em;
-        height: 10em;
-    }
-
-    .loader:empty {
-        margin: 60px auto;
-        font-size: 10px;
-        position: relative;
-        text-indent: -9999em;
-        border: 1.1em solid white;
-        border-top-color: var(--color-primary-green);
-        border-bottom-color: var(--color-primary-blue);
-        -webkit-transform: translateZ(0);
-        -ms-transform: translateZ(0);
-        transform: translateZ(0);
-        -webkit-animation: load8 1.5s infinite linear;
-        animation: load8 1.5s infinite linear;
-    }
-
-    @-webkit-keyframes load8 {
-        0% {
-            -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
-        }
-        100% {
-            -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
-        }
-    }
-
-    @keyframes load8 {
-        0% {
-            -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
-        }
-        100% {
-            -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
         }
     }
 </style>
 
-{#if loaded && $userLoggedIn && $userRole === role.STUDENT}
-    <div class="myconext">
-        <Header/>
-        <div class="content">
-            <Router url="{url}">
-                <Route path="/" component={Home}/>
+<div class="edubadges">
+    <Header/>
+
+    <div class="content">
+        <Router>
+            {#if $userLoggedIn && $userRole === role.STUDENT}
+                <Route path="/" component={Student}/>
+                <Route path="/backpack">
+                    <Student bookmark="backpack"/>
+                </Route>
+                <Route path="/badge-requests">
+                    <Student bookmark="badge-requests"/>
+                </Route>
+                <Route path="/collections">
+                    <Student bookmark="collections"/>
+                </Route>
                 <Route path="/profile">
-                    <Home bookmark="profile"/>
+                    <Student bookmark="profile"/>
                 </Route>
-                <Route path="/account">
-                    <Home bookmark="account"/>
-                </Route>
-                <Route path="/security">
-                    <Home bookmark="security"/>
-                </Route>
-                <Route path="/landing" component={Landing}/>
-                <Route path="/edit" component={EditName}/>
-                <Route path="/migration">
-                    <Home bookmark="migration"/>
-                </Route>
-                <Route path="/password" component={Password}/>
-                <Route path="/rememberme" component={RememberMe}/>
-                <Route component={NotFound}/>
-                <Route path="/test" component={MyComponent}/>
-            </Router>
-        </div>
-        <Footer/>
-    </div>
-{:else if loaded && $userLoggedIn && $userRole === role.TEACHER}
-    <div class="myconext">
-        <Header/>
-        <div class="content">
-            <Router url="{url}">
-                <Route path="/" component={Home}/>
-                <Route path="/profile">
-                    <Home bookmark="profile"/>
-                </Route>
-                <Route path="/account">
-                    <Home bookmark="account"/>
-                </Route>
-                <Route path="/security">
-                    <Home bookmark="security"/>
-                </Route>
-                <Route path="/landing" component={Landing}/>
-                <Route path="/edit" component={EditName}/>
-                <Route path="/migration">
-                    <Home bookmark="migration"/>
-                </Route>
-                <Route path="/password" component={Password}/>
-                <Route path="/rememberme" component={RememberMe}/>
-                <Route component={NotFound}/>
-                <Route path="/test" component={MyComponent}/>
-            </Router>
-        </div>
-        <Footer/>
-    </div>
-{:else if loaded}
-    <div class="myconext">
-        <Header/>
-        <div class="content">
-            <Router url="{url}">
-                <Route path="/" component={Landing}/>
-                <Route path="/landing" component={Landing}/>
-                <Route path="/migration-error" component={MigrationError}/>
+
+            {:else if $userLoggedIn && $userRole === role.TEACHER}
+                <Route path="/" component={Teacher}/>
+
+            {:else}
                 <Route path="/auth/login/*" let:params component={ProcessToken}/>
-            </Router>
-        </div>
-        <Footer/>
+                <Route path="/" component={Login}/>
+            {/if}
+            <Route component={NotFound}/>
+        </Router>
     </div>
-{:else}
-    <div class="loader"></div>
-{/if}
+
+    <Footer/>
+</div>
