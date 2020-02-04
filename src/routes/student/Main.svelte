@@ -34,5 +34,9 @@
         </button>
     {/each}
 
+    <div>
+        {$userRole} page
+    </div>
+
     <svelte:component this={currentTab.component}/>
 </div>
