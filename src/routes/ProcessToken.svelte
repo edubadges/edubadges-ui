@@ -2,6 +2,9 @@
     import {userLoggedIn, userRole} from "../stores/user"
     import {navigate} from "svelte-routing";
     import {role} from "../util/role";
+    import {onMount} from "svelte";
+
+    onMount(() => {if($userLoggedIn) navigate("/")});
 
     const validateToken = () => {
         $userLoggedIn = true;

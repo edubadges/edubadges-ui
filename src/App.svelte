@@ -52,7 +52,7 @@
 
     <div class="content">
         <Router>
-            {#if $userLoggedIn === "true" && $userRole === role.STUDENT}
+            {#if $userLoggedIn && $userRole === role.STUDENT}
                 <Route path="/" component={Student}/>
                 <Route path="/backpack">
                     <Student bookmark="backpack"/>
@@ -66,13 +66,13 @@
                 <Route path="/profile">
                     <Student bookmark="profile"/>
                 </Route>
-
-            {:else if $userLoggedIn === "true" && $userRole === role.TEACHER}
-                <Route path="/" component={Teacher}/>
-
-            {:else}
                 <Route path="/auth/login/*" let:params component={ProcessToken}/>
+            {:else if $userLoggedIn && $userRole === role.TEACHER}
+                <Route path="/" component={Teacher}/>
+                <Route path="/auth/login/*" let:params component={ProcessToken}/>
+            {:else}
                 <Route path="/" component={Login}/>
+                <Route path="/auth/login/*" let:params component={ProcessToken}/>
             {/if}
             <Route component={NotFound}/>
         </Router>

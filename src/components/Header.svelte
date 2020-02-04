@@ -8,7 +8,7 @@
     import Button from "./Button.svelte";
 
     const logoutUser = () => {
-        $userLoggedIn = false;
+        $userLoggedIn = "";
         $userRole = "";
         navigate("/");
     }
