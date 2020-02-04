@@ -8,6 +8,13 @@
         --color-primary-green: #008738;
         --color-primary-black: #202020;
         --color-primary-red: #d00000;
-        --color-primary-grey: #D8D8D8;
+
+        --color-background-grey-dark: #D8D8D8;
+        --color-background-grey-light: #EFEFEF;
+    }
+
+    :global(header, footer) {
+        padding-left: 13px;
+        padding-right: 13px;
     }
 </style>

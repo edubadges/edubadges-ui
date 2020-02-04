@@ -5,14 +5,15 @@
 </script>
 
 <style>
-    .header {
-        padding: 6px 13px;
-        background-color: var(--color-primary-grey);
+    header {
+        background-color: var(--color-background-grey-dark);
+        padding-top: 4px;
+        padding-bottom: 4px;
     }
 </style>
 
-<div class="header">
+<header class="header">
     <a href="/" use:link>
         {@html logo}
     </a>
-</div>
+</header>

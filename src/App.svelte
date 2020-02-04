@@ -9,7 +9,6 @@
 
 <style>
     .app {
-        width: 100%;
         max-width: var(--width-app);
         min-height: 100vh;
         margin: 0 auto;
@@ -20,7 +19,7 @@
 
     @media (min-width: 600px) {
         .app{
-            padding: 0 15px;
+            padding: 0 40px;
         }
     }
 
