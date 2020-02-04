@@ -1,46 +1,10 @@
 <script>
     import {Route, Router, navigate} from "svelte-routing";
-    import {onMount} from "svelte";
-
     import {default as Student} from './routes/student/Main.svelte'
-    import {Landing, NotFound, EditName, Migration, MigrationError, Password, RememberMe, Home} from './routes'
+    import {default as Teacher} from './routes/teacher/Main.svelte'
+    import {NotFound, Login} from './routes'
     import {Header, Footer } from "./components";
-    import {me, configuration} from "./api";
-    import {user, config, redirectPath} from "./stores/user";
-    import I18n from "i18n-js";
-
-    export let url = "";
-    let loaded = false;
-
-    onMount(() => configuration()
-            .then(json => {
-                $config = json;
-                I18n.branding = json.branding;
-                me()
-                        .then(json => {
-                            loaded = true;
-                            $user = {$user, ...json, guest: false};
-                        })
-                        .catch(() => {
-                            loaded = true;
-                            $redirectPath = window.location.pathname;
-                            const urlSearchParams = new URLSearchParams(window.location.search);
-                            const logout = urlSearchParams.get("logout");
-                            const afterDelete = urlSearchParams.get("delete");
-                            if ($redirectPath.indexOf("migration-error") > -1) {
-                                const email = decodeURIComponent(urlSearchParams.get("email"));
-                                navigate(`/migration-error?email=${email}`);
-                            } else if (logout) {
-                                navigate("/landing?logout=true");
-                            } else if (afterDelete) {
-                                navigate("/landing?delete=true");
-                            } else {
-                                navigate("/landing");
-                            }
-                        })
-            })
-    );
-
+    import {user} from "./stores/user";
 </script>
 
 <style>
@@ -85,50 +49,13 @@
         }
     }
 </style>
-{#if loaded && !$user.guest}
-    <div class="myconext">
-        <Header/>
-        <div class="content">
-            <Router url="{url}">
-                <Route path="/" component={Home}/>
-                <Route path="/profile">
-                    <Home bookmark="profile"/>
-                </Route>
-                <Route path="/account">
-                    <Home bookmark="account"/>
-                </Route>
-                <Route path="/security">
-                    <Home bookmark="security"/>
-                </Route>
-                <Route path="/landing" component={Landing}/>
-                <Route path="/edit" component={EditName}/>
-                <Route path="/migration">
-                    <Home bookmark="migration"/>
-                </Route>
-                <Route path="/password" component={Password}/>
-                <Route path="/rememberme" component={RememberMe}/>
-                <Route component={NotFound}/>
-            </Router>
-        </div>
-        <Footer/>
-    </div>
-{:else if loaded && $user.guest}
-    <div class="myconext">
-        <Header/>
-        <div class="content">
-            <Router url="{url}">
-                <Route path="/" component={Landing}/>
-                <Route path="/landing" component={Landing}/>
-                <Route path="/migration-error" component={MigrationError}/>
-            </Router>
-        </div>
-        <Footer/>
-    </div>
-{:else}
-     <div class="myconext">
-        <Header/>
-        <div class="content">
-            <Router url="{url}">
+
+<div class="edubadges">
+    <Header/>
+
+    <div class="content">
+        <Router>
+            {#if $user.student}
                 <Route path="/" component={Student}/>
                 <Route path="/backpack">
                     <Home bookmark="backpack"/>
@@ -142,9 +69,16 @@
                 <Route path="/profile">
                     <Home bookmark="profile"/>
                 </Route>
-                <Route component={NotFound}/>
-            </Router>
-        </div>
-        <Footer/>
+
+            {:else if $user.teacher}
+                <Route path="/" component={Teacher}/>
+
+            {:else}
+                <Route path="/" component={Login}/>
+            {/if}
+            <Route component={NotFound}/>
+        </Router>
     </div>
-{/if}
+
+    <Footer/>
+</div>

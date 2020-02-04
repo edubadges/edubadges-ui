@@ -9,3 +9,4 @@ export {default as Password} from "./Password.svelte";
 export {default as Profile} from "./Profile.svelte";
 export {default as RememberMe} from "./RememberMe.svelte";
 export {default as Security} from "./Security.svelte";
+export {default as Login} from "./Login.svelte";
