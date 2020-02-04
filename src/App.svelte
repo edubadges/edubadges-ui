@@ -14,41 +14,19 @@
     import Home from "./routes/Home.svelte";
     import Header from "./components/Header.svelte";
     import {me, configuration} from "./api";
-    import {user, config, redirectPath} from "./stores/user";
+    import {user, userRole, userLoggedIn, config, redirectPath} from "./stores/user";
     import I18n from "i18n-js";
     import { role } from "./util/role";
 
     export let url = "";
     let loaded = true;
 
-    onMount(() => configuration()
-            .then(json => {
-                $config = json;
-                I18n.branding = json.branding;
-                me()
-                        .then(json => {
-                            loaded = true;
-                            $user = {$user, ...json, loggedIn: true};
-                        })
-                        .catch(() => {
-                            loaded = true;
-                            $redirectPath = window.location.pathname;
-                            const urlSearchParams = new URLSearchParams(window.location.search);
-                            const logout = urlSearchParams.get("logout");
-                            const afterDelete = urlSearchParams.get("delete");
-                            if ($redirectPath.indexOf("migration-error") > -1) {
-                                const email = decodeURIComponent(urlSearchParams.get("email"));
-                                navigate(`/migration-error?email=${email}`);
-                            } else if (logout) {
-                                navigate("/landing?logout=true");
-                            } else if (afterDelete) {
-                                navigate("/landing?delete=true");
-                            } else {
-                                navigate("/landing");
-                            }
-                        })
-            })
-    );
+    onMount(() => {
+        console.log(loaded);
+        // if($userLoggedIn) {
+        //     navigate("/test");
+        // }
+    });
 
 </script>
 
@@ -139,7 +117,8 @@
         }
     }
 </style>
-{#if loaded && $user['loggedIn'] && $user['role'] === role.STUDENT}
+
+{#if loaded && $userLoggedIn && $userRole === role.STUDENT}
     <div class="myconext">
         <Header/>
         <div class="content">
@@ -167,7 +146,7 @@
         </div>
         <Footer/>
     </div>
-{:else if loaded && $user['loggedIn'] && $user['role'] === role.TEACHER}
+{:else if loaded && $userLoggedIn && $userRole === role.TEACHER}
     <div class="myconext">
         <Header/>
         <div class="content">

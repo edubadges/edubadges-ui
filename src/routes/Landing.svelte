@@ -1,5 +1,5 @@
 <script>
-    import {user, config, redirectPath} from "../stores/user";
+    import {user, config, redirectPath, userRole} from "../stores/user";
     import {onMount} from "svelte";
     import I18n from "i18n-js";
     import {navigate} from "svelte-routing";
@@ -25,9 +25,8 @@
     };
 
     const requestLoginToken = (chosenRole) => {
-        $user.role = role[chosenRole];
+        $userRole = role[chosenRole];
         const service = getService[chosenRole];
-        console.log($user);
         window.location.href = `${$config['serverUrl']}/account/sociallogin?provider=${service}`;
     }
 </script>

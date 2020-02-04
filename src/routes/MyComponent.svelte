@@ -1,6 +1,6 @@
 <script>
-    import { user } from "../stores/user";
+    import { userRole } from "../stores/user";
 </script>
 
-<p>{$user['role']}</p>
+<p>{$userRole}</p>
 

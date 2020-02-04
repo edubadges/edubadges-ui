@@ -15,7 +15,7 @@
                 email: "",
                 givenName: "",
                 familyName: "",
-                guest: true,
+                loggedIn: false,
                 usePassword: false
             };
             navigate("/landing?logout=true");
@@ -67,7 +67,7 @@
         </a>
     </div>
     <h1>{I18n.ts("header.title")}</h1>
-    {#if !$user.guest}
+    {#if $user.loggedIn}
         <div class="logout">
             <Button href="/logout" label={I18n.t("header.logout")} onClick={logoutUser} className="cancel small"/>
         </div>

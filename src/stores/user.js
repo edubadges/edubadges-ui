@@ -6,13 +6,14 @@ export const user = writable({
   email: "",
   givenName: "",
   familyName: "",
-  loggedIn: false,
-  role: role.GUEST,
   schacHomeOrganization: "",
   uid: "",
   usePassword: false,
   rememberMe: true,
 });
+
+export const userRole = writable(localStorage.getItem("userRole") || "");
+export const userLoggedIn = writable(localStorage.getItem("userLoggedIn") || "");
 
 export const config = writable({
   loginUrl: "",
@@ -39,3 +40,6 @@ const createFlash = () => {
   };
 };
 export const flash = createFlash();
+
+userRole.subscribe(val => localStorage.setItem("userRole", val));
+userLoggedIn.subscribe(val => localStorage.setItem("userLoggedIn", val));

@@ -1,12 +1,13 @@
 <script>
-    import {user} from "../stores/user"
+    import {userLoggedIn, userRole} from "../stores/user"
     import {navigate} from "svelte-routing";
     import {role} from "../util/role";
     // const page = { stores };
 
     const validateToken = () => {
-        $user.loggedIn = true;
-        console.log($user);
+        $userLoggedIn = true;
+        console.log($userLoggedIn, $userRole);
+        console.log($userLoggedIn && $userRole === role.STUDENT);
         // navigate("/test");
     };
 
