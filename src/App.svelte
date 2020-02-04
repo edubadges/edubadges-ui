@@ -3,8 +3,9 @@
     import {default as Student} from './routes/student/Main.svelte'
     import {default as Teacher} from './routes/teacher/Main.svelte'
     import {NotFound, Login} from './routes'
-    import {Header, Footer } from "./components";
+    import {Header, Footer} from "./components";
     import {user} from "./stores/user";
+    import Home from "./routes/Home.svelte";
 </script>
 
 <style>
