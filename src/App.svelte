@@ -5,7 +5,6 @@
     import {NotFound, Login} from './routes'
     import {Header, Footer} from "./components";
     import {user} from "./stores/user";
-    import Home from "./routes/Home.svelte";
 </script>
 
 <style>
@@ -54,16 +53,16 @@
             {#if $user.student}
                 <Route path="/" component={Student}/>
                 <Route path="/backpack">
-                    <Home bookmark="backpack"/>
+                    <Student bookmark="backpack"/>
                 </Route>
                 <Route path="/badge-requests">
-                    <Home bookmark="badge-requests"/>
+                    <Student bookmark="badge-requests"/>
                 </Route>
                 <Route path="/collections">
-                    <Home bookmark="collections"/>
+                    <Student bookmark="collections"/>
                 </Route>
                 <Route path="/profile">
-                    <Home bookmark="profile"/>
+                    <Student bookmark="profile"/>
                 </Route>
 
             {:else if $user.teacher}
