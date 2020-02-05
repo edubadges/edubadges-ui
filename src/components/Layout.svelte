@@ -11,6 +11,8 @@
 
         --color-background-grey-dark: #D8D8D8;
         --color-background-grey-light: #EFEFEF;
+
+        --color-text-grey: #585858;
     }
 
     :global(header, footer) {
