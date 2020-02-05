@@ -1,5 +1,4 @@
 <script>
-
     import I18n from "i18n-js";
     import Cookies from "js-cookie";
 
@@ -9,92 +8,56 @@
         Cookies.set("lang", lang, { expires: 365 });
         window.location.search = urlSearchParams.toString();
     }
-
 </script>
 
 <style>
-
-    .footer {
-        background-color: #5daff1;
-        padding: 0 25px;
-        width: 100%;
-        max-width: var(--width-app);
-        height: 122px;
-        margin: 0 auto;
-    }
-
-    @media (max-width: 600px) {
-        .footer {
-            padding: 0 28px;
-        }
-    }
-
-    .inner {
+    footer {
         display: flex;
         justify-content: space-between;
-        margin: 0 auto;
-        width: 100%;
-        font-size: 16px;
-        padding-top: 18px;
+        align-items: center;
+        background-color: var(--color-background-grey-light);
+        padding-top: 12px;
+        padding-bottom: 10px;
     }
 
     .help, .info {
         display: flex;
         flex-direction: column;
     }
+
     .info {
         text-align: right;
     }
-    span {
-        display: inline-block;
-        margin-bottom: 5px;
-    }
 
-    ul {
-        list-style: none;
-    }
-
-    li {
-        display: inline-block;
-        padding: 0 10px;
-    }
-    a {
-        font-weight: bold;
-        color: #002568;
-    }
-    li:last-child {
-        border-left: 1px solid black;
-    }
-
-    li.non_active a {
+    .lang a {
+        color: black;
+        padding: 0 10px 0 7px;
         font-weight: normal;
     }
-    li.active a {
-        color: black;
+
+    .lang a.active {
         cursor: not-allowed;
+        font-weight: bold;
     }
 
-
+    .lang a:not(:last-child) {
+        border-right: 1px solid black;
+    }
 </style>
-<div class="footer">
-    <div class="inner">
-        <div class="help">
-            <span>{I18n.ts("footer.tip")}</span>
-            <a href="https://surfconext.nl" target="_blank">{I18n.ts("footer.help")}</a>
-        </div>
 
-        <ul>
-            <li class="{I18n.locale === 'en' ? 'active' : 'non_active'}">
-                <a href="/en" on:click|preventDefault|stopPropagation={changeLanguage("en")}>EN</a>
-            </li>
-            <li class="{I18n.locale === 'nl' ? 'active' : 'non_active'}">
-                <a href="/nl" on:click|preventDefault|stopPropagation={changeLanguage("nl")}>NL</a>
-            </li>
-        </ul>
-
-        <div class="info">
-            <span>{I18n.ts("footer.poweredBy")}</span>
-            <a href="https://surfconext.nl" target="_blank">{I18n.ts("footer.surfconext")}</a>
-        </div>
+<footer class="footer">
+    <div class="help">
+        <span>{I18n.ts("footer.tip")}</span>
+        <a href="https://surfconext.nl" target="_blank">{I18n.ts("footer.help")}</a>
     </div>
-</div>
+
+    <div class="lang">
+        <a class:active={I18n.locale === 'nl'} href="/nl" on:click|preventDefault|stopPropagation={changeLanguage("nl")}>NL</a>
+        <a class:active={I18n.locale === 'en'} href="/en" on:click|preventDefault|stopPropagation={changeLanguage("en")}>EN</a>
+    </div>
+
+    <div class="info">
+        <span>{I18n.ts("footer.poweredBy")}</span>
+        <a href="https://surfconext.nl" target="_blank">{I18n.ts("footer.surfconext")}</a>
+    </div>
+</footer>
