@@ -1,5 +1,5 @@
 <script>
-    import {user, config, flash} from "../stores/user";
+    import {user, flash} from "../stores/user";
     import I18n from "i18n-js";
     import security from "../icons/security.svg";
     import data_activity from "../icons/data_activity.svg";
@@ -14,6 +14,7 @@
     import Account from "./Account.svelte";
     import Migration from "./Migration.svelte";
     import Flash from "../components/Flash.svelte";
+    import {config} from "../stores/config";
 
     export let bookmark;
 

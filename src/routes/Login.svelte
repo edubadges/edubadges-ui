@@ -1,9 +1,10 @@
 <script>
-    import {user, config, redirectPath, userRole} from "../stores/user";
+    import {user, redirectPath, userRole} from "../stores/user";
     import I18n from "i18n-js";
     import Button from "../components/Button.svelte";
     import {role} from "../util/role";
     import {getService} from "../util/getService";
+    import {config} from "../stores/config";
 
     const requestLoginToken = (chosenRole) => {
         $userRole = role[chosenRole];

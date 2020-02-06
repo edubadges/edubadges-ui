@@ -1,11 +1,12 @@
 <script>
-    import {user, config, redirectPath, userRole} from "../stores/user";
+    import {user, redirectPath, userRole} from "../stores/user";
     import {onMount} from "svelte";
     import I18n from "i18n-js";
     import {navigate} from "svelte-routing";
     import Button from "../components/Button.svelte";
     import {role} from "../util/role";
     import {getService} from "../util/getService";
+    import {config} from "../stores/config";
 
     let isLogoutRedirect = false;
     let isAccountDeletionRedirect = false;

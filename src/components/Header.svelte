@@ -4,12 +4,13 @@
     import logo from "../img/logo_SURFconext_blue.svg";
     import openConextLogo from "../img/logo_OPEN_conext_blue.svg";
     import {navigate} from "svelte-routing";
-    import {userLoggedIn, userRole} from "../stores/user";
+    import {userLoggedIn, userRole, authToken} from "../stores/user";
     import Button from "./Button.svelte";
 
     const logoutUser = () => {
         $userLoggedIn = "";
         $userRole = "";
+        $authToken = "";
         navigate("/");
     }
 

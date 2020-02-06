@@ -1,7 +1,8 @@
 <script>
-    import {userRole} from "../../stores/user";
+    import {user, userRole} from "../../stores/user";
 </script>
 
 <div>
-    {$userRole} page
+    {$userRole} page <br>
+    email: { $user.email}
 </div>

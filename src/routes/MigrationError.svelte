@@ -1,7 +1,7 @@
 <script>
     import I18n from "i18n-js";
-    import {config} from "../stores/user";
     import {onMount} from 'svelte';
+    import {config} from "../stores/config";
 
     let email = null;
 
