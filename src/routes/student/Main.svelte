@@ -1,8 +1,12 @@
 <script>
     export let bookmark;
 
-	import { onMount } from 'svelte';
-	import { SideMenu } from '../../components';
+    import { onMount } from 'svelte';
+    import { SideMenu } from '../../components';
+    import security from "../../icons/security.svg";
+    import data_activity from "../../icons/data_activity.svg";
+    import personal_info from "../../icons/personal_info.svg";
+
     import {
         Backpack,
         BadgeRequests,
@@ -11,10 +15,10 @@
     } from '../student'
 
     const pages = [
-        {path: "backpack", name: "Backpack", component: Backpack},
-        {path: "badge-requests", name: "Requested", component: BadgeRequests},
-        {path: "collections", name: "Collections", component: Collections},
-        {path: "profile", name: "Profile", component: Profile}
+        {path: "backpack", icon: data_activity, component: Backpack},
+        {path: "badge-requests", icon: security, component: BadgeRequests},
+        {path: "collections", icon: data_activity, component: Collections},
+        {path: "profile", icon: personal_info, component: Profile}
     ];
 
     let currentPage = pages[0];
@@ -23,6 +27,7 @@
         currentPage = pages.find(({path}) => path === bookmark) || pages[0]
     });
 </script>
+
 
 <SideMenu {pages} {currentPage} />
 <svelte:component this={currentPage.component}/>

@@ -57,13 +57,8 @@
         text-align: right;
         padding: 0;
     }
-
-    :global(a svg.menu-link) {
-        fill: var(--color-primary-green);
-    }
-
-
 </style>
+
 <div class="profile">
     <div class="inner">
         <h2>{I18n.t("profile.title")}</h2>

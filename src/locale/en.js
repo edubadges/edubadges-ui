@@ -1,6 +1,12 @@
 import I18n from "i18n-js";
 
 I18n.translations.en = {
+  routes: {
+    backpack: "Backpack",
+    'badge-requests': "Badge requests",
+    collections: "Collections",
+    profile: "Profile"
+  },
   header: {
     title: "My SURFconext",
     logout: "Logout"
