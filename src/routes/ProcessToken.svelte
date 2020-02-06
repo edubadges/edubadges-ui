@@ -1,7 +1,6 @@
 <script>
     import {userLoggedIn, authToken} from "../stores/user"
     import {navigate} from "svelte-routing";
-    import {role} from "../util/role";
     import {onMount} from "svelte";
 
     onMount(() => {
