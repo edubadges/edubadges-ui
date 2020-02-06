@@ -21,6 +21,9 @@ function validateResponse(res) {
 }
 
 function validFetch(path, options, requiresToken) {
+  if (requiresToken && !token) {
+    setTimeout(() => window.location.reload(), 100);
+  }
   const fetchOptions = {
     ...options,
     credentials: "same-origin",
