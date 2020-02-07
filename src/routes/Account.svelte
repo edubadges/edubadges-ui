@@ -77,12 +77,6 @@
     .options {
         margin-top: 60px;
     }
-
-    :global(a svg.menu-link) {
-        fill: var(--color-primary-green);
-    }
-
-
 </style>
 
 <div class="account">
