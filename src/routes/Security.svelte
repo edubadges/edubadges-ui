@@ -59,13 +59,8 @@
         text-align: right;
         padding: 0;
     }
-
-    :global(a svg.menu-link) {
-        fill: var(--color-primary-green);
-    }
-
-
 </style>
+
 <div class="security">
     <div class="inner">
         <h2>{I18n.ts("security.title")}</h2>

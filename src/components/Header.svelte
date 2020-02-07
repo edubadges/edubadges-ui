@@ -5,6 +5,7 @@
     import openConextLogo from "../img/logo_OPEN_conext_blue.svg";
     import {navigate} from "svelte-routing";
     import {userLoggedIn, userRole, authToken} from "../stores/user";
+    import {link} from "svelte-routing";
     import Button from "./Button.svelte";
 
     const logoutUser = () => {
@@ -17,51 +18,15 @@
 </script>
 
 <style>
-
-    .header {
-        width: 100%;
-        max-width: var(--width-app);
-        margin: 0 auto;
-        display: flex;
-        background-color: var(--color-primary-blue);
-        align-items: center;
-        align-content: center;
-        position: relative;
-        flex-direction: row;
-        height: 80px;
-        color: #94d6ff;
+    header {
+        background-color: var(--color-background-grey-dark);
+        padding-top: 4px;
+        padding-bottom: 4px;
     }
-
-    .logo {
-        padding: 10px 0;
-    }
-
-    @media (max-width: 800px) {
-        h1 {
-            display: none;
-        }
-    }
-
-    div.logout {
-        margin: 0 25px 0 auto;
-    }
-
 </style>
-<div class="header">
 
-    <div class="logo">
-        <a href="/" on:click|preventDefault|stopPropagation={() => navigate("/")}>
-            {#if I18n.branding !== "SURFconext"}
-                {@html openConextLogo}
-            {:else}
-                {@html logo}
-            {/if}
-        </a>
-    </div>
-    <h1>{I18n.ts("header.title")}</h1>
-    {#if $userLoggedIn}
-        <div class="logout">
-            <Button href="/logout" label={I18n.t("header.logout")} onClick={logoutUser} className="cancel small"/>
-        </div>
-    {/if}
-</div>
+<header class="header">
+    <a href="/" use:link>
+        {@html logo}
+    </a>
+</header>
