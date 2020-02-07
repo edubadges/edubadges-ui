@@ -14,7 +14,6 @@
     import Account from "./Account.svelte";
     import Migration from "./Migration.svelte";
     import Flash from "../components/Flash.svelte";
-    import {config} from "../stores/config";
 
     export let bookmark;
 

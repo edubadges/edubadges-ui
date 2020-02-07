@@ -4,7 +4,7 @@
     import {onMount} from "svelte";
 
     onMount(() => {
-        const authToken = window.location.href.split("=")[1]; // TODO: use request param
+        const authToken = new URLSearchParams(window.location.search).get("authToken");
         handleToken(authToken)
                 .then((success, error) => {
                     if (error) {

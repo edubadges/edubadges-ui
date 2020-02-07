@@ -1,12 +1,13 @@
 import mockIssuer from '../mockJsons/issuers.json';
 import {get} from "svelte/store";
 import {authToken} from "../stores/user";
-import {config} from "../stores/config";
+import {config} from "../util/config";
 
 //Internal API
 let csrfToken = null;
-let serverUrl = get(config).serverUrl;
-let token = get(authToken);
+const serverUrl = config.serverUrl;
+let token = "";
+authToken.subscribe(val => token = val);
 
 function validateResponse(res) {
   if (!res.ok) {
@@ -22,7 +23,7 @@ function validateResponse(res) {
 
 function validFetch(path, options, requiresToken) {
   if (requiresToken && !token) {
-    setTimeout(() => window.location.reload(), 100);
+    return Promise.reject("no token");
   }
   const fetchOptions = {
     ...options,
@@ -84,6 +85,10 @@ export function logout() {
 
 export function forgetMe() {
   return fetchDelete("/myconext/api/sp/forget");
+}
+
+export function requestLoginToken(service) {
+  window.location.href = `${serverUrl}/account/sociallogin?provider=${service}`;
 }
 
 export function requestProfile(authToken) {

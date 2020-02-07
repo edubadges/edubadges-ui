@@ -1,12 +1,9 @@
 <script>
-    import {user, redirectPath, userRole} from "../stores/user";
+    import {user, redirectPath} from "../stores/user";
     import {onMount} from "svelte";
     import I18n from "i18n-js";
     import {navigate} from "svelte-routing";
     import Button from "../components/Button.svelte";
-    import {role} from "../util/role";
-    import {getService} from "../util/getService";
-    import {config} from "../stores/config";
 
     let isLogoutRedirect = false;
     let isAccountDeletionRedirect = false;
@@ -20,16 +17,6 @@
         }
     });
 
-    const login = () => {
-        const path = isLogoutRedirect ? "/" : encodeURIComponent($redirectPath || "/");
-        window.location.href = `${$config['loginUrl']}?redirect_path=${path}`;
-    };
-
-    const requestLoginToken = (chosenRole) => {
-        $userRole = role[chosenRole];
-        const service = getService[chosenRole];
-        window.location.href = `${$config['serverUrl']}/account/sociallogin?provider=${service}`;
-    }
 </script>
 
 <style>
@@ -75,7 +62,5 @@
     {/if}
     <h1>{I18n.ts("header.title")}</h1>
     <h2>{I18n.ts("landing.info")}</h2>
-    <Button label={I18n.ts("landing.loginStudent")} className="short" href={I18n.ts("landing.loginStudent")} onClick={() => requestLoginToken("STUDENT")}/>
-    <Button label={I18n.ts("landing.loginTeacher")} className="short" href={I18n.ts("landing.loginTeacher")} onClick={() => requestLoginToken("TEACHER")}/>
 
 </div>

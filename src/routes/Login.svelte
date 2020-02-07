@@ -1,19 +1,19 @@
 <script>
-    import {userRole} from "../stores/user";
-    import {config} from "../stores/config"
     import I18n from "i18n-js";
     import Button from "../components/Button.svelte";
     import {role} from "../util/role";
+    import {userRole} from "../stores/user";
     import {getService} from "../util/getService";
+    import {requestLoginToken} from "../api";
 
-    const requestLoginToken = (chosenRole) => {
-        $userRole = role[chosenRole];
-        const service = getService[chosenRole];
-        window.location.href = `${$config['serverUrl']}/account/sociallogin?provider=${service}`;
+    const logIn = (chosenRole) => {
+        $userRole = chosenRole;
+        const service = getService(chosenRole);
+        requestLoginToken(service);
     }
 </script>
 
 Login page
 
-<Button label={I18n.ts("landing.loginStudent")} className="short" href={I18n.ts("landing.loginStudent")} onClick={() => requestLoginToken("STUDENT")}/>
-<Button label={I18n.ts("landing.loginTeacher")} className="short" href={I18n.ts("landing.loginTeacher")} onClick={() => requestLoginToken("TEACHER")}/>
+<Button label={I18n.ts("landing.loginStudent")} className="short" href={I18n.ts("landing.loginStudent")} onClick={() => logIn(role.STUDENT)}/>
+<Button label={I18n.ts("landing.loginTeacher")} className="short" href={I18n.ts("landing.loginTeacher")} onClick={() => logIn(role.TEACHER)}/>

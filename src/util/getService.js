@@ -1,7 +1,11 @@
-import {get} from "svelte/store";
-import {config} from "../stores/config";
+import {config} from "./config";
+import {role} from "./role";
 
-export const getService = {
-    STUDENT: get(config).studentDomain,
-    TEACHER: get(config).teacherDomain
+export const getService = (chosenRole) => {
+    switch (chosenRole) {
+        case role.STUDENT:
+            return config.studentDomain;
+        case role.TEACHER:
+            return config.teacherDomain;
+    }
 };
