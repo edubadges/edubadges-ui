@@ -22,6 +22,7 @@
         text-align: center;
         font-weight: bold;
         width: 216px;
+        max-height: 40px;
     }
     @media (max-width: 820px) {
         .button {

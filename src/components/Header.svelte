@@ -1,12 +1,9 @@
 <script>
-
     import I18n from "i18n-js";
-    import logo from "../img/logo_SURFconext_blue.svg";
-    import openConextLogo from "../img/logo_OPEN_conext_blue.svg";
-    import {navigate} from "svelte-routing";
-    import {userLoggedIn, userRole, authToken} from "../stores/user";
-    import {link} from "svelte-routing";
+    import logo from "../img/logo.svg";
+    import {link, navigate} from "svelte-routing";
     import Button from "./Button.svelte";
+    import {userLoggedIn, userRole, authToken} from "../stores/user";
 
     const logoutUser = () => {
         $userLoggedIn = "";
@@ -14,7 +11,6 @@
         $authToken = "";
         navigate("/");
     }
-
 </script>
 
 <style>
@@ -29,4 +25,9 @@
     <a href="/" use:link>
         {@html logo}
     </a>
+    {#if $userLoggedIn}
+        <span class="logout">
+            <Button href="/logout" label={I18n.t("header.logout")} onClick={logoutUser} className="cancel small"/>
+        </span>
+    {/if}
 </header>
