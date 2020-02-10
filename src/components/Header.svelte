@@ -26,8 +26,8 @@
         {@html logo}
     </a>
     {#if $userLoggedIn}
-        <span class="logout">
-            <Button href="/logout" label={I18n.t("header.logout")} onClick={logoutUser} className="cancel small"/>
+        <span>
+            <Button label={I18n.t("header.logout")} onClick={logoutUser} className="cancel small"/>
         </span>
     {/if}
 </header>

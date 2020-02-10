@@ -1,7 +1,7 @@
 <script>
     import {user, userRole} from "../../stores/user";
     import {onMount} from "svelte";
-    import {requestProfile, requestSocialAccounts, requestUserData} from "../../api";
+    import {requestProfile, requestUserData} from "../../api";
 
     onMount(() => {
         requestProfile()
@@ -9,13 +9,6 @@
                     const slug = profile['slug'];
                     requestUserData(slug)
                             .then(res => console.log(res));
-                    requestSocialAccounts()
-                            .then(userData => {
-                                $user.email = userData[0]['primaryEmail'];
-                            }, error => {
-                                console.error(error);
-                            });
-
                 }, error => {
                     console.error(error);
                 });

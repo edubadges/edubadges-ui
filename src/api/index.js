@@ -39,12 +39,11 @@ function validFetch(path, options, requiresToken) {
   return fetch(path, fetchOptions).then(res => validateResponse(res));
 }
 
-//Base
 export function requestLoginToken(service) {
   window.location.href = `${serverUrl}/account/sociallogin?provider=${service}`;
 }
 
-export function requestProfile(authToken) {
+export function requestProfile() {
   const path = `${serverUrl}/v1/user/profile`;
   return validFetch(path, {}, true);
 }
@@ -52,21 +51,4 @@ export function requestProfile(authToken) {
 export function requestUserData(slug) {
   const path = `${serverUrl}/v1/user/users/${slug}`;
   return validFetch(path, {}, true);
-}
-
-export function requestSocialAccounts() {
-  const path = `${serverUrl}/v1/user/socialaccounts`;
-  return validFetch(path, {}, true);
-}
-
-export function forgotPassword() {
-  const path = `${serverUrl}/v1/user/socialaccounts`;
-  return validFetch(path, {}, true);
-}
-
-// mockJsons payloads
-export function issuers() {
-    return new Promise((resolve, reject) => {
-      resolve(mockIssuer);
-    });
 }
