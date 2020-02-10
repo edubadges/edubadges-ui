@@ -54,13 +54,13 @@
                 <Route path="/profile">
                     <Student bookmark="profile"/>
                 </Route>
-                <Route path="/auth/login/*" let:params component={ProcessToken}/>
+                <Route path="/auth/login/*" component={ProcessToken}/>
             {:else if $userLoggedIn && $userRole === role.TEACHER}
                 <Route path="/" component={Teacher}/>
-                <Route path="/auth/login/*" let:params component={ProcessToken}/>
+                <Route path="/auth/login/*" component={ProcessToken}/>
             {:else}
                 <Route path="/" component={Login}/>
-                <Route path="/auth/login/*" let:params component={ProcessToken}/>
+                <Route path="/auth/login/*" component={ProcessToken}/>
             {/if}
             <Route component={NotFound}/>
         </Router>

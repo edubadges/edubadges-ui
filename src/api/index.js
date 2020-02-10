@@ -6,8 +6,6 @@ import {config} from "../util/config";
 //Internal API
 let csrfToken = null;
 const serverUrl = config.serverUrl;
-let token = "";
-authToken.subscribe(val => token = val);
 
 function validateResponse(res) {
   if (!res.ok) {
@@ -22,6 +20,7 @@ function validateResponse(res) {
 }
 
 function validFetch(path, options, requiresToken) {
+  const token = get(authToken);
   if (requiresToken && !token) {
     return Promise.reject("no token");
   }
@@ -32,7 +31,6 @@ function validFetch(path, options, requiresToken) {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      // "X-CSRF-TOKEN": csrfToken TODO
     }
   };
   if (requiresToken) {
@@ -41,52 +39,7 @@ function validFetch(path, options, requiresToken) {
   return fetch(path, fetchOptions).then(res => validateResponse(res));
 }
 
-function fetchDelete(path) {
-  return validFetch(path, { method: "delete" }, false);
-}
-
-function fetchJson(path, options = {}) {
-  return validFetch(path, options, false);
-}
-
-function postPutJson(path, body, method) {
-  return fetchJson(path, { method, body: JSON.stringify(body) });
-}
-
 //Base
-export function me() {
-  return fetchJson("/myconext/api/sp/me");
-}
-
-export function configuration() {
-  return fetchJson("/config");
-}
-
-export function updateUser(user) {
-  return postPutJson("/myconext/api/sp/update", user, "PUT");
-}
-
-export function updateSecurity(userId, currentPassword, newPassword) {
-  const body = { userId, currentPassword, newPassword };
-  return postPutJson("/myconext/api/sp/security", body, "PUT");
-}
-
-export function deleteUser(user) {
-  return fetch("/Shibboleth.sso/Logout").then(() =>
-    fetchDelete(`/myconext/api/sp/delete/${user.id}`)
-  );
-}
-
-export function logout() {
-  return fetch("/Shibboleth.sso/Logout").then(() =>
-    fetchJson("/myconext/api/sp/logout")
-  );
-}
-
-export function forgetMe() {
-  return fetchDelete("/myconext/api/sp/forget");
-}
-
 export function requestLoginToken(service) {
   window.location.href = `${serverUrl}/account/sociallogin?provider=${service}`;
 }

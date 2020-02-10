@@ -13,8 +13,8 @@ I18n.translations.en = {
   },
   landing: {
     info: "Collaborate online in higher education",
-    loginStudent: "Student",
-    loginTeacher: "Teacher",
+    loginStudent: "Log in with EduID",
+    loginTeacher: "Enter the issuer portal",
     logoutStatus:
       "You have successfully logged out. To complete the logout process, you must close your browser",
     deletionStatus:

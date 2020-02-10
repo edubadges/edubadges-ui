@@ -13,7 +13,8 @@
     }
 </script>
 
-Login page
-
-<Button label={I18n.ts("landing.loginStudent")} className="short" href={I18n.ts("landing.loginStudent")} onClick={() => logIn(role.STUDENT)}/>
-<Button label={I18n.ts("landing.loginTeacher")} className="short" href={I18n.ts("landing.loginTeacher")} onClick={() => logIn(role.TEACHER)}/>
+<div>
+    Login page
+    <Button label={I18n.ts("landing.loginStudent")} className="short" href={I18n.ts("landing.loginStudent")} onClick={() => logIn(role.STUDENT)}/>
+    <Button label={I18n.ts("landing.loginTeacher")} className="short" href={I18n.ts("landing.loginTeacher")} onClick={() => logIn(role.TEACHER)}/>
+</div>

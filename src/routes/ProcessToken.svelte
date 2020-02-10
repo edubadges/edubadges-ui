@@ -4,28 +4,10 @@
     import {onMount} from "svelte";
 
     onMount(() => {
-        const authToken = new URLSearchParams(window.location.search).get("authToken");
-        handleToken(authToken)
-                .then((success, error) => {
-                    if (error) {
-                        console.error(error);
-                        return;
-                    }
-                    navigate("/");
-                });
+        $authToken = new URLSearchParams(window.location.search).get("authToken");
+        $userLoggedIn = true;
+        navigate("/");
     });
-
-    const handleToken = (token) => {
-        return new Promise((resolve, reject) => {
-            if (token) {
-                $authToken = token;
-                $userLoggedIn = true;
-                resolve();
-            } else {
-                reject("no token");
-            }
-        })
-    };
 </script>
 
 <div>

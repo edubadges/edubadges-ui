@@ -11,7 +11,6 @@
 </script>
 <style>
     .button {
-        margin: 5px;
         background-color: #0077c8;
         border-radius: 8px;
         padding: 10px 20px;
@@ -22,7 +21,6 @@
         text-align: center;
         font-weight: bold;
         width: 216px;
-        max-height: 40px;
     }
     @media (max-width: 820px) {
         .button {
