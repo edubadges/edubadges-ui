@@ -23,10 +23,15 @@
     .help, .info {
         display: flex;
         flex-direction: column;
+        flex-wrap: wrap;
     }
 
     .info {
         text-align: right;
+    }
+
+    .lang {
+        white-space: nowrap;
     }
 
     .lang a {
