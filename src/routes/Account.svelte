@@ -4,7 +4,6 @@
     import {navigate} from "svelte-routing";
 
     import Modal from '../components/Modal.svelte';
-    import {deleteUser} from "../api";
     import Button from "../components/Button.svelte";
 
     let showModal = false;
@@ -12,18 +11,6 @@
     const deleteUserAction = showConfirmation => () => {
         if (showConfirmation) {
             showModal = true
-        } else {
-            deleteUser($user).then(() => {
-                $user = {
-                    id: "",
-                    email: "",
-                    givenName: "",
-                    familyName: "",
-                    guest: true,
-                    usePassword: false
-                };
-                navigate("/landing?delete=true");
-            });
         }
     }
 

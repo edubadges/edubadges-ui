@@ -1,27 +1,11 @@
 <script>
     import {user, flash} from "../stores/user";
     import I18n from "i18n-js";
-    import {me, updateUser} from "../api";
-    import {navigate} from "svelte-routing";
     import chevron_left from "../icons/chevron-left.svg";
     import Button from "../components/Button.svelte";
 
-    const update = () => {
-        if ($user.familyName && $user.givenName) {
-            updateUser($user).then(() => {
-                navigate("/profile");
-                flash.setValue(I18n.ts("edit.updated"));
-            });
-        }
-    };
-
-    const cancel = () => {
-        me().then(json => {
-            $user = {$user, ...json};
-            navigate("/profile");
-        });
-    }
-
+    const update = () => {};
+    const cancel = () => {};
 </script>
 
 <style>

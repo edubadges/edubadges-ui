@@ -2,7 +2,6 @@
     import {user, flash} from "../stores/user";
     import I18n from "i18n-js";
     import {validPassword} from "../validation/regexp";
-    import {forgetMe} from "../api";
     import {navigate} from "svelte-routing";
     import chevron_left from "../icons/chevron-left.svg";
     import Button from "../components/Button.svelte";
@@ -13,12 +12,6 @@
     const doForgetMe = showConfirmation => () => {
         if (showConfirmation) {
             showModal = true
-        } else {
-            forgetMe().then(() => {
-                $user.rememberMe = false;
-                navigate("/security");
-                flash.setValue(I18n.ts("rememberMe.updated"));
-            });
         }
     };
 
