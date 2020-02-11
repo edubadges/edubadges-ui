@@ -103,7 +103,7 @@ I18n.translations.nl = {
     tip: "Tip of info nodig?",
     help: "Help & FAQ",
     poweredBy: "Trots aangeboden door",
-    surfconext: "SURFconext"
+    surf: "SURF"
   },
   modal: {
     cancel: "Annuleren",

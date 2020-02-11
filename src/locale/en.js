@@ -99,10 +99,10 @@ I18n.translations.en = {
     forgetMe: "Forget this device"
   },
   footer: {
-    tip: "Need tip or info?",
+    tip: "Need tips or info?",
     help: "Help & FAQ",
     poweredBy: "Proudly powered by",
-    surfconext: "SURFconext"
+    surf: "SURF"
   },
   modal: {
     cancel: "Cancel",
