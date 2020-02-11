@@ -1,7 +1,7 @@
 <script>
     import I18n from "i18n-js";
-    import {config} from "../stores/user";
     import {onMount} from 'svelte';
+    import {config} from "../util/config";
 
     let email = null;
 
@@ -80,8 +80,8 @@
         <h3>{I18n.ts("migrationError.header2")}</h3>
         <p class="info">{I18n.t("migrationError.info")}</p>
         <p class="info">{I18n.t("migrationError.info2")}</p>
-        <input type="text" disabled={true} value={$config.migrationLandingPageUrl}>
-        <p class="info">{@html I18n.t("migrationError.info3", {email: encodeURI(email), url: $config.myConextUrlGuestIdp})}</p>
+        <input type="text" disabled={true} value={config.migrationLandingPageUrl}>
+        <p class="info">{@html I18n.t("migrationError.info3", {email: encodeURI(email), url: config.myConextUrlGuestIdp})}</p>
     </div>
 
 </div>

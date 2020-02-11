@@ -4,7 +4,9 @@
     import {default as Teacher} from './routes/teacher/Main.svelte'
     import {NotFound, Login} from './routes'
     import {Header, Footer} from "./components";
-    import {user} from "./stores/user";
+    import {userRole, userLoggedIn} from "./stores/user";
+    import ProcessToken from "./routes/ProcessToken.svelte";
+    import { role } from "./util/role";
 </script>
 
 <style>
@@ -34,34 +36,41 @@
 </style>
 
 <div class="app">
-    <Header/>
+  <Header />
 
-    <div class="content">
-        <Router>
-            {#if $user.student}
-                <Route path="/" component={Student}/>
-                <Route path="/backpack">
-                    <Student bookmark="backpack"/>
-                </Route>
-                <Route path="/badge-requests">
-                    <Student bookmark="badge-requests"/>
-                </Route>
-                <Route path="/collections">
-                    <Student bookmark="collections"/>
-                </Route>
-                <Route path="/profile">
-                    <Student bookmark="profile"/>
-                </Route>
+  <div class="content">
+    {#if $userLoggedIn && $userRole === role.STUDENT}
+      <Router>
+        <Route path="/" component={Student} />
+        <Route path="/backpack">
+          <Student bookmark="backpack" />
+        </Route>
+        <Route path="/badge-requests">
+          <Student bookmark="badge-requests" />
+        </Route>
+        <Route path="/collections">
+          <Student bookmark="collections" />
+        </Route>
+        <Route path="/profile">
+          <Student bookmark="profile" />
+        </Route>
+        <Route path="/auth/login/*" component={ProcessToken} />
+        <Route component={NotFound} />
+      </Router>
+    {:else if $userLoggedIn && $userRole === role.TEACHER}
+      <Router>
+        <Route path="/" component={Teacher} />
+        <Route path="/auth/login/*" component={ProcessToken} />
+        <Route component={NotFound} />
+      </Router>
+    {:else}
+      <Router>
+        <Route path="/" component={Login} />
+        <Route path="/auth/login/*" component={ProcessToken} />
+        <Route component={NotFound} />
+      </Router>
+    {/if}
+  </div>
 
-            {:else if $user.teacher}
-                <Route path="/" component={Teacher}/>
-
-            {:else}
-                <Route path="/" component={Login}/>
-            {/if}
-            <Route component={NotFound}/>
-        </Router>
-    </div>
-
-    <Footer/>
+  <Footer />
 </div>

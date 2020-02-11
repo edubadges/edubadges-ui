@@ -13,7 +13,8 @@ I18n.translations.nl = {
   },
   landing: {
     info: "Online samenwerken in het onderwijs",
-    login: "Enter",
+    loginStudent: "Log in met EduID",
+    loginTeacher: "Log in via uw instelling",
     logoutStatus:
       "Je bent succesvol uitgelogd. Om het uitlogproces te voltooien, moet je je browser sluiten",
     deletionStatus:

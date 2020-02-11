@@ -1,22 +1,14 @@
-import { writable } from "svelte/store";
+import {writable} from "svelte/store";
 
 export const user = writable({
   id: "",
   email: "",
   givenName: "",
   familyName: "",
-  guest: true,
   schacHomeOrganization: "",
   uid: "",
   usePassword: false,
-  rememberMe: true
-});
-
-export const config = writable({
-  loginUrl: "",
-  baseDomain: "",
-  migrationLandingPageUrl: "",
-  myConextUrlGuestIdp: ""
+  rememberMe: true,
 });
 
 export const redirectPath = writable("");
@@ -34,3 +26,11 @@ const createFlash = () => {
   };
 };
 export const flash = createFlash();
+
+export const userRole = writable(localStorage.getItem("userRole") || "");
+export const userLoggedIn = writable(localStorage.getItem("userLoggedIn") || "");
+export const authToken = writable(localStorage.getItem("authToken") || "");
+
+userRole.subscribe(val => localStorage.setItem("userRole", val));
+userLoggedIn.subscribe(val => localStorage.setItem("userLoggedIn", val));
+authToken.subscribe(val => localStorage.setItem("authToken", val));

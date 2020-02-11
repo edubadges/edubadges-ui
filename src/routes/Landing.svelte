@@ -1,5 +1,5 @@
 <script>
-    import {user, config, redirectPath} from "../stores/user";
+    import {user, redirectPath} from "../stores/user";
     import {onMount} from "svelte";
     import I18n from "i18n-js";
     import {navigate} from "svelte-routing";
@@ -12,16 +12,10 @@
         const urlSearchParams = new URLSearchParams(window.location.search);
         isLogoutRedirect = urlSearchParams.get("logout");
         isAccountDeletionRedirect = urlSearchParams.get("delete");
-        if ($user.id) {
+        if ($user['id']) {
             navigate("/");
         }
     });
-
-    const login = () => {
-        const path = isLogoutRedirect ? "/" : encodeURIComponent($redirectPath || "/");
-        window.location.href = `${$config.loginUrl}?redirect_path=${path}`;
-    };
-
 
 </script>
 
@@ -68,6 +62,5 @@
     {/if}
     <h1>{I18n.ts("header.title")}</h1>
     <h2>{I18n.ts("landing.info")}</h2>
-    <Button label={I18n.ts("landing.login")} className="short" href={I18n.ts("landing.login")} onClick={login}/>
 
 </div>

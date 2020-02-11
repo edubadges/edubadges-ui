@@ -1,5 +1,9 @@
+import {get} from "svelte/store";
+import {authToken} from "../stores/user";
+import {config} from "../util/config";
+
 //Internal API
-let csrfToken = null;
+const serverUrl = config.serverUrl;
 
 function validateResponse(res) {
   if (!res.ok) {
@@ -13,7 +17,11 @@ function validateResponse(res) {
   return res.json();
 }
 
-function validFetch(path, options) {
+function validFetch(path, options, requiresToken) {
+  const token = get(authToken);
+  if (requiresToken && !token) {
+    return Promise.reject("no token");
+  }
   const fetchOptions = {
     ...options,
     credentials: "same-origin",
@@ -21,54 +29,24 @@ function validFetch(path, options) {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      "X-CSRF-TOKEN": csrfToken
     }
   };
+  if (requiresToken) {
+    fetchOptions.headers.Authorization = 'Bearer ' + token;
+  }
   return fetch(path, fetchOptions).then(res => validateResponse(res));
 }
 
-function fetchDelete(path) {
-  return validFetch(path, { method: "delete" });
+export function requestLoginToken(service) {
+  window.location.href = `${serverUrl}/account/sociallogin?provider=${service}`;
 }
 
-function fetchJson(path, options = {}) {
-  return validFetch(path, options);
+export function requestProfile() {
+  const path = `${serverUrl}/v1/user/profile`;
+  return validFetch(path, {}, true);
 }
 
-function postPutJson(path, body, method) {
-  return fetchJson(path, { method, body: JSON.stringify(body) });
-}
-
-//Base
-export function me() {
-  return fetchJson("/myconext/api/sp/me");
-}
-
-export function configuration() {
-  return fetchJson("/config");
-}
-
-export function updateUser(user) {
-  return postPutJson("/myconext/api/sp/update", user, "PUT");
-}
-
-export function updateSecurity(userId, currentPassword, newPassword) {
-  const body = { userId, currentPassword, newPassword };
-  return postPutJson("/myconext/api/sp/security", body, "PUT");
-}
-
-export function deleteUser(user) {
-  return fetch("/Shibboleth.sso/Logout").then(() =>
-    fetchDelete(`/myconext/api/sp/delete/${user.id}`)
-  );
-}
-
-export function logout() {
-  return fetch("/Shibboleth.sso/Logout").then(() =>
-    fetchJson("/myconext/api/sp/logout")
-  );
-}
-
-export function forgetMe() {
-  return fetchDelete("/myconext/api/sp/forget");
+export function requestUserData(slug) {
+  const path = `${serverUrl}/v1/user/users/${slug}`;
+  return validFetch(path, {}, true);
 }

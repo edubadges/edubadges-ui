@@ -1,5 +1,5 @@
 <script>
-    import {user, config, flash} from "../stores/user";
+    import {user, flash} from "../stores/user";
     import I18n from "i18n-js";
     import security from "../icons/security.svg";
     import data_activity from "../icons/data_activity.svg";

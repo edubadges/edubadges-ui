@@ -2,7 +2,6 @@
     import {user, flash} from "../stores/user";
     import I18n from "i18n-js";
     import {validPassword} from "../validation/regexp";
-    import {me, updateSecurity} from "../api";
     import {navigate} from "svelte-routing";
     import chevron_left from "../icons/chevron-left.svg";
     import Button from "../components/Button.svelte";
@@ -19,27 +18,8 @@
         return (existingPasswordValid || newPasswordValid);
     };
 
-    const update = () => {
-        if (valid()) {
-            updateSecurity($user.id, currentPassword, newPassword)
-                    .then(json => {
-                        $user = {$user, ...json};
-                        navigate("/security");
-                        flash.setValue(usePassword ? I18n.ts("password.updated") : I18n.ts("password.set"));
-                    })
-                    .catch(() => {
-                        currentPasswordInvalid = true;
-                    });
-        }
-    };
-    const cancel = () => {
-        me().then(json => {
-            $user = {$user, ...json};
-            navigate("/security");
-        });
-    }
-
-
+    const update = () => {};
+    const cancel = () => {};
 </script>
 
 <style>
