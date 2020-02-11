@@ -1,10 +1,8 @@
-import mockIssuer from '../mockJsons/issuers.json';
 import {get} from "svelte/store";
 import {authToken} from "../stores/user";
 import {config} from "../util/config";
 
 //Internal API
-let csrfToken = null;
 const serverUrl = config.serverUrl;
 
 function validateResponse(res) {
