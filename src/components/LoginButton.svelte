@@ -12,6 +12,7 @@
     width: 100%;
     max-width: 300px;
     height: 70px;
+    margin-top: 20px;
 
     background-color: #d8d8d8;
     border-radius: 5px;

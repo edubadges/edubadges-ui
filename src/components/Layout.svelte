@@ -13,6 +13,11 @@
         --color-background-grey-light: #EFEFEF;
 
         --color-text-grey: #585858;
+
+        /* Cards */
+        --card-border: 1px solid #979797;
+        --card-border-radius: 2px;
+        --card-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     }
 
     :global(header, footer) {
