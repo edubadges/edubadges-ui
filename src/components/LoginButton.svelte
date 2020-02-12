@@ -14,7 +14,6 @@
     height: 70px;
 
     background-color: #d8d8d8;
-    color: black;
     border-radius: 5px;
     border: 1px solid #979797;
 
@@ -28,7 +27,10 @@
   }
 </style>
 
-<a href="/login" on:click|preventDefault|stopPropagation={onClick}>
+<a
+  class="button"
+  href="/login"
+  on:click|preventDefault|stopPropagation={onClick}>
   {label}
   <span>{sub}</span>
 </a>
