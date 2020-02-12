@@ -11,10 +11,22 @@ I18n.translations.nl = {
     title: "Mijn SURFconext",
     logout: "Logout"
   },
+  login: {
+    title: "Leven lang ontwikkelen",
+    description: "Edubadges zijn digitale certificaten die aantonen dat de eigenaar bepaalde vaardigheden of kennis bezit. Edubadges kunnen worden uitgereikt voor zowel extracurriculaire activiteiten als geaccrediteerd onderwijs.",
+    student: {
+      title: "Ontvang en deel badges",
+      button: "Bekijk je Backpack",
+      button_sub: "Log in met uw EduID",
+      edu_id_info: "Je hebt een eduID nodig om je Backpack te bekijken. Als je nog geen eduID hebt, kan je er <a target=\"_blank\" href=\"%{url}\">hier een aanvragen.</a>",
+    },
+    teacher: {
+      title: "Ken badges toe aan studenten",
+      button: "Log in via uw instelling",
+    }
+  },
   landing: {
     info: "Online samenwerken in het onderwijs",
-    loginStudent: "Log in met EduID",
-    loginTeacher: "Log in via uw instelling",
     logoutStatus:
       "Je bent succesvol uitgelogd. Om het uitlogproces te voltooien, moet je je browser sluiten",
     deletionStatus:
@@ -103,7 +115,7 @@ I18n.translations.nl = {
     tip: "Tip of info nodig?",
     help: "Help & FAQ",
     poweredBy: "Trots aangeboden door",
-    surfconext: "SURFconext"
+    surf: "SURF"
   },
   modal: {
     cancel: "Annuleren",

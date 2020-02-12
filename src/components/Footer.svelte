@@ -53,7 +53,7 @@
 <footer class="footer">
     <div class="help">
         <span>{I18n.ts("footer.tip")}</span>
-        <a href="https://surfconext.nl" target="_blank">{I18n.ts("footer.help")}</a>
+        <a href="https://surf.nl" target="_blank">{I18n.ts("footer.help")}</a>
     </div>
 
     <div class="lang">
@@ -63,6 +63,6 @@
 
     <div class="info">
         <span>{I18n.ts("footer.poweredBy")}</span>
-        <a href="https://surfconext.nl" target="_blank">{I18n.ts("footer.surfconext")}</a>
+        <a href="https://surf.nl" target="_blank">{I18n.ts("footer.surf")}</a>
     </div>
 </footer>
