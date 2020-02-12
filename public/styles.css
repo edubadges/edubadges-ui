@@ -9,27 +9,6 @@ html {
 }
 
 @font-face {
-    font-family: "Proxima Nova";
-    font-weight: 300;
-    src: url("/fonts/proxima_nova/proximanovasoft-regular-webfont.woff2") format("woff2"),
-    url("/fonts/proxima_nova/proximanovasoft-regular-webfont.woff") format("woff");
-}
-
-@font-face {
-    font-family: "Proxima Nova";
-    font-weight: 500;
-    src: url("/fonts/proxima_nova/proximanovasoft-medium-webfont.woff2") format("woff2"),
-    url("/fonts/proxima_nova/proximanovasoft-medium-webfont.woff") format("woff");
-}
-
-@font-face {
-    font-family: "Proxima Nova";
-    font-weight: 600;
-    src: url("/fonts/proxima_nova/proximanovasoft-semibold-webfont.woff2") format("woff2"),
-    url("/fonts/proxima_nova/proximanovasoft-semibold-webfont.woff") format("woff");
-}
-
-@font-face {
     font-family: "Source Sans Pro";
     font-weight: 300;
     src: url("/fonts/source_sans_pro/sourcesanspro-regular-webfont.woff2") format("woff2"),
@@ -44,7 +23,6 @@ html {
 }
 
 body {
-    font-family: "Source Sans Pro", sans-serif;
     font-size: 16px;
     background-color: #E6EFF6;
 }
@@ -53,6 +31,7 @@ body, h1, h2, h3, h4, h5, h6, p, ol, ul {
     margin: 0;
     padding: 0;
     font-weight: normal;
+    font-family: "Source Sans Pro", sans-serif;
 }
 
 ol, ul {
@@ -75,10 +54,6 @@ label, span {
 
 p {
     line-height: 22px;
-}
-
-h1, h2, h3 {
-    font-family: Proxima Nova, sans-serif;
 }
 
 h1 {
