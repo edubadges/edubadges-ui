@@ -25,6 +25,9 @@ I18n.translations.en = {
       button: "Enter the issuer portal",
     }
   },
+  backpack: {
+    title: "Your achievements"
+  },
   landing: {
     info: "Collaborate online in higher education",
     logoutStatus:
