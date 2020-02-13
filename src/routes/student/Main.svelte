@@ -1,4 +1,6 @@
 <script>
+    import {getBadges} from "../../api";
+
     export let bookmark;
 
     import { onMount } from 'svelte';
@@ -24,7 +26,10 @@
     let currentPage = pages[0];
 
     onMount(() => {
-        currentPage = pages.find(({path}) => path === bookmark) || pages[0]
+        currentPage = pages.find(({path}) => path === bookmark) || pages[0];
+        getBadges().then(res => {
+            console.log(res);
+        });
     });
 </script>
 
