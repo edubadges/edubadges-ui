@@ -23,9 +23,6 @@
   onMount(() => {
     currentPage = pages.find(({ path }) => path === bookmark) || pages[0];
         currentPage = pages.find(({path}) => path === bookmark) || pages[0];
-        getBadges().then(res => {
-            console.log(res);
-        });
     });
 </script>
 
@@ -37,5 +34,5 @@
 
 <SideMenu {pages} {currentPage} />
 <div class="content">
-  <svelte:component this={currentPage.component} />
+  <svelte:component this={currentPage.component}/>
 </div>
