@@ -8,9 +8,7 @@
 
   onMount(() => {
     getBadges().then(res => {
-      console.log(res);
-      badges = [...badges, res];
-      console.log(badges);
+      badges = [...badges, ...res];
     });
 
   })

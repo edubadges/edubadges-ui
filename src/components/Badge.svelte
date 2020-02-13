@@ -1,5 +1,6 @@
 <script>
   import trash from "../icons/trash.svg";
+  export let data;
 </script>
 
 <style>
@@ -97,38 +98,63 @@
 <div class="badge">
   <div class="info">
     <div class="img">
-      <img src="https://via.placeholder.com/500?text=Placeholder" alt="" />
+      {#if data && data.image}
+        <img src={data.image} alt="" />
+      {:else}
+        <img src="https://via.placeholder.com/500?text=Placeholder" alt="" />
+      {/if}
     </div>
 
     <div class="text">
-      <h4>Climbing the mountain</h4>
+      {#if data && data.json.badge.name['@value']}
+        <span>{data.json.badge.name['@value']}</span>
+      {:else}
+        <h4>Climbing the mountain</h4>
+      {/if}
 
       <div class="details">
         <div>
           <span class="title">Awarded</span>
-          <span>Sep 10, 2019</span>
+          {#if data && data.json.issuedOn['@value']}
+            <span>{data.json.issuedOn['@value']}</span>
+          {:else}
+            <span>Sep 10, 2019</span>
+          {/if}
         </div>
 
-        <div>
-          <span class="title">Expires</span>
-          <span>Sep 10, 2025</span>
-        </div>
+        {#if data && data.json.expires}
+          <div>
+            <span class="title">Expires</span>
+            {#if data.json.expires['@value']}
+              <span>{data.json.expires['@value']}</span>
+            {:else}
+              <span>Sep 10, 2025</span>
+            {/if}
+          </div>
+        {/if}
 
         <div>
           <span class="title">Awarded by</span>
-          <span>University Example Issuer</span>
+          {#if data && data.json.badge.issuer.name['@value']}
+            <span>{data.json.badge.issuer.name['@value']}</span>
+          {:else}
+            <span>University Example Issuer</span>
+          {/if}
         </div>
       </div>
-
-      <div class="description">
-        Knights of Ni, we are but simple travelers who seek the enchanter who
-        lives beyond these woods. He hasn't got shit all over him. Burn her! He
-        hasn't got shit all over him. I am your king.Look, my liege! We shall
-        say 'Ni' again to you, if you do not appease us. You don't frighten us,
-        English pig-dogs! Go and boil your bottoms, sons of a silly person! I
-        blow my nose at you, so-called Ah-thoor Keeng, you and all your silly
-        English K-n-n-n-n-n-n-n-niggits!
-      </div>
+      {#if data && data.json.badge.description['@value']}
+        <span>{data.json.badge.description['@value']}</span>
+      {:else}
+        <div class="description">
+          Knights of Ni, we are but simple travelers who seek the enchanter who
+          lives beyond these woods. He hasn't got shit all over him. Burn her! He
+          hasn't got shit all over him. I am your king.Look, my liege! We shall
+          say 'Ni' again to you, if you do not appease us. You don't frighten us,
+          English pig-dogs! Go and boil your bottoms, sons of a silly person! I
+          blow my nose at you, so-called Ah-thoor Keeng, you and all your silly
+          English K-n-n-n-n-n-n-n-niggits!
+        </div>
+      {/if}
     </div>
   </div>
 
