@@ -1,6 +1,7 @@
 <script>
   import I18n from "i18n-js";
   import LoginButton from "../components/LoginButton.svelte";
+  import logo_eduid from "../img/logo_eduid.svg";
   import { role } from "../util/role";
   import { userRole } from "../stores/user";
   import { getService } from "../util/getService";
@@ -56,13 +57,8 @@
     margin-top: 20px;
   }
 
-  .eduid .img-container {
-    min-width: 90px;
-    margin-right: 15px;
-  }
-
-  .eduid img {
-    width: 100%;
+  .eduid span {
+    margin-left: 15px;
   }
 </style>
 
@@ -82,10 +78,8 @@
         onClick={() => logIn(role.STUDENT)}
         sub={`(${I18n.ts('login.student.button_sub')})`} />
       <div class="eduid">
-        <div class="img-container">
-          <img
-            src="https://via.placeholder.com/70?text=Placeholder"
-            alt="student login" />
+        <div>
+          {@html logo_eduid}
         </div>
         <span>
           {@html I18n.ts('login.student.edu_id_info', {

@@ -25,6 +25,9 @@ I18n.translations.nl = {
       button: "Log in via uw instelling",
     }
   },
+  backpack: {
+    title: "Behaalde badges"
+  },
   landing: {
     info: "Online samenwerken in het onderwijs",
     logoutStatus:

@@ -12,7 +12,7 @@
 <style>
     .button {
         background-color: #0077c8;
-        border-radius: 8px;
+        border-radius: 5px;
         padding: 10px 20px;
         display: inline-block;
         color: white;
@@ -72,6 +72,11 @@
 
     .button.small {
         width: 140px;
+    }
+
+    .button.xs {
+        width: fit-content;
+        padding: 5px 10px;
     }
 
     @media (max-width: 580px) {
