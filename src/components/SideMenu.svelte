@@ -36,6 +36,7 @@
     padding: 14px;
     color: var(--color-text-grey);
     font-weight: 600;
+    white-space: nowrap;
 
     display: flex;
     align-items: center;
