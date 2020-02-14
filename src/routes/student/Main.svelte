@@ -32,5 +32,5 @@
 
 <SideMenu {pages} {currentPage} />
 <div class="content">
-  <svelte:component this={currentPage.component}/>
+  <svelte:component this={currentPage.component} />
 </div>

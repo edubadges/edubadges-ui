@@ -1,14 +1,14 @@
 <script>
-  import {onMount} from "svelte";
+  import { onMount } from "svelte";
   import moment from "moment";
   import trash from "../icons/trash.svg";
-  import {validBadge} from "../util/validBadge";
+  import { validBadge } from "../util/validBadge";
 
   export let data;
 
   let thisBadge;
 
-  onMount(() => thisBadge = validBadge(data));
+  onMount(() => (thisBadge = validBadge(data)));
 </script>
 
 <style>
@@ -111,20 +111,20 @@
   <div class="badge">
     <div class="info">
       <div class="img">
-        <img src={thisBadge.image} alt=""/>
+        <img src={thisBadge.image} alt="" />
       </div>
       <div class="text">
         <span>{thisBadge.title}</span>
         <div class="details">
           <div>
             <span class="title">Awarded</span>
-            <span>{moment(thisBadge.issueDate).format("MMM D, YYYY")}</span>
+            <span>{moment(thisBadge.issueDate).format('MMM D, YYYY')}</span>
           </div>
 
           {#if thisBadge.expiryDate}
             <div>
               <span class="title">Expires</span>
-              <span>{moment(thisBadge.expiryDate).format("MMM D, YYYY")}</span>
+              <span>{moment(thisBadge.expiryDate).format('MMM D, YYYY')}</span>
             </div>
           {/if}
 

@@ -1,6 +1,6 @@
-import {get} from "svelte/store";
-import {authToken} from "../stores/user";
-import {config} from "../util/config";
+import { get } from "svelte/store";
+import { authToken } from "../stores/user";
+import { config } from "../util/config";
 
 //Internal API
 const serverUrl = config.serverUrl;

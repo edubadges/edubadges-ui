@@ -1,38 +1,38 @@
 <script>
-    import {Route, Router, navigate} from "svelte-routing";
-    import {default as Student} from './routes/student/Main.svelte'
-    import {default as Teacher} from './routes/teacher/Main.svelte'
-    import {NotFound, Login} from './routes'
-    import {Header, Footer} from "./components";
-    import {userRole, userLoggedIn} from "./stores/user";
-    import ProcessToken from "./routes/ProcessToken.svelte";
-    import { role } from "./util/role";
+  import { Route, Router, navigate } from "svelte-routing";
+  import { default as Student } from "./routes/student/Main.svelte";
+  import { default as Teacher } from "./routes/teacher/Main.svelte";
+  import { NotFound, Login } from "./routes";
+  import { Header, Footer } from "./components";
+  import { userRole, userLoggedIn } from "./stores/user";
+  import ProcessToken from "./routes/ProcessToken.svelte";
+  import { role } from "./util/role";
 </script>
 
 <style>
-    .app {
-        max-width: var(--width-app);
-        min-height: 100vh;
-        margin: 0 auto;
+  .app {
+    max-width: var(--width-app);
+    min-height: 100vh;
+    margin: 0 auto;
 
-        display: flex;
-        flex-direction: column;
+    display: flex;
+    flex-direction: column;
 
-        box-shadow: 0 0 8px rgba(0,0,0, 0.4);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+  }
+
+  @media (min-width: 600px) {
+    :global(body) {
+      margin: 0 40px;
     }
+  }
 
-    @media (min-width: 600px) {
-        :global(body) {
-            margin: 0 40px;
-        }
-    }
+  .content {
+    flex: 1;
+    background-color: white;
 
-    .content {
-        flex: 1;
-        background-color: white;
-
-        display: flex;
-    }
+    display: flex;
+  }
 </style>
 
 <div class="app">
