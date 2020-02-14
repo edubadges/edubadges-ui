@@ -63,7 +63,8 @@ export function requestUsersWithinScope() {
 }
 
 export function editUser(userSlug, userToEdit) {
-  return methodFetch(`/v1/user/users/${userSlug}`, "PUT", userToEdit)
+  const path = `${serverUrl}/v1/user/users/${userSlug}`;
+  return methodFetch(path, "PUT", userToEdit);
 }
 
 export function requestFaculties() {
@@ -87,15 +88,18 @@ export function addEmail(email) {
 }
 
 export function removeEmail(email_id) {
-  return methodFetch('/v1/user/emails/' + email_id, "DELETE");
+  const path = `${serverUrl}/v1/user/emails/${email_id}`;
+  return methodFetch(path, "DELETE");
 }
 
 export function setPrimaryEmail(email_id) {
-  return methodFetch('/v1/user/emails/' + email_id, "PUT", { 'primary': true });
+  const path = `${serverUrl}/v1/user/emails/${email_id}`;
+  return methodFetch(path, "PUT", { 'primary': true });
 }
 
 export function resendVerificationEmail(emailIdToVerify) {
-  return methodFetch('/v1/user/emails/' + emailIdToVerify, "PUT", { 'resend': true });
+  const path = `${serverUrl}/v1/user/emails/${emailIdToVerify}`;
+  return methodFetch(path, "PUT", { 'resend': true });
 }
 
 // Badges
@@ -133,7 +137,7 @@ export function listBadgeInstances(issuerSlug, badgeSlug, query, num) {
   if (query) {
     path += `&recipient=${query}`
   }
-
+  return validFetch(path, {}, true);
 }
 
 // Issuer

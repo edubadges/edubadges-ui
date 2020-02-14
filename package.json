@@ -31,6 +31,7 @@
   "dependencies": {
     "i18n-js": "^3.3.0",
     "js-cookie": "^2.2.1",
+    "moment": "^2.24.0",
     "svelte-routing": "^1.4.0"
   }
 }

@@ -1,6 +1,19 @@
 <script>
   import trash from "../icons/trash.svg";
+  import {onMount} from "svelte";
+  import moment from "moment";
   export let data;
+
+  onMount(() => {
+    if(data && data.json) {
+      if (data.json.issuedOn && data.json.issuedOn['@value']) {
+        data.json.issuedOn['@value'] = moment(data.json.issuedOn['@value']).format("MMM D, YYYY");
+      }
+      if (data.json.expires && data.json.expires['@value']) {
+        data.json.expires['@value'] = moment(data.json.expires['@value']).format("MMM D, YYYY");
+      }
+    }
+  })
 </script>
 
 <style>
