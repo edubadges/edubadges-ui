@@ -1,8 +1,10 @@
+const placeholderImage = "https://via.placeholder.com/500?text=Placeholder";
+
 export const validBadge = (input) => {
     const getOptionalValue = (path, x) => path.reduce((acc, p) => acc != null && acc[p], x);
     try {
         return {
-            image: input.image,
+            image: input.image || placeholderImage,
             title: input.json.badge.name['@value'],
             issueDate: input.json.issuedOn['@value'],
             expiryDate: getOptionalValue(["json", "expires", "@value"], input),
