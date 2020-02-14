@@ -7,15 +7,13 @@
   let badges = [];
 
   onMount(() => {
-    getBadges().then(res => {
-      badges = [...badges, ...res];
-    });
-
-  })
+    getBadges().then(res => badges = res)
+  });
 </script>
 
 <div>
   <h3>{I18n.t('backpack.title')}</h3>
+
   {#each badges as badge}
     <Badge data={badge}/>
   {/each}

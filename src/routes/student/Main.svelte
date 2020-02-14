@@ -1,8 +1,4 @@
 <script>
-    import {getBadges} from "../../api";
-
-    export let bookmark;
-
   import { onMount } from "svelte";
   import { SideMenu } from "../../components";
   import security from "../../icons/security.svg";
@@ -10,6 +6,8 @@
   import personal_info from "../../icons/personal_info.svg";
 
   import { Backpack, BadgeRequests, Collections, Profile } from "../student";
+
+  export let bookmark;
 
   const pages = [
     { path: "backpack", icon: data_activity, component: Backpack },
@@ -22,8 +20,7 @@
 
   onMount(() => {
     currentPage = pages.find(({ path }) => path === bookmark) || pages[0];
-        currentPage = pages.find(({path}) => path === bookmark) || pages[0];
-    });
+  });
 </script>
 
 <style>

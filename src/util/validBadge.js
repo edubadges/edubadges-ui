@@ -1,15 +1,14 @@
-const placeholderImage = "https://via.placeholder.com/500?text=Placeholder";
-
-export const validBadge = (input) => {
-    const getOptionalValue = (path, x) => path.reduce((acc, p) => acc != null && acc[p], x);
+export const validBadge = ({ image, json }) => {
     try {
+        const { badge, issuedOn, expires } = json;
+
         return {
-            image: input.image || placeholderImage,
-            title: input.json.badge.name['@value'],
-            issueDate: input.json.issuedOn['@value'],
-            expiryDate: getOptionalValue(["json", "expires", "@value"], input),
-            awardedBy: input.json.badge.issuer.name['@value'],
-            description: input.json.badge.description['@value']
+            image: image || "https://via.placeholder.com/500?text=Placeholder",
+            title: badge.name['@value'],
+            issueDate: issuedOn['@value'],
+            expiryDate: expires && expires['@value'],
+            awardedBy: badge.issuer.name['@value'],
+            description: badge.description['@value']
         };
     } catch (e) {
         console.error(e);
