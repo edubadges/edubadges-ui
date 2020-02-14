@@ -16,11 +16,15 @@
     border: var(--card-border);
     border-radius: var(--card-border-radius);
     padding: 20px 20px 0;
+    background: white;
+  }
+
+  .badge:not(:last-child) {
+    margin-bottom: 20px;
   }
 
   .info {
     display: flex;
-    flex-wrap: wrap;
   }
 
   .img {
@@ -48,7 +52,7 @@
     display: block;
   }
 
-  .details span {
+  .details div:not(.issuer) span {
     white-space: nowrap;
   }
 
@@ -124,7 +128,7 @@
             </div>
           {/if}
 
-          <div>
+          <div class="issuer">
             <span class="title">Awarded by</span>
             <span>{thisBadge.awardedBy}</span>
           </div>
@@ -135,9 +139,9 @@
 
     <div class="actions">
       <div class="delete">
-      {@html trash}
+        {@html trash}
       </div>
-    <div class="share">Share</div>
+      <div class="share">Share</div>
     </div>
   </div>
 {/if}
