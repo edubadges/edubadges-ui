@@ -13,7 +13,6 @@ function validateResponse(res) {
     }
     throw res;
   }
-  csrfToken = res.headers.get("x-csrf-token");
   return res.json();
 }
 
@@ -37,6 +36,8 @@ function validFetch(path, options, requiresToken) {
   return fetch(path, fetchOptions).then(res => validateResponse(res));
 }
 
+// External API
+// Token and Profile
 export function requestLoginToken(service) {
   window.location.href = `${serverUrl}/account/sociallogin?provider=${service}`;
 }
@@ -46,7 +47,14 @@ export function requestProfile() {
   return validFetch(path, {}, true);
 }
 
-export function requestUserData(slug) {
+// User
+export function requestUser(slug) {
   const path = `${serverUrl}/v1/user/users/${slug}`;
+  return validFetch(path, {}, true);
+}
+
+// Badges
+export function getBadges() {
+  const path = `${serverUrl}/v1/earner/badges`;
   return validFetch(path, {}, true);
 }

@@ -74,8 +74,14 @@ h2 {
 }
 
 h3 {
-    font-size: 28px;
-    line-height: 30px;
+    font-size: 26px;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+h4 {
+    font-size: 20px;
+    margin-bottom: 4px;
     font-weight: bold;
 }
 
