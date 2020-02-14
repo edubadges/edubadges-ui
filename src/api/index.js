@@ -36,10 +36,6 @@ function validFetch(path, options, requiresToken) {
   return fetch(path, fetchOptions).then(res => validateResponse(res));
 }
 
-function methodFetch(path, method, body) {
-  return validFetch(path, { method, body: JSON.stringify(body) }, true);
-}
-
 // External API
 // Token and Profile
 export function requestLoginToken(service) {
@@ -57,108 +53,8 @@ export function requestUser(slug) {
   return validFetch(path, {}, true);
 }
 
-export function requestUsersWithinScope() {
-  const path = `${serverUrl}/v1/user/users`;
-  return validFetch(path, {}, true);
-}
-
-export function editUser(userSlug, userToEdit) {
-  const path = `${serverUrl}/v1/user/users/${userSlug}`;
-  return methodFetch(path, "PUT", userToEdit);
-}
-
-export function requestFaculties() {
-  const path = `${serverUrl}/v1/user/faculties`;
-  return validFetch(path, {}, true);
-}
-
-export function requestSocialAccounts() {
-  const path = `${serverUrl}/v1/user/socialaccounts`;
-  return validFetch(path, {}, true);
-}
-
-export function fetchEmails() {
-  const path = `${serverUrl}/v1/user/emails`;
-  return validFetch(path);
-}
-
-export function addEmail(email) {
-  const path = `${serverUrl}/v1/user/emails`;
-  return methodFetch(path, "post", { 'email': email });
-}
-
-export function removeEmail(email_id) {
-  const path = `${serverUrl}/v1/user/emails/${email_id}`;
-  return methodFetch(path, "DELETE");
-}
-
-export function setPrimaryEmail(email_id) {
-  const path = `${serverUrl}/v1/user/emails/${email_id}`;
-  return methodFetch(path, "PUT", { 'primary': true });
-}
-
-export function resendVerificationEmail(emailIdToVerify) {
-  const path = `${serverUrl}/v1/user/emails/${emailIdToVerify}`;
-  return methodFetch(path, "PUT", { 'resend': true });
-}
-
 // Badges
 export function getBadges() {
   const path = `${serverUrl}/v1/earner/badges`;
   return validFetch(path, {}, true);
 }
-
-function parseLinkHeader(link_header) {
-  const re = /<([^>]+)>; rel="([^"]+)"/g;
-  let match;
-  do {
-    match = re.exec(link_header);
-    if (match) {
-      this._links[match[2]] = match[1];
-    }
-  } while (match);
-}
-
-const handleAssertionResult = (r) => {
-  let resultset = {};
-  if (r.headers && r.headers.has('link')) {
-    let link = r.headers.get('link');
-    resultset.links = new PaginationResults(link);
-  }
-  resultset.instances = r.json();
-  return resultset;
-};
-
-export function listBadgeInstances(issuerSlug, badgeSlug, query, num) {
-  if(!num) {
-    num = 100;
-  }
-  let path = `${serverUrl}/v1/issuer/issuers/${issuerSlug}/badges/${badgeSlug}/assertions?num=${num}`;
-  if (query) {
-    path += `&recipient=${query}`
-  }
-  return validFetch(path, {}, true);
-}
-
-// Issuer
-export function createIssuer(creationIssuer) {
-  return methodFetch(`/v1/issuer/issuers`, "PUT", creationIssuer);
-}
-
-export function editIssuer(issuerSlug, editingIssuer) {
-  return methodFetch(`/v1/issuer/issuers/${issuerSlug}`, "PUT", editingIssuer);
-}
-
-export function listIssuers() {
-  return validFetch(`/v1/issuer/issuers`, {},true);
-}
-
-export function getIssuer(issuerSlug) {
-  return validFetch(`/v1/issuer/issuers/${issuerSlug}`, {}, true);
-}
-
-export function updateStaff(issuerSlug, updateOp) {
-  return methodFetch(`/v1/issuer/issuers/${issuerSlug}/staff`, "POST", updateOp);
-}
-
-// Mock API
