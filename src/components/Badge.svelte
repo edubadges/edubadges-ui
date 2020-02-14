@@ -1,19 +1,16 @@
 <script>
   import trash from "../icons/trash.svg";
-  import {onMount} from "svelte";
   import moment from "moment";
+  import {onMount} from "svelte";
+  import {validBadge} from "../util/validBadge";
+
   export let data;
 
+  let thisBadge;
+
   onMount(() => {
-    if(data && data.json) {
-      if (data.json.issuedOn && data.json.issuedOn['@value']) {
-        data.json.issuedOn['@value'] = moment(data.json.issuedOn['@value']).format("MMM D, YYYY");
-      }
-      if (data.json.expires && data.json.expires['@value']) {
-        data.json.expires['@value'] = moment(data.json.expires['@value']).format("MMM D, YYYY");
-      }
-    }
-  })
+    thisBadge = validBadge(data);
+  });
 </script>
 
 <style>
@@ -108,73 +105,40 @@
   }
 </style>
 
-<div class="badge">
-  <div class="info">
-    <div class="img">
-      {#if data && data.image}
-        <img src={data.image} alt="" />
-      {:else}
-        <img src="https://via.placeholder.com/500?text=Placeholder" alt="" />
-      {/if}
-    </div>
-
-    <div class="text">
-      {#if data && data.json.badge.name['@value']}
-        <span>{data.json.badge.name['@value']}</span>
-      {:else}
-        <h4>Climbing the mountain</h4>
-      {/if}
-
-      <div class="details">
-        <div>
-          <span class="title">Awarded</span>
-          {#if data && data.json.issuedOn['@value']}
-            <span>{data.json.issuedOn['@value']}</span>
-          {:else}
-            <span>Sep 10, 2019</span>
-          {/if}
-        </div>
-
-        {#if data && data.json.expires}
-          <div>
-            <span class="title">Expires</span>
-            {#if data.json.expires['@value']}
-              <span>{data.json.expires['@value']}</span>
-            {:else}
-              <span>Sep 10, 2025</span>
-            {/if}
-          </div>
-        {/if}
-
-        <div>
-          <span class="title">Awarded by</span>
-          {#if data && data.json.badge.issuer.name['@value']}
-            <span>{data.json.badge.issuer.name['@value']}</span>
-          {:else}
-            <span>University Example Issuer</span>
-          {/if}
-        </div>
+{#if thisBadge}
+  <div class="badge">
+    <div class="info">
+      <div class="img">
+        <img src={thisBadge.image} alt=""/>
       </div>
-      {#if data && data.json.badge.description['@value']}
-        <span>{data.json.badge.description['@value']}</span>
-      {:else}
-        <div class="description">
-          Knights of Ni, we are but simple travelers who seek the enchanter who
-          lives beyond these woods. He hasn't got shit all over him. Burn her! He
-          hasn't got shit all over him. I am your king.Look, my liege! We shall
-          say 'Ni' again to you, if you do not appease us. You don't frighten us,
-          English pig-dogs! Go and boil your bottoms, sons of a silly person! I
-          blow my nose at you, so-called Ah-thoor Keeng, you and all your silly
-          English K-n-n-n-n-n-n-n-niggits!
-        </div>
-      {/if}
-    </div>
-  </div>
+      <div class="text">
+        <span>{thisBadge.title}</span>
+        <div class="details">
+          <div>
+            <span class="title">Awarded</span>
+            <span>{moment(thisBadge.issueDate).format("MMM D, YYYY")}</span>
+          </div>
 
-  <div class="actions">
-    <div class="delete">
-      {@html trash}
+          {#if thisBadge.expiryDate}
+            <div>
+              <span class="title">Expires</span>
+              <span>{moment(thisBadge.expiryDate).format("MMM D, YYYY")}</span>
+            </div>
+          {/if}
+          <div>
+            <span class="title">Awarded by</span>
+            <span>{thisBadge.awardedBy}</span>
+          </div>
+        </div>
+        <span>{thisBadge.description}</span>
+      </div>
     </div>
+
+    <div class="actions">
+      <div class="delete">
+      {@html trash}
+      </div>
     <div class="share">Share</div>
+    </div>
   </div>
-</div>
+{/if}

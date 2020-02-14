@@ -16,7 +16,6 @@
 
 <div>
   <h3>{I18n.t('backpack.title')}</h3>
-  <Badge />
   {#each badges as badge}
     <Badge data={badge}/>
   {/each}
