@@ -1,7 +1,7 @@
 <script>
-  import { user, userRole } from "../../stores/user";
+  import { user, userRole } from "../stores/user";
   import { onMount } from "svelte";
-  import { requestProfile, requestUser } from "../../api";
+  import { requestProfile, requestUser } from "../api";
 
   onMount(() => {
     requestProfile().then(
