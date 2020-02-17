@@ -1,5 +1,6 @@
 <script>
   import { onMount } from "svelte";
+  import { link } from "svelte-routing";
   import { getIssuers } from "../../api";
 
   let issuers = [];
@@ -18,6 +19,10 @@
 <div>
   <h3>Issuers</h3>
   {#each issuers as issuer}
-    <li>{issuer.name} (badges: {issuer.badgeClassCount})</li>
+    <li>
+      <a href={`/issuer/${issuer.slug}`} use:link>
+        {issuer.name} (badges: {issuer.badgeClassCount})
+      </a>
+    </li>
   {/each}
 </div>
