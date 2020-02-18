@@ -1,5 +1,6 @@
 <script>
   import { onMount } from "svelte";
+  import { link } from "svelte-routing";
   import { getTeacherBadges } from "../../api";
 
   let badges = [];
@@ -18,6 +19,8 @@
 <div>
   <h3>Badges</h3>
   {#each badges as badge}
-    <li>{badge.name}</li>
+    <li>
+      <a href={`/badge/${badge.slug}`} use:link>{badge.name}</a>
+    </li>
   {/each}
 </div>

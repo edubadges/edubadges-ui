@@ -1,5 +1,6 @@
 <script>
   import { onMount } from "svelte";
+  import { link } from "svelte-routing";
   import { getIssuer, getIssuerStaff, getIssuerBadges } from "../../api";
 
   export let slug = "";
@@ -49,7 +50,9 @@
 
   <h3>Issuer badges ({badges.length})</h3>
   {#if badges.length > 0}
-    {badges.map(b => b.name).join(', ')}
+    {#each badges as badge}
+      <a href={`/badge/${badge.slug}`}>{badge.name}</a>
+    {/each}
   {:else}No badges{/if}
 
   <h3>Issuer staff ({staff.length})</h3>
