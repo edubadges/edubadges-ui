@@ -65,6 +65,11 @@ export function getTeacherBadges() {
   return validFetch(path, {}, true);
 }
 
+export function getTeacherBadge(slug) {
+  const path = `${serverUrl}/v1/issuer/all-badges/find?identifier=${slug}`;
+  return validFetch(path, {}, true);
+}
+
 export function getIssuers() {
   const path = `${serverUrl}/v1/issuer/issuers`;
   return validFetch(path, {}, true);
