@@ -1,11 +1,8 @@
 <script>
   import { Route, Router, navigate } from "svelte-routing";
-  import { default as Student } from "./routes/student/Main.svelte";
-  import { default as Teacher } from "./routes/teacher/Main.svelte";
-  import { NotFound, Login } from "./routes";
+  import { Student, Teacher, ProcessToken, NotFound, Login } from "./routes";
   import { Header, Footer } from "./components";
   import { userRole, userLoggedIn } from "./stores/user";
-  import ProcessToken from "./routes/ProcessToken.svelte";
   import { role } from "./util/role";
 </script>
 

@@ -1,3 +1,6 @@
 export { default as Login } from "./Login.svelte"
 export { default as NotFound } from "./NotFound.svelte"
+export { default as ProcessToken } from "./ProcessToken.svelte"
 export { default as Profile } from "./Profile.svelte"
+export { default as Student } from "./Student.svelte"
+export { default as Teacher } from "./Teacher.svelte"
