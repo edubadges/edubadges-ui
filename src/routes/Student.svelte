@@ -1,11 +1,11 @@
 <script>
   import { onMount } from "svelte";
-  import { SideMenu } from "../../components";
-  import security from "../../icons/security.svg";
-  import data_activity from "../../icons/data_activity.svg";
-  import personal_info from "../../icons/personal_info.svg";
+  import { SideMenu } from "../components";
+  import security from "../icons/security.svg";
+  import data_activity from "../icons/data_activity.svg";
+  import personal_info from "../icons/personal_info.svg";
 
-  import { Backpack, BadgeRequests, Collections, Profile } from "../student";
+  import { Backpack, BadgeRequests, Collections, Profile } from "./students";
 
   export let bookmark;
 
