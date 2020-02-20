@@ -2,7 +2,7 @@ import '@testing-library/jest-dom/extend-expect'
 
 import {fireEvent, render} from '@testing-library/svelte'
 
-import BackpackComp from '../../routes/student/Backpack.svelte'
+import BackpackComp from '../../routes/students/Backpack.svelte'
 
 import { getBadges } from "../../api";
 

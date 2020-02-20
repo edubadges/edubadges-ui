@@ -2,7 +2,7 @@ import '@testing-library/jest-dom/extend-expect'
 
 import {fireEvent, render} from '@testing-library/svelte'
 
-import Student from '../../routes/student/Main.svelte'
+import Student from '../../routes/Student.svelte'
 
 it('should render inner component', async () => {
   const { getByText, getByClassName } = render(Student);
