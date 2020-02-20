@@ -1,0 +1,338 @@
+[
+  {
+    "created_at":"2020-02-11T06:56:29.913714-08:00",
+    "created_by":"Joseph+Weeler@university-example.org",
+    "name":"university-example.org History Department",
+    "slug":"kraXACS8Q7-7qCCdgALXdg",
+    "image":"http://127.0.0.1:8000/media/uploads/issuers/issuer_logo_0cfb7f5c-ddd1-412d-92f0-2b4bfc67520a.png",
+    "email":"history@university-example.org",
+    "description":"The history department of university-example.org.",
+    "url":"http://university-example.org/history",
+    "staff":[
+      {
+        "user":{
+          "first_name":"",
+          "last_name":"",
+          "email":"Joseph+Weeler@university-example.org",
+          "slug":"csBLnULHSg-NRV85RF-kHQ",
+          "agreed_terms_version":1,
+          "marketing_opt_in":false,
+          "user_permissions":"[\"change_badgeuser\", \"has_institution_scope\", \"ui_issuer_add\", \"view_issuer_tab\", \"view_management_tab\", \"add_faculty\", \"change_faculty\", \"delete_faculty\", \"view_faculty\", \"add_lticlient\", \"change_lticlient\", \"delete_lticlient\", \"view_lticlient\"]",
+          "faculty":[
+
+          ],
+          "institution":{
+            "name":"university-example.org"
+          },
+          "latest_terms_version":1
+        },
+        "role":"owner",
+        "is_signer":false,
+        "may_become_signer":false
+      }
+    ],
+    "faculty":{
+      "id":1,
+      "name":"university-example.org_History",
+      "slug":"university-example.org_History"
+    },
+    "extensions":{
+      "institutionIdentifier":"11AA"
+    },
+    "json":{
+      "@context":"https://w3id.org/openbadges/v1",
+      "type":"Issuer",
+      "name":"university-example.org History Department",
+      "url":"http://university-example.org/history",
+      "email":"history@university-example.org",
+      "description":"The history department of university-example.org.",
+      "id":"http://localhost:8000/public/issuers/kraXACS8Q7-7qCCdgALXdg",
+      "image":"http://localhost:8000/public/issuers/kraXACS8Q7-7qCCdgALXdg/image",
+      "institutionIdentifier":"11AA"
+    },
+    "badgeClassCount":0,
+    "recipientGroupCount":0,
+    "recipientCount":0,
+    "pathwayCount":0
+  },
+  {
+    "created_at":"2020-02-11T06:59:24.314250-08:00",
+    "created_by":"Joseph+Weeler@university-example.org",
+    "name":"university-example.org History Department",
+    "slug":"Hom5My2bTfu2RlR0E8F6FA",
+    "image":"http://127.0.0.1:8000/media/uploads/issuers/issuer_logo_433f9f0e-5a2e-4281-a78e-3bf0963351b1.png",
+    "email":"history@university-example.org",
+    "description":"The history department of university-example.org.",
+    "url":"http://university-example.org",
+    "staff":[
+      {
+        "user":{
+          "first_name":"",
+          "last_name":"",
+          "email":"Joseph+Weeler@university-example.org",
+          "slug":"csBLnULHSg-NRV85RF-kHQ",
+          "agreed_terms_version":1,
+          "marketing_opt_in":false,
+          "user_permissions":"[\"change_badgeuser\", \"has_institution_scope\", \"ui_issuer_add\", \"view_issuer_tab\", \"view_management_tab\", \"add_faculty\", \"change_faculty\", \"delete_faculty\", \"view_faculty\", \"add_lticlient\", \"change_lticlient\", \"delete_lticlient\", \"view_lticlient\"]",
+          "faculty":[
+
+          ],
+          "institution":{
+            "name":"university-example.org"
+          },
+          "latest_terms_version":1
+        },
+        "role":"owner",
+        "is_signer":false,
+        "may_become_signer":false
+      }
+    ],
+    "faculty":{
+      "id":1,
+      "name":"university-example.org_History",
+      "slug":"university-example.org_History"
+    },
+    "extensions":{
+      "institutionIdentifier":"11AA"
+    },
+    "json":{
+      "@context":"https://w3id.org/openbadges/v1",
+      "type":"Issuer",
+      "name":"university-example.org History Department",
+      "url":"http://university-example.org",
+      "email":"history@university-example.org",
+      "description":"The history department of university-example.org.",
+      "id":"http://localhost:8000/public/issuers/Hom5My2bTfu2RlR0E8F6FA",
+      "image":"http://localhost:8000/public/issuers/Hom5My2bTfu2RlR0E8F6FA/image",
+      "institutionIdentifier":"11AA"
+    },
+    "badgeClassCount":0,
+    "recipientGroupCount":0,
+    "recipientCount":0,
+    "pathwayCount":0
+  },
+  {
+    "created_at":"2020-02-11T07:02:52.129181-08:00",
+    "created_by":"Joseph+Weeler@university-example.org",
+    "name":"university-example.org History Department",
+    "slug":"kPjH-AreQyWPnHpvwI365w",
+    "image":"http://127.0.0.1:8000/media/uploads/issuers/issuer_logo_ae61267a-7b82-4cbe-9a13-bc5848fc15cd.png",
+    "email":"history@university-example.org",
+    "description":"The history department of university-example.org.",
+    "url":"http://university-example.org",
+    "staff":[
+      {
+        "user":{
+          "first_name":"",
+          "last_name":"",
+          "email":"Joseph+Weeler@university-example.org",
+          "slug":"csBLnULHSg-NRV85RF-kHQ",
+          "agreed_terms_version":1,
+          "marketing_opt_in":false,
+          "user_permissions":"[\"change_badgeuser\", \"has_institution_scope\", \"ui_issuer_add\", \"view_issuer_tab\", \"view_management_tab\", \"add_faculty\", \"change_faculty\", \"delete_faculty\", \"view_faculty\", \"add_lticlient\", \"change_lticlient\", \"delete_lticlient\", \"view_lticlient\"]",
+          "faculty":[
+
+          ],
+          "institution":{
+            "name":"university-example.org"
+          },
+          "latest_terms_version":1
+        },
+        "role":"owner",
+        "is_signer":false,
+        "may_become_signer":false
+      }
+    ],
+    "faculty":{
+      "id":1,
+      "name":"university-example.org_History",
+      "slug":"university-example.org_History"
+    },
+    "extensions":{
+      "institutionIdentifier":"11AA"
+    },
+    "json":{
+      "@context":"https://w3id.org/openbadges/v1",
+      "type":"Issuer",
+      "name":"university-example.org History Department",
+      "url":"http://university-example.org",
+      "email":"history@university-example.org",
+      "description":"The history department of university-example.org.",
+      "id":"http://localhost:8000/public/issuers/kPjH-AreQyWPnHpvwI365w",
+      "image":"http://localhost:8000/public/issuers/kPjH-AreQyWPnHpvwI365w/image",
+      "institutionIdentifier":"11AA"
+    },
+    "badgeClassCount":0,
+    "recipientGroupCount":0,
+    "recipientCount":0,
+    "pathwayCount":0
+  },
+  {
+    "created_at":"2020-02-11T07:07:09.005531-08:00",
+    "created_by":"Joseph+Weeler@university-example.org",
+    "name":"university-example.org Mathematics Department",
+    "slug":"vGefYRI4RXKiuxpmcDddnQ",
+    "image":"http://127.0.0.1:8000/media/uploads/issuers/issuer_logo_845183f3-3783-4a4e-929c-272bfc366123.png",
+    "email":"mathetmatics@university-example.org",
+    "description":"The mathematics department of university-example.org.",
+    "url":"http://university-example.org",
+    "staff":[
+      {
+        "user":{
+          "first_name":"",
+          "last_name":"",
+          "email":"Joseph+Weeler@university-example.org",
+          "slug":"csBLnULHSg-NRV85RF-kHQ",
+          "agreed_terms_version":1,
+          "marketing_opt_in":false,
+          "user_permissions":"[\"change_badgeuser\", \"has_institution_scope\", \"ui_issuer_add\", \"view_issuer_tab\", \"view_management_tab\", \"add_faculty\", \"change_faculty\", \"delete_faculty\", \"view_faculty\", \"add_lticlient\", \"change_lticlient\", \"delete_lticlient\", \"view_lticlient\"]",
+          "faculty":[
+
+          ],
+          "institution":{
+            "name":"university-example.org"
+          },
+          "latest_terms_version":1
+        },
+        "role":"owner",
+        "is_signer":false,
+        "may_become_signer":false
+      }
+    ],
+    "faculty":{
+      "id":2,
+      "name":"university-example.org_Mathematics",
+      "slug":"university-example.org_Mathematics"
+    },
+    "extensions":{
+      "institutionIdentifier":"11AA"
+    },
+    "json":{
+      "@context":"https://w3id.org/openbadges/v1",
+      "type":"Issuer",
+      "name":"university-example.org Mathematics Department",
+      "url":"http://university-example.org",
+      "email":"mathetmatics@university-example.org",
+      "description":"The mathematics department of university-example.org.",
+      "id":"http://localhost:8000/public/issuers/vGefYRI4RXKiuxpmcDddnQ",
+      "image":"http://localhost:8000/public/issuers/vGefYRI4RXKiuxpmcDddnQ/image",
+      "institutionIdentifier":"11AA"
+    },
+    "badgeClassCount":0,
+    "recipientGroupCount":0,
+    "recipientCount":0,
+    "pathwayCount":0
+  },
+  {
+    "created_at":"2020-02-11T07:08:11.397319-08:00",
+    "created_by":"Joseph+Weeler@university-example.org",
+    "name":"university-example.org Mathematics Department",
+    "slug":"UqtSikvcRWWKGeIVOYLIAQ",
+    "image":"http://127.0.0.1:8000/media/uploads/issuers/issuer_logo_bd8a4fbb-cc20-4a9e-8230-43a4b5d39b61.png",
+    "email":"mathetmatics@university-example.org",
+    "description":"The mathematics department of university-example.org.",
+    "url":"http://university-example.org",
+    "staff":[
+      {
+        "user":{
+          "first_name":"",
+          "last_name":"",
+          "email":"Joseph+Weeler@university-example.org",
+          "slug":"csBLnULHSg-NRV85RF-kHQ",
+          "agreed_terms_version":1,
+          "marketing_opt_in":false,
+          "user_permissions":"[\"change_badgeuser\", \"has_institution_scope\", \"ui_issuer_add\", \"view_issuer_tab\", \"view_management_tab\", \"add_faculty\", \"change_faculty\", \"delete_faculty\", \"view_faculty\", \"add_lticlient\", \"change_lticlient\", \"delete_lticlient\", \"view_lticlient\"]",
+          "faculty":[
+
+          ],
+          "institution":{
+            "name":"university-example.org"
+          },
+          "latest_terms_version":1
+        },
+        "role":"owner",
+        "is_signer":false,
+        "may_become_signer":false
+      }
+    ],
+    "faculty":{
+      "id":2,
+      "name":"university-example.org_Mathematics",
+      "slug":"university-example.org_Mathematics"
+    },
+    "extensions":{
+      "institutionIdentifier":"11AA"
+    },
+    "json":{
+      "@context":"https://w3id.org/openbadges/v1",
+      "type":"Issuer",
+      "name":"university-example.org Mathematics Department",
+      "url":"http://university-example.org",
+      "email":"mathetmatics@university-example.org",
+      "description":"The mathematics department of university-example.org.",
+      "id":"http://localhost:8000/public/issuers/UqtSikvcRWWKGeIVOYLIAQ",
+      "image":"http://localhost:8000/public/issuers/UqtSikvcRWWKGeIVOYLIAQ/image",
+      "institutionIdentifier":"11AA"
+    },
+    "badgeClassCount":0,
+    "recipientGroupCount":0,
+    "recipientCount":0,
+    "pathwayCount":0
+  },
+  {
+    "created_at":"2020-02-11T07:08:50.036822-08:00",
+    "created_by":"Joseph+Weeler@university-example.org",
+    "name":"university-example.org Mathematics Department",
+    "slug":"pXjX7n8LQ2SNnPdWTCvuFw",
+    "image":"http://127.0.0.1:8000/media/uploads/issuers/issuer_logo_374dacd5-ebad-4955-8ec6-744f973a8f62.png",
+    "email":"mathetmatics@university-example.org",
+    "description":"The mathematics department of university-example.org.",
+    "url":"http://university-example.org",
+    "staff":[
+      {
+        "user":{
+          "first_name":"",
+          "last_name":"",
+          "email":"Joseph+Weeler@university-example.org",
+          "slug":"csBLnULHSg-NRV85RF-kHQ",
+          "agreed_terms_version":1,
+          "marketing_opt_in":false,
+          "user_permissions":"[\"change_badgeuser\", \"has_institution_scope\", \"ui_issuer_add\", \"view_issuer_tab\", \"view_management_tab\", \"add_faculty\", \"change_faculty\", \"delete_faculty\", \"view_faculty\", \"add_lticlient\", \"change_lticlient\", \"delete_lticlient\", \"view_lticlient\"]",
+          "faculty":[
+
+          ],
+          "institution":{
+            "name":"university-example.org"
+          },
+          "latest_terms_version":1
+        },
+        "role":"owner",
+        "is_signer":false,
+        "may_become_signer":false
+      }
+    ],
+    "faculty":{
+      "id":2,
+      "name":"university-example.org_Mathematics",
+      "slug":"university-example.org_Mathematics"
+    },
+    "extensions":{
+      "institutionIdentifier":"11AA"
+    },
+    "json":{
+      "@context":"https://w3id.org/openbadges/v1",
+      "type":"Issuer",
+      "name":"university-example.org Mathematics Department",
+      "url":"http://university-example.org",
+      "email":"mathetmatics@university-example.org",
+      "description":"The mathematics department of university-example.org.",
+      "id":"http://localhost:8000/public/issuers/pXjX7n8LQ2SNnPdWTCvuFw",
+      "image":"http://localhost:8000/public/issuers/pXjX7n8LQ2SNnPdWTCvuFw/image",
+      "institutionIdentifier":"11AA"
+    },
+    "badgeClassCount":2,
+    "recipientGroupCount":0,
+    "recipientCount":0,
+    "pathwayCount":0
+  }
+]
