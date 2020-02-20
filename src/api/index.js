@@ -58,3 +58,34 @@ export function getBadges() {
   const path = `${serverUrl}/v1/earner/badges`;
   return validFetch(path, {}, true);
 }
+
+// Teacher
+export function getTeacherBadges() {
+  const path = `${serverUrl}/v1/issuer/all-badges`;
+  return validFetch(path, {}, true);
+}
+
+export function getTeacherBadge(slug) {
+  const path = `${serverUrl}/v1/issuer/all-badges/find?identifier=${slug}`;
+  return validFetch(path, {}, true);
+}
+
+export function getIssuers() {
+  const path = `${serverUrl}/v1/issuer/issuers`;
+  return validFetch(path, {}, true);
+}
+
+export function getIssuer(slug) {
+  const path = `${serverUrl}/v1/issuer/issuers/${slug}`;
+  return validFetch(path, {}, true);
+}
+
+export function getIssuerBadges(slug) {
+  const path = `${serverUrl}/v1/issuer/issuers/${slug}/badges`;
+  return validFetch(path, {}, true);
+}
+
+export function getIssuerStaff(slug) {
+  const path = `${serverUrl}/v1/issuer/issuers/${slug}/staff`;
+  return validFetch(path, {}, true);
+}
