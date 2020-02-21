@@ -73,6 +73,11 @@ export function requestBadge(url) {
   return methodFetch(path, "POST", {"badgeclass_slug": url});
 }
 
+export function withdrawRequestBadge(url) {
+  const path = `${serverUrl}/lti_edu/withdraw`;
+  return methodFetch(path, "DELETE", {"enrollmentID": url});
+}
+
 export function getUnearnedBadges(eduId) {
   const path = `${serverUrl}/lti_edu/student/${eduId}/enrollments`;
   return validFetch(path, {}, true);
