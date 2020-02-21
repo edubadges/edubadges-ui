@@ -51,6 +51,26 @@ export function requestProfile() {
   return validFetch(path, {}, true);
 }
 
+export function getEmails() {
+  const path = `${serverUrl}/v1/user/emails`;
+  return validFetch(path, {}, true);
+}
+
+export function addEmail(newEmail) {
+  const path = `${serverUrl}/v1/user/emails`;
+  return methodFetch(path, "POST", { 'email': newEmail });
+}
+
+export function setPrimaryEmail(emailId) {
+  const path = `${serverUrl}/v1/user/emails/${emailId}`;
+  return methodFetch(path, "PUT", { 'primary': true });
+}
+
+export function deleteEmail(emailId) {
+  const path = `${serverUrl}/v1/user/emails/${emailId}`;
+  return methodFetch(path, "DELETE", {});
+}
+
 // User
 export function requestUser(slug) {
   const path = `${serverUrl}/v1/user/users/${slug}`;
