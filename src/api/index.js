@@ -36,6 +36,10 @@ function validFetch(path, options, requiresToken) {
   return fetch(path, fetchOptions).then(res => validateResponse(res));
 }
 
+function methodFetch(path, method, body) {
+  return validFetch(path, { method, body: JSON.stringify(body) }, true);
+}
+
 // External API
 // Token and Profile
 export function requestLoginToken(service) {
@@ -56,6 +60,21 @@ export function requestUser(slug) {
 // Badges
 export function getBadges() {
   const path = `${serverUrl}/v1/earner/badges`;
+  return validFetch(path, {}, true);
+}
+
+export function getSocialAccounts() {
+  const path = `${serverUrl}/v1/user/socialaccounts`;
+  return validFetch(path, {}, true);
+}
+
+export function requestBadge(url) {
+  const path = `${serverUrl}/lti_edu/enroll`;
+  return methodFetch(path, "POST", {"badgeclass_slug": url});
+}
+
+export function getUnearnedBadges(eduId) {
+  const path = `${serverUrl}/lti_edu/student/${eduId}/enrollments`;
   return validFetch(path, {}, true);
 }
 
