@@ -13,10 +13,6 @@ beforeEach(() => {
   getBadges.get.mockResolvedValue(getBadgesMock);
 });
 
-afterEach(() => {
-  // TODO
-});
-
 test('shows proper heading when rendered', () => {
   const { getByText } = render(BackpackComp);
 

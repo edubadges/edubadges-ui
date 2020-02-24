@@ -1,7 +1,7 @@
 <script>
-  import {requestProfile, getEmails, addEmail, setPrimaryEmail, deleteEmail} from '../../api'
+  import {getProfile, getEmails, addEmail, setPrimaryEmail, deleteEmail} from '../../api'
 
-  const profilePromise = requestProfile();
+  const profilePromise = getProfile();
 
   const emailsPromise = getEmails();
 
@@ -27,6 +27,7 @@
 <style>
     .email{
         border: black solid 1px;
+        margin-bottom: 10px;
     }
 </style>
 
@@ -69,4 +70,3 @@
     {error}
   {/await}
 </div>
-

@@ -46,7 +46,7 @@ export function requestLoginToken(service) {
   window.location.href = `${serverUrl}/account/sociallogin?provider=${service}`;
 }
 
-export function requestProfile() {
+export function getProfile() {
   const path = `${serverUrl}/v1/user/profile`;
   return validFetch(path, {}, true);
 }
