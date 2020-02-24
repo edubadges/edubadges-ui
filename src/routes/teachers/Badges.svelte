@@ -46,9 +46,7 @@
   {/await}
 </h2>
 
-{#await badgesPromise}
-  <p>loading</p>
-{:then badges}
+{#await badgesPromise then badges}
   <div class="badges">
     {#each badges as badge}
       <div class="badge">
@@ -59,6 +57,4 @@
       </div>
     {/each}
   </div>
-{:catch error}
-  <p>error loading badges</p>
 {/await}
