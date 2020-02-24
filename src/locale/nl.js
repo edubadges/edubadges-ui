@@ -9,7 +9,10 @@ I18n.translations.nl = {
   },
   header: {
     title: "Mijn SURFconext",
-    logout: "Logout"
+    logout: "Logout",
+    nav: {
+      badges: "Badges"
+    }
   },
   login: {
     title: "Leven lang ontwikkelen",

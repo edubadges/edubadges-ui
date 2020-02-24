@@ -1,23 +1,25 @@
 <script>
-  import { user, userRole } from "../stores/user";
   import { onMount } from "svelte";
-  import { requestProfile, requestUser } from "../api";
+  import { Badges } from "./teachers";
+
+  export let bookmark;
+
+  const pages = [{ bm: "badges", component: Badges }];
+
+  let currentPage = pages[0];
 
   onMount(() => {
-    requestProfile().then(
-      profile => {
-        const slug = profile["slug"];
-        requestUser(slug).then(res => console.log(res));
-      },
-      error => {
-        console.error(error);
-      }
-    );
+    currentPage = pages.find(({ bm }) => bm === bookmark) || pages[0];
   });
 </script>
 
-<div>
-  {$userRole} page
-  <br />
-  email: {$user['email']}
+<style>
+  .content {
+    flex: 1;
+    padding: 30px 20px;
+  }
+</style>
+
+<div class="content">
+  <svelte:component this={currentPage.component} />
 </div>

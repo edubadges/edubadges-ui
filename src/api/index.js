@@ -58,3 +58,9 @@ export function getBadges() {
   const path = `${serverUrl}/v1/earner/badges`;
   return validFetch(path, {}, true);
 }
+
+// Teacher
+export function getTeacherBadges() {
+  const path = `${serverUrl}/v1/issuer/all-badges`;
+  return validFetch(path, {}, true);
+}

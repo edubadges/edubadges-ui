@@ -9,7 +9,10 @@ I18n.translations.en = {
   },
   header: {
     title: "My SURFconext",
-    logout: "Logout"
+    logout: "Logout",
+    nav: {
+      badges: "Badges"
+    }
   },
   login: {
     title: "Never stop learning",

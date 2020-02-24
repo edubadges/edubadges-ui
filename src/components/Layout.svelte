@@ -20,6 +20,9 @@
     --card-border: 1px solid #979797;
     --card-border-radius: 2px;
     --card-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+
+    /* Buttons */
+    --button-border-radius: 2px;
   }
 
   :global(header, footer) {
