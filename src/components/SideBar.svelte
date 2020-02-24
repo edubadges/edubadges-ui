@@ -1,8 +1,16 @@
+<script>
+  export let faculties = [];
+</script>
+
 <style>
   .side-bar {
     width: var(--width-side-bar);
     padding: 8px;
     background: var(--color-background-grey-light);
+  }
+
+  li {
+    margin-bottom: 8px;
   }
 </style>
 
@@ -14,6 +22,12 @@
   <p>
     <b>Issuer groups</b>
   </p>
+
+  <ul>
+    {#each faculties as fac (fac.id)}
+      <li>{fac.name}</li>
+    {/each}
+  </ul>
 
   <p>
     <b>Issuers</b>
