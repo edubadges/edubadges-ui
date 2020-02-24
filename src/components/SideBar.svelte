@@ -1,5 +1,6 @@
 <script>
   export let faculties = [];
+  export let issuers = [];
 </script>
 
 <style>
@@ -32,4 +33,10 @@
   <p>
     <b>Issuers</b>
   </p>
+
+  <ul>
+    {#each issuers as iss (iss.id)}
+      <li>{iss.name}</li>
+    {/each}
+  </ul>
 </div>
