@@ -41,6 +41,11 @@ I18n.translations.en = {
   notFound: {
     main: "404 - Not Found"
   },
+  teacher: {
+    badges: {
+      title: "Badgeclasses"
+    }
+  },
   profile: {
     title: "Personal information",
     info:

@@ -41,6 +41,11 @@ I18n.translations.nl = {
   notFound: {
     main: "404 - Not Found"
   },
+  teacher: {
+    badges: {
+      title: "Badgeclasses"
+    }
+  },
   profile: {
     title: "Persoonlijke informatie",
     info:

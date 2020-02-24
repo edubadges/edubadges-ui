@@ -15,6 +15,7 @@
 
     --color-text-grey: #585858;
     --color-text-light-grey: #989797;
+    --color-text-blue: #39b8df;
 
     /* Cards */
     --card-border: 1px solid #979797;

@@ -1,24 +1,32 @@
 <script>
-  import { onMount } from "svelte";
   import { link } from "svelte-routing";
-  import { getTeacherBadges } from "../../api";
+  import I18n from "i18n-js";
+  import { getTeacherBadges, requestProfile } from "../../api";
 
-  let badges = [];
-
-  onMount(() => {
-    getTeacherBadges().then(
-      res => {
-        badges = res;
-        console.log("badges", res);
-      },
-      error => console.error("badges", error)
-    );
-  });
+  let userPromise = requestProfile();
+  let badgesPromise = getTeacherBadges();
 </script>
 
-<div>
-  <h3>Badges</h3>
+<style>
+  h2 span {
+    color: var(--color-text-blue);
+  }
+</style>
+
+<h2>
+  {I18n.t('teacher.badges.title')}
+  {#await userPromise then user}
+    <span>in</span>
+    {user.institution.name}
+  {/await}
+</h2>
+
+{#await badgesPromise}
+  <p>loading</p>
+{:then badges}
   {#each badges as badge}
     <li>{badge.name}</li>
   {/each}
-</div>
+{:catch error}
+  <p>error loading badges</p>
+{/await}
