@@ -1,6 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import { Badges } from "./teachers";
+  import { SideBar } from "../components";
 
   export let bookmark;
 
@@ -19,6 +20,8 @@
     padding: 30px 20px;
   }
 </style>
+
+<SideBar />
 
 <div class="content">
   <svelte:component this={currentPage.component} />

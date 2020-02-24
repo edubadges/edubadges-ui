@@ -16,8 +16,7 @@
     justify-content: space-between;
     align-items: center;
     background-color: var(--color-background-grey-light);
-    padding-top: 12px;
-    padding-bottom: 10px;
+    padding: 12px var(--hor-padding-s) 10px;
   }
 
   .help,

@@ -1,7 +1,11 @@
 <style>
   :global(:root) {
-    /*Sizes*/
+    /* Sizes */
     --width-app: 1244px;
+    --width-side-bar: 220px;
+
+    /* Spacing */
+    --hor-padding-s: 13px;
 
     /*Colors*/
     --color-primary-blue: #0061b0;
@@ -24,10 +28,5 @@
 
     /* Buttons */
     --button-border-radius: 2px;
-  }
-
-  :global(header, footer) {
-    padding-left: 13px;
-    padding-right: 13px;
   }
 </style>

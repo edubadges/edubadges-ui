@@ -27,12 +27,14 @@
 
     padding-top: 4px;
     padding-bottom: 4px;
+    padding-right: var(--hor-padding-s);
 
     background-color: var(--color-background-grey-dark);
   }
 
   a.logo {
-    margin-right: 50px;
+    margin-left: var(--hor-padding-s);
+    width: calc(var(--width-side-bar) - var(--hor-padding-s));
   }
 
   nav {
