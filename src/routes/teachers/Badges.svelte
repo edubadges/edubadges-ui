@@ -1,10 +1,8 @@
 <script>
-  import { link } from "svelte-routing";
   import I18n from "i18n-js";
-  import { getTeacherBadges, requestProfile } from "../../api";
 
-  let userPromise = requestProfile();
-  let badgesPromise = getTeacherBadges();
+  export let scope = "";
+  export let badges = [];
 </script>
 
 <style>
@@ -40,21 +38,19 @@
 
 <h2>
   {I18n.t('teacher.badges.title')}
-  {#await userPromise then user}
+  {#if scope}
     <span>in</span>
-    {user.institution.name}
-  {/await}
+    {scope}
+  {/if}
 </h2>
 
-{#await badgesPromise then badges}
-  <div class="badges">
-    {#each badges as badge}
-      <div class="badge">
-        <div class="image">
-          <img src={badge.image} alt={`image for ${badge.name}`} />
-        </div>
-        <b>{badge.name}</b>
+<div class="badges">
+  {#each badges as badge}
+    <div class="badge">
+      <div class="image">
+        <img src={badge.image} alt={`image for ${badge.name}`} />
       </div>
-    {/each}
-  </div>
-{/await}
+      <b>{badge.name}</b>
+    </div>
+  {/each}
+</div>
