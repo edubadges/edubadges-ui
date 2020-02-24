@@ -1,5 +1,5 @@
 <script>
-  import { Route, Router, navigate } from "svelte-routing";
+  import { Router, Route } from "svelte-routing";
   import { Student, Teacher, ProcessToken, NotFound, Login } from "./routes";
   import { Issuer, Badge } from "./routes/teachers";
   import { Header, Footer } from "./components";
