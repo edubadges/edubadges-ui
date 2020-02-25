@@ -9,7 +9,6 @@
     getTeacherBadges().then(
       res => {
         badges = res;
-        console.log("badges", res);
       },
       error => console.error("badges", error)
     );

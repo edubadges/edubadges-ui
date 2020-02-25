@@ -24,7 +24,7 @@
   }
 </style>
 
-<div>
+<div style="width: 100%">
   <nav>
     {#each pages as { path }}
       <a
