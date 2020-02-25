@@ -1,4 +1,4 @@
-export const getFilters = (data, filterAttributes) => {
+export const collectFilters = (data, filterAttributes) => {
   let res = {};
   for (const attr of filterAttributes) {
     res[attr] = [];
@@ -28,24 +28,24 @@ export const filters = (data, filterAttributes) => {
 };
 
 export const toggleFilter = (filters, attr, value) => {
-  if (filters[attr] === value) {
-
+  let newFilters = filters;
+  if (newFilters[attr] === value) {
+    delete newFilters[attr];
+  } else {
+    newFilters[attr] = value;
   }
+  return newFilters;
 };
 
-function shouldFilter(data, filters) {
-  for (const filter in filters) {
-    if (filters.hasOwnProperty(filter)){
-      for (const option of filters[filter]) {
-        if (option.active && data[filter] !== option.value) {
-          return false;
-        }
-      }
+function shouldFilter(element, filters) {
+  for (const [attr, filterValue] of Object.entries(filters)) {
+    if (!element[attr] || element[attr] !== filterValue) {
+      return false;
     }
   }
   return true;
 }
 
 export const filteredData = (data, filters) => {
-  return data.filter(issuer => shouldFilter(issuer, filters));
+  return data.filter(element => shouldFilter(element, filters));
 };
