@@ -1,49 +1,49 @@
 <script>
-    import { Badges } from "./teachers";
-    import { SideMenu } from "../components";
-    import {
-        getTeacherBadges,
-        getProfile,
-        getFaculties,
-        getIssuers
-    } from "../api";
+  import { Badges } from "./teachers";
+  import { SideBar } from "../components";
+  import {
+    getTeacherBadges,
+    requestProfile,
+    getFaculties,
+    getIssuers
+  } from "../api";
 
-    export let bookmark;
+  export let bookmark;
 
-    let loaded = false;
-    let user, badges, faculties, issuers;
+  let loaded = false;
+  let user, badges, faculties, issuers;
 
-    const pages = [{ bm: "badges", component: Badges }];
-    const currentPage = pages.find(({ bm }) => bm === bookmark) || pages[0];
+  const pages = [{ bm: "badges", component: Badges }];
+  const currentPage = pages.find(({ bm }) => bm === bookmark) || pages[0];
 
-    const apiCalls = [
-        getProfile(),
-        getTeacherBadges(),
-        getFaculties(),
-        getIssuers()
-    ];
-    Promise.all(apiCalls)
-            .then(values => {
-                [user, badges, faculties, issuers] = values;
-                loaded = true;
-            })
-            .catch(error => console.log(error));
+  const apiCalls = [
+    requestProfile(),
+    getTeacherBadges(),
+    getFaculties(),
+    getIssuers()
+  ];
+  Promise.all(apiCalls)
+    .then(values => {
+      [user, badges, faculties, issuers] = values;
+      loaded = true;
+    })
+    .catch(error => console.log(error));
 </script>
 
 <style>
-    .content {
-        flex: 1;
-        padding: 30px 20px;
-    }
+  .content {
+    flex: 1;
+    padding: 30px 20px;
+  }
 </style>
 
 {#if loaded}
-    <SideBar {faculties} {issuers} />
+  <SideBar {faculties} {issuers} />
 
-    <div class="content">
-        <svelte:component
-                this={currentPage.component}
-                scope={user.institution.name}
-                {badges} />
-    </div>
+  <div class="content">
+    <svelte:component
+      this={currentPage.component}
+      scope={user.institution.name}
+      {badges} />
+  </div>
 {/if}

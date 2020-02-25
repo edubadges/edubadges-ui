@@ -9,7 +9,10 @@ I18n.translations.nl = {
   },
   header: {
     title: "Mijn SURFconext",
-    logout: "Logout"
+    logout: "Logout",
+    nav: {
+      badges: "Badges"
+    }
   },
   login: {
     title: "Leven lang ontwikkelen",
@@ -37,6 +40,11 @@ I18n.translations.nl = {
   },
   notFound: {
     main: "404 - Not Found"
+  },
+  teacher: {
+    badges: {
+      title: "Badgeclasses"
+    }
   },
   profile: {
     title: "Persoonlijke informatie",

@@ -90,12 +90,12 @@ export function getSocialAccounts() {
 
 export function requestBadge(url) {
   const path = `${serverUrl}/lti_edu/enroll`;
-  return methodFetch(path, "POST", {"badgeclass_slug": url});
+  return methodFetch(path, "POST", { "badgeclass_slug": url });
 }
 
 export function withdrawRequestBadge(url) {
   const path = `${serverUrl}/lti_edu/withdraw`;
-  return methodFetch(path, "DELETE", {"enrollmentID": url});
+  return methodFetch(path, "DELETE", { "enrollmentID": url });
 }
 
 export function getUnearnedBadges(eduId) {
