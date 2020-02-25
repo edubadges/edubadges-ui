@@ -1,5 +1,4 @@
 <script>
-  import { onMount } from "svelte";
   import { Badges } from "./teachers";
   import { SideBar } from "../components";
   import {
