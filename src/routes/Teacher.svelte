@@ -3,7 +3,7 @@
   import { SideBar } from "../components";
   import {
     getTeacherBadges,
-    requestProfile,
+    getProfile,
     getFaculties,
     getIssuers
   } from "../api";
@@ -17,7 +17,7 @@
   const currentPage = pages.find(({ bm }) => bm === bookmark) || pages[0];
 
   const apiCalls = [
-    requestProfile(),
+    getProfile(),
     getTeacherBadges(),
     getFaculties(),
     getIssuers()
