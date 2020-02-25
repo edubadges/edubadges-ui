@@ -1,7 +1,6 @@
 <script>
-  import { Route, Router, navigate } from "svelte-routing";
+  import { Router, Route } from "svelte-routing";
   import { Student, Teacher, ProcessToken, NotFound, Login } from "./routes";
-  import { Issuer, Badge } from "./routes/teachers";
   import { Header, Footer } from "./components";
   import { userRole, userLoggedIn } from "./stores/user";
   import { role } from "./util/role";
@@ -57,18 +56,8 @@
       </Router>
     {:else if $userLoggedIn && $userRole === role.TEACHER}
       <Router>
-        <Route path="/" component={Teacher} />
-        <Route path="/badges">
+        <Route path="/" component={Teacher}>
           <Teacher bookmark="badges" />
-        </Route>
-        <Route path="/issuers">
-          <Teacher bookmark="issuers" />
-        </Route>
-        <Route path="/issuer/:slug" let:params>
-          <Issuer slug={params.slug} />
-        </Route>
-        <Route path="/badge/:slug" let:params>
-          <Badge slug={params.slug} />
         </Route>
         <Route path="/auth/login/*" component={ProcessToken} />
         <Route component={NotFound} />
