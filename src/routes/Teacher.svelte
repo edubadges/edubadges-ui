@@ -1,23 +1,50 @@
 <script>
-  import { user, userRole } from "../stores/user";
   import { onMount } from "svelte";
-  import { requestProfile, requestUser } from "../api";
+  import { Badges } from "./teachers";
+  import { SideBar } from "../components";
+  import {
+    getTeacherBadges,
+    requestProfile,
+    getFaculties,
+    getIssuers
+  } from "../api";
 
-  onMount(() => {
-    requestProfile().then(
-      profile => {
-        const slug = profile["slug"];
-        requestUser(slug).then(res => console.log(res));
-      },
-      error => {
-        console.error(error);
-      }
-    );
-  });
+  export let bookmark;
+
+  let loaded = false;
+  let user, badges, faculties, issuers;
+
+  const pages = [{ bm: "badges", component: Badges }];
+  const currentPage = pages.find(({ bm }) => bm === bookmark) || pages[0];
+
+  const apiCalls = [
+    requestProfile(),
+    getTeacherBadges(),
+    getFaculties(),
+    getIssuers()
+  ];
+  Promise.all(apiCalls)
+    .then(values => {
+      [user, badges, faculties, issuers] = values;
+      loaded = true;
+    })
+    .catch(error => console.log(error));
 </script>
 
-<div>
-  {$userRole} page
-  <br />
-  email: {$user['email']}
-</div>
+<style>
+  .content {
+    flex: 1;
+    padding: 30px 20px;
+  }
+</style>
+
+{#if loaded}
+  <SideBar {faculties} {issuers} />
+
+  <div class="content">
+    <svelte:component
+      this={currentPage.component}
+      scope={user.institution.name}
+      {badges} />
+  </div>
+{/if}
