@@ -1,41 +1,49 @@
 <script>
-  import { onMount } from "svelte";
-  import { link } from "svelte-routing";
-  import { Badges, Issuers } from "./teachers";
+    import { Badges } from "./teachers";
+    import { SideMenu } from "../components";
+    import {
+        getTeacherBadges,
+        getProfile,
+        getFaculties,
+        getIssuers
+    } from "../api";
 
-  export let bookmark;
+    export let bookmark;
 
-  const pages = [
-    { path: "badges", component: Badges },
-    { path: "issuers", component: Issuers }
-  ];
+    let loaded = false;
+    let user, badges, faculties, issuers;
 
-  let currentPage = pages[0];
+    const pages = [{ bm: "badges", component: Badges }];
+    const currentPage = pages.find(({ bm }) => bm === bookmark) || pages[0];
 
-  onMount(() => {
-    currentPage = pages.find(({ path }) => path === bookmark) || pages[0];
-  });
+    const apiCalls = [
+        getProfile(),
+        getTeacherBadges(),
+        getFaculties(),
+        getIssuers()
+    ];
+    Promise.all(apiCalls)
+            .then(values => {
+                [user, badges, faculties, issuers] = values;
+                loaded = true;
+            })
+            .catch(error => console.log(error));
 </script>
 
 <style>
-  nav a.active {
-    font-weight: bold;
-    color: var(--color-primary-green);
-  }
+    .content {
+        flex: 1;
+        padding: 30px 20px;
+    }
 </style>
 
-<div>
-  <nav>
-    {#each pages as { path }}
-      <a
-        href={path}
-        class="button"
-        use:link
-        class:active={path === currentPage.path}>
-        {path}
-      </a>
-    {/each}
-  </nav>
+{#if loaded}
+    <SideBar {faculties} {issuers} />
 
-  <svelte:component this={currentPage.component} />
-</div>
+    <div class="content">
+        <svelte:component
+                this={currentPage.component}
+                scope={user.institution.name}
+                {badges} />
+    </div>
+{/if}

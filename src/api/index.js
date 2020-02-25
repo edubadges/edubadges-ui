@@ -109,8 +109,8 @@ export function getTeacherBadges() {
   return validFetch(path, {}, true);
 }
 
-export function getTeacherBadge(slug) {
-  const path = `${serverUrl}/v1/issuer/all-badges/find?identifier=${slug}`;
+export function getFaculties() {
+  const path = `${serverUrl}/institution/faculties`;
   return validFetch(path, {}, true);
 }
 
