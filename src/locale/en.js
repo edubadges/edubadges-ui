@@ -9,7 +9,10 @@ I18n.translations.en = {
   },
   header: {
     title: "My SURFconext",
-    logout: "Logout"
+    logout: "Logout",
+    nav: {
+      badges: "Badges"
+    }
   },
   login: {
     title: "Never stop learning",
@@ -37,6 +40,11 @@ I18n.translations.en = {
   },
   notFound: {
     main: "404 - Not Found"
+  },
+  teacher: {
+    badges: {
+      title: "Badgeclasses"
+    }
   },
   profile: {
     title: "Personal information",
