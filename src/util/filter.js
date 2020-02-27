@@ -3,25 +3,9 @@ export const collectFilters = (data, filterAttributes) => {
   for (const attr of filterAttributes) {
     res[attr] = [];
     for (const element of data) {
-      res[attr].push(element[attr]);
-    }
-  }
-  return res;
-};
-
-export const filters = (data, filterAttributes) => {
-  let res = {};
-  for (const filterAttribute of filterAttributes) {
-    res[filterAttribute] = [];
-  }
-
-  for (const element of data) {
-    for (const filterAttribute of filterAttributes) {
-      res[filterAttribute].push({
-          "value": element[filterAttribute],
-          count: element['badgeClassCount'],
-          "active": false
-        });
+      if (!res[attr].includes(element[attr])){
+        res[attr].push(element[attr]);
+      }
     }
   }
   return res;
@@ -48,4 +32,21 @@ function shouldFilter(element, filters) {
 
 export const filteredData = (data, filters) => {
   return data.filter(element => shouldFilter(element, filters));
+};
+
+export const setVisibilityFilters = (filters, data) => {
+  let res = {};
+  for (const attr of Object.keys(filters)) {
+    res[attr] = [];
+    console.log('filters', filters);
+    for (const value of Object.values(filters[attr])) {
+      if (data.some(element => {
+        return element[attr] === value;
+      })) {
+        res[attr].push(value);
+      }
+    }
+  }
+  console.log(res);
+  return res;
 };
