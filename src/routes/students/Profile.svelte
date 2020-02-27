@@ -60,7 +60,11 @@
         {#if email['primary']}
           <p> primary email</p>
         {:else}
+          {#if email['verfied']}
           <button on:click={() => setPrimaryEmailButton(email['id'])}>set as primary email</button>
+          {:else}
+            <p>cant make primary, unverified email, set to verified in database</p>
+            {/if}
         {/if}
         <br>
         <button on:click={() => removeEmail(email['id'])}>delete email</button>
