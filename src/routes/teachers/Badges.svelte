@@ -13,7 +13,8 @@
   let filteredBadges = [];
 
   onMount(() => {
-      getTeacherBadges().then(([teacherBadgesData]) => {
+      getTeacherBadges().then(teacherBadgesData => {
+        console.log(teacherBadgesData);
       for (const badge of teacherBadgesData) {
         const issuerSlug = badge.issuer.split('/').pop();
         getIssuer(issuerSlug).then(issuerData => {
