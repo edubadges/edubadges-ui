@@ -1,49 +1,52 @@
 <script>
-    import { Badges } from "./teachers";
-    import { SideBar } from "../components";
-    import {
-        getTeacherBadges,
-        requestProfile,
-        getFaculties,
-        getIssuers
-    } from "../api";
+  import { Badges } from "./teachers";
+  import { SideBar } from "../components";
+  import {
+      getTeacherBadges,
+      requestProfile,
+      getFaculties,
+      getIssuers
+  } from "../api";
 
-    export let bookmark;
+  export let bookmark;
 
-    let loaded = false;
-    let user, badges, faculties, issuers;
+  let loaded = false;
+  let user, badges, faculties, issuers;
 
-    const pages = [{ bm: "badges", component: Badges }];
-    const currentPage = pages.find(({ bm }) => bm === bookmark) || pages[0];
+  let visibleBadgeIds = [];
 
-    const apiCalls = [
-        requestProfile(),
-        getTeacherBadges(),
-        getFaculties(),
-        getIssuers()
-    ];
-    Promise.all(apiCalls)
-            .then(values => {
-                [user, badges, faculties, issuers] = values;
-                loaded = true;
-            })
-            .catch(error => console.log(error));
+  const pages = [{ bm: "badges", component: Badges }];
+  const currentPage = pages.find(({ bm }) => bm === bookmark) || pages[0];
+
+  const apiCalls = [
+    requestProfile(),
+    getTeacherBadges(),
+    getFaculties(),
+    getIssuers()
+  ];
+  Promise.all(apiCalls)
+      .then(values => {
+        [user, badges, faculties, issuers] = values;
+        loaded = true;
+      })
+      .catch(error => console.log(error));
 </script>
 
 <style>
-    .content {
-        flex: 1;
-        padding: 30px 20px;
-    }
+  .content {
+    flex: 1;
+    padding: 30px 20px;
+  }
 </style>
 
 {#if loaded}
-    <SideBar {faculties} {issuers} />
+  <SideBar {badges} bind:value={visibleBadgeIds}  {faculties} {issuers} />
 
-    <div class="content">
-        <svelte:component
-                this={currentPage.component}
-                scope={user.institution.name}
-                {badges} />
-    </div>
+  <div class="content">
+    <svelte:component
+      this={currentPage.component}
+      scope={user.institution.name}
+      {visibleBadgeIds}
+      {badges} />
+  </div>
 {/if}
