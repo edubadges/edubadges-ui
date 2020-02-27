@@ -1,6 +1,7 @@
 <script>
   import { Badges } from "./teachers";
   import { SideBar } from "../components";
+
   import {
     getTeacherBadges,
     requestProfile,
@@ -11,20 +12,15 @@
   export let bookmark;
 
   let loaded = false;
-  let user, badges, faculties, issuers;
+  let user, faculties, issuers;
 
   const pages = [{ bm: "badges", component: Badges }];
   const currentPage = pages.find(({ bm }) => bm === bookmark) || pages[0];
 
-  const apiCalls = [
-    requestProfile(),
-    getTeacherBadges(),
-    getFaculties(),
-    getIssuers()
-  ];
+  const apiCalls = [requestProfile(), getFaculties(), getIssuers()];
   Promise.all(apiCalls)
     .then(values => {
-      [user, badges, faculties, issuers] = values;
+      [user, faculties, issuers] = values;
       loaded = true;
     })
     .catch(error => console.log(error));
@@ -43,7 +39,6 @@
   <div class="content">
     <svelte:component
       this={currentPage.component}
-      scope={user.institution.name}
-      {badges} />
+      scope={user.institution.name} />
   </div>
 {/if}

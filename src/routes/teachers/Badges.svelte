@@ -1,8 +1,23 @@
 <script>
+  import { onMount } from "svelte";
   import I18n from "i18n-js";
+  import { queryData } from "../../api/graphql";
 
   export let scope = "";
-  export let badges = [];
+  let badges = [];
+
+  const query = `{
+      badgeClasses {
+        name,
+        image
+      }
+    }`;
+
+  onMount(() => {
+    queryData(query).then(({ badgeClasses }) => {
+      badges = badgeClasses;
+    });
+  });
 </script>
 
 <style>
