@@ -5,18 +5,22 @@
       getTeacherBadges,
       requestProfile,
       getFaculties,
-      getIssuers
+      getIssuers, getIssuer
   } from "../api";
+  import {collectFilters, filteredData, setVisibilityFilters, toggleFilter} from "../util/filter";
 
   export let bookmark;
 
   let loaded = false;
-  let user, badges, faculties, issuers;
+  let user, teacherBadgesData, faculties, issuers;
 
   let visibleBadgeIds = [];
+  const filterAttributes = ["myFaculty", "myIssuer"];
 
   const pages = [{ bm: "badges", component: Badges }];
   const currentPage = pages.find(({ bm }) => bm === bookmark) || pages[0];
+
+  let badges;
 
   const apiCalls = [
     requestProfile(),
@@ -26,8 +30,15 @@
   ];
   Promise.all(apiCalls)
       .then(values => {
-        [user, badges, faculties, issuers] = values;
-        loaded = true;
+        [user, teacherBadgesData, faculties, issuers] = values;
+        for (const badge of teacherBadgesData) {
+            const issuerSlug = badge.issuer.split('/').pop();
+            getIssuer(issuerSlug).then(issuerData => {
+                badge['myFaculty'] = issuerData['faculty']['name'];
+                badge['myIssuer'] = issuerData['name'];
+                setTimeout(() => loaded = true, 100)  // TODO
+            })
+        }
       })
       .catch(error => console.log(error));
 </script>
@@ -40,13 +51,12 @@
 </style>
 
 {#if loaded}
-  <SideBar {badges} bind:value={visibleBadgeIds}  {faculties} {issuers} />
+  <SideBar bind:filteredBadges={badges} {teacherBadgesData} {filterAttributes} />
 
   <div class="content">
     <svelte:component
       this={currentPage.component}
       scope={user.institution.name}
-      {visibleBadgeIds}
-      {badges} />
+      bind:filteredBadges={badges} />
   </div>
 {/if}

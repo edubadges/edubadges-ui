@@ -22,8 +22,8 @@
   });
 
   const setFilters = (attr, filter) => {
-      activeFilters = toggleFilter(activeFilters, attr, filter);
-      filteredIssuers = filteredData(issuers, activeFilters);
+    activeFilters = toggleFilter(activeFilters, attr, filter);
+    filteredIssuers = filteredData(issuers, activeFilters);
   }
 </script>
 

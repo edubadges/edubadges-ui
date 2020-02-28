@@ -38,7 +38,6 @@ export const setVisibilityFilters = (filters, data) => {
   let res = {};
   for (const attr of Object.keys(filters)) {
     res[attr] = [];
-    console.log('filters', filters);
     for (const value of Object.values(filters[attr])) {
       if (data.some(element => {
         return element[attr] === value;
@@ -47,6 +46,5 @@ export const setVisibilityFilters = (filters, data) => {
       }
     }
   }
-  console.log(res);
   return res;
 };
