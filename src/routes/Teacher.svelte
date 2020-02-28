@@ -15,7 +15,7 @@
   let user, teacherBadgesData, faculties, issuers;
 
   let visibleBadgeIds = [];
-  const filterAttributes = ["myFaculty", "myIssuer"];
+  const filterAttributes = ["Issuer Group", "Issuer"];
 
   const pages = [{ bm: "badges", component: Badges }];
   const currentPage = pages.find(({ bm }) => bm === bookmark) || pages[0];
@@ -34,8 +34,8 @@
         for (const badge of teacherBadgesData) {
             const issuerSlug = badge.issuer.split('/').pop();
             getIssuer(issuerSlug).then(issuerData => {
-                badge['myFaculty'] = issuerData['faculty']['name'];
-                badge['myIssuer'] = issuerData['name'];
+                badge['Issuer Group'] = issuerData['faculty']['name'];
+                badge['Issuer'] = issuerData['name'];
                 setTimeout(() => loaded = true, 100)  // TODO
             })
         }

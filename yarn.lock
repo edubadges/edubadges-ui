@@ -658,6 +658,18 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
+"@fortawesome/fontawesome-common-types@^0.2.27":
+  version "0.2.27"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-0.2.27.tgz#19706345859fc46adf3684ed01d11b40903b87e9"
+  integrity sha512-97GaByGaXDGMkzcJX7VmR/jRJd8h1mfhtA7RsxDBN61GnWE/PPCZhOdwG/8OZYktiRUF0CvFOr+VgRkJrt6TWg==
+
+"@fortawesome/free-regular-svg-icons@^5.12.1":
+  version "5.12.1"
+  resolved "https://registry.yarnpkg.com/@fortawesome/free-regular-svg-icons/-/free-regular-svg-icons-5.12.1.tgz#4b378d93655acc5e432d5ed7ee127768dd351a99"
+  integrity sha512-bGda18seHXb+24K6DPUFzqn4kG7B+JViP/BscMcNUXvT00M86xNhdgP2TXSdflQXn53QWqymKjx/8rhaDOJyhA==
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "^0.2.27"
+
 "@jest/console@^24.7.1", "@jest/console@^24.9.0":
   version "24.9.0"
   resolved "https://registry.yarnpkg.com/@jest/console/-/console-24.9.0.tgz#79b1bc06fb74a8cfb01cbdedf945584b1b9707f0"
@@ -2788,6 +2800,11 @@ extsprintf@^1.2.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.4.0.tgz#e2689f8f356fad62cca65a3a91c5df5f9551692f"
   integrity sha1-4mifjzVvrWLMplo6kcXfX5VRaS8=
+
+fa-svelte@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/fa-svelte/-/fa-svelte-3.1.0.tgz#7d833410113c0696ca5c64645383de1f77baa029"
+  integrity sha512-RqBOWwt7sc+ta9GFjbu5GOwKFRzn3rMPPSqvSGpIwsfVnpMjiI5ttv84lwNsCMEYI6/lu/iH21HUcE3TLz8RGQ==
 
 fast-deep-equal@^2.0.1:
   version "2.0.1"

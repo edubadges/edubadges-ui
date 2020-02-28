@@ -2,6 +2,7 @@
   import { isEmpty } from "../util/emptyObject"
   import { collectFilters, filteredData, toggleFilter, setVisibilityFilters } from "../util/filter";
   import { onMount } from "svelte";
+  import FilterItem from "./FilterItem.svelte";
 
   export let filterAttributes = [];
   export let teacherBadgesData = {};
@@ -37,26 +38,13 @@
   li {
     margin-bottom: 8px;
   }
-
-  .filter-item {
-    border: solid black 1px;
-  }
-
-  .filter-active {
-    background-color: deepskyblue;
-  }
-
-  .filter-hidden {
-    visibility: hidden;
-  }
 </style>
 
 
 <div class="side-bar">
-  <button on:click={() => console.log(filteredBadges)}>print</button>
   {#if !isEmpty(allFilters)}
     <div>
-      <div style="display: inline-block; overflow: scroll">
+      <div style="width: 100%">
         <ul>
           {#each filterAttributes as attr}
             <li>
@@ -64,10 +52,13 @@
               <ul>
                 {#each allFilters[attr] as filter}
                   <li
-                      class="filter-item {activeFilters[attr] === filter ? 'filter-active' : ''} {isEmpty(visibleFilters) || visibleFilters[attr].includes(filter) ? '' : 'filter-hidden'}"
                       on:click={() => setFilters(attr, filter)}
                   >
-                    {filter}
+                    <FilterItem
+                        {filter}
+                        visible={isEmpty(visibleFilters) || visibleFilters[attr].includes(filter)}
+                        active={activeFilters[attr] === filter}
+                    />
                   </li>
                 {/each}
               </ul>
