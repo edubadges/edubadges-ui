@@ -34,15 +34,16 @@ export const filteredData = (data, filters) => {
   return data.filter(element => shouldFilter(element, filters));
 };
 
-export const setVisibilityFilters = (filters, data) => {
+export const filterCounts = (filters, data) => {
   let res = {};
   for (const attr of Object.keys(filters)) {
-    res[attr] = [];
+    res[attr] = {};
     for (const value of Object.values(filters[attr])) {
-      if (data.some(element => {
-        return element[attr] === value;
-      })) {
-        res[attr].push(value);
+      res[attr][value] = 0;
+      for (const element of data) {
+        if (element[attr] === value) {
+          res[attr][value]++;
+        }
       }
     }
   }

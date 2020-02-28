@@ -3,7 +3,7 @@
   import { onMount } from "svelte";
   import { link } from "svelte-routing";
   import { getIssuer, getTeacherBadges } from "../../api";
-  import { collectFilters, toggleFilter, filteredData, setVisibilityFilters } from "../../util/filter";
+  import { collectFilters, toggleFilter, filteredData, filterCounts } from "../../util/filter";
   import { isEmpty } from "../../util/emptyObject";
 
   export let filteredBadges = [];

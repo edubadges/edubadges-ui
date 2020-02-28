@@ -1,6 +1,6 @@
 <script>
   import { isEmpty } from "../util/emptyObject"
-  import { collectFilters, filteredData, toggleFilter, setVisibilityFilters } from "../util/filter";
+  import { collectFilters, filteredData, toggleFilter, filterCounts } from "../util/filter";
   import { onMount } from "svelte";
   import FilterItem from "./FilterItem.svelte";
 
@@ -11,19 +11,20 @@
   export let filteredBadges = [];
   let allFilters = {};
   let activeFilters = {};
-  let visibleFilters = {};
-
+  let badgeFilterCounts = {};
   onMount(() => {
     allBadges = teacherBadgesData;
     filteredBadges = allBadges;
     allFilters = collectFilters(allBadges, filterAttributes);
-    visibleFilters = allFilters;
+    badgeFilterCounts = filterCounts(allFilters, filteredBadges);
   });
 
   const setFilters = (attr, filter) => {
-    activeFilters = toggleFilter(activeFilters, attr, filter);
-    filteredBadges = filteredData(allBadges, activeFilters);
-    visibleFilters = setVisibilityFilters(allFilters, filteredBadges);
+    if (badgeFilterCounts[attr][filter] > 0) {
+      activeFilters = toggleFilter(activeFilters, attr, filter);
+      filteredBadges = filteredData(allBadges, activeFilters);
+      badgeFilterCounts = filterCounts(allFilters, filteredBadges);
+    }
   };
 
 </script>
@@ -56,7 +57,7 @@
                   >
                     <FilterItem
                         {filter}
-                        visible={isEmpty(visibleFilters) || visibleFilters[attr].includes(filter)}
+                        count={badgeFilterCounts[attr][filter]}
                         active={activeFilters[attr] === filter}
                     />
                   </li>

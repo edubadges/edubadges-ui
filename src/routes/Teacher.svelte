@@ -7,7 +7,7 @@
       getFaculties,
       getIssuers, getIssuer
   } from "../api";
-  import {collectFilters, filteredData, setVisibilityFilters, toggleFilter} from "../util/filter";
+  import {collectFilters, filteredData, filterCounts, toggleFilter} from "../util/filter";
 
   export let bookmark;
 

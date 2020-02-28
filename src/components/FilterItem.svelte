@@ -1,8 +1,7 @@
 <script>
   export let filter;
-  let numberOfMatches = 6;  // TODO
+  export let count;
   export let active;
-  export let visible;
 
   import Icon from 'fa-svelte'
   import { faTimesCircle } from '@fortawesome/free-regular-svg-icons/faTimesCircle'
@@ -15,7 +14,7 @@
   }
 
   .filter-active {
-    border: solid dimgrey 1px;
+    border: solid darkgray 2px;
     background-color: white;
   }
 
@@ -25,23 +24,31 @@
 
   .asdf {
     width: 80%;
+    margin-left: 5px;
     white-space: nowrap;
     overflow: hidden;
     display: inline-block;
     text-decoration: underline;
   }
 
-  p[numberOfMatches]::after {
+  p[count]::after {
     text-decoration: none;
-    content: '('attr(numberOfMatches)')';
+    content: '('attr(count)')';
     margin-left: 4px;
     display: inline-block;
   }
+
+  .icon-holder{
+    color: black;
+    float: right;
+    margin-top: 5px;
+    margin-right: 5px;
+  }
 </style>
 
-<div class="filter-item {active ? 'filter-active' : ''} {visible ? '' : 'filter-hidden'}">
-  <div class="asdf"><p {numberOfMatches}>{filter}</p></div>
+<div class="filter-item {active ? 'filter-active' : ''} {count !== 0 ? '' : 'filter-hidden'}">
+  <div class="asdf"><p {count}>{filter}</p></div>
   {#if active}
-    <div style="float: right"><Icon icon={faTimesCircle}/></div>
+    <div class="icon-holder"><Icon icon={faTimesCircle}/></div>
   {/if}
 </div>
