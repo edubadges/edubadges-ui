@@ -3,24 +3,28 @@
 
   const profilePromise = getProfile();
 
-  const emailsPromise = getEmails();
+  let emailsPromise = getEmails();
 
   const addEmailButton = () => {
     const newEmail = document.getElementById('addEmailField').value;
-    addEmail(newEmail);
+    addEmail(newEmail).then(res => {
+      console.log(res);
+      emailsPromise = getEmails();
+    });
   };
 
   const setPrimaryEmailButton = (emailId) => {
-      setPrimaryEmail(emailId).then(res => {
-        console.log(res);
-        getEmails();
-      });
+    setPrimaryEmail(emailId).then(res => {
+      console.log(res);
+        emailsPromise = getEmails();
+    });
   };
 
   const removeEmail = (emailId) => {
-      deleteEmail(emailId).then(res => {
-        console.log(res);
-      });
+    deleteEmail(emailId).then(res => {
+      console.log(res);
+      emailsPromise = getEmails();
+    });
   }
 </script>
 
@@ -60,7 +64,7 @@
         {#if email['primary']}
           <p> primary email</p>
         {:else}
-          {#if email['verfied']}
+          {#if email['verified']}
           <button on:click={() => setPrimaryEmailButton(email['id'])}>set as primary email</button>
           {:else}
             <p>cant make primary, unverified email, set to verified in database</p>
