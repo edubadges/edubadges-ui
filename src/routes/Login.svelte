@@ -2,10 +2,11 @@
   import I18n from "i18n-js";
   import LoginButton from "../components/LoginButton.svelte";
   import logo_eduid from "../img/logo_eduid.svg";
-  import { role } from "../util/role";
-  import { userRole } from "../stores/user";
-  import { getService } from "../util/getService";
-  import { requestLoginToken } from "../api";
+  import {role} from "../util/role";
+  import {userRole} from "../stores/user";
+  import {getService} from "../util/getService";
+  import {requestLoginToken} from "../api";
+  import NewAccountWidget from "../components/NewAccountWidget.svelte";
 
   const logIn = chosenRole => {
     $userRole = chosenRole;
@@ -48,18 +49,6 @@
     flex-direction: column;
     align-items: center;
   }
-
-  .eduid {
-    text-align: left;
-    display: flex;
-    min-height: 100px;
-    max-width: 300px;
-    margin-top: 20px;
-  }
-
-  .eduid span {
-    margin-left: 15px;
-  }
 </style>
 
 <div class="login-page">
@@ -77,16 +66,7 @@
         label={I18n.ts('login.student.button')}
         onClick={() => logIn(role.STUDENT)}
         sub={`(${I18n.ts('login.student.button_sub')})`} />
-      <div class="eduid">
-        <div>
-          {@html logo_eduid}
-        </div>
-        <span>
-          {@html I18n.ts('login.student.edu_id_info', {
-            url: 'https://www.surf.nl/'
-          })}
-        </span>
-      </div>
+      <NewAccountWidget />
     </div>
 
     <div class="login-card">
