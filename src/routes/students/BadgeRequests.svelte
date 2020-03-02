@@ -3,42 +3,36 @@
   import {getSocialAccounts, getUnearnedBadges, requestBadge, withdrawRequestBadge} from "../../api";
 
   let provider = '';
-  let requested_badges = [];
+  let requested_badges_promise = new Promise((resolve, reject) => setTimeout(() => reject('timeout'), 100));
 
   onMount(() => {
     getSocialAccounts().then(res => {
-      console.log(res);
       provider = res[0]['uid'];
+      requested_badges_promise = getUnearnedBadges(provider);
     })
   });
 
-  const requestedBadgesButton = () => {
-    getUnearnedBadges(provider).then(res => {
-      console.log(res);
-      requested_badges = res;
-    });
-  };
-
+  let requestBadgeEntityId = '';
   const requestBadgeButton = () => {
-    const url = document.getElementById("requestBadgeField").value;
-    requestBadge(url).then(res => {
-      console.log(res);
+    requestBadge(requestBadgeEntityId).then(res => {
+      requested_badges_promise = getUnearnedBadges(provider);
     });
   };
 
-  const withdrawRequestBadgeButton = () => {
-    const url = document.getElementById("withdrawRequestBadgeField").value;
-      withdrawRequestBadge(url).then(res => {
-      console.log(res);
+  const withdrawRequestBadgeButton = (enrollmentID) => {
+    withdrawRequestBadge(enrollmentID).then(res => {
+      requested_badges_promise = getUnearnedBadges(provider);
     });
   };
 
 </script>
 
 <style>
-    .unawarded-badge {
-        border: solid 1px black;
-    }
+  .requested-badge {
+    height: 50px;
+    border: solid 1px black;
+      margin-bottom: 10px;
+  }
 </style>
 
 <div>BadgeRequests</div>
@@ -46,30 +40,34 @@
 <div>
   <h4>Open requests</h4>
 
-  <button on:click={requestedBadgesButton}>Get requested badges</button>
-
-  <ul>
-    {#each requested_badges as requested_badge}
-      <li class="unawarded-badge">
-        {requested_badge['badge_class']['name']}<br>
-        {requested_badge['id']}
-      </li>
-    {/each}
-  </ul>
+  {#await requested_badges_promise}
+    <div>
+      ...loading requested badges
+    </div>
+  {:then requested_badges}
+    <ul>
+      {#each requested_badges.filter(badge => !badge['date_awarded']) as requested_badge}
+        <li class="requested-badge">
+          {requested_badge['badge_class']['name']}
+          <button style="float: right" on:click={() => withdrawRequestBadgeButton(requested_badge['id'])}>Withdraw request</button>
+        </li>
+      {/each}
+    </ul>
+  {:catch error}
+    <div>
+      error fetching requested badges
+    </div>
+  {/await}
 </div>
 
 <div>
+  <p>
+    Enter badgr.issuer_badgeclass entity_id
+  </p>
+
   <button on:click={requestBadgeButton}>Request badge</button>
 
   <label>
-    <input id="requestBadgeField"/>
-  </label>
-</div>
-
-<div>
-  <button on:click={withdrawRequestBadgeButton}>Withdraw request</button>
-
-  <label>
-    <input id="withdrawRequestBadgeField"/>
+    <input bind:value={requestBadgeEntityId}/>
   </label>
 </div>

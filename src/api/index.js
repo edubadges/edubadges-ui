@@ -16,13 +16,14 @@ function validateResponse(res) {
   return res.json();
 }
 
-function validFetch(path, options, requiresToken) {
+function validFetch(path, options = {}, requiresToken = true, method = "GET") {
   const token = get(authToken);
   if (requiresToken && !token) {
     return Promise.reject("no token");
   }
   const fetchOptions = {
     ...options,
+    method,
     credentials: "same-origin",
     redirect: "manual",
     headers: {
@@ -36,10 +37,6 @@ function validFetch(path, options, requiresToken) {
   return fetch(path, fetchOptions).then(res => validateResponse(res));
 }
 
-function methodFetch(path, method, body) {
-  return validFetch(path, { method, body: JSON.stringify(body) }, true);
-}
-
 // External API
 // Token and Profile
 export function requestLoginToken(service) {
@@ -48,73 +45,73 @@ export function requestLoginToken(service) {
 
 export function getProfile() {
   const path = `${serverUrl}/v1/user/profile`;
-  return validFetch(path, {}, true);
+  return validFetch(path);
 }
 
 export function getEmails() {
   const path = `${serverUrl}/v1/user/emails`;
-  return validFetch(path, {}, true);
+  return validFetch(path);
 }
 
 export function addEmail(newEmail) {
   const path = `${serverUrl}/v1/user/emails`;
-  return methodFetch(path, "POST", { 'email': newEmail });
+  return validFetch(path, { body: JSON.stringify({ 'email': newEmail }) }, true, "POST");
 }
 
 export function setPrimaryEmail(emailId) {
   const path = `${serverUrl}/v1/user/emails/${emailId}`;
-  return methodFetch(path, "PUT", { 'primary': true });
+  return validFetch(path, { body: JSON.stringify({ 'primary': true }) }, true, "PUT");
 }
 
 export function deleteEmail(emailId) {
   const path = `${serverUrl}/v1/user/emails/${emailId}`;
-  return methodFetch(path, "DELETE", {});
+  return validFetch(path, "DELETE");
 }
 
 // User
 export function requestUser(slug) {
   const path = `${serverUrl}/v1/user/users/${slug}`;
-  return validFetch(path, {}, true);
+  return validFetch(path);
 }
 
 // Badges
 export function getBadges() {
   const path = `${serverUrl}/v1/earner/badges`;
-  return validFetch(path, {}, true);
+  return validFetch(path);
 }
 
 export function getSocialAccounts() {
   const path = `${serverUrl}/v1/user/socialaccounts`;
-  return validFetch(path, {}, true);
+  return validFetch(path);
 }
 
 export function requestBadge(url) {
   const path = `${serverUrl}/lti_edu/enroll`;
-  return methodFetch(path, "POST", { "badgeclass_slug": url });
+  return validFetch(path, { body: JSON.stringify({ 'badgeclass_slug': url }) }, true, "POST");
 }
 
-export function withdrawRequestBadge(url) {
+export function withdrawRequestBadge(enrollmentID) {
   const path = `${serverUrl}/lti_edu/withdraw`;
-  return methodFetch(path, "DELETE", { "enrollmentID": url });
+  return validFetch(path, { body: JSON.stringify({ 'enrollmentID': enrollmentID }) }, true, "DELETE");
 }
 
 export function getUnearnedBadges(eduId) {
   const path = `${serverUrl}/lti_edu/student/${eduId}/enrollments`;
-  return validFetch(path, {}, true);
+  return validFetch(path);
 }
 
 // Teacher
 export function getTeacherBadges() {
   const path = `${serverUrl}/v1/issuer/all-badges`;
-  return validFetch(path, {}, true);
+  return validFetch(path);
 }
 
 export function getFaculties() {
   const path = `${serverUrl}/institution/faculties`;
-  return validFetch(path, {}, true);
+  return validFetch(path);
 }
 
 export function getIssuers() {
   const path = `${serverUrl}/v1/issuer/issuers`;
-  return validFetch(path, {}, true);
+  return validFetch(path);
 }
