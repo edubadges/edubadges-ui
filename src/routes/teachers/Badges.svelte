@@ -1,10 +1,5 @@
 <script>
   import I18n from "i18n-js";
-  import { onMount } from "svelte";
-  import { link } from "svelte-routing";
-  import { getIssuer, getTeacherBadges } from "../../api";
-  import { collectFilters, toggleFilter, filteredData, filterCounts } from "../../util/filter";
-  import { isEmpty } from "../../util/emptyObject";
 
   export let filteredBadges = [];
 

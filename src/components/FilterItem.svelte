@@ -22,13 +22,16 @@
     visibility: hidden;
   }
 
-  .asdf {
+  .filter-text-inactive {
+    text-decoration: underline;
+  }
+
+  .filter-item-inner {
     width: 80%;
     margin-left: 5px;
     white-space: nowrap;
     overflow: hidden;
     display: inline-block;
-    text-decoration: underline;
   }
 
   p[count]::after {
@@ -47,7 +50,7 @@
 </style>
 
 <div class="filter-item {active ? 'filter-active' : ''} {count !== 0 ? '' : 'filter-hidden'}">
-  <div class="asdf"><p {count}>{filter}</p></div>
+  <div class="filter-item-inner"><p class={!active ? 'filter-text-inactive' : ''} {count}>{filter}</p></div>
   {#if active}
     <div class="icon-holder"><Icon icon={faTimesCircle}/></div>
   {/if}

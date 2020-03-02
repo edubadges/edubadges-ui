@@ -1,6 +1,6 @@
 <script>
   import { isEmpty } from "../util/emptyObject"
-  import { collectFilters, filteredData, toggleFilter, filterCounts } from "../util/filter";
+  import {collectFilters, filteredData, toggleFilter, filterCounts, freeTextSearch} from "../util/filter";
   import { onMount } from "svelte";
   import FilterItem from "./FilterItem.svelte";
 
@@ -12,6 +12,7 @@
   let allFilters = {};
   let activeFilters = {};
   let badgeFilterCounts = {};
+
   onMount(() => {
     allBadges = teacherBadgesData;
     filteredBadges = allBadges;
@@ -27,6 +28,16 @@
     }
   };
 
+  let searchText = '';
+  const additionalSearchFields = ['name'];
+  const setTextSearch = () => {
+    filteredBadges = filteredData(freeTextSearch(allBadges, searchText, [...additionalSearchFields, ...filterAttributes]), activeFilters);
+    if (filteredBadges.length === 0) {
+      badgeFilterCounts = filterCounts(allFilters, filteredData(allBadges, activeFilters));
+    } else {
+      badgeFilterCounts = filterCounts(allFilters, filteredBadges);
+    }
+  }
 </script>
 
 <style>
@@ -45,28 +56,30 @@
 <div class="side-bar">
   {#if !isEmpty(allFilters)}
     <div>
-      <div style="width: 100%">
-        <ul>
-          {#each filterAttributes as attr}
-            <li>
-              <h4>{attr}</h4>
-              <ul>
-                {#each allFilters[attr] as filter}
-                  <li
-                      on:click={() => setFilters(attr, filter)}
-                  >
-                    <FilterItem
-                        {filter}
-                        count={badgeFilterCounts[attr][filter]}
-                        active={activeFilters[attr] === filter}
-                    />
-                  </li>
-                {/each}
-              </ul>
-            </li>
-          {/each}
-        </ul>
-      </div>
+      <h4>Free text search:</h4>
+      <input bind:value={searchText} on:input={setTextSearch} />
+    </div>
+    <div>
+      <ul>
+        {#each filterAttributes as attr}
+          <li>
+            <h4>{attr + 's'}</h4>
+            <ul>
+              {#each allFilters[attr] as filter}
+                <li
+                    on:click={() => setFilters(attr, filter)}
+                >
+                  <FilterItem
+                      {filter}
+                      count={badgeFilterCounts[attr][filter]}
+                      active={activeFilters[attr] === filter}
+                  />
+                </li>
+              {/each}
+            </ul>
+          </li>
+        {/each}
+      </ul>
     </div>
   {/if}
 </div>

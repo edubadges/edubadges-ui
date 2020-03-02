@@ -49,3 +49,11 @@ export const filterCounts = (filters, data) => {
   }
   return res;
 };
+
+export const freeTextSearch = (data, textSearch, filterAttributes) => {
+  return data.filter(element => {
+    return filterAttributes.some(attr => {
+      return element[attr].toLowerCase().includes(textSearch.toLowerCase());
+    });
+  });
+};
