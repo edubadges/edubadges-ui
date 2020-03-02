@@ -21,7 +21,12 @@ I18n.translations.en = {
       title: "Receive and share badges",
       button: "View your Backpack",
       button_sub: "Log in with your eduID",
-      edu_id_info: "You will need an eduID to be able to view your Backpack. If you don’t have an eduID yet, you can easily <a target=\"_blank\" href=\"%{url}\">request one here.</a>",
+      accountCreation: {
+        askAccount: "<strong>Don't</strong> have a Backpack yet?",
+        note: "You will need an eduID and you need to verify your institution to be able to use your Backpack.",
+        follow: "Follow this simple 3-step process:",
+        createAccountButton: "Create an eduID"
+      },
     },
     teacher: {
       title: "Award badges to students",

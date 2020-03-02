@@ -20,8 +20,13 @@ I18n.translations.nl = {
     student: {
       title: "Ontvang en deel badges",
       button: "Bekijk je Backpack",
-      button_sub: "Log in met uw EduID",
-      edu_id_info: "Je hebt een eduID nodig om je Backpack te bekijken. Als je nog geen eduID hebt, kan je er <a target=\"_blank\" href=\"%{url}\">hier een aanvragen.</a>",
+      button_sub: "Log in met uw eduID",
+      accountCreation: {
+        askAccount: "Nog <strong>geen</strong> Backpack?",
+        note: "Je hebt een eduID nodig en je moet je instelling verifiëren om je Backpack te gebruiken",
+        follow: "Volg dit eenvoudige 3 stappenplan:",
+        createAccountButton: "Maak een eduID"
+      },
     },
     teacher: {
       title: "Ken badges toe aan studenten",
