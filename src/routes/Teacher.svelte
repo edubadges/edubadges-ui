@@ -2,12 +2,7 @@
   import { Badges } from "./teachers";
   import { SideBar } from "../components";
 
-  import {
-    getTeacherBadges,
-    requestProfile,
-    getFaculties,
-    getIssuers
-  } from "../api";
+  import { requestProfile } from "../api";
 
   export let bookmark;
 
@@ -17,10 +12,9 @@
   const pages = [{ bm: "badges", component: Badges }];
   const currentPage = pages.find(({ bm }) => bm === bookmark) || pages[0];
 
-  const apiCalls = [requestProfile(), getFaculties(), getIssuers()];
-  Promise.all(apiCalls)
-    .then(values => {
-      [user, faculties, issuers] = values;
+  requestProfile()
+    .then(res => {
+      user = res;
       loaded = true;
     })
     .catch(error => console.log(error));
