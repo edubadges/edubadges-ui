@@ -2,22 +2,10 @@
   import { Badges } from "./teachers";
   import { SideBar } from "../components";
 
-  import { requestProfile } from "../api";
-
   export let bookmark;
-
-  let loaded = false;
-  let user, faculties, issuers;
 
   const pages = [{ bm: "badges", component: Badges }];
   const currentPage = pages.find(({ bm }) => bm === bookmark) || pages[0];
-
-  requestProfile()
-    .then(res => {
-      user = res;
-      loaded = true;
-    })
-    .catch(error => console.log(error));
 </script>
 
 <style>
@@ -27,12 +15,8 @@
   }
 </style>
 
-{#if loaded}
-  <SideBar {faculties} {issuers} />
+<SideBar />
 
-  <div class="content">
-    <svelte:component
-      this={currentPage.component}
-      scope={user.institution.name} />
-  </div>
-{/if}
+<div class="content">
+  <svelte:component this={currentPage.component} />
+</div>
