@@ -25,7 +25,10 @@ I18n.translations.nl = {
         askAccount: "Nog <strong>geen</strong> Backpack?",
         note: "Je hebt een eduID nodig en je moet je instelling verifiëren om je Backpack te gebruiken",
         follow: "Volg dit eenvoudige 3 stappenplan:",
-        createAccountButton: "Maak een eduID"
+        step1: "Maak een eduID aan",
+        step2: "Verifieer je instelling",
+        step3: "Ontvang & deel badges",
+        createAccountButton: "Maak een eduID aan"
       },
     },
     teacher: {
