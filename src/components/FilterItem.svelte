@@ -1,5 +1,5 @@
 <script>
-  export let filter;
+  export let filterValue;
   export let count;
   export let active;
   export let hidden;
@@ -45,7 +45,7 @@
 </style>
 
 <div class="filter-item {active ? 'filter-active' : ''} {hidden ? 'filter-hidden' : ''}">
-  <div class="filter-item-inner"><p class={!active ? 'filter-text-inactive' : ''} {count}>{filter}</p></div>
+  <div class="filter-item-inner"><p class={!active ? 'filter-text-inactive' : ''} {count}>{filterValue}</p></div>
   {#if active}
     <div class="icon-holder">x</div>
   {/if}

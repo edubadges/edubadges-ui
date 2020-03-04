@@ -1,6 +1,6 @@
 <script>
   import { isEmpty } from "../util/emptyObject"
-  import {collectFilters, filteredData, toggleFilter, filterCounts, freeTextSearch} from "../util/filter";
+  import {collectFilters, filteredData, toggleFilter, filterCounts, freeTextSearch} from "../util/filterFunctions";
   import { onMount } from "svelte";
   import FilterItem from "./FilterItem.svelte";
 
@@ -25,8 +25,8 @@
     badgeFilterCounts = filterCounts(allFilters, filteredBadges);
   });
 
-  const setFilters = (attr, filter) => {
-    activeFilters = toggleFilter(activeFilters, attr, filter);
+  const setFilters = (attr, filterValue) => {
+    activeFilters = toggleFilter(activeFilters, attr, filterValue);
     filteredBadges = filteredData(freeTextSearch(allBadges, searchText, additionalSearchFields), activeFilters);
     badgeFilterCounts = filterCounts(allFilters, filteredBadges);
   };
@@ -38,12 +38,12 @@
     badgeFilterCounts = filterCounts(allFilters, filteredBadges);
   };
 
-  const expandFilterList = (filter) => {
-    expandedList = [filter, ...expandedList];
+  const expandFilterList = (filterValue) => {
+    expandedList = [filterValue, ...expandedList];
   };
 
-  const shrinkFilterList = (filter) => {
-    expandedList = expandedList.filter(el => el !== filter);
+  const shrinkFilterList = (filterValue) => {
+    expandedList = expandedList.filter(el => el !== filterValue);
   }
 </script>
 
@@ -90,28 +90,28 @@
             <h4>{attr + 's'}</h4>
             <ul>
               {#if !allFilters[attr].length > filterListMaxLength || expandedList.includes(attr)}
-                {#each allFilters[attr] as filter}
+                {#each allFilters[attr] as filterValue}
                   <li
-                      on:click={() => setFilters(attr, filter)}
+                      on:click={() => setFilters(attr, filterValue)}
                   >
                     <FilterItem
-                        {filter}
-                        hidden={Boolean(activeFilters[attr]) && activeFilters[attr] !== filter}
-                        count={badgeFilterCounts[attr][filter]}
-                        active={activeFilters[attr] === filter}
+                        {filterValue}
+                        hidden={Boolean(activeFilters[attr]) && activeFilters[attr] !== filterValue}
+                        count={badgeFilterCounts[attr][filterValue]}
+                        active={activeFilters[attr] === filterValue}
                     />
                   </li>
                 {/each}
               {:else}
-                {#each allFilters[attr].slice(0, filterListMaxLength) as filter}
+                {#each allFilters[attr].slice(0, filterListMaxLength) as filterValue}
                   <li
-                      on:click={() => setFilters(attr, filter)}
+                      on:click={() => setFilters(attr, filterValue)}
                   >
                     <FilterItem
-                        {filter}
-                        hidden={Boolean(activeFilters[attr]) && activeFilters[attr] !== filter}
-                        count={badgeFilterCounts[attr][filter]}
-                        active={activeFilters[attr] === filter}
+                        {filterValue}
+                        hidden={Boolean(activeFilters[attr]) && activeFilters[attr] !== filterValue}
+                        count={badgeFilterCounts[attr][filterValue]}
+                        active={activeFilters[attr] === filterValue}
                     />
                   </li>
                 {/each}

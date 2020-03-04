@@ -2,7 +2,7 @@
   import { onMount } from "svelte";
   import { link } from "svelte-routing";
   import { getIssuers } from "../../api";
-  import { collectFilters, toggleFilter, filteredData } from "../../util/filter";
+  import { collectFilters, toggleFilter, filteredData } from "../../util/filterFunctions";
 
   let issuers = [];
   let allFilters = {};

@@ -8,7 +8,7 @@
     getFaculties,
     getIssuers, getIssuer
   } from "../api";
-  import {collectFilters, filteredData, filterCounts, toggleFilter} from "../util/filter";
+  import {collectFilters, filteredData, filterCounts, toggleFilter} from "../util/filterFunctions";
 
   export let bookmark;
 
