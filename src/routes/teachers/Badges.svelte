@@ -1,9 +1,8 @@
 <script>
-  import I18n from "i18n-js";
-
   export let filteredBadges = [];
 
   export let scope = "";
+  export let title = '';
 </script>
 
 <style>
@@ -37,15 +36,14 @@
   }
 </style>
 
-
-<div class="badges" style="display: inline-block">
-  <h2>
-    {I18n.t('teacher.badges.title')}
-    {#if scope}
-      <span>in</span>
-      {scope}
-    {/if}
-  </h2>
+<h2>
+  {title}
+  {#if scope}
+    <span>in</span>
+    {scope}
+  {/if}
+</h2>
+<div class="badges">
   {#each filteredBadges as badge}
     <div class="badge">
       <div class="image">

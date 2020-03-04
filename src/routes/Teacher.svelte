@@ -1,11 +1,12 @@
 <script>
+  import I18n from "i18n-js";
   import { Badges } from "./teachers";
   import { SideBar } from "../components";
   import {
-      getTeacherBadges,
-      requestProfile,
-      getFaculties,
-      getIssuers, getIssuer
+    getTeacherBadges,
+    requestProfile,
+    getFaculties,
+    getIssuers, getIssuer
   } from "../api";
   import {collectFilters, filteredData, filterCounts, toggleFilter} from "../util/filter";
 
@@ -51,11 +52,17 @@
 </style>
 
 {#if loaded}
-  <SideBar bind:filteredBadges={badges} {teacherBadgesData} {filterAttributes} />
+  <SideBar
+      bind:filteredBadges={badges}
+      institution={user.institution.name}
+      filterSubject={I18n.t('teacher.' + currentPage.bm + '.title')}
+      {teacherBadgesData}
+      {filterAttributes} />
 
   <div class="content">
     <svelte:component
       this={currentPage.component}
+      title={I18n.t('teacher.' + currentPage.bm + '.title')}
       scope={user.institution.name}
       bind:filteredBadges={badges} />
   </div>
