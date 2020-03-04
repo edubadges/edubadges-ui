@@ -17,7 +17,7 @@
   const setPrimaryEmailButton = (emailId) => {
     setPrimaryEmail(emailId).then(res => {
       console.log(res);
-        emailsPromise = getEmails();
+      emailsPromise = getEmails();
     });
   };
 
@@ -30,10 +30,10 @@
 </script>
 
 <style>
-    .email{
-        border: black solid 1px;
-        margin-bottom: 10px;
-    }
+  .email{
+    border: black solid 1px;
+    margin-bottom: 10px;
+  }
 </style>
 
 <div>Profile</div>

@@ -24,7 +24,6 @@
       requested_badges_promise = getUnearnedBadges(provider);
     });
   };
-
 </script>
 
 <style>

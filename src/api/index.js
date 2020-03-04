@@ -29,9 +29,9 @@ function validFetch(path, options = {}, method = "GET") {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
+      Authorization: "Bearer " + token
     }
   };
-  fetchOptions.headers.Authorization = 'Bearer ' + token;
   return fetch(path, fetchOptions).then(res => validateResponse(res));
 }
 
