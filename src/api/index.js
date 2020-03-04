@@ -16,9 +16,9 @@ function validateResponse(res) {
   return res.json();
 }
 
-function validFetch(path, options = {}, requiresToken = true, method = "GET") {
+function validFetch(path, options = {}, method = "GET") {
   const token = get(authToken);
-  if (requiresToken && !token) {
+  if (!token) {
     return Promise.reject("no token");
   }
   const fetchOptions = {
@@ -31,9 +31,7 @@ function validFetch(path, options = {}, requiresToken = true, method = "GET") {
       "Content-Type": "application/json",
     }
   };
-  if (requiresToken) {
-    fetchOptions.headers.Authorization = 'Bearer ' + token;
-  }
+  fetchOptions.headers.Authorization = 'Bearer ' + token;
   return fetch(path, fetchOptions).then(res => validateResponse(res));
 }
 
@@ -55,17 +53,17 @@ export function getEmails() {
 
 export function addEmail(newEmail) {
   const path = `${serverUrl}/v1/user/emails`;
-  return validFetch(path, { body: JSON.stringify({ 'email': newEmail }) }, true, "POST");
+  return validFetch(path, { body: JSON.stringify({ 'email': newEmail }) }, "POST");
 }
 
 export function setPrimaryEmail(emailId) {
   const path = `${serverUrl}/v1/user/emails/${emailId}`;
-  return validFetch(path, { body: JSON.stringify({ 'primary': true }) }, true, "PUT");
+  return validFetch(path, { body: JSON.stringify({ 'primary': true }) }, "PUT");
 }
 
 export function deleteEmail(emailId) {
   const path = `${serverUrl}/v1/user/emails/${emailId}`;
-  return validFetch(path, "DELETE");
+  return validFetch(path, {}, "DELETE");
 }
 
 // User
@@ -87,12 +85,12 @@ export function getSocialAccounts() {
 
 export function requestBadge(url) {
   const path = `${serverUrl}/lti_edu/enroll`;
-  return validFetch(path, { body: JSON.stringify({ 'badgeclass_slug': url }) }, true, "POST");
+  return validFetch(path, { body: JSON.stringify({ 'badgeclass_slug': url }) }, "POST");
 }
 
 export function withdrawRequestBadge(enrollmentID) {
   const path = `${serverUrl}/lti_edu/withdraw`;
-  return validFetch(path, { body: JSON.stringify({ 'enrollmentID': enrollmentID }) }, true, "DELETE");
+  return validFetch(path, { body: JSON.stringify({ 'enrollmentID': enrollmentID }) }, "DELETE");
 }
 
 export function getUnearnedBadges(eduId) {
