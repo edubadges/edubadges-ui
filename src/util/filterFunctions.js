@@ -30,7 +30,7 @@ function shouldFilter(element, filters) {
   return true;
 }
 
-export const filteredData = (data, filters) => {
+export const filterData = (data, filters) => {
   return data.filter(element => shouldFilter(element, filters));
 };
 

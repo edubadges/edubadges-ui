@@ -1,5 +1,5 @@
 <script>
-  export let filteredBadges = [];
+  export let filteredData = [];
 
   export let scope = "";
   export let title = '';
@@ -44,7 +44,7 @@
   {/if}
 </h2>
 <div class="badges">
-  {#each filteredBadges as badge}
+  {#each filteredData as badge}
     <div class="badge">
       <div class="image">
         <img src={badge.image} alt={`image for ${badge.name}`} />

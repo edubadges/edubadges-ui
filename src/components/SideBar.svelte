@@ -1,41 +1,42 @@
 <script>
   import { isEmpty } from "../util/emptyObject"
-  import {collectFilters, filteredData, toggleFilter, filterCounts, freeTextSearch} from "../util/filterFunctions";
+  import {collectFilters, filterData, toggleFilter, filterCounts, freeTextSearch} from "../util/filterFunctions";
   import { onMount } from "svelte";
   import FilterItem from "./FilterItem.svelte";
 
   export let filterAttributes = [];
-  export let teacherBadgesData = {};
+  export let data = {};
+  export let filteredData = [];
   export let institution = '';
   export let filterSubject = '';
 
-  let allBadges = [];
-  export let filteredBadges = [];
   let allFilters = {};
   let activeFilters = {};
-  let badgeFilterCounts = {};
+  let dataFilterCounts = {};
   let expandedList = [];
 
   const filterListMaxLength = 2;
 
   onMount(() => {
-    allBadges = teacherBadgesData;
-    filteredBadges = allBadges;
-    allFilters = collectFilters(allBadges, filterAttributes);
-    badgeFilterCounts = filterCounts(allFilters, filteredBadges);
+    filteredData = data;
+    allFilters = collectFilters(data, filterAttributes);
+    dataFilterCounts = filterCounts(allFilters, filteredData);
   });
 
   const setFilters = (attr, filterValue) => {
+    if(Boolean(activeFilters[attr]) && activeFilters[attr] !== filterValue) {  // can't click on hidden filter
+      return;
+    }
     activeFilters = toggleFilter(activeFilters, attr, filterValue);
-    filteredBadges = filteredData(freeTextSearch(allBadges, searchText, additionalSearchFields), activeFilters);
-    badgeFilterCounts = filterCounts(allFilters, filteredBadges);
+    filteredData = filterData(freeTextSearch(data, searchText, additionalSearchFields), activeFilters);
+    dataFilterCounts = filterCounts(allFilters, filteredData);
   };
 
   let searchText = '';
   const additionalSearchFields = ['name'];
   const setTextSearch = () => {
-    filteredBadges = filteredData(freeTextSearch(allBadges, searchText, additionalSearchFields), activeFilters);
-    badgeFilterCounts = filterCounts(allFilters, filteredBadges);
+    filteredData = filterData(freeTextSearch(data, searchText, additionalSearchFields), activeFilters);
+    dataFilterCounts = filterCounts(allFilters, filteredData);
   };
 
   const expandFilterList = (filterValue) => {
@@ -97,7 +98,7 @@
                     <FilterItem
                         {filterValue}
                         hidden={Boolean(activeFilters[attr]) && activeFilters[attr] !== filterValue}
-                        count={badgeFilterCounts[attr][filterValue]}
+                        count={dataFilterCounts[attr][filterValue]}
                         active={activeFilters[attr] === filterValue}
                     />
                   </li>
@@ -110,7 +111,7 @@
                     <FilterItem
                         {filterValue}
                         hidden={Boolean(activeFilters[attr]) && activeFilters[attr] !== filterValue}
-                        count={badgeFilterCounts[attr][filterValue]}
+                        count={dataFilterCounts[attr][filterValue]}
                         active={activeFilters[attr] === filterValue}
                     />
                   </li>
