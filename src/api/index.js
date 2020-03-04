@@ -76,29 +76,7 @@ export function getFaculties() {
   return validFetch(path, {}, true);
 }
 
-export function getIssuers() {
-  const path = `${serverUrl}/v1/issuer/issuers`;
-  return validFetch(path, {}, true);
-}
-
 export function getIssuer(slug) {
   const path = `${serverUrl}/v1/issuer/issuers/${slug}`;
   return validFetch(path, {}, true);
-}
-
-export function getIssuerBadges(slug) {
-  const path = `${serverUrl}/v1/issuer/issuers/${slug}/badges`;
-  return validFetch(path, {}, true);
-}
-
-export function getIssuerStaff(slug) {
-  const path = `${serverUrl}/v1/issuer/issuers/${slug}/staff`;
-  return validFetch(path, {}, true);
-}
-
-// Mock
-export function getIssuersMock() {
-  return new Promise((resolve, reject) => {
-    resolve(issuersMock);
-  })
 }
