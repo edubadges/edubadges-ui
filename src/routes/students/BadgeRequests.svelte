@@ -31,7 +31,11 @@
   .requested-badge {
     height: 50px;
     border: solid 1px black;
-      margin-bottom: 10px;
+    margin-bottom: 10px;
+  }
+
+  .withdraw-request-button {
+    float: right;
   }
 </style>
 
@@ -49,7 +53,7 @@
       {#each requested_badges.filter(badge => !badge['date_awarded']) as requested_badge}
         <li class="requested-badge">
           {requested_badge['badge_class']['name']}
-          <button style="float: right" on:click={() => withdrawRequestBadgeButton(requested_badge['id'])}>Withdraw request</button>
+          <button class="withdraw-request-button" on:click={() => withdrawRequestBadgeButton(requested_badge['id'])}>Withdraw request</button>
         </li>
       {/each}
     </ul>
