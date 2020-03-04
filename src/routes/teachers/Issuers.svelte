@@ -1,7 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import { link } from "svelte-routing";
-  import { getIssuersMock } from "../../api";
+  import { getIssuers } from "../../api";
   import { collectFilters, toggleFilter, filteredData } from "../../util/filter";
 
   let issuers = [];
@@ -11,7 +11,7 @@
   let filteredIssuers = [];
 
   onMount(() => {
-    getIssuersMock().then(
+    getIssuers().then(
       res => {
         issuers = res;
         filteredIssuers = issuers;

@@ -21,22 +21,16 @@
   });
 
   const setFilters = (attr, filter) => {
-    if (badgeFilterCounts[attr][filter] > 0) {
-      activeFilters = toggleFilter(activeFilters, attr, filter);
-      filteredBadges = filteredData(allBadges, activeFilters);
-      badgeFilterCounts = filterCounts(allFilters, filteredBadges);
-    }
+    activeFilters = toggleFilter(activeFilters, attr, filter);
+    filteredBadges = filteredData(freeTextSearch(allBadges, searchText, additionalSearchFields), activeFilters);
+    badgeFilterCounts = filterCounts(allFilters, filteredBadges);
   };
 
   let searchText = '';
   const additionalSearchFields = ['name'];
   const setTextSearch = () => {
-    filteredBadges = filteredData(freeTextSearch(allBadges, searchText, [...additionalSearchFields, ...filterAttributes]), activeFilters);
-    if (filteredBadges.length === 0) {
-      badgeFilterCounts = filterCounts(allFilters, filteredData(allBadges, activeFilters));
-    } else {
-      badgeFilterCounts = filterCounts(allFilters, filteredBadges);
-    }
+    filteredBadges = filteredData(freeTextSearch(allBadges, searchText, additionalSearchFields), activeFilters);
+    badgeFilterCounts = filterCounts(allFilters, filteredBadges);
   }
 </script>
 
@@ -47,22 +41,33 @@
     background: var(--color-background-grey-light);
   }
 
+  .institution {
+      margin-top: 15px;
+      margin-bottom: 15px;
+  }
+
   li {
     margin-bottom: 8px;
   }
+
+    .filter-block {
+      margin-top: 15px;
+      margin-bottom: 15px;
+    }
 </style>
 
-
 <div class="side-bar">
+  <div>Filter </div>
+  <div class="institution">Institution</div>
   {#if !isEmpty(allFilters)}
     <div>
       <h4>Free text search:</h4>
-      <input bind:value={searchText} on:input={setTextSearch} />
+      <input type="search" bind:value={searchText} on:input={setTextSearch} />
     </div>
     <div>
       <ul>
         {#each filterAttributes as attr}
-          <li>
+          <li class="filter-block">
             <h4>{attr + 's'}</h4>
             <ul>
               {#each allFilters[attr] as filter}
@@ -71,6 +76,7 @@
                 >
                   <FilterItem
                       {filter}
+                      hidden={Boolean(activeFilters[attr]) && activeFilters[attr] !== filter}
                       count={badgeFilterCounts[attr][filter]}
                       active={activeFilters[attr] === filter}
                   />
@@ -78,6 +84,7 @@
               {/each}
             </ul>
           </li>
+          <hr>
         {/each}
       </ul>
     </div>

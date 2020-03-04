@@ -2,7 +2,7 @@
   :global(:root) {
     /* Sizes */
     --width-app: 1244px;
-    --width-side-bar: 550px;
+    --width-side-bar: 220px;
 
     /* Spacing */
     --hor-padding-s: 13px;
