@@ -5,9 +5,10 @@
 
   let emailsPromise = getEmails();
 
+  let newEmailValue = '';
+
   const addEmailButton = () => {
-    const newEmail = document.getElementById('addEmailField').value;
-    addEmail(newEmail).then(res => {
+    addEmail(newEmailValue).then(res => {
       console.log(res);
       emailsPromise = getEmails();
     });
@@ -46,7 +47,7 @@
     {profile['email']}<br>
 
     <label>
-      <input id="addEmailField"/>
+      <input bind:value={newEmailValue}/>
     </label>
     <button on:click={addEmailButton}>add email</button>
   {:catch error}
