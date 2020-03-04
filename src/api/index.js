@@ -1,7 +1,6 @@
 import { get } from "svelte/store";
 import { authToken } from "../stores/user";
 import { config } from "../util/config";
-import issuersMock from "../mockData/getIssuersMock.json"
 
 //Internal API
 const serverUrl = config.serverUrl;
