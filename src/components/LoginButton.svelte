@@ -22,10 +22,6 @@
     flex-direction: column;
     justify-content: center;
   }
-
-  span {
-    font-size: x-small;
-  }
 </style>
 
 <a
@@ -33,5 +29,5 @@
   href="/login"
   on:click|preventDefault|stopPropagation={onClick}>
   {label}
-  <span>{sub}</span>
+  <span class="sub-text">{sub}</span>
 </a>
