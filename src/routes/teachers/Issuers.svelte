@@ -24,16 +24,10 @@
   });
 </script>
 
-<style>
-  h2 span {
-    color: var(--color-text-blue);
-  }
-</style>
-
 <h2>
   {I18n.t('teacher.issuers.title')}
   {#if scope}
-    <span>in</span>
+    <span class="blue-text">in</span>
     {scope}
   {/if}
 </h2>
