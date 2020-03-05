@@ -46,8 +46,6 @@
       filteredData = data;
       allFilters = collectFilters(data, filterAttributes);
       dataFilterCounts = filterCounts(allFilters, filteredData);
-
-      filteredBadgeIds = ['1', ...filteredBadgeIds];
     })
   });
 
@@ -57,6 +55,7 @@
     }
     activeFilters = toggleFilter(activeFilters, attr, filterValue);
     filteredData = filterData(freeTextSearch(data, searchText, additionalSearchFields), activeFilters);
+    filteredBadgeIds = filteredData.map(el => el['entityId']);
     dataFilterCounts = filterCounts(allFilters, filteredData);
   };
 
@@ -64,6 +63,7 @@
   const additionalSearchFields = ['name'];
   const setTextSearch = () => {
     filteredData = filterData(freeTextSearch(data, searchText, additionalSearchFields), activeFilters);
+    filteredBadgeIds = filteredData.map(el => el['entityId']);
     dataFilterCounts = filterCounts(allFilters, filteredData);
   };
 

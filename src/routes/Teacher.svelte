@@ -31,5 +31,6 @@
         this={currentPage.component}
         title={I18n.t('teacher.' + currentPage.bm + '.title')}
         scope={institutionName}
+        bind:filteredBadgeIds={filteredBadgeIds}
     />
 </div>

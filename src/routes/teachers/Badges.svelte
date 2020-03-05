@@ -4,7 +4,7 @@
   import { requestProfile } from "../../api";
 
   let badges = [];
-  export let filteredData = [];
+  export let filteredBadgeIds;
 
   export let scope = "";
   export let title = '';
@@ -69,7 +69,7 @@
 </h2>
 
 <div class="badges">
-  {#each filteredData as badge}
+  {#each badges.filter(badge => filteredBadgeIds.length === 0 || filteredBadgeIds.includes(badge['entityId'])) as badge}
     <div class="badge">
       <div class="image">
         <img src={badge.image} alt={`image for ${badge.name}`} />
