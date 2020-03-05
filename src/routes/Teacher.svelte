@@ -1,19 +1,14 @@
 <script>
   import { onMount } from "svelte";
-  import { Badges, Issuers } from "./teachers";
+  import { teacherMainRoutes } from "../util/routes";
   import { SideBar } from "../components";
 
   export let bookmark;
 
-  const pages = [
-    { bm: "badges", component: Badges },
-    { bm: "issuers", component: Issuers }
-  ];
-
-  let currentPage = pages[0];
+  let currentPage = teacherMainRoutes[0];
 
   onMount(() => {
-    currentPage = pages.find(({ bm }) => bm === bookmark) || pages[0];
+    currentPage = teacherMainRoutes.find(route => route.bookmark === bookmark);
   });
 </script>
 

@@ -4,6 +4,7 @@
   import { Header, Footer } from "./components";
   import { userRole, userLoggedIn } from "./stores/user";
   import { role } from "./util/role";
+  import { teacherMainRoutes } from "./util/routes";
 </script>
 
 <style>
@@ -56,12 +57,11 @@
       </Router>
     {:else if $userLoggedIn && $userRole === role.TEACHER}
       <Router>
-        <Route path="/">
-          <Teacher bookmark="badges" />
-        </Route>
-        <Route path="/issuers">
-          <Teacher bookmark="issuers" />
-        </Route>
+        {#each teacherMainRoutes as { path, bookmark }}
+          <Route {path}>
+            <Teacher {bookmark} />
+          </Route>
+        {/each}
         <Route path="/auth/login/*" component={ProcessToken} />
         <Route component={NotFound} />
       </Router>

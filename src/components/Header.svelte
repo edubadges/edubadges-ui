@@ -6,6 +6,7 @@
   import Button from "./Button.svelte";
   import { userLoggedIn, userRole, authToken } from "../stores/user";
   import { role } from "../util/role";
+  import { teacherMainRoutes } from "../util/routes";
 
   const logoutUser = () => {
     $userLoggedIn = "";
@@ -14,13 +15,7 @@
     navigate("/");
   };
 
-  const tabs =
-    $userRole === role.TEACHER
-      ? [
-          { name: I18n.t("header.nav.badges"), path: "/" },
-          { name: I18n.t("header.nav.issuers"), path: "/issuers" }
-        ]
-      : [];
+  const tabs = $userRole === role.TEACHER ? teacherMainRoutes : [];
 </script>
 
 <style>
@@ -59,8 +54,10 @@
   </a>
 
   <nav>
-    {#each tabs as { name, path }}
-      <a href={path} class="button" use:link>{name}</a>
+    {#each tabs as { bookmark, path }}
+      <a href={path} class="button" use:link>
+        {I18n.t(['header', 'nav', bookmark])}
+      </a>
     {/each}
   </nav>
 
