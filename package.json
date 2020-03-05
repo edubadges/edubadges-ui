@@ -17,7 +17,7 @@
     "style-loader": "^1.0.0",
     "svelte": "^3.12.1",
     "svelte-loader": "2.13.6",
-    "svg-inline-loader": "^0.8.0",
+    "svg-inline-loader": "^0.8.2",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.9",
     "webpack-dev-server": "^3.9.0"
