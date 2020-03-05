@@ -1,12 +1,18 @@
 <script>
-  import I18n from "i18n-js";
+  import { getContext } from "svelte";
   import { link, navigate } from "svelte-routing";
+  import { ROUTER } from "svelte-routing/src/contexts";
+  import I18n from "i18n-js";
 
   import logo from "../img/logo.svg";
   import Button from "./Button.svelte";
   import { userLoggedIn, userRole, authToken } from "../stores/user";
-  import { role } from "../util/role";
-  import { teacherMainRoutes } from "../util/routes";
+
+  export let tabs = [];
+
+  let currentPath = "";
+  let { activeRoute } = getContext(ROUTER);
+  $: if ($activeRoute) currentPath = $activeRoute.uri;
 
   const logoutUser = () => {
     $userLoggedIn = "";
@@ -14,8 +20,6 @@
     $authToken = "";
     navigate("/");
   };
-
-  const tabs = $userRole === role.TEACHER ? teacherMainRoutes : [];
 </script>
 
 <style>
@@ -41,10 +45,21 @@
   }
 
   nav a {
-    background: white;
     padding: 6px 20px;
     font-weight: bold;
     border-radius: var(--button-border-radius);
+  }
+
+  nav a:not(.active) {
+    background: var(--color-background-grey-light);
+  }
+
+  nav a.active {
+    background: white;
+  }
+
+  nav a:not(:last-child) {
+    margin-right: 20px;
   }
 </style>
 
@@ -55,7 +70,11 @@
 
   <nav>
     {#each tabs as { bookmark, path }}
-      <a href={path} class="button" use:link>
+      <a
+        href={path}
+        use:link
+        class="button"
+        class:active={currentPath === path}>
         {I18n.t(['header', 'nav', bookmark])}
       </a>
     {/each}
