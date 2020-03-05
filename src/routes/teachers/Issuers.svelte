@@ -10,6 +10,12 @@
   const query = `{
       issuers {
         name,
+        faculty {
+          name
+        },
+        badgeclasses {
+          entityId
+        }
       }
     }`;
 
@@ -24,6 +30,28 @@
   });
 </script>
 
+<style>
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  thead th {
+    text-align: left;
+    border-bottom: 3px solid var(--color-background-grey-dark);
+  }
+
+  th,
+  td {
+    padding: 16px 0px;
+    width: 50%;
+  }
+
+  tbody tr:not(:last-of-type) td {
+    border-bottom: var(--card-border);
+  }
+</style>
+
 <h2>
   {I18n.t('teacher.issuers.title')}
   {#if scope}
@@ -32,8 +60,24 @@
   {/if}
 </h2>
 
-<div class="issuers">
-  {#each issuers as issuer}
-    <div class="issuer">{issuer.name}</div>
-  {/each}
-</div>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>#badgeclasses</th>
+    </tr>
+  </thead>
+  <tbody>
+    {#each issuers as issuer}
+      <tr>
+        <td>
+          <div>
+            <b>{issuer.name}</b>
+          </div>
+          <span class="sub-text">({issuer.faculty.name})</span>
+        </td>
+        <td>{issuer.badgeclasses.length}</td>
+      </tr>
+    {/each}
+  </tbody>
+</table>

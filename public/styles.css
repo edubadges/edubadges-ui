@@ -89,6 +89,11 @@ h4 {
     color: var(--color-text-blue);
 }
 
+.sub-text {
+    font-size: smaller;
+    color: var(--color-text-light-grey);
+}
+
 @media (max-width: 580px) {
     table, thead, tbody, th, td, tr {
         display: block;
