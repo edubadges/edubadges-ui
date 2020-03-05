@@ -152,11 +152,3 @@ I18n.translations.en = {
       'If you do own the email <strong>{{email}}</strong> then you can proceed to <a href="{{url}}">SURFconext Guest IdP</a> and request a magic link to login with this email.'
   }
 };
-
-I18n.ts = (key, model) => {
-  let res = I18n.t(key, model);
-  if (I18n.branding && I18n.branding !== "SURFconext") {
-    res = res.replace(/SURFconext/g, I18n.branding);
-  }
-  return res;
-};

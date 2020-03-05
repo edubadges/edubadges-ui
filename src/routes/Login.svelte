@@ -63,26 +63,26 @@
 </style>
 
 <div class="login-page">
-  <h2>{I18n.ts('login.title')}</h2>
+  <h2>{I18n.t('login.title')}</h2>
 
-  <p>{I18n.ts('login.description')}</p>
+  <p>{I18n.t('login.description')}</p>
 
   <div class="login-cards">
     <div class="login-card">
-      <h1>{I18n.ts('login.student.title')}</h1>
+      <h1>{I18n.t('login.student.title')}</h1>
       <img
         src="https://via.placeholder.com/200?text=Placeholder"
         alt="student login" />
       <LoginButton
-        label={I18n.ts('login.student.button')}
+        label={I18n.t('login.student.button')}
         onClick={() => logIn(role.STUDENT)}
-        sub={`(${I18n.ts('login.student.button_sub')})`} />
+        sub={`(${I18n.t('login.student.button_sub')})`} />
       <div class="eduid">
         <div>
           {@html logo_eduid}
         </div>
         <span>
-          {@html I18n.ts('login.student.edu_id_info', {
+          {@html I18n.t('login.student.edu_id_info', {
             url: 'https://www.surf.nl/'
           })}
         </span>
@@ -90,12 +90,12 @@
     </div>
 
     <div class="login-card">
-      <h1>{I18n.ts('login.teacher.title')}</h1>
+      <h1>{I18n.t('login.teacher.title')}</h1>
       <img
         src="https://via.placeholder.com/200?text=Placeholder"
         alt="teacher login" />
       <LoginButton
-        label={I18n.ts('login.teacher.button')}
+        label={I18n.t('login.teacher.button')}
         className="grey"
         onClick={() => logIn(role.TEACHER)} />
     </div>
