@@ -1,6 +1,5 @@
 <script>
   import { onMount } from "svelte";
-  import I18n from "i18n-js";
   import { queryData } from "../../api/graphql";
   import { requestProfile } from "../../api";
 
@@ -13,13 +12,15 @@
   const query = `{
       badgeClasses {
         name,
-        image
+        image,
+        entityId
       }
     }`;
 
   onMount(() => {
     queryData(query).then(({ badgeClasses }) => {
       badges = badgeClasses;
+      console.log(badges);
     });
 
     requestProfile()
