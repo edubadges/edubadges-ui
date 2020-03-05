@@ -11,7 +11,8 @@ I18n.translations.nl = {
     title: "Mijn SURFconext",
     logout: "Logout",
     nav: {
-      badges: "Badges"
+      badges: "Badges",
+      issuers: "Issuers"
     }
   },
   login: {
@@ -44,6 +45,9 @@ I18n.translations.nl = {
   teacher: {
     badges: {
       title: "Badgeclasses"
+    },
+    issuers: {
+      title: "Issuers"
     }
   },
   profile: {

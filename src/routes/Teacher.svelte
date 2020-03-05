@@ -1,11 +1,20 @@
 <script>
-  import { Badges } from "./teachers";
+  import { onMount } from "svelte";
+  import { Badges, Issuers } from "./teachers";
   import { SideBar } from "../components";
 
   export let bookmark;
 
-  const pages = [{ bm: "badges", component: Badges }];
-  const currentPage = pages.find(({ bm }) => bm === bookmark) || pages[0];
+  const pages = [
+    { bm: "badges", component: Badges },
+    { bm: "issuers", component: Issuers }
+  ];
+
+  let currentPage = pages[0];
+
+  onMount(() => {
+    currentPage = pages.find(({ bm }) => bm === bookmark) || pages[0];
+  });
 </script>
 
 <style>

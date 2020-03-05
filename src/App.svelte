@@ -56,8 +56,11 @@
       </Router>
     {:else if $userLoggedIn && $userRole === role.TEACHER}
       <Router>
-        <Route path="/" component={Teacher}>
+        <Route path="/">
           <Teacher bookmark="badges" />
+        </Route>
+        <Route path="/issuers">
+          <Teacher bookmark="issuers" />
         </Route>
         <Route path="/auth/login/*" component={ProcessToken} />
         <Route component={NotFound} />

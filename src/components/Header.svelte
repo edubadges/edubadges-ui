@@ -16,7 +16,10 @@
 
   const tabs =
     $userRole === role.TEACHER
-      ? [{ name: I18n.t("header.nav.badges"), path: "/" }]
+      ? [
+          { name: I18n.t("header.nav.badges"), path: "/" },
+          { name: I18n.t("header.nav.issuers"), path: "/issuers" }
+        ]
       : [];
 </script>
 
