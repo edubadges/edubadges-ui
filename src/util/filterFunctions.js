@@ -1,16 +1,3 @@
-export const collectFilters = (data, filterAttributes) => {
-  let res = {};
-  for (const attr of filterAttributes) {
-    res[attr] = [];
-    for (const element of data) {
-      if (!res[attr].includes(element[attr])){
-        res[attr].push(element[attr]);
-      }
-    }
-  }
-  return res;
-};
-
 export const toggleFilter = (filters, attr, value) => {
   let newFilters = filters;
   if (newFilters[attr] === value) {

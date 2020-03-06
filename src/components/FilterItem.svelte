@@ -6,16 +6,13 @@
 </script>
 
 <style>
-  .filter-item {
-  }
-
   .filter-active {
     border: solid darkgray 2px;
     background-color: white;
   }
 
   .filter-hidden {
-    visibility: hidden;
+    display: none;
   }
 
   .filter-text-inactive {
@@ -24,7 +21,6 @@
 
   .filter-item-inner {
     width: 80%;
-    margin-left: 5px;
     overflow: hidden;
     display: inline-block;
   }
@@ -44,7 +40,7 @@
   }
 </style>
 
-<div class="filter-item {active ? 'filter-active' : ''} {hidden ? 'filter-hidden' : ''}">
+<div class="{active ? 'filter-active' : ''} {hidden ? 'filter-hidden' : ''}">
   <div class="filter-item-inner"><p class={!active ? 'filter-text-inactive' : ''} {count}>{filterValue}</p></div>
   {#if active}
     <div class="icon-holder">x</div>

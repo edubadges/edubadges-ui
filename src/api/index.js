@@ -42,40 +42,8 @@ export function requestLoginToken(service) {
   window.location.href = `${serverUrl}/account/sociallogin?provider=${service}`;
 }
 
-export function requestProfile() {
-  const path = `${serverUrl}/v1/user/profile`;
-  return validFetch(path, {}, true);
-}
-
-// User
-export function requestUser(slug) {
-  const path = `${serverUrl}/v1/user/users/${slug}`;
-  return validFetch(path, {}, true);
-}
-
 // Badges
 export function getBadges() {
   const path = `${serverUrl}/v1/earner/badges`;
-  return validFetch(path, {}, true);
-}
-
-// Teacher
-export function getTeacherBadges() {
-  const path = `${serverUrl}/v1/issuer/all-badges`;
-  return validFetch(path, {}, true);
-}
-
-export function getTeacherBadge(slug) {
-  const path = `${serverUrl}/v1/issuer/all-badges/find?identifier=${slug}`;
-  return validFetch(path, {}, true);
-}
-
-export function getFaculties() {
-  const path = `${serverUrl}/institution/faculties`;
-  return validFetch(path, {}, true);
-}
-
-export function getIssuer(slug) {
-  const path = `${serverUrl}/v1/issuer/issuers/${slug}`;
   return validFetch(path, {}, true);
 }

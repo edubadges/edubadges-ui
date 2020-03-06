@@ -1,31 +1,29 @@
 <script>
   import { onMount } from "svelte";
   import { queryData } from "../../api/graphql";
-  import { requestProfile } from "../../api";
+  import I18n from "i18n-js";
 
   let badges = [];
   export let filteredBadgeIds;
 
-  export let scope = "";
-  export let title = '';
+  let institutionName = '';
 
   const query = `{
       badgeClasses {
         name,
         image,
         entityId
+      },
+      institution {
+        name
       }
     }`;
 
   onMount(() => {
-    queryData(query).then(({ badgeClasses }) => {
+    queryData(query).then(({ badgeClasses, institution }) => {
       badges = badgeClasses;
-      console.log(badges);
+      institutionName = institution.name;
     });
-
-    requestProfile()
-      .then(({ institution }) => (scope = institution.name))
-      .catch(error => console.log(error));
   });
 </script>
 
@@ -61,15 +59,15 @@
 </style>
 
 <h2>
-  {title}
-  {#if scope}
+  {I18n.t('teacher.badges.title')}
+  {#if institutionName}
     <span>in</span>
-    {scope}
+    {institutionName}
   {/if}
 </h2>
 
 <div class="badges">
-  {#each badges.filter(badge => filteredBadgeIds.length === 0 || filteredBadgeIds.includes(badge['entityId'])) as badge}
+  {#each badges.filter(badge => filteredBadgeIds.includes(badge['entityId'])) as badge}
     <div class="badge">
       <div class="image">
         <img src={badge.image} alt={`image for ${badge.name}`} />

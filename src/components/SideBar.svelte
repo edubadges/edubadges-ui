@@ -1,19 +1,19 @@
 <script>
-  import { isEmpty } from "../util/emptyObject"
-  import {collectFilters, filterData, toggleFilter, filterCounts, freeTextSearch} from "../util/filterFunctions";
   import { onMount } from "svelte";
-  import FilterItem from "./FilterItem.svelte";
   import { queryData } from "../api/graphql";
-
-  export let institution = '';
-  export let filterSubject = '';
+  import { filterData, toggleFilter, filterCounts, freeTextSearch } from "../util/filterFunctions";
+  import { isEmpty } from "../util/emptyObject"
+  import FilterItem from "./FilterItem.svelte";
+  import I18n from "i18n-js";
 
   export let filteredBadgeIds;
+
+  let institutionName = '';
 
   let data = [];
   let filteredData = [];
   let filterAttributes = ['Issuer Group', 'Issuer'];
-  const filterListMaxLength = 2;
+  const filterListMaxLength = 4;
 
   let allFilters = {};
   let activeFilters = {};
@@ -32,19 +32,29 @@
           name
         }
       }
+    },
+    issuers {
+      name
+    },
+    faculties {
+      name
+    },
+    institution {
+      name
     }
   }`;
 
   onMount(() => {
-    queryData(query).then(res => {
-      data = res['badgeClasses'];
-      console.log(data);
+    queryData(query).then(({badgeClasses, issuers, faculties, institution}) => {
+      data = badgeClasses;
       for (const badge of data) {
         badge['Issuer Group'] = badge['issuer']['faculty']['name'];
         badge['Issuer'] = badge['issuer']['name'];
       }
+      institutionName = institution.name;
       filteredData = data;
-      allFilters = collectFilters(data, filterAttributes);
+      allFilters = {'Issuer Group': faculties.map(el => el.name), 'Issuer': issuers.map(el => el.name)};
+      filteredBadgeIds = filteredData.map(el => el['entityId']);
       dataFilterCounts = filterCounts(allFilters, filteredData);
     })
   });
@@ -105,12 +115,12 @@
 </style>
 
 <div class="side-bar">
-  <div>Filter {filterSubject}</div>
-  <div class="institution">{institution}</div>
+  <div>Filter {I18n.t('teacher.badges.title')}</div>
+  <div class="institution">{institutionName}</div>
   {#if !isEmpty(allFilters)}
     <div>
-      <h4>Free text search:</h4>
-      <input type="search" bind:value={searchText} on:input={setTextSearch} />
+      <h4>Search:</h4>
+      <input type="search" size="35" bind:value={searchText} on:input={setTextSearch} />
     </div>
       <div>
         <ul>
