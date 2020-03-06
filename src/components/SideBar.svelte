@@ -1,6 +1,27 @@
 <script>
-  export let faculties = [];
-  export let issuers = [];
+  import { onMount } from "svelte";
+  import { queryData } from "../api/graphql";
+
+  let _faculties = [];
+  let issuers = [];
+
+  const query = `{
+      faculties {
+        entityId,
+        name,
+        issuers {
+          entityId,
+          name
+        }
+      }
+    }`;
+
+  onMount(() => {
+    queryData(query).then(({ faculties }) => {
+      _faculties = faculties;
+      issuers = faculties.map(({ issuers }) => issuers).flat();
+    });
+  });
 </script>
 
 <style>
@@ -25,7 +46,7 @@
   </p>
 
   <ul>
-    {#each faculties as fac (fac.id)}
+    {#each _faculties as fac (fac.entityId)}
       <li>{fac.name}</li>
     {/each}
   </ul>
@@ -35,7 +56,7 @@
   </p>
 
   <ul>
-    {#each issuers as iss (iss.id)}
+    {#each issuers as iss (iss.entityId)}
       <li>{iss.name}</li>
     {/each}
   </ul>

@@ -1,33 +1,11 @@
 <script>
   import { Badges } from "./teachers";
   import { SideBar } from "../components";
-  import {
-    getTeacherBadges,
-    getProfile,
-    getFaculties,
-    getIssuers
-  } from "../api";
 
   export let bookmark;
 
-  let loaded = false;
-  let user, badges, faculties, issuers;
-
   const pages = [{ bm: "badges", component: Badges }];
   const currentPage = pages.find(({ bm }) => bm === bookmark) || pages[0];
-
-  const apiCalls = [
-    getProfile(),
-    getTeacherBadges(),
-    getFaculties(),
-    getIssuers()
-  ];
-  Promise.all(apiCalls)
-    .then(values => {
-      [user, badges, faculties, issuers] = values;
-      loaded = true;
-    })
-    .catch(error => console.log(error));
 </script>
 
 <style>
@@ -37,13 +15,8 @@
   }
 </style>
 
-{#if loaded}
-  <SideBar {faculties} {issuers} />
+<SideBar />
 
-  <div class="content">
-    <svelte:component
-      this={currentPage.component}
-      scope={user.institution.name}
-      {badges} />
-  </div>
-{/if}
+<div class="content">
+  <svelte:component this={currentPage.component} />
+</div>
