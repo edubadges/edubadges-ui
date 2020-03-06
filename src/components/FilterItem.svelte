@@ -9,10 +9,16 @@
   .filter-active {
     border: solid darkgray 2px;
     background-color: white;
+    border-radius: var(--card-border-radius);
   }
 
   .filter-hidden {
     display: none;
+  }
+
+  .filter-text-active {
+    margin-top: 5px;
+    margin-left: 5px;
   }
 
   .filter-text-inactive {
@@ -41,7 +47,7 @@
 </style>
 
 <div class="{active ? 'filter-active' : ''} {hidden ? 'filter-hidden' : ''}">
-  <div class="filter-item-inner"><p class={!active ? 'filter-text-inactive' : ''} {count}>{filterValue}</p></div>
+  <div class="filter-item-inner"><p class={!active ? 'filter-text-inactive' : 'filter-text-active'} {count}>{filterValue}</p></div>
   {#if active}
     <div class="icon-holder">x</div>
   {/if}

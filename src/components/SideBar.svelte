@@ -98,6 +98,10 @@
     margin-bottom: 15px;
   }
 
+  .list-header {
+    margin-bottom: 8px;
+  }
+
   li {
     margin-bottom: 8px;
   }
@@ -126,7 +130,7 @@
         <ul>
           {#each filterAttributes as attr}
             <li class="filter-block">
-              <h4>{attr + 's'}</h4>
+              <h4 class="list-header">{attr + 's'}</h4>
               <ul>
                 {#if !allFilters[attr].length > filterListMaxLength || expandedList.includes(attr)}
                   {#each allFilters[attr] as filterValue}
