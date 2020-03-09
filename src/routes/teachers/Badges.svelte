@@ -69,7 +69,9 @@
 </h2>
 
 <div class="badges">
-  {#each badges.filter(badge => filteredBadgeIds.includes(badge['entityId'])) as badge}
+  {#each badges.filter(badge =>
+    filteredBadgeIds.includes(badge['entityId'])
+  ) as badge}
     <div class="badge">
       <div class="image">
         <img src={badge.image} alt={`image for ${badge.name}`} />
