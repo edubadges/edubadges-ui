@@ -1,115 +1,115 @@
 html {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 *, *:before, *:after {
-    box-sizing: inherit;
+  box-sizing: inherit;
 }
 
 @font-face {
-    font-family: "Source Sans Pro";
-    font-weight: 300;
-    src: url("/fonts/source_sans_pro/sourcesanspro-regular-webfont.woff2") format("woff2"),
-    url("/fonts/source_sans_pro/sourcesanspro-regular-webfont.woff") format("woff");
+  font-family: "Source Sans Pro";
+  font-weight: 300;
+  src: url("/fonts/source_sans_pro/sourcesanspro-regular-webfont.woff2") format("woff2"),
+  url("/fonts/source_sans_pro/sourcesanspro-regular-webfont.woff") format("woff");
 }
 
 @font-face {
-    font-family: "Source Sans Pro";
-    font-weight: 600;
-    src: url("/fonts/source_sans_pro/sourcesanspro-semibold-webfont.woff2") format("woff2"),
-    url("/fonts/source_sans_pro/sourcesanspro-semibold-webfont.woff") format("woff");
+  font-family: "Source Sans Pro";
+  font-weight: 600;
+  src: url("/fonts/source_sans_pro/sourcesanspro-semibold-webfont.woff2") format("woff2"),
+  url("/fonts/source_sans_pro/sourcesanspro-semibold-webfont.woff") format("woff");
 }
 
 body {
-    font-size: 16px;
-    background-color: #E6EFF6;
+  font-size: 16px;
+  background-color: #E6EFF6;
 }
 
 body, h1, h2, h3, h4, h5, h6, p, ol, ul {
-    margin: 0;
-    padding: 0;
-    font-weight: normal;
-    font-family: "Source Sans Pro", sans-serif;
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+  font-family: "Source Sans Pro", sans-serif;
 }
 
 body, h1, h2, h3, h4, h5, h6, a.button {
-    color: #4E4E4E;
+  color: #4E4E4E;
 }
 
 ol, ul {
-    list-style: none;
+  list-style: none;
 }
 
 img {
-    max-width: 100%;
-    height: auto;
+  max-width: 100%;
+  height: auto;
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 a:visited:not(.button) {
-    color: #0077c8;
+  color: #0077c8;
 }
 
 label, span {
-    line-height: 18px;
+  line-height: 18px;
 }
 
 p {
-    line-height: 22px;
+  line-height: 22px;
 }
 
 h1 {
-    font-size: 36px;
-    line-height: 36px;
-    margin-bottom: 18px;
+  font-size: 36px;
+  line-height: 36px;
+  margin-bottom: 18px;
 }
 
 h2 {
-    font-size: 32px;
-    margin-bottom: 6px;
-    font-weight: bold;
+  font-size: 32px;
+  margin-bottom: 6px;
+  font-weight: bold;
 }
 
 h3 {
-    font-size: 26px;
-    margin-bottom: 6px;
-    font-weight: bold;
+  font-size: 26px;
+  margin-bottom: 6px;
+  font-weight: bold;
 }
 
 h4 {
-    font-size: 20px;
-    margin-bottom: 4px;
-    font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 4px;
+  font-weight: bold;
 }
 
 .blue-text {
-    color: var(--color-text-blue);
+  color: var(--color-text-blue);
 }
 
 .sub-text {
-    font-size: smaller;
-    color: var(--color-text-light-grey);
+  font-size: smaller;
+  color: var(--color-text-light-grey);
 }
 
 @media (max-width: 580px) {
-    table, thead, tbody, th, td, tr {
-        display: block;
-    }
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
 
-    thead tr {
-        display: none;
-    }
+  thead tr {
+    display: none;
+  }
 
-    td {
-        position: relative;
-        width: 100% !important;
-    }
+  td {
+    position: relative;
+    width: 100% !important;
+  }
 
-    .options a:not(:first-child) {
-        margin-left: 0 !important;
-        margin-top: 25px !important;
-    }
+  .options a:not(:first-child) {
+    margin-left: 0 !important;
+    margin-top: 25px !important;
+  }
 }
