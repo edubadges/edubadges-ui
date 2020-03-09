@@ -3,26 +3,28 @@
   import { queryData } from "../../api/graphql";
   import I18n from "i18n-js";
 
-  let badges = [];
   export let filteredBadgeIds;
 
-  let institutionName = '';
+  let badges = [];
+  let institution;
 
   const query = `{
+      currentUser {
+        institution {
+          name
+        }
+      },
       badgeClasses {
         name,
         image,
         entityId
-      },
-      institution {
-        name
       }
     }`;
 
   onMount(() => {
-    queryData(query).then(({ badgeClasses, institution }) => {
+    queryData(query).then(({ currentUser, badgeClasses }) => {
       badges = badgeClasses;
-      institutionName = institution.name;
+      institution = currentUser.institution;
     });
   });
 </script>
@@ -60,9 +62,9 @@
 
 <h2>
   {I18n.t('teacher.badges.title')}
-  {#if institutionName}
+  {#if institution}
     <span>in</span>
-    {institutionName}
+    {institution.name}
   {/if}
 </h2>
 

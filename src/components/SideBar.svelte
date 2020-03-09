@@ -20,8 +20,12 @@
   let dataFilterCounts = {};
   let expandedList = [];
 
-
   const query = `{
+    currentUser {
+      institution {
+        name
+      }
+    },
     badgeClasses {
       name,
       image,
@@ -38,25 +42,27 @@
     },
     faculties {
       name
-    },
-    institution {
-      name
     }
   }`;
 
   onMount(() => {
-    queryData(query).then(({badgeClasses, issuers, faculties, institution}) => {
-      data = badgeClasses;
-      for (const badge of data) {
-        badge['Issuer Group'] = badge['issuer']['faculty']['name'];
-        badge['Issuer'] = badge['issuer']['name'];
+    queryData(query).then(
+      ({ badgeClasses, issuers, faculties, currentUser }) => {
+        data = badgeClasses;
+        for (const badge of data) {
+          badge["Issuer Group"] = badge["issuer"]["faculty"]["name"];
+          badge["Issuer"] = badge["issuer"]["name"];
+        }
+        institutionName = currentUser.institution.name;
+        filteredData = data;
+        allFilters = {
+          "Issuer Group": faculties.map(el => el.name),
+          Issuer: issuers.map(el => el.name)
+        };
+        filteredBadgeIds = filteredData.map(el => el["entityId"]);
+        dataFilterCounts = filterCounts(allFilters, filteredData);
       }
-      institutionName = institution.name;
-      filteredData = data;
-      allFilters = {'Issuer Group': faculties.map(el => el.name), 'Issuer': issuers.map(el => el.name)};
-      filteredBadgeIds = filteredData.map(el => el['entityId']);
-      dataFilterCounts = filterCounts(allFilters, filteredData);
-    })
+    );
   });
 
   const setFilters = (attr, filterValue) => {
