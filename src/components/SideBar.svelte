@@ -1,27 +1,30 @@
 <script>
   import { onMount } from "svelte";
   import { queryData } from "../api/graphql";
+  import I18n from "i18n-js";
 
   export let searchText;
-
-  let _faculties = [];
-  let issuers = [];
+  export let facultyIdFilter = [];
+  export let issuerIdFilter = [];
 
   const query = `{
-      faculties {
-        entityId,
-        name,
-        issuers {
-          entityId,
-          name
-        }
-      }
-    }`;
+    issuers {
+      entityId,
+      name
+    },
+    faculties {
+      entityId,
+      name
+    }
+  }`;
+
+  let faculties = [];
+  let issuers = [];
 
   onMount(() => {
-    queryData(query).then(({ faculties }) => {
-      _faculties = faculties;
-      issuers = faculties.map(({ issuers }) => issuers).flat();
+    queryData(query).then(res => {
+      faculties = res.faculties;
+      issuers = res.issuers;
     });
   });
 </script>
@@ -33,35 +36,37 @@
     background: var(--color-background-grey-light);
   }
 
-  li {
-    margin-bottom: 8px;
-  }
-
-  input {
+  div.search input {
     width: 100%;
     height: 30px;
+  }
+
+  input[type="checkbox"] {
+    display: none;
   }
 </style>
 
 <div class="side-bar">
-  <p>
-    <b>Filter badgeclasses</b>
-  </p>
-
-  <p>
-    <b>Search</b>
-  </p>
-  <input bind:value={searchText} />
+  <div class="search">
+    <p>
+      <b>Search</b>
+    </p>
+    <input bind:value={searchText} />
+  </div>
 
   <p>
     <b>Issuer groups</b>
   </p>
 
-  <ul>
-    {#each _faculties as fac (fac.entityId)}
-      <li>{fac.name}</li>
-    {/each}
-  </ul>
+  {#each faculties as fac (fac.entityId)}
+    <label>
+      <input
+        type="checkbox"
+        bind:group={facultyIdFilter}
+        value={fac.entityId} />
+      {fac.name}
+    </label>
+  {/each}
 
   <p>
     <b>Issuers</b>
@@ -69,7 +74,13 @@
 
   <ul>
     {#each issuers as iss (iss.entityId)}
-      <li>{iss.name}</li>
+      <label>
+        <input
+          type="checkbox"
+          bind:group={issuerIdFilter}
+          value={iss.entityId} />
+        {iss.name}
+      </label>
     {/each}
   </ul>
 </div>

@@ -6,7 +6,10 @@
   export let bookmark;
 
   let searchText;
-  let currentPage = teacherMainRoutes[0];
+  let facultyIdFilter;
+  let issuerIdFilter;
+
+  let currentPage;
 
   onMount(() => {
     currentPage = teacherMainRoutes.find(route => route.bookmark === bookmark);
@@ -20,8 +23,14 @@
   }
 </style>
 
-<SideBar bind:searchText />
+<SideBar bind:searchText bind:facultyIdFilter bind:issuerIdFilter />
 
-<div class="content">
-  <svelte:component this={currentPage.component} bind:searchText />
-</div>
+{#if currentPage}
+  <div class="content">
+    <svelte:component
+      this={currentPage.component}
+      bind:searchText
+      bind:facultyIdFilter
+      bind:issuerIdFilter />
+  </div>
+{/if}

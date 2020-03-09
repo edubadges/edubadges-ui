@@ -1,13 +1,19 @@
 <script>
-  import { onMount } from "svelte";
+  import { onMount, onDestroy } from "svelte";
   import I18n from "i18n-js";
   import { queryData } from "../../api/graphql";
-  import { applyFilter } from "../../util/filter";
+  import {
+    collection,
+    filteredCollection,
+    searchFilter,
+    presenceFilters,
+    resetFilterStores
+  } from "../../stores/filter";
 
   export let searchText;
+  export let facultyIdFilter;
+  export let issuerIdFilter;
 
-  let badges = [];
-  let filteredBadges = [];
   let institution;
 
   const query = `{
@@ -19,19 +25,38 @@
       badgeClasses {
         name,
         image,
-        entityId
+        entityId,
+        issuer {
+          entityId,
+          faculty {
+            entityId
+          }
+        }
       }
     }`;
 
   onMount(() => {
-    queryData(query).then(({ badgeClasses, currentUser }) => {
-      badges = badgeClasses;
-      filteredBadges = badgeClasses;
+    queryData(query).then(({ currentUser, badgeClasses }) => {
+      $collection = badgeClasses;
       institution = currentUser.institution;
     });
+
+    return () => resetFilterStores();
   });
 
-  $: filteredBadges = applyFilter(badges, searchText);
+  $: {
+    $searchFilter = { attrs: ["name"], text: searchText };
+    $presenceFilters = [
+      {
+        attr: "issuer.faculty.entityId",
+        list: facultyIdFilter
+      },
+      {
+        attr: "issuer.entityId",
+        list: issuerIdFilter
+      }
+    ];
+  }
 </script>
 
 <style>
@@ -70,7 +95,7 @@
 </h2>
 
 <div class="badges">
-  {#each filteredBadges as badge (badge.entityId)}
+  {#each $filteredCollection as badge (badge.entityId)}
     <div class="badge">
       <div class="image">
         <img src={badge.image} alt={`image for ${badge.name}`} />

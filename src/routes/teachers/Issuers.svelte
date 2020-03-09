@@ -1,14 +1,19 @@
 <script>
-  import { onMount } from "svelte";
+  import { onMount, onDestroy } from "svelte";
   import I18n from "i18n-js";
   import { queryData } from "../../api/graphql";
-  import { applyFilter } from "../../util/filter";
+  import {
+    collection,
+    filteredCollection,
+    searchFilter,
+    presenceFilters,
+    resetFilterStores
+  } from "../../stores/filter";
 
   export let searchText;
+  export let facultyIdFilter;
 
   let institution;
-  let issuers = [];
-  let filteredIssuers = [];
 
   const query = `{
       currentUser {
@@ -17,9 +22,11 @@
         }
       },
       issuers {
+        entityId,
         name,
         faculty {
-          name
+          name,
+          entityId
         },
         badgeclasses {
           entityId
@@ -28,13 +35,23 @@
     }`;
 
   onMount(() => {
-    queryData(query).then(res => {
-      issuers = res.issuers;
-      institution = res.currentUser.institution;
+    queryData(query).then(({ issuers, currentUser }) => {
+      $collection = issuers;
+      institution = currentUser.institution;
     });
+
+    return resetFilterStores();
   });
 
-  $: filteredIssuers = applyFilter(issuers, searchText);
+  $: {
+    $searchFilter = { attrs: ["name"], text: searchText };
+    $presenceFilters = [
+      {
+        attr: "faculty.entityId",
+        list: facultyIdFilter
+      }
+    ];
+  }
 </script>
 
 <style>
@@ -75,7 +92,7 @@
     </tr>
   </thead>
   <tbody>
-    {#each filteredIssuers as issuer}
+    {#each $filteredCollection as issuer (issuer.entityId)}
       <tr>
         <td>
           <div>
