@@ -2,6 +2,7 @@
   import { onMount } from "svelte";
   import I18n from "i18n-js";
   import { queryData } from "../../api/graphql";
+  import { applyFilter } from "../../util/filter";
 
   export let searchText;
 
@@ -30,13 +31,7 @@
     });
   });
 
-  $: if (searchText) {
-    filteredBadges = badges.filter(({ name }) =>
-      name.toLowerCase().includes(searchText.toLowerCase())
-    );
-  } else {
-    filteredBadges = badges;
-  }
+  $: filteredBadges = applyFilter(badges, searchText);
 </script>
 
 <style>

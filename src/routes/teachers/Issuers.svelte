@@ -2,9 +2,13 @@
   import { onMount } from "svelte";
   import I18n from "i18n-js";
   import { queryData } from "../../api/graphql";
+  import { applyFilter } from "../../util/filter";
+
+  export let searchText;
 
   let institution;
   let issuers = [];
+  let filteredIssuers = [];
 
   const query = `{
       currentUser {
@@ -29,6 +33,8 @@
       institution = res.currentUser.institution;
     });
   });
+
+  $: filteredIssuers = applyFilter(issuers, searchText);
 </script>
 
 <style>
@@ -69,7 +75,7 @@
     </tr>
   </thead>
   <tbody>
-    {#each issuers as issuer}
+    {#each filteredIssuers as issuer}
       <tr>
         <td>
           <div>
