@@ -2,6 +2,8 @@
   import { onMount } from "svelte";
   import { queryData } from "../api/graphql";
 
+  export let searchText;
+
   let _faculties = [];
   let issuers = [];
 
@@ -34,12 +36,22 @@
   li {
     margin-bottom: 8px;
   }
+
+  input {
+    width: 100%;
+    height: 30px;
+  }
 </style>
 
 <div class="side-bar">
   <p>
     <b>Filter badgeclasses</b>
   </p>
+
+  <p>
+    <b>Search</b>
+  </p>
+  <input bind:value={searchText} />
 
   <p>
     <b>Issuer groups</b>

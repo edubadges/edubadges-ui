@@ -3,8 +3,11 @@
   import I18n from "i18n-js";
   import { queryData } from "../../api/graphql";
 
-  let institution;
+  export let searchText;
+
   let badges = [];
+  let filteredBadges = [];
+  let institution;
 
   const query = `{
       currentUser {
@@ -14,16 +17,26 @@
       },
       badgeClasses {
         name,
-        image
+        image,
+        entityId
       }
     }`;
 
   onMount(() => {
     queryData(query).then(({ badgeClasses, currentUser }) => {
       badges = badgeClasses;
+      filteredBadges = badgeClasses;
       institution = currentUser.institution;
     });
   });
+
+  $: if (searchText) {
+    filteredBadges = badges.filter(({ name }) =>
+      name.toLowerCase().includes(searchText.toLowerCase())
+    );
+  } else {
+    filteredBadges = badges;
+  }
 </script>
 
 <style>
@@ -62,7 +75,7 @@
 </h2>
 
 <div class="badges">
-  {#each badges as badge}
+  {#each filteredBadges as badge (badge.entityId)}
     <div class="badge">
       <div class="image">
         <img src={badge.image} alt={`image for ${badge.name}`} />

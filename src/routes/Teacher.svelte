@@ -5,6 +5,7 @@
 
   export let bookmark;
 
+  let searchText;
   let currentPage = teacherMainRoutes[0];
 
   onMount(() => {
@@ -19,8 +20,8 @@
   }
 </style>
 
-<SideBar />
+<SideBar bind:searchText />
 
 <div class="content">
-  <svelte:component this={currentPage.component} />
+  <svelte:component this={currentPage.component} bind:searchText />
 </div>
