@@ -4,6 +4,7 @@
   import { Header, Footer } from "./components";
   import { userRole, userLoggedIn } from "./stores/user";
   import { role } from "./util/role";
+  import { teacherMainRoutes } from "./util/routes";
 </script>
 
 <style>
@@ -33,11 +34,11 @@
 </style>
 
 <div class="app">
-  <Header />
+  {#if $userLoggedIn && $userRole === role.STUDENT}
+    <Router>
+      <Header />
 
-  <div class="content">
-    {#if $userLoggedIn && $userRole === role.STUDENT}
-      <Router>
+      <div class="content">
         <Route path="/" component={Student} />
         <Route path="/backpack">
           <Student bookmark="backpack" />
@@ -53,23 +54,33 @@
         </Route>
         <Route path="/auth/login/*" component={ProcessToken} />
         <Route component={NotFound} />
-      </Router>
-    {:else if $userLoggedIn && $userRole === role.TEACHER}
-      <Router>
-        <Route path="/" component={Teacher}>
-          <Teacher bookmark="badges" />
-        </Route>
+      </div>
+    </Router>
+  {:else if $userLoggedIn && $userRole === role.TEACHER}
+    <Router>
+      <Header tabs={teacherMainRoutes} />
+
+      <div class="content">
+        {#each teacherMainRoutes as { path, bookmark }}
+          <Route {path}>
+            <Teacher {bookmark} />
+          </Route>
+        {/each}
         <Route path="/auth/login/*" component={ProcessToken} />
         <Route component={NotFound} />
-      </Router>
-    {:else}
-      <Router>
+      </div>
+    </Router>
+  {:else}
+    <Router>
+      <Header />
+
+      <div class="content">
         <Route path="/" component={Login} />
         <Route path="/auth/login/*" component={ProcessToken} />
         <Route component={NotFound} />
-      </Router>
-    {/if}
-  </div>
+      </div>
+    </Router>
+  {/if}
 
   <Footer />
 </div>
