@@ -11,6 +11,7 @@
     addEmail(newEmailValue).then(res => {
       console.log(res);
       emailsPromise = getEmails();
+      newEmailValue = '';
     });
   };
 
