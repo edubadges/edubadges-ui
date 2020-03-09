@@ -39,10 +39,6 @@ module.exports = {
       {
         test: /\.css$/,
         use: [
-          /**
-           * MiniCssExtractPlugin doesn't support HMR.
-           * For developing, use 'style-loader' instead.
-           * */
           prod ? MiniCssExtractPlugin.loader : "style-loader",
           "css-loader"
         ]
@@ -70,10 +66,6 @@ module.exports = {
   devtool: prod ? false : "source-map",
   devServer: {
     port: 4000,
-    proxy: {
-      "/myconext/api": "http://localhost:8000",
-      "/config": "http://localhost:8000"
-    },
     historyApiFallback: true
   }
 };
