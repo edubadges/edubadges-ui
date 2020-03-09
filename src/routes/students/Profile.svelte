@@ -7,24 +7,29 @@
 
   let newEmailValue = '';
 
+  let addEmailOutput = '';
   const addEmailButton = () => {
     addEmail(newEmailValue).then(res => {
-      console.log(res);
-      emailsPromise = getEmails();
-      newEmailValue = '';
+      if(res['ok'] !== undefined && !res.ok) {
+        res.json().then(output => {
+          addEmailOutput = output['email'][0];
+        });
+      } else {
+        emailsPromise = getEmails();
+        newEmailValue = '';
+        addEmailOutput = '';
+      }
     });
   };
 
   const setPrimaryEmailButton = (emailId) => {
     setPrimaryEmail(emailId).then(res => {
-      console.log(res);
       emailsPromise = getEmails();
     });
   };
 
   const removeEmail = (emailId) => {
     deleteEmail(emailId).then(res => {
-      console.log(res);
       emailsPromise = getEmails();
     });
   }
@@ -51,6 +56,7 @@
       <input bind:value={newEmailValue}/>
     </label>
     <button on:click={addEmailButton}>add email</button>
+    <p style="color: red">{addEmailOutput}</p>
   {:catch error}
     <p>error loading profile</p>
   {/await}
@@ -73,7 +79,7 @@
           {/if}
         {/if}
         <br>
-        <button on:click={() => removeEmail(email['id'])}>delete email</button>
+        <button disabled={email['primary']} on:click={() => removeEmail(email['id'])}>delete email</button> <p>{email['primary']? 'cannot delete primary email' : ''}</p>
       </div>
     {/each}
   {:catch error}

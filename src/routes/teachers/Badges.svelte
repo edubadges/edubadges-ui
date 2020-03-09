@@ -2,7 +2,7 @@
   import { onMount } from "svelte";
   import I18n from "i18n-js";
   import { queryData } from "../../api/graphql";
-  import { requestProfile } from "../../api";
+  import { getProfile } from "../../api";
 
   let scope = "";
   let badges = [];
@@ -19,7 +19,7 @@
       badges = badgeClasses;
     });
 
-    requestProfile()
+  getProfile()
       .then(({ institution }) => (scope = institution.name))
       .catch(error => console.log(error));
   });

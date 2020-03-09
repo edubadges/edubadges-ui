@@ -11,7 +11,7 @@ function validateResponse(res) {
       setTimeout(() => window.location.reload(), 100);
       return res;
     }
-    throw res;
+    return res;
   }
   return res.json();
 }
