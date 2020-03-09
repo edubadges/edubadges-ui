@@ -12,10 +12,19 @@
     })
   });
 
+  let badgeRequestOutput = '';
   let requestBadgeEntityId = '';
   const requestBadgeButton = () => {
     requestBadge(requestBadgeEntityId).then(res => {
-      requested_badges_promise = getUnearnedBadges(provider);
+      if(res.ok !== undefined && !res.ok) {
+          res.json().then(output => {
+            badgeRequestOutput = output['detail'];
+          });
+      } else {
+        requested_badges_promise = getUnearnedBadges(provider);
+        badgeRequestOutput = '';
+        requestBadgeEntityId = '';
+      }
     });
   };
 
@@ -73,4 +82,5 @@
   <label>
     <input bind:value={requestBadgeEntityId}/>
   </label>
+  <p style="color: red">{badgeRequestOutput}</p>
 </div>
