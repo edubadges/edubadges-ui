@@ -42,12 +42,6 @@ export function requestLoginToken(service) {
   window.location.href = `${serverUrl}/account/sociallogin?provider=${service}`;
 }
 
-// User
-export function requestUser(slug) {
-  const path = `${serverUrl}/v1/user/users/${slug}`;
-  return validFetch(path, {}, true);
-}
-
 // Badges
 export function getBadges() {
   const path = `${serverUrl}/v1/earner/badges`;
