@@ -2,12 +2,16 @@
   import { onMount } from "svelte";
   import I18n from "i18n-js";
   import { queryData } from "../../api/graphql";
-  import { requestProfile } from "../../api";
 
-  let scope = "";
+  let institution;
   let issuers = [];
 
   const query = `{
+      currentUser {
+        institution {
+          name
+        }
+      },
       issuers {
         name,
         faculty {
@@ -22,11 +26,8 @@
   onMount(() => {
     queryData(query).then(res => {
       issuers = res.issuers;
+      institution = res.currentUser.institution;
     });
-
-    requestProfile()
-      .then(({ institution }) => (scope = institution.name))
-      .catch(error => console.error(error));
   });
 </script>
 
@@ -54,9 +55,9 @@
 
 <h2>
   {I18n.t('teacher.issuers.title')}
-  {#if scope}
+  {#if institution}
     <span class="blue-text">in</span>
-    {scope}
+    {institution.name}
   {/if}
 </h2>
 
