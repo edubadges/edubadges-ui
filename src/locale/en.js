@@ -35,6 +35,13 @@ I18n.translations.en = {
     main: "404 - Not Found"
   },
   teacher: {
+    sidebar: {
+      search: "Search",
+      filters: {
+        faculties: "Issuer groups",
+        issuers: "Issuers"
+      }
+    },
     badges: {
       title: "Badgeclasses"
     },

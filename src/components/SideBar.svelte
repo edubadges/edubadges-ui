@@ -49,13 +49,13 @@
 <div class="side-bar">
   <div class="search">
     <p>
-      <b>Search</b>
+      <b>{I18n.t('teacher.sidebar.search')}</b>
     </p>
     <input bind:value={searchText} />
   </div>
 
   <p>
-    <b>Issuer groups</b>
+    <b>{I18n.t('teacher.sidebar.filters.faculties')}</b>
   </p>
 
   {#each faculties as fac (fac.entityId)}
@@ -69,7 +69,7 @@
   {/each}
 
   <p>
-    <b>Issuers</b>
+    <b>{I18n.t('teacher.sidebar.filters.issuers')}</b>
   </p>
 
   <ul>
