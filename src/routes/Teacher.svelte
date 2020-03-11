@@ -23,7 +23,7 @@
   }
 </style>
 
-<SideBar bind:searchText bind:facultyIdFilter bind:issuerIdFilter />
+<SideBar {bookmark} bind:searchText bind:facultyIdFilter bind:issuerIdFilter />
 
 {#if currentPage}
   <div class="content">

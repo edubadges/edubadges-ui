@@ -1,130 +1,100 @@
 <script>
   import { onMount } from "svelte";
+  import { sum, sumBy } from "lodash";
+  import { FilterBlock, Search } from "../components";
   import { queryData } from "../api/graphql";
-  import I18n from "i18n-js";
+  import { validSearch } from "../util/filter";
 
+  export let bookmark;
   export let searchText;
   export let facultyIdFilter = [];
   export let issuerIdFilter = [];
 
-  const query = `{
-    issuers {
-      entityId,
-      name
-    },
-    faculties {
-      entityId,
-      name
-    }
-  }`;
-
   let faculties = [];
   let issuers = [];
 
+  const query = `{
+    faculties {
+      entityId,
+      name,
+      issuers {
+        entityId, 
+        name,
+        badgeclasses {
+          name
+        }
+      }
+    }
+  }`;
+
   onMount(() => {
     queryData(query).then(res => {
-      faculties = res.faculties;
-      issuers = res.issuers;
+      faculties = sortByBadgeclassCount(res.faculties, facultyBadgeclassCount);
     });
   });
+
+  $: if (faculties || facultyIdFilter || issuers || searchText) {
+    issuers = sortByBadgeclassCount(
+      faculties
+        .filter(
+          ({ entityId }) =>
+            !facultyIdFilter.length || facultyIdFilter.includes(entityId)
+        )
+        .flatMap(({ issuers }) => issuers),
+      issuerBadgeclassCount
+    );
+  }
+
+  function sortByBadgeclassCount(collection, compareFunction) {
+    return collection.sort((a, b) => compareFunction(b) - compareFunction(a));
+  }
+
+  function issuerBadgeclassCount(issuer) {
+    return issuer.badgeclasses.filter(bc => validSearch(bc, searchText)).length;
+  }
+
+  function facultyBadgeclassCount(faculty) {
+    return sumBy(faculty.issuers, issuerBadgeclassCount);
+  }
 </script>
 
 <style>
-  .side-bar {
+  div.sidebar {
     width: var(--width-side-bar);
     padding: 12px;
     background: var(--color-background-grey-light);
   }
 
-  p {
-    font-weight: bold;
+  div.sidebar > div {
+    padding-bottom: 20px;
   }
 
-  div.search input {
-    width: 100%;
-    height: 30px;
-    border: var(--card-border);
-  }
-
-  input[type="checkbox"] {
-    display: none;
-  }
-
-  label {
-    display: block;
-    margin: 12px 0;
-    cursor: pointer;
-    position: relative;
-
-    --button-size: 20px;
-    --button-offset: 5px;
-  }
-
-  label:not(.active) {
-    text-decoration: underline;
-  }
-
-  label.active {
-    background: white;
-    margin-left: -4px;
-    padding: 8px calc(var(--button-size) + (2 * var(--button-offset))) 8px 3px;
-    border: var(--card-border);
-  }
-
-  label.active::after {
-    content: "x";
-    color: var(--color-text-grey);
-    font-weight: bold;
-    width: var(--button-size);
-    height: var(--button-size);
-    border: 1px solid var(--color-text-grey);
-    border-radius: 50%;
-    position: absolute;
-    text-align: center;
-    right: var(--button-offset);
-    line-height: 18px;
-  }
-
-  label.inactive {
-    color: var(--color-text-light-grey);
+  div.sidebar > div:not(:first-child) {
+    padding-top: 20px;
+    border-top: var(--card-border);
   }
 </style>
 
-<div class="side-bar">
-  <div class="search">
-    <p>{I18n.t('teacher.sidebar.search')}</p>
-    <input type="text" bind:value={searchText} />
+<div class="sidebar">
+  <div>
+    <Search bind:value={searchText} />
   </div>
 
-  <div class="filter">
-    <p>{I18n.t('teacher.sidebar.filters.faculties')}</p>
-
-    {#each faculties as fac (fac.entityId)}
-      <label
-        class:active={facultyIdFilter.includes(fac.entityId)}
-        class:inactive={facultyIdFilter.length && !facultyIdFilter.includes(fac.entityId)}>
-        <input
-          type="checkbox"
-          bind:group={facultyIdFilter}
-          value={fac.entityId} />
-        {fac.name}
-      </label>
-    {/each}
+  <div>
+    <FilterBlock
+      bind:value={facultyIdFilter}
+      collection={faculties}
+      title="faculties"
+      count={facultyBadgeclassCount} />
   </div>
 
-  <div class="filter">
-    <p>{I18n.t('teacher.sidebar.filters.issuers')}</p>
-
-    {#each issuers as iss (iss.entityId)}
-      <label
-        class:active={issuerIdFilter.includes(iss.entityId)}
-        class:inactive={issuerIdFilter.length && !issuerIdFilter.includes(iss.entityId)}>
-        <input
-          type="checkbox"
-          bind:group={issuerIdFilter}
-          value={iss.entityId} />
-        {iss.name}
-      </label>
-    {/each}
-  </div>
+  {#if bookmark === 'badges'}
+    <div>
+      <FilterBlock
+        bind:value={issuerIdFilter}
+        collection={issuers}
+        title="issuers"
+        count={issuerBadgeclassCount} />
+    </div>
+  {/if}
 </div>

@@ -44,7 +44,7 @@
   });
 
   $: {
-    $searchFilter = { attrs: ["name"], text: searchText };
+    $searchFilter = searchText;
     $presenceFilters = [
       {
         attr: "faculty.entityId",

@@ -1,11 +1,7 @@
 import { get, isEmpty } from 'lodash';
 
 export function validSearch(item, search) {
-	if (!search || !search.text) return true;
-
-	return search.attrs.filter(attr =>
-		item[attr].toLowerCase().includes(search.text.toLowerCase())
-	).length // the text is found on any of the attrs
+	return !search || item['name'].toLowerCase().includes(search.toLowerCase())
 }
 
 export function validPresence(item, presenceFilters) {
