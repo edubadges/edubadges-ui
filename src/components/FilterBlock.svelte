@@ -1,5 +1,6 @@
 <script>
   import I18n from "i18n-js";
+  import close from "../icons/close_smll.svg";
 
   export let collection;
   export let value;
@@ -42,6 +43,22 @@
     background: white;
     padding: 8px;
     border: var(--card-border);
+
+    display: flex;
+  }
+
+  label.active div {
+    flex: 1;
+    margin-right: 5px;
+  }
+
+  :global(label.active svg) {
+    --close-filter-size: 18px;
+    width: var(--close-filter-size);
+    height: var(--close-filter-size);
+    margin: auto;
+    border: 1px solid black;
+    border-radius: 50%;
   }
 
   label.inactive {
@@ -56,8 +73,13 @@
     class:active={value.includes(item.entityId)}
     class:inactive={value.length && !value.includes(item.entityId)}>
     <input type="checkbox" bind:group={value} value={item.entityId} />
-    <span>{item.name}</span>
-    ({item.count})
+    <div>
+      <span>{item.name}</span>
+      ({item.count})
+    </div>
+    {#if value.includes(item.entityId)}
+      {@html close}
+    {/if}
   </label>
 {/each}
 
