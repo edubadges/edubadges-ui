@@ -46,7 +46,9 @@
   }
 
   function sortByBadgeclassCount(collection, compareFunction) {
-    return collection.sort((a, b) => compareFunction(b) - compareFunction(a));
+    return collection
+      .sort((a, b) => a.name.localeCompare(b.name))
+      .sort((a, b) => compareFunction(b) - compareFunction(a));
   }
 
   function issuerBadgeclassCount(issuer) {
