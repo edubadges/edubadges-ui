@@ -12,7 +12,7 @@
     addEmail(newEmailValue).then(res => {
       if(res['ok'] !== undefined && !res.ok) {
         res.json().then(output => {
-          addEmailOutput = output['email'][0];
+          addEmailOutput = output['error'] || output['email'][0];
         });
       } else {
         emailsPromise = getEmails();

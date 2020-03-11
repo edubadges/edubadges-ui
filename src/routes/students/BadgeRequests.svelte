@@ -17,9 +17,9 @@
   const requestBadgeButton = () => {
     requestBadge(requestBadgeEntityId).then(res => {
       if(res.ok !== undefined && !res.ok) {
-          res.json().then(output => {
-            badgeRequestOutput = output['detail'];
-          });
+        res.json().then(output => {
+          badgeRequestOutput = output['detail'] || output['error'];
+        });
       } else {
         requested_badges_promise = getUnearnedBadges(provider);
         badgeRequestOutput = '';
