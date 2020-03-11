@@ -41,7 +41,42 @@ export function requestLoginToken(service) {
   window.location.href = `${serverUrl}/account/sociallogin?provider=${service}`;
 }
 
+export function getProfile() {
+  const path = `${serverUrl}/v1/user/profile`;
+  return validFetch(path);
+}
+
+export function getEmails() {
+  const path = `${serverUrl}/v1/user/emails`;
+  return validFetch(path);
+}
+
+export function addEmail(newEmail) {
+  const path = `${serverUrl}/v1/user/emails`;
+  return validFetch(path, { body: JSON.stringify({ 'email': newEmail }) }, "POST");
+}
+
+export function setPrimaryEmail(emailId) {
+  const path = `${serverUrl}/v1/user/emails/${emailId}`;
+  return validFetch(path, { body: JSON.stringify({ 'primary': true }) }, "PUT");
+}
+
+export function deleteEmail(emailId) {
+  const path = `${serverUrl}/v1/user/emails/${emailId}`;
+  return validFetch(path, {}, "DELETE");
+}
+
 // Badges
+export function getBadges() {
+  const path = `${serverUrl}/v1/earner/badges`;
+  return validFetch(path);
+}
+
+export function getSocialAccounts() {
+  const path = `${serverUrl}/v1/user/socialaccounts`;
+  return validFetch(path);
+}
+
 export function requestBadge(url) {
   const path = `${serverUrl}/lti_edu/enroll`;
   return validFetch(path, { body: JSON.stringify({ 'badgeclass_slug': url }) }, "POST");
