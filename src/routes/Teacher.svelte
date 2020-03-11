@@ -5,10 +5,6 @@
 
   export let bookmark;
 
-  let searchText;
-  let facultyIdFilter;
-  let issuerIdFilter;
-
   let currentPage;
 
   onMount(() => {
@@ -23,14 +19,10 @@
   }
 </style>
 
-<SideBar {bookmark} bind:searchText bind:facultyIdFilter bind:issuerIdFilter />
+<SideBar {bookmark} />
 
 {#if currentPage}
   <div class="content">
-    <svelte:component
-      this={currentPage.component}
-      bind:searchText
-      bind:facultyIdFilter
-      bind:issuerIdFilter />
+    <svelte:component this={currentPage.component} />
   </div>
 {/if}

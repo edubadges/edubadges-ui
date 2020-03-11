@@ -3,7 +3,6 @@
 
   export let collection;
   export let value;
-  export let count;
   export let title = "";
 
   let showExpand = false;
@@ -58,7 +57,7 @@
     class:inactive={value.length && !value.includes(item.entityId)}>
     <input type="checkbox" bind:group={value} value={item.entityId} />
     <span>{item.name}</span>
-    ({count(item)})
+    ({item.count})
   </label>
 {/each}
 

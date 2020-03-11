@@ -4,14 +4,10 @@
   import { queryData } from "../../api/graphql";
   import {
     collection,
+    facultyIdPath,
     filteredCollection,
-    searchFilter,
-    presenceFilters,
-    resetFilterStores
+    resetFilters
   } from "../../stores/filter";
-
-  export let searchText;
-  export let facultyIdFilter;
 
   let institution;
 
@@ -35,23 +31,15 @@
     }`;
 
   onMount(() => {
+    $facultyIdPath = "faculty.entityId";
+
     queryData(query).then(({ issuers, currentUser }) => {
       $collection = issuers;
       institution = currentUser.institution;
     });
 
-    return resetFilterStores();
+    return resetFilters;
   });
-
-  $: {
-    $searchFilter = searchText;
-    $presenceFilters = [
-      {
-        attr: "faculty.entityId",
-        list: facultyIdFilter
-      }
-    ];
-  }
 </script>
 
 <style>

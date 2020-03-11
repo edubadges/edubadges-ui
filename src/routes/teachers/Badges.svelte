@@ -4,15 +4,11 @@
   import { queryData } from "../../api/graphql";
   import {
     collection,
+    facultyIdPath,
+    issuerIdPath,
     filteredCollection,
-    searchFilter,
-    presenceFilters,
-    resetFilterStores
+    resetFilters
   } from "../../stores/filter";
-
-  export let searchText;
-  export let facultyIdFilter;
-  export let issuerIdFilter;
 
   let institution;
 
@@ -36,27 +32,16 @@
     }`;
 
   onMount(() => {
+    $facultyIdPath = "issuer.faculty.entityId";
+    $issuerIdPath = "issuer.entityId";
+
     queryData(query).then(({ currentUser, badgeClasses }) => {
       $collection = badgeClasses;
       institution = currentUser.institution;
     });
 
-    return () => resetFilterStores();
+    return resetFilters;
   });
-
-  $: {
-    $searchFilter = searchText;
-    $presenceFilters = [
-      {
-        attr: "issuer.faculty.entityId",
-        list: facultyIdFilter
-      },
-      {
-        attr: "issuer.entityId",
-        list: issuerIdFilter
-      }
-    ];
-  }
 </script>
 
 <style>

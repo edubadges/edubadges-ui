@@ -1,63 +1,8 @@
 <script>
-  import { onMount } from "svelte";
-  import { sum, sumBy } from "lodash";
   import { FilterBlock, Search } from "../components";
-  import { queryData } from "../api/graphql";
-  import { validSearch } from "../util/filter";
+  import { faculties, facultyIds, issuers, issuerIds } from "../stores/filter";
 
   export let bookmark;
-  export let searchText;
-  export let facultyIdFilter = [];
-  export let issuerIdFilter = [];
-
-  let faculties = [];
-  let issuers = [];
-
-  const query = `{
-    faculties {
-      entityId,
-      name,
-      issuers {
-        entityId, 
-        name,
-        badgeclasses {
-          name
-        }
-      }
-    }
-  }`;
-
-  onMount(() => {
-    queryData(query).then(res => {
-      faculties = sortByBadgeclassCount(res.faculties, facultyBadgeclassCount);
-    });
-  });
-
-  $: if (faculties || facultyIdFilter || issuers || searchText) {
-    issuers = sortByBadgeclassCount(
-      faculties
-        .filter(
-          ({ entityId }) =>
-            !facultyIdFilter.length || facultyIdFilter.includes(entityId)
-        )
-        .flatMap(({ issuers }) => issuers),
-      issuerBadgeclassCount
-    );
-  }
-
-  function sortByBadgeclassCount(collection, compareFunction) {
-    return collection
-      .sort((a, b) => a.name.localeCompare(b.name))
-      .sort((a, b) => compareFunction(b) - compareFunction(a));
-  }
-
-  function issuerBadgeclassCount(issuer) {
-    return issuer.badgeclasses.filter(bc => validSearch(bc, searchText)).length;
-  }
-
-  function facultyBadgeclassCount(faculty) {
-    return sumBy(faculty.issuers, issuerBadgeclassCount);
-  }
 </script>
 
 <style>
@@ -71,7 +16,7 @@
     padding-bottom: 20px;
   }
 
-  div.sidebar > div:not(:first-child) {
+  div.sidebar > *:not(:first-child) {
     padding-top: 20px;
     border-top: var(--card-border);
   }
@@ -79,24 +24,22 @@
 
 <div class="sidebar">
   <div>
-    <Search bind:value={searchText} />
+    <Search />
   </div>
 
   <div>
     <FilterBlock
-      bind:value={facultyIdFilter}
-      collection={faculties}
-      title="faculties"
-      count={facultyBadgeclassCount} />
+      bind:value={$facultyIds}
+      collection={$faculties}
+      title="faculties" />
   </div>
 
   {#if bookmark === 'badges'}
     <div>
       <FilterBlock
-        bind:value={issuerIdFilter}
-        collection={issuers}
-        title="issuers"
-        count={issuerBadgeclassCount} />
+        bind:value={$issuerIds}
+        collection={$issuers}
+        title="issuers" />
     </div>
   {/if}
 </div>

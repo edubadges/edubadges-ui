@@ -1,7 +1,6 @@
 <script>
   import I18n from "i18n-js";
-
-  export let value;
+  import { search } from "../stores/filter";
 </script>
 
 <style>
@@ -17,4 +16,4 @@
 </style>
 
 <p>{I18n.t('teacher.sidebar.search')}</p>
-<input type="text" bind:value />
+<input type="text" bind:value={$search} />
