@@ -1,7 +1,7 @@
 <script>
   import {getProfile, getEmails, addEmail, setPrimaryEmail, deleteEmail} from '../../api'
 
-  const profilePromise = getProfile();
+  let profilePromise = getProfile();
 
   let emailsPromise = getEmails();
 
@@ -25,6 +25,7 @@
   const setPrimaryEmailButton = (emailId) => {
     setPrimaryEmail(emailId).then(res => {
       emailsPromise = getEmails();
+      profilePromise = getProfile();
     });
   };
 
