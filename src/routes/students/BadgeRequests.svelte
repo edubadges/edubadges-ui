@@ -1,86 +1,83 @@
 <script>
-  import {onMount} from "svelte";
-  import {getSocialAccounts, getUnearnedBadges, requestBadge, withdrawRequestBadge} from "../../api";
+  import { onMount } from "svelte";
+  import {
+    getSocialAccounts,
+    getUnearnedBadges,
+    requestBadge,
+    withdrawRequestBadge
+  } from "../../api";
 
-  let provider = '';
-  let requested_badges_promise = new Promise((resolve, reject) => setTimeout(() => reject('timeout'), 100));
+  let form;
+  let provider;
+  let requests = [];
+  let error = false;
 
-  onMount(() => {
-    getSocialAccounts().then(res => {
-      provider = res[0]['uid'];
-      requested_badges_promise = getUnearnedBadges(provider);
-    })
-  });
+  $: if (provider) getRequestedBadges();
 
-  let badgeRequestOutput = '';
-  let requestBadgeEntityId = '';
-  const requestBadgeButton = () => {
-    requestBadge(requestBadgeEntityId).then(res => {
-      if(res.ok !== undefined && !res.ok) {
-        res.json().then(output => {
-          badgeRequestOutput = output['detail'] || output['error'];
-        });
-      } else {
-        requested_badges_promise = getUnearnedBadges(provider);
-        badgeRequestOutput = '';
-        requestBadgeEntityId = '';
-      }
-    });
+  function getRequestedBadges() {
+    getUnearnedBadges(provider).then(
+      res => (requests = res.filter(({ date_awarded }) => !date_awarded))
+    );
+  }
+
+  onMount(() => getSocialAccounts().then(([acc]) => (provider = acc.uid)));
+
+  const makeRequest = event => {
+    const id = event.target.entityId.value;
+
+    requestBadge(id)
+      .then(() => {
+        getRequestedBadges();
+        error = "";
+        form.reset();
+      })
+      .catch(err => {
+        err.then(res => (error = res.detail || res.error));
+      });
   };
 
-  const withdrawRequestBadgeButton = (enrollmentID) => {
-    withdrawRequestBadge(enrollmentID).then(res => {
-      requested_badges_promise = getUnearnedBadges(provider);
-    });
-  };
+  const withdrawRequest = id =>
+    withdrawRequestBadge(id).then(getRequestedBadges);
 </script>
 
 <style>
-  .requested-badge {
-    height: 50px;
-    border: solid 1px black;
-    margin-bottom: 10px;
+  ul {
+    list-style: initial;
+    margin-left: 20px;
   }
 
-  .withdraw-request-button {
-    float: right;
+  div:not(:last-child) {
+    margin-bottom: 25px;
+  }
+
+  .error {
+    color: red;
   }
 </style>
 
-<div>BadgeRequests</div>
-
 <div>
-  <h4>Open requests</h4>
+  <h4>Badge requests</h4>
 
-  {#await requested_badges_promise}
-    <div>
-      ...loading requested badges
-    </div>
-  {:then requested_badges}
-    <ul>
-      {#each requested_badges.filter(badge => !badge['date_awarded']) as requested_badge}
-        <li class="requested-badge">
-          {requested_badge['badge_class']['name']}
-          <button class="withdraw-request-button" on:click={() => withdrawRequestBadgeButton(requested_badge['id'])}>Withdraw request</button>
-        </li>
-      {/each}
-    </ul>
-  {:catch error}
-    <div>
-      error fetching requested badges
-    </div>
-  {/await}
+  <ul>
+    {#each requests as { id, badge_class }}
+      <li>
+        {badge_class.name}
+        <button on:click={() => withdrawRequest(id)}>Withdraw</button>
+      </li>
+    {/each}
+  </ul>
 </div>
 
 <div>
-  <p>
-    Enter badgr.issuer_badgeclass entity_id
-  </p>
+  <h4>Request a badge</h4>
 
-  <button on:click={requestBadgeButton}>Request badge</button>
+  <form on:submit|preventDefault={makeRequest} bind:this={form}>
+    <label for="entityId">Badgeclass entityId</label>
+    <input id="entityId" />
 
-  <label>
-    <input bind:value={requestBadgeEntityId}/>
-  </label>
-  <p style="color: red">{badgeRequestOutput}</p>
+    <button type="submit">Request</button>
+    {#if error}
+      <p class="error">{error}</p>
+    {/if}
+  </form>
 </div>

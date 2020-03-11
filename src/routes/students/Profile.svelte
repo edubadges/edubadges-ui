@@ -10,15 +10,11 @@
   let addEmailOutput = '';
   const addEmailButton = () => {
     addEmail(newEmailValue).then(res => {
-      if(res['ok'] !== undefined && !res.ok) {
-        res.json().then(output => {
-          addEmailOutput = output['error'] || output['email'][0];
-        });
-      } else {
         emailsPromise = getEmails();
         newEmailValue = '';
         addEmailOutput = '';
-      }
+    }).catch(err => {
+      err.then(res => addEmailOutput = res['error'] || res['email'][0])
     });
   };
 
