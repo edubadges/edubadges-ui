@@ -1,8 +1,13 @@
 <script>
   import { FilterBlock, Search } from "../components";
-  import { faculties, facultyIds, issuers, issuerIds } from "../stores/filter";
-
-  export let bookmark;
+  import {
+    faculties,
+    facultyIds,
+    facultyIdPath,
+    issuers,
+    issuerIds,
+    issuerIdPath
+  } from "../stores/filter";
 </script>
 
 <style>
@@ -27,14 +32,16 @@
     <Search />
   </div>
 
-  <div>
-    <FilterBlock
-      bind:value={$facultyIds}
-      collection={$faculties}
-      title="faculties" />
-  </div>
+  {#if $facultyIdPath}
+    <div>
+      <FilterBlock
+        bind:value={$facultyIds}
+        collection={$faculties}
+        title="faculties" />
+    </div>
+  {/if}
 
-  {#if bookmark === 'badges'}
+  {#if $issuerIdPath}
     <div>
       <FilterBlock
         bind:value={$issuerIds}

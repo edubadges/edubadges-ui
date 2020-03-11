@@ -19,7 +19,7 @@
   }
 </style>
 
-<SideBar {bookmark} />
+<SideBar />
 
 {#if currentPage}
   <div class="content">
