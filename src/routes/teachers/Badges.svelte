@@ -2,12 +2,16 @@
   import { onMount } from "svelte";
   import I18n from "i18n-js";
   import { queryData } from "../../api/graphql";
-  import { getProfile } from "../../api";
 
-  let scope = "";
+  let institution;
   let badges = [];
 
   const query = `{
+      currentUser {
+        institution {
+          name
+        }
+      },
       badgeClasses {
         name,
         image
@@ -15,21 +19,14 @@
     }`;
 
   onMount(() => {
-    queryData(query).then(({ badgeClasses }) => {
+    queryData(query).then(({ badgeClasses, currentUser }) => {
       badges = badgeClasses;
+      institution = currentUser.institution;
     });
-
-  getProfile()
-      .then(({ institution }) => (scope = institution.name))
-      .catch(error => console.log(error));
   });
 </script>
 
 <style>
-  h2 span {
-    color: var(--color-text-blue);
-  }
-
   .badges {
     --badge-margin-right: 20px;
 
@@ -58,9 +55,9 @@
 
 <h2>
   {I18n.t('teacher.badges.title')}
-  {#if scope}
-    <span>in</span>
-    {scope}
+  {#if institution}
+    <span class="blue-text">in</span>
+    {institution.name}
   {/if}
 </h2>
 

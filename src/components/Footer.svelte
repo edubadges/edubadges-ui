@@ -52,8 +52,8 @@
 
 <footer class="footer">
   <div class="help">
-    <span>{I18n.ts('footer.tip')}</span>
-    <a href="https://surf.nl" target="_blank">{I18n.ts('footer.help')}</a>
+    <span>{I18n.t('footer.tip')}</span>
+    <a href="https://surf.nl" target="_blank">{I18n.t('footer.help')}</a>
   </div>
 
   <div class="lang">
@@ -72,7 +72,7 @@
   </div>
 
   <div class="info">
-    <span>{I18n.ts('footer.poweredBy')}</span>
-    <a href="https://surf.nl" target="_blank">{I18n.ts('footer.surf')}</a>
+    <span>{I18n.t('footer.poweredBy')}</span>
+    <a href="https://surf.nl" target="_blank">{I18n.t('footer.surf')}</a>
   </div>
 </footer>
