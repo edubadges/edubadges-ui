@@ -18,11 +18,13 @@ I18n.translations.en = {
     title: "Never stop learning",
     description: "Edubadges are digital certificates and show that the owner has certain skills or knowledge. Edubadges can be issued for both extracurriculair activities and accredited education.",
     student: {
-      title: "Receive and share badges",
-      button: "View your Backpack",
-      button_sub: "Log in with your eduID",
+      title: "<strong>My Backpack</strong>",
+      subtitle: "receive and share badges",
+      button_title: "Open your Backpack",
+      button: "Log in with your eduID",
       accountCreation: {
         askAccount: "<strong>Don't</strong> have a Backpack yet?",
+        startAccount: "Start here",
         note: "You will need an eduID and you need to verify your institution to be able to use your Backpack.",
         follow: "Follow this simple 3-step process:",
         step1: "Create an eduID",
@@ -31,9 +33,20 @@ I18n.translations.en = {
         createAccountButton: "Create an eduID"
       },
     },
+    studentCreatesAccount: {
+      title: "<strong>Create a Backpack</strong>",
+      subtitle: "you'll need an eduID",
+      text: "To create an edubadges Backpack, you will need an eduID. After creating an eduID you can prove that you are  verify your institution."
+    },
     teacher: {
-      title: "Award badges to students",
-      button: "Enter the issuer portal",
+      title: "<strong>Issuer Portal</strong>",
+      subtitle: "award badges to students",
+      button_title: "Enter the issuer portal",
+      button: "Log in via SURFconext",
+      accountCreation: {
+        askAccount: "<strong>Don't</strong> have access?",
+        startAccount: "Contact your institution admin",
+      }
     }
   },
   backpack: {

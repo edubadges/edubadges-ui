@@ -18,11 +18,13 @@ I18n.translations.nl = {
     title: "Leven lang ontwikkelen",
     description: "Edubadges zijn digitale certificaten die aantonen dat de eigenaar bepaalde vaardigheden of kennis bezit. Edubadges kunnen worden uitgereikt voor zowel extracurriculaire activiteiten als geaccrediteerd onderwijs.",
     student: {
-      title: "Ontvang en deel badges",
-      button: "Bekijk je Backpack",
-      button_sub: "Log in met uw eduID",
+      title: "<strong>Mijn Backpack</strong>",
+      subtitle: "ontvang en deel badges",
+      button_title: "Open je Backpack",
+      button: "Log in met je eduID",
       accountCreation: {
         askAccount: "Nog <strong>geen</strong> Backpack?",
+        startAccount: "Klik hier",
         note: "Je hebt een eduID nodig en je moet je instelling verifiëren om je Backpack te gebruiken",
         follow: "Volg dit eenvoudige 3 stappenplan:",
         step1: "Maak een eduID aan",
@@ -32,8 +34,14 @@ I18n.translations.nl = {
       },
     },
     teacher: {
-      title: "Ken badges toe aan studenten",
-      button: "Log in via uw instelling",
+      title: "<strong>Uitgeversportaal</strong>",
+      subtitle: "ken badges toe aan studenten",
+      button_title: "Ga naar het uitgeversportaal",
+      button: "Log in via SURFconext",
+      accountCreation: {
+        askAccount: "Nog <strong>geen</strong> toegang?",
+        startAccount: "Neem contact op met de instellingsbeheerder",
+      }
     }
   },
   backpack: {

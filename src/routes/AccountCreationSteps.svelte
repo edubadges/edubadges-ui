@@ -1,38 +1,113 @@
 <script>
-  import Step from "../components/Step.svelte";
   import I18n from "i18n-js";
+  import eduIdLogo from "../img/logo_eduid.svg";
 
-  const stepData = [
-    {stepText: I18n.t('login.student.accountCreation.step1'), stepIcon: "icon-active"},
-    {stepText: I18n.t('login.student.accountCreation.step2'), stepIcon: "icon-active"},
-    {stepText: I18n.t('login.student.accountCreation.step3'), stepIcon: "icon-active"}
-  ];
+  const stepNumberStyle = (thisStep, activeStep) => {
+    if (thisStep > activeStep) {
+      return 'grey';
+    }
+    if (thisStep === activeStep) {
+      return 'blue';
+    }
+    if (thisStep < activeStep) {
+      return 'green';
+    }
+  };
 
-  let activeStep = 1;
+  const textStyle = (thisStep, activeStep) => {
+    if (thisStep > activeStep) {
+      return '';
+    }
+    if (thisStep === activeStep) {
+      return 'bold';
+    }
+    if (thisStep < activeStep) {
+      return 'hidden';
+    }
+  };
+
+  export let activeStep;
 </script>
 
 <style>
   .account-creation-steps {
-    display: flex;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    grid-template-rows: auto auto auto;
+    text-align: center;
     align-items: center;
+    background-color: lightgrey;
+    padding: 20px;
   }
 
-  .account-creation-step {
-    width: 20%;
+  .step-number {
+    grid-row-start: 1;
+    grid-row-end: 2;
+    font-size: 20px;
   }
+
+  .step-icon {
+    grid-row-start: 2;
+    grid-row-end: 3;
+  }
+
+  .step-text {
+    grid-row-start: 3;
+    grid-row-end: 4;
+  }
+
+  .step-one {
+    grid-column-start: 1;
+    grid-column-end: 2;
+  }
+
+  .step-two {
+    grid-column-start: 3;
+    grid-column-end: 4;
+  }
+
+  .step-three {
+    grid-column-start: 5;
+    grid-column-end: 6;
+  }
+
+  .step-arrow {
+    grid-row-start: 2;
+    grid-row-end: 3
+  }
+
+  .green {
+    color: green;
+  }
+
+  .blue {
+    color: blue;
+  }
+
+  .grey {
+    color: gray;
+  }
+
+  .bold {
+    font-weight: 900;
+  }
+
+  .hidden {
+    visibility: hidden;
+  }
+
 </style>
 
-<div class="account-creation-steps">
-  {#each stepData as step, i}
-    <div class="account-creation-step">
-      <Step stepText={step['stepText']} stepIcon={step['stepIcon']} stepNumber={i + 1} active={activeStep === i + 1} />
-    </div>
-
-    {#if i !== stepData.length - 1}
-      <div>
-        -->  <!-- TODO: icon -->
-      </div>
-    {/if}
-  {/each}
+<div class="account-creation-steps" on:click={() => activeStep = (activeStep % 3 + 1)}>  <!-- TODO: remove on click -->
+    <div class="step-number step-one {stepNumberStyle(1, activeStep)}">1</div>
+    <div class="step-icon step-one">{@html eduIdLogo}</div>
+    <div class="step-text step-one {textStyle(1, activeStep)}">{I18n.t('login.student.accountCreation.step1')}</div>
+    <div class="step-arrow">--></div>
+    <div class="step-number step-two {stepNumberStyle(2, activeStep)}">2</div>
+    <div class="step-icon step-two">icon2</div>
+    <div class="step-text step-two {textStyle(2, activeStep)}">{I18n.t('login.student.accountCreation.step2')}</div>
+    <div class="step-arrow">--></div>
+    <div class="step-number step-three {stepNumberStyle(3, activeStep)}">3</div>
+    <div class="step-icon step-three">icon3</div>
+    <div class="step-text step-three {textStyle(3, activeStep)}">{I18n.t('login.student.accountCreation.step3')}</div>
 </div>

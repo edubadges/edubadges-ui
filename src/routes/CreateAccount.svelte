@@ -6,7 +6,8 @@
   import {userRole} from "../stores/user";
   import {getService} from "../util/getService";
   import {requestLoginToken} from "../api";
-  import { navigate } from "svelte-routing"
+  import {navigate} from "svelte-routing"
+  import AccountCreationSteps from "./AccountCreationSteps.svelte";
 
   const logIn = chosenRole => {
     $userRole = chosenRole;
@@ -70,6 +71,14 @@
     font-size: 20px;
     margin-top: 15px;
   }
+
+  .account-creation-steps {
+      margin-top: 20px;
+  }
+
+  .greyed-out {
+
+  }
 </style>
 
 <div class="login-page">
@@ -80,23 +89,14 @@
   <div class="login-cards">
     <div class="login-element">
       <div class="login-card">
-        <h1>{@html I18n.ts('login.student.title')}</h1>
-        <h1>{I18n.ts('login.student.subtitle')}</h1>
-        <img
-          src="https://via.placeholder.com/200?text=Placeholder"
-          alt="student login" />
-        <p class="button-title">{I18n.ts('login.student.button_title')}</p>
-        <LoginButton
-          label={I18n.ts('login.student.button')}
-          onClick={() => logIn(role.STUDENT)} />
-      </div>
-      <div class="no-account">
-        <div class="account-creation"><p>{@html I18n.ts('login.student.accountCreation.askAccount')}</p></div>
-        <div class="account-creation"><a href="/create-account">{@html I18n.ts('login.student.accountCreation.startAccount')}</a></div>
+        <h1>{@html I18n.ts('login.studentCreatesAccount.title')}</h1>
+        <h1>{I18n.ts('login.studentCreatesAccount.subtitle')}</h1>
+        <p>{I18n.ts('login.studentCreatesAccount.text')}</p>
+        <div class="account-creation-steps"><AccountCreationSteps activeStep={1}/></div>
       </div>
     </div>
 
-    <div class="login-element">
+    <div class="login-element greyed-out">
       <div class="login-card">
         <h1>{@html I18n.ts('login.teacher.title')}</h1>
         <h1>{I18n.ts('login.teacher.subtitle')}</h1>
@@ -107,10 +107,6 @@
         <LoginButton
           label={I18n.ts('login.teacher.button')}
           onClick={() => logIn(role.TEACHER)} />
-      </div>
-      <div class="no-account">
-        <div class="account-creation"><p>{@html I18n.ts('login.teacher.accountCreation.askAccount')}</p></div>
-        <div class="account-creation"><p>{@html I18n.ts('login.teacher.accountCreation.startAccount')}</p></div>
       </div>
     </div>
   </div>
