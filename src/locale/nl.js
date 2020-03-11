@@ -39,7 +39,9 @@ I18n.translations.nl = {
       search: "Zoeken",
       filters: {
         faculties: "Issuer groepen",
-        issuers: "Issuers"
+        issuers: "Issuers",
+        show_all: "Toon meer",
+        show_less: "Toon minder"
       }
     },
     badges: {

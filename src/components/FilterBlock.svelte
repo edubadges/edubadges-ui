@@ -5,11 +5,23 @@
   export let value;
   export let count;
   export let title = "";
+
+  let showExpand = false;
+  let expanded = false;
+  let maxLength = 5;
+
+  $: showExpand = !value.length && collection.length > maxLength;
+  $: items = expanded ? collection : collection.slice(0, maxLength);
 </script>
 
 <style>
   p {
     font-weight: bold;
+  }
+
+  .expand {
+    color: var(--color-text-blue);
+    text-decoration: underline;
   }
 
   input[type="checkbox"] {
@@ -40,7 +52,7 @@
 
 <p>{I18n.t(`teacher.sidebar.filters.${title}`)}</p>
 
-{#each collection as item (item.entityId)}
+{#each items as item (item.entityId)}
   <label
     class:active={value.includes(item.entityId)}
     class:inactive={value.length && !value.includes(item.entityId)}>
@@ -49,3 +61,10 @@
     ({count(item)})
   </label>
 {/each}
+
+{#if showExpand}
+  <label class="expand">
+    <input type="checkbox" bind:checked={expanded} />
+    {expanded ? I18n.t(`teacher.sidebar.filters.show_less`) : I18n.t(`teacher.sidebar.filters.show_all`)}
+  </label>
+{/if}

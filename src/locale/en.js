@@ -39,7 +39,9 @@ I18n.translations.en = {
       search: "Search",
       filters: {
         faculties: "Issuer groups",
-        issuers: "Issuers"
+        issuers: "Issuers",
+        show_all: "Show all",
+        show_less: "Show less"
       }
     },
     badges: {
