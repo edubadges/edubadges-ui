@@ -36,7 +36,8 @@ I18n.translations.en = {
     studentCreatesAccount: {
       title: "<strong>Create a Backpack</strong>",
       subtitle: "you'll need an eduID",
-      text: "To create an edubadges Backpack, you will need an eduID. After creating an eduID you can prove that you are  verify your institution."
+      step1: "Step 1: Create an eduID",
+      text: "To create an edubadges Backpack, you will need an eduID. After creating an eduID you can prove that you are following education in the Netherlands by verifying your institution."
     },
     teacher: {
       title: "<strong>Issuer Portal</strong>",

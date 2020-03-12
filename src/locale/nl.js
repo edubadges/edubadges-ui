@@ -33,6 +33,12 @@ I18n.translations.nl = {
         createAccountButton: "Maak een eduID aan"
       },
     },
+    studentCreatesAccount: {
+      title: "<strong>Create a Backpack</strong>",
+      subtitle: "je hebt een eduID nodig",
+      step1: "Stap 1: Maak een eduID aan",
+      text: "Om een edubadges Backpack aan te maken heb je een eduID nodig. Na het aanmaken van een eduID kan je je onderwijsinstelling verifiëren."
+    },
     teacher: {
       title: "<strong>Uitgeversportaal</strong>",
       subtitle: "ken badges toe aan studenten",
