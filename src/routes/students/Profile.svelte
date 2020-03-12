@@ -1,85 +1,105 @@
 <script>
-  import {getProfile, getEmails, addEmail, setPrimaryEmail, deleteEmail} from '../../api'
+  import { onMount } from "svelte";
+  import {
+    getProfile,
+    getEmails,
+    addEmail,
+    setPrimaryEmail,
+    deleteEmail
+  } from "../../api";
 
-  let profilePromise = getProfile();
+  let emails = [];
+  let profile;
+  let form;
+  let error = "";
 
-  let emailsPromise = getEmails();
-
-  let newEmailValue = '';
-
-  let addEmailOutput = '';
-  const addEmailButton = () => {
-    addEmail(newEmailValue).then(res => {
-        emailsPromise = getEmails();
-        newEmailValue = '';
-        addEmailOutput = '';
-    }).catch(err => {
-      err.then(res => addEmailOutput = res['error'] || res['email'][0])
-    });
+  const setProfile = () => getProfile().then(res => (profile = res));
+  const setEmails = () =>
+    getEmails().then(res => (emails = res.filter(({ primary }) => !primary)));
+  const setData = () => {
+    setProfile();
+    setEmails();
   };
 
-  const setPrimaryEmailButton = (emailId) => {
-    setPrimaryEmail(emailId).then(res => {
-      emailsPromise = getEmails();
-      profilePromise = getProfile();
-    });
+  const makePrimary = emailId => setPrimaryEmail(emailId).then(setData);
+  const removeEmail = emailId => deleteEmail(emailId).then(setEmails);
+  const submitEmail = event => {
+    const email = event.target.email.value;
+
+    addEmail(email)
+      .then(res => {
+        setEmails();
+        error = "";
+        form.reset();
+      })
+      .catch(err => {
+        err.then(res => (error = res.error || res.email[0]));
+      });
   };
 
-  const removeEmail = (emailId) => {
-    deleteEmail(emailId).then(res => {
-      emailsPromise = getEmails();
-    });
-  }
+  onMount(setData);
 </script>
 
 <style>
-  .email{
-    border: black solid 1px;
-    margin-bottom: 10px;
+  ul {
+    list-style: initial;
+    margin-left: 20px;
+  }
+
+  li {
+    margin-bottom: 16px;
+  }
+
+  button {
+    display: inline-block;
+  }
+
+  div:not(:last-child) {
+    margin-bottom: 25px;
+  }
+
+  .error {
+    color: red;
   }
 </style>
 
-<div>Profile</div>
-
 <div>
-  {#await profilePromise}
-    <p>...loading profile</p>
-  {:then profile}
-    {profile['first_name']}<br>
-    {profile['last_name']}<br>
-    {profile['email']}<br>
+  <h4>Profile</h4>
 
-    <label>
-      <input bind:value={newEmailValue}/>
-    </label>
-    <button on:click={addEmailButton}>add email</button>
-    <p style="color: red">{addEmailOutput}</p>
-  {:catch error}
-    <p>error loading profile</p>
-  {/await}
+  {#if profile}
+    <p>Name: {profile.first_name} {profile.last_name}</p>
+    <p>Primary e-mail: {profile.email}</p>
+  {/if}
 </div>
-<br>
+
 <div>
-  {#await emailsPromise}
-    <p>...loading emails</p>
-  {:then emails}
-    {#each emails as email}
-      <div class="email">
-        {email['email']}
-        {#if email['primary']}
-          <p> primary email</p>
-        {:else}
-          {#if email['verified']}
-          <button on:click={() => setPrimaryEmailButton(email['id'])}>set as primary email</button>
-          {:else}
-            <p>cant make primary, unverified email, set to verified in database</p>
-          {/if}
-        {/if}
-        <br>
-        <button disabled={email['primary']} on:click={() => removeEmail(email['id'])}>delete email</button> <p>{email['primary']? 'cannot delete primary email' : ''}</p>
-      </div>
+  <h4>E-mails</h4>
+
+  <ul>
+    {#each emails as { email, verified, id } (id)}
+      <li>
+        E-mail: {email}
+        <br />
+        <button disabled={!verified} on:click={() => makePrimary(id)}>
+          Make primary
+        </button>
+        {#if !verified}(unverified){/if}
+
+        <br />
+        <button on:click={() => removeEmail(id)}>Delete</button>
+      </li>
     {/each}
-  {:catch error}
-    {error}
-  {/await}
+  </ul>
+</div>
+
+<div>
+  <h4>Add e-mail</h4>
+
+  <form on:submit|preventDefault={submitEmail} bind:this={form}>
+    <input id="email" />
+    <button type="submit">Submit</button>
+    {#if error}
+      <p class="error">{error}</p>
+    {/if}
+  </form>
 </div>
