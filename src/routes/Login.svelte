@@ -1,12 +1,10 @@
 <script>
   import I18n from "i18n-js";
   import LoginButton from "../components/LoginButton.svelte";
-  import logo_eduid from "../img/logo_eduid.svg";
   import {role} from "../util/role";
   import {userRole} from "../stores/user";
   import {getService} from "../util/getService";
   import {requestLoginToken} from "../api";
-  import {navigate} from "svelte-routing"
   import AccountCreationSteps from "./AccountCreationSteps.svelte";
   import Button from "../components/Button.svelte";
 
