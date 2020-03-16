@@ -1,33 +1,15 @@
 <script>
-  import { Badges } from "./teachers";
+  import { onMount } from "svelte";
+  import { teacherMainRoutes } from "../util/routes";
   import { SideBar } from "../components";
-  import {
-    getTeacherBadges,
-    requestProfile,
-    getFaculties,
-    getIssuers
-  } from "../api";
 
   export let bookmark;
 
-  let loaded = false;
-  let user, badges, faculties, issuers;
+  let currentPage = teacherMainRoutes[0];
 
-  const pages = [{ bm: "badges", component: Badges }];
-  const currentPage = pages.find(({ bm }) => bm === bookmark) || pages[0];
-
-  const apiCalls = [
-    requestProfile(),
-    getTeacherBadges(),
-    getFaculties(),
-    getIssuers()
-  ];
-  Promise.all(apiCalls)
-    .then(values => {
-      [user, badges, faculties, issuers] = values;
-      loaded = true;
-    })
-    .catch(error => console.log(error));
+  onMount(() => {
+    currentPage = teacherMainRoutes.find(route => route.bookmark === bookmark);
+  });
 </script>
 
 <style>
@@ -37,13 +19,8 @@
   }
 </style>
 
-{#if loaded}
-  <SideBar {faculties} {issuers} />
+<SideBar />
 
-  <div class="content">
-    <svelte:component
-      this={currentPage.component}
-      scope={user.institution.name}
-      {badges} />
-  </div>
-{/if}
+<div class="content">
+  <svelte:component this={currentPage.component} />
+</div>

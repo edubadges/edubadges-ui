@@ -111,65 +111,65 @@
 </style>
 
 <div class="login-page">
-  <h2>{I18n.ts('login.title')}</h2>
+  <h2>{I18n.t('login.title')}</h2>
 
-  <p>{I18n.ts('login.description')}</p>
+  <p>{I18n.t('login.description')}</p>
 
   <div class="login-cards">
     <div class="login-element">
       <div class="login-card test-overlay {visible ? '' : 'hidden'}">
-        <h1>{@html I18n.ts('login.student.title')}</h1>
-        <h1>{I18n.ts('login.student.subtitle')}</h1>
+        <h1>{@html I18n.t('login.student.title')}</h1>
+        <h1>{I18n.t('login.student.subtitle')}</h1>
         <img
           src="https://via.placeholder.com/200?text=Placeholder"
           alt="student login" />
-        <p class="button-title">{I18n.ts('login.student.button_title')}</p>
+        <p class="button-title">{I18n.t('login.student.button_title')}</p>
         <LoginButton
-          label={I18n.ts('login.student.button')}
+          label={I18n.t('login.student.button')}
           onClick={() => logIn(role.STUDENT)} />
       </div>
       <div class="login-card {visible ? 'hidden' : ''}">
-        <h1>{@html I18n.ts('login.studentCreatesAccountText.title')}</h1>
-        <h1>{I18n.ts('login.studentCreatesAccountText.subtitle')}</h1>
-        <p class="text-align-left">{I18n.ts('login.studentCreatesAccountText.require')}</p>
+        <h1>{@html I18n.t('login.studentCreatesAccountText.title')}</h1>
+        <h1>{I18n.t('login.studentCreatesAccountText.subtitle')}</h1>
+        <p class="text-align-left">{I18n.t('login.studentCreatesAccountText.require')}</p>
         <div class="account-creation-steps"><AccountCreationSteps activeStep={1}/></div>
-        <div class="create-account-button"><Button onClick={() => alert('make account')} label={I18n.ts('login.studentCreatesAccountText.step1')} /></div>
+        <div class="create-account-button"><Button onClick={() => alert('make account')} label={I18n.t('login.studentCreatesAccountText.step1')} /></div>
       </div>
       <div class="no-account">
-        <div class="account-creation {visible ? '' : 'hidden'}"><p>{@html I18n.ts('login.student.accountCreation.askAccount')}</p></div>
-        <div class="account-creation"><p on:click={() => toggleLoginCreateAccount()}>{@html visible ? I18n.ts('login.student.accountCreation.startAccount') : I18n.ts('login.student.accountCreation.back')}</p></div>
+        <div class="account-creation {visible ? '' : 'hidden'}"><p>{@html I18n.t('login.student.accountCreation.askAccount')}</p></div>
+        <div class="account-creation"><p on:click={() => toggleLoginCreateAccount()}>{@html visible ? I18n.t('login.student.accountCreation.startAccount') : I18n.t('login.student.accountCreation.back')}</p></div>
       </div>
     </div>
 
     <div class="login-element">
       <div class="login-card">
-        <h1>{@html I18n.ts('login.teacher.title')}</h1>
-        <h1>{I18n.ts('login.teacher.subtitle')}</h1>
+        <h1>{@html I18n.t('login.teacher.title')}</h1>
+        <h1>{I18n.t('login.teacher.subtitle')}</h1>
         <img
           src="https://via.placeholder.com/200?text=Placeholder"
           alt="teacher login" />
-        <p class="button-title">{I18n.ts('login.teacher.button_title')}</p>
+        <p class="button-title">{I18n.t('login.teacher.button_title')}</p>
         <LoginButton
-          label={I18n.ts('login.teacher.button')}
+          label={I18n.t('login.teacher.button')}
           onClick={() => logIn(role.TEACHER)} />
       </div>
       <div style="z-index: 2" class="login-card test-overlay grey {visible ? 'hidden' : ''}">
-        <h1 class="hidden">{@html I18n.ts('login.teacher.title')}</h1>
-        <h1 class="hidden">{I18n.ts('login.teacher.subtitle')}</h1>
+        <h1 class="hidden">{@html I18n.t('login.teacher.title')}</h1>
+        <h1 class="hidden">{I18n.t('login.teacher.subtitle')}</h1>
         <img
           class="hidden"
           src="https://via.placeholder.com/200?text=Placeholder"
           alt="teacher login" />
-        <p class="button-title hidden">{I18n.ts('login.teacher.button_title')}</p>
+        <p class="button-title hidden">{I18n.t('login.teacher.button_title')}</p>
         <div class="hidden">
           <LoginButton
-          label={I18n.ts('login.teacher.button')}
+          label={I18n.t('login.teacher.button')}
           onClick={() => logIn(role.TEACHER)} />
         </div>
       </div>
       <div class="no-account {visible ? '' : 'hidden'}">
-        <div class="account-creation"><p>{@html I18n.ts('login.teacher.accountCreation.askAccount')}</p></div>
-        <div class="account-creation"><p>{@html I18n.ts('login.teacher.accountCreation.startAccount')}</p></div>
+        <div class="account-creation"><p>{@html I18n.t('login.teacher.accountCreation.askAccount')}</p></div>
+        <div class="account-creation"><p>{@html I18n.t('login.teacher.accountCreation.startAccount')}</p></div>
       </div>
     </div>
   </div>

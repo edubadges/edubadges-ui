@@ -73,7 +73,7 @@
         class="menu-item"
         class:active={path === currentPage.path}>
         {@html icon}
-        <span>{I18n.ts(`routes.${path}`)}</span>
+        <span>{I18n.t(`routes.${path}`)}</span>
       </a>
     {/each}
   </div>
