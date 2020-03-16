@@ -85,7 +85,7 @@
   }
 
   .no-account {
-    width: 60%;
+    width: 80%;
     display: block;
     margin-left: auto;
     margin-right: auto;
