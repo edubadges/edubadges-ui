@@ -1,32 +1,47 @@
 <script>
   import { onMount } from "svelte";
   import I18n from "i18n-js";
+  import { SideBar } from "../../components";
   import { queryData } from "../../api/graphql";
+  import { faculties, tree } from "../../stores/filter";
 
   let institution;
-  let badges = [];
 
   const query = `{
-      currentUser {
-        institution {
-          name
+    currentUser {
+      institution {
+        name
+      }
+    },
+    faculties {
+      name,
+      entityId,
+      issuers {
+        name,
+        entityId,
+        badgeclasses {
+          name,
+          image,
+          entityId
         }
       },
-      badgeClasses {
-        name,
-        image
-      }
-    }`;
+    }
+  }`;
 
   onMount(() => {
-    queryData(query).then(({ badgeClasses, currentUser }) => {
-      badges = badgeClasses;
-      institution = currentUser.institution;
+    queryData(query).then(res => {
+      institution = res.currentUser.institution;
+      $faculties = res.faculties;
     });
   });
 </script>
 
 <style>
+  .content {
+    flex: 1;
+    padding: 30px 20px;
+  }
+
   .badges {
     --badge-margin-right: 20px;
 
@@ -53,21 +68,25 @@
   }
 </style>
 
-<h2>
-  {I18n.t('teacher.badges.title')}
-  {#if institution}
-    <span class="blue-text">in</span>
-    {institution.name}
-  {/if}
-</h2>
+<SideBar />
 
-<div class="badges">
-  {#each badges as badge}
-    <div class="badge">
-      <div class="image">
-        <img src={badge.image} alt={`image for ${badge.name}`} />
+<div class="content">
+  <h2>
+    {I18n.t('teacher.badges.title')}
+    {#if institution}
+      <span class="blue-text">in</span>
+      {institution.name}
+    {/if}
+  </h2>
+
+  <div class="badges">
+    {#each $tree.badgeClasses as badge (badge.entityId)}
+      <div class="badge">
+        <div class="image">
+          <img src={badge.image} alt={`image for ${badge.name}`} />
+        </div>
+        <b>{badge.name}</b>
       </div>
-      <b>{badge.name}</b>
-    </div>
-  {/each}
+    {/each}
+  </div>
 </div>
