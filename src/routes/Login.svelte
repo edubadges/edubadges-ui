@@ -18,7 +18,7 @@
 
   let visible = true;
 
-  const test = () => {
+  const toggleLoginCreateAccount = () => {
     visible = !visible;
   }
 </script>
@@ -140,8 +140,8 @@
         <div class="create-account-button"><Button onClick={() => alert('make account')} label={I18n.ts('login.studentCreatesAccountText.step1')} /></div>
       </div>
       <div class="no-account">
-        <div class="account-creation"><p>{@html I18n.ts('login.student.accountCreation.askAccount')}</p></div>
-        <div class="account-creation"><p on:click={() => test()}>{@html I18n.ts('login.student.accountCreation.startAccount')}</p></div>
+        <div class="account-creation {visible ? '' : 'hidden'}"><p>{@html I18n.ts('login.student.accountCreation.askAccount')}</p></div>
+        <div class="account-creation"><p on:click={() => toggleLoginCreateAccount()}>{@html visible ? I18n.ts('login.student.accountCreation.startAccount') : I18n.ts('login.student.accountCreation.back')}</p></div>
       </div>
     </div>
 
@@ -171,7 +171,7 @@
           onClick={() => logIn(role.TEACHER)} />
         </div>
       </div>
-      <div class="no-account">
+      <div class="no-account {visible ? '' : 'hidden'}">
         <div class="account-creation"><p>{@html I18n.ts('login.teacher.accountCreation.askAccount')}</p></div>
         <div class="account-creation"><p>{@html I18n.ts('login.teacher.accountCreation.startAccount')}</p></div>
       </div>

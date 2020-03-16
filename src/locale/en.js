@@ -25,7 +25,8 @@ I18n.translations.en = {
       accountCreation: {
         askAccount: "<strong>Don't</strong> have a Backpack yet?",
         startAccount: "Start here",
-        createAccountButton: "Create an eduID"
+        createAccountButton: "Create an eduID",
+        back: "Back"
       },
     },
     studentCreatesAccountSteps: {

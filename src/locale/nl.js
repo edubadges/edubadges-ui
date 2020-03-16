@@ -25,7 +25,8 @@ I18n.translations.nl = {
       accountCreation: {
         askAccount: "Nog <strong>geen</strong> Backpack?",
         startAccount: "Klik hier",
-        createAccountButton: "Maak een eduID aan"
+        createAccountButton: "Maak een eduID aan",
+        back: "Terug"
       },
     },
     studentCreatesAccountSteps: {
