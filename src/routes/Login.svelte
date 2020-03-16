@@ -157,7 +157,7 @@
           label={I18n.ts('login.teacher.button')}
           onClick={() => logIn(role.TEACHER)} />
       </div>
-      <div style="z-index: 10000" class="login-card test-overlay grey {visible ? 'hidden' : ''}">
+      <div style="z-index: 2" class="login-card test-overlay grey {visible ? 'hidden' : ''}">
         <h1 class="hidden">{@html I18n.ts('login.teacher.title')}</h1>
         <h1 class="hidden">{I18n.ts('login.teacher.subtitle')}</h1>
         <img

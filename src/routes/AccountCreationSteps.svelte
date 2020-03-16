@@ -3,27 +3,11 @@
   import eduIdLogo from "../img/logo_eduid.svg";
 
   const stepNumberStyle = (thisStep, activeStep) => {
-    if (thisStep > activeStep) {
-      return 'grey';
-    }
-    if (thisStep === activeStep) {
-      return 'blue';
-    }
-    if (thisStep < activeStep) {
-      return 'green';
-    }
+    return thisStep > activeStep ? 'grey' : thisStep === activeStep ? 'blue' : 'green';
   };
 
   const textStyle = (thisStep, activeStep) => {
-    if (thisStep > activeStep) {
-      return '';
-    }
-    if (thisStep === activeStep) {
-      return 'bold';
-    }
-    if (thisStep < activeStep) {
-      return 'hidden';
-    }
+    return thisStep > activeStep ? '' : thisStep === activeStep ? 'bold' : 'hidden';
   };
 
   export let activeStep;
@@ -40,39 +24,7 @@
   }
 
   .step-number {
-    grid-row-start: 1;
-    grid-row-end: 2;
     font-size: 20px;
-  }
-
-  .step-icon {
-    grid-row-start: 2;
-    grid-row-end: 3;
-  }
-
-  .step-text {
-    grid-row-start: 3;
-    grid-row-end: 4;
-  }
-
-  .step-one {
-    grid-column-start: 1;
-    grid-column-end: 2;
-  }
-
-  .step-two {
-    grid-column-start: 3;
-    grid-column-end: 4;
-  }
-
-  .step-three {
-    grid-column-start: 5;
-    grid-column-end: 6;
-  }
-
-  .step-arrow {
-    grid-row-start: 2;
-    grid-row-end: 3
   }
 
   .green {
