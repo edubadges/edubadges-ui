@@ -133,11 +133,11 @@
           onClick={() => logIn(role.STUDENT)} />
       </div>
       <div class="login-card {visible ? 'hidden' : ''}">
-        <h1>{@html I18n.ts('login.studentCreatesAccount.title')}</h1>
-        <h1>{I18n.ts('login.studentCreatesAccount.subtitle')}</h1>
-        <p class="text-align-left">{I18n.ts('login.studentCreatesAccount.text')}</p>
+        <h1>{@html I18n.ts('login.studentCreatesAccountText.title')}</h1>
+        <h1>{I18n.ts('login.studentCreatesAccountText.subtitle')}</h1>
+        <p class="text-align-left">{I18n.ts('login.studentCreatesAccountText.require')}</p>
         <div class="account-creation-steps"><AccountCreationSteps activeStep={1}/></div>
-        <div class="create-account-button"><Button onClick={() => alert('make account')} label={I18n.ts('login.studentCreatesAccount.step1')} /></div>
+        <div class="create-account-button"><Button onClick={() => alert('make account')} label={I18n.ts('login.studentCreatesAccountText.step1')} /></div>
       </div>
       <div class="no-account">
         <div class="account-creation"><p>{@html I18n.ts('login.student.accountCreation.askAccount')}</p></div>

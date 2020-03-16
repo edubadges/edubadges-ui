@@ -33,11 +33,11 @@ I18n.translations.en = {
       step2: "Verify your institution",
       step3: "Receive & share badges"
     },
-    studentCreatesAccount: {
+    studentCreatesAccountText: {
       title: "<strong>Create a Backpack</strong>",
       subtitle: "you'll need an eduID",
       step1: "Step 1: Create an eduID",
-      text: "To create an edubadges Backpack, you will need an eduID. After creating an eduID you can prove that you are following education in the Netherlands by verifying your institution."
+      require: "To create an edubadges Backpack, you will need an eduID. After creating an eduID you can prove that you are following education in the Netherlands by verifying your institution."
     },
     teacher: {
       title: "<strong>Issuer Portal</strong>",
