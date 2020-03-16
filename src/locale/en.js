@@ -25,13 +25,13 @@ I18n.translations.en = {
       accountCreation: {
         askAccount: "<strong>Don't</strong> have a Backpack yet?",
         startAccount: "Start here",
-        note: "You will need an eduID and you need to verify your institution to be able to use your Backpack.",
-        follow: "Follow this simple 3-step process:",
-        step1: "Create an eduID",
-        step2: "Verify your institution",
-        step3: "Receive & share badges",
         createAccountButton: "Create an eduID"
       },
+    },
+    studentCreatesAccountSteps: {
+      step1: "Create an eduID",
+      step2: "Verify your institution",
+      step3: "Receive & share badges"
     },
     studentCreatesAccount: {
       title: "<strong>Create a Backpack</strong>",
