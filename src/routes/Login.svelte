@@ -16,9 +16,7 @@
 
   let visible = true;
 
-  const toggleLoginCreateAccount = () => {
-    visible = !visible;
-  }
+  const toggleLoginCreateAccount = () => visible = !visible;
 </script>
 
 <style>
