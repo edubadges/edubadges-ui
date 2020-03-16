@@ -4,7 +4,6 @@
   import { Header, Footer } from "./components";
   import { userRole, userLoggedIn } from "./stores/user";
   import { role } from "./util/role";
-  import CreateAccount from "./routes/CreateAccount.svelte";
 </script>
 
 <style>
@@ -66,9 +65,6 @@
     {:else}
       <Router>
         <Route path="/" component={Login} />
-        <Route path="/create-account">
-          <CreateAccount bookmark="create-account" />
-        </Route>
         <Route path="/auth/login/*" component={ProcessToken} />
         <Route component={NotFound} />
       </Router>

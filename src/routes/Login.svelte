@@ -6,13 +6,21 @@
   import {userRole} from "../stores/user";
   import {getService} from "../util/getService";
   import {requestLoginToken} from "../api";
-  import { navigate } from "svelte-routing"
+  import {navigate} from "svelte-routing"
+  import AccountCreationSteps from "./AccountCreationSteps.svelte";
+  import Button from "../components/Button.svelte";
 
   const logIn = chosenRole => {
     $userRole = chosenRole;
     const service = getService(chosenRole);
     requestLoginToken(service);
   };
+
+  let visible = true;
+
+  const test = () => {
+    visible = !visible;
+  }
 </script>
 
 <style>
@@ -34,11 +42,17 @@
   .login-element {
     flex: 1;
 
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+
     min-width: 230px;
     margin-right: var(--login-spacing);
   }
 
   .login-card {
+    flex: 1;
     margin-top: 20px;
     padding: 20px;
 
@@ -51,6 +65,18 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+
+  .text-align-left {
+    text-align: left;
+  }
+
+  .account-creation-steps {
+    margin-top: 30px;
+  }
+
+  .create-account-button {
+    margin-top: 30px;
   }
 
   .button-title {
@@ -70,6 +96,22 @@
     font-size: 20px;
     margin-top: 15px;
   }
+
+  .test-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+
+  .grey {
+      background-color: gray;
+      opacity: 0.9;
+  }
+
+  .hidden {
+    visibility: hidden;
+  }
 </style>
 
 <div class="login-page">
@@ -79,7 +121,7 @@
 
   <div class="login-cards">
     <div class="login-element">
-      <div class="login-card">
+      <div class="login-card test-overlay {visible ? '' : 'hidden'}">
         <h1>{@html I18n.ts('login.student.title')}</h1>
         <h1>{I18n.ts('login.student.subtitle')}</h1>
         <img
@@ -90,9 +132,16 @@
           label={I18n.ts('login.student.button')}
           onClick={() => logIn(role.STUDENT)} />
       </div>
+      <div class="login-card {visible ? 'hidden' : ''}">
+        <h1>{@html I18n.ts('login.studentCreatesAccount.title')}</h1>
+        <h1>{I18n.ts('login.studentCreatesAccount.subtitle')}</h1>
+        <p class="text-align-left">{I18n.ts('login.studentCreatesAccount.text')}</p>
+        <div class="account-creation-steps"><AccountCreationSteps activeStep={1}/></div>
+        <div class="create-account-button"><Button onClick={() => alert('make account')} label={I18n.ts('login.studentCreatesAccount.step1')} /></div>
+      </div>
       <div class="no-account">
         <div class="account-creation"><p>{@html I18n.ts('login.student.accountCreation.askAccount')}</p></div>
-        <div class="account-creation"><a href="/create-account">{@html I18n.ts('login.student.accountCreation.startAccount')}</a></div>
+        <div class="account-creation"><p on:click={() => test()}>{@html I18n.ts('login.student.accountCreation.startAccount')}</p></div>
       </div>
     </div>
 
@@ -107,6 +156,20 @@
         <LoginButton
           label={I18n.ts('login.teacher.button')}
           onClick={() => logIn(role.TEACHER)} />
+      </div>
+      <div style="z-index: 10000" class="login-card test-overlay grey {visible ? 'hidden' : ''}">
+        <h1 class="hidden">{@html I18n.ts('login.teacher.title')}</h1>
+        <h1 class="hidden">{I18n.ts('login.teacher.subtitle')}</h1>
+        <img
+          class="hidden"
+          src="https://via.placeholder.com/200?text=Placeholder"
+          alt="teacher login" />
+        <p class="button-title hidden">{I18n.ts('login.teacher.button_title')}</p>
+        <div class="hidden">
+          <LoginButton
+          label={I18n.ts('login.teacher.button')}
+          onClick={() => logIn(role.TEACHER)} />
+        </div>
       </div>
       <div class="no-account">
         <div class="account-creation"><p>{@html I18n.ts('login.teacher.accountCreation.askAccount')}</p></div>
