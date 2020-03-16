@@ -51,20 +51,20 @@
 
 <div class="account-creation-steps" on:click={() => activeStep = (activeStep % 3 + 1)}>  <!-- TODO: remove on click -->
   <div>
-    <div class="step-number step-one {stepNumberStyle(1, activeStep)}">1</div>
-    <div class="step-icon step-one">{@html eduIdLogo}</div>
-    <div class="step-text step-one {textStyle(1, activeStep)}">{I18n.t('login.studentCreatesAccountSteps.step1')}</div>
+    <div class="step-number {stepNumberStyle(1, activeStep)}">1</div>
+    <div>{@html eduIdLogo}</div>
+    <div class="{textStyle(1, activeStep)}">{I18n.t('login.studentCreatesAccountSteps.step1')}</div>
   </div>
-  <div class="step-arrow">--></div>
+  <div>--></div>
   <div>
-    <div class="step-number step-two {stepNumberStyle(2, activeStep)}">2</div>
-    <div class="step-icon step-two">icon2</div>
-    <div class="step-text step-two {textStyle(2, activeStep)}">{I18n.t('login.studentCreatesAccountSteps.step2')}</div>
+    <div class="step-number {stepNumberStyle(2, activeStep)}">2</div>
+    <div>icon2</div>
+    <div class="{textStyle(2, activeStep)}">{I18n.t('login.studentCreatesAccountSteps.step2')}</div>
   </div>
-  <div class="step-arrow">--></div>
+  <div>--></div>
   <div>
-    <div class="step-number step-three {stepNumberStyle(3, activeStep)}">3</div>
-    <div class="step-icon step-three">icon3</div>
-    <div class="step-text step-three {textStyle(3, activeStep)}">{I18n.t('login.studentCreatesAccountSteps.step3')}</div>
+    <div class="step-number {stepNumberStyle(3, activeStep)}">3</div>
+    <div>icon3</div>
+    <div class="{textStyle(3, activeStep)}">{I18n.t('login.studentCreatesAccountSteps.step3')}</div>
   </div>
 </div>
