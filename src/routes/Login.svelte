@@ -1,10 +1,10 @@
 <script>
   import I18n from "i18n-js";
   import LoginButton from "../components/LoginButton.svelte";
-  import {role} from "../util/role";
-  import {userRole} from "../stores/user";
-  import {getService} from "../util/getService";
-  import {requestLoginToken} from "../api";
+  import { role } from "../util/role";
+  import { userRole } from "../stores/user";
+  import { getService } from "../util/getService";
+  import { requestLoginToken } from "../api";
   import AccountCreationSteps from "./AccountCreationSteps.svelte";
   import Button from "../components/Button.svelte";
 
@@ -16,7 +16,7 @@
 
   let visible = true;
 
-  const toggleLoginCreateAccount = () => visible = !visible;
+  const toggleLoginCreateAccount = () => (visible = !visible);
 </script>
 
 <style>
@@ -76,8 +76,8 @@
   }
 
   .button-title {
-      margin-top: 20px;
-      font-size: 30px;
+    margin-top: 20px;
+    font-size: 30px;
   }
 
   .no-account {
@@ -101,8 +101,8 @@
   }
 
   .grey {
-      background-color: gray;
-      opacity: 0.9;
+    background-color: gray;
+    opacity: 0.9;
   }
 
   .hidden {
@@ -118,7 +118,9 @@
   <div class="login-cards">
     <div class="login-element">
       <div class="login-card test-overlay {visible ? '' : 'hidden'}">
-        <h1>{@html I18n.t('login.student.title')}</h1>
+        <h1>
+          {@html I18n.t('login.student.title')}
+        </h1>
         <h1>{I18n.t('login.student.subtitle')}</h1>
         <img
           src="https://via.placeholder.com/200?text=Placeholder"
@@ -129,21 +131,41 @@
           onClick={() => logIn(role.STUDENT)} />
       </div>
       <div class="login-card {visible ? 'hidden' : ''}">
-        <h1>{@html I18n.t('login.studentCreatesAccountText.title')}</h1>
+        <h1>
+          {@html I18n.t('login.studentCreatesAccountText.title')}
+        </h1>
         <h1>{I18n.t('login.studentCreatesAccountText.subtitle')}</h1>
-        <p class="text-align-left">{I18n.t('login.studentCreatesAccountText.require')}</p>
-        <div class="account-creation-steps"><AccountCreationSteps activeStep={1}/></div>
-        <div class="create-account-button"><Button onClick={() => alert('make account')} label={I18n.t('login.studentCreatesAccountText.step1')} /></div>
+        <p class="text-align-left">
+          {I18n.t('login.studentCreatesAccountText.require')}
+        </p>
+        <div class="account-creation-steps">
+          <AccountCreationSteps activeStep={1} />
+        </div>
+        <div class="create-account-button">
+          <Button
+            onClick={() => alert('make account')}
+            label={I18n.t('login.studentCreatesAccountText.step1')} />
+        </div>
       </div>
       <div class="no-account">
-        <div class="account-creation {visible ? '' : 'hidden'}"><p>{@html I18n.t('login.student.accountCreation.askAccount')}</p></div>
-        <div class="account-creation"><p on:click={() => toggleLoginCreateAccount()}>{@html visible ? I18n.t('login.student.accountCreation.startAccount') : I18n.t('login.student.accountCreation.back')}</p></div>
+        <div class="account-creation {visible ? '' : 'hidden'}">
+          <p>
+            {@html I18n.t('login.student.accountCreation.askAccount')}
+          </p>
+        </div>
+        <div class="account-creation">
+          <p on:click={() => toggleLoginCreateAccount()}>
+            {@html visible ? I18n.t('login.student.accountCreation.startAccount') : I18n.t('login.student.accountCreation.back')}
+          </p>
+        </div>
       </div>
     </div>
 
     <div class="login-element">
       <div class="login-card">
-        <h1>{@html I18n.t('login.teacher.title')}</h1>
+        <h1>
+          {@html I18n.t('login.teacher.title')}
+        </h1>
         <h1>{I18n.t('login.teacher.subtitle')}</h1>
         <img
           src="https://via.placeholder.com/200?text=Placeholder"
@@ -153,23 +175,37 @@
           label={I18n.t('login.teacher.button')}
           onClick={() => logIn(role.TEACHER)} />
       </div>
-      <div style="z-index: 2" class="login-card test-overlay grey {visible ? 'hidden' : ''}">
-        <h1 class="hidden">{@html I18n.t('login.teacher.title')}</h1>
+      <div
+        style="z-index: 2"
+        class="login-card test-overlay grey {visible ? 'hidden' : ''}">
+        <h1 class="hidden">
+          {@html I18n.t('login.teacher.title')}
+        </h1>
         <h1 class="hidden">{I18n.t('login.teacher.subtitle')}</h1>
         <img
           class="hidden"
           src="https://via.placeholder.com/200?text=Placeholder"
           alt="teacher login" />
-        <p class="button-title hidden">{I18n.t('login.teacher.button_title')}</p>
+        <p class="button-title hidden">
+          {I18n.t('login.teacher.button_title')}
+        </p>
         <div class="hidden">
           <LoginButton
-          label={I18n.t('login.teacher.button')}
-          onClick={() => logIn(role.TEACHER)} />
+            label={I18n.t('login.teacher.button')}
+            onClick={() => logIn(role.TEACHER)} />
         </div>
       </div>
       <div class="no-account {visible ? '' : 'hidden'}">
-        <div class="account-creation"><p>{@html I18n.t('login.teacher.accountCreation.askAccount')}</p></div>
-        <div class="account-creation"><p>{@html I18n.t('login.teacher.accountCreation.startAccount')}</p></div>
+        <div class="account-creation">
+          <p>
+            {@html I18n.t('login.teacher.accountCreation.askAccount')}
+          </p>
+        </div>
+        <div class="account-creation">
+          <p>
+            {@html I18n.t('login.teacher.accountCreation.startAccount')}
+          </p>
+        </div>
       </div>
     </div>
   </div>
