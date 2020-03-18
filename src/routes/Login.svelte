@@ -106,11 +106,8 @@
     opacity: 0.5;
   }
 
-  .test-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
+  .none {
+    display: none;
   }
 
   .hidden {
@@ -125,7 +122,7 @@
 
   <div class="login-cards">
     <div class="login-element">
-      <div class="login-card test-overlay {visible ? '' : 'hidden'}">
+      <div class="login-card {visible ? '' : 'none'}">
         <h1>
           {@html I18n.t('login.student.title')}
         </h1>
@@ -138,7 +135,7 @@
           label={I18n.t('login.student.button')}
           onClick={() => logIn(role.STUDENT)} />
       </div>
-      <div class="login-card {visible ? 'hidden' : ''}">
+      <div class="login-card {visible ? 'none' : ''}">
         <h1>
           {@html I18n.t('login.studentCreatesAccountText.title')}
         </h1>
