@@ -101,6 +101,10 @@
       margin-bottom: 30px;
     }
 
+    .no-account-active {
+      margin-bottom: 10px;
+    }
+
     .small-screen-none {
       display: none;
     }
@@ -163,7 +167,7 @@
             label={I18n.t('login.studentCreatesAccountText.step1')} />
         </div>
       </div>
-      <div class="no-account">
+      <div class="no-account {visible ? '' : 'no-account-active'}">
         <div class="account-creation {visible ? '' : 'hidden small-screen-none'}">
           <p>
             {@html I18n.t('login.student.accountCreation.askAccount')}
