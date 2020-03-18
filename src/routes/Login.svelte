@@ -43,7 +43,7 @@
     display: flex;
     flex-direction: column;
 
-    min-width: 230px;
+    min-width: 305px;
     margin-right: var(--login-spacing);
   }
 
@@ -70,11 +70,11 @@
   }
 
   .account-creation-steps {
-    margin-top: 30px;
+    margin-top: 20px;
   }
 
   .create-account-button {
-    margin-top: 30px;
+    margin-top: 20px;
   }
 
   .button-title {
@@ -93,6 +93,17 @@
   .account-creation {
     font-size: 20px;
     margin-top: 15px;
+  }
+
+  @media only screen and (max-width: 800px) {
+    .no-account {
+      margin-top: 0;
+      margin-bottom: 30px;
+    }
+
+    .small-screen-none {
+      display: none;
+    }
   }
 
   .overlay::before {
@@ -153,7 +164,7 @@
         </div>
       </div>
       <div class="no-account">
-        <div class="account-creation {visible ? '' : 'hidden'}">
+        <div class="account-creation {visible ? '' : 'hidden small-screen-none'}">
           <p>
             {@html I18n.t('login.student.accountCreation.askAccount')}
           </p>
@@ -181,7 +192,7 @@
           onClick={() => logIn(role.TEACHER)} />
       </div>
 
-      <div class:hidden={!visible} class="no-account">
+      <div class="no-account {visible ? '' : 'hidden small-screen-none'}">
         <div class="account-creation">
           <p>
             {@html I18n.t('login.teacher.accountCreation.askAccount')}
