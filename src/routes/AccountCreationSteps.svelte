@@ -51,7 +51,7 @@
 
   .icon {
     width: 40px;
-    height: 30px;
+    height: 40px;
   }
 
   .arrow {
