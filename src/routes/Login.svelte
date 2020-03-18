@@ -178,7 +178,7 @@
     </div>
 
     <div class="login-element">
-      <div class="login-card" class:overlay={!visible}>
+      <div class="login-card {visible ? '' : 'small-screen-none'}" class:overlay={!visible}>
         <h1>
           {@html I18n.t('login.teacher.title')}
         </h1>
