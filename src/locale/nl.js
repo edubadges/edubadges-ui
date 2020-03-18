@@ -35,7 +35,7 @@ I18n.translations.nl = {
       step3: "Ontvang & deel badges"
     },
     studentCreatesAccountText: {
-      title: "<strong>Create a Backpack</strong>",
+      title: "<strong>Maak een Backpack aan</strong>",
       subtitle: "je hebt een eduID nodig",
       step1: "Stap 1: Maak een eduID aan",
       require: "Om een edubadges Backpack aan te maken heb je een eduID nodig. Na het aanmaken van een eduID kan je je onderwijsinstelling verifiëren."
