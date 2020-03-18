@@ -1,7 +1,8 @@
 <script>
   import I18n from "i18n-js";
   import eduIdLogo from "../img/logo_eduid.svg";
-  import arrowRight from "../icons/arrow-right.svg";
+  import arrowRightActive from "../icons/arrow-right-active.svg";
+  import arrowRightInactive from "../icons/arrow-right-inactive.svg";
   import stepChecked from "../icons/step-checked.svg";
   import stepInactive2 from "../icons/step-inactive-2.svg";
   import stepInactive3 from "../icons/step-inactive-3.svg";
@@ -64,6 +65,10 @@
     width: 20px;
   }
 
+  .stepText {
+    font-size: 15px;
+  }
+
   .bold {
     font-weight: 900;
   }
@@ -79,22 +84,22 @@
     <div class="icon-holder">
       <div class="eduicon icon-margin">{@html eduIdLogo}</div>
     </div>
-    <div class="{textStyle(1, activeStep)}">{I18n.t('login.studentCreatesAccountSteps.step1')}</div>
+    <div class="stepText {textStyle(1, activeStep)}">{I18n.t('login.studentCreatesAccountSteps.step1')}</div>
   </div>
-  <div class="arrow">{@html arrowRight}</div>
+  <div class="arrow">{@html activeStep < 2 ? arrowRightInactive : arrowRightActive}</div>
   <div class="step">
     <div class="stepNumber">{@html activeStep < 2 ? stepInactive2 : activeStep === 2 ? stepActive2 : stepChecked}</div>
     <div class="icon-holder">
       <div class="icon icon-margin">{@html activeStep >= 2 ? stepIcon2Active : stepIcon2Inactive}</div>
     </div>
-    <div class="{textStyle(2, activeStep)}">{I18n.t('login.studentCreatesAccountSteps.step2')}</div>
+    <div class="stepText {textStyle(2, activeStep)}">{I18n.t('login.studentCreatesAccountSteps.step2')}</div>
   </div>
-  <div class="arrow">{@html arrowRight}</div>
+  <div class="arrow">{@html activeStep < 3 ? arrowRightInactive : arrowRightActive}</div>
   <div class="step">
     <div class="stepNumber">{@html activeStep < 3 ? stepInactive3 : activeStep === 3 ? stepActive3 : stepChecked}</div>
     <div class="icon-holder">
       <div class="icon icon-margin">{@html badge}</div>
     </div>
-    <div class="{textStyle(3, activeStep)}">{I18n.t('login.studentCreatesAccountSteps.step3')}</div>
+    <div class="stepText {textStyle(3, activeStep)}">{I18n.t('login.studentCreatesAccountSteps.step3')}</div>
   </div>
 </div>
