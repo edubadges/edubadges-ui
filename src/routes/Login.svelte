@@ -49,6 +49,12 @@
 
   .login-card {
     flex: 1;
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
     margin-top: 20px;
     padding: 20px;
 
@@ -57,10 +63,6 @@
     box-shadow: var(--card-shadow);
 
     text-align: center;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
   }
 
   .text-align-left {
@@ -93,16 +95,22 @@
     margin-top: 15px;
   }
 
+  .overlay::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: gray;
+    opacity: 0.5;
+  }
+
   .test-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-  }
-
-  .grey {
-    background-color: gray;
-    opacity: 0.9;
   }
 
   .hidden {
@@ -162,7 +170,7 @@
     </div>
 
     <div class="login-element">
-      <div class="login-card">
+      <div class="login-card" class:overlay={!visible}>
         <h1>
           {@html I18n.t('login.teacher.title')}
         </h1>
@@ -175,27 +183,8 @@
           label={I18n.t('login.teacher.button')}
           onClick={() => logIn(role.TEACHER)} />
       </div>
-      <div
-        style="z-index: 2"
-        class="login-card test-overlay grey {visible ? 'hidden' : ''}">
-        <h1 class="hidden">
-          {@html I18n.t('login.teacher.title')}
-        </h1>
-        <h1 class="hidden">{I18n.t('login.teacher.subtitle')}</h1>
-        <img
-          class="hidden"
-          src="https://via.placeholder.com/200?text=Placeholder"
-          alt="teacher login" />
-        <p class="button-title hidden">
-          {I18n.t('login.teacher.button_title')}
-        </p>
-        <div class="hidden">
-          <LoginButton
-            label={I18n.t('login.teacher.button')}
-            onClick={() => logIn(role.TEACHER)} />
-        </div>
-      </div>
-      <div class="no-account {visible ? '' : 'hidden'}">
+
+      <div class:hidden={!visible} class="no-account">
         <div class="account-creation">
           <p>
             {@html I18n.t('login.teacher.accountCreation.askAccount')}
