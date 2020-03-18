@@ -1,63 +1,41 @@
 <script>
-  import { onMount } from "svelte";
-  import { queryData } from "../api/graphql";
-
-  let _faculties = [];
-  let issuers = [];
-
-  const query = `{
-      faculties {
-        entityId,
-        name,
-        issuers {
-          entityId,
-          name
-        }
-      }
-    }`;
-
-  onMount(() => {
-    queryData(query).then(({ faculties }) => {
-      _faculties = faculties;
-      issuers = faculties.map(({ issuers }) => issuers).flat();
-    });
-  });
+  import { FilterBlock, Search } from "../components";
+  import { tree, facultyIds, issuerIds } from "../stores/filter";
 </script>
 
 <style>
-  .side-bar {
+  div.sidebar {
     width: var(--width-side-bar);
-    padding: 8px;
+    padding: 12px;
     background: var(--color-background-grey-light);
   }
 
-  li {
-    margin-bottom: 8px;
+  div.sidebar > div {
+    padding-bottom: 20px;
+  }
+
+  div.sidebar > *:not(:first-child) {
+    padding-top: 20px;
+    border-top: var(--card-border);
   }
 </style>
 
-<div class="side-bar">
-  <p>
-    <b>Filter badgeclasses</b>
-  </p>
+<div class="sidebar">
+  <div>
+    <Search />
+  </div>
 
-  <p>
-    <b>Issuer groups</b>
-  </p>
+  <div>
+    <FilterBlock
+      bind:value={$facultyIds}
+      collection={$tree.faculties}
+      title="faculties" />
+  </div>
 
-  <ul>
-    {#each _faculties as fac (fac.entityId)}
-      <li>{fac.name}</li>
-    {/each}
-  </ul>
-
-  <p>
-    <b>Issuers</b>
-  </p>
-
-  <ul>
-    {#each issuers as iss (iss.entityId)}
-      <li>{iss.name}</li>
-    {/each}
-  </ul>
+  <div>
+    <FilterBlock
+      bind:value={$issuerIds}
+      collection={$tree.issuers}
+      title="issuers" />
+  </div>
 </div>

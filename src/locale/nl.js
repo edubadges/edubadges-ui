@@ -35,6 +35,15 @@ I18n.translations.nl = {
     main: "404 - Not Found"
   },
   teacher: {
+    sidebar: {
+      search: "Zoeken",
+      filters: {
+        faculties: "Issuer groepen",
+        issuers: "Issuers",
+        show_all: "Toon meer",
+        show_less: "Toon minder"
+      }
+    },
     badges: {
       title: "Badgeclasses"
     },
