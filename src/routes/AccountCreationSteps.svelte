@@ -58,16 +58,17 @@
     height: 45px;
   }
 
+  .stepText {
+    display: flex;
+    align-items: center;
+    height: 45px;
+  }
+
   .arrow {
-    margin-top: 25px;
     margin-left: 4px;
     margin-right: 4px;
     height: 20px;
     width: 20px;
-  }
-
-  .stepText {
-    font-size: 15px;
   }
 
   .bold {
@@ -83,7 +84,7 @@
   <div class="step">
     <div class="stepNumber">{@html activeStep === 1 ? stepActive1 : stepChecked}</div>
     <div class="icon-holder">
-      <div class="eduicon icon-margin">{@html eduIdLogo}</div>
+      <div class="eduicon">{@html eduIdLogo}</div>
     </div>
     <div class="stepText {textStyle(1, activeStep)}">{I18n.t('login.studentCreatesAccountSteps.step1')}</div>
   </div>
@@ -91,7 +92,7 @@
   <div class="step">
     <div class="stepNumber">{@html activeStep < 2 ? stepInactive2 : activeStep === 2 ? stepActive2 : stepChecked}</div>
     <div class="icon-holder">
-      <div class="icon icon-margin">{@html activeStep >= 2 ? stepIcon2Active : stepIcon2Inactive}</div>
+      <div class="icon">{@html activeStep >= 2 ? stepIcon2Active : stepIcon2Inactive}</div>
     </div>
     <div class="stepText {textStyle(2, activeStep)}">{I18n.t('login.studentCreatesAccountSteps.step2')}</div>
   </div>
