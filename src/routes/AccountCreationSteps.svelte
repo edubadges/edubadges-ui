@@ -37,7 +37,7 @@
 
   .eduicon {
     margin-top: 5px;
-    width: 70px;
+    width: 90px;
   }
 
   .stepNumber {
@@ -52,12 +52,12 @@
   }
 
   .icon {
-    width: 40px;
-    height: 42px;
+    width: 45px;
+    height: 45px;
   }
 
   .arrow {
-    margin-top: 20px;
+    margin-top: 25px;
     margin-left: 4px;
     margin-right: 4px;
     height: 20px;
