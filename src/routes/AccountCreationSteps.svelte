@@ -35,12 +35,8 @@
     align-items: center;
   }
 
-  .icon-margin {
-    margin-top: 8px;
-    margin-bottom: 8px;
-  }
-
   .eduicon {
+    margin-top: 5px;
     width: 70px;
   }
 
@@ -49,12 +45,21 @@
     width: 40px;
   }
 
+  .icon-holder {
+    height: 45px;
+    margin-top: 8px;
+    margin-bottom: 4px;
+  }
+
   .icon {
     width: 40px;
-    height: 40px;
+    height: 42px;
   }
 
   .arrow {
+    margin-top: 20px;
+    margin-left: 4px;
+    margin-right: 4px;
     height: 20px;
     width: 20px;
   }
@@ -71,19 +76,25 @@
 <div class="account-creation-steps" on:click={() => activeStep = (activeStep % 4 + 1)}>  <!-- TODO: remove on click -->
   <div class="step">
     <div class="stepNumber">{@html activeStep === 1 ? stepActive1 : stepChecked}</div>
-    <div class="eduicon icon-margin">{@html eduIdLogo}</div>
+    <div class="icon-holder">
+      <div class="eduicon icon-margin">{@html eduIdLogo}</div>
+    </div>
     <div class="{textStyle(1, activeStep)}">{I18n.t('login.studentCreatesAccountSteps.step1')}</div>
   </div>
   <div class="arrow">{@html arrowRight}</div>
   <div class="step">
     <div class="stepNumber">{@html activeStep < 2 ? stepInactive2 : activeStep === 2 ? stepActive2 : stepChecked}</div>
-    <div class="icon icon-margin">{@html activeStep >= 2 ? stepIcon2Active : stepIcon2Inactive}</div>
+    <div class="icon-holder">
+      <div class="icon icon-margin">{@html activeStep >= 2 ? stepIcon2Active : stepIcon2Inactive}</div>
+    </div>
     <div class="{textStyle(2, activeStep)}">{I18n.t('login.studentCreatesAccountSteps.step2')}</div>
   </div>
   <div class="arrow">{@html arrowRight}</div>
   <div class="step">
     <div class="stepNumber">{@html activeStep < 3 ? stepInactive3 : activeStep === 3 ? stepActive3 : stepChecked}</div>
-    <div class="icon icon-margin">{@html badge}</div>
+    <div class="icon-holder">
+      <div class="icon icon-margin">{@html badge}</div>
+    </div>
     <div class="{textStyle(3, activeStep)}">{I18n.t('login.studentCreatesAccountSteps.step3')}</div>
   </div>
 </div>
