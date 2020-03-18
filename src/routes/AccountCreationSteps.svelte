@@ -9,7 +9,8 @@
   import stepActive2 from "../icons/step-active-2.svg";
   import stepActive3 from "../icons/step-active-3.svg";
   import badge from "../icons/badge.svg";
-  import officialBuilding from "../icons/step-icon-building-active.svg";
+  import stepIcon2Active from "../icons/step-icon-building-active.svg";
+  import stepIcon2Inactive from "../icons/step-icon-building-inactive.svg";
 
   const textStyle = (thisStep, activeStep) => {
     return thisStep > activeStep ? '' : thisStep === activeStep ? 'bold' : 'hidden';
@@ -76,7 +77,7 @@
   <div class="arrow">{@html arrowRight}</div>
   <div class="step">
     <div class="stepNumber">{@html activeStep < 2 ? stepInactive2 : activeStep === 2 ? stepActive2 : stepChecked}</div>
-    <div class="icon icon-margin">{@html officialBuilding}</div>
+    <div class="icon icon-margin">{@html activeStep >= 2 ? stepIcon2Active : stepIcon2Inactive}</div>
     <div class="{textStyle(2, activeStep)}">{I18n.t('login.studentCreatesAccountSteps.step2')}</div>
   </div>
   <div class="arrow">{@html arrowRight}</div>
