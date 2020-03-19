@@ -7,6 +7,7 @@
   import { requestLoginToken } from "../api";
   import AccountCreationSteps from "./AccountCreationSteps.svelte";
   import Button from "../components/Button.svelte";
+  import navigateBack from "../icons/navigation-left-2.svg"
 
   const logIn = chosenRole => {
     $userRole = chosenRole;
@@ -67,6 +68,16 @@
 
   .text-align-left {
     text-align: left;
+  }
+
+  .titleAndBackButton {
+    width: 100%
+  }
+
+  .navigateBackButton {
+    float: left;
+    height: 30px;
+    width: 30px;
   }
 
   .account-creation-steps {
@@ -155,9 +166,14 @@
           onClick={() => logIn(role.STUDENT)} />
       </div>
       <div class="login-card" class:none={visible}>
-        <h1 class="bold">
-          {@html I18n.t('login.student.accountCreation.title')}
-        </h1>
+        <div class="titleAndBackButton">
+          <span class="navigateBackButton" on:click={() => toggleLoginCreateAccount()}>{@html navigateBack}</span>
+          <span>
+            <h1 class="bold">
+              {@html I18n.t('login.student.accountCreation.title')}
+            </h1>
+          </span>
+        </div>
         <h1>{I18n.t('login.student.accountCreation.subtitle')}</h1>
         <p class="text-align-left">
           {I18n.t('login.student.accountCreation.require')}
@@ -173,13 +189,11 @@
       </div>
       <div class="no-account" class:no-account-active={!visible}>
         <div class="account-creation {visible ? '' : 'hidden small-screen-none'}">
-          <p>
-            {@html I18n.t('login.student.accountCreation.askAccount')}
-          </p>
+          <p>{@html I18n.t('login.student.accountCreation.askAccount')}</p>
         </div>
-        <div class="account-creation">
+        <div class="account-creation {visible ? '' : 'hidden small-screen-none'}">
           <p on:click={() => toggleLoginCreateAccount()}>
-            {@html visible ? I18n.t('login.student.accountCreation.startAccount') : I18n.t('login.student.accountCreation.back')}
+            {@html I18n.t('login.student.accountCreation.startAccount')}
           </p>
         </div>
       </div>
