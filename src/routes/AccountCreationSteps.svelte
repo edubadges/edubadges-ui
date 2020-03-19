@@ -61,7 +61,7 @@
   .stepText {
     display: flex;
     align-items: center;
-    height: 45px;
+    height: 55px;
   }
 
   .arrow {
@@ -80,7 +80,7 @@
   }
 </style>
 
-<div class="account-creation-steps" on:click={() => activeStep = (activeStep % 4 + 1)}>  <!-- TODO: remove on click -->
+<div class="account-creation-steps">
   <div class="step">
     <div class="stepNumber">{@html activeStep === 1 ? stepActive1 : stepChecked}</div>
     <div class="icon-holder">
