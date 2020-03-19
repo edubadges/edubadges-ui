@@ -3,7 +3,7 @@ import I18n from "i18n-js";
 I18n.translations.en = {
   routes: {
     backpack: "Backpack",
-    'badge-requests': "Badge requests",
+    "badge-requests": "Badge requests",
     collections: "Collections",
     profile: "Profile"
   },
@@ -16,16 +16,18 @@ I18n.translations.en = {
   },
   login: {
     title: "Never stop learning",
-    description: "Edubadges are digital certificates and show that the owner has certain skills or knowledge. Edubadges can be issued for both extracurriculair activities and accredited education.",
+    description:
+      "Edubadges are digital certificates and show that the owner has certain skills or knowledge. Edubadges can be issued for both extracurriculair activities and accredited education.",
     student: {
       title: "Receive and share badges",
       button: "View your Backpack",
       button_sub: "Log in with your eduID",
-      edu_id_info: "You will need an eduID to be able to view your Backpack. If you don’t have an eduID yet, you can easily <a target=\"_blank\" href=\"%{url}\">request one here.</a>",
+      edu_id_info:
+        'You will need an eduID to be able to view your Backpack. If you don’t have an eduID yet, you can easily <a target="_blank" href="%{url}">request one here.</a>'
     },
     teacher: {
       title: "Award badges to students",
-      button: "Enter the issuer portal",
+      button: "Enter the issuer portal"
     }
   },
   backpack: {
