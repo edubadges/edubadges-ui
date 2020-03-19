@@ -78,6 +78,7 @@
     float: left;
     height: 30px;
     width: 30px;
+    cursor: pointer;
   }
 
   .account-creation-steps {
@@ -119,6 +120,11 @@
     .small-screen-none {
       display: none;
     }
+  }
+
+  .styleAsLink {
+    color: blue;
+    cursor: pointer;
   }
 
   .overlay::before {
@@ -192,7 +198,7 @@
           <p>{@html I18n.t('login.student.accountCreation.askAccount')}</p>
         </div>
         <div class="account-creation {visible ? '' : 'hidden small-screen-none'}">
-          <p on:click={() => toggleLoginCreateAccount()}>
+          <p class="styleAsLink" on:click={() => toggleLoginCreateAccount()}>
             {@html I18n.t('login.student.accountCreation.startAccount')}
           </p>
         </div>
