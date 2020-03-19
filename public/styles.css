@@ -2,41 +2,64 @@ html {
   box-sizing: border-box;
 }
 
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: inherit;
 }
 
 @font-face {
   font-family: "Source Sans Pro";
   font-weight: 300;
-  src: url("/fonts/source_sans_pro/sourcesanspro-regular-webfont.woff2") format("woff2"),
-  url("/fonts/source_sans_pro/sourcesanspro-regular-webfont.woff") format("woff");
+  src: url("/fonts/source_sans_pro/sourcesanspro-regular-webfont.woff2")
+      format("woff2"),
+    url("/fonts/source_sans_pro/sourcesanspro-regular-webfont.woff")
+      format("woff");
 }
 
 @font-face {
   font-family: "Source Sans Pro";
   font-weight: 600;
-  src: url("/fonts/source_sans_pro/sourcesanspro-semibold-webfont.woff2") format("woff2"),
-  url("/fonts/source_sans_pro/sourcesanspro-semibold-webfont.woff") format("woff");
+  src: url("/fonts/source_sans_pro/sourcesanspro-semibold-webfont.woff2")
+      format("woff2"),
+    url("/fonts/source_sans_pro/sourcesanspro-semibold-webfont.woff")
+      format("woff");
 }
 
 body {
   font-size: 16px;
-  background-color: #E6EFF6;
+  background-color: #e6eff6;
 }
 
-body, h1, h2, h3, h4, h5, h6, p, ol, ul {
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ol,
+ul {
   margin: 0;
   padding: 0;
   font-weight: normal;
   font-family: "Source Sans Pro", sans-serif;
 }
 
-body, h1, h2, h3, h4, h5, h6, a.button {
-  color: #4E4E4E;
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a.button {
+  color: #4e4e4e;
 }
 
-ol, ul {
+ol,
+ul {
   list-style: none;
 }
 
@@ -53,7 +76,8 @@ a:visited:not(.button) {
   color: #0077c8;
 }
 
-label, span {
+label,
+span {
   line-height: 18px;
 }
 
@@ -99,7 +123,12 @@ h4 {
 }
 
 @media (max-width: 580px) {
-  table, thead, tbody, th, td, tr {
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
     display: block;
   }
 
