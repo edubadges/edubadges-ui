@@ -5,7 +5,10 @@
     --width-side-bar: 220px;
 
     /* Spacing */
+    --ver-padding-s: 6px;
+
     --hor-padding-s: 13px;
+    --hor-padding-m: 20px;
 
     /*Colors*/
     --color-primary-blue: #0061b0;

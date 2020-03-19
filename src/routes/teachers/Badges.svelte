@@ -1,7 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import I18n from "i18n-js";
-  import { SideBar } from "../../components";
+  import { SideBar } from "../../components/teachers";
   import { queryData } from "../../api/graphql";
   import { faculties, tree } from "../../stores/filter";
 
@@ -37,6 +37,10 @@
 </script>
 
 <style>
+  .page-container {
+    display: flex;
+  }
+
   .content {
     flex: 1;
     padding: 30px 20px;
@@ -68,25 +72,27 @@
   }
 </style>
 
-<SideBar />
+<div class="page-container">
+  <SideBar />
 
-<div class="content">
-  <h2>
-    {I18n.t('teacher.badges.title')}
-    {#if institution}
-      <span class="blue-text">in</span>
-      {institution.name}
-    {/if}
-  </h2>
+  <div class="content">
+    <h2>
+      {I18n.t('teacher.badges.title')}
+      {#if institution}
+        <span class="blue-text">in</span>
+        {institution.name}
+      {/if}
+    </h2>
 
-  <div class="badges">
-    {#each $tree.badgeClasses as badge (badge.entityId)}
-      <div class="badge">
-        <div class="image">
-          <img src={badge.image} alt={`image for ${badge.name}`} />
+    <div class="badges">
+      {#each $tree.badgeClasses as badge (badge.entityId)}
+        <div class="badge">
+          <div class="image">
+            <img src={badge.image} alt={`image for ${badge.name}`} />
+          </div>
+          <b>{badge.name}</b>
         </div>
-        <b>{badge.name}</b>
-      </div>
-    {/each}
+      {/each}
+    </div>
   </div>
 </div>

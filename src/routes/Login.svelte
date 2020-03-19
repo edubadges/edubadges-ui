@@ -16,6 +16,8 @@
 
 <style>
   .login-page {
+    flex: 1;
+
     --login-spacing: 30px;
     padding: var(--login-spacing) calc(var(--login-spacing) + 10px);
 

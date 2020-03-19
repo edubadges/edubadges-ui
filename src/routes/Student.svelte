@@ -24,13 +24,19 @@
 </script>
 
 <style>
+  .page-container {
+    display: flex;
+    flex: 1;
+  }
   .content {
     flex: 1;
     padding: 30px 20px;
   }
 </style>
 
-<SideMenu {pages} {currentPage} />
-<div class="content">
-  <svelte:component this={currentPage.component} />
+<div class="page-container">
+  <SideMenu {pages} {currentPage} />
+  <div class="content">
+    <svelte:component this={currentPage.component} />
+  </div>
 </div>
