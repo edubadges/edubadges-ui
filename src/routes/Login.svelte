@@ -7,7 +7,7 @@
   import { requestLoginToken } from "../api";
   import AccountCreationSteps from "./AccountCreationSteps.svelte";
   import Button from "../components/Button.svelte";
-  import navigateBack from "../icons/navigation-left-2.svg"
+  import navigateBack from "../icons/chevron-left.svg"
 
   const logIn = chosenRole => {
     $userRole = chosenRole;
@@ -194,12 +194,12 @@
         </div>
       </div>
       <div class="no-account" class:no-account-active={!visible}>
-        <div class="account-creation {visible ? '' : 'hidden small-screen-none'}">
-          <p>{@html I18n.t('login.student.accountCreation.askAccount')}</p>
+        <div class="account-creation">
+          <p>{@html visible ? I18n.t('login.student.accountCreation.askAccountNo') : I18n.t('login.student.accountCreation.askAccountYes') }</p>
         </div>
-        <div class="account-creation {visible ? '' : 'hidden small-screen-none'}">
+        <div class="account-creation">
           <p class="styleAsLink" on:click={() => toggleLoginCreateAccount()}>
-            {@html I18n.t('login.student.accountCreation.startAccount')}
+            {@html visible ? I18n.t('login.student.accountCreation.startAccount') : I18n.t('login.student.accountCreation.logInAccount')}
           </p>
         </div>
       </div>

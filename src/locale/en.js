@@ -23,8 +23,10 @@ I18n.translations.en = {
       action: "Open your Backpack",
       button: "Log in with your eduID",
       accountCreation: {
-        askAccount: "<strong>Don't</strong> have a Backpack yet?",
+        askAccountNo: "<strong>Don't</strong> have a Backpack yet?",
+        askAccountYes: "<strong>Already</strong> have a Backpack?",
         startAccount: "Start here",
+        logInAccount: "Log in",
         createAccountButton: "Create an eduID",
         back: "Back",
         title: "Create a Backpack",

@@ -23,8 +23,10 @@ I18n.translations.nl = {
       action: "Open je Backpack",
       button: "Log in met je eduID",
       accountCreation: {
-        askAccount: "Nog <strong>geen</strong> Backpack?",
+        askAccountNo: "Nog <strong>geen</strong> Backpack?",
+        askAccountYes: "Al <strong>wel</strong> een Backpack?",
         startAccount: "Klik hier",
+        logInAccount: "Log in",
         createAccountButton: "Maak een eduID aan",
         back: "Terug",
         title: "Maak een Backpack aan",
