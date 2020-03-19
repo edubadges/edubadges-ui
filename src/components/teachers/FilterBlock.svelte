@@ -1,6 +1,6 @@
 <script>
   import I18n from "i18n-js";
-  import close from "../icons/close_smll.svg";
+  import close from "../../icons/close_smll.svg";
 
   export let collection;
   export let value;

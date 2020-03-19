@@ -1,5 +1,5 @@
 <script>
-  import { FilterBlock, Search } from "../../components";
+  import { FilterBlock, Search } from "../../components/teachers";
   import { tree, facultyIds, issuerIds } from "../../stores/filter";
 </script>
 

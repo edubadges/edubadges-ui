@@ -1,6 +1,6 @@
 <script>
   import I18n from "i18n-js";
-  import { search } from "../stores/filter";
+  import { search } from "../../stores/filter";
 </script>
 
 <style>

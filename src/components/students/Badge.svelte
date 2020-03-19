@@ -1,8 +1,8 @@
 <script>
   import { onMount } from "svelte";
   import moment from "moment";
-  import trash from "../icons/trash.svg";
-  import { validBadge } from "../util/validBadge";
+  import trash from "../../icons/trash.svg";
+  import { validBadge } from "../../util/validBadge";
 
   export let data;
 

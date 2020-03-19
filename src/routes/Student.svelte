@@ -1,6 +1,6 @@
 <script>
   import { onMount } from "svelte";
-  import { SideMenu } from "../components";
+  import { SideMenu } from "../components/students";
   import security from "../icons/security.svg";
   import data_activity from "../icons/data_activity.svg";
   import personal_info from "../icons/personal_info.svg";
