@@ -10,8 +10,8 @@ I18n.translations.en = {
   header: {
     logout: "Logout",
     nav: {
-      badges: "Badges",
-      issuers: "Issuers"
+      "/": "Badges",
+      "/issuers": "Issuers"
     }
   },
   login: {

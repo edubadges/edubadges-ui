@@ -10,8 +10,8 @@ I18n.translations.nl = {
   header: {
     logout: "Logout",
     nav: {
-      badges: "Badges",
-      issuers: "Issuers"
+      "/": "Badges",
+      "/issuers": "Issuers"
     }
   },
   login: {

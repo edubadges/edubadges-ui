@@ -69,13 +69,9 @@
   </a>
 
   <nav>
-    {#each tabs as { bookmark, path }}
-      <a
-        href={path}
-        use:link
-        class="button"
-        class:active={currentPath === path}>
-        {I18n.t(['header', 'nav', bookmark])}
+    {#each tabs as tab}
+      <a href={tab} use:link class="button" class:active={currentPath === tab}>
+        {I18n.t(['header', 'nav', tab])}
       </a>
     {/each}
   </nav>
