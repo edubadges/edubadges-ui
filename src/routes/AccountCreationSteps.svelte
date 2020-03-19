@@ -86,7 +86,7 @@
     <div class="icon-holder">
       <div class="eduicon">{@html eduIdLogo}</div>
     </div>
-    <div class="stepText {textStyle(1, activeStep)}">{I18n.t('login.studentCreatesAccountSteps.step1')}</div>
+    <div class="stepText {textStyle(1, activeStep)}">{I18n.t('login.student.accountCreation.steps.step1')}</div>
   </div>
   <div class="arrow">{@html activeStep < 2 ? arrowRightInactive : arrowRightActive}</div>
   <div class="step">
@@ -94,14 +94,14 @@
     <div class="icon-holder">
       <div class="icon">{@html activeStep >= 2 ? stepIcon2Active : stepIcon2Inactive}</div>
     </div>
-    <div class="stepText {textStyle(2, activeStep)}">{I18n.t('login.studentCreatesAccountSteps.step2')}</div>
+    <div class="stepText {textStyle(2, activeStep)}">{I18n.t('login.student.accountCreation.steps.step2')}</div>
   </div>
   <div class="arrow">{@html activeStep < 3 ? arrowRightInactive : arrowRightActive}</div>
   <div class="step">
     <div class="stepNumber">{@html activeStep < 3 ? stepInactive3 : activeStep === 3 ? stepActive3 : stepChecked}</div>
     <div class="icon-holder">
-      <div class="icon icon-margin">{@html badge}</div>
+      <div class="icon">{@html badge}</div>
     </div>
-    <div class="stepText {textStyle(3, activeStep)}">{I18n.t('login.studentCreatesAccountSteps.step3')}</div>
+    <div class="stepText {textStyle(3, activeStep)}">{I18n.t('login.student.accountCreation.steps.step3')}</div>
   </div>
 </div>

@@ -18,32 +18,30 @@ I18n.translations.nl = {
     title: "Leven lang ontwikkelen",
     description: "Edubadges zijn digitale certificaten die aantonen dat de eigenaar bepaalde vaardigheden of kennis bezit. Edubadges kunnen worden uitgereikt voor zowel extracurriculaire activiteiten als geaccrediteerd onderwijs.",
     student: {
-      title: "<strong>Mijn Backpack</strong>",
+      title: "Mijn Backpack",
       subtitle: "ontvang en deel badges",
-      button_title: "Open je Backpack",
+      action: "Open je Backpack",
       button: "Log in met je eduID",
       accountCreation: {
         askAccount: "Nog <strong>geen</strong> Backpack?",
         startAccount: "Klik hier",
         createAccountButton: "Maak een eduID aan",
-        back: "Terug"
-      },
-    },
-    studentCreatesAccountSteps: {
-      step1: "Maak een eduID aan",
-      step2: "Verifieer je instelling",
-      step3: "Ontvang & deel badges"
-    },
-    studentCreatesAccountText: {
-      title: "<strong>Maak een Backpack aan</strong>",
-      subtitle: "je hebt een eduID nodig",
-      step1: "Stap 1: Maak een eduID aan",
-      require: "Om een edubadges Backpack aan te maken heb je een eduID nodig. Na het aanmaken van een eduID kan je je onderwijsinstelling verifiëren."
+        back: "Terug",
+        title: "Maak een Backpack aan",
+        subtitle: "je hebt een eduID nodig",
+        step1: "Stap 1: Maak een eduID aan",
+        require: "Om een edubadges Backpack aan te maken heb je een eduID nodig. Na het aanmaken van een eduID kan je je onderwijsinstelling verifiëren.",
+        steps: {
+          step1: "Maak een eduID aan",
+          step2: "Verifieer je instelling",
+          step3: "Ontvang & deel badges"
+        }
+      }
     },
     teacher: {
-      title: "<strong>Uitgeversportaal</strong>",
+      title: "Uitgeversportaal",
       subtitle: "ken badges toe aan studenten",
-      button_title: "Ga naar het uitgeversportaal",
+      action: "Ga naar het uitgeversportaal",
       button: "Log in via SURFconext",
       accountCreation: {
         askAccount: "Nog <strong>geen</strong> toegang?",

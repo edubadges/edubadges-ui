@@ -18,32 +18,30 @@ I18n.translations.en = {
     title: "Never stop learning",
     description: "Edubadges are digital certificates and show that the owner has certain skills or knowledge. Edubadges can be issued for both extracurriculair activities and accredited education.",
     student: {
-      title: "<strong>My Backpack</strong>",
+      title: "My Backpack",
       subtitle: "receive and share badges",
-      button_title: "Open your Backpack",
+      action: "Open your Backpack",
       button: "Log in with your eduID",
       accountCreation: {
         askAccount: "<strong>Don't</strong> have a Backpack yet?",
         startAccount: "Start here",
         createAccountButton: "Create an eduID",
-        back: "Back"
-      },
-    },
-    studentCreatesAccountSteps: {
-      step1: "Create an eduID",
-      step2: "Verify your institution",
-      step3: "Receive & share badges"
-    },
-    studentCreatesAccountText: {
-      title: "<strong>Create a Backpack</strong>",
-      subtitle: "you'll need an eduID",
-      step1: "Step 1: Create an eduID",
-      require: "To create an edubadges Backpack, you will need an eduID. After creating an eduID you can prove that you are following education in the Netherlands by verifying your institution."
+        back: "Back",
+        title: "Create a Backpack",
+        subtitle: "you'll need an eduID",
+        step1: "Step 1: Create an eduID",
+        require: "To create an edubadges Backpack, you will need an eduID. After creating an eduID you can prove that you are following education in the Netherlands by verifying your institution.",
+        steps: {
+          step1: "Create an eduID",
+          step2: "Verify your institution",
+          step3: "Receive & share badges"
+        }
+      }
     },
     teacher: {
-      title: "<strong>Issuer Portal</strong>",
+      title: "Issuer Portal",
       subtitle: "award badges to students",
-      button_title: "Enter the issuer portal",
+      action: "Enter the issuer portal",
       button: "Log in via SURFconext",
       accountCreation: {
         askAccount: "<strong>Don't</strong> have access?",

@@ -43,7 +43,7 @@
     display: flex;
     flex-direction: column;
 
-    min-width: 305px;
+    min-width: 315px;
     margin-right: var(--login-spacing);
   }
 
@@ -95,7 +95,7 @@
     margin-top: 15px;
   }
 
-  @media only screen and (max-width: 800px) {
+  @media only screen and (max-width: 819px) {
     .no-account {
       margin-top: 0;
       margin-bottom: 30px;
@@ -128,6 +128,10 @@
   .hidden {
     visibility: hidden;
   }
+
+  .bold {
+    font-weight: bolder;
+  }
 </style>
 
 <div class="login-page">
@@ -137,26 +141,26 @@
 
   <div class="login-cards">
     <div class="login-element">
-      <div class="login-card {visible ? '' : 'none'}">
-        <h1>
+      <div class="login-card" class:none={!visible}>
+        <h1 class="bold">
           {@html I18n.t('login.student.title')}
         </h1>
         <h1>{I18n.t('login.student.subtitle')}</h1>
         <img
           src="https://via.placeholder.com/200?text=Placeholder"
           alt="student login" />
-        <p class="button-title">{I18n.t('login.student.button_title')}</p>
+        <p class="button-title">{I18n.t('login.student.action')}</p>
         <LoginButton
           label={I18n.t('login.student.button')}
           onClick={() => logIn(role.STUDENT)} />
       </div>
-      <div class="login-card {visible ? 'none' : ''}">
-        <h1>
-          {@html I18n.t('login.studentCreatesAccountText.title')}
+      <div class="login-card" class:none={visible}>
+        <h1 class="bold">
+          {@html I18n.t('login.student.accountCreation.title')}
         </h1>
-        <h1>{I18n.t('login.studentCreatesAccountText.subtitle')}</h1>
+        <h1>{I18n.t('login.student.accountCreation.subtitle')}</h1>
         <p class="text-align-left">
-          {I18n.t('login.studentCreatesAccountText.require')}
+          {I18n.t('login.student.accountCreation.require')}
         </p>
         <div class="account-creation-steps">
           <AccountCreationSteps activeStep={1} />
@@ -164,10 +168,10 @@
         <div class="create-account-button">
           <Button
             onClick={() => alert('make account')}
-            label={I18n.t('login.studentCreatesAccountText.step1')} />
+            label={I18n.t('login.student.accountCreation.step1')} />
         </div>
       </div>
-      <div class="no-account {visible ? '' : 'no-account-active'}">
+      <div class="no-account" class:no-account-active={!visible}>
         <div class="account-creation {visible ? '' : 'hidden small-screen-none'}">
           <p>
             {@html I18n.t('login.student.accountCreation.askAccount')}
@@ -182,15 +186,15 @@
     </div>
 
     <div class="login-element">
-      <div class="login-card {visible ? '' : 'small-screen-none'}" class:overlay={!visible}>
-        <h1>
+      <div class="login-card {visible ? '' : 'overlay small-screen-none'}">
+        <h1 class="bold">
           {@html I18n.t('login.teacher.title')}
         </h1>
         <h1>{I18n.t('login.teacher.subtitle')}</h1>
         <img
           src="https://via.placeholder.com/200?text=Placeholder"
           alt="teacher login" />
-        <p class="button-title">{I18n.t('login.teacher.button_title')}</p>
+        <p class="button-title">{I18n.t('login.teacher.action')}</p>
         <LoginButton
           label={I18n.t('login.teacher.button')}
           onClick={() => logIn(role.TEACHER)} />
