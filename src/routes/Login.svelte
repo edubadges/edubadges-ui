@@ -66,8 +66,9 @@
     text-align: center;
   }
 
-  .text-align-left {
-    text-align: left;
+  .action {
+    margin-top: 20px;
+    font-size: 30px;
   }
 
   .titleAndBackButton {
@@ -89,11 +90,6 @@
     margin-top: 20px;
   }
 
-  .button-title {
-    margin-top: 20px;
-    font-size: 30px;
-  }
-
   .no-account {
     width: 80%;
     display: block;
@@ -105,21 +101,6 @@
   .account-creation {
     font-size: 20px;
     margin-top: 15px;
-  }
-
-  @media only screen and (max-width: 819px) {
-    .no-account {
-      margin-top: 0;
-      margin-bottom: 30px;
-    }
-
-    .no-account-active {
-      margin-bottom: 10px;
-    }
-
-    .small-screen-none {
-      display: none;
-    }
   }
 
   .styleAsLink {
@@ -138,16 +119,35 @@
     opacity: 0.5;
   }
 
+  @media only screen and (max-width: 819px) {
+    .no-account {
+      margin-top: 0;
+      margin-bottom: 30px;
+    }
+
+    .no-account-active {
+      margin-bottom: 10px;
+    }
+
+    .small-screen-none {
+      display: none;
+    }
+  }
+
+  .bold {
+      font-weight: bolder;
+  }
+
+  .text-align-left {
+    text-align: left;
+  }
+
   .none {
     display: none;
   }
 
   .hidden {
     visibility: hidden;
-  }
-
-  .bold {
-    font-weight: bolder;
   }
 </style>
 
@@ -166,7 +166,7 @@
         <img
           src="https://via.placeholder.com/200?text=Placeholder"
           alt="student login" />
-        <p class="button-title">{I18n.t('login.student.action')}</p>
+        <p class="action">{I18n.t('login.student.action')}</p>
         <LoginButton
           label={I18n.t('login.student.button')}
           onClick={() => logIn(role.STUDENT)} />
@@ -214,7 +214,7 @@
         <img
           src="https://via.placeholder.com/200?text=Placeholder"
           alt="teacher login" />
-        <p class="button-title">{I18n.t('login.teacher.action')}</p>
+        <p class="action">{I18n.t('login.teacher.action')}</p>
         <LoginButton
           label={I18n.t('login.teacher.button')}
           onClick={() => logIn(role.TEACHER)} />

@@ -37,11 +37,6 @@
     width: 30%;
   }
 
-  .eduicon {
-    margin-top: 5px;
-    width: 90px;
-  }
-
   .stepNumber {
     height: 40px;
     width: 40px;
@@ -51,6 +46,11 @@
     height: 45px;
     margin-top: 8px;
     margin-bottom: 4px;
+  }
+
+  .eduicon {
+    margin-top: 5px;
+    width: 90px;
   }
 
   .icon {
