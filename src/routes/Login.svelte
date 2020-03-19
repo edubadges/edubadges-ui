@@ -135,7 +135,7 @@
   }
 
   .bold {
-      font-weight: bolder;
+    font-weight: bolder;
   }
 
   .text-align-left {
