@@ -39,6 +39,7 @@
 <style>
   .page-container {
     display: flex;
+    flex: 1;
   }
 
   .content {
