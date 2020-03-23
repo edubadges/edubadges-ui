@@ -9,7 +9,7 @@
 <style>
   .page-container {
     flex: 1;
-    --entity-icon-width: 70px;
+    --entity-icon-width: 66px;
   }
 </style>
 

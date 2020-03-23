@@ -4,7 +4,7 @@
 
 <style>
   div {
-    padding: var(--ver-padding-m) var(--hor-padding-s);
+    padding: var(--ver-padding-m) var(--hor-padding-m);
     font-weight: bold;
   }
 </style>
