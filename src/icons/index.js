@@ -1,0 +1,10 @@
+export { default as arrowRight } from "./arrow-right.svg";
+export { default as stepChecked } from "./step-checked.svg";
+export { default as step1Active } from "./step-active-1.svg";
+export { default as step2Active } from "./step-active-2.svg";
+export { default as step2Inactive } from "./step-inactive-2.svg";
+export { default as step3Active } from "./step-active-3.svg";
+export { default as step3Inactive } from "./step-inactive-3.svg";
+export { default as icon2Active } from "./step-icon-building-active.svg";
+export { default as icon2Inactive } from "./step-icon-building-inactive.svg";
+export { default as icon3Inactive } from "./badge.svg";

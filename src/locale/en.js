@@ -24,20 +24,7 @@ I18n.translations.en = {
       button: "Log in with your eduID",
       accountCreation: {
         askAccountNo: "<strong>Don't</strong> have a Backpack yet?",
-        askAccountYes: "<strong>Already</strong> have a Backpack?",
-        startAccount: "Start here",
-        logInAccount: "Log in",
-        createAccountButton: "Create an eduID",
-        back: "Back",
-        title: "Create a Backpack",
-        subtitle: "you'll need an eduID",
-        step1: "Step 1: Create an eduID",
-        require: "To create an edubadges Backpack, you will need an eduID. After creating an eduID you can prove that you are following education in the Netherlands by verifying your institution.",
-        steps: {
-          step1: "Create an eduID",
-          step2: "Verify your institution",
-          step3: "Receive & share badges"
-        }
+        startAccount: "Start here"
       }
     },
     teacher: {
@@ -47,7 +34,21 @@ I18n.translations.en = {
       button: "Log in via SURFconext",
       accountCreation: {
         askAccount: "<strong>Don't</strong> have access?",
-        startAccount: "Contact your institution admin",
+        startAccount: "Contact your institution admin"
+      }
+    },
+    createEduId: {
+      askAccountYes: "<strong>Already</strong> have a Backpack?",
+      logInAccount: "Log in",
+      createAccountButton: "Create an eduID",
+      title: "Create a Backpack",
+      subtitle: "you'll need an eduID",
+      step1: "Step 1: Create an eduID",
+      require: "To create an edubadges Backpack, you will need an eduID. After creating an eduID you can prove that you are following education in the Netherlands by verifying your institution.",
+      steps: {
+        step1: "Create an eduID",
+        step2: "Verify your institution",
+        step3: "Receive & share badges"
       }
     }
   },

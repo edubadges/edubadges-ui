@@ -176,13 +176,13 @@
           <span class="navigateBackButton" on:click={() => toggleLoginCreateAccount()}>{@html navigateBack}</span>
           <span>
             <h1 class="bold">
-              {@html I18n.t('login.student.accountCreation.title')}
+              {@html I18n.t('login.createEduId.title')}
             </h1>
           </span>
         </div>
-        <h1>{I18n.t('login.student.accountCreation.subtitle')}</h1>
+        <h1>{I18n.t('login.createEduId.subtitle')}</h1>
         <p class="text-align-left">
-          {I18n.t('login.student.accountCreation.require')}
+          {I18n.t('login.createEduId.require')}
         </p>
         <div class="account-creation-steps">
           <AccountCreationSteps activeStep={1} />
@@ -190,16 +190,16 @@
         <div class="create-account-button">
           <Button
             onClick={() => alert('make account')}
-            label={I18n.t('login.student.accountCreation.step1')} />
+            label={I18n.t('login.createEduId.step1')} />
         </div>
       </div>
       <div class="no-account" class:no-account-active={!visible}>
         <div class="account-creation">
-          <p>{@html visible ? I18n.t('login.student.accountCreation.askAccountNo') : I18n.t('login.student.accountCreation.askAccountYes') }</p>
+          <p>{@html visible ? I18n.t('login.student.accountCreation.askAccountNo') : I18n.t('login.createEduId.askAccountYes') }</p>
         </div>
         <div class="account-creation">
           <p class="styleAsLink" on:click={() => toggleLoginCreateAccount()}>
-            {@html visible ? I18n.t('login.student.accountCreation.startAccount') : I18n.t('login.student.accountCreation.logInAccount')}
+            {@html visible ? I18n.t('login.student.accountCreation.startAccount') : I18n.t('login.createEduId.logInAccount')}
           </p>
         </div>
       </div>

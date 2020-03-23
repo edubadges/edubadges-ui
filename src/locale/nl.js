@@ -24,20 +24,7 @@ I18n.translations.nl = {
       button: "Log in met je eduID",
       accountCreation: {
         askAccountNo: "Nog <strong>geen</strong> Backpack?",
-        askAccountYes: "Al <strong>wel</strong> een Backpack?",
-        startAccount: "Klik hier",
-        logInAccount: "Log in",
-        createAccountButton: "Maak een eduID aan",
-        back: "Terug",
-        title: "Maak een Backpack aan",
-        subtitle: "je hebt een eduID nodig",
-        step1: "Stap 1: Maak een eduID aan",
-        require: "Om een edubadges Backpack aan te maken heb je een eduID nodig. Na het aanmaken van een eduID kan je je onderwijsinstelling verifiëren.",
-        steps: {
-          step1: "Maak een eduID aan",
-          step2: "Verifieer je instelling",
-          step3: "Ontvang & deel badges"
-        }
+        startAccount: "Klik hier"
       }
     },
     teacher: {
@@ -47,7 +34,22 @@ I18n.translations.nl = {
       button: "Log in via SURFconext",
       accountCreation: {
         askAccount: "Nog <strong>geen</strong> toegang?",
-        startAccount: "Neem contact op met de instellingsbeheerder",
+        startAccount: "Neem contact op met de instellingsbeheerder"
+      }
+    },
+    createEduId: {
+      askAccountYes: "Al <strong>wel</strong> een Backpack?",
+      logInAccount: "Log in",
+      createAccountButton: "Maak een eduID aan",
+      back: "Terug",
+      title: "Maak een Backpack aan",
+      subtitle: "je hebt een eduID nodig",
+      step1: "Stap 1: Maak een eduID aan",
+      require: "Om een edubadges Backpack aan te maken heb je een eduID nodig. Na het aanmaken van een eduID kan je je onderwijsinstelling verifiëren.",
+      steps: {
+        step1: "Maak een eduID aan",
+        step2: "Verifieer je instelling",
+        step3: "Ontvang & deel badges"
       }
     }
   },
