@@ -1,6 +1,6 @@
 <script>
   import { onMount } from "svelte";
-  import { SideMenu } from "../components";
+  import { SideMenu } from "../components/students";
   import security from "../icons/security.svg";
   import data_activity from "../icons/data_activity.svg";
   import personal_info from "../icons/personal_info.svg";
@@ -24,13 +24,19 @@
 </script>
 
 <style>
+  .page-container {
+    display: flex;
+    flex: 1;
+  }
   .content {
     flex: 1;
     padding: 30px 20px;
   }
 </style>
 
-<SideMenu {pages} {currentPage} />
-<div class="content">
-  <svelte:component this={currentPage.component} />
+<div class="page-container">
+  <SideMenu {pages} {currentPage} />
+  <div class="content">
+    <svelte:component this={currentPage.component} />
+  </div>
 </div>

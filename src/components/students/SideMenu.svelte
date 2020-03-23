@@ -4,8 +4,8 @@
 
   import { link } from "svelte-routing";
   import I18n from "i18n-js";
-  import chevron_left from "../icons/chevron-left.svg";
-  import chevron_right from "../icons/chevron-right.svg";
+  import chevron_left from "../../icons/chevron-left.svg";
+  import chevron_right from "../../icons/chevron-right.svg";
 
   let displayMenu = false;
 </script>

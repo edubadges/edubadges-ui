@@ -1,0 +1,22 @@
+<script>
+  import { navigate } from "svelte-routing";
+  import I18n from "i18n-js";
+
+  import { Button } from "../components";
+  import { userLoggedIn, userRole, authToken } from "../stores/user";
+
+  const logoutUser = () => {
+    $userLoggedIn = "";
+    $userRole = "";
+    $authToken = "";
+    navigate("/");
+  };
+</script>
+
+{#if $userLoggedIn}
+  <Button
+    ref="logout"
+    label={I18n.t('header.logout')}
+    onClick={logoutUser}
+    className="cancel xs align-right" />
+{/if}
