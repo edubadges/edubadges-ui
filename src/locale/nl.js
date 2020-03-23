@@ -3,15 +3,15 @@ import I18n from "i18n-js";
 I18n.translations.nl = {
   routes: {
     backpack: "Backpack",
-    'badge-requests': "Badge verzoeken",
+    "badge-requests": "Badge verzoeken",
     collections: "Collecties",
     profile: "Profiel"
   },
   header: {
     logout: "Logout",
     nav: {
-      badges: "Badges",
-      issuers: "Issuers"
+      "/": "Badges",
+      "/issuers": "Issuers"
     }
   },
   login: {
@@ -60,6 +60,15 @@ I18n.translations.nl = {
     main: "404 - Not Found"
   },
   teacher: {
+    sidebar: {
+      search: "Zoeken",
+      filters: {
+        faculties: "Issuer groepen",
+        issuers: "Issuers",
+        show_all: "Toon meer",
+        show_less: "Toon minder"
+      }
+    },
     badges: {
       title: "Badgeclasses"
     },

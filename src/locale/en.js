@@ -3,15 +3,15 @@ import I18n from "i18n-js";
 I18n.translations.en = {
   routes: {
     backpack: "Backpack",
-    'badge-requests': "Badge requests",
+    "badge-requests": "Badge requests",
     collections: "Collections",
     profile: "Profile"
   },
   header: {
     logout: "Logout",
     nav: {
-      badges: "Badges",
-      issuers: "Issuers"
+      "/": "Badges",
+      "/issuers": "Issuers"
     }
   },
   login: {
@@ -59,6 +59,15 @@ I18n.translations.en = {
     main: "404 - Not Found"
   },
   teacher: {
+    sidebar: {
+      search: "Search",
+      filters: {
+        faculties: "Issuer groups",
+        issuers: "Issuers",
+        show_all: "Show all",
+        show_less: "Show less"
+      }
+    },
     badges: {
       title: "Badgeclasses"
     },
