@@ -15,7 +15,6 @@
 
 {#if $userLoggedIn}
   <Button
-    ref="logout"
     label={I18n.t('header.logout')}
     onClick={logoutUser}
     className="cancel xs align-right" />
