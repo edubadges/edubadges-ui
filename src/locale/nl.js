@@ -55,7 +55,8 @@ I18n.translations.nl = {
   },
   manage: {
     tabs: {
-      issuers: "Issuers"
+      issuers: "Issuers",
+      faculties: "Groepen"
     }
   },
   footer: {

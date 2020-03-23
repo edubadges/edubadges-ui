@@ -55,7 +55,8 @@ I18n.translations.en = {
   },
   manage: {
     tabs: {
-      issuers: "Issuers"
+      issuers: "Issuers",
+      faculties: "Groups"
     }
   },
   footer: {
