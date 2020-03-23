@@ -1,11 +1,11 @@
+<script>
+  import { Breadcrumb } from "../../components/teachers";
+</script>
+
 <style>
   .page-container {
     flex: 1;
     --entity-icon-width: 70px;
-  }
-
-  .breadcrumb {
-    padding: var(--ver-padding-m) var(--hor-padding-s);
   }
 
   .entity {
@@ -29,7 +29,7 @@
 </style>
 
 <div class="page-container">
-  <div class="breadcrumb">Institution</div>
+  <Breadcrumb path="Institution" />
   <div class="entity">
     <div class="icon">Icon</div>
     <div class="content">
