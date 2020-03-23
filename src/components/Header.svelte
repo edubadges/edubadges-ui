@@ -18,14 +18,18 @@
     background-color: var(--color-background-grey-dark);
   }
 
-  a.logo {
+  a {
     margin-left: var(--hor-padding-s);
     width: calc(var(--width-side-bar) - var(--hor-padding-s));
+  }
+
+  :global(svg.edubadges-logo) {
+    vertical-align: middle;
   }
 </style>
 
 <header class="header">
-  <a href="/" use:link class="logo">
+  <a href="/" use:link>
     {@html logo}
   </a>
   <slot />

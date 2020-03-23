@@ -1,3 +1,5 @@
+export { default as institutionIcon } from "./institution.svg";
+export { default as issuerIcon } from "./issuer.svg";
 export { default as arrowRight } from "./arrow-right.svg";
 export { default as stepChecked } from "./step-checked.svg";
 export { default as step1Active } from "./step-active-1.svg";
