@@ -1,8 +1,11 @@
 <script>
   import { onMount } from "svelte";
   import I18n from "i18n-js";
-  import { institutionIcon, issuerIcon, facultyIcon } from "../../icons";
+  import { institutionIcon } from "../../icons";
   import { queryData } from "../../api/graphql";
+
+  export let onTabChange;
+  export let tabs = [];
 
   let institution;
 
@@ -79,14 +82,15 @@
       {/if}
     </div>
     <div class="tabs">
-      <div class="tab" class:active={true}>
-        {@html issuerIcon}
-        {I18n.t('manage.tabs.issuers')}
-      </div>
-      <div class="tab">
-        {@html facultyIcon}
-        {I18n.t('manage.tabs.faculties')}
-      </div>
+      {#each tabs as tab (tab.entity)}
+        <div
+          class="tab"
+          class:active={tab.active}
+          on:click={() => onTabChange(tab)}>
+          {@html tab.icon}
+          {I18n.t(['manage', 'tabs', tab.entity])}
+        </div>
+      {/each}
     </div>
   </div>
 </div>

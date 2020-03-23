@@ -2,8 +2,32 @@
   import {
     Breadcrumb,
     InstitutionHeader,
-    Issuers
+    Issuers,
+    Faculties
   } from "../../components/teachers";
+  import { issuerIcon, facultyIcon } from "../../icons";
+
+  let tabs = [
+    {
+      entity: "issuers",
+      icon: issuerIcon,
+      component: Issuers,
+      active: true
+    },
+    {
+      entity: "faculties",
+      icon: facultyIcon,
+      component: Faculties,
+      active: false
+    }
+  ];
+
+  function onTabChange(newTab) {
+    tabs = tabs.map(tab => ({
+      ...tab,
+      active: tab === newTab
+    }));
+  }
 </script>
 
 <style>
@@ -15,6 +39,6 @@
 
 <div class="page-container">
   <Breadcrumb path="Institution" />
-  <InstitutionHeader />
-  <Issuers />
+  <InstitutionHeader {tabs} {onTabChange} />
+  <svelte:component this={tabs.find(({ active }) => active).component} />
 </div>
