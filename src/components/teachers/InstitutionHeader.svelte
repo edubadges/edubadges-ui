@@ -46,6 +46,7 @@
   }
 
   .tab {
+    width: fit-content;
     padding: var(--ver-padding-s) var(--hor-padding-m);
     background: white;
     white-space: nowrap;
