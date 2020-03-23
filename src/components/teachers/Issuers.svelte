@@ -41,7 +41,7 @@
 
   th,
   td {
-    padding: 16px 0px;
+    padding: var(--ver-padding-s) 0;
     width: 50%;
   }
 
@@ -51,7 +51,7 @@
 </style>
 
 <div class="container">
-  <h2>{I18n.t('teacher.issuers.title')}</h2>
+  <h4>{I18n.t('teacher.issuers.title')} ({issuers.length})</h4>
 
   <table>
     <thead>
@@ -64,9 +64,8 @@
       {#each issuers as issuer}
         <tr>
           <td>
-            <div>
-              <b>{issuer.name}</b>
-            </div>
+            {issuer.name}
+            <br />
             <span class="sub-text">({issuer.faculty.name})</span>
           </td>
           <td>{issuer.badgeclasses.length}</td>
