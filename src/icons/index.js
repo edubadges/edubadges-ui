@@ -1,2 +1,2 @@
-export { default as institution } from "./institution.svg";
-export { default as issuer } from "./issuer.svg";
+export { default as institutionIcon } from "./institution.svg";
+export { default as issuerIcon } from "./issuer.svg";

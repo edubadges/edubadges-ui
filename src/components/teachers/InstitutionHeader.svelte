@@ -1,6 +1,24 @@
 <script>
+  import { onMount } from "svelte";
   import I18n from "i18n-js";
-  import { institution, issuer } from "../../icons";
+  import { institutionIcon, issuerIcon } from "../../icons";
+  import { queryData } from "../../api/graphql";
+
+  let institution;
+
+  const query = `{
+    currentUser {
+      institution {
+        name
+      }
+    }
+  }`;
+
+  onMount(() => {
+    queryData(query).then(res => {
+      institution = res.currentUser.institution;
+    });
+  });
 </script>
 
 <style>
@@ -37,13 +55,17 @@
 
 <div class="entity">
   <div class="icon">
-    {@html institution}
+    {@html institutionIcon}
   </div>
   <div class="content">
-    <div class="info">Info</div>
+    <div class="info">
+      {#if institution}
+        <h3>{institution.name}</h3>
+      {/if}
+    </div>
     <div class="tabs">
       <div class="tab">
-        {@html issuer}
+        {@html issuerIcon}
         {I18n.t('manage.tabs.issuers')}
       </div>
     </div>
