@@ -1,5 +1,9 @@
 <script>
-  import { Breadcrumb, InstitutionHeader } from "../../components/teachers";
+  import {
+    Breadcrumb,
+    InstitutionHeader,
+    Issuers
+  } from "../../components/teachers";
 </script>
 
 <style>
@@ -17,5 +21,7 @@
   <Breadcrumb path="Institution" />
   <InstitutionHeader />
 
-  <div class="table">Table</div>
+  <div class="table">
+    <Issuers />
+  </div>
 </div>
