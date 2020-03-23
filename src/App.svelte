@@ -1,7 +1,7 @@
 <script>
   import { Router, Route } from "svelte-routing";
   import { Student, ProcessToken, NotFound, Login } from "./routes";
-  import { Badges, Issuers } from "./routes/teachers";
+  import { Badges, Manage } from "./routes/teachers";
   import { Header, Footer } from "./components";
   import { Header as TeacherHeader } from "./components/teachers";
   import { userRole, userLoggedIn } from "./stores/user";
@@ -62,7 +62,7 @@
     </Route>
 
     <!-- Teacher -->
-    <Route path="/manage" component={Issuers} />
+    <Route path="/manage" component={Manage} />
 
     <!-- Shared -->
     <Route path="/" component={homepage[visitorRole]} />

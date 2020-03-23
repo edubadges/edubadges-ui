@@ -6,6 +6,7 @@
 
     /* Spacing */
     --ver-padding-s: 6px;
+    --ver-padding-m: 13px;
 
     --hor-padding-s: 13px;
     --hor-padding-m: 20px;
