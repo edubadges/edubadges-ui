@@ -35,7 +35,7 @@
 
 <Header logout>
   <nav>
-    {#each ['/', '/issuers'] as tab}
+    {#each ['/', '/manage'] as tab}
       <a href={tab} use:link class="button" class:active={currentPath === tab}>
         {I18n.t(['header', 'nav', tab])}
       </a>

@@ -62,7 +62,7 @@
     </Route>
 
     <!-- Teacher -->
-    <Route path="/issuers" component={Issuers} />
+    <Route path="/manage" component={Issuers} />
 
     <!-- Shared -->
     <Route path="/" component={homepage[visitorRole]} />
