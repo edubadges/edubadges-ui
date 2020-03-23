@@ -53,6 +53,11 @@ I18n.translations.en = {
       title: "Issuers"
     }
   },
+  manage: {
+    tabs: {
+      issuers: "Issuers"
+    }
+  },
   footer: {
     tip: "Need tips or info?",
     help: "Help & FAQ",

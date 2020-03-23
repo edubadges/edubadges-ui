@@ -53,6 +53,11 @@ I18n.translations.nl = {
       title: "Issuers"
     }
   },
+  manage: {
+    tabs: {
+      issuers: "Issuers"
+    }
+  },
   footer: {
     tip: "Tip of info nodig?",
     help: "Help & FAQ",

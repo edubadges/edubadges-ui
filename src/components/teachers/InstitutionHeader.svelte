@@ -1,4 +1,5 @@
 <script>
+  import I18n from "i18n-js";
   import { institution, issuer } from "../../icons";
 </script>
 
@@ -43,7 +44,7 @@
     <div class="tabs">
       <div class="tab">
         {@html issuer}
-        Issuers
+        {I18n.t('manage.tabs.issuers')}
       </div>
     </div>
   </div>
