@@ -11,7 +11,7 @@ I18n.translations.nl = {
     logout: "Logout",
     nav: {
       "/": "Badges",
-      "/issuers": "Issuers"
+      "/manage": "Manage"
     }
   },
   login: {
@@ -51,6 +51,11 @@ I18n.translations.nl = {
     },
     issuers: {
       title: "Issuers"
+    }
+  },
+  manage: {
+    tabs: {
+      issuers: "Issuers"
     }
   },
   footer: {

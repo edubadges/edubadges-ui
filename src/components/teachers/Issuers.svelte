@@ -3,15 +3,9 @@
   import I18n from "i18n-js";
   import { queryData } from "../../api/graphql";
 
-  let institution;
   let issuers = [];
 
   const query = `{
-      currentUser {
-        institution {
-          name
-        }
-      },
       issuers {
         name,
         faculty {
@@ -26,12 +20,15 @@
   onMount(() => {
     queryData(query).then(res => {
       issuers = res.issuers;
-      institution = res.currentUser.institution;
     });
   });
 </script>
 
 <style>
+  div.container {
+    margin: var(--ver-padding-l) var(--entity-icon-width);
+  }
+
   table {
     border-collapse: collapse;
     width: 100%;
@@ -44,7 +41,7 @@
 
   th,
   td {
-    padding: 16px 0px;
+    padding: var(--ver-padding-s) 0;
     width: 50%;
   }
 
@@ -53,32 +50,27 @@
   }
 </style>
 
-<h2>
-  {I18n.t('teacher.issuers.title')}
-  {#if institution}
-    <span class="blue-text">in</span>
-    {institution.name}
-  {/if}
-</h2>
+<div class="container">
+  <h4>{I18n.t('teacher.issuers.title')} ({issuers.length})</h4>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>#badgeclasses</th>
-    </tr>
-  </thead>
-  <tbody>
-    {#each issuers as issuer}
+  <table>
+    <thead>
       <tr>
-        <td>
-          <div>
-            <b>{issuer.name}</b>
-          </div>
-          <span class="sub-text">({issuer.faculty.name})</span>
-        </td>
-        <td>{issuer.badgeclasses.length}</td>
+        <th>Name</th>
+        <th>#badgeclasses</th>
       </tr>
-    {/each}
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      {#each issuers as issuer}
+        <tr>
+          <td>
+            {issuer.name}
+            <br />
+            <span class="sub-text">({issuer.faculty.name})</span>
+          </td>
+          <td>{issuer.badgeclasses.length}</td>
+        </tr>
+      {/each}
+    </tbody>
+  </table>
+</div>

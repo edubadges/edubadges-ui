@@ -14,12 +14,14 @@
 <style>
   nav {
     align-self: flex-end;
+    white-space: nowrap;
   }
 
   nav a {
     padding: var(--ver-padding-s) var(--hor-padding-m);
     font-weight: bold;
     border-radius: var(--button-border-radius);
+    margin-right: 20px;
   }
 
   nav a:not(.active) {
@@ -29,15 +31,11 @@
   nav a.active {
     background: white;
   }
-
-  nav a:not(:last-child) {
-    margin-right: 20px;
-  }
 </style>
 
 <Header logout>
   <nav>
-    {#each ['/', '/issuers'] as tab}
+    {#each ['/', '/manage'] as tab}
       <a href={tab} use:link class="button" class:active={currentPath === tab}>
         {I18n.t(['header', 'nav', tab])}
       </a>
