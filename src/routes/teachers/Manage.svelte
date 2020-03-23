@@ -11,17 +11,10 @@
     flex: 1;
     --entity-icon-width: 70px;
   }
-
-  .table {
-    margin-left: var(--entity-icon-width);
-  }
 </style>
 
 <div class="page-container">
   <Breadcrumb path="Institution" />
   <InstitutionHeader />
-
-  <div class="table">
-    <Issuers />
-  </div>
+  <Issuers />
 </div>
