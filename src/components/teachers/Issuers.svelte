@@ -57,7 +57,7 @@
     <thead>
       <tr>
         <th>Name</th>
-        <th>#badgeclasses</th>
+        <th>#{I18n.t('teacher.badgeclasses.title').toLowerCase()}</th>
       </tr>
     </thead>
     <tbody>
