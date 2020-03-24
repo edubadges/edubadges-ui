@@ -46,16 +46,20 @@ I18n.translations.en = {
         show_less: "Show less"
       }
     },
-    badges: {
+    badgeclasses: {
       title: "Badgeclasses"
     },
     issuers: {
       title: "Issuers"
+    },
+    faculties: {
+      title: "Groups"
     }
   },
   manage: {
     tabs: {
-      issuers: "Issuers"
+      issuers: "Issuers",
+      faculties: "Groups"
     }
   },
   footer: {

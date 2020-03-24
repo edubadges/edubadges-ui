@@ -1,8 +1,11 @@
 <script>
   import { onMount } from "svelte";
   import I18n from "i18n-js";
-  import { institutionIcon, issuerIcon } from "../../icons";
+  import { institutionIcon } from "../../icons";
   import { queryData } from "../../api/graphql";
+
+  export let onTabChange;
+  export let tabs = [];
 
   let institution;
 
@@ -45,12 +48,26 @@
     margin-bottom: var(--ver-padding-m);
   }
 
+  .tabs {
+    display: flex;
+  }
+
   .tab {
     width: fit-content;
     padding: var(--ver-padding-s) var(--hor-padding-m);
-    background: white;
+    margin-right: var(--hor-padding-m);
     white-space: nowrap;
+
+    border-radius: var(--button-border-radius);
     cursor: pointer;
+  }
+
+  .tab:not(.active) {
+    background: var(--color-background-grey-medium);
+  }
+
+  .tab.active {
+    background: white;
   }
 </style>
 
@@ -65,10 +82,15 @@
       {/if}
     </div>
     <div class="tabs">
-      <div class="tab">
-        {@html issuerIcon}
-        {I18n.t('manage.tabs.issuers')}
-      </div>
+      {#each tabs as tab (tab.entity)}
+        <div
+          class="tab"
+          class:active={tab.active}
+          on:click={() => onTabChange(tab)}>
+          {@html tab.icon}
+          {I18n.t(['manage', 'tabs', tab.entity])}
+        </div>
+      {/each}
     </div>
   </div>
 </div>
