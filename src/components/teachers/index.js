@@ -6,3 +6,4 @@ export { default as InstitutionHeader } from "./InstitutionHeader.svelte";
 export { default as Issuers } from "./Issuers.svelte";
 export { default as Search } from "./Search.svelte";
 export { default as SideBar } from "./SideBar.svelte";
+export { default as Table } from "./Table.svelte";
