@@ -16,18 +16,40 @@ I18n.translations.en = {
   },
   login: {
     title: "Never stop learning",
-    description:
-      "Edubadges are digital certificates and show that the owner has certain skills or knowledge. Edubadges can be issued for both extracurriculair activities and accredited education.",
+    description: "Edubadges are digital certificates and show that the owner has certain skills or knowledge. Edubadges can be issued for both extracurriculair activities and accredited education.",
     student: {
-      title: "Receive and share badges",
-      button: "View your Backpack",
-      button_sub: "Log in with your eduID",
-      edu_id_info:
-        'You will need an eduID to be able to view your Backpack. If you don’t have an eduID yet, you can easily <a target="_blank" href="%{url}">request one here.</a>'
+      title: "My Backpack",
+      subtitle: "receive and share badges",
+      action: "Open your Backpack",
+      button: "Log in with your eduID",
+      accountCreation: {
+        askAccountNo: "<strong>Don't</strong> have a Backpack yet?",
+        startAccount: "Start here"
+      }
     },
     teacher: {
-      title: "Award badges to students",
-      button: "Enter the issuer portal"
+      title: "Issuer Portal",
+      subtitle: "award badges to students",
+      action: "Enter the issuer portal",
+      button: "Log in via SURFconext",
+      accountCreation: {
+        askAccount: "<strong>Don't</strong> have access?",
+        startAccount: "Contact your institution admin"
+      }
+    },
+    createEduId: {
+      askAccountYes: "<strong>Already</strong> have a Backpack?",
+      logInAccount: "Log in",
+      createAccountButton: "Create an eduID",
+      title: "Create a Backpack",
+      subtitle: "you'll need an eduID",
+      step1: "Step 1: Create an eduID",
+      require: "To create an edubadges Backpack, you will need an eduID. After creating an eduID you can prove that you are following education in the Netherlands by verifying your institution.",
+      steps: {
+        step1: "Create an eduID",
+        step2: "Verify your institution",
+        step3: "Receive & share badges"
+      }
     }
   },
   backpack: {
