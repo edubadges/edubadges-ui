@@ -1,13 +1,13 @@
 <script>
   import I18n from "i18n-js";
-  import eduIdLogo from "../img/logo_eduid.svg";
-  import { StepNumber } from "../components";
+  import eduIdLogo from "../../img/logo_eduid.svg";
+  import { StepNumber } from "../../components/guests";
   import {
     arrowRight,
     stepChecked,
     institutionIcon2,
     badgeIcon
-  } from "../icons";
+  } from "../../icons";
 
   export let activeStep = 1;
 

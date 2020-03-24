@@ -1,13 +1,12 @@
 <script>
   import I18n from "i18n-js";
-  import LoginButton from "../components/LoginButton.svelte";
+  import { Button } from "../components";
+  import { AccountCreationSteps, LoginButton } from "../components/guests";
   import { role } from "../util/role";
   import { userRole } from "../stores/user";
   import { getService } from "../util/getService";
   import { requestLoginToken } from "../api";
-  import AccountCreationSteps from "./AccountCreationSteps.svelte";
-  import Button from "../components/Button.svelte";
-  import navigateBack from "../icons/chevron-left.svg";
+  import { navigateBack } from "../icons";
 
   const logIn = chosenRole => {
     $userRole = chosenRole;
