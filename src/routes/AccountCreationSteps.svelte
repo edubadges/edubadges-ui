@@ -11,133 +11,101 @@
     icon3
   } from "../icons";
 
-  const textStyle = (thisStep, activeStep) => {
-    return thisStep > activeStep
-      ? ""
-      : thisStep === activeStep
-      ? "bold"
-      : "hidden";
-  };
+  export let activeStep = 1;
 
-  export let activeStep;
-
-  const steps = [
-    {
-      stepCountIcon: step1,
-      icon: eduIdLogo
-    },
-    {
-      stepCountIcon: step2,
-      icon: icon2
-    },
-    {
-      stepCountIcon: step3,
-      icon: icon3
-    }
+  let steps = [
+    { iconNumber: step1, iconStep: eduIdLogo },
+    { iconNumber: step2, iconStep: icon2 },
+    { iconNumber: step3, iconStep: icon3 }
   ];
+
+  $: steps = steps.map((step, i) => ({
+    ...step,
+    current: activeStep === i + 1,
+    completed: activeStep > i + 1
+  }));
 </script>
 
 <style>
   .account-creation-steps {
     display: flex;
-    text-align: center;
-    align-items: center;
     background-color: var(--color-background-grey-medium);
     padding: 20px;
-    border-radius: 5px;
+    border-radius: var(--card-border-radius);
   }
 
   .step {
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 30%;
   }
 
-  .stepNumber {
-    height: 40px;
-    width: 40px;
+  .step > *:not(:last-child) {
+    margin-bottom: 8px;
   }
 
-  .icon-holder {
-    width: 90px;
-    height: 45px;
-    margin-top: 8px;
-    margin-bottom: 4px;
-  }
-
-  .icon {
-    width: 45px;
-    height: 45px;
-  }
-
-  .stepText {
-    display: flex;
-    align-items: center;
-    height: 55px;
-  }
-
-  .arrow {
-    margin-left: 4px;
-    margin-right: 4px;
-    height: 20px;
-    width: 20px;
-  }
-
-  .bold {
-    font-weight: 900;
-  }
-
-  .hidden {
-    visibility: hidden;
-  }
-
-  .inactive {
-    fill: var(--color-text-light-grey);
-  }
-
-  .active {
-    fill: var(--color-background-blue);
-  }
-
-  .step-active :global(.filler) {
+  .icon-number.active :global(.filler) {
     fill: var(--color-background-blue);
     stroke: var(--color-background-blue);
   }
 
-  .step-inactive :global(.filler) {
+  .icon-number:not(.active) :global(.filler) {
     fill: white;
     stroke: var(--color-text-light-grey);
   }
 
-  .step-active :global(text) {
+  .icon-number.active :global(text) {
     fill: white;
   }
 
-  .step-inactive :global(text) {
+  .icon-number:not(.active) :global(text) {
     fill: var(--color-text-light-grey);
+  }
+
+  .icon-number {
+    width: 40px;
+  }
+
+  .icon-step.active,
+  .icon-arrow.active {
+    fill: var(--color-background-blue);
+  }
+
+  .icon-step:not(.active),
+  .icon-arrow:not(.active) {
+    fill: var(--color-text-light-grey);
+  }
+
+  .icon-step :global(svg) {
+    max-width: 90px;
+    height: 45px;
+  }
+
+  .icon-arrow {
+    margin: auto 4px;
+    width: 20px;
   }
 </style>
 
 <div class="account-creation-steps">
   {#each steps as step, i}
     <div class="step">
-      <div
-        class="stepNumber {activeStep < i + 1 ? 'step-inactive' : 'step-active'}">
-        {@html activeStep <= i + 1 ? step.stepCountIcon : stepChecked}
+      <div class="icon-number" class:active={step.current}>
+        {@html step.completed ? stepChecked : step.iconNumber}
       </div>
 
-      <div class="icon-holder {activeStep < i + 1 ? 'inactive' : 'active'}">
-        {@html step.icon}
+      <div class="icon-step" class:active={step.current || step.completed}>
+        {@html step.iconStep}
       </div>
 
-      <div class="stepText {textStyle(i + 1, activeStep)}">
+      <div class:bold={step.current}>
         {I18n.t(`login.createEduId.steps.step${i + 1}`)}
       </div>
     </div>
 
-    {#if i + 1 < steps.length}
-      <div class="arrow {activeStep < i + 1 ? 'inactive' : 'active'}">
+    {#if i < steps.length - 1}
+      <div class="icon-arrow" class:active={step.completed}>
         {@html arrowRight}
       </div>
     {/if}
