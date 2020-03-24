@@ -70,33 +70,29 @@
   }
 
   .inactive {
-    fill: grey;
+    fill: var(--color-login-gray);
   }
 
   .active {
-    fill: #173552;
-  }
-
-  .done {
-    fill: #173552;
+    fill: var(--color-login-blue);
   }
 
   .step-active :global(.filler){
-    fill: #173552;
-    stroke: #173552;
+    fill: var(--color-login-blue);
+    stroke: var(--color-login-blue);
   }
 
   .step-inactive :global(.filler){
-    fill: #fff;
-    stroke: #6F6E6E;
+    fill: var(--color-login-white);
+    stroke: var(--color-login-gray);
   }
 
   .step-active :global(text){
-    fill: #fff
+    fill: var(--color-login-white);
   }
 
   .step-inactive :global(text){
-    fill: #6F6E6E
+    fill: var(--color-login-gray);
   }
 </style>
 
@@ -110,7 +106,7 @@
     </div>
     <div class="stepText {textStyle(1, activeStep)}">{I18n.t('login.createEduId.steps.step1')}</div>
   </div>
-  <div class="arrow {activeStep < 2 ? 'inactive' : 'done' }">{@html arrowRight}</div>
+  <div class="arrow {activeStep < 2 ? 'inactive' : 'active' }">{@html arrowRight}</div>
   <div class="step">
     <div class="stepNumber {activeStep < 2 ? 'step-inactive' : 'step-active'}">
       {@html activeStep <= 2 ? step2 : stepChecked}
@@ -120,7 +116,7 @@
     </div>
     <div class="stepText {textStyle(2, activeStep)}">{I18n.t('login.createEduId.steps.step2')}</div>
   </div>
-  <div class="arrow {activeStep < 3 ? 'inactive' : 'done' }">{@html arrowRight}</div>
+  <div class="arrow {activeStep < 3 ? 'inactive' : 'active' }">{@html arrowRight}</div>
   <div class="step">
     <div class="stepNumber {activeStep < 3 ? 'step-inactive' : 'step-active'}">
       {@html activeStep <= 3 ? step3 : stepChecked}

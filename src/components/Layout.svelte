@@ -26,7 +26,11 @@
     --color-text-light-grey: #989797;
     --color-text-blue: #39b8df;
 
-    /* Cards */
+    --color-login-blue: #173552;
+    --color-login-gray: #6f6e6e;
+    --color-login-white: #fff;
+
+      /* Cards */
     --card-border: 1px solid #979797;
     --card-border-radius: 2px;
     --card-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
