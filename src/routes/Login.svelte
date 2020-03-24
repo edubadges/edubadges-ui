@@ -3,11 +3,12 @@
   import { Button } from "../components";
   import {
     AccountCreationSteps,
-    LoginButton,
-    CardSubtext
+    Card,
+    CardSubtext,
+    LoginButton
   } from "../components/guests";
-  import { role } from "../util/role";
   import { userRole } from "../stores/user";
+  import { role } from "../util/role";
   import { getService } from "../util/getService";
   import { requestLoginToken } from "../api";
   import { navigateBack } from "../icons";
@@ -18,9 +19,8 @@
     requestLoginToken(service);
   };
 
-  let visible = true;
-
-  const toggleLoginCreateAccount = () => (visible = !visible);
+  let showLoginCards = true;
+  const toggleLoginCreateAccount = () => (showLoginCards = !showLoginCards);
 </script>
 
 <style>
@@ -53,24 +53,6 @@
     margin-right: var(--login-spacing);
   }
 
-  .login-card {
-    flex: 1;
-
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    margin-top: 20px;
-    padding: 20px;
-
-    border: var(--card-border);
-    border-radius: var(--card-border-radius);
-    box-shadow: var(--card-shadow);
-
-    text-align: center;
-  }
-
   .action {
     margin-top: 20px;
     font-size: 30px;
@@ -87,37 +69,13 @@
     cursor: pointer;
   }
 
-  .account-creation-steps {
-    margin-top: 20px;
-  }
-
-  .create-account-button {
-    margin-top: 20px;
-  }
-
-  .overlay::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-color: gray;
-    opacity: 0.5;
-  }
-
-  @media only screen and (max-width: 819px) {
-    .small-screen-none {
-      display: none;
-    }
-  }
-
   .text-align-left {
     text-align: left;
   }
 
-  .none {
-    display: none;
+  .create-account-content > * {
+    margin-bottom: 20px;
+    text-align: left;
   }
 </style>
 
@@ -128,7 +86,7 @@
 
   <div class="login-cards">
     <div class="login-element">
-      <div class="login-card" class:none={!visible}>
+      <Card none={!showLoginCards}>
         <h1 class="bold">
           {@html I18n.t('login.student.title')}
         </h1>
@@ -140,13 +98,11 @@
         <LoginButton
           label={I18n.t('login.student.button')}
           onClick={() => logIn(role.STUDENT)} />
-      </div>
+      </Card>
 
-      <div class="login-card" class:none={visible}>
+      <Card none={showLoginCards}>
         <div class="titleAndBackButton">
-          <span
-            class="navigateBackButton"
-            on:click={() => toggleLoginCreateAccount()}>
+          <span class="navigateBackButton" on:click={toggleLoginCreateAccount}>
             {@html navigateBack}
           </span>
           <span>
@@ -157,17 +113,13 @@
         </div>
         <h1>{I18n.t('login.createEduId.subtitle')}</h1>
         <p class="text-align-left">{I18n.t('login.createEduId.require')}</p>
-        <div class="account-creation-steps">
-          <AccountCreationSteps activeStep={1} />
-        </div>
-        <div class="create-account-button">
-          <Button
-            onClick={() => alert('make account')}
-            label={I18n.t('login.createEduId.step1')} />
-        </div>
-      </div>
+        <AccountCreationSteps activeStep={1} />
+        <Button
+          onClick={() => alert('make account')}
+          label={I18n.t('login.createEduId.step1')} />
+      </Card>
 
-      {#if visible}
+      {#if showLoginCards}
         <CardSubtext
           styleAsLink
           handleClick={toggleLoginCreateAccount}
@@ -184,7 +136,7 @@
     </div>
 
     <div class="login-element">
-      <div class="login-card {visible ? '' : 'overlay small-screen-none'}">
+      <Card outOfFocus={!showLoginCards}>
         <h1 class="bold">
           {@html I18n.t('login.teacher.title')}
         </h1>
@@ -196,13 +148,12 @@
         <LoginButton
           label={I18n.t('login.teacher.button')}
           onClick={() => logIn(role.TEACHER)} />
-      </div>
+      </Card>
 
       <CardSubtext
-        hidden={!visible}
+        hidden={!showLoginCards}
         lineOne={I18n.t('login.teacher.accountCreation.askAccount')}
         lineTwo={I18n.t('login.teacher.accountCreation.startAccount')} />
-
     </div>
   </div>
 </div>
