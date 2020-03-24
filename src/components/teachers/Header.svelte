@@ -1,14 +1,22 @@
 <script>
-  import { getContext } from "svelte";
-  import { ROUTER } from "svelte-routing/src/contexts";
   import { link, navigate } from "svelte-routing";
   import I18n from "i18n-js";
+  import { currentPath } from "../../stores/currentPath";
 
   import { Header } from "../../components";
 
-  let currentPath = "";
-  let { activeRoute } = getContext(ROUTER);
-  $: if ($activeRoute) currentPath = $activeRoute.uri;
+  $: tabs = [
+    {
+      path: "/",
+      active: $currentPath === "/",
+      name: "badgeclasses"
+    },
+    {
+      path: "/manage/institution/issuers",
+      active: $currentPath.includes("/manage"),
+      name: "manage"
+    }
+  ];
 </script>
 
 <style>
@@ -35,9 +43,9 @@
 
 <Header logout>
   <nav>
-    {#each ['/', '/manage'] as tab}
-      <a href={tab} use:link class="button" class:active={currentPath === tab}>
-        {I18n.t(['header', 'nav', tab])}
+    {#each tabs as { path, active, name } (path)}
+      <a href={path} use:link class="button" class:active>
+        {I18n.t(['header', 'nav', name])}
       </a>
     {/each}
   </nav>

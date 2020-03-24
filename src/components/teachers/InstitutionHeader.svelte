@@ -1,27 +1,11 @@
 <script>
-  import { onMount } from "svelte";
   import I18n from "i18n-js";
+  import { Link } from "svelte-routing";
+  import { EntityHeaderTabs } from "../teachers";
   import { institutionIcon } from "../../icons";
-  import { queryData } from "../../api/graphql";
 
-  export let onTabChange;
-  export let tabs = [];
-
-  let institution;
-
-  const query = `{
-    currentUser {
-      institution {
-        name
-      }
-    }
-  }`;
-
-  onMount(() => {
-    queryData(query).then(res => {
-      institution = res.currentUser.institution;
-    });
-  });
+  export let institution;
+  export let tabs;
 </script>
 
 <style>
@@ -47,28 +31,6 @@
   .content .info {
     margin-bottom: var(--ver-padding-m);
   }
-
-  .tabs {
-    display: flex;
-  }
-
-  .tab {
-    width: fit-content;
-    padding: var(--ver-padding-s) var(--hor-padding-m);
-    margin-right: var(--hor-padding-m);
-    white-space: nowrap;
-
-    border-radius: var(--button-border-radius);
-    cursor: pointer;
-  }
-
-  .tab:not(.active) {
-    background: var(--color-background-grey-medium);
-  }
-
-  .tab.active {
-    background: white;
-  }
 </style>
 
 <div class="entity">
@@ -81,16 +43,7 @@
         <h3>{institution.name}</h3>
       {/if}
     </div>
-    <div class="tabs">
-      {#each tabs as tab (tab.entity)}
-        <div
-          class="tab"
-          class:active={tab.active}
-          on:click={() => onTabChange(tab)}>
-          {@html tab.icon}
-          {I18n.t(['manage', 'tabs', tab.entity])}
-        </div>
-      {/each}
-    </div>
+
+    <EntityHeaderTabs {tabs} />
   </div>
 </div>

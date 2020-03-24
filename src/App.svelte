@@ -2,7 +2,7 @@
   import { Router, Route } from "svelte-routing";
   import { Student, ProcessToken, NotFound, Login } from "./routes";
   import { Badges, Manage } from "./routes/teachers";
-  import { Header, Footer } from "./components";
+  import { Header, Footer, SubscribeToPath } from "./components";
   import { Header as TeacherHeader } from "./components/teachers";
   import { userRole, userLoggedIn } from "./stores/user";
   import { role } from "./util/role";
@@ -38,15 +38,15 @@
 </style>
 
 <div class="app">
-  <Router>
-    {#if visitorRole === role.STUDENT}
-      <Header logout />
-    {:else if visitorRole === role.TEACHER}
-      <TeacherHeader />
-    {:else}
-      <Header />
-    {/if}
+  {#if visitorRole === role.STUDENT}
+    <Header logout />
+  {:else if visitorRole === role.TEACHER}
+    <TeacherHeader />
+  {:else}
+    <Header />
+  {/if}
 
+  <Router>
     <!-- Student -->
     <Route path="/backpack">
       <Student bookmark="backpack" />
@@ -62,12 +62,15 @@
     </Route>
 
     <!-- Teacher -->
-    <Route path="/manage" component={Manage} />
+    <Route path="/manage/*mainEntity" component={Manage} />
 
     <!-- Shared -->
     <Route path="/" component={homepage[visitorRole]} />
     <Route path="/auth/login/*" component={ProcessToken} />
     <Route component={NotFound} />
+
+    <!-- Expose current path through store -->
+    <SubscribeToPath />
   </Router>
 
   <Footer />
