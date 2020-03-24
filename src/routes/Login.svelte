@@ -1,17 +1,26 @@
 <script>
   import I18n from "i18n-js";
-  import LoginButton from "../components/LoginButton.svelte";
-  import logo_eduid from "../img/logo_eduid.svg";
-  import { role } from "../util/role";
+  import { Button } from "../components";
+  import {
+    AccountCreationSteps,
+    Card,
+    CardSubtext,
+    LoginButton
+  } from "../components/guests";
   import { userRole } from "../stores/user";
+  import { role } from "../util/role";
   import { getService } from "../util/getService";
   import { requestLoginToken } from "../api";
+  import { navigateBack } from "../icons";
 
   const logIn = chosenRole => {
     $userRole = chosenRole;
     const service = getService(chosenRole);
     requestLoginToken(service);
   };
+
+  let showLoginCards = true;
+  const toggleLoginCreateAccount = () => (showLoginCards = !showLoginCards);
 </script>
 
 <style>
@@ -32,35 +41,41 @@
     flex-wrap: wrap;
   }
 
-  .login-card {
+  .login-element {
     flex: 1;
 
-    min-width: 230px;
-    margin-top: 20px;
-    margin-right: var(--login-spacing);
-    padding: 20px;
-
-    border: var(--card-border);
-    border-radius: var(--card-border-radius);
-    box-shadow: var(--card-shadow);
-
-    text-align: center;
+    position: relative;
 
     display: flex;
     flex-direction: column;
-    align-items: center;
+
+    min-width: 315px;
+    margin-right: var(--login-spacing);
   }
 
-  .eduid {
-    text-align: left;
-    display: flex;
-    min-height: 100px;
-    max-width: 300px;
+  .action {
     margin-top: 20px;
+    font-size: 30px;
   }
 
-  .eduid span {
-    margin-left: 15px;
+  .titleAndBackButton {
+    width: 100%;
+  }
+
+  .navigateBackButton {
+    float: left;
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+  }
+
+  .text-align-left {
+    text-align: left;
+  }
+
+  .create-account-content > * {
+    margin-bottom: 20px;
+    text-align: left;
   }
 </style>
 
@@ -70,36 +85,75 @@
   <p>{I18n.t('login.description')}</p>
 
   <div class="login-cards">
-    <div class="login-card">
-      <h1>{I18n.t('login.student.title')}</h1>
-      <img
-        src="https://via.placeholder.com/200?text=Placeholder"
-        alt="student login" />
-      <LoginButton
-        label={I18n.t('login.student.button')}
-        onClick={() => logIn(role.STUDENT)}
-        sub={`(${I18n.t('login.student.button_sub')})`} />
-      <div class="eduid">
-        <div>
-          {@html logo_eduid}
+    <div class="login-element">
+      <Card none={!showLoginCards}>
+        <h1 class="bold">
+          {@html I18n.t('login.student.title')}
+        </h1>
+        <h1>{I18n.t('login.student.subtitle')}</h1>
+        <img
+          src="https://via.placeholder.com/200?text=Placeholder"
+          alt="student login" />
+        <p class="action">{I18n.t('login.student.action')}</p>
+        <LoginButton
+          label={I18n.t('login.student.button')}
+          onClick={() => logIn(role.STUDENT)} />
+      </Card>
+
+      <Card none={showLoginCards}>
+        <div class="titleAndBackButton">
+          <span class="navigateBackButton" on:click={toggleLoginCreateAccount}>
+            {@html navigateBack}
+          </span>
+          <span>
+            <h1 class="bold">
+              {@html I18n.t('login.createEduId.title')}
+            </h1>
+          </span>
         </div>
-        <span>
-          {@html I18n.t('login.student.edu_id_info', {
-            url: 'https://www.surf.nl/'
-          })}
-        </span>
-      </div>
+        <h1>{I18n.t('login.createEduId.subtitle')}</h1>
+        <p class="text-align-left">{I18n.t('login.createEduId.require')}</p>
+        <AccountCreationSteps activeStep={1} />
+        <Button
+          onClick={() => alert('make account')}
+          label={I18n.t('login.createEduId.step1')} />
+      </Card>
+
+      {#if showLoginCards}
+        <CardSubtext
+          styleAsLink
+          handleClick={toggleLoginCreateAccount}
+          lineOne={I18n.t('login.student.accountCreation.askAccountNo')}
+          lineTwo={I18n.t('login.student.accountCreation.startAccount')} />
+      {:else}
+        <CardSubtext
+          styleAsLink
+          handleClick={toggleLoginCreateAccount}
+          lineOne={I18n.t('login.createEduId.askAccountYes')}
+          lineTwo={I18n.t('login.createEduId.logInAccount')} />
+      {/if}
+
     </div>
 
-    <div class="login-card">
-      <h1>{I18n.t('login.teacher.title')}</h1>
-      <img
-        src="https://via.placeholder.com/200?text=Placeholder"
-        alt="teacher login" />
-      <LoginButton
-        label={I18n.t('login.teacher.button')}
-        className="grey"
-        onClick={() => logIn(role.TEACHER)} />
+    <div class="login-element">
+      <Card outOfFocus={!showLoginCards}>
+        <h1 class="bold">
+          {@html I18n.t('login.teacher.title')}
+        </h1>
+        <h1>{I18n.t('login.teacher.subtitle')}</h1>
+        <img
+          src="https://via.placeholder.com/200?text=Placeholder"
+          alt="teacher login" />
+        <p class="action">{I18n.t('login.teacher.action')}</p>
+        <LoginButton
+          label={I18n.t('login.teacher.button')}
+          onClick={() => logIn(role.TEACHER)} />
+      </Card>
+
+      <CardSubtext
+        hidden={!showLoginCards}
+        lineOne={I18n.t('login.teacher.accountCreation.askAccount')}
+        lineTwo={I18n.t('login.teacher.accountCreation.startAccount')} />
     </div>
   </div>
 </div>

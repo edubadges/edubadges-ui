@@ -16,18 +16,41 @@ I18n.translations.nl = {
   },
   login: {
     title: "Leven lang ontwikkelen",
-    description:
-      "Edubadges zijn digitale certificaten die aantonen dat de eigenaar bepaalde vaardigheden of kennis bezit. Edubadges kunnen worden uitgereikt voor zowel extracurriculaire activiteiten als geaccrediteerd onderwijs.",
+    description: "Edubadges zijn digitale certificaten die aantonen dat de eigenaar bepaalde vaardigheden of kennis bezit. Edubadges kunnen worden uitgereikt voor zowel extracurriculaire activiteiten als geaccrediteerd onderwijs.",
     student: {
-      title: "Ontvang en deel badges",
-      button: "Bekijk je Backpack",
-      button_sub: "Log in met uw EduID",
-      edu_id_info:
-        'Je hebt een eduID nodig om je Backpack te bekijken. Als je nog geen eduID hebt, kan je er <a target="_blank" href="%{url}">hier een aanvragen.</a>'
+      title: "Mijn Backpack",
+      subtitle: "ontvang en deel badges",
+      action: "Open je Backpack",
+      button: "Log in met je eduID",
+      accountCreation: {
+        askAccountNo: "Nog <strong>geen</strong> Backpack?",
+        startAccount: "Klik hier"
+      }
     },
     teacher: {
-      title: "Ken badges toe aan studenten",
-      button: "Log in via uw instelling"
+      title: "Uitgeversportaal",
+      subtitle: "ken badges toe aan studenten",
+      action: "Ga naar het uitgeversportaal",
+      button: "Log in via SURFconext",
+      accountCreation: {
+        askAccount: "Nog <strong>geen</strong> toegang?",
+        startAccount: "Neem contact op met de instellingsbeheerder"
+      }
+    },
+    createEduId: {
+      askAccountYes: "Al <strong>wel</strong> een Backpack?",
+      logInAccount: "Log in",
+      createAccountButton: "Maak een eduID aan",
+      back: "Terug",
+      title: "Maak een Backpack aan",
+      subtitle: "je hebt een eduID nodig",
+      step1: "Stap 1: Maak een eduID aan",
+      require: "Om een edubadges Backpack aan te maken heb je een eduID nodig. Na het aanmaken van een eduID kan je je onderwijsinstelling verifiëren.",
+      steps: {
+        step1: "Maak een eduID aan",
+        step2: "Verifieer je instelling",
+        step3: "Ontvang & deel badges"
+      }
     }
   },
   backpack: {
