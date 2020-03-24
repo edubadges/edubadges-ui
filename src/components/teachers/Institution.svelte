@@ -11,19 +11,39 @@
   import { queryData } from "../../api/graphql";
 
   export let subEntity;
+
   let institution;
+  let faculties = [];
+  let issuers = [];
 
   const query = `{
     currentUser {
       institution {
-        name
+				name
       }
-    }
+		},
+		faculties {
+			name,
+			issuers {
+				entityId
+			}
+		},
+		issuers {
+			name,
+			faculty {
+				name
+			},
+			badgeclasses {
+				entityId
+			}
+		}
   }`;
 
   onMount(() => {
     queryData(query).then(res => {
       institution = res.currentUser.institution;
+      faculties = res.faculties;
+      issuers = res.issuers;
     });
   });
 
@@ -55,7 +75,11 @@
   <InstitutionHeader {tabs} {institution} />
 
   <Router>
-    <Route path="/issuers" component={Issuers} />
-    <Route path="/groups" component={Faculties} />
+    <Route path="/issuers">
+      <Issuers {issuers} />
+    </Route>
+    <Route path="/groups">
+      <Faculties {faculties} />
+    </Route>
   </Router>
 </div>

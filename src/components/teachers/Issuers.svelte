@@ -2,27 +2,8 @@
   import { onMount } from "svelte";
   import I18n from "i18n-js";
   import { Table } from "../teachers";
-  import { queryData } from "../../api/graphql";
 
-  let issuers = [];
-
-  const query = `{
-      issuers {
-        name,
-        faculty {
-          name
-        },
-        badgeclasses {
-          entityId
-        }
-      }
-    }`;
-
-  onMount(() => {
-    queryData(query).then(res => {
-      issuers = res.issuers;
-    });
-  });
+  export let issuers = [];
 
   $: table = {
     title: `${I18n.t("teacher.issuers.title")} (${issuers.length})`,
