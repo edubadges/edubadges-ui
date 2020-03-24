@@ -2,14 +2,14 @@
   import I18n from "i18n-js";
   import { Link } from "svelte-routing";
   import { EntityHeaderTabs } from "../teachers";
-  import { institutionIcon } from "../../icons";
 
-  export let institution;
+  export let title;
+  export let icon;
   export let tabs;
 </script>
 
 <style>
-  :global(.entity svg.icon-institution) {
+  :global(.entity .icon > svg) {
     width: calc(var(--entity-icon-width) - (2 * var(--hor-padding-m)));
   }
 
@@ -35,13 +35,11 @@
 
 <div class="entity">
   <div class="icon">
-    {@html institutionIcon}
+    {@html icon}
   </div>
   <div class="content">
     <div class="info">
-      {#if institution}
-        <h3>{institution.name}</h3>
-      {/if}
+      <h3>{title}</h3>
     </div>
 
     <EntityHeaderTabs {tabs} />

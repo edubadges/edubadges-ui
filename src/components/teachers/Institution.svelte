@@ -1,18 +1,13 @@
 <script>
   import { onMount } from "svelte";
   import { Router, Route, navigate } from "svelte-routing";
-  import {
-    Breadcrumb,
-    InstitutionHeader,
-    Issuers,
-    Faculties
-  } from "../teachers";
-  import { issuerIcon, facultyIcon } from "../../icons";
+  import { Breadcrumb, EntityHeader, Issuers, Faculties } from "../teachers";
+  import { institutionIcon, issuerIcon, facultyIcon } from "../../icons";
   import { queryData } from "../../api/graphql";
 
   export let subEntity;
 
-  let institution;
+  let institutionName = "";
   let faculties = [];
   let issuers = [];
 
@@ -41,7 +36,7 @@
 
   onMount(() => {
     queryData(query).then(res => {
-      institution = res.currentUser.institution;
+      institutionName = res.currentUser.institution.name;
       faculties = res.faculties;
       issuers = res.issuers;
     });
@@ -72,7 +67,7 @@
 
 <div class="page-container">
   <Breadcrumb path="Institution" />
-  <InstitutionHeader {tabs} {institution} />
+  <EntityHeader {tabs} title={institutionName} icon={institutionIcon} />
 
   <Router>
     <Route path="/issuers">
