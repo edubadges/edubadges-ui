@@ -27,7 +27,7 @@
     display: flex;
     text-align: center;
     align-items: center;
-    background-color: lightgrey;
+    background-color: var(--color-background-grey-medium);
     padding: 20px;
     border-radius: 5px;
   }
@@ -82,29 +82,29 @@
   }
 
   .inactive {
-    fill: var(--color-login-gray);
+    fill: var(--color-text-light-grey);
   }
 
   .active {
-    fill: var(--color-login-blue);
+    fill: var(--color-background-blue);
   }
 
   .step-active :global(.filler) {
-    fill: var(--color-login-blue);
-    stroke: var(--color-login-blue);
+    fill: var(--color-background-blue);
+    stroke: var(--color-background-blue);
   }
 
   .step-inactive :global(.filler) {
-    fill: var(--color-login-white);
-    stroke: var(--color-login-gray);
+    fill: white;
+    stroke: var(--color-text-light-grey);
   }
 
   .step-active :global(text) {
-    fill: var(--color-login-white);
+    fill: white;
   }
 
   .step-inactive :global(text) {
-    fill: var(--color-login-gray);
+    fill: var(--color-text-light-grey);
   }
 </style>
 
