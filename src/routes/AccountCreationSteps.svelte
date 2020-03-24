@@ -1,22 +1,20 @@
 <script>
   import I18n from "i18n-js";
   import eduIdLogo from "../img/logo_eduid.svg";
+  import { StepNumber } from "../components";
   import {
     arrowRight,
     stepChecked,
-    step1,
-    step2,
-    step3,
-    icon2,
-    icon3
+    institutionIcon2,
+    badgeIcon
   } from "../icons";
 
   export let activeStep = 1;
 
   let steps = [
-    { iconNumber: step1, iconStep: eduIdLogo },
-    { iconNumber: step2, iconStep: icon2 },
-    { iconNumber: step3, iconStep: icon3 }
+    { iconStep: eduIdLogo },
+    { iconStep: institutionIcon2 },
+    { iconStep: badgeIcon }
   ];
 
   $: steps = steps.map((step, i) => ({
@@ -92,7 +90,11 @@
   {#each steps as step, i}
     <div class="step">
       <div class="icon-number" class:active={step.current}>
-        {@html step.completed ? stepChecked : step.iconNumber}
+        {#if step.completed}
+          {@html stepChecked}
+        {:else}
+          <StepNumber number={i + 1} />
+        {/if}
       </div>
 
       <div class="icon-step" class:active={step.current || step.completed}>
