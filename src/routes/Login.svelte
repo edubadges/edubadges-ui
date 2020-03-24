@@ -7,7 +7,7 @@
   import { requestLoginToken } from "../api";
   import AccountCreationSteps from "./AccountCreationSteps.svelte";
   import Button from "../components/Button.svelte";
-  import navigateBack from "../icons/chevron-left.svg"
+  import navigateBack from "../icons/chevron-left.svg";
 
   const logIn = chosenRole => {
     $userRole = chosenRole;
@@ -74,7 +74,7 @@
   }
 
   .titleAndBackButton {
-    width: 100%
+    width: 100%;
   }
 
   .navigateBackButton {
@@ -175,7 +175,11 @@
       </div>
       <div class="login-card" class:none={visible}>
         <div class="titleAndBackButton">
-          <span class="navigateBackButton" on:click={() => toggleLoginCreateAccount()}>{@html navigateBack}</span>
+          <span
+            class="navigateBackButton"
+            on:click={() => toggleLoginCreateAccount()}>
+            {@html navigateBack}
+          </span>
           <span>
             <h1 class="bold">
               {@html I18n.t('login.createEduId.title')}
@@ -183,9 +187,7 @@
           </span>
         </div>
         <h1>{I18n.t('login.createEduId.subtitle')}</h1>
-        <p class="text-align-left">
-          {I18n.t('login.createEduId.require')}
-        </p>
+        <p class="text-align-left">{I18n.t('login.createEduId.require')}</p>
         <div class="account-creation-steps">
           <AccountCreationSteps activeStep={1} />
         </div>
@@ -197,7 +199,9 @@
       </div>
       <div class="no-account" class:no-account-active={!visible}>
         <div class="account-creation">
-          <p>{@html visible ? I18n.t('login.student.accountCreation.askAccountNo') : I18n.t('login.createEduId.askAccountYes') }</p>
+          <p>
+            {@html visible ? I18n.t('login.student.accountCreation.askAccountNo') : I18n.t('login.createEduId.askAccountYes')}
+          </p>
         </div>
         <div class="account-creation">
           <p class="styleAsLink" on:click={() => toggleLoginCreateAccount()}>
