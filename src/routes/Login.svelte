@@ -1,7 +1,11 @@
 <script>
   import I18n from "i18n-js";
   import { Button } from "../components";
-  import { AccountCreationSteps, LoginButton } from "../components/guests";
+  import {
+    AccountCreationSteps,
+    LoginButton,
+    CardSubtext
+  } from "../components/guests";
   import { role } from "../util/role";
   import { userRole } from "../stores/user";
   import { getService } from "../util/getService";
@@ -91,24 +95,6 @@
     margin-top: 20px;
   }
 
-  .no-account {
-    width: 80%;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 30px;
-  }
-
-  .account-creation {
-    font-size: 20px;
-    margin-top: 15px;
-  }
-
-  .styleAsLink {
-    color: blue;
-    cursor: pointer;
-  }
-
   .overlay::before {
     content: "";
     position: absolute;
@@ -121,22 +107,9 @@
   }
 
   @media only screen and (max-width: 819px) {
-    .no-account {
-      margin-top: 0;
-      margin-bottom: 30px;
-    }
-
-    .no-account-active {
-      margin-bottom: 10px;
-    }
-
     .small-screen-none {
       display: none;
     }
-  }
-
-  .bold {
-    font-weight: bolder;
   }
 
   .text-align-left {
@@ -145,10 +118,6 @@
 
   .none {
     display: none;
-  }
-
-  .hidden {
-    visibility: hidden;
   }
 </style>
 
@@ -172,6 +141,7 @@
           label={I18n.t('login.student.button')}
           onClick={() => logIn(role.STUDENT)} />
       </div>
+
       <div class="login-card" class:none={visible}>
         <div class="titleAndBackButton">
           <span
@@ -196,18 +166,21 @@
             label={I18n.t('login.createEduId.step1')} />
         </div>
       </div>
-      <div class="no-account" class:no-account-active={!visible}>
-        <div class="account-creation">
-          <p>
-            {@html visible ? I18n.t('login.student.accountCreation.askAccountNo') : I18n.t('login.createEduId.askAccountYes')}
-          </p>
-        </div>
-        <div class="account-creation">
-          <p class="styleAsLink" on:click={() => toggleLoginCreateAccount()}>
-            {@html visible ? I18n.t('login.student.accountCreation.startAccount') : I18n.t('login.createEduId.logInAccount')}
-          </p>
-        </div>
-      </div>
+
+      {#if visible}
+        <CardSubtext
+          styleAsLink
+          handleClick={toggleLoginCreateAccount}
+          lineOne={I18n.t('login.student.accountCreation.askAccountNo')}
+          lineTwo={I18n.t('login.student.accountCreation.startAccount')} />
+      {:else}
+        <CardSubtext
+          styleAsLink
+          handleClick={toggleLoginCreateAccount}
+          lineOne={I18n.t('login.createEduId.askAccountYes')}
+          lineTwo={I18n.t('login.createEduId.logInAccount')} />
+      {/if}
+
     </div>
 
     <div class="login-element">
@@ -225,18 +198,11 @@
           onClick={() => logIn(role.TEACHER)} />
       </div>
 
-      <div class="no-account {visible ? '' : 'hidden small-screen-none'}">
-        <div class="account-creation">
-          <p>
-            {@html I18n.t('login.teacher.accountCreation.askAccount')}
-          </p>
-        </div>
-        <div class="account-creation">
-          <p>
-            {@html I18n.t('login.teacher.accountCreation.startAccount')}
-          </p>
-        </div>
-      </div>
+      <CardSubtext
+        hidden={!visible}
+        lineOne={I18n.t('login.teacher.accountCreation.askAccount')}
+        lineTwo={I18n.t('login.teacher.accountCreation.startAccount')} />
+
     </div>
   </div>
 </div>
