@@ -20,7 +20,7 @@
 
     --color-background-grey-dark: #d8d8d8;
     --color-background-grey-medium: #e9e9e9;
-    --color-background-grey-light: #efefef;
+    --color-background-grey-light: #f5f4f4;
 
     --color-text-grey: #585858;
     --color-text-light-grey: #989797;

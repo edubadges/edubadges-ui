@@ -69,16 +69,20 @@ I18n.translations.nl = {
         show_less: "Toon minder"
       }
     },
-    badges: {
+    badgeclasses: {
       title: "Badgeclasses"
     },
     issuers: {
       title: "Issuers"
+    },
+    faculties: {
+      title: "Groepen"
     }
   },
   manage: {
     tabs: {
-      issuers: "Issuers"
+      issuers: "Issuers",
+      faculties: "Groepen"
     }
   },
   footer: {
