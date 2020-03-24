@@ -20,6 +20,21 @@
   };
 
   export let activeStep;
+
+  const steps = [
+    {
+      stepCountIcon: step1,
+      icon: eduIdLogo
+    },
+    {
+      stepCountIcon: step2,
+      icon: icon2
+    },
+    {
+      stepCountIcon: step3,
+      icon: icon3
+    }
+  ];
 </script>
 
 <style>
@@ -45,14 +60,10 @@
   }
 
   .icon-holder {
+    width: 90px;
     height: 45px;
     margin-top: 8px;
     margin-bottom: 4px;
-  }
-
-  .eduicon {
-    margin-top: 5px;
-    width: 90px;
   }
 
   .icon {
@@ -109,49 +120,26 @@
 </style>
 
 <div class="account-creation-steps">
-  <div class="step">
-    <div class="stepNumber step-active">
-      {@html activeStep === 1 ? step1 : stepChecked}
-    </div>
-    <div class="icon-holder">
-      <div class="eduicon">
-        {@html eduIdLogo}
+  {#each steps as step, i}
+    <div class="step">
+      <div
+        class="stepNumber {activeStep < i + 1 ? 'step-inactive' : 'step-active'}">
+        {@html activeStep <= i + 1 ? step.stepCountIcon : stepChecked}
+      </div>
+
+      <div class="icon-holder {activeStep < i + 1 ? 'inactive' : 'active'}">
+        {@html step.icon}
+      </div>
+
+      <div class="stepText {textStyle(i + 1, activeStep)}">
+        {I18n.t(`login.createEduId.steps.step${i + 1}`)}
       </div>
     </div>
-    <div class="stepText {textStyle(1, activeStep)}">
-      {I18n.t('login.createEduId.steps.step1')}
-    </div>
-  </div>
-  <div class="arrow {activeStep < 2 ? 'inactive' : 'active'}">
-    {@html arrowRight}
-  </div>
-  <div class="step">
-    <div class="stepNumber {activeStep < 2 ? 'step-inactive' : 'step-active'}">
-      {@html activeStep <= 2 ? step2 : stepChecked}
-    </div>
-    <div class="icon-holder">
-      <div class="icon {activeStep < 2 ? 'inactive' : 'active'}">
-        {@html icon2}
+
+    {#if i + 1 < steps.length}
+      <div class="arrow {activeStep < i + 1 ? 'inactive' : 'active'}">
+        {@html arrowRight}
       </div>
-    </div>
-    <div class="stepText {textStyle(2, activeStep)}">
-      {I18n.t('login.createEduId.steps.step2')}
-    </div>
-  </div>
-  <div class="arrow {activeStep < 3 ? 'inactive' : 'active'}">
-    {@html arrowRight}
-  </div>
-  <div class="step">
-    <div class="stepNumber {activeStep < 3 ? 'step-inactive' : 'step-active'}">
-      {@html activeStep <= 3 ? step3 : stepChecked}
-    </div>
-    <div class="icon-holder">
-      <div class="icon">
-        {@html icon3}
-      </div>
-    </div>
-    <div class="stepText {textStyle(3, activeStep)}">
-      {I18n.t('login.createEduId.steps.step3')}
-    </div>
-  </div>
+    {/if}
+  {/each}
 </div>
