@@ -67,7 +67,7 @@
 </style>
 
 <div class="page-container">
-  <Breadcrumb path="Institution" />
+  <Breadcrumb {institutionName} />
   <EntityHeader {tabs} title={institutionName} icon={institutionIcon} />
 
   <Router>
