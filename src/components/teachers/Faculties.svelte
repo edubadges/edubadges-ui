@@ -12,15 +12,11 @@
   };
 </script>
 
-<style>
-  tr {
-    cursor: pointer;
-  }
-</style>
-
 <Table {...table}>
   {#each faculties as faculty (faculty.entityId)}
-    <tr on:click={() => navigate(`/manage/faculty/${faculty.entityId}`)}>
+    <tr
+      class="click"
+      on:click={() => navigate(`/manage/faculty/${faculty.entityId}`)}>
       <td>{faculty.name}</td>
       <td>{faculty.issuers.length}</td>
     </tr>

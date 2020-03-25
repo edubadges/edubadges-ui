@@ -66,7 +66,6 @@
     float: left;
     height: 30px;
     width: 30px;
-    cursor: pointer;
   }
 
   .text-align-left {
@@ -102,7 +101,9 @@
 
       <Card none={showLoginCards}>
         <div class="titleAndBackButton">
-          <span class="navigateBackButton" on:click={toggleLoginCreateAccount}>
+          <span
+            class="click navigateBackButton"
+            on:click={toggleLoginCreateAccount}>
             {@html navigateBack}
           </span>
           <span>
