@@ -30,6 +30,7 @@
     background-color: var(--color-background-grey-medium);
     padding: 20px;
     border-radius: var(--card-border-radius);
+    margin: 20px auto;
   }
 
   .step {

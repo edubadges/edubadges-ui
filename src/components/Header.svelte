@@ -23,8 +23,9 @@
     width: calc(var(--width-side-bar) - var(--hor-padding-s));
   }
 
-  :global(svg.edubadges-logo) {
+  a :global(svg.edubadges-logo) {
     vertical-align: middle;
+    width: 150px;
   }
 </style>
 
