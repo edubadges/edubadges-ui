@@ -33,15 +33,13 @@
 
     color: var(--color-text-grey);
     border-radius: var(--button-border-radius);
-
-    cursor: pointer;
   }
 </style>
 
 <div class="entity-tabs">
   {#each tabs as { href, icon, entity } (entity)}
     <Link to={href}>
-      <div class="tab" class:active={href === $currentPath}>
+      <div class="tab click" class:active={href === $currentPath}>
         {@html icon}
         {I18n.t(['manage', 'tabs', entity])}
       </div>

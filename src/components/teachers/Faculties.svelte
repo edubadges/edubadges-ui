@@ -1,5 +1,6 @@
 <script>
   import { onMount } from "svelte";
+  import { navigate } from "svelte-routing";
   import I18n from "i18n-js";
   import { Table } from "../teachers";
 
@@ -12,8 +13,10 @@
 </script>
 
 <Table {...table}>
-  {#each faculties as faculty}
-    <tr>
+  {#each faculties as faculty (faculty.entityId)}
+    <tr
+      class="click"
+      on:click={() => navigate(`/manage/faculty/${faculty.entityId}`)}>
       <td>{faculty.name}</td>
       <td>{faculty.issuers.length}</td>
     </tr>

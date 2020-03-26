@@ -150,3 +150,8 @@ h4 {
     margin-top: 25px !important;
   }
 }
+
+.button,
+.click {
+  cursor: pointer;
+}

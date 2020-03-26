@@ -7,7 +7,6 @@
 <style>
   a {
     text-decoration: none;
-    cursor: pointer;
 
     width: 100%;
     max-width: 300px;

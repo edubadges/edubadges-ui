@@ -4,6 +4,7 @@
   import { Table } from "../teachers";
 
   export let issuers = [];
+  export let facultyName = "";
 
   $: table = {
     title: `${I18n.t("teacher.issuers.title")} (${issuers.length})`,
@@ -20,7 +21,7 @@
       <td>
         {issuer.name}
         <br />
-        <span class="sub-text">({issuer.faculty.name})</span>
+        <span class="sub-text">({facultyName || issuer.faculty.name})</span>
       </td>
       <td>{issuer.badgeclasses.length}</td>
     </tr>

@@ -1,13 +1,37 @@
 <script>
-  export let path = "";
+  import { link } from "svelte-routing";
+  export let institutionName = "";
+  export let faculty;
 </script>
 
 <style>
   div {
     padding: var(--ver-padding-m) var(--hor-padding-m);
+    min-height: 47px;
+  }
+
+  a {
+    color: var(--text-color-grey);
+  }
+
+  a:last-of-type {
     font-weight: bold;
-    cursor: pointer;
+  }
+
+  a:not(:last-of-type) {
+    text-decoration: underline;
+  }
+
+  span {
+    margin: auto 4px;
   }
 </style>
 
-<div>{path}</div>
+<div>
+  <a use:link href="/manage/institution">{institutionName}</a>
+
+  {#if faculty}
+    <span>></span>
+    <a use:link href={`/manage/faculty/${faculty.entityId}`}>{faculty.name}</a>
+  {/if}
+</div>

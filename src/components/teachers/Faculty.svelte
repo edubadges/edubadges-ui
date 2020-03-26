@@ -5,54 +5,42 @@
   import { institutionIcon, issuerIcon, facultyIcon } from "../../icons";
   import { queryData } from "../../api/graphql";
 
+  export let entityId;
   export let subEntity;
 
+  let faculty = {};
   let institutionName = "";
-  let faculties = [];
   let issuers = [];
 
   const query = `{
-    currentUser {
-      institution {
-				name
-      }
-		},
-		faculties {
-      name,
-      entityId,
-			issuers {
-				entityId
-			}
+    faculty(id: "${entityId}") {
+		name,
+		entityId,
+		institution {
+			name
 		},
 		issuers {
 			name,
-			faculty {
-				name
-			},
 			badgeclasses {
 				entityId
 			}
 		}
+	}
   }`;
 
   onMount(() => {
     queryData(query).then(res => {
-      institutionName = res.currentUser.institution.name;
-      faculties = res.faculties;
-      issuers = res.issuers;
+      faculty = res.faculty;
+      institutionName = res.faculty.institution.name;
+      issuers = res.faculty.issuers;
     });
   });
 
   const tabs = [
     {
       entity: "issuers",
-      href: "/manage/institution/issuers",
+      href: `/manage/faculty/${entityId}/issuers`,
       icon: issuerIcon
-    },
-    {
-      entity: "faculties",
-      href: "/manage/institution/groups",
-      icon: facultyIcon
     }
   ];
 
@@ -67,15 +55,12 @@
 </style>
 
 <div class="page-container">
-  <Breadcrumb {institutionName} />
-  <EntityHeader {tabs} title={institutionName} icon={institutionIcon} />
+  <Breadcrumb {institutionName} {faculty} />
+  <EntityHeader {tabs} title={faculty.name} icon={facultyIcon} />
 
   <Router>
     <Route path="/issuers">
-      <Issuers {issuers} />
-    </Route>
-    <Route path="/groups">
-      <Faculties {faculties} />
+      <Issuers {issuers} facultyName={faculty.name} />
     </Route>
   </Router>
 </div>

@@ -1,7 +1,7 @@
 <script>
   import { Router, Route, navigate } from "svelte-routing";
   import { Redirect } from "../../components";
-  import { Institution } from "../../components/teachers";
+  import { Institution, Faculty } from "../../components/teachers";
 
   export let mainEntity;
 
@@ -10,4 +10,5 @@
 
 <Router>
   <Route path="/institution/*subEntity" component={Institution} />
+  <Route path="/faculty/:entityId/*subEntity" component={Faculty} />
 </Router>
