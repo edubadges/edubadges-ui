@@ -25,7 +25,8 @@
 			}
 		},
 		issuers {
-			name,
+      name,
+      entityId,
 			faculty {
 				name
 			},

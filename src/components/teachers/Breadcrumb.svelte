@@ -2,6 +2,7 @@
   import { link } from "svelte-routing";
   export let institutionName = "";
   export let faculty;
+  export let issuer;
 </script>
 
 <style>
@@ -33,5 +34,10 @@
   {#if faculty}
     <span>></span>
     <a use:link href={`/manage/faculty/${faculty.entityId}`}>{faculty.name}</a>
+  {/if}
+
+  {#if issuer}
+    <span>></span>
+    <a use:link href={`/manage/issuer/${issuer.entityId}`}>{issuer.name}</a>
   {/if}
 </div>

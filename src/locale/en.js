@@ -16,7 +16,8 @@ I18n.translations.en = {
   },
   login: {
     title: "Never stop learning",
-    description: "Edubadges are digital certificates and show that the owner has certain skills or knowledge. Edubadges can be issued for both extracurriculair activities and accredited education.",
+    description:
+      "Edubadges are digital certificates and show that the owner has certain skills or knowledge. Edubadges can be issued for both extracurriculair activities and accredited education.",
     student: {
       title: "My Backpack",
       subtitle: "receive and share badges",
@@ -44,7 +45,8 @@ I18n.translations.en = {
       title: "Create a Backpack",
       subtitle: "you'll need an eduID",
       step1: "Step 1: Create an eduID",
-      require: "To create an edubadges Backpack, you will need an eduID. After creating an eduID you can prove that you are following education in the Netherlands by verifying your institution.",
+      require:
+        "To create an edubadges Backpack, you will need an eduID. After creating an eduID you can prove that you are following education in the Netherlands by verifying your institution.",
       steps: {
         step1: "Create an eduID",
         step2: "Verify your institution",
@@ -81,7 +83,8 @@ I18n.translations.en = {
   manage: {
     tabs: {
       issuers: "Issuers",
-      faculties: "Groups"
+      faculties: "Groups",
+      badgeclasses: "Badgeclasses"
     }
   },
   footer: {
