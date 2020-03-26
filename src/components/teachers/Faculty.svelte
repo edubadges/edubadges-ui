@@ -20,7 +20,8 @@
 			name
 		},
 		issuers {
-			name,
+      name,
+      entityId,
 			badgeclasses {
 				entityId
 			}

@@ -1,3 +1,4 @@
+export { default as Badgeclasses } from "./Badgeclasses.svelte";
 export { default as Breadcrumb } from "./Breadcrumb.svelte";
 export { default as EntityHeader } from "./EntityHeader.svelte";
 export { default as EntityHeaderTabs } from "./EntityHeaderTabs.svelte";
@@ -6,6 +7,7 @@ export { default as Faculty } from "./Faculty.svelte";
 export { default as FilterBlock } from "./FilterBlock.svelte";
 export { default as Header } from "./Header.svelte";
 export { default as Institution } from "./Institution.svelte";
+export { default as Issuer } from "./Issuer.svelte";
 export { default as Issuers } from "./Issuers.svelte";
 export { default as Search } from "./Search.svelte";
 export { default as SideBar } from "./SideBar.svelte";
