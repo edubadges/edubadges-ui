@@ -37,11 +37,14 @@
 </style>
 
 <div class="entity-tabs">
-  {#each tabs as { href, icon, entity } (entity)}
+  {#each tabs as { href, icon, entity, count } (entity)}
     <Link to={href}>
       <div class="tab click" class:active={href === $currentPath}>
-        {@html icon}
+        {#if icon}
+          {@html icon}
+        {/if}
         {I18n.t(['manage', 'tabs', entity])}
+        {#if !isNaN(count)}({count}){/if}
       </div>
     </Link>
   {/each}

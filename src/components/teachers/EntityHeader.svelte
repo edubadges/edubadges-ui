@@ -37,6 +37,7 @@
   <div class="icon">
     {@html icon}
   </div>
+
   <div class="content">
     <div class="info">
       <h3>{title}</h3>

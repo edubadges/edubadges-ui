@@ -85,7 +85,10 @@ I18n.translations.nl = {
     tabs: {
       issuers: "Issuers",
       faculties: "Groepen",
-      badgeclasses: "Badgeclasses"
+      badgeclasses: "Badgeclasses",
+      badgesRequested: "Aanvragen",
+      badgesAwarded: "Ontvangers",
+      badgesRevoked: "Ingetrokken"
     }
   },
   footer: {

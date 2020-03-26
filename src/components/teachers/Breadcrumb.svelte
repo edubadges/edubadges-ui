@@ -1,8 +1,11 @@
 <script>
   import { link } from "svelte-routing";
+  import { currentPath } from "../../stores/currentPath";
+
   export let institutionName = "";
   export let faculty;
   export let issuer;
+  export let badgeclassName = "";
 </script>
 
 <style>
@@ -39,5 +42,10 @@
   {#if issuer}
     <span>></span>
     <a use:link href={`/manage/issuer/${issuer.entityId}`}>{issuer.name}</a>
+  {/if}
+
+  {#if badgeclassName}
+    <span>></span>
+    <a use:link href={$currentPath}>{badgeclassName}</a>
   {/if}
 </div>
