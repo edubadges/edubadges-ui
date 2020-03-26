@@ -84,7 +84,10 @@ I18n.translations.en = {
     tabs: {
       issuers: "Issuers",
       faculties: "Groups",
-      badgeclasses: "Badgeclasses"
+      badgeclasses: "Badgeclasses",
+      badgesRequested: "Requests",
+      badgesAwarded: "Recipients",
+      badgesRevoked: "Revoked"
     }
   },
   footer: {

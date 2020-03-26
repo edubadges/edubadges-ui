@@ -1,4 +1,9 @@
+export { default as Badgeclass } from "./Badgeclass.svelte";
 export { default as Badgeclasses } from "./Badgeclasses.svelte";
+export { default as BadgeclassHeader } from "./BadgeclassHeader.svelte";
+export { default as BadgesAwarded } from "./BadgesAwarded.svelte";
+export { default as BadgesRequested } from "./BadgesRequested.svelte";
+export { default as BadgesRevoked } from "./BadgesRevoked.svelte";
 export { default as Breadcrumb } from "./Breadcrumb.svelte";
 export { default as EntityHeader } from "./EntityHeader.svelte";
 export { default as EntityHeaderTabs } from "./EntityHeaderTabs.svelte";
