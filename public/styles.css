@@ -72,10 +72,6 @@ a {
   text-decoration: none;
 }
 
-a:visited:not(.button) {
-  color: #0077c8;
-}
-
 label,
 span {
   line-height: 18px;
