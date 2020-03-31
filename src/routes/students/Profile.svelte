@@ -30,7 +30,7 @@
           I18n.t(['error', res.fields.error_code]);
         })
       });
-  const removeEmail = emailId => deleteEmail(emailId + 100)
+  const removeEmail = emailId => deleteEmail(emailId)
       .then(setEmails)
       .catch(err => {
         err.then(res => {

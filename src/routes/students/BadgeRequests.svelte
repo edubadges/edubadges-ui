@@ -40,7 +40,7 @@
   };
 
   const withdrawRequest = id =>
-    withdrawRequestBadge(id+1)
+    withdrawRequestBadge(id)
         .then(getRequestedBadges)
         .catch(err => {
           err.then(res => {

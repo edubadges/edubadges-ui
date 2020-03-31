@@ -72,11 +72,11 @@ export function getSocialAccounts() {
   return validFetch(path);
 }
 
-export function requestBadge(url) {
+export function requestBadge(id) {
   const path = `${serverUrl}/lti_edu/enroll`;
   return validFetch(
     path,
-    { body: JSON.stringify({ badgeclass_slug: url }) },
+    { body: JSON.stringify({ badgeclass_slug: id }) },
     "POST"
   );
 }
