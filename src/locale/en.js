@@ -63,5 +63,24 @@ I18n.translations.en = {
     help: "Help & FAQ",
     poweredBy: "Proudly powered by",
     surf: "SURF"
+  },
+  error: {
+    101: "Could not register email address. Address already in use",
+    102: "You have already added this address. Verify it",
+    103: "Can not remove primary email address",
+    104: "Can not remove only email address",
+    105: "Can't make unverified email address the primary email address",
+    201: "May not enroll: already enrolled",
+    202: "May not enroll: you already have been awarded this badge",
+    203: "May not enroll: you don't have a student account",
+    204: "Invalid enrollment id",
+    205: "Enrollment not found",
+    206: "Awarded enrollments cannot be withdrawn",
+    207: "Users can only withdraw their own enrollments",
+    208: "Missing badgeclass id",
+    209: "Cannot enroll",
+    601: "You do not have permission. Check your assigned role in the Issuer",
+    701: "Unspecified share provider",
+    702: "Invalid share provider",
   }
 };

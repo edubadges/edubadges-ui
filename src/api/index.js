@@ -8,7 +8,7 @@ const serverUrl = config.serverUrl;
 function validateResponse(res) {
   if (res.ok) return res.json();
 
-  throw res.json();
+  if (res.status === 400) throw res.json();
 }
 
 function validFetch(path, options = {}, method = "GET") {
