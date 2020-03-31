@@ -33,7 +33,6 @@
       })
       .catch(err => {
         err.then(res => {
-          console.log(res);
           error = I18n.t(['error', res.fields.error_code])
         });
       });
@@ -44,7 +43,6 @@
         .then(getRequestedBadges)
         .catch(err => {
           err.then(res => {
-            console.log(res);
             error = I18n.t(['error', res.fields.error_code])
           });
         });
