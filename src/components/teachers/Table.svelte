@@ -3,6 +3,14 @@
   export let tableHeaders = [];
   export let search = "";
   export let sort = [];
+
+  const setSort = (attribute) => {
+    if (sort[0] === attribute) {
+      sort.length = 0;
+    } else {
+      sort[0] = attribute;
+    }
+  }
 </script>
 
 <style>
@@ -38,7 +46,7 @@
     <thead>
       <tr>
         {#each tableHeaders as th}
-          <th on:click={() => sort[0] = th}>{th}</th>
+          <th on:click={() => setSort(th)}>{th}</th>
         {/each}
       </tr>
     </thead>

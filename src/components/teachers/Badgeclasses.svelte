@@ -4,6 +4,7 @@
   import I18n from "i18n-js";
   import { Table } from "../teachers";
   import { search } from "../../util/searchData";
+  import { sort } from "../../util/sortData";
 
   export let badgeclasses = [];
 
@@ -14,10 +15,12 @@
 
   let badgeclassSearch = "";
   $: searchedBadgeclassIds = search(badgeclasses.map(element => [element.name, element.entityId]), badgeclassSearch);
+
+  let badgeclassSort = [];
 </script>
 
-<Table {...table} bind:search={badgeclassSearch}>
-  {#each badgeclasses.filter(el => searchedBadgeclassIds.includes(el.entityId)) as badgeclass (badgeclass.entityId)}
+<Table {...table} bind:search={badgeclassSearch} bind:sort={badgeclassSort}>
+  {#each sort(badgeclasses.filter(el => searchedBadgeclassIds.includes(el.entityId)), badgeclassSort) as badgeclass (badgeclass.entityId)}
     <tr
       class="click"
       on:click={() => navigate(`/manage/badgeclass/${badgeclass.entityId}`)}>

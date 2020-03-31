@@ -4,6 +4,7 @@
   import I18n from "i18n-js";
   import { Table } from "../teachers";
   import { search } from "../../util/searchData";
+  import { sort } from "../../util/sortData";
 
   export let faculties = [];
 
@@ -14,10 +15,12 @@
 
   let facultySearch = "";
   $: searchedFacultyIds = search(faculties.map(element => [element.name, element.entityId]), facultySearch);
+
+  let facultySort = [];
 </script>
 
-<Table {...table} bind:search={facultySearch}>
-  {#each faculties.filter(el => searchedFacultyIds.includes(el.entityId)) as faculty (faculty.entityId)}
+<Table {...table} bind:search={facultySearch} bind:sort={facultySort}>
+  {#each sort(faculties.filter(el => searchedFacultyIds.includes(el.entityId)), facultySort) as faculty (faculty.entityId)}
     <tr
       class="click"
       on:click={() => navigate(`/manage/faculty/${faculty.entityId}`)}>
