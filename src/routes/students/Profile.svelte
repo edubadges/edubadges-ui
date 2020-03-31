@@ -1,4 +1,5 @@
 <script>
+  import I18n from "i18n-js";
   import { onMount } from "svelte";
   import {
     getProfile,
@@ -21,8 +22,22 @@
     setEmails();
   };
 
-  const makePrimary = emailId => setPrimaryEmail(emailId).then(setData);
-  const removeEmail = emailId => deleteEmail(emailId).then(setEmails);
+  const makePrimary = emailId => setPrimaryEmail(emailId)
+      .then(setData)
+      .catch(err => {
+        err.then(res => {
+          console.log(res);
+          I18n.t(['error', res.fields.error_code]);
+        })
+      });
+  const removeEmail = emailId => deleteEmail(emailId)
+      .then(setEmails)
+      .catch(err => {
+        err.then(res => {
+          console.log(res);
+          error = I18n.t(['error', res.fields.error_code])
+        });
+      });
   const submitEmail = event => {
     const email = event.target.email.value;
 
@@ -33,7 +48,10 @@
         form.reset();
       })
       .catch(err => {
-        err.then(res => (error = res.error || res.email[0]));
+        err.then(res => {
+          console.log(res);
+          error = I18n.t(['error', res.fields.error_code])
+        });
       });
   };
 
