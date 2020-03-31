@@ -114,7 +114,7 @@
         </div>
         <h1>{I18n.t('login.createEduId.subtitle')}</h1>
         <p class="text-align-left">{I18n.t('login.createEduId.require')}</p>
-        <AccountCreationSteps activeStep={1} />
+        <AccountCreationSteps activeStep={2} />
         <Button
           onClick={() => logIn(role.STUDENT, true)}
           label={I18n.t('login.createEduId.step1')} />

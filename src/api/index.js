@@ -41,6 +41,11 @@ export function getProfile() {
   return validFetch(path);
 }
 
+export function getSocialAccount() {
+  const path = `${serverUrl}/v1/user/socialaccounts`;
+  return validFetch(path)
+}
+
 export function getEmails() {
   const path = `${serverUrl}/v1/user/emails`;
   return validFetch(path);
