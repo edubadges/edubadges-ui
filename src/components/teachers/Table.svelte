@@ -37,7 +37,7 @@
     <thead>
       <tr>
         {#each tableHeaders as th}
-          <th>{th}</th>
+          <th on:click={console.log("sort " + th)}>{th}</th>
         {/each}
       </tr>
     </thead>
