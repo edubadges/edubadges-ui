@@ -3,7 +3,7 @@
   import { navigate } from "svelte-routing";
   import I18n from "i18n-js";
   import { Table } from "../teachers";
-  import { filteredIds } from "../../util/filterData";
+  import { search } from "../../util/searchData";
 
   export let faculties = [];
 
@@ -13,11 +13,11 @@
   };
 
   let facultySearch = "";
-  $: filteredFacultyIds = filteredIds(faculties.map(element => [element.name, element.entityId]), facultySearch);
+  $: searchedFacultyIds = search(faculties.map(element => [element.name, element.entityId]), facultySearch);
 </script>
 
 <Table {...table} bind:search={facultySearch}>
-  {#each faculties.filter(el => filteredFacultyIds.includes(el.entityId)) as faculty (faculty.entityId)}
+  {#each faculties.filter(el => searchedFacultyIds.includes(el.entityId)) as faculty (faculty.entityId)}
     <tr
       class="click"
       on:click={() => navigate(`/manage/faculty/${faculty.entityId}`)}>
