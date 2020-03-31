@@ -31,7 +31,6 @@
   label {
     display: block;
     margin: 12px 0;
-    cursor: pointer;
     position: relative;
   }
 
@@ -70,6 +69,7 @@
 
 {#each items as item (item.entityId)}
   <label
+    class="click"
     class:active={value.includes(item.entityId)}
     class:inactive={value.length && !value.includes(item.entityId)}>
     <input type="checkbox" bind:group={value} value={item.entityId} />
@@ -84,7 +84,7 @@
 {/each}
 
 {#if showExpand}
-  <label class="expand">
+  <label class="click expand">
     <input type="checkbox" bind:checked={expanded} />
     {expanded ? I18n.t(`teacher.sidebar.filters.show_less`) : I18n.t(`teacher.sidebar.filters.show_all`)}
   </label>

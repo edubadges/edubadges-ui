@@ -1,20 +1,21 @@
 <script>
+  import { Router, Route, navigate } from "svelte-routing";
+  import { Redirect } from "../../components";
   import {
-    Breadcrumb,
-    InstitutionHeader,
-    Issuers
+    Institution,
+    Faculty,
+    Issuer,
+    Badgeclass
   } from "../../components/teachers";
+
+  export let mainEntity;
+
+  $: if (!mainEntity) navigate("/manage/institution", { replace: true });
 </script>
 
-<style>
-  .page-container {
-    flex: 1;
-    --entity-icon-width: 66px;
-  }
-</style>
-
-<div class="page-container">
-  <Breadcrumb path="Institution" />
-  <InstitutionHeader />
-  <Issuers />
-</div>
+<Router>
+  <Route path="/institution/*subEntity" component={Institution} />
+  <Route path="/faculty/:entityId/*subEntity" component={Faculty} />
+  <Route path="/issuer/:entityId/*subEntity" component={Issuer} />
+  <Route path="/badgeclass/:entityId/*subEntity" component={Badgeclass} />
+</Router>

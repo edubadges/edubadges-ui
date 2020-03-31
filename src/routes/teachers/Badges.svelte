@@ -78,7 +78,7 @@
 
   <div class="content">
     <h2>
-      {I18n.t('teacher.badges.title')}
+      {I18n.t('teacher.badgeclasses.title')}
       {#if institution}
         <span class="blue-text">in</span>
         {institution.name}

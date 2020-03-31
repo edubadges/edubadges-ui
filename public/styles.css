@@ -72,10 +72,6 @@ a {
   text-decoration: none;
 }
 
-a:visited:not(.button) {
-  color: #0077c8;
-}
-
 label,
 span {
   line-height: 18px;
@@ -106,6 +102,10 @@ h3 {
 h4 {
   font-size: 20px;
   margin-bottom: 4px;
+  font-weight: bold;
+}
+
+.bold {
   font-weight: bold;
 }
 
@@ -145,4 +145,9 @@ h4 {
     margin-left: 0 !important;
     margin-top: 25px !important;
   }
+}
+
+.button,
+.click {
+  cursor: pointer;
 }

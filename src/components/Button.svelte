@@ -17,7 +17,6 @@
     display: inline-block;
     color: white;
     text-decoration: none;
-    cursor: pointer;
     text-align: center;
     font-weight: bold;
     width: 216px;
