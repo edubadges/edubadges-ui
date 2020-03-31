@@ -98,7 +98,7 @@
       <li>
         E-mail: {email}
         <br />
-        <button on:click={() => makePrimary(id)}>
+        <button disabled={!verified} on:click={() => makePrimary(id)}>
           Make primary
         </button>
         {#if !verified}(unverified){/if}
