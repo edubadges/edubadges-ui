@@ -2,6 +2,7 @@
   export let title = "";
   export let tableHeaders = [];
   export let search = "";
+  export let sort = [];
 </script>
 
 <style>
@@ -37,7 +38,7 @@
     <thead>
       <tr>
         {#each tableHeaders as th}
-          <th on:click={console.log("sort " + th)}>{th}</th>
+          <th on:click={() => sort[0] = th}>{th}</th>
         {/each}
       </tr>
     </thead>

@@ -18,10 +18,25 @@
 
   let issuerSearch = "";
   $: searchedIssuerIds = search(issuers.map(element => [element.name, element.entityId]), issuerSearch);
+
+  let issuerSort = [];
+
+  function sort(collection, attribute) {
+    console.log(collection);
+    if (attribute.length === 0) return collection;
+      return collection.sort((a, b) => {
+          console.log(a);
+          console.log(attribute[0]);
+          if (attribute[0].toLowerCase() !== 'count') return a[attribute[0].toLowerCase()].localeCompare(b[attribute[0].toLowerCase()]);
+          return b.count - a.count || a.name.localeCompare(b.name);
+      });
+  }
 </script>
 
-<Table {...table} bind:search={issuerSearch}>
-  {#each issuers.filter(el => searchedIssuerIds.includes(el.entityId)) as issuer (issuer.entityId)}
+<button on:click={() => console.log(sort(issuers.filter(el => searchedIssuerIds.includes(el.entityId)), issuerSort))}>print sort</button>
+
+<Table {...table} bind:search={issuerSearch} bind:sort={issuerSort}>
+  {#each sort(issuers.filter(el => searchedIssuerIds.includes(el.entityId)), issuerSort) as issuer (issuer.entityId)}
     <tr
       class="click"
       on:click={() => navigate(`/manage/issuer/${issuer.entityId}`)}>
