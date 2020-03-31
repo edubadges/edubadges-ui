@@ -42,6 +42,7 @@ I18n.translations.en = {
       askAccountYes: "<strong>Already</strong> have a Backpack?",
       logInAccount: "Log in",
       createAccountButton: "Create an eduID",
+      back: "Back",
       title: "Create a Backpack",
       subtitle: "you'll need an eduID",
       step1: "Step 1: Create an eduID",

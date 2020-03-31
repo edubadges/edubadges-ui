@@ -1,5 +1,4 @@
 <script>
-  import { onMount } from "svelte";
   import { navigate } from "svelte-routing";
   import I18n from "i18n-js";
   import { Table } from "../teachers";
