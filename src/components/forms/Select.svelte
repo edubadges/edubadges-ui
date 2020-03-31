@@ -10,46 +10,45 @@
 
 <style>
   div {
-    max-width: 250px;
-    font-size: large;
-    color: var(--color-text-grey);
+    max-width: var(--field-max-width);
+    font-size: var(--field-font-size);
+    color: var(--field-color);
 
     /* select */
-    --border: 1px solid var(--color-text-grey);
-    --borderRadius: 4px;
-    --inputFontSize: large;
+    --border: var(--field-border);
+    --borderRadius: var(--field-border-radius);
+    --inputFontSize: var(--field-font-size);
 
-    --disabledColor: var(--color-text-light-grey);
-    --disabledBorderColor: var(--color-text-light-grey);
-    --disabledBackground: white;
+    --disabledColor: var(--field-color-disabled);
+    --disabledBorderColor: var(--field-border-color-disabled);
+    --disabledBackground: var(--field-background);
   }
 
   div :global(.selectContainer input) {
-    cursor: text !important;
+    cursor: var(--field-cursor) !important;
   }
 
   div :global(.selectContainer.focused) {
-    cursor: text;
-    outline: 1px solid var(--outline-blue);
-    box-shadow: 1px 1px 3px var(--outline-blue),
-      -1px -1px 3px var(--outline-blue);
+    cursor: var(--field-cursor);
+    outline: var(--field-outline);
+    box-shadow: var(--field-outline-shadow);
   }
 
   /* Disabled */
   div[disabled] :global(.selectContainer input) {
-    cursor: not-allowed !important;
+    cursor: var(--field-cursor-disabled) !important;
   }
 
   /* Invalid */
   div[error] {
-    --background: var(--color-background-red);
-    --border: 1px solid var(--color-text-red);
-    --borderFocusColor: var(--color-text-red);
-    --borderHoverColor: var(--color-text-red);
+    --background: var(--field-background-error);
+    --border: var(--field-border-error);
+    --borderFocusColor: var(--outline-blue);
+    --borderHoverColor: var(--field-border-color-error);
   }
 </style>
 
-<div {error} {disabled}>
+<div class="input-field" {error} {disabled}>
   <Select
     {items}
     bind:selectedValue={value}

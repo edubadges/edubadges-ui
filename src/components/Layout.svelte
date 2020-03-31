@@ -37,7 +37,37 @@
     /* Buttons */
     --button-border-radius: 2px;
 
-    /* Forms */
+    /* Form field regular */
     --outline-blue: #3262be;
+    --field-outline: 1px solid var(--outline-blue);
+    --field-outline-shadow: 1px 1px 3px var(--outline-blue),
+      -1px -1px 3px var(--outline-blue);
+
+    --field-max-width: 250px;
+    --field-background: white;
+    --field-cursor: text;
+
+    --field-font-size: large;
+    --field-color: var(--color-text-grey);
+
+    --field-border-radius: 4px;
+    --field-border-width: 1px;
+    --field-border-style: solid;
+    --field-border-color: var(--color-text-grey);
+    --field-border: var(--field-border-width) var(--field-border-style)
+      var(--field-border-color);
+
+    /* Form field with error */
+    --field-background-error: var(--color-background-red);
+    --field-border-color-error: var(--color-text-red);
+    --field-border-error: var(--field-border-width) var(--field-border-style)
+      var(--field-border-color-error);
+
+    /* Form field disabled */
+    --field-color-disabled: var(--color-text-light-grey);
+    --field-cursor-disabled: not-allowed;
+    --field-border-color-disabled: var(--color-text-light-grey);
+    --field-border-disabled: var(--field-border-width) var(--field-border-style)
+      var(--field-border-color-disabled);
   }
 </style>
