@@ -1,24 +1,13 @@
 <script>
-  import { warningIcon } from "../../icons";
-
-  export let label = "";
   export let value = "";
 
   export let disabled;
   export let error;
 
-  export let type;
+  export let area;
 </script>
 
 <style>
-  div.field {
-    margin-bottom: var(--ver-padding-l);
-  }
-
-  label {
-    font-weight: bold;
-  }
-
   input,
   textarea {
     display: block;
@@ -26,7 +15,6 @@
     width: 100%;
 
     padding: 8px 10px;
-    margin: 8px 0;
 
     font-size: large;
     color: var(--color-text-grey);
@@ -52,32 +40,12 @@
     border-color: var(--color-text-red);
     background-color: var(--color-background-red);
   }
-
-  div.error {
-    display: flex;
-    color: var(--color-text-red);
-  }
-
-  div.error :global(svg.icon-warning) {
-    height: 1rem;
-    margin-right: 10px;
-    fill: var(--color-text-red);
-  }
 </style>
 
-<div class="field" {disabled} {error}>
-  <label for={label}>{label}</label>
-
-  {#if type === 'area'}
+<div {disabled} {error}>
+  {#if area}
     <textarea bind:value rows="4" {disabled} />
   {:else}
     <input bind:value {disabled} />
-  {/if}
-
-  {#if error}
-    <div class="error">
-      {@html warningIcon}
-      <span>{error}</span>
-    </div>
   {/if}
 </div>

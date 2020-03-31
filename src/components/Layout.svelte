@@ -36,5 +36,8 @@
 
     /* Buttons */
     --button-border-radius: 2px;
+
+    /* Forms */
+    --outline-blue: #3262be;
   }
 </style>
