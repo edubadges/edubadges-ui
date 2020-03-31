@@ -26,7 +26,6 @@
       .then(setData)
       .catch(err => {
         err.then(res => {
-          console.log(res);
           I18n.t(['error', res.fields.error_code]);
         })
       });
@@ -34,7 +33,6 @@
       .then(setEmails)
       .catch(err => {
         err.then(res => {
-          console.log(res);
           error = I18n.t(['error', res.fields.error_code])
         });
       });
@@ -49,7 +47,6 @@
       })
       .catch(err => {
         err.then(res => {
-          console.log(res);
           error = I18n.t(['error', res.fields.error_code])
         });
       });
