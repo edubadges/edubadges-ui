@@ -26,6 +26,7 @@
   thead th {
     text-align: left;
     border-bottom: 3px solid var(--color-background-grey-dark);
+    cursor: pointer;
   }
 
   .entity-table :global(th, td) {

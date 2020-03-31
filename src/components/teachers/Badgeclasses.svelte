@@ -17,10 +17,12 @@
   $: searchedBadgeclassIds = search(badgeclasses.map(element => [element.name, element.entityId]), badgeclassSearch);
 
   let badgeclassSort = [];
+
+  $: sortedFilteredBadgeclasses = sort(badgeclasses.filter(el => searchedBadgeclassIds.includes(el.entityId)), badgeclassSort[0])
 </script>
 
 <Table {...table} bind:search={badgeclassSearch} bind:sort={badgeclassSort}>
-  {#each sort(badgeclasses.filter(el => searchedBadgeclassIds.includes(el.entityId)), badgeclassSort) as badgeclass (badgeclass.entityId)}
+  {#each sortedFilteredBadgeclasses as badgeclass (badgeclass.entityId)}
     <tr
       class="click"
       on:click={() => navigate(`/manage/badgeclass/${badgeclass.entityId}`)}>

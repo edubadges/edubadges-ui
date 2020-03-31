@@ -21,10 +21,12 @@
   $: searchedIssuerIds = search(issuers.map(element => [element.name, element.entityId]), issuerSearch);
 
   let issuerSort = [];
+
+  $: sortedFilteredIssuers = sort(issuers.filter(el => searchedIssuerIds.includes(el.entityId)), issuerSort[0]);
 </script>
 
 <Table {...table} bind:search={issuerSearch} bind:sort={issuerSort}>
-  {#each sort(issuers.filter(el => searchedIssuerIds.includes(el.entityId)), issuerSort) as issuer (issuer.entityId)}
+  {#each sortedFilteredIssuers as issuer (issuer.entityId)}
     <tr
       class="click"
       on:click={() => navigate(`/manage/issuer/${issuer.entityId}`)}>

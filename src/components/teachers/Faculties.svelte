@@ -17,10 +17,12 @@
   $: searchedFacultyIds = search(faculties.map(element => [element.name, element.entityId]), facultySearch);
 
   let facultySort = [];
+
+  $: sortedFilteredFaculties = sort(faculties.filter(el => searchedFacultyIds.includes(el.entityId)), facultySort[0]);
 </script>
 
 <Table {...table} bind:search={facultySearch} bind:sort={facultySort}>
-  {#each sort(faculties.filter(el => searchedFacultyIds.includes(el.entityId)), facultySort) as faculty (faculty.entityId)}
+  {#each sortedFilteredFaculties as faculty (faculty.entityId)}
     <tr
       class="click"
       on:click={() => navigate(`/manage/faculty/${faculty.entityId}`)}>
