@@ -3,6 +3,7 @@
   import { navigate } from "svelte-routing";
   import I18n from "i18n-js";
   import { Table } from "../teachers";
+  import { filteredIds } from "../../util/filterData";
 
   export let faculties = [];
 
@@ -10,10 +11,13 @@
     title: `${I18n.t("teacher.faculties.title")} (${faculties.length})`,
     tableHeaders: ["Name", `#${I18n.t("teacher.issuers.title").toLowerCase()}`]
   };
+
+  let facultySearch = "";
+  $: filteredFacultyIds = filteredIds(faculties.map(element => [element.name, element.entityId]), facultySearch);
 </script>
 
-<Table {...table}>
-  {#each faculties as faculty (faculty.entityId)}
+<Table {...table} bind:search={facultySearch}>
+  {#each faculties.filter(el => filteredFacultyIds.includes(el.entityId)) as faculty (faculty.entityId)}
     <tr
       class="click"
       on:click={() => navigate(`/manage/faculty/${faculty.entityId}`)}>

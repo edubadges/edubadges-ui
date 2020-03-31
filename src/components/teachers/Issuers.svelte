@@ -17,13 +17,8 @@
   };
 
   let issuerSearch = "";
-
-  let filteredIssuerIds = filteredIds(issuers.map(element => [element.name, element.entityId]), issuerSearch);
+  $: filteredIssuerIds = filteredIds(issuers.map(element => [element.name, element.entityId]), issuerSearch);
 </script>
-
-<button on:click={() => filteredIssuerIds = filteredIds(issuers.map(element => [element.name, element.entityId]), issuerSearch)}>calc</button>
-<button on:click={() => console.log(issuers)}>data</button>
-<button on:click={() => console.log(filteredIssuerIds)}>ids</button>
 
 <Table {...table} bind:search={issuerSearch}>
   {#each issuers.filter(el => filteredIssuerIds.includes(el.entityId)) as issuer (issuer.entityId)}
