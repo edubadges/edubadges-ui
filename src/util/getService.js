@@ -4,8 +4,8 @@ import { role } from "./role"
 export const getService = (chosenRole) => {
     switch (chosenRole) {
         case role.STUDENT:
-            return config.studentDomain
+            return config.studentDomain;
         case role.TEACHER:
-            return config.teacherDomain
+            return config.teacherDomain;
     }
-}
+};
