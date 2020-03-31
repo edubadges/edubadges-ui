@@ -3,7 +3,7 @@
   import { navigate } from "svelte-routing";
   import I18n from "i18n-js";
   import { Table } from "../teachers";
-  import { filtered } from "../../util/filterData";
+  import { filteredIds } from "../../util/filterData";
 
   export let issuers = [];
   export let facultyName = "";
@@ -17,10 +17,16 @@
   };
 
   let issuerSearch = "";
+
+  let filteredIssuerIds = filteredIds(issuers.map(element => [element.name, element.entityId]), issuerSearch);
 </script>
 
+<button on:click={() => filteredIssuerIds = filteredIds(issuers.map(element => [element.name, element.entityId]), issuerSearch)}>calc</button>
+<button on:click={() => console.log(issuers)}>data</button>
+<button on:click={() => console.log(filteredIssuerIds)}>ids</button>
+
 <Table {...table} bind:search={issuerSearch}>
-  {#each filtered(issuers, issuerSearch) as issuer (issuer.entityId)}
+  {#each issuers.filter(el => filteredIssuerIds.includes(el.entityId)) as issuer (issuer.entityId)}
     <tr
       class="click"
       on:click={() => navigate(`/manage/issuer/${issuer.entityId}`)}>
