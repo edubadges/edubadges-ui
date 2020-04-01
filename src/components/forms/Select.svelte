@@ -16,6 +16,8 @@
 
     /* select */
     --border: var(--field-border);
+    --borderHoverColor: var(--field-border-color);
+    --borderFocusColor: var(--field-border-color);
     --borderRadius: var(--field-border-radius);
     --inputFontSize: var(--field-font-size);
 
@@ -43,7 +45,7 @@
   div[error] {
     --background: var(--field-background-error);
     --border: var(--field-border-error);
-    --borderFocusColor: var(--outline-blue);
+    --borderFocusColor: var(--field-border-color-error);
     --borderHoverColor: var(--field-border-color-error);
   }
 </style>
@@ -54,5 +56,6 @@
     bind:selectedValue={value}
     optionIdentifier="entityId"
     placeholder=""
+    showChevron
     isDisabled={disabled} />
 </div>

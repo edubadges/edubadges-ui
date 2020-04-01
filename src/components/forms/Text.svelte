@@ -23,6 +23,12 @@
     border-radius: var(--field-border-radius);
   }
 
+  input:focus,
+  textarea:focus {
+    outline: var(--field-outline);
+    box-shadow: var(--field-outline-shadow);
+  }
+
   /* Disabled */
   div[disabled] * {
     color: var(--field-color-disabled);
