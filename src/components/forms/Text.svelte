@@ -25,7 +25,7 @@
 
   input:focus,
   textarea:focus {
-    outline: var(--field-outline);
+    outline: var(--outline-fallback);
     box-shadow: var(--field-outline-shadow);
   }
 

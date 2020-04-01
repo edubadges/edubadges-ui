@@ -34,20 +34,24 @@
     --card-border-radius: 2px;
     --card-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 
+    /* Keyboard accessible */
+    --outline-blue: #3262be;
+    --outline-fallback: 1px solid var(--outline-blue);
+    --outline: -webkit-focus-ring-color auto 5px;
+
     /* Buttons */
     --button-border-radius: 2px;
+    --button-background-disabled: var(--color-background-grey-dark);
 
     /* Form field regular */
-    --outline-blue: #3262be;
-    --field-outline: 1px solid var(--outline-blue);
     --field-outline-shadow: 1px 1px 3px var(--outline-blue),
       -1px -1px 3px var(--outline-blue);
 
-    --field-max-width: 250px;
+    --field-max-width: 360px;
     --field-background: white;
     --field-cursor: text;
 
-    --field-font-size: large;
+    --field-font-size: 1rem;
     --field-color: var(--color-text-grey);
 
     --field-border-radius: 4px;

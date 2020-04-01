@@ -32,7 +32,7 @@
 
   div :global(.selectContainer.focused) {
     cursor: var(--field-cursor);
-    outline: var(--field-outline);
+    outline: var(--outline-fallback);
     box-shadow: var(--field-outline-shadow);
   }
 
