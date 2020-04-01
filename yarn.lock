@@ -6639,6 +6639,11 @@ svelte-routing@^1.4.0:
   resolved "https://registry.yarnpkg.com/svelte-routing/-/svelte-routing-1.4.0.tgz#09285f3c7b19f509dfb1289fbc1235b348aa7d80"
   integrity sha512-09ypn0/vD2PcuyZEEocUHFgi7kvLOxSoUUuJZ4j3p4Y4sT/kMIWtHIRpnLdsr8bQ+sGo77sbEkO+av6yd1RjPg==
 
+svelte-select@^3.6.2:
+  version "3.6.2"
+  resolved "https://registry.yarnpkg.com/svelte-select/-/svelte-select-3.6.2.tgz#aa1959609fa68a3689ec5052ee041ca24e794f33"
+  integrity sha512-6n1NbL1D5Lb8iLEUawYcaYNGPw84y4ZV52ysON4bvh2OlYZX3MtUlUEPuPpnIXiVNaNw2D294XjZ5bCnemxp8w==
+
 svelte@^3.12.1:
   version "3.15.0"
   resolved "https://registry.yarnpkg.com/svelte/-/svelte-3.15.0.tgz#9dda8ad1d86cd74626b25f9c182f3ae86599fd79"
