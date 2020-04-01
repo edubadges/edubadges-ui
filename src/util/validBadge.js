@@ -1,6 +1,6 @@
 export const validBadge = ({ image, json }) => {
     try {
-        const { badge, issuedOn, expires } = json
+        const { badge, issuedOn, expires } = json;
 
         return {
             image: image || "https://via.placeholder.com/500?text=Placeholder",
@@ -11,7 +11,7 @@ export const validBadge = ({ image, json }) => {
             description: badge.description['@value']
         }
     } catch (e) {
-        console.error(e)
+        console.error(e);
         return undefined
     }
-}
+};
