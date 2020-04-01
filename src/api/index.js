@@ -8,7 +8,7 @@ const serverUrl = config.serverUrl;
 function validateResponse(res) {
   if (res.ok) return res.json();
 
-  throw res.json();
+  if (res.status === 400) throw res.json();
 }
 
 function validFetch(path, options = {}, method = "GET") {
@@ -32,8 +32,8 @@ function validFetch(path, options = {}, method = "GET") {
 
 // External API
 // Token and Profile
-export function requestLoginToken(service) {
-  window.location.href = `${serverUrl}/account/sociallogin?provider=${service}`;
+export function requestLoginToken(service, isRegistration) {
+  window.location.href = `${serverUrl}/account/sociallogin?provider=${service}&isRegistration=${isRegistration}`;
 }
 
 export function getProfile() {
@@ -72,11 +72,11 @@ export function getSocialAccounts() {
   return validFetch(path);
 }
 
-export function requestBadge(url) {
+export function requestBadge(id) {
   const path = `${serverUrl}/lti_edu/enroll`;
   return validFetch(
     path,
-    { body: JSON.stringify({ badgeclass_slug: url }) },
+    { body: JSON.stringify({ badgeclass_slug: id }) },
     "POST"
   );
 }

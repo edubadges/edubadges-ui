@@ -1,6 +1,7 @@
 <script>
   export let title = "";
   export let tableHeaders = [];
+  export let search = "";
 </script>
 
 <style>
@@ -30,6 +31,7 @@
 
 <div class="container">
   <h4>{title}</h4>
+  <input bind:value={search}>
 
   <table class="entity-table">
     <thead>
