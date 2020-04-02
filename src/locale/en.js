@@ -129,6 +129,10 @@ I18n.translations.en = {
       grading_table: "Grading table",
       image: "Logo",
       name: "Name"
+    },
+    faculty: {
+      description: "Description",
+      name: "Name"
     }
   }
 };

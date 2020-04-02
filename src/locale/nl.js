@@ -129,6 +129,10 @@ I18n.translations.nl = {
       grading_table: "Grading table",
       image: "Logo",
       name: "Naam"
+    },
+    faculty: {
+      description: "Beschrijving",
+      name: "Naam"
     }
   }
 };

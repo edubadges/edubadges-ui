@@ -28,17 +28,14 @@
   });
 
   function handleSubmit() {
+    errors = {};
+
     editInstitution(institution.entityId, {
       ...institution,
       grading_table: institution.gradingTable
     })
       .then(res => console.log("succes", res))
-      .catch(err =>
-        err.then(res => {
-          console.log(res);
-          errors = res;
-        })
-      );
+      .catch(err => err.then(res => (errors = res)));
   }
 </script>
 
