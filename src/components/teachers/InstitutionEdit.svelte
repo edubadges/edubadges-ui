@@ -23,17 +23,15 @@
 
   onMount(() => {
     queryData(query).then(({ currentUser }) => {
-      institution = currentUser.institution;
+      const { gradingTable, ...rest } = currentUser.institution;
+      institution = { grading_table: gradingTable, ...rest };
     });
   });
 
   function handleSubmit() {
     errors = {};
 
-    editInstitution(institution.entityId, {
-      ...institution,
-      grading_table: institution.gradingTable
-    })
+    editInstitution(institution.entityId, institution)
       .then(res => console.log("succes", res))
       .catch(err => err.then(res => (errors = res)));
   }
