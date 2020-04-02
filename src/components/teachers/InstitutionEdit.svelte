@@ -3,11 +3,13 @@
   import { EntityForm } from "../teachers";
   import { Field, File, TextInput } from "../forms";
   import { queryData } from "../../api/graphql";
+  import { editInstitution } from "../../api";
 
   const entity = "institution";
   const query = `{
 	currentUser {
 	  institution {
+		entityId,
 		name,
 		image,
 		brin,
@@ -17,29 +19,46 @@
   }`;
 
   let institution = {};
+  let errors = {};
 
   onMount(() => {
     queryData(query).then(({ currentUser }) => {
       institution = currentUser.institution;
     });
   });
+
+  function handleSubmit() {
+    editInstitution(institution.entityId, {
+      ...institution,
+      grading_table: institution.gradingTable
+    })
+      .then(res => console.log("succes", res))
+      .catch(err =>
+        err.then(res => {
+          console.log(res);
+          errors = res;
+        })
+      );
+  }
 </script>
 
-<EntityForm {entity}>
+<EntityForm {entity} submit={handleSubmit}>
   <Field {entity} attribute="image">
-    <File bind:value={institution.image} />
+    <File bind:value={institution.image} error={errors.image} />
   </Field>
 
   <Field {entity} attribute="name">
-    <TextInput bind:value={institution.name} />
+    <TextInput bind:value={institution.name} error={errors.name} />
   </Field>
 
   <Field {entity} attribute="brin">
-    <TextInput bind:value={institution.brin} />
+    <TextInput bind:value={institution.brin} error={errors.brin} />
   </Field>
 
   <Field {entity} attribute="grading_table">
-    <TextInput bind:value={institution.grading_table} />
+    <TextInput
+      bind:value={institution.grading_table}
+      error={errors.grading_table} />
   </Field>
 
 </EntityForm>

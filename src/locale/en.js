@@ -93,7 +93,8 @@ I18n.translations.en = {
     edit: {
       institution: "Edit institution",
       faculty: "Edit faculty",
-      issuer: "Edit issuer"
+      issuer: "Edit issuer",
+      save: "Save changes"
     }
   },
   footer: {

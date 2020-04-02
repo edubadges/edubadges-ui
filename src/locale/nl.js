@@ -93,7 +93,8 @@ I18n.translations.nl = {
     edit: {
       institution: "Wijzig instituut",
       faculty: "Wijzig groep",
-      issuer: "Wijzig issuer"
+      issuer: "Wijzig issuer",
+      save: "Opslaan"
     }
   },
   footer: {
