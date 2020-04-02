@@ -14,7 +14,6 @@
             const service = getService(role.STUDENT);
             requestLoginToken(service, false);
         }
-
     });
 
 </script>

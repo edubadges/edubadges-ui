@@ -1,32 +1,26 @@
 <script>
     import I18n from "i18n-js";
-    import {userVerifiedByInstitution, userLoggedIn, userRole, authToken} from "../../stores/user";
+    import {userVerifiedByInstitution, userInVerificationFlow, userLoggedIn, userRole, authToken} from "../../stores/user";
     import {Badge} from "../../components/students";
     import {getBadges, verifyUserIdentity} from "../../api";
     import {onMount} from "svelte";
     import Button from "../../components/Button.svelte";
-    import AccountCreationSteps from "../../components/guests/AccountCreationSteps.svelte";
+    import Welcome from "../../components/students/Welcome.svelte";
 
     let badgesPromise = getBadges();
 
-    const stepUp = () => {
-        $userLoggedIn = "";
-        $userRole = "";
-        $authToken = "";
-        verifyUserIdentity();
-    };
-
     $: userIdentity = $userVerifiedByInstitution === true || $userVerifiedByInstitution === "true" ? true : false;
+    $: userVerification = $userInVerificationFlow === true || $userInVerificationFlow === "true" ? true : false;
 
 </script>
 
 <div>
   <h3>{I18n.t('backpack.title')}</h3>
-  <p>userIdentity: {userIdentity}</p>
   {#if !userIdentity}
-    <AccountCreationSteps activeStep={2}/>
-    <Button onClick={stepUp}
-            label={I18n.t('login.createEduId.step2')} />
+    <Welcome activeStep={2}/>
+  {/if}
+  {#if userVerification}
+    <Welcome activeStep={3} />
   {/if}
   {#await badgesPromise}
       <p>...loading badges</p>

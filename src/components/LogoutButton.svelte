@@ -3,7 +3,7 @@
   import I18n from "i18n-js";
 
   import { Button } from "../components";
-  import { userLoggedIn, userRole, authToken, userVerifiedByInstitution } from "../stores/user";
+  import { userLoggedIn, userRole, authToken, userVerifiedByInstitution, userInVerificationFlow } from "../stores/user";
 
   const logoutUser = () => {
     $userLoggedIn = "";
@@ -11,6 +11,7 @@
     $authToken = "";
     $authToken = "";
     $userVerifiedByInstitution = false;
+    $userInVerificationFlow = false;
     navigate("/");
   };
 </script>
