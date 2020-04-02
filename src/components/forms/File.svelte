@@ -8,15 +8,19 @@
   let input;
   let src = "";
 
+  $: if (value) src = value;
+
   const reader = new FileReader();
-  reader.onload = ({ target }) => (src = target.result);
+  reader.onload = ({ target: { result } }) => {
+    value = result;
+    src = result;
+  };
 
   const setFile = file => {
-    value = file;
-
     if (file) {
       reader.readAsDataURL(file);
     } else {
+      value = "";
       src = "";
       input.value = "";
     }
