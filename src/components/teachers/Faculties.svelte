@@ -14,11 +14,11 @@
   };
 
   let facultySearch = "";
-  $: searchedFacultyIds = search(faculties.map(element => [element.name, element.entityId]), facultySearch);
+  $: searchedFacultyIds = search(faculties, facultySearch, 'name');
 
   let facultySort = [];
 
-  $: sortedFilteredFaculties = sort(faculties.filter(el => searchedFacultyIds.includes(el.entityId)), facultySort[0]);
+  $: sortedFilteredFaculties = sort(faculties.filter(el => searchedFacultyIds.includes(el.entityId)), facultySort[0], facultySort[1]);
 </script>
 
 <Table {...table} bind:search={facultySearch} bind:sort={facultySort}>

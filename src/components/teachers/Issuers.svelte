@@ -18,11 +18,11 @@
   };
 
   let issuerSearch = "";
-  $: searchedIssuerIds = search(issuers.map(element => [element.name, element.entityId]), issuerSearch);
+  $: searchedIssuerIds = search(issuers, issuerSearch, 'name');
 
   let issuerSort = [];
 
-  $: sortedFilteredIssuers = sort(issuers.filter(el => searchedIssuerIds.includes(el.entityId)), issuerSort[0]);
+  $: sortedFilteredIssuers = sort(issuers.filter(el => searchedIssuerIds.includes(el.entityId)), issuerSort[0], issuerSort[1]);
 </script>
 
 <Table {...table} bind:search={issuerSearch} bind:sort={issuerSort}>

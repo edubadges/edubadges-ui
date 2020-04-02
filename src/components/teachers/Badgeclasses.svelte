@@ -14,11 +14,11 @@
   };
 
   let badgeclassSearch = "";
-  $: searchedBadgeclassIds = search(badgeclasses.map(element => [element.name, element.entityId]), badgeclassSearch);
+  $: searchedBadgeclassIds = search(badgeclasses, badgeclassSearch, 'name');
 
   let badgeclassSort = [];
 
-  $: sortedFilteredBadgeclasses = sort(badgeclasses.filter(el => searchedBadgeclassIds.includes(el.entityId)), badgeclassSort[0])
+  $: sortedFilteredBadgeclasses = sort(badgeclasses.filter(el => searchedBadgeclassIds.includes(el.entityId)), badgeclassSort[0], badgeclassSort[1])
 </script>
 
 <Table {...table} bind:search={badgeclassSearch} bind:sort={badgeclassSort}>

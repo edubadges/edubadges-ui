@@ -1,7 +1,6 @@
-export const search = (data, search) => {
-  if (search === "") return data.map(el => el[1]);
+export const search = (data, search, attribute) => {
+  if (search === "") return data.map(el => el.entityId);
   return data.filter(element => {
-    // element = [searchableAttribute, id]
-    return element[0].toLowerCase().includes(search.toLowerCase())
-  }).map(el => el[1]);
+    return element[attribute].toLowerCase().includes(search.toLowerCase())
+  }).map(el => el.entityId);
 };

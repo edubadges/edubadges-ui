@@ -6,9 +6,14 @@
 
   const setSort = (attribute) => {
     if (sort[0] === attribute) {
-      sort.length = 0;
+      if (sort[1]) {
+        sort.length = 0;
+      } else {
+        sort[1] = true;
+      }
     } else {
       sort[0] = attribute;
+      sort[1] = false;
     }
   }
 </script>
@@ -29,6 +34,14 @@
     cursor: pointer;
   }
 
+  .asc:after {
+      content: ' ▾';
+  }
+
+  .desc:after {
+      content: ' ▴';
+  }
+
   .entity-table :global(th, td) {
     padding: var(--ver-padding-s) 0;
     width: 50%;
@@ -47,7 +60,12 @@
     <thead>
       <tr>
         {#each tableHeaders as th}
-          <th on:click={() => setSort(th)}>{th}</th>
+          <th
+              on:click={() => setSort(th)}
+              class="{sort[0] === th ? (sort[1] ? 'asc' : 'desc') : ''}"
+          >
+            {th}
+          </th>
         {/each}
       </tr>
     </thead>
