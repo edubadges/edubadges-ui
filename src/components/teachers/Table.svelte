@@ -1,4 +1,6 @@
 <script>
+  import I18n from "i18n-js";
+
   export let title = "";
   export let tableHeaders = [];
   export let search = "";
@@ -21,6 +23,19 @@
 <style>
   div.container {
     margin: var(--ver-padding-l) var(--entity-icon-width);
+  }
+
+  input {
+    height: 30px;
+    border: var(--card-border);
+  }
+
+  .block {
+    display: inline-block;
+  }
+
+  .right {
+    float: right;
   }
 
   table {
@@ -53,8 +68,8 @@
 </style>
 
 <div class="container">
-  <h4>{title}</h4>
-  <input bind:value={search}>
+  <h4 class="block">{title}</h4>
+  <input class="right block" placeholder="{I18n.t('teacher.sidebar.search')}..." bind:value={search} type="search">
 
   <table class="entity-table">
     <thead>
