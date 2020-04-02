@@ -43,19 +43,19 @@
 </script>
 
 <EntityForm {entity} submit={handleSubmit}>
-  <Field {entity} attribute="image">
+  <Field {entity} attribute="image" errors={errors.image}>
     <File bind:value={institution.image} error={errors.image} />
   </Field>
 
-  <Field {entity} attribute="name">
+  <Field {entity} attribute="name" errors={errors.name}>
     <TextInput bind:value={institution.name} error={errors.name} />
   </Field>
 
-  <Field {entity} attribute="brin">
+  <Field {entity} attribute="brin" errors={errors.brin}>
     <TextInput bind:value={institution.brin} error={errors.brin} />
   </Field>
 
-  <Field {entity} attribute="grading_table">
+  <Field {entity} attribute="grading_table" errors={errors.grading_table}>
     <TextInput
       bind:value={institution.grading_table}
       error={errors.grading_table} />
