@@ -82,6 +82,13 @@ I18n.translations.nl = {
     }
   },
   manage: {
+    header: {
+      edit_button: {
+        institution: "Wijzig instituut",
+        faculty: "Wijzig groep",
+        issuer: "Wijzig issuer"
+      }
+    },
     tabs: {
       issuers: "Issuers",
       faculties: "Groepen",
@@ -114,6 +121,6 @@ I18n.translations.nl = {
     209: "Kan niet enrollen",
     601: "Geen toegang. Check je assigned role in de Issuer",
     701: "Ongespecifieerde share provider",
-    702: "Ongeldige share provider",
+    702: "Ongeldige share provider"
   }
 };
