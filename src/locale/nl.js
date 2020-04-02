@@ -82,13 +82,6 @@ I18n.translations.nl = {
     }
   },
   manage: {
-    header: {
-      edit_button: {
-        institution: "Wijzig instituut",
-        faculty: "Wijzig groep",
-        issuer: "Wijzig issuer"
-      }
-    },
     tabs: {
       issuers: "Issuers",
       faculties: "Groepen",
@@ -96,6 +89,11 @@ I18n.translations.nl = {
       badgesRequested: "Aanvragen",
       badgesAwarded: "Ontvangers",
       badgesRevoked: "Ingetrokken"
+    },
+    edit: {
+      institution: "Wijzig instituut",
+      faculty: "Wijzig groep",
+      issuer: "Wijzig issuer"
     }
   },
   footer: {
@@ -122,5 +120,14 @@ I18n.translations.nl = {
     601: "Geen toegang. Check je assigned role in de Issuer",
     701: "Ongespecifieerde share provider",
     702: "Ongeldige share provider"
+  },
+  models: {
+    institution: {
+      brin: "BRIN code",
+      description: "Beschrijving",
+      grading_table: "Grading table",
+      image: "Logo",
+      name: "Naam"
+    }
   }
 };

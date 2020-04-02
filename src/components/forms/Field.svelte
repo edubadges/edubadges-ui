@@ -1,8 +1,10 @@
 <script>
+  import I18n from "i18n-js";
   import { Select } from "../forms";
   import { warningIcon } from "../../icons";
 
-  export let label = "";
+  export let entity;
+  export let attribute;
   export let disabled;
   export let error;
 </script>
@@ -38,7 +40,7 @@
 </style>
 
 <div class="field" {disabled} {error}>
-  <label for={label}>{label}</label>
+  <label for={attribute}>{I18n.t(['models', entity, attribute])}</label>
 
   <div class="input">
     <slot />

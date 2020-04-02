@@ -51,7 +51,7 @@
     <div class="info">
       <h3>{title}</h3>
       <a use:link href="edit" class="btn">
-        {I18n.t(['manage', 'header', 'edit_button', entity])}
+        {I18n.t(['manage', 'edit', entity])}
       </a>
     </div>
 

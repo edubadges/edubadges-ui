@@ -82,13 +82,6 @@ I18n.translations.en = {
     }
   },
   manage: {
-    header: {
-      edit_button: {
-        institution: "Edit institution",
-        faculty: "Edit faculty",
-        issuer: "Edit issuer"
-      }
-    },
     tabs: {
       issuers: "Issuers",
       faculties: "Groups",
@@ -96,6 +89,11 @@ I18n.translations.en = {
       badgesRequested: "Requests",
       badgesAwarded: "Recipients",
       badgesRevoked: "Revoked"
+    },
+    edit: {
+      institution: "Edit institution",
+      faculty: "Edit faculty",
+      issuer: "Edit issuer"
     }
   },
   footer: {
@@ -122,5 +120,14 @@ I18n.translations.en = {
     601: "You do not have permission. Check your assigned role in the Issuer",
     701: "Unspecified share provider",
     702: "Invalid share provider"
+  },
+  models: {
+    institution: {
+      brin: "BRIN code",
+      description: "Description",
+      grading_table: "Grading table",
+      image: "Logo",
+      name: "Name"
+    }
   }
 };
