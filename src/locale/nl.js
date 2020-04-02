@@ -133,6 +133,13 @@ I18n.translations.nl = {
     faculty: {
       description: "Beschrijving",
       name: "Naam"
+    },
+    issuer: {
+      description: "Beschrijving",
+      email: "Contact emailadres",
+      image: "Logo",
+      name: "Naam",
+      url: "Website URL"
     }
   }
 };

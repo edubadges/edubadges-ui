@@ -110,3 +110,9 @@ export function editFaculty(entityId, faculty) {
   const path = `${serverUrl}/institution/faculties/${entityId}`;
   return validFetch(path, { body: JSON.stringify(faculty) }, "PUT");
 }
+
+// Issuer
+export function editIssuer(entityId, issuer) {
+  const path = `${serverUrl}/v1/issuer/issuers/${entityId}`;
+  return validFetch(path, { body: JSON.stringify(issuer) }, "PUT");
+}

@@ -133,6 +133,13 @@ I18n.translations.en = {
     faculty: {
       description: "Description",
       name: "Name"
+    },
+    issuer: {
+      description: "Description",
+      email: "Contact email address",
+      image: "Logo",
+      name: "Name",
+      url: "Website URL"
     }
   }
 };
