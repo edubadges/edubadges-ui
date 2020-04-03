@@ -3,7 +3,7 @@
   import { onMount } from "svelte";
   import {
     getProfile,
-          getSocialAccount,
+    getSocialAccount,
     getEmails,
     addEmail,
     setPrimaryEmail,
