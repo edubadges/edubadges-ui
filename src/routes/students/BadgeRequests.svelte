@@ -32,12 +32,20 @@
         form.reset();
       })
       .catch(err => {
-        err.then(res => (error = res.detail || res.error));
+        err.then(res => {
+          error = I18n.t(['error', res.fields.error_code])
+        });
       });
   };
 
   const withdrawRequest = id =>
-    withdrawRequestBadge(id).then(getRequestedBadges);
+    withdrawRequestBadge(id)
+        .then(getRequestedBadges)
+        .catch(err => {
+          err.then(res => {
+            error = I18n.t(['error', res.fields.error_code])
+          });
+        });
 </script>
 
 <style>

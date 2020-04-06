@@ -96,5 +96,24 @@ I18n.translations.nl = {
     help: "Help & FAQ",
     poweredBy: "Trots aangeboden door",
     surf: "SURF"
+  },
+  error: {
+    101: "Kan emailadres niet registreren. Het adres is al in gebruik",
+    102: "Je hebt dit emailadres al toegevoegd. Je moet nog verifieren",
+    103: "Kan niet het primaire emailadres verwijderen",
+    104: "Kan niet het enige emailadres verwijderen",
+    105: "Verifieer het emailadres voordat je het adres primair maakt",
+    201: "Kan niet enrollen: je bent al enrolled",
+    202: "Kan niet enrollen: je hebt deze badge al",
+    203: "Kan niet enrollen: je hebt geen studentenaccount",
+    204: "Ongeldige enrollment id",
+    205: "Enrollment niet gevonden",
+    206: "Awarded enrollments kunnen niet teruggetrokken worden",
+    207: "Gebruikers kunnen alleen eigen enrollments terugtrekken",
+    208: "Missende badgeclass id",
+    209: "Kan niet enrollen",
+    601: "Geen toegang. Check je assigned role in de Issuer",
+    701: "Ongespecifieerde share provider",
+    702: "Ongeldige share provider",
   }
 };
