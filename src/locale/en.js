@@ -95,6 +95,12 @@ I18n.translations.en = {
       faculty: "Edit faculty",
       issuer: "Edit issuer",
       save: "Save changes"
+    },
+    new: {
+      faculty: "Add new faculty",
+      issuer: "Add new issuer",
+      badgeclass: "Add new badgeclass",
+      save: "Save changes"
     }
   },
   footer: {

@@ -1,4 +1,8 @@
 <script>
+  import I18n from "i18n-js";
+  import { link } from "svelte-routing";
+
+  export let entity = "";
   export let title = "";
   export let tableHeaders = [];
   export let search = "";
@@ -11,7 +15,15 @@
 
   div.header {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
+  }
+
+  div.header > *:not(:last-child) {
+    margin-right: var(--hor-padding-s);
+  }
+
+  h4 {
+    flex: 1;
   }
 
   table {
@@ -38,6 +50,9 @@
   <div class="header">
     <h4>{title}</h4>
     <input bind:value={search} />
+    <a use:link href={`/manage/${entity}/new`} class="btn">
+      {I18n.t(['manage', 'new', entity])}
+    </a>
   </div>
 
   <table class="entity-table">

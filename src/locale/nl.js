@@ -95,6 +95,12 @@ I18n.translations.nl = {
       faculty: "Wijzig groep",
       issuer: "Wijzig issuer",
       save: "Opslaan"
+    },
+    new: {
+      faculty: "Nieuwe groep maken",
+      issuer: "Nieuwe issuer maken",
+      badgeclass: "Nieuwe badgeclass maken",
+      save: "Opslaan"
     }
   },
   footer: {

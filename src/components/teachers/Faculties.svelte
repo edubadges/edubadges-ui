@@ -7,16 +7,22 @@
   export let faculties = [];
 
   $: table = {
+    entity: "faculty",
     title: `${I18n.t("teacher.faculties.title")} (${faculties.length})`,
     tableHeaders: ["Name", `#${I18n.t("teacher.issuers.title").toLowerCase()}`]
   };
 
   let facultySearch = "";
-  $: searchedFacultyIds = search(faculties.map(element => [element.name, element.entityId]), facultySearch);
+  $: searchedFacultyIds = search(
+    faculties.map(element => [element.name, element.entityId]),
+    facultySearch
+  );
 </script>
 
 <Table {...table} bind:search={facultySearch}>
-  {#each faculties.filter(el => searchedFacultyIds.includes(el.entityId)) as faculty (faculty.entityId)}
+  {#each faculties.filter(el =>
+    searchedFacultyIds.includes(el.entityId)
+  ) as faculty (faculty.entityId)}
     <tr
       class="click"
       on:click={() => navigate(`/manage/faculty/${faculty.entityId}`)}>

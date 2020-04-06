@@ -8,16 +8,23 @@
   export let badgeclasses = [];
 
   $: table = {
+    entity: "badgeclass",
+
     title: `${I18n.t("teacher.badgeclasses.title")} (${badgeclasses.length})`,
     tableHeaders: ["Name"]
   };
 
   let badgeclassSearch = "";
-  $: searchedBadgeclassIds = search(badgeclasses.map(element => [element.name, element.entityId]), badgeclassSearch);
+  $: searchedBadgeclassIds = search(
+    badgeclasses.map(element => [element.name, element.entityId]),
+    badgeclassSearch
+  );
 </script>
 
 <Table {...table} bind:search={badgeclassSearch}>
-  {#each badgeclasses.filter(el => searchedBadgeclassIds.includes(el.entityId)) as badgeclass (badgeclass.entityId)}
+  {#each badgeclasses.filter(el =>
+    searchedBadgeclassIds.includes(el.entityId)
+  ) as badgeclass (badgeclass.entityId)}
     <tr
       class="click"
       on:click={() => navigate(`/manage/badgeclass/${badgeclass.entityId}`)}>
