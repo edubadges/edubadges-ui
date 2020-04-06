@@ -89,6 +89,12 @@ I18n.translations.nl = {
       badgesRequested: "Aanvragen",
       badgesAwarded: "Ontvangers",
       badgesRevoked: "Ingetrokken"
+    },
+    edit: {
+      institution: "Wijzig instituut",
+      faculty: "Wijzig groep",
+      issuer: "Wijzig issuer",
+      save: "Opslaan"
     }
   },
   footer: {
@@ -114,6 +120,26 @@ I18n.translations.nl = {
     209: "Kan niet enrollen",
     601: "Geen toegang. Check je assigned role in de Issuer",
     701: "Ongespecifieerde share provider",
-    702: "Ongeldige share provider",
+    702: "Ongeldige share provider"
+  },
+  models: {
+    institution: {
+      brin: "BRIN code",
+      description: "Beschrijving",
+      grading_table: "Grading table",
+      image: "Logo",
+      name: "Naam"
+    },
+    faculty: {
+      description: "Beschrijving",
+      name: "Naam"
+    },
+    issuer: {
+      description: "Beschrijving",
+      email: "Contact emailadres",
+      image: "Logo",
+      name: "Naam",
+      url: "Website URL"
+    }
   }
 };

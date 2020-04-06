@@ -89,6 +89,12 @@ I18n.translations.en = {
       badgesRequested: "Requests",
       badgesAwarded: "Recipients",
       badgesRevoked: "Revoked"
+    },
+    edit: {
+      institution: "Edit institution",
+      faculty: "Edit faculty",
+      issuer: "Edit issuer",
+      save: "Save changes"
     }
   },
   footer: {
@@ -114,6 +120,26 @@ I18n.translations.en = {
     209: "Cannot enroll",
     601: "You do not have permission. Check your assigned role in the Issuer",
     701: "Unspecified share provider",
-    702: "Invalid share provider",
+    702: "Invalid share provider"
+  },
+  models: {
+    institution: {
+      brin: "BRIN code",
+      description: "Description",
+      grading_table: "Grading table",
+      image: "Logo",
+      name: "Name"
+    },
+    faculty: {
+      description: "Description",
+      name: "Name"
+    },
+    issuer: {
+      description: "Description",
+      email: "Contact email address",
+      image: "Logo",
+      name: "Name",
+      url: "Website URL"
+    }
   }
 };

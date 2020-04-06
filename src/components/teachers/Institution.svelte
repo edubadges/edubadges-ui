@@ -69,7 +69,11 @@
 
 <div class="page-container">
   <Breadcrumb {institutionName} />
-  <EntityHeader {tabs} title={institutionName} icon={institutionIcon} />
+  <EntityHeader
+    {tabs}
+    title={institutionName}
+    icon={institutionIcon}
+    entity="institution" />
 
   <Router>
     <Route path="/issuers">
