@@ -1,13 +1,11 @@
 <script>
   import { onMount } from "svelte";
-  import { EntityForm } from "../teachers";
-  import { Field, File, TextInput } from "../forms";
+  import { IssuerForm } from "../teachers";
   import { queryData } from "../../api/graphql";
   import { editIssuer } from "../../api";
 
   export let entityId;
 
-  const entity = "issuer";
   const query = `{
     issuer(id: "${entityId}") {
       name,
@@ -36,24 +34,4 @@
   }
 </script>
 
-<EntityForm {entity} submit={handleSubmit}>
-  <Field {entity} attribute="image" errors={errors.image}>
-    <File bind:value={issuer.image} error={errors.image} />
-  </Field>
-
-  <Field {entity} attribute="name" errors={errors.name}>
-    <TextInput bind:value={issuer.name} error={errors.name} />
-  </Field>
-
-  <Field {entity} attribute="description" errors={errors.description}>
-    <TextInput bind:value={issuer.description} error={errors.description} />
-  </Field>
-
-  <Field {entity} attribute="url" errors={errors.url}>
-    <TextInput bind:value={issuer.url} error={errors.url} />
-  </Field>
-
-  <Field {entity} attribute="email" errors={errors.email}>
-    <TextInput bind:value={issuer.email} error={errors.email} />
-  </Field>
-</EntityForm>
+<IssuerForm {issuer} {errors} {handleSubmit} />
