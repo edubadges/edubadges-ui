@@ -9,6 +9,11 @@
     margin: var(--ver-padding-l) var(--entity-icon-width);
   }
 
+  div.header {
+    display: flex;
+    justify-content: space-between;
+  }
+
   table {
     border-collapse: collapse;
     width: 100%;
@@ -30,8 +35,10 @@
 </style>
 
 <div class="container">
-  <h4>{title}</h4>
-  <input bind:value={search}>
+  <div class="header">
+    <h4>{title}</h4>
+    <input bind:value={search} />
+  </div>
 
   <table class="entity-table">
     <thead>
