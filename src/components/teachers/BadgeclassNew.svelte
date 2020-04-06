@@ -1,0 +1,1 @@
+badgeclass new
