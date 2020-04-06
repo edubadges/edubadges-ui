@@ -1,7 +1,4 @@
 export function sort(collection, attribute, reversed) {
-  console.log('collection', collection);
-  console.log('attribute', attribute);
-  console.log('reversed', reversed);
   if (!attribute) {
     if (reversed) {
       return collection.reverse();
