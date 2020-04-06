@@ -1,10 +1,16 @@
 <script>
   import I18n from "i18n-js";
+  import { onMount } from "svelte";
 
   export let title = "";
   export let tableHeaders = [];
   export let search = "";
+  export let defaultSort;
   export let sort = [];
+
+  onMount(() => {
+    sort = [defaultSort, false];
+  });
 
   const setSort = (attribute) => {
     if (sort[0] === attribute) {
@@ -30,11 +36,9 @@
     border: var(--card-border);
   }
 
-  .block {
+  .search {
+    width: 200px;
     display: inline-block;
-  }
-
-  .right {
     float: right;
   }
 
@@ -69,7 +73,7 @@
 
 <div class="container">
   <h4 class="block">{title}</h4>
-  <input class="right block" placeholder="{I18n.t('teacher.sidebar.search')}..." bind:value={search} type="search">
+  <input class="search" placeholder="{I18n.t('teacher.sidebar.search')}..." bind:value={search} type="search">
 
   <table class="entity-table">
     <thead>

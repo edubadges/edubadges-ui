@@ -16,11 +16,12 @@
   $: searchedFacultyIds = search(faculties, facultySearch, 'name');
 
   let facultySort = [];
+  const defaultSortFaculties = '#issuers';
 
   $: sortedFilteredFaculties = sort(faculties.filter(el => searchedFacultyIds.includes(el.entityId)), facultySort[0], facultySort[1]);
 </script>
 
-<Table {...table} bind:search={facultySearch} bind:sort={facultySort}>
+<Table {...table} bind:search={facultySearch} bind:sort={facultySort} defaultSort={defaultSortFaculties}>
   {#each sortedFilteredFaculties as faculty (faculty.entityId)}
     <tr
       class="click"

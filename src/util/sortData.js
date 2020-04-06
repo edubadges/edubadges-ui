@@ -1,4 +1,7 @@
 export function sort(collection, attribute, reversed) {
+  console.log('collection', collection);
+  console.log('attribute', attribute);
+  console.log('reversed', reversed);
   if (!attribute) {
     if (reversed) {
       return collection.reverse();
@@ -6,6 +9,7 @@ export function sort(collection, attribute, reversed) {
       return collection;
     }
   }
+
   const col = collection.sort((a, b) => {
     if (attribute[0] !== '#') {
       return a[attribute.toLowerCase()].localeCompare(b[attribute.toLowerCase()]);
@@ -13,6 +17,7 @@ export function sort(collection, attribute, reversed) {
       return b[attribute.substring(1, attribute.length)].length - a[attribute.substring(1, attribute.length)].length;
     }
   });
+
   if (reversed) {
     return col.reverse();
   } else {

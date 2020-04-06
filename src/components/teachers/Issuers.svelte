@@ -21,11 +21,12 @@
   $: searchedIssuerIds = search(issuers, issuerSearch, 'name');
 
   let issuerSort = [];
+  const defaultSortIssuers = '#badgeclasses';
 
   $: sortedFilteredIssuers = sort(issuers.filter(el => searchedIssuerIds.includes(el.entityId)), issuerSort[0], issuerSort[1]);
 </script>
 
-<Table {...table} bind:search={issuerSearch} bind:sort={issuerSort}>
+<Table {...table} bind:search={issuerSearch} bind:sort={issuerSort} defaultSort={defaultSortIssuers}>
   {#each sortedFilteredIssuers as issuer (issuer.entityId)}
     <tr
       class="click"
