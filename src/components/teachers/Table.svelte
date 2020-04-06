@@ -38,8 +38,11 @@
 
   .search {
     width: 200px;
-    display: inline-block;
     float: right;
+  }
+
+  .block {
+    display: inline-block;
   }
 
   table {
@@ -73,7 +76,7 @@
 
 <div class="container">
   <h4 class="block">{title}</h4>
-  <input class="search" placeholder="{I18n.t('teacher.sidebar.search')}..." bind:value={search} type="search">
+  <input class="search block" placeholder="{I18n.t('teacher.sidebar.search')}..." bind:value={search} type="search">
 
   <table class="entity-table">
     <thead>
