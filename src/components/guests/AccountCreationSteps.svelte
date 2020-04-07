@@ -23,8 +23,6 @@
     current: activeStep === i + 1,
     completed: activeStep > i + 1
   }));
-
-
 </script>
 
 <style>
@@ -88,7 +86,6 @@
     margin: auto 4px;
     width: 20px;
   }
-
 </style>
 
 <div class="account-creation-steps">
