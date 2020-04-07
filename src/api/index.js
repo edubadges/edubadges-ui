@@ -24,10 +24,10 @@ function validFetch(path, options = {}, method = "GET") {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: "Bearer " + token
-    }
+      Authorization: "Bearer " + token,
+    },
   };
-  return fetch(path, fetchOptions).then(res => validateResponse(res));
+  return fetch(path, fetchOptions).then((res) => validateResponse(res));
 }
 
 // External API
@@ -47,7 +47,7 @@ export function getProfile() {
 
 export function getSocialAccount() {
   const path = `${serverUrl}/v1/user/socialaccounts`;
-  return validFetch(path)
+  return validFetch(path);
 }
 
 export function getEmails() {
