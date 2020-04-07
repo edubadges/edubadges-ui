@@ -21,6 +21,7 @@
   onMount(() => {
     currentPage = pages.find(({ path }) => path === bookmark) || pages[0];
   });
+
 </script>
 
 <style>

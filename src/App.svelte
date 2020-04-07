@@ -1,6 +1,6 @@
 <script>
   import { Router, Route } from "svelte-routing";
-  import { Student, ProcessToken, NotFound, Login } from "./routes";
+  import { Student, ProcessToken, NotFound, Login , Validate} from "./routes";
   import { Badges, Manage } from "./routes/teachers";
   import { Header, Footer, SubscribeToPath } from "./components";
   import { Header as TeacherHeader } from "./components/teachers";
@@ -51,6 +51,7 @@
     <Route path="/backpack">
       <Student bookmark="backpack" />
     </Route>
+
     <Route path="/badge-requests">
       <Student bookmark="badge-requests" />
     </Route>
@@ -60,12 +61,14 @@
     <Route path="/profile">
       <Student bookmark="profile" />
     </Route>
+    <Route path="/validate" component={Validate}/>
 
     <!-- Teacher -->
     <Route path="/manage/*mainEntity" component={Manage} />
 
     <!-- Shared -->
     <Route path="/" component={homepage[visitorRole]} />
+
     <Route path="/auth/login/*" component={ProcessToken} />
     <Route component={NotFound} />
 

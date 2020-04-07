@@ -3,6 +3,7 @@
   import { onMount } from "svelte";
   import {
     getProfile,
+    getSocialAccount,
     getEmails,
     addEmail,
     setPrimaryEmail,
@@ -11,14 +12,19 @@
 
   let emails = [];
   let profile;
+  let socialAccount;
   let form;
   let error = "";
 
   const setProfile = () => getProfile().then(res => (profile = res));
-  const setEmails = () =>
-    getEmails().then(res => (emails = res.filter(({ primary }) => !primary)));
+
+  const setSocialAccount = () => getSocialAccount().then(res => (socialAccount = res));
+
+  const setEmails = () => getEmails().then(res => (emails = res.filter(({ primary }) => !primary)));
+
   const setData = () => {
     setProfile();
+    setSocialAccount();
     setEmails();
   };
 

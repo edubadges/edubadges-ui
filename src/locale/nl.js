@@ -46,7 +46,12 @@ I18n.translations.nl = {
       title: "Maak een Backpack aan",
       subtitle: "je hebt een eduID nodig",
       step1: "Stap 1: Maak een eduID aan",
-      require:
+      step2: "Stap 2: verifieer uw identiteit",
+      welcome: "Welkom bij je rugzak",
+      bekroond: "We hebben u uw eerste badge toegekend😀",
+      infoStep2: "Om eduBadges verder te kunnen ontvangen, moet u <strong> uw identiteit verifiëren </strong> bij uw onderwijsinstellingen. U kunt dit bewijzen door op de knop te klikken en u aan te melden bij uw instelling met uw instellingsaccount.",
+      verificatie: "Verificatie geslaagd!",
+      infoStep3: "Je kunt nu edubadges in je rugzak ontvangen.", require:
         "Om een edubadges Backpack aan te maken heb je een eduID nodig. Na het aanmaken van een eduID kan je je onderwijsinstelling verifiëren.",
       steps: {
         step1: "Maak een eduID aan",

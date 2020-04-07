@@ -46,6 +46,12 @@ I18n.translations.en = {
       title: "Create a Backpack",
       subtitle: "you'll need an eduID",
       step1: "Step 1: Create an eduID",
+      step2: "Step 2: Verify your identity",
+      welcome: "Welcome to your Backpack",
+      awarded: "We’ve awarded you with your first badge😀",
+      infoStep2: "To be able to further receive eduBadges, <strong>please verify your identity</strong> with your Educational Institutions. You can prove this by clicking the button and log in to your institution with your institution account.",
+      verification: "Verification succeeded!",
+      infoStep3: "You can now receive edubadges in your Backpack.",
       require:
         "To create an edubadges Backpack, you will need an eduID. After creating an eduID you can prove that you are following education in the Netherlands by verifying your institution.",
       steps: {
