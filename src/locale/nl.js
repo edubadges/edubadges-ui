@@ -5,14 +5,14 @@ I18n.translations.nl = {
     backpack: "Backpack",
     "badge-requests": "Badge verzoeken",
     collections: "Collecties",
-    profile: "Profiel"
+    profile: "Profiel",
   },
   header: {
     logout: "Logout",
     nav: {
       badgeclasses: "Badges",
-      manage: "Manage"
-    }
+      manage: "Manage",
+    },
   },
   login: {
     title: "Leven lang ontwikkelen",
@@ -25,8 +25,8 @@ I18n.translations.nl = {
       button: "Log in met je eduID",
       accountCreation: {
         askAccountNo: "Nog <strong>geen</strong> Backpack?",
-        startAccount: "Klik hier"
-      }
+        startAccount: "Klik hier",
+      },
     },
     teacher: {
       title: "Uitgeversportaal",
@@ -35,8 +35,8 @@ I18n.translations.nl = {
       button: "Log in via SURFconext",
       accountCreation: {
         askAccount: "Nog <strong>geen</strong> toegang?",
-        startAccount: "Neem contact op met de instellingsbeheerder"
-      }
+        startAccount: "Neem contact op met de instellingsbeheerder",
+      },
     },
     createEduId: {
       askAccountYes: "Al <strong>wel</strong> een Backpack?",
@@ -51,15 +51,15 @@ I18n.translations.nl = {
       steps: {
         step1: "Maak een eduID aan",
         step2: "Verifieer je instelling",
-        step3: "Ontvang & deel badges"
-      }
-    }
+        step3: "Ontvang & deel badges",
+      },
+    },
   },
   backpack: {
-    title: "Behaalde badges"
+    title: "Behaalde badges",
   },
   notFound: {
-    main: "404 - Not Found"
+    main: "404 - Not Found",
   },
   teacher: {
     sidebar: {
@@ -68,18 +68,18 @@ I18n.translations.nl = {
         faculties: "Issuer groepen",
         issuers: "Issuers",
         show_all: "Toon meer",
-        show_less: "Toon minder"
-      }
+        show_less: "Toon minder",
+      },
     },
     badgeclasses: {
-      title: "Badgeclasses"
+      title: "Badgeclasses",
     },
     issuers: {
-      title: "Issuers"
+      title: "Issuers",
     },
     faculties: {
-      title: "Groepen"
-    }
+      title: "Groepen",
+    },
   },
   manage: {
     tabs: {
@@ -88,26 +88,26 @@ I18n.translations.nl = {
       badgeclasses: "Badgeclasses",
       badgesRequested: "Aanvragen",
       badgesAwarded: "Ontvangers",
-      badgesRevoked: "Ingetrokken"
+      badgesRevoked: "Ingetrokken",
     },
     edit: {
       institution: "Wijzig instituut",
       faculty: "Wijzig groep",
       issuer: "Wijzig issuer",
-      save: "Opslaan"
+      save: "Opslaan",
     },
     new: {
       faculty: "Nieuwe groep maken",
       issuer: "Nieuwe issuer maken",
       badgeclass: "Nieuwe badgeclass maken",
-      save: "Opslaan"
-    }
+      save: "Opslaan",
+    },
   },
   footer: {
     tip: "Tip of info nodig?",
     help: "Help & FAQ",
     poweredBy: "Trots aangeboden door",
-    surf: "SURF"
+    surf: "SURF",
   },
   error: {
     101: "Kan emailadres niet registreren. Het adres is al in gebruik",
@@ -126,7 +126,7 @@ I18n.translations.nl = {
     209: "Kan niet enrollen",
     601: "Geen toegang. Check je assigned role in de Issuer",
     701: "Ongespecifieerde share provider",
-    702: "Ongeldige share provider"
+    702: "Ongeldige share provider",
   },
   models: {
     institution: {
@@ -134,18 +134,19 @@ I18n.translations.nl = {
       description: "Beschrijving",
       grading_table: "Grading table",
       image: "Logo",
-      name: "Naam"
+      name: "Naam",
     },
     faculty: {
       description: "Beschrijving",
-      name: "Naam"
+      name: "Naam",
     },
     issuer: {
       description: "Beschrijving",
       email: "Contact emailadres",
       image: "Logo",
       name: "Naam",
-      url: "Website URL"
-    }
-  }
+      url: "Website URL",
+      faculty: "Groep",
+    },
+  },
 };

@@ -146,6 +146,7 @@ I18n.translations.en = {
       image: "Logo",
       name: "Name",
       url: "Website URL",
+      faculty: "Group",
     },
   },
 };

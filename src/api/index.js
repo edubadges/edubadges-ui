@@ -121,3 +121,8 @@ export function editIssuer(entityId, issuer) {
   const path = `${serverUrl}/v1/issuer/issuers/${entityId}`;
   return validFetch(path, { body: JSON.stringify(issuer) }, "PUT");
 }
+
+export function createIssuer(issuer) {
+  const path = `${serverUrl}/v1/issuer/issuers`;
+  return validFetch(path, { body: JSON.stringify(issuer) }, "POST");
+}
