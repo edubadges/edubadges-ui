@@ -56,11 +56,11 @@
     cursor: pointer;
   }
 
-  .asc:after {
+  .desc:after {
       content: ' ▾';
   }
 
-  .desc:after {
+  .asc:after {
       content: ' ▴';
   }
 
