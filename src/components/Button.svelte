@@ -59,7 +59,7 @@
   }
 
   .button.full {
-    width: 260px;
+    width: 100%;
   }
 
   @media (max-width: 580px) {

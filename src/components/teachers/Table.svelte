@@ -45,6 +45,11 @@
     display: inline-block;
   }
 
+  div.header {
+    display: flex;
+    justify-content: space-between;
+  }
+
   table {
     border-collapse: collapse;
     width: 100%;
@@ -75,8 +80,10 @@
 </style>
 
 <div class="container">
-  <h4 class="block">{title}</h4>
-  <input class="search block" placeholder="{I18n.t('teacher.sidebar.search')}..." bind:value={search} type="search">
+  <div class="header">
+    <h4 class="block">{title}</h4>
+    <input class="search block" placeholder="{I18n.t('teacher.sidebar.search')}..." bind:value={search} type="search">
+  </div>
 
   <table class="entity-table">
     <thead>

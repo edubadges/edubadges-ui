@@ -1,8 +1,9 @@
 <script>
   import I18n from "i18n-js";
-  import { Link } from "svelte-routing";
+  import { link } from "svelte-routing";
   import { EntityHeaderTabs } from "../teachers";
 
+  export let entity;
   export let title;
   export let icon;
   export let tabs;
@@ -28,7 +29,15 @@
     padding: 0 var(--hor-padding-m);
   }
 
+  .content {
+    flex: 1;
+    padding-right: var(--hor-padding-m);
+  }
+
   .content .info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
     margin-bottom: var(--ver-padding-m);
   }
 </style>
@@ -41,6 +50,9 @@
   <div class="content">
     <div class="info">
       <h3>{title}</h3>
+      <a use:link href="edit" class="btn">
+        {I18n.t(['manage', 'edit', entity])}
+      </a>
     </div>
 
     <EntityHeaderTabs {tabs} />

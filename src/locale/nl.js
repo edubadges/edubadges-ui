@@ -46,7 +46,12 @@ I18n.translations.nl = {
       title: "Maak een Backpack aan",
       subtitle: "je hebt een eduID nodig",
       step1: "Stap 1: Maak een eduID aan",
-      require:
+      step2: "Stap 2: verifieer uw identiteit",
+      welcome: "Welkom bij je rugzak",
+      bekroond: "We hebben u uw eerste badge toegekend😀",
+      infoStep2: "Om eduBadges verder te kunnen ontvangen, moet u <strong> uw identiteit verifiëren </strong> bij uw onderwijsinstellingen. U kunt dit bewijzen door op de knop te klikken en u aan te melden bij uw instelling met uw instellingsaccount.",
+      verificatie: "Verificatie geslaagd!",
+      infoStep3: "Je kunt nu edubadges in je rugzak ontvangen.", require:
         "Om een edubadges Backpack aan te maken heb je een eduID nodig. Na het aanmaken van een eduID kan je je onderwijsinstelling verifiëren.",
       steps: {
         step1: "Maak een eduID aan",
@@ -89,6 +94,12 @@ I18n.translations.nl = {
       badgesRequested: "Aanvragen",
       badgesAwarded: "Ontvangers",
       badgesRevoked: "Ingetrokken"
+    },
+    edit: {
+      institution: "Wijzig instituut",
+      faculty: "Wijzig groep",
+      issuer: "Wijzig issuer",
+      save: "Opslaan"
     }
   },
   footer: {
@@ -114,6 +125,26 @@ I18n.translations.nl = {
     209: "Kan niet enrollen",
     601: "Geen toegang. Check je assigned role in de Issuer",
     701: "Ongespecifieerde share provider",
-    702: "Ongeldige share provider",
+    702: "Ongeldige share provider"
+  },
+  models: {
+    institution: {
+      brin: "BRIN code",
+      description: "Beschrijving",
+      grading_table: "Grading table",
+      image: "Logo",
+      name: "Naam"
+    },
+    faculty: {
+      description: "Beschrijving",
+      name: "Naam"
+    },
+    issuer: {
+      description: "Beschrijving",
+      email: "Contact emailadres",
+      image: "Logo",
+      name: "Naam",
+      url: "Website URL"
+    }
   }
 };

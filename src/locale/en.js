@@ -46,6 +46,12 @@ I18n.translations.en = {
       title: "Create a Backpack",
       subtitle: "you'll need an eduID",
       step1: "Step 1: Create an eduID",
+      step2: "Step 2: Verify your identity",
+      welcome: "Welcome to your Backpack",
+      awarded: "We’ve awarded you with your first badge😀",
+      infoStep2: "To be able to further receive eduBadges, <strong>please verify your identity</strong> with your Educational Institutions. You can prove this by clicking the button and log in to your institution with your institution account.",
+      verification: "Verification succeeded!",
+      infoStep3: "You can now receive edubadges in your Backpack.",
       require:
         "To create an edubadges Backpack, you will need an eduID. After creating an eduID you can prove that you are following education in the Netherlands by verifying your institution.",
       steps: {
@@ -89,6 +95,12 @@ I18n.translations.en = {
       badgesRequested: "Requests",
       badgesAwarded: "Recipients",
       badgesRevoked: "Revoked"
+    },
+    edit: {
+      institution: "Edit institution",
+      faculty: "Edit faculty",
+      issuer: "Edit issuer",
+      save: "Save changes"
     }
   },
   footer: {
@@ -114,6 +126,26 @@ I18n.translations.en = {
     209: "Cannot enroll",
     601: "You do not have permission. Check your assigned role in the Issuer",
     701: "Unspecified share provider",
-    702: "Invalid share provider",
+    702: "Invalid share provider"
+  },
+  models: {
+    institution: {
+      brin: "BRIN code",
+      description: "Description",
+      grading_table: "Grading table",
+      image: "Logo",
+      name: "Name"
+    },
+    faculty: {
+      description: "Description",
+      name: "Name"
+    },
+    issuer: {
+      description: "Description",
+      email: "Contact email address",
+      image: "Logo",
+      name: "Name",
+      url: "Website URL"
+    }
   }
 };

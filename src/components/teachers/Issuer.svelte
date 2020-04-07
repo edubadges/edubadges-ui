@@ -60,7 +60,7 @@
 
 <div class="page-container">
   <Breadcrumb {institutionName} {faculty} {issuer} />
-  <EntityHeader {tabs} title={issuer.name} icon={issuerIcon} />
+  <EntityHeader {tabs} title={issuer.name} icon={issuerIcon} entity="issuer" />
 
   <Router>
     <Route path="/badgeclasses">

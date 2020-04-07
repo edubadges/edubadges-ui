@@ -57,7 +57,11 @@
 
 <div class="page-container">
   <Breadcrumb {institutionName} {faculty} />
-  <EntityHeader {tabs} title={faculty.name} icon={facultyIcon} />
+  <EntityHeader
+    {tabs}
+    title={faculty.name}
+    icon={facultyIcon}
+    entity="faculty" />
 
   <Router>
     <Route path="/issuers">

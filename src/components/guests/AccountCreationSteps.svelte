@@ -2,6 +2,7 @@
   import I18n from "i18n-js";
   import eduIdLogo from "../../img/logo_eduid.svg";
   import { StepNumber } from "../../components/guests";
+
   import {
     arrowRight,
     stepChecked,
@@ -22,6 +23,8 @@
     current: activeStep === i + 1,
     completed: activeStep > i + 1
   }));
+
+
 </script>
 
 <style>
@@ -85,9 +88,11 @@
     margin: auto 4px;
     width: 20px;
   }
+
 </style>
 
 <div class="account-creation-steps">
+
   {#each steps as step, i}
     <div class="step">
       <div class="icon-number" class:active={step.current}>

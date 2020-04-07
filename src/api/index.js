@@ -36,9 +36,18 @@ export function requestLoginToken(service, isRegistration) {
   window.location.href = `${serverUrl}/account/sociallogin?provider=${service}&isRegistration=${isRegistration}`;
 }
 
+export function verifyUserIdentity() {
+  window.location.href = config.alaUrl;
+}
+
 export function getProfile() {
   const path = `${serverUrl}/v1/user/profile`;
   return validFetch(path);
+}
+
+export function getSocialAccount() {
+  const path = `${serverUrl}/v1/user/socialaccounts`;
+  return validFetch(path)
 }
 
 export function getEmails() {
@@ -48,12 +57,16 @@ export function getEmails() {
 
 export function addEmail(newEmail) {
   const path = `${serverUrl}/v1/user/emails`;
-  return validFetch(path, { body: JSON.stringify({ 'email': newEmail }) }, "POST");
+  return validFetch(
+    path,
+    { body: JSON.stringify({ email: newEmail }) },
+    "POST"
+  );
 }
 
 export function setPrimaryEmail(emailId) {
   const path = `${serverUrl}/v1/user/emails/${emailId}`;
-  return validFetch(path, { body: JSON.stringify({ 'primary': true }) }, "PUT");
+  return validFetch(path, { body: JSON.stringify({ primary: true }) }, "PUT");
 }
 
 export function deleteEmail(emailId) {
@@ -93,4 +106,22 @@ export function withdrawRequestBadge(enrollmentID) {
 export function getUnearnedBadges(eduId) {
   const path = `${serverUrl}/lti_edu/student/${eduId}/enrollments`;
   return validFetch(path);
+}
+
+// Institution
+export function editInstitution(entityId, institution) {
+  const path = `${serverUrl}/institution/institutions/${entityId}`;
+  return validFetch(path, { body: JSON.stringify(institution) }, "PUT");
+}
+
+// Faculty
+export function editFaculty(entityId, faculty) {
+  const path = `${serverUrl}/institution/faculties/${entityId}`;
+  return validFetch(path, { body: JSON.stringify(faculty) }, "PUT");
+}
+
+// Issuer
+export function editIssuer(entityId, issuer) {
+  const path = `${serverUrl}/v1/issuer/issuers/${entityId}`;
+  return validFetch(path, { body: JSON.stringify(issuer) }, "PUT");
 }
