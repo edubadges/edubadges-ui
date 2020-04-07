@@ -126,3 +126,9 @@ export function createIssuer(issuer) {
   const path = `${serverUrl}/v1/issuer/issuers`;
   return validFetch(path, { body: JSON.stringify(issuer) }, "POST");
 }
+
+// Badgeclass
+export function createBadgeclass(badgeclass) {
+  const path = `${serverUrl}/v1/issuer/badgeclassses`;
+  return validFetch(path, { body: JSON.stringify(badgeclass) }, "POST");
+}

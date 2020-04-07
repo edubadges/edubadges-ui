@@ -148,5 +148,13 @@ I18n.translations.nl = {
       url: "Website URL",
       faculty: "Groep",
     },
+    badgeclass: {
+      issuer: "Issuer",
+      image: "Badge foto",
+      name: "Naam",
+      description: "Beschrijving",
+      criteria_text: "Wat is benodigd om deze badge te verdienen?",
+      criteria_url: "Criteria URL",
+    },
   },
 };

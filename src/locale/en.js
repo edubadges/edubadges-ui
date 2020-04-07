@@ -148,5 +148,13 @@ I18n.translations.en = {
       url: "Website URL",
       faculty: "Group",
     },
+    badgeclass: {
+      issuer: "Issuer",
+      image: "Badge image",
+      name: "Name",
+      description: "Description",
+      criteria_text: "What is required to earn this badge?",
+      criteria_url: "Criteria URL",
+    },
   },
 };
