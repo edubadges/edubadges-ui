@@ -2,6 +2,7 @@
   import { EntityForm } from "../teachers";
   import { Field, File, TextInput } from "../forms";
 
+  export let create;
   export let faculty = {};
   export let errors = {};
   export let handleSubmit;
@@ -9,7 +10,7 @@
   const entity = "faculty";
 </script>
 
-<EntityForm {entity} submit={handleSubmit}>
+<EntityForm {entity} submit={handleSubmit} {create}>
 
   <Field {entity} attribute="name" errors={errors.name}>
     <TextInput bind:value={faculty.name} error={errors.name} />

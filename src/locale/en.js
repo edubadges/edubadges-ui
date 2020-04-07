@@ -5,14 +5,14 @@ I18n.translations.en = {
     backpack: "Backpack",
     "badge-requests": "Badge requests",
     collections: "Collections",
-    profile: "Profile"
+    profile: "Profile",
   },
   header: {
     logout: "Logout",
     nav: {
       badgeclasses: "Badges",
-      manage: "Manage"
-    }
+      manage: "Manage",
+    },
   },
   login: {
     title: "Never stop learning",
@@ -25,8 +25,8 @@ I18n.translations.en = {
       button: "Log in with your eduID",
       accountCreation: {
         askAccountNo: "<strong>Don't</strong> have a Backpack yet?",
-        startAccount: "Start here"
-      }
+        startAccount: "Start here",
+      },
     },
     teacher: {
       title: "Issuer Portal",
@@ -35,8 +35,8 @@ I18n.translations.en = {
       button: "Log in via SURFconext",
       accountCreation: {
         askAccount: "<strong>Don't</strong> have access?",
-        startAccount: "Contact your institution admin"
-      }
+        startAccount: "Contact your institution admin",
+      },
     },
     createEduId: {
       askAccountYes: "<strong>Already</strong> have a Backpack?",
@@ -51,15 +51,15 @@ I18n.translations.en = {
       steps: {
         step1: "Create an eduID",
         step2: "Verify your institution",
-        step3: "Receive & share badges"
-      }
-    }
+        step3: "Receive & share badges",
+      },
+    },
   },
   backpack: {
-    title: "Your achievements"
+    title: "Your achievements",
   },
   notFound: {
-    main: "404 - Not Found"
+    main: "404 - Not Found",
   },
   teacher: {
     sidebar: {
@@ -68,18 +68,18 @@ I18n.translations.en = {
         faculties: "Issuer groups",
         issuers: "Issuers",
         show_all: "Show all",
-        show_less: "Show less"
-      }
+        show_less: "Show less",
+      },
     },
     badgeclasses: {
-      title: "Badgeclasses"
+      title: "Badgeclasses",
     },
     issuers: {
-      title: "Issuers"
+      title: "Issuers",
     },
     faculties: {
-      title: "Groups"
-    }
+      title: "Groups",
+    },
   },
   manage: {
     tabs: {
@@ -88,26 +88,26 @@ I18n.translations.en = {
       badgeclasses: "Badgeclasses",
       badgesRequested: "Requests",
       badgesAwarded: "Recipients",
-      badgesRevoked: "Revoked"
+      badgesRevoked: "Revoked",
     },
     edit: {
       institution: "Edit institution",
       faculty: "Edit faculty",
       issuer: "Edit issuer",
-      save: "Save changes"
+      save: "Save changes",
     },
     new: {
       faculty: "Add new faculty",
       issuer: "Add new issuer",
       badgeclass: "Add new badgeclass",
-      save: "Save changes"
-    }
+      save: "Save",
+    },
   },
   footer: {
     tip: "Need tips or info?",
     help: "Help & FAQ",
     poweredBy: "Proudly powered by",
-    surf: "SURF"
+    surf: "SURF",
   },
   error: {
     101: "Could not register email address. Address already in use",
@@ -126,7 +126,7 @@ I18n.translations.en = {
     209: "Cannot enroll",
     601: "You do not have permission. Check your assigned role in the Issuer",
     701: "Unspecified share provider",
-    702: "Invalid share provider"
+    702: "Invalid share provider",
   },
   models: {
     institution: {
@@ -134,18 +134,18 @@ I18n.translations.en = {
       description: "Description",
       grading_table: "Grading table",
       image: "Logo",
-      name: "Name"
+      name: "Name",
     },
     faculty: {
       description: "Description",
-      name: "Name"
+      name: "Name",
     },
     issuer: {
       description: "Description",
       email: "Contact email address",
       image: "Logo",
       name: "Name",
-      url: "Website URL"
-    }
-  }
+      url: "Website URL",
+    },
+  },
 };

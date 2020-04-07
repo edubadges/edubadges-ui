@@ -24,10 +24,10 @@ function validFetch(path, options = {}, method = "GET") {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: "Bearer " + token
-    }
+      Authorization: "Bearer " + token,
+    },
   };
-  return fetch(path, fetchOptions).then(res => validateResponse(res));
+  return fetch(path, fetchOptions).then((res) => validateResponse(res));
 }
 
 // External API
@@ -109,6 +109,11 @@ export function editInstitution(entityId, institution) {
 export function editFaculty(entityId, faculty) {
   const path = `${serverUrl}/institution/faculties/${entityId}`;
   return validFetch(path, { body: JSON.stringify(faculty) }, "PUT");
+}
+
+export function createFaculty(faculty) {
+  const path = `${serverUrl}/institution/faculties`;
+  return validFetch(path, { body: JSON.stringify(faculty) }, "POST");
 }
 
 // Issuer
