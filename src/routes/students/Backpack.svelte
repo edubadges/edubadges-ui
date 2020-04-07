@@ -9,7 +9,7 @@
     authToken
   } from "../../stores/user";
   import { Button } from "../../components";
-  import { Badge, Welcome } from "../../componnents/students";
+  import { Badge, Welcome } from "../../components/students";
   import { getBadges, verifyUserIdentity } from "../../api";
 
   let badgesPromise = getBadges();
