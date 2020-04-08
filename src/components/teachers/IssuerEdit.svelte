@@ -28,7 +28,10 @@
   function handleSubmit() {
     errors = {};
 
-    editIssuer(entityId, issuer)
+    let newIssuer = issuer;
+    if (issuer.faculty) newIssuer.faculty = issuer.faculty.entityId;
+
+    editIssuer(entityId, newIssuer)
       .then(res => console.log("succes", res))
       .catch(err => err.then(res => (errors = res)));
   }

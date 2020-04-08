@@ -24,7 +24,10 @@
   function handleSubmit() {
     errors = {};
 
-    createBadgeclass(badgeclass)
+    let newBadgeclass = badgeclass;
+    if (badgeclass.issuer) newBadgeclass.issuer = badgeclass.issuer.entityId;
+
+    createBadgeclass(newBadgeclass)
       .then(res => console.log("succes", res))
       .catch(err => err.then(res => (errors = res)));
   }
