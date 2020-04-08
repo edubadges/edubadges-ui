@@ -1,6 +1,6 @@
 <script>
   import I18n from "i18n-js";
-  import { onMount } from "svelte";
+  import {onMount} from "svelte";
 
   export let title = "";
   export let tableHeaders = [];
@@ -62,11 +62,11 @@
   }
 
   .desc:after {
-      content: ' ▾';
+    content: ' ▾';
   }
 
   .asc:after {
-      content: ' ▴';
+    content: ' ▴';
   }
 
   .entity-table :global(th, td) {
@@ -87,19 +87,16 @@
 
   <table class="entity-table">
     <thead>
-      <tr>
-        {#each tableHeaders as th}
-          <th
-              on:click={() => setSort(th)}
-              class="{sort[0] === th ? (sort[1] ? 'asc' : 'desc') : ''}"
-          >
-            {th}
-          </th>
-        {/each}
-      </tr>
+    <tr>
+      {#each tableHeaders as th}
+        <th on:click={() => setSort(th)} class="{sort[0] === th ? (sort[1] ? 'asc' : 'desc') : ''}">
+          {th}
+        </th>
+      {/each}
+    </tr>
     </thead>
     <tbody>
-      <slot />
+    <slot/>
     </tbody>
   </table>
 </div>
