@@ -138,11 +138,11 @@ export function createIssuer(issuer) {
 
 // Badgeclass
 export function editBadgeclass(entityId, badgeclass) {
-  const path = `${serverUrl}/issuer/badgeclassses/edit/${entityId}`;
+  const path = `${serverUrl}/issuer/badgeclasses/edit/${entityId}`;
   return validFetch(path, { body: JSON.stringify(badgeclass) }, "PUT");
 }
 
 export function createBadgeclass(badgeclass) {
-  const path = `${serverUrl}/issuer/badgeclassses/create`;
+  const path = `${serverUrl}/issuer/badgeclasses/create`;
   return validFetch(path, { body: JSON.stringify(badgeclass) }, "POST");
 }
