@@ -4,6 +4,7 @@
   import I18n from "i18n-js";
   import { Table } from "../teachers";
   import { search } from "../../util/searchData";
+  import { sort } from "../../util/sortData";
 
   export let issuers = [];
   export let facultyName = "";
@@ -17,11 +18,24 @@
   };
 
   let issuerSearch = "";
-  $: searchedIssuerIds = search(issuers.map(element => [element.name, element.entityId]), issuerSearch);
+  $: searchedIssuerIds = search(issuers, issuerSearch, "name");
+
+  let issuerSort = [];
+  const defaultSortIssuers = "#badgeclasses";
+
+  $: sortedFilteredIssuers = sort(
+    issuers.filter(el => searchedIssuerIds.includes(el.entityId)),
+    issuerSort[0],
+    issuerSort[1]
+  );
 </script>
 
-<Table {...table} bind:search={issuerSearch}>
-  {#each issuers.filter(el => searchedIssuerIds.includes(el.entityId)) as issuer (issuer.entityId)}
+<Table
+  {...table}
+  bind:search={issuerSearch}
+  bind:sort={issuerSort}
+  defaultSort={defaultSortIssuers}>
+  {#each sortedFilteredIssuers as issuer (issuer.entityId)}
     <tr
       class="click"
       on:click={() => navigate(`/manage/issuer/${issuer.entityId}`)}>
