@@ -1,28 +1,24 @@
-export function sort(collection, attribute, reversed) {
+export const sortType = {
+  ALPHA: "alpha",
+  NUMERIC: "numeric",
+  COLLECTION: "collection"
+};
+
+export function sort(collection, attribute, reversed, howToSort = sortType.ALPHA) {
   if (!attribute) {
-    if (reversed) {
-      return collection.reverse();
-    } else {
-      return collection;
-    }
+    return reversed ? collection.reverse() : collection;
   }
 
   const col = collection.sort((a, b) => {
-    if (attribute[0] !== "#") {
-      return a[attribute.toLowerCase()].localeCompare(
-        b[attribute.toLowerCase()]
-      );
-    } else {
-      return (
-        b[attribute.substring(1, attribute.length)].length -
-        a[attribute.substring(1, attribute.length)].length
-      );
+    if (howToSort === sortType.ALPHA) {
+      return a[attribute].localeCompare(b[attribute]);
+    } else if (howToSort === sortType.NUMERIC) {
+      return parseInt(b[attribute], 10) - parseInt(a[attribute], 10);
+    } else if (howToSort === sortType.COLLECTION) {
+      return b[attribute].length - a[attribute].length;
     }
+    throw new Error(`Unsupported sortType ${howToSort}`);
   });
 
-  if (reversed) {
-    return col.reverse();
-  } else {
-    return col;
-  }
+  return reversed ? col.reverse() : col;
 }

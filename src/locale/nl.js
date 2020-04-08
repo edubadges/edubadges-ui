@@ -78,6 +78,7 @@ I18n.translations.nl = {
         show_less: "Toon minder",
       },
     },
+    name: "Naam",
     badgeclasses: {
       title: "Badgeclasses",
     },

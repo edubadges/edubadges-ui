@@ -78,6 +78,7 @@ I18n.translations.en = {
         show_less: "Show less",
       },
     },
+    name: "Name",
     badgeclasses: {
       title: "Badgeclasses",
     },
