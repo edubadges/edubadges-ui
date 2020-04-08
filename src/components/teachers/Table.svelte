@@ -1,27 +1,18 @@
 <script>
   import I18n from "i18n-js";
   import { onMount } from "svelte";
+  import {sortType} from "../../util/sortData";
 
   export let title = "";
   export let tableHeaders = [];
   export let search = "";
-  export let defaultSort;
-  export let sort = [];
+  export let sort = {attribute: null, reverse: false, sortType: sortType.ALPHA};
 
-  onMount(() => {
-    sort = [defaultSort, false];
-  });
-
-  const setSort = attribute => {
-    if (sort[0] === attribute) {
-      if (sort[1]) {
-        sort.length = 0;
-      } else {
-        sort[1] = true;
-      }
+  const setSort = tableHeader => {
+    if (sort.attribute === tableHeader.attribute) {
+      sort.reverse = !sort.reverse;
     } else {
-      sort[0] = attribute;
-      sort[1] = false;
+      sort = tableHeader;
     }
   };
 </script>
@@ -95,8 +86,8 @@
         {#each tableHeaders as th}
           <th
             on:click={() => setSort(th)}
-            class={sort[0] === th ? (sort[1] ? 'asc' : 'desc') : ''}>
-            {th}
+            class={sort.attribute === th.attribute ? (sort.reverse ? 'asc' : 'desc') : ''}>
+            {th.name}
           </th>
         {/each}
       </tr>

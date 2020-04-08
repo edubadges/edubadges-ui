@@ -1,7 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import { Router, Route, navigate } from "svelte-routing";
-  import { Breadcrumb, EntityHeader, Issuers, Faculties } from "../teachers";
+  import { Breadcrumb, EntityHeader, Issuers } from "../teachers";
   import { institutionIcon, issuerIcon, facultyIcon } from "../../icons";
   import { queryData } from "../../api/graphql";
 
