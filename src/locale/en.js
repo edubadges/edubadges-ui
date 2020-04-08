@@ -138,9 +138,12 @@ I18n.translations.en = {
   },
   models: {
     institution: {
+      created: "Created",
+      admin: "Amdin",
       brin: "BRIN code",
       description: "Description",
       grading_table: "Grading table",
+      no_grading_table: "<no link provided yet>",
       image: "Logo",
       name: "Name",
     },

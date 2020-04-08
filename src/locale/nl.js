@@ -138,11 +138,14 @@ I18n.translations.nl = {
   },
   models: {
     institution: {
+      created: "Vanaf",
+      admin: "Amdin",
       brin: "BRIN code",
-      description: "Beschrijving",
+      description: "Omschrijving",
       grading_table: "Grading table",
+      no_grading_table: "<no link provided yet>",
       image: "Logo",
-      name: "Naam",
+      name: "Name",
     },
     faculty: {
       description: "Beschrijving",

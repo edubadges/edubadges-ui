@@ -37,6 +37,11 @@
     flex: 1;
   }
 
+  input.search {
+    font-size: 16px;
+    padding: 2px 0 2px 8px;
+  }
+
   table {
     border-collapse: collapse;
     width: 100%;
@@ -70,6 +75,7 @@
   <div class="header">
     <h4>{title}</h4>
     <input
+      class="search"
       bind:value={search}
       placeholder="{I18n.t('teacher.sidebar.search')}..." />
     {#if mayCreate}
