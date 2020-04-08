@@ -7,6 +7,7 @@
   import { sort } from "../../util/sortData";
 
   export let badgeclasses = [];
+  export let mayCreate;
 
   $: table = {
     entity: "badgeclass",
@@ -32,7 +33,8 @@
   {...table}
   bind:search={badgeclassSearch}
   bind:sort={badgeclassSort}
-  defaultSort={defaultSortBadgeclasses}>
+  defaultSort={defaultSortBadgeclasses}
+  {mayCreate}>
   {#each sortedFilteredBadgeclasses as badgeclass (badgeclass.entityId)}
     <tr
       class="click"

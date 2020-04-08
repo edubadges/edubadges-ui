@@ -15,20 +15,24 @@
 
   const query = `{
     issuer(id: "${entityId}") {
-		name,
-		entityId,
-		faculty {
-			name,
-			entityId,
-			institution {
-				name
-			}
-		},
-		badgeclasses {
-			name,
-			entityId
-		}
-	}
+      name,
+      entityId,
+      faculty {
+        name,
+        entityId,
+        institution {
+          name
+        }
+      },
+      badgeclasses {
+        name,
+        entityId,
+      },
+      permissions {
+        mayUpdate,
+        mayCreate
+      }
+  	}
   }`;
 
   onMount(() => {
@@ -60,11 +64,18 @@
 
 <div class="page-container">
   <Breadcrumb {institutionName} {faculty} {issuer} />
-  <EntityHeader {tabs} title={issuer.name} icon={issuerIcon} entity="issuer" />
+  <EntityHeader
+    {tabs}
+    title={issuer.name}
+    icon={issuerIcon}
+    mayUpdate={issuer.permissions && issuer.permissions.mayUpdate}
+    entity="issuer" />
 
   <Router>
     <Route path="/badgeclasses">
-      <Badgeclasses {badgeclasses} />
+      <Badgeclasses
+        {badgeclasses}
+        mayCreate={issuer.permissions && issuer.permissions.mayCreate} />
     </Route>
   </Router>
 </div>

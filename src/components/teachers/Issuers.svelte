@@ -6,6 +6,7 @@
   import { search } from "../../util/searchData";
   import { sort } from "../../util/sortData";
 
+  export let mayCreate;
   export let issuers = [];
   export let facultyName = "";
 
@@ -35,7 +36,8 @@
   {...table}
   bind:search={issuerSearch}
   bind:sort={issuerSort}
-  defaultSort={defaultSortIssuers}>
+  defaultSort={defaultSortIssuers}
+  {mayCreate}>
   {#each sortedFilteredIssuers as issuer (issuer.entityId)}
     <tr
       class="click"

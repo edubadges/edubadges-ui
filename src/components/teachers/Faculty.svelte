@@ -14,19 +14,23 @@
 
   const query = `{
     faculty(id: "${entityId}") {
-		name,
-		entityId,
-		institution {
-			name
-		},
-		issuers {
       name,
       entityId,
-			badgeclasses {
-				entityId
-			}
-		}
-	}
+      institution {
+        name
+      },
+      issuers {
+        name,
+        entityId,
+        badgeclasses {
+          entityId
+        },
+      },
+      permissions {
+        mayUpdate,
+        mayCreate
+      }
+    }
   }`;
 
   onMount(() => {
@@ -61,11 +65,15 @@
     {tabs}
     title={faculty.name}
     icon={facultyIcon}
+    mayUpdate={faculty.permissions && faculty.permissions.mayUpdate}
     entity="faculty" />
 
   <Router>
     <Route path="/issuers">
-      <Issuers {issuers} facultyName={faculty.name} />
+      <Issuers
+        {issuers}
+        facultyName={faculty.name}
+        mayCreate={faculty.permissions && faculty.permissions.mayCreate} />
     </Route>
   </Router>
 </div>

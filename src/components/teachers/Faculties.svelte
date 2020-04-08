@@ -6,6 +6,7 @@
   import { sort } from "../../util/sortData";
 
   export let faculties = [];
+  export let mayCreate;
 
   $: table = {
     entity: "faculty",
@@ -30,7 +31,8 @@
   {...table}
   bind:search={facultySearch}
   bind:sort={facultySort}
-  defaultSort={defaultSortFaculties}>
+  defaultSort={defaultSortFaculties}
+  {mayCreate}>
   {#each sortedFilteredFaculties as faculty (faculty.entityId)}
     <tr
       class="click"

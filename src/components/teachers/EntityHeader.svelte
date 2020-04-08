@@ -5,6 +5,7 @@
 
   export let entity;
   export let title;
+  export let mayUpdate;
   export let icon;
   export let tabs;
 </script>
@@ -50,9 +51,12 @@
   <div class="content">
     <div class="info">
       <h3>{title}</h3>
-      <a use:link href="edit" class="btn">
-        {I18n.t(['manage', 'edit', entity])}
-      </a>
+
+      {#if mayUpdate}
+        <a use:link href="edit" class="btn">
+          {I18n.t(['manage', 'edit', entity])}
+        </a>
+      {/if}
     </div>
 
     <EntityHeaderTabs {tabs} />

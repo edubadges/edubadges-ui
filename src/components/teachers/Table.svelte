@@ -9,6 +9,7 @@
   export let search = "";
   export let defaultSort;
   export let sort = [];
+  export let mayCreate;
 
   onMount(() => {
     sort = [defaultSort, false];
@@ -81,9 +82,11 @@
     <input
       bind:value={search}
       placeholder="{I18n.t('teacher.sidebar.search')}..." />
-    <a use:link href={`/manage/${entity}/new`} class="btn">
-      {I18n.t(['manage', 'new', entity])}
-    </a>
+    {#if mayCreate}
+      <a use:link href={`/manage/${entity}/new`} class="btn">
+        {I18n.t(['manage', 'new', entity])}
+      </a>
+    {/if}
   </div>
 
   <table class="entity-table">
