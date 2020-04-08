@@ -13,13 +13,15 @@
   import { requestLoginToken } from "../api";
   import { navigateBack } from "../icons";
 
+  let accountCreationStep = 1;
+  let showLoginCards = true;
+
   const logIn = (chosenRole, isRegistration = false) => {
     $userRole = chosenRole;
     const service = getService(chosenRole);
     requestLoginToken(service, isRegistration);
   };
 
-  let showLoginCards = true;
   const toggleLoginCreateAccount = () => (showLoginCards = !showLoginCards);
 </script>
 
@@ -114,7 +116,7 @@
         </div>
         <h1>{I18n.t('login.createEduId.subtitle')}</h1>
         <p class="text-align-left">{I18n.t('login.createEduId.require')}</p>
-        <AccountCreationSteps activeStep={1} />
+        <AccountCreationSteps activeStep={accountCreationStep} />
         <Button
           onClick={() => logIn(role.STUDENT, true)}
           label={I18n.t('login.createEduId.step1')} />

@@ -36,8 +36,17 @@ export function requestLoginToken(service, isRegistration) {
   window.location.href = `${serverUrl}/account/sociallogin?provider=${service}&isRegistration=${isRegistration}`;
 }
 
+export function verifyUserIdentity() {
+  window.location.href = config.alaUrl;
+}
+
 export function getProfile() {
   const path = `${serverUrl}/v1/user/profile`;
+  return validFetch(path);
+}
+
+export function getSocialAccount() {
+  const path = `${serverUrl}/v1/user/socialaccounts`;
   return validFetch(path);
 }
 

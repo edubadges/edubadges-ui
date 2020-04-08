@@ -49,7 +49,7 @@ export const tree = derived(
             const issuer = {
               name,
               entityId,
-              count: _badgeClasses ? _badgeClasses.length : 0
+              count: _badgeClasses ? _badgeClasses.length : 0,
             };
 
             return issuer;
@@ -62,7 +62,7 @@ export const tree = derived(
         const enrichedFaculty = {
           name: cur.name,
           entityId: cur.entityId,
-          count: enrichedIssuers.reduce((acc, cur) => acc + cur.count, 0)
+          count: enrichedIssuers.reduce((acc, cur) => acc + cur.count, 0),
         };
 
         acc.faculties.push(enrichedFaculty);
@@ -75,7 +75,7 @@ export const tree = derived(
     return {
       faculties: sort(tree.faculties, true),
       issuers: sort(tree.issuers, true),
-      badgeClasses: sort(tree.badgeClasses)
+      badgeClasses: sort(tree.badgeClasses),
     };
   },
   { faculties: [], issuers: [], badgeClasses: [] }

@@ -3,6 +3,7 @@
   import { onMount } from "svelte";
   import {
     getProfile,
+    getSocialAccount,
     getEmails,
     addEmail,
     setPrimaryEmail,
@@ -11,29 +12,38 @@
 
   let emails = [];
   let profile;
+  let socialAccount;
   let form;
   let error = "";
 
   const setProfile = () => getProfile().then(res => (profile = res));
+
+  const setSocialAccount = () =>
+    getSocialAccount().then(res => (socialAccount = res));
+
   const setEmails = () =>
     getEmails().then(res => (emails = res.filter(({ primary }) => !primary)));
+
   const setData = () => {
     setProfile();
+    setSocialAccount();
     setEmails();
   };
 
-  const makePrimary = emailId => setPrimaryEmail(emailId)
+  const makePrimary = emailId =>
+    setPrimaryEmail(emailId)
       .then(setData)
       .catch(err => {
         err.then(res => {
-          I18n.t(['error', res.fields.error_code]);
-        })
+          I18n.t(["error", res.fields.error_code]);
+        });
       });
-  const removeEmail = emailId => deleteEmail(emailId)
+  const removeEmail = emailId =>
+    deleteEmail(emailId)
       .then(setEmails)
       .catch(err => {
         err.then(res => {
-          error = I18n.t(['error', res.fields.error_code])
+          error = I18n.t(["error", res.fields.error_code]);
         });
       });
   const submitEmail = event => {
@@ -47,7 +57,7 @@
       })
       .catch(err => {
         err.then(res => {
-          error = I18n.t(['error', res.fields.error_code])
+          error = I18n.t(["error", res.fields.error_code]);
         });
       });
   };
