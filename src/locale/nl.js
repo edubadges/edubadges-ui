@@ -102,6 +102,7 @@ I18n.translations.nl = {
       institution: "Wijzig instituut",
       faculty: "Wijzig groep",
       issuer: "Wijzig issuer",
+      badgeclass: "Wijzig badgeclass",
       save: "Opslaan",
     },
     new: {

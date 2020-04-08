@@ -102,6 +102,7 @@ I18n.translations.en = {
       institution: "Edit institution",
       faculty: "Edit faculty",
       issuer: "Edit issuer",
+      badgeclass: "Edit badgeclass",
       save: "Save changes",
     },
     new: {

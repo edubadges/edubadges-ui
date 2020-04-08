@@ -2,8 +2,8 @@
   import { onMount } from "svelte";
   import { Router, Route, navigate } from "svelte-routing";
   import {
+    EntityHeader,
     Breadcrumb,
-    BadgeclassHeader,
     BadgesAwarded,
     BadgesRequested,
     BadgesRevoked
@@ -35,7 +35,10 @@
 					name
 				}
 			},
-		}
+    },
+    permissions {
+      mayUpdate
+    }
 	}
   }`;
 
@@ -72,6 +75,7 @@
 <style>
   .page-container {
     flex: 1;
+    --entity-icon-width: 150px;
   }
 
   .content {
@@ -85,7 +89,13 @@
     {faculty}
     {issuer}
     badgeclassName={badgeclass.name} />
-  <BadgeclassHeader {tabs} {badgeclass} />
+
+  <EntityHeader
+    entity="badgeclass"
+    title={badgeclass.name}
+    logo={badgeclass.image}
+    {tabs}
+    mayUpdate={badgeclass.permissions && badgeclass.permissions.mayUpdate} />
 
   <div class="content">
     <Router>

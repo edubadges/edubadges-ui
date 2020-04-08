@@ -1,7 +1,6 @@
 export { default as Badgeclass } from "./Badgeclass.svelte";
 export { default as Badgeclasses } from "./Badgeclasses.svelte";
 export { default as BadgeclassForm } from "./BadgeclassForm.svelte";
-export { default as BadgeclassHeader } from "./BadgeclassHeader.svelte";
 export { default as BadgeclassNew } from "./BadgeclassNew.svelte";
 export { default as BadgesAwarded } from "./BadgesAwarded.svelte";
 export { default as BadgesRequested } from "./BadgesRequested.svelte";
