@@ -1,6 +1,7 @@
 <script>
   import I18n from "i18n-js";
 
+  export let create;
   export let entity;
   export let submit;
 </script>
@@ -13,9 +14,9 @@
 </style>
 
 <div class="entity-form">
-  <h3>{I18n.t(['manage', 'edit', entity])}</h3>
+  <h3>{I18n.t(['manage', create ? 'new' : 'edit', entity])}</h3>
   <slot />
   <button on:click={submit} class="btn">
-    {I18n.t(['manage', 'edit', 'save'])}
+    {I18n.t(['manage', create ? 'new' : 'edit', 'save'])}
   </button>
 </div>

@@ -7,12 +7,15 @@
   import {sort, sortType} from "../../util/sortData";
 
   export let badgeclasses = [];
+  export let mayCreate;
 
   const tableHeaders = [
     {name: I18n.t("teacher.name"), attribute: "name", reverse: false, sortType: sortType.ALPHA}
   ];
 
   $: table = {
+    entity: "badgeclass",
+
     title: `${I18n.t("teacher.badgeclasses.title")} (${badgeclasses.length})`,
     tableHeaders: tableHeaders
   };
@@ -33,7 +36,8 @@
 <Table
   {...table}
   bind:search={badgeclassSearch}
-  bind:sort={badgeclassSort}>
+  bind:sort={badgeclassSort}
+  {mayCreate}>
   {#each sortedFilteredBadgeclasses as badgeclass (badgeclass.entityId)}
     <tr
       class="click"

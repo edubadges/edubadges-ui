@@ -110,18 +110,39 @@ export function getUnearnedBadges(eduId) {
 
 // Institution
 export function editInstitution(entityId, institution) {
-  const path = `${serverUrl}/institution/institutions/${entityId}`;
+  const path = `${serverUrl}/institution/edit/${entityId}`;
   return validFetch(path, { body: JSON.stringify(institution) }, "PUT");
 }
 
 // Faculty
 export function editFaculty(entityId, faculty) {
-  const path = `${serverUrl}/institution/faculties/${entityId}`;
+  const path = `${serverUrl}/institution/faculties/edit/${entityId}`;
   return validFetch(path, { body: JSON.stringify(faculty) }, "PUT");
+}
+
+export function createFaculty(faculty) {
+  const path = `${serverUrl}/institution/faculties/create`;
+  return validFetch(path, { body: JSON.stringify(faculty) }, "POST");
 }
 
 // Issuer
 export function editIssuer(entityId, issuer) {
-  const path = `${serverUrl}/v1/issuer/issuers/${entityId}`;
+  const path = `${serverUrl}/issuer/edit/${entityId}`;
   return validFetch(path, { body: JSON.stringify(issuer) }, "PUT");
+}
+
+export function createIssuer(issuer) {
+  const path = `${serverUrl}/issuer/create`;
+  return validFetch(path, { body: JSON.stringify(issuer) }, "POST");
+}
+
+// Badgeclass
+export function editBadgeclass(entityId, badgeclass) {
+  const path = `${serverUrl}/issuer/badgeclasses/edit/${entityId}`;
+  return validFetch(path, { body: JSON.stringify(badgeclass) }, "PUT");
+}
+
+export function createBadgeclass(badgeclass) {
+  const path = `${serverUrl}/issuer/badgeclasses/create`;
+  return validFetch(path, { body: JSON.stringify(badgeclass) }, "POST");
 }

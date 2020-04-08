@@ -1,27 +1,23 @@
 <script>
   import { onMount } from "svelte";
-  import { IssuerForm } from "../teachers";
   import { queryData } from "../../api/graphql";
-  import { editIssuer } from "../../api";
-
-  export let entityId;
+  import { IssuerForm } from "../teachers";
+  import { createIssuer } from "../../api";
 
   const query = `{
-    issuer(id: "${entityId}") {
+    faculties {
       name,
-      description,
-      image,
-      url,
-      email
+      entityId
     },
   }`;
 
   let issuer = {};
+  let faculties = [];
   let errors = {};
 
   onMount(() => {
     queryData(query).then(res => {
-      issuer = res.issuer;
+      faculties = res.faculties;
     });
   });
 
@@ -31,10 +27,10 @@
     let newIssuer = issuer;
     if (issuer.faculty) newIssuer.faculty = issuer.faculty.entityId;
 
-    editIssuer(entityId, newIssuer)
+    createIssuer(newIssuer)
       .then(res => console.log("succes", res))
       .catch(err => err.then(res => (errors = res)));
   }
 </script>
 
-<IssuerForm {issuer} {errors} {handleSubmit} />
+<IssuerForm {faculties} {issuer} {errors} {handleSubmit} create />
