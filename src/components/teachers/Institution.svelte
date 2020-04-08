@@ -14,7 +14,16 @@
   const query = `{
     currentUser {
       institution {
-				name
+				name,
+				description,
+				image,
+				gradingTable,
+				brin,
+				staff {
+				  user {
+				    firstName, lastName, email, entityId
+				  }
+				}
       }
 		},
 		faculties {
