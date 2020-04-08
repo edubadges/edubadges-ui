@@ -6,6 +6,7 @@
   import {sort, sortType} from "../../util/sortData";
 
   export let faculties = [];
+  export let mayCreate;
 
   const tableHeaders = [
     {name: I18n.t("teacher.name"), attribute: "name", reverse: false, sortType: sortType.ALPHA},
@@ -13,6 +14,7 @@
   ];
 
   $: table = {
+    entity: "faculty",
     title: `${I18n.t("teacher.faculties.title")} (${faculties.length})`,
     tableHeaders: tableHeaders
   };
@@ -34,7 +36,8 @@
 <Table
   {...table}
   bind:search={facultySearch}
-  bind:sort={facultySort}>
+  bind:sort={facultySort}
+  {mayCreate}>
   {#each sortedFilteredFaculties as faculty (faculty.entityId)}
     <tr
       class="click"

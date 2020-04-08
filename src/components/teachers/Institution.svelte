@@ -7,7 +7,7 @@
 
   export let subEntity;
 
-  let institutionName = "";
+  let institution = {};
   let faculties = [];
   let issuers = [];
 
@@ -24,6 +24,10 @@
 				    firstName, lastName, email, entityId
 				  }
 				}
+        permissions {
+          mayUpdate,
+          mayCreate
+        }
       }
 		},
 		faculties {
@@ -31,7 +35,7 @@
       entityId,
 			issuers {
 				entityId
-			}
+      },
 		},
 		issuers {
       name,
@@ -41,13 +45,13 @@
 			},
 			badgeclasses {
 				entityId
-			}
+      },
 		}
   }`;
 
   onMount(() => {
     queryData(query).then(res => {
-      institutionName = res.currentUser.institution.name;
+      institution = res.currentUser.institution;
       faculties = res.faculties;
       issuers = res.issuers;
     });
@@ -67,6 +71,8 @@
   ];
 
   $: if (!subEntity) navigate(tabs[0].href, { replace: true });
+  $: mayUpdate = institution.permissions && institution.permissions.mayUpdate;
+  $: mayCreate = institution.permissions && institution.permissions.mayCreate;
 </script>
 
 <style>
@@ -77,19 +83,20 @@
 </style>
 
 <div class="page-container">
-  <Breadcrumb {institutionName} />
+  <Breadcrumb institutionName={institution.name} />
   <EntityHeader
     {tabs}
-    title={institutionName}
+    title={institution.name}
     icon={institutionIcon}
-    entity="institution" />
+    entity="institution"
+    {mayUpdate} />
 
   <Router>
     <Route path="/issuers">
-      <Issuers {issuers} />
+      <Issuers {issuers} {mayCreate} />
     </Route>
     <Route path="/groups">
-      <Faculties {faculties} />
+      <Faculties {faculties} {mayCreate} />
     </Route>
   </Router>
 </div>

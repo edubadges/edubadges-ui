@@ -104,6 +104,12 @@ I18n.translations.nl = {
       issuer: "Wijzig issuer",
       save: "Opslaan",
     },
+    new: {
+      faculty: "Nieuwe groep maken",
+      issuer: "Nieuwe issuer maken",
+      badgeclass: "Nieuwe badgeclass maken",
+      save: "Opslaan",
+    },
   },
   footer: {
     tip: "Tip of info nodig?",
@@ -148,6 +154,15 @@ I18n.translations.nl = {
       image: "Logo",
       name: "Naam",
       url: "Website URL",
+      faculty: "Groep",
+    },
+    badgeclass: {
+      issuer: "Issuer",
+      image: "Badge foto",
+      name: "Naam",
+      description: "Beschrijving",
+      criteria_text: "Wat is benodigd om deze badge te verdienen?",
+      criteria_url: "Criteria URL",
     },
   },
 };

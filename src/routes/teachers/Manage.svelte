@@ -5,10 +5,13 @@
     Institution,
     InstitutionEdit,
     FacultyEdit,
+    FacultyNew,
     Faculty,
     IssuerEdit,
+    IssuerNew,
     Issuer,
-    Badgeclass
+    Badgeclass,
+    BadgeclassNew
   } from "../../components/teachers";
 
   export let mainEntity;
@@ -20,11 +23,14 @@
   <Route path="/institution/edit" component={InstitutionEdit} />
   <Route path="/institution/*subEntity" component={Institution} />
 
+  <Route path="/faculty/new" component={FacultyNew} />
   <Route path="/faculty/:entityId/edit" component={FacultyEdit} />
   <Route path="/faculty/:entityId/*subEntity" component={Faculty} />
 
+  <Route path="/issuer/new" component={IssuerNew} />
   <Route path="/issuer/:entityId/edit" component={IssuerEdit} />
   <Route path="/issuer/:entityId/*subEntity" component={Issuer} />
 
+  <Route path="/badgeclass/new" component={BadgeclassNew} />
   <Route path="/badgeclass/:entityId/*subEntity" component={Badgeclass} />
 </Router>

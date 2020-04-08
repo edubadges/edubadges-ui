@@ -104,6 +104,12 @@ I18n.translations.en = {
       issuer: "Edit issuer",
       save: "Save changes",
     },
+    new: {
+      faculty: "Add new faculty",
+      issuer: "Add new issuer",
+      badgeclass: "Add new badgeclass",
+      save: "Save",
+    },
   },
   footer: {
     tip: "Need tips or info?",
@@ -148,6 +154,15 @@ I18n.translations.en = {
       image: "Logo",
       name: "Name",
       url: "Website URL",
+      faculty: "Group",
+    },
+    badgeclass: {
+      issuer: "Issuer",
+      image: "Badge image",
+      name: "Name",
+      description: "Description",
+      criteria_text: "What is required to earn this badge?",
+      criteria_url: "Criteria URL",
     },
   },
 };

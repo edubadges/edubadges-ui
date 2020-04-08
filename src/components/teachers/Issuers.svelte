@@ -6,6 +6,7 @@
   import {search} from "../../util/searchData";
   import {sort, sortType} from "../../util/sortData";
 
+  export let mayCreate;
   export let issuers = [];
   export let facultyName = "";
 
@@ -15,6 +16,7 @@
   ];
 
   $: table = {
+    entity: "issuer",
     title: `${I18n.t("teacher.issuers.title")} (${issuers.length})`,
     tableHeaders: tableHeaders
   };
@@ -36,7 +38,8 @@
 <Table
   {...table}
   bind:search={issuerSearch}
-  bind:sort={issuerSort}>
+  bind:sort={issuerSort}
+  {mayCreate}>
   {#each sortedFilteredIssuers as issuer (issuer.entityId)}
     <tr
       class="click"
