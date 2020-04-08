@@ -30,7 +30,7 @@ I18n.translations.en = {
     },
     teacher: {
       title: "Issuer Portal",
-      subtitle: "award badges to students",
+      subtitle: "award badges",
       action: "Enter the issuer portal",
       button: "Log in via SURFconext",
       accountCreation: {
