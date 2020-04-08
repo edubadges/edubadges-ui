@@ -14,15 +14,23 @@
   };
 
   let badgeclassSearch = "";
-  $: searchedBadgeclassIds = search(badgeclasses, badgeclassSearch, 'name');
+  $: searchedBadgeclassIds = search(badgeclasses, badgeclassSearch, "name");
 
   let badgeclassSort = [];
-  const defaultSortBadgeclasses = 'name';
+  const defaultSortBadgeclasses = "name";
 
-  $: sortedFilteredBadgeclasses = sort(badgeclasses.filter(el => searchedBadgeclassIds.includes(el.entityId)), badgeclassSort[0], badgeclassSort[1])
+  $: sortedFilteredBadgeclasses = sort(
+    badgeclasses.filter(el => searchedBadgeclassIds.includes(el.entityId)),
+    badgeclassSort[0],
+    badgeclassSort[1]
+  );
 </script>
 
-<Table {...table} bind:search={badgeclassSearch} bind:sort={badgeclassSort} defaultSort={defaultSortBadgeclasses}>
+<Table
+  {...table}
+  bind:search={badgeclassSearch}
+  bind:sort={badgeclassSort}
+  defaultSort={defaultSortBadgeclasses}>
   {#each sortedFilteredBadgeclasses as badgeclass (badgeclass.entityId)}
     <tr
       class="click"

@@ -1,6 +1,6 @@
 <script>
   import I18n from "i18n-js";
-  import {onMount} from "svelte";
+  import { onMount } from "svelte";
 
   export let title = "";
   export let tableHeaders = [];
@@ -12,7 +12,7 @@
     sort = [defaultSort, false];
   });
 
-  const setSort = (attribute) => {
+  const setSort = attribute => {
     if (sort[0] === attribute) {
       if (sort[1]) {
         sort.length = 0;
@@ -23,7 +23,7 @@
       sort[0] = attribute;
       sort[1] = false;
     }
-  }
+  };
 </script>
 
 <style>
@@ -62,11 +62,11 @@
   }
 
   .desc:after {
-    content: ' ▾';
+    content: " ▾";
   }
 
   .asc:after {
-    content: ' ▴';
+    content: " ▴";
   }
 
   .entity-table :global(th, td) {
@@ -82,21 +82,27 @@
 <div class="container">
   <div class="header">
     <h4 class="block">{title}</h4>
-    <input class="search block" placeholder="{I18n.t('teacher.sidebar.search')}..." bind:value={search} type="search">
+    <input
+      class="search block"
+      placeholder="{I18n.t('teacher.sidebar.search')}..."
+      bind:value={search}
+      type="search" />
   </div>
 
   <table class="entity-table">
     <thead>
-    <tr>
-      {#each tableHeaders as th}
-        <th on:click={() => setSort(th)} class="{sort[0] === th ? (sort[1] ? 'asc' : 'desc') : ''}">
-          {th}
-        </th>
-      {/each}
-    </tr>
+      <tr>
+        {#each tableHeaders as th}
+          <th
+            on:click={() => setSort(th)}
+            class={sort[0] === th ? (sort[1] ? 'asc' : 'desc') : ''}>
+            {th}
+          </th>
+        {/each}
+      </tr>
     </thead>
     <tbody>
-    <slot/>
+      <slot />
     </tbody>
   </table>
 </div>

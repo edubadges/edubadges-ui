@@ -18,15 +18,23 @@
   };
 
   let issuerSearch = "";
-  $: searchedIssuerIds = search(issuers, issuerSearch, 'name');
+  $: searchedIssuerIds = search(issuers, issuerSearch, "name");
 
   let issuerSort = [];
-  const defaultSortIssuers = '#badgeclasses';
+  const defaultSortIssuers = "#badgeclasses";
 
-  $: sortedFilteredIssuers = sort(issuers.filter(el => searchedIssuerIds.includes(el.entityId)), issuerSort[0], issuerSort[1]);
+  $: sortedFilteredIssuers = sort(
+    issuers.filter(el => searchedIssuerIds.includes(el.entityId)),
+    issuerSort[0],
+    issuerSort[1]
+  );
 </script>
 
-<Table {...table} bind:search={issuerSearch} bind:sort={issuerSort} defaultSort={defaultSortIssuers}>
+<Table
+  {...table}
+  bind:search={issuerSearch}
+  bind:sort={issuerSort}
+  defaultSort={defaultSortIssuers}>
   {#each sortedFilteredIssuers as issuer (issuer.entityId)}
     <tr
       class="click"
