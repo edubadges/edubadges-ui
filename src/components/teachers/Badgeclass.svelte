@@ -18,50 +18,60 @@
   let issuer;
   let faculty;
   let badgeclass = {};
+  let requestCount;
+  let recipientCount;
+  let revokedCount;
 
   const query = `{
     badgeClass(id: "${entityId}") {
-		entityId,
-		name,
-		image,
-		description,
-		issuer {
-			name, 
-			entityId,
-			faculty {
-				name,
-				entityId,
-				institution {
-					name
-				}
-			},
-		}
-	}
+      entityId,
+      name,
+      image,
+      description,
+      issuer {
+        name,
+        entityId,
+        faculty {
+          name,
+          entityId,
+          institution {
+            name
+          }
+        },
+      },
+      requestCount,
+      recipientCount,
+      revokedCount
+    }
   }`;
 
   onMount(() => {
     queryData(query).then(res => {
+      console.log(res);
       badgeclass = res.badgeClass;
       issuer = res.badgeClass.issuer;
       faculty = issuer.faculty;
       institutionName = faculty.institution.name;
+        requestCount = res.badgeClass.requestCount;
+        recipientCount = res.badgeClass.recipientCount;
+        revokedCount = res.badgeClass.revokedCount;
     });
   });
 
-  const tabs = [
+  $: tabs = [
     {
       entity: "badgesRequested",
-      count: 0,
+      count: requestCount,
       href: `/manage/badgeclass/${entityId}/requested`
     },
     {
       entity: "badgesAwarded",
-      count: 0,
+      count: recipientCount,
       href: `/manage/badgeclass/${entityId}/awarded`
     },
     {
       entity: "badgesRevoked",
-      count: 0,
+      count: revokedCount,
       href: `/manage/badgeclass/${entityId}/revoked`
     }
   ];
