@@ -1,62 +1,105 @@
 <script>
-    import { onMount } from "svelte";
-    import { queryData } from "../../api/graphql";
-    import moment from "moment";
+  import { onMount } from "svelte";
+  import { queryData } from "../../api/graphql";
+  import moment from "moment";
+  import I18n from "i18n-js";
+  import { Button } from "../index";
 
-    export let entityId;
+  export let entityId;
 
-    let requests = [];
+  let awardedBadges = [];
 
-    const query = `{
-    badgeClass(id: "${entityId}") {
-      badgeAssertions {
+  const query = `{
+  badgeClass(id: "${entityId}") {
+    badgeAssertions {
+      entityId,
+      dateCreated,
+      user {
         entityId,
-        dateCreated,
-        user {
-          entityId,
-          firstName,
-          lastName,
-          email
-        }
+        firstName,
+        lastName,
+        email
       }
     }
-  }`;
+  }
+}`;
 
 
-    onMount(() => {
-      queryData(query).then(res => {
-        console.log(res);
-        requests = res.badgeClass.badgeAssertions;  // TODO: split between awarded and revoked
-      });
+  onMount(() => {
+    queryData(query).then(res => {
+      console.log(res);
+      awardedBadges = res.badgeClass.badgeAssertions;  // TODO: split between awarded and revoked
     });
+  });
 
-    const revokeBadges = () => {
+  const revokeBadges = () => {
 
-    }
+  }
 </script>
 
 <style>
-    th, td {
-        width: 25% !important;
-    }
+  .name {
+    font-weight: bold;
+  }
+
+  input {
+    font-size: 16px;
+    padding: 2px 0 2px 8px;
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  thead th {
+    text-align: left;
+    border-bottom: 3px solid var(--color-background-grey-dark);
+    cursor: pointer;
+  }
+
+  th, td {
+    padding: var(--ver-padding-s) 0;
+  }
+
+  tbody tr:not(:last-of-type) td {
+    border-bottom: var(--card-border);
+  }
+
+  .actions {
+    float: right;
+  }
 </style>
 
 <table>
-    <thead>
+  <thead>
+  <tr>
+    <th><input type="checkbox"></th>
+    <th colspan="3">
+      <span class="actions">
+        <input type="search">
+        <Button onClick={() => revokeBadges()}
+          label={I18n.t('teacher.badgeRevoked.revoke')}/>
+      </span>
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  {#each awardedBadges as awardedBadge}
     <tr>
-        <th><input type="checkbox"></th>
-        <th colspan="3">
-            <input type="search">
-            <button on:click={() => revokeBadges()}>award</button>
-        </th>
+      <td><input type="checkbox"></td>
+      <td class="name">{awardedBadge.user.firstName + " " + awardedBadge.user.lastName}</td>
+      <td>{awardedBadge.user.email}</td>
+      <td>{moment(awardedBadge.dateAwarded).format('MMM D, YYYY')}</td>
     </tr>
-    </thead>
-  {#each requests as request}
-      <tr>
-          <td><input type="checkbox"></td>
-          <td>{request.user.firstName + " " + request.user.lastName}</td>
-          <td>{request.user.email}</td>
-          <td>{moment(request.dateAwarded).format('MMM D, YYYY')}</td>
-      </tr>
   {/each}
+  {#if awardedBadges.length === 0}
+    <tr>
+      <td><input type="checkbox"></td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+  {/if}
+  </tbody>
 </table>
