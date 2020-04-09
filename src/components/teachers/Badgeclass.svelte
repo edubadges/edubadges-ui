@@ -53,8 +53,8 @@
       issuer = res.badgeClass.issuer;
       faculty = issuer.faculty;
       requestCount = res.badgeClass.enrollments.length;
-      recipientCount = res.badgeClass.badgeAssertions.length;  // TODO: split between awarded and revoked
-      revokedCount = res.badgeClass.badgeAssertions.length;  // TODO: split between awarded and revoked
+      recipientCount = res.badgeClass.badgeAssertions.filter(el => el.revoked === false).length;
+      revokedCount = res.badgeClass.badgeAssertions.filter(el => el.revoked === true).length;
     });
   });
 

@@ -25,7 +25,7 @@
 
   onMount(() => {
     queryData(query).then(res => {
-      revokedBadges = res.badgeClass.badgeAssertions;  // TODO: split between awarded and revoked
+      revokedBadges = res.badgeClass.badgeAssertions.filter(el => el.revoked === false);
     });
   });
 

@@ -8,7 +8,6 @@
   export let entityId;
 
   let requests = [];
-  let issuerId;
 
   const query = `{
     badgeClass(id: "${entityId}") {
@@ -30,9 +29,7 @@
 
   onMount(() => {
     queryData(query).then(res => {
-      console.log(res);
       requests = res.badgeClass.enrollments;
-      issuerId = res.badgeClass.issuer.entityId;
     });
   });
 
