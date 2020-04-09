@@ -37,6 +37,11 @@
     flex: 1;
   }
 
+  input.search {
+    font-size: 16px;
+    padding: 2px 0 2px 8px;
+  }
+
   table {
     border-collapse: collapse;
     width: 100%;
@@ -56,20 +61,22 @@
     content: " ▴";
   }
 
-  .entity-table :global(th, td) {
+  :global(table.entity-table th, table.entity-table td) {
     padding: var(--ver-padding-s) 0;
     width: 50%;
   }
 
-  .entity-table :global(tbody tr:not(:last-of-type) td) {
+  :global(table.entity-table tbody tr:not(:last-of-type) td) {
     border-bottom: var(--card-border);
   }
+
 </style>
 
 <div class="container">
   <div class="header">
     <h4>{title}</h4>
     <input
+      class="search"
       bind:value={search}
       placeholder="{I18n.t('teacher.sidebar.search')}..." />
     {#if mayCreate}

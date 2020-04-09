@@ -1,15 +1,16 @@
 <script>
-  import { onMount } from "svelte";
-  import { Router, Route, navigate } from "svelte-routing";
-  import { Breadcrumb, EntityHeader, Issuers, Badgeclasses } from "../teachers";
-  import { issuerIcon, badgeclassIcon } from "../../icons";
-  import { queryData } from "../../api/graphql";
+  import {onMount} from "svelte";
+  import {Router, Route, navigate} from "svelte-routing";
+  import {Breadcrumb, EntityHeader, Issuers, Badgeclasses} from "../teachers";
+  import {issuerIcon, badgeclassIcon} from "../../icons";
+  import {queryData} from "../../api/graphql";
+  import IssuerHeader from "./IssuerHeader.svelte";
 
   export let entityId;
   export let subEntity;
 
   let institutionName = "";
-  let issuer = {};
+  let issuer = {staff: []};
   let faculty = {};
   let badgeclasses = [];
 
@@ -17,11 +18,21 @@
     issuer(id: "${entityId}") {
       name,
       entityId,
+      createdAt,
+      description,
+      image,
+      email,
+      url,
       faculty {
         name,
         entityId,
         institution {
           name
+        }
+      },
+      staff {
+        user {
+          firstName, lastName, email, entityId
         }
       },
       badgeclasses {
@@ -52,7 +63,7 @@
     }
   ];
 
-  $: if (!subEntity) navigate(tabs[0].href, { replace: true });
+  $: if (!subEntity) navigate(tabs[0].href, {replace: true});
 </script>
 
 <style>
@@ -69,7 +80,9 @@
     title={issuer.name}
     icon={issuerIcon}
     mayUpdate={issuer.permissions && issuer.permissions.mayUpdate}
-    entity="issuer" />
+    entity="issuer" >
+    <IssuerHeader issuer={issuer}/>
+  </EntityHeader>
 
   <Router>
     <Route path="/badgeclasses">
