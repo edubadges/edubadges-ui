@@ -41,7 +41,6 @@
 
   th {
     text-align: left;
-    width: 40%;
   }
 
   td {

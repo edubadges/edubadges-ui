@@ -34,10 +34,6 @@
     float: right;
   }
 
-  .block {
-    display: inline-block;
-  }
-
   div.header {
     display: flex;
     justify-content: flex-end;

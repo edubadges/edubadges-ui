@@ -37,13 +37,13 @@
       },
       permissions {
         mayUpdate
+      },
+      enrollments {
+        entityId
+      },
+      badgeAssertions {
+        entityId
       }
-    },
-    enrollments {
-      entityId
-    },
-    badgeAssertions {
-      entityId
     }
   }`;
 
