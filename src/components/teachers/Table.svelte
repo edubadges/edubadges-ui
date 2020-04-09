@@ -1,29 +1,22 @@
 <script>
   import I18n from "i18n-js";
-  import { onMount } from "svelte";
+  import { link } from "svelte-routing";
+  import {sortType} from "../../util/sortData";
 
+  export let entity = "";
   export let title = "";
   export let tableHeaders = [];
   export let search = "";
-  export let defaultSort;
-  export let sort = [];
+  export let mayCreate;
+  export let sort = {attribute: null, reverse: false, sortType: sortType.ALPHA};
 
-  onMount(() => {
-    sort = [defaultSort, false];
-  });
-
-  const setSort = (attribute) => {
-    if (sort[0] === attribute) {
-      if (sort[1]) {
-        sort.length = 0;
-      } else {
-        sort[1] = true;
-      }
+  const setSort = tableHeader => {
+    if (sort.attribute === tableHeader.attribute) {
+      sort.reverse = !sort.reverse;
     } else {
-      sort[0] = attribute;
-      sort[1] = false;
+      sort = tableHeader;
     }
-  }
+  };
 </script>
 
 <style>
@@ -47,7 +40,20 @@
 
   div.header {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
+  }
+
+  div.header > *:not(:last-child) {
+    margin-right: var(--hor-padding-s);
+  }
+
+  h4 {
+    flex: 1;
+  }
+
+  input.search {
+    font-size: 16px;
+    padding: 2px 0 2px 8px;
   }
 
   table {
@@ -69,20 +75,28 @@
       content: ' ▴';
   }
 
-  .entity-table :global(th, td) {
+  :global(table.entity-table th, table.entity-table td) {
     padding: var(--ver-padding-s) 0;
     width: 50%;
   }
 
-  .entity-table :global(tbody tr:not(:last-of-type) td) {
+  :global(table.entity-table tbody tr:not(:last-of-type) td) {
     border-bottom: var(--card-border);
   }
 </style>
 
 <div class="container">
   <div class="header">
-    <h4 class="block">{title}</h4>
-    <input class="search block" placeholder="{I18n.t('teacher.sidebar.search')}..." bind:value={search} type="search">
+    <h4>{title}</h4>
+    <input
+      class="search"
+      bind:value={search}
+      placeholder="{I18n.t('teacher.sidebar.search')}..." />
+    {#if mayCreate}
+      <a use:link href={`/manage/${entity}/new`} class="btn">
+        {I18n.t(['manage', 'new', entity])}
+      </a>
+    {/if}
   </div>
 
   <table class="entity-table">
@@ -90,10 +104,9 @@
       <tr>
         {#each tableHeaders as th}
           <th
-              on:click={() => setSort(th)}
-              class="{sort[0] === th ? (sort[1] ? 'asc' : 'desc') : ''}"
-          >
-            {th}
+            on:click={() => setSort(th)}
+            class={sort.attribute === th.attribute ? (sort.reverse ? 'asc' : 'desc') : ''}>
+            {th.name}
           </th>
         {/each}
       </tr>

@@ -2,8 +2,8 @@
   import { onMount } from "svelte";
   import { Router, Route, navigate } from "svelte-routing";
   import {
+    EntityHeader,
     Breadcrumb,
-    BadgeclassHeader,
     BadgesAwarded,
     BadgesRequested,
     BadgesRevoked
@@ -14,7 +14,6 @@
   export let entityId;
   export let subEntity;
 
-  let institutionName = "";
   let issuer;
   let faculty;
   let badgeclass = {};
@@ -34,17 +33,17 @@
         faculty {
           name,
           entityId,
-          institution {
-            name
-          }
-        },
+        }
       },
-      enrollments {
-        entityId
-      },
-      badgeAssertions {
-        entityId
+      permissions {
+        mayUpdate
       }
+    },
+    enrollments {
+      entityId
+    },
+    badgeAssertions {
+      entityId
     }
   }`;
 
@@ -53,7 +52,6 @@
       badgeclass = res.badgeClass;
       issuer = res.badgeClass.issuer;
       faculty = issuer.faculty;
-      institutionName = faculty.institution.name;
       requestCount = res.badgeClass.enrollments.length;
       recipientCount = res.badgeClass.badgeAssertions.length;  // TODO: split between awarded and revoked
       revokedCount = res.badgeClass.badgeAssertions.length;  // TODO: split between awarded and revoked
@@ -84,6 +82,7 @@
 <style>
   .page-container {
     flex: 1;
+    --entity-icon-width: 150px;
   }
 
   .content {
@@ -92,12 +91,14 @@
 </style>
 
 <div class="page-container">
-  <Breadcrumb
-    {institutionName}
-    {faculty}
-    {issuer}
-    badgeclassName={badgeclass.name} />
-  <BadgeclassHeader {tabs} {badgeclass} />
+  <Breadcrumb {faculty} {issuer} badgeclassName={badgeclass.name} />
+
+  <EntityHeader
+    entity="badgeclass"
+    title={badgeclass.name}
+    logo={badgeclass.image}
+    {tabs}
+    mayUpdate={badgeclass.permissions && badgeclass.permissions.mayUpdate} />
 
   <div class="content">
     <Router>

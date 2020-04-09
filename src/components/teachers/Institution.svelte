@@ -1,20 +1,35 @@
 <script>
-  import { onMount } from "svelte";
-  import { Router, Route, navigate } from "svelte-routing";
-  import { Breadcrumb, EntityHeader, Issuers, Faculties } from "../teachers";
-  import { institutionIcon, issuerIcon, facultyIcon } from "../../icons";
-  import { queryData } from "../../api/graphql";
+  import {onMount} from "svelte";
+  import {Router, Route, navigate} from "svelte-routing";
+  import {Breadcrumb, EntityHeader, Issuers, Faculties} from "../teachers";
+  import {institutionIcon, issuerIcon, facultyIcon} from "../../icons";
+  import {queryData} from "../../api/graphql";
+  import InstitutionHeader from "./InstitutionHeader.svelte";
 
   export let subEntity;
 
-  let institutionName = "";
+  let institution = {staff: []};
   let faculties = [];
   let issuers = [];
 
   const query = `{
     currentUser {
       institution {
-				name
+				name,
+				description,
+				createdAt
+				image,
+				gradingTable,
+				brin,
+				staff {
+				  user {
+				    firstName, lastName, email, entityId
+				  }
+				}
+        permissions {
+          mayUpdate,
+          mayCreate
+        }
       }
 		},
 		faculties {
@@ -22,7 +37,7 @@
       entityId,
 			issuers {
 				entityId
-			}
+      },
 		},
 		issuers {
       name,
@@ -32,13 +47,13 @@
 			},
 			badgeclasses {
 				entityId
-			}
+      },
 		}
   }`;
 
   onMount(() => {
     queryData(query).then(res => {
-      institutionName = res.currentUser.institution.name;
+      institution = res.currentUser.institution;
       faculties = res.faculties;
       issuers = res.issuers;
     });
@@ -57,7 +72,9 @@
     }
   ];
 
-  $: if (!subEntity) navigate(tabs[0].href, { replace: true });
+  $: if (!subEntity) navigate(tabs[0].href, {replace: true});
+  $: mayUpdate = institution.permissions && institution.permissions.mayUpdate;
+  $: mayCreate = institution.permissions && institution.permissions.mayCreate;
 </script>
 
 <style>
@@ -68,19 +85,22 @@
 </style>
 
 <div class="page-container">
-  <Breadcrumb {institutionName} />
+  <Breadcrumb/>
   <EntityHeader
     {tabs}
-    title={institutionName}
+    title={institution.name}
     icon={institutionIcon}
-    entity="institution" />
+    entity="institution"
+    {mayUpdate}>
+    <InstitutionHeader institution={institution}/>
+  </EntityHeader>
 
   <Router>
     <Route path="/issuers">
-      <Issuers {issuers} />
+      <Issuers {issuers} {mayCreate}/>
     </Route>
     <Route path="/groups">
-      <Faculties {faculties} />
+      <Faculties {faculties} {mayCreate}/>
     </Route>
   </Router>
 </div>

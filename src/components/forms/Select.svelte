@@ -55,6 +55,8 @@
     {items}
     bind:selectedValue={value}
     optionIdentifier="entityId"
+    getOptionLabel={({ name }) => name}
+    getSelectionLabel={({ name }) => name}
     placeholder=""
     showChevron
     isDisabled={disabled} />

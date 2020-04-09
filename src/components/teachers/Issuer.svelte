@@ -4,38 +4,48 @@
   import { Breadcrumb, EntityHeader, Issuers, Badgeclasses } from "../teachers";
   import { issuerIcon, badgeclassIcon } from "../../icons";
   import { queryData } from "../../api/graphql";
+  import IssuerHeader from "./IssuerHeader.svelte";
 
   export let entityId;
   export let subEntity;
 
-  let institutionName = "";
-  let issuer = {};
+  let issuer = { staff: [] };
   let faculty = {};
   let badgeclasses = [];
 
   const query = `{
     issuer(id: "${entityId}") {
-		name,
-		entityId,
-		faculty {
-			name,
-			entityId,
-			institution {
-				name
-			}
-		},
-		badgeclasses {
-			name,
-			entityId
-		}
-	}
+      name,
+      entityId,
+      createdAt,
+      description,
+      image,
+      email,
+      url,
+      faculty {
+        name,
+        entityId,
+      },
+      staff {
+        user {
+          firstName, lastName, email, entityId
+        }
+      },
+      badgeclasses {
+        name,
+        entityId,
+      },
+      permissions {
+        mayUpdate,
+        mayCreate
+      }
+  	}
   }`;
 
   onMount(() => {
     queryData(query).then(res => {
       issuer = res.issuer;
       faculty = issuer.faculty;
-      institutionName = faculty.institution.name;
       badgeclasses = issuer.badgeclasses;
     });
   });
@@ -59,12 +69,21 @@
 </style>
 
 <div class="page-container">
-  <Breadcrumb {institutionName} {faculty} {issuer} />
-  <EntityHeader {tabs} title={issuer.name} icon={issuerIcon} entity="issuer" />
+  <Breadcrumb {faculty} {issuer} />
+  <EntityHeader
+    {tabs}
+    title={issuer.name}
+    icon={issuerIcon}
+    mayUpdate={issuer.permissions && issuer.permissions.mayUpdate}
+    entity="issuer">
+    <IssuerHeader {issuer} />
+  </EntityHeader>
 
   <Router>
     <Route path="/badgeclasses">
-      <Badgeclasses {badgeclasses} />
+      <Badgeclasses
+        {badgeclasses}
+        mayCreate={issuer.permissions && issuer.permissions.mayCreate} />
     </Route>
   </Router>
 </div>

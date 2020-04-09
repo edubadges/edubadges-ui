@@ -1,38 +1,54 @@
 <script>
   import { onMount } from "svelte";
   import { Router, Route, navigate } from "svelte-routing";
-  import { Breadcrumb, EntityHeader, Issuers, Faculties } from "../teachers";
+  import { Breadcrumb, EntityHeader, Issuers } from "../teachers";
   import { institutionIcon, issuerIcon, facultyIcon } from "../../icons";
   import { queryData } from "../../api/graphql";
+  import FacultyHeader from "./FacultyHeader.svelte";
 
   export let entityId;
   export let subEntity;
 
-  let faculty = {};
-  let institutionName = "";
+  let faculty = { staff: [] };
   let issuers = [];
 
   const query = `{
     faculty(id: "${entityId}") {
-		name,
-		entityId,
-		institution {
-			name
-		},
-		issuers {
       name,
       entityId,
-			badgeclasses {
-				entityId
-			}
-		}
-	}
+      description,
+      createdAt,
+      issuers {
+        entityId
+      },
+      staff {
+        user {
+          firstName, lastName, email, entityId
+        }
+      },
+      institution {
+        name
+      },
+      issuers {
+        name,
+        entityId,
+        badgeclasses {
+          entityId
+        },
+        faculty {
+          name
+        }
+      },
+      permissions {
+        mayUpdate,
+        mayCreate
+      }
+    }
   }`;
 
   onMount(() => {
     queryData(query).then(res => {
       faculty = res.faculty;
-      institutionName = res.faculty.institution.name;
       issuers = res.faculty.issuers;
     });
   });
@@ -56,16 +72,21 @@
 </style>
 
 <div class="page-container">
-  <Breadcrumb {institutionName} {faculty} />
+  <Breadcrumb {faculty} />
   <EntityHeader
     {tabs}
     title={faculty.name}
     icon={facultyIcon}
-    entity="faculty" />
+    mayUpdate={faculty.permissions && faculty.permissions.mayUpdate}
+    entity="faculty">
+    <FacultyHeader {faculty} />
+  </EntityHeader>
 
   <Router>
     <Route path="/issuers">
-      <Issuers {issuers} facultyName={faculty.name} />
+      <Issuers
+        {issuers}
+        mayCreate={faculty.permissions && faculty.permissions.mayCreate} />
     </Route>
   </Router>
 </div>
