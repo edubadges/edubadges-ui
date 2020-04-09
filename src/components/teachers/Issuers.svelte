@@ -19,7 +19,7 @@
     {
       name: I18n.t("teacher.badgeclasses.title"),
       attribute: "badgeclasses",
-      reverse: true,
+      reverse: false,
       sortType: sortType.COLLECTION
     }
   ];
@@ -33,7 +33,7 @@
   let issuerSearch = "";
   $: searchedIssuerIds = search(issuers, issuerSearch, "name");
 
-  let issuerSort = tableHeaders[0];
+  let issuerSort = tableHeaders[1];
 
   $: sortedFilteredIssuers = sort(
     issuers.filter(el => searchedIssuerIds.includes(el.entityId)),
