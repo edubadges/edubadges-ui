@@ -3,10 +3,10 @@
 
   export let institution = {staff: []};
 
-  const formatAdminNames = () => {
-    let names = institution.staff.map(user => (user.first_name + user.last_name) || user.email).slice(0, 2);
-    if (institution.staff.length > 2) {
-      names += ` (+${institution.staff.length - 2})`
+  const formatAdminNames = institutionInstance => {
+    let names = institutionInstance.staff.map(u => u.user.firstName + ' ' + u.user.lastName).slice(0, 2).join(", ");
+    if (institutionInstance.staff.length > 2) {
+      names += ` (+${institutionInstance.staff.length - 2})`
     }
     return names;
   }
@@ -17,10 +17,11 @@
 
   .institution-header {
     display: flex;
+    padding-bottom: var(--ver-padding-m);
   }
 
   .image-container {
-    max-width: 150px;
+    max-width: 100px;
     border: var(--card-border);
     margin-right: 15px;
   }
@@ -33,6 +34,37 @@
 
   table {
     width: 100%;
+    margin-top: auto;
+    border-collapse: collapse;
+  }
+
+  table th {
+    text-align: left;
+    color: var(--color-text-light-grey);
+  }
+
+  table th:not(:last-child), table td:not(:last-child) {
+    border-right: 1px solid var(--color-text-light-grey);
+  }
+
+  table th:not(:first-child), table td:not(:first-child) {
+    padding-left: 15px;
+  }
+
+  table th.created {
+    width: 15%;
+  }
+  table th.admin {
+    width: 35%;
+  }
+  table th.brin {
+    width: 15%;
+  }
+  table th.grading {
+    width: 35%;
+  }
+  table td.created {
+    color: var(--color-text-blue);
   }
 
 
@@ -49,16 +81,16 @@
     <table>
       <thead>
       <tr>
-        <th>{I18n.t("models.institution.created")}</th>
-        <th>{I18n.t("models.institution.admin")}</th>
-        <th>{I18n.t("models.institution.brin")}</th>
-        <th>{I18n.t("models.institution.grading_table")}</th>
+        <th class="created">{I18n.t("models.institution.created")}</th>
+        <th class="admin">{I18n.t("models.institution.admin")}</th>
+        <th class="brin">{I18n.t("models.institution.brin")}</th>
+        <th class="grading">{I18n.t("models.institution.grading_table")}</th>
       </tr>
       </thead>
       <tbody>
       <tr>
-        <td class="created">{institution.createdAt}</td>
-        <td class="admin">{formatAdminNames()}</td>
+        <td class="created">{new Date(institution.createdAt).toLocaleDateString()}</td>
+        <td class="admin">{formatAdminNames(institution)}</td>
         <td>{institution.brin}</td>
         <td>{institution.gradingTable || I18n.t("models.institution.no_grading_table")}</td>
       </tr>

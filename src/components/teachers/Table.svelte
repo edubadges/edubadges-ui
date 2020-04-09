@@ -61,14 +61,15 @@
     content: " ▴";
   }
 
-  .entity-table :global(th, td) {
+  :global(table.entity-table th, table.entity-table td) {
     padding: var(--ver-padding-s) 0;
     width: 50%;
   }
 
-  .entity-table :global(tbody tr:not(:last-of-type) td) {
+  :global(table.entity-table tbody tr:not(:last-of-type) td) {
     border-bottom: var(--card-border);
   }
+
 </style>
 
 <div class="container">

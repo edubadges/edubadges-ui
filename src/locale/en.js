@@ -139,7 +139,7 @@ I18n.translations.en = {
   models: {
     institution: {
       created: "Created",
-      admin: "Amdin",
+      admin: "Admin",
       brin: "BRIN code",
       description: "Description",
       grading_table: "Grading table",
