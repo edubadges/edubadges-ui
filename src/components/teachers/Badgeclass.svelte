@@ -39,22 +39,24 @@
           }
         },
       },
-      requestCount,
-      recipientCount,
-      revokedCount
+      enrollments {
+        entityId
+      },
+      badgeAssertions {
+        entityId
+      }
     }
   }`;
 
   onMount(() => {
     queryData(query).then(res => {
-      console.log(res);
       badgeclass = res.badgeClass;
       issuer = res.badgeClass.issuer;
       faculty = issuer.faculty;
       institutionName = faculty.institution.name;
-        requestCount = res.badgeClass.requestCount;
-        recipientCount = res.badgeClass.recipientCount;
-        revokedCount = res.badgeClass.revokedCount;
+      requestCount = res.badgeClass.enrollments.length;
+      recipientCount = res.badgeClass.badgeAssertions.length;  // TODO: split between awarded and revoked
+      revokedCount = res.badgeClass.badgeAssertions.length;  // TODO: split between awarded and revoked
     });
   });
 
@@ -100,15 +102,15 @@
   <div class="content">
     <Router>
       <Route path="/requested">
-        <BadgesRequested />
+        <BadgesRequested entityId={entityId} />
       </Route>
 
       <Route path="/awarded">
-        <BadgesAwarded />
+        <BadgesAwarded entityId={entityId} />
       </Route>
 
       <Route path="/revoked">
-        <BadgesRevoked />
+        <BadgesRevoked entityId={entityId} />
       </Route>
     </Router>
   </div>
