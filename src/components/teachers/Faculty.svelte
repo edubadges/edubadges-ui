@@ -1,16 +1,15 @@
 <script>
-  import {onMount} from "svelte";
-  import {Router, Route, navigate} from "svelte-routing";
-  import {Breadcrumb, EntityHeader, Issuers} from "../teachers";
-  import {institutionIcon, issuerIcon, facultyIcon} from "../../icons";
-  import {queryData} from "../../api/graphql";
+  import { onMount } from "svelte";
+  import { Router, Route, navigate } from "svelte-routing";
+  import { Breadcrumb, EntityHeader, Issuers } from "../teachers";
+  import { institutionIcon, issuerIcon, facultyIcon } from "../../icons";
+  import { queryData } from "../../api/graphql";
   import FacultyHeader from "./FacultyHeader.svelte";
 
   export let entityId;
   export let subEntity;
 
-  let faculty = {staff: []};
-  let institutionName = "";
+  let faculty = { staff: [] };
   let issuers = [];
 
   const query = `{
@@ -36,6 +35,9 @@
         badgeclasses {
           entityId
         },
+        faculty {
+          name
+        }
       },
       permissions {
         mayUpdate,
@@ -47,7 +49,6 @@
   onMount(() => {
     queryData(query).then(res => {
       faculty = res.faculty;
-      institutionName = res.faculty.institution.name;
       issuers = res.faculty.issuers;
     });
   });
@@ -60,7 +61,7 @@
     }
   ];
 
-  $: if (!subEntity) navigate(tabs[0].href, {replace: true});
+  $: if (!subEntity) navigate(tabs[0].href, { replace: true });
 </script>
 
 <style>
@@ -71,22 +72,21 @@
 </style>
 
 <div class="page-container">
-  <Breadcrumb {institutionName} {faculty}/>
+  <Breadcrumb {faculty} />
   <EntityHeader
     {tabs}
     title={faculty.name}
     icon={facultyIcon}
     mayUpdate={faculty.permissions && faculty.permissions.mayUpdate}
     entity="faculty">
-    <FacultyHeader faculty={faculty}/>
+    <FacultyHeader {faculty} />
   </EntityHeader>
 
   <Router>
     <Route path="/issuers">
       <Issuers
         {issuers}
-        facultyName={faculty.name}
-        mayCreate={faculty.permissions && faculty.permissions.mayCreate}/>
+        mayCreate={faculty.permissions && faculty.permissions.mayCreate} />
     </Route>
   </Router>
 </div>

@@ -1,16 +1,21 @@
 <script>
-  import {onMount} from "svelte";
-  import {navigate} from "svelte-routing";
+  import { onMount } from "svelte";
+  import { navigate } from "svelte-routing";
   import I18n from "i18n-js";
-  import {Table} from "../teachers";
-  import {search} from "../../util/searchData";
-  import {sort, sortType} from "../../util/sortData";
+  import { Table } from "../teachers";
+  import { search } from "../../util/searchData";
+  import { sort, sortType } from "../../util/sortData";
 
   export let badgeclasses = [];
   export let mayCreate;
 
   const tableHeaders = [
-    {name: I18n.t("teacher.name"), attribute: "name", reverse: false, sortType: sortType.ALPHA}
+    {
+      name: I18n.t("teacher.name"),
+      attribute: "name",
+      reverse: false,
+      sortType: sortType.ALPHA
+    }
   ];
 
   $: table = {

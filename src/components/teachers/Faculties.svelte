@@ -1,16 +1,26 @@
 <script>
-  import {navigate} from "svelte-routing";
+  import { navigate } from "svelte-routing";
   import I18n from "i18n-js";
-  import {Table} from "../teachers";
-  import {search} from "../../util/searchData";
-  import {sort, sortType} from "../../util/sortData";
+  import { Table } from "../teachers";
+  import { search } from "../../util/searchData";
+  import { sort, sortType } from "../../util/sortData";
 
   export let faculties = [];
   export let mayCreate;
 
   const tableHeaders = [
-    {name: I18n.t("teacher.name"), attribute: "name", reverse: false, sortType: sortType.ALPHA},
-    {name: I18n.t("teacher.issuers.title"), attribute: "issuers", reverse: false, sortType: sortType.COLLECTION}
+    {
+      name: I18n.t("teacher.name"),
+      attribute: "name",
+      reverse: false,
+      sortType: sortType.ALPHA
+    },
+    {
+      name: I18n.t("teacher.issuers.title"),
+      attribute: "issuers",
+      reverse: false,
+      sortType: sortType.COLLECTION
+    }
   ];
 
   $: table = {
@@ -22,7 +32,7 @@
   let facultySearch = "";
   $: searchedFacultyIds = search(faculties, facultySearch, "name");
 
-  let facultySort = tableHeaders[0];
+  let facultySort = tableHeaders[1];
 
   $: sortedFilteredFaculties = sort(
     faculties.filter(el => searchedFacultyIds.includes(el.entityId)),
@@ -30,7 +40,6 @@
     facultySort.reverse,
     facultySort.sortType
   );
-
 </script>
 
 <Table

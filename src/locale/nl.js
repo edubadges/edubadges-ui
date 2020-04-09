@@ -104,12 +104,14 @@ I18n.translations.nl = {
       issuer: "Wijzig issuer",
       badgeclass: "Wijzig badgeclass",
       save: "Opslaan",
+      cancel: "Annuleren",
     },
     new: {
       faculty: "Nieuwe groep maken",
       issuer: "Nieuwe issuer maken",
       badgeclass: "Nieuwe badgeclass maken",
       save: "Opslaan",
+      cancel: "Annuleren",
     },
   },
   footer: {
