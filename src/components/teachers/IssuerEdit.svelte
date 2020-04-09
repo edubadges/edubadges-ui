@@ -11,7 +11,11 @@
       description,
       image,
       url,
-      email
+      email,
+      faculty {
+        name,
+        entityId
+      }
     },
   }`;
 

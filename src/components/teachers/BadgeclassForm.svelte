@@ -15,7 +15,12 @@
   function onSubmit() {
     errors = {};
 
-    let newBadgeclass = badgeclass;
+    let newBadgeclass = {
+      ...badgeclass,
+      criteria_text: badgeclass.criteriaText,
+      criteria_url: badgeclass.criteriaUrl
+    };
+
     if (badgeclass.issuer) newBadgeclass.issuer = badgeclass.issuer.entityId;
 
     const args = isCreate ? [newBadgeclass] : [entityId, newBadgeclass];
@@ -31,14 +36,12 @@
 </script>
 
 <EntityForm {entity} submit={onSubmit} create={isCreate}>
-  {#if isCreate}
-    <Field {entity} attribute="issuer" errors={errors.issuer}>
-      <Select
-        bind:value={badgeclass.issuer}
-        error={errors.issuer}
-        items={issuers} />
-    </Field>
-  {/if}
+  <Field {entity} attribute="issuer" errors={errors.issuer}>
+    <Select
+      bind:value={badgeclass.issuer}
+      error={errors.issuer}
+      items={issuers} />
+  </Field>
 
   <Field {entity} attribute="image" errors={errors.image}>
     <File bind:value={badgeclass.image} error={errors.image} />
@@ -57,13 +60,13 @@
 
   <Field {entity} attribute="criteria_text" errors={errors.criteria_text}>
     <TextInput
-      bind:value={badgeclass.criteria_text}
+      bind:value={badgeclass.criteriaText}
       error={errors.criteria_text} />
   </Field>
 
   <Field {entity} attribute="criteria_url" errors={errors.criteria_url}>
     <TextInput
-      bind:value={badgeclass.criteria_url}
+      bind:value={badgeclass.criteriaUrl}
       error={errors.criteria_url} />
   </Field>
 </EntityForm>

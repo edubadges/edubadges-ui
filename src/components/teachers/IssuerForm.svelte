@@ -30,14 +30,12 @@
 </script>
 
 <EntityForm {entity} submit={onSubmit} create={isCreate}>
-  {#if isCreate}
-    <Field {entity} attribute="faculty" errors={errors.faculty}>
-      <Select
-        bind:value={issuer.faculty}
-        error={errors.faculty}
-        items={faculties} />
-    </Field>
-  {/if}
+  <Field {entity} attribute="faculty" errors={errors.faculty}>
+    <Select
+      bind:value={issuer.faculty}
+      error={errors.faculty}
+      items={faculties} />
+  </Field>
 
   <Field {entity} attribute="image" errors={errors.image}>
     <File bind:value={issuer.image} error={errors.image} />
