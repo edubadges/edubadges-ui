@@ -1,5 +1,6 @@
 <script>
   import { onMount } from "svelte";
+  import { navigate } from "svelte-routing";
   import { EntityForm } from "../teachers";
   import { Field, File, TextInput } from "../forms";
   import { queryData } from "../../api/graphql";
@@ -32,7 +33,7 @@
     errors = {};
 
     editInstitution(institution.entityId, institution)
-      .then(res => console.log("succes", res))
+      .then(res => navigate(`/manage/institution`))
       .catch(err => err.then(res => (errors = res)));
   }
 </script>

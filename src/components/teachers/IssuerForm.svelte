@@ -1,4 +1,5 @@
 <script>
+  import { navigate } from "svelte-routing";
   import { EntityForm } from "../teachers";
   import { Field, Select, File, TextInput } from "../forms";
   import { createIssuer, editIssuer } from "../../api";
@@ -21,10 +22,7 @@
     const apiCall = isCreate ? createIssuer : editIssuer;
 
     apiCall(...args)
-      .then(res => {
-        console.log("success");
-        // navigate(`/manage/issuer/${res.entityId}`);
-      })
+      .then(res => navigate(`/manage/issuer/${res.entityId}`))
       .catch(err => err.then(res => (errors = res)));
   }
 </script>
