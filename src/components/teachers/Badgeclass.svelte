@@ -14,7 +14,6 @@
   export let entityId;
   export let subEntity;
 
-  let institutionName = "";
   let issuer;
   let faculty;
   let badgeclass = {};
@@ -31,9 +30,7 @@
 			faculty {
 				name,
 				entityId,
-				institution {
-					name
-				}
+				
 			},
     },
     permissions {
@@ -47,7 +44,6 @@
       badgeclass = res.badgeClass;
       issuer = res.badgeClass.issuer;
       faculty = issuer.faculty;
-      institutionName = faculty.institution.name;
     });
   });
 
@@ -84,11 +80,7 @@
 </style>
 
 <div class="page-container">
-  <Breadcrumb
-    {institutionName}
-    {faculty}
-    {issuer}
-    badgeclassName={badgeclass.name} />
+  <Breadcrumb {faculty} {issuer} badgeclassName={badgeclass.name} />
 
   <EntityHeader
     entity="badgeclass"

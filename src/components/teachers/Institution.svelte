@@ -74,7 +74,7 @@
 </style>
 
 <div class="page-container">
-  <Breadcrumb institutionName={institution.name} />
+  <Breadcrumb />
   <EntityHeader
     {tabs}
     title={institution.name}

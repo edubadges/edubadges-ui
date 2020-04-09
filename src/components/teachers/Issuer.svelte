@@ -8,7 +8,6 @@
   export let entityId;
   export let subEntity;
 
-  let institutionName = "";
   let issuer = {};
   let faculty = {};
   let badgeclasses = [];
@@ -20,9 +19,6 @@
       faculty {
         name,
         entityId,
-        institution {
-          name
-        }
       },
       badgeclasses {
         name,
@@ -39,7 +35,6 @@
     queryData(query).then(res => {
       issuer = res.issuer;
       faculty = issuer.faculty;
-      institutionName = faculty.institution.name;
       badgeclasses = issuer.badgeclasses;
     });
   });
@@ -63,7 +58,7 @@
 </style>
 
 <div class="page-container">
-  <Breadcrumb {institutionName} {faculty} {issuer} />
+  <Breadcrumb {faculty} {issuer} />
   <EntityHeader
     {tabs}
     title={issuer.name}

@@ -1,11 +1,26 @@
 <script>
+  import { onMount } from "svelte";
   import { link } from "svelte-routing";
+  import { queryData } from "../../api/graphql";
   import { currentPath } from "../../stores/currentPath";
 
-  export let institutionName = "";
   export let faculty;
   export let issuer;
   export let badgeclassName = "";
+
+  const query = `{
+    currentInstitution {
+      name
+    },
+  }`;
+
+  let institutionName = "";
+
+  onMount(() => {
+    queryData(query).then(({ currentInstitution: { name } }) => {
+      institutionName = name;
+    });
+  });
 </script>
 
 <style>

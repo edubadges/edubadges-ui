@@ -9,16 +9,12 @@
   export let subEntity;
 
   let faculty = {};
-  let institutionName = "";
   let issuers = [];
 
   const query = `{
     faculty(id: "${entityId}") {
       name,
       entityId,
-      institution {
-        name
-      },
       issuers {
         name,
         entityId,
@@ -36,7 +32,6 @@
   onMount(() => {
     queryData(query).then(res => {
       faculty = res.faculty;
-      institutionName = res.faculty.institution.name;
       issuers = res.faculty.issuers;
     });
   });
@@ -60,7 +55,7 @@
 </style>
 
 <div class="page-container">
-  <Breadcrumb {institutionName} {faculty} />
+  <Breadcrumb {faculty} />
   <EntityHeader
     {tabs}
     title={faculty.name}
