@@ -28,7 +28,7 @@
 
     apiCall(...args)
       .then(res => navigate(`/manage/badgeclass/${res.entityId}`))
-      .catch(err => err.then(res => (errors = res)));
+      .catch(err => err.then(({ fields }) => (errors = fields)));
   }
 </script>
 

@@ -47,10 +47,12 @@
   </div>
 
   {#if errors}
-    {#each errors as error}
+    {#each errors as { error_code, error_message }}
       <div class="error">
         {@html warningIcon}
-        <span>{error}</span>
+        <span>
+          {I18n.t(['error', error_code], { defaultValue: error_message })}
+        </span>
       </div>
     {/each}
   {/if}
