@@ -34,7 +34,7 @@
 
     editInstitution(institution.entityId, institution)
       .then(res => navigate(`/manage/institution`))
-      .catch(err => err.then(res => (errors = res)));
+      .catch(err => err.then(({ fields }) => (errors = fields)));
   }
 </script>
 
