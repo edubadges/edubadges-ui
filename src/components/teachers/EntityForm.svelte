@@ -16,6 +16,9 @@
 <div class="entity-form">
   <h3>{I18n.t(['manage', create ? 'new' : 'edit', entity])}</h3>
   <slot />
+  <button on:click={() => window.history.back()} class="btn ghost">
+    {I18n.t(['manage', create ? 'new' : 'edit', 'cancel'])}
+  </button>
   <button on:click={submit} class="btn">
     {I18n.t(['manage', create ? 'new' : 'edit', 'save'])}
   </button>
