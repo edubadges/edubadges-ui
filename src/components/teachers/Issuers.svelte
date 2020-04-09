@@ -8,7 +8,6 @@
 
   export let mayCreate;
   export let issuers = [];
-  export let facultyName = "";
 
   const tableHeaders = [
     {
@@ -52,7 +51,7 @@
       <td>
         {issuer.name}
         <br />
-        <span class="sub-text">({facultyName || issuer.faculty.name})</span>
+        <span class="sub-text">({issuer.faculty.name})</span>
       </td>
       <td>{issuer.badgeclasses.length}</td>
     </tr>

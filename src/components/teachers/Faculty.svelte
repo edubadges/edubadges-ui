@@ -21,6 +21,9 @@
         badgeclasses {
           entityId
         },
+        faculty {
+          name
+        }
       },
       permissions {
         mayUpdate,
@@ -67,7 +70,6 @@
     <Route path="/issuers">
       <Issuers
         {issuers}
-        facultyName={faculty.name}
         mayCreate={faculty.permissions && faculty.permissions.mayCreate} />
     </Route>
   </Router>
