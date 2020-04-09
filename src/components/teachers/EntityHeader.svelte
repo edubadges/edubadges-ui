@@ -1,7 +1,7 @@
 <script>
   import I18n from "i18n-js";
-  import { link } from "svelte-routing";
-  import { EntityHeaderTabs } from "../teachers";
+  import {link} from "svelte-routing";
+  import {EntityHeaderTabs} from "../teachers";
 
   export let entity;
   export let title;
@@ -64,6 +64,11 @@
     justify-content: space-between;
     margin-bottom: var(--ver-padding-m);
   }
+
+  .slots {
+    margin-bottom: var(--ver-padding-m);
+  }
+
 </style>
 
 <div class="entity">
@@ -81,15 +86,17 @@
   <div class="content">
     <div class="info">
       <h3>{title}</h3>
-
       {#if mayUpdate}
         <a use:link href="edit" class="btn">
           {I18n.t(['manage', 'edit', entity])}
         </a>
       {/if}
     </div>
-    <EntityHeaderTabs {tabs} />
+    <div class="slots">
+        <slot></slot>
+    </div>
 
+    <EntityHeaderTabs {tabs} />
   </div>
 
 </div>
