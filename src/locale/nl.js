@@ -48,10 +48,10 @@ I18n.translations.nl = {
       step1: "Stap 1: Maak een eduID aan",
       step2: "Stap 2: verifieer uw identiteit",
       welcome: "Welkom bij je rugzak",
-      bekroond: "We hebben u uw eerste badge toegekend😀",
+      awarded: "We hebben u uw eerste badge toegekend😀",
       infoStep2:
         "Om eduBadges verder te kunnen ontvangen, moet u <strong> uw identiteit verifiëren </strong> bij uw onderwijsinstellingen. U kunt dit bewijzen door op de knop te klikken en u aan te melden bij uw instelling met uw instellingsaccount.",
-      verificatie: "Verificatie geslaagd!",
+      verification: "Verificatie geslaagd!",
       infoStep3: "Je kunt nu edubadges in je rugzak ontvangen.",
       require:
         "Om een edubadges Backpack aan te maken heb je een eduID nodig. Na het aanmaken van een eduID kan je je onderwijsinstelling verifiëren.",
@@ -144,7 +144,7 @@ I18n.translations.nl = {
       created: "Vanaf",
       admin: "Admin",
       brin: "BRIN code",
-      description: "Omschrijving",
+      description: "Beschrijving",
       grading_table: "Grading table",
       no_grading_table: "<no link provided yet>",
       image: "Logo",

@@ -1,0 +1,20 @@
+node_js:
+- '8'
+
+cache:
+  yarn: true
+  directories:
+  - node_modules
+
+before_install:
+- nvm install 8
+- npm install -g yarn
+
+install:
+- yarn install
+
+script:
+- yarn build && yarn test
+
+after_success:
+- codecov
