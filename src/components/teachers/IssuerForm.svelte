@@ -1,18 +1,36 @@
 <script>
   import { EntityForm } from "../teachers";
   import { Field, Select, File, TextInput } from "../forms";
+  import { createIssuer, editIssuer } from "../../api";
 
-  export let create;
+  export let entityId;
   export let issuer = {};
   export let faculties = [];
-  export let errors = {};
-  export let handleSubmit;
 
   const entity = "issuer";
+  let errors = {};
+  let isCreate = !entityId;
+
+  function onSubmit() {
+    errors = {};
+
+    let newIssuer = issuer;
+    if (issuer.faculty) newIssuer.faculty = issuer.faculty.entityId;
+
+    const args = isCreate ? [newIssuer] : [entityId, newIssuer];
+    const apiCall = isCreate ? createIssuer : editIssuer;
+
+    apiCall(...args)
+      .then(res => {
+        console.log("success");
+        // navigate(`/manage/issuer/${res.entityId}`);
+      })
+      .catch(err => err.then(res => (errors = res)));
+  }
 </script>
 
-<EntityForm {entity} submit={handleSubmit} {create}>
-  {#if create}
+<EntityForm {entity} submit={onSubmit} create={isCreate}>
+  {#if isCreate}
     <Field {entity} attribute="faculty" errors={errors.faculty}>
       <Select
         bind:value={issuer.faculty}
