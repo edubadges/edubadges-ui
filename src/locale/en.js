@@ -81,6 +81,9 @@ I18n.translations.en = {
     name: "Name",
     badgeclasses: {
       title: "Badgeclasses",
+      created: "Date created",
+      recipients: "Recipients",
+      ects: "ECTS"
     },
     issuers: {
       title: "Issuers",
