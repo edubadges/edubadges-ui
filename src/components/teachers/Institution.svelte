@@ -1,20 +1,31 @@
 <script>
-  import { onMount } from "svelte";
-  import { Router, Route, navigate } from "svelte-routing";
-  import { Breadcrumb, EntityHeader, Issuers, Faculties } from "../teachers";
-  import { institutionIcon, issuerIcon, facultyIcon } from "../../icons";
-  import { queryData } from "../../api/graphql";
+  import {onMount} from "svelte";
+  import {Router, Route, navigate} from "svelte-routing";
+  import {Breadcrumb, EntityHeader, Issuers, Faculties} from "../teachers";
+  import {institutionIcon, issuerIcon, facultyIcon} from "../../icons";
+  import {queryData} from "../../api/graphql";
+  import InstitutionHeader from "./InstitutionHeader.svelte";
 
   export let subEntity;
 
-  let institution = {};
+  let institution = {staff: []};
   let faculties = [];
   let issuers = [];
 
   const query = `{
     currentUser {
       institution {
-        name
+				name,
+				description,
+				createdAt
+				image,
+				gradingTable,
+				brin,
+				staff {
+				  user {
+				    firstName, lastName, email, entityId
+				  }
+				}
         permissions {
           mayUpdate,
           mayCreate
@@ -61,7 +72,7 @@
     }
   ];
 
-  $: if (!subEntity) navigate(tabs[0].href, { replace: true });
+  $: if (!subEntity) navigate(tabs[0].href, {replace: true});
   $: mayUpdate = institution.permissions && institution.permissions.mayUpdate;
   $: mayCreate = institution.permissions && institution.permissions.mayCreate;
 </script>
@@ -80,7 +91,9 @@
     title={institution.name}
     icon={institutionIcon}
     entity="institution"
-    {mayUpdate} />
+    {mayUpdate} >
+    <InstitutionHeader institution={institution}/>
+  </EntityHeader>
 
   <Router>
     <Route path="/issuers">

@@ -4,17 +4,31 @@
   import { Breadcrumb, EntityHeader, Issuers } from "../teachers";
   import { institutionIcon, issuerIcon, facultyIcon } from "../../icons";
   import { queryData } from "../../api/graphql";
+  import FacultyHeader from "./FacultyHeader.svelte";
 
   export let entityId;
   export let subEntity;
 
-  let faculty = {};
+  let faculty = { staff: [] };
   let issuers = [];
 
   const query = `{
     faculty(id: "${entityId}") {
       name,
       entityId,
+      description,
+      createdAt,
+      issuers {
+        entityId
+      },
+      staff {
+        user {
+          firstName, lastName, email, entityId
+        }
+      },
+      institution {
+        name
+      },
       issuers {
         name,
         entityId,
@@ -64,7 +78,9 @@
     title={faculty.name}
     icon={facultyIcon}
     mayUpdate={faculty.permissions && faculty.permissions.mayUpdate}
-    entity="faculty" />
+    entity="faculty">
+    <FacultyHeader {faculty} />
+  </EntityHeader>
 
   <Router>
     <Route path="/issuers">

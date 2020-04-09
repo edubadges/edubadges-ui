@@ -30,7 +30,7 @@ I18n.translations.en = {
     },
     teacher: {
       title: "Issuer Portal",
-      subtitle: "award badges to students",
+      subtitle: "award badges",
       action: "Enter the issuer portal",
       button: "Log in via SURFconext",
       accountCreation: {
@@ -141,19 +141,30 @@ I18n.translations.en = {
   },
   models: {
     institution: {
+      created: "Created",
+      admin: "Admin",
       brin: "BRIN code",
       description: "Description",
       grading_table: "Grading table",
+      no_grading_table: "<no link provided yet>",
       image: "Logo",
       name: "Name",
     },
     faculty: {
+      created: "Created",
+      admin: "Admin",
       description: "Description",
       name: "Name",
     },
     issuer: {
       description: "Description",
       email: "Contact email address",
+      created: "Created",
+      admin: "Admin",
+      email_header: "Contact",
+      url_header: "Website",
+      no_url: "<no website provided yet>",
+      no_email: "<no email provided yet>",
       image: "Logo",
       name: "Name",
       url: "Website URL",
