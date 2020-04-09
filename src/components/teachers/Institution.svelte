@@ -85,22 +85,22 @@
 </style>
 
 <div class="page-container">
-  <Breadcrumb />
+  <Breadcrumb/>
   <EntityHeader
     {tabs}
     title={institution.name}
     icon={institutionIcon}
     entity="institution"
-    {mayUpdate} >
+    {mayUpdate}>
     <InstitutionHeader institution={institution}/>
   </EntityHeader>
 
   <Router>
     <Route path="/issuers">
-      <Issuers {issuers} {mayCreate} />
+      <Issuers {issuers} {mayCreate}/>
     </Route>
     <Route path="/groups">
-      <Faculties {faculties} {mayCreate} />
+      <Faculties {faculties} {mayCreate}/>
     </Route>
   </Router>
 </div>
