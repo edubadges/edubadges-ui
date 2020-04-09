@@ -35,37 +35,37 @@
 </script>
 
 <style>
-    .name {
-        font-weight: bold;
-    }
+  .name {
+    font-weight: bold;
+  }
 
-    input {
-        font-size: 16px;
-        padding: 2px 0 2px 8px;
-    }
+  input {
+    font-size: 16px;
+    padding: 2px 0 2px 8px;
+  }
 
-    table {
-        border-collapse: collapse;
-        width: 100%;
-    }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
 
-    thead th {
-        text-align: left;
-        border-bottom: 3px solid var(--color-background-grey-dark);
-        cursor: pointer;
-    }
+  thead th {
+    text-align: left;
+    border-bottom: 3px solid var(--color-background-grey-dark);
+    cursor: pointer;
+  }
 
-    th, td {
-        padding: var(--ver-padding-s) 0;
-    }
+  th, td {
+    padding: var(--ver-padding-s) 0;
+  }
 
-    tbody tr:not(:last-of-type) td {
-        border-bottom: var(--card-border);
-    }
+  tbody tr:not(:last-of-type) td {
+    border-bottom: var(--card-border);
+  }
 
-    .actions {
-        float: right;
-    }
+  .actions {
+    float: right;
+  }
 </style>
 
 <table>
