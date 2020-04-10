@@ -43,7 +43,11 @@
   );
 </script>
 
-<Table {...table} bind:search={issuerSearch} bind:sort={issuerSort} {mayCreate}>
+<Table
+  {...table}
+  bind:search={issuerSearch}
+  bind:sort={issuerSort}
+  {mayCreate}>
   {#each sortedFilteredIssuers as issuer (issuer.entityId)}
     <tr
       class="click"

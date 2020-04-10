@@ -24,6 +24,16 @@
     margin: var(--ver-padding-l) var(--entity-icon-width);
   }
 
+  input {
+    height: 30px;
+    border: var(--card-border);
+  }
+
+  .search {
+    width: 200px;
+    float: right;
+  }
+
   div.header {
     display: flex;
     justify-content: flex-end;
@@ -54,11 +64,11 @@
   }
 
   .desc:after {
-    content: " ▾";
+      content: ' ▾';
   }
 
   .asc:after {
-    content: " ▴";
+      content: ' ▴';
   }
 
   :global(table.entity-table th, table.entity-table td) {
@@ -69,7 +79,6 @@
   :global(table.entity-table tbody tr:not(:last-of-type) td) {
     border-bottom: var(--card-border);
   }
-
 </style>
 
 <div class="container">

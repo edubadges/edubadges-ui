@@ -88,6 +88,13 @@ I18n.translations.nl = {
     faculties: {
       title: "Groepen",
     },
+    badgeRequests: {
+      award: "Ken badge toe",
+      newUser: "Nieuwe gebruiker"
+    },
+    badgeRevoked: {
+      revoke: "Verwijder badge"
+    }
   },
   manage: {
     tabs: {

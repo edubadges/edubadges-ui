@@ -88,6 +88,13 @@ I18n.translations.en = {
     faculties: {
       title: "Groups",
     },
+    badgeRequests: {
+      award: "Award badge",
+      newUser: "Add new user"
+    },
+    badgeRevoked: {
+      revoke: "Revoke badge"
+    }
   },
   manage: {
     tabs: {

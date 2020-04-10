@@ -17,26 +17,34 @@
   let issuer;
   let faculty;
   let badgeclass = {};
+  let requestCount;
+  let recipientCount;
+  let revokedCount;
 
   const query = `{
     badgeClass(id: "${entityId}") {
-		entityId,
-		name,
-		image,
-		description,
-		issuer {
-			name, 
-			entityId,
-			faculty {
-				name,
-				entityId,
-				
-			},
-    },
-    permissions {
-      mayUpdate
+      entityId,
+      name,
+      image,
+      description,
+      issuer {
+        name,
+        entityId,
+        faculty {
+          name,
+          entityId,
+        }
+      },
+      permissions {
+        mayUpdate
+      },
+      enrollments {
+        entityId
+      },
+      badgeAssertions {
+        entityId
+      }
     }
-	}
   }`;
 
   onMount(() => {
@@ -44,23 +52,26 @@
       badgeclass = res.badgeClass;
       issuer = res.badgeClass.issuer;
       faculty = issuer.faculty;
+      requestCount = res.badgeClass.enrollments.length;
+      recipientCount = res.badgeClass.badgeAssertions.filter(el => el.revoked === false).length;
+      revokedCount = res.badgeClass.badgeAssertions.filter(el => el.revoked === true).length;
     });
   });
 
-  const tabs = [
+  $: tabs = [
     {
       entity: "badgesRequested",
-      count: 0,
+      count: requestCount,
       href: `/manage/badgeclass/${entityId}/requested`
     },
     {
       entity: "badgesAwarded",
-      count: 0,
+      count: recipientCount,
       href: `/manage/badgeclass/${entityId}/awarded`
     },
     {
       entity: "badgesRevoked",
-      count: 0,
+      count: revokedCount,
       href: `/manage/badgeclass/${entityId}/revoked`
     }
   ];
@@ -92,15 +103,15 @@
   <div class="content">
     <Router>
       <Route path="/requested">
-        <BadgesRequested />
+        <BadgesRequested entityId={entityId} />
       </Route>
 
       <Route path="/awarded">
-        <BadgesAwarded />
+        <BadgesAwarded entityId={entityId} />
       </Route>
 
       <Route path="/revoked">
-        <BadgesRevoked />
+        <BadgesRevoked entityId={entityId} />
       </Route>
     </Router>
   </div>
