@@ -5,17 +5,36 @@
   import { Table } from "../teachers";
   import { search } from "../../util/searchData";
   import { sort, sortType } from "../../util/sortData";
+  import moment from "moment";
 
   export let badgeclasses = [];
   export let mayCreate;
 
   const tableHeaders = [
-    {
-      name: I18n.t("teacher.name"),
-      attribute: "name",
-      reverse: false,
-      sortType: sortType.ALPHA
-    }
+      {
+          name: I18n.t("teacher.name"),
+          attribute: "name",
+          reverse: false,
+          sortType: sortType.ALPHA
+      },
+      {
+          name: I18n.t("teacher.badgeclasses.created"),
+          attribute: "created",
+          reverse: false,
+          sortType: sortType.ALPHA
+      },
+      {
+          name: I18n.t("teacher.badgeclasses.recipients"),
+          attribute: "recipients",
+          reverse: false,
+          sortType: sortType.ALPHA
+      },
+      {
+          name: I18n.t("teacher.badgeclasses.ects"),
+          attribute: "ects",
+          reverse: false,
+          sortType: sortType.ALPHA
+      }
   ];
 
   $: table = {
@@ -48,6 +67,9 @@
       class="click"
       on:click={() => navigate(`/manage/badgeclass/${badgeclass.entityId}`)}>
       <td>{badgeclass.name}</td>
+      <td>{moment(badgeclass.dateCreated).format('MMM D, YYYY')}</td>
+      <td>{badgeclass.badgeAssertions.length}</td>
+      <td>-</td>
     </tr>
   {/each}
 </Table>

@@ -34,6 +34,10 @@
       badgeclasses {
         name,
         entityId,
+        createdAt,
+        badgeAssertions {
+          entityId
+        },
       },
       permissions {
         mayUpdate,
@@ -44,6 +48,7 @@
 
   onMount(() => {
     queryData(query).then(res => {
+      console.log(res);
       issuer = res.issuer;
       faculty = issuer.faculty;
       badgeclasses = issuer.badgeclasses;
