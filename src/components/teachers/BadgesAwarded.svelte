@@ -13,7 +13,8 @@
   badgeClass(id: "${entityId}") {
     badgeAssertions {
       entityId,
-      dateCreated,
+      createdAt,
+      revoked,
       user {
         entityId,
         firstName,

@@ -42,7 +42,8 @@
         entityId
       },
       badgeAssertions {
-        entityId
+        entityId,
+        revoked
       }
     }
   }`;

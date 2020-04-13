@@ -11,7 +11,8 @@
     badgeClass(id: "${entityId}") {
       badgeAssertions {
         entityId,
-        dateCreated,
+        revoked,
+        createdAt,
         user {
           entityId,
           firstName,
@@ -25,7 +26,7 @@
 
   onMount(() => {
     queryData(query).then(res => {
-      revokedBadges = res.badgeClass.badgeAssertions.filter(el => el.revoked === false);
+      revokedBadges = res.badgeClass.badgeAssertions.filter(el => el.revoked === true);
     });
   });
 
@@ -85,7 +86,7 @@
         <td><input type="checkbox"></td>
         <td class="name">{revokedBadge.user.firstName + " " + revokedBadge.user.lastName}</td>
         <td>{revokedBadge.user.email}</td>
-        <td>{moment(revokedBadge.dateCreated).format('MMM D, YYYY')}</td>
+        <td>{moment(revokedBadge.createdAt).format('MMM D, YYYY')}</td>
       </tr>
     {/each}
     {#if revokedBadges.length === 0}
