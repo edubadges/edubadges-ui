@@ -2,6 +2,7 @@
   import I18n from "i18n-js";
 
   export let bulkAward;
+  export let submit;
 </script>
 
 <style>
@@ -17,5 +18,8 @@
   <slot />
   <button on:click={() => window.history.back()} class="btn ghost">
     {I18n.t(['manage', 'new', 'cancel'])}
+  </button>
+  <button on:click={submit} class="btn">
+    {I18n.t(['manage', bulkAward ? 'bulkAward' : 'award', 'submit'])}
   </button>
 </div>

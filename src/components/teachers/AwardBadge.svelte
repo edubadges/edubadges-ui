@@ -5,15 +5,19 @@
   import I18n from "i18n-js";
 
   export let entityId;
+  export let emailFields;
 
   const entity = "badge";
   let errors = {};
-  let isCreate = !entityId;
 
-  let emailaddress;
+  const addEmailField = () => {
+    emailFields = [...emailFields, {'emailaddress': ''}];
+  };
 
   function onSubmit() {
     errors = {};
+
+    entityId = '';
 
     // const args = isCreate ? [faculty] : [entityId, faculty];
     // const apiCall = isCreate ? createFaculty : editFaculty;
@@ -33,14 +37,20 @@
   }
 </style>
 
-<AwardBadgeForm bulkAward={false}>
+<button on:click={() => console.log(emailFields)}>asdf</button>
 
+<AwardBadgeForm bulkAward={false} submit={onSubmit}>
+
+  {#each emailFields as emailField}
     <Field {entity} attribute="emailaddress" errors={errors.name}>
-        <TextInput bind:value={emailaddress} error={errors.name} />
+        <TextInput bind:value={emailField.emailaddress} error={errors.name} />
     </Field>
+  {/each}
 
   <div>
-    <button class="add-email">+ Add another</button> or <button class="add-email">add many at once</button>
+    <button class="add-email" on:click={() => addEmailField()}>+ Add another</button>
+      or
+    <button class="add-email">add many at once</button>
   </div>
 
 </AwardBadgeForm>

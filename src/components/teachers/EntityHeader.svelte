@@ -93,7 +93,7 @@
       {/if}
       {#if entity === 'badgeclass'}
         <a use:link href="award" class="btn">
-            Direct award <!-- TODO -->
+          {I18n.t(['models', 'badgeclass', 'directAward'])}
         </a>
       {/if}
     </div>
