@@ -4,7 +4,7 @@
   import { Field, File, TextInput } from "../forms";
   import I18n from "i18n-js";
 
-  export let entityId;
+  export let badgeId;
   export let emailFields;
 
   const entity = "badge";
@@ -14,17 +14,14 @@
     emailFields = [...emailFields, {'emailaddress': ''}];
   };
 
+  const award = (badgeId, emailaddresses) => {
+    console.log('direct award', emailaddresses, badgeId)
+  };
+
   function onSubmit() {
     errors = {};
 
-    entityId = '';
-
-    // const args = isCreate ? [faculty] : [entityId, faculty];
-    // const apiCall = isCreate ? createFaculty : editFaculty;
-    //
-    // apiCall(...args)
-    //   .then(res => navigate(`/manage/faculty/${res.entityId}`))
-    //   .catch(err => err.then(({ fields }) => (errors = fields)));
+    award(badgeId, emailFields.map(el => el.emailaddress));
   }
 </script>
 
@@ -34,10 +31,11 @@
     border: none;
     background-color: inherit;
     font-size: 16px;
+    padding: 0;
+    margin-left: 5px;
+    margin-right: 5px;
   }
 </style>
-
-<button on:click={() => console.log(emailFields)}>asdf</button>
 
 <AwardBadgeForm bulkAward={false} submit={onSubmit}>
 
@@ -48,9 +46,9 @@
   {/each}
 
   <div>
-    <button class="add-email" on:click={() => addEmailField()}>+ Add another</button>
+    <button class="add-email" on:click={() => addEmailField()}>{I18n.t(['manage', 'award', 'addAnother'])}</button>
       or
-    <button class="add-email">add many at once</button>
+    <a class="add-email" href="bulkAward">{I18n.t(['manage', 'award', 'addBulk'])}</a>
   </div>
 
 </AwardBadgeForm>

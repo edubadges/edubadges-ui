@@ -126,7 +126,9 @@ I18n.translations.en = {
     award: {
       title: "Award badges directly",
       description: "Fill in the email address of the person you'd like to award the badge to. Your request will be sent, and you will be notified when it's accepted or denied",
-      submit: "Award badge"
+      submit: "Award badge",
+      addAnother: "+ Add another",
+      addBulk: "Add many at once"
     },
     bulkAward: {
       title: "Add many recipients at once",
@@ -200,7 +202,8 @@ I18n.translations.en = {
       directAward: "Direct award"
     },
     badge: {
-      emailaddress: "Email address"
+      emailaddress: "Email address",
+      emailaddresses: "Paste email addresses"
     }
   },
 };

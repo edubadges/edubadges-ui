@@ -1,37 +1,30 @@
 <script>
   import { navigate } from "svelte-routing";
-  import { EntityForm } from "../teachers";
+  import { AwardBadgeForm } from "../teachers";
   import { Field, File, TextInput } from "../forms";
+  import I18n from "i18n-js";
 
-  export let entityId;
-  export let faculty = {};
+  export let badgeId;
+  export let emailAddresses = [];
 
-  const entity = "faculty";
+  const entity = "badge";
   let errors = {};
-  let isCreate = !entityId;
+
+  const bulkAward = (emailaddresses) => {
+    console.log('direct award', emailaddresses, badgeId)
+  };
 
   function onSubmit() {
     errors = {};
 
-    const args = isCreate ? [faculty] : [entityId, faculty];
-    const apiCall = isCreate ? createFaculty : editFaculty;
-
-    apiCall(...args)
-      .then(res => navigate(`/manage/faculty/${res.entityId}`))
-      .catch(err => err.then(({ fields }) => (errors = fields)));
+    bulkAward(emailAddresses);
   }
 </script>
 
+<AwardBadgeForm bulkAward={true} submit={onSubmit}>
 
-
-<EntityForm {entity} submit={onSubmit} create={isCreate}>
-
-    <Field {entity} attribute="name" errors={errors.name}>
-        <TextInput bind:value={faculty.name} error={errors.name} />
+    <Field {entity} attribute="emailaddresses" errors={errors.name}>
+        <TextInput error={errors.name} />
     </Field>
 
-    <Field {entity} attribute="description" errors={errors.description}>
-        <TextInput bind:value={faculty.description} error={errors.description} />
-    </Field>
-
-</EntityForm>
+</AwardBadgeForm>

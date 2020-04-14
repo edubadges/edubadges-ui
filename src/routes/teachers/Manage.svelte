@@ -13,7 +13,8 @@
     Issuer,
     IssuerEdit,
     IssuerNew,
-    AwardBadge
+    AwardBadge,
+    AwardManyBadges
   } from "../../components/teachers";
 
   export let mainEntity;
@@ -37,7 +38,10 @@
   <Route path="/badgeclass/:entityId/edit" component={BadgeclassEdit} />
   <Route path="/badgeclass/:entityId/*subEntity" component={Badgeclass} />
 
-  <Route path="/badgeclass/:entityId/award">
-      <AwardBadge emailFields={[{emailaddress: ''}]}/>
+  <Route path="/badgeclass/:entityId/award" let:params>
+    <AwardBadge emailFields={[{emailaddress: ''}]} badgeId={params.entityId}/>
+  </Route>
+  <Route path="/badgeclass/:entityId/bulkAward" let:params>
+    <AwardManyBadges emailAddresses=[] badgeId={params.entityId}/>
   </Route>
 </Router>
