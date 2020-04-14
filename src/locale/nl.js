@@ -145,6 +145,8 @@ I18n.translations.nl = {
     207: "Gebruikers kunnen alleen eigen enrollments terugtrekken",
     208: "Missende badgeclass id",
     209: "Kan niet enrollen",
+    210: "Geen toegang. Check je assigned role in de Badgeclass die hoort bij deze enrollment",
+    211: "Enrollment is al afgewezen",
     601: "Geen toegang. Check je assigned role in de Issuer",
     701: "Ongespecifieerde share provider",
     702: "Ongeldige share provider",
