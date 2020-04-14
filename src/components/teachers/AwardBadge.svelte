@@ -1,5 +1,5 @@
 <script>
-  import { navigate } from "svelte-routing";
+  import { navigate, link } from "svelte-routing";
   import { AwardBadgeForm } from "../teachers";
   import { Field, File, TextInput } from "../forms";
   import I18n from "i18n-js";
@@ -54,7 +54,8 @@
   <div>
     <button class="add-email" on:click={() => addEmailField()}>{I18n.t(['manage', 'award', 'addAnother'])}</button>
       or
-    <a class="add-email" href="/bulkAward" on:click|preventDefault|stopPropagation={() => navigate("bulkAward")} >{I18n.t(['manage', 'award', 'addBulk'])}</a>
+<!--    <a class="add-email" href="/bulkAward" on:click|preventDefault|stopPropagation={() => navigate("bulkAward")} >{I18n.t(['manage', 'award', 'addBulk'])}</a>-->
+    <a class="add-email" href="bulkAward" use:link>{I18n.t(['manage', 'award', 'addBulk'])}</a>
   </div>
 
 </AwardBadgeForm>
