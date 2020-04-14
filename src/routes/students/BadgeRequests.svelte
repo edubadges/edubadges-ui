@@ -12,8 +12,6 @@
   let requests = [];
   let error = false;
 
-  $: if (provider) getRequestedBadges();
-
   function getRequestedBadges() {
     getUnearnedBadges().then(
       res => (requests = res.filter(({ date_awarded }) => !date_awarded))
