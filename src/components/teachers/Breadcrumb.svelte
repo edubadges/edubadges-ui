@@ -21,7 +21,7 @@
   let institutionName = "";
 
   const editCreatePart = (isEdited, isCreate) => {
-    return isEdited ? I18n.t(["manage.edit.edit"]) : isCreate ? I18n.t(["manage.new.create"]) : undefined;
+    return isEdited ? I18n.t(["manage","edit", entity]) : isCreate ? I18n.t(["manage","new", entity]) : undefined;
   };
 
   onMount(() => {
