@@ -202,8 +202,8 @@ I18n.translations.en = {
       directAward: "Direct award"
     },
     badge: {
-      emailaddress: "Email address",
-      emailaddresses: "Paste email addresses"
+      emailAddress: "Email address",
+      emailAddresses: "Paste email addresses"
     }
   },
 };

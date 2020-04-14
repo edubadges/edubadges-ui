@@ -3,25 +3,30 @@
   import { AwardBadgeForm } from "../teachers";
   import { Field, File, TextInput } from "../forms";
   import I18n from "i18n-js";
+  import { emailAddresses } from "../../stores/badgeAwardEmails";
+  import { onMount } from "svelte";
 
-  export let badgeId;
-  export let emailFields;
+  export let entityId;
 
   const entity = "badge";
   let errors = {};
 
+  onMount(() => {
+    console.log('emailAddresses', $emailAddresses);
+  });
+
   const addEmailField = () => {
-    emailFields = [...emailFields, {'emailaddress': ''}];
+    $emailAddresses = [...$emailAddresses, {'emailAddress': ''}];
   };
 
-  const award = (badgeId, emailaddresses) => {
-    console.log('direct award', emailaddresses, badgeId)
+  const award = (badgeId, emailAddresses) => {
+    console.log('direct award', emailAddresses, badgeId)
   };
 
   function onSubmit() {
     errors = {};
 
-    award(badgeId, emailFields.map(el => el.emailaddress));
+    award(entityId, $emailAddresses.map(el => el.emailAddress));
   }
 </script>
 
@@ -39,9 +44,9 @@
 
 <AwardBadgeForm bulkAward={false} submit={onSubmit}>
 
-  {#each emailFields as emailField}
-    <Field {entity} attribute="emailaddress" errors={errors.name}>
-        <TextInput bind:value={emailField.emailaddress} error={errors.name} />
+  {#each $emailAddresses as emailField}
+    <Field {entity} attribute="emailAddress" errors={errors.name}>
+      <TextInput bind:value={emailField.emailAddress} error={errors.name} />
     </Field>
   {/each}
 

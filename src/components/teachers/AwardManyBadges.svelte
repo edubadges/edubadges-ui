@@ -3,28 +3,40 @@
   import { AwardBadgeForm } from "../teachers";
   import { Field, File, TextInput } from "../forms";
   import I18n from "i18n-js";
+  import { emailAddresses } from "../../stores/badgeAwardEmails";
+  import { onMount } from "svelte";
 
-  export let badgeId;
-  export let emailAddresses = [];
+  let emailData = '';
 
   const entity = "badge";
   let errors = {};
 
-  const bulkAward = (emailaddresses) => {
-    console.log('direct award', emailaddresses, badgeId)
+  onMount(() => {
+    emailData = '';
+    for (const emailAddress of $emailAddresses) {
+      emailData = emailData.concat(emailAddress.emailAddress + '\n');
+    }
+  });
+
+  const bulkAward = () => {
+    $emailAddresses = emailData.split('\n')
+        .filter(word => word.length > 0)
+        .map(el => {return {emailAddress: el}});
+    console.log($emailAddresses);
+    window.history.back();
   };
 
   function onSubmit() {
     errors = {};
 
-    bulkAward(emailAddresses);
+    bulkAward();
   }
 </script>
 
 <AwardBadgeForm bulkAward={true} submit={onSubmit}>
 
-    <Field {entity} attribute="emailaddresses" errors={errors.name}>
-        <TextInput error={errors.name} />
-    </Field>
+  <Field {entity} attribute="emailAddresses" errors={errors.name}>
+    <TextInput bind:value={emailData} error={errors.name} area={true}/>
+  </Field>
 
 </AwardBadgeForm>
