@@ -147,6 +147,7 @@ I18n.translations.en = {
     209: "Cannot enroll",
     210: "You do not have permission. Check your assigned role in the Badgeclass related to this Enrollment",
     211: "Enrollment already denied",
+    211: "Awarded enrollments cannot be denied",
     601: "You do not have permission. Check your assigned role in the Issuer",
     701: "Unspecified share provider",
     702: "Invalid share provider",

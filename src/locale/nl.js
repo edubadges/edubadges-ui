@@ -147,6 +147,7 @@ I18n.translations.nl = {
     209: "Kan niet enrollen",
     210: "Geen toegang. Check je assigned role in de Badgeclass die hoort bij deze enrollment",
     211: "Enrollment is al afgewezen",
+    212: "Awarded enrollments kunnen niet afgewezen worden",
     601: "Geen toegang. Check je assigned role in de Issuer",
     701: "Ongespecifieerde share provider",
     702: "Ongeldige share provider",
