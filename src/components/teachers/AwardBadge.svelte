@@ -17,6 +17,7 @@
 
   const addEmailField = () => {
     $emailAddresses = [...$emailAddresses, {'emailAddress': ''}];
+    console.log($emailAddresses)
   };
 
   const award = (badgeId, emailAddresses) => {
@@ -53,7 +54,7 @@
   <div>
     <button class="add-email" on:click={() => addEmailField()}>{I18n.t(['manage', 'award', 'addAnother'])}</button>
       or
-    <a class="add-email" href="bulkAward">{I18n.t(['manage', 'award', 'addBulk'])}</a>
+    <a class="add-email" href="/bulkAward" on:click|preventDefault|stopPropagation={() => navigate("bulkAward")} >{I18n.t(['manage', 'award', 'addBulk'])}</a>
   </div>
 
 </AwardBadgeForm>
