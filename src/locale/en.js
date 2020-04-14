@@ -148,6 +148,8 @@ I18n.translations.en = {
     601: "You do not have permission. Check your assigned role in the Issuer",
     701: "Unspecified share provider",
     702: "Invalid share provider",
+    801: "Cannot change grading table, assertions have already been issued",
+    802: "Cannot change brin, assertions have already been issued"
   },
   models: {
     institution: {

@@ -12,6 +12,7 @@
 	  institution {
 		entityId,
 		name,
+		description,
 		image,
 		brin,
 		gradingTable
@@ -33,7 +34,9 @@
     errors = {};
 
     editInstitution(institution.entityId, institution)
-      .then(res => navigate(`/manage/institution`))
+      .then(res => {
+        navigate(`/manage/institution`);
+      })
       .catch(err => err.then(({ fields }) => (errors = fields)));
   }
 </script>
@@ -45,6 +48,10 @@
 
   <Field {entity} attribute="name" errors={errors.name}>
     <TextInput bind:value={institution.name} error={errors.name} />
+  </Field>
+
+  <Field {entity} attribute="description" errors={errors.description}>
+    <TextInput bind:value={institution.description} error={errors.description} />
   </Field>
 
   <Field {entity} attribute="brin" errors={errors.brin}>

@@ -148,6 +148,8 @@ I18n.translations.nl = {
     601: "Geen toegang. Check je assigned role in de Issuer",
     701: "Ongespecifieerde share provider",
     702: "Ongeldige share provider",
+    801: "Cannot change grading table, assertions have already been issued",
+    802: "Cannot change brin, assertions have already been issued"
   },
   models: {
     institution: {
