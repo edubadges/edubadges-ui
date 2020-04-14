@@ -51,7 +51,7 @@
   </Field>
 
   <Field {entity} attribute="description" errors={errors.description}>
-    <TextInput bind:value={institution.description} error={errors.description} />
+    <TextInput bind:value={institution.description} error={errors.description} area/>
   </Field>
 
   <Field {entity} attribute="brin" errors={errors.brin}>

@@ -5,7 +5,7 @@
   import { createBadgeclass, editBadgeclass } from "../../api";
 
   export let entityId;
-  export let badgeclass = {};
+  export let badgeclass = {issuer:{}};
   export let issuers = [];
 
   const entity = "badgeclass";
@@ -34,7 +34,8 @@
   }
 </script>
 
-<EntityForm {entity} submit={onSubmit} create={isCreate}>
+<EntityForm {entity} issuer={isCreate ? null : badgeclass.issuer} faculty={isCreate ? null : badgeclass.issuer.faculty}
+            submit={onSubmit} create={isCreate}>
   <Field {entity} attribute="issuer" errors={errors.issuer}>
     <Select
       bind:value={badgeclass.issuer}
