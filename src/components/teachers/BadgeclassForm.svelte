@@ -21,7 +21,9 @@
       criteria_url: badgeclass.criteriaUrl
     };
 
-    if (badgeclass.issuer) newBadgeclass.issuer = badgeclass.issuer.entityId;
+    if (badgeclass.issuer) {
+      newBadgeclass.issuer = badgeclass.issuer.entityId;
+    }
 
     const args = isCreate ? [newBadgeclass] : [entityId, newBadgeclass];
     const apiCall = isCreate ? createBadgeclass : editBadgeclass;

@@ -1,5 +1,6 @@
 <script>
   import I18n from "i18n-js";
+  import Breadcrumb from "./Breadcrumb.svelte";
 
   export let create;
   export let entity;
@@ -12,6 +13,8 @@
     padding: var(--ver-padding-l) var(--hor-padding-m);
   }
 </style>
+
+<Breadcrumb edit={!create} create={create} entity={entity}/>
 
 <div class="entity-form">
   <h3>{I18n.t(['manage', create ? 'new' : 'edit', entity])}</h3>

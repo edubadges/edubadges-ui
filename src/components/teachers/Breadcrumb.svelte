@@ -1,5 +1,6 @@
 <script>
   import { onMount } from "svelte";
+  import I18n from "i18n-js";
   import { link } from "svelte-routing";
   import { queryData } from "../../api/graphql";
   import { currentPath } from "../../stores/currentPath";
@@ -7,6 +8,9 @@
   export let faculty;
   export let issuer;
   export let badgeclassName = "";
+  export let entity;
+  export let edit = false;
+  export let create = false;
 
   const query = `{
     currentInstitution {
@@ -15,6 +19,10 @@
   }`;
 
   let institutionName = "";
+
+  const editCreatePart = (isEdited, isCreate) => {
+    return isEdited ? I18n.t(["manage.edit.edit"]) : isCreate ? I18n.t(["manage.new.create"]) : undefined;
+  };
 
   onMount(() => {
     queryData(query).then(({ currentInstitution: { name } }) => {
@@ -27,6 +35,7 @@
   div {
     padding: var(--ver-padding-m) var(--hor-padding-m);
     min-height: 47px;
+    border-bottom: 3px solid var(--color-background-grey-light);
   }
 
   a {
@@ -63,4 +72,10 @@
     <span>></span>
     <a use:link href={$currentPath}>{badgeclassName}</a>
   {/if}
+
+  {#if edit || create}
+    <span>></span>
+    <a on:click|preventDefault|stopPropagation href="/#">{editCreatePart(edit, create)}</a>
+  {/if}
+
 </div>
