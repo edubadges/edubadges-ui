@@ -20,7 +20,7 @@
   };
 
   const award = (badgeId, emailAddresses) => {
-    console.log('direct award', emailAddresses, badgeId)
+    console.log('direct award', emailAddresses, badgeId);
   };
 
   function onSubmit() {

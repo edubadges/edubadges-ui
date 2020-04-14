@@ -4,26 +4,19 @@
   import { Field, File, TextInput } from "../forms";
   import I18n from "i18n-js";
   import { emailAddresses } from "../../stores/badgeAwardEmails";
-  import { onMount } from "svelte";
 
   let emailData = '';
 
   const entity = "badge";
   let errors = {};
 
-  onMount(() => {
-    emailData = '';
-    for (const emailAddress of $emailAddresses) {
-      emailData = emailData.concat(emailAddress.emailAddress + '\n');
-    }
-  });
-
   const bulkAward = () => {
-    $emailAddresses = emailData.split('\n')
+    const newAddresses = emailData.split('\n')
         .filter(word => word.length > 0)
         .map(el => {return {emailAddress: el}});
+    $emailAddresses = [...$emailAddresses, ...newAddresses];
     console.log($emailAddresses);
-    window.history.back();
+    // window.history.back();
   };
 
   function onSubmit() {
