@@ -12,7 +12,8 @@
     InstitutionEdit,
     Issuer,
     IssuerEdit,
-    IssuerNew
+    IssuerNew,
+    AwardBadge
   } from "../../components/teachers";
 
   export let mainEntity;
@@ -35,4 +36,6 @@
   <Route path="/badgeclass/new" component={BadgeclassNew} />
   <Route path="/badgeclass/:entityId/edit" component={BadgeclassEdit} />
   <Route path="/badgeclass/:entityId/*subEntity" component={Badgeclass} />
+
+  <Route path="/badgeclass/:entityId/award" component={AwardBadge}/>
 </Router>

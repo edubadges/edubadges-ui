@@ -123,6 +123,14 @@ I18n.translations.en = {
       save: "Save",
       cancel: "Cancel",
     },
+    award: {
+      title: "Award badges directly",
+      description: "Fill in the email address of the person you'd like to award the badge to. Your request will be sent, and you will be notified when it's accepted or denied"
+    },
+    bulkAward: {
+      title: "Add many recipients at once",
+      description: "Copy and paste email addresses in the form below"
+    }
   },
   footer: {
     tip: "Need tips or info?",
@@ -188,5 +196,8 @@ I18n.translations.en = {
       criteria_text: "What is required to earn this badge?",
       criteria_url: "Criteria URL",
     },
+    badge: {
+      emailaddress: "Email address"
+    }
   },
 };

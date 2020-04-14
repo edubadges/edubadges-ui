@@ -27,3 +27,6 @@ export { default as Issuers } from "./Issuers.svelte";
 export { default as Search } from "./Search.svelte";
 export { default as SideBar } from "./SideBar.svelte";
 export { default as Table } from "./Table.svelte";
+export { default as AwardBadge } from "./AwardBadge.svelte"
+export { default as AwardBadgeForm } from "./AwardBadgeForm.svelte"
+export { default as AwardManyBadges } from "./AwardManyBadges.svelte"
