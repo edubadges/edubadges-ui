@@ -15,7 +15,7 @@
   $: if (provider) getRequestedBadges();
 
   function getRequestedBadges() {
-    getUnearnedBadges(provider).then(
+    getUnearnedBadges().then(
       res => (requests = res.filter(({ date_awarded }) => !date_awarded))
     );
   }
