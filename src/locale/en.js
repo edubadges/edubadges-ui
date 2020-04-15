@@ -83,7 +83,7 @@ I18n.translations.en = {
       title: "Badgeclasses",
       created: "Date created",
       recipients: "Recipients",
-      ects: "ECTS"
+      ects: "ECTS",
     },
     issuers: {
       title: "Issuers",
@@ -93,11 +93,11 @@ I18n.translations.en = {
     },
     badgeRequests: {
       award: "Award badge",
-      newUser: "Add new user"
+      newUser: "Add new user",
     },
     badgeRevoked: {
-      revoke: "Revoke badge"
-    }
+      revoke: "Revoke badge",
+    },
   },
   manage: {
     tabs: {
@@ -148,13 +148,13 @@ I18n.translations.en = {
     208: "Missing badgeclass id",
     209: "Cannot enroll",
     210: "You do not have permission. Check your assigned role in the Badgeclass related to this Enrollment",
-    211: "Enrollment already denied",
-    211: "Awarded enrollments cannot be denied",
+    211: "Enrollment is already denied",
+    212: "Awarded enrollments can't be denied",
     601: "You do not have permission. Check your assigned role in the Issuer",
     701: "Unspecified share provider",
     702: "Invalid share provider",
     801: "Cannot change grading table, assertions have already been issued",
-    802: "Cannot change brin, assertions have already been issued"
+    802: "Cannot change brin, assertions have already been issued",
   },
   models: {
     institution: {
