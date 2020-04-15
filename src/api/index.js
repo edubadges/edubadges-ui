@@ -95,7 +95,7 @@ export function requestBadge(id) {
 }
 
 export function withdrawRequestBadge(enrollmentID) {
-  const path = `${serverUrl}/lti_edu/withdraw`;
+  const path = `${serverUrl}/lti_edu/student/enrollments`;
   return validFetch(
     path,
     { body: JSON.stringify({ enrollmentID: enrollmentID }) },
@@ -103,8 +103,8 @@ export function withdrawRequestBadge(enrollmentID) {
   );
 }
 
-export function getUnearnedBadges(eduId) {
-  const path = `${serverUrl}/lti_edu/student/${eduId}/enrollments`;
+export function getUnearnedBadges() {
+  const path = `${serverUrl}/lti_edu/student/enrollments`;
   return validFetch(path);
 }
 
