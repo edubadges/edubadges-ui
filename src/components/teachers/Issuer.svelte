@@ -38,6 +38,9 @@
         badgeAssertions {
           entityId
         },
+        enrollments {
+          entityId
+        }
       },
       permissions {
         mayUpdate,
@@ -51,6 +54,7 @@
       issuer = res.issuer;
       faculty = issuer.faculty;
       badgeclasses = issuer.badgeclasses;
+      console.log(badgeclasses);
     });
   });
 

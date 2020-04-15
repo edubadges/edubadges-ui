@@ -15,6 +15,7 @@
       enrollments {
         entityId,
         dateCreated,
+        dateAwarded,
         user {
           entityId,
           firstName,
@@ -28,7 +29,7 @@
   onMount(() => {
     queryData(query).then(res => {
       console.log(res);
-      requests = res.badgeClass.enrollments;
+      requests = res.badgeClass.enrollments.filter(el => !el.dateAwarded);
     });
   });
 
@@ -36,13 +37,18 @@
     const enrollmentIds = requests.filter(el => el.checked).map(el => {
         return el.entityId
     });
-    awardBadges(entityId, enrollmentIds);
+    awardBadges(entityId, enrollmentIds).then(res => {
+      res.json().then(result => console.log(result));
+    }, err => {
+        console.log(err);
+    });
   };
 
   const addNewUser = () => {
   };
 
-  const nothing = () => {};
+  const nothing = () => {
+  };
 </script>
 
 <style>
