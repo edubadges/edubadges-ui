@@ -1,11 +1,14 @@
 <script>
-  import { Router, Route } from "svelte-routing";
-  import { Student, ProcessToken, NotFound, Login , Validate} from "./routes";
-  import { Badges, Manage } from "./routes/teachers";
-  import { Header, Footer, SubscribeToPath } from "./components";
-  import { Header as TeacherHeader } from "./components/teachers";
-  import { userRole, userLoggedIn } from "./stores/user";
-  import { role } from "./util/role";
+  import {Router, Route, navigate} from "svelte-routing";
+  import {Student, ProcessToken, NotFound, Login, Validate} from "./routes";
+  import {Badges, Manage} from "./routes/teachers";
+  import {Header, Footer, SubscribeToPath} from "./components";
+  import {Header as TeacherHeader} from "./components/teachers";
+  import Spinner from "./components/Spinner.svelte";
+  import {userRole, userLoggedIn, redirectPath} from "./stores/user";
+  import {role} from "./util/role";
+  import {onMount} from "svelte";
+  import {getSocialAccount} from "./api";
 
   const homepage = {
     guest: Login,
@@ -13,7 +16,21 @@
     [role.TEACHER]: Badges
   };
 
+  let loaded = false;
+
+  onMount(() => {
+    getSocialAccount().then(res => {
+      loaded = true;
+    }).catch(e => {
+      //no token
+      $redirectPath = window.location.pathname;
+      navigate("/login");
+      loaded = true;
+    });
+  });
+
   $: visitorRole = $userLoggedIn ? $userRole : "guest";
+
 </script>
 
 <style>
@@ -38,43 +55,49 @@
 </style>
 
 <div class="app">
-  {#if visitorRole === role.STUDENT}
-    <Header logout />
-  {:else if visitorRole === role.TEACHER}
-    <TeacherHeader />
+  {#if !loaded}
+    <Spinner/>
   {:else}
-    <Header />
+    {#if visitorRole === role.STUDENT}
+      <Header logout/>
+    {:else if visitorRole === role.TEACHER}
+      <TeacherHeader/>
+    {:else}
+      <Header/>
+    {/if}
+
+    <Router>
+      <!-- Student -->
+      <Route path="/backpack">
+        <Student bookmark="backpack"/>
+      </Route>
+
+      <Route path="/badge-requests">
+        <Student bookmark="badge-requests"/>
+      </Route>
+      <Route path="/collections">
+        <Student bookmark="collections"/>
+      </Route>
+      <Route path="/profile">
+        <Student bookmark="profile"/>
+      </Route>
+      <Route path="/validate" component={Validate}/>
+
+      <!-- Teacher -->
+      <Route path="/manage/*mainEntity" component={Manage}/>
+
+      <!-- Shared -->
+      <Route path="/" component={homepage[visitorRole]}/>
+      <!-- Shared -->
+      <Route path="/login" component={Login}/>
+
+      <Route path="/auth/login/*" component={ProcessToken}/>
+      <Route component={NotFound}/>
+
+      <!-- Expose current path through store -->
+      <SubscribeToPath/>
+    </Router>
+
+    <Footer/>
   {/if}
-
-  <Router>
-    <!-- Student -->
-    <Route path="/backpack">
-      <Student bookmark="backpack" />
-    </Route>
-
-    <Route path="/badge-requests">
-      <Student bookmark="badge-requests" />
-    </Route>
-    <Route path="/collections">
-      <Student bookmark="collections" />
-    </Route>
-    <Route path="/profile">
-      <Student bookmark="profile" />
-    </Route>
-    <Route path="/validate" component={Validate}/>
-
-    <!-- Teacher -->
-    <Route path="/manage/*mainEntity" component={Manage} />
-
-    <!-- Shared -->
-    <Route path="/" component={homepage[visitorRole]} />
-
-    <Route path="/auth/login/*" component={ProcessToken} />
-    <Route component={NotFound} />
-
-    <!-- Expose current path through store -->
-    <SubscribeToPath />
-  </Router>
-
-  <Footer />
 </div>

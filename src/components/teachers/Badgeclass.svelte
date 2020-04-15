@@ -99,7 +99,9 @@
     title={badgeclass.name}
     logo={badgeclass.image}
     {tabs}
-    mayUpdate={badgeclass.permissions && badgeclass.permissions.mayUpdate} />
+    mayUpdate={badgeclass.permissions && badgeclass.permissions.mayUpdate} >
+
+  </EntityHeader>
 
   <div class="content">
     <Router>

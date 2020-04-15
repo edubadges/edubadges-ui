@@ -38,6 +38,7 @@
           I18n.t(["error", res.fields.error_code]);
         });
       });
+
   const removeEmail = emailId =>
     deleteEmail(emailId)
       .then(setEmails)
