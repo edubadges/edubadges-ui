@@ -1,6 +1,6 @@
 <script>
   import I18n from "i18n-js";
-  import close from "../../icons/close_smll.svg";
+  import { chevronUp, chevronDown, closeIcon } from "../../icons";
 
   export let collection;
   export let value;
@@ -14,78 +14,87 @@
   $: items = expanded ? collection : collection.slice(0, maxLength);
 </script>
 
-<style>
-  p {
-    font-weight: bold;
-  }
-
-  .expand {
-    color: var(--color-text-blue);
-    text-decoration: underline;
-  }
-
+<style lang="scss">
   input[type="checkbox"] {
     display: none;
   }
 
   label {
+    font-size: 14px;
     display: block;
     margin: 12px 0;
     position: relative;
+
+    &.inactive {
+      display: none;
+    }
+
+    &.active {
+      display: flex;
+      color: black;
+      background: white;
+      padding: 8px;
+      border: var(--card-border);
+      border-radius: var(--card-border-radius);
+
+      div {
+        flex: 1;
+        margin-right: 5px;
+      }
+
+      :global(svg) {
+        --close-filter-size: 18px;
+        width: var(--close-filter-size);
+        height: var(--close-filter-size);
+        margin: auto;
+        border: 2px solid var(--color-primary-purple);
+        border-radius: 50%;
+        fill: var(--color-primary-purple);
+      }
+    }
+
+    &:not(.active) {
+      font-weight: bold;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 
-  label:not(.active) span {
-    text-decoration: underline;
-  }
-
-  label.active {
-    background: white;
-    padding: 8px;
-    border: var(--card-border);
-
+  .expand {
     display: flex;
-  }
+    align-items: center;
+    color: var(--color-text-grey);
 
-  label.active div {
-    flex: 1;
-    margin-right: 5px;
-  }
-
-  :global(label.active svg) {
-    --close-filter-size: 18px;
-    width: var(--close-filter-size);
-    height: var(--close-filter-size);
-    margin: auto;
-    border: 1px solid black;
-    border-radius: 50%;
-  }
-
-  label.inactive {
-    display: none;
+    :global(svg) {
+      width: 20px;
+      margin-left: 6px;
+      fill: var(--color-text-grey);
+    }
   }
 </style>
 
-<p>{I18n.t(`teacher.sidebar.filters.${title}`)}</p>
+<h5 class="purple">{I18n.t(`teacher.sidebar.filters.${title}`)}</h5>
 
 {#each items as item (item.entityId)}
   <label
-    class="click"
+    class="link"
     class:active={value.includes(item.entityId)}
     class:inactive={value.length && !value.includes(item.entityId)}>
     <input type="checkbox" bind:group={value} value={item.entityId} />
-    <div>
-      <span>{item.name}</span>
-      ({item.count})
-    </div>
+    <div>{item.name} ({item.count})</div>
+
     {#if value.includes(item.entityId)}
-      {@html close}
+      {@html closeIcon}
     {/if}
   </label>
 {/each}
 
 {#if showExpand}
-  <label class="click expand">
+  <label class="expand click">
     <input type="checkbox" bind:checked={expanded} />
     {expanded ? I18n.t(`teacher.sidebar.filters.show_less`) : I18n.t(`teacher.sidebar.filters.show_all`)}
+    {@html expanded ? chevronUp : chevronDown}
   </label>
 {/if}

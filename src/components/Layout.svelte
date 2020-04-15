@@ -37,7 +37,7 @@
 
     /* Cards */
     --card-border: 1px solid #979797;
-    --card-border-radius: 2px;
+    --card-border-radius: 8px;
     --card-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 
     /* Keyboard accessible */
@@ -84,9 +84,14 @@
   a,
   .link {
     color: var(--text-green);
+    cursor: pointer;
 
     &:hover {
       color: var(--text-green-hover);
     }
+  }
+
+  .purple {
+    color: var(--color-primary-purple);
   }
 </style>
