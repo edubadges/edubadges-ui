@@ -104,6 +104,7 @@ I18n.translations.en = {
       issuers: "Issuers",
       faculties: "Groups",
       badgeclasses: "Badgeclasses",
+      badgeClassOverview: "Overview",
       badgesRequested: "Requests",
       badgesAwarded: "Recipients",
       badgesRevoked: "Revoked",

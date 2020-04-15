@@ -11,6 +11,7 @@
   import {badgeclassIcon, institutionIcon} from "../../icons";
   import {queryData} from "../../api/graphql";
   import BadgeclassHeader from "./BadgeclassHeader.svelte";
+  import BadgeclassDetail from "./BadgeclassDetail.svelte";
 
   export let entityId;
   export let subEntity;
@@ -29,6 +30,8 @@
       image,
       description,
       createdAt,
+      criteriaUrl,
+      criteriaText,
       issuer {
         name,
         entityId,
@@ -71,6 +74,10 @@
   });
 
   $: tabs = [
+    {
+      entity: "badgeClassOverview",
+      href: `/manage/badgeclass/${entityId}/overview`
+    },
     {
       entity: "badgesRequested",
       count: requestCount,
@@ -116,6 +123,10 @@
 
   <div class="content">
     <Router>
+      <Route path="/overview">
+        <BadgeclassDetail badgeclass={badgeclass} />
+      </Route>
+
       <Route path="/requested">
         <BadgesRequested entityId={entityId} />
       </Route>
