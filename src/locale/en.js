@@ -109,6 +109,7 @@ I18n.translations.en = {
       badgesRevoked: "Revoked",
     },
     edit: {
+      edit: "edit",
       institution: "Edit institution",
       faculty: "Edit faculty",
       issuer: "Edit issuer",
@@ -117,6 +118,7 @@ I18n.translations.en = {
       cancel: "Cancel",
     },
     new: {
+      create: "new",
       faculty: "Add new faculty",
       issuer: "Add new issuer",
       badgeclass: "Add new badgeclass",

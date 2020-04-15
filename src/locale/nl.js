@@ -109,6 +109,7 @@ I18n.translations.nl = {
       badgesRevoked: "Ingetrokken",
     },
     edit: {
+      edit: "edit",
       institution: "Wijzig instituut",
       faculty: "Wijzig groep",
       issuer: "Wijzig issuer",
@@ -117,6 +118,7 @@ I18n.translations.nl = {
       cancel: "Annuleren",
     },
     new: {
+      create: "new",
       faculty: "Nieuwe groep maken",
       issuer: "Nieuwe issuer maken",
       badgeclass: "Nieuwe badgeclass maken",

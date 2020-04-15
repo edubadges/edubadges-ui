@@ -13,9 +13,13 @@
 	  criteriaText,
 	  criteriaUrl,
 	  issuer {
-		name,
-		entityId
-	  }
+		  name,
+		  entityId,
+        faculty {
+          name,
+          entityId,
+        }
+      }
 	},
 	issuers {
       name,
@@ -23,7 +27,7 @@
     },
   }`;
 
-  let badgeclass = {};
+  let badgeclass = {issuer: {faculty:{}}};
   let issuers = [];
 
   onMount(() => {

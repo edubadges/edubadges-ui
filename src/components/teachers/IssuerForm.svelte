@@ -5,7 +5,7 @@
   import { createIssuer, editIssuer } from "../../api";
 
   export let entityId;
-  export let issuer = {};
+  export let issuer = { faculty: {}};
   export let faculties = [];
 
   const entity = "issuer";
@@ -27,7 +27,7 @@
   }
 </script>
 
-<EntityForm {entity} submit={onSubmit} create={isCreate}>
+<EntityForm {entity} faculty={isCreate ? null : issuer.faculty} issuer={isCreate ? null : issuer} submit={onSubmit} create={isCreate}>
   <Field {entity} attribute="faculty" errors={errors.faculty}>
     <Select
       bind:value={issuer.faculty}
@@ -44,7 +44,7 @@
   </Field>
 
   <Field {entity} attribute="description" errors={errors.description}>
-    <TextInput bind:value={issuer.description} error={errors.description} />
+    <TextInput bind:value={issuer.description} error={errors.description} area/>
   </Field>
 
   <Field {entity} attribute="url" errors={errors.url}>
