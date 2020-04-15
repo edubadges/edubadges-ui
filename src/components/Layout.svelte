@@ -13,6 +13,7 @@
     --hor-padding-m: 20px;
 
     /*Colors*/
+    --color-primary-purple: #772583;
     --color-primary-blue: #0061b0;
     --color-primary-green: #008738;
     --color-primary-black: #202020;
