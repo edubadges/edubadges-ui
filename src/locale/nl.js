@@ -191,6 +191,8 @@ I18n.translations.nl = {
       issuer: "Issuer",
       image: "Badge foto",
       name: "Naam",
+      created: "Created",
+      admin: "Admin",
       description: "Beschrijving",
       criteria_text: "Wat is benodigd om deze badge te verdienen?",
       criteria_url: "Criteria URL",

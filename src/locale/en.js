@@ -191,6 +191,8 @@ I18n.translations.en = {
       issuer: "Issuer",
       image: "Badge image",
       name: "Name",
+      created: "Created",
+      admin: "Admin",
       description: "Description",
       criteria_text: "What is required to earn this badge?",
       criteria_url: "Criteria URL",
