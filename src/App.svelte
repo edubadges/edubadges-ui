@@ -19,14 +19,19 @@
   let loaded = false;
 
   onMount(() => {
-    getSocialAccount().then(res => {
+    //if we are heading to /auth/login/ then we proceed
+    const path = window.location.pathname;
+    if (path !== "/auth/login/" && path !== "/validate") {
+      getSocialAccount().then(() => {
+        loaded = true;
+      }).catch(() => {
+        $redirectPath = window.location.pathname;
+        navigate("/login");
+        loaded = true;
+      });
+    } else {
       loaded = true;
-    }).catch(e => {
-      //no token
-      $redirectPath = window.location.pathname;
-      navigate("/login");
-      loaded = true;
-    });
+    }
   });
 
   $: visitorRole = $userLoggedIn ? $userRole : "guest";
