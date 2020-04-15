@@ -18,6 +18,7 @@
     --color-primary-black: #202020;
     --color-primary-red: #d00000;
     --color-primary-yellow: #fef594;
+    --color-primary-purple: #772482;
 
     --color-background-grey-dark: #d8d8d8;
     --color-background-grey-medium: #e9e9e9;
