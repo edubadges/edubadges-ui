@@ -67,9 +67,7 @@
   {#if !loaded}
     <Spinner />
   {:else}
-    {#if visitorRole === role.STUDENT}
-      <Header logout />
-    {:else if visitorRole === role.TEACHER}
+    {#if visitorRole === role.TEACHER}
       <TeacherHeader />
     {:else}
       <Header />
