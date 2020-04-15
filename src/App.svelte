@@ -53,7 +53,7 @@
     flex: 1;
     border-radius: 8px;
     background-color: white;
-    box-shadow: -1px 1px 2px rgba(0, 0, 0, 0.4), 1px 1px 2px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 3px 0 2px #abb4bd;
   }
 
   @media (min-width: 600px) {
