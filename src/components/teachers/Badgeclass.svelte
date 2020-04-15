@@ -39,7 +39,8 @@
         mayUpdate
       },
       enrollments {
-        entityId
+        entityId,
+        dateAwarded
       },
       badgeAssertions {
         entityId,
@@ -53,7 +54,7 @@
       badgeclass = res.badgeClass;
       issuer = res.badgeClass.issuer;
       faculty = issuer.faculty;
-      requestCount = res.badgeClass.enrollments.length;
+      requestCount = res.badgeClass.enrollments.filter(el => !el.dateAwarded).length;
       recipientCount = res.badgeClass.badgeAssertions.filter(el => el.revoked === false).length;
       revokedCount = res.badgeClass.badgeAssertions.filter(el => el.revoked === true).length;
     });

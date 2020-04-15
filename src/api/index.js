@@ -104,7 +104,7 @@ export function withdrawRequestBadge(enrollmentID) {
 }
 
 export function getUnearnedBadges(eduId) {
-  const path = `${serverUrl}/lti_edu/student/${eduId}/enrollments`;
+  const path = `${serverUrl}/lti_edu/student/enrollments`;
   return validFetch(path);
 }
 
