@@ -1,7 +1,7 @@
 <script>
-  import I18n from "i18n-js";
-  import { searchIcon } from "../../icons";
-  import { search } from "../../stores/filter";
+  import { searchIcon } from "../icons";
+
+  export let value;
 </script>
 
 <style lang="scss">
@@ -31,9 +31,7 @@
   }
 </style>
 
-<h5 class="purple">{I18n.t('teacher.sidebar.search')}</h5>
-
 <div>
-  <input bind:value={$search} />
+  <input bind:value />
   {@html searchIcon}
 </div>

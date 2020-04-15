@@ -1,6 +1,8 @@
 <script>
-  import { FilterBlock, Search } from "../../components/teachers";
-  import { tree, facultyIds, issuerIds } from "../../stores/filter";
+  import I18n from "i18n-js";
+  import { FilterBlock } from "../../components/teachers";
+  import { Search } from "../../components";
+  import { search, tree, facultyIds, issuerIds } from "../../stores/filter";
 </script>
 
 <style>
@@ -22,7 +24,8 @@
 
 <div class="sidebar">
   <div>
-    <Search />
+    <h5 class="purple">{I18n.t('teacher.sidebar.search')}</h5>
+    <Search bind:value={$search} />
   </div>
 
   <div>
