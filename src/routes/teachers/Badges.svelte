@@ -36,7 +36,7 @@
   });
 </script>
 
-<style>
+<style lang="scss">
   .page-container {
     display: flex;
     flex: 1;
@@ -57,19 +57,25 @@
   }
 
   div.badge {
+    width: 260px;
+    border: var(--card-border);
+    border-radius: var(--card-border-radius);
+    box-shadow: var(--card-shadow);
     margin-bottom: 20px;
     margin-right: var(--badge-margin-right);
-  }
 
-  div.image {
-    width: 200px;
-    height: 200px;
+    div.image {
+      padding: 30px;
+    }
 
-    padding: 12px;
-    margin-bottom: 6px;
+    div.info {
+      background: var(--color-background-grey-light);
+      padding: var(--ver-padding-l) var(--hor-padding-s);
 
-    border: var(--card-border);
-    border-radius: 7px;
+      h5 {
+        color: var(--black);
+      }
+    }
   }
 </style>
 
@@ -91,7 +97,9 @@
           <div class="image">
             <img src={badge.image} alt={`image for ${badge.name}`} />
           </div>
-          <b>{badge.name}</b>
+          <div class="info">
+            <h5>{badge.name}</h5>
+          </div>
         </div>
       {/each}
     </div>
