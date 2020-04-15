@@ -42,7 +42,7 @@
     margin-right: var(--hor-padding-s);
   }
 
-  h4 {
+  h3 {
     flex: 1;
   }
 
@@ -76,7 +76,7 @@
 
 <div class="container">
   <div class="header">
-    <h4>{title}</h4>
+    <h3>{title}</h3>
     <Search bind:value={search} />
 
     {#if mayCreate}
