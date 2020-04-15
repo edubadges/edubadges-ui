@@ -114,10 +114,10 @@ export function awardBadges(badgeId, enrollmentIds) {
   return validFetch(
     path,
     { body: JSON.stringify({
-      "issue_signed": false,
-      "create_notification": true,
-      "enrollments": enrollmentIds.map(el => {return {"enrollment_entity_id": el}})
-    })},
+        "issue_signed": false,
+        "create_notification": true,
+        "enrollments": enrollmentIds.map(el => {return {"enrollment_entity_id": el}})
+      })},
     "POST"
   )
 }
