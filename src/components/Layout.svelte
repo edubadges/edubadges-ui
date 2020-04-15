@@ -1,5 +1,5 @@
-<style>
-  :global(:root) {
+<style global lang="scss">
+  :root {
     /* Sizes */
     --width-app: 1244px;
     --width-side-bar: 220px;
@@ -81,11 +81,12 @@
       var(--field-border-color-disabled);
   }
 
-  :global(a, .link) {
+  a,
+  .link {
     color: var(--text-green);
-  }
 
-  :global(a:hover, .link:hover) {
-    color: var(--text-green-hover);
+    &:hover {
+      color: var(--text-green-hover);
+    }
   }
 </style>
