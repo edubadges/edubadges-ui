@@ -57,7 +57,7 @@
   <span>{label}</span>
   <input
     type="checkbox"
-    checked={value}
+    bind:checked={value}
     on:change={e => onChange(e.target.checked)}
     disabled={readOnly} />
   <span class="checkmark">
