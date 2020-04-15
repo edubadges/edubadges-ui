@@ -113,12 +113,12 @@ export function awardBadges(badgeId, enrollmentIds) {
   const path = `${serverUrl}/issuer/badgeclasses/award-enrollments/${badgeId}`;
   return validFetch(
     path,
-    {
+    { body: JSON.stringify({
       "issue_signed": false,
       "create_notification": true,
       "enrollments": enrollmentIds.map(el => {return {"enrollment_entity_id": el}}),
       "expires_at": "11/03/2021"
-    },
+    })},
     "POST"
   )
 }
