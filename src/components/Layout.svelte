@@ -13,6 +13,9 @@
     --hor-padding-m: 20px;
 
     /*Colors*/
+    --text-green: #009f4d;
+    --text-green-hover: #006f22;
+
     --color-primary-purple: #772583;
     --color-primary-blue: #0061b0;
     --color-primary-green: #008738;
@@ -75,5 +78,13 @@
     --field-border-color-disabled: var(--color-text-light-grey);
     --field-border-disabled: var(--field-border-width) var(--field-border-style)
       var(--field-border-color-disabled);
+  }
+
+  :global(a, .link) {
+    color: var(--text-green);
+  }
+
+  :global(a:hover, .link:hover) {
+    color: var(--text-green-hover);
   }
 </style>
