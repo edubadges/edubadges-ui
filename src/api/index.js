@@ -74,7 +74,7 @@ export function deleteEmail(emailId) {
   return validFetch(path, {}, "DELETE");
 }
 
-// Badges
+// Student badges
 export function getBadges() {
   const path = `${serverUrl}/v1/earner/badges`;
   return validFetch(path);
@@ -106,6 +106,21 @@ export function withdrawRequestBadge(enrollmentID) {
 export function getUnearnedBadges(eduId) {
   const path = `${serverUrl}/lti_edu/student/${eduId}/enrollments`;
   return validFetch(path);
+}
+
+// Teacher badges
+export function awardBadges(badgeId, enrollmentIds) {
+  const path = `${serverUrl}/issuer/badgeclasses/award-enrollments/${badgeId}`;
+  return validFetch(
+    path,
+    {
+      "issue_signed": false,
+      "create_notification": true,
+      "enrollments": enrollmentIds.map(el => {return {"enrollment_entity_id": el}}),
+      "expires_at": "11/03/2021"
+    },
+    "POST"
+  )
 }
 
 // Institution
@@ -146,3 +161,4 @@ export function createBadgeclass(badgeclass) {
   const path = `${serverUrl}/issuer/badgeclasses/create`;
   return validFetch(path, { body: JSON.stringify(badgeclass) }, "POST");
 }
+
