@@ -60,6 +60,9 @@
   }
 
   div.badge {
+    display: flex;
+    flex-direction: column;
+
     width: 260px;
     border: var(--card-border);
     border-radius: var(--card-border-radius);
@@ -72,6 +75,7 @@
     }
 
     div.info {
+      flex: 1;
       background: var(--color-background-grey-light);
       padding: var(--ver-padding-l) var(--hor-padding-s);
 
