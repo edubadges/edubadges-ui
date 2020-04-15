@@ -8,7 +8,8 @@
     userRole,
     authToken,
     userVerifiedByInstitution,
-    userInVerificationFlow
+    userInVerificationFlow,
+    redirectPath
   } from "../stores/user";
 
   const logoutUser = () => {
@@ -17,6 +18,7 @@
     $authToken = "";
     $userVerifiedByInstitution = false;
     $userInVerificationFlow = false;
+    $redirectPath = "";
     navigate("/");
   };
 </script>
