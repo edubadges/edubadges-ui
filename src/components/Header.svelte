@@ -14,8 +14,6 @@
     padding-top: var(--ver-padding-s);
     padding-bottom: var(--ver-padding-s);
     padding-right: var(--hor-padding-s);
-
-    background-color: var(--color-background-grey-dark);
   }
 
   a {

@@ -1,6 +1,6 @@
 <script>
   import { Router, Route } from "svelte-routing";
-  import { Student, ProcessToken, NotFound, Login , Validate} from "./routes";
+  import { Student, ProcessToken, NotFound, Login, Validate } from "./routes";
   import { Badges, Manage } from "./routes/teachers";
   import { Header, Footer, SubscribeToPath } from "./components";
   import { Header as TeacherHeader } from "./components/teachers";
@@ -24,10 +24,13 @@
 
     display: flex;
     flex-direction: column;
+  }
 
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
-
+  div.page {
+    flex: 1;
+    border-radius: 8px;
     background-color: white;
+    box-shadow: -1px 1px 2px rgba(0, 0, 0, 0.4), 1px 1px 2px rgba(0, 0, 0, 0.4);
   }
 
   @media (min-width: 600px) {
@@ -46,35 +49,37 @@
     <Header />
   {/if}
 
-  <Router>
-    <!-- Student -->
-    <Route path="/backpack">
-      <Student bookmark="backpack" />
-    </Route>
+  <div class="page">
+    <Router>
+      <!-- Student -->
+      <Route path="/backpack">
+        <Student bookmark="backpack" />
+      </Route>
 
-    <Route path="/badge-requests">
-      <Student bookmark="badge-requests" />
-    </Route>
-    <Route path="/collections">
-      <Student bookmark="collections" />
-    </Route>
-    <Route path="/profile">
-      <Student bookmark="profile" />
-    </Route>
-    <Route path="/validate" component={Validate}/>
+      <Route path="/badge-requests">
+        <Student bookmark="badge-requests" />
+      </Route>
+      <Route path="/collections">
+        <Student bookmark="collections" />
+      </Route>
+      <Route path="/profile">
+        <Student bookmark="profile" />
+      </Route>
+      <Route path="/validate" component={Validate} />
 
-    <!-- Teacher -->
-    <Route path="/manage/*mainEntity" component={Manage} />
+      <!-- Teacher -->
+      <Route path="/manage/*mainEntity" component={Manage} />
 
-    <!-- Shared -->
-    <Route path="/" component={homepage[visitorRole]} />
+      <!-- Shared -->
+      <Route path="/" component={homepage[visitorRole]} />
 
-    <Route path="/auth/login/*" component={ProcessToken} />
-    <Route component={NotFound} />
+      <Route path="/auth/login/*" component={ProcessToken} />
+      <Route component={NotFound} />
 
-    <!-- Expose current path through store -->
-    <SubscribeToPath />
-  </Router>
+      <!-- Expose current path through store -->
+      <SubscribeToPath />
+    </Router>
+  </div>
 
   <Footer />
 </div>

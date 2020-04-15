@@ -26,7 +26,7 @@
     --color-background-blue: #173552;
     --color-background-red: #ffebe7;
 
-    --color-text-grey: #585858;
+    --color-text-grey: #5e6873;
     --color-text-light-grey: #989797;
     --color-text-blue: #39b8df;
     --color-text-red: #f50000;
