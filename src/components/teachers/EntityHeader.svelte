@@ -91,6 +91,11 @@
           {I18n.t(['manage', 'edit', entity])}
         </a>
       {/if}
+      {#if entity === 'badgeclass'}
+        <a use:link href="award" class="btn">
+          {I18n.t(['models', 'badgeclass', 'directAward'])}
+        </a>
+      {/if}
     </div>
     <div class="slots">
         <slot></slot>

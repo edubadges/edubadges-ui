@@ -12,12 +12,14 @@
     InstitutionEdit,
     Issuer,
     IssuerEdit,
-    IssuerNew
+    IssuerNew,
+    AwardBadge,
+    AwardManyBadges
   } from "../../components/teachers";
 
   export let mainEntity;
 
-  $: if (!mainEntity) navigate("/manage/institution", { replace: true });
+  $: if (!mainEntity) navigate("/manage/institution", {replace: true});
 </script>
 
 <Router>
@@ -35,4 +37,7 @@
   <Route path="/badgeclass/new" component={BadgeclassNew} />
   <Route path="/badgeclass/:entityId/edit" component={BadgeclassEdit} />
   <Route path="/badgeclass/:entityId/*subEntity" component={Badgeclass} />
+
+  <Route path="/badgeclass/:entityId/award" component={AwardBadge} />
+  <Route path="/badgeclass/:entityId/bulkAward" component={AwardManyBadges} />
 </Router>
