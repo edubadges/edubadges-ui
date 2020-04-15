@@ -2,8 +2,9 @@
   import { onMount } from "svelte";
   import { queryData } from "../../api/graphql";
   import moment from "moment";
-  import { Button } from "../index";
+  import { Button, CheckBox } from "../index";
   import I18n from "i18n-js";
+  import { awardBadges } from "../../api/index"
 
   export let entityId;
 
@@ -20,24 +21,28 @@
           lastName,
           email
         }
-      },
-      issuer {
-        entityId
       }
     }
   }`;
 
   onMount(() => {
     queryData(query).then(res => {
+      console.log(res);
       requests = res.badgeClass.enrollments;
     });
   });
 
-  const awardBadges = () => {
+  const award = () => {
+    const enrollmentIds = requests.filter(el => el.checked).map(el => {
+        return el.entityId
+    });
+    awardBadges(entityId, enrollmentIds);
   };
 
   const addNewUser = () => {
   };
+
+  const nothing = () => {};
 </script>
 
 <style>
@@ -81,7 +86,7 @@
       <th colspan="3">
         <span class="actions">
           <input type="search">
-          <Button onClick={() => awardBadges()}
+          <Button onClick={() => award()}
             label={I18n.t('teacher.badgeRequests.award')}/>
           <Button onClick={() => addNewUser()}
             label={I18n.t('teacher.badgeRequests.newUser')}/>
@@ -92,7 +97,7 @@
   <tbody>
   {#each requests as request}
     <tr>
-      <td><input type="checkbox"></td>
+      <td><CheckBox bind:value={request.checked} label="" onChange={nothing} /></td>
       <td class="name">{request.user.firstName + " " + request.user.lastName}</td>
       <td>{request.user.email}</td>
       <td>{moment(request.dateCreated).format('MMM D, YYYY')}</td>
