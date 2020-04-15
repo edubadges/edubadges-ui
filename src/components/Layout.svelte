@@ -84,7 +84,8 @@
   }
 
   a,
-  .link {
+  .link,
+  .green {
     color: var(--text-green);
     cursor: pointer;
 
@@ -95,5 +96,18 @@
 
   .purple {
     color: var(--color-primary-purple);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--color-primary-purple);
+  }
+
+  .text-black {
+    color: var(--black);
   }
 </style>

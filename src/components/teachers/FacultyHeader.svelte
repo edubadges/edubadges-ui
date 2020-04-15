@@ -1,13 +1,11 @@
 <script>
   import I18n from "i18n-js";
-  import {formatAdminNames} from "../../util/entityHeader";
+  import { formatAdminNames } from "../../util/entityHeader";
 
-  export let faculty = {staff: []};
-
+  export let faculty = { staff: [] };
 </script>
 
 <style>
-
   .faculty-header {
     display: flex;
     padding-bottom: var(--ver-padding-m);
@@ -35,27 +33,20 @@
     color: var(--color-text-light-grey);
   }
 
-  table th:not(:last-child), table td:not(:last-child) {
+  table th:not(:last-child),
+  table td:not(:last-child) {
     border-right: 1px solid var(--color-text-light-grey);
   }
 
-  table th:not(:first-child), table td:not(:first-child) {
+  table th:not(:first-child),
+  table td:not(:first-child) {
     padding-left: 15px;
   }
 
-  table th.created {
-    width: 15%;
+  table th:not(:last-child),
+  table td:not(:last-child) {
+    padding-right: 15px;
   }
-
-  table th.admin {
-    width: 35%;
-  }
-
-  table td.created {
-    color: var(--color-text-blue);
-  }
-
-
 </style>
 
 <div class="faculty-header">
@@ -63,16 +54,16 @@
     <p>{faculty.description}</p>
     <table>
       <thead>
-      <tr>
-        <th class="created">{I18n.t("models.faculty.created")}</th>
-        <th class="admin">{I18n.t("models.faculty.admin")}</th>
-      </tr>
+        <tr>
+          <th>{I18n.t('models.faculty.created')}</th>
+          <th>{I18n.t('models.faculty.admin')}</th>
+        </tr>
       </thead>
       <tbody>
-      <tr>
-        <td class="created">{new Date(faculty.createdAt).toLocaleDateString()}</td>
-        <td class="admin">{formatAdminNames(faculty)}</td>
-      </tr>
+        <tr>
+          <td>{new Date(faculty.createdAt).toLocaleDateString()}</td>
+          <td>{formatAdminNames(faculty)}</td>
+        </tr>
       </tbody>
     </table>
   </div>

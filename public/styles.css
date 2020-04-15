@@ -49,12 +49,6 @@ ul,
 }
 
 body,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
 a.button {
   color: #4e4e4e;
 }
@@ -82,42 +76,8 @@ p {
   line-height: 22px;
 }
 
-h1 {
-  font-size: 36px;
-  line-height: 36px;
-  margin-bottom: 18px;
-}
-
-h2 {
-  font-size: 32px;
-  margin-bottom: 6px;
-  font-weight: bold;
-}
-
-h3 {
-  font-size: 26px;
-  margin-bottom: 6px;
-  font-weight: bold;
-}
-
-h4 {
-  font-size: 20px;
-  margin-bottom: 4px;
-  font-weight: bold;
-}
-
-h5 {
-  font-size: 18px;
-  margin-bottom: 4px;
-  font-weight: bold;
-}
-
 .bold {
   font-weight: bold;
-}
-
-.blue-text {
-  color: var(--color-text-blue);
 }
 
 .sub-text {

@@ -75,7 +75,7 @@
   }
 </style>
 
-<h5 class="purple">{I18n.t(`teacher.sidebar.filters.${title}`)}</h5>
+<h3>{I18n.t(`teacher.sidebar.filters.${title}`)}</h3>
 
 {#each items as item (item.entityId)}
   <label

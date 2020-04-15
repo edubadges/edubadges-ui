@@ -39,12 +39,15 @@
 <style lang="scss">
   .page-container {
     display: flex;
-    flex: 1;
   }
 
   .content {
     flex: 1;
     padding: 30px 20px;
+
+    h2 {
+      margin-bottom: 18px;
+    }
   }
 
   .badges {
@@ -85,10 +88,7 @@
   <div class="content">
     <h2>
       {I18n.t('teacher.badgeclasses.title')}
-      {#if institution}
-        <span class="blue-text">in</span>
-        {institution.name}
-      {/if}
+      {#if institution}in {institution.name}{/if}
     </h2>
 
     <div class="badges">
@@ -98,7 +98,7 @@
             <img src={badge.image} alt={`image for ${badge.name}`} />
           </div>
           <div class="info">
-            <h5>{badge.name}</h5>
+            <h3 class="text-black">{badge.name}</h3>
           </div>
         </div>
       {/each}
