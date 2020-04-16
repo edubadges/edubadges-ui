@@ -1,12 +1,34 @@
 <script>
-  import { link } from "svelte-routing";
-  import { LogoutButton } from "../components";
+  import I18n from "i18n-js";
+  import { navigate, link } from "svelte-routing";
+  import { clickOutside } from "../util/clickOutside.js";
   import logo from "../img/logo.svg";
+  import { chevronUp, chevronDown } from "../icons";
 
-  export let logout;
+  import {
+    userLoggedIn,
+    userRole,
+    authToken,
+    userVerifiedByInstitution,
+    userInVerificationFlow,
+    redirectPath
+  } from "../stores/user";
+
+  const logoutUser = () => {
+    $userLoggedIn = "";
+    $userRole = "";
+    $authToken = "";
+    $userVerifiedByInstitution = false;
+    $userInVerificationFlow = false;
+    $redirectPath = "";
+
+    navigate("/");
+  };
+
+  let menuOpen = false;
 </script>
 
-<style>
+<style lang="scss">
   header {
     display: flex;
     align-items: center;
@@ -14,8 +36,10 @@
     padding-top: var(--ver-padding-s);
     padding-bottom: var(--ver-padding-s);
     padding-right: var(--hor-padding-s);
+  }
 
-    background-color: var(--color-background-grey-dark);
+  .slot-container {
+    flex: 1;
   }
 
   a {
@@ -27,14 +51,53 @@
     vertical-align: middle;
     width: 150px;
   }
+
+  .expand-menu {
+    position: relative;
+
+    :global(svg.chevron-down, svg.chevron-up) {
+      width: 28px;
+      fill: var(--color-primary-purple);
+    }
+
+    div.menu.show {
+      display: block;
+      position: absolute;
+      right: 0;
+      padding: var(--ver-padding-m) var(--hor-padding-m);
+      min-width: 180px;
+
+      background: white;
+      border: var(--card-border);
+      border-radius: var(--card-border-radius);
+      box-shadow: var(--card-shadow);
+    }
+
+    div.menu:not(.show) {
+      display: none;
+    }
+  }
 </style>
 
-<header class="header">
+<header>
   <a href="/" use:link>
     {@html logo}
   </a>
-  <slot />
-  {#if logout}
-    <LogoutButton />
+
+  <div class="slot-container">
+    <slot />
+  </div>
+
+  {#if $userLoggedIn}
+    <div
+      class="expand-menu click"
+      on:click={() => (menuOpen = !menuOpen)}
+      use:clickOutside
+      on:clickOutside={() => (menuOpen = false)}>
+      {@html menuOpen ? chevronUp : chevronDown}
+      <div class="menu" class:show={menuOpen}>
+        <div on:click={logoutUser}>{I18n.t('header.logout')}</div>
+      </div>
+    </div>
   {/if}
 </header>

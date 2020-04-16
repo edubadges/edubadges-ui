@@ -21,23 +21,28 @@
 
 <style>
   nav {
-    align-self: flex-end;
     white-space: nowrap;
   }
 
   nav a {
-    padding: var(--ver-padding-s) var(--hor-padding-m);
     font-weight: bold;
-    border-radius: var(--button-border-radius);
-    margin-right: 20px;
+    letter-spacing: 0.34px;
+
+    padding: 4px 0;
+    margin-right: 30px;
+
+    border-bottom-width: 3px;
+    border-bottom-style: solid;
   }
 
   nav a:not(.active) {
-    background: var(--color-background-grey-light);
+    color: var(--color-text-grey);
+    border-color: transparent;
   }
 
   nav a.active {
-    background: white;
+    color: var(--color-primary-purple);
+    border-color: var(--color-primary-purple);
   }
 </style>
 
