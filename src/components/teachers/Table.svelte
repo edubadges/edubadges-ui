@@ -1,14 +1,19 @@
 <script>
   import I18n from "i18n-js";
   import { link } from "svelte-routing";
-  import {sortType} from "../../util/sortData";
+  import { Search } from "../../components";
+  import { sortType } from "../../util/sortData";
 
   export let entity = "";
   export let title = "";
   export let tableHeaders = [];
   export let search = "";
   export let mayCreate;
-  export let sort = {attribute: null, reverse: false, sortType: sortType.ALPHA};
+  export let sort = {
+    attribute: null,
+    reverse: false,
+    sortType: sortType.ALPHA
+  };
 
   const setSort = tableHeader => {
     if (sort.attribute === tableHeader.attribute) {
@@ -19,37 +24,26 @@
   };
 </script>
 
-<style>
+<style lang="scss">
   div.container {
     margin: var(--ver-padding-l) var(--entity-icon-width);
-  }
-
-  input {
-    height: 30px;
-    border: var(--card-border);
-  }
-
-  .search {
-    width: 200px;
-    float: right;
   }
 
   div.header {
     display: flex;
     justify-content: flex-end;
+
+    a {
+      margin-left: var(--hor-padding-s);
+    }
   }
 
   div.header > *:not(:last-child) {
     margin-right: var(--hor-padding-s);
   }
 
-  h4 {
+  h3 {
     flex: 1;
-  }
-
-  input.search {
-    font-size: 16px;
-    padding: 2px 0 2px 8px;
   }
 
   table {
@@ -64,11 +58,11 @@
   }
 
   .desc:after {
-      content: ' ▾';
+    content: " ▾";
   }
 
   .asc:after {
-      content: ' ▴';
+    content: " ▴";
   }
 
   :global(table.entity-table th, table.entity-table td) {
@@ -82,11 +76,9 @@
 
 <div class="container">
   <div class="header">
-    <h4>{title}</h4>
-    <input
-      class="search"
-      bind:value={search}
-      placeholder="{I18n.t('teacher.sidebar.search')}..." />
+    <h3>{title}</h3>
+    <Search bind:value={search} />
+
     {#if mayCreate}
       <a use:link href={`/manage/${entity}/new`} class="btn">
         {I18n.t(['manage', 'new', entity])}

@@ -1,7 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import I18n from "i18n-js";
-  import { link } from "svelte-routing";
+  import {link, navigate} from "svelte-routing";
   import { queryData } from "../../api/graphql";
   import { currentPath } from "../../stores/currentPath";
 
@@ -27,7 +27,7 @@
   onMount(() => {
     queryData(query).then(({ currentInstitution: { name } }) => {
       institutionName = name;
-    });
+    }).catch(() => navigate("/notFound"));
   });
 </script>
 

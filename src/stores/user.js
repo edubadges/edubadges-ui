@@ -11,8 +11,6 @@ export const user = writable({
   rememberMe: true,
 });
 
-export const redirectPath = writable("");
-
 const createFlash = () => {
   const { subscribe, set } = writable("");
 
@@ -26,7 +24,7 @@ const createFlash = () => {
   };
 };
 export const flash = createFlash();
-
+export const redirectPath = writable(localStorage.getItem("redirectPath") || "");
 export const userRole = writable(localStorage.getItem("userRole") || "");
 export const userLoggedIn = writable(
   localStorage.getItem("userLoggedIn") || ""
@@ -39,6 +37,7 @@ export const userInVerificationFlow = writable(
   localStorage.getItem("userInVerificationFlow") || ""
 );
 
+redirectPath.subscribe((val) => localStorage.setItem("redirectPath", val));
 userRole.subscribe((val) => localStorage.setItem("userRole", val));
 userLoggedIn.subscribe((val) => localStorage.setItem("userLoggedIn", val));
 authToken.subscribe((val) => localStorage.setItem("authToken", val));

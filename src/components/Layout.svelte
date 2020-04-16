@@ -1,7 +1,7 @@
-<style>
-  :global(:root) {
+<style global lang="scss">
+  :root {
     /* Sizes */
-    --width-app: 1244px;
+    --width-app: 1090px;
     --width-side-bar: 220px;
 
     /* Spacing */
@@ -13,27 +13,34 @@
     --hor-padding-m: 20px;
 
     /*Colors*/
+    --text-green: #009f4d;
+    --text-green-hover: #006f22;
+
+    --color-primary-purple: #772583;
     --color-primary-blue: #0061b0;
     --color-primary-green: #008738;
     --color-primary-black: #202020;
     --color-primary-red: #d00000;
     --color-primary-yellow: #fef594;
+    --color-primary-purple: #772482;
 
     --color-background-grey-dark: #d8d8d8;
     --color-background-grey-medium: #e9e9e9;
-    --color-background-grey-light: #f5f4f4;
+    --color-background-grey-light: #f4f6f8;
     --color-background-blue: #173552;
     --color-background-red: #ffebe7;
 
-    --color-text-grey: #585858;
+    --black: #212121;
+    --color-text-grey: #5e6873;
     --color-text-light-grey: #989797;
     --color-text-blue: #39b8df;
     --color-text-red: #f50000;
 
     /* Cards */
-    --card-border: 1px solid #979797;
-    --card-border-radius: 2px;
-    --card-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    --card-border: solid 1px #dfe3e8;
+
+    --card-border-radius: 8px;
+    --card-shadow: 0 3px 0 2px #dfe3e8;
 
     /* Keyboard accessible */
     --outline-blue: #3262be;
@@ -74,5 +81,33 @@
     --field-border-color-disabled: var(--color-text-light-grey);
     --field-border-disabled: var(--field-border-width) var(--field-border-style)
       var(--field-border-color-disabled);
+  }
+
+  a,
+  .link,
+  .green {
+    color: var(--text-green);
+    cursor: pointer;
+
+    &:hover {
+      color: var(--text-green-hover);
+    }
+  }
+
+  .purple {
+    color: var(--color-primary-purple);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--color-primary-purple);
+  }
+
+  .text-black {
+    color: var(--black);
   }
 </style>

@@ -5,7 +5,7 @@
   import { createBadgeclass, editBadgeclass } from "../../api";
 
   export let entityId;
-  export let badgeclass = {issuer:{}};
+  export let badgeclass = {};
   export let issuers = [];
 
   const entity = "badgeclass";
@@ -34,8 +34,24 @@
   }
 </script>
 
-<EntityForm {entity} issuer={isCreate ? null : badgeclass.issuer} faculty={isCreate ? null : badgeclass.issuer.faculty}
-            submit={onSubmit} create={isCreate}>
+<style>
+  h4 {
+    color: var(--color-primary-purple);
+    border-bottom: 2px solid var(--color-primary-purple);
+    padding-bottom: var(--ver-padding-s);
+    margin: var(--ver-padding-l) 0;
+  }
+</style>
+
+<EntityForm
+  {entity}
+  issuer={isCreate ? null : badgeclass.issuer}
+  faculty={isCreate ? null : badgeclass.issuer.faculty}
+  submit={onSubmit}
+  create={isCreate}>
+
+  <h4>Basic information</h4>
+
   <Field {entity} attribute="issuer" errors={errors.issuer}>
     <Select
       bind:value={badgeclass.issuer}
@@ -58,8 +74,11 @@
       area />
   </Field>
 
+  <h4>Earning criteria</h4>
+
   <Field {entity} attribute="criteria_text" errors={errors.criteria_text}>
     <TextInput
+      area
       bind:value={badgeclass.criteriaText}
       error={errors.criteria_text} />
   </Field>
