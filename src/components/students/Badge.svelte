@@ -48,7 +48,7 @@
   }
 
   .details span.title {
-    color: var(--color-text-light-grey);
+    color: var(--text-grey-light);
     display: block;
   }
 
@@ -70,7 +70,7 @@
     height: 100%;
     top: 0;
     margin: 0 calc(var(--sep-space-width) / 2);
-    border-right: var(--sep-line-width) solid var(--color-text-light-grey);
+    border-right: var(--sep-line-width) solid var(--text-grey-light);
   }
 
   .actions {
@@ -84,8 +84,8 @@
     height: 32px;
     padding: 5px 12px;
     border-radius: 3px;
-    background-color: var(--color-background-grey-medium);
-    color: var(--color-text-light-grey);
+    background-color: var(--grey-3);
+    color: var(--text-grey-light);
     font-weight: bold;
   }
 

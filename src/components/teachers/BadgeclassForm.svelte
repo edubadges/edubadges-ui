@@ -36,8 +36,8 @@
 
 <style>
   h4 {
-    color: var(--color-primary-purple);
-    border-bottom: 2px solid var(--color-primary-purple);
+    color: var(--purple);
+    border-bottom: 2px solid var(--purple);
     padding-bottom: var(--ver-padding-s);
     margin: var(--ver-padding-l) 0;
   }

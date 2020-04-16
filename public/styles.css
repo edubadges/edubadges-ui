@@ -80,11 +80,6 @@ p {
   font-weight: bold;
 }
 
-.sub-text {
-  font-size: smaller;
-  color: var(--color-text-light-grey);
-}
-
 .align-right {
   margin-left: auto;
 }

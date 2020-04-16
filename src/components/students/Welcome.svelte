@@ -35,8 +35,8 @@
 <style>
   .account-welcome {
     width: 100%;
+    background: var(--yellow-light);
     display: flex;
-    background-color: var(--color-primary-yellow);
     padding: 20px;
     border-radius: var(--card-border-radius);
     margin: 20px auto;

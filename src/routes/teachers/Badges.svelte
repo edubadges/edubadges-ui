@@ -76,10 +76,10 @@
 
     div.info {
       flex: 1;
-      background: var(--color-background-grey-light);
+      background: var(--grey-2);
       padding: var(--ver-padding-l) var(--hor-padding-s);
 
-      h5 {
+      h3 {
         color: var(--black);
       }
     }
@@ -102,7 +102,7 @@
             <img src={badge.image} alt={`image for ${badge.name}`} />
           </div>
           <div class="info">
-            <h3 class="text-black">{badge.name}</h3>
+            <h3>{badge.name}</h3>
           </div>
         </div>
       {/each}

@@ -36,13 +36,13 @@
   }
 
   nav a:not(.active) {
-    color: var(--color-text-grey);
+    color: var(--text-grey-dark);
     border-color: transparent;
   }
 
   nav a.active {
-    color: var(--color-primary-purple);
-    border-color: var(--color-primary-purple);
+    color: var(--purple);
+    border-color: var(--purple);
   }
 </style>
 

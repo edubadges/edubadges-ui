@@ -24,18 +24,18 @@
 
   /* Disabled */
   div[disabled] * {
-    color: var(--color-text-light-grey);
+    color: var(--text-grey-light);
   }
 
   div.error {
     display: flex;
-    color: var(--color-text-red);
+    color: var(--red-dark);
   }
 
   div.error :global(svg.icon-warning) {
     height: 1rem;
     margin-right: 10px;
-    fill: var(--color-text-red);
+    fill: var(--red-dark);
   }
 </style>
 

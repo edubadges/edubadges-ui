@@ -57,7 +57,7 @@
 
     :global(svg.chevron-down, svg.chevron-up) {
       width: 28px;
-      fill: var(--color-primary-purple);
+      fill: var(--purple);
     }
 
     div.menu.show {

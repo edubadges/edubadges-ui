@@ -18,7 +18,7 @@
   }
 
   .entity-tabs :global(.tab:not(.active)) {
-    background: var(--color-background-grey-medium);
+    background: var(--grey-3);
   }
 
   .entity-tabs {
@@ -31,7 +31,7 @@
     margin-right: var(--hor-padding-m);
     white-space: nowrap;
 
-    color: var(--color-text-grey);
+    color: var(--text-grey-dark);
     border-radius: var(--button-border-radius);
   }
 </style>

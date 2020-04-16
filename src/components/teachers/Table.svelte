@@ -53,7 +53,7 @@
 
   thead th {
     text-align: left;
-    border-bottom: 3px solid var(--color-background-grey-dark);
+    border-bottom: 3px solid var(--grey-3);
     cursor: pointer;
   }
 

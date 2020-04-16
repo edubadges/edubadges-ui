@@ -13,34 +13,50 @@
     --hor-padding-m: 20px;
 
     /*Colors*/
-    --text-green: #009f4d;
-    --text-green-hover: #006f22;
+    --purple-1: #ebceff;
+    --purple-2: #cea0e5;
+    --purple-3: #b171cb;
+    --purple-4: #9858b2;
+    --purple-5: #843d9b;
+    --purple-6: #772583;
+    --purple-7: #540b6c;
+    --purple-8: #45075d;
+    --purple-9: #37044f;
+    --purple-10: #280040;
+    --purple: var(--purple-6);
 
-    --color-primary-purple: #772583;
-    --color-primary-blue: #0061b0;
-    --color-primary-green: #008738;
-    --color-primary-black: #202020;
-    --color-primary-red: #d00000;
-    --color-primary-yellow: #fef594;
-    --color-primary-purple: #772482;
+    --grey-1: #f9fafb;
+    --grey-2: #f4f6f8;
+    --grey-3: #dfe3e8;
+    --grey-4: #c4cdd5;
+    --grey-5: #abb4bd;
+    --grey-6: #919ba4;
+    --grey-7: #78818c;
+    --grey-8: #5e6873;
+    --grey-9: #454f5b;
+    --grey-10: #212121;
+    --black: var(--grey-10);
+    --text-grey-dark: var(--grey-8);
+    --text-grey-light: var(--grey-6);
 
-    --color-background-grey-dark: #d8d8d8;
-    --color-background-grey-medium: #e9e9e9;
-    --color-background-grey-light: #f4f6f8;
-    --color-background-blue: #173552;
-    --color-background-red: #ffebe7;
+    --green-light: #53d07a;
+    --green-medium: #009f4d;
+    --green-dark: #006f22;
 
-    --black: #212121;
-    --color-text-grey: #5e6873;
-    --color-text-light-grey: #989797;
-    --color-text-blue: #39b8df;
-    --color-text-red: #f50000;
+    --yellow-light: #fef695;
+    --yellow-medium: #fedb00;
+    --yellow-dark: #c6aa00;
+
+    --red-light: #ffebe7;
+    --red-medium: #ff685c;
+    --red-dark: #f50000;
+
+    --blue-medium: #173552;
 
     /* Cards */
-    --card-border: solid 1px #dfe3e8;
-
+    --card-border: solid 1px var(--grey-3);
     --card-border-radius: 8px;
-    --card-shadow: 0 3px 0 2px #dfe3e8;
+    --card-shadow: 0 3px 0 2px var(--grey-3);
 
     /* Keyboard accessible */
     --outline-blue: #3262be;
@@ -49,7 +65,7 @@
 
     /* Buttons */
     --button-border-radius: 2px;
-    --button-background-disabled: var(--color-background-grey-dark);
+    --button-background-disabled: var(--grey-3);
 
     /* Form field regular */
     --field-outline-shadow: 1px 1px 3px var(--outline-blue),
@@ -60,42 +76,37 @@
     --field-cursor: text;
 
     --field-font-size: 1rem;
-    --field-color: var(--color-text-grey);
+    --field-color: var(--text-grey-dark);
 
     --field-border-radius: 4px;
     --field-border-width: 1px;
     --field-border-style: solid;
-    --field-border-color: var(--color-text-grey);
+    --field-border-color: var(--text-grey-dark);
     --field-border: var(--field-border-width) var(--field-border-style)
       var(--field-border-color);
 
     /* Form field with error */
-    --field-background-error: var(--color-background-red);
-    --field-border-color-error: var(--color-text-red);
+    --field-background-error: var(--red-light);
+    --field-border-color-error: var(--red-dark);
     --field-border-error: var(--field-border-width) var(--field-border-style)
       var(--field-border-color-error);
 
     /* Form field disabled */
-    --field-color-disabled: var(--color-text-light-grey);
+    --field-color-disabled: var(--text-grey-light);
     --field-cursor-disabled: not-allowed;
-    --field-border-color-disabled: var(--color-text-light-grey);
+    --field-border-color-disabled: var(--text-grey-light);
     --field-border-disabled: var(--field-border-width) var(--field-border-style)
       var(--field-border-color-disabled);
   }
 
   a,
-  .link,
-  .green {
-    color: var(--text-green);
+  .link {
+    color: var(--green-medium);
     cursor: pointer;
 
     &:hover {
-      color: var(--text-green-hover);
+      color: var(--green-dark);
     }
-  }
-
-  .purple {
-    color: var(--color-primary-purple);
   }
 
   h1,
@@ -104,10 +115,11 @@
   h4,
   h5,
   h6 {
-    color: var(--color-primary-purple);
+    color: var(--purple);
   }
 
-  .text-black {
-    color: var(--black);
+  .sub-text {
+    font-size: smaller;
+    color: var(--text-grey-light);
   }
 </style>

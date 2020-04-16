@@ -10,7 +10,7 @@
     badgeIcon
   } from "../../icons";
 
-  export let activeStep = 1;
+  let activeStep = 2;
 
   let steps = [
     { iconStep: eduIdLogo },
@@ -28,7 +28,7 @@
 <style>
   .account-creation-steps {
     display: flex;
-    background-color: var(--color-background-grey-medium);
+    background-color: var(--grey-3);
     padding: 20px;
     border-radius: var(--card-border-radius);
     margin: 20px auto;
@@ -46,13 +46,13 @@
   }
 
   .icon-number.active :global(.filler) {
-    fill: var(--color-background-blue);
-    stroke: var(--color-background-blue);
+    fill: var(--blue-medium);
+    stroke: var(--blue-medium);
   }
 
   .icon-number:not(.active) :global(.filler) {
     fill: white;
-    stroke: var(--color-text-light-grey);
+    stroke: var(--text-grey-light);
   }
 
   .icon-number.active :global(text) {
@@ -60,7 +60,7 @@
   }
 
   .icon-number:not(.active) :global(text) {
-    fill: var(--color-text-light-grey);
+    fill: var(--text-grey-light);
   }
 
   .icon-number {
@@ -69,12 +69,12 @@
 
   .icon-step.active,
   .icon-arrow.active {
-    fill: var(--color-background-blue);
+    fill: var(--blue-medium);
   }
 
   .icon-step:not(.active),
   .icon-arrow:not(.active) {
-    fill: var(--color-text-light-grey);
+    fill: var(--text-grey-light);
   }
 
   .icon-step :global(svg) {

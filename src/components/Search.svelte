@@ -27,7 +27,7 @@
       right: 5px;
       height: 100%;
       width: 20px;
-      fill: var(--color-primary-purple);
+      fill: var(--purple);
     }
   }
 </style>

@@ -43,7 +43,7 @@
   }
 
   div.image-container p {
-    color: var(--color-text-light-grey);
+    color: var(--text-grey-light);
     text-align: center;
     padding: 6px;
   }

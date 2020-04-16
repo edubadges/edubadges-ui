@@ -25,16 +25,15 @@
     }
   }`;
 
-
   onMount(() => {
     queryData(query).then(res => {
-      awardedBadges = res.badgeClass.badgeAssertions.filter(el => el.revoked === false);
+      awardedBadges = res.badgeClass.badgeAssertions.filter(
+        el => el.revoked === false
+      );
     });
   });
 
-  const revokeBadges = () => {
-
-  }
+  const revokeBadges = () => {};
 </script>
 
 <style>
@@ -54,11 +53,12 @@
 
   thead th {
     text-align: left;
-    border-bottom: 3px solid var(--color-background-grey-dark);
+    border-bottom: 3px solid var(--grey-3);
     cursor: pointer;
   }
 
-  th, td {
+  th,
+  td {
     padding: var(--ver-padding-s) 0;
   }
 
@@ -73,33 +73,42 @@
 
 <table>
   <thead>
-  <tr>
-    <th><input type="checkbox"></th>
-    <th colspan="3">
-      <span class="actions">
-        <input type="search">
-        <Button onClick={() => revokeBadges()}
-          label={I18n.t('teacher.badgeRevoked.revoke')}/>
-      </span>
-    </th>
-  </tr>
+    <tr>
+      <th>
+        <input type="checkbox" />
+      </th>
+      <th colspan="3">
+        <span class="actions">
+          <input type="search" />
+          <Button
+            onClick={() => revokeBadges()}
+            label={I18n.t('teacher.badgeRevoked.revoke')} />
+        </span>
+      </th>
+    </tr>
   </thead>
   <tbody>
-  {#each awardedBadges as awardedBadge}
-    <tr>
-      <td><input type="checkbox"></td>
-      <td class="name">{awardedBadge.user.firstName + " " + awardedBadge.user.lastName}</td>
-      <td>{awardedBadge.user.email}</td>
-      <td>{moment(awardedBadge.dateAwarded).format('MMM D, YYYY')}</td>
-    </tr>
-  {/each}
-  {#if awardedBadges.length === 0}
-    <tr>
-      <td><input type="checkbox"></td>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
-    </tr>
-  {/if}
+    {#each awardedBadges as awardedBadge}
+      <tr>
+        <td>
+          <input type="checkbox" />
+        </td>
+        <td class="name">
+          {awardedBadge.user.firstName + ' ' + awardedBadge.user.lastName}
+        </td>
+        <td>{awardedBadge.user.email}</td>
+        <td>{moment(awardedBadge.dateAwarded).format('MMM D, YYYY')}</td>
+      </tr>
+    {/each}
+    {#if awardedBadges.length === 0}
+      <tr>
+        <td>
+          <input type="checkbox" />
+        </td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+    {/if}
   </tbody>
 </table>

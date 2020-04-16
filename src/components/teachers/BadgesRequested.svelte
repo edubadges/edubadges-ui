@@ -4,7 +4,7 @@
   import moment from "moment";
   import { Button, CheckBox } from "../index";
   import I18n from "i18n-js";
-  import { awardBadges } from "../../api/index"
+  import { awardBadges } from "../../api/index";
 
   export let entityId;
 
@@ -34,21 +34,24 @@
   });
 
   const award = () => {
-    const enrollmentIds = requests.filter(el => el.checked).map(el => {
-        return el.entityId
-    });
-    awardBadges(entityId, enrollmentIds).then(res => {
-      res.json().then(result => console.log(result));
-    }, err => {
+    const enrollmentIds = requests
+      .filter(el => el.checked)
+      .map(el => {
+        return el.entityId;
+      });
+    awardBadges(entityId, enrollmentIds).then(
+      res => {
+        res.json().then(result => console.log(result));
+      },
+      err => {
         console.log(err);
-    });
+      }
+    );
   };
 
-  const addNewUser = () => {
-  };
+  const addNewUser = () => {};
 
-  const nothing = () => {
-  };
+  const nothing = () => {};
 </script>
 
 <style>
@@ -68,11 +71,12 @@
 
   thead th {
     text-align: left;
-    border-bottom: 3px solid var(--color-background-grey-dark);
+    border-bottom: 3px solid var(--grey-3);
     cursor: pointer;
   }
 
-  th, td {
+  th,
+  td {
     padding: var(--ver-padding-s) 0;
   }
 
@@ -88,34 +92,44 @@
 <table>
   <thead>
     <tr>
-      <th><input type="checkbox"></th>
+      <th>
+        <input type="checkbox" />
+      </th>
       <th colspan="3">
         <span class="actions">
-          <input type="search">
-          <Button onClick={() => award()}
-            label={I18n.t('teacher.badgeRequests.award')}/>
-          <Button onClick={() => addNewUser()}
-            label={I18n.t('teacher.badgeRequests.newUser')}/>
+          <input type="search" />
+          <Button
+            onClick={() => award()}
+            label={I18n.t('teacher.badgeRequests.award')} />
+          <Button
+            onClick={() => addNewUser()}
+            label={I18n.t('teacher.badgeRequests.newUser')} />
         </span>
       </th>
     </tr>
   </thead>
   <tbody>
-  {#each requests as request}
-    <tr>
-      <td><CheckBox bind:value={request.checked} label="" onChange={nothing} /></td>
-      <td class="name">{request.user.firstName + " " + request.user.lastName}</td>
-      <td>{request.user.email}</td>
-      <td>{moment(request.dateCreated).format('MMM D, YYYY')}</td>
-    </tr>
-  {/each}
-  {#if requests.length === 0}
-    <tr>
-      <td><input type="checkbox"></td>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
-    </tr>
-  {/if}
+    {#each requests as request}
+      <tr>
+        <td>
+          <CheckBox bind:value={request.checked} label="" onChange={nothing} />
+        </td>
+        <td class="name">
+          {request.user.firstName + ' ' + request.user.lastName}
+        </td>
+        <td>{request.user.email}</td>
+        <td>{moment(request.dateCreated).format('MMM D, YYYY')}</td>
+      </tr>
+    {/each}
+    {#if requests.length === 0}
+      <tr>
+        <td>
+          <input type="checkbox" />
+        </td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+    {/if}
   </tbody>
 </table>
