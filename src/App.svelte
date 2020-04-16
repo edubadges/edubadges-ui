@@ -39,12 +39,13 @@
   $: visitorRole = $userLoggedIn ? $userRole : "guest";
 </script>
 
-<style>
+<style global lang="scss">
+  @import "stylesheets/main";
+
   .app {
-    max-width: var(--width-app);
+    max-width: 1090px;
     min-height: 100vh;
     margin: 0 auto;
-
     display: flex;
     flex-direction: column;
   }

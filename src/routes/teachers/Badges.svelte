@@ -8,10 +8,8 @@
   let institution;
 
   const query = `{
-    currentUser {
-      institution {
-        name
-      }
+    currentInstitution {
+      name
     },
     faculties {
       name,
@@ -30,7 +28,7 @@
 
   onMount(() => {
     queryData(query).then(res => {
-      institution = res.currentUser.institution;
+      institution = res.currentInstitution;
       $faculties = res.faculties;
     });
   });
@@ -64,9 +62,6 @@
     flex-direction: column;
 
     width: 260px;
-    border: var(--card-border);
-    border-radius: var(--card-border-radius);
-    box-shadow: var(--card-shadow);
     margin-bottom: 20px;
     margin-right: var(--badge-margin-right);
 
@@ -97,7 +92,7 @@
 
     <div class="badges">
       {#each $tree.badgeClasses as badge (badge.entityId)}
-        <div class="badge">
+        <div class="card badge">
           <div class="image">
             <img src={badge.image} alt={`image for ${badge.name}`} />
           </div>

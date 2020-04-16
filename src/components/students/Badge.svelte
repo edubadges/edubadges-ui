@@ -13,10 +13,7 @@
 
 <style>
   .badge {
-    border: var(--card-border);
-    border-radius: var(--card-border-radius);
     padding: 20px 20px 0;
-    background: white;
   }
 
   .badge:not(:last-child) {
@@ -108,7 +105,7 @@
 </style>
 
 {#if thisBadge}
-  <div class="badge">
+  <div class="card badge">
     <div class="info">
       <div class="img">
         <img src={thisBadge.image} alt="" />

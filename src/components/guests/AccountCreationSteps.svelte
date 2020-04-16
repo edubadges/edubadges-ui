@@ -30,7 +30,6 @@
     display: flex;
     background-color: var(--grey-3);
     padding: 20px;
-    border-radius: var(--card-border-radius);
     margin: 20px auto;
   }
 
@@ -88,7 +87,7 @@
   }
 </style>
 
-<div class="account-creation-steps">
+<div class="card account-creation-steps">
 
   {#each steps as step, i}
     <div class="step">

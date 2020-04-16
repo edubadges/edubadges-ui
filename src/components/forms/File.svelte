@@ -27,9 +27,8 @@
   };
 </script>
 
-<style>
+<style lang="scss">
   div.container {
-    max-width: var(--field-max-width);
     display: flex;
   }
 
@@ -38,70 +37,44 @@
     height: 120px;
     width: 120px;
     margin-right: var(--hor-padding-m);
-    border: var(--field-border);
-    border-radius: var(--field-border-radius);
-  }
 
-  div.image-container p {
-    color: var(--text-grey-light);
-    text-align: center;
-    padding: 6px;
+    p {
+      text-align: center;
+      padding: 6px;
+    }
   }
 
   div.buttons-container {
     flex: 1;
     display: flex;
     flex-direction: column;
-  }
 
-  div.buttons-container > :global(.btn) {
-    margin-bottom: 5px;
-    max-width: 180px;
-  }
+    .btn {
+      margin-bottom: 5px;
+      max-width: 180px;
+    }
 
-  input {
-    position: absolute;
-    opacity: 0;
-    width: 0.1px;
-    height: 0.1px;
-  }
+    &[disabled] .btn {
+      color: white;
+      background: var(--button-background-disabled);
+      border-color: var(--button-background-disabled);
+      cursor: var(--field-cursor-disabled);
 
-  input:focus + label {
-    outline: var(--outline-fallback);
-    outline: var(--outline);
-  }
+      &.ghost {
+        color: var(--button-background-disabled);
+        background: white;
+        border-color: var(--button-background-disabled);
+      }
 
-  /* Invalid */
-  div[error] .image-container {
-    border: var(--field-border-error);
-    background: var(--field-background-error);
-  }
-
-  /* Disabled */
-  div[disabled] .image-container {
-    border: var(--field-border-disabled);
-  }
-
-  div[disabled] .buttons-container > :global(.btn) {
-    color: white;
-    background: var(--button-background-disabled);
-    border-color: var(--button-background-disabled);
-    cursor: var(--field-cursor-disabled);
-  }
-
-  div[disabled] .buttons-container > :global(.btn.ghost) {
-    color: var(--button-background-disabled);
-    background: white;
-    border-color: var(--button-background-disabled);
-  }
-
-  div[disabled] .buttons-container > :global(.btn.ghost.no-border) {
-    border-color: white;
+      &.ghost.no-border {
+        border-color: white;
+      }
+    }
   }
 </style>
 
-<div class="container" {error} {disabled}>
-  <div class="image-container">
+<div class="container">
+  <div class="image-container input-field" class:error class:disabled>
     {#if src}
       <img alt="preview" {src} />
     {:else}
@@ -109,8 +82,9 @@
     {/if}
   </div>
 
-  <div class="buttons-container">
+  <div class="buttons-container" {disabled}>
     <input
+      class="input-hidden"
       id="file"
       type="file"
       accept="image/*"
