@@ -10,20 +10,20 @@
   let awardedBadges = [];
 
   const query = `{
-  badgeClass(id: "${entityId}") {
-    badgeAssertions {
-      entityId,
-      createdAt,
-      revoked,
-      user {
+    badgeClass(id: "${entityId}") {
+      badgeAssertions {
         entityId,
-        firstName,
-        lastName,
-        email
+        createdAt,
+        revoked,
+        user {
+          entityId,
+          firstName,
+          lastName,
+          email
+        }
       }
     }
-  }
-}`;
+  }`;
 
 
   onMount(() => {
