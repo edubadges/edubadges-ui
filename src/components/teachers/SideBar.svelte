@@ -7,6 +7,8 @@
 
 <style lang="scss">
   div.sidebar {
+    border-top-left-radius: var(--card-border-radius);
+    border-bottom-left-radius: var(--card-border-radius);
     width: var(--width-side-bar);
     padding: 30px 12px;
     background: var(--color-background-grey-light);
