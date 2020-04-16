@@ -9,7 +9,7 @@
     position: relative;
     width: 100%;
     max-width: 250px;
-    height: 30px;
+    height: 42px;
 
     input {
       position: absolute;

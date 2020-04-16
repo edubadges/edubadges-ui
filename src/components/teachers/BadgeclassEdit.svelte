@@ -5,27 +5,40 @@
 
   export let entityId;
 
-  const query = `{
+    const query = `{
     badgeClass(id: "${entityId}") {
+      entityId,
       name,
+      image,
       description,
-	  image,
-	  criteriaText,
-	  criteriaUrl,
-	  issuer {
-		  name,
-		  entityId,
+      createdAt,
+      criteriaUrl,
+      criteriaText,
+      expirationPeriod,
+      publicUrl,
+      issuer {
+        name,
+        entityId,
         faculty {
           name,
           entityId,
         }
+      },
+      badgeAssertions {
+        entityId,
+        revoked
+      },
+      extensions {
+        name,
+        originalJson
       }
-	},
-	issuers {
+    },
+    issuers {
       name,
       entityId
     },
   }`;
+
 
   let badgeclass = {issuer: {faculty:{}}};
   let issuers = [];

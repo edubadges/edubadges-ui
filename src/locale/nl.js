@@ -104,9 +104,10 @@ I18n.translations.nl = {
       issuers: "Issuers",
       faculties: "Groepen",
       badgeclasses: "Badgeclasses",
-      badgesRequested: "Aanvragen",
-      badgesAwarded: "Ontvangers",
-      badgesRevoked: "Ingetrokken",
+      badgeClassOverview: "Overview",
+      badgesRequested: "Requests",
+      badgesAwarded: "Recipients",
+      badgesRevoked: "Revoked",
     },
     edit: {
       edit: "edit",
@@ -125,6 +126,18 @@ I18n.translations.nl = {
       save: "Opslaan",
       cancel: "Annuleren",
     },
+    award: {
+      title: "Award badges directly",
+      description: "Fill in the email address of the person you'd like to award the badge to. Your request will be sent, and you will be notified when it's accepted or denied",
+      submit: "Award badge",
+      addAnother: "+ Add another",
+      addBulk: "Add many at once"
+    },
+    bulkAward: {
+      title: "Add many recipients at once",
+      description: "Copy and paste email addresses in the form below",
+      submit: "Add recipients"
+    }
   },
   footer: {
     tip: "Tip of info nodig?",
@@ -195,7 +208,25 @@ I18n.translations.nl = {
       admin: "Admin",
       description: "Beschrijving",
       criteria_text: "Wat is benodigd om deze badge te verdienen?",
+      criteria_url_value: "Link to the earning criteria:",
       criteria_url: "Criteria URL",
+      directAward: "Direct award",
+      expiresAfter: "Expires after",
+      expiresAfterNever: "Never",
+      expiresAfterValue: "{{nbr}} weeks",
+      publicUrl: "Public url",
+      extensions: {
+        language: "Language of instruction",
+        learningOutcome: "Learning outcome",
+        ects: "Credit points",
+        eqf: "NLQF niveau",
+        educationProgramIdentifier: "ISAT",
+        notSet: "Geen waarde opgegeven"
+      }
     },
+    badge: {
+      emailAddress: "Email address",
+      emailAddresses: "Paste email addresses"
+    }
   },
 };

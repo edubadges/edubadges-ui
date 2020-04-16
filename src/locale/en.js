@@ -209,7 +209,21 @@ I18n.translations.en = {
       description: "Description",
       criteria_text: "What is required to earn this badge?",
       criteria_url: "Criteria URL",
-      directAward: "Direct award"
+      criteria_url_value: "Link to the earning criteria:",
+      directAward: "Direct award",
+      expiresAfter: "Expires after",
+      expiresAfterNever: "Never",
+      expiresAfterValue: "{{nbr}} weeks",
+      expireSettings: "Default expiration settings",
+      publicUrl: "Public url",
+      extensions: {
+        language: "Language of instruction",
+        learningOutcome: "Learning outcome",
+        ects: "Credit points",
+        eqf: "NLQF level",
+        educationProgramIdentifier: "ISAT",
+        notSet: "No value set"
+      }
     },
     badge: {
       emailAddress: "Email address",

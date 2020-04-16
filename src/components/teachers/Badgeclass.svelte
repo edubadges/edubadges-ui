@@ -32,6 +32,8 @@
       createdAt,
       criteriaUrl,
       criteriaText,
+      expirationPeriod,
+      publicUrl,
       issuer {
         name,
         entityId,

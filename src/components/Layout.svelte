@@ -17,18 +17,19 @@
     --text-green-hover: #006f22;
 
     --color-primary-purple: #772583;
+    --color-primary-deep-purple: #45075d;
     --color-primary-blue: #0061b0;
     --color-primary-green: #008738;
     --color-primary-black: #202020;
     --color-primary-red: #d00000;
     --color-primary-yellow: #fef594;
-    --color-primary-purple: #772482;
 
     --color-background-grey-dark: #d8d8d8;
     --color-background-grey-medium: #e9e9e9;
     --color-background-grey-light: #f4f6f8;
     --color-background-blue: #173552;
     --color-background-red: #ffebe7;
+    --color-background-pink: #f5ecfb;
 
     --black: #212121;
     --color-text-grey: #5e6873;

@@ -16,13 +16,27 @@
     flex: 1;
     padding: var(--ver-padding-l) var(--hor-padding-m);
   }
+
+  div.slot {
+    margin-left: 152px;
+  }
+
+  @media (max-width: 820px) {
+    div.slot {
+      margin-left: 0;
+    }
+  }
+
 </style>
 
-<Breadcrumb faculty={faculty} issuer={issuer} badgeclassName={badgeclassName} edit={!create} create={create} entity={entity}/>
+<Breadcrumb faculty={faculty} issuer={issuer} badgeclassName={badgeclassName} edit={!create} create={create}
+            entity={entity}/>
 
 <div class="entity-form">
   <h3>{I18n.t(['manage', create ? 'new' : 'edit', entity])}</h3>
-  <slot/>
+  <div class="slot">
+    <slot/>
+  </div>
   <button on:click={() => window.history.back()} class="btn ghost">
     {I18n.t(['manage', create ? 'new' : 'edit', 'cancel'])}
   </button>

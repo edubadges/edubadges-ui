@@ -51,11 +51,15 @@
   }
 
   table th.created {
-    width: 25%;
+    width: 20%;
   }
 
   table th.admin {
-    width: 25%;
+    width: 20%;
+  }
+
+  table th.expires {
+    width: 20%;
   }
 
   table td.created {
@@ -78,12 +82,15 @@
       <tr>
         <th class="created">{I18n.t("models.badgeclass.created")}</th>
         <th class="admin">{I18n.t("models.badgeclass.admin")}</th>
+        <th class="expires">{I18n.t("models.badgeclass.expiresAfter")}</th>
       </tr>
       </thead>
       <tbody>
       <tr>
         <td class="created">{new Date(badgeclass.createdAt).toLocaleDateString()}</td>
         <td class="admin">{formatAdminNames(badgeclass)}</td>
+        <td
+          class="expires">{badgeclass.expirationPeriod ? I18n.t("models.badgeclass.expiresAfterValue", {nbr: badgeclass.expirationPeriod}) : I18n.t("models.badgeclass.expiresAfterNever")}</td>
       </tr>
       </tbody>
     </table>

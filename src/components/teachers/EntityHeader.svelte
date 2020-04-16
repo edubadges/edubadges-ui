@@ -24,7 +24,7 @@
   .entity {
     display: flex;
     padding-top: var(--ver-padding-m);
-    background: var(--color-background-grey-light);
+    background: var(--color-background-pink);
   }
 
   a {

@@ -1,9 +1,10 @@
 <script>
-  import { Button } from "../forms";
+  import {Button} from "../forms";
 
   export let value;
   export let error;
   export let disabled;
+  export let removeAllowed = true;
 
   let input;
   let src = "";
@@ -11,7 +12,7 @@
   $: if (value) src = value;
 
   const reader = new FileReader();
-  reader.onload = ({ target: { result } }) => {
+  reader.onload = ({target: {result}}) => {
     value = result;
     src = result;
   };
@@ -103,7 +104,7 @@
 <div class="container" {error} {disabled}>
   <div class="image-container">
     {#if src}
-      <img alt="preview" {src} />
+      <img alt="preview" {src}/>
     {:else}
       <p>No file selected</p>
     {/if}
@@ -119,10 +120,11 @@
       {disabled} />
 
     <label class="btn" for="file">Upload image</label>
-
-    <button class="btn ghost no-border" on:click={_ => setFile()} {disabled}>
-      Remove image
-    </button>
+    {#if removeAllowed}
+      <button class="btn ghost no-border" on:click={_ => setFile()} {disabled}>
+        Remove image
+      </button>
+    {/if}
   </div>
 
 </div>
