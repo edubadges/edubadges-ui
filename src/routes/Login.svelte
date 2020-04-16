@@ -23,10 +23,13 @@
   };
 
   const toggleLoginCreateAccount = () => (showLoginCards = !showLoginCards);
-
 </script>
 
 <style>
+  h1 {
+    color: var(--black);
+  }
+
   .login-page {
     flex: 1;
 
