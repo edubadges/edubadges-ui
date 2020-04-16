@@ -9,20 +9,20 @@ process.traceDeprecation = true;
 
 module.exports = {
   entry: {
-    bundle: ["./src/main.js"]
+    bundle: ["./src/main.js"],
   },
   resolve: {
     alias: {
-      svelte: path.resolve("node_modules", "svelte")
+      svelte: path.resolve("node_modules", "svelte"),
     },
     extensions: [".mjs", ".js", ".svelte"],
-    mainFields: ["svelte", "browser", "module", "main"]
+    mainFields: ["svelte", "browser", "module", "main"],
   },
   output: {
     path: __dirname + "/public",
     filename: "[name].[hash].js",
     chunkFilename: "[name].[hash].js",
-    publicPath: "/"
+    publicPath: "/",
   },
   module: {
     rules: [
@@ -32,40 +32,41 @@ module.exports = {
           loader: "svelte-loader",
           options: {
             emitCss: true,
-            hotReload: true
-          }
-        }
+            hotReload: true,
+            preprocess: require("svelte-preprocess")(),
+          },
+        },
       },
       {
         test: /\.css$/,
         use: [
           prod ? MiniCssExtractPlugin.loader : "style-loader",
-          "css-loader"
-        ]
+          "css-loader",
+        ],
       },
       {
         test: /\.svg$/,
         loader: "svg-inline-loader",
         options: {
-          removeSVGTagAttrs: false
-        }
-      }
-    ]
+          removeSVGTagAttrs: false,
+        },
+      },
+    ],
   },
   mode,
   plugins: [
     new MiniCssExtractPlugin({
-      filename: "[name].[hash].css"
+      filename: "[name].[hash].css",
     }),
     new HtmlWebpackPlugin({
       template: "src/index.html.ejs",
       favicon: "src/favicon.ico",
-      hash: true
-    })
+      hash: true,
+    }),
   ],
   devtool: prod ? false : "source-map",
   devServer: {
     port: 4000,
-    historyApiFallback: true
-  }
+    historyApiFallback: true,
+  },
 };

@@ -15,7 +15,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--color-background-grey-light);
     padding: 12px var(--hor-padding-s) 10px;
   }
 
@@ -35,12 +34,12 @@
   }
 
   .lang a {
-    color: black;
     padding: 0 10px 0 7px;
     font-weight: normal;
   }
 
   .lang a.active {
+    color: black;
     cursor: not-allowed;
     font-weight: bold;
   }

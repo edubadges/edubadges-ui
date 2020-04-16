@@ -1,28 +1,35 @@
 <script>
-  import { FilterBlock, Search } from "../../components/teachers";
-  import { tree, facultyIds, issuerIds } from "../../stores/filter";
+  import I18n from "i18n-js";
+  import { FilterBlock } from "../../components/teachers";
+  import { Search } from "../../components";
+  import { search, tree, facultyIds, issuerIds } from "../../stores/filter";
 </script>
 
-<style>
+<style lang="scss">
   div.sidebar {
     width: var(--width-side-bar);
-    padding: 12px;
+    padding: 30px 12px;
     background: var(--color-background-grey-light);
-  }
 
-  div.sidebar > div {
-    padding-bottom: 20px;
-  }
+    h3 {
+      margin-bottom: 8px;
+    }
 
-  div.sidebar > *:not(:first-child) {
-    padding-top: 20px;
-    border-top: var(--card-border);
+    > div {
+      padding-bottom: 24px;
+
+      &:not(:first-child) {
+        padding-top: 24px;
+        border-top: var(--card-border);
+      }
+    }
   }
 </style>
 
 <div class="sidebar">
   <div>
-    <Search />
+    <h3 class="purple">{I18n.t('teacher.sidebar.search')}</h3>
+    <Search bind:value={$search} />
   </div>
 
   <div>

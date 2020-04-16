@@ -36,15 +36,18 @@
   });
 </script>
 
-<style>
+<style lang="scss">
   .page-container {
     display: flex;
-    flex: 1;
   }
 
   .content {
     flex: 1;
     padding: 30px 20px;
+
+    h2 {
+      margin-bottom: 18px;
+    }
   }
 
   .badges {
@@ -57,19 +60,29 @@
   }
 
   div.badge {
+    display: flex;
+    flex-direction: column;
+
+    width: 260px;
+    border: var(--card-border);
+    border-radius: var(--card-border-radius);
+    box-shadow: var(--card-shadow);
     margin-bottom: 20px;
     margin-right: var(--badge-margin-right);
-  }
 
-  div.image {
-    width: 200px;
-    height: 200px;
+    div.image {
+      padding: 30px;
+    }
 
-    padding: 12px;
-    margin-bottom: 6px;
+    div.info {
+      flex: 1;
+      background: var(--color-background-grey-light);
+      padding: var(--ver-padding-l) var(--hor-padding-s);
 
-    border: var(--card-border);
-    border-radius: 7px;
+      h5 {
+        color: var(--black);
+      }
+    }
   }
 </style>
 
@@ -79,10 +92,7 @@
   <div class="content">
     <h2>
       {I18n.t('teacher.badgeclasses.title')}
-      {#if institution}
-        <span class="blue-text">in</span>
-        {institution.name}
-      {/if}
+      {#if institution}in {institution.name}{/if}
     </h2>
 
     <div class="badges">
@@ -91,7 +101,9 @@
           <div class="image">
             <img src={badge.image} alt={`image for ${badge.name}`} />
           </div>
-          <b>{badge.name}</b>
+          <div class="info">
+            <h3 class="text-black">{badge.name}</h3>
+          </div>
         </div>
       {/each}
     </div>
