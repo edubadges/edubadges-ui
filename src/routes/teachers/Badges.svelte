@@ -79,7 +79,7 @@
       background: var(--color-background-grey-light);
       padding: var(--ver-padding-l) var(--hor-padding-s);
 
-      h5 {
+      .text-black {
         color: var(--black);
       }
     }
