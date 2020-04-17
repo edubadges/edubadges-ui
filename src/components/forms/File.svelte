@@ -1,10 +1,11 @@
 <script>
   import {Button} from "../forms";
+ import I18n from "i18n-js";
 
   export let value;
   export let error;
   export let disabled;
-  export let removeAllowed = true;
+  export let removeAllowed = false;
 
   let input;
   let src = "";
@@ -106,7 +107,7 @@
     {#if src}
       <img alt="preview" {src}/>
     {:else}
-      <p>No file selected</p>
+      <p>{I18n.t("file.noFileSelected")}</p>
     {/if}
   </div>
 
@@ -119,12 +120,13 @@
       bind:this={input}
       {disabled} />
 
-    <label class="btn" for="file">Upload image</label>
+    <label class="btn" for="file">{I18n.t("file.upload")}</label>
     {#if removeAllowed}
       <button class="btn ghost no-border" on:click={_ => setFile()} {disabled}>
-        Remove image
+        {I18n.t("file.remove")}
       </button>
     {/if}
+    <span class="disclaimer">{I18n.t("file.disclaimer")}</span>
   </div>
 
 </div>

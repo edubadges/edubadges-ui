@@ -230,4 +230,10 @@ I18n.translations.en = {
       emailAddresses: "Paste email addresses"
     }
   },
+  file: {
+    noFileSelected: "No file selected",
+    upload: "Upload image",
+    remove: "Remove image",
+    disclaimer: "Image must be png, at least 90x90 pixels and smaller than 256KB."
+  }
 };

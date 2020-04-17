@@ -227,6 +227,12 @@ I18n.translations.nl = {
     badge: {
       emailAddress: "Email address",
       emailAddresses: "Paste email addresses"
+    },
+    file: {
+      noFileSelected: "No file selected",
+      upload: "Upload image",
+      remove: "Remove image",
+      disclaimer: "Image must be png, at least 90x90 pixels and smaller than 256KB."
     }
   },
 };
