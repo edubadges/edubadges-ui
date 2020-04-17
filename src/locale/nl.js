@@ -214,6 +214,7 @@ I18n.translations.nl = {
       expiresAfter: "Expires after",
       expiresAfterNever: "Never",
       expiresAfterValue: "{{nbr}} weeks",
+      expireSettings: "Default expiration settings",
       publicUrl: "Public url",
       extensions: {
         language: "Language of instruction",

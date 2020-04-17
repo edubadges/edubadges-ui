@@ -69,4 +69,5 @@ module.exports = {
     port: 4000,
     historyApiFallback: true,
   },
+  performance: { hints: false }
 };
