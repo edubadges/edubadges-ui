@@ -9,10 +9,8 @@
 
 <style>
   .container {
-    display: block;
     position: relative;
-    padding-left: 35px;
-    margin-bottom: 12px;
+    padding: 3px 35px 0 35px;
     cursor: pointer;
   }
 
@@ -28,17 +26,18 @@
     left: 0;
     height: 25px;
     width: 25px;
-    background-color: #eee;
+    background-color: white;
     border-radius: 50%;
+    border: 1px solid purple;
   }
 
   .container:hover input ~ .checkmark {
-    background-color: #ccc;
+    background-color: rgba(248, 247, 247, 0.5);
   }
 
   /* When the radio button is checked, add a blue background */
   .container input:checked ~ .checkmark {
-    background-color: #2196F3;
+    background-color: white;
   }
 
   /* Create the indicator (the dot/circle - hidden when not checked) */
@@ -55,17 +54,18 @@
 
   /* Style the indicator (dot/circle) */
   .container .checkmark:after {
-    top: 9px;
-    left: 9px;
-    width: 8px;
-    height: 8px;
+    top: 6px;
+    left: 6px;
+    width: 11px;
+    height: 11px;
     border-radius: 50%;
-    background: white;
+    background: purple;
   }
+
 </style>
 
 <label class="container">
-  <input type="radio" bind:group={values} value={value} disabled={readOnly} />
+  <input type="radio" bind:group={values} value={value} disabled={readOnly}/>
   <span class="checkmark"></span>
-  <span>{label}</span>
+  <span class="label">{label}</span>
 </label>

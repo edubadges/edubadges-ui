@@ -223,6 +223,12 @@ I18n.translations.en = {
         eqf: "NLQF level",
         educationProgramIdentifier: "ISAT",
         notSet: "No value set"
+      },
+      expirationDurations: {
+        days: "Days",
+        weeks: "Weeks",
+        months: "Months",
+        years: "Years"
       }
     },
     badge: {

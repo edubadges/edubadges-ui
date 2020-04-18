@@ -80,7 +80,7 @@
   }
 
   /* Disabled */
-  div[disabled] .image-container {
+  div[disabled="true"] .image-container {
     border: var(--field-border-disabled);
   }
 
@@ -99,6 +99,11 @@
 
   div[disabled] .buttons-container > :global(.btn.ghost.no-border) {
     border-color: white;
+  }
+
+  .disclaimer {
+    margin-top: auto;
+    font-size: 14px;
   }
 </style>
 

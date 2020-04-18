@@ -23,7 +23,7 @@
   }
 
   /* Disabled */
-  div[disabled] * {
+  div[disabled="true"] * {
     color: var(--color-text-light-grey);
   }
 

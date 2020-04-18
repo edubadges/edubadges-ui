@@ -5,6 +5,7 @@
   export let error;
 
   export let area;
+  export let fullWidth = false;
 </script>
 
 <style>
@@ -23,6 +24,9 @@
     border-radius: var(--field-border-radius);
   }
 
+  input.full-width, textarea.full-width {
+    max-width: 100%;
+  }
   input:focus,
   textarea:focus {
     outline: var(--outline-fallback);
@@ -30,12 +34,12 @@
   }
 
   /* Disabled */
-  div[disabled] * {
+  div[disabled="true"] * {
     color: var(--field-color-disabled);
   }
 
-  div[disabled] input,
-  div[disabled] textarea {
+  div[disabled="true"] input,
+  div[disabled="true"] textarea {
     cursor: var(--field-cursor-disabled);
     border-color: var(--field-border-color-disabled);
   }
@@ -50,8 +54,8 @@
 
 <div {disabled} {error}>
   {#if area}
-    <textarea class="input-field" bind:value rows="4" {disabled} />
+    <textarea class="input-field" bind:value rows="4" {disabled} class:full-width={fullWidth}/>
   {:else}
-    <input class="input-field" bind:value {disabled} />
+    <input class="input-field" bind:value {disabled} class:full-width={fullWidth}/>
   {/if}
 </div>

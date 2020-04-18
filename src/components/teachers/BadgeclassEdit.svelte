@@ -40,7 +40,7 @@
   }`;
 
 
-  let badgeclass = {issuer: {faculty:{}}};
+  let badgeclass = {issuer: {faculty:{}}, extensions: []};
   let issuers = [];
 
   onMount(() => {

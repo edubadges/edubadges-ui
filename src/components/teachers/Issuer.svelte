@@ -54,7 +54,6 @@
       issuer = res.issuer;
       faculty = issuer.faculty;
       badgeclasses = issuer.badgeclasses;
-      console.log(badgeclasses);
     });
   });
 

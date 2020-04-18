@@ -2,14 +2,11 @@ import {
   ects,
   educationProgramIdentifier,
   eqf,
+  extensionToJson,
   extensionValue,
   language,
   learningOutcome
 } from "../../../components/extensions/badges/extensions";
-
-import I18n from "i18n-js";
-import en from "../../../locale/en";
-import nl from "../../../locale/nl";
 
 const extensions = [{
   name: "extensions:LanguageExtension",
@@ -35,6 +32,52 @@ test("Extensions value", () => {
   expect(extensionValue(extensions, learningOutcome)).toStrictEqual("Will appreciate the benefits of learning a foreign language.");
   expect(extensionValue(extensions, educationProgramIdentifier)).toStrictEqual(56823);
 
-  expect(extensionValue(extensions, {name: "nope"})).toStrictEqual("No value set");
+  expect(extensionValue(extensions, {name: "nope"})).toBeNull();
 
+});
+
+test("Extensions JSON", () => {
+  const nameValuePairs = [
+    {name: language.name, value: "Nl_Nl"},
+    {name: ects.name, value: 6},
+    {name: eqf.name, value: 3.5},
+    {name: educationProgramIdentifier.name, value: "123456"},
+  ]
+  const extensions = extensionToJson(nameValuePairs);
+  expect(extensions).toStrictEqual({
+
+    "extensions:LanguageExtension": {
+      "@context": "https://openbadgespec.org/extensions/LanguageExtension/context.json",
+      "Language": "Nl_Nl",
+      "type": [
+        "Extension",
+        "extensions:LanguageExtension"
+      ]
+    },
+
+    "extensions:ECTSExtension": {
+      "@context": "https://openbadgespec.org/extensions/ECTSExtension/context.json",
+      "ECTS": 6,
+      "type": [
+        "Extension",
+        "extensions:ECTSExtension"
+      ]
+    },
+    "extensions:EQFExtension": {
+      "@context": "https://openbadgespec.org/extensions/EQFExtension/context.json",
+      "EQF": 3.5,
+      "type": [
+        "Extension",
+        "extensions:EQFExtension"
+      ]
+    },
+    "extensions:EducationProgramIdentifierExtension": {
+      "@context": "https://openbadgespec.org/extensions/EducationProgramIdentifierExtension/context.json",
+      "EducationProgramIdentifier": "123456",
+      "type": [
+        "Extension",
+        "extensions:EducationProgramIdentifierExtension",
+      ]
+    }
+  })
 });

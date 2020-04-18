@@ -60,19 +60,19 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: "[name].[hash].css",
     }),
-    // load `moment/locale/en.js` and `moment/locale/nl.js`
+    // load only `moment/locale/en.js` and `moment/locale/nl.js`
     new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en|nl/),
     new HtmlWebpackPlugin({
       template: "src/index.html.ejs",
       favicon: "src/favicon.ico",
       hash: true,
     }),
-    new BundleAnalyzerPlugin({
+    prod ? new BundleAnalyzerPlugin({
       analyzerMode: "disabled",
       generateStatsFile: true,
       openAnalyzer: false
-    })
-  ],
+    }) : false
+  ].filter(Boolean),
   devtool: prod ? false : "source-map",
   devServer: {
     port: 4000,

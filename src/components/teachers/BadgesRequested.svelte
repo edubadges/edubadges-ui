@@ -28,7 +28,6 @@
 
   onMount(() => {
     queryData(query).then(res => {
-      console.log(res);
       requests = res.badgeClass.enrollments.filter(el => !el.dateAwarded);
     });
   });

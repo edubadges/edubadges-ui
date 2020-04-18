@@ -4,8 +4,13 @@
   export let value;
   export let items;
 
-  export let disabled;
+  export let disabled = false;
+  export let clearable = true;
   export let error;
+
+  export let optionIdentifier = "entityId";
+  export let fullWidth = false;
+
 </script>
 
 <style>
@@ -26,6 +31,11 @@
     --disabledBackground: var(--field-background);
   }
 
+  div.full-width {
+    width: 100%;
+    max-width: 100%;
+  }
+
   div :global(.selectContainer input) {
     cursor: var(--field-cursor) !important;
   }
@@ -37,7 +47,7 @@
   }
 
   /* Disabled */
-  div[disabled] :global(.selectContainer input) {
+  div[disabled="true"] :global(.selectContainer input) {
     cursor: var(--field-cursor-disabled) !important;
   }
 
@@ -50,14 +60,17 @@
   }
 </style>
 
-<div class="input-field" {error} {disabled}>
+<div class="input-field" {error} {disabled} class:full-width={fullWidth}>
+
   <Select
     {items}
     bind:selectedValue={value}
-    optionIdentifier="entityId"
+    optionIdentifier={optionIdentifier}
     getOptionLabel={({ name }) => name}
     getSelectionLabel={({ name }) => name}
-    placeholder=""
-    showChevron
-    isDisabled={disabled} />
+    placeholder={""}
+    showChevron={true}
+    isDisabled={disabled}
+    isClearable={clearable} />
+
 </div>

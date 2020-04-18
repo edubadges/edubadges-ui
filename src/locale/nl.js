@@ -223,7 +223,14 @@ I18n.translations.nl = {
         eqf: "NLQF niveau",
         educationProgramIdentifier: "ISAT",
         notSet: "Geen waarde opgegeven"
+      },
+      expirationDurations: {
+        days: "Days",
+        weeks: "Weeks",
+        months: "Months",
+        years: "Years"
       }
+
     },
     badge: {
       emailAddress: "Email address",
