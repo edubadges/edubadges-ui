@@ -58,7 +58,7 @@
     </div>
 
     {#if mayUpdate}
-      <Button href="edit" text={I18n.t(['manage', 'edit', entity])} />
+      <Button secondary href="edit" text={I18n.t(['manage', 'edit', entity])} />
     {/if}
   </div>
 
