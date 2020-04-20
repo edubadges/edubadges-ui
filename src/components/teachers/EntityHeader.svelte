@@ -20,22 +20,22 @@
     padding: var(--ver-padding-m) var(--hor-padding-m) 0;
     background: var(--grey-2);
 
-    .img-container {
-      flex-shrink: 0;
-      height: 100px;
-      width: 100px;
-      background: white;
-      margin-right: var(--hor-padding-m);
-    }
-
     .content {
       display: flex;
+      margin-bottom: var(--ver-padding-m);
+
+      .img-container {
+        flex-shrink: 0;
+        height: 100px;
+        width: 100px;
+        background: white;
+        margin-right: var(--hor-padding-m);
+      }
 
       .info {
         flex: 1;
         display: flex;
         flex-direction: column;
-        margin-bottom: var(--ver-padding-m);
       }
     }
   }
@@ -59,7 +59,6 @@
 
       <div class="slots">
         <HeaderList {entity} {headerItems} />
-
       </div>
     </div>
 

@@ -41,6 +41,10 @@
         {#if value}
           <a class="is-link" href={value} target="_blank">{value}</a>
         {:else}-{/if}
+      {:else if type === 'email'}
+        {#if value}
+          <a class="is-link" href="mailto:{value}" target="_blank">{value}</a>
+        {:else}-{/if}
       {:else}{value}{/if}
     </span>
   {/each}

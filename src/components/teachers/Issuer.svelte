@@ -1,10 +1,9 @@
 <script>
   import { onMount } from "svelte";
   import { Router, Route, navigate } from "svelte-routing";
-  import { Breadcrumb, EntityHeader, Issuers, Badgeclasses } from "../teachers";
-  import { issuerIcon, badgeclassIcon } from "../../icons";
+  import { Breadcrumb, EntityHeader, Badgeclasses } from "../teachers";
+  import { badgeclassIcon } from "../../icons";
   import { queryData } from "../../api/graphql";
-  import IssuerHeader from "./IssuerHeader.svelte";
 
   export let entityId;
   export let subEntity;
@@ -54,7 +53,6 @@
       issuer = res.issuer;
       faculty = issuer.faculty;
       badgeclasses = issuer.badgeclasses;
-      console.log(badgeclasses);
     });
   });
 
@@ -67,6 +65,29 @@
   ];
 
   $: if (!subEntity) navigate(tabs[0].href, { replace: true });
+
+  $: headerItems = [
+    {
+      attr: "created",
+      type: "date",
+      value: issuer.createdAt
+    },
+    {
+      attr: "admin",
+      type: "adminNames",
+      value: issuer
+    },
+    {
+      attr: "url",
+      type: "link",
+      value: issuer.url
+    },
+    {
+      attr: "email",
+      type: "email",
+      value: issuer.email
+    }
+  ];
 </script>
 
 <style>
@@ -80,12 +101,10 @@
   <Breadcrumb {faculty} {issuer} />
   <EntityHeader
     {tabs}
-    title={issuer.name}
-    icon={issuerIcon}
-    mayUpdate={issuer.permissions && issuer.permissions.mayUpdate}
-    entity="issuer">
-    <IssuerHeader {issuer} />
-  </EntityHeader>
+    {headerItems}
+    object={issuer}
+    entity="issuer"
+    mayUpdate={issuer.permissions && issuer.permissions.mayUpdate} />
 
   <Router>
     <Route path="/badgeclasses">
