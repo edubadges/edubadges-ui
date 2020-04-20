@@ -11,11 +11,6 @@
 </script>
 
 <style lang="scss">
-  :global(.entity .tab svg) {
-    width: 20px;
-    margin-right: 14px;
-  }
-
   .entity {
     padding: var(--ver-padding-m) var(--hor-padding-m) 0;
     background: var(--grey-2);
