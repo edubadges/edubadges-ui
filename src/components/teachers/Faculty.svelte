@@ -2,9 +2,8 @@
   import { onMount } from "svelte";
   import { Router, Route, navigate } from "svelte-routing";
   import { Breadcrumb, EntityHeader, Issuers } from "../teachers";
-  import { institutionIcon, issuerIcon, facultyIcon } from "../../icons";
+  import { issuerIcon } from "../../icons";
   import { queryData } from "../../api/graphql";
-  import FacultyHeader from "./FacultyHeader.svelte";
 
   export let entityId;
   export let subEntity;
@@ -62,6 +61,19 @@
   ];
 
   $: if (!subEntity) navigate(tabs[0].href, { replace: true });
+
+  $: headerItems = [
+    {
+      attr: "created",
+      type: "date",
+      value: faculty.createdAt
+    },
+    {
+      attr: "admin",
+      type: "adminNames",
+      value: faculty
+    }
+  ];
 </script>
 
 <style>
@@ -75,12 +87,10 @@
   <Breadcrumb {faculty} />
   <EntityHeader
     {tabs}
-    title={faculty.name}
-    icon={facultyIcon}
+    {headerItems}
+    object={faculty}
     mayUpdate={faculty.permissions && faculty.permissions.mayUpdate}
-    entity="faculty">
-    <FacultyHeader {faculty} />
-  </EntityHeader>
+    entity="faculty" />
 
   <Router>
     <Route path="/issuers">

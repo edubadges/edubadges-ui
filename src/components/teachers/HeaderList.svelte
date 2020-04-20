@@ -12,8 +12,6 @@
   }
 
   span {
-    flex: 1;
-    min-width: 25%;
     padding-right: 15px;
 
     &:not(:first-child) {

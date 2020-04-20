@@ -34,8 +34,7 @@
       .info {
         flex: 1;
         display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
+        flex-direction: column;
         margin-bottom: var(--ver-padding-m);
       }
     }
