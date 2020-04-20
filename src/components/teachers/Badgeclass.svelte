@@ -106,40 +106,27 @@
   ];
 </script>
 
-<style>
-  .page-container {
-    flex: 1;
-    --entity-icon-width: 150px;
-  }
+<Breadcrumb {faculty} {issuer} badgeclassName={badgeclass.name} />
 
-  .content {
-    margin: var(--ver-padding-l) var(--hor-padding-m);
-  }
-</style>
+<EntityHeader
+  object={badgeclass}
+  entity="badgeclass"
+  {tabs}
+  {headerItems}
+  mayUpdate={badgeclass.permissions && badgeclass.permissions.mayUpdate} />
 
-<div class="page-container">
-  <Breadcrumb {faculty} {issuer} badgeclassName={badgeclass.name} />
+<div class="main-content-margin">
+  <Router>
+    <Route path="/requested">
+      <BadgesRequested {entityId} />
+    </Route>
 
-  <EntityHeader
-    object={badgeclass}
-    entity="badgeclass"
-    {tabs}
-    {headerItems}
-    mayUpdate={badgeclass.permissions && badgeclass.permissions.mayUpdate} />
+    <Route path="/awarded">
+      <BadgesAwarded {entityId} />
+    </Route>
 
-  <div class="content">
-    <Router>
-      <Route path="/requested">
-        <BadgesRequested {entityId} />
-      </Route>
-
-      <Route path="/awarded">
-        <BadgesAwarded {entityId} />
-      </Route>
-
-      <Route path="/revoked">
-        <BadgesRevoked {entityId} />
-      </Route>
-    </Router>
-  </div>
+    <Route path="/revoked">
+      <BadgesRevoked {entityId} />
+    </Route>
+  </Router>
 </div>

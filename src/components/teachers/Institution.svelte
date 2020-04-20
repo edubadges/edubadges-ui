@@ -107,28 +107,19 @@
   ];
 </script>
 
-<style>
-  .page-container {
-    flex: 1;
-    --entity-icon-width: 66px;
-  }
-</style>
+<Breadcrumb />
+<EntityHeader
+  {tabs}
+  {headerItems}
+  object={institution}
+  entity="institution"
+  {mayUpdate} />
 
-<div class="page-container">
-  <Breadcrumb />
-  <EntityHeader
-    {tabs}
-    {headerItems}
-    object={institution}
-    entity="institution"
-    {mayUpdate} />
-
-  <Router>
-    <Route path="/issuers">
-      <Issuers {issuers} {mayCreate} />
-    </Route>
-    <Route path="/groups">
-      <Faculties {faculties} {mayCreate} />
-    </Route>
-  </Router>
-</div>
+<Router>
+  <Route path="/issuers">
+    <Issuers {issuers} {mayCreate} />
+  </Route>
+  <Route path="/groups">
+    <Faculties {faculties} {mayCreate} />
+  </Route>
+</Router>

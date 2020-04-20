@@ -76,27 +76,18 @@
   ];
 </script>
 
-<style>
-  .page-container {
-    flex: 1;
-    --entity-icon-width: 66px;
-  }
-</style>
+<Breadcrumb {faculty} />
+<EntityHeader
+  {tabs}
+  {headerItems}
+  object={faculty}
+  mayUpdate={faculty.permissions && faculty.permissions.mayUpdate}
+  entity="faculty" />
 
-<div class="page-container">
-  <Breadcrumb {faculty} />
-  <EntityHeader
-    {tabs}
-    {headerItems}
-    object={faculty}
-    mayUpdate={faculty.permissions && faculty.permissions.mayUpdate}
-    entity="faculty" />
-
-  <Router>
-    <Route path="/issuers">
-      <Issuers
-        {issuers}
-        mayCreate={faculty.permissions && faculty.permissions.mayCreate} />
-    </Route>
-  </Router>
-</div>
+<Router>
+  <Route path="/issuers">
+    <Issuers
+      {issuers}
+      mayCreate={faculty.permissions && faculty.permissions.mayCreate} />
+  </Route>
+</Router>

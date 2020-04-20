@@ -25,10 +25,6 @@
 </script>
 
 <style lang="scss">
-  div.container {
-    margin: var(--ver-padding-l) var(--entity-icon-width);
-  }
-
   div.header {
     display: flex;
     justify-content: flex-end;
@@ -74,7 +70,7 @@
   }
 </style>
 
-<div class="container">
+<div class="container main-content-margin">
   <div class="header">
     <h3>{title}</h3>
     <Search bind:value={search} />
