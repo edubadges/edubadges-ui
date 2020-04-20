@@ -80,9 +80,6 @@
 
   {#if edit || create}
     <span>></span>
-    <a on:click|preventDefault|stopPropagation href="/#">
-      {editCreatePart(edit, create)}
-    </a>
+    <a use:link href={$currentPath}>{editCreatePart(edit, create)}</a>
   {/if}
-
 </div>

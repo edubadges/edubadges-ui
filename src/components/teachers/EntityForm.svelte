@@ -12,17 +12,24 @@
 </script>
 
 <style>
-  div.entity-form {
-    flex: 1;
-    padding: var(--ver-padding-l) var(--hor-padding-m);
+  h3 {
+    background: var(--purple-1);
+    padding: var(--ver-padding-m) var(--hor-padding-m);
   }
 </style>
 
-<Breadcrumb faculty={faculty} issuer={issuer} badgeclassName={badgeclassName} edit={!create} create={create} entity={entity}/>
+<Breadcrumb
+  {faculty}
+  {issuer}
+  {badgeclassName}
+  edit={!create}
+  {create}
+  {entity} />
 
-<div class="entity-form">
-  <h3>{I18n.t(['manage', create ? 'new' : 'edit', entity])}</h3>
-  <slot/>
+<h3>{I18n.t(['manage', create ? 'new' : 'edit', entity])}</h3>
+
+<div class="main-content-margin">
+  <slot />
   <button on:click={() => window.history.back()} class="btn ghost">
     {I18n.t(['manage', create ? 'new' : 'edit', 'cancel'])}
   </button>

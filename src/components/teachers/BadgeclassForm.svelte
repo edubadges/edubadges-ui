@@ -37,8 +37,8 @@
 <style>
   h4 {
     color: var(--purple);
-    border-bottom: 2px solid var(--purple);
-    padding-bottom: var(--ver-padding-s);
+    border-left: 3px solid var(--purple-2);
+    padding: var(--ver-padding-s);
     margin: var(--ver-padding-l) 0;
   }
 </style>
