@@ -1,7 +1,6 @@
 <script>
   import { onMount } from "svelte";
-  import I18n from "i18n-js";
-  import { SideBar } from "../../components/teachers";
+  import { SideBar, BadgesHeader } from "../../components/teachers";
   import { queryData } from "../../api/graphql";
   import { faculties, tree } from "../../stores/filter";
 
@@ -9,7 +8,16 @@
 
   const query = `{
     currentInstitution {
-      name
+      name,
+      description,
+      image,
+      createdAt,
+      staff {
+        user {
+          firstName,
+          lastName
+        }
+      }
     },
     faculties {
       name,
@@ -42,10 +50,6 @@
   .content {
     flex: 1;
     padding: 30px 20px;
-
-    h2 {
-      margin-bottom: 18px;
-    }
   }
 
   .badges {
@@ -85,10 +89,7 @@
   <SideBar />
 
   <div class="content">
-    <h2>
-      {I18n.t('teacher.badgeclasses.title')}
-      {#if institution}in {institution.name}{/if}
-    </h2>
+    <BadgesHeader entity={institution} />
 
     <div class="badges">
       {#each $tree.badgeClasses as badge (badge.entityId)}
