@@ -1,14 +1,21 @@
 <script>
-  import {onMount} from "svelte";
-  import {Router, Route, navigate} from "svelte-routing";
-  import {Breadcrumb, EntityHeader, Issuers, Faculties} from "../teachers";
-  import {institutionIcon, issuerIcon, facultyIcon} from "../../icons";
-  import {queryData} from "../../api/graphql";
-  import InstitutionHeader from "./InstitutionHeader.svelte";
+  import { onMount } from "svelte";
+  import I18n from "i18n-js";
+
+  import { Router, Route, navigate } from "svelte-routing";
+  import {
+    Breadcrumb,
+    EntityHeader,
+    Issuers,
+    Faculties,
+    HeaderList
+  } from "../teachers";
+  import { issuerIcon, facultyIcon } from "../../icons";
+  import { queryData } from "../../api/graphql";
 
   export let subEntity;
 
-  let institution = {staff: []};
+  let institution = { staff: [] };
   let faculties = [];
   let issuers = [];
 
@@ -72,9 +79,32 @@
     }
   ];
 
-  $: if (!subEntity) navigate(tabs[0].href, {replace: true});
+  $: if (!subEntity) navigate(tabs[0].href, { replace: true });
   $: mayUpdate = institution.permissions && institution.permissions.mayUpdate;
   $: mayCreate = institution.permissions && institution.permissions.mayCreate;
+
+  $: headerItems = [
+    {
+      attr: "created",
+      type: "date",
+      value: institution.createdAt
+    },
+    {
+      attr: "admin",
+      type: "adminNames",
+      value: institution
+    },
+    {
+      attr: "brin",
+      type: "text",
+      value: institution.brin
+    },
+    {
+      attr: "grading_table",
+      type: "link",
+      value: institution.gradingTable
+    }
+  ];
 </script>
 
 <style>
@@ -85,22 +115,20 @@
 </style>
 
 <div class="page-container">
-  <Breadcrumb/>
+  <Breadcrumb />
   <EntityHeader
     {tabs}
-    title={institution.name}
-    icon={institutionIcon}
+    {headerItems}
+    object={institution}
     entity="institution"
-    {mayUpdate}>
-    <InstitutionHeader institution={institution}/>
-  </EntityHeader>
+    {mayUpdate} />
 
   <Router>
     <Route path="/issuers">
-      <Issuers {issuers} {mayCreate}/>
+      <Issuers {issuers} {mayCreate} />
     </Route>
     <Route path="/groups">
-      <Faculties {faculties} {mayCreate}/>
+      <Faculties {faculties} {mayCreate} />
     </Route>
   </Router>
 </div>

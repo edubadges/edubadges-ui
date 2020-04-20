@@ -83,7 +83,7 @@ I18n.translations.nl = {
       title: "Badgeclasses",
       created: "Date created",
       recipients: "Recipients",
-      ects: "ECTS"
+      ects: "ECTS",
     },
     issuers: {
       title: "Issuers",
@@ -93,11 +93,11 @@ I18n.translations.nl = {
     },
     badgeRequests: {
       award: "Ken badge toe",
-      newUser: "Nieuwe gebruiker"
+      newUser: "Nieuwe gebruiker",
     },
     badgeRevoked: {
-      revoke: "Verwijder badge"
-    }
+      revoke: "Verwijder badge",
+    },
   },
   manage: {
     tabs: {
@@ -154,7 +154,7 @@ I18n.translations.nl = {
     701: "Ongespecifieerde share provider",
     702: "Ongeldige share provider",
     801: "Cannot change grading table, assertions have already been issued",
-    802: "Cannot change brin, assertions have already been issued"
+    802: "Cannot change brin, assertions have already been issued",
   },
   models: {
     institution: {
@@ -163,7 +163,6 @@ I18n.translations.nl = {
       brin: "BRIN code",
       description: "Beschrijving",
       grading_table: "Grading table",
-      no_grading_table: "<no link provided yet>",
       image: "Logo",
       name: "Name",
     },

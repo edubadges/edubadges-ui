@@ -163,7 +163,6 @@ I18n.translations.en = {
       brin: "BRIN code",
       description: "Description",
       grading_table: "Grading table",
-      no_grading_table: "<no link provided yet>",
       image: "Logo",
       name: "Name",
     },
