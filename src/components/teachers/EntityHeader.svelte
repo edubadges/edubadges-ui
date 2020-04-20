@@ -13,7 +13,7 @@
 <style lang="scss">
   .entity {
     padding: var(--ver-padding-m) var(--hor-padding-m) 0;
-    background: var(--grey-2);
+    background: var(--purple-1);
 
     .content {
       display: flex;
