@@ -2,29 +2,17 @@
   import { onMount } from "svelte";
   import { SideBar, BadgesHeader } from "../../components/teachers";
   import { queryData } from "../../api/graphql";
+  import { headerEntity, headerStaff } from "../../api/queries";
   import { faculties, tree } from "../../stores/filter";
 
-  let institution;
-
   const query = `{
-    currentInstitution {
-      name,
-      description,
-      image,
-      createdAt,
-      staff {
-        user {
-          firstName,
-          lastName
-        }
-      }
-    },
     faculties {
-      name,
-      entityId,
+      ${headerEntity},
+      ${headerStaff},
       issuers {
-        name,
-        entityId,
+        ${headerEntity},
+        image,
+        ${headerStaff},
         badgeclasses {
           name,
           image,
@@ -35,10 +23,7 @@
   }`;
 
   onMount(() => {
-    queryData(query).then(res => {
-      institution = res.currentInstitution;
-      $faculties = res.faculties;
-    });
+    queryData(query).then(res => ($faculties = res.faculties));
   });
 </script>
 
@@ -89,7 +74,7 @@
   <SideBar />
 
   <div class="content">
-    <BadgesHeader entity={institution} />
+    <BadgesHeader />
 
     <div class="badges">
       {#each $tree.badgeClasses as badge (badge.entityId)}

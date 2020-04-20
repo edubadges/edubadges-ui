@@ -1,8 +1,25 @@
 <script>
+  import { onMount } from "svelte";
   import I18n from "i18n-js";
+  import { queryData } from "../../api/graphql";
+  import { headerEntity, headerStaff } from "../../api/queries";
   import { formatAdminNames } from "../../util/entityHeader";
+  import { selectedEntity } from "../../stores/filter";
 
-  export let entity = {};
+  let institution = {};
+  $: entity = $selectedEntity || institution;
+
+  const query = `{
+    currentInstitution {
+      image,
+	  ${headerEntity},
+      ${headerStaff},
+    }
+  }`;
+
+  onMount(() => {
+    queryData(query).then(res => (institution = res.currentInstitution));
+  });
 </script>
 
 <style lang="scss">
