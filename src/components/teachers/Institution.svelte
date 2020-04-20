@@ -12,6 +12,7 @@
   } from "../teachers";
   import { issuerIcon, facultyIcon } from "../../icons";
   import { queryData } from "../../api/graphql";
+  import { headerStaff, headerEntity } from "../../api/queries";
 
   export let subEntity;
 
@@ -22,17 +23,11 @@
   const query = `{
     currentUser {
       institution {
-				name,
-				description,
-				createdAt
+        ${headerEntity},
+        ${headerStaff},
 				image,
 				gradingTable,
 				brin,
-				staff {
-				  user {
-				    firstName, lastName, email, entityId
-				  }
-				}
         permissions {
           mayUpdate,
           mayCreate

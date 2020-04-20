@@ -4,6 +4,7 @@
   import { Breadcrumb, EntityHeader, Issuers } from "../teachers";
   import { issuerIcon } from "../../icons";
   import { queryData } from "../../api/graphql";
+  import { headerStaff, headerEntity } from "../../api/queries";
 
   export let entityId;
   export let subEntity;
@@ -13,17 +14,10 @@
 
   const query = `{
     faculty(id: "${entityId}") {
-      name,
-      entityId,
-      description,
-      createdAt,
+      ${headerEntity},
+      ${headerStaff},
       issuers {
         entityId
-      },
-      staff {
-        user {
-          firstName, lastName, email, entityId
-        }
       },
       institution {
         name
