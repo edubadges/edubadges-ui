@@ -21,17 +21,15 @@
   let issuers = [];
 
   const query = `{
-    currentUser {
-      institution {
-        ${headerEntity},
-        ${headerStaff},
-				image,
-				gradingTable,
-				brin,
-        permissions {
-          mayUpdate,
-          mayCreate
-        }
+    currentInstitution {
+      ${headerEntity},
+      ${headerStaff},
+      image,
+      gradingTable,
+      brin,
+      permissions {
+        mayUpdate,
+        mayCreate
       }
 		},
 		faculties {
@@ -55,7 +53,7 @@
 
   onMount(() => {
     queryData(query).then(res => {
-      institution = res.currentUser.institution;
+      institution = res.currentInstitution;
       faculties = res.faculties;
       issuers = res.issuers;
     });

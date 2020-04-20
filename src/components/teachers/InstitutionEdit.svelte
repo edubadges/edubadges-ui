@@ -8,24 +8,22 @@
 
   const entity = "institution";
   const query = `{
-	currentUser {
-	  institution {
-		entityId,
-		name,
-		description,
-		image,
-		brin,
-		gradingTable
-      }
-	},
+    currentInstitution {
+      entityId,
+      name,
+      description,
+      image,
+      brin,
+      gradingTable
+    },
   }`;
 
   let institution = {};
   let errors = {};
 
   onMount(() => {
-    queryData(query).then(({ currentUser }) => {
-      const { gradingTable, ...rest } = currentUser.institution;
+    queryData(query).then(({ currentInstitution }) => {
+      const { gradingTable, ...rest } = currentInstitution;
       institution = { grading_table: gradingTable, ...rest };
     });
   });
@@ -51,7 +49,10 @@
   </Field>
 
   <Field {entity} attribute="description" errors={errors.description}>
-    <TextInput bind:value={institution.description} error={errors.description} area/>
+    <TextInput
+      bind:value={institution.description}
+      error={errors.description}
+      area />
   </Field>
 
   <Field {entity} attribute="brin" errors={errors.brin}>
