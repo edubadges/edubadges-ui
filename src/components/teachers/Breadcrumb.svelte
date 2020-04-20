@@ -41,7 +41,6 @@
   div {
     padding: var(--ver-padding-m) var(--hor-padding-m);
     min-height: 47px;
-    border-bottom: 3px solid var(--grey-2);
   }
 
   a {

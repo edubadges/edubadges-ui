@@ -7,45 +7,58 @@
   export let tabs = [];
 </script>
 
-<style>
-  .entity-tabs :global(.tab svg) {
-    width: 20px;
-    margin-right: 14px;
-  }
-
-  .entity-tabs :global(.tab.active) {
-    background: white;
-  }
-
-  .entity-tabs :global(.tab:not(.active)) {
-    background: var(--grey-3);
-  }
-
-  .entity-tabs {
-    display: flex;
-  }
-
+<style lang="scss">
   .tab {
-    width: fit-content;
-    padding: var(--ver-padding-s) var(--hor-padding-m);
-    margin-right: var(--hor-padding-m);
+    // display: flex;
+    display: inline-block;
+
+    padding: var(--ver-padding-m) var(--hor-padding-m);
+    margin-right: 4px;
     white-space: nowrap;
 
-    color: var(--text-grey-dark);
-    border-radius: var(--button-border-radius);
+    border-top-style: solid;
+    border-top-width: 2px;
+    font-weight: bold;
+
+    &.active {
+      background: white;
+      color: var(--purple);
+
+      border-color: var(--purple);
+
+      :global(svg) {
+        fill: var(--purple);
+      }
+    }
+
+    &:not(.active) {
+      background: var(--grey-3);
+      color: var(--text-grey-dark);
+      border-color: var(--grey-3);
+
+      &:hover {
+        background: var(--grey-5);
+        color: var(--black);
+        border-color: var(--grey-5);
+      }
+    }
+
+    :global(svg) {
+      width: 20px;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
   }
 </style>
 
-<div class="entity-tabs">
-  {#each tabs as { href, icon, entity, count } (entity)}
-    <Link to={href}>
-      <div class="tab click" class:active={href === $currentPath}>
-        {#if icon}
-          {@html icon}
-        {/if}
-        {I18n.t(['manage', 'tabs', entity])}
-        {#if !isNaN(count)}({count}){/if}
-      </div>
-    </Link>
-  {/each}
-</div>
+{#each tabs as { href, icon, entity, count } (entity)}
+  <Link to={href}>
+    <div class="tab click" class:active={href === $currentPath}>
+      {#if icon}
+        {@html icon}
+      {/if}
+      {I18n.t(['manage', 'tabs', entity])}
+      {#if !isNaN(count)}({count}){/if}
+    </div>
+  </Link>
+{/each}

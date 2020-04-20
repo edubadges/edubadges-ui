@@ -1,6 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import I18n from "i18n-js";
+  import { HeaderList } from "../teachers";
   import { queryData } from "../../api/graphql";
   import { headerEntity, headerStaff } from "../../api/queries";
   import { formatAdminNames } from "../../util/entityHeader";
@@ -20,6 +21,19 @@
   onMount(() => {
     queryData(query).then(res => (institution = res.currentInstitution));
   });
+
+  $: headerItems = [
+    {
+      attr: "created",
+      type: "date",
+      value: entity.createdAt
+    },
+    {
+      attr: "admin",
+      type: "adminNames",
+      value: entity
+    }
+  ];
 </script>
 
 <style lang="scss">
@@ -48,22 +62,9 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-    }
-  }
 
-  table {
-    width: fit-content;
-    margin-top: var(--ver-padding-s);
-    border-collapse: collapse;
-
-    td,
-    th {
-      text-align: left;
-      border-right: 1px solid var(--grey-5);
-      padding-right: 15px;
-
-      &:not(:first-child) {
-        padding-left: 15px;
+      p {
+        margin-bottom: var(--ver-padding-m);
       }
     }
   }
@@ -81,24 +82,6 @@
   {/if}
   <div class="content">
     <p>{entity.description}</p>
-    <table>
-      <thead>
-        <tr>
-          <th>
-            <h5>{I18n.t('models.institution.created')}</h5>
-          </th>
-          <th>
-            <h5>{I18n.t('models.institution.admin')}</h5>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>{new Date(entity.createdAt).toLocaleDateString()}</td>
-          <td>{formatAdminNames(entity)}</td>
-        </tr>
-      </tbody>
-    </table>
+    <HeaderList {headerItems} entity="institution" />
   </div>
-
 </div>
