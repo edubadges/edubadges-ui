@@ -81,8 +81,8 @@
         <span class="actions">
           <input type="search" />
           <Button
-            onClick={() => revokeBadges()}
-            label={I18n.t('teacher.badgeRevoked.revoke')} />
+            action={revokeBadges}
+            text={I18n.t('teacher.badgeRevoked.revoke')} />
         </span>
       </th>
     </tr>

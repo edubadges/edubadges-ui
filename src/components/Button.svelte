@@ -1,95 +1,88 @@
 <script>
-  export let className = "";
-  export let active = false;
-  export let href = "/";
-  export let disabled = false;
-  export let label;
-  export let onClick;
+  import { link } from "svelte-routing";
 
-  const handleLinkClick = e => e.key === " " && e.target.click();
+  export let text;
+  export let href;
+  export let label;
+  export let action;
+  export let secondary;
+  export let disabled;
 </script>
 
-<style>
-  .button {
-    background-color: #0077c8;
-    border-radius: 5px;
-    padding: 10px 20px;
+<style lang="scss">
+  a,
+  label {
     display: inline-block;
-    color: white;
+
+    height: fit-content;
+    min-width: 140px;
+    padding: 8px 18px;
+
+    border-radius: 5px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--purple);
+
+    font-size: 1rem;
+    font-weight: bold;
     text-decoration: none;
     text-align: center;
-    font-weight: bold;
-    width: 216px;
-  }
-  @media (max-width: 820px) {
-    .button {
-      width: 176px;
+
+    white-space: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+
+    &:focus {
+      outline: 1px solid var(--purple);
+      box-shadow: 1px 1px 3px var(--purple), -1px -1px 3px var(--purple);
     }
-  }
-  .button:hover {
-    background-color: #004c97;
-    color: #94d6ff;
-  }
 
-  .button.active {
-    background-color: #003980;
-    order: 1;
-    margin-left: 20px;
-  }
-
-  .button.cancel {
-    color: #0077c8;
-    background-color: white;
-    border: 1px solid #0066b8;
-  }
-
-  .button.cancel:hover {
-    color: #0066b8;
-    background-color: whitesmoke;
-  }
-
-  .button.disabled {
-    cursor: not-allowed;
-    color: #ababab;
-    background-color: #efefef;
-  }
-  .button.disabled:hover {
-    color: #ababab;
-    background-color: #efefef;
-  }
-
-  .button.full {
-    width: 100%;
-  }
-
-  @media (max-width: 580px) {
-    .button.full {
-      width: 200px;
+    &[disabled] {
+      cursor: not-allowed;
     }
   }
 
-  .button.small {
-    width: 140px;
+  a:not(.secondary),
+  label:not(.secondary) {
+    background-color: var(--purple);
+    color: white;
+
+    &:not([disabled]):hover {
+      background-color: var(--purple-8);
+      color: var(--purple-1);
+    }
+
+    &[disabled] {
+      background: var(--grey-2);
+      border-color: var(--grey-2);
+      color: var(--grey-4);
+    }
   }
 
-  .button.xs {
-    width: fit-content;
-    padding: 5px 10px;
-  }
+  a.secondary,
+  label.secondary {
+    background: white;
+    color: var(--purple);
 
-  @media (max-width: 580px) {
-    .button.small {
-      width: 90px;
+    &:not([disabled]):hover {
+      background-color: var(--grey-2);
+      color: var(--purple-8);
+    }
+
+    &[disabled] {
+      color: var(--grey-4);
+      border-color: var(--grey-3);
     }
   }
 </style>
 
-<a
-  class={`button ${className}`}
-  class:active
-  {href}
-  class:disabled
-  on:click|preventDefault|stopPropagation={() => !disabled && onClick()}
-  on:keydown={handleLinkClick}>
-  {label}
-</a>
+{#if label}
+  <label for={label} {disabled} class:secondary>{text}</label>
+{:else if action}
+  <!-- svelte-ignore a11y-invalid-attribute -->
+  <a href="#" on:click|preventDefault={action} {disabled} class:secondary>
+    {text}
+  </a>
+{:else if href}
+  <a use:link {href} {disabled} class:secondary>{text}</a>
+{/if}

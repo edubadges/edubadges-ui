@@ -99,11 +99,11 @@
         <span class="actions">
           <input type="search" />
           <Button
-            onClick={() => award()}
-            label={I18n.t('teacher.badgeRequests.award')} />
+            action={() => award()}
+            text={I18n.t('teacher.badgeRequests.award')} />
           <Button
-            onClick={() => addNewUser()}
-            label={I18n.t('teacher.badgeRequests.newUser')} />
+            action={() => addNewUser()}
+            text={I18n.t('teacher.badgeRequests.newUser')} />
         </span>
       </th>
     </tr>

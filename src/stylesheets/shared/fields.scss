@@ -51,6 +51,10 @@
   }
 }
 
+.file-container {
+  @include input-label;
+}
+
 .select-field {
   @include input-label;
 

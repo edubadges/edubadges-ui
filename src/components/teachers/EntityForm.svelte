@@ -1,5 +1,6 @@
 <script>
   import I18n from "i18n-js";
+  import { Button } from "../../components";
   import Breadcrumb from "./Breadcrumb.svelte";
 
   export let faculty;
@@ -30,10 +31,12 @@
 
 <div class="main-content-margin">
   <slot />
-  <button on:click={() => window.history.back()} class="btn ghost">
-    {I18n.t(['manage', create ? 'new' : 'edit', 'cancel'])}
-  </button>
-  <button on:click={submit} class="btn">
-    {I18n.t(['manage', create ? 'new' : 'edit', 'save'])}
-  </button>
+
+  <Button
+    secondary
+    action={() => window.history.back()}
+    text={I18n.t(['manage', create ? 'new' : 'edit', 'cancel'])} />
+  <Button
+    action={submit}
+    text={I18n.t(['manage', create ? 'new' : 'edit', 'save'])} />
 </div>

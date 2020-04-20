@@ -8,8 +8,9 @@
   div {
     position: relative;
     width: 100%;
+    min-width: 100px;
     max-width: 250px;
-    height: 30px;
+    min-height: 30px;
 
     input {
       position: absolute;

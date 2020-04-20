@@ -82,10 +82,7 @@
   <div class="right">
     <AccountCreationSteps {activeStep} />
     {#if activeStep === 2}
-      <Button
-        className="full"
-        onClick={stepUp}
-        label={I18n.t('login.createEduId.step2')} />
+      <Button action={stepUp} text={I18n.t('login.createEduId.step2')} />
     {/if}
 
   </div>

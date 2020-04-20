@@ -1,5 +1,5 @@
 <script>
-  import { Button } from "../forms";
+  import { Button } from "../../components";
 
   export let value;
   export let error;
@@ -49,31 +49,13 @@
     display: flex;
     flex-direction: column;
 
-    .btn {
+    > :global(*) {
       margin-bottom: 5px;
-      max-width: 180px;
-    }
-
-    &[disabled] .btn {
-      color: white;
-      background: var(--button-background-disabled);
-      border-color: var(--button-background-disabled);
-      cursor: var(--field-cursor-disabled);
-
-      &.ghost {
-        color: var(--button-background-disabled);
-        background: white;
-        border-color: var(--button-background-disabled);
-      }
-
-      &.ghost.no-border {
-        border-color: white;
-      }
     }
   }
 </style>
 
-<div class="container">
+<div class="container file-container">
   <div class="image-container input-field" class:error class:disabled>
     {#if src}
       <img alt="preview" {src} />
@@ -92,11 +74,7 @@
       bind:this={input}
       {disabled} />
 
-    <label class="btn" for="file">Upload image</label>
-
-    <button class="btn ghost no-border" on:click={_ => setFile()} {disabled}>
-      Remove image
-    </button>
+    <Button {disabled} label="file" text="Upload image" />
+    <Button {disabled} secondary action={_ => setFile()} text="Remove image" />
   </div>
-
 </div>

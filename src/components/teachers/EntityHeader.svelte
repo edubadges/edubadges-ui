@@ -1,7 +1,7 @@
 <script>
   import I18n from "i18n-js";
-  import { link } from "svelte-routing";
   import { EntityHeaderTabs, HeaderList } from "../teachers";
+  import { Button } from "../../components";
 
   export let entity;
   export let object = {};
@@ -38,10 +38,6 @@
       }
     }
   }
-
-  a {
-    height: fit-content;
-  }
 </style>
 
 <div class="entity">
@@ -62,9 +58,7 @@
     </div>
 
     {#if mayUpdate}
-      <a use:link href="edit" class="btn">
-        {I18n.t(['manage', 'edit', entity])}
-      </a>
+      <Button href="edit" text={I18n.t(['manage', 'edit', entity])} />
     {/if}
   </div>
 
