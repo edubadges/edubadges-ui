@@ -167,7 +167,7 @@ I18n.translations.nl = {
       name: "Name",
     },
     faculty: {
-      created: "Created",
+      created: "Aangemaakt",
       admin: "Admin",
       description: "Beschrijving",
       name: "Naam",
@@ -175,7 +175,7 @@ I18n.translations.nl = {
     issuer: {
       description: "Beschrijving",
       email: "Contact emailadres",
-      created: "Created",
+      created: "Aangemaakt",
       admin: "Admin",
       email_header: "Contact",
       url_header: "Website",
@@ -190,6 +190,8 @@ I18n.translations.nl = {
       issuer: "Issuer",
       image: "Badge foto",
       name: "Naam",
+      created: "Aangemaakt",
+      admin: "Admin",
       description: "Beschrijving",
       criteria_text: "Wat is benodigd om deze badge te verdienen?",
       criteria_url: "Criteria URL",

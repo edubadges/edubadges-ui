@@ -37,6 +37,10 @@
         display: flex;
         flex-direction: column;
       }
+
+      .list {
+        margin: var(--ver-padding-m) 0;
+      }
     }
   }
 
@@ -57,7 +61,7 @@
       <h2>{object.name}</h2>
       <p>{object.description}</p>
 
-      <div class="slots">
+      <div class="list">
         <HeaderList {entity} {headerItems} />
       </div>
     </div>

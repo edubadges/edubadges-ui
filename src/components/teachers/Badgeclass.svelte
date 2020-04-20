@@ -27,6 +27,13 @@
       name,
       image,
       description,
+      createdAt,
+      staff {
+        user {
+          firstName,
+          lastName
+        }
+      },
       issuer {
         name,
         entityId,
@@ -54,9 +61,14 @@
       badgeclass = res.badgeClass;
       issuer = res.badgeClass.issuer;
       faculty = issuer.faculty;
-      requestCount = res.badgeClass.enrollments.filter(el => !el.dateAwarded).length;
-      recipientCount = res.badgeClass.badgeAssertions.filter(el => el.revoked === false).length;
-      revokedCount = res.badgeClass.badgeAssertions.filter(el => el.revoked === true).length;
+      requestCount = res.badgeClass.enrollments.filter(el => !el.dateAwarded)
+        .length;
+      recipientCount = res.badgeClass.badgeAssertions.filter(
+        el => el.revoked === false
+      ).length;
+      revokedCount = res.badgeClass.badgeAssertions.filter(
+        el => el.revoked === true
+      ).length;
     });
   });
 
@@ -79,6 +91,19 @@
   ];
 
   $: if (!subEntity) navigate(tabs[0].href, { replace: true });
+
+  $: headerItems = [
+    {
+      attr: "created",
+      type: "date",
+      value: badgeclass.createdAt
+    },
+    {
+      attr: "admin",
+      type: "adminNames",
+      value: badgeclass
+    }
+  ];
 </script>
 
 <style>
@@ -96,26 +121,24 @@
   <Breadcrumb {faculty} {issuer} badgeclassName={badgeclass.name} />
 
   <EntityHeader
+    object={badgeclass}
     entity="badgeclass"
-    title={badgeclass.name}
-    logo={badgeclass.image}
     {tabs}
-    mayUpdate={badgeclass.permissions && badgeclass.permissions.mayUpdate} >
-
-  </EntityHeader>
+    {headerItems}
+    mayUpdate={badgeclass.permissions && badgeclass.permissions.mayUpdate} />
 
   <div class="content">
     <Router>
       <Route path="/requested">
-        <BadgesRequested entityId={entityId} />
+        <BadgesRequested {entityId} />
       </Route>
 
       <Route path="/awarded">
-        <BadgesAwarded entityId={entityId} />
+        <BadgesAwarded {entityId} />
       </Route>
 
       <Route path="/revoked">
-        <BadgesRevoked entityId={entityId} />
+        <BadgesRevoked {entityId} />
       </Route>
     </Router>
   </div>
