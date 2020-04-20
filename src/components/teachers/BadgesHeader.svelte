@@ -1,9 +1,11 @@
 <script>
   import I18n from "i18n-js";
+  import { formatAdminNames } from "../../util/entityHeader";
+
   export let entity = {};
 </script>
 
-<style>
+<style lang="scss">
   h2 {
     margin-bottom: var(--ver-padding-m);
   }
@@ -16,14 +18,37 @@
     margin-bottom: var(--ver-padding-l);
 
     display: flex;
+
+    .image {
+      height: 100px;
+      width: 100px;
+      background: white;
+      padding: 5px;
+      margin-right: var(--hor-padding-m);
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
   }
 
-  .image {
-    height: 100px;
-    width: 100px;
-    background: white;
-    padding: 5px;
-    margin-right: var(--hor-padding-m);
+  table {
+    width: fit-content;
+    margin-top: var(--ver-padding-s);
+    border-collapse: collapse;
+
+    td,
+    th {
+      text-align: left;
+      border-right: 1px solid var(--grey-5);
+      padding-right: 15px;
+
+      &:not(:first-child) {
+        padding-left: 15px;
+      }
+    }
   }
 </style>
 
@@ -37,5 +62,26 @@
       <img src={entity.image} alt={`${entity.name} logo`} />
     </div>
   {/if}
-  {entity.description}
+  <div class="content">
+    <p>{entity.description}</p>
+    <table>
+      <thead>
+        <tr>
+          <th>
+            <h5>{I18n.t('models.institution.created')}</h5>
+          </th>
+          <th>
+            <h5>{I18n.t('models.institution.admin')}</h5>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{new Date(entity.createdAt).toLocaleDateString()}</td>
+          <td>{formatAdminNames(entity)}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
 </div>
