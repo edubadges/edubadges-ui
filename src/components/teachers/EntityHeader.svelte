@@ -48,7 +48,7 @@
   <div class="content">
     {#if object.image}
       <div class="img-container">
-        <img src={object.image} alt={`${entity} logo`} />
+        <img src={object.image} alt={`${object.name} logo`} />
       </div>
     {/if}
 
