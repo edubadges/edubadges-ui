@@ -216,19 +216,29 @@ I18n.translations.en = {
       expiresAfterValue: "{{nbr}} weeks",
       expireSettings: "Default expiration settings",
       publicUrl: "Public url",
-      extensions: {
-        language: "Language of instruction",
-        learningOutcome: "Learning outcome",
-        ects: "Credit points",
-        eqf: "NLQF level",
-        educationProgramIdentifier: "ISAT",
-        notSet: "No value set"
-      },
-      expirationDurations: {
+      language: "Language of instruction",
+      learningOutcome: "Learning outcome",
+      ects: "Credit points",
+      ectsLong: "European Credit Transfer and Accumulation System",
+      eqf: "NLQF level",
+      educationProgramIdentifier: "ISAT",
+      educationProgramIdentifierLong: "Education Program Identifier",
+      notSet: "No value set",
+      expirationPeriods: {
         days: "Days",
         weeks: "Weeks",
         months: "Months",
         years: "Years"
+      },
+      headers: {
+        basicInformation: "Basic information",
+        earningCriteria: "Earning criteria",
+        creditPoints: "Credit Points"
+      },
+      info: {
+        educationProgramIdentifier: "Consult <a target='_blank' rel='noreferrer' href='https://duo.nl/zakelijk/images/studiecodes.pdf'>DUO_CROHO</a> or <a target='_blank' rel='noreferrer' href='https://kwalificaties.s-bb.nl/Lijsten/Groep/14'>SBB_CREDO</a> if you don’t know the code.",
+        eqf: "Check <a target='_blank' rel='noreferrer' href='https://www.nlqf.nl/nlqf-niveaus'>https://www.nlqf.nl/nlqf-niveaus</a> for help",
+        ects: "Whole and half points only. <br/>A minimum of 0.5 points is required."
       }
     },
     badge: {

@@ -48,12 +48,15 @@ const extensionNameValueDict = [language, ects, eqf, learningOutcome, educationP
  *   }
  * }
 */
-export const extensionToJson = nameValuePairs => nameValuePairs.reduce((acc, nameValue) => {
-  acc[`extensions:${nameValue.name}`] = {
-    "@context": `https://openbadgespec.org/extensions/${nameValue.name}/context.json`,
-    "type": ["Extension", `extensions:${nameValue.name}`],
-    [extensionNameValueDict[nameValue.name]]: nameValue.value
-  };
-  return acc;
-}, {});
+export const extensionToJson = nameValuePairs => {
+  const res = nameValuePairs.reduce((acc, nameValue) => {
+    acc[`extensions:${nameValue.name}`] = {
+      "@context": `https://openbadgespec.org/extensions/${nameValue.name}/context.json`,
+      "type": ["Extension", `extensions:${nameValue.name}`],
+      [extensionNameValueDict[nameValue.name]]: nameValue.value
+    };
+    return acc;
+  }, {});
+  return res;
+}
 

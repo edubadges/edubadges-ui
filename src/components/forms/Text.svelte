@@ -15,7 +15,7 @@
     max-width: var(--field-max-width);
     width: 100%;
 
-    padding: 8px 10px;
+    padding: 11px 10px;
 
     font-size: var(--field-font-size);
     color: var(--field-color);

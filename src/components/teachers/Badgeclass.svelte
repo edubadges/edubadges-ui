@@ -120,7 +120,7 @@
     title={badgeclass.name}
     icon={badgeclassIcon}
     {tabs}
-    mayUpdate={badgeclass.permissions && badgeclass.permissions.mayUpdate} >
+    mayUpdate={badgeclass.permissions && badgeclass.permissions.mayUpdate && badgeclass.badgeAssertions.length === 0} >
     <BadgeclassHeader badgeclass={badgeclass}/>
   </EntityHeader>
 

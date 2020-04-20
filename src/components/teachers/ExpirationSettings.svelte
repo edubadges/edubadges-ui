@@ -1,19 +1,14 @@
 <script>
   import I18n from "i18n-js";
+  import {expirationPeriods} from "../extensions/badges/expiration_period";
+
   import RadioButton from "../forms/RadioButton.svelte";
   import Select from "../forms/Select.svelte";
 
-  const items = [
-    {name: I18n.t("models.badgeclass.expirationDurations.days"), key: "D"},
-    {name: I18n.t("models.badgeclass.expirationDurations.weeks"), key: "W"},
-    {name: I18n.t("models.badgeclass.expirationDurations.months"), key: "M"},
-    {name: I18n.t("models.badgeclass.expirationDurations.years"), key: "Y"}
-  ]
-
-  export let expireValueSet;
+  export let expireValueSet = false;
   export let disabled;
-  export let number = 1;
-  export let duration = items[3];
+  export let number;
+  export let period;
 
 
 </script>
@@ -33,11 +28,16 @@
     height: 42px;
     width: 48px;
     border-radius: 8px;
-    border: solid 1px #dfe3e8;
+    border: solid 1px var(--color-text-grey);
     font-size: 18px;
     text-align: center;
     display: block;
     margin-right: 20px;
+  }
+
+  input.number[disabled] {
+    border: solid 1px var(--color-text-light-grey);
+    cursor: var(--field-cursor-disabled);
   }
 
   .expiration {
@@ -60,9 +60,9 @@
     <RadioButton bind:values={expireValueSet} label="After" value={true}/>
 
     <div class="expiration">
-      <input class="number" bind:value={number} disabled={!expireValueSet}/>
+      <input class="number" type="number" min="1" bind:value={number} disabled={!expireValueSet}/>
 
-      <Select bind:value={duration} items={items} optionIdentifier="key" clearable={false} disabled={!expireValueSet}
+      <Select bind:value={period} items={expirationPeriods()} optionIdentifier="key" clearable={false} disabled={!expireValueSet}
               fullWidth={true}/>
     </div>
   </div>

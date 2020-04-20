@@ -216,21 +216,23 @@ I18n.translations.nl = {
       expiresAfterValue: "{{nbr}} weeks",
       expireSettings: "Default expiration settings",
       publicUrl: "Public url",
-      extensions: {
-        language: "Language of instruction",
-        learningOutcome: "Learning outcome",
-        ects: "Credit points",
-        eqf: "NLQF niveau",
-        educationProgramIdentifier: "ISAT",
-        notSet: "Geen waarde opgegeven"
-      },
-      expirationDurations: {
+      language: "Language of instruction",
+      learningOutcome: "Learning outcome",
+      ects: "Credit points",
+      eqf: "NLQF niveau",
+      educationProgramIdentifier: "ISAT",
+      notSet: "Geen waarde opgegeven",
+      expirationPeriods: {
         days: "Days",
         weeks: "Weeks",
         months: "Months",
         years: "Years"
+      },
+      headers: {
+        basicInformation: "Basic information",
+        earningCriteria: "Earning criteria",
+        creditPoints: "Credit Points"
       }
-
     },
     badge: {
       emailAddress: "Email address",

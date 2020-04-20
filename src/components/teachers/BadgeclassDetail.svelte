@@ -46,25 +46,25 @@
 </style>
 
 <div class="badge-class-detail">
-  <h3>{I18n.t("models.badgeclass.extensions.language")}</h3>
+  <h3>{I18n.t("models.badgeclass.language")}</h3>
   <p class="info">{fallBackValue(extensionValue(badgeclass.extensions, language))}</p>
-  <h3>{I18n.t("models.badgeclass.extensions.learningOutcome")}</h3>
+  <h3>{I18n.t("models.badgeclass.learningOutcome")}</h3>
   <p class="info">{fallBackValue(extensionValue(badgeclass.extensions, learningOutcome))}</p>
   <h3>{I18n.t("models.badgeclass.criteria_text")}</h3>
   <div class="info">
     <p>{fallBackValue(badgeclass.criteriaText)}</p>
     <p class="green">{I18n.t("models.badgeclass.criteria_url_value")}
       {#if badgeclass.criteriaUrl}
-        <a href={badgeclass.criteriaUrl} target="_blank">{I18n.t("models.badgeclass.extensions.notSet")}</a>
+        <a href={badgeclass.criteriaUrl} target="_blank">{I18n.t("models.badgeclass.notSet")}</a>
       {:else}
-        <span>{I18n.t("models.badgeclass.extensions.notSet")}</span>
+        <span>{I18n.t("models.badgeclass.notSet")}</span>
       {/if}
     </p>
     <table class="extensions">
       <thead class="purple">
-      <th>{I18n.t("models.badgeclass.extensions.ects")}</th>
-      <th>{I18n.t("models.badgeclass.extensions.eqf")}</th>
-      <th>{I18n.t("models.badgeclass.extensions.educationProgramIdentifier")}</th>
+      <th>{I18n.t("models.badgeclass.ects")}</th>
+      <th>{I18n.t("models.badgeclass.eqf")}</th>
+      <th>{I18n.t("models.badgeclass.educationProgramIdentifier")}</th>
       </thead>
       <tbody>
       <tr>

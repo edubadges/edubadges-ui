@@ -1,4 +1,5 @@
 <script>
+  import I18n from "i18n-js";
   import {navigate} from "svelte-routing";
   import {EntityForm} from "../teachers";
   import {Field, Select, File, TextInput} from "../forms";
@@ -7,11 +8,13 @@
   import {
     ects,
     educationProgramIdentifier,
-    eqf,
+    eqf, extensionToJson,
     extensionValue,
     language,
     learningOutcome
   } from "../extensions/badges/extensions";
+  import EctsCreditPoints from "../extensions/badges/EctsCreditPoints.svelte";
+  import {setExpirationPeriod} from "../extensions/badges/expiration_period";
 
   export let entityId;
   export let badgeclass = {extensions: []};
@@ -23,12 +26,19 @@
   let errors = {};
   const isCreate = !entityId;
 
+  const languages = [
+    {name: "Nl_Nl"},
+    {name: "En_En"}
+  ]
+
+  const eqfItems = [...Array(8).keys()].map(i => ({name: `EQF ${i + 1}`}));
+
   let extensions = {
-    [language.name]: extensionValue(badgeclass.extensions, language) ||  "Nl_Nl",
-    [ects.name]: extensionValue(badgeclass.extensions, ects) ||  2.5,
-    [eqf.name]: extensionValue(badgeclass.extensions, eqf) ||  7,
-    [learningOutcome.name]: extensionValue(badgeclass.extensions, learningOutcome) ||  "",
-    [educationProgramIdentifier.name]: extensionValue(badgeclass.extensions, educationProgramIdentifier) ||  "",
+    [language.name]: extensionValue(badgeclass.extensions, language) || "En_En",
+    [ects.name]: extensionValue(badgeclass.extensions, ects) || 2.5,
+    [eqf.name]: extensionValue(badgeclass.extensions, eqf) || {name: "EQF 6"},
+    [learningOutcome.name]: extensionValue(badgeclass.extensions, learningOutcome) || "",
+    [educationProgramIdentifier.name]: extensionValue(badgeclass.extensions, educationProgramIdentifier) || "",
   }
 
   function onSubmit() {
@@ -40,11 +50,18 @@
       criteria_url: badgeclass.criteriaUrl
     };
     debugger;
+    setExpirationPeriod(newBadgeclass);
+    newBadgeclass.extensions = extensionToJson([
+      {name: language.name, value: extensions[language.name].name},
+      {name: ects.name, value: extensions[ects.name]},
+      {name: eqf.name, value: extensions[eqf.name].name},
+      {name: learningOutcome.name, value: extensions[learningOutcome.name]},
+      {name: educationProgramIdentifier.name, value: extensions[educationProgramIdentifier.name]}
+    ]);
 
     if (badgeclass.issuer) {
       newBadgeclass.issuer = badgeclass.issuer.entityId;
     }
-
     const args = isCreate ? [newBadgeclass] : [entityId, newBadgeclass];
     const apiCall = isCreate ? createBadgeclass : editBadgeclass;
 
@@ -77,6 +94,12 @@
     margin: var(--ver-padding-l) 0;
   }
 
+  span.info {
+    display: inline-block;
+    margin-bottom: 6px;
+    font-size: 14px;
+  }
+
 </style>
 
 <EntityForm
@@ -86,7 +109,7 @@
   badgeclassName={isCreate ? null : badgeclass.name}
   submit={onSubmit}
   create={isCreate}>
-  <h4>Basic information</h4>
+  <h4>{I18n.t("models.badgeclass.headers.basicInformation")}</h4>
   <div class="form">
 
     <Field {entity} attribute="image" errors={errors.image}>
@@ -94,10 +117,15 @@
     </Field>
 
     <ExpirationSettings bind:expireValueSet={badgeclass.expireValueSet} disabled={false} className=""
-                        bind:number={badgeclass.expirationPeriod} bind:duration={badgeclass.expirationDuration}/>
+                        bind:number={badgeclass.expirationDuration} bind:period={badgeclass.expirationPeriod}/>
 
     <Field {entity} attribute="name" errors={errors.name}>
       <TextInput bind:value={badgeclass.name} error={errors.name} fullWidth={true}/>
+    </Field>
+
+    <Field {entity} attribute="language" errors={errors.language}>
+      <Select bind:value={extensions[language.name]} items={languages} optionIdentifier="name" clearable={false}
+              fullWidth={true}/>
     </Field>
 
     <Field {entity} attribute="description" errors={errors.description}>
@@ -105,6 +133,14 @@
         bind:value={badgeclass.description}
         fullWidth={true}
         error={errors.description}
+        area/>
+    </Field>
+
+    <Field {entity} attribute="learningOutcome" errors={errors.learningOutcome}>
+      <TextInput
+        bind:value={extensions[learningOutcome.name]}
+        fullWidth={true}
+        error={errors.learningOutcome}
         area/>
     </Field>
 
@@ -118,10 +154,10 @@
     </Field>
 
   </div>
-  <h4>Earning criteria</h4>
+
+  <h4>{I18n.t("models.badgeclass.headers.earningCriteria")}</h4>
 
   <div class="form">
-
 
     <Field {entity} attribute="criteria_text" errors={errors.criteria_text}>
       <TextInput
@@ -137,5 +173,31 @@
         fullWidth={true}
         error={errors.criteria_url}/>
     </Field>
+  </div>
+
+  <h4>{I18n.t("models.badgeclass.headers.creditPoints")}</h4>
+
+  <Field {entity} attribute="ectsLong" errors={errors.ectsLong}>
+    <EctsCreditPoints bind:ectsValue={extensions[ects.name]}/>
+  </Field>
+
+  {extensions[ects.name]}
+
+  <div class="form">
+
+    <Field {entity} attribute="educationProgramIdentifierLong" errors={errors.educationProgramIdentifierLong}>
+      <TextInput
+        bind:value={extensions[educationProgramIdentifier.name]}
+        fullWidth={true}
+        error={errors.educationProgramIdentifierLong}/>
+      <span class="info">{@html I18n.t("models.badgeclass.info.educationProgramIdentifier")}</span>
+    </Field>
+
+    <Field {entity} attribute="eqf" errors={errors.eqf}>
+      <Select bind:value={extensions[eqf.name]} items={eqfItems} optionIdentifier="name" clearable={false}
+              fullWidth={true}/>
+      <span class="info">{@html I18n.t("models.badgeclass.info.eqf")}</span>
+    </Field>
+
   </div>
 </EntityForm>
