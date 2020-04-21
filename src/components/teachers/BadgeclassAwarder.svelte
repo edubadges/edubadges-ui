@@ -13,7 +13,7 @@
 
   let issuer;
   let faculty;
-  let badgeclass = { staff: [], extensions: [] };
+  let badgeclass = { extensions: [] };
   let requestCount;
   let recipientCount;
   let revokedCount;
@@ -115,7 +115,9 @@
 
 <div class="main-content-margin">
   <Router>
-    <Route path="/overview" component={Overview} />
+    <Route path="/overview">
+      <Overview {badgeclass} />
+    </Route>
 
     <Route path="/requested">
       <Requested {entityId} />

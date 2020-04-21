@@ -12,7 +12,7 @@
 
   let issuer;
   let faculty;
-  let badgeclass = {};
+  let badgeclass = { extensions: [] };
 
   const query = `{
     badgeClass(id: "${entityId}") {
@@ -89,7 +89,9 @@
 
 <div class="main-content-margin">
   <Router>
-    <Route path="/overview" component={Overview} />
+    <Route path="/overview">
+      <Overview {badgeclass} />
+    </Route>
     <Route path="/users" component={UserManagement} />
   </Router>
 </div>
