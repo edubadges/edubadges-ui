@@ -202,9 +202,9 @@ I18n.translations.nl = {
     badgeclass: {
       issuer: "Issuer",
       image: "Badge foto",
-      name: "Naam",
       created: "Aangemaakt",
       admin: "Admin",
+      name: "Naam",
       description: "Beschrijving",
       criteria_text: "Wat is benodigd om deze badge te verdienen?",
       criteria_url_value: "Link to the earning criteria:",
@@ -218,8 +218,10 @@ I18n.translations.nl = {
       language: "Language of instruction",
       learningOutcome: "Learning outcome",
       ects: "Credit points",
+      ectsLong: "European Credit Transfer and Accumulation System",
       eqf: "NLQF niveau",
       educationProgramIdentifier: "ISAT",
+      educationProgramIdentifierLong: "Education Program Identifier",
       notSet: "Geen waarde opgegeven",
       expirationPeriods: {
         days: "Days",
@@ -231,12 +233,17 @@ I18n.translations.nl = {
         basicInformation: "Basic information",
         earningCriteria: "Earning criteria",
         creditPoints: "Credit Points"
+      },
+      info: {
+        educationProgramIdentifier: "Consult <a target='_blank' rel='noreferrer' href='https://duo.nl/zakelijk/images/studiecodes.pdf'>DUO_CROHO</a> or <a target='_blank' rel='noreferrer' href='https://kwalificaties.s-bb.nl/Lijsten/Groep/14'>SBB_CREDO</a> if you don’t know the code.",
+        eqf: "Check <a target='_blank' rel='noreferrer' href='https://www.nlqf.nl/nlqf-niveaus'>https://www.nlqf.nl/nlqf-niveaus</a> for help",
+        ects: "Whole and half points only. <br/>A minimum of 0.5 points is required."
       }
     },
     badge: {
       emailAddress: "Email address",
       emailAddresses: "Paste email addresses"
-    },
+    }
   },
   file: {
     noFileSelected: "No file selected",
@@ -244,5 +251,4 @@ I18n.translations.nl = {
     remove: "Remove image",
     disclaimer: "Image must be png, at least 90x90 pixels and smaller than 256KB."
   }
-
 };
