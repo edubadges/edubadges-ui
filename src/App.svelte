@@ -6,7 +6,7 @@
   import { Header, Footer, SubscribeToPath, Spinner } from "./components";
   import {
     Header as TeacherHeader,
-    BadgeclassAwarder
+    BadgeclassManage
   } from "./components/teachers";
   import { userRole, userLoggedIn, redirectPath } from "./stores/user";
   import { role } from "./util/role";
@@ -92,7 +92,7 @@
         <Route path="/manage/*mainEntity" component={Manage} />
         <Route
           path="/badgeclasses/:entityId/*tab"
-          component={BadgeclassAwarder} />
+          component={BadgeclassManage} />
 
         <!-- Shared -->
         <Route path="/" component={homepage[visitorRole]} />
