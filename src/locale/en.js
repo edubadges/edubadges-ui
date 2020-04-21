@@ -205,8 +205,6 @@ I18n.translations.en = {
       created: "Created",
       admin: "Admin",
       name: "Name",
-      created: "Created",
-      admin: "Admin",
       description: "Description",
       criteria_text: "What is required to earn this badge?",
       criteria_url: "Criteria URL",
