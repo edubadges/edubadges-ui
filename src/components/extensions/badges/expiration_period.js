@@ -53,7 +53,7 @@ export const setExpirationPeriod = badgeclass => {
     const multiplier = expirationMultiplier(badgeclass.expirationPeriod.key);
     badgeclass.expiration_period = parseInt(badgeclass.expirationDuration) * multiplier;
   } else {
-    badgeclass.expiration_period = null;
+    badgeclass.expiration_period = 0;
   }
 
 }
