@@ -48,6 +48,7 @@
     queryData(query).then(res => {
       badgeclass = res.badgeClass;
       deduceExpirationPeriod(badgeclass);
+
       issuers = res.issuers;
     });
   });

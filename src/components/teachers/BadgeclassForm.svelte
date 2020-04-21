@@ -21,6 +21,7 @@
   export let issuers = [];
 
   let expireValueSet = false;
+  let loaded = false;
 
   const entity = "badgeclass";
   let errors = {};
@@ -33,19 +34,17 @@
 
   const eqfItems = [...Array(8).keys()].map(i => ({name: `EQF ${i + 1}`}));
 
-  $: languageValue = extensionValue(badgeclass.extensions, language) || {name: "En_En"};
-  let learningOutcomeValue = "";
+  let extensions = [];
 
-  $: if (badgeclass.extensions.length > 0) {
-    learningOutcomeValue = extensionValue(badgeclass.extensions, learningOutcome) || "";
-  }
-
-  $: extensions = {
-    [language.name]: extensionValue(badgeclass.extensions, language) || {name: "En_En"},
-    [ects.name]: extensionValue(badgeclass.extensions, ects) || 2.5,
-    [eqf.name]: extensionValue(badgeclass.extensions, eqf) || {name: "EQF 6"},
-    [learningOutcome.name]: extensionValue(badgeclass.extensions, learningOutcome) || "",
-    [educationProgramIdentifier.name]: extensionValue(badgeclass.extensions, educationProgramIdentifier) || "",
+  $: if (badgeclass.extensions.length > 0 && !loaded)  {
+    extensions = {
+      [language.name]: extensionValue(badgeclass.extensions, language) || {name: "En_En"},
+      [ects.name]: extensionValue(badgeclass.extensions, ects) || 2.5,
+      [eqf.name]: extensionValue(badgeclass.extensions, eqf) || {name: "EQF 6"},
+      [learningOutcome.name]: extensionValue(badgeclass.extensions, learningOutcome) || "",
+      [educationProgramIdentifier.name]: extensionValue(badgeclass.extensions, educationProgramIdentifier) || ""
+    }
+    loaded = true;
   }
 
   function onSubmit() {
@@ -153,14 +152,6 @@
     <Field {entity} attribute="learningOutcome" errors={errors.learningOutcome}>
       <TextInput
         bind:value={extensions[learningOutcome.name]}
-        fullWidth={true}
-        error={errors.learningOutcome}
-        area/>
-    </Field>
-
-    <Field {entity} attribute="learningOutcome" errors={errors.learningOutcome}>
-      <TextInput
-        bind:value={learningOutcomeValue}
         fullWidth={true}
         error={errors.learningOutcome}
         area/>

@@ -33,8 +33,8 @@
   table.extensions {
     width: 100%;
     margin: 40px 0;
-    border-top: 1px solid var(--color-background-grey-dark);
-    border-bottom: 1px solid var(--color-background-grey-dark);
+    border-top: 1px solid var(--text-grey-dark);
+    border-bottom: 1px solid var(--text-grey-dark);
     padding: 15px 0px;
   }
 

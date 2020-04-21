@@ -28,7 +28,7 @@
     height: 42px;
     width: 48px;
     border-radius: 8px;
-    border: solid 1px var(--color-text-grey);
+    border: solid 1px var(--text-grey-dark);
     font-size: 18px;
     text-align: center;
     display: block;
@@ -36,7 +36,7 @@
   }
 
   input.number[disabled] {
-    border: solid 1px var(--color-text-light-grey);
+    border: solid 1px var(--text-grey-light);
     cursor: var(--field-cursor-disabled);
   }
 
