@@ -1,6 +1,6 @@
 <script>
-  import {onMount} from "svelte";
-  import {Router, Route, navigate} from "svelte-routing";
+  import { onMount } from "svelte";
+  import { Router, Route, navigate } from "svelte-routing";
   import {
     EntityHeader,
     Breadcrumb,
@@ -17,7 +17,7 @@
 
   let issuer;
   let faculty;
-  let badgeclass = {staff: [], extensions: []};
+  let badgeclass = { staff: [], extensions: [] };
   let requestCount;
   let recipientCount;
   let revokedCount;
@@ -30,7 +30,6 @@
       criteriaUrl,
       criteriaText,
       expirationPeriod,
-      publicUrl,
       issuer {
         name,
         entityId,
@@ -62,9 +61,14 @@
       badgeclass = res.badgeClass;
       issuer = res.badgeClass.issuer;
       faculty = issuer.faculty;
-      requestCount = res.badgeClass.enrollments.filter(el => !el.dateAwarded).length;
-      recipientCount = res.badgeClass.badgeAssertions.filter(el => el.revoked === false).length;
-      revokedCount = res.badgeClass.badgeAssertions.filter(el => el.revoked === true).length;
+      requestCount = res.badgeClass.enrollments.filter(el => !el.dateAwarded)
+        .length;
+      recipientCount = res.badgeClass.badgeAssertions.filter(
+        el => el.revoked === false
+      ).length;
+      revokedCount = res.badgeClass.badgeAssertions.filter(
+        el => el.revoked === true
+      ).length;
     });
   });
 

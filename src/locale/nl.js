@@ -128,16 +128,17 @@ I18n.translations.nl = {
     },
     award: {
       title: "Award badges directly",
-      description: "Fill in the email address of the person you'd like to award the badge to. Your request will be sent, and you will be notified when it's accepted or denied",
+      description:
+        "Fill in the email address of the person you'd like to award the badge to. Your request will be sent, and you will be notified when it's accepted or denied",
       submit: "Award badge",
       addAnother: "+ Add another",
-      addBulk: "Add many at once"
+      addBulk: "Add many at once",
     },
     bulkAward: {
       title: "Add many recipients at once",
       description: "Copy and paste email addresses in the form below",
-      submit: "Add recipients"
-    }
+      submit: "Add recipients",
+    },
   },
   footer: {
     tip: "Tip of info nodig?",
@@ -214,7 +215,6 @@ I18n.translations.nl = {
       expiresAfterNever: "Never",
       expiresAfterValue: "{{nbr}} weeks",
       expireSettings: "Default expiration settings",
-      publicUrl: "Public url",
       language: "Language of instruction",
       learningOutcome: "Learning outcome",
       ects: "Credit points",
@@ -227,28 +227,32 @@ I18n.translations.nl = {
         days: "Days",
         weeks: "Weeks",
         months: "Months",
-        years: "Years"
+        years: "Years",
       },
       headers: {
         basicInformation: "Basic information",
         earningCriteria: "Earning criteria",
-        creditPoints: "Credit Points"
+        creditPoints: "Credit Points",
       },
       info: {
-        educationProgramIdentifier: "Consult <a target='_blank' rel='noreferrer' href='https://duo.nl/zakelijk/images/studiecodes.pdf'>DUO_CROHO</a> or <a target='_blank' rel='noreferrer' href='https://kwalificaties.s-bb.nl/Lijsten/Groep/14'>SBB_CREDO</a> if you don’t know the code.",
-        eqf: "Check <a target='_blank' rel='noreferrer' href='https://www.nlqf.nl/nlqf-niveaus'>https://www.nlqf.nl/nlqf-niveaus</a> for help",
-        ects: "Whole and half points only. <br/>A minimum of 0.5 points is required."
-      }
+        educationProgramIdentifier:
+          "Consult <a target='_blank' rel='noreferrer' href='https://duo.nl/zakelijk/images/studiecodes.pdf'>DUO_CROHO</a> or <a target='_blank' rel='noreferrer' href='https://kwalificaties.s-bb.nl/Lijsten/Groep/14'>SBB_CREDO</a> if you don’t know the code.",
+        eqf:
+          "Check <a target='_blank' rel='noreferrer' href='https://www.nlqf.nl/nlqf-niveaus'>https://www.nlqf.nl/nlqf-niveaus</a> for help",
+        ects:
+          "Whole and half points only. <br/>A minimum of 0.5 points is required.",
+      },
     },
     badge: {
       emailAddress: "Email address",
-      emailAddresses: "Paste email addresses"
-    }
+      emailAddresses: "Paste email addresses",
+    },
   },
   file: {
     noFileSelected: "No file selected",
     upload: "Upload image",
     remove: "Remove image",
-    disclaimer: "Image must be png, at least 90x90 pixels and smaller than 256KB."
-  }
+    disclaimer:
+      "Image must be png, at least 90x90 pixels and smaller than 256KB.",
+  },
 };
