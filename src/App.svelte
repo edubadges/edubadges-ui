@@ -9,6 +9,7 @@
   import { role } from "./util/role";
   import { onMount } from "svelte";
   import { getSocialAccount } from "./api";
+  import { PublicBadgePage } from "./components/students"
 
   const homepage = {
     guest: Login,
@@ -21,7 +22,7 @@
   onMount(() => {
     //if we are heading to /auth/login/ then we proceed
     const path = window.location.pathname;
-    if (path !== "/auth/login/" && path !== "/validate") {
+    if (path.indexOf("public") === -1 && path !== "/auth/login/" && path !== "/validate") {
       getSocialAccount()
         .then(() => {
           loaded = true;
@@ -95,8 +96,10 @@
         <Route path="/manage/*mainEntity" component={Manage} />
 
         <!-- Shared -->
+        <Route path="/public/:entityId/" let:params>
+          <PublicBadgePage visitorRole={visitorRole} entityId={params.entityId}/>
+        </Route>
         <Route path="/" component={homepage[visitorRole]} />
-        <!-- Shared -->
         <Route path="/login" component={Login} />
 
         <Route path="/auth/login/*" component={ProcessToken} />
