@@ -30,29 +30,18 @@
 
   onMount(() => {
     queryData(query).then(res => {
-      requests = res.badgeClass.enrollments.filter(el => !el.dateAwarded);
+      requests = res.badgeClass.enrollments.filter(
+        ({ dateAwarded }) => !dateAwarded
+      );
     });
   });
 
   const award = () => {
     const enrollmentIds = requests
       .filter(el => el.checked)
-      .map(el => {
-        return el.entityId;
-      });
-    awardBadges(entityId, enrollmentIds).then(
-      res => {
-        res.json().then(result => console.log(result));
-      },
-      err => {
-        console.log(err);
-      }
-    );
+      .map(({ entityId }) => entityId);
+    awardBadges(entityId, enrollmentIds);
   };
-
-  const addNewUser = () => {};
-
-  const nothing = () => {};
 
   const tableHeaders = [
     {
@@ -91,17 +80,19 @@
 <Table {...table}>
   <span slot="buttons">
     <Button
-      action={() => award()}
+      disabled
+      action={() => {}}
       text={I18n.t('teacher.badgeRequests.award')} />
     <Button
-      action={() => addNewUser()}
+      disabled
+      action={() => {}}
       text={I18n.t('teacher.badgeRequests.newUser')} />
   </span>
 
   {#each requests as request}
     <tr>
       <td>
-        <CheckBox bind:value={request.checked} label="" onChange={nothing} />
+        <CheckBox bind:value={request.checked} label="" onChange={() => {}} />
       </td>
       <td>{request.user.firstName + ' ' + request.user.lastName}</td>
       <td>{request.user.email}</td>

@@ -30,12 +30,10 @@
   onMount(() => {
     queryData(query).then(res => {
       awardedBadges = res.badgeClass.badgeAssertions.filter(
-        el => el.revoked === false
+        ({ revoked }) => !revoked
       );
     });
   });
-
-  const revokeBadges = () => {};
 
   const tableHeaders = [
     {
@@ -74,7 +72,8 @@
 <Table {...table}>
   <span slot="buttons">
     <Button
-      action={revokeBadges}
+      disabled
+      action={() => {}}
       text={I18n.t('teacher.badgeRevoked.revoke')} />
   </span>
 

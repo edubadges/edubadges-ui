@@ -29,12 +29,10 @@
   onMount(() => {
     queryData(query).then(res => {
       revokedBadges = res.badgeClass.badgeAssertions.filter(
-        el => el.revoked === true
+        ({ revoked }) => revoked
       );
     });
   });
-
-  const revokeBadges = () => {};
 
   const tableHeaders = [
     {
