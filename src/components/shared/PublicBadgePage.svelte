@@ -28,11 +28,21 @@
       badgeClass = res;
       badgeClass.criteriaUrl = res['criteria']['id'];
       badgeClass.criteriaText = res['criteria']['narrative'];
-      badgeClass.language = res['extensions:LanguageExtension']['Language'];
-      badgeClass.ects = res['extensions:ECTSExtension']['ECTS'];
-      badgeClass.eqf = res['extensions:EQFExtension']['EQF'];
-      badgeClass.learningOutcome = res['extensions:LearningOutcomeExtension']['LearningOutcome'];
-      badgeClass.educationProgramIdentifier = res['extensions:EducationProgramIdentifierExtension']['EducationProgramIdentifier'];
+      if (res['extensions:LanguageExtension']) {
+        badgeClass.language = res['extensions:LanguageExtension']['Language'];
+      }
+      if (res['extensions:ECTSExtension']) {
+        badgeClass.ects = res['extensions:ECTSExtension']['ECTS'];
+      }
+      if (res['extensions:EQFExtension']) {
+        badgeClass.eqf = res['extensions:EQFExtension']['EQF'];
+      }
+      if (res['extensions:LearningOutcomeExtension']) {
+        badgeClass.learningOutcome = res['extensions:LearningOutcomeExtension']['LearningOutcome'];
+      }
+      if (res['extensions:EducationProgramIdentifierExtension']) {
+        badgeClass.educationProgramIdentifier = res['extensions:EducationProgramIdentifierExtension']['EducationProgramIdentifier'];
+      }
     })
   });
 </script>
