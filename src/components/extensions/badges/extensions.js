@@ -15,6 +15,9 @@ export const educationProgramIdentifier = {
 };
 
 export const extensionValue = (extensions, extension) => {
+  if (!extensions) {
+    return;
+  }
   const ext = extensions.find(ext => ext.name === `extensions:${extension.name}`);
   if (ext) {
     const json = JSON.parse(ext.originalJson.replace(/'/g, "\""));

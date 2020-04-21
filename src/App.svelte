@@ -11,7 +11,7 @@
   import { userRole, userLoggedIn, redirectPath } from "./stores/user";
   import { role } from "./util/role";
   import { getSocialAccount } from "./api";
-  import { PublicBadgePage } from "./components/students"
+  import { PublicBadgePage } from "./components/shared"
 
   const homepage = {
     guest: Login,

@@ -8,6 +8,8 @@
   export let mayUpdate;
   export let tabs;
   export let headerItems;
+  export let enroll;
+
 </script>
 
 <style lang="scss">
@@ -57,6 +59,11 @@
       </div>
     </div>
 
+    {#if enroll}
+      <button use:link href="edit" class="btn">
+        enroll
+      </button>
+    {/if}
     {#if mayUpdate}
       <Button secondary href="edit" text={I18n.t(['manage', 'edit', entity])} />
     {/if}
