@@ -19,7 +19,7 @@
       getUnearnedBadges().then(enrollments => {
           enroll = !Boolean(enrollments.reduce((acc, el) => {
             return acc || el.entityId === entityId
-        }));
+        }, false));
       });
     }
 
