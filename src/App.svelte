@@ -1,13 +1,12 @@
 <script>
+  import { onMount } from "svelte";
   import { Router, Route, navigate } from "svelte-routing";
   import { Student, ProcessToken, NotFound, Login, Validate } from "./routes";
   import { Badges, Manage } from "./routes/teachers";
-  import { Header, Footer, SubscribeToPath } from "./components";
-  import { Header as TeacherHeader } from "./components/teachers";
-  import Spinner from "./components/Spinner.svelte";
+  import { Header, Footer, SubscribeToPath, Spinner } from "./components";
+  import { Header as TeacherHeader, Badgeclass } from "./components/teachers";
   import { userRole, userLoggedIn, redirectPath } from "./stores/user";
   import { role } from "./util/role";
-  import { onMount } from "svelte";
   import { getSocialAccount } from "./api";
 
   const homepage = {
@@ -88,12 +87,11 @@
 
         <!-- Teacher -->
         <Route path="/manage/*mainEntity" component={Manage} />
+        <Route path="/badges/*entityId" component={Badgeclass} />
 
         <!-- Shared -->
         <Route path="/" component={homepage[visitorRole]} />
-        <!-- Shared -->
         <Route path="/login" component={Login} />
-
         <Route path="/auth/login/*" component={ProcessToken} />
         <Route component={NotFound} />
 

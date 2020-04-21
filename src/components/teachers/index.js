@@ -1,4 +1,8 @@
+export { default as AwardBadge } from "./AwardBadge.svelte";
+export { default as AwardBadgeForm } from "./AwardBadgeForm.svelte";
+export { default as AwardManyBadges } from "./AwardManyBadges.svelte";
 export { default as Badgeclass } from "./Badgeclass.svelte";
+export { default as BadgeclassDetail } from "./BadgeclassDetail.svelte";
 export { default as BadgeclassEdit } from "./BadgeclassEdit.svelte";
 export { default as Badgeclasses } from "./Badgeclasses.svelte";
 export { default as BadgeclassForm } from "./BadgeclassForm.svelte";
@@ -28,6 +32,3 @@ export { default as IssuerNew } from "./IssuerNew.svelte";
 export { default as Issuers } from "./Issuers.svelte";
 export { default as SideBar } from "./SideBar.svelte";
 export { default as Table } from "./Table.svelte";
-export { default as AwardBadge } from "./AwardBadge.svelte"
-export { default as AwardBadgeForm } from "./AwardBadgeForm.svelte"
-export { default as AwardManyBadges } from "./AwardManyBadges.svelte"

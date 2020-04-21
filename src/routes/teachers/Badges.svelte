@@ -1,5 +1,6 @@
 <script>
   import { onMount } from "svelte";
+  import { navigate } from "svelte-routing";
   import { SideBar, BadgesHeader } from "../../components/teachers";
   import { queryData } from "../../api/graphql";
   import { headerEntity, headerStaff } from "../../api/queries";
@@ -78,7 +79,9 @@
 
     <div class="badges">
       {#each $tree.badgeClasses as badge (badge.entityId)}
-        <div class="card badge">
+        <div
+          class="card badge click"
+          on:click={() => navigate(`/badges/${badge.entityId}`)}>
           <div class="image">
             <img src={badge.image} alt={`image for ${badge.name}`} />
           </div>
