@@ -1,5 +1,5 @@
 <script>
- import I18n from "i18n-js";
+  import I18n from "i18n-js";
   import { Button } from "../../components";
 
   export let value;
@@ -15,7 +15,7 @@
   }
 
   const reader = new FileReader();
-  reader.onload = ({target: {result}}) => {
+  reader.onload = ({ target: { result } }) => {
     value = result;
     src = result;
   };
@@ -67,9 +67,9 @@
 <div class="container file-container">
   <div class="image-container input-field" class:error class:disabled>
     {#if src}
-      <img alt="preview" {src}/>
+      <img alt="preview" {src} />
     {:else}
-      <p>{I18n.t("file.noFileSelected")}</p>
+      <p>{I18n.t('file.noFileSelected')}</p>
     {/if}
   </div>
 
@@ -83,10 +83,18 @@
       bind:this={input}
       {disabled} />
 
-    {#if removeAllowed}
-      <Button {disabled} secondary action={_ => setFile()} text={I18n.t("file.remove")} />
-    {/if}
-    <span class="disclaimer">{I18n.t("file.disclaimer")}</span>
+    <Button
+      {disabled}
+      disabled={!removeAllowed}
+      label="file"
+      text="Upload image" />
+    <Button
+      {disabled}
+      disabled={!removeAllowed}
+      secondary
+      action={_ => setFile()}
+      text={I18n.t('file.remove')} />
+    <span class="disclaimer">{I18n.t('file.disclaimer')}</span>
 
   </div>
 </div>
