@@ -1,13 +1,8 @@
 <script>
   import { onMount } from "svelte";
   import { Router, Route, navigate } from "svelte-routing";
-  import {
-    EntityHeader,
-    Breadcrumb,
-    BadgesAwarded,
-    BadgesRequested,
-    BadgesRevoked
-  } from "../teachers";
+  import { EntityHeader, Breadcrumb } from "../teachers";
+  import { Awarded, Requested, Revoked } from "../teachers/badges";
   import { badgeclassIcon } from "../../icons";
   import { queryData } from "../../api/graphql";
   import { headerStaff, headerEntity } from "../../api/queries";
@@ -118,15 +113,15 @@
 <div class="main-content-margin">
   <Router>
     <Route path="/requested">
-      <BadgesRequested {entityId} />
+      <Requested {entityId} />
     </Route>
 
     <Route path="/awarded">
-      <BadgesAwarded {entityId} />
+      <Awarded {entityId} />
     </Route>
 
     <Route path="/revoked">
-      <BadgesRevoked {entityId} />
+      <Revoked {entityId} />
     </Route>
   </Router>
 </div>

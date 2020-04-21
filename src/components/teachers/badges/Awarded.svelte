@@ -1,18 +1,20 @@
 <script>
   import { onMount } from "svelte";
-  import { queryData } from "../../api/graphql";
+  import { queryData } from "../../../api/graphql";
   import moment from "moment";
+  import I18n from "i18n-js";
+  import { Button } from "../../../components";
 
   export let entityId;
 
-  let revokedBadges = [];
+  let awardedBadges = [];
 
   const query = `{
     badgeClass(id: "${entityId}") {
       badgeAssertions {
         entityId,
-        revoked,
         createdAt,
+        revoked,
         user {
           entityId,
           firstName,
@@ -25,8 +27,8 @@
 
   onMount(() => {
     queryData(query).then(res => {
-      revokedBadges = res.badgeClass.badgeAssertions.filter(
-        el => el.revoked === true
+      awardedBadges = res.badgeClass.badgeAssertions.filter(
+        el => el.revoked === false
       );
     });
   });
@@ -78,24 +80,27 @@
       <th colspan="3">
         <span class="actions">
           <input type="search" />
+          <Button
+            action={revokeBadges}
+            text={I18n.t('teacher.badgeRevoked.revoke')} />
         </span>
       </th>
     </tr>
   </thead>
   <tbody>
-    {#each revokedBadges as revokedBadge}
+    {#each awardedBadges as awardedBadge}
       <tr>
         <td>
           <input type="checkbox" />
         </td>
         <td class="name">
-          {revokedBadge.user.firstName + ' ' + revokedBadge.user.lastName}
+          {awardedBadge.user.firstName + ' ' + awardedBadge.user.lastName}
         </td>
-        <td>{revokedBadge.user.email}</td>
-        <td>{moment(revokedBadge.createdAt).format('MMM D, YYYY')}</td>
+        <td>{awardedBadge.user.email}</td>
+        <td>{moment(awardedBadge.dateAwarded).format('MMM D, YYYY')}</td>
       </tr>
     {/each}
-    {#if revokedBadges.length === 0}
+    {#if awardedBadges.length === 0}
       <tr>
         <td>
           <input type="checkbox" />

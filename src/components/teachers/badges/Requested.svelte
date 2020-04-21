@@ -1,10 +1,11 @@
 <script>
   import { onMount } from "svelte";
-  import { queryData } from "../../api/graphql";
-  import moment from "moment";
-  import { Button, CheckBox } from "../index";
   import I18n from "i18n-js";
-  import { awardBadges } from "../../api/index";
+  import moment from "moment";
+
+  import { queryData } from "../../../api/graphql";
+  import { Button, CheckBox } from "../../../components";
+  import { awardBadges } from "../../../api";
 
   export let entityId;
 
