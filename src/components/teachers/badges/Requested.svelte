@@ -4,7 +4,6 @@
   import moment from "moment";
   import { Table } from "../../teachers";
   import { sort, sortType } from "../../../util/sortData";
-
   import { queryData } from "../../../api/graphql";
   import { Button, CheckBox } from "../../../components";
   import { awardBadges } from "../../../api";
