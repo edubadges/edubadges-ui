@@ -13,23 +13,7 @@
 
 </script>
 
-<style>
-  div {
-    max-width: var(--field-max-width);
-    font-size: var(--field-font-size);
-    color: var(--field-color);
-
-    /* select */
-    --border: var(--field-border);
-    --borderHoverColor: var(--field-border-color);
-    --borderFocusColor: var(--field-border-color);
-    --borderRadius: var(--field-border-radius);
-    --inputFontSize: var(--field-font-size);
-
-    --disabledColor: var(--field-color-disabled);
-    --disabledBorderColor: var(--field-border-color-disabled);
-    --disabledBackground: var(--field-background);
-  }
+<style lang="scss">
 
   div.full-width {
     width: 100%;
@@ -78,8 +62,8 @@
   }
 </style>
 
-<div class="input-field" {error} {disabled} class:full-width={fullWidth}>
 
+<div class="select-field" {error} {disabled} class:full-width={fullWidth}>
   <Select
     {items}
     bind:selectedValue={value}

@@ -1,0 +1,21 @@
+@import "normalize";
+@import "variables";
+
+@import "typography";
+
+@import "shared/fields";
+@import "shared/cards";
+
+body {
+  font-size: 16px;
+  background-color: #dfe3e8;
+  color: var(--black);
+}
+
+.main-content-margin {
+  margin: var(--ver-padding-l) var(--hor-padding-m);
+}
+
+.click {
+  cursor: pointer;
+}

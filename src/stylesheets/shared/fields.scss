@@ -1,0 +1,95 @@
+@mixin input-label {
+  max-width: 360px;
+  width: 100%;
+  font-size: 1rem;
+  color: var(--text-grey-dark);
+  background: white;
+}
+
+@mixin input-element {
+  border: 1px solid var(--text-grey-dark);
+  border-radius: 4px;
+  padding: 8px 10px;
+}
+
+@mixin input-focus {
+  border-color: var(--purple);
+  outline: 1px solid var(--purple);
+  box-shadow: 1px 1px 3px var(--purple), -1px -1px 3px var(--purple);
+}
+
+.input-hidden {
+  position: absolute;
+  opacity: 0;
+  width: 0.1px;
+  height: 0.1px;
+
+  &:focus + label {
+    @include input-focus;
+  }
+}
+
+.input-field {
+  @include input-label;
+  @include input-element;
+
+  &:focus,
+  &:focus + label {
+    @include input-focus;
+  }
+
+  &[disabled],
+  &.disabled {
+    color: var(--text-grey-light);
+    cursor: not-allowed;
+    border-color: var(--text-grey-light);
+  }
+
+  &.error {
+    border-color: var(--red-dark);
+    background-color: var(--red-light);
+  }
+}
+
+.file-container {
+  @include input-label;
+}
+
+.select-field {
+  @include input-label;
+
+  /* select */
+  --border: 1px solid var(--text-grey-dark);
+  --borderHoverColor: var(--text-grey-dark);
+  --borderFocusColor: var(--purple);
+
+  --disabledColor: var(--text-grey-light);
+  --disabledBorderColor: var(--text-grey-light);
+  --disabledBackground: white;
+
+  .selectContainer input {
+    @include input-element;
+    @extend .input-field;
+
+    &:hover {
+      cursor: text;
+    }
+  }
+
+  .selectContainer.focused input {
+    @include input-focus;
+    cursor: text;
+  }
+
+  &[disabled] .selectContainer input {
+    cursor: not-allowed !important;
+  }
+
+  &[error] {
+    --background: var(--red-light);
+    --border: var(--field-border-width) var(--field-border-style)
+      var(--red-dark);
+    --borderFocusColor: var(--red-dark);
+    --borderHoverColor: var(--red-dark);
+  }
+}

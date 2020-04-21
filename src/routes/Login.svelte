@@ -23,10 +23,13 @@
   };
 
   const toggleLoginCreateAccount = () => (showLoginCards = !showLoginCards);
-
 </script>
 
 <style>
+  h1 {
+    color: var(--black);
+  }
+
   .login-page {
     flex: 1;
 
@@ -119,8 +122,8 @@
         <p class="text-align-left">{I18n.t('login.createEduId.require')}</p>
         <AccountCreationSteps activeStep={accountCreationStep} />
         <Button
-          onClick={() => logIn(role.STUDENT, true)}
-          label={I18n.t('login.createEduId.step1')} />
+          action={() => logIn(role.STUDENT, true)}
+          text={I18n.t('login.createEduId.step1')} />
       </Card>
 
       {#if showLoginCards}

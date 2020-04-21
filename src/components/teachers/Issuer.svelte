@@ -1,10 +1,10 @@
 <script>
   import { onMount } from "svelte";
   import { Router, Route, navigate } from "svelte-routing";
-  import { Breadcrumb, EntityHeader, Issuers, Badgeclasses } from "../teachers";
-  import { issuerIcon, badgeclassIcon } from "../../icons";
+  import { Breadcrumb, EntityHeader, Badgeclasses } from "../teachers";
+  import { badgeclassIcon } from "../../icons";
   import { queryData } from "../../api/graphql";
-  import IssuerHeader from "./IssuerHeader.svelte";
+  import { headerStaff, headerEntity } from "../../api/queries";
 
   export let entityId;
   export let subEntity;
@@ -15,21 +15,14 @@
 
   const query = `{
     issuer(id: "${entityId}") {
-      name,
-      entityId,
-      createdAt,
-      description,
+      ${headerEntity},
+      ${headerStaff},
       image,
       email,
       url,
       faculty {
         name,
         entityId,
-      },
-      staff {
-        user {
-          firstName, lastName, email, entityId
-        }
       },
       badgeclasses {
         name,
@@ -66,31 +59,43 @@
   ];
 
   $: if (!subEntity) navigate(tabs[0].href, { replace: true });
+
+  $: headerItems = [
+    {
+      attr: "created",
+      type: "date",
+      value: issuer.createdAt
+    },
+    {
+      attr: "admin",
+      type: "adminNames",
+      value: issuer
+    },
+    {
+      attr: "url",
+      type: "link",
+      value: issuer.url
+    },
+    {
+      attr: "email",
+      type: "email",
+      value: issuer.email
+    }
+  ];
 </script>
 
-<style>
-  .page-container {
-    flex: 1;
-    --entity-icon-width: 66px;
-  }
-</style>
+<Breadcrumb {faculty} {issuer} />
+<EntityHeader
+  {tabs}
+  {headerItems}
+  object={issuer}
+  entity="issuer"
+  mayUpdate={issuer.permissions && issuer.permissions.mayUpdate} />
 
-<div class="page-container">
-  <Breadcrumb {faculty} {issuer} />
-  <EntityHeader
-    {tabs}
-    title={issuer.name}
-    icon={issuerIcon}
-    mayUpdate={issuer.permissions && issuer.permissions.mayUpdate}
-    entity="issuer">
-    <IssuerHeader {issuer} />
-  </EntityHeader>
-
-  <Router>
-    <Route path="/badgeclasses">
-      <Badgeclasses
-        {badgeclasses}
-        mayCreate={issuer.permissions && issuer.permissions.mayCreate} />
-    </Route>
-  </Router>
-</div>
+<Router>
+  <Route path="/badgeclasses">
+    <Badgeclasses
+      {badgeclasses}
+      mayCreate={issuer.permissions && issuer.permissions.mayCreate} />
+  </Route>
+</Router>

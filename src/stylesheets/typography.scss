@@ -1,0 +1,71 @@
+@font-face {
+  font-family: "Source Sans Pro";
+  font-weight: 300;
+  src: url("/fonts/source_sans_pro/sourcesanspro-regular-webfont.woff2")
+      format("woff2"),
+    url("/fonts/source_sans_pro/sourcesanspro-regular-webfont.woff")
+      format("woff");
+}
+
+@font-face {
+  font-family: "Source Sans Pro";
+  font-weight: 600;
+  src: url("/fonts/source_sans_pro/sourcesanspro-semibold-webfont.woff2")
+      format("woff2"),
+    url("/fonts/source_sans_pro/sourcesanspro-semibold-webfont.woff")
+      format("woff");
+}
+
+body {
+  font-size: 16px;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ol,
+ul {
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--purple);
+}
+
+a,
+.link {
+  color: var(--green-medium);
+  cursor: pointer;
+
+  &:hover {
+    color: var(--green-dark);
+  }
+}
+
+.sub-text {
+  font-size: smaller;
+  color: var(--text-grey-light);
+}
+
+.bold {
+  font-weight: bold;
+}
+
+label,
+span {
+  line-height: 18px;
+}
+
+p {
+  line-height: 22px;
+}

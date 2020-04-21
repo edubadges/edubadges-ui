@@ -1,7 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import I18n from "i18n-js";
-  import {link, navigate} from "svelte-routing";
+  import { link, navigate } from "svelte-routing";
   import { queryData } from "../../api/graphql";
   import { currentPath } from "../../stores/currentPath";
 
@@ -21,13 +21,19 @@
   let institutionName = "";
 
   const editCreatePart = (isEdited, isCreate) => {
-    return isEdited ? I18n.t(["manage","edit", entity]) : isCreate ? I18n.t(["manage","new", entity]) : undefined;
+    return isEdited
+      ? I18n.t(["manage", "edit", entity])
+      : isCreate
+      ? I18n.t(["manage", "new", entity])
+      : undefined;
   };
 
   onMount(() => {
-    queryData(query).then(({ currentInstitution: { name } }) => {
-      institutionName = name;
-    }).catch(() => navigate("/notFound"));
+    queryData(query)
+      .then(({ currentInstitution: { name } }) => {
+        institutionName = name;
+      })
+      .catch(() => navigate("/notFound"));
   });
 </script>
 
@@ -35,7 +41,6 @@
   div {
     padding: var(--ver-padding-m) var(--hor-padding-m);
     min-height: 47px;
-    border-bottom: 3px solid var(--color-background-grey-light);
   }
 
   a {
@@ -75,7 +80,6 @@
 
   {#if edit || create}
     <span>></span>
-    <a on:click|preventDefault|stopPropagation href="/#">{editCreatePart(edit, create)}</a>
+    <a use:link href={$currentPath}>{editCreatePart(edit, create)}</a>
   {/if}
-
 </div>

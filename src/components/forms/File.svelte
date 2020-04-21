@@ -1,6 +1,6 @@
 <script>
-  import {Button} from "../forms";
  import I18n from "i18n-js";
+  import { Button } from "../../components";
 
   export let value;
   export let error;
@@ -10,7 +10,9 @@
   let input;
   let src = "";
 
-  $: if (value) src = value;
+  $: if (value) {
+    src = value;
+  }
 
   const reader = new FileReader();
   reader.onload = ({target: {result}}) => {
@@ -29,9 +31,8 @@
   };
 </script>
 
-<style>
+<style lang="scss">
   div.container {
-    max-width: var(--field-max-width);
     display: flex;
   }
 
@@ -40,65 +41,21 @@
     height: 120px;
     width: 120px;
     margin-right: var(--hor-padding-m);
-    border: var(--field-border);
-    border-radius: var(--field-border-radius);
-  }
 
-  div.image-container p {
-    color: var(--color-text-light-grey);
-    text-align: center;
-    padding: 6px;
+    p {
+      text-align: center;
+      padding: 6px;
+    }
   }
 
   div.buttons-container {
     flex: 1;
     display: flex;
     flex-direction: column;
-  }
 
-  div.buttons-container > :global(.btn) {
-    margin-bottom: 5px;
-    max-width: 180px;
-  }
-
-  input {
-    position: absolute;
-    opacity: 0;
-    width: 0.1px;
-    height: 0.1px;
-  }
-
-  input:focus + label {
-    outline: var(--outline-fallback);
-    outline: var(--outline);
-  }
-
-  /* Invalid */
-  div[error] .image-container {
-    border: var(--field-border-error);
-    background: var(--field-background-error);
-  }
-
-  /* Disabled */
-  div[disabled="true"] .image-container {
-    border: var(--field-border-disabled);
-  }
-
-  div[disabled] .buttons-container > :global(.btn) {
-    color: white;
-    background: var(--button-background-disabled);
-    border-color: var(--button-background-disabled);
-    cursor: var(--field-cursor-disabled);
-  }
-
-  div[disabled] .buttons-container > :global(.btn.ghost) {
-    color: var(--button-background-disabled);
-    background: white;
-    border-color: var(--button-background-disabled);
-  }
-
-  div[disabled] .buttons-container > :global(.btn.ghost.no-border) {
-    border-color: white;
+    > :global(*) {
+      margin-bottom: 5px;
+    }
   }
 
   .disclaimer {
@@ -107,8 +64,8 @@
   }
 </style>
 
-<div class="container" {error} {disabled}>
-  <div class="image-container">
+<div class="container file-container">
+  <div class="image-container input-field" class:error class:disabled>
     {#if src}
       <img alt="preview" {src}/>
     {:else}
@@ -116,8 +73,9 @@
     {/if}
   </div>
 
-  <div class="buttons-container">
+  <div class="buttons-container" {disabled}>
     <input
+      class="input-hidden"
       id="file"
       type="file"
       accept="image/*"
@@ -125,13 +83,10 @@
       bind:this={input}
       {disabled} />
 
-    <label class="btn" for="file">{I18n.t("file.upload")}</label>
     {#if removeAllowed}
-      <button class="btn ghost no-border" on:click={_ => setFile()} {disabled}>
-        {I18n.t("file.remove")}
-      </button>
+      <Button {disabled} secondary action={_ => setFile()} text={I18n.t("file.remove")} />
     {/if}
     <span class="disclaimer">{I18n.t("file.disclaimer")}</span>
-  </div>
 
+  </div>
 </div>

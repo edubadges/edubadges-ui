@@ -25,7 +25,7 @@
     height: 42px;
     width: 48px;
     border-radius: 8px;
-    border: solid 1px var(--color-text-grey);
+    border: solid 1px var(--grey-8);
     font-size: 18px;
     text-align: center;
     display: block;
@@ -33,7 +33,7 @@
   }
 
   span.control {
-    color: var(--color-primary-purple);
+    color: var(--purple-8);
     cursor: pointer;
     line-height: 40px;
   }

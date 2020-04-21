@@ -47,9 +47,9 @@
         width: var(--close-filter-size);
         height: var(--close-filter-size);
         margin: auto;
-        border: 2px solid var(--color-primary-purple);
+        border: 2px solid var(--purple);
         border-radius: 50%;
-        fill: var(--color-primary-purple);
+        fill: var(--purple);
       }
     }
 
@@ -65,12 +65,12 @@
   .expand {
     display: flex;
     align-items: center;
-    color: var(--color-text-grey);
+    color: var(--text-grey-dark);
 
     :global(svg) {
       width: 20px;
       margin-left: 6px;
-      fill: var(--color-text-grey);
+      fill: var(--text-grey-dark);
     }
   }
 </style>

@@ -1,106 +1,66 @@
 <script>
   import I18n from "i18n-js";
-  import { link } from "svelte-routing";
-  import { EntityHeaderTabs } from "../teachers";
+  import { EntityHeaderTabs, HeaderList } from "../teachers";
+  import { Button } from "../../components";
 
   export let entity;
-  export let title;
-  export let logo;
+  export let object = {};
   export let mayUpdate;
-  export let icon;
   export let tabs;
+  export let headerItems;
 </script>
 
-<style>
-  :global(.entity .icon > svg) {
-    width: calc(var(--entity-icon-width) - (2 * var(--hor-padding-m)));
-  }
-
-  :global(.entity .tab svg) {
-    width: 20px;
-    margin-right: 14px;
-  }
-
+<style lang="scss">
   .entity {
-    display: flex;
-    padding-top: var(--ver-padding-m);
-    background: var(--color-background-pink);
-  }
+    padding: var(--ver-padding-m) var(--hor-padding-m) 0;
+    background: var(--purple-1);
 
-  a {
-    height: fit-content;
-  }
+    .content {
+      display: flex;
+      margin-bottom: var(--ver-padding-m);
 
-  .icon {
-    padding: 0 var(--hor-padding-m);
-  }
+      .img-container {
+        flex-shrink: 0;
+        height: 100px;
+        width: 100px;
+        background: white;
+        margin-right: var(--hor-padding-m);
+      }
 
-  .img-container {
-    flex-shrink: 0;
-    height: var(--entity-icon-width);
-    width: var(--entity-icon-width);
-    background: white;
-    margin-left: var(--hor-padding-m);
-    margin-right: var(--hor-padding-m);
-    margin-bottom: var(--ver-padding-l);
-  }
+      .info {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
 
-  img {
-    width: 100%;
-    height: 100%;
-  }
-
-  .content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    padding-right: var(--hor-padding-m);
-  }
-
-  .content .info {
-    flex: 1;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    margin-bottom: var(--ver-padding-m);
-  }
-
-  .slots {
-    margin-bottom: var(--ver-padding-m);
+      .list {
+        margin: var(--ver-padding-m) 0;
+      }
+    }
   }
 </style>
 
 <div class="entity">
-  {#if icon}
-    <div class="icon">
-      {@html icon}
-    </div>
-  {:else if logo}
-    <div class="img-container">
-      <img src={logo} alt={`#{entity} logo`} />
-    </div>
-  {/if}
-  <div class="placeholder-for-tabs" />
-
   <div class="content">
+    {#if object.image}
+      <div class="img-container">
+        <img src={object.image} alt={`${object.name} logo`} />
+      </div>
+    {/if}
+
     <div class="info">
-      <h2>{title}</h2>
-      {#if mayUpdate}
-        <a use:link href="edit" class="btn">
-          {I18n.t(['manage', 'edit', entity])}
-        </a>
-      {/if}
-      {#if entity === 'badgeclass'}
-        <a use:link href="award" class="btn">
-          {I18n.t(['models', 'badgeclass', 'directAward'])}
-        </a>
-      {/if}
-    </div>
-    <div class="slots">
-      <slot />
+      <h2>{object.name}</h2>
+      <p>{object.description}</p>
+
+      <div class="list">
+        <HeaderList {entity} {headerItems} />
+      </div>
     </div>
 
-    <EntityHeaderTabs {tabs} />
+    {#if mayUpdate}
+      <Button secondary href="edit" text={I18n.t(['manage', 'edit', entity])} />
+    {/if}
   </div>
 
+  <EntityHeaderTabs {tabs} />
 </div>

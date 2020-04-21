@@ -8,10 +8,9 @@
     BadgesRequested,
     BadgesRevoked
   } from "../teachers";
-  import {badgeclassIcon, institutionIcon} from "../../icons";
-  import {queryData} from "../../api/graphql";
-  import BadgeclassHeader from "./BadgeclassHeader.svelte";
-  import BadgeclassDetail from "./BadgeclassDetail.svelte";
+  import { badgeclassIcon } from "../../icons";
+  import { queryData } from "../../api/graphql";
+  import { headerStaff, headerEntity } from "../../api/queries";
 
   export let entityId;
   export let subEntity;
@@ -25,11 +24,9 @@
 
   const query = `{
     badgeClass(id: "${entityId}") {
-      entityId,
-      name,
+      ${headerEntity},
+      ${headerStaff},
       image,
-      description,
-      createdAt,
       criteriaUrl,
       criteriaText,
       expirationPeriod,
@@ -56,11 +53,6 @@
       extensions {
         name,
         originalJson
-      },
-      staff {
-        user {
-          firstName, lastName, email, entityId
-        }
       }
     }
   }`;
@@ -78,10 +70,6 @@
 
   $: tabs = [
     {
-      entity: "badgeClassOverview",
-      href: `/manage/badgeclass/${entityId}/overview`
-    },
-    {
       entity: "badgesRequested",
       count: requestCount,
       href: `/manage/badgeclass/${entityId}/requested`
@@ -98,49 +86,43 @@
     }
   ];
 
-  $: if (!subEntity) navigate(tabs[0].href, {replace: true});
+  $: if (!subEntity) navigate(tabs[0].href, { replace: true });
+
+  $: headerItems = [
+    {
+      attr: "created",
+      type: "date",
+      value: badgeclass.createdAt
+    },
+    {
+      attr: "admin",
+      type: "adminNames",
+      value: badgeclass
+    }
+  ];
 </script>
 
-<style>
-  .page-container {
-    flex: 1;
-    --entity-icon-width: 66px;
-  }
+<Breadcrumb {faculty} {issuer} badgeclassName={badgeclass.name} />
 
-  .content {
-    margin: var(--ver-padding-l) var(--hor-padding-m);
-  }
-</style>
+<EntityHeader
+  object={badgeclass}
+  entity="badgeclass"
+  {tabs}
+  {headerItems}
+  mayUpdate={badgeclass.permissions && badgeclass.permissions.mayUpdate && badgeclass.badgeAssertions.length === 0} />
 
-<div class="page-container">
-  <Breadcrumb {faculty} {issuer} badgeclassName={badgeclass.name} />
+<div class="main-content-margin">
+  <Router>
+    <Route path="/requested">
+      <BadgesRequested {entityId} />
+    </Route>
 
-  <EntityHeader
-    entity="badgeclass"
-    title={badgeclass.name}
-    icon={badgeclassIcon}
-    {tabs}
-    mayUpdate={badgeclass.permissions && badgeclass.permissions.mayUpdate && badgeclass.badgeAssertions.length === 0} >
-    <BadgeclassHeader badgeclass={badgeclass}/>
-  </EntityHeader>
+    <Route path="/awarded">
+      <BadgesAwarded {entityId} />
+    </Route>
 
-  <div class="content">
-    <Router>
-      <Route path="/overview">
-        <BadgeclassDetail badgeclass={badgeclass} />
-      </Route>
-
-      <Route path="/requested">
-        <BadgesRequested entityId={entityId} />
-      </Route>
-
-      <Route path="/awarded">
-        <BadgesAwarded entityId={entityId} />
-      </Route>
-
-      <Route path="/revoked">
-        <BadgesRevoked entityId={entityId} />
-      </Route>
-    </Router>
-  </div>
+    <Route path="/revoked">
+      <BadgesRevoked {entityId} />
+    </Route>
+  </Router>
 </div>

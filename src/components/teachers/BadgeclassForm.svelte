@@ -89,7 +89,8 @@
   }
 
   h4 {
-    border-left: 2px solid var(--color-primary-purple);
+    color: var(--purple);
+    border-left: 3px solid var(--purple-2);
     padding: var(--ver-padding-s);
     margin: var(--ver-padding-l) 0;
   }
@@ -180,8 +181,6 @@
   <Field {entity} attribute="ectsLong" errors={errors.ectsLong}>
     <EctsCreditPoints bind:ectsValue={extensions[ects.name]}/>
   </Field>
-
-  {extensions[ects.name]}
 
   <div class="form">
 

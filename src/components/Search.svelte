@@ -8,16 +8,16 @@
   div {
     position: relative;
     width: 100%;
+    min-width: 100px;
     max-width: 250px;
     height: 42px;
+    min-height: 30px;
 
     input {
       position: absolute;
       width: 100%;
       height: 100%;
-      font-size: 14px;
       border: var(--card-border);
-      border-radius: var(--card-border-radius);
       padding-right: 30px;
       padding-left: 10px;
     }
@@ -27,12 +27,12 @@
       right: 5px;
       height: 100%;
       width: 20px;
-      fill: var(--color-primary-purple);
+      fill: var(--purple);
     }
   }
 </style>
 
 <div>
-  <input bind:value />
+  <input bind:value class="input-field" />
   {@html searchIcon}
 </div>

@@ -14,7 +14,7 @@
   .side-menu {
     display: flex;
     flex-direction: column;
-    background-color: var(--color-background-grey-light);
+    background-color: var(--grey-2);
   }
 
   button.menu-link {
@@ -34,7 +34,7 @@
 
   a.menu-item {
     padding: 14px;
-    color: var(--color-text-grey);
+    color: var(--text-grey-dark);
     font-weight: 600;
     white-space: nowrap;
 
@@ -48,12 +48,12 @@
 
   a.menu-item.active {
     background-color: white;
-    border-right: var(--border-width) solid var(--color-primary-blue);
+    border-right: var(--border-width) solid var(--purple);
     padding-right: var(--padding-right);
   }
 
   :global(.side-menu svg) {
-    fill: var(--color-text-grey);
+    fill: var(--text-grey-dark);
   }
 
   :global(.side-menu svg.menu-link) {
