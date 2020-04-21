@@ -39,11 +39,11 @@
 
   table th {
     text-align: left;
-    color: var(--color-text-light-grey);
+    color: var(--text-grey-light);
   }
 
   table th:not(:last-child), table td:not(:last-child) {
-    border-right: 1px solid var(--color-text-light-grey);
+    border-right: 1px solid var(--text-grey-light);
   }
 
   table th:not(:first-child), table td:not(:first-child) {
@@ -63,7 +63,7 @@
   }
 
   table td.created {
-    color: var(--color-text-blue);
+    color: var(--blue-medium);
   }
 
 

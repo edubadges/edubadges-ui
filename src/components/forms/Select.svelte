@@ -33,11 +33,11 @@
     width: 36px;
     right: 0;
     top: 0;
-    background-color: var(--color-text-grey);
+    background-color: var(--text-grey-dark);
   }
 
   div :global(.selectContainer.disabled .indicator) {
-    background-color: var(--color-text-light-grey);
+    background-color: var(--text-grey-light);
   }
 
   /* Disabled */

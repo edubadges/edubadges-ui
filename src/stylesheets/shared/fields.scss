@@ -81,7 +81,7 @@
     cursor: text;
   }
 
-  &[disabled] .selectContainer input {
+  &[disabled="true"] .selectContainer input {
     cursor: not-allowed !important;
   }
 
