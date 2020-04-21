@@ -9,17 +9,9 @@
   export let error;
 
   export let optionIdentifier = "entityId";
-  export let fullWidth = false;
-
 </script>
 
 <style lang="scss">
-
-  div.full-width {
-    width: 100%;
-    max-width: 100%;
-  }
-
   div :global(.selectContainer) {
     padding: 0 0 0 16px !important;
   }
@@ -62,17 +54,16 @@
   }
 </style>
 
-
-<div class="select-field" {error} {disabled} class:full-width={fullWidth}>
+<div class="select-field" {error} {disabled}>
   <Select
     {items}
     bind:selectedValue={value}
-    optionIdentifier={optionIdentifier}
+    {optionIdentifier}
     getOptionLabel={({ name }) => name}
     getSelectionLabel={({ name }) => name}
-    placeholder={""}
+    placeholder={''}
     showChevron={true}
     isDisabled={disabled}
-    isClearable={clearable}/>
+    isClearable={clearable} />
 
 </div>
