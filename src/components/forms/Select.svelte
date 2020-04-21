@@ -2,28 +2,18 @@
   import Select from "svelte-select";
 
   export let value;
-  export let items;
+  export let items = [];
 
-  export let disabled;
+  export let disabled = false;
+  export let clearable = true;
   export let error;
+
+  export let optionIdentifier = "entityId";
 </script>
 
-<style>
-  div {
-    max-width: var(--field-max-width);
-    font-size: var(--field-font-size);
-    color: var(--field-color);
-
-    /* select */
-    --border: var(--field-border);
-    --borderHoverColor: var(--field-border-color);
-    --borderFocusColor: var(--field-border-color);
-    --borderRadius: var(--field-border-radius);
-    --inputFontSize: var(--field-font-size);
-
-    --disabledColor: var(--field-color-disabled);
-    --disabledBorderColor: var(--field-border-color-disabled);
-    --disabledBackground: var(--field-background);
+<style lang="scss">
+  div :global(.selectContainer) {
+    padding: 0 0 0 16px !important;
   }
 
   div :global(.selectContainer input) {
@@ -36,8 +26,22 @@
     box-shadow: var(--field-outline-shadow);
   }
 
+  div :global(.selectContainer .indicator) {
+    position: relative;
+    margin-left: auto;
+    height: 100%;
+    width: 36px;
+    right: 0;
+    top: 0;
+    background-color: var(--text-grey-dark);
+  }
+
+  div :global(.selectContainer.disabled .indicator) {
+    background-color: var(--text-grey-light);
+  }
+
   /* Disabled */
-  div[disabled] :global(.selectContainer input) {
+  div[disabled="true"] :global(.selectContainer input) {
     cursor: var(--field-cursor-disabled) !important;
   }
 
@@ -50,14 +54,16 @@
   }
 </style>
 
-<div class="input-field" {error} {disabled}>
+<div class="select-field" {error} {disabled}>
   <Select
     {items}
     bind:selectedValue={value}
-    optionIdentifier="entityId"
+    {optionIdentifier}
     getOptionLabel={({ name }) => name}
     getSelectionLabel={({ name }) => name}
-    placeholder=""
-    showChevron
-    isDisabled={disabled} />
+    placeholder={''}
+    showChevron={true}
+    isDisabled={disabled}
+    isClearable={clearable} />
+
 </div>

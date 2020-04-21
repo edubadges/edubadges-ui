@@ -1,24 +1,19 @@
 <script>
   import { onMount } from "svelte";
-  import I18n from "i18n-js";
-  import { SideBar } from "../../components/teachers";
+  import { navigate } from "svelte-routing";
+  import { SideBar, BadgesHeader } from "../../components/teachers";
   import { queryData } from "../../api/graphql";
+  import { headerEntity, headerStaff } from "../../api/queries";
   import { faculties, tree } from "../../stores/filter";
 
-  let institution;
-
   const query = `{
-    currentUser {
-      institution {
-        name
-      }
-    },
     faculties {
-      name,
-      entityId,
+      ${headerEntity},
+      ${headerStaff},
       issuers {
-        name,
-        entityId,
+        ${headerEntity},
+        image,
+        ${headerStaff},
         badgeclasses {
           name,
           image,
@@ -29,10 +24,7 @@
   }`;
 
   onMount(() => {
-    queryData(query).then(res => {
-      institution = res.currentUser.institution;
-      $faculties = res.faculties;
-    });
+    queryData(query).then(res => ($faculties = res.faculties));
   });
 </script>
 
@@ -44,10 +36,6 @@
   .content {
     flex: 1;
     padding: 30px 20px;
-
-    h2 {
-      margin-bottom: 18px;
-    }
   }
 
   .badges {
@@ -64,9 +52,6 @@
     flex-direction: column;
 
     width: 260px;
-    border: var(--card-border);
-    border-radius: var(--card-border-radius);
-    box-shadow: var(--card-shadow);
     margin-bottom: 20px;
     margin-right: var(--badge-margin-right);
 
@@ -76,10 +61,10 @@
 
     div.info {
       flex: 1;
-      background: var(--color-background-grey-light);
+      background: var(--grey-2);
       padding: var(--ver-padding-l) var(--hor-padding-s);
 
-      h5 {
+      h3 {
         color: var(--black);
       }
     }
@@ -90,19 +75,18 @@
   <SideBar />
 
   <div class="content">
-    <h2>
-      {I18n.t('teacher.badgeclasses.title')}
-      {#if institution}in {institution.name}{/if}
-    </h2>
+    <BadgesHeader />
 
     <div class="badges">
       {#each $tree.badgeClasses as badge (badge.entityId)}
-        <div class="badge">
+        <div
+          class="card badge click"
+          on:click={() => navigate(`/badgeclass/${badge.entityId}`)}>
           <div class="image">
             <img src={badge.image} alt={`image for ${badge.name}`} />
           </div>
           <div class="info">
-            <h3 class="text-black">{badge.name}</h3>
+            <h3>{badge.name}</h3>
           </div>
         </div>
       {/each}

@@ -1,6 +1,8 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const webpack = require("webpack")
 
 const mode = process.env.NODE_ENV || "development";
 const prod = mode === "production";
@@ -33,7 +35,9 @@ module.exports = {
           options: {
             emitCss: true,
             hotReload: true,
-            preprocess: require("svelte-preprocess")(),
+            preprocess: require("svelte-preprocess")({
+              paths: ["src", "src/stylesheets"],
+            }),
           },
         },
       },
@@ -58,15 +62,23 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: "[name].[hash].css",
     }),
+    // load only `moment/locale/en.js` and `moment/locale/nl.js`
+    new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en|nl/),
     new HtmlWebpackPlugin({
       template: "src/index.html.ejs",
       favicon: "src/favicon.ico",
       hash: true,
     }),
-  ],
+    prod ? new BundleAnalyzerPlugin({
+      analyzerMode: "disabled",
+      generateStatsFile: true,
+      openAnalyzer: false
+    }) : false
+  ].filter(Boolean),
   devtool: prod ? false : "source-map",
   devServer: {
     port: 4000,
     historyApiFallback: true,
   },
+  performance: { hints: false }
 };

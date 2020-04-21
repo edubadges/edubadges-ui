@@ -1,7 +1,7 @@
 <script>
   import { onMount } from "svelte";
-  import { queryData } from "../../api/graphql";
   import moment from "moment";
+  import { queryData } from "../../../api/graphql";
 
   export let entityId;
 
@@ -23,16 +23,15 @@
     }
   }`;
 
-
   onMount(() => {
     queryData(query).then(res => {
-      revokedBadges = res.badgeClass.badgeAssertions.filter(el => el.revoked === true);
+      revokedBadges = res.badgeClass.badgeAssertions.filter(
+        el => el.revoked === true
+      );
     });
   });
 
-  const revokeBadges = () => {
-
-  }
+  const revokeBadges = () => {};
 </script>
 
 <style>
@@ -52,11 +51,12 @@
 
   thead th {
     text-align: left;
-    border-bottom: 3px solid var(--color-background-grey-dark);
+    border-bottom: 3px solid var(--grey-3);
     cursor: pointer;
   }
 
-  th, td {
+  th,
+  td {
     padding: var(--ver-padding-s) 0;
   }
 
@@ -71,27 +71,35 @@
 
 <table>
   <thead>
-  <tr>
-    <th><input type="checkbox"></th>
-    <th colspan="3">
-      <span class="actions">
-        <input type="search">
-      </span>
-    </th>
-  </tr>
+    <tr>
+      <th>
+        <input type="checkbox" />
+      </th>
+      <th colspan="3">
+        <span class="actions">
+          <input type="search" />
+        </span>
+      </th>
+    </tr>
   </thead>
   <tbody>
     {#each revokedBadges as revokedBadge}
       <tr>
-        <td><input type="checkbox"></td>
-        <td class="name">{revokedBadge.user.firstName + " " + revokedBadge.user.lastName}</td>
+        <td>
+          <input type="checkbox" />
+        </td>
+        <td class="name">
+          {revokedBadge.user.firstName + ' ' + revokedBadge.user.lastName}
+        </td>
         <td>{revokedBadge.user.email}</td>
         <td>{moment(revokedBadge.createdAt).format('MMM D, YYYY')}</td>
       </tr>
     {/each}
     {#if revokedBadges.length === 0}
       <tr>
-        <td><input type="checkbox"></td>
+        <td>
+          <input type="checkbox" />
+        </td>
         <td>-</td>
         <td>-</td>
         <td>-</td>

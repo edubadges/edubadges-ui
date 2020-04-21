@@ -26,14 +26,16 @@
     "svelte-preprocess": "^3.7.1",
     "svg-inline-loader": "^0.8.0",
     "webpack": "^4.41.2",
+    "webpack-bundle-analyzer": "^3.7.0",
     "webpack-cli": "^3.3.9",
     "webpack-dev-server": "^3.9.0"
   },
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack",
-    "dev": "webpack-dev-server --open --content-base public",
+    "dev": "webpack-dev-server --content-base public",
     "test": "jest src",
-    "test:watch": "npm run test -- --watch"
+    "test:watch": "npm run test -- --watch",
+    "stats": "webpack-bundle-analyzer public/stats.json"
   },
   "dependencies": {
     "i18n-js": "^3.3.0",
@@ -42,5 +44,8 @@
     "moment": "^2.24.0",
     "svelte-routing": "^1.4.0",
     "svelte-select": "^3.6.2"
+  },
+  "performance": {
+    "hints": true
   }
 }

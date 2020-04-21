@@ -104,6 +104,8 @@ I18n.translations.en = {
       issuers: "Issuers",
       faculties: "Groups",
       badgeclasses: "Badgeclasses",
+      badgeclassOverview: "Overview",
+      userManagement: "User management",
       badgesRequested: "Requests",
       badgesAwarded: "Recipients",
       badgesRevoked: "Revoked",
@@ -124,6 +126,19 @@ I18n.translations.en = {
       badgeclass: "Add new badgeclass",
       save: "Save",
       cancel: "Cancel",
+    },
+    award: {
+      title: "Award badges directly",
+      description:
+        "Fill in the email address of the person you'd like to award the badge to. Your request will be sent, and you will be notified when it's accepted or denied",
+      submit: "Award badge",
+      addAnother: "+ Add another",
+      addBulk: "Add many at once",
+    },
+    bulkAward: {
+      title: "Add many recipients at once",
+      description: "Copy and paste email addresses in the form below",
+      submit: "Add recipients",
     },
   },
   footer: {
@@ -163,7 +178,6 @@ I18n.translations.en = {
       brin: "BRIN code",
       description: "Description",
       grading_table: "Grading table",
-      no_grading_table: "<no link provided yet>",
       image: "Logo",
       name: "Name",
     },
@@ -180,8 +194,6 @@ I18n.translations.en = {
       admin: "Admin",
       email_header: "Contact",
       url_header: "Website",
-      no_url: "<no website provided yet>",
-      no_email: "<no email provided yet>",
       image: "Logo",
       name: "Name",
       url: "Website URL",
@@ -190,10 +202,56 @@ I18n.translations.en = {
     badgeclass: {
       issuer: "Issuer",
       image: "Badge image",
+      created: "Created",
+      admin: "Admin",
       name: "Name",
       description: "Description",
       criteria_text: "What is required to earn this badge?",
       criteria_url: "Criteria URL",
+      criteria_url_value: "Link to the earning criteria:",
+      directAward: "Direct award",
+      expiresAfter: "Expires after",
+      expiresAfterNever: "Never",
+      expiresAfterValue: "{{nbr}} weeks",
+      expireSettings: "Default expiration settings",
+      language: "Language of instruction",
+      learningOutcome: "Learning outcome",
+      ects: "Credit points",
+      ectsLong: "European Credit Transfer and Accumulation System",
+      eqf: "NLQF level",
+      educationProgramIdentifier: "ISAT",
+      educationProgramIdentifierLong: "Education Program Identifier",
+      notSet: "No value set",
+      expirationPeriods: {
+        days: "Days",
+        weeks: "Weeks",
+        months: "Months",
+        years: "Years",
+      },
+      headers: {
+        basicInformation: "Basic information",
+        earningCriteria: "Earning criteria",
+        creditPoints: "Credit Points",
+      },
+      info: {
+        educationProgramIdentifier:
+          "Consult <a target='_blank' rel='noreferrer' href='https://duo.nl/zakelijk/images/studiecodes.pdf'>DUO_CROHO</a> or <a target='_blank' rel='noreferrer' href='https://kwalificaties.s-bb.nl/Lijsten/Groep/14'>SBB_CREDO</a> if you don’t know the code.",
+        eqf:
+          "Check <a target='_blank' rel='noreferrer' href='https://www.nlqf.nl/nlqf-niveaus'>https://www.nlqf.nl/nlqf-niveaus</a> for help",
+        ects:
+          "Whole and half points only. <br/>A minimum of 0.5 points is required.",
+      },
     },
+    badge: {
+      emailAddress: "Email address",
+      emailAddresses: "Paste email addresses",
+    },
+  },
+  file: {
+    noFileSelected: "No file selected",
+    upload: "Upload image",
+    remove: "Remove image",
+    disclaimer:
+      "Image must be png, at least 90x90 pixels and smaller than 256KB.",
   },
 };

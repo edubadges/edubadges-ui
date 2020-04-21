@@ -7,9 +7,11 @@
 
 <style lang="scss">
   div.sidebar {
+    border-top-left-radius: var(--card-border-radius);
+    border-bottom-left-radius: var(--card-border-radius);
     width: var(--width-side-bar);
     padding: 30px 12px;
-    background: var(--color-background-grey-light);
+    background: var(--grey-2);
 
     h3 {
       margin-bottom: 8px;
@@ -28,7 +30,7 @@
 
 <div class="sidebar">
   <div>
-    <h3 class="purple">{I18n.t('teacher.sidebar.search')}</h3>
+    <h3>{I18n.t('teacher.sidebar.search')}</h3>
     <Search bind:value={$search} />
   </div>
 

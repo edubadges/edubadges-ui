@@ -1,5 +1,6 @@
 <script>
   import I18n from "i18n-js";
+  import { Button } from "../../components";
   import Breadcrumb from "./Breadcrumb.svelte";
 
   export let faculty;
@@ -11,22 +12,38 @@
   export let submit;
 </script>
 
-<style>
-  div.entity-form {
-    flex: 1;
-    padding: var(--ver-padding-l) var(--hor-padding-m);
+<style lang="scss">
+  h3 {
+    background: var(--purple-1);
+    padding: var(--ver-padding-m) var(--hor-padding-m);
+  }
+
+  .offset {
+    max-width: fit-content;
+    margin: 0 auto;
   }
 </style>
 
-<Breadcrumb faculty={faculty} issuer={issuer} badgeclassName={badgeclassName} edit={!create} create={create} entity={entity}/>
+<Breadcrumb
+  {faculty}
+  {issuer}
+  {badgeclassName}
+  edit={!create}
+  {create}
+  {entity} />
 
-<div class="entity-form">
-  <h3>{I18n.t(['manage', create ? 'new' : 'edit', entity])}</h3>
-  <slot/>
-  <button on:click={() => window.history.back()} class="btn ghost">
-    {I18n.t(['manage', create ? 'new' : 'edit', 'cancel'])}
-  </button>
-  <button on:click={submit} class="btn">
-    {I18n.t(['manage', create ? 'new' : 'edit', 'save'])}
-  </button>
+<h3>{I18n.t(['manage', create ? 'new' : 'edit', entity])}</h3>
+
+<div class="main-content-margin">
+  <div class="offset">
+    <slot />
+
+    <Button
+      secondary
+      action={() => window.history.back()}
+      text={I18n.t(['manage', create ? 'new' : 'edit', 'cancel'])} />
+    <Button
+      action={submit}
+      text={I18n.t(['manage', create ? 'new' : 'edit', 'save'])} />
+  </div>
 </div>

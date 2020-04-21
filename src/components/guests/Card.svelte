@@ -15,10 +15,6 @@
     margin-top: 20px;
     padding: 20px;
 
-    border: var(--card-border);
-    border-radius: var(--card-border-radius);
-    box-shadow: var(--card-shadow);
-
     text-align: center;
   }
 
@@ -31,6 +27,7 @@
     left: 0;
     background-color: gray;
     opacity: 0.5;
+    border-radius: var(--card-border-radius);
   }
 
   @media only screen and (max-width: 819px) {
@@ -44,6 +41,6 @@
   }
 </style>
 
-<div class:none class:out-of-focus={outOfFocus}>
+<div class="card" class:none class:out-of-focus={outOfFocus}>
   <slot />
 </div>

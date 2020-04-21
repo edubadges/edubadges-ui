@@ -1,35 +1,35 @@
 <script>
-  import {onMount} from "svelte";
-  import {Router, Route, navigate} from "svelte-routing";
-  import {Breadcrumb, EntityHeader, Issuers, Faculties} from "../teachers";
-  import {institutionIcon, issuerIcon, facultyIcon} from "../../icons";
-  import {queryData} from "../../api/graphql";
-  import InstitutionHeader from "./InstitutionHeader.svelte";
+  import { onMount } from "svelte";
+  import I18n from "i18n-js";
+
+  import { Router, Route, navigate } from "svelte-routing";
+  import {
+    Breadcrumb,
+    EntityHeader,
+    Issuers,
+    Faculties,
+    HeaderList
+  } from "../teachers";
+  import { issuerIcon, facultyIcon } from "../../icons";
+  import { queryData } from "../../api/graphql";
+  import { headerStaff, headerEntity } from "../../api/queries";
 
   export let subEntity;
 
-  let institution = {staff: []};
+  let institution = { staff: [] };
   let faculties = [];
   let issuers = [];
 
   const query = `{
-    currentUser {
-      institution {
-				name,
-				description,
-				createdAt
-				image,
-				gradingTable,
-				brin,
-				staff {
-				  user {
-				    firstName, lastName, email, entityId
-				  }
-				}
-        permissions {
-          mayUpdate,
-          mayCreate
-        }
+    currentInstitution {
+      ${headerEntity},
+      ${headerStaff},
+      image,
+      gradingTable,
+      brin,
+      permissions {
+        mayUpdate,
+        mayCreate
       }
 		},
 		faculties {
@@ -53,7 +53,7 @@
 
   onMount(() => {
     queryData(query).then(res => {
-      institution = res.currentUser.institution;
+      institution = res.currentInstitution;
       faculties = res.faculties;
       issuers = res.issuers;
     });
@@ -72,35 +72,47 @@
     }
   ];
 
-  $: if (!subEntity) navigate(tabs[0].href, {replace: true});
+  $: if (!subEntity) navigate(tabs[0].href, { replace: true });
   $: mayUpdate = institution.permissions && institution.permissions.mayUpdate;
   $: mayCreate = institution.permissions && institution.permissions.mayCreate;
+
+  $: headerItems = [
+    {
+      attr: "created",
+      type: "date",
+      value: institution.createdAt
+    },
+    {
+      attr: "admin",
+      type: "adminNames",
+      value: institution
+    },
+    {
+      attr: "brin",
+      type: "text",
+      value: institution.brin
+    },
+    {
+      attr: "grading_table",
+      type: "link",
+      value: institution.gradingTable
+    }
+  ];
 </script>
 
-<style>
-  .page-container {
-    flex: 1;
-    --entity-icon-width: 66px;
-  }
-</style>
+<Breadcrumb />
+<EntityHeader
+  {tabs}
+  {headerItems}
+  object={institution}
+  entity="institution"
+  {mayUpdate} />
 
-<div class="page-container">
-  <Breadcrumb/>
-  <EntityHeader
-    {tabs}
-    title={institution.name}
-    icon={institutionIcon}
-    entity="institution"
-    {mayUpdate}>
-    <InstitutionHeader institution={institution}/>
-  </EntityHeader>
-
-  <Router>
-    <Route path="/issuers">
-      <Issuers {issuers} {mayCreate}/>
-    </Route>
-    <Route path="/groups">
-      <Faculties {faculties} {mayCreate}/>
-    </Route>
-  </Router>
-</div>
+<Router>
+  <Route path="/issuers">
+    <Issuers {issuers} {mayCreate} />
+  </Route>
+  <Route path="/groups">
+    <Faculties {faculties} {mayCreate} />
+  </Route>
+</Router>

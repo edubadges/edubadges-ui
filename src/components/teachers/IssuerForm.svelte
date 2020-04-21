@@ -16,7 +16,9 @@
     errors = {};
 
     let newIssuer = issuer;
-    if (issuer.faculty) newIssuer.faculty = issuer.faculty.entityId;
+    if (issuer.faculty) {
+      newIssuer.faculty = issuer.faculty.entityId;
+    }
 
     const args = isCreate ? [newIssuer] : [entityId, newIssuer];
     const apiCall = isCreate ? createIssuer : editIssuer;

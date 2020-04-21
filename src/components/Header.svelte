@@ -57,7 +57,7 @@
 
     :global(svg.chevron-down, svg.chevron-up) {
       width: 28px;
-      fill: var(--color-primary-purple);
+      fill: var(--purple);
     }
 
     div.menu.show {
@@ -66,11 +66,6 @@
       right: 0;
       padding: var(--ver-padding-m) var(--hor-padding-m);
       min-width: 180px;
-
-      background: white;
-      border: var(--card-border);
-      border-radius: var(--card-border-radius);
-      box-shadow: var(--card-shadow);
     }
 
     div.menu:not(.show) {
@@ -95,7 +90,7 @@
       use:clickOutside
       on:clickOutside={() => (menuOpen = false)}>
       {@html menuOpen ? chevronUp : chevronDown}
-      <div class="menu" class:show={menuOpen}>
+      <div class="menu card" class:show={menuOpen}>
         <div on:click={logoutUser}>{I18n.t('header.logout')}</div>
       </div>
     </div>

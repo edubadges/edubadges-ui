@@ -1,7 +1,7 @@
 <script>
   import I18n from "i18n-js";
   import { link } from "svelte-routing";
-  import { Search } from "../../components";
+  import { Search, Button } from "../../components";
   import { sortType } from "../../util/sortData";
 
   export let entity = "";
@@ -25,25 +25,13 @@
 </script>
 
 <style lang="scss">
-  div.container {
-    margin: var(--ver-padding-l) var(--entity-icon-width);
-  }
-
   div.header {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
 
-    a {
-      margin-left: var(--hor-padding-s);
+    :global(> *:not(:last-child)) {
+      margin-right: var(--hor-padding-s);
     }
-  }
-
-  div.header > *:not(:last-child) {
-    margin-right: var(--hor-padding-s);
-  }
-
-  h3 {
-    flex: 1;
   }
 
   table {
@@ -53,7 +41,7 @@
 
   thead th {
     text-align: left;
-    border-bottom: 3px solid var(--color-background-grey-dark);
+    border-bottom: 3px solid var(--grey-3);
     cursor: pointer;
   }
 
@@ -74,15 +62,16 @@
   }
 </style>
 
-<div class="container">
+<div class="container main-content-margin">
   <div class="header">
     <h3>{title}</h3>
+
     <Search bind:value={search} />
 
     {#if mayCreate}
-      <a use:link href={`/manage/${entity}/new`} class="btn">
-        {I18n.t(['manage', 'new', entity])}
-      </a>
+      <Button
+        href={`/manage/${entity}/new`}
+        text={I18n.t(['manage', 'new', entity])} />
     {/if}
   </div>
 

@@ -21,6 +21,20 @@ function sort(collection, count = false) {
   });
 }
 
+export const selectedEntity = derived(
+  [faculties, facultyIds, issuerIds],
+  ([faculties, facultyIds, issuerIds]) => {
+    if (issuerIds.length) {
+      const issuers = faculties.flatMap((fac) => fac.issuers);
+      return issuers.find((iss) => issuerIds.includes(iss.entityId));
+    }
+
+    if (facultyIds.length) {
+      return faculties.find((fac) => facultyIds.includes(fac.entityId));
+    }
+  }
+);
+
 export const tree = derived(
   [faculties, search, facultyIds, issuerIds],
   ([faculties, search, facultyIds, issuerIds]) => {

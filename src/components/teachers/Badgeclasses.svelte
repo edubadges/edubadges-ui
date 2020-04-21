@@ -11,30 +11,30 @@
   export let mayCreate;
 
   const tableHeaders = [
-      {
-          name: I18n.t("teacher.name"),
-          attribute: "name",
-          reverse: false,
-          sortType: sortType.ALPHA
-      },
-      {
-          name: I18n.t("teacher.badgeclasses.created"),
-          attribute: "created",
-          reverse: false,
-          sortType: sortType.ALPHA
-      },
-      {
-          name: I18n.t("teacher.badgeclasses.recipients"),
-          attribute: "recipients",
-          reverse: false,
-          sortType: sortType.ALPHA
-      },
-      {
-          name: I18n.t("teacher.badgeclasses.ects"),
-          attribute: "ects",
-          reverse: false,
-          sortType: sortType.ALPHA
-      }
+    {
+      name: I18n.t("teacher.name"),
+      attribute: "name",
+      reverse: false,
+      sortType: sortType.ALPHA
+    },
+    {
+      name: I18n.t("teacher.badgeclasses.created"),
+      attribute: "created",
+      reverse: false,
+      sortType: sortType.ALPHA
+    },
+    {
+      name: I18n.t("teacher.badgeclasses.recipients"),
+      attribute: "recipients",
+      reverse: false,
+      sortType: sortType.ALPHA
+    },
+    {
+      name: I18n.t("teacher.badgeclasses.ects"),
+      attribute: "ects",
+      reverse: false,
+      sortType: sortType.ALPHA
+    }
   ];
 
   $: table = {
