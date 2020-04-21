@@ -1,8 +1,11 @@
 <script>
-  import {onMount} from "svelte";
-  import {BadgeclassForm} from "../teachers";
-  import {queryData} from "../../api/graphql";
-  import {deduceExpirationPeriod, expirationPeriods} from "../extensions/badges/expiration_period";
+  import { onMount } from "svelte";
+  import { BadgeclassForm } from "../teachers";
+  import { queryData } from "../../api/graphql";
+  import {
+    deduceExpirationPeriod,
+    expirationPeriods
+  } from "../extensions/badges/expiration_period";
 
   export let entityId;
 
@@ -16,7 +19,6 @@
       criteriaUrl,
       criteriaText,
       expirationPeriod,
-      publicUrl,
       issuer {
         name,
         entityId,
@@ -40,8 +42,7 @@
     },
   }`;
 
-
-  let badgeclass = {issuer: {faculty: {}}, extensions: []};
+  let badgeclass = { issuer: { faculty: {} }, extensions: [] };
   let issuers = [];
 
   onMount(() => {
@@ -53,4 +54,4 @@
   });
 </script>
 
-<BadgeclassForm {issuers} {badgeclass} {entityId}/>
+<BadgeclassForm {issuers} {badgeclass} {entityId} />

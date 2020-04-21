@@ -81,11 +81,5 @@
       </tbody>
     </table>
   </div>
-  <h3>{I18n.t('models.badgeclass.publicUrl')}</h3>
-  <p class="info">
-    <a href={badgeclass.publicUrl} target="_blank">
-      TODO - Link to public page {badgeclass.publicUrl}
-    </a>
-  </p>
 
 </div>
