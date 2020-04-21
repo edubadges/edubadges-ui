@@ -1,7 +1,8 @@
 <script>
   import { onMount } from "svelte";
   import { Router, Route, navigate } from "svelte-routing";
-  import { EntityHeader, Breadcrumb, BadgeclassDetail } from "../teachers";
+  import { EntityHeader, Breadcrumb } from "../teachers";
+  import { Overview, UserManagement } from "../teachers/badgeclass/index";
   import { badgeclassIcon } from "../../icons";
   import { queryData } from "../../api/graphql";
   import { headerStaff, headerEntity } from "../../api/queries";
@@ -88,7 +89,7 @@
 
 <div class="main-content-margin">
   <Router>
-    <Route path="/overview">Badgeclass overview</Route>
-    <Route path="/users">Badgeclass users</Route>
+    <Route path="/overview" component={Overview} />
+    <Route path="/users" component={UserManagement} />
   </Router>
 </div>
