@@ -32,12 +32,12 @@
     overflow-x: hidden;
     text-overflow: ellipsis;
 
-    &:focus {
+    &:not([disabled]):focus {
       outline: 1px solid var(--purple);
       box-shadow: 1px 1px 3px var(--purple), -1px -1px 3px var(--purple);
     }
 
-    &[disabled="true"] {
+    &[disabled] {
       cursor: not-allowed;
     }
   }
@@ -47,12 +47,12 @@
     background-color: var(--purple);
     color: white;
 
-    &[disabled="true"]:hover {
+    &:not([disabled]):hover {
       background-color: var(--purple-8);
       color: var(--purple-1);
     }
 
-    &[disabled="true"] {
+    &[disabled] {
       background: var(--grey-2);
       border-color: var(--grey-2);
       color: var(--grey-4);
