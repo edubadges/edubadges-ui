@@ -4,11 +4,11 @@
   import { Search, Button } from "../../components";
   import { sortType } from "../../util/sortData";
 
+  export let mayCreate;
   export let entity = "";
   export let title = "";
   export let tableHeaders = [];
   export let search = "";
-  export let mayCreate;
   export let sort = {
     attribute: null,
     reverse: false,
@@ -73,17 +73,23 @@
         href={`/manage/${entity}/new`}
         text={I18n.t(['manage', 'new', entity])} />
     {/if}
+
+    <slot name="buttons" />
   </div>
 
   <table class="entity-table">
     <thead>
       <tr>
         {#each tableHeaders as th}
-          <th
-            on:click={() => setSort(th)}
-            class={sort.attribute === th.attribute ? (sort.reverse ? 'asc' : 'desc') : ''}>
-            {th.name}
-          </th>
+          {#if th.type === 'check-all'}
+            <th>check</th>
+          {:else}
+            <th
+              on:click={() => setSort(th)}
+              class={sort.attribute === th.attribute ? (sort.reverse ? 'asc' : 'desc') : ''}>
+              {th.name}
+            </th>
+          {/if}
         {/each}
       </tr>
     </thead>
