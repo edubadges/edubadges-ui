@@ -15,12 +15,13 @@ export const educationProgramIdentifier = {
 };
 
 export const extensionValue = (extensions, extension) => {
-  const ext = extensions.find(
-    (ext) => ext.name === `extensions:${extension.name}`
-  );
-  return ext
-    ? JSON.parse(ext.originalJson.replace(/'/g, '"'))[extension.value]
-    : null;
+  const ext = extensions.find(ext => ext.name === `extensions:${extension.name}`);
+  if (ext) {
+    const json = JSON.parse(ext.originalJson.replace(/'/g, "\""));
+    const val = json[extension.value];
+    return val;
+  }
+  return null;
 };
 
 const extensionNameValueDict = [
