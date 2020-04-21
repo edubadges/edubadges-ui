@@ -4,7 +4,10 @@
   import { Student, ProcessToken, NotFound, Login, Validate } from "./routes";
   import { Badges, Manage } from "./routes/teachers";
   import { Header, Footer, SubscribeToPath, Spinner } from "./components";
-  import { Header as TeacherHeader, Badgeclass } from "./components/teachers";
+  import {
+    Header as TeacherHeader,
+    BadgeclassAwarder
+  } from "./components/teachers";
   import { userRole, userLoggedIn, redirectPath } from "./stores/user";
   import { role } from "./util/role";
   import { getSocialAccount } from "./api";
@@ -87,7 +90,9 @@
 
         <!-- Teacher -->
         <Route path="/manage/*mainEntity" component={Manage} />
-        <Route path="/badges/*entityId" component={Badgeclass} />
+        <Route
+          path="/badgeclasses/:entityId/*tab"
+          component={BadgeclassAwarder} />
 
         <!-- Shared -->
         <Route path="/" component={homepage[visitorRole]} />
