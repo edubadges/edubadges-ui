@@ -56,12 +56,6 @@
     background-color: white;
     box-shadow: 0 3px 0 2px #abb4bd;
   }
-
-  @media (min-width: 600px) {
-    :global(body) {
-      margin: 0 40px;
-    }
-  }
 </style>
 
 <div class="app">

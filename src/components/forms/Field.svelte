@@ -20,6 +20,7 @@
 
   div.input {
     margin: 8px 0;
+    min-width: 200px;
   }
 
   /* Disabled */

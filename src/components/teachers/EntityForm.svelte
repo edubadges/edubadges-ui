@@ -12,22 +12,16 @@
   export let submit;
 </script>
 
-<style>
+<style lang="scss">
   h3 {
     background: var(--purple-1);
     padding: var(--ver-padding-m) var(--hor-padding-m);
   }
 
-  div.slot {
-    margin-left: 152px;
+  .offset {
+    max-width: fit-content;
+    margin: 0 auto;
   }
-
-  @media (max-width: 820px) {
-    div.slot {
-      margin-left: 0;
-    }
-  }
-
 </style>
 
 <Breadcrumb
@@ -41,16 +35,15 @@
 <h3>{I18n.t(['manage', create ? 'new' : 'edit', entity])}</h3>
 
 <div class="main-content-margin">
-  <div class="slot">
+  <div class="offset">
     <slot />
+
+    <Button
+      secondary
+      action={() => window.history.back()}
+      text={I18n.t(['manage', create ? 'new' : 'edit', 'cancel'])} />
+    <Button
+      action={submit}
+      text={I18n.t(['manage', create ? 'new' : 'edit', 'save'])} />
   </div>
-
-  <Button
-    secondary
-    action={() => window.history.back()}
-    text={I18n.t(['manage', create ? 'new' : 'edit', 'cancel'])} />
-  <Button
-    action={submit}
-    text={I18n.t(['manage', create ? 'new' : 'edit', 'save'])} />
-
 </div>
