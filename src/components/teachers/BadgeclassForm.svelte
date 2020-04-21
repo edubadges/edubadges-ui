@@ -163,7 +163,6 @@
       <Select
         bind:value={badgeclass.issuer}
         error={errors.issuer}
-        disabled={true}
         items={issuers} />
     </Field>
 

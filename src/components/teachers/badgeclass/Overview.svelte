@@ -45,20 +45,20 @@
 <div class="badge-class-detail">
   <h3>{I18n.t('models.badgeclass.language')}</h3>
   <p class="info">
-    {fallBackValue(extensionValue(badgeclass.extensions, language))}
+    {badgeclass.language || fallBackValue(extensionValue(badgeclass.extensions, language))}
   </p>
   <h3>{I18n.t('models.badgeclass.learningOutcome')}</h3>
   <p class="info">
-    {fallBackValue(extensionValue(badgeclass.extensions, learningOutcome))}
+    {badgeclass.learningOutcome || fallBackValue(extensionValue(badgeclass.extensions, learningOutcome))}
   </p>
   <h3>{I18n.t('models.badgeclass.criteria_text')}</h3>
   <div class="info">
-    <p>{fallBackValue(badgeclass.criteriaText)}</p>
+    <p>{badgeclass.criteriaText || fallBackValue(badgeclass.criteriaText)}</p>
     <p class="green">
       {I18n.t('models.badgeclass.criteria_url_value')}
       {#if badgeclass.criteriaUrl}
         <a href={badgeclass.criteriaUrl} target="_blank">
-          {I18n.t('models.badgeclass.notSet')}
+          {badgeclass.criteriaUrl}
         </a>
       {:else}
         <span>{I18n.t('models.badgeclass.notSet')}</span>
@@ -72,10 +72,10 @@
       </thead>
       <tbody>
         <tr>
-          <td>{fallBackValue(extensionValue(badgeclass.extensions, ects))}</td>
-          <td>{fallBackValue(extensionValue(badgeclass.extensions, eqf))}</td>
+          <td>{badgeclass.ects || fallBackValue(extensionValue(badgeclass.extensions, ects))}</td>
+          <td>{badgeclass.eqf || fallBackValue(extensionValue(badgeclass.extensions, eqf))}</td>
           <td>
-            {fallBackValue(extensionValue(badgeclass.extensions, educationProgramIdentifier))}
+            {badgeclass.educationProgramIdentifier || fallBackValue(extensionValue(badgeclass.extensions, educationProgramIdentifier))}
           </td>
         </tr>
       </tbody>

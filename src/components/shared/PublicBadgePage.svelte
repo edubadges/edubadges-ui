@@ -12,20 +12,27 @@
   export let visitorRole;
 
   let badgeClass = {};
-  let enroll;
+  let enrolled;
 
   onMount(() => {
     if (visitorRole === role.STUDENT) {
       getUnearnedBadges().then(enrollments => {
-          enroll = !Boolean(enrollments.reduce((acc, el) => {
-            return acc || el.entityId === entityId
+        console.log(enrollments);
+        enrolled = Boolean(enrollments.reduce((acc, el) => {
+          return acc || el['badge_class']['entity_id'] === entityId
         }, false));
       });
     }
 
     getPublicBadgeClass(entityId).then(res => {
-      console.log(res);
       badgeClass = res;
+      badgeClass.criteriaUrl = res['criteria']['id'];
+      badgeClass.criteriaText = res['criteria']['narrative'];
+      badgeClass.language = res['extensions:LanguageExtension']['Language'];
+      badgeClass.ects = res['extensions:ECTSExtension']['ECTS'];
+      badgeClass.eqf = res['extensions:EQFExtension']['EQF'];
+      badgeClass.learningOutcome = res['extensions:LearningOutcomeExtension']['LearningOutcome'];
+      badgeClass.educationProgramIdentifier = res['extensions:EducationProgramIdentifierExtension']['EducationProgramIdentifier'];
     })
   });
 </script>
@@ -34,11 +41,10 @@
   <EntityHeader
     entity="badgeclass"
     object={badgeClass}
-    enroll={enroll}
+    visitorRole={visitorRole}
+    enrolled={enrolled}
+    entityId={entityId}
   >
-      <div>test</div>
-      <div>test</div>
-      <div>test</div>
   </EntityHeader>
 
   {#if !isEmpty(badgeClass)}
