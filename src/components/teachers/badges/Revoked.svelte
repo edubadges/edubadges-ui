@@ -1,6 +1,9 @@
 <script>
   import { onMount } from "svelte";
+  import I18n from "i18n-js";
   import moment from "moment";
+  import { Table } from "../../teachers";
+  import { sort, sortType } from "../../../util/sortData";
   import { queryData } from "../../../api/graphql";
 
   export let entityId;
@@ -32,78 +35,47 @@
   });
 
   const revokeBadges = () => {};
+
+  const tableHeaders = [
+    {
+      name: "name",
+      attribute: "name",
+      reverse: false,
+      sortType: sortType.ALPHA
+    },
+
+    {
+      name: "email",
+      attribute: "email",
+      reverse: false,
+      sortType: sortType.ALPHA
+    },
+
+    {
+      name: "created",
+      attribute: "created",
+      reverse: false,
+      sortType: sortType.ALPHA
+    }
+  ];
+
+  $: table = {
+    entity: "badgeclass",
+    title: `${I18n.t("teacher.badgeclasses.title")}`,
+    tableHeaders: tableHeaders
+  };
 </script>
 
-<style>
-  .name {
-    font-weight: bold;
-  }
+<Table {...table}>
 
-  input {
-    font-size: 16px;
-    padding: 2px 0 2px 8px;
-  }
-
-  table {
-    border-collapse: collapse;
-    width: 100%;
-  }
-
-  thead th {
-    text-align: left;
-    border-bottom: 3px solid var(--grey-3);
-    cursor: pointer;
-  }
-
-  th,
-  td {
-    padding: var(--ver-padding-s) 0;
-  }
-
-  tbody tr:not(:last-of-type) td {
-    border-bottom: var(--card-border);
-  }
-
-  .actions {
-    float: right;
-  }
-</style>
-
-<table>
-  <thead>
+  {#each revokedBadges as revokedBadge}
     <tr>
-      <th>
-        <input type="checkbox" />
-      </th>
-      <th colspan="3">
-        <span class="actions">
-          <input type="search" />
-        </span>
-      </th>
+
+      <td class="name">
+        {revokedBadge.user.firstName + ' ' + revokedBadge.user.lastName}
+      </td>
+      <td>{revokedBadge.user.email}</td>
+      <td>{moment(revokedBadge.createdAt).format('MMM D, YYYY')}</td>
     </tr>
-  </thead>
-  <tbody>
-    {#each revokedBadges as revokedBadge}
-      <tr>
-        <td>
-          <input type="checkbox" />
-        </td>
-        <td class="name">
-          {revokedBadge.user.firstName + ' ' + revokedBadge.user.lastName}
-        </td>
-        <td>{revokedBadge.user.email}</td>
-        <td>{moment(revokedBadge.createdAt).format('MMM D, YYYY')}</td>
-      </tr>
-    {/each}
-    {#if revokedBadges.length === 0}
-      <tr>
-        <td>
-          <input type="checkbox" />
-        </td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-      </tr>
-    {/if}
-  </tbody>
-</table>
+  {/each}
+</Table>
