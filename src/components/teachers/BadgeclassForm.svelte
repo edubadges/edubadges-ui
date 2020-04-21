@@ -33,8 +33,15 @@
 
   const eqfItems = [...Array(8).keys()].map(i => ({name: `EQF ${i + 1}`}));
 
-  let extensions = {
-    [language.name]: extensionValue(badgeclass.extensions, language) || "En_En",
+  $: languageValue = extensionValue(badgeclass.extensions, language) || {name: "En_En"};
+  let learningOutcomeValue = "";
+
+  $: if (badgeclass.extensions.length > 0) {
+    learningOutcomeValue = extensionValue(badgeclass.extensions, learningOutcome) || "";
+  }
+
+  $: extensions = {
+    [language.name]: extensionValue(badgeclass.extensions, language) || {name: "En_En"},
     [ects.name]: extensionValue(badgeclass.extensions, ects) || 2.5,
     [eqf.name]: extensionValue(badgeclass.extensions, eqf) || {name: "EQF 6"},
     [learningOutcome.name]: extensionValue(badgeclass.extensions, learningOutcome) || "",
@@ -111,6 +118,12 @@
   submit={onSubmit}
   create={isCreate}>
   <h4>{I18n.t("models.badgeclass.headers.basicInformation")}</h4>
+
+  {#each Object.keys(extensions) as ext}
+    <p>{ext} - {JSON.stringify(extensions[ext])}</p>
+  {/each}
+  <p></p>
+
   <div class="form">
 
     <Field {entity} attribute="image" errors={errors.image}>
@@ -140,6 +153,14 @@
     <Field {entity} attribute="learningOutcome" errors={errors.learningOutcome}>
       <TextInput
         bind:value={extensions[learningOutcome.name]}
+        fullWidth={true}
+        error={errors.learningOutcome}
+        area/>
+    </Field>
+
+    <Field {entity} attribute="learningOutcome" errors={errors.learningOutcome}>
+      <TextInput
+        bind:value={learningOutcomeValue}
         fullWidth={true}
         error={errors.learningOutcome}
         area/>
