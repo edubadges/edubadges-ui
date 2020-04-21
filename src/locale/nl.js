@@ -193,8 +193,6 @@ I18n.translations.nl = {
       admin: "Admin",
       email_header: "Contact",
       url_header: "Website",
-      no_url: "<no website provided yet>",
-      no_email: "<no email provided yet>",
       image: "Logo",
       name: "Naam",
       url: "Website URL",

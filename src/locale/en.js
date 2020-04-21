@@ -193,8 +193,6 @@ I18n.translations.en = {
       admin: "Admin",
       email_header: "Contact",
       url_header: "Website",
-      no_url: "<no website provided yet>",
-      no_email: "<no email provided yet>",
       image: "Logo",
       name: "Name",
       url: "Website URL",
