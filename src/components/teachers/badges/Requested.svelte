@@ -11,6 +11,7 @@
   export let entityId;
 
   let requests = [];
+  let selection = [];
 
   const query = `{
     badgeClass(id: "${entityId}") {
@@ -38,8 +39,9 @@
 
   const award = () => {
     const enrollmentIds = requests
-      .filter(el => el.checked)
+      .filter(({ entityId }) => selection.includes(entityId))
       .map(({ entityId }) => entityId);
+
     awardBadges(entityId, enrollmentIds);
   };
 
@@ -81,18 +83,22 @@
   <span slot="buttons">
     <Button
       disabled
-      action={() => {}}
+      action={award}
       text={I18n.t('teacher.badgeRequests.award')} />
-    <Button
-      disabled
-      action={() => {}}
-      text={I18n.t('teacher.badgeRequests.newUser')} />
   </span>
 
-  {#each requests as request}
+  {#each requests as request (request.entityId)}
     <tr>
       <td>
-        <CheckBox bind:value={request.checked} label="" onChange={() => {}} />
+        <CheckBox
+          value={selection.includes(request.entityId)}
+          onChange={val => {
+            if (val) {
+              selection.push(request.entityId);
+            } else {
+              selection = selection.filter(entityId => request.entityId !== entityId);
+            }
+          }} />
       </td>
       <td>{request.user.firstName + ' ' + request.user.lastName}</td>
       <td>{request.user.email}</td>

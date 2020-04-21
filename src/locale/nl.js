@@ -96,7 +96,6 @@ I18n.translations.nl = {
     },
     badgeRequests: {
       award: "Ken badge toe",
-      newUser: "Nieuwe gebruiker",
     },
     badgeRevoked: {
       revoke: "Verwijder badge",

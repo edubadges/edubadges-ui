@@ -5,11 +5,12 @@
   import { Table } from "../../teachers";
   import { queryData } from "../../../api/graphql";
   import { sort, sortType } from "../../../util/sortData";
-  import { Button } from "../../../components";
+  import { Button, CheckBox } from "../../../components";
 
   export let entityId;
 
   let awardedBadges = [];
+  let selection = [];
 
   const query = `{
     badgeClass(id: "${entityId}") {
@@ -77,10 +78,18 @@
       text={I18n.t('teacher.badgeRevoked.revoke')} />
   </span>
 
-  {#each awardedBadges as awardedBadge}
+  {#each awardedBadges as awardedBadge (awardedBadge.entityId)}
     <tr>
       <td>
-        <input type="checkbox" />
+        <CheckBox
+          value={selection.includes(awardedBadge.entityId)}
+          onChange={val => {
+            if (val) {
+              selection.push(awardedBadge.entityId);
+            } else {
+              selection = selection.filter(entityId => awardedBadge.entityId !== entityId);
+            }
+          }} />
       </td>
       <td class="name">
         {awardedBadge.user.firstName + ' ' + awardedBadge.user.lastName}

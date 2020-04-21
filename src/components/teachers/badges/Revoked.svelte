@@ -68,7 +68,6 @@
 
   {#each revokedBadges as revokedBadge}
     <tr>
-
       <td class="name">
         {revokedBadge.user.firstName + ' ' + revokedBadge.user.lastName}
       </td>

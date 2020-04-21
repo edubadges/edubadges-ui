@@ -96,7 +96,6 @@ I18n.translations.en = {
     },
     badgeRequests: {
       award: "Award badge",
-      newUser: "Add new user",
     },
     badgeRevoked: {
       revoke: "Revoke badge",
@@ -109,8 +108,8 @@ I18n.translations.en = {
       badgeclasses: "Badgeclasses",
       badgeclassOverview: "Overview",
       userManagement: "User management",
-      badgesRequested: "Requests",
-      badgesAwarded: "Recipients",
+      badgesRequested: "Enrolled",
+      badgesAwarded: "Awarded",
       badgesRevoked: "Revoked",
     },
     edit: {
