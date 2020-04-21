@@ -11,11 +11,7 @@ function validateResponse(res) {
   if (res.status === 400) throw res.json();
 }
 
-function validFetch(path, options = {}, method = "GET") {
-  const token = get(authToken);
-  if (!token) {
-    return Promise.reject("no token");
-  }
+function validFetch(path, options = {}, method = "GET", useToken = true) {
   const fetchOptions = {
     ...options,
     method,
@@ -24,9 +20,17 @@ function validFetch(path, options = {}, method = "GET") {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: "Bearer " + token,
     },
   };
+
+  if (useToken) {
+    const token = get(authToken);
+    if (!token) {
+      return Promise.reject("no token");
+    }
+    fetchOptions.headers.Authorization = "Bearer " + token;
+  }
+
   return fetch(path, fetchOptions).then((res) => validateResponse(res));
 }
 
@@ -161,3 +165,8 @@ export function createBadgeclass(badgeclass) {
   return validFetch(path, { body: JSON.stringify(badgeclass) }, "POST");
 }
 
+// Public
+export function getPublicBadgeClass(badgeId) {
+  const path = `${serverUrl}/public/badges/${badgeId}`;
+  return validFetch(path, {}, "GET", false);
+}
