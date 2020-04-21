@@ -99,6 +99,10 @@ I18n.translations.nl = {
       revoke: "Verwijder badge",
     },
   },
+  student: {
+    enroll: "Aanvragen",
+    enrolled: "Aangevraagd"
+  },
   manage: {
     tabs: {
       issuers: "Issuers",

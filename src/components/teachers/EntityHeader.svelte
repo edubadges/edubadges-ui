@@ -14,9 +14,10 @@
   export let enrolled;
   export let entityId;
 
+
   const enrollStudent = () => {
     requestBadge(entityId).then(res => {
-
+        enrolled = true;
     }, err => {
       console.error('error while enrolling', err);
     });
@@ -73,9 +74,9 @@
 
     {#if visitorRole === role.STUDENT}
       {#if !enrolled}
-        <Button secondary action={enrollStudent} text="enroll" class="btn" />
+        <Button secondary action={enrollStudent} text={I18n.t(['student', 'enroll'])} class="btn" />
       {:else}
-        <Button label="alreadyEnrolled" text="already enrolled"/>
+        <Button label="alreadyEnrolled" disabled={true} text={I18n.t(['student', 'enrolled'])}/>
       {/if}
     {/if}
     {#if mayUpdate}

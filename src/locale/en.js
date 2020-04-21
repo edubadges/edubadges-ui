@@ -99,6 +99,10 @@ I18n.translations.en = {
       revoke: "Revoke badge",
     },
   },
+  student: {
+    enroll: "Enroll",
+    enrolled: "Enrolled"
+  },
   manage: {
     tabs: {
       issuers: "Issuers",
