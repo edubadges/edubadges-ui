@@ -1,10 +1,11 @@
 <script>
   import { onMount } from "svelte";
   import { Router, Route, navigate } from "svelte-routing";
+  import I18n from "i18n-js";
   import { EntityHeader } from "../teachers";
   import { Overview } from "../teachers/badgeclass";
   import { Awarded, Requested, Revoked } from "../teachers/badges";
-  import { badgeclassIcon } from "../../icons";
+  import { badgeclassIcon, chevronLeft } from "../../icons";
   import { queryData } from "../../api/graphql";
   import { headerStaff, headerEntity } from "../../api/queries";
 
@@ -105,6 +106,32 @@
     }
   ];
 </script>
+
+<style lang="scss">
+  div.nav {
+    padding: var(--ver-padding-m) var(--hor-padding-m);
+    min-height: 47px;
+
+    span {
+      font-weight: bold;
+    }
+
+    :global(svg) {
+      height: 16px;
+    }
+
+    > :global(*) {
+      vertical-align: middle;
+    }
+  }
+</style>
+
+<div class="nav">
+  {@html chevronLeft}
+  <span class="click" on:click={() => window.history.back()}>
+    {I18n.t('teacher.breadcrumb.back')}
+  </span>
+</div>
 
 <EntityHeader
   object={badgeclass}
