@@ -63,7 +63,7 @@ I18n.translations.en = {
     },
   },
   backpack: {
-    title: "Your achievements",
+    title: "Your badges",
   },
   notFound: {
     main: "404 - Not Found",

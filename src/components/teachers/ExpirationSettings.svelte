@@ -36,7 +36,7 @@
 
   input.number[disabled] {
     border: solid 1px var(--text-grey-light);
-    cursor: var(--field-cursor-disabled);
+    cursor: not-allowed;
   }
 
   .expiration {

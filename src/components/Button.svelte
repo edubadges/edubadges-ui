@@ -37,7 +37,7 @@
       box-shadow: 1px 1px 3px var(--purple), -1px -1px 3px var(--purple);
     }
 
-    &[disabled] {
+    &[disabled="true"] {
       cursor: not-allowed;
     }
   }
@@ -47,12 +47,12 @@
     background-color: var(--purple);
     color: white;
 
-    &:not([disabled]):hover {
+    &[disabled="true"]:hover {
       background-color: var(--purple-8);
       color: var(--purple-1);
     }
 
-    &[disabled] {
+    &[disabled="true"] {
       background: var(--grey-2);
       border-color: var(--grey-2);
       color: var(--grey-4);

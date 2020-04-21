@@ -41,7 +41,7 @@
 
 <EntityForm {entity} submit={handleSubmit}>
   <Field {entity} attribute="image" errors={errors.image}>
-    <File bind:value={institution.image} error={errors.image} />
+    <File bind:value={institution.image} error={errors.image} removeAllowed={false}/>
   </Field>
 
   <Field {entity} attribute="name" errors={errors.name}>

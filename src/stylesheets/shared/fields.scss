@@ -38,7 +38,7 @@
     @include input-focus;
   }
 
-  &[disabled],
+  &[disabled=true],
   &.disabled {
     color: var(--text-grey-light);
     cursor: not-allowed;

@@ -45,7 +45,7 @@ export const deduceExpirationPeriod = badgeclass => {
     badgeclass.expirationDuration = 1;
     badgeclass.expirationPeriod = expirationPeriods()[3];
   }
-
+  return badgeclass;
 }
 
 export const setExpirationPeriod = badgeclass => {
