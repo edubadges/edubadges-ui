@@ -8,7 +8,7 @@
   $: tabs = [
     {
       path: "/",
-      active: $currentPath === "/",
+      active: !$currentPath.includes("/manage"),
       name: "badgeclasses"
     },
     {

@@ -2,7 +2,7 @@
   import { Router, Route, navigate } from "svelte-routing";
   import { Redirect } from "../../components";
   import {
-    Badgeclass,
+    BadgeclassManage,
     BadgeclassEdit,
     BadgeclassNew,
     Faculty,
@@ -19,7 +19,7 @@
 
   export let mainEntity;
 
-  $: if (!mainEntity) navigate("/manage/institution", {replace: true});
+  $: if (!mainEntity) navigate("/manage/institution", { replace: true });
 </script>
 
 <style>
@@ -43,11 +43,10 @@
 
     <Route path="/badgeclass/new" component={BadgeclassNew} />
     <Route path="/badgeclass/:entityId/edit" component={BadgeclassEdit} />
-    <Route path="/badgeclass/:entityId/*subEntity" component={Badgeclass} />
+    <Route path="/badgeclass/:entityId/*tab" component={BadgeclassManage} />
 
     <Route path="/badgeclass/:entityId/award" component={AwardBadge} />
     <Route path="/badgeclass/:entityId/bulkAward" component={AwardManyBadges} />
 
   </Router>
 </div>
-

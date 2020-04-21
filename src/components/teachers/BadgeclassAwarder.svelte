@@ -1,7 +1,8 @@
 <script>
   import { onMount } from "svelte";
   import { Router, Route, navigate } from "svelte-routing";
-  import { EntityHeader, Breadcrumb } from "../teachers";
+  import { EntityHeader } from "../teachers";
+  import { Overview } from "../teachers/badgeclass";
   import { Awarded, Requested, Revoked } from "../teachers/badges";
   import { badgeclassIcon } from "../../icons";
   import { queryData } from "../../api/graphql";
@@ -69,19 +70,23 @@
 
   $: tabs = [
     {
+      entity: "badgeclassOverview",
+      href: `/badgeclass/${entityId}/overview`
+    },
+    {
       entity: "badgesRequested",
       count: requestCount,
-      href: `/manage/badgeclass/${entityId}/requested`
+      href: `/badgeclass/${entityId}/requested`
     },
     {
       entity: "badgesAwarded",
       count: recipientCount,
-      href: `/manage/badgeclass/${entityId}/awarded`
+      href: `/badgeclass/${entityId}/awarded`
     },
     {
       entity: "badgesRevoked",
       count: revokedCount,
-      href: `/manage/badgeclass/${entityId}/revoked`
+      href: `/badgeclass/${entityId}/revoked`
     }
   ];
 
@@ -101,8 +106,6 @@
   ];
 </script>
 
-<Breadcrumb {faculty} {issuer} badgeclassName={badgeclass.name} />
-
 <EntityHeader
   object={badgeclass}
   entity="badgeclass"
@@ -112,6 +115,8 @@
 
 <div class="main-content-margin">
   <Router>
+    <Route path="/overview" component={Overview} />
+
     <Route path="/requested">
       <Requested {entityId} />
     </Route>

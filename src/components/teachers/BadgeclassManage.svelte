@@ -59,11 +59,11 @@
   $: tabs = [
     {
       entity: "badgeclassOverview",
-      href: `/badgeclasses/${entityId}/overview`
+      href: `/manage/badgeclass/${entityId}/overview`
     },
     {
       entity: "userManagement",
-      href: `/badgeclasses/${entityId}/users`
+      href: `/manage/badgeclass/${entityId}/users`
     }
   ];
 

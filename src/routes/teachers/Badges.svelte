@@ -81,7 +81,7 @@
       {#each $tree.badgeClasses as badge (badge.entityId)}
         <div
           class="card badge click"
-          on:click={() => navigate(`/badgeclasses/${badge.entityId}`)}>
+          on:click={() => navigate(`/badgeclass/${badge.entityId}`)}>
           <div class="image">
             <img src={badge.image} alt={`image for ${badge.name}`} />
           </div>
