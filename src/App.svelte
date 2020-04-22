@@ -27,7 +27,7 @@
     const path = window.location.pathname;
     if (path.indexOf("public") === -1 && path !== "/auth/login/" && path !== "/validate") {
       getSocialAccount()
-        .then(() => {
+        .then(res => {
           loaded = true;
         })
         .catch(() => {
@@ -41,6 +41,7 @@
   });
 
   $: visitorRole = $userLoggedIn ? $userRole : "guest";
+
 </script>
 
 <style global lang="scss">

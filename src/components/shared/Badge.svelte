@@ -2,10 +2,12 @@
   import {onMount} from "svelte";
   import moment from "moment";
   import I18n from "i18n-js";
-  import { link } from "svelte-routing";
+  import {navigate} from "svelte-routing";
 
   export let badge;
+  export let badgeClass;
 
+  const detailLink = () => navigate(badge ? `/details/${badge.entityId}` : `/badgeclass/${badgeClass.entityId}`);
 
 </script>
 
@@ -100,27 +102,29 @@
 
 </style>
 
-{#if badge}
+{#if badge || badgeClass}
   <div class="card badge">
     <div class="header">
-      <span>{moment(badge.issuedOn).format('MMM D, YYYY')}</span>
-      <img src={badge.image} alt=""/>
+      {#if badge}
+        <span>{moment(badge.issuedOn).format('MMM D, YYYY')}</span>
+      {/if}
+      <img src={badgeClass.image} alt=""/>
     </div>
     <div class="content">
       <div class="content-header">
-        <span class="name">{badge.badgeclass.name}</span>
+        <span class="name">{badgeClass.name}</span>
       </div>
 
       <div class="details">
-        <img src={badge.badgeclass.issuer.image} alt=""/>
+        <img src={badgeClass.issuer.image} alt=""/>
         <div class="issued">
           <span class="issued-by">Issued by</span>
-          <span class="issuer">{badge.badgeclass.issuer.name}</span>
-          <span class="faculty">({badge.badgeclass.issuer.faculty.name})</span>
+          <span class="issuer">{badgeClass.issuer.name}</span>
+          <span class="faculty">({badgeClass.issuer.faculty.name})</span>
         </div>
       </div>
       <div class="actions">
-        <div><a href={`/details/${badge.entityId}`} use:link class="share">
+        <div><a href="details" class="share" on:click|preventDefault|stopPropagation={detailLink}>
           {I18n.t("models.badge.details")}</a></div>
       </div>
     </div>

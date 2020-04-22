@@ -1,7 +1,7 @@
 <script>
   export let value = "";
 
-  export let disabled;
+  export let disabled = false;
   export let error;
 
   export let area;

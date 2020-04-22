@@ -1,10 +1,11 @@
 <script>
-  import { onMount } from "svelte";
-  import { navigate } from "svelte-routing";
-  import { SideBar, BadgesHeader } from "../../components/teachers";
-  import { queryData } from "../../api/graphql";
-  import { headerEntity, headerStaff } from "../../api/queries";
-  import { faculties, tree } from "../../stores/filter";
+  import {onMount} from "svelte";
+  import {navigate} from "svelte-routing";
+  import {SideBar, BadgesHeader} from "../../components/teachers";
+  import {queryData} from "../../api/graphql";
+  import {headerEntity, headerStaff} from "../../api/queries";
+  import {faculties, tree} from "../../stores/filter";
+  import Badge from "../../components/shared/Badge.svelte";
 
   const query = `{
     faculties {
@@ -17,7 +18,14 @@
         badgeclasses {
           name,
           image,
-          entityId
+          entityId,
+          issuer {
+            name,
+            image,
+            faculty {
+              name
+            }
+          }
         }
       },
     }
@@ -38,57 +46,41 @@
     padding: 30px 20px;
   }
 
-  .badges {
+  div.badges {
     --badge-margin-right: 20px;
 
-    display: flex;
-    flex-wrap: wrap;
-
+    display: grid;
+    grid-template-columns: 31% 31% 31%;
+    grid-row: auto;
+    grid-column-gap: 25px;
+    grid-row-gap: 25px;
     margin-right: calc(var(--badge-margin-right) * -1);
   }
 
-  div.badge {
-    display: flex;
-    flex-direction: column;
-
-    width: 260px;
-    margin-bottom: 20px;
-    margin-right: var(--badge-margin-right);
-
-    div.image {
-      padding: 30px;
-    }
-
-    div.info {
-      flex: 1;
-      background: var(--grey-2);
-      padding: var(--ver-padding-l) var(--hor-padding-s);
-
-      h3 {
-        color: var(--black);
-      }
+  @media (max-width: 1120px) {
+    div.badges {
+      grid-template-columns: 48% 48%;
     }
   }
+
+  @media (max-width: 820px) {
+    div.badges {
+      grid-template-columns: 97%;
+    }
+  }
+
+
 </style>
 
 <div class="page-container">
-  <SideBar />
+  <SideBar/>
 
   <div class="content">
-    <BadgesHeader />
+    <BadgesHeader/>
 
     <div class="badges">
-      {#each $tree.badgeClasses as badge (badge.entityId)}
-        <div
-          class="card badge click"
-          on:click={() => navigate(`/badgeclass/${badge.entityId}`)}>
-          <div class="image">
-            <img src={badge.image} alt={`image for ${badge.name}`} />
-          </div>
-          <div class="info">
-            <h3>{badge.name}</h3>
-          </div>
-        </div>
+      {#each $tree.badgeClasses as badge}
+        <Badge badgeClass={badge}/>
       {/each}
     </div>
   </div>

@@ -24,6 +24,7 @@
       acceptance,
       badgeclass {
         name,
+        image,
         issuer {
           name,
           image,
@@ -92,7 +93,7 @@
   {#if loaded}
     <div class="content">
       {#each badges as badge}
-        <Badge badge={badge}/>
+        <Badge badge={badge} badgeClass={badge.badgeclass}/>
       {/each}
     </div>
   {:else}

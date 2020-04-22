@@ -25,7 +25,6 @@
     }
 
     getPublicBadgeClass(entityId).then(res => {
-      debugger;
       badgeClass = res;
       badgeClass.criteriaUrl = res['criteria']['id'];
       badgeClass.criteriaText = res['criteria']['narrative'];
@@ -44,6 +43,8 @@
       if (res['extensions:EducationProgramIdentifierExtension']) {
         badgeClass.educationProgramIdentifier = res['extensions:EducationProgramIdentifierExtension']['EducationProgramIdentifier'];
       }
+      //When using graphQL the extensions field is an array - for compatibility we set an empty array as we already populated the badgeClass
+      badgeClass.extensions = [];
     })
   });
 </script>

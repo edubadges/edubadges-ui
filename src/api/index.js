@@ -6,9 +6,14 @@ import { config } from "../util/config";
 const serverUrl = config.serverUrl;
 
 function validateResponse(res) {
-  if (res.ok) return res.json();
+  if (res.ok && res.status !== 204) {
+    return res.json();
+  }
 
-  if (res.status === 400) throw res.json();
+  const status = res.status.toString();
+  if (status.startsWith("4") || status.startsWith("5")) {
+    throw res.json();
+  }
 }
 
 function validFetch(path, options = {}, method = "GET", useToken = true) {
@@ -49,6 +54,11 @@ export function getProfile() {
   return validFetch(path);
 }
 
+export function deleteProfile() {
+  const path = `${serverUrl}/v1/user/profile`;
+  return validFetch(path, {}, "DELETE");
+}
+
 export function getSocialAccount() {
   const path = `${serverUrl}/v1/user/socialaccounts`;
   return validFetch(path);
@@ -78,17 +88,12 @@ export function deleteEmail(emailId) {
   return validFetch(path, {}, "DELETE");
 }
 
-// Student badges
-export function getBadgesDeprecated() {
-  const path = `${serverUrl}/v1/earner/badges?expand=issuer`;
-  return validFetch(path);
-}
-
 export function getSocialAccounts() {
   const path = `${serverUrl}/v1/user/socialaccounts`;
   return validFetch(path);
 }
 
+// Student badges
 export function requestBadge(id) {
   const path = `${serverUrl}/lti_edu/enroll`;
   return validFetch(

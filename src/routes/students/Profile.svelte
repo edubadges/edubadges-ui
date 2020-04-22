@@ -1,8 +1,12 @@
 <script>
   import I18n from "i18n-js";
-  import { onMount } from "svelte";
+  import {onMount} from "svelte";
+  import {navigate} from "svelte-routing";
+  import Modal from '../../components/forms/Modal.svelte';
+  import Button from "../../components/Button.svelte";
   import {
     getProfile,
+    deleteProfile,
     getSocialAccount,
     getEmails,
     addEmail,
@@ -10,24 +14,30 @@
     deleteEmail
   } from "../../api";
 
+  import {
+    userLoggedIn,
+    userRole,
+    authToken,
+    userVerifiedByInstitution,
+    userInVerificationFlow,
+    redirectPath
+  } from "../../stores/user";
+    import { TextInput } from "../../components/forms";
+
+  let showModal = false;
   let emails = [];
+  let email;
   let profile;
   let socialAccount;
   let form;
   let error = "";
 
-  const setProfile = () => getProfile().then(res => (profile = res));
-
-  const setSocialAccount = () =>
-    getSocialAccount().then(res => (socialAccount = res));
-
-  const setEmails = () =>
-    getEmails().then(res => (emails = res.filter(({ primary }) => !primary)));
-
   const setData = () => {
-    setProfile();
-    setSocialAccount();
-    setEmails();
+    Promise.all([getProfile(), getSocialAccount(), getEmails()]).then(res => {
+      profile = res[0];
+      socialAccount = res[1];
+      emails = res[2].filter(email => !email.primary)
+    });
   };
 
   const makePrimary = emailId =>
@@ -41,18 +51,18 @@
 
   const removeEmail = emailId =>
     deleteEmail(emailId)
-      .then(setEmails)
+      .then(setData)
       .catch(err => {
         err.then(res => {
           error = I18n.t(["error", res.fields.error_code]);
         });
       });
-  const submitEmail = event => {
-    const email = event.target.email.value;
 
+  const submitEmail = email => {
+    debugger;
     addEmail(email)
       .then(res => {
-        setEmails();
+        setData();
         error = "";
         form.reset();
       })
@@ -63,7 +73,24 @@
       });
   };
 
+  const deleteProfileAction = showConfirmation => () => {
+    if (showConfirmation) {
+      showModal = true
+    } else {
+      deleteProfile().then(() => {
+        $userLoggedIn = "";
+        $userRole = "";
+        $authToken = "";
+        $userVerifiedByInstitution = false;
+        $userInVerificationFlow = false;
+        $redirectPath = "";
+        navigate("/login");
+      });
+    }
+  }
+
   onMount(setData);
+
 </script>
 
 <style>
@@ -76,10 +103,6 @@
     margin-bottom: 16px;
   }
 
-  button {
-    display: inline-block;
-  }
-
   div:not(:last-child) {
     margin-bottom: 25px;
   }
@@ -90,42 +113,49 @@
 </style>
 
 <div>
-  <h4>Profile</h4>
+  <h4>{I18n.t("profile.profile")}</h4>
 
   {#if profile}
-    <p>Name: {profile.first_name} {profile.last_name}</p>
-    <p>Primary e-mail: {profile.email}</p>
+    <p>{I18n.t("profile.name")}: {profile.first_name} {profile.last_name}</p>
+    <p>{I18n.t("profile.primary")}: {profile.email}</p>
   {/if}
 </div>
 
 <div>
-  <h4>E-mails</h4>
+  <h4>{I18n.t("profile.emails")}</h4>
 
   <ul>
     {#each emails as { email, verified, id } (id)}
       <li>
-        E-mail: {email}
-        <br />
-        <button disabled={!verified} on:click={() => makePrimary(id)}>
-          Make primary
-        </button>
+        {I18n.t("profile.email")}: {email}
+        <br/>
+        <Button disabled={!verified} action={() => makePrimary(id)} text={I18n.t("profile.makePrimary")}/>
         {#if !verified}(unverified){/if}
 
-        <br />
-        <button on:click={() => removeEmail(id)}>Delete</button>
+        <br/>
+        <Button action={() => removeEmail(id)} text={I18n.t("profile.delete")}/>
       </li>
     {/each}
   </ul>
 </div>
 
 <div>
-  <h4>Add e-mail</h4>
+  <h4>{I18n.t("profile.addEmail")}</h4>
 
-  <form on:submit|preventDefault={submitEmail} bind:this={form}>
-    <input id="email" />
-    <button type="submit">Submit</button>
-    {#if error}
-      <p class="error">{error}</p>
-    {/if}
-  </form>
+  <TextInput bind:value={email}/>
+  <Button action={() => submitEmail(email)} text={I18n.t("profile.submit")}/>
+  {#if error}
+    <p class="error">{error}</p>
+  {/if}
 </div>
+
+<div>
+  <Button action={deleteProfileAction(true)} text={I18n.t("profile.deleteAccount")}/>
+</div>
+
+{#if showModal}
+  <Modal submit={deleteProfileAction(false)}
+         cancel={() => showModal = false}
+         question={I18n.t("profile.deleteAccountConfirmation")}
+           title={I18n.t("profile.deleteAccount")}></Modal>
+{/if}

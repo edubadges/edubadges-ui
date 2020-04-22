@@ -5,7 +5,7 @@
 
   export let entity;
   export let attribute;
-  export let disabled;
+  export let disabled = false;
   export let errors;
 </script>
 

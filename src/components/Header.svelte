@@ -22,7 +22,7 @@
     $userInVerificationFlow = false;
     $redirectPath = "";
 
-    navigate("/");
+    navigate("/login");
   };
 
   let menuOpen = false;

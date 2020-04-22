@@ -4,7 +4,7 @@
 
   export let value;
   export let error;
-  export let disabled;
+  export let disabled = false;
   export let removeAllowed = false;
 
   let input;
@@ -84,7 +84,6 @@
       {disabled} />
 
     <Button
-      disabled={false}
       label="file"
       text={I18n.t('file.upload')} />
     <Button

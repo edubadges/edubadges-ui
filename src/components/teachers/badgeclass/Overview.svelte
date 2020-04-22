@@ -82,7 +82,4 @@
       </tbody>
     </table>
   </div>
-  <h3>{I18n.t("models.badgeclass.publicUrl")}</h3>
-    <p class="info"><a href={`/public/${badgeclass.entityId}`} rel="noreferrer" use:link>{`/public/${badgeclass.entityId}`}</a>
-  </p>
 </div>

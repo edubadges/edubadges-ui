@@ -6,7 +6,7 @@
   export let label;
   export let action;
   export let secondary;
-  export let disabled;
+  export let disabled = false;
   export let small;
 </script>
 
@@ -28,12 +28,12 @@
     overflow-x: hidden;
     text-overflow: ellipsis;
 
-    &:not([disabled]):focus {
+    &:not([disabled="true"]):focus {
       outline: 1px solid var(--purple);
       box-shadow: 1px 1px 3px var(--purple), -1px -1px 3px var(--purple);
     }
 
-    &[disabled] {
+    &[disabled="true"] {
       cursor: not-allowed;
     }
   }
@@ -57,12 +57,12 @@
     background-color: var(--purple);
     color: white;
 
-    &:not([disabled]):hover {
+    &:not([disabled="true"]):hover {
       background-color: var(--purple-8);
       color: var(--purple-1);
     }
 
-    &[disabled] {
+    &[disabled="true"] {
       background: var(--grey-2);
       border-color: var(--grey-2);
       color: var(--grey-4);
@@ -74,12 +74,12 @@
     background: white;
     color: var(--purple);
 
-    &:not([disabled]):hover {
+    &:not([disabled="true"]):hover {
       background-color: var(--grey-2);
       color: var(--purple-8);
     }
 
-    &[disabled] {
+    &[disabled="true"] {
       color: var(--grey-4);
       border-color: var(--grey-3);
     }

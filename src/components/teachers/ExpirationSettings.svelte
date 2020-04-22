@@ -6,7 +6,7 @@
   import Select from "../forms/Select.svelte";
 
   export let expireValueSet = false;
-  export let disabled;
+  export let disabled = false;
   export let number;
   export let period;
 </script>

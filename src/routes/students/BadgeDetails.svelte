@@ -44,7 +44,6 @@
 
   onMount(() => {
     queryData(query).then(res => {
-      debugger;
       badgeClass = res.badgeInstance.badgeclass;
     });
   });

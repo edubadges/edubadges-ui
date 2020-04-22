@@ -62,6 +62,23 @@ I18n.translations.en = {
       },
     },
   },
+  profile: {
+    profile: "Profile",
+    name: "Name",
+    primary: "Primary e-mail",
+    emails: "E-mails",
+    email: "E-mail",
+    makePrimary: "Make primary",
+    addEmail: "Add e-mail",
+    submit: "Submit",
+    delete: "Delete",
+    deleteAccount: "Delete my account",
+    deleteAccountConfirmation: "Are you sure you want to delete your eduBadges account?"
+  },
+  modal: {
+    cancel: "Cancel",
+    confirm: "Confirm"
+  },
   backpack: {
     title: "Your badges",
   },
