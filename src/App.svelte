@@ -11,6 +11,7 @@
   import { userRole, userLoggedIn, redirectPath } from "./stores/user";
   import { role } from "./util/role";
   import { getSocialAccount } from "./api";
+  import { PublicBadgePage } from "./components/shared"
 
   const homepage = {
     guest: Login,
@@ -23,7 +24,7 @@
   onMount(() => {
     //if we are heading to /auth/login/ then we proceed
     const path = window.location.pathname;
-    if (path !== "/auth/login/" && path !== "/validate") {
+    if (path.indexOf("public") === -1 && path !== "/auth/login/" && path !== "/validate") {
       getSocialAccount()
         .then(() => {
           loaded = true;
@@ -95,6 +96,9 @@
           component={BadgeclassAwarder} />
 
         <!-- Shared -->
+        <Route path="/public/:entityId/" let:params>
+          <PublicBadgePage visitorRole={visitorRole} entityId={params.entityId}/>
+        </Route>
         <Route path="/" component={homepage[visitorRole]} />
         <Route path="/login" component={Login} />
         <Route path="/auth/login/*" component={ProcessToken} />

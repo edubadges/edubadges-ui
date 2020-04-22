@@ -2,12 +2,27 @@
   import I18n from "i18n-js";
   import { EntityHeaderTabs, HeaderList } from "../teachers";
   import { Button } from "../../components";
+  import { requestBadge } from "../../api";
+  import { role } from "../../util/role";
 
   export let entity;
   export let object = {};
   export let mayUpdate;
   export let tabs;
   export let headerItems;
+  export let visitorRole;
+  export let enrolled;
+  export let entityId;
+
+
+  const enrollStudent = () => {
+    requestBadge(entityId).then(res => {
+        enrolled = true;
+    }, err => {
+      console.error('error while enrolling', err);
+    });
+  };
+
 </script>
 
 <style lang="scss">
@@ -57,6 +72,13 @@
       </div>
     </div>
 
+    {#if visitorRole === role.STUDENT}
+      {#if !enrolled}
+        <Button secondary action={enrollStudent} text={I18n.t(['student', 'enroll'])} class="btn" />
+      {:else}
+        <Button label="alreadyEnrolled" disabled={true} text={I18n.t(['student', 'enrolled'])}/>
+      {/if}
+    {/if}
     {#if mayUpdate}
       <Button secondary href="edit" text={I18n.t(['manage', 'edit', entity])} />
     {/if}
