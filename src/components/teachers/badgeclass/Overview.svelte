@@ -33,7 +33,7 @@
     margin: 40px 0;
     border-top: 1px solid var(--text-grey-dark);
     border-bottom: 1px solid var(--text-grey-dark);
-    padding: 15px 0px;
+    padding: 15px 0;
   }
 
   table.extensions th,
