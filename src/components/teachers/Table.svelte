@@ -1,7 +1,7 @@
 <script>
   import I18n from "i18n-js";
   import { link } from "svelte-routing";
-  import { Search, Button } from "../../components";
+  import { Search, Button, CheckBox } from "../../components";
   import { sortType } from "../../util/sortData";
 
   export let mayCreate;
@@ -14,6 +14,10 @@
     reverse: false,
     sortType: sortType.ALPHA
   };
+
+  export let withCheckAll;
+  export let checkAllValue;
+  export let onCheckAll;
 
   const setSort = tableHeader => {
     if (sort.attribute === tableHeader.attribute) {
@@ -81,16 +85,17 @@
   <table class="entity-table">
     <thead>
       <tr>
+        {#if withCheckAll}
+          <th>
+            <CheckBox bind:value={checkAllValue} onChange={onCheckAll} />
+          </th>
+        {/if}
         {#each tableHeaders as th}
-          {#if th.type === 'check-all'}
-            <th>check</th>
-          {:else}
-            <th
-              on:click={() => setSort(th)}
-              class={sort.attribute === th.attribute ? (sort.reverse ? 'asc' : 'desc') : ''}>
-              {th.name}
-            </th>
-          {/if}
+          <th
+            on:click={() => setSort(th)}
+            class={sort.attribute === th.attribute ? (sort.reverse ? 'asc' : 'desc') : ''}>
+            {th.name}
+          </th>
         {/each}
       </tr>
     </thead>

@@ -45,11 +45,22 @@
     awardBadges(entityId, enrollmentIds);
   };
 
-  const tableHeaders = [
-    {
-      type: "check-all"
-    },
+  let checkAllValue = false;
+  function onCheckAll(val) {
+    selection = val ? requests.map(({ entityId }) => entityId) : [];
+  }
 
+  function onCheckOne(val, entityId) {
+    if (val) {
+      selection.push(entityId);
+      table.checkAllValue = selection.length === requests.length;
+    } else {
+      selection = selection.filter(id => id !== entityId);
+      table.checkAllValue = false;
+    }
+  }
+
+  const tableHeaders = [
     {
       name: "name",
       attribute: "name",
@@ -75,11 +86,12 @@
   $: table = {
     entity: "badgeclass",
     title: `${I18n.t("teacher.badgeclasses.title")}`,
-    tableHeaders: tableHeaders
+    tableHeaders: tableHeaders,
+    onCheckAll
   };
 </script>
 
-<Table {...table}>
+<Table {...table} withCheckAll bind:checkAllValue>
   <span slot="buttons">
     <Button
       disabled

@@ -36,11 +36,22 @@
     });
   });
 
-  const tableHeaders = [
-    {
-      type: "check-all"
-    },
+  let checkAllValue = false;
+  function onCheckAll(val) {
+    selection = val ? awardedBadges.map(({ entityId }) => entityId) : [];
+  }
 
+  function onCheckOne(val, entityId) {
+    if (val) {
+      selection.push(entityId);
+      table.checkAllValue = selection.length === awardedBadges.length;
+    } else {
+      selection = selection.filter(id => id !== entityId);
+      table.checkAllValue = false;
+    }
+  }
+
+  let tableHeaders = [
     {
       name: "name",
       attribute: "name",
@@ -66,11 +77,12 @@
   $: table = {
     entity: "badgeclass",
     title: `${I18n.t("teacher.badgeclasses.title")}`,
-    tableHeaders: tableHeaders
+    tableHeaders: tableHeaders,
+    onCheckAll
   };
 </script>
 
-<Table {...table}>
+<Table {...table} withCheckAll bind:checkAllValue>
   <span slot="buttons">
     <Button
       disabled
@@ -83,13 +95,7 @@
       <td>
         <CheckBox
           value={selection.includes(awardedBadge.entityId)}
-          onChange={val => {
-            if (val) {
-              selection.push(awardedBadge.entityId);
-            } else {
-              selection = selection.filter(entityId => awardedBadge.entityId !== entityId);
-            }
-          }} />
+          onChange={val => onCheckOne(val, awardedBadge.entityId)} />
       </td>
       <td class="name">
         {awardedBadge.user.firstName + ' ' + awardedBadge.user.lastName}
