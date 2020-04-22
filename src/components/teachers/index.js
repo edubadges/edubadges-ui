@@ -29,3 +29,4 @@ export { default as IssuerNew } from "./IssuerNew.svelte";
 export { default as Issuers } from "./Issuers.svelte";
 export { default as SideBar } from "./SideBar.svelte";
 export { default as Table } from "./Table.svelte";
+export { default as TableHeaders } from "./TableHeaders.svelte";

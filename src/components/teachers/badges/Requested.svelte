@@ -38,11 +38,7 @@
   });
 
   const award = () => {
-    const enrollmentIds = requests
-      .filter(({ entityId }) => selection.includes(entityId))
-      .map(({ entityId }) => entityId);
-
-    awardBadges(entityId, enrollmentIds);
+    awardBadges(entityId, selection);
   };
 
   let checkAllValue = false;
@@ -92,11 +88,8 @@
 </script>
 
 <Table {...table} withCheckAll bind:checkAllValue>
-  <span slot="buttons">
-    <Button
-      disabled
-      action={award}
-      text={I18n.t('teacher.badgeRequests.award')} />
+  <span slot="check-buttons">
+    <Button small action={award} text={I18n.t('teacher.badgeRequests.award')} />
   </span>
 
   {#each requests as request (request.entityId)}

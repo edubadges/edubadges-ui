@@ -7,24 +7,20 @@
   export let action;
   export let secondary;
   export let disabled;
+  export let small;
 </script>
 
 <style lang="scss">
   a,
   label {
     display: inline-block;
-
     height: fit-content;
-    min-width: 140px;
-    padding: 8px 18px;
 
     border-radius: 5px;
     border-width: 1px;
     border-style: solid;
     border-color: var(--purple);
 
-    font-size: 1rem;
-    font-weight: bold;
     text-decoration: none;
     text-align: center;
 
@@ -40,6 +36,20 @@
     &[disabled] {
       cursor: not-allowed;
     }
+  }
+
+  a:not(.small),
+  label:not(.small) {
+    min-width: 140px;
+    padding: 8px 18px;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+
+  a.small,
+  label.small {
+    padding: 5px 10px;
+    font-size: 0.85rem;
   }
 
   a:not(.secondary),
@@ -77,12 +87,17 @@
 </style>
 
 {#if label}
-  <label for={label} {disabled} class:secondary>{text}</label>
+  <label for={label} {disabled} class:small class:secondary>{text}</label>
 {:else if action}
   <!-- svelte-ignore a11y-invalid-attribute -->
-  <a href="#" on:click|preventDefault={action} {disabled} class:secondary>
+  <a
+    href="#"
+    on:click|preventDefault={action}
+    {disabled}
+    class:small
+    class:secondary>
     {text}
   </a>
 {:else if href}
-  <a use:link {href} {disabled} class:secondary>{text}</a>
+  <a use:link {href} {disabled} class:small class:secondary>{text}</a>
 {/if}
