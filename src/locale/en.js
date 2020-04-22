@@ -251,6 +251,7 @@ I18n.translations.en = {
     badge: {
       emailAddress: "Email address",
       emailAddresses: "Paste email addresses",
+      details: "Details"
     },
   },
   file: {

@@ -5,14 +5,14 @@
   import data_activity from "../icons/data_activity.svg";
   import personal_info from "../icons/personal_info.svg";
 
-  import { Backpack, BadgeRequests, Collections, Profile } from "./students";
+  import { Backpack, BadgeRequests, Profile } from "./students";
 
   export let bookmark;
 
   const pages = [
     { path: "backpack", icon: data_activity, component: Backpack },
     { path: "badge-requests", icon: security, component: BadgeRequests },
-    { path: "collections", icon: data_activity, component: Collections },
+    // { path: "collections", icon: data_activity, component: Collections },
     { path: "profile", icon: personal_info, component: Profile }
   ];
 

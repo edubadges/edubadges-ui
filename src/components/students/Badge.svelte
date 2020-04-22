@@ -1,9 +1,11 @@
 <script>
   import {onMount} from "svelte";
   import moment from "moment";
-  import trash from "../../icons/trash.svg";
+  import I18n from "i18n-js";
+  import { link } from "svelte-routing";
 
   export let badge;
+
 
 </script>
 
@@ -91,22 +93,11 @@
     font-weight: bold;
   }
 
-  .actions > div:not(:first-child) {
-    margin-left: 10px;
-  }
-
-  .actions .delete {
-    padding: 7px 5px;
-  }
-
-  .actions .share {
+  .actions a {
     padding: 5px 12px;
+    cursor: pointer;
   }
 
-  :global(.delete .fa-trash-alt) {
-    height: 100%;
-    width: auto;
-  }
 </style>
 
 {#if badge}
@@ -129,10 +120,8 @@
         </div>
       </div>
       <div class="actions">
-        <div class="delete">
-          {@html trash}
-        </div>
-        <div class="share">Share</div>
+        <div><a href={`/details/${badge.entityId}`} use:link class="share">
+          {I18n.t("models.badge.details")}</a></div>
       </div>
     </div>
   </div>
