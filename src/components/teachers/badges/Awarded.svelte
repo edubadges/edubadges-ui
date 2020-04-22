@@ -83,8 +83,9 @@
 </script>
 
 <Table {...table} withCheckAll bind:checkAllValue>
-  <span slot="buttons">
+  <span slot="check-buttons">
     <Button
+      small
       disabled
       action={() => {}}
       text={I18n.t('teacher.badgeRevoked.revoke')} />

@@ -2,6 +2,7 @@
   import I18n from "i18n-js";
   import { link } from "svelte-routing";
   import { Search, Button, CheckBox } from "../../components";
+  import { TableHeaders } from "../teachers";
   import { sortType } from "../../util/sortData";
 
   export let mayCreate;
@@ -42,20 +43,27 @@
   table {
     border-collapse: collapse;
     width: 100%;
-  }
 
-  thead th {
-    text-align: left;
-    border-bottom: 3px solid var(--grey-3);
-    cursor: pointer;
-  }
+    thead {
+      color: purple;
+      border-bottom: 3px solid var(--grey-3);
+      text-align: left;
+      cursor: pointer;
+    }
 
-  .desc:after {
-    content: " ▾";
-  }
+    th.checkbox {
+      position: relative;
 
-  .asc:after {
-    content: " ▴";
+      span {
+        position: absolute;
+        bottom: 0;
+        z-index: 1;
+
+        > :global(*) {
+          margin-left: var(--hor-padding-s);
+        }
+      }
+    }
   }
 
   :global(table.entity-table th, table.entity-table td) {
@@ -78,25 +86,25 @@
         href={`/manage/${entity}/new`}
         text={I18n.t(['manage', 'new', entity])} />
     {/if}
-
-    <slot name="buttons" />
   </div>
 
   <table class="entity-table">
     <thead>
       <tr>
         {#if withCheckAll}
-          <th>
+          <th class="checkbox">
             <CheckBox bind:value={checkAllValue} onChange={onCheckAll} />
+
+            {#if checkAllValue}
+              <span>
+                <slot name="check-buttons" />
+              </span>
+            {/if}
           </th>
         {/if}
-        {#each tableHeaders as th}
-          <th
-            on:click={() => setSort(th)}
-            class={sort.attribute === th.attribute ? (sort.reverse ? 'asc' : 'desc') : ''}>
-            {th.name}
-          </th>
-        {/each}
+
+        <TableHeaders {tableHeaders} {setSort} {sort} hide={checkAllValue} />
+
       </tr>
     </thead>
     <tbody>
