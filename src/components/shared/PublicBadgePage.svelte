@@ -25,6 +25,7 @@
     }
 
     getPublicBadgeClass(entityId).then(res => {
+      debugger;
       badgeClass = res;
       badgeClass.criteriaUrl = res['criteria']['id'];
       badgeClass.criteriaText = res['criteria']['narrative'];
