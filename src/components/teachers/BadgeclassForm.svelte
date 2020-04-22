@@ -117,6 +117,14 @@
 
   <h4>{I18n.t("models.badgeclass.headers.basicInformation")}</h4>
 
+<<<<<<< HEAD
+=======
+  {#each Object.keys(extensions) as ext}
+    <p>{ext} - {JSON.stringify(extensions[ext])}</p>
+  {/each}
+  <p></p>
+
+>>>>>>> feature/edit-badge-class
   <div class="form">
 
     <Field {entity} attribute="image" errors={errors.image}>

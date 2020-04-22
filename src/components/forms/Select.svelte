@@ -40,6 +40,11 @@
     background-color: var(--text-grey-light);
   }
 
+  /* Disabled */
+  div[disabled="true"] :global(.selectContainer input) {
+    cursor: var(--field-cursor-disabled) !important;
+  }
+
   /* Invalid */
   div[error] {
     --background: var(--field-background-error);
