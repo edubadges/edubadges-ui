@@ -1,5 +1,6 @@
 <script>
   import I18n from "i18n-js";
+  import {link} from "svelte-routing";
   import {
     ects,
     educationProgramIdentifier,
@@ -82,6 +83,6 @@
     </table>
   </div>
   <h3>{I18n.t("models.badgeclass.publicUrl")}</h3>
-    <p class="info"><a href={badgeclass.publicUrl} target="_blank">{`/public/${badgeclass.entityId}`}</a>
+    <p class="info"><a href={`/public/${badgeclass.entityId}`} rel="noreferrer" use:link>{`/public/${badgeclass.entityId}`}</a>
   </p>
 </div>

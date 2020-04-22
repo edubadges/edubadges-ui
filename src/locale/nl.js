@@ -247,6 +247,7 @@ I18n.translations.nl = {
         ects:
           "Whole and half points only. <br/>A minimum of 0.5 points is required.",
       },
+      publicUrl: "Public URL"
     },
     badge: {
       emailAddress: "Email address",
