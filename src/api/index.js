@@ -79,8 +79,8 @@ export function deleteEmail(emailId) {
 }
 
 // Student badges
-export function getBadges() {
-  const path = `${serverUrl}/v1/earner/badges`;
+export function getBadgesDeprecated() {
+  const path = `${serverUrl}/v1/earner/badges?expand=issuer`;
   return validFetch(path);
 }
 

@@ -32,7 +32,7 @@
 
   const eqfItems = [...Array(8).keys()].map(i => ({ name: `EQF ${i + 1}` }));
 
-  let extensions = [];
+  let extensions = {};
 
   $: if (badgeclass.extensions.length > 0 && !loaded)  {
     extensions = {
@@ -72,7 +72,7 @@
     const apiCall = isCreate ? createBadgeclass : editBadgeclass;
 
     apiCall(...args)
-      .then(res => navigate(`/manage/badgeclass/${entityId}`))
+      .then(res => navigate(`/manage/badgeclass/${res.entityId}`))
       .catch(err => err.then(({ fields }) => (errors = fields)));
   }
 </script>
@@ -163,6 +163,7 @@
       <Select
         bind:value={badgeclass.issuer}
         error={errors.issuer}
+        disabled={!isCreate}
         items={issuers} />
     </Field>
 

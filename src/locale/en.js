@@ -63,7 +63,7 @@ I18n.translations.en = {
     },
   },
   backpack: {
-    title: "Your achievements",
+    title: "Your badges",
   },
   notFound: {
     main: "404 - Not Found",
@@ -77,6 +77,9 @@ I18n.translations.en = {
         show_all: "Show all",
         show_less: "Show less",
       },
+    },
+    breadcrumb: {
+      back: "back",
     },
     name: "Name",
     badgeclasses: {
@@ -93,7 +96,6 @@ I18n.translations.en = {
     },
     badgeRequests: {
       award: "Award badge",
-      newUser: "Add new user",
     },
     badgeRevoked: {
       revoke: "Revoke badge",
@@ -110,8 +112,8 @@ I18n.translations.en = {
       badgeclasses: "Badgeclasses",
       badgeclassOverview: "Overview",
       userManagement: "User management",
-      badgesRequested: "Requests",
-      badgesAwarded: "Recipients",
+      badgesRequested: "Enrolled",
+      badgesAwarded: "Awarded",
       badgesRevoked: "Revoked",
     },
     edit: {

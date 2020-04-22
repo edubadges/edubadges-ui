@@ -32,7 +32,7 @@
     overflow-x: hidden;
     text-overflow: ellipsis;
 
-    &:focus {
+    &:not([disabled]):focus {
       outline: 1px solid var(--purple);
       box-shadow: 1px 1px 3px var(--purple), -1px -1px 3px var(--purple);
     }

@@ -84,12 +84,10 @@
       {disabled} />
 
     <Button
-      {disabled}
-      disabled={!removeAllowed}
+      disabled={false}
       label="file"
-      text="Upload image" />
+      text={I18n.t('file.upload')} />
     <Button
-      {disabled}
       disabled={!removeAllowed}
       secondary
       action={_ => setFile()}

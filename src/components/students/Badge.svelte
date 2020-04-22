@@ -1,78 +1,83 @@
 <script>
-  import { onMount } from "svelte";
+  import {onMount} from "svelte";
   import moment from "moment";
   import trash from "../../icons/trash.svg";
-  import { validBadge } from "../../util/validBadge";
 
-  export let data;
+  export let badge;
 
-  let thisBadge;
-
-  onMount(() => (thisBadge = validBadge(data)));
 </script>
 
 <style>
   .badge {
-    padding: 20px 20px 0;
-  }
-
-  .badge:not(:last-child) {
-    margin-bottom: 20px;
-  }
-
-  .info {
     display: flex;
+    flex-direction: column;
+    background-color: var(--grey-2);
   }
 
-  .img {
-    max-width: 150px;
+  .header {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    background-color: white;
   }
 
-  .img img {
-    max-width: 150px;
+  .header span {
+    font-size: 22px;
+    margin: 15px 0 0 0;
   }
 
-  .text {
-    flex: 1;
-    margin-left: 20px;
-    padding-bottom: 10px;
-    border-bottom: var(--card-border);
+  .header img {
+    max-width: 200px;
+    margin: 15px auto;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    height: 100%;
+  }
+
+  .content-header span.name {
+    font-size: 22px;
+    margin-bottom: 15px;
+    display: inline-block;
+    line-height: 24px;
   }
 
   .details {
     display: flex;
-    margin: 7px 0 10px;
+    flex-direction: row;
   }
 
-  .details span.title {
-    color: var(--text-grey-light);
-    display: block;
+  .details img {
+    max-width: 55px;
+    margin-right: 15px;
   }
 
-  .details div:not(.issuer) span {
-    white-space: nowrap;
+  .details div.issued {
+    display: flex;
+    flex-direction: column;
   }
 
-  .details > div:not(:last-child) {
-    position: relative;
-
-    --sep-line-width: 1px;
-    --sep-space-width: 22px;
-    margin-right: calc(var(--sep-space-width) + var(--sep-line-width));
+  .details div.issued span {
+    margin-bottom: 4px;
   }
 
-  .details > div:not(:last-child)::after {
-    content: "";
-    position: absolute;
-    height: 100%;
-    top: 0;
-    margin: 0 calc(var(--sep-space-width) / 2);
-    border-right: var(--sep-line-width) solid var(--text-grey-light);
+  .details span.issued-by {
+    color: var(--purple);
+    font-size: 16px;
+  }
+
+  .details span.faculty {
+    font-size: 13px;
+    color: var(--grey-8);
+
   }
 
   .actions {
     display: flex;
-    padding: 10px 0;
+    margin-top: auto;
     align-items: center;
     justify-content: flex-end;
   }
@@ -104,41 +109,32 @@
   }
 </style>
 
-{#if thisBadge}
+{#if badge}
   <div class="card badge">
-    <div class="info">
-      <div class="img">
-        <img src={thisBadge.image} alt="" />
-      </div>
-      <div class="text">
-        <span>{thisBadge.title}</span>
-        <div class="details">
-          <div>
-            <span class="title">Awarded</span>
-            <span>{moment(thisBadge.issueDate).format('MMM D, YYYY')}</span>
-          </div>
-
-          {#if thisBadge.expiryDate}
-            <div>
-              <span class="title">Expires</span>
-              <span>{moment(thisBadge.expiryDate).format('MMM D, YYYY')}</span>
-            </div>
-          {/if}
-
-          <div class="issuer">
-            <span class="title">Awarded by</span>
-            <span>{thisBadge.awardedBy}</span>
-          </div>
-        </div>
-        <span>{thisBadge.description}</span>
-      </div>
+    <div class="header">
+      <span>{moment(badge.issuedOn).format('MMM D, YYYY')}</span>
+      <img src={badge.image} alt=""/>
     </div>
-
-    <div class="actions">
-      <div class="delete">
-        {@html trash}
+    <div class="content">
+      <div class="content-header">
+        <span class="name">{badge.badgeclass.name}</span>
       </div>
-      <div class="share">Share</div>
+
+      <div class="details">
+        <img src={badge.badgeclass.issuer.image} alt=""/>
+        <div class="issued">
+          <span class="issued-by">Issued by</span>
+          <span class="issuer">{badge.badgeclass.issuer.name}</span>
+          <span class="faculty">({badge.badgeclass.issuer.faculty.name})</span>
+        </div>
+      </div>
+      <div class="actions">
+        <div class="delete">
+          {@html trash}
+        </div>
+        <div class="share">Share</div>
+      </div>
     </div>
   </div>
+
 {/if}

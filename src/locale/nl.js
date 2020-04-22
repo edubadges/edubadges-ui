@@ -78,6 +78,9 @@ I18n.translations.nl = {
         show_less: "Toon minder",
       },
     },
+    breadcrumb: {
+      back: "terug",
+    },
     name: "Naam",
     badgeclasses: {
       title: "Badgeclasses",
@@ -93,7 +96,6 @@ I18n.translations.nl = {
     },
     badgeRequests: {
       award: "Ken badge toe",
-      newUser: "Nieuwe gebruiker",
     },
     badgeRevoked: {
       revoke: "Verwijder badge",
