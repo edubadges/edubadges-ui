@@ -6,6 +6,10 @@
 </script>
 
 <style>
+  th {
+    text-transform: capitalize;
+  }
+
   .hide {
     opacity: 0%;
   }
