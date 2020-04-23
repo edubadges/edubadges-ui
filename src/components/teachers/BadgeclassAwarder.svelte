@@ -4,7 +4,7 @@
   import I18n from "i18n-js";
   import { EntityHeader } from "../teachers";
   import { Overview } from "../teachers/badgeclass";
-  import { Awarded, Requested } from "../teachers/badges";
+  import { Assertions, Enrollments } from "../teachers/badges";
   import { badgeclassIcon, chevronLeft } from "../../icons";
   import { queryData } from "../../api/graphql";
   import { headerStaff, headerEntity } from "../../api/queries";
@@ -84,12 +84,12 @@
       href: `/badgeclass/${entityId}/overview`
     },
     {
-      entity: "badgesRequested",
+      entity: "enrollments",
       count: enrollments.length,
       href: `/badgeclass/${entityId}/enrollments`
     },
     {
-      entity: "badgesAwarded",
+      entity: "assertions",
       count: assertions.length,
       href: `/badgeclass/${entityId}/awarded`
     }
@@ -151,11 +151,11 @@
     </Route>
 
     <Route path="/enrollments">
-      <Requested {entityId} {enrollments} />
+      <Enrollments {entityId} {enrollments} />
     </Route>
 
     <Route path="/awarded">
-      <Awarded {assertions} />
+      <Assertions {assertions} />
     </Route>
   </Router>
 </div>

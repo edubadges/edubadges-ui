@@ -72,11 +72,12 @@ I18n.translations.nl = {
     addEmail: "Add e-mail",
     submit: "Submit",
     deleteAccount: "Delete my account",
-    deleteAccountConfirmation: "Are you sure you want to delete your eduBadges account?"
+    deleteAccountConfirmation:
+      "Are you sure you want to delete your eduBadges account?",
   },
   modal: {
     cancel: "Cancel",
-    confirm: "Confirm"
+    confirm: "Confirm",
   },
   backpack: {
     title: "Behaalde badges",
@@ -119,7 +120,7 @@ I18n.translations.nl = {
   },
   student: {
     enroll: "Aanvragen",
-    enrolled: "Aangevraagd"
+    enrolled: "Aangevraagd",
   },
   manage: {
     tabs: {
@@ -128,9 +129,8 @@ I18n.translations.nl = {
       badgeclasses: "Badgeclasses",
       badgeclassOverview: "Overview",
       userManagement: "User management",
-      badgesRequested: "Requests",
-      badgesAwarded: "Recipients",
-      badgesRevoked: "Revoked",
+      enrollments: "Ingeschreven",
+      assertions: "Toegekend",
     },
     edit: {
       edit: "edit",
@@ -263,12 +263,12 @@ I18n.translations.nl = {
         ects:
           "Whole and half points only. <br/>A minimum of 0.5 points is required.",
       },
-      publicUrl: "Public URL"
+      publicUrl: "Public URL",
     },
     badge: {
       emailAddress: "Email address",
       emailAddresses: "Paste email addresses",
-      details: "Details"
+      details: "Details",
     },
   },
   file: {

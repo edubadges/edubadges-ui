@@ -1,2 +1,2 @@
-export { default as Awarded } from "./Awarded.svelte";
-export { default as Requested } from "./Requested.svelte";
+export { default as Assertions } from "./Assertions.svelte";
+export { default as Enrollments } from "./Enrollments.svelte";
