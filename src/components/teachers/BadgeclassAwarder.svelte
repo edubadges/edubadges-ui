@@ -7,7 +7,12 @@
   import { Assertions, Enrollments } from "../teachers/badges";
   import { badgeclassIcon, chevronLeft } from "../../icons";
   import { queryData } from "../../api/graphql";
-  import { headerStaff, headerEntity } from "../../api/queries";
+  import {
+    headerStaff,
+    headerEntity,
+    enrollmentsQuery,
+    assertionsQuery
+  } from "../../api/queries";
 
   export let entityId;
   export let subEntity;
@@ -19,40 +24,10 @@
   let enrollments = [];
   let assertions = [];
 
-  const enrollmentsQuery = `
-    pendingEnrollments {
-      entityId,
-      dateCreated,
-      dateAwarded,
-      user {
-        entityId,
-        firstName,
-        lastName,
-        email
-      }
-    }
-  `;
-
-  const assertionsQuery = `
-    badgeAssertions {
-      entityId,
-      createdAt,
-      revoked,
-      user {
-        entityId,
-        firstName,
-        lastName,
-        email
-      }
-    }
-  `;
-
   const query = `{
     badgeClass(id: "${entityId}") {
       ${headerEntity},
       ${headerStaff},
-      ${enrollmentsQuery},
-      ${assertionsQuery},
       image,
       criteriaUrl,
       criteriaText,
@@ -64,7 +39,9 @@
       },
       permissions { mayUpdate },
       extensions { name, originalJson }
-    }
+    },
+    ${enrollmentsQuery(entityId)},
+    ${assertionsQuery(entityId)},
   }`;
 
   onMount(() => {
