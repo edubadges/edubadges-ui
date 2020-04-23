@@ -15,14 +15,45 @@
   let issuer;
   let faculty;
   let badgeclass = { extensions: [] };
-  let requestCount;
-  let recipientCount;
-  let revokedCount;
+
+  let requested = [];
+  let awarded = [];
+  let revoked = [];
+
+  const enrollmentsQuery = `
+    enrollments {
+      entityId,
+      dateCreated,
+      dateAwarded,
+      user {
+        entityId,
+        firstName,
+        lastName,
+        email
+      }
+    }
+  `;
+
+  const assertionsQuery = `
+    badgeAssertions {
+      entityId,
+      createdAt,
+      revoked,
+      user {
+        entityId,
+        firstName,
+        lastName,
+        email
+      }
+    }
+  `;
 
   const query = `{
     badgeClass(id: "${entityId}") {
       ${headerEntity},
       ${headerStaff},
+      ${enrollmentsQuery},
+      ${assertionsQuery},
       image,
       criteriaUrl,
       criteriaText,
@@ -30,26 +61,10 @@
       issuer {
         name,
         entityId,
-        faculty {
-          name,
-          entityId,
-        }
+        faculty { name, entityId }
       },
-      permissions {
-        mayUpdate
-      },
-      enrollments {
-        entityId,
-        dateAwarded
-      },
-      badgeAssertions {
-        entityId,
-        revoked
-      },
-      extensions {
-        name,
-        originalJson
-      }
+      permissions { mayUpdate },
+      extensions { name, originalJson }
     }
   }`;
 
@@ -58,14 +73,10 @@
       badgeclass = res.badgeClass;
       issuer = res.badgeClass.issuer;
       faculty = issuer.faculty;
-      requestCount = res.badgeClass.enrollments.filter(el => !el.dateAwarded)
-        .length;
-      recipientCount = res.badgeClass.badgeAssertions.filter(
-        el => el.revoked === false
-      ).length;
-      revokedCount = res.badgeClass.badgeAssertions.filter(
-        el => el.revoked === true
-      ).length;
+
+      requested = res.badgeClass.enrollments.filter(el => !el.dateAwarded);
+      awarded = res.badgeClass.badgeAssertions.filter(el => !el.revoked);
+      revoked = res.badgeClass.badgeAssertions.filter(el => el.revoked);
     });
   });
 
@@ -76,17 +87,17 @@
     },
     {
       entity: "badgesRequested",
-      count: requestCount,
+      count: requested.length,
       href: `/badgeclass/${entityId}/requested`
     },
     {
       entity: "badgesAwarded",
-      count: recipientCount,
+      count: awarded.length,
       href: `/badgeclass/${entityId}/awarded`
     },
     {
       entity: "badgesRevoked",
-      count: revokedCount,
+      count: revoked.length,
       href: `/badgeclass/${entityId}/revoked`
     }
   ];
@@ -147,11 +158,11 @@
     </Route>
 
     <Route path="/requested">
-      <Requested {entityId} />
+      <Requested {entityId} enrollments={requested} />
     </Route>
 
     <Route path="/awarded">
-      <Awarded {entityId} />
+      <Awarded assertions={badgeclass.badgeAssertions} />
     </Route>
 
     <Route path="/revoked">

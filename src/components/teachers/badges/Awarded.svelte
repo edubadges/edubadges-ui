@@ -7,44 +7,18 @@
   import { sort, sortType } from "../../../util/sortData";
   import { Button, CheckBox } from "../../../components";
 
-  export let entityId;
-
-  let awardedBadges = [];
+  export let assertions = [];
   let selection = [];
-
-  const query = `{
-    badgeClass(id: "${entityId}") {
-      badgeAssertions {
-        entityId,
-        createdAt,
-        revoked,
-        user {
-          entityId,
-          firstName,
-          lastName,
-          email
-        }
-      }
-    }
-  }`;
-
-  onMount(() => {
-    queryData(query).then(res => {
-      awardedBadges = res.badgeClass.badgeAssertions.filter(
-        ({ revoked }) => !revoked
-      );
-    });
-  });
 
   let checkAllValue = false;
   function onCheckAll(val) {
-    selection = val ? awardedBadges.map(({ entityId }) => entityId) : [];
+    selection = val ? assertions.map(({ entityId }) => entityId) : [];
   }
 
   function onCheckOne(val, entityId) {
     if (val) {
       selection.push(entityId);
-      table.checkAllValue = selection.length === awardedBadges.length;
+      table.checkAllValue = selection.length === assertions.length;
     } else {
       selection = selection.filter(id => id !== entityId);
       table.checkAllValue = false;
@@ -91,18 +65,16 @@
       text={I18n.t('teacher.badgeRevoked.revoke')} />
   </span>
 
-  {#each awardedBadges as awardedBadge (awardedBadge.entityId)}
+  {#each assertions as { entityId, user, dateAwarded } (entityId)}
     <tr>
       <td>
         <CheckBox
-          value={selection.includes(awardedBadge.entityId)}
-          onChange={val => onCheckOne(val, awardedBadge.entityId)} />
+          value={selection.includes(entityId)}
+          onChange={val => onCheckOne(val, entityId)} />
       </td>
-      <td class="name">
-        {awardedBadge.user.firstName + ' ' + awardedBadge.user.lastName}
-      </td>
-      <td>{awardedBadge.user.email}</td>
-      <td>{moment(awardedBadge.dateAwarded).format('MMM D, YYYY')}</td>
+      <td class="name">{user.firstName + ' ' + user.lastName}</td>
+      <td>{user.email}</td>
+      <td>{moment(dateAwarded).format('MMM D, YYYY')}</td>
     </tr>
   {/each}
 </Table>

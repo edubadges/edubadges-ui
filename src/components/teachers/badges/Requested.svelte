@@ -1,57 +1,29 @@
 <script>
-  import { onMount } from "svelte";
   import I18n from "i18n-js";
   import moment from "moment";
   import { Table } from "../../teachers";
   import { sort, sortType } from "../../../util/sortData";
-  import { queryData } from "../../../api/graphql";
   import { Button, CheckBox } from "../../../components";
   import { awardBadges } from "../../../api";
 
   export let entityId;
+  export let enrollments = [];
 
-  let requests = [];
   let selection = [];
+  let checkAllValue = false;
 
-  const query = `{
-    badgeClass(id: "${entityId}") {
-      enrollments {
-        entityId,
-        dateCreated,
-        dateAwarded,
-        user {
-          entityId,
-          firstName,
-          lastName,
-          email
-        }
-      }
-    }
-  }`;
-
-  function getEnrollments() {
-    queryData(query).then(res => {
-      requests = res.badgeClass.enrollments.filter(
-        ({ dateAwarded }) => !dateAwarded
-      );
-    });
+  function award() {
+    awardBadges(entityId, selection);
   }
 
-  onMount(getEnrollments);
-
-  const award = () => {
-    awardBadges(entityId, selection).then(getEnrollments);
-  };
-
-  let checkAllValue = false;
   function onCheckAll(val) {
-    selection = val ? requests.map(({ entityId }) => entityId) : [];
+    selection = val ? enrollments.map(({ entityId }) => entityId) : [];
   }
 
   function onCheckOne(val, entityId) {
     if (val) {
       selection.push(entityId);
-      table.checkAllValue = selection.length === requests.length;
+      table.checkAllValue = selection.length === enrollments.length;
     } else {
       selection = selection.filter(id => id !== entityId);
       table.checkAllValue = false;
@@ -94,16 +66,16 @@
     <Button small action={award} text={I18n.t('teacher.badgeRequests.award')} />
   </span>
 
-  {#each requests as request (request.entityId)}
+  {#each enrollments as { entityId, user, dateCreated } (entityId)}
     <tr>
       <td>
         <CheckBox
-          value={selection.includes(request.entityId)}
-          onChange={val => onCheckOne(val, request.entityId)} />
+          value={selection.includes(entityId)}
+          onChange={val => onCheckOne(val, entityId)} />
       </td>
-      <td>{request.user.firstName + ' ' + request.user.lastName}</td>
-      <td>{request.user.email}</td>
-      <td>{moment(request.dateCreated).format('MMM D, YYYY')}</td>
+      <td>{user.firstName + ' ' + user.lastName}</td>
+      <td>{user.email}</td>
+      <td>{moment(dateCreated).format('MMM D, YYYY')}</td>
     </tr>
   {/each}
 </Table>
