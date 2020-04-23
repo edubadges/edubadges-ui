@@ -128,7 +128,7 @@
     </Route>
 
     <Route path="/enrollments">
-      <Enrollments {entityId} {enrollments} />
+      <Enrollments {entityId} bind:enrollments />
     </Route>
 
     <Route path="/awarded">

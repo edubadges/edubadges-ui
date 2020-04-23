@@ -1,7 +1,10 @@
 <script>
+  import { onMount } from "svelte";
   import I18n from "i18n-js";
   import { Button } from "../../../components";
   import { awardBadges } from "../../../api";
+  import { queryData } from "../../../api/graphql";
+  import { enrollmentsQuery } from "../../../api/queries";
   import Table from "./Table";
 
   export let entityId;
@@ -9,8 +12,14 @@
 
   let selection = [];
 
+  const refreshEnrollments = () => {
+    queryData(`{ ${enrollmentsQuery(entityId)} }`).then(res => {
+      enrollments = res.badgeClass.pendingEnrollments;
+    });
+  };
+
   function award() {
-    awardBadges(entityId, selection);
+    awardBadges(entityId, selection).then(refreshEnrollments);
   }
 </script>
 
