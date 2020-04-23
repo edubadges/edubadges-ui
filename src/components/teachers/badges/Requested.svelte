@@ -99,13 +99,7 @@
       <td>
         <CheckBox
           value={selection.includes(request.entityId)}
-          onChange={val => {
-            if (val) {
-              selection.push(request.entityId);
-            } else {
-              selection = selection.filter(entityId => request.entityId !== entityId);
-            }
-          }} />
+          onChange={val => onCheckOne(val, request.entityId)} />
       </td>
       <td>{request.user.firstName + ' ' + request.user.lastName}</td>
       <td>{request.user.email}</td>
