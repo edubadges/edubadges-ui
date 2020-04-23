@@ -17,7 +17,10 @@
     $userLoggedIn = true;
 
     getSocialAccount().then(res => {
-      const redirectTo = $redirectPath || "/";
+      let redirectTo = $redirectPath || "/";
+      if (redirectTo === "/login") {
+        redirectTo = "/";
+      }
       $userVerifiedByInstitution = res[0].verified_by_institution;
       navigate(redirectTo);
     });

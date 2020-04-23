@@ -72,7 +72,9 @@
     const apiCall = isCreate ? createBadgeclass : editBadgeclass;
 
     apiCall(...args)
-      .then(res => navigate(`/manage/badgeclass/${res.entityId}`))
+      .then(res => {
+        navigate(`/manage/badgeclass/${res.entity_id}`)
+      })
       .catch(err => err.then(({ fields }) => (errors = fields)));
   }
 </script>
