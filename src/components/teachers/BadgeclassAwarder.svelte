@@ -4,7 +4,7 @@
   import I18n from "i18n-js";
   import { EntityHeader } from "../teachers";
   import { Overview } from "../teachers/badgeclass";
-  import { Awarded, Requested, Revoked } from "../teachers/badges";
+  import { Awarded, Requested } from "../teachers/badges";
   import { badgeclassIcon, chevronLeft } from "../../icons";
   import { queryData } from "../../api/graphql";
   import { headerStaff, headerEntity } from "../../api/queries";
@@ -16,12 +16,11 @@
   let faculty;
   let badgeclass = { extensions: [] };
 
-  let requested = [];
-  let awarded = [];
-  let revoked = [];
+  let enrollments = [];
+  let assertions = [];
 
   const enrollmentsQuery = `
-    enrollments {
+    pendingEnrollments {
       entityId,
       dateCreated,
       dateAwarded,
@@ -74,9 +73,8 @@
       issuer = res.badgeClass.issuer;
       faculty = issuer.faculty;
 
-      requested = res.badgeClass.enrollments.filter(el => !el.dateAwarded);
-      awarded = res.badgeClass.badgeAssertions.filter(el => !el.revoked);
-      revoked = res.badgeClass.badgeAssertions.filter(el => el.revoked);
+      enrollments = res.badgeClass.pendingEnrollments;
+      assertions = res.badgeClass.badgeAssertions;
     });
   });
 
@@ -87,18 +85,13 @@
     },
     {
       entity: "badgesRequested",
-      count: requested.length,
-      href: `/badgeclass/${entityId}/requested`
+      count: enrollments.length,
+      href: `/badgeclass/${entityId}/enrollments`
     },
     {
       entity: "badgesAwarded",
-      count: awarded.length,
+      count: assertions.length,
       href: `/badgeclass/${entityId}/awarded`
-    },
-    {
-      entity: "badgesRevoked",
-      count: revoked.length,
-      href: `/badgeclass/${entityId}/revoked`
     }
   ];
 
@@ -157,16 +150,12 @@
       <Overview {badgeclass} />
     </Route>
 
-    <Route path="/requested">
-      <Requested {entityId} enrollments={requested} />
+    <Route path="/enrollments">
+      <Requested {entityId} {enrollments} />
     </Route>
 
     <Route path="/awarded">
-      <Awarded assertions={badgeclass.badgeAssertions} />
-    </Route>
-
-    <Route path="/revoked">
-      <Revoked {entityId} />
+      <Awarded {assertions} />
     </Route>
   </Router>
 </div>
