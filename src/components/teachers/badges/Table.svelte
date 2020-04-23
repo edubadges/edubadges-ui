@@ -22,7 +22,7 @@
 
   function onCheckOne(val, entityId) {
     if (val) {
-      selection.push(entityId);
+      selection = selection.concat(entityId);
       table.checkAllValue = selection.length === collection.length;
     } else {
       selection = selection.filter(id => id !== entityId);
@@ -61,7 +61,11 @@
   };
 </script>
 
-<Table {...table} withCheckAll bind:checkAllValue>
+<Table
+  {...table}
+  withCheckAll
+  bind:checkAllValue
+  showCheckActions={selection.length > 0}>
   <span slot="check-buttons">
     <slot name="check-buttons" />
   </span>
