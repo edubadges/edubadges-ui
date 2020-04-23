@@ -85,7 +85,8 @@
 
 <Breadcrumb {faculty} {issuer} badgeclassName={badgeclass.name} />
 
-<EntityHeader object={badgeclass} entity="badgeclass" {tabs} {headerItems} />
+<EntityHeader object={badgeclass} entity="badgeclass" {tabs} {headerItems}
+              mayUpdate={badgeclass.permissions && badgeclass.permissions.mayUpdate && badgeclass.badgeAssertions.length === 0}/>
 
 <div class="main-content-margin">
   <Router>
