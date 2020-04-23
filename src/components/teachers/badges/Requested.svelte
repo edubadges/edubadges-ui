@@ -29,16 +29,18 @@
     }
   }`;
 
-  onMount(() => {
+  function getEnrollments() {
     queryData(query).then(res => {
       requests = res.badgeClass.enrollments.filter(
         ({ dateAwarded }) => !dateAwarded
       );
     });
-  });
+  }
+
+  onMount(getEnrollments);
 
   const award = () => {
-    awardBadges(entityId, selection);
+    awardBadges(entityId, selection).then(getEnrollments);
   };
 
   let checkAllValue = false;
