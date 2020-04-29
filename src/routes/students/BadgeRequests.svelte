@@ -6,6 +6,7 @@
     requestBadge,
     withdrawRequestBadge
   } from "../../api";
+  import Badge from "../../components/shared/Badge.svelte";
 
   let form;
   let provider;
@@ -13,12 +14,22 @@
   let error = false;
 
   function getRequestedBadges() {
-    getUnearnedBadges().then(
-      res => (requests = res.filter(({ date_awarded }) => !date_awarded))
-    );
+    getUnearnedBadges().then(res => {
+      (requests = res.filter(({date_awarded}) => !date_awarded));
+      requests.map(el => {
+        el.badge_class.entityId = el.badge_class.entity_id;
+      });
+    }, err => {
+      console.error(err);
+    });
   }
 
-  onMount(() => getSocialAccounts().then(([acc]) => (provider = acc.uid)));
+  onMount(() => {
+    getSocialAccounts().then(([acc]) => {
+      (provider = acc.uid);
+      getRequestedBadges();
+    })
+  });
 
   const makeRequest = event => {
     const id = event.target.entityId.value;
@@ -48,16 +59,12 @@
 
 <style>
   ul {
-    list-style: initial;
+    list-style: none;
     margin-left: 20px;
   }
 
   div:not(:last-child) {
     margin-bottom: 25px;
-  }
-
-  .error {
-    color: red;
   }
 </style>
 
@@ -67,23 +74,8 @@
   <ul>
     {#each requests as { id, badge_class }}
       <li>
-        {badge_class.name}
-        <button on:click={() => withdrawRequest(id)}>Withdraw</button>
+        <Badge badgeClass={badge_class} badge={badge_class} enrollment={true}/>
       </li>
     {/each}
   </ul>
-</div>
-
-<div>
-  <h4>Request a badge</h4>
-
-  <form on:submit|preventDefault={makeRequest} bind:this={form}>
-    <label for="entityId">Badgeclass entityId</label>
-    <input id="entityId" />
-
-    <button type="submit">Request</button>
-    {#if error}
-      <p class="error">{error}</p>
-    {/if}
-  </form>
 </div>

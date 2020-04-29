@@ -1,10 +1,10 @@
 <script>
   import I18n from "i18n-js";
-  import {onMount} from "svelte";
-  import {queryData} from "../../api/graphql";
-  import {isEmpty} from "lodash";
+  import { onMount } from "svelte";
+  import { queryData } from "../../api/graphql";
+  import { isEmpty } from "lodash";
 
-  import {headerStaff, headerEntity} from "../../api/queries";
+  import { headerStaff, headerEntity } from "../../api/queries";
   import {
     ects,
     educationProgramIdentifier,
@@ -13,13 +13,35 @@
     language,
     learningOutcome
   } from "../../components/extensions/badges/extensions";
-  import {fallBackValue} from "../../util/forms";
+  import { fallBackValue } from "../../util/forms";
   import Overview from "../../components/teachers/badgeclass/Overview.svelte";
+  import Badge from "../../components/shared/Badge.svelte";
+  import { getUnearnedBadges } from "../../api";
 
   export let entityId;
-  let badgeClass = {issuer: {}, extensions: []};
+  let badge;
+  let badgeClass;
+  export let enrollment;
 
-  const query = `{
+  const query = enrollment ? `{
+    enrollments {
+      entityId,
+      dateCreated,
+      denied,
+      badgeClass {
+        entityId,
+        name,
+        image,
+        issuer {
+          name,
+          image,
+          faculty {
+            name
+          }
+        }
+      },
+    }
+  }` : `{
     badgeInstance(id: "${entityId}") {
       image,
       issuedOn,
@@ -38,13 +60,17 @@
           originalJson
         }
       }
-
     }
   }`;
 
   onMount(() => {
     queryData(query).then(res => {
-      badgeClass = res.badgeInstance.badgeclass;
+      if(enrollment) {
+        badge = res.enrollments.filter(el => el.badgeClass.entityId === entityId)[0];
+        badgeClass = badge.badgeClass;
+      } else {
+        badgeClass = res.badgeInstance.badgeclass;
+      }
     });
   });
 
@@ -56,10 +82,8 @@
   }
 
 </style>
-
 <div class="badge-detail">
-  <h3>{I18n.t('models.badgeclass.language')}</h3>
   {#if !isEmpty(badgeClass)}
-    <Overview badgeclass={badgeClass}/>
+    <Overview badgeclass={badgeClass} enrollment={enrollment} requested={badge.dateCreated}/>
   {/if}
 </div>

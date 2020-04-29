@@ -1,6 +1,6 @@
 <script>
   import I18n from "i18n-js";
-  import {link} from "svelte-routing";
+  import { link } from "svelte-routing";
   import {
     ects,
     educationProgramIdentifier,
@@ -10,8 +10,21 @@
     learningOutcome
   } from "../../extensions/badges/extensions";
   import { fallBackValue } from "../../../util/forms";
+  import { Button } from "../../index";
+  import { onMount } from "svelte";
 
   export let badgeclass;
+  export let enrollment;
+  export let requested;
+  import moment from "moment";
+  import Badge from "../../shared/Badge.svelte";
+  import Breadcrumb from "../Breadcrumb.svelte";
+
+  const withdrawEnrollment = () => console.log('withdraw');
+
+  onMount(() => {
+    console.log(badgeclass);
+  })
 </script>
 
 <style>
@@ -41,9 +54,31 @@
   table.extensions td {
     text-align: left;
   }
+
+  .badge {
+    margin-bottom: 15px;
+  }
+
+  .flex {
+    display: flex;
+    justify-content: space-between;
+  }
 </style>
 
 <div class="badge-class-detail">
+  {#if enrollment}
+    <Breadcrumb studentBadge={true} badgeclassName={badgeclass.name}/>
+    <div class="badge">
+      <Badge badgeClass={badgeclass}/>
+    </div>
+    <div class="flex info">
+      <div>
+        <h3>Requested</h3>
+        <p>{moment(requested).format('MMM D, YYYY')}</p>
+      </div>
+      <Button text={"withdraw enrollment"} action={withdrawEnrollment}/>
+    </div>
+  {/if}
   <h3>{I18n.t('models.badgeclass.language')}</h3>
   <p class="info">
     {fallBackValue(badgeclass.language || extensionValue(badgeclass.extensions, language))}

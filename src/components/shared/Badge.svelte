@@ -6,8 +6,9 @@
 
   export let badge;
   export let badgeClass;
+  export let enrollment;
 
-  const detailLink = () => navigate(badge ? `/details/${badge.entityId}` : `/badgeclass/${badgeClass.entityId}`);
+  const detailLink = () => navigate(enrollment? `/enrollment/${badge.entityId}` : badge ? `/details/${badge.entityId}` : `/badgeclass/${badgeClass.entityId}`);
 
 </script>
 
@@ -120,7 +121,9 @@
         <div class="issued">
           <span class="issued-by">Issued by</span>
           <span class="issuer">{badgeClass.issuer.name}</span>
-          <span class="faculty">({badgeClass.issuer.faculty.name})</span>
+          {#if badgeClass.issuer.faculty}
+            <span class="faculty">({badgeClass.issuer.faculty.name})</span>
+          {/if}
         </div>
       </div>
       <div class="actions">

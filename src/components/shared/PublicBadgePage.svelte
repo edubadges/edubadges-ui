@@ -17,7 +17,6 @@
   onMount(() => {
     if (visitorRole === role.STUDENT) {
       getUnearnedBadges().then(enrollments => {
-        console.log(enrollments);
         enrolled = Boolean(enrollments.reduce((acc, el) => {
           return acc || el['badge_class']['entity_id'] === entityId
         }, false));

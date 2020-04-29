@@ -89,8 +89,11 @@
         <Route path="/profile">
           <Student bookmark="profile" />
         </Route>
+        <Route path="/enrollment/:entityId/" let:params>
+            <BadgeDetails entityId={params.entityId} enrollment={true}/>
+        </Route>
         <Route path="/details/:entityId/" let:params>
-          <BadgeDetails entityId={params.entityId}/>
+            <BadgeDetails entityId={params.entityId}/>
         </Route>
         <Route path="/validate" component={Validate} />
 

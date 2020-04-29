@@ -11,6 +11,7 @@
   export let entity;
   export let edit = false;
   export let create = false;
+  export let studentBadge;
 
   const query = `{
     currentInstitution {
@@ -29,6 +30,9 @@
   };
 
   onMount(() => {
+    if (studentBadge){
+      return;
+    }
     queryData(query)
       .then(({ currentInstitution: { name } }) => {
         institutionName = name;
@@ -61,7 +65,14 @@
 </style>
 
 <div>
-  <a use:link href="/manage/institution">{institutionName}</a>
+  {#if studentBadge}
+    <a use:link href={`/badge-requests`}>{"requested badges"}</a>
+  {/if}
+
+
+  {#if institutionName}
+    <a use:link href="/manage/institution">{institutionName}</a>
+  {/if}
 
   {#if faculty}
     <span>></span>
