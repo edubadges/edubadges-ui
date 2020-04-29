@@ -80,8 +80,8 @@
   <div class="header">
     <h3>{title}</h3>
 
-    <Search bind:value={search} />
 
+    <Search bind:value={search} />
     {#if mayCreate}
       <Button
         href={`/manage/${entity}/new`}

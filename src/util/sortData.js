@@ -4,21 +4,44 @@ export const sortType = {
   COLLECTION: "collection"
 };
 
+const defaultValue = (attr, howToSort) => {
+  switch (howToSort) {
+    case sortType.ALPHA:
+      return attr || "";
+    case sortType.NUMERIC:
+      return attr || 0;
+    case sortType.COLLECTION:
+      return attr || [];
+    default:
+      throw new Error(`Undefined sortType: ${howToSort}`);
+  }
+}
+
+const getNestedValue = (obj, attr, howToSort) => {
+  const parts = attr.split(".");
+  for (let i = 0; i < parts.length; i++) {
+    let part = parts[i];
+    obj = obj ? defaultValue(obj[part], howToSort) : defaultValue(null, howToSort);
+  }
+  return obj || defaultValue(null, howToSort);
+}
+
 export function sort(collection, attribute, reversed, howToSort = sortType.ALPHA) {
   if (!attribute) {
     return reversed ? collection.reverse() : collection;
   }
 
   const col = collection.sort((a, b) => {
-    if (howToSort === sortType.ALPHA) {
-      return a[attribute].localeCompare(b[attribute]);
-    } else if (howToSort === sortType.NUMERIC) {
-      return parseInt(b[attribute], 10) - parseInt(a[attribute], 10);
-    } else if (howToSort === sortType.COLLECTION) {
-      return b[attribute].length - a[attribute].length;
+    switch (howToSort) {
+      case sortType.ALPHA:
+        return getNestedValue(a, attribute, howToSort).localeCompare(getNestedValue(b, attribute, howToSort));
+      case sortType.NUMERIC:
+        return parseInt(getNestedValue(b, attribute, howToSort), 10) - parseInt(getNestedValue(a, attribute, howToSort), 10);
+      case sortType.COLLECTION:
+        return getNestedValue(b, attribute, howToSort).length - getNestedValue(a, attribute, howToSort).length;
+      default:
+        throw new Error(`Unsupported sortType ${howToSort}`);
     }
-    throw new Error(`Unsupported sortType ${howToSort}`);
   });
-
   return reversed ? col.reverse() : col;
 }
