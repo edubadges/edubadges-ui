@@ -1,6 +1,6 @@
 <script>
   import I18n from "i18n-js";
-  import { link } from "svelte-routing";
+  import { link, navigate } from "svelte-routing";
   import {
     ects,
     educationProgramIdentifier,
@@ -15,12 +15,19 @@
 
   export let badgeclass;
   export let enrollment;
+  export let enrollmentId;
   export let requested;
   import moment from "moment";
   import Badge from "../../shared/Badge.svelte";
   import Breadcrumb from "../Breadcrumb.svelte";
+  import { withdrawRequestBadge } from "../../../api";
 
-  const withdrawEnrollment = () => console.log('withdraw');
+  const withdrawEnrollment = () => {
+    withdrawRequestBadge(enrollmentId).then(res => {
+      res.json().then(asdf => console.log(asdf));
+      // navigate('/requested-badges');
+    })
+  };
 
   onMount(() => {
     console.log(badgeclass);
