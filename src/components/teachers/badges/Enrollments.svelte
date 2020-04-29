@@ -1,11 +1,13 @@
 <script>
-  import { onMount } from "svelte";
+  import {onMount} from "svelte";
+  import {queryData} from "../../../api/graphql";
+  import {enrollmentsQuery} from "../../../api/queries";
   import I18n from "i18n-js";
-  import { Button } from "../../../components";
-  import { awardBadges } from "../../../api";
-  import { queryData } from "../../../api/graphql";
-  import { enrollmentsQuery } from "../../../api/queries";
-  import Table from "./Table";
+  import moment from "moment";
+  import {Table} from "../../teachers";
+  import {sort, sortType} from "../../../util/sortData";
+  import {Button, CheckBox} from "../../../components";
+  import {awardBadges} from "../../../api";
 
   export let entityId;
   export let enrollments = [];
@@ -21,10 +23,73 @@
   function award() {
     awardBadges(entityId, selection).then(refreshEnrollments);
   }
+
+    function onCheckAll(val) {
+    selection = val ? collection.map(({ entityId }) => entityId) : [];
+  }
+
+  function onCheckOne(val, entityId) {
+    if (val) {
+      selection = selection.concat(entityId);
+      table.checkAllValue = selection.length === collection.length;
+    } else {
+      selection = selection.filter(id => id !== entityId);
+      table.checkAllValue = false;
+    }
+  }
+
+  const tableHeaders = [
+    {
+      name: "name",
+      attribute: "name",
+      reverse: false,
+      sortType: sortType.ALPHA
+    },
+
+    {
+      name: "email",
+      attribute: "email",
+      reverse: false,
+      sortType: sortType.ALPHA
+    },
+
+    {
+      name: "created",
+      attribute: "created",
+      reverse: false,
+      sortType: sortType.ALPHA
+    }
+  ];
+
+  $: table = {
+    entity: "badgeclass",
+    title: `${I18n.t("teacher.badgeclasses.title")}`,
+    tableHeaders: tableHeaders,
+    onCheckAll
+  };
+
+
 </script>
 
-<Table collection={enrollments} bind:value={selection}>
+<Table
+  {...table}
+  withCheckAll
+  bind:checkAllValue
+  showCheckActions={selection.length > 0}>
   <span slot="check-buttons">
-    <Button small action={award} text={I18n.t('teacher.badgeRequests.award')} />
+    <Button small action={award} text={I18n.t('teacher.badgeRequests.award')}/>
   </span>
+
+  {#each collection as { entityId, user, dateCreated } (entityId)}
+    <tr>
+      <td>
+        <CheckBox
+          value={selection.includes(entityId)}
+          onChange={val => onCheckOne(val, entityId)} />
+      </td>
+      <td>{user.firstName + ' ' + user.lastName}</td>
+      <td>{user.email}</td>
+      <td>{moment(dateCreated).format('MMM D, YYYY')}</td>
+    </tr>
+  {/each}
 </Table>
