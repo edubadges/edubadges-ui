@@ -15,3 +15,38 @@ export const headerStaff = `
 		}
   	}
 `;
+
+export function enrollmentsQuery(entityId) {
+  return `
+    badgeClass(id: "${entityId}") {
+      pendingEnrollments {
+        entityId,
+        dateCreated,
+        dateAwarded,
+        user {
+          entityId,
+          firstName,
+          lastName,
+          email
+        }
+      }
+    }
+  `;
+}
+export function assertionsQuery(entityId) {
+  return `
+    badgeClass(id: "${entityId}") {
+      badgeAssertions {
+        entityId,
+        createdAt,
+        revoked,
+        user {
+          entityId,
+          firstName,
+          lastName,
+          email
+        }
+      }
+    }
+  `;
+}

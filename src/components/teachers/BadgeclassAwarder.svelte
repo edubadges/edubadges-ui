@@ -4,10 +4,15 @@
   import I18n from "i18n-js";
   import { EntityHeader } from "../teachers";
   import { Overview } from "../teachers/badgeclass";
-  import { Awarded, Requested, Revoked } from "../teachers/badges";
+  import { Assertions, Enrollments } from "../teachers/badges";
   import { badgeclassIcon, chevronLeft } from "../../icons";
   import { queryData } from "../../api/graphql";
-  import { headerStaff, headerEntity } from "../../api/queries";
+  import {
+    headerStaff,
+    headerEntity,
+    enrollmentsQuery,
+    assertionsQuery
+  } from "../../api/queries";
 
   export let entityId;
   export let subEntity;
@@ -15,9 +20,9 @@
   let issuer;
   let faculty;
   let badgeclass = { extensions: [] };
-  let requestCount;
-  let recipientCount;
-  let revokedCount;
+
+  let enrollments = [];
+  let assertions = [];
 
   const query = `{
     badgeClass(id: "${entityId}") {
@@ -30,27 +35,13 @@
       issuer {
         name,
         entityId,
-        faculty {
-          name,
-          entityId,
-        }
+        faculty { name, entityId }
       },
-      permissions {
-        mayUpdate
-      },
-      enrollments {
-        entityId,
-        dateAwarded
-      },
-      badgeAssertions {
-        entityId,
-        revoked
-      },
-      extensions {
-        name,
-        originalJson
-      }
-    }
+      permissions { mayUpdate },
+      extensions { name, originalJson }
+    },
+    ${enrollmentsQuery(entityId)},
+    ${assertionsQuery(entityId)},
   }`;
 
   onMount(() => {
@@ -58,14 +49,9 @@
       badgeclass = res.badgeClass;
       issuer = res.badgeClass.issuer;
       faculty = issuer.faculty;
-      requestCount = res.badgeClass.enrollments.filter(el => !el.dateAwarded)
-        .length;
-      recipientCount = res.badgeClass.badgeAssertions.filter(
-        el => el.revoked === false
-      ).length;
-      revokedCount = res.badgeClass.badgeAssertions.filter(
-        el => el.revoked === true
-      ).length;
+
+      enrollments = res.badgeClass.pendingEnrollments;
+      assertions = res.badgeClass.badgeAssertions;
     });
   });
 
@@ -75,19 +61,14 @@
       href: `/badgeclass/${entityId}/overview`
     },
     {
-      entity: "badgesRequested",
-      count: requestCount,
-      href: `/badgeclass/${entityId}/requested`
+      entity: "enrollments",
+      count: enrollments.length,
+      href: `/badgeclass/${entityId}/enrollments`
     },
     {
-      entity: "badgesAwarded",
-      count: recipientCount,
+      entity: "assertions",
+      count: assertions.length,
       href: `/badgeclass/${entityId}/awarded`
-    },
-    {
-      entity: "badgesRevoked",
-      count: revokedCount,
-      href: `/badgeclass/${entityId}/revoked`
     }
   ];
 
@@ -146,16 +127,12 @@
       <Overview {badgeclass} />
     </Route>
 
-    <Route path="/requested">
-      <Requested {entityId} />
+    <Route path="/enrollments">
+      <Enrollments {entityId} bind:enrollments />
     </Route>
 
     <Route path="/awarded">
-      <Awarded {entityId} />
-    </Route>
-
-    <Route path="/revoked">
-      <Revoked {entityId} />
+      <Assertions {assertions} />
     </Route>
   </Router>
 </div>

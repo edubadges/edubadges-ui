@@ -12,6 +12,8 @@
   import { getService } from "../util/getService";
   import { requestLoginToken } from "../api";
   import { navigateBack } from "../icons";
+  import students from "../img/students.png";
+  import teachers from "../img/teachers.png";
 
   let accountCreationStep = 1;
   let showLoginCards = true;
@@ -97,7 +99,7 @@
         </h1>
         <h1>{I18n.t('login.student.subtitle')}</h1>
         <img
-          src="https://via.placeholder.com/200?text=Placeholder"
+          src={students}
           alt="student login" />
         <p class="action">{I18n.t('login.student.action')}</p>
         <LoginButton
@@ -149,7 +151,7 @@
         </h1>
         <h1>{I18n.t('login.teacher.subtitle')}</h1>
         <img
-          src="https://via.placeholder.com/200?text=Placeholder"
+          src={teachers}
           alt="teacher login" />
         <p class="action">{I18n.t('login.teacher.action')}</p>
         <LoginButton

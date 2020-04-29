@@ -55,6 +55,12 @@ module.exports = {
           removeSVGTagAttrs: false,
         },
       },
+      {
+        test: /\.(png|jpg|gif)$/,
+        use: [
+          'file-loader',
+        ],
+      },
     ],
   },
   mode,
@@ -80,5 +86,5 @@ module.exports = {
     port: 4000,
     historyApiFallback: true,
   },
-  performance: { hints: false }
+  performance: {hints: false}
 };

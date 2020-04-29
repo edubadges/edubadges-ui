@@ -19,6 +19,7 @@
   export let withCheckAll;
   export let checkAllValue;
   export let onCheckAll;
+  export let showCheckActions;
 
   const setSort = tableHeader => {
     if (sort.attribute === tableHeader.attribute) {
@@ -95,7 +96,7 @@
           <th class="checkbox">
             <CheckBox bind:value={checkAllValue} onChange={onCheckAll} />
 
-            {#if checkAllValue}
+            {#if showCheckActions}
               <span>
                 <slot name="check-buttons" />
               </span>
@@ -103,7 +104,7 @@
           </th>
         {/if}
 
-        <TableHeaders {tableHeaders} {setSort} {sort} hide={checkAllValue} />
+        <TableHeaders {tableHeaders} {setSort} {sort} hide={showCheckActions} />
 
       </tr>
     </thead>

@@ -69,15 +69,23 @@ I18n.translations.en = {
     emails: "E-mails",
     email: "E-mail",
     makePrimary: "Make primary",
+    makePrimaryConfirmation: "Are you sure you want to make this email your primary email?",
     addEmail: "Add e-mail",
-    submit: "Submit",
+    addEmailInfo: "You will receive an email with a link to verify your new email",
+    unverified: "unverified",
+    submit: "Add",
+    deleteEmail: "Delete this email",
+    deleteEmailConfirmation: "Are you sure you want to delete this email?",
     delete: "Delete",
+    account: "Account",
+    accountInfo: "If you remove you account all you badges will become invalid.",
     deleteAccount: "Delete my account",
-    deleteAccountConfirmation: "Are you sure you want to delete your eduBadges account?"
+    deleteAccountConfirmation:
+      "Are you sure you want to delete your eduBadges account?",
   },
   modal: {
     cancel: "Cancel",
-    confirm: "Confirm"
+    confirm: "Confirm",
   },
   backpack: {
     title: "Your badges",
@@ -120,7 +128,7 @@ I18n.translations.en = {
   },
   student: {
     enroll: "Enroll",
-    enrolled: "Enrolled"
+    enrolled: "Enrolled",
   },
   manage: {
     tabs: {
@@ -129,9 +137,8 @@ I18n.translations.en = {
       badgeclasses: "Badgeclasses",
       badgeclassOverview: "Overview",
       userManagement: "User management",
-      badgesRequested: "Enrolled",
-      badgesAwarded: "Awarded",
-      badgesRevoked: "Revoked",
+      enrollments: "Enrolled",
+      assertions: "Awarded",
     },
     edit: {
       edit: "edit",
@@ -264,12 +271,12 @@ I18n.translations.en = {
         ects:
           "Whole and half points only. <br/>A minimum of 0.5 points is required.",
       },
-      publicUrl: "Public URL"
+      publicUrl: "Public URL",
     },
     badge: {
       emailAddress: "Email address",
       emailAddresses: "Paste email addresses",
-      details: "Details"
+      details: "Details",
     },
   },
   file: {
