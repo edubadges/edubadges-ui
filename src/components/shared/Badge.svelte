@@ -6,10 +6,8 @@
 
   export let badge;
   export let badgeClass;
-  export let enrollment;
-  export let enrollmentId;
 
-  const detailLink = () => navigate(enrollment? `/enrollment/${enrollmentId}` : badge ? `/details/${badge.entityId}` : `/badgeclass/${badgeClass.entityId}`);
+  const detailLink = () => navigate(badge ? `/details/${badge.entityId}` : `/badgeclass/${badgeClass.entityId}`);
 
 </script>
 
