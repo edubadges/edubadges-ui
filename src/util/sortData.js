@@ -1,5 +1,6 @@
 export const sortType = {
   ALPHA: "alpha",
+  BOOLEAN: "boolean",
   NUMERIC: "numeric",
   COLLECTION: "collection"
 };
@@ -12,6 +13,8 @@ const defaultValue = (attr, howToSort) => {
       return attr || 0;
     case sortType.COLLECTION:
       return attr || [];
+    case sortType.BOOLEAN:
+      return attr || false;
     default:
       throw new Error(`Undefined sortType: ${howToSort}`);
   }
@@ -26,6 +29,8 @@ const getNestedValue = (obj, attr, howToSort) => {
   return obj || defaultValue(null, howToSort);
 }
 
+export {getNestedValue as nestedValue};
+
 export function sort(collection, attribute, reversed, howToSort = sortType.ALPHA) {
   if (!attribute) {
     return reversed ? collection.reverse() : collection;
@@ -35,6 +40,8 @@ export function sort(collection, attribute, reversed, howToSort = sortType.ALPHA
     switch (howToSort) {
       case sortType.ALPHA:
         return getNestedValue(a, attribute, howToSort).localeCompare(getNestedValue(b, attribute, howToSort));
+      case sortType.BOOLEAN:
+        return getNestedValue(a, attribute, howToSort).toString().localeCompare(getNestedValue(b, attribute, howToSort).toString());
       case sortType.NUMERIC:
         return parseInt(getNestedValue(b, attribute, howToSort), 10) - parseInt(getNestedValue(a, attribute, howToSort), 10);
       case sortType.COLLECTION:

@@ -10,8 +10,7 @@
   import {awardBadges, revokeAssertion} from "../../../api";
   import singleNeutralCheck from "../../../icons/single-neutral-check.svg";
   import {userName} from "../../../util/users";
-  import { search } from "../../../util/searchData";
-  import { sort, sortType } from "../../../util/sortData";
+  import {search, searchMultiple} from "../../../util/searchData";
 
 
   export let assertions = [];
@@ -48,23 +47,35 @@
     },
     {
       name: I18n.t("models.badge.recipient"),
-      attribute: "user.name",
+      attribute: "user.email",
       reverse: false,
       sortType: sortType.ALPHA
     },
     {
       name: I18n.t("models.badge.awardType.name"),
-      attribute: "email",
+      attribute: "award_type",
       reverse: false,
       sortType: sortType.ALPHA
     },
-
     {
-      name: "created",
-      attribute: "created",
+      name: I18n.t("models.badge.issuedOn"),
+      attribute: "issuedOn",
       reverse: false,
       sortType: sortType.ALPHA
+    },
+    {
+      name: I18n.t("models.badge.status"),
+      attribute: "acceptance",
+      reverse: false,
+      sortType: sortType.ALPHA
+    },
+    {
+      name: I18n.t("models.badge.revoked"),
+      attribute: "revoked",
+      reverse: false,
+      sortType: sortType.BOOLEAN
     }
+
   ];
 
   $: table = {
@@ -75,15 +86,15 @@
   };
 
   let assertionSearch = "";
-  $: searchedAssertionIds = search(assertions, assertionSearch, "name");
+  $: searchedAssertionIds = searchMultiple(assertions, assertionSearch, "entityId", "user.firstName", "user.lastName", "user.email");
 
-  let facultySort = tableHeaders[1];
+  let assertionsSort = tableHeaders[1];
 
-  $: sortedFilteredFaculties = sort(
-    faculties.filter(el => searchedFacultyIds.includes(el.entityId)),
-    facultySort.attribute,
-    facultySort.reverse,
-    facultySort.sortType
+  $: sortedFilteredAssertions = sort(
+    assertions.filter(el => searchedAssertionIds.includes(el.entityId)),
+    assertionsSort.attribute,
+    assertionsSort.reverse,
+    assertionsSort.sortType
   );
 
 </script>
@@ -91,7 +102,7 @@
 <style lang="scss">
 
   div.single-neutral-check {
-    width: 28px;
+    width: 26px;
   }
 
   div.recipient {
@@ -104,6 +115,8 @@
 
 <Table
   {...table}
+  bind:search={assertionSearch}
+  bind:sort={assertionsSort}
   withCheckAll
   bind:checkAllValue
   showCheckActions={selection.length > 0}>
@@ -111,21 +124,17 @@
     <Button small action={revoke} text={I18n.t('teacher.badgeRevoked.revoke')}/>
   </span>
 
-  {#each assertions as assertion}
+  {#each sortedFilteredAssertions as assertion}
     <tr>
       <td>
         <CheckBox
           value={selection.includes(assertion.entityId)}
           onChange={val => onCheckOne(val, assertion.entityId)}/>
       </td>
-      <td>
+      <td class="single-neutral-check">
         <div class="single-neutral-check">
           {@html singleNeutralCheck}
         </div>
-      </td>
-      <td>
-        <!--  ToDo     -->
-        {I18n.t("models.")}
       </td>
       <td>
         <div class="recipient">
@@ -133,7 +142,13 @@
           <span>{assertion.user.email}</span>
         </div>
       </td>
+      <td>
+        <!--  ToDo     -->
+        {I18n.t("models.badge.awardType.enrolled")}
+      </td>
       <td>{moment(assertion.dateCreated).format('MMM D, YYYY')}</td>
+      <td>{assertion.acceptance}</td>
+      <td><CheckBox value={assertion.revoked} disabled={true}/></td>
     </tr>
   {/each}
 </Table>

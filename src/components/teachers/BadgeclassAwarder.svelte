@@ -4,7 +4,8 @@
   import I18n from "i18n-js";
   import { EntityHeader } from "../teachers";
   import { Overview } from "../teachers/badgeclass";
-  import { Assertions, Enrollments } from "../teachers/badges";
+  import Assertions from "../teachers/badges/Assertions.svelte";
+  import Enrollments  from "../teachers/badges/Enrollments.svelte";
   import { badgeclassIcon, chevronLeft } from "../../icons";
   import { queryData } from "../../api/graphql";
   import {

@@ -41,6 +41,8 @@ export function assertionsQuery(entityId) {
         entityId,
         createdAt,
         revoked,
+        acceptance,
+        issuedOn,
         user {
           entityId,
           firstName,

@@ -283,9 +283,9 @@ I18n.translations.en = {
         enrolled: "Enrolled",
         directAward: "Direct award"
       },
-
       issuedOn: "Issued on",
       status: "Status",
+      revoked: "Revoked",
       validUntil: "Valid until",
     },
   },
