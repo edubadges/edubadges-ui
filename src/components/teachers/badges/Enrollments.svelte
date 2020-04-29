@@ -13,6 +13,7 @@
   export let enrollments = [];
 
   let selection = [];
+  let checkAllValue = false;
 
   const refreshEnrollments = () => {
     queryData(`{ ${enrollmentsQuery(entityId)} }`).then(res => {
@@ -24,8 +25,8 @@
     awardBadges(entityId, selection).then(refreshEnrollments);
   }
 
-    function onCheckAll(val) {
-    selection = val ? collection.map(({ entityId }) => entityId) : [];
+  function onCheckAll(val) {
+    selection = val ? collection.map(({entityId}) => entityId) : [];
   }
 
   function onCheckOne(val, entityId) {
@@ -80,12 +81,12 @@
     <Button small action={award} text={I18n.t('teacher.badgeRequests.award')}/>
   </span>
 
-  {#each collection as { entityId, user, dateCreated } (entityId)}
+  {#each enrollments as { entityId, user, dateCreated } (entityId)}
     <tr>
       <td>
         <CheckBox
           value={selection.includes(entityId)}
-          onChange={val => onCheckOne(val, entityId)} />
+          onChange={val => onCheckOne(val, entityId)}/>
       </td>
       <td>{user.firstName + ' ' + user.lastName}</td>
       <td>{user.email}</td>

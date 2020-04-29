@@ -132,7 +132,7 @@
     </Route>
 
     <Route path="/awarded">
-      <Assertions {assertions} />
+      <Assertions {issuer} {badgeclass} {assertions} />
     </Route>
   </Router>
 </div>
