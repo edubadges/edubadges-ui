@@ -129,6 +129,7 @@ I18n.translations.en = {
   student: {
     enroll: "Enroll",
     enrolled: "Enrolled",
+    withdraw: "Withdraw enrollment"
   },
   manage: {
     tabs: {

@@ -1,18 +1,19 @@
 <script>
-  import {onMount} from "svelte";
-  import {Router, Route, navigate} from "svelte-routing";
-  import {Student, ProcessToken, NotFound, Login, Validate} from "./routes";
-  import {Badges, Manage} from "./routes/teachers";
-  import {Header, Footer, SubscribeToPath, Spinner} from "./components";
+  import { onMount } from "svelte";
+  import { Router, Route, navigate } from "svelte-routing";
+  import { Student, ProcessToken, NotFound, Login, Validate } from "./routes";
+  import { Badges, Manage } from "./routes/teachers";
+  import { Header, Footer, SubscribeToPath, Spinner } from "./components";
   import {
     Header as TeacherHeader,
     BadgeclassAwarder
   } from "./components/teachers";
-  import {userRole, userLoggedIn, redirectPath} from "./stores/user";
-  import {role} from "./util/role";
-  import {getSocialAccount} from "./api";
-  import {PublicBadgePage} from "./components/shared"
-  import {BadgeDetails} from "./routes/students";
+  import { userRole, userLoggedIn, redirectPath } from "./stores/user";
+  import { role } from "./util/role";
+  import { getSocialAccount } from "./api";
+  import { PublicBadgePage } from "./components/shared"
+  import { BadgeDetails } from "./routes/students";
+  import EnrollmentDetails from "./routes/students/EnrollmentDetails.svelte";
 
   const homepage = {
     guest: Login,
@@ -89,8 +90,8 @@
         <Route path="/profile">
           <Student bookmark="profile" />
         </Route>
-        <Route path="/enrollment/:entityId/" let:params>
-            <BadgeDetails entityId={params.entityId} enrollment={true}/>
+        <Route path="/enrollment/:enrollmentId/" let:params>
+            <EnrollmentDetails enrollmentId={params.enrollmentId}/>
         </Route>
         <Route path="/details/:entityId/" let:params>
             <BadgeDetails entityId={params.entityId}/>

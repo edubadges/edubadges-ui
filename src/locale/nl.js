@@ -129,6 +129,7 @@ I18n.translations.nl = {
   student: {
     enroll: "Aanvragen",
     enrolled: "Aangevraagd",
+    withdraw: "Aanvraag intrekken"
   },
   manage: {
     tabs: {

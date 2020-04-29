@@ -4,12 +4,11 @@
   import I18n from "i18n-js";
   import {navigate} from "svelte-routing";
 
-  export let badge;
   export let badgeClass;
-  export let enrollment;
   export let enrollmentId;
+  export let detailPage;
 
-  const detailLink = () => navigate(enrollment? `/enrollment/${enrollmentId}` : badge ? `/details/${badge.entityId}` : `/badgeclass/${badgeClass.entityId}`);
+  const detailLink = () => navigate(`/enrollment/${enrollmentId}`);
 
 </script>
 
@@ -25,11 +24,6 @@
     flex-direction: column;
     text-align: center;
     background-color: white;
-  }
-
-  .header span {
-    font-size: 22px;
-    margin: 15px 0 0 0;
   }
 
   .header img {
@@ -101,37 +95,32 @@
     padding: 5px 12px;
     cursor: pointer;
   }
-
 </style>
 
-{#if badge || badgeClass}
-  <div class="card badge">
-    <div class="header">
-      {#if badge}
-        <span>{moment(badge.issuedOn).format('MMM D, YYYY')}</span>
-      {/if}
-      <img src={badgeClass.image} alt=""/>
+<div class="card badge">
+  <div class="header">
+    <img src={badgeClass.image} alt=""/>
+  </div>
+  <div class="content">
+    <div class="content-header">
+      <span class="name">{badgeClass.name}</span>
     </div>
-    <div class="content">
-      <div class="content-header">
-        <span class="name">{badgeClass.name}</span>
-      </div>
 
-      <div class="details">
-        <img src={badgeClass.issuer.image} alt=""/>
-        <div class="issued">
-          <span class="issued-by">Issued by</span>
-          <span class="issuer">{badgeClass.issuer.name}</span>
-          {#if badgeClass.issuer.faculty}
-            <span class="faculty">({badgeClass.issuer.faculty.name})</span>
-          {/if}
-        </div>
+    <div class="details">
+      <img src={badgeClass.issuer.image} alt=""/>
+      <div class="issued">
+        <span class="issued-by">Issued by</span>
+        <span class="issuer">{badgeClass.issuer.name}</span>
+        {#if badgeClass.issuer.faculty}
+          <span class="faculty">({badgeClass.issuer.faculty.name})</span>
+        {/if}
       </div>
+    </div>
+    {#if !detailPage}
       <div class="actions">
         <div><a href="details" class="share" on:click|preventDefault|stopPropagation={detailLink}>
           {I18n.t("models.badge.details")}</a></div>
       </div>
-    </div>
+    {/if}
   </div>
-
-{/if}
+</div>

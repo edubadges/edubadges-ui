@@ -1,34 +1,41 @@
 <script>
   import { onMount } from "svelte";
   import {
-    getSocialAccounts,
-    getUnearnedBadges,
     requestBadge,
     withdrawRequestBadge
   } from "../../api";
-  import Badge from "../../components/shared/Badge.svelte";
+  import { queryData } from "../../api/graphql";
+  import EnrollmentBadge from "./EnrollmentBadge.svelte";
 
   let form;
   let provider;
   let requests = [];
   let error = false;
 
-  function getRequestedBadges() {
-    getUnearnedBadges().then(res => {
-      (requests = res.filter(({date_awarded}) => !date_awarded));
-      requests.map(el => {
-        el.badge_class.entityId = el.badge_class.entity_id;
-      });
-    }, err => {
-      console.error(err);
-    });
-  }
+  const query = `{
+    enrollments {
+      entityId,
+      dateCreated,
+      denied,
+      badgeClass {
+        entityId,
+        name,
+        image,
+        issuer {
+          name,
+          image,
+          faculty {
+            name
+          }
+        }
+      },
+    }
+  }`;
 
   onMount(() => {
-    getSocialAccounts().then(([acc]) => {
-      (provider = acc.uid);
-      getRequestedBadges();
-    })
+    queryData(query).then(res => {
+      requests = res.enrollments;
+    });
   });
 
   const makeRequest = event => {
@@ -36,7 +43,9 @@
 
     requestBadge(id)
       .then(() => {
-        getRequestedBadges();
+        queryData(query).then(res => {
+          requests = res.enrollments;
+        });
         error = "";
         form.reset();
       })
@@ -49,7 +58,9 @@
 
   const withdrawRequest = id =>
     withdrawRequestBadge(id)
-      .then(getRequestedBadges)
+      .then(() => queryData(query).then(res => {
+          requests = res.enrollments;
+      }))
       .catch(err => {
         err.then(res => {
           error = I18n.t(["error", res.fields.error_code]);
@@ -58,33 +69,24 @@
 </script>
 
 <style>
-  ul {
-    list-style: none;
-    margin-left: 20px;
-  }
-
-  div:not(:last-child) {
-    margin-bottom: 25px;
-  }
-
   div.content {
-      display: grid;
-      grid-template-columns: 31% 31% 31%;
-      grid-row: auto;
-      grid-column-gap: 25px;
-      grid-row-gap: 25px;
+    display: grid;
+    grid-template-columns: 31% 31% 31%;
+    grid-row: auto;
+    grid-column-gap: 25px;
+    grid-row-gap: 25px;
   }
 
   @media (max-width: 1120px) {
-      div.content {
-          grid-template-columns: 48% 48%;
-      }
+    div.content {
+      grid-template-columns: 48% 48%;
+    }
   }
 
   @media (max-width: 820px) {
-      div {
-          grid-template-columns: 100%;
-      }
+    div {
+      grid-template-columns: 100%;
+    }
   }
 
 </style>
@@ -93,8 +95,8 @@
   <h4>Badge requests</h4>
 
   <div class="content">
-    {#each requests as { id, badge_class }}
-      <Badge badgeClass={badge_class} badge={badge_class} enrollment={true}/>
+    {#each requests as request}
+      <EnrollmentBadge enrollmentId={request.entityId} badgeClass={request.badgeClass} detailPage={false}/>
     {/each}
   </div>
 </div>

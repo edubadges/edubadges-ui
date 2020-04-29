@@ -12,15 +12,17 @@
   import { fallBackValue } from "../../../util/forms";
   import { Button } from "../../index";
   import { onMount } from "svelte";
+  import moment from "moment";
+  import Badge from "../../shared/Badge.svelte";
+  import Breadcrumb from "../Breadcrumb.svelte";
+  import { withdrawRequestBadge } from "../../../api";
+  import EnrollmentBadge from "../../../routes/students/EnrollmentBadge.svelte";
 
   export let badgeclass;
   export let enrollment;
   export let enrollmentId;
   export let requested;
-  import moment from "moment";
-  import Badge from "../../shared/Badge.svelte";
-  import Breadcrumb from "../Breadcrumb.svelte";
-  import { withdrawRequestBadge } from "../../../api";
+  export let detailPage;
 
   const withdrawEnrollment = (enrollId) => {
     withdrawRequestBadge(enrollId).then(() => {
@@ -77,14 +79,14 @@
   {#if enrollment}
     <Breadcrumb studentBadge={true} badgeclassName={badgeclass.name}/>
     <div class="badge">
-      <Badge badgeClass={badgeclass}/>
+      <EnrollmentBadge badgeClass={badgeclass} detailPage={detailPage}/>
     </div>
     <div class="flex info">
       <div>
         <h3>Requested</h3>
         <p>{moment(requested).format('MMM D, YYYY')}</p>
       </div>
-      <Button text={I18n} action={() => withdrawEnrollment(enrollmentId)}/>
+      <Button text={I18n.t('student.withdraw')} action={() => withdrawEnrollment(enrollmentId)}/>
     </div>
   {/if}
   <h3>{I18n.t('models.badgeclass.language')}</h3>

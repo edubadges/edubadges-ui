@@ -18,17 +18,22 @@
   import Badge from "../../components/shared/Badge.svelte";
   import { getUnearnedBadges } from "../../api";
 
-  export let entityId;
+  export let enrollmentId;
   let badge;
   let badgeClass;
 
   const query = `{
-    badgeInstance(id: "${entityId}") {
-      image,
-      issuedOn,
-      acceptance,
-      badgeclass {
+    enrollment(id: "${enrollmentId}") {
+      entityId,
+      dateCreated,
+      dateConsentGiven,
+      dateAwarded,
+      denied,
+      badgeClass {
+        entityId,
         name,
+        image,
+        criteriaText,
         issuer {
           name,
           image,
@@ -40,13 +45,15 @@
           name,
           originalJson
         }
-      }
+      },
     }
-  }`;
+  }` ;
 
   onMount(() => {
     queryData(query).then(res => {
-      badgeClass = res.badgeInstance.badgeclass;
+      console.log(res);
+      badge = res.enrollment;
+      badgeClass = badge.badgeClass;
     });
   });
 
@@ -67,6 +74,6 @@
 </style>
 <div class="badge-detail">
   {#if !isEmpty(badgeClass)}
-    <Overview badgeclass={badgeClass} requested={badge.dateCreated} enrollmentId={badge.entityId}/>
+    <Overview badgeclass={badgeClass} requested={badge.dateCreated} enrollmentId={badge.entityId} enrollment={true} detailPage={true}/>
   {/if}
 </div>
