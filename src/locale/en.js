@@ -278,6 +278,16 @@ I18n.translations.en = {
       emailAddress: "Email address",
       emailAddresses: "Paste email addresses",
       details: "Details",
+      recipient: "Recipient",
+      awardType: {
+        name: "Award type",
+        enrolled: "Enrolled",
+        directAward: "Direct award"
+      },
+      issuedOn: "Issued on",
+      status: "Status",
+      revoked: "Revoked",
+      validUntil: "Valid until",
     },
   },
   file: {

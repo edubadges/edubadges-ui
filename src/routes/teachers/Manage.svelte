@@ -19,7 +19,9 @@
 
   export let mainEntity;
 
-  $: if (!mainEntity) navigate("/manage/institution", { replace: true });
+  $: if (!mainEntity) {
+    navigate("/manage/institution", { replace: true });
+  }
 </script>
 
 <style>

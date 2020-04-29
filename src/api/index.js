@@ -131,6 +131,15 @@ export function awardBadges(badgeId, enrollmentIds) {
   )
 }
 
+export function revokeAssertion(issuerEntityId, badgeEntityId, assertionEntityId, revocationReason) {
+  const path = `${serverUrl}/issuer/issuers/${issuerEntityId}/badges/${badgeEntityId}/assertions/${assertionEntityId}`;
+  return validFetch(
+    path,
+    { body: JSON.stringify({ revocation_reason: revocationReason }) },
+    "DELETE"
+  );
+}
+
 // Institution
 export function editInstitution(entityId, institution) {
   const path = `${serverUrl}/institution/edit/${entityId}`;

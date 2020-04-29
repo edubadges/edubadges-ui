@@ -1,8 +1,8 @@
 <script>
-  import { onMount } from "svelte";
+  import {onMount} from "svelte";
   import I18n from "i18n-js";
 
-  import { Router, Route, navigate } from "svelte-routing";
+  import {Router, Route, navigate} from "svelte-routing";
   import {
     Breadcrumb,
     EntityHeader,
@@ -10,15 +10,17 @@
     Faculties,
     HeaderList
   } from "../teachers";
-  import { issuerIcon, facultyIcon } from "../../icons";
-  import { queryData } from "../../api/graphql";
-  import { headerStaff, headerEntity } from "../../api/queries";
+  import {issuerIcon, facultyIcon} from "../../icons";
+  import {queryData} from "../../api/graphql";
+  import {headerStaff, headerEntity} from "../../api/queries";
+  import {Spinner} from "../index";
 
   export let subEntity;
 
-  let institution = { staff: [] };
+  let institution = {staff: []};
   let faculties = [];
   let issuers = [];
+  let loaded = false;
 
   const query = `{
     currentInstitution {
@@ -56,6 +58,7 @@
       institution = res.currentInstitution;
       faculties = res.faculties;
       issuers = res.issuers;
+      loaded = true;
     });
   });
 
@@ -72,7 +75,7 @@
     }
   ];
 
-  $: if (!subEntity) navigate(tabs[0].href, { replace: true });
+  $: if (!subEntity) navigate(tabs[0].href, {replace: true});
   $: mayUpdate = institution.permissions && institution.permissions.mayUpdate;
   $: mayCreate = institution.permissions && institution.permissions.mayCreate;
 
@@ -99,20 +102,24 @@
     }
   ];
 </script>
+{#if !loaded}
+  <Spinner/>
+{:else}
+  <Breadcrumb/>
+  <EntityHeader
+    {tabs}
+    {headerItems}
+    object={institution}
+    entity="institution"
+    {mayUpdate}/>
 
-<Breadcrumb />
-<EntityHeader
-  {tabs}
-  {headerItems}
-  object={institution}
-  entity="institution"
-  {mayUpdate} />
+  <Router>
+    <Route path="/issuers">
+      <Issuers {issuers} {mayCreate}/>
+    </Route>
+    <Route path="/groups">
+      <Faculties {faculties} {mayCreate}/>
+    </Route>
+  </Router>
+{/if}
 
-<Router>
-  <Route path="/issuers">
-    <Issuers {issuers} {mayCreate} />
-  </Route>
-  <Route path="/groups">
-    <Faculties {faculties} {mayCreate} />
-  </Route>
-</Router>

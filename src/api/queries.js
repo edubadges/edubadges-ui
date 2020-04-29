@@ -20,9 +20,10 @@ export function enrollmentsQuery(entityId) {
   return `
     badgeClass(id: "${entityId}") {
       pendingEnrollments {
-        entityId,
         dateCreated,
         dateAwarded,
+        denied,
+        entityId,
         user {
           entityId,
           firstName,
@@ -40,6 +41,8 @@ export function assertionsQuery(entityId) {
         entityId,
         createdAt,
         revoked,
+        acceptance,
+        issuedOn,
         user {
           entityId,
           firstName,

@@ -16,6 +16,7 @@
     display: flex;
     flex-direction: column;
     background-color: var(--grey-2);
+    cursor: pointer;
   }
 
   .header {
@@ -79,31 +80,10 @@
 
   }
 
-  .actions {
-    display: flex;
-    margin-top: auto;
-    align-items: center;
-    justify-content: flex-end;
-  }
-
-  .actions > div {
-    height: 32px;
-    padding: 5px 12px;
-    border-radius: 3px;
-    background-color: var(--grey-3);
-    color: var(--text-grey-light);
-    font-weight: bold;
-  }
-
-  .actions a {
-    padding: 5px 12px;
-    cursor: pointer;
-  }
-
 </style>
 
 {#if badge || badgeClass}
-  <div class="card badge">
+  <div class="card badge" on:click|preventDefault|stopPropagation={detailLink}>
     <div class="header">
       {#if badge}
         <span>{moment(badge.issuedOn).format('MMM D, YYYY')}</span>
@@ -124,10 +104,6 @@
             <span class="faculty">({badgeClass.issuer.faculty.name})</span>
           {/if}
         </div>
-      </div>
-      <div class="actions">
-        <div><a href="details" class="share" on:click|preventDefault|stopPropagation={detailLink}>
-          {I18n.t("models.badge.details")}</a></div>
       </div>
     </div>
   </div>
