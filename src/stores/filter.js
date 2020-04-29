@@ -7,7 +7,9 @@ export const facultyIds = writable([]);
 export const issuerIds = writable([]);
 
 function filterBySearch(badgeclasses, search) {
-  if (!search) return badgeclasses;
+  if (!search) {
+    return badgeclasses;
+  }
 
   return badgeclasses.filter(({ name }) =>
     name.toLowerCase().includes(search.toLowerCase())
