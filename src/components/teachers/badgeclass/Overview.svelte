@@ -22,16 +22,11 @@
   import Breadcrumb from "../Breadcrumb.svelte";
   import { withdrawRequestBadge } from "../../../api";
 
-  const withdrawEnrollment = () => {
-    withdrawRequestBadge(enrollmentId).then(res => {
-      res.json().then(asdf => console.log(asdf));
-      // navigate('/requested-badges');
+  const withdrawEnrollment = (enrollId) => {
+    withdrawRequestBadge(enrollId).then(() => {
+      navigate('/requested-badges');
     })
   };
-
-  onMount(() => {
-    console.log(badgeclass);
-  })
 </script>
 
 <style>
@@ -83,7 +78,7 @@
         <h3>Requested</h3>
         <p>{moment(requested).format('MMM D, YYYY')}</p>
       </div>
-      <Button text={"withdraw enrollment"} action={withdrawEnrollment}/>
+      <Button text={"withdraw enrollment"} action={() => withdrawEnrollment(enrollmentId)}/>
     </div>
   {/if}
   <h3>{I18n.t('models.badgeclass.language')}</h3>
