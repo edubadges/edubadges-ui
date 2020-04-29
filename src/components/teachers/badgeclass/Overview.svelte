@@ -65,6 +65,12 @@
     display: flex;
     justify-content: space-between;
   }
+
+  @media (max-width: 1120px) {
+    .badge-class-detail {
+      padding: 40px 0 !important;
+    }
+  }
 </style>
 
 <div class="badge-class-detail">
@@ -78,7 +84,7 @@
         <h3>Requested</h3>
         <p>{moment(requested).format('MMM D, YYYY')}</p>
       </div>
-      <Button text={"withdraw enrollment"} action={() => withdrawEnrollment(enrollmentId)}/>
+      <Button text={I18n} action={() => withdrawEnrollment(enrollmentId)}/>
     </div>
   {/if}
   <h3>{I18n.t('models.badgeclass.language')}</h3>

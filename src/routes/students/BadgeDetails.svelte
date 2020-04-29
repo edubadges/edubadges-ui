@@ -81,6 +81,13 @@
     padding: 40px 140px;
   }
 
+  @media (max-width: 1120px) {
+    .badge-detail {
+      padding: 40px 20px !important;
+    }
+  }
+
+
 </style>
 <div class="badge-detail">
   {#if !isEmpty(badgeClass)}
