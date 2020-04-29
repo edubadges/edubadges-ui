@@ -91,10 +91,10 @@
           <Student bookmark="profile" />
         </Route>
         <Route path="/enrollment/:enrollmentId/" let:params>
-            <EnrollmentDetails enrollmentId={params.enrollmentId}/>
+          <EnrollmentDetails enrollmentId={params.enrollmentId}/>
         </Route>
         <Route path="/details/:entityId/" let:params>
-            <BadgeDetails entityId={params.entityId}/>
+          <BadgeDetails entityId={params.entityId}/>
         </Route>
         <Route path="/validate" component={Validate} />
 
