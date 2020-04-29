@@ -38,11 +38,10 @@
       modalAction = () => withdrawEnrollment(false, enrollmentId);
       showModal = true;
     } else {
-      withdrawRequestBadge(enrollmentId);
-      showModal = false;
-      setTimeout(() => {
+      withdrawRequestBadge(enrollmentId).then(() => {
         navigate('/badge-requests');
-      }, 1000)
+      });
+      showModal = false;
     }
   }
 </script>
