@@ -51,7 +51,6 @@
 
   onMount(() => {
     queryData(query).then(res => {
-      console.log(res);
       badge = res.enrollment;
       badgeClass = badge.badgeClass;
     });
