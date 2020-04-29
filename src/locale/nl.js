@@ -289,6 +289,11 @@ I18n.translations.nl = {
       revoked: "Revoked",
       validUntil: "Valid until",
     },
+    enrollment: {
+      deleteEnrollment: "Delete assertion",
+      deleteEnrollmentConfirmation: "Are you sure you want to withdraw this enrollment?",
+
+    },
   },
   file: {
     noFileSelected: "No file selected",

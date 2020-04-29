@@ -73,6 +73,6 @@
 </style>
 <div class="badge-detail">
   {#if !isEmpty(badgeClass)}
-    <Overview badgeclass={badgeClass} requested={badge.dateCreated} enrollmentId={badge.entityId} enrollment={true} detailPage={true}/>
+    <Overview badgeclass={badgeClass} requested={badge.dateCreated} enrollmentId={badge.entityId} enrollment={true}/>
   {/if}
 </div>

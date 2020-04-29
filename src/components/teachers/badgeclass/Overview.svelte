@@ -23,7 +23,6 @@
   export let enrollment;
   export let enrollmentId;
   export let requested;
-  export let detailPage;
 
   //Modal
   let showModal = false;
@@ -33,8 +32,8 @@
 
   const withdrawEnrollment = (showConfirmation, enrollmentId) => {
     if (showConfirmation) {
-      modalTitle = I18n.t("profile.deleteEmail");
-      modalQuestion = I18n.t("profile.deleteEmailConfirmation");
+      modalTitle = I18n.t("models.enrollment.deleteEnrollment");
+      modalQuestion = I18n.t("models.enrollment.deleteEnrollmentConfirmation");
       modalAction = () => withdrawEnrollment(false, enrollmentId);
       showModal = true;
     } else {
@@ -94,11 +93,11 @@
   {#if enrollment}
     <Breadcrumb studentBadge={true} badgeclassName={badgeclass.name}/>
     <div class="badge">
-      <EnrollmentBadge badgeClass={badgeclass} detailPage={detailPage}/>
+      <EnrollmentBadge badgeClass={badgeclass} />
     </div>
     <div class="flex info">
       <div>
-        <h3>Requested</h3>
+        <h3>{I18n.t('models.badge.requested')}</h3>
         <p>{moment(requested).format('MMM D, YYYY')}</p>
       </div>
       <Button text={I18n.t('student.withdraw')} action={() => withdrawEnrollment(true, enrollmentId)}/>

@@ -279,6 +279,7 @@ I18n.translations.en = {
       emailAddresses: "Paste email addresses",
       details: "Details",
       recipient: "Recipient",
+      requested: "Requested",
       awardType: {
         name: "Award type",
         enrolled: "Enrolled",
@@ -288,6 +289,10 @@ I18n.translations.en = {
       status: "Status",
       revoked: "Revoked",
       validUntil: "Valid until",
+    },
+    enrollment: {
+      deleteEnrollment: "Delete assertion",
+      deleteEnrollmentConfirmation: "Are you sure you want to withdraw this enrollment?",
     },
   },
   file: {
