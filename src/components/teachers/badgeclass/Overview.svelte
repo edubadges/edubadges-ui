@@ -24,7 +24,7 @@
 
   const withdrawEnrollment = (enrollId) => {
     withdrawRequestBadge(enrollId).then(() => {
-      navigate('/requested-badges');
+      navigate('/badge-requests');
     })
   };
 </script>
