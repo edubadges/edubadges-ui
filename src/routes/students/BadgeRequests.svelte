@@ -66,16 +66,35 @@
   div:not(:last-child) {
     margin-bottom: 25px;
   }
+
+  div.content {
+      display: grid;
+      grid-template-columns: 31% 31% 31%;
+      grid-row: auto;
+      grid-column-gap: 25px;
+      grid-row-gap: 25px;
+  }
+
+  @media (max-width: 1120px) {
+      div.content {
+          grid-template-columns: 48% 48%;
+      }
+  }
+
+  @media (max-width: 820px) {
+      div {
+          grid-template-columns: 100%;
+      }
+  }
+
 </style>
 
 <div>
   <h4>Badge requests</h4>
 
-  <ul>
+  <div class="content">
     {#each requests as { id, badge_class }}
-      <li>
-        <Badge badgeClass={badge_class} badge={badge_class} enrollment={true}/>
-      </li>
+      <Badge badgeClass={badge_class} badge={badge_class} enrollment={true}/>
     {/each}
-  </ul>
+  </div>
 </div>
