@@ -24,7 +24,6 @@
   } from "../../stores/user";
   import {TextInput} from "../../components/forms";
 
-  let showModal = false;
   let emails = [];
   let email;
   let profile;
@@ -33,6 +32,7 @@
   let error = "";
 
   //Modal
+  let showModal = false;
   let modalTitle;
   let modalQuestion;
   let modalAction;
@@ -252,7 +252,6 @@
   <Modal submit={modalAction}
          cancel={() => showModal = false}
          question={modalQuestion}
-           title={modalTitle}>
+         title={modalTitle}>
   </Modal>
-
 {/if}

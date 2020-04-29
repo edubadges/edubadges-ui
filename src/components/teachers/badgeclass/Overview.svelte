@@ -17,6 +17,7 @@
   import Breadcrumb from "../Breadcrumb.svelte";
   import { withdrawRequestBadge } from "../../../api";
   import EnrollmentBadge from "../../../routes/students/EnrollmentBadge.svelte";
+  import Modal from "../../forms/Modal.svelte";
 
   export let badgeclass;
   export let enrollment;
@@ -24,11 +25,26 @@
   export let requested;
   export let detailPage;
 
-  const withdrawEnrollment = (enrollId) => {
-    withdrawRequestBadge(enrollId).then(() => {
-      navigate('/badge-requests');
-    })
-  };
+  //Modal
+  let showModal = false;
+  let modalTitle;
+  let modalQuestion;
+  let modalAction;
+
+  const withdrawEnrollment = (showConfirmation, enrollmentId) => {
+    if (showConfirmation) {
+      modalTitle = I18n.t("profile.deleteEmail");
+      modalQuestion = I18n.t("profile.deleteEmailConfirmation");
+      modalAction = () => withdrawEnrollment(false, enrollmentId);
+      showModal = true;
+    } else {
+      withdrawRequestBadge(enrollmentId);
+      showModal = false;
+      setTimeout(() => {
+        navigate('/badge-requests');
+      }, 1000)
+    }
+  }
 </script>
 
 <style>
@@ -86,7 +102,7 @@
         <h3>Requested</h3>
         <p>{moment(requested).format('MMM D, YYYY')}</p>
       </div>
-      <Button text={I18n.t('student.withdraw')} action={() => withdrawEnrollment(enrollmentId)}/>
+      <Button text={I18n.t('student.withdraw')} action={() => withdrawEnrollment(true, enrollmentId)}/>
     </div>
   {/if}
   <h3>{I18n.t('models.badgeclass.language')}</h3>
@@ -128,3 +144,11 @@
     </table>
   </div>
 </div>
+
+{#if showModal}
+  <Modal submit={modalAction}
+      cancel={() => showModal = false}
+      question={modalQuestion}
+      title={modalTitle}>
+  </Modal>
+{/if}
