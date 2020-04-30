@@ -66,6 +66,7 @@
       right: 0;
       padding: var(--ver-padding-m) var(--hor-padding-m);
       min-width: 180px;
+      z-index: 99;
     }
 
     div.menu:not(.show) {

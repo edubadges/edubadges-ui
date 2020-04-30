@@ -3,9 +3,7 @@ import { authToken } from "../stores/user";
 import { config } from "../util/config";
 
 function validateResponse(res) {
-  return res.ok ?
-    res.json().then(({ data }) => data) :
-    Promise.reject(res)
+  return res.ok ? res.json().then(({ data }) => data) : Promise.reject(res);
 }
 
 function validFetch(query) {

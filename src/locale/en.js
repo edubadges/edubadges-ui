@@ -119,9 +119,6 @@ I18n.translations.en = {
     faculties: {
       title: "Groups",
     },
-    badgeRequests: {
-      award: "Award edubadge",
-    },
     badgeRevoked: {
       revoke: "Revoke edubadge",
     },
@@ -280,6 +277,7 @@ I18n.translations.en = {
       details: "Details",
       recipient: "Recipient",
       requested: "Requested",
+      awarded: "Awarded badges",
       awardType: {
         name: "Award type",
         enrolled: "Enrolled",
@@ -289,10 +287,39 @@ I18n.translations.en = {
       status: "Status",
       revoked: "Revoked",
       validUntil: "Valid until",
+      confirmation: {
+        revocationReason: "Reason for revocation (required)",
+        revoke: "Revoke assertion",
+        revokeConfirmation: "Are you sure you want to revoke this assertion?"
+      },
+      flash: {
+        revoked: "The assertion(s) have been revoked."
+      }
     },
     enrollment: {
       deleteEnrollment: "Delete enrollment",
+      title: "Enrolled persons",
+      enrolled: "Enrolled",
+      enrolledOn: "Enrolled on",
       deleteEnrollmentConfirmation: "Are you sure you want to withdraw this enrollment?",
+      award: "Award",
+      denied: "Denied",
+      deny: "Deny request",
+      enrollmentType: {
+        name: "Enrollment type",
+        enrolled: "Self - enrolled",
+        invited: "Invited"
+      },
+      confirmation: {
+        award: "Award enrollment",
+        awardConfirmation: "Are you sure you want to award this enrollment?",
+        deny: "Award enrollment",
+        denyConfirmation: "Are you sure you want to deny this enrollment?"
+      },
+      flash: {
+        denied: "The enrollment(s) have been denied.",
+        awarded: "The enrollment(s) have been awarded."
+      }
     },
   },
   file: {

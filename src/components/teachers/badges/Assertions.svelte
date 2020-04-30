@@ -2,7 +2,7 @@
   import I18n from "i18n-js";
   import {onMount} from "svelte";
   import {queryData} from "../../../api/graphql";
-  import {enrollmentsQuery} from "../../../api/queries";
+  import {assertionsQuery} from "../../../api/queries";
   import moment from "moment";
   import {Table} from "../../teachers";
   import {sort, sortType} from "../../../util/sortData";
@@ -11,30 +11,65 @@
   import singleNeutralCheck from "../../../icons/single-neutral-check.svg";
   import {userName} from "../../../util/users";
   import {search, searchMultiple} from "../../../util/searchData";
+  import Modal from "../../forms/Modal.svelte";
+  import {flash} from "../../../stores/flash";
+  import Flash from "../../forms/Flash.svelte";
 
 
   export let assertions = [];
   export let issuer;
   export let badgeclass;
 
-  // export let entityId;
-
   let selection = [];
   let checkAllValue = false;
+  let revocationReason = "";
 
-  function revoke() {
-    debugger;
-    revokeAssertion(issuer.entityId, badgeclass.entityId, selection[0], "some reason");
+  //Modal
+  let showModal = false;
+  let modalTitle;
+  let modalQuestion;
+  let modalAction;
+
+  const cancel = () => {
+    showModal = false;
+    revocationReason = "";
   }
 
-  function onCheckAll(val) {
-    selection = val ? assertions.map(assertion => assertion.entityId) : [];
+  const revoke = showConfirmation => {
+    if (showConfirmation) {
+      modalTitle = I18n.t("models.badge.confirmation.revoke");
+      modalQuestion = I18n.t("models.badge.confirmation.revokeConfirmation");
+      modalAction = () => revoke(false);
+      showModal = true;
+    } else {
+      showModal = false;
+      const promises = selection.map(entityID => revokeAssertion(issuer.entityId, badgeclass.entityId, entityID, revocationReason));
+      Promise.all(promises).then(() => {
+        flash.setValue(I18n.t("models.badge.flash.revoked"));
+        refreshEnrollments();
+      });
+    }
+  }
+
+  const refreshEnrollments = () => {
+    selection = [];
+    queryData(`{ ${assertionsQuery(badgeclass.entityId)} }`).then(res => {
+      assertions = res.badgeClass.badgeAssertions;
+    });
+  };
+
+  const onCheckAll = val => {
+    selection = val ? assertions
+        .filter(assertion => !assertion.revoked)
+        .map(assertion => assertion.entityId)
+      : [];
+    table.checkAllValue = val;
   }
 
   function onCheckOne(val, entityId) {
     if (val) {
       selection = selection.concat(entityId);
-      table.checkAllValue = selection.length === assertions.length;
+      table.checkAllValue = selection.length === assertions.filter(assertion => !assertion.revoked).length;
     } else {
       selection = selection.filter(id => id !== entityId);
       table.checkAllValue = false;
@@ -80,7 +115,7 @@
 
   $: table = {
     entity: "badgeclass",
-    title: `${I18n.t("teacher.badgeclasses.title")}`,
+    title: `${I18n.t("models.badge.awarded")}`,
     tableHeaders: tableHeaders,
     onCheckAll
   };
@@ -111,24 +146,42 @@
     }
   }
 
+    div.action-buttons {
+    display: flex;
+    margin: 15px 0;
+  }
+
+  div.slots {
+    display: flex;
+    flex-direction: column;
+
+    label {
+      margin-bottom: 10px;
+    }
+  }
+
+
+
 </style>
 
 <Table
   {...table}
   bind:search={assertionSearch}
   bind:sort={assertionsSort}
-  withCheckAll
-  bind:checkAllValue
-  showCheckActions={selection.length > 0}>
-  <span slot="check-buttons">
-    <Button small action={revoke} text={I18n.t('teacher.badgeRevoked.revoke')}/>
-  </span>
+  withCheckAll={true}
+  bind:checkAllValue>
+  <div class="action-buttons" slot="check-buttons">
+    <Button small disabled={selection.length === 0} action={() => revoke(true)}
+            text={I18n.t('teacher.badgeRevoked.revoke')}/>
+  </div>
 
   {#each sortedFilteredAssertions as assertion}
     <tr>
       <td>
         <CheckBox
           value={selection.includes(assertion.entityId)}
+          name={`select-${assertion.entityId}`}
+          disabled={assertion.revoked}
           onChange={val => onCheckOne(val, assertion.entityId)}/>
       </td>
       <td class="single-neutral-check">
@@ -148,7 +201,22 @@
       </td>
       <td>{moment(assertion.dateCreated).format('MMM D, YYYY')}</td>
       <td>{assertion.acceptance}</td>
-      <td><CheckBox value={assertion.revoked} disabled={true}/></td>
+      <td>
+        <CheckBox name={assertion.entityId} value={assertion.revoked} disabled={true}/>
+      </td>
     </tr>
   {/each}
 </Table>
+
+{#if showModal}
+  <Modal submit={modalAction}
+         cancel={cancel}
+         question={modalQuestion}
+         title={modalTitle}
+         disabled={revocationReason.length === 0}>
+    <div class="slots">
+      <label for="revocation-reason">{I18n.t("models.badge.confirmation.revocationReason")}</label>
+      <input id="revocation-reason" class="input-field" bind:value={revocationReason }/>
+    </div>
+  </Modal>
+{/if}

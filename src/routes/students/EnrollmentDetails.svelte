@@ -16,7 +16,6 @@
   import { fallBackValue } from "../../util/forms";
   import Overview from "../../components/teachers/badgeclass/Overview.svelte";
   import Badge from "../../components/shared/Badge.svelte";
-  import { getUnearnedBadges } from "../../api";
 
   export let enrollmentId;
   let badge;

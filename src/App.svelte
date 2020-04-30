@@ -1,19 +1,20 @@
 <script>
-  import { onMount } from "svelte";
-  import { Router, Route, navigate } from "svelte-routing";
-  import { Student, ProcessToken, NotFound, Login, Validate } from "./routes";
-  import { Badges, Manage } from "./routes/teachers";
-  import { Header, Footer, SubscribeToPath, Spinner } from "./components";
+  import {onMount} from "svelte";
+  import {Router, Route, navigate} from "svelte-routing";
+  import {Student, ProcessToken, NotFound, Login, Validate} from "./routes";
+  import {Badges, Manage} from "./routes/teachers";
+  import {Header, Footer, SubscribeToPath, Spinner} from "./components";
   import {
     Header as TeacherHeader,
     BadgeclassAwarder
   } from "./components/teachers";
-  import { userRole, userLoggedIn, redirectPath } from "./stores/user";
-  import { role } from "./util/role";
-  import { getSocialAccount } from "./api";
-  import { PublicBadgePage } from "./components/shared"
-  import { BadgeDetails } from "./routes/students";
+  import {userRole, userLoggedIn, redirectPath} from "./stores/user";
+  import {role} from "./util/role";
+  import {getSocialAccount} from "./api";
+  import {PublicBadgePage} from "./components/shared"
+  import {BadgeDetails} from "./routes/students";
   import EnrollmentDetails from "./routes/students/EnrollmentDetails.svelte";
+  import Flash from "./components/forms/Flash.svelte";
 
   const homepage = {
     guest: Login,
@@ -61,34 +62,36 @@
     border-radius: 8px;
     background-color: white;
     box-shadow: 0 3px 0 2px #abb4bd;
+    position: relative;
   }
 </style>
 
 <div class="app">
   {#if !loaded}
-    <Spinner />
+    <Spinner/>
   {:else}
+    <Flash/>
     {#if visitorRole === role.TEACHER}
-      <TeacherHeader />
+      <TeacherHeader/>
     {:else}
-      <Header />
+      <Header/>
     {/if}
 
     <div class="page">
       <Router>
         <!-- Student -->
         <Route path="/backpack">
-          <Student bookmark="backpack" />
+          <Student bookmark="backpack"/>
         </Route>
 
         <Route path="/badge-requests">
-          <Student bookmark="badge-requests" />
+          <Student bookmark="badge-requests"/>
         </Route>
         <Route path="/collections">
-          <Student bookmark="collections" />
+          <Student bookmark="collections"/>
         </Route>
         <Route path="/profile">
-          <Student bookmark="profile" />
+          <Student bookmark="profile"/>
         </Route>
         <Route path="/enrollment/:enrollmentId/" let:params>
           <EnrollmentDetails enrollmentId={params.enrollmentId}/>
@@ -96,28 +99,28 @@
         <Route path="/details/:entityId/" let:params>
           <BadgeDetails entityId={params.entityId}/>
         </Route>
-        <Route path="/validate" component={Validate} />
+        <Route path="/validate" component={Validate}/>
 
         <!-- Teacher -->
-        <Route path="/manage/*mainEntity" component={Manage} />
+        <Route path="/manage/*mainEntity" component={Manage}/>
         <Route
           path="/badgeclass/:entityId/*subEntity"
-          component={BadgeclassAwarder} />
+          component={BadgeclassAwarder}/>
 
         <!-- Shared -->
         <Route path="/public/:entityId/" let:params>
           <PublicBadgePage visitorRole={visitorRole} entityId={params.entityId}/>
         </Route>
-        <Route path="/" component={homepage[visitorRole]} />
-        <Route path="/login" component={Login} />
-        <Route path="/auth/login/*" component={ProcessToken} />
-        <Route component={NotFound} />
+        <Route path="/" component={homepage[visitorRole]}/>
+        <Route path="/login" component={Login}/>
+        <Route path="/auth/login/*" component={ProcessToken}/>
+        <Route component={NotFound}/>
 
         <!-- Expose current path through store -->
-        <SubscribeToPath />
+        <SubscribeToPath/>
       </Router>
     </div>
 
-    <Footer />
+    <Footer/>
   {/if}
 </div>

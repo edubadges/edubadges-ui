@@ -1,9 +1,9 @@
 <script>
   import I18n from "i18n-js";
-  import { link } from "svelte-routing";
-  import { Search, Button, CheckBox } from "../../components";
-  import { TableHeaders } from "../teachers";
-  import { sortType } from "../../util/sortData";
+  import {link} from "svelte-routing";
+  import {Search, Button, CheckBox} from "../../components";
+  import {TableHeaders} from "../teachers";
+  import {sortType} from "../../util/sortData";
 
   export let mayCreate;
   export let entity = "";
@@ -19,7 +19,6 @@
   export let withCheckAll;
   export let checkAllValue;
   export let onCheckAll;
-  export let showCheckActions;
 
   const setSort = tableHeader => {
     if (sort.attribute === tableHeader.attribute) {
@@ -52,19 +51,6 @@
       cursor: pointer;
     }
 
-    th.checkbox {
-      position: relative;
-
-      span {
-        position: absolute;
-        bottom: 0;
-        z-index: 1;
-
-        > :global(*) {
-          margin-left: var(--hor-padding-s);
-        }
-      }
-    }
   }
 
   :global(table.entity-table th, table.entity-table td) {
@@ -74,42 +60,33 @@
   :global(table.entity-table tbody tr:not(:last-of-type) td) {
     border-bottom: var(--card-border);
   }
+
 </style>
 
 <div class="container main-content-margin">
   <div class="header">
     <h3>{title}</h3>
-
-
-    <Search bind:value={search} />
+    <Search bind:value={search}/>
     {#if mayCreate}
       <Button
         href={`/manage/${entity}/new`}
-        text={I18n.t(['manage', 'new', entity])} />
+        text={I18n.t(['manage', 'new', entity])}/>
     {/if}
   </div>
-
+  <slot name="check-buttons"/>
   <table class="entity-table">
     <thead>
-      <tr>
+    <tr>
+      <th>
         {#if withCheckAll}
-          <th class="checkbox">
-            <CheckBox bind:value={checkAllValue} onChange={onCheckAll} />
-
-            {#if showCheckActions}
-              <span>
-                <slot name="check-buttons" />
-              </span>
-            {/if}
-          </th>
+          <CheckBox bind:value={checkAllValue} onChange={onCheckAll}/>
         {/if}
-
-        <TableHeaders {tableHeaders} {setSort} {sort} hide={showCheckActions} />
-
-      </tr>
+      </th>
+      <TableHeaders {tableHeaders} {setSort} {sort}/>
+    </tr>
     </thead>
     <tbody>
-      <slot />
+    <slot/>
     </tbody>
   </table>
 </div>

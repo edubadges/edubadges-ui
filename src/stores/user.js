@@ -1,29 +1,5 @@
 import { writable } from "svelte/store";
 
-export const user = writable({
-  id: "",
-  email: "",
-  givenName: "",
-  familyName: "",
-  schacHomeOrganization: "",
-  uid: "",
-  usePassword: false,
-  rememberMe: true,
-});
-
-const createFlash = () => {
-  const { subscribe, set } = writable("");
-
-  return {
-    subscribe,
-    setValue: (value) =>
-      setTimeout(() => {
-        set(value);
-        setTimeout(() => set(""), 3000);
-      }, 125),
-  };
-};
-export const flash = createFlash();
 export const redirectPath = writable(localStorage.getItem("redirectPath") || "");
 export const userRole = writable(localStorage.getItem("userRole") || "");
 export const userLoggedIn = writable(
