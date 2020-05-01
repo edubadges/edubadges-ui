@@ -13,7 +13,6 @@
   import {search, searchMultiple} from "../../../util/searchData";
   import Modal from "../../forms/Modal.svelte";
   import {flash} from "../../../stores/flash";
-  import Flash from "../../forms/Flash.svelte";
 
 
   export let assertions = [];

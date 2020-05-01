@@ -16,6 +16,28 @@ export const headerStaff = `
   	}
 `;
 
+export const studentBadgeInstances = `{
+    badgeInstances {
+      entityId,
+      image,
+      issuedOn,
+      createdAt,
+      acceptance,
+      badgeclass {
+        name,
+        entityId,
+        image,
+        issuer {
+          name,
+          image,
+          faculty {
+            name
+          }
+        }
+      }
+    }
+  }`;
+
 export const validateAssertion = `
   
 `;

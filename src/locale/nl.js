@@ -198,6 +198,7 @@ I18n.translations.nl = {
     702: "Ongeldige share provider",
     801: "Kan grading table URL niet aanpassen, er zijn al edubadges uitgegeven",
     802: "Kan BRIN code niet aanpassen, er zijn al edubadges uitgegeven",
+    unexpected: "Unexpected exception occurred."
   },
   models: {
     institution: {

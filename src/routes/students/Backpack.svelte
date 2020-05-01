@@ -12,32 +12,13 @@
   import {Button} from "../../components";
   import {Badge, Welcome} from "../../components/students";
   import {queryData} from "../../api/graphql";
+  import {studentBadgeInstances} from "../../api/queries";
 
   let loaded = false;
   let badges = [];
 
-  const query = `{
-    badgeInstances {
-      entityId,
-      image,
-      issuedOn,
-      acceptance,
-      badgeclass {
-        name,
-        image,
-        issuer {
-          name,
-          image,
-          faculty {
-            name
-          }
-        }
-      }
-    }
-  }`;
-
   onMount(() => {
-    queryData(query).then(res => {
+    queryData(studentBadgeInstances).then(res => {
       badges = res.badgeInstances.filter(bi => bi.acceptance !== "Rejected");
       loaded = true;
     });

@@ -18,7 +18,7 @@
   import Badge from "../../components/shared/Badge.svelte";
 
   export let enrollmentId;
-  let badge;
+  let enrollment;
   let badgeClass;
 
   const query = `{
@@ -50,8 +50,8 @@
 
   onMount(() => {
     queryData(query).then(res => {
-      badge = res.enrollment;
-      badgeClass = badge.badgeClass;
+      enrollment = res.enrollment;
+      badgeClass = enrollment.badgeClass;
     });
   });
 
@@ -72,6 +72,7 @@
 </style>
 <div class="badge-detail">
   {#if !isEmpty(badgeClass)}
-    <Overview badgeclass={badgeClass} requested={badge.dateCreated} enrollmentId={badge.entityId} enrollment={true}/>
+    <Overview badgeclass={badgeClass} requested={enrollment.dateCreated} enrollmentId={enrollment.entityId}
+              studentEnrolled={true}/>
   {/if}
 </div>

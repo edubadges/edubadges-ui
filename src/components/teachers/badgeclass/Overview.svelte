@@ -20,7 +20,7 @@
   import Modal from "../../forms/Modal.svelte";
 
   export let badgeclass;
-  export let enrollment;
+  export let studentEnrolled;
   export let enrollmentId;
   export let requested;
 
@@ -90,7 +90,7 @@
 </style>
 
 <div class="badge-class-detail">
-  {#if enrollment}
+  {#if studentEnrolled}
     <Breadcrumb studentBadge={true} badgeclassName={badgeclass.name}/>
     <div class="badge">
       <EnrollmentBadge badgeClass={badgeclass} />

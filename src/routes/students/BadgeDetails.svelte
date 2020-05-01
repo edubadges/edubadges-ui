@@ -1,10 +1,10 @@
 <script>
   import I18n from "i18n-js";
-  import { onMount } from "svelte";
-  import { queryData } from "../../api/graphql";
-  import { isEmpty } from "lodash";
+  import {onMount} from "svelte";
+  import {queryData} from "../../api/graphql";
+  import {isEmpty} from "lodash";
 
-  import { headerStaff, headerEntity } from "../../api/queries";
+  import {headerStaff, headerEntity} from "../../api/queries";
   import {
     ects,
     educationProgramIdentifier,
@@ -13,9 +13,10 @@
     language,
     learningOutcome
   } from "../../components/extensions/badges/extensions";
-  import { fallBackValue } from "../../util/forms";
+  import {fallBackValue} from "../../util/forms";
   import Overview from "../../components/teachers/badgeclass/Overview.svelte";
   import Badge from "../../components/shared/Badge.svelte";
+  import {Spinner} from "../../components";
 
   export let entityId;
   let badge = {};
@@ -24,10 +25,13 @@
   const query = `{
     badgeInstance(id: "${entityId}") {
       image,
+      entityId,
       issuedOn,
+      createdAt,
       acceptance,
       badgeclass {
         name,
+        image,
         issuer {
           name,
           image,
@@ -67,6 +71,8 @@
 </style>
 <div class="badge-detail">
   {#if !isEmpty(badgeClass)}
-    <Overview badgeclass={badgeClass} requested={badge.dateCreated} enrollmentId={badge.entityId}/>
+    <Overview badgeclass={badgeClass} requested={badge.createdAt} enrollmentId={badge.entityId}/>
+  {:else}
+    <Spinner/>
   {/if}
 </div>

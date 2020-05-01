@@ -116,11 +116,6 @@ export function withdrawRequestBadge(enrollmentID) {
   );
 }
 
-export function getUnearnedBadges() {
-  const path = `${serverUrl}/lti_edu/student/enrollments`;
-  return validFetch(path);
-}
-
 // Teacher badges
 export function awardBadges(badgeId, enrollmentIds) {
   const path = `${serverUrl}/issuer/badgeclasses/award-enrollments/${badgeId}`;
@@ -195,6 +190,6 @@ export function createBadgeclass(badgeclass) {
 
 // Public
 export function getPublicBadgeClass(badgeId) {
-  const path = `${serverUrl}/public/badges/${badgeId}`;
+  const path = `${serverUrl}/public/badges/${badgeId}?expand=issuer`;
   return validFetch(path, {}, "GET", false);
 }

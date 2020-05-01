@@ -126,7 +126,10 @@ I18n.translations.en = {
   student: {
     enroll: "Enroll",
     enrolled: "Enrolled",
-    withdraw: "Withdraw enrollment"
+    withdraw: "Withdraw enrollment",
+    flash: {
+      enrolled: "Successfully enrolled for badge {{name}}."
+    }
   },
   manage: {
     tabs: {
@@ -198,6 +201,7 @@ I18n.translations.en = {
     702: "Invalid share provider",
     801: "Cannot change grading table URL, edubadges have already been issued",
     802: "Cannot change BRIN code, edubadges have already been issued",
+    unexpected: "Unexpected exception occurred."
   },
   models: {
     institution: {

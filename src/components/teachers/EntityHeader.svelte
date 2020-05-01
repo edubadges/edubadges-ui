@@ -4,6 +4,7 @@
   import { Button } from "../../components";
   import { requestBadge } from "../../api";
   import { role } from "../../util/role";
+  import {flash} from "../../stores/flash";
 
   export let entity;
   export let object = {};
@@ -14,13 +15,19 @@
   export let enrolled;
   export let entityId;
 
-
   const enrollStudent = () => {
-    requestBadge(entityId).then(res => {
+    requestBadge(entityId)
+      .then(() => {
         enrolled = true;
-    }, err => {
-      console.error('error while enrolling', err);
-    });
+        flash.setValue(I18n.t('student.flash.enrolled', {name: object.name}));
+      })
+      .catch(err => {
+        err.then(details => {
+          flash.error(details);
+        })
+      });
+
+
   };
 
 </script>
@@ -74,9 +81,9 @@
 
     {#if visitorRole === role.STUDENT}
       {#if !enrolled}
-        <Button secondary action={enrollStudent} text={I18n.t(['student', 'enroll'])} class="btn" />
+        <Button secondary action={enrollStudent} text={I18n.t('student.enroll')} class="btn" />
       {:else}
-        <Button label="alreadyEnrolled" disabled={true} text={I18n.t(['student', 'enrolled'])}/>
+        <Button label="alreadyEnrolled" disabled={true} text={I18n.t('student.enrolled')}/>
       {/if}
     {/if}
     {#if mayUpdate}
