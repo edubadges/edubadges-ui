@@ -126,7 +126,11 @@ I18n.translations.nl = {
   student: {
     enroll: "Aanvragen",
     enrolled: "Aangevraagd",
-    withdraw: "Aanvraag intrekken"
+    withdraw: "Aanvraag intrekken",
+    flash: {
+      enrolled: "Successfully enrolled for badge {{name}}."
+    }
+
   },
   manage: {
     tabs: {
