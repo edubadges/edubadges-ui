@@ -15,6 +15,7 @@
   let enrolled;
 
   onMount(() => {
+    debugger;
     if (visitorRole === role.STUDENT) {
       getUnearnedBadges().then(enrollments => {
         enrolled = Boolean(enrollments.reduce((acc, el) => {

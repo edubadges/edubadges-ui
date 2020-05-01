@@ -18,8 +18,8 @@
   import Badge from "../../components/shared/Badge.svelte";
 
   export let entityId;
-  let badge;
-  let badgeClass;
+  let badge = {};
+  let badgeClass = {};
 
   const query = `{
     badgeInstance(id: "${entityId}") {
@@ -45,6 +45,7 @@
 
   onMount(() => {
     queryData(query).then(res => {
+      badge = res.badgeInstance;
       badgeClass = res.badgeInstance.badgeclass;
     });
   });

@@ -53,6 +53,7 @@
 
   const refreshEnrollments = () => {
     selection = [];
+    revocationReason = "";
     queryData(`{ ${assertionsQuery(badgeclass.entityId)} }`).then(res => {
       assertions = res.badgeClass.badgeAssertions;
     });

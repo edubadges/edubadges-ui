@@ -16,10 +16,14 @@ export const headerStaff = `
   	}
 `;
 
+export const validateAssertion = `
+  
+`;
+
 export function enrollmentsQuery(entityId) {
   return `
     badgeClass(id: "${entityId}") {
-      pendingEnrollments {
+      uncachedPendingEnrollments {
         dateCreated,
         dateAwarded,
         denied,

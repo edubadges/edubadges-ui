@@ -30,7 +30,7 @@
   const refreshEnrollments = () => {
     selection = [];
     queryData(`{ ${enrollmentsQuery(entityId)} }`).then(res => {
-      enrollments = res.badgeClass.pendingEnrollments;
+      enrollments = res.badgeClass.uncachedPendingEnrollments;
     });
   };
 

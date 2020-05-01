@@ -78,7 +78,7 @@ I18n.translations.en = {
     deleteEmailConfirmation: "Are you sure you want to delete this email?",
     delete: "Delete",
     account: "Account",
-    accountInfo: "If you remove you account all your edubadges will become invalid.",
+    accountInfo: "If you remove your account all your edubadges will become invalid.",
     deleteAccount: "Delete my account",
     deleteAccountConfirmation:
       "Are you sure you want to delete your edubadges account?",
