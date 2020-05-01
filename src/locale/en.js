@@ -297,10 +297,10 @@ I18n.translations.en = {
       }
     },
     enrollment: {
-      deleteEnrollment: "Delete enrollment",
       title: "Enrolled persons",
       enrolled: "Enrolled",
       enrolledOn: "Enrolled on",
+      deleteEnrollment: "Delete enrollment",
       deleteEnrollmentConfirmation: "Are you sure you want to withdraw this enrollment?",
       award: "Award",
       denied: "Denied",

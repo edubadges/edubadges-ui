@@ -119,9 +119,6 @@ I18n.translations.nl = {
     faculties: {
       title: "Groepen",
     },
-    badgeRequests: {
-      award: "Ken edubadge toe",
-    },
     badgeRevoked: {
       revoke: "Verwijder edubadge",
     },
@@ -279,6 +276,8 @@ I18n.translations.nl = {
       emailAddresses: "Plak e-mailadressen",
       details: "Details",
       recipient: "Ontvanger",
+      requested: "Requested",
+      awarded: "Awarded badges",
       awardType: {
         name: "Award type",
         enrolled: "Enrolled",
@@ -288,11 +287,39 @@ I18n.translations.nl = {
       status: "Status",
       revoked: "Ingetrokken",
       validUntil: "Geldig tot",
+      confirmation: {
+        revocationReason: "Reason for revocation (required)",
+        revoke: "Revoke assertion",
+        revokeConfirmation: "Are you sure you want to revoke this assertion?"
+      },
+      flash: {
+        revoked: "The assertion(s) have been revoked."
+      }
     },
     enrollment: {
+      title: "Enrolled persons",
+      enrolled: "Enrolled",
+      enrolledOn: "Enrolled on",
       deleteEnrollment: "Verwijder assertion",
       deleteEnrollmentConfirmation: "Weet je zeker dat je deze enrollment wilt verwijderen?",
-
+      award: "Award",
+      denied: "Denied",
+      deny: "Deny request",
+      enrollmentType: {
+        name: "Enrollment type",
+        enrolled: "Self - enrolled",
+        invited: "Invited"
+      },
+      confirmation: {
+        award: "Award enrollment",
+        awardConfirmation: "Are you sure you want to award this enrollment?",
+        deny: "Award enrollment",
+        denyConfirmation: "Are you sure you want to deny this enrollment?"
+      },
+      flash: {
+        denied: "The enrollment(s) have been denied.",
+        awarded: "The enrollment(s) have been awarded."
+      }
     },
   },
   file: {
