@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="137px" height="137px" viewBox="0 0 137 137" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 64 (93537) - https://sketch.com -->
+    <title>Group 7</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="edubadges-home" transform="translate(-469.000000, -360.000000)">
+            <g id="Group-7" transform="translate(469.000000, 360.000000)">
+                <g id="Group-6">
+                    <g id="icon1-copy" fill="#CEA0E5">
+                        <circle id="Oval" cx="68.5" cy="68.5" r="68.5"></circle>
+                    </g>
+                    <g id="Group" transform="translate(40.410959, 38.534247)">
+                        <g id="school-bag">
+                            <rect id="Rectangle-Copy-2" fill="#772583" x="0.644458281" y="37.6668742" width="55" height="23" rx="4"></rect>
+                            <path d="M17.5778331,8.57783313 L38.5778331,8.57783313 C43.5483959,8.57783313 47.5778331,12.6072704 47.5778331,17.5778331 L47.5778331,61.4669988 L47.5778331,61.4669988 L8.57783313,61.4669988 L8.57783313,17.5778331 C8.57783313,12.6072704 12.6072704,8.57783313 17.5778331,8.57783313 Z" id="Rectangle" fill="#EBCEFF"></path>
+                            <rect id="Rectangle-Copy" fill="#772583" x="13.8667497" y="34.0224159" width="28" height="21" rx="1"></rect>
+                            <path d="M18.8334371,8.25560399 L37.3446451,8.25560399 C43.186621,8.25560399 47.9224782,12.9914612 47.9224782,18.8334371 L47.9224782,61.1447696 L8.25560399,61.1447696 L8.25560399,18.8334371 C8.25560399,12.9914612 12.9914612,8.25560399 18.8334371,8.25560399 Z" id="Shape" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M20.1556663,8.25560399 C20.1556663,3.87412204 23.7075592,0.322229141 28.0890411,0.322229141 C32.470523,0.322229141 36.0224159,3.87412204 36.0224159,8.25560399" id="Shape" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M8.25560399,61.1447696 L5.6111457,61.1447696 C2.69015774,61.1447696 0.322229141,58.776841 0.322229141,55.8558531 L0.322229141,42.6335616 C0.322229141,39.7125737 2.69015774,37.3446451 5.6111457,37.3446451 L8.25560399,37.3446451" id="Shape" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M47.9224782,37.3446451 L50.5669365,37.3446451 C53.4879244,37.3446451 55.8558531,39.7125737 55.8558531,42.6335616 L55.8558531,55.8558531 C55.8558531,58.776841 53.4879244,61.1447696 50.5669365,61.1447696 L47.9224782,61.1447696" id="Shape" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <rect id="Rectangle-path" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" x="13.5445205" y="34.7001868" width="29.0890411" height="21.1556663" rx="2"></rect>
+                            <line x1="13.5445205" y1="42.6335616" x2="42.6335616" y2="42.6335616" id="Shape" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></line>
+                            <line x1="34.7001868" y1="42.6335616" x2="34.7001868" y2="46.6002491" id="Shape" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></line>
+                            <line x1="0.322229141" y1="45.2780199" x2="8.25560399" y2="45.2780199" id="Shape" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></line>
+                            <line x1="47.9224782" y1="45.2780199" x2="55.8558531" y2="45.2780199" id="Shape" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></line>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
