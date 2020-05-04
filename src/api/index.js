@@ -193,3 +193,8 @@ export function getPublicBadgeClass(badgeId) {
   const path = `${serverUrl}/public/badges/${badgeId}?expand=issuer`;
   return validFetch(path, {}, "GET", false);
 }
+
+export function getPublicBadge(entityId) {
+  const path = `${serverUrl}/public/assertions/${entityId}?expand=badge&expand=badge.issuer`;
+  return validFetch(path, {}, "GET", false);
+}

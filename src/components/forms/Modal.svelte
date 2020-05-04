@@ -26,7 +26,7 @@
       <h3>{title}</h3>
     </div>
     <div class="modal-body">
-      <p>{question}</p>
+      <p>{@html question}</p>
     </div>
     <div class="slots">
       <slot/>

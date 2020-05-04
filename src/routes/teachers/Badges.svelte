@@ -5,7 +5,8 @@
   import {queryData} from "../../api/graphql";
   import {headerEntity, headerStaff} from "../../api/queries";
   import {faculties, tree} from "../../stores/filter";
-  import Badge from "../../components/shared/Badge.svelte";
+
+  import BadgeCard from "../../components/shared/BadgeCard.svelte";
 
   const query = `{
     faculties {
@@ -80,7 +81,7 @@
 
     <div class="badges">
       {#each $tree.badgeClasses as badge}
-        <Badge badgeClass={badge}/>
+        <BadgeCard badgeClass={badge}/>
       {/each}
     </div>
   </div>

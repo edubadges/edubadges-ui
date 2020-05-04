@@ -128,7 +128,18 @@ I18n.translations.en = {
     enrolled: "Enrolled",
     withdraw: "Withdraw enrollment",
     flash: {
-      enrolled: "Successfully enrolled for badge {{name}}."
+      enrolled: "Successfully enrolled for badge {{name}}.",
+      published: "This badge has been made public. You now can download and share this badge"
+    },
+    enrollments: "Requested badges",
+    badges: "Your badges",
+    badgeRevoked: "This badge has been revoked. You can see the details, but this badge can no longer be shared or downloaded",
+    notPublic: "This badge is not made public. If you want to share and download this badge you must mark the badge as public",
+    publish: "Make public",
+    confirmation: {
+      publish: "Make this badge public accessible",
+      publishConfirmation: "Are you sure you want to make this badge public?"
+
     }
   },
   manage: {
@@ -287,14 +298,18 @@ I18n.translations.en = {
         enrolled: "Enrolled",
         directAward: "Direct award"
       },
-      issuedOn: "Issued on",
+      issuedOn: "Issued",
+      expires: "Expires",
+      expiresNever: "Never",
+      download: "Download",
+      share: "Share",
       status: "Status",
       revoked: "Revoked",
       validUntil: "Valid until",
       confirmation: {
         revocationReason: "Reason for revocation (required)",
         revoke: "Revoke assertion",
-        revokeConfirmation: "Are you sure you want to revoke this assertion?"
+        revokeConfirmation: "Are you sure you want to revoke this assertion? This can <strong>not</strong> be undone and the assertion will be invalid after this."
       },
       flash: {
         revoked: "The assertion(s) have been revoked."
@@ -333,4 +348,7 @@ I18n.translations.en = {
     disclaimer:
       "Image must be png, at least 90x90 pixels and smaller than 256KB.",
   },
+  copyToClipboard: {
+    copied: "Copied to clipboard"
+  }
 };

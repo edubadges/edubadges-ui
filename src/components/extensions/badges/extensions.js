@@ -1,8 +1,8 @@
-export const language = { name: "LanguageExtension", value: "Language" };
+export const language = {name: "LanguageExtension", value: "Language"};
 
-export const ects = { name: "ECTSExtension", value: "ECTS" };
+export const ects = {name: "ECTSExtension", value: "ECTS"};
 
-export const eqf = { name: "EQFExtension", value: "EQF" };
+export const eqf = {name: "EQFExtension", value: "EQF"};
 
 export const learningOutcome = {
   name: "LearningOutcomeExtension",
@@ -15,12 +15,13 @@ export const educationProgramIdentifier = {
 };
 
 export const extensionValue = (extensions, extension) => {
-  if (!extensions) return;
+  if (!extensions) {
+    return;
+  }
   const ext = extensions.find(ext => ext.name === `extensions:${extension.name}`);
   if (ext) {
     const json = JSON.parse(ext.originalJson.replace(/'/g, "\""));
-    const val = json[extension.value];
-    return val;
+    return json[extension.value];
   }
   return null;
 };
@@ -73,3 +74,26 @@ export const extensionToJson = (nameValuePairs) => {
   }, {});
   return res;
 };
+
+export const publicBadgeInformation = (badgeClass, res) => {
+  //The data from the public endpoint is different then from the graphQL query endpoint
+  badgeClass.criteriaUrl = res['criteria']['id'];
+  badgeClass.criteriaText = res['criteria']['narrative'];
+  if (res['extensions:LanguageExtension']) {
+    badgeClass.language = res['extensions:LanguageExtension']['Language'];
+  }
+  if (res['extensions:ECTSExtension']) {
+    badgeClass.ects = res['extensions:ECTSExtension']['ECTS'];
+  }
+  if (res['extensions:EQFExtension']) {
+    badgeClass.eqf = res['extensions:EQFExtension']['EQF'];
+  }
+  if (res['extensions:LearningOutcomeExtension']) {
+    badgeClass.learningOutcome = res['extensions:LearningOutcomeExtension']['LearningOutcome'];
+  }
+  if (res['extensions:EducationProgramIdentifierExtension']) {
+    badgeClass.educationProgramIdentifier = res['extensions:EducationProgramIdentifierExtension']['EducationProgramIdentifier'];
+  }
+  //When using graphQL the extensions field is an array - for compatibility we set an empty array as we already populated the badgeClass
+  badgeClass.extensions = [];
+}

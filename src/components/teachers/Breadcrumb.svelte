@@ -4,6 +4,7 @@
   import { link, navigate } from "svelte-routing";
   import { queryData } from "../../api/graphql";
   import { currentPath } from "../../stores/currentPath";
+  import chevronRightSmall from "../../icons/chevron-right-small.svg";
 
   export let faculty;
   export let issuer;
@@ -12,6 +13,7 @@
   export let edit = false;
   export let create = false;
   export let studentBadge;
+  export let studentPath;
 
   const query = `{
     currentInstitution {
@@ -42,9 +44,11 @@
 </script>
 
 <style>
-  div {
+  div.bread-crumb {
     padding: var(--ver-padding-m) var(--hor-padding-m);
     min-height: 47px;
+    display: flex;
+    align-items: center;
   }
 
   a {
@@ -64,9 +68,9 @@
   }
 </style>
 
-<div>
+<div class="bread-crumb">
   {#if studentBadge}
-    <a use:link href={`/badge-requests`}>{"requested badges"}</a>
+    <a use:link href={`/badge-requests`}>{studentPath}</a>
   {/if}
 
 
@@ -75,22 +79,22 @@
   {/if}
 
   {#if faculty}
-    <span>></span>
+    <span>{@html chevronRightSmall}</span>
     <a use:link href={`/manage/faculty/${faculty.entityId}`}>{faculty.name}</a>
   {/if}
 
   {#if issuer}
-    <span>></span>
+    <span>{@html chevronRightSmall}</span>
     <a use:link href={`/manage/issuer/${issuer.entityId}`}>{issuer.name}</a>
   {/if}
 
   {#if badgeclassName}
-    <span>></span>
+    <span>{@html chevronRightSmall}</span>
     <a use:link href={$currentPath}>{badgeclassName}</a>
   {/if}
 
   {#if edit || create}
-    <span>></span>
+    <span>{@html chevronRightSmall}</span>
     <a use:link href={$currentPath}>{editCreatePart(edit, create)}</a>
   {/if}
 </div>

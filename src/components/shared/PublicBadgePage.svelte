@@ -1,86 +1,88 @@
 <script>
+  import I18n from "i18n-js";
   import {onMount} from "svelte";
+  import {link} from "svelte-routing";
   import {queryData} from "../../api/graphql";
-  import {role} from "../../util/role";
-  import {getPublicBadgeClass} from "../../api";
   import {isEmpty} from "lodash";
-  import {EntityHeader} from "../teachers";
-  import {Overview} from "../teachers/badgeclass/index";
-  import {Spinner} from "../index";
+  import chevronRightSmall from "../../icons/chevron-right-small.svg";
+  import trash from "../../icons/trash.svg";
+  import Button from "../../components/Button.svelte";
+  import Spinner from "../../components/Spinner.svelte";
+  import BadgeCard from "../../components/shared/BadgeCard.svelte";
+  import BadgeClassDetails from "../../components/shared/BadgeClassDetails.svelte";
+  import moment from "moment";
+  import Modal from "../../components/forms/Modal.svelte";
+  import DownloadButton from "../../components/DownloadButton.svelte";
+  import {getPublicBadge, revokeAssertion} from "../../api";
+  import {flash} from "../../stores/flash";
+  import CopyToClipboardButton from "../../components/CopyToClipboardButton.svelte";
+  import {publicBadgeInformation} from "../extensions/badges/extensions";
 
   export let entityId;
-  export let visitorRole;
 
-  let badgeClass = {};
-  let enrollmentId;
-  let studentEnrolled;
-  let requestedDate;
+  let badge = {};
 
-  const query = `{
-    enrollment(badgeClassId: "${entityId}") {
-      entityId,
-      dateCreated,
-      dateConsentGiven,
-      dateAwarded,
-      denied,
-      badgeInstance {
-        revoked
-      }
-    }
-  }`;
 
   onMount(() => {
-    if (visitorRole === role.STUDENT) {
-      queryData(query).then(res => {
-        if (res.enrollment && (!res.badgeInstance || res.badgeInstance.revoked)) {
-          studentEnrolled = true;
-          enrollmentId = res.enrollment.entityId;
-          requestedDate = res.enrollment.dateCreated;
-        }
-      });
-    } else if (visitorRole === role.GUEST) {
-      //TODO - show "Login to enroll" with redirect to student login with redirect to this page
-    }
-
-    getPublicBadgeClass(entityId).then(res => {
-      debugger;
-      badgeClass = res;
-      badgeClass.criteriaUrl = res['criteria']['id'];
-      badgeClass.criteriaText = res['criteria']['narrative'];
-      if (res['extensions:LanguageExtension']) {
-        badgeClass.language = res['extensions:LanguageExtension']['Language'];
-      }
-      if (res['extensions:ECTSExtension']) {
-        badgeClass.ects = res['extensions:ECTSExtension']['ECTS'];
-      }
-      if (res['extensions:EQFExtension']) {
-        badgeClass.eqf = res['extensions:EQFExtension']['EQF'];
-      }
-      if (res['extensions:LearningOutcomeExtension']) {
-        badgeClass.learningOutcome = res['extensions:LearningOutcomeExtension']['LearningOutcome'];
-      }
-      if (res['extensions:EducationProgramIdentifierExtension']) {
-        badgeClass.educationProgramIdentifier = res['extensions:EducationProgramIdentifierExtension']['EducationProgramIdentifier'];
-      }
-      //When using graphQL the extensions field is an array - for compatibility we set an empty array as we already populated the badgeClass
-      badgeClass.extensions = [];
+    getPublicBadge(entityId).then(res => {
+      badge = res.badge;
+      publicBadgeInformation(badge, res.badge);
     })
   });
+
 </script>
 
-<div class="page-container">
-  <EntityHeader
-    entity="badgeclass"
-    object={badgeClass}
-    visitorRole={visitorRole}
-    enrolled={studentEnrolled}
-    entityId={entityId}
-  >
-  </EntityHeader>
+<style lang="scss">
 
-  {#if !isEmpty(badgeClass)}
-    <Overview badgeclass={badgeClass} studentEnrolled={studentEnrolled} enrollmentId={enrollmentId}
-              requested={requestedDate}/>
+
+  div.badge-public-detail {
+    padding: 10px 40px;
+  }
+
+  div.badge-card-container {
+    display: flex;
+    max-width: 320px;
+    margin: 0 auto 40px auto;
+  }
+
+  h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+
+  div.dates {
+    display: flex;
+    width: 100%;
+    align-content: space-between;
+
+    div {
+      flex-grow: 1;
+    }
+
+    margin-bottom: 40px;
+  }
+
+  @media (max-width: 1120px) {
+    .badge-public-detail {
+      padding: 40px 20px !important;
+    }
+  }
+
+
+</style>
+<div class="badge-public-detail">
+  {#if !isEmpty(badge)}
+    <div class="badge-card-container">
+      <BadgeCard badgeClass={badge} standAlone={true}/>
+    </div>
+    <div class="dates">
+      <div class="issued-on">
+        <h3>{I18n.t("models.badge.issuedOn")}</h3>
+        <span>{moment(badge.issuedOn).format('MMM D, YYYY')}</span>
+      </div>
+    </div>
+    <BadgeClassDetails badgeclass={badge}/>
   {:else}
     <Spinner/>
   {/if}

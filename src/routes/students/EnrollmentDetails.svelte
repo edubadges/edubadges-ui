@@ -1,21 +1,9 @@
 <script>
-  import I18n from "i18n-js";
+
   import { onMount } from "svelte";
   import { queryData } from "../../api/graphql";
   import { isEmpty } from "lodash";
-
-  import { headerStaff, headerEntity } from "../../api/queries";
-  import {
-    ects,
-    educationProgramIdentifier,
-    eqf,
-    extensionValue,
-    language,
-    learningOutcome
-  } from "../../components/extensions/badges/extensions";
-  import { fallBackValue } from "../../util/forms";
   import Overview from "../../components/teachers/badgeclass/Overview.svelte";
-  import Badge from "../../components/shared/Badge.svelte";
 
   export let enrollmentId;
   let enrollment;

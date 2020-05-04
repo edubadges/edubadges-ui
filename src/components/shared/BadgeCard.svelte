@@ -6,17 +6,25 @@
 
   export let badge;
   export let badgeClass;
+  export let standAlone = false;
 
-  const detailLink = () => navigate(badge ? `/details/${badge.entityId}` : `/badgeclass/${badgeClass.entityId}`);
+  const detailLink = () => {
+    if (!standAlone) {
+      navigate(badge ? `/details/${badge.entityId}` : `/badgeclass/${badgeClass.entityId}`);
+    }
+  }
 
 </script>
 
-<style>
+<style lang="scss">
   .badge {
     display: flex;
     flex-direction: column;
     background-color: var(--grey-2);
-    cursor: pointer;
+    &:not(.stand-alone) {
+      cursor: pointer;
+    }
+
   }
 
   .header {
@@ -83,7 +91,7 @@
 </style>
 
 {#if badge || badgeClass}
-  <div class="card badge" on:click|preventDefault|stopPropagation={detailLink}>
+  <div class="card badge" class:stand-alone={standAlone} on:click|preventDefault|stopPropagation={detailLink}>
     <div class="header">
       {#if badge}
         <span>{moment(badge.issuedOn).format('MMM D, YYYY')}</span>

@@ -11,10 +11,11 @@
   import {userRole, userLoggedIn, redirectPath} from "./stores/user";
   import {role} from "./util/role";
   import {getSocialAccount} from "./api";
-  import {PublicBadgePage} from "./components/shared"
-  import {BadgeDetails} from "./routes/students";
+  import PublicBadgeClassPage from "./components/shared/PublicBadgeClassPage.svelte"
   import EnrollmentDetails from "./routes/students/EnrollmentDetails.svelte";
   import Flash from "./components/forms/Flash.svelte";
+  import BadgeDetails from "./routes/students/BadgeDetails.svelte";
+  import PublicBadgePage from "./components/shared/PublicBadgePage.svelte";
 
   const homepage = {
     guest: Login,
@@ -109,7 +110,10 @@
 
         <!-- Shared -->
         <Route path="/public/:entityId/" let:params>
-          <PublicBadgePage visitorRole={visitorRole} entityId={params.entityId}/>
+          <PublicBadgeClassPage visitorRole={visitorRole} entityId={params.entityId}/>
+        </Route>
+        <Route path="/public/badge/:entityId/" let:params>
+          <PublicBadgePage entityId={params.entityId} />
         </Route>
         <Route path="/" component={homepage[visitorRole]}/>
         <Route path="/login" component={Login}/>
