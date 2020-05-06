@@ -77,11 +77,11 @@
   <table class="entity-table">
     <thead>
     <tr>
-      <th>
-        {#if withCheckAll}
+      {#if withCheckAll}
+        <th>
           <CheckBox bind:value={checkAllValue} onChange={onCheckAll}/>
-        {/if}
-      </th>
+        </th>
+      {/if}
       <TableHeaders {tableHeaders} {setSort} {sort}/>
     </tr>
     </thead>
