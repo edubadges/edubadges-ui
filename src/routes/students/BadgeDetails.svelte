@@ -71,7 +71,7 @@
 
   const validationQuery = `{
     badgeInstance(id: "${entityId}") {
-      validation
+      validationUrl
     }
   }`;
 
@@ -84,7 +84,7 @@
       if (badge.public && validation.unloaded) {
         fetchingValidation = true;
         queryData(validationQuery).then(res => {
-          validation = res.badgeInstance.validation.report;
+          validation = res.badgeInstance.validationUrl.report;
           fetchingValidation = false;
         })
       }
@@ -95,7 +95,7 @@
 
   const publicBadgePageUrl = () => {
     const currentUrl = window.location.href;
-    return currentUrl.replace("/details/", "/public/badge/");
+    return currentUrl.replace("/details/", "/public/assertions/");
   }
 
   const revoke = showConfirmation => {
@@ -195,7 +195,7 @@
   }
 
   div.actions {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     display: flex;
     align-items: center;
 

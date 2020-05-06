@@ -12,7 +12,7 @@ const createFlash = () => {
     subscribe,
     setValue: (value, level = msgLevel.INFO) => setTimeout(() => {
       set({val: value, level: level});
-      // setTimeout(() => set({val: "", level}), 1113500);
+      setTimeout(() => set({val: "", level}), 3500);
     }, 125),
     error: details => setTimeout(() => {
       const msg = details && details.fields ? details.fields.error_message : I18n.t("error.unexpected");
