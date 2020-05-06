@@ -71,7 +71,7 @@
 
   const validationQuery = `{
     badgeInstance(id: "${entityId}") {
-      validationUrl
+      validation
     }
   }`;
 
@@ -84,7 +84,7 @@
       if (badge.public && validation.unloaded) {
         fetchingValidation = true;
         queryData(validationQuery).then(res => {
-          validation = res.badgeInstance.validationUrl.report;
+          validation = res.badgeInstance.validation.report;
           fetchingValidation = false;
         })
       }
