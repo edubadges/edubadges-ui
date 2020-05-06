@@ -112,7 +112,7 @@
         <Route path="/public/:entityId/" let:params>
           <PublicBadgeClassPage visitorRole={visitorRole} entityId={params.entityId}/>
         </Route>
-        <Route path="/public/badge/:entityId/" let:params>
+        <Route path="/public/assertions/:entityId/" let:params>
           <PublicBadgePage entityId={params.entityId} />
         </Route>
         <Route path="/" component={homepage[visitorRole]}/>

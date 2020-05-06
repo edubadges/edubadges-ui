@@ -38,7 +38,7 @@
   </div>
 </div>
 
-<style>
+<style lang="scss">
   .modal {
     position: fixed;
     top: 0;
@@ -69,11 +69,17 @@
   .modal-body {
     padding: 18px 32px;
   }
+
   div.slots {
     padding: 18px 32px;
   }
+
   div.options {
     padding: 18px;
     text-align: center;
+
+    :global(a:last-child) {
+      margin-left: 25px;
+    }
   }
 </style>

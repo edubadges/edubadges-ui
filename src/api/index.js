@@ -149,6 +149,15 @@ export function revokeAssertion(issuerEntityId, badgeEntityId, assertionEntityId
   );
 }
 
+export function publicAssertion(assertionEntityId, isPublic) {
+  const path = `${serverUrl}/v1/earner/badges/${assertionEntityId}`;
+  return validFetch(
+    path,
+    {body: JSON.stringify({"public": isPublic})},
+    "PUT"
+  );
+}
+
 // Institution
 export function editInstitution(entityId, institution) {
   const path = `${serverUrl}/institution/edit/${entityId}`;

@@ -128,7 +128,26 @@ I18n.translations.nl = {
     enrolled: "Aangevraagd",
     withdraw: "Aanvraag intrekken",
     flash: {
-      enrolled: "Successfully enrolled for badge {{name}}."
+      enrolled: "Successfully enrolled for badge {{name}}.",
+      published: "This badge has been made public. You now can download and share this badge",
+      private: "This badge has been made private. You can no longer download or share this badge"
+    },
+    enrollments: "Requested badges",
+    badges: "Your badges",
+    badgeRevoked: "This badge has been revoked. You can see the details, but this badge can no longer be shared or downloaded",
+    notPublic: "This badge has not been marked as public. If you want to share and download this badge you must mark the badge as public.",
+    publish: "Make public",
+    private: "Make private",
+    confirmation: {
+      publish: "Make this badge public accessible",
+      private: "Make this badge private",
+      publishConfirmation: "Are you sure you want to make this badge public?",
+      privateConfirmation: "Are you sure you want to make this badge private?"
+    },
+    validation: {
+        loading: "Validating badge...",
+        valid: "Valid badge",
+        invalid: "Invalid badge"
     }
 
   },
@@ -240,8 +259,8 @@ I18n.translations.nl = {
       name: "Naam",
       description: "Beschrijving",
       criteria_text: "Wat is benodigd om deze edubadge te verdienen?",
-      criteria_url_value: "Link naar de criteria:",
       criteria_url: "Criteria URL",
+      criteria_url_value: "Link naar de criteria:",
       directAward: "Direct award",
       expiresAfter: "Verloopt na",
       expiresAfterNever: "Nooit",
@@ -289,6 +308,10 @@ I18n.translations.nl = {
         directAward: "Direct award"
       },
       issuedOn: "Uitgegeven op",
+      expires: "Expires",
+      expiresNever: "Never",
+      download: "Download",
+      share: "Share",
       status: "Status",
       revoked: "Ingetrokken",
       validUntil: "Geldig tot",
@@ -334,4 +357,7 @@ I18n.translations.nl = {
     disclaimer:
       "Afbeelding moet van het type png zijn, tenminste 90x90 pixels en kleiner dan 256KB.",
   },
+  copyToClipboard: {
+    copied: "Copied to clipboard"
+  }
 };

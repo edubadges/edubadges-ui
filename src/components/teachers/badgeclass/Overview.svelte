@@ -13,6 +13,7 @@
   export let studentEnrolled;
   export let enrollmentId;
   export let requested;
+  export let studentPath;
 
   //Modal
   let showModal = false;
@@ -62,7 +63,7 @@
 
 <div class="overview">
   {#if studentEnrolled}
-    <Breadcrumb studentBadge={true} badgeclassName={badgeclass.name}/>
+    <Breadcrumb studentBadge={true} studentPath={studentPath} badgeclassName={badgeclass.name}/>
     <div class="badge">
       <EnrollmentBadge badgeClass={badgeclass} />
     </div>

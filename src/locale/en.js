@@ -129,17 +129,25 @@ I18n.translations.en = {
     withdraw: "Withdraw enrollment",
     flash: {
       enrolled: "Successfully enrolled for badge {{name}}.",
-      published: "This badge has been made public. You now can download and share this badge"
+      published: "This badge has been made public. You now can download and share this badge",
+      private: "This badge has been made private. You can no longer download or share this badge"
     },
     enrollments: "Requested badges",
     badges: "Your badges",
     badgeRevoked: "This badge has been revoked. You can see the details, but this badge can no longer be shared or downloaded",
-    notPublic: "This badge is not made public. If you want to share and download this badge you must mark the badge as public",
+    notPublic: "This badge has not been marked as public. If you want to share and download this badge you must mark the badge as public.",
     publish: "Make public",
+    private: "Make private",
     confirmation: {
       publish: "Make this badge public accessible",
-      publishConfirmation: "Are you sure you want to make this badge public?"
-
+      private: "Make this badge private",
+      publishConfirmation: "Are you sure you want to make this badge public?",
+      privateConfirmation: "Are you sure you want to make this badge private?"
+    },
+    validation: {
+        loading: "Validating badge...",
+        valid: "Valid badge",
+        invalid: "Invalid badge"
     }
   },
   manage: {

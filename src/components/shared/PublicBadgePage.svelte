@@ -17,16 +17,32 @@
   import {flash} from "../../stores/flash";
   import CopyToClipboardButton from "../../components/CopyToClipboardButton.svelte";
   import {publicBadgeInformation} from "../extensions/badges/extensions";
+  import BadgeValidation from "../../routes/students/BadgeValidation.svelte";
 
   export let entityId;
 
   let badge = {};
 
+  let fetchingValidation = false;
+  let validation = {valid: false, messages: [], unloaded: true};
+
+  const validationQuery = `{
+    badgeInstance(id: "${entityId}") {
+      validation
+    }
+  }`;
 
   onMount(() => {
     getPublicBadge(entityId).then(res => {
       badge = res.badge;
       publicBadgeInformation(badge, res.badge);
+      if (validation.unloaded) {
+        fetchingValidation = true;
+        queryData(validationQuery).then(res => {
+          validation = res.badgeInstance.validation.report;
+          fetchingValidation = false;
+        })
+      }
     })
   });
 
@@ -34,9 +50,27 @@
 
 <style lang="scss">
 
+  div.badge-public-detail-container {
+    display: flex;
+    flex-direction: column;
+  }
 
   div.badge-public-detail {
     padding: 10px 40px;
+  }
+
+  div.badge-header {
+    background-color: var(--purple-2);
+    color: var(--purple);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+    margin-bottom: 25px;
+
+    h1 {
+      font-size: 28px;
+    }
   }
 
   div.badge-card-container {
@@ -71,19 +105,26 @@
 
 
 </style>
-<div class="badge-public-detail">
-  {#if !isEmpty(badge)}
-    <div class="badge-card-container">
-      <BadgeCard badgeClass={badge} standAlone={true}/>
-    </div>
-    <div class="dates">
-      <div class="issued-on">
-        <h3>{I18n.t("models.badge.issuedOn")}</h3>
-        <span>{moment(badge.issuedOn).format('MMM D, YYYY')}</span>
+<div class="badge-public-detail-container">
+  <div class="badge-header">
+    <h1>{badge.name}</h1>
+  </div>
+
+  <div class="badge-public-detail">
+    {#if !isEmpty(badge)}
+      <div class="badge-card-container">
+        <BadgeCard badgeClass={badge} standAlone={true}/>
       </div>
-    </div>
-    <BadgeClassDetails badgeclass={badge}/>
-  {:else}
-    <Spinner/>
-  {/if}
+      <BadgeValidation fetchingValidation={fetchingValidation} validation={validation}/>
+      <div class="dates">
+        <div class="issued-on">
+          <h3>{I18n.t("models.badge.issuedOn")}</h3>
+          <span>{moment(badge.issuedOn).format('MMM D, YYYY')}</span>
+        </div>
+      </div>
+      <BadgeClassDetails badgeclass={badge}/>
+    {:else}
+      <Spinner/>
+    {/if}
+  </div>
 </div>
