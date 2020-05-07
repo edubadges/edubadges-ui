@@ -1,3 +1,5 @@
+import { config } from "../../../util/config";
+
 export const language = {name: "LanguageExtension", value: "Language"};
 
 export const ects = {name: "ECTSExtension", value: "ECTS"};
@@ -66,7 +68,7 @@ const extensionNameValueDict = [
 export const extensionToJson = (nameValuePairs) => {
   const res = nameValuePairs.reduce((acc, nameValue) => {
     acc[`extensions:${nameValue.name}`] = {
-      "@context": `https://openbadgespec.org/extensions/${nameValue.name}/context.json`,
+      "@context": `${config.extensionsRootUrl}/extensions/${nameValue.name}/context.json`,
       type: ["Extension", `extensions:${nameValue.name}`],
       [extensionNameValueDict[nameValue.name]]: nameValue.value,
     };
