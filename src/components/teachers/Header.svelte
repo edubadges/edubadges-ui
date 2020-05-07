@@ -8,13 +8,18 @@
   $: tabs = [
     {
       path: "/",
-      active: !$currentPath.includes("/manage"),
+      active: !$currentPath.includes("/manage") && !$currentPath.includes("/users"),
       name: "badgeclasses"
     },
     {
       path: "/manage/institution/issuers",
       active: $currentPath.includes("/manage"),
       name: "manage"
+    },
+    {
+      path: "/users",
+      active: $currentPath.includes("/users"),
+      name: "users"
     }
   ];
 </script>

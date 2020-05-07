@@ -2,7 +2,7 @@
   import { onMount } from "svelte";
   import { Router, Route, navigate } from "svelte-routing";
   import { Student, ProcessToken, NotFound, Login, Validate } from "./routes";
-  import { Badges, Manage } from "./routes/teachers";
+  import { Badges, Manage, Users } from "./routes/teachers";
   import { Header, Footer, SubscribeToPath, Spinner } from "./components";
   import {
     Header as TeacherHeader,
@@ -99,6 +99,7 @@
         <Route path="/validate" component={Validate} />
 
         <!-- Teacher -->
+        <Route path="/users" component={Users} />
         <Route path="/manage/*mainEntity" component={Manage} />
         <Route
           path="/badgeclass/:entityId/*subEntity"

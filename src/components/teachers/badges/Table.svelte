@@ -8,7 +8,7 @@
 
   export let entityId;
   export let collection = [];
-  export let search;
+  // export let search;
 
   let selection = [];
   let checkAllValue = false;

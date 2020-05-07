@@ -1,10 +1,10 @@
 <script>
   import {onMount} from "svelte";
   import {navigate} from "svelte-routing";
-  import {SideBar, BadgesHeader} from "../../components/teachers";
-  import {queryData} from "../../api/graphql";
-  import {headerEntity, headerStaff} from "../../api/queries";
-  import {faculties, tree} from "../../stores/filter";
+  import { SideBarBadges, BadgesHeader } from "../../components/teachers";
+  import { queryData } from "../../api/graphql";
+  import { headerEntity, headerStaff } from "../../api/queries";
+  import {faculties, tree} from "../../stores/filterBadges";
   import Badge from "../../components/shared/Badge.svelte";
 
   const query = `{
@@ -73,7 +73,7 @@
 </style>
 
 <div class="page-container">
-  <SideBar/>
+  <SideBarBadges/>
 
   <div class="content">
     <BadgesHeader/>

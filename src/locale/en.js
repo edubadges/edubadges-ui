@@ -12,6 +12,7 @@ I18n.translations.en = {
     nav: {
       badgeclasses: "Badges",
       manage: "Manage",
+      users: "Users"
     },
   },
   login: {
@@ -99,6 +100,7 @@ I18n.translations.en = {
       filters: {
         faculties: "Issuer groups",
         issuers: "Issuers",
+        roles: "Roles (highest)",
         show_all: "Show all",
         show_less: "Show less",
       },
@@ -107,6 +109,7 @@ I18n.translations.en = {
       back: "back",
     },
     name: "Name",
+    nameEmail: "Name/Email",
     badgeclasses: {
       title: "Badgeclasses",
       created: "Date created",
@@ -125,6 +128,12 @@ I18n.translations.en = {
     badgeRevoked: {
       revoke: "Revoke badge",
     },
+    roles: {
+      title: "Roles (highest)"
+    },
+    users: {
+      title: "Users"
+    }
   },
   student: {
     enroll: "Enroll",
