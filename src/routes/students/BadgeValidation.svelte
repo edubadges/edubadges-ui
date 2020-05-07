@@ -62,6 +62,13 @@
       }
       .messages {
         margin-top: 15px;
+        display: flex;
+        flex-direction: column;
+
+        span.validation-error {
+          display: inline-block;
+          margin-bottom: 10px;
+        }
       }
     }
 
@@ -87,7 +94,7 @@
       {#if !validation.valid}
         <div class="messages">
           {#each validation.messages as msg}
-            <span class="validation-error">{msg.explanation}</span>
+            <span class="validation-error">{`${msg.name} - ${msg.result}`}</span>
           {/each}
         </div>
       {/if}
