@@ -51,7 +51,7 @@
       issuer = res.badgeClass.issuer;
       faculty = issuer.faculty;
 
-      enrollments = res.badgeClass.uncachedPendingEnrollments;
+      enrollments = res.badgeClass.pendingEnrollments;
       assertions = res.badgeClass.badgeAssertions;
     });
   });

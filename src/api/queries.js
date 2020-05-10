@@ -40,14 +40,10 @@ export const studentBadgeInstances = `{
     }
   }`;
 
-export const validateAssertion = `
-  
-`;
-
 export function enrollmentsQuery(entityId) {
   return `
     badgeClass(id: "${entityId}") {
-      uncachedPendingEnrollments {
+      pendingEnrollments {
         dateCreated,
         dateAwarded,
         denied,
