@@ -145,9 +145,9 @@ I18n.translations.nl = {
       privateConfirmation: "Are you sure you want to make this badge private?"
     },
     validation: {
-        loading: "Validating badge...",
-        valid: "Valid badge",
-        invalid: "Invalid badge"
+      loading: "Validating badge...",
+      valid: "Valid badge",
+      invalid: "Invalid badge"
     }
 
   },
@@ -308,6 +308,7 @@ I18n.translations.nl = {
         directAward: "Direct award"
       },
       issuedOn: "Uitgegeven op",
+      issuedBy: "Uitgegeven door",
       expires: "Expires",
       expiresNever: "Never",
       download: "Download",
@@ -315,6 +316,13 @@ I18n.translations.nl = {
       status: "Status",
       revoked: "Ingetrokken",
       validUntil: "Geldig tot",
+      statuses: {
+        public: "Public",
+        rejected: "Rejected",
+        private: "Private",
+        revoked: "Revoked",
+        unknown: ""
+      },
       confirmation: {
         revocationReason: "Reason for revocation (required)",
         revoke: "Revoke assertion",

@@ -22,6 +22,8 @@ export const studentBadgeInstances = `{
       image,
       issuedOn,
       createdAt,
+      public,
+      revoked,
       acceptance,
       badgeclass {
         name,

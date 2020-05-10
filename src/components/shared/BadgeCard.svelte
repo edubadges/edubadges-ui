@@ -14,6 +14,22 @@
     }
   }
 
+  const statusOfBadge = badge => {
+    if (badge.public && !badge.revoked && badge.acceptance === "ACCEPTED") {
+      return "public";
+    }
+    if (badge.acceptance === "REJECTED") {
+      return "rejected";
+    }
+    if (!badge.public) {
+      return "private"
+    }
+    if (badge.revoked) {
+      return "revoked";
+    }
+    return "unknown";
+  }
+
 </script>
 
 <style lang="scss">
@@ -21,6 +37,7 @@
     display: flex;
     flex-direction: column;
     background-color: var(--grey-2);
+
     &:not(.stand-alone) {
       cursor: pointer;
     }
@@ -61,6 +78,7 @@
   .details {
     display: flex;
     flex-direction: row;
+    position: relative;
   }
 
   .details img {
@@ -88,6 +106,33 @@
 
   }
 
+  .details span.status {
+    font-size: 15px;
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    transform: rotate(-45deg);
+    background-color: var(--grey-4);
+    border-radius: 4px;
+    padding: 3px 5px;
+
+    &.public {
+      color: var(--green-dark);
+    }
+
+    &.rejected {
+      color: var(--red-dark);
+    }
+
+    &.private {
+      color: var(--purple);
+    }
+
+    &.revoked {
+      color: var(--red-dark);
+    }
+  }
+
 </style>
 
 {#if badge || badgeClass}
@@ -106,12 +151,16 @@
       <div class="details">
         <img src={badgeClass.issuer.image} alt=""/>
         <div class="issued">
-          <span class="issued-by">Issued by</span>
+          <span class="issued-by">{I18n.t("models.badge.issuedBy")}</span>
           <span class="issuer">{badgeClass.issuer.name}</span>
           {#if badgeClass.issuer.faculty}
             <span class="faculty">({badgeClass.issuer.faculty.name})</span>
           {/if}
         </div>
+        {#if badge}
+          <span
+            class={`status ${statusOfBadge(badge)}`}>{I18n.t(`models.badge.statuses.${statusOfBadge(badge)}`)}</span>
+        {/if}
       </div>
     </div>
   </div>

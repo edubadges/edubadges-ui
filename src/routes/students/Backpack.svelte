@@ -20,7 +20,7 @@
 
   onMount(() => {
     queryData(studentBadgeInstances).then(res => {
-      badges = res.badgeInstances.filter(bi => bi.acceptance !== "Rejected");
+      badges = res.badgeInstances;
       loaded = true;
     });
   });

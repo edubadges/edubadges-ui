@@ -149,6 +149,15 @@ export function revokeAssertion(issuerEntityId, badgeEntityId, assertionEntityId
   );
 }
 
+export function deleteAssertion(assertionEntityId) {
+  const path = `${serverUrl}/v1/earner/badges/${assertionEntityId}`;
+  return validFetch(
+    path,
+    {body: JSON.stringify({})},
+    "DELETE"
+  );
+}
+
 export function publicAssertion(assertionEntityId, isPublic) {
   const path = `${serverUrl}/v1/earner/badges/${assertionEntityId}`;
   return validFetch(

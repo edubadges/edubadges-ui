@@ -13,7 +13,7 @@
   import moment from "moment";
   import Modal from "../../components/forms/Modal.svelte";
   import DownloadButton from "../../components/DownloadButton.svelte";
-  import {revokeAssertion, publicAssertion} from "../../api";
+  import {revokeAssertion, publicAssertion, deleteAssertion} from "../../api";
   import {flash} from "../../stores/flash";
   import CopyToClipboardButton from "../../components/CopyToClipboardButton.svelte";
   import BadgeValidation from "./BadgeValidation.svelte";
@@ -22,7 +22,6 @@
 
   let badge = {};
 
-  let revocationReason = "";
   let fetchingValidation = false;
   let validation = {valid: false, messages: [], unloaded: true};
 
@@ -31,11 +30,9 @@
   let modalTitle;
   let modalQuestion;
   let modalAction;
-  let modalRevocation = false;
 
   const cancel = () => {
     showModal = false;
-    revocationReason = "";
   }
 
   const query = `{
@@ -78,9 +75,7 @@
   const refreshBadgeDetails = () => {
     queryData(query).then(res => {
       badge = res.badgeInstance;
-      modalRevocation = false;
       showModal = false;
-      revocationReason = "";
       if (badge.public && validation.unloaded) {
         fetchingValidation = true;
         queryData(validationQuery).then(res => {
@@ -98,18 +93,17 @@
     return currentUrl.replace("/details/", "/public/assertions/");
   }
 
-  const revoke = showConfirmation => {
+  const deleteBadge = showConfirmation => {
     if (showConfirmation) {
-      modalTitle = I18n.t("models.badge.confirmation.revoke");
-      modalQuestion = I18n.t("models.badge.confirmation.revokeConfirmation");
-      modalAction = () => revoke(false);
-      modalRevocation = true;
+      modalTitle = I18n.t("student.confirmation.deleteBadge");
+      modalQuestion = I18n.t("student.confirmation.deleteBadgeConfirmation");
+      modalAction = () => deleteBadge(false);
       showModal = true;
     } else {
       showModal = false;
-      revokeAssertion(badge.badgeclass.issuer.entityId, badge.badgeclass.entityId, badge.entityId, revocationReason)
+      deleteAssertion(badge.entityId)
         .then(() => {
-          flash.setValue(I18n.t("models.badge.flash.revoked"));
+          flash.setValue(I18n.t("student.flash.deleted"));
           refreshBadgeDetails();
         });
     }
@@ -288,7 +282,7 @@
         <p class="revoked">{I18n.t("student.badgeRevoked")}</p>
       {:else if badge.public}
         <div class="actions">
-      <span class="thrash" on:click={() => revoke(true)}>
+      <span class="thrash" on:click={() => deleteBadge(true)}>
         {@html trash}
       </span>
           <div class="button-container">
@@ -334,13 +328,5 @@
   <Modal submit={modalAction}
          cancel={cancel}
          question={modalQuestion}
-         title={modalTitle}
-         disabled={revocationReason.length === 0 && modalRevocation}>
-    {#if modalRevocation}
-      <div class="slots">
-        <label for="revocation-reason">{I18n.t("models.badge.confirmation.revocationReason")}</label>
-        <input id="revocation-reason" class="input-field" bind:value={revocationReason }/>
-      </div>
-    {/if}
-  </Modal>
+         title={modalTitle}/>
 {/if}

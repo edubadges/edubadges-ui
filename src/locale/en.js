@@ -130,7 +130,8 @@ I18n.translations.en = {
     flash: {
       enrolled: "Successfully enrolled for badge {{name}}.",
       published: "This badge has been made public. You now can download and share this badge",
-      private: "This badge has been made private. You can no longer download or share this badge"
+      private: "This badge has been made private. You can no longer download or share this badge",
+      deleted: "This badge has been deleted. You can no longer download or share this badge"
     },
     enrollments: "Requested badges",
     badges: "Your badges",
@@ -141,13 +142,15 @@ I18n.translations.en = {
     confirmation: {
       publish: "Make this badge public accessible",
       private: "Make this badge private",
+      deleteBadge: "Delete badge",
       publishConfirmation: "Are you sure you want to make this badge public?",
-      privateConfirmation: "Are you sure you want to make this badge private?"
+      privateConfirmation: "Are you sure you want to make this badge private?",
+      deleteBadgeConfirmation: "Are you sure you want to delete this badge?",
     },
     validation: {
-        loading: "Validating badge...",
-        valid: "Valid badge",
-        invalid: "Invalid badge"
+      loading: "Validating badge...",
+      valid: "Valid badge",
+      invalid: "Invalid badge"
     }
   },
   manage: {
@@ -307,6 +310,7 @@ I18n.translations.en = {
         directAward: "Direct award"
       },
       issuedOn: "Issued",
+      issuedBy: "Issued by",
       expires: "Expires",
       expiresNever: "Never",
       download: "Download",
@@ -314,6 +318,13 @@ I18n.translations.en = {
       status: "Status",
       revoked: "Revoked",
       validUntil: "Valid until",
+      statuses: {
+        public: "Public",
+        rejected: "Rejected",
+        private: "Private",
+        revoked: "Revoked",
+        unknown: ""
+      },
       confirmation: {
         revocationReason: "Reason for revocation (required)",
         revoke: "Revoke assertion",
