@@ -13,7 +13,7 @@
   import moment from "moment";
   import Modal from "../../components/forms/Modal.svelte";
   import DownloadButton from "../../components/DownloadButton.svelte";
-  import {getPublicBadge, revokeAssertion} from "../../api";
+  import {getPublicBadge, revokeAssertion, validateBadge} from "../../api";
   import {flash} from "../../stores/flash";
   import CopyToClipboardButton from "../../components/CopyToClipboardButton.svelte";
   import {publicBadgeInformation} from "../extensions/badges/extensions";
@@ -26,20 +26,14 @@
   let fetchingValidation = false;
   let validation = {valid: false, messages: [], unloaded: true};
 
-  const validationQuery = `{
-    badgeInstance(id: "${entityId}") {
-      validation
-    }
-  }`;
-
   onMount(() => {
     getPublicBadge(entityId).then(res => {
       badge = res.badge;
       publicBadgeInformation(badge, res.badge);
       if (validation.unloaded) {
         fetchingValidation = true;
-        queryData(validationQuery).then(res => {
-          validation = res.badgeInstance.validation.report;
+        validateBadge(entityId).then(res => {
+          validation = res.report;
           fetchingValidation = false;
         })
       }

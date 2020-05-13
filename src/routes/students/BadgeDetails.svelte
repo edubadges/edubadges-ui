@@ -13,7 +13,7 @@
   import moment from "moment";
   import Modal from "../../components/forms/Modal.svelte";
   import DownloadButton from "../../components/DownloadButton.svelte";
-  import {revokeAssertion, publicAssertion, deleteAssertion} from "../../api";
+  import {revokeAssertion, publicAssertion, deleteAssertion, validateBadge} from "../../api";
   import {flash} from "../../stores/flash";
   import CopyToClipboardButton from "../../components/CopyToClipboardButton.svelte";
   import BadgeValidation from "./BadgeValidation.svelte";
@@ -66,20 +66,14 @@
     }
   }`;
 
-  const validationQuery = `{
-    badgeInstance(id: "${entityId}") {
-      validation
-    }
-  }`;
-
   const refreshBadgeDetails = () => {
     queryData(query).then(res => {
       badge = res.badgeInstance;
       showModal = false;
       if (badge.public && validation.unloaded) {
         fetchingValidation = true;
-        queryData(validationQuery).then(res => {
-          validation = res.badgeInstance.validation.report;
+        validateBadge(entityId).then(res => {
+          validation = res.report;
           fetchingValidation = false;
         })
       }
