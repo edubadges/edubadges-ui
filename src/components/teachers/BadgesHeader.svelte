@@ -1,11 +1,12 @@
 <script>
-  import { onMount } from "svelte";
+  import {onMount} from "svelte";
   import I18n from "i18n-js";
-  import { HeaderList } from "../teachers";
-  import { queryData } from "../../api/graphql";
-  import { headerEntity, headerStaff } from "../../api/queries";
-  import { formatAdminNames } from "../../util/entityHeader";
-  import { selectedEntity } from "../../stores/filter";
+  import {HeaderList} from "../teachers";
+  import {queryData} from "../../api/graphql";
+  import {headerEntity, headerStaff} from "../../api/queries";
+  import {formatAdminNames} from "../../util/entityHeader";
+  import {selectedEntity} from "../../stores/filter";
+  import RemoteImage from "../RemoteImage.svelte";
 
   let institution = {};
   $: entity = $selectedEntity || institution;
@@ -77,7 +78,7 @@
 <div class="header">
   {#if entity.image}
     <div class="image">
-      <img src={entity.image} alt={`${entity.name} logo`} />
+      <RemoteImage imageUrl={entity.image} alt={`${entity.name} logo`}/>
     </div>
   {/if}
   <div class="content">
