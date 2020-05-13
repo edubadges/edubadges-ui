@@ -18,14 +18,14 @@
     }
     const res = await fetch(imageUrl, fetchOptions);
     const blob = await res.blob();
-    imageUrl = URL.createObjectURL(blob);
+    return URL.createObjectURL(blob);
   }
 </script>
-{#if imageUrl !== undefined}
+{#if imageUrl}
   {#await fetchData()}
     <span></span>
   {:then objectUrl}
-    <img src={imageUrl} alt={alt}/>
+    <img src={objectUrl} alt={alt}/>
   {:catch error}
     <span></span>
   {/await}
