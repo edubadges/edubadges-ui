@@ -92,7 +92,7 @@
   <!-- svelte-ignore a11y-invalid-attribute -->
   <a
     href="#"
-    on:click|preventDefault={action}
+    on:click|preventDefault={() => disabled ? false : action()}
     {disabled}
     class:small
     class:secondary>

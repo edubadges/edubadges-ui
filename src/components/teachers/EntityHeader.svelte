@@ -1,9 +1,12 @@
 <script>
   import I18n from "i18n-js";
-  import { EntityHeaderTabs, HeaderList } from "../teachers";
-  import { Button } from "../../components";
-  import { requestBadge } from "../../api";
-  import { role } from "../../util/role";
+  import {EntityHeaderTabs, HeaderList} from "../teachers";
+  import {Button} from "../../components";
+  import {requestBadge} from "../../api";
+  import {role} from "../../util/role";
+  import {flash} from "../../stores/flash";
+  import {onMount} from "svelte";
+  import RemoteImage from "../RemoteImage.svelte";
 
   export let entity;
   export let object = {};
@@ -14,13 +17,19 @@
   export let enrolled;
   export let entityId;
 
+  let imageId = "";
 
   const enrollStudent = () => {
-    requestBadge(entityId).then(res => {
+    requestBadge(entityId)
+      .then(() => {
         enrolled = true;
-    }, err => {
-      console.error('error while enrolling', err);
-    });
+        flash.setValue(I18n.t('student.flash.enrolled', {name: object.name}));
+      })
+      .catch(err => {
+        err.then(details => {
+          flash.error(details);
+        })
+      });
   };
 
 </script>
@@ -57,32 +66,29 @@
 
 <div class="entity">
   <div class="content">
-    {#if object.image}
-      <div class="img-container">
-        <img src={object.image} alt={`${object.name} logo`} />
-      </div>
-    {/if}
-
+    <div class="img-container">
+      <RemoteImage imageUrl={object.image} alt={`${object.name} logo`}/>
+    </div>
     <div class="info">
       <h2>{object.name}</h2>
       <p>{object.description}</p>
 
       <div class="list">
-        <HeaderList {entity} {headerItems} />
+        <HeaderList {entity} {headerItems}/>
       </div>
     </div>
 
     {#if visitorRole === role.STUDENT}
       {#if !enrolled}
-        <Button secondary action={enrollStudent} text={I18n.t(['student', 'enroll'])} class="btn" />
+        <Button secondary action={enrollStudent} text={I18n.t('student.enroll')} class="btn"/>
       {:else}
-        <Button label="alreadyEnrolled" disabled={true} text={I18n.t(['student', 'enrolled'])}/>
+        <Button label="alreadyEnrolled" disabled={true} text={I18n.t('student.enrolled')}/>
       {/if}
     {/if}
     {#if mayUpdate}
-      <Button secondary href="edit" text={I18n.t(['manage', 'edit', entity])} />
+      <Button secondary href="edit" text={I18n.t(['manage', 'edit', entity])}/>
     {/if}
   </div>
 
-  <EntityHeaderTabs {tabs} />
+  <EntityHeaderTabs {tabs}/>
 </div>

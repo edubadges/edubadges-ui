@@ -1,0 +1,37 @@
+<svg class="check" version="1.1" id="OUTLINED" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+     y="0px" viewBox="0 0 32 32" xml:space="preserve">
+<style type="text/css">
+	.check_disabled_svg_st0{clip-path:url(#check_disabled_svg_id_2_);fill:#5e6873;}
+	.check_disabled_svg_st1{clip-path:url(#check_disabled_svg_id_4_);}
+	.check_disabled_svg_st2{clip-path:url(#check_disabled_svg_id_6_);}
+</style>
+    <g>
+	<defs>
+		<path id="check_disabled_svg_id_1_" d="M24.2,7.1L12.9,22.5c0,0,0,0-0.1,0c0,0-0.1,0-0.1,0l-5.1-5.1c-0.6-0.6-1.5-0.6-2.1,0
+			c-0.6,0.6-0.6,1.5,0,2.1l5.1,5.1c0.6,0.6,1.5,1,2.4,0.9c0.9-0.1,1.7-0.5,2.3-1.2L26.6,8.9c0.5-0.7,0.3-1.6-0.3-2.1
+			C25.6,6.3,24.7,6.4,24.2,7.1z"/>
+	</defs>
+        <clipPath id="check_disabled_svg_id_2_">
+		<use xlink:href="#check_disabled_svg_id_1_" style="overflow:visible;"/>
+	</clipPath>
+        <g class="check_disabled_svg_st0">
+		<g>
+			<defs>
+				<rect id="check_disabled_svg_id_3_" x="0.1" y="1.5" width="32" height="29"/>
+			</defs>
+            <clipPath id="check_disabled_svg_id_4_">
+				<use xlink:href="#check_disabled_svg_id_3_" style="overflow:visible;"/>
+			</clipPath>
+            <g class="check_disabled_svg_st1">
+				<defs>
+					<rect id="check_disabled_svg_id_5_" x="5.1" y="6.5" width="22" height="19"/>
+				</defs>
+                <clipPath id="check_disabled_svg_id_6_">
+					<use xlink:href="#check_disabled_svg_id_5_" style="overflow:visible;"/>
+				</clipPath>
+                <rect x="0.1" y="1.5" class="check_disabled_svg_st2" width="31.8" height="29"/>
+			</g>
+		</g>
+	</g>
+</g>
+</svg>

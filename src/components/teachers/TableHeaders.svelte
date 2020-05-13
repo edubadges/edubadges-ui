@@ -29,6 +29,6 @@
     class:hide
     class:asc={sort.attribute === th.attribute && sort.reverse}
     class:desc={sort.attribute === th.attribute && !sort.reverse}>
-    {th.name}
+    {th.name || ""}
   </th>
 {/each}

@@ -52,7 +52,7 @@
 <footer class="footer">
   <div class="help">
     <span>{I18n.t('footer.tip')}</span>
-    <a href="https://surf.nl" target="_blank">{I18n.t('footer.help')}</a>
+    <a href="https://wiki.surfnet.nl/display/OB/FAQ" target="_blank">{I18n.t('footer.help')}</a>
   </div>
 
   <div class="lang">

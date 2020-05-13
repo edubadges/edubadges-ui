@@ -1,11 +1,15 @@
-import { get } from "svelte/store";
-import { authToken } from "../stores/user";
-import { config } from "../util/config";
+import {get} from "svelte/store";
+import {authToken} from "../stores/user";
+import {config} from "../util/config";
 
 //Internal API
 const serverUrl = config.serverUrl;
 
-function validateResponse(res) {
+function validateResponse(res, method) {
+  if (res.ok && method === "DELETE") {
+    //Stupid backend API returns 200 but no content
+    return Promise.resolve({});
+  }
   if (res.ok && res.status !== 204) {
     return res.json();
   }
@@ -36,7 +40,7 @@ function validFetch(path, options = {}, method = "GET", useToken = true) {
     fetchOptions.headers.Authorization = "Bearer " + token;
   }
 
-  return fetch(path, fetchOptions).then((res) => validateResponse(res));
+  return fetch(path, fetchOptions).then(res => validateResponse(res, method));
 }
 
 // External API
@@ -73,14 +77,14 @@ export function addEmail(newEmail) {
   const path = `${serverUrl}/v1/user/emails`;
   return validFetch(
     path,
-    { body: JSON.stringify({ email: newEmail }) },
+    {body: JSON.stringify({email: newEmail})},
     "POST"
   );
 }
 
 export function setPrimaryEmail(emailId) {
   const path = `${serverUrl}/v1/user/emails/${emailId}`;
-  return validFetch(path, { body: JSON.stringify({ primary: true }) }, "PUT");
+  return validFetch(path, {body: JSON.stringify({primary: true})}, "PUT");
 }
 
 export function deleteEmail(emailId) {
@@ -98,7 +102,7 @@ export function requestBadge(id) {
   const path = `${serverUrl}/lti_edu/enroll`;
   return validFetch(
     path,
-    { body: JSON.stringify({ badgeclass_slug: id }) },
+    {body: JSON.stringify({badgeclass_slug: id})},
     "POST"
   );
 }
@@ -107,14 +111,9 @@ export function withdrawRequestBadge(enrollmentID) {
   const path = `${serverUrl}/lti_edu/student/enrollments`;
   return validFetch(
     path,
-    { body: JSON.stringify({ enrollmentID: enrollmentID }) },
+    {body: JSON.stringify({enrollmentID: enrollmentID})},
     "DELETE"
   );
-}
-
-export function getUnearnedBadges() {
-  const path = `${serverUrl}/lti_edu/student/enrollments`;
-  return validFetch(path);
 }
 
 // Teacher badges
@@ -122,56 +121,98 @@ export function awardBadges(badgeId, enrollmentIds) {
   const path = `${serverUrl}/issuer/badgeclasses/award-enrollments/${badgeId}`;
   return validFetch(
     path,
-    { body: JSON.stringify({
+    {
+      body: JSON.stringify({
         "issue_signed": false,
         "create_notification": true,
-        "enrollments": enrollmentIds.map(el => {return {"enrollment_entity_id": el}})
-      })},
+        "enrollments": enrollmentIds.map(el => {
+          return {"enrollment_entity_id": el}
+        })
+      })
+    },
     "POST"
   )
+}
+
+export function denyBadge(enrollmentEntityId) {
+  const path = `${serverUrl}/lti_edu/enrollment/${enrollmentEntityId}/deny`;
+  return validFetch(path, {body: "{}"}, "PUT");
+
+}
+
+export function revokeAssertion(issuerEntityId, badgeEntityId, assertionEntityId, revocationReason) {
+  const path = `${serverUrl}/issuer/issuers/${issuerEntityId}/badges/${badgeEntityId}/assertions/${assertionEntityId}`;
+  return validFetch(
+    path,
+    {body: JSON.stringify({revocation_reason: revocationReason})},
+    "DELETE"
+  );
+}
+
+export function deleteAssertion(assertionEntityId) {
+  const path = `${serverUrl}/v1/earner/badges/${assertionEntityId}`;
+  return validFetch(
+    path,
+    {body: JSON.stringify({})},
+    "DELETE"
+  );
+}
+
+export function publicAssertion(assertionEntityId, isPublic) {
+  const path = `${serverUrl}/v1/earner/badges/${assertionEntityId}`;
+  return validFetch(
+    path,
+    {body: JSON.stringify({"public": isPublic})},
+    "PUT"
+  );
 }
 
 // Institution
 export function editInstitution(entityId, institution) {
   const path = `${serverUrl}/institution/edit/${entityId}`;
-  return validFetch(path, { body: JSON.stringify(institution) }, "PUT");
+  return validFetch(path, {body: JSON.stringify(institution)}, "PUT");
 }
 
 // Faculty
 export function editFaculty(entityId, faculty) {
   const path = `${serverUrl}/institution/faculties/edit/${entityId}`;
-  return validFetch(path, { body: JSON.stringify(faculty) }, "PUT");
+  return validFetch(path, {body: JSON.stringify(faculty)}, "PUT");
 }
 
 export function createFaculty(faculty) {
   const path = `${serverUrl}/institution/faculties/create`;
-  return validFetch(path, { body: JSON.stringify(faculty) }, "POST");
+  return validFetch(path, {body: JSON.stringify(faculty)}, "POST");
 }
 
 // Issuer
 export function editIssuer(entityId, issuer) {
   const path = `${serverUrl}/issuer/edit/${entityId}`;
-  return validFetch(path, { body: JSON.stringify(issuer) }, "PUT");
+  return validFetch(path, {body: JSON.stringify(issuer)}, "PUT");
 }
 
 export function createIssuer(issuer) {
   const path = `${serverUrl}/issuer/create`;
-  return validFetch(path, { body: JSON.stringify(issuer) }, "POST");
+  return validFetch(path, {body: JSON.stringify(issuer)}, "POST");
 }
 
 // Badgeclass
 export function editBadgeclass(entityId, badgeclass) {
   const path = `${serverUrl}/issuer/badgeclasses/edit/${entityId}`;
-  return validFetch(path, { body: JSON.stringify(badgeclass) }, "PUT");
+  return validFetch(path, {body: JSON.stringify(badgeclass)}, "PUT");
 }
 
 export function createBadgeclass(badgeclass) {
   const path = `${serverUrl}/issuer/badgeclasses/create`;
-  return validFetch(path, { body: JSON.stringify(badgeclass) }, "POST");
+  return validFetch(path, {body: JSON.stringify(badgeclass)}, "POST");
 }
 
 // Public
 export function getPublicBadgeClass(badgeId) {
-  const path = `${serverUrl}/public/badges/${badgeId}`;
+  const path = `${serverUrl}/public/badges/${badgeId}?expand=issuer`;
+  return validFetch(path, {}, "GET", false);
+}
+
+export function getPublicBadge(entityId) {
+  const path = `${serverUrl}/public/assertions/${entityId}?expand=badge&expand=badge.issuer`;
   return validFetch(path, {}, "GET", false);
 }

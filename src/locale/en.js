@@ -21,7 +21,7 @@ I18n.translations.en = {
       "Edubadges are digital certificates and show that the owner has certain skills or knowledge. Edubadges can be issued for both extracurriculair activities and accredited education.",
     student: {
       title: "My Backpack",
-      subtitle: "receive and share badges",
+      subtitle: "Receive and share edubadges",
       action: "Open your Backpack",
       button: "Log in with your eduID",
       accountCreation: {
@@ -31,7 +31,7 @@ I18n.translations.en = {
     },
     teacher: {
       title: "Issuer Portal",
-      subtitle: "award badges",
+      subtitle: "Award edubadges",
       action: "Enter the issuer portal",
       button: "Log in via SURFconext",
       accountCreation: {
@@ -49,9 +49,9 @@ I18n.translations.en = {
       step1: "Step 1: Create an eduID",
       step2: "Step 2: Verify your identity",
       welcome: "Welcome to your Backpack",
-      awarded: "We’ve awarded you with your first badge😀",
+      awarded: "We’ve awarded you with your first edubadge 😀",
       infoStep2:
-        "To be able to further receive eduBadges, <strong>please verify your identity</strong> with your Educational Institution. You can prove this by clicking the button and log in to your institution with your institution account.",
+        "To be able to further receive edubadges, <strong>please verify your identity</strong> with your Educational Institution. You can prove this by clicking the button and log in to your institution with your institution account.",
       verification: "Verification succeeded!",
       infoStep3: "You can now receive edubadges in your Backpack.",
       require:
@@ -59,16 +59,16 @@ I18n.translations.en = {
       steps: {
         step1: "Create an eduID",
         step2: "Verify your institution",
-        step3: "Receive & share badges",
+        step3: "Receive & share edubadges",
       },
     },
   },
   profile: {
     profile: "Profile",
     name: "Name",
-    primary: "Primary e-mail",
-    emails: "E-mails",
-    email: "E-mail",
+    primary: "Primary email",
+    emails: "Emails",
+    email: "Email",
     makePrimary: "Make primary",
     makePrimaryConfirmation: "Are you sure you want to make this email your primary email?",
     addEmail: "Add e-mail",
@@ -79,17 +79,17 @@ I18n.translations.en = {
     deleteEmailConfirmation: "Are you sure you want to delete this email?",
     delete: "Delete",
     account: "Account",
-    accountInfo: "If you remove you account all you badges will become invalid.",
+    accountInfo: "If you remove your account all your edubadges will become invalid.",
     deleteAccount: "Delete my account",
     deleteAccountConfirmation:
-      "Are you sure you want to delete your eduBadges account?",
+      "Are you sure you want to delete your edubadges account?",
   },
   modal: {
     cancel: "Cancel",
     confirm: "Confirm",
   },
   backpack: {
-    title: "Your badges",
+    title: "Your edubadges",
   },
   notFound: {
     main: "404 - Not Found",
@@ -114,7 +114,7 @@ I18n.translations.en = {
       title: "Badgeclasses",
       created: "Date created",
       recipients: "Recipients",
-      ects: "ECTS",
+      ects: "ECTS-credits",
     },
     issuers: {
       title: "Issuers",
@@ -122,11 +122,8 @@ I18n.translations.en = {
     faculties: {
       title: "Groups",
     },
-    badgeRequests: {
-      award: "Award badge",
-    },
     badgeRevoked: {
-      revoke: "Revoke badge",
+      revoke: "Revoke edubadge",
     },
     roles: {
       title: "Roles (highest)"
@@ -138,7 +135,32 @@ I18n.translations.en = {
   student: {
     enroll: "Enroll",
     enrolled: "Enrolled",
-    withdraw: "Withdraw enrollment"
+    withdraw: "Withdraw enrollment",
+    flash: {
+      enrolled: "Successfully enrolled for badge {{name}}.",
+      published: "This badge has been made public. You now can download and share this badge",
+      private: "This badge has been made private. You can no longer download or share this badge",
+      deleted: "This badge has been deleted. You can no longer download or share this badge"
+    },
+    enrollments: "Requested badges",
+    badges: "Your badges",
+    badgeRevoked: "This badge has been revoked. You can see the details, but this badge can no longer be shared or downloaded",
+    notPublic: "This badge has not been marked as public. If you want to share and download this badge you must mark the badge as public.",
+    publish: "Make public",
+    private: "Make private",
+    confirmation: {
+      publish: "Make this badge public accessible",
+      private: "Make this badge private",
+      deleteBadge: "Delete badge",
+      publishConfirmation: "Are you sure you want to make this badge public?",
+      privateConfirmation: "Are you sure you want to make this badge private?",
+      deleteBadgeConfirmation: "Are you sure you want to delete this badge?",
+    },
+    validation: {
+      loading: "Validating badge...",
+      valid: "Valid badge",
+      invalid: "Invalid badge"
+    }
   },
   manage: {
     tabs: {
@@ -153,7 +175,7 @@ I18n.translations.en = {
     edit: {
       edit: "edit",
       institution: "Edit institution",
-      faculty: "Edit faculty",
+      faculty: "Edit issuergroup",
       issuer: "Edit issuer",
       badgeclass: "Edit badgeclass",
       save: "Save changes",
@@ -161,17 +183,17 @@ I18n.translations.en = {
     },
     new: {
       create: "new",
-      faculty: "Add new faculty",
+      faculty: "Add new issuergroup",
       issuer: "Add new issuer",
       badgeclass: "Add new badgeclass",
       save: "Save",
       cancel: "Cancel",
     },
     award: {
-      title: "Award badges directly",
+      title: "Award edubadges directly",
       description:
         "Fill in the email address of the person you'd like to award the badge to. Your request will be sent, and you will be notified when it's accepted or denied",
-      submit: "Award badge",
+      submit: "Award edubadge",
       addAnother: "+ Add another",
       addBulk: "Add many at once",
     },
@@ -182,34 +204,35 @@ I18n.translations.en = {
     },
   },
   footer: {
-    tip: "Need tips or info?",
+    tip: "Need tips or support?",
     help: "Help & FAQ",
     poweredBy: "Proudly powered by",
     surf: "SURF",
   },
   error: {
     101: "Could not register email address. Address already in use",
-    102: "You have already added this address. Verify it",
+    102: "You have already added this address. Please verify it",
     103: "Can not remove primary email address",
     104: "Can not remove only email address",
     105: "Can't make unverified email address the primary email address",
     201: "May not enroll: already enrolled",
     202: "May not enroll: you already have been awarded this badge",
     203: "May not enroll: you don't have a student account",
-    204: "Invalid enrollment id",
+    204: "Invalid enrollment-id",
     205: "Enrollment not found",
     206: "Awarded enrollments cannot be withdrawn",
     207: "Users can only withdraw their own enrollments",
-    208: "Missing badgeclass id",
+    208: "Missing badgeclass-id",
     209: "Cannot enroll",
     210: "You do not have permission. Check your assigned role in the Badgeclass related to this Enrollment",
     211: "Enrollment is already denied",
     212: "Awarded enrollments can't be denied",
-    601: "You do not have permission. Check your assigned role in the Issuer",
+    601: "You do not have permission. Check your assigned role in the Issuerportal",
     701: "Unspecified share provider",
     702: "Invalid share provider",
-    801: "Cannot change grading table, assertions have already been issued",
-    802: "Cannot change brin, assertions have already been issued",
+    801: "Cannot change grading table URL, edubadges have already been issued",
+    802: "Cannot change BRIN code, edubadges have already been issued",
+    unexpected: "Unexpected exception occurred."
   },
   models: {
     institution: {
@@ -217,15 +240,15 @@ I18n.translations.en = {
       admin: "Admin",
       brin: "BRIN code",
       description: "Description",
-      grading_table: "Grading table",
-      image: "Logo",
-      name: "Name",
+      grading_table: "Grading table URL",
+      image: "Institution Logo",
+      name: "Institution Name",
     },
     faculty: {
       created: "Created",
       admin: "Admin",
       description: "Description",
-      name: "Name",
+      name: "Issuer Group Name",
     },
     issuer: {
       description: "Description",
@@ -234,7 +257,7 @@ I18n.translations.en = {
       admin: "Admin",
       email_header: "Contact",
       url_header: "Website",
-      image: "Logo",
+      image: "Issuer Logo",
       name: "Name",
       url: "Website URL",
       faculty: "Group",
@@ -245,9 +268,9 @@ I18n.translations.en = {
       created: "Created",
       admin: "Admin",
       name: "Name",
-      description: "Description",
-      criteria_text: "What is required to earn this badge?",
-      criteria_url: "Criteria URL",
+      description: "Short description",
+      criteria_text: "What is required to earn this edubadge?",
+      criteria_url: "Or provide a criteria URL",
       criteria_url_value: "Link to the earning criteria:",
       directAward: "Direct award",
       expiresAfter: "Expires after",
@@ -275,7 +298,7 @@ I18n.translations.en = {
       },
       info: {
         educationProgramIdentifier:
-          "Consult <a target='_blank' rel='noreferrer' href='https://duo.nl/zakelijk/images/studiecodes.pdf'>DUO_CROHO</a> or <a target='_blank' rel='noreferrer' href='https://kwalificaties.s-bb.nl/Lijsten/Groep/14'>SBB_CREDO</a> if you don’t know the code.",
+          "Consult <a target='_blank' rel='noreferrer' href='https://apps.duo.nl/MCROHO/pages/zoeken.jsf'>the DUO CROHO register</a> or <a target='_blank' rel='noreferrer' href='https://kwalificaties.s-bb.nl/Lijsten/Groep/14'>the SBB CREDO lists</a> if you don’t know the code.",
         eqf:
           "Check <a target='_blank' rel='noreferrer' href='https://www.nlqf.nl/nlqf-niveaus'>https://www.nlqf.nl/nlqf-niveaus</a> for help",
         ects:
@@ -287,6 +310,63 @@ I18n.translations.en = {
       emailAddress: "Email address",
       emailAddresses: "Paste email addresses",
       details: "Details",
+      recipient: "Recipient",
+      requested: "Requested",
+      awarded: "Awarded badges",
+      awardType: {
+        name: "Award type",
+        enrolled: "Enrolled",
+        directAward: "Direct award"
+      },
+      issuedOn: "Issued",
+      issuedBy: "Issued by",
+      expires: "Expires",
+      expiresNever: "Never",
+      download: "Download",
+      share: "Share",
+      status: "Status",
+      revoked: "Revoked",
+      validUntil: "Valid until",
+      statuses: {
+        public: "Public",
+        rejected: "Rejected",
+        private: "Private",
+        revoked: "Revoked",
+        unknown: ""
+      },
+      confirmation: {
+        revocationReason: "Reason for revocation (required)",
+        revoke: "Revoke assertion",
+        revokeConfirmation: "Are you sure you want to revoke this assertion? This can <strong>not</strong> be undone and the assertion will be invalid after this."
+      },
+      flash: {
+        revoked: "The assertion(s) have been revoked."
+      }
+    },
+    enrollment: {
+      title: "Enrolled persons",
+      enrolled: "Enrolled",
+      enrolledOn: "Enrolled on",
+      deleteEnrollment: "Delete enrollment",
+      deleteEnrollmentConfirmation: "Are you sure you want to withdraw this enrollment?",
+      award: "Award",
+      denied: "Denied",
+      deny: "Deny request",
+      enrollmentType: {
+        name: "Enrollment type",
+        enrolled: "Self - enrolled",
+        invited: "Invited"
+      },
+      confirmation: {
+        award: "Award enrollment",
+        awardConfirmation: "Are you sure you want to award this enrollment?",
+        deny: "Award enrollment",
+        denyConfirmation: "Are you sure you want to deny this enrollment?"
+      },
+      flash: {
+        denied: "The enrollment(s) have been denied.",
+        awarded: "The enrollment(s) have been awarded."
+      }
     },
   },
   file: {
@@ -296,4 +376,7 @@ I18n.translations.en = {
     disclaimer:
       "Image must be png, at least 90x90 pixels and smaller than 256KB.",
   },
+  copyToClipboard: {
+    copied: "Copied to clipboard"
+  }
 };

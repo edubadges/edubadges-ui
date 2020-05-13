@@ -6,16 +6,42 @@
 
   export let badge;
   export let badgeClass;
+  export let standAlone = false;
 
-  const detailLink = () => navigate(badge ? `/details/${badge.entityId}` : `/badgeclass/${badgeClass.entityId}`);
+  const detailLink = () => {
+    if (!standAlone) {
+      navigate(badge ? `/details/${badge.entityId}` : `/badgeclass/${badgeClass.entityId}`);
+    }
+  }
+
+  const statusOfBadge = badge => {
+    if (badge.public && !badge.revoked && badge.acceptance === "ACCEPTED") {
+      return "public";
+    }
+    if (badge.acceptance === "REJECTED") {
+      return "rejected";
+    }
+    if (!badge.public) {
+      return "private"
+    }
+    if (badge.revoked) {
+      return "revoked";
+    }
+    return "unknown";
+  }
 
 </script>
 
-<style>
+<style lang="scss">
   .badge {
     display: flex;
     flex-direction: column;
     background-color: var(--grey-2);
+
+    &:not(.stand-alone) {
+      cursor: pointer;
+    }
+
   }
 
   .header {
@@ -52,6 +78,7 @@
   .details {
     display: flex;
     flex-direction: row;
+    position: relative;
   }
 
   .details img {
@@ -79,31 +106,37 @@
 
   }
 
-  .actions {
-    display: flex;
-    margin-top: auto;
-    align-items: center;
-    justify-content: flex-end;
-  }
+  .details span.status {
+    font-size: 15px;
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    transform: rotate(-45deg);
+    background-color: var(--grey-4);
+    border-radius: 4px;
+    padding: 3px 5px;
 
-  .actions > div {
-    height: 32px;
-    padding: 5px 12px;
-    border-radius: 3px;
-    background-color: var(--grey-3);
-    color: var(--text-grey-light);
-    font-weight: bold;
-  }
+    &.public {
+      color: var(--green-dark);
+    }
 
-  .actions a {
-    padding: 5px 12px;
-    cursor: pointer;
+    &.rejected {
+      color: var(--red-dark);
+    }
+
+    &.private {
+      color: var(--purple);
+    }
+
+    &.revoked {
+      color: var(--red-dark);
+    }
   }
 
 </style>
 
 {#if badge || badgeClass}
-  <div class="card badge">
+  <div class="card badge" class:stand-alone={standAlone} on:click|preventDefault|stopPropagation={detailLink}>
     <div class="header">
       {#if badge}
         <span>{moment(badge.issuedOn).format('MMM D, YYYY')}</span>
@@ -118,16 +151,16 @@
       <div class="details">
         <img src={badgeClass.issuer.image} alt=""/>
         <div class="issued">
-          <span class="issued-by">Issued by</span>
+          <span class="issued-by">{I18n.t("models.badge.issuedBy")}</span>
           <span class="issuer">{badgeClass.issuer.name}</span>
           {#if badgeClass.issuer.faculty}
             <span class="faculty">({badgeClass.issuer.faculty.name})</span>
           {/if}
         </div>
-      </div>
-      <div class="actions">
-        <div><a href="details" class="share" on:click|preventDefault|stopPropagation={detailLink}>
-          {I18n.t("models.badge.details")}</a></div>
+        {#if badge}
+          <span
+            class={`status ${statusOfBadge(badge)}`}>{I18n.t(`models.badge.statuses.${statusOfBadge(badge)}`)}</span>
+        {/if}
       </div>
     </div>
   </div>

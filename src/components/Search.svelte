@@ -1,5 +1,5 @@
 <script>
-  import { searchIcon } from "../icons";
+  import search from "../icons/search.svg";
 
   export let value;
 </script>
@@ -34,5 +34,5 @@
 
 <div>
   <input bind:value class="input-field" />
-  {@html searchIcon}
+  {@html search}
 </div>

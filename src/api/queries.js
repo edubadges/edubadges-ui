@@ -16,13 +16,38 @@ export const headerStaff = `
   	}
 `;
 
+export const studentBadgeInstances = `{
+    badgeInstances {
+      entityId,
+      image,
+      issuedOn,
+      createdAt,
+      public,
+      revoked,
+      acceptance,
+      badgeclass {
+        name,
+        entityId,
+        image,
+        issuer {
+          name,
+          image,
+          faculty {
+            name
+          }
+        }
+      }
+    }
+  }`;
+
 export function enrollmentsQuery(entityId) {
   return `
     badgeClass(id: "${entityId}") {
       pendingEnrollments {
-        entityId,
         dateCreated,
         dateAwarded,
+        denied,
+        entityId,
         user {
           entityId,
           firstName,
@@ -40,6 +65,8 @@ export function assertionsQuery(entityId) {
         entityId,
         createdAt,
         revoked,
+        acceptance,
+        issuedOn,
         user {
           entityId,
           firstName,

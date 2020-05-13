@@ -1,25 +1,13 @@
 <script>
-  import I18n from "i18n-js";
+
   import { onMount } from "svelte";
   import { queryData } from "../../api/graphql";
   import { isEmpty } from "lodash";
-
-  import { headerStaff, headerEntity } from "../../api/queries";
-  import {
-    ects,
-    educationProgramIdentifier,
-    eqf,
-    extensionValue,
-    language,
-    learningOutcome
-  } from "../../components/extensions/badges/extensions";
-  import { fallBackValue } from "../../util/forms";
   import Overview from "../../components/teachers/badgeclass/Overview.svelte";
-  import Badge from "../../components/shared/Badge.svelte";
-  import { getUnearnedBadges } from "../../api";
+import I18n from "i18n-js";
 
   export let enrollmentId;
-  let badge;
+  let enrollment;
   let badgeClass;
 
   const query = `{
@@ -51,28 +39,31 @@
 
   onMount(() => {
     queryData(query).then(res => {
-      badge = res.enrollment;
-      badgeClass = badge.badgeClass;
+      enrollment = res.enrollment;
+      badgeClass = enrollment.badgeClass;
     });
   });
 
 </script>
 
 <style>
-  div.badge-detail {
+  div.enrollment-detail {
     padding: 40px 140px;
+    display: flex;
+    flex-direction: column;
   }
 
   @media (max-width: 1120px) {
-    .badge-detail {
+    .enrollment-detail {
       padding: 40px 20px !important;
     }
   }
 
 
 </style>
-<div class="badge-detail">
+<div class="enrollment-detail">
   {#if !isEmpty(badgeClass)}
-    <Overview badgeclass={badgeClass} requested={badge.dateCreated} enrollmentId={badge.entityId} enrollment={true} detailPage={true}/>
+    <Overview badgeclass={badgeClass} requested={enrollment.dateCreated} enrollmentId={enrollment.entityId}
+              studentEnrolled={true} studentPath={I18n.t("student.enrollments")}/>
   {/if}
 </div>

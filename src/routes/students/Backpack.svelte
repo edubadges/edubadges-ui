@@ -10,35 +10,17 @@
     authToken
   } from "../../stores/user";
   import {Button} from "../../components";
-  import {Badge, Welcome} from "../../components/students";
+  import {Welcome} from "../../components/students";
   import {queryData} from "../../api/graphql";
+  import {studentBadgeInstances} from "../../api/queries";
+  import BadgeCard from "../../components/shared/BadgeCard.svelte";
 
   let loaded = false;
   let badges = [];
 
-  const query = `{
-    badgeInstances {
-      entityId,
-      image,
-      issuedOn,
-      acceptance,
-      badgeclass {
-        name,
-        image,
-        issuer {
-          name,
-          image,
-          faculty {
-            name
-          }
-        }
-      }
-    }
-  }`;
-
   onMount(() => {
-    queryData(query).then(res => {
-      badges = res.badgeInstances.filter(bi => bi.acceptance !== "Rejected");
+    queryData(studentBadgeInstances).then(res => {
+      badges = res.badgeInstances;
       loaded = true;
     });
   });
@@ -93,7 +75,7 @@
   {#if loaded}
     <div class="content">
       {#each badges as badge}
-        <Badge badge={badge} badgeClass={badge.badgeclass}/>
+        <BadgeCard badge={badge} badgeClass={badge.badgeclass}/>
       {/each}
     </div>
   {:else}
