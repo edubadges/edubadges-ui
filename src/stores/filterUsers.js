@@ -8,6 +8,7 @@ export const facultyIds = writable([]);
 export const issuerIds = writable([]);
 export const userIds = writable([]);
 export const roles = writable([]);
+export const faculties = writable([]);
 
 function filterBySearch(users, search) {
   if (!search) {
@@ -27,17 +28,17 @@ function sort(collection, count = false) {
 }
 
 export const userTree = derived(
-  [users, userSearch, facultyIds, issuerIds],
-  ([users, userSearch, facultyIds, issuerIds]) => {
+  [users, userSearch, faculties, facultyIds, issuerIds],
+  ([users, userSearch, faculties, facultyIds, issuerIds]) => {
     const tree = users.reduce(
       (acc, cur) => {
         if (facultyIds.length > 0) {
-          if (!cur.facultyStaffs.some(el => facultyIds.includes(el.faculty.entityId))) {
+          if (!cur.facultyStaffs.some(el => facultyIds.includes(el.faculty.entityId)) && !cur.institutionStaff.mayAdministrateUsers) {
             return acc;
           }
         }
         if (issuerIds.length > 0) {
-          if (!cur.issuerStaffs.some(el => issuerIds.includes(el.issuer.entityId))) {
+          if (!cur.issuerStaffs.some(el => issuerIds.includes(el.issuer.entityId)) && cur.facultyStaffs.some(el => facultyIds.includes(el.faculty.entityId)) && !cur.institutionStaff.mayAdministrateUsers) {
             return acc;
           }
         }

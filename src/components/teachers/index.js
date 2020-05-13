@@ -9,6 +9,8 @@ export { default as BadgeclassManage } from "./BadgeclassManage.svelte";
 export { default as BadgeclassNew } from "./BadgeclassNew.svelte";
 export { default as BadgesHeader } from "./BadgesHeader.svelte";
 export { default as Breadcrumb } from "./Breadcrumb.svelte";
+export { default as EditUserHeader } from "./EditUserHeader.svelte";
+export { default as EditUserWidget } from "./EditUserHeader.svelte";
 export { default as EntityForm } from "./EntityForm.svelte";
 export { default as EntityHeader } from "./EntityHeader.svelte";
 export { default as EntityHeaderTabs } from "./EntityHeaderTabs.svelte";

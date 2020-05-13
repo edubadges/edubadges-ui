@@ -1,6 +1,6 @@
 <script>
   import { SideBarUsers, UsersHeader } from "../../components/teachers/";
-  import { users, userTree } from "../../stores/filterUsers";
+  import { users, faculties, userTree } from "../../stores/filterUsers";
   import { onMount } from "svelte";
   import { queryData } from "../../api/graphql";
   import I18n from "i18n-js";
@@ -14,7 +14,8 @@
     users {
       firstName,
       lastName,
-      email
+      email,
+      entityId,
       badgeclassStaffs {
         entityId,
         badgeclass {
@@ -29,6 +30,9 @@
         issuer {
           name,
           entityId,
+          faculty {
+            entityId
+          }
         },
         mayAdministrateUsers
       }
@@ -50,6 +54,8 @@
 
   onMount(() => {
     queryData(query).then(res => {
+      console.log(res);
+      $faculties = res.currentInstitution.faculties;
       $users = res.users;
     });
   });
@@ -107,7 +113,7 @@
       {#each $userTree.users as user (user.entityId)}
         <tr
             class="click"
-            on:click={() => navigate(`/manage/user/${user.entityId}`)}>
+            on:click={() => navigate(`/users/${user.entityId}`)}>
           <td>
             {user.firstName} {user.lastName}
             <br />
