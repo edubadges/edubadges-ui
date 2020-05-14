@@ -11,6 +11,17 @@
   import {getHighestRole} from "../../util/getHighestRole";
 
   const query = `{
+    currentInstitution {
+      name,
+      faculties {
+        name,
+        entityId,
+        issuers {
+          entityId,
+          name
+        }
+      }
+    },
     users {
       firstName,
       lastName,
