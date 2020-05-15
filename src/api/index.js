@@ -235,7 +235,7 @@ export function makeUserInstitutionAdmin(institutionId, userId) {
 }
 
 export function makeUserFacultyAdmin(facultyId, userId) {
-  const path = `${serverUrl}/faculty/${facultyId}/create`;
+  const path = `${serverUrl}/staff-membership/faculty/${facultyId}/create`;
   const payload = {
     "may_create":1,
     "may_read": 1,
@@ -251,7 +251,7 @@ export function makeUserFacultyAdmin(facultyId, userId) {
 }
 
 export function removeUserFacultyAdmin(facultyMembershipId) {
-  const path = `${serverUrl}/faculty/change/${facultyMembershipId}`;
+  const path = `${serverUrl}/staff-membership/faculty/change/${facultyMembershipId}`;
   return validFetch(path, {}, "DELETE");
 }
 

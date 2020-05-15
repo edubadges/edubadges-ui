@@ -104,10 +104,11 @@ export const userTree = derived(
           }
         }
 
-        if (highestRole) {
-          acc.roles.find(el => el.role === highestRole).count++;
-          acc.users = [...acc.users, cur];
+        if (!highestRole) {
+          highestRole = 'no-role';
         }
+        acc.roles.find(el => el.role === highestRole).count++;
+        acc.users = [...acc.users, cur];
 
         return acc;
       },
@@ -119,7 +120,8 @@ export const userTree = derived(
           {'role': 'Issuer Group Admin', count: 0},
           {'role': 'Issuer Admin', count: 0},
           {'role': 'Badgeclass Owner', count: 0},
-          {'role': 'Badgeclass Awarder', count: 0}
+          {'role': 'Badgeclass Awarder', count: 0},
+          {'role': 'no-role', count: 0}
         ],
         users: []
       }

@@ -15,6 +15,8 @@ export const getHighestRole = (user) => {
       return 'Badgeclass Owner';
     } else if (badgeClassAwarder) {
       return 'Badgeclass Awarder';
+    } else {
+      return 'no-role';
     }
   }
   return;

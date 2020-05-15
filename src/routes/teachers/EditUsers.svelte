@@ -12,6 +12,7 @@
 
   const query = `{
     currentInstitution {
+      name,
       entityId,
       faculties {
         name,
@@ -76,8 +77,7 @@
   };
 
   const makeFacultyAdmin = (facultyId) => {
-    makeUserFacultyAdmin(institutionId, facultyId, userId).then(resp => {
-      console.log(resp);
+    makeUserFacultyAdmin(facultyId, userId).then(() => {
       queryData(query).then(res => {
           institutionId = res.currentInstitution.entityId;
           faculties = res.currentInstitution.faculties;
@@ -118,7 +118,7 @@
         {#each faculties as faculty}
           <li>
             {faculty.name} -
-            {#if user.facultyStaffs.some(_faculty => _faculty.entityId === faculty.entityId)}
+            {#if user.facultyStaffs.some(_facultyStaff => _facultyStaff.faculty.entityId === faculty.entityId)}
               admin
             {:else}
               <button on:click={() => makeFacultyAdmin(faculty.entityId)}>make admin</button>
