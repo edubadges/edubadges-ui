@@ -164,6 +164,7 @@ I18n.translations.en = {
   },
   manage: {
     tabs: {
+      institution: "Institution",
       issuers: "Issuers",
       faculties: "Groups",
       badgeclasses: "Badgeclasses",

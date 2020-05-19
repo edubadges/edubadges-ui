@@ -1,6 +1,5 @@
 <script>
   import { Router, Route, navigate } from "svelte-routing";
-  import { Redirect } from "../../components";
   import {
     BadgeclassManage,
     BadgeclassEdit,

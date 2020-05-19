@@ -124,7 +124,7 @@
       {#each $userTree.users as user (user.entityId)}
         <tr
             class="click"
-            on:click={() => navigate(`/users/${user.entityId}`)}>
+            on:click={() => navigate(`/users/${user.entityId}/institution`)}>
           <td>
             {user.firstName} {user.lastName}
             <br />

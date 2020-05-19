@@ -104,7 +104,7 @@
 
         <!-- Teacher -->
         <Route path="/users" component={Users}/>
-        <Route path="/users/*userId" component={EditUsers}/>
+        <Route path="/users/:userId/:entity" component={EditUsers}/>
         <Route path="/manage/*mainEntity" component={Manage}/>
         <Route
           path="/badgeclass/:entityId/*subEntity"
