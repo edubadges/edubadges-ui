@@ -1,14 +1,82 @@
 <script>
   import { Router, Route, navigate } from "svelte-routing";
+  import { onMount } from "svelte";
+  import { queryData } from "../../api/graphql";
   import {
     UsersInstitution,
     UsersBadgeclass,
     UsersIssuer,
-    UsersIssuerGroup
+    UsersIssuerGroup,
+    Breadcrumb,
+    EditUserHeader
   } from "../../components/teachers";
 
   export let userId;
   export let entity;
+
+  let user;
+  let faculties;
+  let institutionId;
+
+  const query = `{
+  currentInstitution {
+    name,
+    entityId,
+    faculties {
+      name,
+      entityId,
+      issuers {
+        name,
+        entityId,
+      }
+    }
+  },
+  user(id: "${userId}") {
+    firstName,
+    lastName,
+    badgeclassStaffs {
+      entityId,
+      badgeclass {
+        name,
+        entityId
+      },
+      mayAdministrateUsers,
+      mayAward
+    }
+    issuerStaffs {
+      entityId,
+      issuer {
+        name,
+        entityId,
+      },
+      mayAdministrateUsers
+    }
+    facultyStaffs {
+      entityId,
+      faculty {
+        name,
+        entityId
+      },
+      mayAdministrateUsers
+    }
+    institutionStaff {
+      entityId,
+      mayAdministrateUsers
+    }
+  }
+ }`;
+
+
+  onMount(() => {
+    console.log('userId');
+
+    queryData(query).then(res => {
+      institutionId = res.currentInstitution.entityId;
+      faculties = res.currentInstitution.faculties;
+      user = res.user;
+      console.log(res);
+    });
+  });
 </script>
 
 <style>
@@ -16,6 +84,12 @@
     flex: 1;
   }
 </style>
+
+{#if user}
+    <Breadcrumb user={user}/>
+
+    <EditUserHeader entityId={userId} user={user} />
+{/if}
 
 <div>
   {#if entity === 'institution'}

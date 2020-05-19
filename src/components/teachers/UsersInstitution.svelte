@@ -1,8 +1,9 @@
 <script>
   import { onMount } from "svelte";
   import { queryData } from "../../api/graphql";
-  import { Breadcrumb, EditUserHeader } from "../teachers";
   import { makeUserFacultyAdmin } from "../../api";
+  import { Button } from "../../components";
+  import Table from "./badges/Table.svelte";
 
   export let userId;
 
@@ -60,13 +61,11 @@
 
 
   onMount(() => {
-    console.log('userId');
 
     queryData(query).then(res => {
       institutionId = res.currentInstitution.entityId;
       faculties = res.currentInstitution.faculties;
       user = res.user;
-      console.log(res);
     });
   });
 
@@ -92,6 +91,8 @@
 
 <style>
   div {
+    display: flex;
+    justify-content: space-between;
     margin-bottom: 10px;
   }
 
@@ -99,11 +100,12 @@
     display: flex;
     flex-direction: column;
   }
-
 </style>
 
-{#if user}
-  <Breadcrumb user={user}/>
-
-  <EditUserHeader entityId={userId} user={user} />
-{/if}
+<div>
+  <h4>Permissions on Institution level</h4>
+  <Button text="Add permissions" action={() => (console.log())}/>
+</div>
+<div>
+  <Table />
+</div>

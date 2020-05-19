@@ -2,8 +2,6 @@
     import I18n from "i18n-js";
     import {EntityHeaderTabs, HeaderList} from "../teachers";
     import {Button} from "../../components";
-    import {requestBadge} from "../../api";
-    import {role} from "../../util/role";
     import {flash} from "../../stores/flash";
     import {onMount} from "svelte";
     import RemoteImage from "../RemoteImage.svelte";
@@ -34,28 +32,12 @@
     let headerItems = [
       {
         'attr': 'memberSince',
-        'type': 'link',
-        '':''
+        'type': 'date',
+        'value': '2020-05-20'
       },
     ];
-    export let visitorRole;
-    export let enrolled;
 
     let imageId = "";
-
-    const enrollStudent = () => {
-        requestBadge(entityId)
-                .then(() => {
-                    enrolled = true;
-                    flash.setValue(I18n.t('student.flash.enrolled', {name: user.name}));
-                })
-                .catch(err => {
-                    err.then(details => {
-                        flash.error(details);
-                    })
-                });
-    };
-
 </script>
 
 <style lang="scss">
@@ -98,13 +80,6 @@
             </div>
         </div>
 
-      {#if visitorRole === role.STUDENT}
-        {#if !enrolled}
-            <Button secondary action={enrollStudent} text={I18n.t('student.enroll')} class="btn"/>
-        {:else}
-            <Button label="alreadyEnrolled" disabled={true} text={I18n.t('student.enrolled')}/>
-        {/if}
-      {/if}
       {#if mayUpdate}
         <Button secondary href="edit" text={I18n.t(['manage', 'edit', entity])}/>
       {/if}
