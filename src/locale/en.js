@@ -235,7 +235,16 @@ I18n.translations.en = {
     802: "Cannot change BRIN code, edubadges have already been issued",
     unexpected: "Unexpected exception occurred."
   },
+  editUsers: {
+    institutionPermissions: "Permissions on institution level",
+    institution: "institution",
+    role: "Role"
+  },
   models: {
+    editUsers: {
+      memberSince: "Member since",
+      email: "email",
+    },
     institution: {
       created: "Created",
       admin: "Admin",

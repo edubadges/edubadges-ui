@@ -75,7 +75,7 @@
   {/if}
 
 
-  {#if institutionName}
+  {#if institutionName && !user}
     <a use:link href="/manage/institution">{institutionName}</a>
   {/if}
 
@@ -95,8 +95,7 @@
   {/if}
 
   {#if user}
-    <span>></span>
-    <a use:link href={`/users/`}>users</a>
+    <a use:link href={`/users/`}>Users</a>
     <span>></span>
     <a use:link href={$currentPath}>{user.firstName} {user.lastName}</a>
 

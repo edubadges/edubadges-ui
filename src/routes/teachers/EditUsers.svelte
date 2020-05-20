@@ -34,6 +34,8 @@
   user(id: "${userId}") {
     firstName,
     lastName,
+    email,
+    dateJoined,
     badgeclassStaffs {
       entityId,
       badgeclass {
@@ -86,9 +88,9 @@
 </style>
 
 {#if user}
-    <Breadcrumb user={user}/>
+  <Breadcrumb user={user}/>
 
-    <EditUserHeader entityId={userId} user={user} />
+  <EditUserHeader entityId={userId} user={user} />
 {/if}
 
 <div>

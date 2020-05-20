@@ -1,15 +1,17 @@
 <script>
   import { onMount } from "svelte";
   import { queryData } from "../../api/graphql";
-  import { makeUserFacultyAdmin } from "../../api";
   import { Button } from "../../components";
-  import Table from "./badges/Table.svelte";
+  import { Table } from "../teachers";
+  import {sortType} from "../../util/sortData";
+  import I18n from "i18n-js";
 
   export let userId;
 
   let user;
   let faculties;
   let institutionId;
+  let institutionSearch;
 
   const query = `{
   currentInstitution {
@@ -54,7 +56,11 @@
     }
     institutionStaff {
       entityId,
-      mayAdministrateUsers
+      mayAdministrateUsers,
+      institution {
+        name,
+        entityId
+      }
     }
   }
  }`;
@@ -69,24 +75,27 @@
     });
   });
 
-  const makeInstitutionAdmin = () => {
+  const tableHeaders = [
+    {
+      name: I18n.t("editUsers.institution"),
+      attribute: "name",
+      reverse: false,
+      sortType: sortType.ALPHA
+    },
+    {
+      name: I18n.t("editUsers.role"),
+      attribute: "roles",
+      reverse: false,
+      sortType: sortType.COLLECTION
+    }
+  ];
 
+  $: table = {
+    entity: "user",
+    title: `${I18n.t("editUsers.institutionPermissions")}`,
+    tableHeaders: tableHeaders
   };
 
-  const removeAdmin = (entityId) => {
-
-  };
-
-  const makeFacultyAdmin = (facultyId) => {
-    makeUserFacultyAdmin(facultyId, userId).then(() => {
-      queryData(query).then(res => {
-        institutionId = res.currentInstitution.entityId;
-        faculties = res.currentInstitution.faculties;
-        user = res.user;
-        console.log(res);
-      });
-    });
-  };
 </script>
 
 <style>
@@ -103,9 +112,18 @@
 </style>
 
 <div>
-  <h4>Permissions on Institution level</h4>
   <Button text="Add permissions" action={() => (console.log())}/>
 </div>
-<div>
-  <Table />
-</div>
+{#if user}
+  <div class="container">
+    <Table
+        {...table}
+        bind:search={institutionSearch}
+    >
+      <tr>
+        <td>{user.institutionStaff.institution.name}</td>
+        <td>{#if user.institutionStaff.institution.mayAdministrateUsers}Admin{:else}Not admin{/if}</td>
+      </tr>
+    </Table>
+  </div>
+{/if}

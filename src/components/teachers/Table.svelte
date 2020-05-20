@@ -69,24 +69,24 @@
     <Search bind:value={search}/>
     {#if mayCreate}
       <Button
-        href={`/manage/${entity}/new`}
-        text={I18n.t(['manage', 'new', entity])}/>
+          href={`/manage/${entity}/new`}
+          text={I18n.t(['manage', 'new', entity])}/>
     {/if}
   </div>
   <slot name="check-buttons"/>
   <table class="entity-table">
     <thead>
-    <tr>
-      {#if withCheckAll}
-        <th>
-          <CheckBox bind:value={checkAllValue} onChange={onCheckAll}/>
-        </th>
-      {/if}
-      <TableHeaders {tableHeaders} {setSort} {sort}/>
-    </tr>
+      <tr>
+        {#if withCheckAll}
+          <th>
+            <CheckBox bind:value={checkAllValue} onChange={onCheckAll}/>
+          </th>
+        {/if}
+        <TableHeaders {tableHeaders} {setSort} {sort}/>
+      </tr>
     </thead>
     <tbody>
-    <slot/>
+      <slot/>
     </tbody>
   </table>
 </div>

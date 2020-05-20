@@ -1,89 +1,88 @@
 <script>
-    import I18n from "i18n-js";
-    import {EntityHeaderTabs, HeaderList} from "../teachers";
-    import {Button} from "../../components";
-    import {flash} from "../../stores/flash";
-    import {onMount} from "svelte";
-    import RemoteImage from "../RemoteImage.svelte";
+  import I18n from "i18n-js";
+  import {EntityHeaderTabs, HeaderList} from "../teachers";
+  import {Button} from "../../components";
+  import {flash} from "../../stores/flash";
+  import {onMount} from "svelte";
+  import RemoteImage from "../RemoteImage.svelte";
 
-    export let entity;
-    export let user = {};
-    export let mayUpdate;
-    export let entityId;
+  export let user = {};
+  export let entityId;
 
-    const tabs = [
-      {
-        entity: "institution",
-        href: `/users/${entityId}/institution`,
-      },
-      {
-        entity: "faculties",
-        href: `/users/${entityId}/issuerGroups`,
-      },
-      {
-        entity: "issuers",
-        href: `/users/${entityId}/issuers`,
-      },
-      {
-        entity: "badgeclasses",
-        href: `/users/${entityId}/badgeclasses`,
-      },
-    ];
-    let headerItems = [
-      {
-        'attr': 'memberSince',
-        'type': 'date',
-        'value': '2020-05-20'
-      },
-    ];
+  const tabs = [
+    {
+      entity: "institution",
+      href: `/users/${entityId}/institution`,
+    },
+    {
+      entity: "faculties",
+      href: `/users/${entityId}/issuerGroups`,
+    },
+    {
+      entity: "issuers",
+      href: `/users/${entityId}/issuers`,
+    },
+    {
+      entity: "badgeclasses",
+      href: `/users/${entityId}/badgeclasses`,
+    },
+  ];
+  let headerItems = [
+    {
+      'attr': 'memberSince',
+      'type': 'date',
+      'value': user.dateJoined
+    },
+    {
+      'attr': 'email',
+      'type': 'email',
+      'value': user.email
+    },
+  ];
 
-    let imageId = "";
+  let imageId = "";
 </script>
 
 <style lang="scss">
-    .entity {
-        padding: var(--ver-padding-m) var(--hor-padding-m) 0;
-        background: var(--purple-1);
+  .entity {
+    padding: var(--ver-padding-m) var(--hor-padding-m) 0;
+    background: var(--purple-1);
 
-        .content {
-            display: flex;
-            margin-bottom: var(--ver-padding-m);
+    .content {
+      display: flex;
+      margin-bottom: var(--ver-padding-m);
 
-            .img-container {
-                flex-shrink: 0;
-                height: 100px;
-                width: 100px;
-                background: white;
-                margin-right: var(--hor-padding-m);
-            }
+      .img-container {
+        flex-shrink: 0;
+        height: 100px;
+        width: 100px;
+        background: white;
+        margin-right: var(--hor-padding-m);
+      }
 
-            .info {
-                flex: 1;
-                display: flex;
-                flex-direction: column;
-            }
+      .info {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
 
-            .list {
-                margin: var(--ver-padding-m) 0;
-            }
-        }
+      .list {
+        margin: var(--ver-padding-m) 0;
+      }
     }
+  }
 </style>
 
 <div class="entity">
-    <div class="content">
-        <div class="info">
-            <h2>Permissions for {user.firstName} {user.lastName}</h2>
+  <div class="content">
+    <div class="info">
+      <h2>Permissions for {user.firstName} {user.lastName}</h2>
 
-            <div class="list">
-                <HeaderList {entity} {headerItems}/>
-            </div>
-        </div>
-
-      {#if mayUpdate}
-        <Button secondary href="edit" text={I18n.t(['manage', 'edit', entity])}/>
-      {/if}
+      <div class="list">
+        <HeaderList entity="editUsers" {headerItems}/>
+      </div>
     </div>
+  </div>
 
-    <EntityHeaderTabs {tabs}/>
+  <EntityHeaderTabs {tabs}/>
 </div>
