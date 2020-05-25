@@ -15,7 +15,7 @@ const expirationMultiplier = multiplier => {
   }
 }
 
-const expirationValueToPeriod = expiration_period => {
+export const expirationValueToPeriod = expiration_period => {
   const periods = expirationPeriods();
   let currentPeriod = "D";
   if (expiration_period % 7 === 0) {

@@ -1,10 +1,10 @@
 <script>
-  import { onMount } from "svelte";
+  import {onMount} from "svelte";
   import {
     requestBadge,
     withdrawRequestBadge
   } from "../../api";
-  import { queryData } from "../../api/graphql";
+  import {queryData} from "../../api/graphql";
   import EnrollmentBadge from "./EnrollmentBadge.svelte";
 
   let form;
@@ -59,7 +59,7 @@
   const withdrawRequest = id =>
     withdrawRequestBadge(id)
       .then(() => queryData(query).then(res => {
-          requests = res.enrollments;
+        requests = res.enrollments;
       }))
       .catch(err => {
         err.then(res => {
@@ -69,6 +69,12 @@
 </script>
 
 <style>
+
+  h3 {
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+
   div.content {
     display: grid;
     grid-template-columns: 31% 31% 31%;
@@ -92,7 +98,7 @@
 </style>
 
 <div>
-  <h4>Badge requests</h4>
+  <h3>Badge requests</h3>
 
   <div class="content">
     {#each requests as request}

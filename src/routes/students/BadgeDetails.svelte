@@ -222,7 +222,6 @@
         margin-top: 15px;
         display: flex;
       }
-
     }
   }
 
@@ -275,7 +274,7 @@
     flex-direction: column;
     margin-bottom: 40px;
 
-    span.issued-by {
+    span.issuer {
       color: var(--purple);
       font-size: 16px;
     }
@@ -373,7 +372,8 @@
       <BadgeClassDetails badgeclass={badge.badgeclass}/>
     </div>
     <div class="delete">
-      <Button action={() => deleteBadge(true)} secondary={true} text={I18n.t("student.deleteBadge")}/>
+      <Button action={() => deleteBadge(true)} secondary={true} text={I18n.t("student.deleteBadge")}
+        disabled={badge.acceptance === "REJECTED"}/>
     </div>
   {:else}
     <Spinner/>
