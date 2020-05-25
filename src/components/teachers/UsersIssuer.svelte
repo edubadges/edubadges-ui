@@ -1,16 +1,19 @@
 <script>
-  import { onMount } from "svelte";
-  import { queryData } from "../../api/graphql";
-  import { Breadcrumb, EditUserHeader } from "../teachers";
-  import { makeUserFacultyAdmin } from "../../api";
+    import { onMount } from "svelte";
+    import { queryData } from "../../api/graphql";
+    import { Button } from "../../components";
+    import { UsersTable } from "../teachers";
+    import {sortType} from "../../util/sortData";
+    import I18n from "i18n-js";
 
-  export let userId;
+    export let userId;
 
-  let user;
-  let faculties;
-  let institutionId;
+    let user;
+    let faculties;
+    let institutionId;
+    let institutionSearch;
 
-  const query = `{
+    const query = `{
   currentInstitution {
     name,
     entityId,
@@ -53,51 +56,78 @@
     }
     institutionStaff {
       entityId,
-      mayAdministrateUsers
+      mayAdministrateUsers,
+      institution {
+        name,
+        entityId
+      }
     }
   }
  }`;
 
 
-  onMount(() => {
+    onMount(() => {
 
-    queryData(query).then(res => {
-      institutionId = res.currentInstitution.entityId;
-      faculties = res.currentInstitution.faculties;
-      user = res.user;
+        queryData(query).then(res => {
+            institutionId = res.currentInstitution.entityId;
+            faculties = res.currentInstitution.faculties;
+            user = res.user;
+        });
     });
-  });
 
-  const makeInstitutionAdmin = () => {
+    const tableHeaders = [
+        {
+            name: I18n.t("editUsers.institution"),
+            attribute: "name",
+            reverse: false,
+            sortType: sortType.ALPHA
+        },
+        {
+            name: I18n.t("editUsers.role"),
+            attribute: "roles",
+            reverse: false,
+            sortType: sortType.COLLECTION
+        }
+    ];
 
-  };
+    $: table = {
+        entity: "user",
+        title: `${I18n.t("editUsers.institutionPermissions")}`,
+        tableHeaders: tableHeaders
+    };
 
-  const removeAdmin = (entityId) => {
-
-  };
-
-  const makeFacultyAdmin = (facultyId) => {
-    makeUserFacultyAdmin(facultyId, userId).then(() => {
-      queryData(query).then(res => {
-        institutionId = res.currentInstitution.entityId;
-        faculties = res.currentInstitution.faculties;
-        user = res.user;
-        console.log(res);
-      });
-    });
-  };
 </script>
 
 <style>
-  div {
-    margin-bottom: 10px;
-  }
+    div {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
 
-  .container {
-    display: flex;
-    flex-direction: column;
-  }
-
+    .container {
+        display: flex;
+        flex-direction: column;
+    }
 </style>
 
-Change issuer permissions
+<div>
+    <Button text="Add permissions" action={() => (console.log())}/>
+</div>
+{#if user}
+  <div class="container">
+    <UsersTable
+        {...table}
+        bind:search={institutionSearch}
+    >
+      {#each user.issuerStaffs as issuerStaffMembership}
+        <tr>
+          <td>{issuerStaffMembership.issuer.name}</td>
+          <td>
+            {I18n.t(['editUsers', issuerStaffMembership.mayAdministrateUsers ? 'allRights' : 'noRights'])}
+          </td>
+        </tr>
+      {/each}
+    </UsersTable>
+  </div>
+{/if}

@@ -70,13 +70,10 @@
 
 
   onMount(() => {
-    console.log('userId');
-
     queryData(query).then(res => {
       institutionId = res.currentInstitution.entityId;
       faculties = res.currentInstitution.faculties;
       user = res.user;
-      console.log(res);
     });
   });
 </script>

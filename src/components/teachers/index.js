@@ -38,3 +38,5 @@ export { default as UsersHeader } from "./UsersHeader.svelte";
 export { default as UsersIssuer } from "./UsersIssuer.svelte";
 export { default as UsersIssuerGroup } from "./UsersIssuerGroup.svelte";
 export { default as UsersInstitution } from "./UsersInstitution.svelte";
+export { default as UsersTable } from "./UsersTable.svelte";
+export { default as UsersTableHeaders } from "./UsersTableHeaders.svelte";

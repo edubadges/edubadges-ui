@@ -238,7 +238,9 @@ I18n.translations.en = {
   editUsers: {
     institutionPermissions: "Permissions on institution level",
     institution: "institution",
-    role: "Role"
+    role: "Role",
+    allRights: "All rights",
+    noRights: "No rights"
   },
   models: {
     editUsers: {

@@ -2,7 +2,7 @@
   import { onMount } from "svelte";
   import { queryData } from "../../api/graphql";
   import { Button } from "../../components";
-  import { Table } from "../teachers";
+  import { UsersTable } from "../teachers";
   import {sortType} from "../../util/sortData";
   import I18n from "i18n-js";
 
@@ -116,14 +116,16 @@
 </div>
 {#if user}
   <div class="container">
-    <Table
+    <UsersTable
         {...table}
         bind:search={institutionSearch}
     >
       <tr>
         <td>{user.institutionStaff.institution.name}</td>
-        <td>{#if user.institutionStaff.institution.mayAdministrateUsers}Admin{:else}Not admin{/if}</td>
+        <td>
+          {I18n.t(['editUsers', user.institutionStaff.mayAdministrateUsers ? 'allRights' : 'noRights'])}
+        </td>
       </tr>
-    </Table>
+    </UsersTable>
   </div>
 {/if}

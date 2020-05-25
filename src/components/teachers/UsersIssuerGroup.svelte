@@ -1,28 +1,21 @@
 <script>
   import { onMount } from "svelte";
   import { queryData } from "../../api/graphql";
-  import { Breadcrumb, EditUserHeader } from "../teachers";
-  import { makeUserFacultyAdmin } from "../../api";
+  import { Button } from "../../components";
+  import { UsersTable } from "../teachers";
+  import {sortType} from "../../util/sortData";
+  import I18n from "i18n-js";
+  import { enrichUser } from "../../util/enrichUser";
 
   export let userId;
 
   let user;
   let faculties;
   let institutionId;
+  let institutionSearch;
+  let enrichedUser;
 
   const query = `{
-  currentInstitution {
-    name,
-    entityId,
-    faculties {
-      name,
-      entityId,
-      issuers {
-        name,
-        entityId,
-      }
-    }
-  },
   user(id: "${userId}") {
     firstName,
     lastName,
@@ -53,42 +46,53 @@
     }
     institutionStaff {
       entityId,
-      mayAdministrateUsers
+      mayAdministrateUsers,
+      institution {
+        name,
+        entityId
+      }
     }
   }
  }`;
 
 
   onMount(() => {
-
     queryData(query).then(res => {
+      const institution = res.currentInstitution;
       institutionId = res.currentInstitution.entityId;
       faculties = res.currentInstitution.faculties;
       user = res.user;
+      enrichedUser = enrichUser(user, institution);
     });
   });
 
-  const makeInstitutionAdmin = () => {
+  const tableHeaders = [
+    {
+      name: I18n.t("editUsers.institution"),
+      attribute: "name",
+      reverse: false,
+      sortType: sortType.ALPHA
+    },
+    {
+      name: I18n.t("editUsers.role"),
+      attribute: "roles",
+      reverse: false,
+      sortType: sortType.COLLECTION
+    }
+  ];
 
+  $: table = {
+    entity: "user",
+    title: `${I18n.t("editUsers.institutionPermissions")}`,
+    tableHeaders: tableHeaders
   };
 
-  const removeAdmin = (entityId) => {
-
-  };
-
-  const makeFacultyAdmin = (facultyId) => {
-    makeUserFacultyAdmin(facultyId, userId).then(() => {
-      queryData(query).then(res => {
-        institutionId = res.currentInstitution.entityId;
-        faculties = res.currentInstitution.faculties;
-        user = res.user;
-      });
-    });
-  };
 </script>
 
 <style>
   div {
+    display: flex;
+    justify-content: space-between;
     margin-bottom: 10px;
   }
 
@@ -96,7 +100,25 @@
     display: flex;
     flex-direction: column;
   }
-
 </style>
 
-Change issuergroup permissions
+<div>
+  <Button text="Add permissions" action={() => (console.log())}/>
+</div>
+{#if user}
+  <div class="container">
+    <UsersTable
+        {...table}
+        bind:search={institutionSearch}
+    >
+      {#each user.facultyStaffs as facultyStaffMembership}
+        <tr>
+          <td>{facultyStaffMembership.faculty.name}</td>
+          <td>
+            {I18n.t(['editUsers', facultyStaffMembership.mayAdministrateUsers ? 'allRights' : 'noRights'])}
+          </td>
+        </tr>
+      {/each}
+    </UsersTable>
+  </div>
+{/if}
