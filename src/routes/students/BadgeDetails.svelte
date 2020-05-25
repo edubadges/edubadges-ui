@@ -144,6 +144,7 @@
   div.badge-detail {
     padding: 10px 40px;
     position: relative;
+
     div.shield {
       position: absolute;
       right: 45px;
@@ -269,6 +270,24 @@
     }
   }
 
+  div.issued {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 40px;
+
+    span.issued-by {
+      color: var(--purple);
+      font-size: 16px;
+    }
+
+    span.faculty {
+      font-size: 13px;
+      color: var(--grey-8);
+      margin-top: 5px;
+
+    }
+  }
+
   div.delete {
     display: flex;
     padding: 0 0 44px 0;
@@ -344,6 +363,11 @@
           <h3>{I18n.t("models.badge.expires")}</h3>
           <span>{badge.expires ? moment(badge.expires).format('MMM D, YYYY') : I18n.t("models.badge.expiresNever")}</span>
         </div>
+      </div>
+      <div class="issued">
+        <h3>{I18n.t("models.badge.issuedBy")}</h3>
+        <span class="issuer">{badge.badgeclass.issuer.name}</span>
+        <span class="faculty">({badge.badgeclass.issuer.faculty.name})</span>
       </div>
 
       <BadgeClassDetails badgeclass={badge.badgeclass}/>
