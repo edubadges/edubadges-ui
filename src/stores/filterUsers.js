@@ -1,14 +1,12 @@
 import { writable, derived } from "svelte/store";
 
+export const institution = writable();
 export const users = writable([]);
-
 export const userSearch = writable();
-export const selectedRole = writable();
+export const selectedRole = writable([]);
 export const facultyIds = writable([]);
 export const issuerIds = writable([]);
 export const userIds = writable([]);
-export const roles = writable([]);
-export const faculties = writable([]);
 
 function filterBySearch(users, search) {
   if (!search) {
@@ -28,108 +26,137 @@ function sort(collection, count = false) {
 }
 
 export const userTree = derived(
-  [users, userSearch, faculties, facultyIds, issuerIds],
-  ([users, userSearch, faculties, facultyIds, issuerIds]) => {
-    const tree = users.reduce(
-      (acc, cur) => {
-        if (facultyIds.length > 0) {
-          if (!cur.facultyStaffs.some(el => facultyIds.includes(el.faculty.entityId)) && !cur.institutionStaff.mayAdministrateUsers) {
-            return acc;
+  [userSearch, selectedRole, institution, users, facultyIds, issuerIds],
+  ([userSearch, selectedRole, institution, users, facultyIds, issuerIds]) => {
+
+    let tree = {
+      issuers: [],
+      faculties: [],
+      roles: [
+        {'role': 'Institution Admin', count: 0},
+        {'role': 'Issuer Group Admin', count: 0},
+        {'role': 'Issuer Admin', count: 0},
+        {'role': 'Badgeclass Owner', count: 0},
+        {'role': 'Badgeclass Editor', count: 0},
+        {'role': 'Badgeclass Awarder', count: 0},
+        {'role': 'Viewer', count: 0}
+      ],
+      users: []
+    };
+
+    if(!institution) {
+      return tree;
+    }
+
+    for(const faculty of institution.faculties) {
+      faculty.count = 0;
+      for (const issuer of faculty.issuers) {
+        issuer.count = 0;
+      }
+    }
+
+    for (const {user} of institution.permissionedStaff) {
+      user.role = 'Institution Admin';
+      tree.users = [user, ...tree.users];
+
+      tree.roles.find(el => el.role === 'Institution Admin').count++;
+
+      for(const faculty of institution.faculties) {
+        faculty.count++;
+        for (const issuer of faculty.issuers) {
+          issuer.count++;
+        }
+      }
+    }
+
+    for (const faculty of institution.faculties) {
+      if (facultyIds.length > 0 && facultyIds[0] !== faculty.entityId) {
+        continue;
+      }
+
+      for (const {user} of faculty.staff) {
+        user.role = 'Issuer Group Admin';
+        if (!tree.users.includes(_user => _user.entityId === user.entityId)) {
+          tree.users = [user, ...tree.users];
+          tree.roles.find(el => el.role === 'Issuer Group Admin').count++;
+        }
+
+        faculty.count++;
+        for (const issuer of faculty.issuers) {
+          issuer.count++;
+        }
+      }
+
+      for (const issuer of faculty.issuers) {
+        if (issuerIds.length > 0 && issuerIds[0] !== issuer.entityId) {
+          continue;
+        }
+
+        for (const {user} of faculty.staff) {
+          user.role = 'Issuer Admin';
+          if (!tree.users.includes(_user => _user.entityId === user.entityId)) {
+            tree.users = [user, ...tree.users];
+            tree.roles.find(el => el.role === 'Issuer Admin').count++;
           }
-        }
-        if (issuerIds.length > 0) {
-          if (!cur.issuerStaffs.some(el => issuerIds.includes(el.issuer.entityId)) && cur.facultyStaffs.some(el => facultyIds.includes(el.faculty.entityId)) && !cur.institutionStaff.mayAdministrateUsers) {
-            return acc;
-          }
+
+          issuer.count++;
         }
 
-        let highestRole;
-
-        if (cur.institutionStaff.mayAdministrateUsers) {
-          highestRole = 'Institution Admin';
-        }
-
-        for (const facultyMembership of cur.facultyStaffs) {
-          const faculty = facultyMembership.faculty;
-
-          if (!facultyIds.length || (facultyIds.length && facultyIds.includes(faculty.entityId))) {
-            if (!highestRole) {
-              const facultyAdmin = cur.facultyStaffs.reduce((acc, facultyMembership) => facultyMembership.mayAdministrateUsers || acc, false);
-              if (facultyAdmin) {
-                highestRole = 'Issuer Group Admin';
+        for (const badgeClass of issuer.badgeclasses) {
+          for (const {user} of badgeClass.staff) {
+            if (user.mayAdministrateUsers) {
+              user.role = 'Badgeclass Owner';
+              if (!tree.users.includes(_user => _user.entityId === user.entityId)) {
+                tree.users = [user, ...tree.users];
+                tree.roles.find(el => el.role === 'Badgeclass Owner').count++;
+              }
+            } else if (user.mayUpdate) {
+              user.role = 'Badgeclass Editor';
+              if (!tree.users.includes(_user => _user.entityId === user.entityId)) {
+                tree.users = [user, ...tree.users];
+                tree.roles.find(el => el.role === 'Badgeclass Editor').count++;
+              }
+            } else if (user.mayAward) {
+              user.role = 'Badgeclass Awarder';
+              if (!tree.users.includes(_user => _user.entityId === user.entityId)) {
+                tree.users = [user, ...tree.users];
+                tree.roles.find(el => el.role === 'Badgeclass Awarder').count++;
               }
             }
-
-            if (!acc.faculties.some(_faculty  => _faculty.entityId === faculty.entityId)) {
-              faculty.count = 1;
-              acc.faculties.push(faculty);
-            } else {
-              const _faculty = acc.faculties.find(el => el.entityId === faculty.entityId);
-              _faculty.count++;
-            }
           }
         }
-
-        for (const issuerMembership of cur.issuerStaffs) {
-          if (!highestRole) {
-            const issuerAdmin = cur.facultyStaffs.reduce((acc, facultyMembership) => facultyMembership.mayAdministrateUsers || acc, false);
-            if (issuerAdmin) {
-              highestRole = 'Issuer Group Admin';
-            }
-          }
-
-          const issuer = issuerMembership.issuer;
-
-          if (!issuerIds.length || (issuerIds.length && issuerIds.includes(issuer.entityId))) {
-            if (!acc.issuers.some(_issuer => _issuer.entityId === issuer.entityId)) {
-              issuer.count = 1;
-              acc.issuers.push(issuer);
-            } else {
-              const _issuer = acc.issuers.find(el => el.entityId === issuer.entityId);
-              _issuer.count++;
-            }
-          }
-        }
-
-        if (!highestRole) {
-          const badgeClassOwner = cur.badgeclassStaffs.reduce((acc, badgeClassMembership) => badgeClassMembership.mayAdministrateUsers || acc, false);
-          if (badgeClassOwner) {
-            highestRole = 'Badgeclass Owner'
-          }
-        }
-        if (!highestRole) {
-          const badgeClassAwarder = cur.badgeclassStaffs.reduce((acc, badgeClassMembership) => badgeClassMembership.mayAward || acc, false);
-          if (badgeClassAwarder) {
-            highestRole = 'Badgeclass Awarder'
-          }
-        }
-
-        if (!highestRole) {
-          highestRole = 'no-role';
-        }
-        acc.roles.find(el => el.role === highestRole).count++;
-        acc.users = [...acc.users, cur];
-
-        return acc;
-      },
-      {
-        issuers: [],
-        faculties: [],
-        roles: [
-          {'role': 'Institution Admin', count: 0},
-          {'role': 'Issuer Group Admin', count: 0},
-          {'role': 'Issuer Admin', count: 0},
-          {'role': 'Badgeclass Owner', count: 0},
-          {'role': 'Badgeclass Awarder', count: 0},
-          {'role': 'no-role', count: 0}
-        ],
-        users: []
       }
-    );
+    }
+
+    if (!issuerIds.length > 0 && !facultyIds.length > 0) {
+      for(const user of users) {
+        if (!user.institutionStaff.mayAdministrateUsers && user.facultyStaffs.length === 0 && user.issuerStaffs.length === 0 && user.badgeclassStaffs.length === 0) {
+          user.role = 'Viewer';
+          if (!tree.users.includes(_user => _user.entityId === user.entityId)) {
+            tree.users = [user, ...tree.users];
+            tree.roles.find(el => el.role === 'Viewer').count++;
+          }
+        }
+      }
+    }
+
+    console.log('selectedRole', selectedRole);
+    console.log('tree.users', tree.users);
+
+    if (selectedRole.length > 0) {
+      tree.users = tree.users.filter(user => user.role === selectedRole[0]);
+    }
+
+    let issuers = [];
+    for (const faculty of institution.faculties) {
+      for (const issuer of faculty.issuers) {
+        issuers = [issuer, ...issuers];
+      }
+    }
 
     return {
-      faculties: sort(tree.faculties, true),
-      issuers: sort(tree.issuers, true),
+      faculties: sort(institution.faculties, true),
+      issuers: sort(issuers, true),
       roles: tree.roles,
       users: tree.users
     };

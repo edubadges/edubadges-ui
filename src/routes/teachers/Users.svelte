@@ -1,6 +1,6 @@
 <script>
   import { SideBarUsers, UsersHeader } from "../../components/teachers/";
-  import { users, faculties, userTree } from "../../stores/filterUsers";
+  import { institution, users, userTree } from "../../stores/filterUsers";
   import { onMount } from "svelte";
   import { queryData } from "../../api/graphql";
   import I18n from "i18n-js";
@@ -13,12 +13,49 @@
   const query = `{
     currentInstitution {
       name,
+      entityId,
+      permissionedStaff {
+        user {
+          firstName,
+          lastName,
+          email,
+          entityId
+        }
+      },
       faculties {
         name,
         entityId,
+        staff {
+          user {
+            firstName,
+            lastName,
+            email,
+            entityId
+          }
+        },
         issuers {
           entityId,
-          name
+          name,
+          staff {
+            user {
+              firstName,
+              lastName,
+              email,
+              entityId
+            }
+          },
+          badgeclasses {
+            entityId,
+            name,
+            staff {
+              user {
+                firstName,
+                lastName,
+                email,
+                entityId
+              }
+            },
+          }
         }
       }
     },
@@ -27,38 +64,21 @@
       lastName,
       email,
       entityId,
+      institutionStaff {
+        mayAdministrateUsers
+      },
+      facultyStaffs {
+        entityId
+      },
+      issuerStaffs {
+        entityId
+      },
       badgeclassStaffs {
         entityId,
-        badgeclass {
-          name,
-          entityId
-        },
         mayAdministrateUsers,
+        mayUpdate,
         mayAward
-      }
-      issuerStaffs {
-        entityId,
-        issuer {
-          name,
-          entityId,
-          faculty {
-            entityId
-          }
-        },
-        mayAdministrateUsers
-      }
-      facultyStaffs {
-        entityId,
-        faculty {
-          name,
-          entityId
-        },
-        mayAdministrateUsers
-      }
-      institutionStaff {
-        entityId,
-        mayAdministrateUsers
-      }
+      },
     }
    }`;
 
@@ -66,7 +86,7 @@
   onMount(() => {
     queryData(query).then(res => {
       console.log(res);
-      $faculties = res.currentInstitution.faculties;
+      $institution = res.currentInstitution;
       $users = res.users;
     });
   });
@@ -88,16 +108,16 @@
 
   $: table = {
     entity: "user",
-    title: `${I18n.t("teacher.users.title")} (${$users.length})`,
+    title: `${I18n.t("teacher.users.title")} (${$userTree.users.length})`,
     tableHeaders: tableHeaders
   };
 
   let userSearch = "";
-  $: searchedUserIds = search($users, userSearch, "firstName");
+  // $: searchedUserIds = search($users, userSearch, "firstName");
 
   let userSort = tableHeaders[1];
 
-  $: filteredUsers = $users.filter(el => searchedUserIds.includes(el.entityId));
+  // $: filteredUsers = $users.filter(el => searchedUserIds.includes(el.entityId));
 </script>
 
 <style lang="scss">
@@ -130,7 +150,7 @@
             <br />
             <span class="sub-text">{user.email}</span>
           </td>
-          <td>{getHighestRole(user)}</td>
+          <td>{user.role}</td>
         </tr>
       {/each}
     </Table>

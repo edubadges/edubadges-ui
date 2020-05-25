@@ -2,7 +2,7 @@
   import I18n from "i18n-js";
   import { FilterBlock } from "../../components/teachers";
   import { Search } from "../../components";
-  import { userSearch, userTree, facultyIds, issuerIds, users, roles } from "../../stores/filterUsers";
+  import { userSearch, selectedRole, userTree, facultyIds, issuerIds, users } from "../../stores/filterUsers";
   import FilterBlockRoles from "./FilterBlockRoles.svelte";
 </script>
 
@@ -50,7 +50,7 @@
   </div>
   <div>
     <FilterBlockRoles
-        bind:value={$roles}
+        bind:value={$selectedRole}
         collection={$userTree.roles}
         title="roles" />
   </div>

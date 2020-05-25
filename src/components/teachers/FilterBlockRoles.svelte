@@ -8,7 +8,7 @@
 
   let showExpand = false;
   let expanded = false;
-  let maxLength = 5;
+  let maxLength = 7;
 
   $: showExpand = !value.length && collection.length > maxLength;
   $: items = expanded ? collection : collection.slice(0, maxLength);

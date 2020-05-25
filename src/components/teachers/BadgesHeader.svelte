@@ -13,7 +13,7 @@
   const query = `{
     currentInstitution {
       image,
-	  ${headerEntity},
+      ${headerEntity},
       ${headerStaff},
     }
   }`;
