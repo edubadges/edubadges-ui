@@ -120,7 +120,7 @@
   entity="badgeclass"
   {tabs}
   {headerItems}
-  mayUpdate={badgeclass.permissions && badgeclass.permissions.mayUpdate && badgeclass.badgeAssertions.length === 0} />
+  mayUpdate={false} />
 
 <div class="main-content-margin">
   <Router>

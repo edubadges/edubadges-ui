@@ -5,7 +5,6 @@
   import {queryData} from "../../api/graphql";
   import {isEmpty} from "lodash";
   import chevronRightSmall from "../../icons/chevron-right-small.svg";
-  import trash from "../../icons/trash.svg";
   import Button from "../../components/Button.svelte";
   import Spinner from "../../components/Spinner.svelte";
   import BadgeCard from "../../components/shared/BadgeCard.svelte";
@@ -17,6 +16,8 @@
   import {flash} from "../../stores/flash";
   import CopyToClipboardButton from "../../components/CopyToClipboardButton.svelte";
   import BadgeValidation from "./BadgeValidation.svelte";
+  import ToggleSwitch from "../../components/ToggleSwitch.svelte";
+  import copy from 'copy-to-clipboard';
 
   export let entityId;
 
@@ -30,10 +31,24 @@
   let modalTitle;
   let modalQuestion;
   let modalAction;
+  let showShareModal = false;
 
   const cancel = () => {
     showModal = false;
+    showShareModal = false
   }
+
+  const publicUrl = () => {
+    const currentUrl = window.location.href;
+    return currentUrl.replace("/details/", "/public/assertions/");
+
+  }
+
+  const copyToClipboard = () => {
+    copy(publicUrl());
+    showShareModal = false;
+  }
+
 
   const query = `{
     badgeInstance(id: "${entityId}") {
@@ -81,11 +96,6 @@
   }
 
   onMount(() => refreshBadgeDetails());
-
-  const publicBadgePageUrl = () => {
-    const currentUrl = window.location.href;
-    return currentUrl.replace("/details/", "/public/assertions/");
-  }
 
   const deleteBadge = showConfirmation => {
     if (showConfirmation) {
@@ -183,21 +193,9 @@
   }
 
   div.actions {
-    margin-bottom: 25px;
+    margin: 25px 0;
     display: flex;
-    align-items: center;
-
-    span.thrash {
-      background-color: var(--grey-3);
-      padding: 9px;
-      display: flex;
-      cursor: pointer;
-
-      &:hover {
-        background-color: var(--grey-4);
-      }
-
-    }
+    justify-content: center;
 
     .button-container {
       margin-left: 25px;
@@ -238,15 +236,23 @@
     margin-bottom: 40px;
   }
 
+  div.public-private {
+    background-color: var(--grey-3);
+    border-radius: 8px;
+    padding: 12px;
+
+    .header {
+      display: flex;
+
+      .switch-container {
+        margin-left: auto;
+      }
+    }
+  }
+
   p.revoked {
     color: var(--red-dark);
     font-size: 22px;
-    margin: 25px 0;
-  }
-
-  p.public {
-    color: var(--yellow-dark);
-    font-size: 18px;
     margin: 25px 0;
   }
 
@@ -256,6 +262,11 @@
     }
   }
 
+  div.delete {
+    display: flex;
+    padding: 0 0 44px 0;
+    justify-content: center;
+  }
 
 </style>
 <div class="badge-detail-container">
@@ -274,26 +285,37 @@
       </div>
       {#if badge.revoked}
         <p class="revoked">{I18n.t("student.badgeRevoked")}</p>
-      {:else if badge.public}
+      {:else}
+        <div class="public-private">
+          <div class="header">
+            <h3>{I18n.t("student.privateBadge")}</h3>
+            <div class="switch-container">
+              <ToggleSwitch disabled={false} value={!badge.public} onChange={val => makePublic(true, !val)}/>
+            </div>
+          </div>
+
+          <p>{I18n.t("student.publicPrivate")}</p>
+        </div>
         <div class="actions">
-      <span class="thrash" on:click={() => deleteBadge(true)}>
-        {@html trash}
-      </span>
           <div class="button-container">
             <DownloadButton text={I18n.t("models.badge.download")} secondary={true} filename="assertion.png"
                             url={badge.image}/>
           </div>
           <div class="button-container">
-            <Button action={() => makePublic(true, false)} secondary={true} text={I18n.t("student.private")}/>
+            {#if showShareModal}
+              <Modal submit={copyToClipboard}
+                     cancel={cancel}
+                     question={I18n.t("student.shareYourBadgeQuestion")}
+                     title={I18n.t("student.shareYourBadge")}
+                     submitLabel={I18n.t("student.share")}>
+                <div class="slots">
+                  <input class="input-field full" value={publicUrl()} disabled/>
+                </div>
+              </Modal>
+            {/if}
+            <Button text={I18n.t("models.badge.share")} action={() => showShareModal = true}
+                    disabled={!badge.public}/>
           </div>
-          <div class="button-container">
-            <CopyToClipboardButton text={I18n.t("models.badge.share")} toCopy={publicBadgePageUrl()}/>
-          </div>
-        </div>
-      {:else}
-        <p class="public">{I18n.t("student.notPublic")}</p>
-        <div class="actions">
-          <Button action={() => makePublic(true, true)} text={I18n.t("student.publish")}/>
         </div>
       {/if}
       {#if badge.public}
@@ -311,6 +333,9 @@
       </div>
 
       <BadgeClassDetails badgeclass={badge.badgeclass}/>
+    </div>
+    <div class="delete">
+      <Button action={() => deleteBadge(true)} secondary={true} text={I18n.t("student.deleteBadge")}/>
     </div>
   {:else}
     <Spinner/>

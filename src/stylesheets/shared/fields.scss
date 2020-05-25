@@ -49,6 +49,10 @@
     border-color: var(--red-dark);
     background-color: var(--red-light);
   }
+
+  &.full {
+    max-width: 100%;
+  }
 }
 
 .file-container {

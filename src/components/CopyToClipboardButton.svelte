@@ -49,20 +49,11 @@
     }
   }
 
-  span.notification {
-    position: absolute;
-    bottom: -24px;
-    font-size: 14px;
-    font-style: italic;
-  }
 </style>
 <div class="copy-to-clipboard-container">
   <div class="copy-to-clipboard" class:copied>
     <Button {secondary} {text} {disabled} {small} action={() => copyToClipboard(toCopy)}/>
   </div>
-  {#if copied}
-    <span class="notification">{I18n.t("copyToClipboard.copied")}</span>
-  {/if}
 </div>
 
 
