@@ -1,6 +1,8 @@
 <script>
   import I18n from "i18n-js";
   import {onMount} from "svelte";
+  import shieldUnlocked from "../../icons/shield-unlock.svg";
+  import shieldLocked from "../../icons/lock-shield.svg";
   import {link} from "svelte-routing";
   import {queryData} from "../../api/graphql";
   import {isEmpty} from "lodash";
@@ -141,6 +143,11 @@
 
   div.badge-detail {
     padding: 10px 40px;
+    position: relative;
+    div.shield {
+      position: absolute;
+      right: 45px;
+    }
   }
 
   div.badge-card-container {
@@ -280,6 +287,13 @@
       <h1>{badge.badgeclass.name}</h1>
     </div>
     <div class="badge-detail">
+      <div class="shield">
+        {#if badge.public}
+          {@html shieldUnlocked}
+        {:else}
+          {@html shieldLocked}
+        {/if}
+      </div>
       <div class="badge-card-container">
         <BadgeCard badgeClass={badge.badgeclass} standAlone={true}/>
       </div>

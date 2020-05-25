@@ -48,6 +48,10 @@
       border-radius: 50%;
     }
 
+    &.round:not(.checked)::before {
+      border: 1px solid var(--grey-4);
+    }
+
   }
 
   input:checked + .slider.checked {

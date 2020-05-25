@@ -130,26 +130,31 @@ I18n.translations.nl = {
     flash: {
       enrolled: "Successfully enrolled for badge {{name}}.",
       published: "This badge has been made public. You now can download and share this badge",
-      private: "This badge has been made private. You can no longer download or share this badge"
+      private: "This badge has been made private. You can no longer download or share this badge",
+      deleted: "This badge has been deleted. You can no longer download or share this badge"
     },
     enrollments: "Requested badges",
     badges: "Your badges",
+    deleteBadge: "Delete this badge",
+    share: "Share",
+    shareYourBadge: "Share your badge",
+    shareYourBadgeQuestion: "Your public badge URL is accessible for everyone",
     badgeRevoked: "This badge has been revoked. You can see the details, but this badge can no longer be shared or downloaded",
-    notPublic: "This badge has not been marked as public. If you want to share and download this badge you must mark the badge as public.",
-    publish: "Make public",
-    private: "Make private",
+    privateBadge: "Private badge",
+    publicPrivate: "When your badge is private, only you can see it and download it",
     confirmation: {
       publish: "Make this badge public accessible",
       private: "Make this badge private",
+      deleteBadge: "Delete badge",
       publishConfirmation: "Are you sure you want to make this badge public?",
-      privateConfirmation: "Are you sure you want to make this badge private?"
+      privateConfirmation: "Are you sure you want to make this badge private?",
+      deleteBadgeConfirmation: "Are you sure you want to delete this badge?",
     },
     validation: {
       loading: "Validating badge...",
       valid: "Valid badge",
       invalid: "Invalid badge"
     }
-
   },
   manage: {
     tabs: {

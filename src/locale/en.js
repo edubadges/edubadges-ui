@@ -140,7 +140,6 @@ I18n.translations.en = {
     shareYourBadge: "Share your badge",
     shareYourBadgeQuestion: "Your public badge URL is accessible for everyone",
     badgeRevoked: "This badge has been revoked. You can see the details, but this badge can no longer be shared or downloaded",
-    notPublic: "This badge has not been marked as public. If you want to share and download this badge you must mark the badge as public.",
     privateBadge: "Private badge",
     publicPrivate: "When your badge is private, only you can see it and download it",
     confirmation: {
