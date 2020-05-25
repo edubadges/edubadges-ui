@@ -322,11 +322,7 @@ I18n.translations.nl = {
       revoked: "Ingetrokken",
       validUntil: "Geldig tot",
       statuses: {
-        public: "Public",
-        rejected: "Rejected",
-        private: "Private",
-        revoked: "Revoked",
-        unknown: ""
+        new: "New",
       },
       confirmation: {
         revocationReason: "Reason for revocation (required)",

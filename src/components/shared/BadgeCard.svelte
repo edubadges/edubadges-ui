@@ -3,6 +3,8 @@
   import moment from "moment";
   import I18n from "i18n-js";
   import {navigate} from "svelte-routing";
+  import shieldUnlocked from "../../icons/shield-unlock.svg";
+  import shieldLocked from "../../icons/lock-shield.svg";
 
   export let badge;
   export let badgeClass;
@@ -14,22 +16,6 @@
     }
   }
 
-  const statusOfBadge = badge => {
-    if (badge.public && !badge.revoked && badge.acceptance === "ACCEPTED") {
-      return "public";
-    }
-    if (badge.acceptance === "REJECTED") {
-      return "rejected";
-    }
-    if (!badge.public) {
-      return "private"
-    }
-    if (badge.revoked) {
-      return "revoked";
-    }
-    return "unknown";
-  }
-
 </script>
 
 <style lang="scss">
@@ -37,6 +23,7 @@
     display: flex;
     flex-direction: column;
     background-color: var(--grey-2);
+    position: relative;
 
     &:not(.stand-alone) {
       cursor: pointer;
@@ -49,6 +36,17 @@
     flex-direction: column;
     text-align: center;
     background-color: white;
+
+    .shield {
+      position: absolute;
+      right: 8px;
+      top: 8px;
+
+      :global(svg) {
+        width: 28px;
+        height: 28px;
+      }
+    }
   }
 
   .header span {
@@ -106,40 +104,40 @@
 
   }
 
-  .details span.status {
-    font-size: 15px;
+  span.new-indicator {
+    display: inline-block;
     position: absolute;
-    right: -10px;
-    top: -10px;
-    transform: rotate(-45deg);
-    background-color: var(--grey-4);
-    border-radius: 4px;
-    padding: 3px 5px;
-
-    &.public {
-      color: var(--green-dark);
-    }
-
-    &.rejected {
-      color: var(--red-dark);
-    }
-
-    &.private {
-      color: var(--purple);
-    }
-
-    &.revoked {
-      color: var(--red-dark);
-    }
+    border-radius: 14px;
+    box-shadow: 0 1px 0 1px var(--grey-4);
+    background-color: var(--green-light);
+    max-width: 55px;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 4px 8px;
+    text-align: center;
+    left: 10px;
+    top: -10px
   }
 
 </style>
 
 {#if badge || badgeClass}
   <div class="card badge" class:stand-alone={standAlone} on:click|preventDefault|stopPropagation={detailLink}>
+    {#if badge && badge.acceptance === "UNACCEPTED"}
+      <span class="new-indicator">{I18n.t("models.badge.statuses.new")}</span>
+    {/if}
     <div class="header">
       {#if badge}
+
         <span>{moment(badge.issuedOn).format('MMM D, YYYY')}</span>
+        <div class="shield">
+          {#if badge.public}
+            {@html shieldUnlocked}
+          {:else}
+            {@html shieldLocked}
+          {/if}
+        </div>
+
       {/if}
       <img src={badgeClass.image} alt=""/>
     </div>
@@ -157,10 +155,6 @@
             <span class="faculty">({badgeClass.issuer.faculty.name})</span>
           {/if}
         </div>
-        {#if badge}
-          <span
-            class={`status ${statusOfBadge(badge)}`}>{I18n.t(`models.badge.statuses.${statusOfBadge(badge)}`)}</span>
-        {/if}
       </div>
     </div>
   </div>

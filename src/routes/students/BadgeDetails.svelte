@@ -14,7 +14,7 @@
   import moment from "moment";
   import Modal from "../../components/forms/Modal.svelte";
   import DownloadButton from "../../components/DownloadButton.svelte";
-  import {revokeAssertion, publicAssertion, deleteAssertion, validateBadge} from "../../api";
+  import {revokeAssertion, publicAssertion, deleteAssertion, validateBadge, claimAssertion} from "../../api";
   import {flash} from "../../stores/flash";
   import CopyToClipboardButton from "../../components/CopyToClipboardButton.svelte";
   import BadgeValidation from "./BadgeValidation.svelte";
@@ -87,6 +87,9 @@
     queryData(query).then(res => {
       badge = res.badgeInstance;
       showModal = false;
+      if (!badge.public && badge.acceptance === 'UNACCEPTED') {
+        claimAssertion(badge.entityId).then(() => flash.setValue(I18n.t("student.flash.claimed")));
+      }
       if (badge.public && validation.unloaded) {
         fetchingValidation = true;
         validateBadge(entityId).then(res => {
@@ -97,7 +100,9 @@
     });
   }
 
-  onMount(() => refreshBadgeDetails());
+  onMount(() => {
+    refreshBadgeDetails();
+  });
 
   const deleteBadge = showConfirmation => {
     if (showConfirmation) {

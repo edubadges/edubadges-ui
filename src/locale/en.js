@@ -63,7 +63,7 @@ I18n.translations.en = {
     },
   },
   profile: {
-    profile: "Profile",
+    profile: "Your account",
     name: "Name",
     primary: "Primary email",
     emails: "Emails",
@@ -73,11 +73,15 @@ I18n.translations.en = {
     addEmail: "Add e-mail",
     addEmailInfo: "You will receive an email with a link to verify your new email",
     unverified: "unverified",
+    validatedByYourInstitution: "Validated by uour institution",
+    deleteHeader: "Deleting your edubadges backpack",
+    deleteInfo: "<p>You can delete your backpack whenever you want.</p><p>Proceed with care, as you will loose all your badges.</p>",
     submit: "Add",
     deleteEmail: "Delete this email",
     deleteEmailConfirmation: "Are you sure you want to delete this email?",
     delete: "Delete",
     account: "Account",
+    eduid: "#eduid",
     accountInfo: "If you remove your account all your edubadges will become invalid.",
     deleteAccount: "Delete my account",
     deleteAccountConfirmation:
@@ -131,7 +135,8 @@ I18n.translations.en = {
       enrolled: "Successfully enrolled for badge {{name}}.",
       published: "This badge has been made public. You now can download and share this badge",
       private: "This badge has been made private. You can no longer download or share this badge",
-      deleted: "This badge has been deleted. You can no longer download or share this badge"
+      deleted: "This badge has been deleted. You can no longer download or share this badge",
+      claimed: "Successfully claimed this badge."
     },
     enrollments: "Requested badges",
     badges: "Your badges",
@@ -322,11 +327,7 @@ I18n.translations.en = {
       revoked: "Revoked",
       validUntil: "Valid until",
       statuses: {
-        public: "Public",
-        rejected: "Rejected",
-        private: "Private",
-        revoked: "Revoked",
-        unknown: ""
+        new: "new",
       },
       confirmation: {
         revocationReason: "Reason for revocation (required)",
