@@ -5,7 +5,7 @@
   import {queryData} from "../../api/graphql";
   import {headerEntity, headerStaff} from "../../api/queries";
   import {formatAdminNames} from "../../util/entityHeader";
-  import {selectedEntity} from "../../stores/filter";
+  import {selectedEntity} from "../../stores/filterBadges";
   import RemoteImage from "../RemoteImage.svelte";
 
   let institution = {};
