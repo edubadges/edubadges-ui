@@ -5,15 +5,19 @@
   import { UsersTable } from "../teachers";
   import { sortType } from "../../util/sortData";
   import I18n from "i18n-js";
-  import { makeUserBadgeclassOwner, makeUserBadgeclassEditor, makeUserBadgeclassAwarder } from "../../api";
-  import AddPermissionsModal from "../forms/AddPermissionsModal.svelte";
+  import {
+      makeUserBadgeclassOwner,
+      makeUserBadgeclassEditor,
+      makeUserBadgeclassAwarder,
+      removeUserBadgeclassPermission
+  } from "../../api";
+  import { AddPermissionsModal, Modal} from "../forms";
 
   export let userId;
 
   let user;
   let currentUser;
   let faculties;
-  let institutionId;
   let issuerSearch;
 
   let selection = [];
@@ -104,7 +108,7 @@
 
   onMount(() => {
     queryData(query).then(res => {
-      institutionId = res.currentInstitution.entityId;
+      console.log(res);
       faculties = res.currentInstitution.faculties;
       user = res.user;
       currentUser = res.currentUser;
@@ -132,38 +136,76 @@
     tableHeaders: tableHeaders
   };
 
-  //Modal
-  let showModal = false;
-  let modalTitle;
+  // Add permissions modal
+  let showAddModal = false;
+  let addModalTitle;
   let selectEntity;
-  let modalAction;
+  let addModalAction;
   let modalSelectedBadgeClass;
   let modalChosenRole;
   let modalNotes;
 
+  // Remove permissions modal
+  let showRemoveModal = false;
+  let removeModalTitle;
+  let removeModalQuestion;
+  let removeModalAction;
+
+  const reload = () => {
+    queryData(query).then(res => {
+      faculties = res.currentInstitution.faculties;
+      user = res.user;
+      currentUser = res.currentUser;
+    });
+  };
+
   const submitPermissions = () => {
     switch (modalChosenRole.name) {
       case 'owner':
-        makeUserBadgeclassOwner(modalSelectedBadgeClass, userId).then(res => {
-          console.log(res);
+        makeUserBadgeclassOwner(modalSelectedBadgeClass, userId).then(() => {
+          reload();
+          showAddModal = false;
         });
         break;
       case 'editor':
-        makeUserBadgeclassEditor(modalSelectedBadgeClass, userId);
+        makeUserBadgeclassEditor(modalSelectedBadgeClass, userId).then(() => {
+          reload();
+          showAddModal = false;
+        });
         break;
       case 'awarder':
-        makeUserBadgeclassAwarder(modalSelectedBadgeClass, userId);
+        makeUserBadgeclassAwarder(modalSelectedBadgeClass, userId).then(() => {
+          reload();
+          showAddModal = false;
+        });
         break;
       default:
-        console.error('error');
+        console.error('error: invalid role');
     }
   };
 
+  const removeSelectedPermissions = () => {
+    for (const selected of selection) {
+      removeUserBadgeclassPermission(selected).then(() => {
+        reload();
+        showRemoveModal = false;
+      })
+    }
+    selection.length = 0;
+  };
+
   const addPermissions = () => {
-    showModal = true;
-    modalTitle = I18n.t(['editUsers', 'permissions', 'addPermissions']);
+    showAddModal = true;
+    addModalTitle = I18n.t(['editUsers', 'permissions', 'addPermissions']);
     selectEntity = 'badgeClass';
-    modalAction = submitPermissions;
+    addModalAction = submitPermissions;
+  };
+
+  const removePermissions = () => {
+    showRemoveModal = true;
+    removeModalTitle = I18n.t(['editUsers', 'permissions', 'removePermissions']);
+    removeModalQuestion = 'badgeClass';
+    removeModalAction = removeSelectedPermissions;
   };
 
   const permissionsRoles = [
@@ -174,9 +216,14 @@
 
   $: buttons = [
     {
+      'action': removePermissions,
+      'text': I18n.t(['editUsers', 'permissions', 'removePermissions']),
+      'allowed': (currentUser && currentUser.institutionStaff.mayAdministrateUsers && selection.length > 0),
+    },
+    {
       'action': addPermissions,
       'text': I18n.t(['editUsers', 'permissions', 'addPermissions']),
-      'allowed': (currentUser && currentUser.institutionStaff.mayAdministrateUsers)
+      'allowed': (currentUser && currentUser.institutionStaff.mayAdministrateUsers),
     }
   ];
 
@@ -228,7 +275,13 @@
         </td>
         <td>{badgeclassStaffMembership.badgeclass.name}</td>
         <td>
-          {I18n.t(['editUsers', 'badgeClass', 'owner'])}
+          {#if badgeclassStaffMembership.mayAdministrateUsers}
+            {I18n.t(['editUsers', 'badgeClass', 'owner'])}
+          {:else if badgeclassStaffMembership.mayUpdate}
+            {I18n.t(['editUsers', 'badgeClass', 'editor'])}
+          {:else if badgeclassStaffMembership.mayAward}
+            {I18n.t(['editUsers', 'badgeClass', 'awarder'])}
+          {/if}
         </td>
       </tr>
     {/each}
@@ -293,13 +346,21 @@
   </div>
 {/if}
 
-{#if showModal}
+{#if showRemoveModal}
+  <Modal submit={removeModalAction}
+       cancel={() => showRemoveModal = false}
+       question={removeModalQuestion}
+       title={removeModalTitle}>
+  </Modal>
+{/if}
+
+{#if showAddModal}
   <AddPermissionsModal
-    submit={modalAction}
-    cancel={() => showModal = false}
+    submit={addModalAction}
+    cancel={() => showAddModal = false}
     selectEntity={selectEntity}
     permissionsRoles={permissionsRoles}
-    title={modalTitle}
+    title={addModalTitle}
     entity={'badgeclass'}
     bind:target={modalSelectedBadgeClass}
     bind:chosenRole={modalChosenRole}

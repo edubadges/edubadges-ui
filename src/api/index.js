@@ -301,13 +301,7 @@ export function makeUserBadgeclassOwner(badgeclassId, userId) {
     "user": userId,
     "badgeclass": badgeclassId
   };
-  console.log(path, {body: JSON.stringify(payload)}, "POST");
   return validFetch(path, {body: JSON.stringify(payload)}, "POST");
-}
-
-export function removeUserBadgeclassOwner(badgeclassMembershipId) {
-  const path = `${serverUrl}/staff-membership/badgeclass/change/${badgeclassMembershipId}`;
-  return validFetch(path, {}, "DELETE");
 }
 
 export function makeUserBadgeclassEditor(badgeclassId, userId) {
@@ -326,11 +320,6 @@ export function makeUserBadgeclassEditor(badgeclassId, userId) {
   return validFetch(path, {body: JSON.stringify(payload)}, "POST");
 }
 
-export function removeUserBadgeclassEditor(badgeclassMembershipId) {
-  const path = `${serverUrl}/staff-membership/badgeclass/change/${badgeclassMembershipId}`;
-  return validFetch(path, {}, "DELETE");
-}
-
 export function makeUserBadgeclassAwarder(badgeclassId, userId) {
   const path = `${serverUrl}/staff-membership/badgeclass/${badgeclassId}/create`;
   const payload = {
@@ -347,7 +336,7 @@ export function makeUserBadgeclassAwarder(badgeclassId, userId) {
   return validFetch(path, {body: JSON.stringify(payload)}, "POST");
 }
 
-export function removeUserBadgeclassAwarder(badgeclassMembershipId) {
+export function removeUserBadgeclassPermission(badgeclassMembershipId) {
   const path = `${serverUrl}/staff-membership/badgeclass/change/${badgeclassMembershipId}`;
   return validFetch(path, {}, "DELETE");
 }
