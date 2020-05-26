@@ -13,10 +13,10 @@
     padding: 20px;
     margin-bottom: 20px;
     background-color: var(--grey-2);
-    border-radius: 4px;
+    border-radius: 8px;
 
     &.valid {
-      background-color: var(--green-light);
+      background-color: var(--green-dark);
     }
 
     &.invalid {
@@ -57,7 +57,7 @@
         color: var(--red-dark);
 
         &.valid {
-          color: var(--green-dark);
+          color: white;
         }
       }
       .messages {

@@ -6,6 +6,7 @@
   export let cancel;
   export let title;
   export let question;
+  export let submitLabel = I18n.t("modal.confirm");
   export let disabled = false;
 
   let modal;
@@ -33,7 +34,7 @@
     </div>
     <div class="options">
       <Button secondary={true} action={cancel} text={I18n.t("modal.cancel")}/>
-      <Button action={submit} text={I18n.t("modal.confirm")} disabled={disabled}/>
+      <Button action={submit} text={submitLabel} disabled={disabled}/>
     </div>
   </div>
 </div>

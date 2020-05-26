@@ -111,7 +111,7 @@
         $userVerifiedByInstitution = false;
         $userInVerificationFlow = false;
         $redirectPath = "";
-        navigate("/login");
+        navigate("/login?after_delete=true");
       });
     }
   }
@@ -121,42 +121,18 @@
 </script>
 
 <style>
-  h3 {
+  h1 {
     font-size: 22px;
     margin-bottom: 20px;
     border-left: 2px solid var(--purple-2);
     padding-left: 25px;
   }
 
-  table {
-    border-collapse: collapse;
-    width: 100%;
-  }
 
-  thead {
-    color: purple;
-    border-bottom: 3px solid var(--grey-3);
-    text-align: left;
-  }
-
-  tbody td:first-child {
-    width: 50%;
-  }
-
-  tbody td {
-    padding: 10px;
-  }
-
-  div:not(:last-child) {
+  div.profile-section {
+    display: flex;
+    flex-direction: column;
     margin-bottom: 45px;
-  }
-
-  span.unverified {
-    font-style: italic;
-  }
-
-  .error {
-    color: red;
   }
 
   p.account-info {
@@ -165,86 +141,31 @@
 </style>
 
 <div>
-  <h3>{I18n.t("profile.profile")}</h3>
+  <h1>{I18n.t("profile.profile")}</h1>
 
   {#if profile}
-    <table class="profile">
-      <thead>
-      <tr>
-        <th>{I18n.t("profile.name")}</th>
-        <th>{I18n.t("profile.primary")}</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td>{profile.last_name}</td>
-        <td>{profile.email}</td>
-      </tr>
-      </tbody>
-    </table>
+    <div class="profile"></div>
+    <div class="profile-section">
+      <h3>{I18n.t("profile.name")}</h3>
+      <span>{`${profile.first_name} ${profile.last_name}`}</span>
+      <span>{`(${I18n.t('profile.validatedByYourInstitution')})`}</span>
+    </div>
+    <div class="profile-section">
+      <h3>{I18n.t("profile.email")}</h3>
+      <span>{profile.email}</span>
+    </div>
+
+    <div class="profile-section">
+      <h3>{I18n.t("profile.eduid")}</h3>
+      <span>{profile.email}</span>
+    </div>
+
   {/if}
 </div>
 
 <div>
-  <h3>{I18n.t("profile.emails")}</h3>
-
-  <table class="emails">
-    <thead>
-    <tr>
-      <th>{I18n.t("profile.email")}</th>
-      <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    {#each emails as { email, verified, id } (id)}
-      <tr>
-        <td>{email}
-          {#if !verified}
-            <span class="unverified"> - {I18n.t("profile.unverified")}</span>
-          {/if}
-        </td>
-        <td>
-          <div class="actions">
-            <Button disabled={!verified} action={() => makePrimary(true, id)} text={I18n.t("profile.makePrimary")}/>
-
-            <Button action={() => removeEmail(true, id)} text={I18n.t("profile.delete")}/>
-          </div>
-        </td>
-      </tr>
-    {/each}
-
-    </tbody>
-  </table>
-</div>
-
-<div>
-  <h3>{I18n.t("profile.addEmail")}</h3>
-  <table>
-    <thead>
-    <tr>
-      <th>{I18n.t("profile.addEmailInfo")}</th>
-      <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-      <td>
-        <TextInput bind:value={email}/>
-      </td>
-      <td>
-        <Button action={() => submitEmail(email)} text={I18n.t("profile.submit")}/>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-  {#if error}
-    <p class="error">{error}</p>
-  {/if}
-</div>
-
-<div>
-  <h3>{I18n.t("profile.account")}</h3>
-  <p class="account-info">{I18n.t("profile.accountInfo")}</p>
+  <h3>{I18n.t("profile.deleteHeader")}</h3>
+  <p class="account-info">{@html I18n.t("profile.deleteInfo")}</p>
   <Button action={deleteProfileAction(true)} text={I18n.t("profile.deleteAccount")}/>
 </div>
 
@@ -252,6 +173,6 @@
   <Modal submit={modalAction}
          cancel={() => showModal = false}
          question={modalQuestion}
-         title={modalTitle}>
+           title={modalTitle}>
   </Modal>
 {/if}

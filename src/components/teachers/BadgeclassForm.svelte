@@ -1,9 +1,9 @@
 <script>
   import I18n from "i18n-js";
-  import { navigate } from "svelte-routing";
-  import { EntityForm } from "../teachers";
-  import { Field, Select, File, TextInput } from "../forms";
-  import { createBadgeclass, editBadgeclass } from "../../api";
+  import {navigate} from "svelte-routing";
+  import {EntityForm} from "../teachers";
+  import {Field, Select, File, TextInput} from "../forms";
+  import {createBadgeclass, editBadgeclass} from "../../api";
   import ExpirationSettings from "./ExpirationSettings.svelte";
   import {
     ects,
@@ -15,10 +15,10 @@
     learningOutcome
   } from "../extensions/badges/extensions";
   import EctsCreditPoints from "../extensions/badges/EctsCreditPoints.svelte";
-  import { setExpirationPeriod } from "../extensions/badges/expiration_period";
+  import {setExpirationPeriod} from "../extensions/badges/expiration_period";
 
   export let entityId;
-  export let badgeclass = { extensions: [] };
+  export let badgeclass = {extensions: []};
   export let issuers = [];
 
   let expireValueSet = false;
@@ -28,19 +28,24 @@
   let errors = {};
   const isCreate = !entityId;
 
-  const languages = [{ name: "Nl_Nl" }, { name: "En_En" }];
+  const languages = [{name: "Nl_Nl"}, {name: "En_En"}];
 
-  const eqfItems = [...Array(8).keys()].map(i => ({ name: `EQF ${i + 1}` }));
+  const eqfItems = [...Array(8).keys()].map(i => {
+    return {name: `EQF ${i + 1}`, value: i}
+  });
 
   let extensions = {};
 
-  $: if (badgeclass.extensions.length > 0 && !loaded)  {
+  $: if (badgeclass.extensions.length > 0 && !loaded) {
     extensions = {
       [language.name]: extensionValue(badgeclass.extensions, language) || {name: "En_En"},
       [ects.name]: extensionValue(badgeclass.extensions, ects) || 2.5,
-      [eqf.name]: extensionValue(badgeclass.extensions, eqf) || {name: "EQF 6"},
+      [eqf.name]: extensionValue(badgeclass.extensions, eqf) || {name: "EQF 6", value: 6},
       [learningOutcome.name]: extensionValue(badgeclass.extensions, learningOutcome) || "",
       [educationProgramIdentifier.name]: extensionValue(badgeclass.extensions, educationProgramIdentifier) || ""
+    }
+    if (extensions[eqf.name] && typeof extensions[eqf.name] === "number") {
+      extensions[eqf.name] = {name: `EQF ${extensions[eqf.name]}`, value: extensions[eqf.name]}
     }
     loaded = true;
   }
@@ -55,16 +60,16 @@
     };
     setExpirationPeriod(newBadgeclass);
     newBadgeclass.extensions = extensionToJson([
-      { name: language.name, value: extensions[language.name].name },
-      { name: ects.name, value: extensions[ects.name] },
-      { name: eqf.name, value: extensions[eqf.name].name },
-      { name: learningOutcome.name, value: extensions[learningOutcome.name] },
+      {name: language.name, value: extensions[language.name].name},
+      {name: ects.name, value: extensions[ects.name]},
+      {name: eqf.name, value: extensions[eqf.name].value},
+      {name: learningOutcome.name, value: extensions[learningOutcome.name]},
       {
         name: educationProgramIdentifier.name,
-        value: extensions[educationProgramIdentifier.name]
+        value: parseInt(extensions[educationProgramIdentifier.name], 10)
       }
     ]);
-
+    debugger;
     if (badgeclass.issuer) {
       newBadgeclass.issuer = badgeclass.issuer.entityId;
     }
@@ -75,7 +80,7 @@
       .then(res => {
         navigate(`/manage/badgeclass/${res.entity_id}`)
       })
-      .catch(err => err.then(({ fields }) => (errors = fields)));
+      .catch(err => err.then(({fields}) => (errors = fields)));
   }
 </script>
 
@@ -125,7 +130,7 @@
       <File
         bind:value={badgeclass.image}
         error={errors.image}
-        removeAllowed={false} />
+        removeAllowed={false}/>
     </Field>
 
     <ExpirationSettings
@@ -133,10 +138,10 @@
       disabled={false}
       className=""
       bind:number={badgeclass.expirationDuration}
-      bind:period={badgeclass.expirationPeriod} />
+      bind:period={badgeclass.expirationPeriod}/>
 
     <Field {entity} attribute="name" errors={errors.name}>
-      <TextInput bind:value={badgeclass.name} error={errors.name} />
+      <TextInput bind:value={badgeclass.name} error={errors.name}/>
     </Field>
 
     <Field {entity} attribute="language" errors={errors.language}>
@@ -144,21 +149,21 @@
         bind:value={extensions[language.name]}
         items={languages}
         optionIdentifier="name"
-        clearable={false} />
+        clearable={false}/>
     </Field>
 
     <Field {entity} attribute="description" errors={errors.description}>
       <TextInput
         bind:value={badgeclass.description}
         error={errors.description}
-        area />
+        area/>
     </Field>
 
     <Field {entity} attribute="learningOutcome" errors={errors.learningOutcome}>
       <TextInput
         bind:value={extensions[learningOutcome.name]}
         error={errors.learningOutcome}
-        area />
+        area/>
     </Field>
 
     <Field {entity} attribute="issuer" errors={errors.issuer}>
@@ -166,7 +171,7 @@
         bind:value={badgeclass.issuer}
         error={errors.issuer}
         disabled={!isCreate}
-        items={issuers} />
+        items={issuers}/>
     </Field>
 
   </div>
@@ -179,20 +184,20 @@
       <TextInput
         area
         bind:value={badgeclass.criteriaText}
-        error={errors.criteria_text} />
+        error={errors.criteria_text}/>
     </Field>
 
     <Field {entity} attribute="criteria_url" errors={errors.criteria_url}>
       <TextInput
         bind:value={badgeclass.criteriaUrl}
-        error={errors.criteria_url} />
+        error={errors.criteria_url}/>
     </Field>
   </div>
 
   <h4>{I18n.t('models.badgeclass.headers.creditPoints')}</h4>
 
   <Field {entity} attribute="ectsLong" errors={errors.ectsLong}>
-    <EctsCreditPoints bind:ectsValue={extensions[ects.name]} />
+    <EctsCreditPoints bind:ectsValue={extensions[ects.name]}/>
   </Field>
 
   <div class="form">
@@ -202,8 +207,10 @@
       attribute="educationProgramIdentifierLong"
       errors={errors.educationProgramIdentifierLong}>
       <TextInput
+        type="number"
+        max="999999999999999"
         bind:value={extensions[educationProgramIdentifier.name]}
-        error={errors.educationProgramIdentifierLong} />
+        error={errors.educationProgramIdentifierLong}/>
       <span class="info">
         {@html I18n.t('models.badgeclass.info.educationProgramIdentifier')}
       </span>
@@ -213,8 +220,8 @@
       <Select
         bind:value={extensions[eqf.name]}
         items={eqfItems}
-        optionIdentifier="name"
-        clearable={false} />
+        optionIdentifier="value"
+        clearable={false}/>
       <span class="info">
         {@html I18n.t('models.badgeclass.info.eqf')}
       </span>

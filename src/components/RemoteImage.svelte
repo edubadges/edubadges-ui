@@ -14,11 +14,12 @@
       headers: {}
     };
     if (useToken) {
-      fetchOptions.headers.Authorization = "Bearer " + get(authToken);
+      //fetchOptions.headers.Authorization = "Bearer " + get(authToken);
     }
     const res = await fetch(imageUrl, fetchOptions);
     const blob = await res.blob();
-    return URL.createObjectURL(blob);
+    const url = URL.createObjectURL(blob);
+    return url;
   }
 </script>
 {#if imageUrl}

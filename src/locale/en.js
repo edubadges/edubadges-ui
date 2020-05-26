@@ -64,7 +64,7 @@ I18n.translations.en = {
     },
   },
   profile: {
-    profile: "Profile",
+    profile: "Your account",
     name: "Name",
     primary: "Primary email",
     emails: "Emails",
@@ -74,11 +74,15 @@ I18n.translations.en = {
     addEmail: "Add e-mail",
     addEmailInfo: "You will receive an email with a link to verify your new email",
     unverified: "unverified",
+    validatedByYourInstitution: "Validated by your institution",
+    deleteHeader: "Deleting your edubadges backpack",
+    deleteInfo: "<p>You can delete your backpack whenever you want.</p><p>Proceed with care, as you will loose all your badges.</p>",
     submit: "Add",
     deleteEmail: "Delete this email",
     deleteEmailConfirmation: "Are you sure you want to delete this email?",
     delete: "Delete",
     account: "Account",
+    eduid: "#eduid",
     accountInfo: "If you remove your account all your edubadges will become invalid.",
     deleteAccount: "Delete my account",
     deleteAccountConfirmation:
@@ -140,14 +144,18 @@ I18n.translations.en = {
       enrolled: "Successfully enrolled for badge {{name}}.",
       published: "This badge has been made public. You now can download and share this badge",
       private: "This badge has been made private. You can no longer download or share this badge",
-      deleted: "This badge has been deleted. You can no longer download or share this badge"
+      deleted: "This badge has been deleted. You can no longer download or share this badge",
+      claimed: "Successfully claimed this badge."
     },
     enrollments: "Requested badges",
     badges: "Your badges",
+    deleteBadge: "Delete this badge",
+    share: "Share",
+    shareYourBadge: "Share your badge",
+    shareYourBadgeQuestion: "Your public badge URL is accessible for everyone",
     badgeRevoked: "This badge has been revoked. You can see the details, but this badge can no longer be shared or downloaded",
-    notPublic: "This badge has not been marked as public. If you want to share and download this badge you must mark the badge as public.",
-    publish: "Make public",
-    private: "Make private",
+    privateBadge: "Private badge",
+    publicPrivate: "When your badge is private, only you can see it and download it",
     confirmation: {
       publish: "Make this badge public accessible",
       private: "Make this badge private",
@@ -366,11 +374,7 @@ I18n.translations.en = {
       revoked: "Revoked",
       validUntil: "Valid until",
       statuses: {
-        public: "Public",
-        rejected: "Rejected",
-        private: "Private",
-        revoked: "Revoked",
-        unknown: ""
+        new: "new",
       },
       confirmation: {
         revocationReason: "Reason for revocation (required)",

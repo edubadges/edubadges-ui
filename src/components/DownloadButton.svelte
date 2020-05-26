@@ -1,6 +1,8 @@
 <script>
   import {link} from "svelte-routing";
   import Button from "./Button.svelte";
+  import {get} from "svelte/store";
+  import {authToken} from "../stores/user";
 
   export let text;
   export let secondary;
@@ -8,6 +10,7 @@
   export let small;
   export let url;
   export let filename;
+  export let useToken = true;
 
   const forceDownload = (blob, filename) => {
     const a = document.createElement('a');
@@ -25,7 +28,8 @@
     }
     fetch(url, {
       headers: new Headers({
-        'Origin': location.origin
+        Origin: window.location.origin,
+        Authorization: useToken ? "Bearer " + get(authToken) : ""
       }),
       mode: 'cors'
     })

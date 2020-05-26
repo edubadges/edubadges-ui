@@ -45,7 +45,7 @@
   </Field>
 
   <Field {entity} attribute="name" errors={errors.name}>
-    <TextInput bind:value={institution.name} error={errors.name} />
+    <TextInput bind:value={institution.name} error={errors.name} disabled={true} />
   </Field>
 
   <Field {entity} attribute="description" errors={errors.description}>

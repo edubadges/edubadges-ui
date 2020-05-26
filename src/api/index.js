@@ -167,6 +167,15 @@ export function publicAssertion(assertionEntityId, isPublic) {
   );
 }
 
+export function claimAssertion(assertionEntityId) {
+  const path = `${serverUrl}/v1/earner/badges/${assertionEntityId}`;
+  return validFetch(
+    path,
+    {body: JSON.stringify({"public": false, "acceptance": "Accepted"})},
+    "PUT"
+  );
+}
+
 // Institution
 export function editInstitution(entityId, institution) {
   const path = `${serverUrl}/institution/edit/${entityId}`;
@@ -214,6 +223,11 @@ export function getPublicBadgeClass(badgeId) {
 
 export function getPublicBadge(entityId) {
   const path = `${serverUrl}/public/assertions/${entityId}?expand=badge&expand=badge.issuer`;
+  return validFetch(path, {}, "GET", false);
+}
+
+export function validateBadge(entityId) {
+  const path = `${serverUrl}/public/assertions/validate/${entityId}`;
   return validFetch(path, {}, "GET", false);
 }
 
