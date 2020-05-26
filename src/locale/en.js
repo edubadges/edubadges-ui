@@ -16,6 +16,7 @@ I18n.translations.en = {
   },
   login: {
     title: "Never stop learning",
+    loginToEnrol: "Login to enroll for this Badge",
     description:
       "Edubadges are digital certificates and show that the owner has certain skills or knowledge. Edubadges can be issued for both extracurriculair activities and accredited education.",
     student: {

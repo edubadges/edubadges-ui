@@ -16,6 +16,7 @@ I18n.translations.nl = {
   },
   login: {
     title: "Leven lang ontwikkelen",
+    loginToEnrol: "Login to enroll for this Badge",
     description:
       "Edubadges zijn digitale certificaten die aantonen dat de eigenaar bepaalde vaardigheden of kennis bezit. Edubadges kunnen worden uitgereikt voor zowel extracurriculaire activiteiten als geaccrediteerd onderwijs.",
     student: {
