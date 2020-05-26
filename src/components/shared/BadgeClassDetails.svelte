@@ -76,7 +76,7 @@
       <tbody>
         <tr>
           <td>{fallBackValue(badgeclass.ects || extensionValue(badgeclass.extensions, ects))}</td>
-          <td>{fallBackValue(badgeclass.eqf || extensionValue(badgeclass.extensions, eqf))}</td>
+          <td>{`EQF ${fallBackValue(badgeclass.eqf || extensionValue(badgeclass.extensions, eqf))}`}</td>
           <td>
             {fallBackValue(badgeclass.educationProgramIdentifier || extensionValue(badgeclass.extensions, educationProgramIdentifier))}
           </td>

@@ -19,7 +19,6 @@
     const res = await fetch(imageUrl, fetchOptions);
     const blob = await res.blob();
     const url = URL.createObjectURL(blob);
-    debugger;
     return url;
   }
 </script>
