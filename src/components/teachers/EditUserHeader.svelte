@@ -52,13 +52,13 @@
       display: flex;
       margin-bottom: var(--ver-padding-m);
 
-      .img-container {
-        flex-shrink: 0;
-        height: 100px;
-        width: 100px;
-        background: white;
-        margin-right: var(--hor-padding-m);
-      }
+      /*.img-container {*/
+      /*  flex-shrink: 0;*/
+      /*  height: 100px;*/
+      /*  width: 100px;*/
+      /*  background: white;*/
+      /*  margin-right: var(--hor-padding-m);*/
+      /*}*/
 
       .info {
         flex: 1;

@@ -1,17 +1,22 @@
 <script>
   import { onMount } from "svelte";
   import { queryData } from "../../api/graphql";
-  import { Button } from "../../components";
+  import { Button, CheckBox } from "../../components";
   import { UsersTable } from "../teachers";
-  import {sortType} from "../../util/sortData";
+  import { sortType } from "../../util/sortData";
   import I18n from "i18n-js";
+  import { makeUserInstitutionAdmin, removeUserInstitutionAdmin } from "../../api";
 
   export let userId;
 
   let user;
+  let currentUser;
   let faculties;
   let institutionId;
   let institutionSearch;
+
+  let selection = [];
+  let checkAllValue = false;
 
   const query = `{
   currentInstitution {
@@ -25,6 +30,20 @@
         entityId,
       }
     }
+  },
+  currentUser {
+    institutionStaff {
+      mayAdministrateUsers
+    },
+    facultyStaffs {
+      mayAdministrateUsers
+    },
+    issuerStaffs {
+      mayAdministrateUsers
+    },
+    badgeclassStaffs {
+      mayAdministrateUsers
+    },
   },
   user(id: "${userId}") {
     firstName,
@@ -69,15 +88,17 @@
   onMount(() => {
 
     queryData(query).then(res => {
+      console.log(res);
       institutionId = res.currentInstitution.entityId;
       faculties = res.currentInstitution.faculties;
       user = res.user;
+      currentUser = res.currentUser;
     });
   });
 
   const tableHeaders = [
     {
-      name: I18n.t("editUsers.institution"),
+      name: I18n.t("editUsers.institution.header"),
       attribute: "name",
       reverse: false,
       sortType: sortType.ALPHA
@@ -96,6 +117,22 @@
     tableHeaders: tableHeaders
   };
 
+  const toggleInstitutionAdmin = () => {
+    if (user.institutionStaff.mayAdministrateUsers) {
+      makeUserInstitutionAdmin(user.entityId);
+    } else {
+      removeUserInstitutionAdmin(user.entityId);
+    }
+  };
+
+  $: buttons = [
+    {
+      'action': toggleInstitutionAdmin,
+      'text': I18n.t(['editUsers', 'permissions', 'addPermissions']),
+      'allowed': (currentUser && currentUser.institutionStaff.mayAdministrateUsers),
+      'disabled': true
+    }
+  ]
 </script>
 
 <style>
@@ -111,19 +148,25 @@
   }
 </style>
 
-<div>
-  <Button text="Add permissions" action={() => (console.log())}/>
-</div>
 {#if user}
   <div class="container">
     <UsersTable
         {...table}
         bind:search={institutionSearch}
+        withCheckAll={true}
+        bind:buttons={buttons}
     >
       <tr>
+        <td>
+          <CheckBox
+              value={selection.includes(user.entityId)}
+              name={`select-${user.entityId}`}
+              disabled={user.revoked}
+              onChange={val => (console.log(val))}/>
+        </td>
         <td>{user.institutionStaff.institution.name}</td>
         <td>
-          {I18n.t(['editUsers', user.institutionStaff.mayAdministrateUsers ? 'allRights' : 'noRights'])}
+          {I18n.t(['editUsers', 'institution', user.institutionStaff.mayAdministrateUsers ? 'allRights' : 'noRights'])}
         </td>
       </tr>
     </UsersTable>

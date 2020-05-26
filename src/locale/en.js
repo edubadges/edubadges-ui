@@ -237,15 +237,40 @@ I18n.translations.en = {
   },
   editUsers: {
     institutionPermissions: "Permissions on institution level",
-    institution: "institution",
+    institution: {
+      header: "Institution",
+      allRights: "Institution Admin",
+      noRights: "No rights"
+    },
+    issuerGroup: {
+      header: "Issuer Group",
+      allRights: "Issuer Group Admin",
+    },
+    issuer: {
+      header: "Issuer",
+      allRights: "Issuer Admin",
+    },
+    badgeClass: {
+      header: "Badgeclass",
+      owner: "Badgeclass owner",
+      editor: "Badgeclass owner",
+      awarder: "Badgeclass owner",
+    },
+    permissions: {
+      addPermissions: "Add permissions",
+    },
+    modal: {
+      add: 'add'
+    },
     role: "Role",
-    allRights: "All rights",
-    noRights: "No rights"
   },
   models: {
     editUsers: {
       memberSince: "Member since",
       email: "email",
+      role: 'Role',
+      notes: 'Notes',
+      badgeClass: "Select a badgeclass",
     },
     institution: {
       created: "Created",

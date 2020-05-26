@@ -218,8 +218,8 @@ export function getPublicBadge(entityId) {
 }
 
 // Manage users
-export function makeUserInstitutionAdmin(institutionId, userId) {
-  const path = `${serverUrl}/institution/${institutionId}/create`;
+export function makeUserInstitutionAdmin(staffMembershipId) {
+  const path = `${serverUrl}/staff-membership/institution/change/${staffMembershipId}`;
   const payload = {
     "may_create":1,
     "may_read": 1,
@@ -228,10 +228,22 @@ export function makeUserInstitutionAdmin(institutionId, userId) {
     "may_sign": 1,
     "may_award": 1,
     "may_administrate_users": 1,
-    "user": userId,
-    "institution": institutionId
   };
-  return validFetch(path, {body: JSON.stringify(payload)}, "POST");
+  return validFetch(path, {body: JSON.stringify(payload)}, "PUT");
+}
+
+export function removeUserInstitutionAdmin(staffMembershipId) {
+  const path = `${serverUrl}/staff-membership/institution/change/${staffMembershipId}`;
+  const payload = {
+    "may_create":0,
+    "may_read": 1,
+    "may_update": 0,
+    "may_delete": 0,
+    "may_sign": 0,
+    "may_award": 0,
+    "may_administrate_users": 0,
+  };
+  return validFetch(path, {body: JSON.stringify(payload)}, "PUT");
 }
 
 export function makeUserFacultyAdmin(facultyId, userId) {
@@ -277,7 +289,7 @@ export function removeUserIssuerAdmin(issuerMembershipId) {
 }
 
 export function makeUserBadgeclassOwner(badgeclassId, userId) {
-  const path = `${serverUrl}/badgeclass/${badgeclassId}/create`;
+  const path = `${serverUrl}/staff-membership/badgeclass/${badgeclassId}/create`;
   const payload = {
     "may_create":1,
     "may_read": 1,
@@ -289,16 +301,38 @@ export function makeUserBadgeclassOwner(badgeclassId, userId) {
     "user": userId,
     "badgeclass": badgeclassId
   };
+  console.log(path, {body: JSON.stringify(payload)}, "POST");
   return validFetch(path, {body: JSON.stringify(payload)}, "POST");
 }
 
 export function removeUserBadgeclassOwner(badgeclassMembershipId) {
-  const path = `${serverUrl}/badgeclass/change/${badgeclassMembershipId}`;
+  const path = `${serverUrl}/staff-membership/badgeclass/change/${badgeclassMembershipId}`;
   return validFetch(path, {}, "DELETE");
 }
 
-export function makeUserBadgeAwarder(badgeclassId, userId) {
-  const path = `${serverUrl}/badgeclass/${badgeclassId}/create`;
+export function makeUserBadgeclassEditor(badgeclassId, userId) {
+  const path = `${serverUrl}/staff-membership/badgeclass/${badgeclassId}/create`;
+  const payload = {
+    "may_create":1,
+    "may_read": 1,
+    "may_update": 1,
+    "may_delete": 0,
+    "may_sign": 1,
+    "may_award": 1,
+    "may_administrate_users": 0,
+    "user": userId,
+    "badgeclass": badgeclassId
+  };
+  return validFetch(path, {body: JSON.stringify(payload)}, "POST");
+}
+
+export function removeUserBadgeclassEditor(badgeclassMembershipId) {
+  const path = `${serverUrl}/staff-membership/badgeclass/change/${badgeclassMembershipId}`;
+  return validFetch(path, {}, "DELETE");
+}
+
+export function makeUserBadgeclassAwarder(badgeclassId, userId) {
+  const path = `${serverUrl}/staff-membership/badgeclass/${badgeclassId}/create`;
   const payload = {
     "may_create":0,
     "may_read": 1,
@@ -314,6 +348,6 @@ export function makeUserBadgeAwarder(badgeclassId, userId) {
 }
 
 export function removeUserBadgeclassAwarder(badgeclassMembershipId) {
-  const path = `${serverUrl}/badgeclass/change/${badgeclassMembershipId}`;
+  const path = `${serverUrl}/staff-membership/badgeclass/change/${badgeclassMembershipId}`;
   return validFetch(path, {}, "DELETE");
 }

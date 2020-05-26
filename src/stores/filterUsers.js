@@ -140,9 +140,6 @@ export const userTree = derived(
       }
     }
 
-    console.log('selectedRole', selectedRole);
-    console.log('tree.users', tree.users);
-
     if (selectedRole.length > 0) {
       tree.users = tree.users.filter(user => user.role === selectedRole[0]);
     }

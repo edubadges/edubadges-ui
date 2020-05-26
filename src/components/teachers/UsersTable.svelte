@@ -4,16 +4,16 @@
   import {Search, Button, CheckBox} from "../../components";
   import {UsersTableHeaders} from "../teachers";
   import {sortType} from "../../util/sortData";
+  import { onMount } from "svelte";
 
-  export let mayCreate;
-  export let entity = "";
   export let title = "";
   export let tableHeaders = [];
-  export let search = "";
 
   export let withCheckAll;
   export let checkAllValue;
   export let onCheckAll;
+
+  export let buttons;
 </script>
 
 <style lang="scss">
@@ -53,12 +53,11 @@
 <div class="container main-content-margin">
   <div class="header">
     <h3>{title}</h3>
-    <Search bind:value={search}/>
-    {#if mayCreate}
-      <Button
-          href={`/manage/${entity}/new`}
-          text={I18n.t(['manage', 'new', entity])}/>
-    {/if}
+    {#each buttons as button}
+      {#if button.allowed}
+        <Button text={button.text} action={button.action} disabled={button.disabled}/>
+      {/if}
+    {/each}
   </div>
   <slot name="check-buttons"/>
   <table class="entity-table">
