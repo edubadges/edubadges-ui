@@ -143,6 +143,7 @@ I18n.translations.nl = {
     badges: "Your badges",
     deleteBadge: "Delete this badge",
     share: "Share",
+    copyUrl: "Copy URL",
     shareYourBadge: "Share your badge",
     shareYourBadgeQuestion: "Your public badge URL is accessible for everyone",
     badgeRevoked: "This badge has been revoked. You can see the details, but this badge can no longer be shared or downloaded",

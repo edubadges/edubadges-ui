@@ -343,7 +343,7 @@
                      cancel={cancel}
                      question={I18n.t("student.shareYourBadgeQuestion")}
                      title={I18n.t("student.shareYourBadge")}
-                     submitLabel={I18n.t("student.share")}>
+                     submitLabel={I18n.t("student.copyUrl")}>
                 <div class="slots">
                   <input class="input-field full" value={publicUrl()} disabled/>
                 </div>
