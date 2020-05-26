@@ -8,7 +8,6 @@
   import { search } from "../../util/searchData";
   import { sort, sortType } from "../../util/sortData";
   import {navigate} from "svelte-routing";
-  import {getHighestRole} from "../../util/getHighestRole";
 
   const query = `{
     currentInstitution {
