@@ -85,7 +85,6 @@
 
   onMount(() => {
     queryData(query).then(res => {
-      console.log(res);
       $institution = res.currentInstitution;
       $users = res.users;
     });

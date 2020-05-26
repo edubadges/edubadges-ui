@@ -108,7 +108,6 @@
 
   onMount(() => {
     queryData(query).then(res => {
-      console.log(res);
       faculties = res.currentInstitution.faculties;
       user = res.user;
       currentUser = res.currentUser;
