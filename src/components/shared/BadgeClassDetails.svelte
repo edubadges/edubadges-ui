@@ -14,7 +14,7 @@
 
 </script>
 
-<style>
+<style lang="scss">
   h3 {
     font-size: 18px;
     font-weight: 600;
@@ -36,6 +36,10 @@
   table.extensions th,
   table.extensions td {
     text-align: left;
+  }
+
+  thead.purple {
+    color: var(--purple);
   }
 
   @media (max-width: 1120px) {

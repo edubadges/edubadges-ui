@@ -272,6 +272,7 @@ I18n.translations.nl = {
       criteria_url: "Criteria URL",
       criteria_url_value: "Link naar de criteria:",
       directAward: "Direct award",
+      inviteEnrollements: "Invite people to enroll",
       expiresAfter: "Verloopt na",
       expiresAfterNever: "Nooit",
       expiresAfterValue: "{{nbr}} weken",
@@ -363,6 +364,11 @@ I18n.translations.nl = {
         awarded: "The enrollment(s) have been awarded."
       }
     },
+  },
+  invites: {
+    title: "Invite people to enroll",
+    copyPublicUrl: "If you want to place the link to the registration page on your intranet or EOL, you can copy the link",
+    copyUrl: "Copy URL"
   },
   file: {
     noFileSelected: "Geen bestand geselecteerd",

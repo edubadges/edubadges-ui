@@ -43,7 +43,6 @@
   const publicUrl = () => {
     const currentUrl = window.location.href;
     return currentUrl.replace("/details/", "/public/assertions/");
-
   }
 
   const copyToClipboard = () => {

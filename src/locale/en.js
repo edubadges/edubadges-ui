@@ -272,6 +272,7 @@ I18n.translations.en = {
       criteria_url: "Or provide a criteria URL",
       criteria_url_value: "Link to the earning criteria:",
       directAward: "Direct award",
+      inviteEnrollements: "Invite people to enroll",
       expiresAfter: "Expires after",
       expiresAfterNever: "Never",
       expiresAfterValue: "{{nbr}} weeks",
@@ -363,6 +364,11 @@ I18n.translations.en = {
         awarded: "The enrollment(s) have been awarded."
       }
     },
+  },
+  invites: {
+    title: "Invite people to enroll",
+    copyPublicUrl: "If you want to place the link to the registration page on your intranet or EOL, you can copy the link",
+    copyUrl: "Copy URL"
   },
   file: {
     noFileSelected: "No file selected",

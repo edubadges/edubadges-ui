@@ -1,26 +1,28 @@
 <script>
-  import { onMount } from "svelte";
-  import { Router, Route, navigate } from "svelte-routing";
+  import {onMount} from "svelte";
+  import {Router, Route, navigate} from "svelte-routing";
   import I18n from "i18n-js";
-  import { EntityHeader } from "../teachers";
-  import { Overview } from "../teachers/badgeclass";
+  import {EntityHeader} from "../teachers";
+  import Button from "../../components/Button.svelte";
+  import {Overview} from "../teachers/badgeclass";
   import Assertions from "../teachers/badges/Assertions.svelte";
-  import Enrollments  from "../teachers/badges/Enrollments.svelte";
-  import { badgeclassIcon, chevronLeft } from "../../icons";
-  import { queryData } from "../../api/graphql";
+  import Enrollments from "../teachers/badges/Enrollments.svelte";
+  import {badgeclassIcon, chevronLeft} from "../../icons";
+  import {queryData} from "../../api/graphql";
   import {
     headerStaff,
     headerEntity,
     enrollmentsQuery,
     assertionsQuery
   } from "../../api/queries";
+  import {expirationPeriod} from "../../util/entityHeader";
 
   export let entityId;
   export let subEntity;
 
   let issuer;
   let faculty;
-  let badgeclass = { extensions: [] };
+  let badgeclass = {extensions: [], issuer: {}};
 
   let enrollments = [];
   let assertions = [];
@@ -73,7 +75,7 @@
     }
   ];
 
-  $: if (!subEntity) navigate(tabs[0].href, { replace: true });
+  $: if (!subEntity) navigate(tabs[0].href, {replace: true});
 
   $: headerItems = [
     {
@@ -82,9 +84,14 @@
       value: badgeclass.createdAt
     },
     {
-      attr: "admin",
-      type: "adminNames",
-      value: badgeclass
+      attr: "expiresAfter",
+      type: "none",
+      value: expirationPeriod(badgeclass)
+    },
+    {
+      attr: "issuer",
+      type: "none",
+      value: badgeclass.issuer.name
     }
   ];
 </script>
@@ -106,6 +113,7 @@
       vertical-align: middle;
     }
   }
+
 </style>
 
 <div class="nav">
@@ -120,20 +128,24 @@
   entity="badgeclass"
   {tabs}
   {headerItems}
-  mayUpdate={false} />
+  mayUpdate={false}>
+  <div class="slots">
+    <Button href={`/invite-enrollements/${badgeclass.entityId}`} text={I18n.t("models.badgeclass.inviteEnrollements")}/>
+  </div>
+</EntityHeader>
 
 <div class="main-content-margin">
   <Router>
     <Route path="/overview">
-      <Overview {badgeclass} />
+      <Overview {badgeclass}/>
     </Route>
 
     <Route path="/enrollments">
-      <Enrollments {entityId} bind:enrollments />
+      <Enrollments {entityId} bind:enrollments/>
     </Route>
 
     <Route path="/awarded">
-      <Assertions {issuer} {badgeclass} {assertions} />
+      <Assertions {issuer} {badgeclass} {assertions}/>
     </Route>
   </Router>
 </div>
