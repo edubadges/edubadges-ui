@@ -73,11 +73,15 @@ I18n.translations.nl = {
     addEmail: "Voeg e-mailadres toe",
     addEmailInfo: "Je zult een e-mail ontvangen met een link om je e-mailadres te verifieren.",
     unverified: "Niet geverifieerd",
+    validatedByYourInstitution: "Validated by your institution",
+    deleteHeader: "Deleting your edubadges backpack",
+    deleteInfo: "<p>You can delete your backpack whenever you want.</p><p>Proceed with care, as you will loose all your badges.</p>",
     submit: "Voeg toe",
     deleteEmail: "Verwijder dit e-mailadres",
     deleteEmailConfirmation: "Weet je zeker dat je dit e-mailadres wilt verwijderen?",
     delete: "Verwijder",
     account: "Account",
+    eduid: "#eduid",
     accountInfo: "Als je je account verwijderd zullen al je edubadges ongeldig worden.",
     deleteAccount: "Verwijder mijn account",
     deleteAccountConfirmation:
@@ -131,7 +135,8 @@ I18n.translations.nl = {
       enrolled: "Successfully enrolled for badge {{name}}.",
       published: "This badge has been made public. You now can download and share this badge",
       private: "This badge has been made private. You can no longer download or share this badge",
-      deleted: "This badge has been deleted. You can no longer download or share this badge"
+      deleted: "This badge has been deleted. You can no longer download or share this badge",
+      claimed: "Successfully claimed this badge."
     },
     enrollments: "Requested badges",
     badges: "Your badges",
