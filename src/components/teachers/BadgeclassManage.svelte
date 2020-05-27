@@ -8,6 +8,7 @@
   import { headerStaff, headerEntity } from "../../api/queries";
   import {expirationValueToPeriod } from "../extensions/badges/expiration_period";
   import I18n from "i18n-js";
+  import {expirationPeriod} from "../../util/entityHeader";
 
   export let entityId;
   export let tab;
@@ -50,14 +51,6 @@
     }
   }`;
 
-  const expirationPeriod = () => {
-    if (!badgeclass.expirationPeriod || badgeclass.expirationPeriod === 0) {
-      return I18n.t("models.badgeclass.expiresAfterNever");
-    }
-    let period = expirationValueToPeriod(badgeclass.expirationPeriod);
-    return period[0] + " " + period[1].name;
-  }
-
   onMount(() => {
     queryData(query).then(res => {
       badgeclass = res.badgeClass;
@@ -88,7 +81,7 @@
     {
       attr: "expiresAfter",
       type: "none",
-      value: expirationPeriod()
+      value: expirationPeriod(badgeclass)
     },
     {
       attr: "issuer",

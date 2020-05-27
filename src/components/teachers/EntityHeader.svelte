@@ -62,6 +62,14 @@
       }
     }
   }
+
+  .slots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto 0 auto calc(var(--hor-padding-xl) / 2);
+  }
+
 </style>
 
 <div class="entity">
@@ -77,17 +85,23 @@
         <HeaderList {entity} {headerItems}/>
       </div>
     </div>
-
-    {#if visitorRole === role.STUDENT}
-      {#if !enrolled}
-        <Button secondary action={enrollStudent} text={I18n.t('student.enroll')} class="btn"/>
-      {:else}
-        <Button label="alreadyEnrolled" disabled={true} text={I18n.t('student.enrolled')}/>
+    <div class="slots">
+      {#if visitorRole === role.STUDENT}
+        {#if !enrolled}
+          <Button secondary action={enrollStudent} text={I18n.t('student.enroll')} class="btn"/>
+        {:else}
+          <Button label="alreadyEnrolled" disabled={true} text={I18n.t('student.enrolled')}/>
+        {/if}
       {/if}
-    {/if}
-    {#if mayUpdate}
-      <Button secondary href="edit" text={I18n.t(['manage', 'edit', entity])}/>
-    {/if}
+      {#if mayUpdate}
+        <Button secondary href="edit" text={I18n.t(['manage', 'edit', entity])}/>
+      {/if}
+    </div>
+    <div class="slots">
+      <slot/>
+    </div>
+
+
   </div>
 
   <EntityHeaderTabs {tabs}/>

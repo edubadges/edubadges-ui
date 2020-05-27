@@ -16,6 +16,7 @@ I18n.translations.nl = {
   },
   login: {
     title: "Leven lang ontwikkelen",
+    loginToEnrol: "Login to enroll for this Badge",
     description:
       "Edubadges zijn digitale certificaten die aantonen dat de eigenaar bepaalde vaardigheden of kennis bezit. Edubadges kunnen worden uitgereikt voor zowel extracurriculaire activiteiten als geaccrediteerd onderwijs.",
     student: {
@@ -142,6 +143,7 @@ I18n.translations.nl = {
     badges: "Your badges",
     deleteBadge: "Delete this badge",
     share: "Share",
+    copyUrl: "Copy URL",
     shareYourBadge: "Share your badge",
     shareYourBadgeQuestion: "Your public badge URL is accessible for everyone",
     badgeRevoked: "This badge has been revoked. You can see the details, but this badge can no longer be shared or downloaded",
@@ -272,6 +274,7 @@ I18n.translations.nl = {
       criteria_url: "Criteria URL",
       criteria_url_value: "Link naar de criteria:",
       directAward: "Direct award",
+      inviteEnrollements: "Invite people to enroll",
       expiresAfter: "Verloopt na",
       expiresAfterNever: "Nooit",
       expiresAfterValue: "{{nbr}} weken",
@@ -363,6 +366,11 @@ I18n.translations.nl = {
         awarded: "The enrollment(s) have been awarded."
       }
     },
+  },
+  invites: {
+    title: "Invite people to enroll",
+    copyPublicUrl: "If you want to place the link to the registration page on your intranet or EOL, you can copy the link",
+    copyUrl: "Copy URL"
   },
   file: {
     noFileSelected: "Geen bestand geselecteerd",

@@ -16,6 +16,7 @@
   import Flash from "./components/forms/Flash.svelte";
   import BadgeDetails from "./routes/students/BadgeDetails.svelte";
   import PublicBadgePage from "./components/shared/PublicBadgePage.svelte";
+  import InviteEnrollments from "./components/teachers/InviteEnrollments.svelte";
 
   const homepage = {
     guest: Login,
@@ -109,6 +110,10 @@
         <Route
           path="/badgeclass/:entityId/*subEntity"
           component={BadgeclassAwarder}/>
+        <Route path="/invite-enrollements/:entityId/" let:params>
+          <InviteEnrollments entityId={params.entityId}/>
+        </Route>
+
 
         <!-- Shared -->
         <Route path="/public/:entityId/" let:params>

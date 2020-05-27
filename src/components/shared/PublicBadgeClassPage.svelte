@@ -1,13 +1,16 @@
 <script>
   import {onMount} from "svelte";
+  import I18n from "i18n-js";
   import {queryData} from "../../api/graphql";
   import {role} from "../../util/role";
   import {getPublicBadgeClass} from "../../api";
   import {isEmpty} from "lodash";
   import {EntityHeader} from "../teachers";
   import {Overview} from "../teachers/badgeclass/index";
-  import {Spinner} from "../index";
+  import {Button, Spinner} from "../index";
   import {publicBadgeInformation} from "../extensions/badges/extensions";
+  import {userLoggedIn, redirectPath} from "../../stores/user";
+  import {navigate} from "svelte-routing";
 
   export let entityId;
   export let visitorRole;
@@ -16,6 +19,14 @@
   let enrollmentId;
   let studentEnrolled;
   let requestedDate;
+
+  let isGuest = false;
+
+  const login = () => {
+    $redirectPath = window.location.pathname;
+    navigate("/login");
+
+  }
 
   const query = `{
     enrollment(badgeClassId: "${entityId}") {
@@ -39,8 +50,6 @@
           requestedDate = res.enrollment.dateCreated;
         }
       });
-    } else if (visitorRole === role.GUEST) {
-      //TODO - show "Login to enroll" with redirect to student login with redirect to this page
     }
 
     getPublicBadgeClass(entityId).then(res => {
@@ -56,13 +65,17 @@
     object={badgeClass}
     visitorRole={visitorRole}
     enrolled={studentEnrolled}
-    entityId={entityId}
-  >
+    entityId={entityId}>
+    {#if visitorRole === role.GUEST}
+      <div class="slots">
+        <Button text={I18n.t("login.loginToEnrol")} action={login}/>
+      </div>
+    {/if}
   </EntityHeader>
 
   {#if !isEmpty(badgeClass)}
     <Overview badgeclass={badgeClass} studentEnrolled={studentEnrolled} enrollmentId={enrollmentId}
-              requested={requestedDate}/>
+              requested={requestedDate} studentPath={I18n.t("student.enrollments")}/>
   {:else}
     <Spinner/>
   {/if}

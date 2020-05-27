@@ -17,6 +17,7 @@ I18n.translations.en = {
   },
   login: {
     title: "Never stop learning",
+    loginToEnrol: "Login to enroll for this Badge",
     description:
       "Edubadges are digital certificates and show that the owner has certain skills or knowledge. Edubadges can be issued for both extracurriculair activities and accredited education.",
     student: {
@@ -151,6 +152,7 @@ I18n.translations.en = {
     badges: "Your badges",
     deleteBadge: "Delete this badge",
     share: "Share",
+    copyUrl: "Copy URL",
     shareYourBadge: "Share your badge",
     shareYourBadgeQuestion: "Your public badge URL is accessible for everyone",
     badgeRevoked: "This badge has been revoked. You can see the details, but this badge can no longer be shared or downloaded",
@@ -321,6 +323,7 @@ I18n.translations.en = {
       criteria_url: "Or provide a criteria URL",
       criteria_url_value: "Link to the earning criteria:",
       directAward: "Direct award",
+      inviteEnrollements: "Invite people to enroll",
       expiresAfter: "Expires after",
       expiresAfterNever: "Never",
       expiresAfterValue: "{{nbr}} weeks",
@@ -412,6 +415,11 @@ I18n.translations.en = {
         awarded: "The enrollment(s) have been awarded."
       }
     },
+  },
+  invites: {
+    title: "Invite people to enroll",
+    copyPublicUrl: "If you want to place the link to the registration page on your intranet or EOL, you can copy the link",
+    copyUrl: "Copy URL"
   },
   file: {
     noFileSelected: "No file selected",
