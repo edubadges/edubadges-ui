@@ -7,14 +7,14 @@
   export let useToken = true;
 
   async function fetchData() {
+    const token = get(authToken);
     const fetchOptions = {
       method: "GET",
-      credentials: "same-origin",
-      redirect: "manual",
+      redirect: "follow",
       headers: {}
     };
-    if (useToken) {
-      //fetchOptions.headers.Authorization = "Bearer " + get(authToken);
+    if (token && useToken) {
+      fetchOptions.headers.Authorization = "Bearer " + get(authToken);
     }
     const res = await fetch(imageUrl, fetchOptions);
     const blob = await res.blob();
