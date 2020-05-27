@@ -282,7 +282,7 @@ export function removeUserIssuerGroupAdmin(facultyMembershipId) {
 }
 
 export function makeUserIssuerAdmin(issuerId, userId) {
-  const path = `${serverUrl}/issuer/${issuerId}/create`;
+  const path = `${serverUrl}/staff-membership/issuer/${issuerId}/create`;
   const payload = {
     "may_create":1,
     "may_read": 1,
@@ -298,7 +298,7 @@ export function makeUserIssuerAdmin(issuerId, userId) {
 }
 
 export function removeUserIssuerAdmin(issuerMembershipId) {
-  const path = `${serverUrl}/issuer/change/${issuerMembershipId}`;
+  const path = `${serverUrl}/staff-membership/issuer/change/${issuerMembershipId}`;
   return validFetch(path, {}, "DELETE");
 }
 

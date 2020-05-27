@@ -52,6 +52,7 @@
   user(id: "${userId}") {
     firstName,
     lastName,
+    entityId,
     badgeclassStaffs {
       entityId,
       badgeclass {
@@ -240,7 +241,7 @@
         </td>
         <td>{issuerStaffMembership.issuer.name}</td>
         <td>
-          {I18n.t(['editUsers', 'faculty', 'allRights'])}
+          {I18n.t(['editUsers', 'issuer', 'allRights'])}
         </td>
       </tr>
     {/each}
