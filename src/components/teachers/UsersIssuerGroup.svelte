@@ -228,7 +228,7 @@
           </td>
           <td>{facultyStaffMembership.faculty.name}</td>
           <td>
-            {I18n.t(['editUsers', 'faculty', 'allRights'])}
+            {I18n.t(['editUsers', 'issuerGroup', 'allRights'])}
           </td>
         </tr>
       {/each}

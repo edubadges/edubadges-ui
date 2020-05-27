@@ -280,6 +280,8 @@ I18n.translations.en = {
       role: 'Role',
       notes: 'Notes',
       badgeClass: "Select a badgeclass",
+      issuerGroup: "Select an issuer group",
+      issuer: "Select an issuer",
     },
     institution: {
       created: "Created",
