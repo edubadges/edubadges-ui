@@ -12,6 +12,7 @@ I18n.translations.nl = {
     nav: {
       badgeclasses: "Edubadges",
       manage: "Beheer",
+      users: "Gebruikers"
     },
   },
   login: {
@@ -104,6 +105,7 @@ I18n.translations.nl = {
       filters: {
         faculties: "Issuer groepen",
         issuers: "Issuers",
+        roles: "Rollen (hoogste)",
         show_all: "Toon meer",
         show_less: "Toon minder",
       },
@@ -112,6 +114,7 @@ I18n.translations.nl = {
       back: "terug",
     },
     name: "Naam",
+    nameEmail: "Naam/Email",
     badgeclasses: {
       title: "Badgeclasses",
       created: "Datum gecreëerd",
@@ -127,6 +130,12 @@ I18n.translations.nl = {
     badgeRevoked: {
       revoke: "Verwijder edubadge",
     },
+    roles: {
+      title: "Rollen (hoogste)"
+    },
+    users: {
+      title: "Gebruikers"
+    }
   },
   student: {
     enroll: "Aanvragen",
@@ -165,6 +174,7 @@ I18n.translations.nl = {
   },
   manage: {
     tabs: {
+      institution: "instituut",
       issuers: "Issuers",
       faculties: "Groepen",
       badgeclasses: "Badgeclasses",
@@ -235,7 +245,46 @@ I18n.translations.nl = {
     802: "Kan BRIN code niet aanpassen, er zijn al edubadges uitgegeven",
     unexpected: "Unexpected exception occurred."
   },
+  editUsers: {
+    institutionPermissions: "Permissions on institution level",
+    institution: {
+      header: "Institution",
+      allRights: "Institution Admin",
+      noRights: "No rights"
+    },
+    issuerGroup: {
+      header: "Issuer Group",
+      allRights: "Issuer Group Admin",
+    },
+    issuer: {
+      header: "Issuer",
+      allRights: "Issuer Admin",
+    },
+    badgeClass: {
+      header: "Badgeclass",
+      owner: "Badgeclass owner",
+      editor: "Badgeclass editor",
+      awarder: "Badgeclass awarder",
+    },
+    permissions: {
+      addPermissions: "Add permissions",
+      removePermissions: "Remove permissions"
+    },
+    modal: {
+      add: 'add'
+    },
+    role: "Role",
+  },
   models: {
+    editUsers: {
+      memberSince: "Member since",
+      email: "email",
+      role: 'Role',
+      notes: 'Notes',
+      badgeClass: "Select a badgeclass",
+      issuerGroup: "Select an issuer group",
+      issuer: "Select an issuer",
+    },
     institution: {
       created: "Vanaf",
       admin: "Admin",
