@@ -14,6 +14,7 @@
   export let create = false;
   export let studentBadge;
   export let studentPath;
+  export let user;
 
   const query = `{
     currentInstitution {
@@ -74,7 +75,7 @@
   {/if}
 
 
-  {#if institutionName}
+  {#if institutionName && !user}
     <a use:link href="/manage/institution">{institutionName}</a>
   {/if}
 
@@ -91,6 +92,13 @@
   {#if badgeclassName}
     <span>{@html chevronRightSmall}</span>
     <a use:link href={$currentPath}>{badgeclassName}</a>
+  {/if}
+
+  {#if user}
+    <a use:link href={`/users/`}>Users</a>
+    <span>></span>
+    <a use:link href={$currentPath}>{user.firstName} {user.lastName}</a>
+
   {/if}
 
   {#if edit || create}

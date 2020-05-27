@@ -2,7 +2,7 @@
   import I18n from "i18n-js";
   import { FilterBlock } from "../../components/teachers";
   import { Search } from "../../components";
-  import { search, tree, facultyIds, issuerIds } from "../../stores/filter";
+  import { search, tree, facultyIds, issuerIds } from "../../stores/filterBadges";
 </script>
 
 <style lang="scss">

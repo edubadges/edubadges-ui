@@ -1,0 +1,100 @@
+<script>
+  import I18n from "i18n-js";
+  import { chevronUp, chevronDown, closeIcon } from "../../icons";
+
+  export let collection;
+  export let value;
+  export let title = "";
+
+  let showExpand = false;
+  let expanded = false;
+  let maxLength = 7;
+
+  $: showExpand = !value.length && collection.length > maxLength;
+  $: items = expanded ? collection : collection.slice(0, maxLength);
+</script>
+
+<style lang="scss">
+  input[type="checkbox"] {
+      display: none;
+  }
+
+  label {
+    font-size: 14px;
+    display: block;
+    margin: 12px 0;
+    position: relative;
+
+    &.inactive {
+      display: none;
+    }
+
+    &.active {
+      display: flex;
+      color: black;
+      background: white;
+      padding: 8px;
+      border: var(--card-border);
+      border-radius: var(--card-border-radius);
+
+      div {
+        flex: 1;
+        margin-right: 5px;
+      }
+
+      :global(svg) {
+        --close-filter-size: 18px;
+        width: var(--close-filter-size);
+        height: var(--close-filter-size);
+        margin: auto;
+        border: 2px solid var(--purple);
+        border-radius: 50%;
+        fill: var(--purple);
+      }
+    }
+
+    &:not(.active) {
+      font-weight: bold;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .expand {
+    display: flex;
+    align-items: center;
+    color: var(--text-grey-dark);
+
+    :global(svg) {
+      width: 20px;
+      margin-left: 6px;
+      fill: var(--text-grey-dark);
+    }
+  }
+</style>
+
+<h3>{I18n.t(`teacher.sidebar.filters.${title}`)}</h3>
+
+{#each items as item (item.role)}
+  <label
+      class="link"
+      class:active={value.includes(item.role)}
+      class:inactive={value.length && !value.includes(item.role)}>
+    <input type="checkbox" bind:group={value} value={item.role} />
+    <div>{item.role} ({item.count})</div>
+
+    {#if value.includes(item.role)}
+      {@html closeIcon}
+    {/if}
+  </label>
+{/each}
+
+{#if showExpand}
+  <label class="expand click">
+      <input type="checkbox" bind:checked={expanded} />
+    {expanded ? I18n.t(`teacher.sidebar.filters.show_less`) : I18n.t(`teacher.sidebar.filters.show_all`)}
+    {@html expanded ? chevronUp : chevronDown}
+  </label>
+{/if}
