@@ -18,21 +18,24 @@
   export let subEntity;
 
   let institution = {staff: []};
+  let permissions;
   let faculties = [];
   let issuers = [];
   let loaded = false;
 
   const query = `{
+    currentUser {
+      institutionStaff {
+        mayUpdate,
+        mayCreate
+      }
+    },
     currentInstitution {
       ${headerEntity},
       ${headerStaff},
       image,
       gradingTable,
-      brin,
-      permissions {
-        mayUpdate,
-        mayCreate
-      }
+      brin
 		},
 		faculties {
       name,
@@ -55,6 +58,7 @@
 
   onMount(() => {
     queryData(query).then(res => {
+      permissions = res.currentUser.institutionStaff;
       institution = res.currentInstitution;
       faculties = res.faculties;
       issuers = res.issuers;
@@ -76,8 +80,8 @@
   ];
 
   $: if (!subEntity) navigate(tabs[0].href, {replace: true});
-  $: mayUpdate = institution.permissions && institution.permissions.mayUpdate;
-  $: mayCreate = institution.permissions && institution.permissions.mayCreate;
+  $: mayUpdate = permissions && permissions.mayUpdate;
+  $: mayCreate = permissions && permissions.mayCreate;
 
   $: headerItems = [
     {
