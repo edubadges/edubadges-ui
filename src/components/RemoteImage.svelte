@@ -4,7 +4,7 @@
 
   export let imageUrl;
   export let alt;
-  export let useToken = true;
+  export let useToken = false;
 
   async function fetchData() {
     const token = get(authToken);

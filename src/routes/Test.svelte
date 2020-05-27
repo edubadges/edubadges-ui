@@ -7,4 +7,9 @@
 </style>
 <h1>test</h1>
 
-<RemoteImage imageUrl="https://api-test.edubadges.nl/public/badges/sD9xertwTiWnzjn5onJQZQ/image" />
+<hr>
+<RemoteImage imageUrl="https://api-test.edubadges.nl/media/uploads/institution/surf.png" useToken={true}/>
+<hr>
+<RemoteImage imageUrl="https://api-test.edubadges.nl/media/uploads/institution/surf.png" useToken={false}/>
+<hr>
+<img src="https://api-test.edubadges.nl/media/uploads/institution/surf.png">

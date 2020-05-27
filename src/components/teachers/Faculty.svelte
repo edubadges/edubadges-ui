@@ -10,9 +10,21 @@
   export let subEntity;
 
   let faculty = { staff: [] };
+  let mayUpdate = false;
+  let mayCreate = false;
   let issuers = [];
 
   const query = `{
+    currentUser {
+      facultyStaffs {
+        mayUpdate,
+        mayCreate
+      },
+      institutionStaff {
+        mayUpdate,
+        mayCreate
+      }
+    },
     faculty(id: "${entityId}") {
       ${headerEntity},
       ${headerStaff},
@@ -31,16 +43,14 @@
         faculty {
           name
         }
-      },
-      permissions {
-        mayUpdate,
-        mayCreate
       }
     }
   }`;
 
   onMount(() => {
     queryData(query).then(res => {
+      mayCreate = res.currentUser.institutionStaff.mayCreate || res.currentUser.facultyStaffs.mayCreate
+      mayUpdate = res.currentUser.institutionStaff.mayUpdate || res.currentUser.facultyStaffs.mayUpdate
       faculty = res.faculty;
       issuers = res.faculty.issuers;
     });
@@ -75,13 +85,13 @@
   {tabs}
   {headerItems}
   object={faculty}
-  mayUpdate={faculty.permissions && faculty.permissions.mayUpdate}
+  mayUpdate={mayUpdate}
   entity="faculty" />
 
 <Router>
   <Route path="/issuers">
     <Issuers
       {issuers}
-      mayCreate={faculty.permissions && faculty.permissions.mayCreate} />
+      mayCreate={mayCreate} />
   </Route>
 </Router>
