@@ -245,7 +245,7 @@
       </tr>
     {/each}
     {#each user.facultyStaffs as facultyStaffMembership}
-      {#each facultyStaffMembership.issuers as issuer}
+      {#each facultyStaffMembership.faculty.issuers as issuer}
         <tr>
           <td>
             <CheckBox
