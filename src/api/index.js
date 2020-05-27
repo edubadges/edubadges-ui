@@ -260,7 +260,7 @@ export function removeUserInstitutionAdmin(staffMembershipId) {
   return validFetch(path, {body: JSON.stringify(payload)}, "PUT");
 }
 
-export function makeUserFacultyAdmin(facultyId, userId) {
+export function makeUserIssuerGroupAdmin(facultyId, userId) {
   const path = `${serverUrl}/staff-membership/faculty/${facultyId}/create`;
   const payload = {
     "may_create":1,
@@ -276,7 +276,7 @@ export function makeUserFacultyAdmin(facultyId, userId) {
   return validFetch(path, {body: JSON.stringify(payload)}, "POST");
 }
 
-export function removeUserFacultyAdmin(facultyMembershipId) {
+export function removeUserIssuerGroupAdmin(facultyMembershipId) {
   const path = `${serverUrl}/staff-membership/faculty/change/${facultyMembershipId}`;
   return validFetch(path, {}, "DELETE");
 }

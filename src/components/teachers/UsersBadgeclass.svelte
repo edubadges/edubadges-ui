@@ -208,9 +208,9 @@
   };
 
   const permissionsRoles = [
-      {name: 'editor'},
-      {name: 'awarder'},
-      {name: 'owner'}
+    {name: 'editor'},
+    {name: 'awarder'},
+    {name: 'owner'}
   ];
 
   $: buttons = [
