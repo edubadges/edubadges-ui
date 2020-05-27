@@ -3,6 +3,7 @@
   import {Router, Route, navigate} from "svelte-routing";
   import {Student, ProcessToken, NotFound, Login, Validate} from "./routes";
   import {Badges, Manage, Users, EditUsers} from "./routes/teachers";
+  import Test from "./routes/Test.svelte";
   import {Header, Footer, SubscribeToPath, Spinner} from "./components";
   import {
     Header as TeacherHeader,
@@ -17,6 +18,7 @@
   import BadgeDetails from "./routes/students/BadgeDetails.svelte";
   import PublicBadgePage from "./components/shared/PublicBadgePage.svelte";
   import InviteEnrollments from "./components/teachers/InviteEnrollments.svelte";
+  import {config} from "./util/config";
 
   const homepage = {
     guest: Login,
@@ -120,8 +122,11 @@
           <PublicBadgeClassPage visitorRole={visitorRole} entityId={params.entityId}/>
         </Route>
         <Route path="/public/assertions/:entityId/" let:params>
-          <PublicBadgePage entityId={params.entityId} />
+          <PublicBadgePage entityId={params.entityId}/>
         </Route>
+        {#if config.local}
+          <Route path="/public/test" component={Test}/>
+        {/if}
         <Route path="/" component={homepage[visitorRole]}/>
         <Route path="/login" component={Login}/>
         <Route path="/auth/login/*" component={ProcessToken}/>
