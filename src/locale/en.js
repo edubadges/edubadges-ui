@@ -12,6 +12,7 @@ I18n.translations.en = {
     nav: {
       badgeclasses: "Badges",
       manage: "Manage",
+      users: "Users"
     },
   },
   login: {
@@ -104,6 +105,7 @@ I18n.translations.en = {
       filters: {
         faculties: "Issuer groups",
         issuers: "Issuers",
+        roles: "Roles (highest)",
         show_all: "Show all",
         show_less: "Show less",
       },
@@ -112,6 +114,7 @@ I18n.translations.en = {
       back: "back",
     },
     name: "Name",
+    nameEmail: "Name/Email",
     badgeclasses: {
       title: "Badgeclasses",
       created: "Date created",
@@ -127,6 +130,12 @@ I18n.translations.en = {
     badgeRevoked: {
       revoke: "Revoke edubadge",
     },
+    roles: {
+      title: "Roles (highest)"
+    },
+    users: {
+      title: "Users"
+    }
   },
   student: {
     enroll: "Enroll",
@@ -165,6 +174,7 @@ I18n.translations.en = {
   },
   manage: {
     tabs: {
+      institution: "Institution",
       issuers: "Issuers",
       faculties: "Groups",
       badgeclasses: "Badgeclasses",
@@ -235,7 +245,46 @@ I18n.translations.en = {
     802: "Cannot change BRIN code, edubadges have already been issued",
     unexpected: "Unexpected exception occurred."
   },
+  editUsers: {
+    institutionPermissions: "Permissions on institution level",
+    institution: {
+      header: "Institution",
+      allRights: "Institution Admin",
+      noRights: "No rights"
+    },
+    issuerGroup: {
+      header: "Issuer Group",
+      allRights: "Issuer Group Admin",
+    },
+    issuer: {
+      header: "Issuer",
+      allRights: "Issuer Admin",
+    },
+    badgeClass: {
+      header: "Badgeclass",
+      owner: "Badgeclass owner",
+      editor: "Badgeclass editor",
+      awarder: "Badgeclass awarder",
+    },
+    permissions: {
+      addPermissions: "Add permissions",
+      removePermissions: "Remove permissions"
+    },
+    modal: {
+      add: 'add'
+    },
+    role: "Role",
+  },
   models: {
+    editUsers: {
+      memberSince: "Member since",
+      email: "email",
+      role: 'Role',
+      notes: 'Notes',
+      badgeClass: "Select a badgeclass",
+      issuerGroup: "Select an issuer group",
+      issuer: "Select an issuer",
+    },
     institution: {
       created: "Created",
       admin: "Admin",
