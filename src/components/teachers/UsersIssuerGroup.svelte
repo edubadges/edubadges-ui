@@ -194,6 +194,15 @@
       'allowed': (currentUser && currentUser.institutionStaff.mayAdministrateUsers),
     }
   ];
+
+  function onCheckOne(val, entityId) {
+    if (val) {
+      selection = selection.concat(entityId);
+    } else {
+      selection = selection.filter(id => id !== entityId);
+      checkAllValue = false;
+    }
+  }
 </script>
 
 <style>
@@ -224,7 +233,7 @@
                 value={selection.includes(facultyStaffMembership.entityId)}
                 name={`select-${facultyStaffMembership.entityId}`}
                 disabled={false}
-                onChange={val => (console.log(val))}/>
+                onChange={val => onCheckOne(val, facultyStaffMembership.entityId)}/>
           </td>
           <td>{facultyStaffMembership.faculty.name}</td>
           <td>

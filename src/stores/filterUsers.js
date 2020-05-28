@@ -75,7 +75,7 @@ export const userTree = derived(
       }
 
       for (const {user} of faculty.staff) {
-        if (!tree.users.includes(_user => _user.entityId === user.entityId)) {
+        if (!tree.users.some(_user => _user.entityId === user.entityId)) {
           user.role = 'Issuer Group Admin';
           tree.users = [user, ...tree.users];
           tree.roles.find(el => el.role === 'Issuer Group Admin').count++;
@@ -93,14 +93,9 @@ export const userTree = derived(
         }
 
         for (const {user} of issuer.staff) {
-          if (!tree.users.includes(_user => _user.entityId === user.entityId)) {
+          if (!tree.users.some(_user => _user.entityId === user.entityId)) {
             user.role = 'Issuer Admin';
             tree.users = [user, ...tree.users];
-
-            console.log("userId", user.entityId);
-            console.log("usersIds", tree.users.map(el => el.entityId));
-
-
             tree.roles.find(el => el.role === 'Issuer Admin').count++;
           }
 
