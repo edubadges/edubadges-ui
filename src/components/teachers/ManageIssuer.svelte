@@ -1,19 +1,35 @@
 <script>
-  import { onMount } from "svelte";
-  import { Router, Route, navigate } from "svelte-routing";
-  import { Breadcrumb, EntityHeader, Badgeclasses } from "../teachers";
-  import { badgeclassIcon } from "../../icons";
-  import { queryData } from "../../api/graphql";
-  import { headerStaff, headerEntity } from "../../api/queries";
+  import {onMount} from "svelte";
+  import {Router, Route, navigate} from "svelte-routing";
+  import {Breadcrumb, EntityHeader, Badgeclasses} from "../teachers";
+  import {badgeclassIcon} from "../../icons";
+  import {queryData} from "../../api/graphql";
+  import {headerStaff, headerEntity} from "../../api/queries";
 
   export let entityId;
   export let subEntity;
 
-  let issuer = { staff: [] };
+  let issuer = {staff: []};
   let faculty = {};
   let badgeclasses = [];
+  let mayUpdate;
+  let mayCreate;
 
   const query = `{
+    currentUser {
+      institutionStaff {
+        mayUpdate,
+        mayCreate
+      },
+      facultyStaffs {
+        mayUpdate,
+        mayCreate
+      },
+      issuerStaffs {
+        mayUpdate,
+        mayCreate
+      }
+    },
     issuer(id: "${entityId}") {
       ${headerEntity},
       ${headerStaff},
@@ -47,6 +63,8 @@
       issuer = res.issuer;
       faculty = issuer.faculty;
       badgeclasses = issuer.badgeclasses;
+      mayCreate = res.currentUser.institutionStaff.mayCreate || res.currentUser.facultyStaffs.mayCreate || res.currentUser.issuerStaffs.mayCreate;
+      mayUpdate = res.currentUser.institutionStaff.mayUpdate || res.currentUser.facultyStaffs.mayUpdate || res.currentUser.issuerStaffs.mayUpdate;
     });
   });
 
@@ -58,7 +76,7 @@
     }
   ];
 
-  $: if (!subEntity) navigate(tabs[0].href, { replace: true });
+  $: if (!subEntity) navigate(tabs[0].href, {replace: true});
 
   $: headerItems = [
     {
@@ -84,18 +102,18 @@
   ];
 </script>
 
-<Breadcrumb {faculty} {issuer} />
+<Breadcrumb {faculty} {issuer}/>
 <EntityHeader
   {tabs}
   {headerItems}
   object={issuer}
   entity="issuer"
-  mayUpdate={issuer.permissions && issuer.permissions.mayUpdate} />
+  mayUpdate={mayUpdate}/>
 
 <Router>
   <Route path="/badgeclasses">
     <Badgeclasses
       {badgeclasses}
-      mayCreate={issuer.permissions && issuer.permissions.mayCreate} />
+      mayCreate={mayCreate}/>
   </Route>
 </Router>

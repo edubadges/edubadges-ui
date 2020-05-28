@@ -39,7 +39,10 @@
         <Select
             disabled={disabledRole}
             bind:value={chosenRole}
-            items={permissionsRoles} />
+            items={permissionsRoles}
+            clearable={false}
+            optionIdentifier="name"
+        />
       </Field>
       <Field entity={'editUsers'} attribute={'notes'}>
         <TextInput bind:value={notes} area={true}/>

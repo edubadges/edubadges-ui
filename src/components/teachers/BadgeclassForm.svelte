@@ -69,7 +69,6 @@
         value: parseInt(extensions[educationProgramIdentifier.name], 10)
       }
     ]);
-    debugger;
     if (badgeclass.issuer) {
       newBadgeclass.issuer = badgeclass.issuer.entityId;
     }
