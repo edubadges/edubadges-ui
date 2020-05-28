@@ -208,9 +208,9 @@
   };
 
   const permissionsRoles = [
-    {name: 'editor'},
-    {name: 'awarder'},
-    {name: 'owner'}
+    {name: I18n.t(['editUsers', 'badgeClass', 'editor'])},
+    {name: I18n.t(['editUsers', 'badgeClass', 'awarder'])},
+    {name: I18n.t(['editUsers', 'badgeClass', 'owner'])}
   ];
 
   $: buttons = [
@@ -275,11 +275,11 @@
         <td>{badgeclassStaffMembership.badgeclass.name}</td>
         <td>
           {#if badgeclassStaffMembership.mayAdministrateUsers}
-            {I18n.t(['editUsers', 'badgeClass', 'owner'])}
+            {I18n.t(['editUsers', 'badgeClass', 'badgeclassOwner'])}
           {:else if badgeclassStaffMembership.mayUpdate}
-            {I18n.t(['editUsers', 'badgeClass', 'editor'])}
+            {I18n.t(['editUsers', 'badgeClass', 'badgeclassEditor'])}
           {:else if badgeclassStaffMembership.mayAward}
-            {I18n.t(['editUsers', 'badgeClass', 'awarder'])}
+            {I18n.t(['editUsers', 'badgeClass', 'badgeclassAwarder'])}
           {/if}
         </td>
       </tr>

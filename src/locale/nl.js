@@ -262,9 +262,12 @@ I18n.translations.nl = {
     },
     badgeClass: {
       header: "Badgeclass",
-      owner: "Badgeclass owner",
-      editor: "Badgeclass editor",
-      awarder: "Badgeclass awarder",
+      badgeclassOwner: "Badgeclass owner",
+      badgeclassEditor: "Badgeclass editor",
+      badgeclassAwarder: "Badgeclass awarder",
+      owner: "owner",
+      editor: "editor",
+      awarder: "awarder",
     },
     permissions: {
       addPermissions: "Add permissions",
