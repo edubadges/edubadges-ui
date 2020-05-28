@@ -268,7 +268,9 @@ I18n.translations.nl = {
     },
     permissions: {
       addPermissions: "Add permissions",
-      removePermissions: "Remove permissions"
+      removePermissions: "Remove permissions",
+      setInstitutionAdmin: "Make user institution admin",
+      removeInstitutionAdmin: "Remove user institution admin"
     },
     modal: {
       add: 'add'
