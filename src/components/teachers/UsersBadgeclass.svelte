@@ -23,6 +23,8 @@
   let selection = [];
   let checkAllValue = false;
 
+  let badgeclasses = [];
+
   const query = `{
   currentInstitution {
     name,
@@ -34,7 +36,8 @@
         name,
         entityId,
         badgeclasses {
-          name
+          name,
+          entityId
         }
       }
     }
@@ -111,6 +114,14 @@
       faculties = res.currentInstitution.faculties;
       user = res.user;
       currentUser = res.currentUser;
+      faculties.forEach(faculty => {
+        faculty.issuers.forEach(issuer => {
+          issuer.badgeclasses.forEach(badgeclass => {
+            badgeclasses = [badgeclass, ...badgeclasses];
+          })
+        })
+      });
+      console.log(badgeclasses);
     });
   });
 
@@ -161,19 +172,19 @@
   const submitPermissions = () => {
     switch (modalChosenRole.name) {
       case 'owner':
-        makeUserBadgeclassOwner(modalSelectedBadgeClass, userId).then(() => {
+        makeUserBadgeclassOwner(modalSelectedBadgeClass.entityId, userId).then(() => {
           reload();
           showAddModal = false;
         });
         break;
       case 'editor':
-        makeUserBadgeclassEditor(modalSelectedBadgeClass, userId).then(() => {
+        makeUserBadgeclassEditor(modalSelectedBadgeClass.entityId, userId).then(() => {
           reload();
           showAddModal = false;
         });
         break;
       case 'awarder':
-        makeUserBadgeclassAwarder(modalSelectedBadgeClass, userId).then(() => {
+        makeUserBadgeclassAwarder(modalSelectedBadgeClass.entityId, userId).then(() => {
           reload();
           showAddModal = false;
         });
@@ -361,6 +372,7 @@
     permissionsRoles={permissionsRoles}
     title={addModalTitle}
     entity={'badgeclass'}
+    targetOptions={badgeclasses}
     bind:target={modalSelectedBadgeClass}
     bind:chosenRole={modalChosenRole}
     bind:notes={modalNotes}

@@ -11,7 +11,8 @@
   export let chosenRole = permissionsRoles[0];
   export let disabledRole;
   export let disabled = false;
-  export let target;
+  export let targetOptions;
+  export let target = targetOptions[0];
   export let notes;
 
   let modal;
@@ -33,7 +34,12 @@
     </div>
     <div class="modal-body">
       <Field entity={'editUsers'} attribute={selectEntity}>
-        <TextInput bind:value={target} />
+        <Select
+            bind:value={target}
+            items={targetOptions}
+            clearable={false}
+            optionIdentifier="name"
+        />
       </Field>
       <Field entity={'editUsers'} attribute={'role'}>
         <Select

@@ -52,7 +52,10 @@
                 lastName,
                 email,
                 entityId
-              }
+              },
+              mayAdministrateUsers,
+              mayUpdate,
+              mayAward
             },
           }
         }
@@ -73,10 +76,7 @@
         entityId
       },
       badgeclassStaffs {
-        entityId,
-        mayAdministrateUsers,
-        mayUpdate,
-        mayAward
+        entityId
       },
     }
    }`;
@@ -101,7 +101,7 @@
       name: I18n.t("teacher.roles.title"),
       attribute: "roles",
       reverse: false,
-      sortType: sortType.COLLECTION
+      sortType: sortType.ROLES
     }
   ];
 
@@ -112,6 +112,14 @@
   };
 
   let userSort = tableHeaders[1];
+
+  const sortUsers = (unsortedUsers) => {
+    let sortedUsers = [];
+    if (userSort.sortType === "roles") {
+
+    }
+    return unsortedUsers;
+  }
 </script>
 
 <style lang="scss">
@@ -134,8 +142,9 @@
     <Table
         {...table}
         bind:search={$userSearch}
+        bind:sort={userSort}
         mayCreate={false}>
-      {#each $userTree.users as user (user.entityId)}
+      {#each sortUsers($userTree.users) as user (user.entityId)}
         <tr
             class="click"
             on:click={() => navigate(`/users/${user.entityId}/institution`)}>
