@@ -261,25 +261,27 @@
 {/if}
 
 {#if showRemoveModal}
-    <Modal submit={removeModalAction}
-           cancel={() => showRemoveModal = false}
-           question={removeModalQuestion}
-                   title={removeModalTitle}>
-    </Modal>
+  <Modal
+      submit={removeModalAction}
+      cancel={() => showRemoveModal = false}
+      question={removeModalQuestion}
+      title={removeModalTitle}
+  >
+  </Modal>
 {/if}
 
 {#if showAddModal}
   <AddPermissionsModal
-    submit={addModalAction}
-    cancel={() => showAddModal = false}
-    selectEntity={selectEntity}
-    permissionsRoles={permissionsRoles}
-    title={addModalTitle}
-    entity={'issuerGroup'}
-    targetOptions={faculties}
-    bind:target={modalSelectedBadgeClass}
-    bind:chosenRole={modalChosenRole}
-    bind:notes={modalNotes}
+      submit={addModalAction}
+      cancel={() => showAddModal = false}
+      selectEntity={selectEntity}
+      permissionsRoles={permissionsRoles}
+      title={addModalTitle}
+      entity={'issuerGroup'}
+      targetOptions={faculties}
+      bind:target={modalSelectedBadgeClass}
+      bind:chosenRole={modalChosenRole}
+      bind:notes={modalNotes}
   >
   </AddPermissionsModal>
 {/if}

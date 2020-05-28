@@ -86,7 +86,6 @@
 
 
   onMount(() => {
-
     queryData(query).then(res => {
       institutionId = res.currentInstitution.entityId;
       faculties = res.currentInstitution.faculties;
@@ -118,9 +117,9 @@
 
   const toggleInstitutionAdmin = () => {
     if (user.institutionStaff.mayAdministrateUsers) {
-      removeUserInstitutionAdmin(user.institutionStaff.entityId);
+      removeUserInstitutionAdmin(institutionId, userId);
     } else {
-      makeUserInstitutionAdmin(user.institutionStaff.entityId);
+      makeUserInstitutionAdmin(user.institutionStaff.entityId, institutionId, userId);
     }
   };
 
