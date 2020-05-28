@@ -1,6 +1,6 @@
 <script>
   import { SideBarUsers, UsersHeader } from "../../components/teachers/";
-  import { institution, users, userTree } from "../../stores/filterUsers";
+  import { institution, users, userTree, userSearch } from "../../stores/filterUsers";
   import { onMount } from "svelte";
   import { queryData } from "../../api/graphql";
   import I18n from "i18n-js";
@@ -111,12 +111,7 @@
     tableHeaders: tableHeaders
   };
 
-  let userSearch = "";
-  // $: searchedUserIds = search($users, userSearch, "firstName");
-
   let userSort = tableHeaders[1];
-
-  // $: filteredUsers = $users.filter(el => searchedUserIds.includes(el.entityId));
 </script>
 
 <style lang="scss">
@@ -138,7 +133,7 @@
     <UsersHeader/>
     <Table
         {...table}
-        bind:search={userSearch}
+        bind:search={$userSearch}
         mayCreate={false}>
       {#each $userTree.users as user (user.entityId)}
         <tr

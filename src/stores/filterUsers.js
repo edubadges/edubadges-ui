@@ -151,6 +151,12 @@ export const userTree = derived(
       }
     }
 
+    if (userSearch && userSearch.length > 0) {
+      tree.users = tree.users.filter(user => {
+        return user.firstName.toLowerCase().indexOf(userSearch.toLowerCase()) !== -1 || user.lastName.toLowerCase().indexOf(userSearch.toLowerCase()) !== -1;
+      })
+    }
+
     return {
       faculties: sort(institution.faculties, true),
       issuers: sort(issuers, true),
