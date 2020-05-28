@@ -2,7 +2,7 @@
   import I18n from "i18n-js";
   import { FilterBlock } from "../../components/teachers";
   import { Search } from "../../components";
-  import { userSearch, selectedRole, userTree, facultyIds, issuerIds, users } from "../../stores/filterUsers";
+  import { selectedRole, userTree, facultyIds, issuerIds, users } from "../../stores/filterUsers";
   import FilterBlockRoles from "./FilterBlockRoles.svelte";
 </script>
 
@@ -30,11 +30,6 @@
 </style>
 
 <div class="sidebar">
-  <div>
-    <h3>{I18n.t('teacher.sidebar.search')}</h3>
-    <Search bind:value={$userSearch} />
-  </div>
-
   <div>
     <FilterBlock
         bind:value={$facultyIds}

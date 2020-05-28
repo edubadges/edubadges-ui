@@ -86,7 +86,6 @@
 
 
   onMount(() => {
-
     queryData(query).then(res => {
       institutionId = res.currentInstitution.entityId;
       faculties = res.currentInstitution.faculties;
@@ -118,20 +117,32 @@
 
   const toggleInstitutionAdmin = () => {
     if (user.institutionStaff.mayAdministrateUsers) {
-      makeUserInstitutionAdmin(user.entityId);
+      removeUserInstitutionAdmin(institutionId, userId);
     } else {
-      removeUserInstitutionAdmin(user.entityId);
+      makeUserInstitutionAdmin(user.institutionStaff.entityId, institutionId, userId);
     }
   };
 
   $: buttons = [
     {
       'action': toggleInstitutionAdmin,
-      'text': I18n.t(['editUsers', 'permissions', 'addPermissions']),
+      'text': user && user.institutionStaff.mayAdministrateUsers ?
+              I18n.t(['editUsers', 'permissions', 'removeInstitutionAdmin']) :
+              I18n.t(['editUsers', 'permissions', 'setInstitutionAdmin']),
       'allowed': (currentUser && currentUser.institutionStaff.mayAdministrateUsers),
-      'disabled': true
+      'disabled': false
     }
-  ]
+  ];
+
+  function onCheckOne(val, entityId) {
+    if (val) {
+      selection = selection.concat(entityId);
+    } else {
+      selection = selection.filter(id => id !== entityId);
+      checkAllValue = false;
+    }
+  }
+
 </script>
 
 <style>
@@ -152,17 +163,10 @@
     <UsersTable
         {...table}
         bind:search={institutionSearch}
-        withCheckAll={true}
+        withCheckAll={false}
         bind:buttons={buttons}
     >
       <tr>
-        <td>
-          <CheckBox
-              value={selection.includes(user.entityId)}
-              name={`select-${user.entityId}`}
-              disabled={user.revoked}
-              onChange={val => (console.log(val))}/>
-        </td>
         <td>{user.institutionStaff.institution.name}</td>
         <td>
           {I18n.t(['editUsers', 'institution', user.institutionStaff.mayAdministrateUsers ? 'allRights' : 'noRights'])}

@@ -23,6 +23,8 @@
   let selection = [];
   let checkAllValue = false;
 
+  let badgeclasses = [];
+
   const query = `{
   currentInstitution {
     name,
@@ -34,7 +36,8 @@
         name,
         entityId,
         badgeclasses {
-          name
+          name,
+          entityId
         }
       }
     }
@@ -111,6 +114,13 @@
       faculties = res.currentInstitution.faculties;
       user = res.user;
       currentUser = res.currentUser;
+      faculties.forEach(faculty => {
+        faculty.issuers.forEach(issuer => {
+          issuer.badgeclasses.forEach(badgeclass => {
+            badgeclasses = [badgeclass, ...badgeclasses];
+          })
+        })
+      });
     });
   });
 
@@ -161,19 +171,19 @@
   const submitPermissions = () => {
     switch (modalChosenRole.name) {
       case 'owner':
-        makeUserBadgeclassOwner(modalSelectedBadgeClass, userId).then(() => {
+        makeUserBadgeclassOwner(modalSelectedBadgeClass.entityId, userId).then(() => {
           reload();
           showAddModal = false;
         });
         break;
       case 'editor':
-        makeUserBadgeclassEditor(modalSelectedBadgeClass, userId).then(() => {
+        makeUserBadgeclassEditor(modalSelectedBadgeClass.entityId, userId).then(() => {
           reload();
           showAddModal = false;
         });
         break;
       case 'awarder':
-        makeUserBadgeclassAwarder(modalSelectedBadgeClass, userId).then(() => {
+        makeUserBadgeclassAwarder(modalSelectedBadgeClass.entityId, userId).then(() => {
           reload();
           showAddModal = false;
         });
@@ -208,9 +218,9 @@
   };
 
   const permissionsRoles = [
-    {name: 'editor'},
-    {name: 'awarder'},
-    {name: 'owner'}
+    {name: I18n.t(['editUsers', 'badgeClass', 'editor'])},
+    {name: I18n.t(['editUsers', 'badgeClass', 'awarder'])},
+    {name: I18n.t(['editUsers', 'badgeClass', 'owner'])}
   ];
 
   $: buttons = [
@@ -275,11 +285,11 @@
         <td>{badgeclassStaffMembership.badgeclass.name}</td>
         <td>
           {#if badgeclassStaffMembership.mayAdministrateUsers}
-            {I18n.t(['editUsers', 'badgeClass', 'owner'])}
+            {I18n.t(['editUsers', 'badgeClass', 'badgeclassOwner'])}
           {:else if badgeclassStaffMembership.mayUpdate}
-            {I18n.t(['editUsers', 'badgeClass', 'editor'])}
+            {I18n.t(['editUsers', 'badgeClass', 'badgeclassEditor'])}
           {:else if badgeclassStaffMembership.mayAward}
-            {I18n.t(['editUsers', 'badgeClass', 'awarder'])}
+            {I18n.t(['editUsers', 'badgeClass', 'badgeclassAwarder'])}
           {/if}
         </td>
       </tr>
@@ -361,6 +371,7 @@
     permissionsRoles={permissionsRoles}
     title={addModalTitle}
     entity={'badgeclass'}
+    targetOptions={badgeclasses}
     bind:target={modalSelectedBadgeClass}
     bind:chosenRole={modalChosenRole}
     bind:notes={modalNotes}

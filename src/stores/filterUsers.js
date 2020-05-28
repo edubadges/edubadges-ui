@@ -75,8 +75,8 @@ export const userTree = derived(
       }
 
       for (const {user} of faculty.staff) {
-        user.role = 'Issuer Group Admin';
-        if (!tree.users.includes(_user => _user.entityId === user.entityId)) {
+        if (!tree.users.some(_user => _user.entityId === user.entityId)) {
+          user.role = 'Issuer Group Admin';
           tree.users = [user, ...tree.users];
           tree.roles.find(el => el.role === 'Issuer Group Admin').count++;
         }
@@ -92,9 +92,9 @@ export const userTree = derived(
           continue;
         }
 
-        for (const {user} of faculty.staff) {
-          user.role = 'Issuer Admin';
-          if (!tree.users.includes(_user => _user.entityId === user.entityId)) {
+        for (const {user} of issuer.staff) {
+          if (!tree.users.some(_user => _user.entityId === user.entityId)) {
+            user.role = 'Issuer Admin';
             tree.users = [user, ...tree.users];
             tree.roles.find(el => el.role === 'Issuer Admin').count++;
           }
@@ -103,22 +103,22 @@ export const userTree = derived(
         }
 
         for (const badgeClass of issuer.badgeclasses) {
-          for (const {user} of badgeClass.staff) {
-            if (user.mayAdministrateUsers) {
+          for (const {user, mayAdministrateUsers, mayUpdate, mayAward} of badgeClass.staff) {
+            if (mayAdministrateUsers) {
               user.role = 'Badgeclass Owner';
-              if (!tree.users.includes(_user => _user.entityId === user.entityId)) {
+              if (!tree.users.some(_user => _user.entityId === user.entityId)) {
                 tree.users = [user, ...tree.users];
                 tree.roles.find(el => el.role === 'Badgeclass Owner').count++;
               }
-            } else if (user.mayUpdate) {
+            } else if (mayUpdate) {
               user.role = 'Badgeclass Editor';
-              if (!tree.users.includes(_user => _user.entityId === user.entityId)) {
+              if (!tree.users.some(_user => _user.entityId === user.entityId)) {
                 tree.users = [user, ...tree.users];
                 tree.roles.find(el => el.role === 'Badgeclass Editor').count++;
               }
-            } else if (user.mayAward) {
+            } else if (mayAward) {
               user.role = 'Badgeclass Awarder';
-              if (!tree.users.includes(_user => _user.entityId === user.entityId)) {
+              if (!tree.users.some(_user => _user.entityId === user.entityId)) {
                 tree.users = [user, ...tree.users];
                 tree.roles.find(el => el.role === 'Badgeclass Awarder').count++;
               }
@@ -132,7 +132,7 @@ export const userTree = derived(
       for(const user of users) {
         if (!user.institutionStaff.mayAdministrateUsers && user.facultyStaffs.length === 0 && user.issuerStaffs.length === 0 && user.badgeclassStaffs.length === 0) {
           user.role = 'Viewer';
-          if (!tree.users.includes(_user => _user.entityId === user.entityId)) {
+          if (!tree.users.some(_user => _user.entityId === user.entityId)) {
             tree.users = [user, ...tree.users];
             tree.roles.find(el => el.role === 'Viewer').count++;
           }
@@ -150,6 +150,8 @@ export const userTree = derived(
         issuers = [issuer, ...issuers];
       }
     }
+
+    tree.users = filterBySearch(tree.users, userSearch);
 
     return {
       faculties: sort(institution.faculties, true),

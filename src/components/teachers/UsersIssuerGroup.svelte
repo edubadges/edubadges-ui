@@ -142,16 +142,16 @@
   };
 
   const submitPermissions = () => {
-      switch (modalChosenRole.name) {
-          case 'admin':
-              makeUserIssuerGroupAdmin(modalSelectedBadgeClass, userId).then(() => {
-                  reload();
-                  showAddModal = false;
-              });
-              break;
-          default:
-              console.error('error: invalid role');
-      }
+    switch (modalChosenRole.name) {
+      case 'admin':
+        makeUserIssuerGroupAdmin(modalSelectedBadgeClass.entityId, userId).then(() => {
+          reload();
+          showAddModal = false;
+        });
+          break;
+      default:
+        console.error('error: invalid role');
+    }
   };
 
   const removeSelectedPermissions = () => {
@@ -194,6 +194,15 @@
       'allowed': (currentUser && currentUser.institutionStaff.mayAdministrateUsers),
     }
   ];
+
+  function onCheckOne(val, entityId) {
+    if (val) {
+      selection = selection.concat(entityId);
+    } else {
+      selection = selection.filter(id => id !== entityId);
+      checkAllValue = false;
+    }
+  }
 </script>
 
 <style>
@@ -224,7 +233,7 @@
                 value={selection.includes(facultyStaffMembership.entityId)}
                 name={`select-${facultyStaffMembership.entityId}`}
                 disabled={false}
-                onChange={val => (console.log(val))}/>
+                onChange={val => onCheckOne(val, facultyStaffMembership.entityId)}/>
           </td>
           <td>{facultyStaffMembership.faculty.name}</td>
           <td>
@@ -252,24 +261,27 @@
 {/if}
 
 {#if showRemoveModal}
-    <Modal submit={removeModalAction}
-           cancel={() => showRemoveModal = false}
-           question={removeModalQuestion}
-                   title={removeModalTitle}>
-    </Modal>
+  <Modal
+      submit={removeModalAction}
+      cancel={() => showRemoveModal = false}
+      question={removeModalQuestion}
+      title={removeModalTitle}
+  >
+  </Modal>
 {/if}
 
 {#if showAddModal}
-    <AddPermissionsModal
-            submit={addModalAction}
-            cancel={() => showAddModal = false}
-            selectEntity={selectEntity}
-                    permissionsRoles={permissionsRoles}
-                    title={addModalTitle}
-                    entity={'issuerGroup'}
-                    bind:target={modalSelectedBadgeClass}
-                    bind:chosenRole={modalChosenRole}
-                    bind:notes={modalNotes}
-    >
-    </AddPermissionsModal>
+  <AddPermissionsModal
+      submit={addModalAction}
+      cancel={() => showAddModal = false}
+      selectEntity={selectEntity}
+      permissionsRoles={permissionsRoles}
+      title={addModalTitle}
+      entity={'issuerGroup'}
+      targetOptions={faculties}
+      bind:target={modalSelectedBadgeClass}
+      bind:chosenRole={modalChosenRole}
+      bind:notes={modalNotes}
+  >
+  </AddPermissionsModal>
 {/if}

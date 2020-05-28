@@ -262,13 +262,18 @@ I18n.translations.en = {
     },
     badgeClass: {
       header: "Badgeclass",
-      owner: "Badgeclass owner",
-      editor: "Badgeclass editor",
-      awarder: "Badgeclass awarder",
+      badgeclassOwner: "Badgeclass owner",
+      badgeclassEditor: "Badgeclass editor",
+      badgeclassAwarder: "Badgeclass awarder",
+      owner: "owner",
+      editor: "editor",
+      awarder: "awarder",
     },
     permissions: {
       addPermissions: "Add permissions",
-      removePermissions: "Remove permissions"
+      removePermissions: "Remove permissions",
+      setInstitutionAdmin: "Make user institution admin",
+      removeInstitutionAdmin: "Remove user institution admin"
     },
     modal: {
       add: 'add'

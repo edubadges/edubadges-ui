@@ -2,7 +2,8 @@ export const sortType = {
   ALPHA: "alpha",
   BOOLEAN: "boolean",
   NUMERIC: "numeric",
-  COLLECTION: "collection"
+  COLLECTION: "collection",
+  ROLES: "roles"
 };
 
 const defaultValue = (attr, howToSort) => {
@@ -46,6 +47,8 @@ export function sort(collection, attribute, reversed, howToSort = sortType.ALPHA
         return parseInt(getNestedValue(b, attribute, howToSort), 10) - parseInt(getNestedValue(a, attribute, howToSort), 10);
       case sortType.COLLECTION:
         return getNestedValue(b, attribute, howToSort).length - getNestedValue(a, attribute, howToSort).length;
+      case sortType.ROLES:
+        return a
       default:
         throw new Error(`Unsupported sortType ${howToSort}`);
     }

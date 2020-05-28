@@ -232,8 +232,8 @@ export function validateBadge(entityId) {
 }
 
 // Manage users
-export function makeUserInstitutionAdmin(staffMembershipId) {
-  const path = `${serverUrl}/staff-membership/institution/change/${staffMembershipId}`;
+export function makeUserInstitutionAdmin(institutionStaffMembershipId, insitutionId, userId) {
+  const path = `${serverUrl}/staff-membership/institution/change/${institutionStaffMembershipId}`;
   const payload = {
     "may_create":1,
     "may_read": 1,
@@ -242,12 +242,14 @@ export function makeUserInstitutionAdmin(staffMembershipId) {
     "may_sign": 1,
     "may_award": 1,
     "may_administrate_users": 1,
+    "institution": insitutionId,
+    "user": userId
   };
   return validFetch(path, {body: JSON.stringify(payload)}, "PUT");
 }
 
-export function removeUserInstitutionAdmin(staffMembershipId) {
-  const path = `${serverUrl}/staff-membership/institution/change/${staffMembershipId}`;
+export function removeUserInstitutionAdmin(insitutionId, userId) {
+  const path = `${serverUrl}/staff-membership/institution/change/${insitutionId}`;
   const payload = {
     "may_create":0,
     "may_read": 1,
@@ -256,6 +258,8 @@ export function removeUserInstitutionAdmin(staffMembershipId) {
     "may_sign": 0,
     "may_award": 0,
     "may_administrate_users": 0,
+    "institution": insitutionId,
+    "user": userId
   };
   return validFetch(path, {body: JSON.stringify(payload)}, "PUT");
 }
@@ -282,7 +286,7 @@ export function removeUserIssuerGroupAdmin(facultyMembershipId) {
 }
 
 export function makeUserIssuerAdmin(issuerId, userId) {
-  const path = `${serverUrl}/issuer/${issuerId}/create`;
+  const path = `${serverUrl}/staff-membership/issuer/${issuerId}/create`;
   const payload = {
     "may_create":1,
     "may_read": 1,
@@ -298,7 +302,7 @@ export function makeUserIssuerAdmin(issuerId, userId) {
 }
 
 export function removeUserIssuerAdmin(issuerMembershipId) {
-  const path = `${serverUrl}/issuer/change/${issuerMembershipId}`;
+  const path = `${serverUrl}/staff-membership/issuer/change/${issuerMembershipId}`;
   return validFetch(path, {}, "DELETE");
 }
 
