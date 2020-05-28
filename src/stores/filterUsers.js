@@ -9,13 +9,13 @@ export const issuerIds = writable([]);
 export const userIds = writable([]);
 
 function filterBySearch(users, search) {
-  if (!search) {
-    return users;
+  if (search && search.length > 0) {
+    return users.filter(user => {
+      const userName = user.firstName.toLowerCase() + " " + user.lastName.toLowerCase();
+      return userName.indexOf(search.toLowerCase()) !== -1;
+    })
   }
-
-  return users.filter(({ name }) =>
-    name.toLowerCase().includes(search.toLowerCase())
-  );
+  return users;
 }
 
 function sort(collection, count = false) {
