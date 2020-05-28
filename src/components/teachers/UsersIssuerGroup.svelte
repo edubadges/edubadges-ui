@@ -142,16 +142,16 @@
   };
 
   const submitPermissions = () => {
-      switch (modalChosenRole.name) {
-          case 'admin':
-              makeUserIssuerGroupAdmin(modalSelectedBadgeClass, userId).then(() => {
-                  reload();
-                  showAddModal = false;
-              });
-              break;
-          default:
-              console.error('error: invalid role');
-      }
+    switch (modalChosenRole.name) {
+      case 'admin':
+        makeUserIssuerGroupAdmin(modalSelectedBadgeClass.entityId, userId).then(() => {
+          reload();
+          showAddModal = false;
+        });
+          break;
+      default:
+        console.error('error: invalid role');
+    }
   };
 
   const removeSelectedPermissions = () => {
@@ -269,16 +269,17 @@
 {/if}
 
 {#if showAddModal}
-    <AddPermissionsModal
-            submit={addModalAction}
-            cancel={() => showAddModal = false}
-            selectEntity={selectEntity}
-                    permissionsRoles={permissionsRoles}
-                    title={addModalTitle}
-                    entity={'issuerGroup'}
-                    bind:target={modalSelectedBadgeClass}
-                    bind:chosenRole={modalChosenRole}
-                    bind:notes={modalNotes}
-    >
-    </AddPermissionsModal>
+  <AddPermissionsModal
+    submit={addModalAction}
+    cancel={() => showAddModal = false}
+    selectEntity={selectEntity}
+    permissionsRoles={permissionsRoles}
+    title={addModalTitle}
+    entity={'issuerGroup'}
+    targetOptions={faculties}
+    bind:target={modalSelectedBadgeClass}
+    bind:chosenRole={modalChosenRole}
+    bind:notes={modalNotes}
+  >
+  </AddPermissionsModal>
 {/if}

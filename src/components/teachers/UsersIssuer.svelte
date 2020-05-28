@@ -22,6 +22,8 @@
   let selection = [];
   let checkAllValue = false;
 
+  let issuers = [];
+
   const query = `{
   currentInstitution {
     name,
@@ -98,6 +100,11 @@
       faculties = res.currentInstitution.faculties;
       user = res.user;
       currentUser = res.currentUser;
+      faculties.forEach(faculty => {
+        faculty.issuers.forEach(issuer => {
+          issuers = [issuer, ...issuers]
+        })
+      });
     });
   });
 
@@ -148,7 +155,7 @@
   const submitPermissions = () => {
     switch (modalChosenRole.name) {
       case 'admin':
-        makeUserIssuerAdmin(modalSelectedBadgeClass, userId).then(() => {
+        makeUserIssuerAdmin(modalSelectedBadgeClass.entityId, userId).then(() => {
           reload();
           showAddModal = false;
         });
@@ -293,15 +300,16 @@
 
 {#if showAddModal}
     <AddPermissionsModal
-            submit={addModalAction}
-            cancel={() => showAddModal = false}
-            selectEntity={selectEntity}
-                    permissionsRoles={permissionsRoles}
-                    title={addModalTitle}
-                    entity={'issuer'}
-                    bind:target={modalSelectedBadgeClass}
-                    bind:chosenRole={modalChosenRole}
-                    bind:notes={modalNotes}
+      submit={addModalAction}
+      cancel={() => showAddModal = false}
+      selectEntity={selectEntity}
+      permissionsRoles={permissionsRoles}
+      title={addModalTitle}
+      entity={'issuer'}
+      targetOptions={issuers}
+      bind:target={modalSelectedBadgeClass}
+      bind:chosenRole={modalChosenRole}
+      bind:notes={modalNotes}
     >
     </AddPermissionsModal>
 {/if}

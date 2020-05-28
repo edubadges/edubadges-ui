@@ -121,7 +121,6 @@
           })
         })
       });
-      console.log(badgeclasses);
     });
   });
 
