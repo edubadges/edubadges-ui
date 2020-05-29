@@ -9,6 +9,8 @@
   export let error;
 
   export let optionIdentifier = "entityId";
+
+  export let handleSelect = () => {};
 </script>
 
 <style lang="scss">
@@ -56,6 +58,7 @@
 
 <div class="select-field" {error} {disabled}>
   <Select
+    on:select={() => handleSelect(value[optionIdentifier])}
     {items}
     bind:selectedValue={value}
     {optionIdentifier}
