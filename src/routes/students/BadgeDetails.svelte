@@ -87,7 +87,7 @@
       badge = res.badgeInstance;
       showModal = false;
       if (!badge.public && badge.acceptance === 'UNACCEPTED') {
-        claimAssertion(badge.entityId).then(() => flash.setValue(I18n.t("student.flash.claimed")));
+        claimAssertion(badge.entityId);
       }
       if (badge.public && validation.unloaded) {
         fetchingValidation = true;

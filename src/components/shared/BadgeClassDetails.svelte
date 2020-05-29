@@ -8,7 +8,7 @@
     language,
     learningOutcome
   } from "../extensions/badges/extensions";
-  import { fallBackValue } from "../../util/forms";
+  import {fallBackValue} from "../../util/forms";
 
   export let badgeclass;
 
@@ -48,7 +48,9 @@
     }
   }
 </style>
-
+<div class="slots">
+  <slot/>
+</div>
 <div class="badge-class-detail">
   <h3>{I18n.t('models.badgeclass.language')}</h3>
   <p class="info">
@@ -73,18 +75,18 @@
     </p>
     <table class="extensions">
       <thead class="purple">
-        <th>{I18n.t('models.badgeclass.ects')}</th>
-        <th>{I18n.t('models.badgeclass.eqf')}</th>
-        <th>{I18n.t('models.badgeclass.educationProgramIdentifier')}</th>
+      <th>{I18n.t('models.badgeclass.ects')}</th>
+      <th>{I18n.t('models.badgeclass.eqf')}</th>
+      <th>{I18n.t('models.badgeclass.educationProgramIdentifier')}</th>
       </thead>
       <tbody>
-        <tr>
-          <td>{fallBackValue(badgeclass.ects || extensionValue(badgeclass.extensions, ects))}</td>
-          <td>{`EQF ${fallBackValue(badgeclass.eqf || extensionValue(badgeclass.extensions, eqf))}`}</td>
-          <td>
-            {fallBackValue(badgeclass.educationProgramIdentifier || extensionValue(badgeclass.extensions, educationProgramIdentifier))}
-          </td>
-        </tr>
+      <tr>
+        <td>{fallBackValue(badgeclass.ects || extensionValue(badgeclass.extensions, ects))}</td>
+        <td>{`EQF ${fallBackValue(badgeclass.eqf || extensionValue(badgeclass.extensions, eqf))}`}</td>
+        <td>
+          {fallBackValue(badgeclass.educationProgramIdentifier || extensionValue(badgeclass.extensions, educationProgramIdentifier))}
+        </td>
+      </tr>
       </tbody>
     </table>
   </div>

@@ -2,6 +2,7 @@
   import {onMount} from "svelte";
   import {Router, Route, navigate} from "svelte-routing";
   import I18n from "i18n-js";
+  import info from "../../icons/informational.svg";
   import {EntityHeader} from "../teachers";
   import Button from "../../components/Button.svelte";
   import {Overview} from "../teachers/badgeclass";
@@ -16,6 +17,7 @@
     assertionsQuery
   } from "../../api/queries";
   import {expirationPeriod} from "../../util/entityHeader";
+  import CopyToClipboardButton from "../CopyToClipboardButton.svelte";
 
   export let entityId;
   export let subEntity;
@@ -26,6 +28,11 @@
 
   let enrollments = [];
   let assertions = [];
+
+  const publicUrl = () => {
+    const currentUrl = window.location.origin;
+    return `${currentUrl}/public/${entityId}`;
+  }
 
   const query = `{
     badgeClass(id: "${entityId}") {
@@ -114,6 +121,33 @@
     }
   }
 
+  div.public-link {
+    background-color: var(--blue-light);
+    margin-bottom: 25px;
+    padding: 25px;
+    border-radius: 8px;
+  }
+
+  div.info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+
+    span:first-child {
+      margin-right: 15px;
+      max-width: 100%;
+    }
+
+  }
+
+  div.options {
+    display: flex;
+
+    input {
+      margin-right: 25px;
+    }
+  }
+
 </style>
 
 <div class="nav">
@@ -129,15 +163,27 @@
   {tabs}
   {headerItems}
   mayUpdate={false}>
-  <div class="slots">
-    <Button href={`/invite-enrollements/${badgeclass.entityId}`} text={I18n.t("models.badgeclass.inviteEnrollements")}/>
-  </div>
+  <!--  <div class="slots">-->
+  <!--    <Button href={`/invite-enrollements/${badgeclass.entityId}`} text={I18n.t("models.badgeclass.inviteEnrollements")}/>-->
+  <!--  </div>-->
 </EntityHeader>
 
 <div class="main-content-margin">
   <Router>
     <Route path="/overview">
-      <Overview {badgeclass}/>
+      <Overview {badgeclass}>
+        <div class="public-link">
+          <div class="info">
+            <span>{@html info}</span>
+            <span>{I18n.t("invites.copyPublicUrl")}</span>
+          </div>
+          <div class="options">
+            <input class="input-field full" disabled={true} value={publicUrl()}/>
+            <CopyToClipboardButton toCopy={publicUrl()} text={I18n.t("invites.copyUrl")}/>
+          </div>
+        </div>
+
+      </Overview>
     </Route>
 
     <Route path="/enrollments">

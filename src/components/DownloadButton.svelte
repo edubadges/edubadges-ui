@@ -10,7 +10,7 @@
   export let small;
   export let url;
   export let filename;
-  export let useToken = true;
+  export let useToken = false;
 
   const forceDownload = (blob, filename) => {
     const a = document.createElement('a');
@@ -26,12 +26,16 @@
     if (!filename) {
       filename = url.split('\\').pop().split('/').pop();
     }
+    const headers = {
+      Origin: window.location.origin
+    };
+    if (useToken) {
+      headers["Authorization"] = "Bearer " + get(authToken)
+    }
     fetch(url, {
-      headers: new Headers({
-        Origin: window.location.origin,
-        Authorization: useToken ? "Bearer " + get(authToken) : ""
-      }),
-      mode: 'cors'
+      headers: new Headers(headers),
+      mode: 'cors',
+      redirect: "follow"
     })
       .then(response => response.blob())
       .then(blob => forceDownload(window.URL.createObjectURL(blob), filename));
