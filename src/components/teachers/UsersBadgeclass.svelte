@@ -75,7 +75,10 @@
       entityId,
       badgeclass {
         name,
-        entityId
+        entityId,
+        issuer {
+          name
+        }
       },
       mayAdministrateUsers,
       mayUpdate,
@@ -130,6 +133,12 @@
   });
 
   const tableHeaders = [
+    {
+      name: I18n.t("editUsers.issuer.header"),
+      attribute: "name",
+      reverse: false,
+      sortType: sortType.ALPHA
+    },
     {
       name: I18n.t("editUsers.badgeClass.header"),
       attribute: "name",
@@ -290,6 +299,10 @@
     margin-bottom: 10px;
   }
 
+  .badgeclass-role-select {
+    width: 170px;
+  }
+
   .container {
     display: flex;
     flex-direction: column;
@@ -315,27 +328,21 @@
               disabled={false}
               onChange={val => onCheckOne(val, badgeclassStaffMembership.entityId)}/>
         </td>
+        <td>{badgeclassStaffMembership.badgeclass.issuer.name}</td>
         <td>{badgeclassStaffMembership.badgeclass.name}</td>
-        <Select
-            handleSelect={value => changeUserRole(value, badgeclassStaffMembership.entityId)}
-            value = {
-                badgeclassStaffMembership.mayAdministrateUsers ? 'badgeclassOwner' :
-                (badgeclassStaffMembership.mayUpdate ? 'badgeclassEditor' :
-                (badgeclassStaffMembership.mayAward ? 'badgeclassAwarder' : 'error'))
-            }
-            items={targetOptions}
-            clearable={false}
-            optionIdentifier="name"
-        />
-        <td>
-          {#if badgeclassStaffMembership.mayAdministrateUsers}
-            {I18n.t(['editUsers', 'badgeClass', 'badgeclassOwner'])}
-          {:else if badgeclassStaffMembership.mayUpdate}
-            {I18n.t(['editUsers', 'badgeClass', 'badgeclassEditor'])}
-          {:else if badgeclassStaffMembership.mayAward}
-            {I18n.t(['editUsers', 'badgeClass', 'badgeclassAwarder'])}
-          {/if}
-        </td>
+        <div class="badgeclass-role-select">
+          <Select
+              handleSelect={value => changeUserRole(value, badgeclassStaffMembership.entityId)}
+              value = {
+                  badgeclassStaffMembership.mayAdministrateUsers ? 'badgeclassOwner' :
+                  (badgeclassStaffMembership.mayUpdate ? 'badgeclassEditor' :
+                  (badgeclassStaffMembership.mayAward ? 'badgeclassAwarder' : 'error'))
+              }
+              items={targetOptions}
+              clearable={false}
+              optionIdentifier="name"
+          />
+        </div>
       </tr>
     {/each}
     {#each user.issuerStaffs as issuerStaffMembership}
