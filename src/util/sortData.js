@@ -1,3 +1,5 @@
+import { permissionRoleValue } from "./permissionRolesToValue";
+
 export const sortType = {
   ALPHA: "alpha",
   BOOLEAN: "boolean",
@@ -28,7 +30,7 @@ const getNestedValue = (obj, attr, howToSort) => {
     obj = obj ? defaultValue(obj[part], howToSort) : defaultValue(null, howToSort);
   }
   return obj || defaultValue(null, howToSort);
-}
+};
 
 export {getNestedValue as nestedValue};
 
@@ -48,7 +50,7 @@ export function sort(collection, attribute, reversed, howToSort = sortType.ALPHA
       case sortType.COLLECTION:
         return getNestedValue(b, attribute, howToSort).length - getNestedValue(a, attribute, howToSort).length;
       case sortType.ROLES:
-        return a
+        return permissionRoleValue(a[attribute]) - permissionRoleValue(b[attribute]);
       default:
         throw new Error(`Unsupported sortType ${howToSort}`);
     }
