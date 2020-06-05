@@ -127,8 +127,8 @@
     {
       'action': toggleInstitutionAdmin,
       'text': user && user.institutionStaff.mayAdministrateUsers ?
-              I18n.t(['editUsers', 'permissions', 'removeInstitutionAdmin']) :
-              I18n.t(['editUsers', 'permissions', 'setInstitutionAdmin']),
+          I18n.t(['editUsers', 'permissions', 'removeInstitutionAdmin']) :
+          I18n.t(['editUsers', 'permissions', 'setInstitutionAdmin']),
       'allowed': (currentUser && currentUser.institutionStaff.mayAdministrateUsers),
       'disabled': false
     }

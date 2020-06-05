@@ -400,3 +400,16 @@ export function changeUserToBadgeclassAwarder(badgeclassMembershipId) {
   };
   return validFetch(path, {body: JSON.stringify(payload)}, "PUT");
 }
+
+export function inviteUser(entityType, entityId, userEmail, permissions) {
+  const path = `${serverUrl}/v1/user/provision/create`;
+  const payload = {
+    'content_type': entityType,
+    'object_id': entityId,
+    'email': userEmail,
+    'for_teacher': true,
+    'data': permissions,
+    'type' : 'Invitation'
+  };
+  return validFetch(path, {body: JSON.stringify(payload)}, "POST");
+}

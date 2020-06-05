@@ -53,7 +53,7 @@
 
 {#each tabs as { href, icon, entity, count } (entity)}
   <Link to={href}>
-    <div class="tab click" class:active={href === $currentPath}>
+    <div class="tab click" class:active={($currentPath).includes(href)}>
       {#if icon}
         {@html icon}
       {/if}

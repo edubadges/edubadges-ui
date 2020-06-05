@@ -1,7 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import { Router, Route, navigate } from "svelte-routing";
-  import { Breadcrumb, EntityHeader, Issuers } from "../teachers";
+  import { Breadcrumb, EntityHeader, Issuers, FacultyUserManagement } from "../teachers";
   import { issuerIcon } from "../../icons";
   import { queryData } from "../../api/graphql";
   import { headerStaff, headerEntity } from "../../api/queries";
@@ -61,6 +61,11 @@
       entity: "issuers",
       href: `/manage/faculty/${entityId}/issuers`,
       icon: issuerIcon
+    },
+    {
+      entity: "userManagement",
+      href: `/manage/faculty/${entityId}/user-management`,
+      icon: issuerIcon
     }
   ];
 
@@ -93,5 +98,8 @@
     <Issuers
       {issuers}
       mayCreate={mayCreate} />
+  </Route>
+  <Route path="/user-management">
+    <FacultyUserManagement entity="issuerGroup" />
   </Route>
 </Router>

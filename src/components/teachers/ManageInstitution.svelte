@@ -8,12 +8,14 @@
     EntityHeader,
     Issuers,
     Faculties,
-    HeaderList
+    HeaderList,
+    InviteUser
   } from "../teachers";
   import {issuerIcon, facultyIcon} from "../../icons";
   import {queryData} from "../../api/graphql";
   import {headerStaff, headerEntity} from "../../api/queries";
   import {Spinner} from "../index";
+  import {InstitutionUserManagement} from "../teachers/";
 
   export let subEntity;
 
@@ -63,6 +65,7 @@
       faculties = res.faculties;
       issuers = res.issuers;
       loaded = true;
+      console.log(subEntity);
     });
   });
 
@@ -75,6 +78,11 @@
     {
       entity: "faculties",
       href: "/manage/institution/groups",
+      icon: facultyIcon
+    },
+    {
+      entity: "userManagement",
+      href: "/manage/institution/user-management",
       icon: facultyIcon
     }
   ];
@@ -105,6 +113,11 @@
       value: institution.gradingTable
     }
   ];
+
+  const permissionsRoles = [
+    {name: 'admin'}
+  ];
+
 </script>
 {#if !loaded}
   <Spinner/>
@@ -123,6 +136,12 @@
     </Route>
     <Route path="/groups">
       <Faculties {faculties} {mayCreate}/>
+    </Route>
+    <Route path="/user-management/invite-new-user">
+      <InviteUser permissionsRoles={permissionsRoles} />
+    </Route>
+    <Route path="/user-management">
+      <InstitutionUserManagement entity="institution" />
     </Route>
   </Router>
 {/if}
