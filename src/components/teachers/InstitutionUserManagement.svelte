@@ -7,6 +7,7 @@
   import { CheckBox } from "../index";
   import { removeUserInstitutionAdmin } from "../../api";
   import {Router, Route, navigate} from "svelte-routing";
+  import { Modal } from "../forms";
 
   export let entity;
 
@@ -61,10 +62,26 @@
   let removeModalQuestion;
   let removeModalAction;
 
+  const onCheckAll = val => {
+    selection = val ? users.map(({entityId}) => entityId) : [];
+    table.checkAllValue = val;
+  };
+
+  const onCheckOne = (val, entityId) => {
+    if (val) {
+      selection = selection.concat(entityId);
+      table.checkAllValue = selection.length === users.length;
+    } else {
+      selection = selection.filter(id => id !== entityId);
+      table.checkAllValue = false;
+    }
+  };
+
   $: table = {
     entity: "user",
     title: `${I18n.t("editUsers.usersPermissions")}`,
-    tableHeaders: tableHeaders
+    tableHeaders: tableHeaders,
+    onCheckAll
   };
 
   const reload = () => {
@@ -86,7 +103,7 @@
   const removePermissions = () => {
     showRemoveModal = true;
     removeModalTitle = I18n.t(['editUsers', 'permissions', 'removePermissions']);
-    removeModalQuestion = 'issuer';
+    removeModalQuestion = 'Are you sure you want to remove institution admin?';
     removeModalAction = removeSelectedPermissions;
   };
 
@@ -106,14 +123,6 @@
       'allowed': (permissions && permissions.mayAdministrateUsers),
     }
   ];
-
-  const onCheckOne = (val, entityId) => {
-    if (val) {
-      selection = selection.concat(entityId);
-    } else {
-      selection = selection.filter(id => id !== entityId);
-    }
-  };
 </script>
 
 <div class="container">
@@ -143,3 +152,13 @@
     {/each}
   </UsersTable>
 </div>
+
+{#if showRemoveModal}
+  <Modal
+      submit={removeModalAction}
+      cancel={() => showRemoveModal = false}
+      question={removeModalQuestion}
+      title={removeModalTitle}
+  >
+  </Modal>
+{/if}
