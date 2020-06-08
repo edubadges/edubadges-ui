@@ -55,7 +55,7 @@ export const userTree = derived(
       }
     }
 
-    for (const {user} of institution.permissionedStaff) {
+    for (const {user} of institution.staff) {
       user.role = 'Institution Admin';
       tree.users = [user, ...tree.users];
 
@@ -130,7 +130,7 @@ export const userTree = derived(
 
     if (!issuerIds.length > 0 && !facultyIds.length > 0) {
       for(const user of users) {
-        if (!user.institutionStaff.mayAdministrateUsers && user.facultyStaffs.length === 0 && user.issuerStaffs.length === 0 && user.badgeclassStaffs.length === 0) {
+        if (!user.institutionStaff && user.facultyStaffs.length === 0 && user.issuerStaffs.length === 0 && user.badgeclassStaffs.length === 0) {
           user.role = 'Viewer';
           if (!tree.users.some(_user => _user.entityId === user.entityId)) {
             tree.users = [user, ...tree.users];
