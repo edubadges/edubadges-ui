@@ -351,7 +351,7 @@ I18n.translations.en = {
       ectsLong: "European Credit Transfer and Accumulation System",
       eqf: "NLQF level",
       educationProgramIdentifier: "ISAT",
-      educationProgramIdentifierLong: "Education Program Identifier",
+      educationProgramIdentifierLong: "Programme Identifier",
       notSet: "No value set",
       expirationPeriods: {
         days: "Days",
@@ -363,6 +363,7 @@ I18n.translations.en = {
         basicInformation: "Basic information",
         earningCriteria: "Earning criteria",
         creditPoints: "Credit Points",
+        educationalIdentifiers: "Educational Identifiers"
       },
       info: {
         educationProgramIdentifier:

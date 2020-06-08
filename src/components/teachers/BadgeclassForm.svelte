@@ -199,6 +199,8 @@
     <EctsCreditPoints bind:ectsValue={extensions[ects.name]}/>
   </Field>
 
+    <h4>{I18n.t('models.badgeclass.headers.educationalIdentifiers')}</h4>
+
   <div class="form">
 
     <Field

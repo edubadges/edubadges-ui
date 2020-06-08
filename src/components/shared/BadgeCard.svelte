@@ -27,8 +27,12 @@
 
     &:not(.stand-alone) {
       cursor: pointer;
+      margin: 0;
     }
 
+    &.stand-alone {
+      margin: auto;
+    }
   }
 
   .header {

@@ -197,12 +197,12 @@
     {
       'action': removePermissions,
       'text': I18n.t(['editUsers', 'permissions', 'removePermissions']),
-      'allowed': (currentUser && currentUser.institutionStaff.mayAdministrateUsers && selection.length > 0),
+      'allowed': (currentUser && currentUser.institutionStaff && selection.length > 0),
     },
     {
       'action': addPermissions,
       'text': I18n.t(['editUsers', 'permissions', 'addPermissions']),
-      'allowed': (currentUser && currentUser.institutionStaff.mayAdministrateUsers),
+      'allowed': (currentUser && currentUser.institutionStaff),
     }
   ];
 
@@ -269,7 +269,7 @@
         </tr>
       {/each}
     {/each}
-    {#if user.institutionStaff.mayAdministrateUsers}
+    {#if user.institutionStaff}
       {#each faculties as faculty}
         {#each faculty.issuers as issuer}
           <tr>

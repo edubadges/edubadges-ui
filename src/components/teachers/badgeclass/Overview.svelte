@@ -75,7 +75,9 @@
       <Button text={I18n.t('student.withdraw')} action={() => withdrawEnrollment(true, enrollmentId)}/>
     </div>
   {/if}
-  <BadgeClassDetails badgeclass={badgeclass}/>
+  <BadgeClassDetails badgeclass={badgeclass}>
+    <slot/>
+  </BadgeClassDetails>
 </div>
 
 {#if showModal}

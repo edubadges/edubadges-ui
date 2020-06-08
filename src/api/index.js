@@ -232,8 +232,8 @@ export function validateBadge(entityId) {
 }
 
 // Manage users
-export function makeUserInstitutionAdmin(institutionStaffMembershipId, insitutionId, userId) {
-  const path = `${serverUrl}/staff-membership/institution/change/${institutionStaffMembershipId}`;
+export function makeUserInstitutionAdmin(insitutionId, userId) {
+  const path = `${serverUrl}/staff-membership/faculty/${insitutionId}/create`;
   const payload = {
     "may_create":1,
     "may_read": 1,
@@ -242,26 +242,15 @@ export function makeUserInstitutionAdmin(institutionStaffMembershipId, insitutio
     "may_sign": 1,
     "may_award": 1,
     "may_administrate_users": 1,
-    "institution": insitutionId,
-    "user": userId
+    "user": userId,
+    "institution": insitutionId
   };
-  return validFetch(path, {body: JSON.stringify(payload)}, "PUT");
+  return validFetch(path, {body: JSON.stringify(payload)}, "POST");
 }
 
-export function removeUserInstitutionAdmin(insitutionId, userId) {
-  const path = `${serverUrl}/staff-membership/institution/change/${insitutionId}`;
-  const payload = {
-    "may_create":0,
-    "may_read": 1,
-    "may_update": 0,
-    "may_delete": 0,
-    "may_sign": 0,
-    "may_award": 0,
-    "may_administrate_users": 0,
-    "institution": insitutionId,
-    "user": userId
-  };
-  return validFetch(path, {body: JSON.stringify(payload)}, "PUT");
+export function removeUserInstitutionAdmin(institutionMembershipId) {
+  const path = `${serverUrl}/staff-membership/institution/change/${institutionMembershipId}`;
+  return validFetch(path, {}, "DELETE");
 }
 
 export function makeUserIssuerGroupAdmin(facultyId, userId) {
