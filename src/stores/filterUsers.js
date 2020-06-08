@@ -55,7 +55,7 @@ export const userTree = derived(
       }
     }
 
-    for (const {user} of institution.permissionedStaff) {
+    for (const {user} of institution.staff) {
       user.role = 'Institution Admin';
       tree.users = [user, ...tree.users];
 

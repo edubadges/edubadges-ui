@@ -13,7 +13,7 @@
     currentInstitution {
       name,
       entityId,
-      permissionedStaff {
+      staff {
         user {
           firstName,
           lastName,
