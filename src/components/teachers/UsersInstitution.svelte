@@ -12,6 +12,7 @@
   let user;
   let currentUser;
   let faculties;
+  let institutionName;
   let institutionId;
   let institutionSearch;
 
@@ -91,6 +92,7 @@
       faculties = res.currentInstitution.faculties;
       user = res.user;
       currentUser = res.currentUser;
+      institutionName = res.currentInstitution.name;
     });
   });
 
@@ -116,20 +118,20 @@
   };
 
   const toggleInstitutionAdmin = () => {
-    if (user.institutionStaff.mayAdministrateUsers) {
-      removeUserInstitutionAdmin(institutionId, userId);
+    if (user.institutionStaff) {
+      removeUserInstitutionAdmin(user.institutionStaff.entityId);
     } else {
-      makeUserInstitutionAdmin(user.institutionStaff.entityId, institutionId, userId);
+      makeUserInstitutionAdmin(institutionId, userId);
     }
   };
 
   $: buttons = [
     {
       'action': toggleInstitutionAdmin,
-      'text': user && user.institutionStaff.mayAdministrateUsers ?
+      'text': user && user.institutionStaff ?
               I18n.t(['editUsers', 'permissions', 'removeInstitutionAdmin']) :
               I18n.t(['editUsers', 'permissions', 'setInstitutionAdmin']),
-      'allowed': (currentUser && currentUser.institutionStaff.mayAdministrateUsers),
+      'allowed': (currentUser && currentUser.institutionStaff),
       'disabled': false
     }
   ];
@@ -167,9 +169,9 @@
         bind:buttons={buttons}
     >
       <tr>
-        <td>{user.institutionStaff.institution.name}</td>
+        <td>{institutionName}</td>
         <td>
-          {I18n.t(['editUsers', 'institution', user.institutionStaff.mayAdministrateUsers ? 'allRights' : 'noRights'])}
+          {I18n.t(['editUsers', 'institution', user.institutionStaff ? 'allRights' : 'noRights'])}
         </td>
       </tr>
     </UsersTable>
