@@ -279,6 +279,7 @@ I18n.translations.nl = {
     permissions: {
       addPermissions: "Add permissions",
       removePermissions: "Remove permissions",
+      removeAdmin: "Are you sure you want to remove institution admin?",
       setInstitutionAdmin: "Make user institution admin",
       removeInstitutionAdmin: "Remove user institution admin",
       inviteNewUser: "Invite new User"
