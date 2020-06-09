@@ -22,15 +22,27 @@
   const cancel = () => window.history.back();
 
   const submit = () => {
-    newUsers.forEach(user => {
+    Promise.all(newUsers.filter(el => el.email !== '').map(user => {
       inviteUser(contentType, entityId, user.email, rolesToPermissions(user.chosenRole));
+    })).then(res => {
+      console.log(newUsers);
+    },
+    err => {
+      console.error(err);
     })
   };
 </script>
 
 <style>
-  .flex {
+  .user-invite {
+    margin-top: 10px;
+    margin-bottom: 10px;
     display: flex;
+    width: 100%;
+  }
+
+  .user-invite-field {
+    width: 50%;
   }
 
   .add-email {
@@ -44,26 +56,30 @@
   }
 </style>
 
-<div class="container">
+<div class="container main-content-margin">
   <h2>{I18n.t("inviteUsers.addUser.title")}</h2>
 
   <p>{I18n.t("inviteUsers.addUser.description")}</p>
 
   {#each newUsers as newUser}
     <div>
-      <div class="flex">
-        <Field entity={'inviteUsers'} attribute="email" errors={errors.email}>
-          <TextInput bind:value={newUser.email} error={errors.email} />
-        </Field>
-        <Field entity={'editUsers'} attribute={'role'}>
-          <Select
-              disabled={disabledRole}
-              bind:value={newUser.chosenRole}
-              items={permissionsRoles}
-              clearable={false}
-              optionIdentifier="name"
-          />
-        </Field>
+      <div class="user-invite">
+        <div class="user-invite-field">
+          <Field entity={'inviteUsers'} attribute="email" errors={errors.email}>
+            <TextInput bind:value={newUser.email} error={errors.email} />
+          </Field>
+        </div>
+        <div class="user-invite-field">
+          <Field entity={'editUsers'} attribute={'role'}>
+            <Select
+                disabled={disabledRole}
+                bind:value={newUser.chosenRole}
+                items={permissionsRoles}
+                clearable={false}
+                optionIdentifier="name"
+            />
+          </Field>
+        </div>
       </div>
     </div>
   {/each}

@@ -1,12 +1,16 @@
 <script>
   export let value = "";
   export let type = "text";
-  export let max = "999999999999999"
+  export let max = "999999999999999";
   export let disabled = false;
   export let error;
 
   export let area;
 </script>
+
+<style>
+
+</style>
 
 <div {disabled} {error}>
   {#if area}

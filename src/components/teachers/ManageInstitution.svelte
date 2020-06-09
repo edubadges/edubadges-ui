@@ -17,6 +17,7 @@
   import {Spinner} from "../index";
   import {InstitutionUserManagement} from "../teachers/";
 
+  let entityId;
   export let subEntity;
 
   let institution = {staff: []};
@@ -24,6 +25,8 @@
   let faculties = [];
   let issuers = [];
   let loaded = false;
+
+  let contentType;
 
   const query = `{
     currentUser {
@@ -37,7 +40,9 @@
       ${headerStaff},
       image,
       gradingTable,
-      brin
+      brin,
+      entityId,
+      contentTypeId
 		},
 		faculties {
       name,
@@ -65,7 +70,8 @@
       faculties = res.faculties;
       issuers = res.issuers;
       loaded = true;
-      console.log(subEntity);
+      entityId = res.currentInstitution.entityId;
+      contentType = res.currentInstitution.contentTypeId;
     });
   });
 
@@ -138,7 +144,13 @@
       <Faculties {faculties} {mayCreate}/>
     </Route>
     <Route path="/user-management/invite-new-user">
-      <InviteUser permissionsRoles={permissionsRoles} defaultValue={0} disabledRole={true} />
+      <InviteUser
+          permissionsRoles={permissionsRoles}
+          defaultValue={0}
+          disabledRole={true}
+          entityId={entityId}
+          contentType={contentType}
+      />
     </Route>
     <Route path="/user-management">
       <InstitutionUserManagement entity="institution" />

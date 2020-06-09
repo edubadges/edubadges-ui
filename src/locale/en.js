@@ -292,7 +292,7 @@ I18n.translations.en = {
   },
   models: {
     inviteUsers: {
-      email: "email"
+      email: "Email address"
     },
     editUsers: {
       memberSince: "Member since",

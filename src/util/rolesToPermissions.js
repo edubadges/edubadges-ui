@@ -1,5 +1,5 @@
 export const rolesToPermissions = role => {
-  switch (role) {
+  switch (role.name) {
     case 'admin':
       return {
         "may_create": 1,
