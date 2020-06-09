@@ -117,8 +117,8 @@
   const permissionsRoles = [
     {name: 'admin'}
   ];
-
 </script>
+
 {#if !loaded}
   <Spinner/>
 {:else}
@@ -138,7 +138,7 @@
       <Faculties {faculties} {mayCreate}/>
     </Route>
     <Route path="/user-management/invite-new-user">
-      <InviteUser permissionsRoles={permissionsRoles} />
+      <InviteUser permissionsRoles={permissionsRoles} defaultValue={0} disabledRole={true} />
     </Route>
     <Route path="/user-management">
       <InstitutionUserManagement entity="institution" />

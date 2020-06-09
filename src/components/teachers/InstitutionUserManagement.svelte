@@ -6,7 +6,7 @@
   import I18n from "i18n-js";
   import { CheckBox } from "../index";
   import { removeUserInstitutionAdmin } from "../../api";
-  import {Router, Route, navigate} from "svelte-routing";
+  import {navigate} from "svelte-routing";
   import { Modal } from "../forms";
 
   export let entity;
@@ -21,7 +21,7 @@
         mayAdministrateUsers
       },
       name,
-      permissionedStaff {
+      staff {
         entityId,
         mayAdministrateUsers,
         user {
@@ -36,7 +36,7 @@
   onMount(() => {
     queryData(query).then(res => {
       console.log(res);
-      users = res.currentInstitution.permissionedStaff;
+      users = res.currentInstitution.staff;
       permissions = res.currentInstitution.permissions;
     })
   });
@@ -86,7 +86,7 @@
 
   const reload = () => {
     queryData(query).then(res => {
-      users = res.currentInstitution.permissionedStaff;
+      users = res.currentInstitution.staff;
     });
   };
 
@@ -103,7 +103,7 @@
   const removePermissions = () => {
     showRemoveModal = true;
     removeModalTitle = I18n.t(['editUsers', 'permissions', 'removePermissions']);
-    removeModalQuestion = 'Are you sure you want to remove institution admin?';
+    removeModalQuestion = I18n.t(['editUsers', 'permissions', 'removeAdmin']);
     removeModalAction = removeSelectedPermissions;
   };
 

@@ -4,17 +4,19 @@
   import { Field, Select, TextInput } from "../../components/forms"
   import { inviteUser } from "../../api";
   import { rolesToPermissions } from "../../util/rolesToPermissions";
+  import {isNumber} from "lodash";
 
   export let contentType;
   export let entityId;
   export let disabledRole;
   export let permissionsRoles;
+  export let defaultValue;
 
-  let newUsers = [{'email': '', 'chosenRole': ''}];
+  let newUsers = [{'email': '', 'chosenRole': _.isNumber(defaultValue) ? permissionsRoles[defaultValue] : ''}];
   let errors = {};
 
   const addEmailField = () => {
-    newUsers = [...newUsers, {'email': '', 'chosenRole': ''}];
+    newUsers = [...newUsers, {'email': '', 'chosenRole': _.isNumber(defaultValue) ? permissionsRoles[defaultValue] : ''}];
   };
 
   const cancel = () => window.history.back();
