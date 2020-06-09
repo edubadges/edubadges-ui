@@ -74,9 +74,11 @@
 
 <div class="entity">
   <div class="content">
-    <div class="img-container">
-      <RemoteImage imageUrl={object.image} alt={`${object.name} logo`}/>
-    </div>
+    {#if object.image}
+      <div class="img-container">
+        <RemoteImage imageUrl={object.image} alt={`${object.name} logo`}/>
+      </div>
+    {/if}
     <div class="info">
       <h2>{object.name}</h2>
       <p>{object.description}</p>
