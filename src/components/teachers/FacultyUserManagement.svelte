@@ -122,7 +122,7 @@
   };
 
   const inviteNewUser = () => {
-    navigate(`/manage/faculty/${entityId}/user-management/invite-new-user`, {replace: true});
+    navigate(`/manage/faculty/${entityId}/user-management/invite-new-user`, {replace: false});
   };
 
   $: buttons = [

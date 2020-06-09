@@ -152,7 +152,7 @@
   };
 
   const inviteNewUser = () => {
-    navigate(`/manage/badgeclass/${entityId}/user-management/invite-new-user`, {replace: true});
+    navigate(`/manage/badgeclass/${entityId}/user-management/invite-new-user`, {replace: false});
   };
 
   $: buttons = [

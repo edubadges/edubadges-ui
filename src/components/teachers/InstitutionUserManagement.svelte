@@ -108,7 +108,7 @@
   };
 
   const inviteNewUser = () => {
-    navigate('/manage/institution/user-management/invite-new-user', {replace: true});
+    navigate('/manage/institution/user-management/invite-new-user', {replace: false});
   };
 
   $: buttons = [

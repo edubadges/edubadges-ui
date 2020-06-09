@@ -136,7 +136,7 @@
   };
 
   const inviteNewUser = () => {
-    navigate(`/manage/issuer/${entityId}/user-management/invite-new-user`, {replace: true});
+    navigate(`/manage/issuer/${entityId}/user-management/invite-new-user`, {replace: false});
   };
 
   $: buttons = [
