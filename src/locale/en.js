@@ -77,7 +77,7 @@ I18n.translations.en = {
     unverified: "unverified",
     validatedByYourInstitution: "Validated by your institution",
     deleteHeader: "Deleting your edubadges backpack",
-    deleteInfo: "<p>You can delete your backpack whenever you want.</p><p>Proceed with care, as you will loose all your badges.</p>",
+    deleteInfo: "<p>You can delete your backpack whenever you want.</p><p>Proceed with care, as you will loose all your edubadges.</p>",
     submit: "Add",
     deleteEmail: "Delete this email",
     deleteEmailConfirmation: "Are you sure you want to delete this email?",
@@ -426,7 +426,7 @@ I18n.translations.en = {
       confirmation: {
         award: "Award enrollment",
         awardConfirmation: "Are you sure you want to award this enrollment?",
-        deny: "Award enrollment",
+        deny: "Deny enrollment",
         denyConfirmation: "Are you sure you want to deny this enrollment?"
       },
       flash: {
@@ -437,7 +437,7 @@ I18n.translations.en = {
   },
   invites: {
     title: "Invite people to enroll",
-    copyPublicUrl: "If you want to place the link to the registration page on your intranet or EOL, you can copy the link",
+    copyPublicUrl: "If you want to place the link to the registration page on your intranet or ELO, you can copy the link",
     copyUrl: "Copy URL"
   },
   file: {
