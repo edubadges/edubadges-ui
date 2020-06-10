@@ -13,7 +13,7 @@
   export let checkAllValue;
   export let onCheckAll;
 
-  export let buttons;
+  export let buttons = [];
 </script>
 
 <style lang="scss">

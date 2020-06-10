@@ -1,7 +1,7 @@
 <script>
   import {onMount} from "svelte";
   import {Router, Route, navigate} from "svelte-routing";
-  import {Breadcrumb, EntityHeader, Badgeclasses} from "../teachers";
+  import {Breadcrumb, EntityHeader, Badgeclasses, IssuerUserManagement, InviteUser} from "../teachers";
   import {badgeclassIcon} from "../../icons";
   import {queryData} from "../../api/graphql";
   import {headerStaff, headerEntity} from "../../api/queries";
@@ -73,6 +73,11 @@
       entity: "badgeclasses",
       href: `/manage/issuer/${entityId}/badgeclasses`,
       icon: badgeclassIcon
+    },
+    {
+      entity: "userManagement",
+      href: `/manage/issuer/${entityId}/user-management`,
+      icon: badgeclassIcon
     }
   ];
 
@@ -100,6 +105,10 @@
       value: issuer.email
     }
   ];
+
+  const permissionsRoles = [
+    {name: 'admin'}
+  ];
 </script>
 
 <Breadcrumb {faculty} {issuer}/>
@@ -115,5 +124,11 @@
     <Badgeclasses
       {badgeclasses}
       mayCreate={mayCreate}/>
+  </Route>
+  <Route path="/user-management/invite-new-user">
+    <InviteUser permissionsRoles={permissionsRoles} defaultValue={0} disabledRole={true} />
+  </Route>
+  <Route path="/user-management">
+    <IssuerUserManagement entity="issuer" entityId={entityId} />
   </Route>
 </Router>

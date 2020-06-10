@@ -8,13 +8,16 @@
     EntityHeader,
     Issuers,
     Faculties,
-    HeaderList
+    HeaderList,
+    InviteUser
   } from "../teachers";
   import {issuerIcon, facultyIcon} from "../../icons";
   import {queryData} from "../../api/graphql";
   import {headerStaff, headerEntity} from "../../api/queries";
   import {Spinner} from "../index";
+  import {InstitutionUserManagement} from "../teachers/";
 
+  let entityId;
   export let subEntity;
 
   let institution = {staff: []};
@@ -22,6 +25,8 @@
   let faculties = [];
   let issuers = [];
   let loaded = false;
+
+  let contentType;
 
   const query = `{
     currentUser {
@@ -35,7 +40,9 @@
       ${headerStaff},
       image,
       gradingTable,
-      brin
+      brin,
+      entityId,
+      contentTypeId
 		},
 		faculties {
       name,
@@ -63,6 +70,8 @@
       faculties = res.faculties;
       issuers = res.issuers;
       loaded = true;
+      entityId = res.currentInstitution.entityId;
+      contentType = res.currentInstitution.contentTypeId;
     });
   });
 
@@ -75,6 +84,11 @@
     {
       entity: "faculties",
       href: "/manage/institution/groups",
+      icon: facultyIcon
+    },
+    {
+      entity: "userManagement",
+      href: "/manage/institution/user-management",
       icon: facultyIcon
     }
   ];
@@ -105,7 +119,12 @@
       value: institution.gradingTable
     }
   ];
+
+  const permissionsRoles = [
+    {name: 'admin'}
+  ];
 </script>
+
 {#if !loaded}
   <Spinner/>
 {:else}
@@ -123,6 +142,18 @@
     </Route>
     <Route path="/groups">
       <Faculties {faculties} {mayCreate}/>
+    </Route>
+    <Route path="/user-management/invite-new-user">
+      <InviteUser
+          permissionsRoles={permissionsRoles}
+          defaultValue={0}
+          disabledRole={true}
+          entityId={entityId}
+          contentType={contentType}
+      />
+    </Route>
+    <Route path="/user-management">
+      <InstitutionUserManagement entity="institution" />
     </Route>
   </Router>
 {/if}

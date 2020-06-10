@@ -1,7 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import { Router, Route, navigate } from "svelte-routing";
-  import { Breadcrumb, EntityHeader, Issuers } from "../teachers";
+  import { Breadcrumb, EntityHeader, Issuers, FacultyUserManagement, InviteUser } from "../teachers";
   import { issuerIcon } from "../../icons";
   import { queryData } from "../../api/graphql";
   import { headerStaff, headerEntity } from "../../api/queries";
@@ -61,6 +61,11 @@
       entity: "issuers",
       href: `/manage/faculty/${entityId}/issuers`,
       icon: issuerIcon
+    },
+    {
+      entity: "userManagement",
+      href: `/manage/faculty/${entityId}/user-management`,
+      icon: issuerIcon
     }
   ];
 
@@ -78,6 +83,10 @@
       value: faculty
     }
   ];
+
+  const permissionsRoles = [
+    {name: 'admin'}
+  ];
 </script>
 
 <Breadcrumb {faculty} />
@@ -93,5 +102,11 @@
     <Issuers
       {issuers}
       mayCreate={mayCreate} />
+  </Route>
+  <Route path="/user-management/invite-new-user">
+      <InviteUser permissionsRoles={permissionsRoles} defaultValue={0} disabledRole={true} />
+  </Route>
+  <Route path="/user-management">
+    <FacultyUserManagement entity="issuerGroup" entityId={entityId} />
   </Route>
 </Router>

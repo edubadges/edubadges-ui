@@ -347,3 +347,58 @@ export function removeUserBadgeclassPermission(badgeclassMembershipId) {
   const path = `${serverUrl}/staff-membership/badgeclass/change/${badgeclassMembershipId}`;
   return validFetch(path, {}, "DELETE");
 }
+
+export function changeUserToBadgeclassOwner(badgeclassMembershipId) {
+  const path = `${serverUrl}/staff-membership/badgeclass/change/${badgeclassMembershipId}`;
+  const payload = {
+    "may_create": 1,
+    "may_read": 1,
+    "may_update": 1,
+    "may_delete": 1,
+    "may_sign": 1,
+    "may_award": 1,
+    "may_administrate_users": 1,
+  };
+  return validFetch(path, {body: JSON.stringify(payload)}, "PUT");
+}
+
+export function changeUserToBadgeclassEditor(badgeclassMembershipId) {
+  const path = `${serverUrl}/staff-membership/badgeclass/change/${badgeclassMembershipId}`;
+  const payload = {
+    "may_create": 1,
+    "may_read": 1,
+    "may_update": 1,
+    "may_delete": 0,
+    "may_sign": 1,
+    "may_award": 1,
+    "may_administrate_users": 0,
+  };
+  return validFetch(path, {body: JSON.stringify(payload)}, "PUT");
+}
+
+export function changeUserToBadgeclassAwarder(badgeclassMembershipId) {
+  const path = `${serverUrl}/staff-membership/badgeclass/change/${badgeclassMembershipId}`;
+  const payload = {
+    "may_create": 0,
+    "may_read": 1,
+    "may_update": 0,
+    "may_delete": 0,
+    "may_sign": 1,
+    "may_award": 1,
+    "may_administrate_users": 0,
+  };
+  return validFetch(path, {body: JSON.stringify(payload)}, "PUT");
+}
+
+export function inviteUser(entityType, entityId, userEmail, permissions) {
+  const path = `${serverUrl}/v1/user/provision/create`;
+  const payload = {
+    'content_type': entityType,
+    'object_id': entityId,
+    'email': userEmail,
+    'for_teacher': true,
+    'data': permissions,
+    'type' : 'Invitation'
+  };
+  return validFetch(path, {body: JSON.stringify(payload)}, "POST");
+}

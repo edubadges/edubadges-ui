@@ -64,7 +64,7 @@
         .map(assertion => assertion.entityId)
       : [];
     table.checkAllValue = val;
-  }
+  };
 
   function onCheckOne(val, entityId) {
     if (val) {

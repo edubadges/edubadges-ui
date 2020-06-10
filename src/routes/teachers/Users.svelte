@@ -93,13 +93,13 @@
   const tableHeaders = [
     {
       name: I18n.t("teacher.nameEmail"),
-      attribute: "name",
+      attribute: "firstName",
       reverse: false,
       sortType: sortType.ALPHA
     },
     {
       name: I18n.t("teacher.roles.title"),
-      attribute: "roles",
+      attribute: "role",
       reverse: false,
       sortType: sortType.ROLES
     }
@@ -111,15 +111,14 @@
     tableHeaders: tableHeaders
   };
 
-  let userSort = tableHeaders[1];
+  let userSort = tableHeaders[0];
 
-  const sortUsers = (unsortedUsers) => {
-    let sortedUsers = [];
-    if (userSort.sortType === "roles") {
-
-    }
-    return unsortedUsers;
-  }
+  $: sortedFilteredUsers = sort(
+    $userTree.users,
+    userSort.attribute,
+    userSort.reverse,
+    userSort.sortType
+  );
 </script>
 
 <style lang="scss">
@@ -144,7 +143,7 @@
         bind:search={$userSearch}
         bind:sort={userSort}
         mayCreate={false}>
-      {#each sortUsers($userTree.users) as user (user.entityId)}
+      {#each sortedFilteredUsers as user (user.entityId)}
         <tr
             class="click"
             on:click={() => navigate(`/users/${user.entityId}/institution`)}>

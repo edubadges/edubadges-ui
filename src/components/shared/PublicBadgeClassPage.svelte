@@ -6,7 +6,7 @@
   import {getPublicBadgeClass} from "../../api";
   import {isEmpty} from "lodash";
   import {EntityHeader} from "../teachers";
-  import {Overview} from "../teachers/badgeclass/index";
+  import {Overview} from "../teachers/badgeclass";
   import {Button, Spinner} from "../index";
   import {publicBadgeInformation} from "../extensions/badges/extensions";
   import {userLoggedIn, redirectPath} from "../../stores/user";

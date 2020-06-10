@@ -245,6 +245,13 @@ I18n.translations.en = {
     802: "Cannot change BRIN code, edubadges have already been issued",
     unexpected: "Unexpected exception occurred."
   },
+  inviteUsers: {
+    addUser: {
+      title: "Add user",
+      description: "Fill in the email address of the people you'd like to invite as a user to this entity. Your request will be sent, and you'll be notified when it's accepted or declined."
+    },
+    cancel: "cancel"
+  },
   editUsers: {
     institutionPermissions: "Permissions on institution level",
     institution: {
@@ -272,15 +279,21 @@ I18n.translations.en = {
     permissions: {
       addPermissions: "Add permissions",
       removePermissions: "Remove permissions",
+      removeAdmin: "Are you sure you want to remove institution admin?",
       setInstitutionAdmin: "Make user institution admin",
-      removeInstitutionAdmin: "Remove user institution admin"
+      removeInstitutionAdmin: "Remove user institution admin",
+      inviteNewUser: "Invite new User"
     },
+    usersPermissions: "Users with permissions",
     modal: {
       add: 'add'
     },
     role: "Role",
   },
   models: {
+    inviteUsers: {
+      email: "Email address"
+    },
     editUsers: {
       memberSince: "Member since",
       email: "email",
