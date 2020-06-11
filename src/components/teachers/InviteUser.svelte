@@ -22,10 +22,9 @@
   const cancel = () => window.history.back();
 
   const submit = () => {
-    Promise.all(newUsers.filter(el => el.email !== '').map(user => {
-      inviteUser(contentType, entityId, user.email, rolesToPermissions(user.chosenRole));
-    })).then(res => {
-      console.log(newUsers);
+    const promises = newUsers.filter(el => el.email !== '').map(user => inviteUser(contentType, entityId, user.email, rolesToPermissions(user.chosenRole)));
+    Promise.all(promises).then(res => {
+      console.log(res);
     },
     err => {
       console.error(err);

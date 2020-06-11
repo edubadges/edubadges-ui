@@ -3,7 +3,7 @@
   import checkDisabled from "../icons/check-disabled.svg";
 
   export let value;
-  export let onChange;
+  export let onChange = () => {};
   export let disabled = false;
   export let label;
 

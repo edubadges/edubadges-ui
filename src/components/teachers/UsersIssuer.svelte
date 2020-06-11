@@ -264,7 +264,9 @@
           </td>
           <td>{issuer.name}</td>
           <td>
-            {I18n.t(['editUsers', 'issuerGroup', 'allRights'])}
+            {I18n.t(['editUsers', 'permissions', 'allRights'])}
+            <br />
+            {I18n.t(['editUsers', 'permissions', 'issuerGroupAllRights'])}
           </td>
         </tr>
       {/each}
@@ -281,7 +283,11 @@
                   onChange={val => (console.log(val))}/>
             </td>
             <td>{issuer.name}</td>
-            <td>{I18n.t(['editUsers', 'institution', 'allRights'])}</td>
+            <td>
+              {I18n.t(['editUsers', 'permissions', 'allRights'])}
+              <br />
+              <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'institutionAllRights'])}</span>
+            </td>
           </tr>
         {/each}
       {/each}

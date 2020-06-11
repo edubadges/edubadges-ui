@@ -252,7 +252,11 @@
                   onChange={val => (console.log(val))}/>
             </td>
             <td>{faculty.name}</td>
-            <td>{I18n.t(['editUsers', 'institution', 'allRights'])}</td>
+            <td>
+              {I18n.t(['editUsers', 'permissions', 'allRights'])}
+              <br />
+              <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'institutionAllRights'])}</span>
+            </td>
           </tr>
         {/each}
       {/if}

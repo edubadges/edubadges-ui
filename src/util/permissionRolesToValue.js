@@ -14,5 +14,7 @@ export const permissionRoleValue = role => {
       return 1;
     case 'Viewer':
       return 0;
+    default:
+      return -1;
   }
 };
