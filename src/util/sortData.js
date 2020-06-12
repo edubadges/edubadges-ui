@@ -5,7 +5,8 @@ export const sortType = {
   BOOLEAN: "boolean",
   NUMERIC: "numeric",
   COLLECTION: "collection",
-  ROLES: "roles"
+  ROLES: "roles",
+  INVITATION_STATUS: "invitationStatus"
 };
 
 const defaultValue = (attr, howToSort) => {
@@ -51,6 +52,8 @@ export function sort(collection, attribute, reversed, howToSort = sortType.ALPHA
         return getNestedValue(b, attribute, howToSort).length - getNestedValue(a, attribute, howToSort).length;
       case sortType.ROLES:
         return permissionRoleValue(b[attribute]) - permissionRoleValue(a[attribute]);
+      case sortType.INVITATION_STATUS:
+        return 0;
       default:
         throw new Error(`Unsupported sortType ${howToSort}`);
     }

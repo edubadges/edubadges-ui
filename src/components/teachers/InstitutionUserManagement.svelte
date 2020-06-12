@@ -1,7 +1,7 @@
 <script>
   import {queryData} from "../../api/graphql";
   import { onMount } from "svelte";
-  import { UsersTable  } from "../teachers";
+  import { UsersTable, InvitationStatusWidget } from "../teachers";
   import { sortType } from "../../util/sortData";
   import I18n from "i18n-js";
   import { CheckBox } from "../index";
@@ -14,9 +14,16 @@
   let users = [];
   let selection = [];
   let permissions;
+  let userprovisionments = [];
 
   const query = `{
     currentInstitution {
+      userprovisionments {
+        email,
+        createdAt,
+        entityId,
+        data
+      },
       permissions {
         mayAdministrateUsers
       },
@@ -35,8 +42,10 @@
 
   onMount(() => {
     queryData(query).then(res => {
+      console.log(res);
       users = res.currentInstitution.staff;
       permissions = res.currentInstitution.permissions;
+      userprovisionments = res.currentInstitution.userprovisionments;
     })
   });
 
@@ -51,7 +60,13 @@
       name: I18n.t("editUsers.role"),
       attribute: "roles",
       reverse: false,
-      sortType: sortType.COLLECTION
+      sortType: sortType.ROLES
+    },
+    {
+      name: I18n.t(["inviteUsers", "inviteStatus"]),
+      attribute: "",
+      reverse: false,
+      sortType: sortType.INVITATION_STATUS
     }
   ];
 
@@ -130,6 +145,24 @@
       withCheckAll={true}
       bind:buttons={buttons}
   >
+    {#each userprovisionments as {email, entityId, createdAt}}
+      <tr>
+        <td>
+          <CheckBox
+              value={selection.includes(entityId)}
+              name={`select-${entityId}`}
+              disabled={false}
+              onChange={val => onCheckOne(val, entityId)}/>
+        </td>
+        <td>{email}</td>
+        <td>{I18n.t(['editUsers', 'institution', 'allRights'])}</td>
+        <td>
+          <InvitationStatusWidget
+            date={createdAt}
+          />
+        </td>
+      </tr>
+    {/each}
     {#each users as {mayAdministrateUsers, user, entityId}}
       <tr>
         <td>
@@ -146,6 +179,11 @@
         </td>
         <td>
           {I18n.t(['editUsers', 'institution', mayAdministrateUsers ? 'allRights' : 'noRights'])}
+        </td>
+        <td>
+            <InvitationStatusWidget
+              accepted={true}
+            />
         </td>
       </tr>
     {/each}
