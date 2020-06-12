@@ -60,16 +60,13 @@ export const userTree = derived(
       tree.users = [user, ...tree.users];
 
       tree.roles.find(el => el.role === 'Institution Admin').count++;
-
-      for(const faculty of institution.faculties) {
-        faculty.count++;
-        for (const issuer of faculty.issuers) {
-          issuer.count++;
-        }
-      }
     }
 
     for (const faculty of institution.faculties) {
+      if(issuerIds.length > 0 && !faculty.issuers.some(iss => iss.entityId === issuerIds[0])) {
+        continue;
+      }
+
       if (facultyIds.length > 0 && facultyIds[0] !== faculty.entityId) {
         continue;
       }
@@ -99,6 +96,7 @@ export const userTree = derived(
             tree.roles.find(el => el.role === 'Issuer Admin').count++;
           }
 
+          faculty.count++;
           issuer.count++;
         }
 
@@ -109,18 +107,24 @@ export const userTree = derived(
               if (!tree.users.some(_user => _user.entityId === user.entityId)) {
                 tree.users = [user, ...tree.users];
                 tree.roles.find(el => el.role === 'Badgeclass Owner').count++;
+                issuer.count++;
+                faculty.count++;
               }
             } else if (mayUpdate) {
               user.role = 'Badgeclass Editor';
               if (!tree.users.some(_user => _user.entityId === user.entityId)) {
                 tree.users = [user, ...tree.users];
                 tree.roles.find(el => el.role === 'Badgeclass Editor').count++;
+                issuer.count++;
+                faculty.count++;
               }
             } else if (mayAward) {
               user.role = 'Badgeclass Awarder';
               if (!tree.users.some(_user => _user.entityId === user.entityId)) {
                 tree.users = [user, ...tree.users];
                 tree.roles.find(el => el.role === 'Badgeclass Awarder').count++;
+                issuer.count++;
+                faculty.count++;
               }
             }
           }
@@ -154,8 +158,8 @@ export const userTree = derived(
     tree.users = filterBySearch(tree.users, userSearch);
 
     return {
-      faculties: sort(institution.faculties, true),
-      issuers: sort(issuers, true),
+      faculties: sort(institution.faculties, true).filter(fac => fac.count),
+      issuers: sort(issuers, true).filter(iss => iss.count),
       roles: tree.roles,
       users: tree.users
     };

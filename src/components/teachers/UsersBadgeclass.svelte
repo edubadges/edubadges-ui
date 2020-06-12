@@ -14,8 +14,7 @@
       changeUserToBadgeclassEditor,
       changeUserToBadgeclassAwarder
   } from "../../api";
-  import { AddPermissionsModal, Modal } from "../forms";
-  import Select from "../forms/Select.svelte";
+  import { AddPermissionsModal, Modal, Select } from "../forms";
 
   export let userId;
 
@@ -191,19 +190,19 @@
   const submitPermissions = () => {
     switch (modalChosenRole.name) {
       case 'owner':
-        makeUserBadgeclassOwner(modalSelectedBadgeClass.entityId, userId).then(() => {
+        makeUserBadgeclassOwner(modalSelectedBadgeClass.entityId, userId, modalNotes).then(() => {
           reload();
           showAddModal = false;
         });
         break;
       case 'editor':
-        makeUserBadgeclassEditor(modalSelectedBadgeClass.entityId, userId).then(() => {
+        makeUserBadgeclassEditor(modalSelectedBadgeClass.entityId, userId, modalNotes).then(() => {
           reload();
           showAddModal = false;
         });
         break;
       case 'awarder':
-        makeUserBadgeclassAwarder(modalSelectedBadgeClass.entityId, userId).then(() => {
+        makeUserBadgeclassAwarder(modalSelectedBadgeClass.entityId, userId, modalNotes).then(() => {
           reload();
           showAddModal = false;
         });
@@ -233,7 +232,7 @@
   const removePermissions = () => {
     showRemoveModal = true;
     removeModalTitle = I18n.t(['editUsers', 'permissions', 'removePermissions']);
-    removeModalQuestion = 'badgeClass';
+    removeModalQuestion = I18n.t(['editUsers', 'permissions', 'removeBadgeClassUser']);
     removeModalAction = removeSelectedPermissions;
   };
 

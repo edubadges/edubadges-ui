@@ -144,7 +144,7 @@
   const submitPermissions = () => {
     switch (modalChosenRole.name) {
       case 'admin':
-        makeUserIssuerGroupAdmin(modalSelectedBadgeClass.entityId, userId).then(() => {
+        makeUserIssuerGroupAdmin(modalSelectedBadgeClass.entityId, userId, modalNotes).then(() => {
           reload();
           showAddModal = false;
         });
@@ -174,7 +174,7 @@
   const removePermissions = () => {
     showRemoveModal = true;
     removeModalTitle = I18n.t(['editUsers', 'permissions', 'removePermissions']);
-    removeModalQuestion = 'issuerGroup';
+    removeModalQuestion = I18n.t(['editUsers', 'permissions', 'removeIssuerGroupAdmin']);
     removeModalAction = removeSelectedPermissions;
   };
 

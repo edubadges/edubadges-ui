@@ -7,17 +7,17 @@
   import {Header, Footer, SubscribeToPath, Spinner} from "./components";
   import {
     Header as TeacherHeader,
-    BadgeclassAwarder
+    BadgeclassAwarder,
+    InviteEnrollments
   } from "./components/teachers";
   import {userRole, userLoggedIn, redirectPath} from "./stores/user";
   import {role} from "./util/role";
   import {getSocialAccount} from "./api";
   import PublicBadgeClassPage from "./components/shared/PublicBadgeClassPage.svelte"
   import EnrollmentDetails from "./routes/students/EnrollmentDetails.svelte";
-  import Flash from "./components/forms/Flash.svelte";
+  import {Flash} from "./components/forms/";
   import BadgeDetails from "./routes/students/BadgeDetails.svelte";
   import PublicBadgePage from "./components/shared/PublicBadgePage.svelte";
-  import InviteEnrollments from "./components/teachers/InviteEnrollments.svelte";
   import {config} from "./util/config";
 
   const homepage = {

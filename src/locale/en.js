@@ -284,6 +284,9 @@ I18n.translations.en = {
       addPermissions: "Add permissions",
       removePermissions: "Remove permissions",
       removeAdmin: "Are you sure you want to remove institution admin?",
+      removeIssuerGroupAdmin: "Are you sure you want to remove this issuer group admin?",
+      removeIssuerAdmin: "Are you sure you want to remove this issuer admin?",
+      removeBadgeClassUser: "Are you sure you want to remove this role?",
       setInstitutionAdmin: "Make user institution admin",
       removeInstitutionAdmin: "Remove user institution admin",
       inviteNewUser: "Invite new User"

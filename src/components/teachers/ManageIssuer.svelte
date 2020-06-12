@@ -126,7 +126,7 @@
       mayCreate={mayCreate}/>
   </Route>
   <Route path="/user-management/invite-new-user">
-    <InviteUser permissionsRoles={permissionsRoles} defaultValue={0} disabledRole={true} />
+    <InviteUser permissionsRoles={permissionsRoles} entityId={entityId} defaultValue={0} disabledRole={true} />
   </Route>
   <Route path="/user-management">
     <IssuerUserManagement entity="issuer" entityId={entityId} />

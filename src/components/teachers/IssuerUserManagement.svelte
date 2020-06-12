@@ -20,6 +20,11 @@
   const query = `{
     issuer(id: "${entityId}") {
       name,
+      userprovisionments {
+        email,
+        createdAt,
+        entityId
+      },
       staff {
         entityId,
         mayAdministrateUsers,
@@ -114,7 +119,7 @@
 
   const reload = () => {
     queryData(query).then(res => {
-      issuerStaffMembers = res.currentInstitution.staff;
+      issuerStaffMembers = res.issuer.staff;
     });
   };
 
