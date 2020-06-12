@@ -396,9 +396,9 @@ export function changeUserToBadgeclassAwarder(badgeclassMembershipId) {
   return validFetch(path, {body: JSON.stringify(payload)}, "PUT");
 }
 
-export function inviteUser(entityType, userProvisonments) {
+export function inviteUser(entityType, entityId, userProvisonments) {
   const path = `${serverUrl}/v1/user/provision/create`;
-  const payload = userProvisonments.map(({entityId, userEmail, permissions}) => {
+  const payload = userProvisonments.map(({userEmail, permissions}) => {
     return {
       'content_type': entityType,
       'object_id': entityId,
