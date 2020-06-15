@@ -250,7 +250,10 @@ I18n.translations.en = {
       title: "Add user",
       description: "Fill in the email address of the people you'd like to invite as a user to this entity. Your request will be sent, and you'll be notified when it's accepted or declined."
     },
-    cancel: "cancel"
+    cancel: "cancel",
+    inviteStatus: "Status",
+    sent: "Invite sent",
+    accepted: "Accepted"
   },
   editUsers: {
     institutionPermissions: "Permissions on institution level",

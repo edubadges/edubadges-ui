@@ -358,8 +358,7 @@
             <CheckBox
                 value={selection.includes(badgeclass.entityId)}
                 name={`select-${badgeclass.entityId}`}
-                disabled={true}
-                onChange={val => (console.log(val))}/>
+                disabled={true}/>
           </td>
             <td>{badgeclass.issuer.name}</td>
             <td>{badgeclass.name}</td>
@@ -403,7 +402,7 @@
                       disabled={true}
                   />
                 </td>
-                  <td>{badgeclass.issuer.name}</td>
+                  <td>{issuer.name}</td>
                   <td>{badgeclass.name}</td>
                 <td>
                   {I18n.t(['editUsers', 'permissions', 'allRights'])}

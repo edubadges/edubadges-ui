@@ -23,10 +23,9 @@
 
   const submit = () => {
     const userProvisonments = newUsers.map(user => {
-      return {'entityId': entityId, 'userEmail': user.email, 'permissions': rolesToPermissions(user.chosenRole)};
+      return {'userEmail': user.email, 'permissions': rolesToPermissions(user.chosenRole)};
     });
-    console.log(userProvisonments);
-    inviteUser(contentType, userProvisonments);
+    inviteUser(contentType, entityId, userProvisonments);
   };
 </script>
 
