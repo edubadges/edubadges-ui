@@ -10,7 +10,7 @@
 <style>
   .invite-widget {
     width: 100%;
-    padding: 5px;
+    padding: 7px;
     font-size: small;
   }
 

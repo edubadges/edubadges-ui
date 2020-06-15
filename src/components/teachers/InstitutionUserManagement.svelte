@@ -77,14 +77,14 @@
   let removeModalAction;
 
   const onCheckAll = val => {
-    selection = val ? users.map(({entityId}) => entityId) : [];
+    selection = val ? users.concat(userprovisionments).map(({entityId}) => entityId) : [];
     table.checkAllValue = val;
   };
 
   const onCheckOne = (val, entityId) => {
     if (val) {
       selection = selection.concat(entityId);
-      table.checkAllValue = selection.length === users.length;
+      table.checkAllValue = selection.length === users.length + userprovisionments.length;
     } else {
       selection = selection.filter(id => id !== entityId);
       table.checkAllValue = false;
@@ -138,6 +138,12 @@
     }
   ];
 </script>
+
+<style>
+  tr {
+    height: 53px;
+  }
+</style>
 
 <div class="container">
   <UsersTable

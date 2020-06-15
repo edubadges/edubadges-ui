@@ -1,7 +1,7 @@
 <script>
   import {queryData} from "../../api/graphql";
   import { onMount } from "svelte";
-  import { UsersTable } from "./index";
+  import { UsersTable, InvitationStatusWidget } from "./index";
   import { sortType } from "../../util/sortData";
   import I18n from "i18n-js";
   import { CheckBox } from "../index";
@@ -15,10 +15,17 @@
   let issuerGroupStaffMembers = [];
   let selection = [];
   let permissions;
+  let userprovisionments = [];
 
   const query = `{
     faculty(id: "${entityId}") {
       name,
+      userprovisionments {
+        email,
+        createdAt,
+        entityId,
+        data
+      },
       staff {
         entityId,
         mayAdministrateUsers,
@@ -76,7 +83,7 @@
   let removeModalAction;
 
   const onCheckAll = val => {
-    selection = val ? issuerGroupStaffMembers.map(({entityId}) => entityId) : [];
+    selection = val ? [...issuerGroupStaffMembers, ...userprovisionments].map(({entityId}) => entityId) : [];
     table.checkAllValue = val;
   };
 
@@ -84,7 +91,7 @@
   const onCheckOne = (val, entityId) => {
     if (val) {
       selection = selection.concat(entityId);
-      table.checkAllValue = selection.length === issuerGroupStaffMembers.length;
+      table.checkAllValue = selection.length === issuerGroupStaffMembers.length + userprovisionments.length;
     } else {
       selection = selection.filter(id => id !== entityId);
       table.checkAllValue = false;
@@ -145,6 +152,24 @@
       withCheckAll={true}
       bind:buttons={buttons}
   >
+    {#each userprovisionments as {email, entityId, createdAt}}
+      <tr>
+        <td>
+          <CheckBox
+              value={selection.includes(entityId)}
+              name={`select-${entityId}`}
+              disabled={false}
+              onChange={val => onCheckOne(val, entityId)}/>
+        </td>
+        <td>{email}</td>
+        <td>{I18n.t(['editUsers', 'institution', 'allRights'])}</td>
+        <td>
+          <InvitationStatusWidget
+              date={createdAt}
+          />
+        </td>
+      </tr>
+    {/each}
     {#each issuerGroupStaffMembers as {user}}
       <tr>
         <td>
