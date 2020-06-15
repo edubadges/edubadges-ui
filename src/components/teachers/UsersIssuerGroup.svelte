@@ -248,8 +248,7 @@
               <CheckBox
                   value={''}
                   name={''}
-                  disabled={true}
-                  onChange={val => (console.log(val))}/>
+                  disabled={true}}/>
             </td>
             <td>{faculty.name}</td>
             <td>

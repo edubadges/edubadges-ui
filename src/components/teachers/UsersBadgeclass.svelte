@@ -358,8 +358,7 @@
             <CheckBox
                 value={selection.includes(badgeclass.entityId)}
                 name={`select-${badgeclass.entityId}`}
-                disabled={true}
-                onChange={val => (console.log(val))}/>
+                disabled={true}/>
           </td>
             <td>{badgeclass.issuer.name}</td>
             <td>{badgeclass.name}</td>

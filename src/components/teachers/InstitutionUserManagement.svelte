@@ -42,7 +42,6 @@
 
   onMount(() => {
     queryData(query).then(res => {
-      console.log(res);
       users = res.currentInstitution.staff;
       permissions = res.currentInstitution.permissions;
       userprovisionments = res.currentInstitution.userprovisionments;

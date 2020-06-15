@@ -60,6 +60,13 @@ export const userTree = derived(
       tree.users = [user, ...tree.users];
 
       tree.roles.find(el => el.role === 'Institution Admin').count++;
+
+      for (const faculty of institution.faculties) {
+        faculty.count++;
+        for (const issuer of faculty.issuers) {
+          issuer.count++;
+        }
+      }
     }
 
     for (const faculty of institution.faculties) {
@@ -158,8 +165,8 @@ export const userTree = derived(
     tree.users = filterBySearch(tree.users, userSearch);
 
     return {
-      faculties: sort(institution.faculties, true).filter(fac => fac.count),
-      issuers: sort(issuers, true).filter(iss => iss.count),
+      faculties: sort(institution.faculties, true).filter(fac => fac.count - tree.roles.find(el => el.role === 'Institution Admin').count),
+      issuers: sort(issuers, true).filter(iss => iss.count - tree.roles.find(el => el.role === 'Institution Admin').count),
       roles: tree.roles,
       users: tree.users
     };

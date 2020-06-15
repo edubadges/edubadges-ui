@@ -25,7 +25,6 @@
     const userProvisonments = newUsers.map(user => {
       return {'userEmail': user.email, 'permissions': rolesToPermissions(user.chosenRole)};
     });
-    console.log(contentType, entityId, userProvisonments);
     inviteUser(contentType, entityId, userProvisonments);
   };
 </script>

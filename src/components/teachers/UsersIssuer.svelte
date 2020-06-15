@@ -259,8 +259,7 @@
             <CheckBox
                 value={selection.includes(facultyStaffMembership.entityId)}
                 name={`select-${facultyStaffMembership.entityId}`}
-                disabled={true}
-                onChange={val => (console.log(val))}/>
+                disabled={true}/>
           </td>
           <td>{issuer.name}</td>
           <td>
@@ -279,8 +278,7 @@
               <CheckBox
                   value={''}
                   name={''}
-                  disabled={true}
-                  onChange={val => (console.log(val))}/>
+                  disabled={true}/>
             </td>
             <td>{issuer.name}</td>
             <td>
