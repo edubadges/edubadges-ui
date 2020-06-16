@@ -114,26 +114,22 @@ export const userTree = derived(
               if (!tree.users.some(_user => _user.entityId === user.entityId)) {
                 tree.users = [user, ...tree.users];
                 tree.roles.find(el => el.role === 'Badgeclass Owner').count++;
-                issuer.count++;
-                faculty.count++;
               }
             } else if (mayUpdate) {
               user.role = 'Badgeclass Editor';
               if (!tree.users.some(_user => _user.entityId === user.entityId)) {
                 tree.users = [user, ...tree.users];
                 tree.roles.find(el => el.role === 'Badgeclass Editor').count++;
-                issuer.count++;
-                faculty.count++;
               }
             } else if (mayAward) {
               user.role = 'Badgeclass Awarder';
               if (!tree.users.some(_user => _user.entityId === user.entityId)) {
                 tree.users = [user, ...tree.users];
                 tree.roles.find(el => el.role === 'Badgeclass Awarder').count++;
-                issuer.count++;
-                faculty.count++;
               }
             }
+            issuer.count++;
+            faculty.count++;
           }
         }
       }
