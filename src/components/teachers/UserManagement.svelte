@@ -30,8 +30,26 @@
     ...userProvisionments.forEach(staff => staff.staffType = staffType.USER_PROVISIONMENT)
   ];
 
-  const onCheckAll = () => {};
-  const onCheckOne = () => {};
+  // Remove permissions modal
+  let showRemoveModal = false;
+  let removeModalTitle;
+  let removeModalQuestion;
+  let removeModalAction;
+
+  const onCheckAll = val => {
+    selection = val ? staffs.map(({entityId}) => entityId) : [];
+    table.checkAllValue = val;
+  };
+
+  const onCheckOne = (val, entityId) => {
+    if (val) {
+      selection = selection.concat(entityId);
+      table.checkAllValue = selection.length === staffs.length;
+    } else {
+      selection = selection.filter(id => id !== entityId);
+      table.checkAllValue = false;
+    }
+  };
 </script>
 
 <div class="container">
@@ -40,7 +58,7 @@
       withCheckAll={true}
       bind:buttons={buttons}
   >
-    {#each staffs as {_staffType, user, entityId, email, createdAt, mayAdministrateUsers, mayUpdate, mayAward}}
+    {#each staffs as {_staffType, user, entityId, email, createdAt, rejected, mayAdministrateUsers, mayUpdate, mayAward}}
       <tr>
         {#if _staffType === staffType.USER_PROVISIONMENT}
           <td>
@@ -53,7 +71,7 @@
           <td>{email}</td>
           <td>{I18n.t(['editUsers', 'institution', 'allRights'])}</td>
           <td>
-            <InvitationStatusWidget date={createdAt}/>
+            <InvitationStatusWidget date={createdAt} rejected={rejected}/>
           </td>
         {:else if _staffType === staffType.BADGE_CLASS_STAFF}
           <td>
@@ -166,3 +184,12 @@
     {/each}
   </UsersTable>
 </div>
+
+{#if showRemoveModal}
+  <Modal
+    submit={removeModalAction}
+    cancel={() => showRemoveModal = false}
+    question={removeModalQuestion}
+    title={removeModalTitle}
+  />
+{/if}
