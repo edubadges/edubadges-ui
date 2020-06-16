@@ -193,6 +193,10 @@
     </Field>
   </div>
 
+  <h4>{I18n.t('models.badgeclass.headers.additionalSections')}</h4>
+
+  <ul></ul>
+
   <h4>{I18n.t('models.badgeclass.headers.creditPoints')}</h4>
 
   <Field {entity} attribute="ectsLong" errors={errors.ectsLong}>

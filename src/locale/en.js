@@ -363,6 +363,7 @@ I18n.translations.en = {
       headers: {
         basicInformation: "Basic information",
         earningCriteria: "Earning criteria",
+        additionalSections: "Additional sections",
         creditPoints: "Credit Points",
         educationalIdentifiers: "Educational Identifiers"
       },

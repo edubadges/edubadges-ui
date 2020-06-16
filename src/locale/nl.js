@@ -363,6 +363,7 @@ I18n.translations.nl = {
       headers: {
         basicInformation: "Basis informatie",
         earningCriteria: "Leer criteria",
+        additionalSections: "Extra toevoegingen",
         creditPoints: "Studie punten",
         educationalIdentifiers: "Onderwijsidentificatie"
       },
