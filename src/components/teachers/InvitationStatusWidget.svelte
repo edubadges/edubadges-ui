@@ -23,8 +23,13 @@
     background-color: lightgoldenrodyellow;
     border-radius: 40px;
   }
+
+  .invite-widget-pending {
+    background-color: indianred;
+    border-radius: 40px;
+  }
 </style>
 
-<span class="invite-widget {accepted ? 'invite-widget-accepted' : 'invite-widget-pending'}">
+<span class="invite-widget {accepted ? 'invite-widget-accepted' : rejected ? 'invite-widget-rejected' : 'invite-widget-pending'}">
   {accepted ? I18n.t(['inviteUsers', 'accepted']) : `${I18n.t(['inviteUsers', 'sent'])} ${moment(date).format('DD MMM')}`}
 </span>
