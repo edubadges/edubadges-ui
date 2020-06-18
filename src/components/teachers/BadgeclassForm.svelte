@@ -1,9 +1,9 @@
 <script>
   import I18n from "i18n-js";
-  import {navigate} from "svelte-routing";
-  import {EntityForm} from "../teachers";
-  import {Field, Select, File, TextInput} from "../forms";
-  import {createBadgeclass, editBadgeclass} from "../../api";
+  import { navigate } from "svelte-routing";
+  import { EntityForm } from "../teachers";
+  import { Field, Select, File, TextInput, AddButton } from "../forms";
+  import { createBadgeclass, editBadgeclass } from "../../api";
   import ExpirationSettings from "./ExpirationSettings.svelte";
   import {
     ects,
@@ -12,10 +12,10 @@
     extensionToJson,
     extensionValue,
     language,
-    learningOutcome
+    learningOutcome,
   } from "../extensions/badges/extensions";
   import EctsCreditPoints from "../extensions/badges/EctsCreditPoints.svelte";
-  import {setExpirationPeriod} from "../extensions/badges/expiration_period";
+  import { setExpirationPeriod } from "../extensions/badges/expiration_period";
 
   export let entityId;
   export let badgeclass = {extensions: []};
@@ -23,6 +23,23 @@
 
   let expireValueSet = false;
   let loaded = false;
+
+  let showStudyLoad = false;
+  let showEducationalIdentifiers = false;
+  let showAlignment = false;
+
+  export let alignment = {
+    target_name: "",
+    target_url: "",
+    target_framework: "",
+    target_code: ""
+  };
+
+  let EctsOrHours = [
+      {name: I18n.t(['models', 'badgeclass', 'ects','creditPoints']), value:'creditPoints'},
+      {name: I18n.t(['models', 'badgeclass', 'ects','hours']), value:'hours'},
+  ];
+  let EctsOrHoursSelection = EctsOrHours[0];
 
   const entity = "badgeclass";
   let errors = {};
@@ -42,8 +59,8 @@
       [ects.name]: extensionValue(badgeclass.extensions, ects) || 2.5,
       [eqf.name]: extensionValue(badgeclass.extensions, eqf) || {name: "EQF 6", value: 6},
       [learningOutcome.name]: extensionValue(badgeclass.extensions, learningOutcome) || "",
-      [educationProgramIdentifier.name]: extensionValue(badgeclass.extensions, educationProgramIdentifier) || ""
-    }
+      [educationProgramIdentifier.name]: extensionValue(badgeclass.extensions, educationProgramIdentifier) || "",
+    };
     if (extensions[eqf.name] && typeof extensions[eqf.name] === "number") {
       extensions[eqf.name] = {name: `EQF ${extensions[eqf.name]}`, value: extensions[eqf.name]}
     }
@@ -56,7 +73,8 @@
     let newBadgeclass = {
       ...badgeclass,
       criteria_text: badgeclass.criteriaText,
-      criteria_url: badgeclass.criteriaUrl
+      criteria_url: badgeclass.criteriaUrl,
+      alignment: [alignment]
     };
     setExpirationPeriod(newBadgeclass);
     newBadgeclass.extensions = extensionToJson([
@@ -110,6 +128,18 @@
     display: inline-block;
     margin-bottom: 6px;
     font-size: 14px;
+  }
+
+  .deletable-title{
+    display: inline-block;
+  }
+
+  .add-buttons {
+    margin-bottom: 30px;
+  }
+
+  .add-button {
+    margin-right: 20px;
   }
 </style>
 
@@ -195,42 +225,118 @@
 
   <h4>{I18n.t('models.badgeclass.headers.additionalSections')}</h4>
 
-  <ul></ul>
+  {#if showEducationalIdentifiers}
+    <div class="deletable-title"><h4>{I18n.t('models.badgeclass.headers.educationalIdentifiers')}</h4></div><button on:click={() => showEducationalIdentifiers = false}>rm</button>
 
-  <h4>{I18n.t('models.badgeclass.headers.creditPoints')}</h4>
+    <div class="form">
+      <Field
+        {entity}
+        attribute="educationProgramIdentifierLong"
+        errors={errors.educationProgramIdentifierLong}>
+        <TextInput
+          type="number"
+          max="999999999999999"
+          bind:value={extensions[educationProgramIdentifier.name]}
+          error={errors.educationProgramIdentifierLong}/>
+        <span class="info">
+          {@html I18n.t('models.badgeclass.info.educationProgramIdentifier')}
+        </span>
+      </Field>
 
-  <Field {entity} attribute="ectsLong" errors={errors.ectsLong}>
-    <EctsCreditPoints bind:ectsValue={extensions[ects.name]}/>
-  </Field>
+      <Field {entity} attribute="eqf" errors={errors.eqf}>
+        <Select
+          bind:value={extensions[eqf.name]}
+          items={eqfItems}
+          optionIdentifier="value"
+          clearable={false}/>
+        <span class="info">
+          {@html I18n.t('models.badgeclass.info.eqf')}
+        </span>
+      </Field>
+    </div>
+  {/if}
 
-    <h4>{I18n.t('models.badgeclass.headers.educationalIdentifiers')}</h4>
+  {#if showStudyLoad}
+    <div class="deletable-title"><h4>{I18n.t('models.badgeclass.headers.studyLoad')}</h4></div><button on:click={() => showStudyLoad = false}>rm</button>
 
-  <div class="form">
+    <div class="form">
+      <Field {entity} attribute="typeOfStudyLoad" errors={errors.type}>
+        <Select
+            bind:value={EctsOrHoursSelection}
+            items={EctsOrHours}
+            optionIdentifier="value"
+            clearable={false}
+        />
+      </Field>
 
-    <Field
-      {entity}
-      attribute="educationProgramIdentifierLong"
-      errors={errors.educationProgramIdentifierLong}>
-      <TextInput
-        type="number"
-        max="999999999999999"
-        bind:value={extensions[educationProgramIdentifier.name]}
-        error={errors.educationProgramIdentifierLong}/>
-      <span class="info">
-        {@html I18n.t('models.badgeclass.info.educationProgramIdentifier')}
-      </span>
-    </Field>
+      {#if EctsOrHoursSelection.value === 'creditPoints'}
+        <Field {entity} attribute="amount" errors={errors.ectsLong}>
+          <EctsCreditPoints bind:ectsValue={extensions[ects.name]}/>
+        </Field>
+      {:else}
+        <Field {entity} attribute="amount" errors={errors.ectsLong}>
+          <TextInput bind:ectsValue={extensions[ects.name]}/>
+        </Field>
+      {/if}
+    </div>
+  {/if}
 
-    <Field {entity} attribute="eqf" errors={errors.eqf}>
-      <Select
-        bind:value={extensions[eqf.name]}
-        items={eqfItems}
-        optionIdentifier="value"
-        clearable={false}/>
-      <span class="info">
-        {@html I18n.t('models.badgeclass.info.eqf')}
-      </span>
-    </Field>
 
+  {#if showAlignment}
+    <div class="deletable-title"><h4>{I18n.t('models.badgeclass.headers.alignment')}</h4></div><button on:click={() => showAlignment = false}>rm</button>
+    <div class="form">
+      <Field {entity} attribute="alignmentName">
+        <TextInput
+            bind:value={alignment.target_name}
+            error={errors.alignmentName}
+            area
+          />
+      </Field>
+      <Field {entity} attribute="alignmentFramework">
+        <TextInput
+            bind:value={alignment.target_framework}
+            error={errors.alignmentFramework}
+            area
+        />
+      </Field>
+      <Field {entity} attribute="alignmentUrl">
+        <TextInput
+            bind:value={alignment.target_url}
+            error={errors.alignmentFramework}
+            area
+        />
+      </Field>
+      <Field {entity} attribute="alignmentCode">
+        <TextInput
+            bind:value={alignment.target_code}
+            error={errors.alignmentCode}
+            area
+        />
+      </Field>
+    </div>
+  {/if}
+
+  <div class="add-buttons">
+    <span class="add-button">
+      <AddButton
+          text={I18n.t('models.badgeclass.addButtons.educationalIdentifiers')}
+          handleClick={() => showEducationalIdentifiers = true}
+          visibility={!showEducationalIdentifiers}
+      />
+    </span>
+    <span class="add-button">
+      <AddButton
+          text={I18n.t('models.badgeclass.addButtons.studyLoad')}
+          handleClick={() => showStudyLoad = true}
+          visibility={!showStudyLoad}
+      />
+    </span>
+    <span class="add-button">
+      <AddButton
+          text={I18n.t('models.badgeclass.addButtons.alignment')}
+          handleClick={() => showAlignment = true}
+          visibility={!showAlignment}
+      />
+    </span>
   </div>
 </EntityForm>

@@ -335,6 +335,11 @@ I18n.translations.en = {
       image: "Badge image",
       created: "Created",
       admin: "Admin",
+      alignmentName: "Name",
+      alignmentFramework: "Framework",
+      alignmentUrl: "URL",
+      alignmentCode: "Code",
+      amount: "Amount",
       name: "Name",
       description: "Short description",
       criteria_text: "What is required to earn this edubadge?",
@@ -348,8 +353,12 @@ I18n.translations.en = {
       expireSettings: "Default expiration settings",
       language: "Language of instruction",
       learningOutcome: "Learning outcome",
-      ects: "Credit points",
+      ects: {
+        creditPoints: "Credit points (according to ECTS)",
+        hours: "Hours"
+      },
       ectsLong: "European Credit Transfer and Accumulation System",
+      typeOfStudyLoad: "Type of study load",
       eqf: "NLQF level",
       educationProgramIdentifier: "ISAT",
       educationProgramIdentifierLong: "Programme Identifier",
@@ -364,8 +373,14 @@ I18n.translations.en = {
         basicInformation: "Basic information",
         earningCriteria: "Earning criteria",
         additionalSections: "Additional sections",
-        creditPoints: "Credit Points",
-        educationalIdentifiers: "Educational Identifiers"
+        educationalIdentifiers: "Educational Identifiers",
+        studyLoad: "Credit Points",
+        alignment: "Alignment"
+      },
+      addButtons: {
+        educationalIdentifiers: "Add educational identifiers",
+        studyLoad: "Add study load",
+        alignment: "Add alignment",
       },
       info: {
         educationProgramIdentifier:
