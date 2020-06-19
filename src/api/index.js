@@ -233,7 +233,7 @@ export function validateBadge(entityId) {
 
 // Manage users
 export function makeUserInstitutionAdmin(insitutionId, userId, notes) {
-  const path = `${serverUrl}/staff-membership/faculty/${insitutionId}/create`;
+  const path = `${serverUrl}/staff-membership/institution/${insitutionId}/create`;
   const payload = {
     "may_create":1,
     "may_read": 1,

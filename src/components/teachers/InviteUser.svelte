@@ -25,7 +25,9 @@
     const userProvisonments = newUsers.map(user => {
       return {'userEmail': user.email, 'permissions': rolesToPermissions(user.chosenRole)};
     });
-    inviteUser(contentType, entityId, userProvisonments);
+    inviteUser(contentType, entityId, userProvisonments).then(res => {
+      console.log(res);  // TODO: flash
+    });
   };
 </script>
 

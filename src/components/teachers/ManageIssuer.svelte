@@ -15,6 +15,8 @@
   let mayUpdate;
   let mayCreate;
 
+  let contentType;
+
   const query = `{
     currentUser {
       institutionStaff {
@@ -36,6 +38,7 @@
       image,
       email,
       url,
+      contentTypeId,
       faculty {
         name,
         entityId,
@@ -65,6 +68,7 @@
       badgeclasses = issuer.badgeclasses;
       mayCreate = res.currentUser.institutionStaff.mayCreate || res.currentUser.facultyStaffs.mayCreate || res.currentUser.issuerStaffs.mayCreate;
       mayUpdate = res.currentUser.institutionStaff.mayUpdate || res.currentUser.facultyStaffs.mayUpdate || res.currentUser.issuerStaffs.mayUpdate;
+      contentType = res.issuer.contentTypeId;
     });
   });
 
@@ -126,7 +130,13 @@
       mayCreate={mayCreate}/>
   </Route>
   <Route path="/user-management/invite-new-user">
-    <InviteUser permissionsRoles={permissionsRoles} entityId={entityId} defaultValue={0} disabledRole={true} />
+    <InviteUser
+        permissionsRoles={permissionsRoles}
+        entityId={entityId}
+        defaultValue={0}
+        disabledRole={true}
+        contentType={contentType}
+    />
   </Route>
   <Route path="/user-management">
     <IssuerUserManagement entity="issuer" entityId={entityId} />
