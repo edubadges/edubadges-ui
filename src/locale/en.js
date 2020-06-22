@@ -21,8 +21,8 @@ I18n.translations.en = {
     description:
       "Edubadges are digital certificates and show that the owner has certain skills or knowledge. Edubadges can be issued for both extracurriculair activities and accredited education.",
     student: {
-      title: "My Backpack",
-      subtitle: "Receive and share edubadges",
+      title: "Receive badges",
+      subtitle: "(You need an eduID to login)",
       action: "Open your Backpack",
       button: "Log in with your eduID",
       accountCreation: {
@@ -31,8 +31,8 @@ I18n.translations.en = {
       },
     },
     teacher: {
-      title: "Issuer Portal",
-      subtitle: "Award edubadges",
+      title: "Award badges",
+      subtitle: "(Access is granted by institution admin)",
       action: "Enter the issuer portal",
       button: "Log in via SURFconext",
       accountCreation: {

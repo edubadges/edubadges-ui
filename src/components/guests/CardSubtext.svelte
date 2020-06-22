@@ -8,18 +8,23 @@
 
 <style>
   div {
-    width: 80%;
-    margin: 20px auto 0;
+    text-align: left;
+    width: 100%;
+    margin: 35px auto 0;
+    padding-top: 30px;
+    max-width: 300px;
+    border-top: 1px solid var(--grey-5);
   }
 
   p {
-    font-size: 20px;
-    margin-top: 12px;
+    margin-top: 2px;
   }
 
   p.styleAsLink {
-    color: blue;
+    color: var(--green-dark);
     cursor: pointer;
+    text-decoration: underline;
+    margin-top: 2px;
   }
 
   @media only screen and (max-width: 819px) {
