@@ -348,8 +348,12 @@ I18n.translations.nl = {
       expireSettings: "Standaard verloop setting",
       language: "Language of instruction",
       learningOutcome: "Leeruitkomst",
-      ects: "Credit points",
+      ects: {
+        creditPoints: "Studiepunten (ECTS)",
+        hours: "Uren"
+      },
       ectsLong: "European Credit Transfer and Accumulation System",
+      typeOfStudyLoad: "Soort studielast",
       eqf: "NLQF niveau",
       educationProgramIdentifier: "ISAT",
       educationProgramIdentifierLong: "Programme Identifier",
@@ -365,7 +369,13 @@ I18n.translations.nl = {
         earningCriteria: "Leer criteria",
         additionalSections: "Extra toevoegingen",
         educationalIdentifiers: "Onderwijsidentificatie",
-        studyLoad: "Studie punten",
+        studyLoad: "Studiepunten",
+        alignment: "Alignment"
+      },
+      addButtons: {
+        educationalIdentifiers: "Add educational identifiers",
+        studyLoad: "Add study load",
+        alignment: "Add alignment",
       },
       info: {
         educationProgramIdentifier:
