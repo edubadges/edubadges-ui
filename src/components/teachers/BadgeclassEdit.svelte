@@ -19,6 +19,12 @@
       criteriaUrl,
       criteriaText,
       expirationPeriod,
+      alignments {
+        targetName,
+        targetUrl,
+        targetCode,
+        targetFramework
+      },
       issuer {
         name,
         entityId,

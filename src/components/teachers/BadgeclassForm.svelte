@@ -28,7 +28,7 @@
   let showEducationalIdentifiers = false;
   let showAlignment = false;
 
-  export let alignment = {
+  let alignment = {
     target_name: "",
     target_url: "",
     target_framework: "",
@@ -74,7 +74,7 @@
       ...badgeclass,
       criteria_text: badgeclass.criteriaText,
       criteria_url: badgeclass.criteriaUrl,
-      alignment: [alignment]
+      alignment: [alignment],
     };
     setExpirationPeriod(newBadgeclass);
     newBadgeclass.extensions = extensionToJson([
@@ -295,14 +295,14 @@
       <Field {entity} attribute="alignmentFramework">
         <TextInput
             bind:value={alignment.target_framework}
-            error={errors.alignmentFramework}
+            error={errors.alignment_framework}
             area
         />
       </Field>
       <Field {entity} attribute="alignmentUrl">
         <TextInput
             bind:value={alignment.target_url}
-            error={errors.alignmentFramework}
+            error={errors.alignment_framework}
             area
         />
       </Field>
