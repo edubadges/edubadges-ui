@@ -18,45 +18,37 @@ I18n.translations.en = {
   login: {
     title: "Never stop learning",
     loginToEnrol: "Login to enroll for this Badge",
+    destination: "Where do you want to go?",
     description:
       "Edubadges are digital certificates and show that the owner has certain skills or knowledge. Edubadges can be issued for both extracurriculair activities and accredited education.",
     student: {
-      title: "Receive badges",
-      subtitle: "(You need an eduID to login)",
-      action: "Open your Backpack",
-      button: "Log in with your eduID",
-      accountCreation: {
-        askAccountNo: "<strong>Don't</strong> have a Backpack yet?",
-        startAccount: "Start here",
-      },
+      title: "Backpack",
+      subtitle: "Receive and collect badges",
+      noEduId: "<sup>*</sup>If you don't have an eduID yet, we'll help you get one in less then 30 seconds",
+      action: "Enter with eduID",
     },
     teacher: {
-      title: "Award badges",
-      subtitle: "(Access is granted by institution admin)",
-      action: "Enter the issuer portal",
-      button: "Log in via SURFconext",
+      title: "Issuer portal",
+      subtitle: "Award badges",
+      action: "Enter with SURFconext",
       accountCreation: {
         askAccount: "<strong>Don't</strong> have access?",
         startAccount: "Contact your institution admin",
       },
+      byInviteOnly: "By invite only"
     },
     createEduId: {
-      askAccountYes: "<strong>Already</strong> have a Backpack?",
       logInAccount: "Log in",
       createAccountButton: "Create an eduID",
       back: "Back",
       title: "Create a Backpack",
       subtitle: "you'll need an eduID",
-      step1: "Step 1: Create an eduID",
-      step2: "Step 2: Verify your identity",
       welcome: "Welcome to your Backpack",
       awarded: "We’ve awarded you with your first edubadge 😀",
-      infoStep2:
-        "To be able to further receive edubadges, <strong>please verify your identity</strong> with your Educational Institution. You can prove this by clicking the button and log in to your institution with your institution account.",
       verification: "Verification succeeded!",
       infoStep3: "You can now receive edubadges in your Backpack.",
       require:
-        "To create an edubadges Backpack, you will need an eduID. After creating an eduID you can prove that you are following education in the Netherlands by verifying your institution.",
+        "To create an edubadges Backpack, you will need an eduID.<br/><br/>While creating an eduID you are asked to prove that you are following education in the Netherlands by verifying your institution.",
       steps: {
         step1: "Create an eduID",
         step2: "Verify your institution",

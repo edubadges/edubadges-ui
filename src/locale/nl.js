@@ -32,7 +32,7 @@ I18n.translations.nl = {
     },
     teacher: {
       title: "Ken edubadges toe",
-      subtitle: "(Toegang wordt verleend door de beheerder van de instelling)",
+      subtitle: "(Toegang wordt verleend door de instellingsbeheerder)",
       action: "Ga naar het Issuers portaal",
       button: "Log in via SURFconext",
       accountCreation: {

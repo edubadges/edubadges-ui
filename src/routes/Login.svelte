@@ -41,6 +41,19 @@
 
   h4 {
     font-weight: 300;
+    font-size: 22px;
+    color: var(--black);
+    margin-top: 5px;
+  }
+
+  div.login-info {
+    font-size: 20px;
+  }
+
+  p.destination {
+    color: var(--purple);
+    font-weight: bold;
+    margin-top: 15px;
   }
 
   .login-page {
@@ -74,32 +87,8 @@
     padding-top: var(--login-spacing);
   }
 
-  h4 {
-    color: var(--black);
-    margin-top: 5px;
-  }
-
   .svg-container {
     margin: 35px 0 15px 0;
-  }
-
-  .action {
-    margin-top: 20px;
-    font-size: 30px;
-  }
-
-  .titleAndBackButton {
-    width: 100%;
-  }
-
-  .navigateBackButton {
-    float: left;
-    height: 30px;
-    width: 30px;
-  }
-
-  .text-align-left {
-    text-align: left;
   }
 
   .login {
@@ -114,12 +103,33 @@
     margin-bottom: 20px;
     text-align: left;
   }
+
+  .invite-only {
+    display: flex;
+    margin-top: 19px;
+    background-color: var(--green-light);
+    color: var(--black);
+    border-radius: 18px;
+    padding: 6px 18px;
+    font-weight: bold;
+    position: absolute;
+    text-align: center;
+    z-index: 9;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 2px 3px 4px 0px rgba(0, 0, 0, 0.67);
+    font-size: 16px;
+  }
 </style>
 
 <div class="login-page">
-  <h1>{I18n.t('login.title')}</h1>
 
-  <p>{I18n.t('login.description')}</p>
+  <h1>{I18n.t('login.title')}</h1>
+  <div class="login-info">
+    <p>{I18n.t('login.description')}</p>
+    <p class="destination">{I18n.t('login.destination')}</p>
+
+  </div>
 
   <div class="login-cards">
     <div class="login-element">
@@ -135,46 +145,17 @@
           <LoginButton
             label={I18n.t('login.student.action')}
             onClick={() => logIn(role.STUDENT)}/>
-          {#if showLoginCards}
-            <CardSubtext
-              styleAsLink
-              handleClick={toggleLoginCreateAccount}
-              lineOne={I18n.t('login.student.accountCreation.askAccountNo')}
-              lineTwo={I18n.t('login.student.accountCreation.startAccount')}/>
-          {:else}
-            <CardSubtext
-              styleAsLink
-              handleClick={toggleLoginCreateAccount}
-              lineOne={I18n.t('login.createEduId.askAccountYes')}
-              lineTwo={I18n.t('login.createEduId.logInAccount')}/>
-          {/if}
+          <CardSubtext small={true} lineOne={I18n.t('login.student.noEduId')}/>
 
         </div>
-      </Card>
-
-      <Card none={showLoginCards}>
-        <div class="titleAndBackButton">
-          <span
-            class="click navigateBackButton"
-            on:click={toggleLoginCreateAccount}>
-            {@html navigateBack}
-          </span>
-          <span>
-            <h2>
-              {@html I18n.t('login.createEduId.title')}
-            </h2>
-          </span>
-        </div>
-        <p class="text-align-left">{I18n.t('login.createEduId.require')}</p>
-        <AccountCreationSteps activeStep={accountCreationStep}/>
-        <Button
-          action={() => logIn(role.STUDENT, true)}
-          text={I18n.t('login.createEduId.step1')} />
       </Card>
 
     </div>
 
     <div class="login-element">
+      <div class="invite-only">
+        <p>{I18n.t("login.teacher.byInviteOnly")}</p>
+      </div>
       <Card outOfFocus={!showLoginCards}>
         <h2 class="bold">
           {@html I18n.t('login.teacher.title')}
