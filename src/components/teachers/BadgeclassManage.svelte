@@ -17,11 +17,14 @@
   let faculty;
   let badgeclass = {extensions: [], issuer: {}};
 
+  let contentType;
+
   const query = `{
     badgeClass(id: "${entityId}") {
       ${headerEntity},
       ${headerStaff},
       image,
+      contentTypeId,
       criteriaUrl,
       criteriaText,
       expirationPeriod,
@@ -56,6 +59,7 @@
       badgeclass = res.badgeClass;
       issuer = res.badgeClass.issuer;
       faculty = issuer.faculty;
+      contentType = res.badgeClass.contentTypeId;
     });
   });
 
@@ -108,7 +112,13 @@
       <Overview {badgeclass} />
     </Route>
     <Route path="/user-management/invite-new-user">
-      <InviteUser permissionsRoles={permissionsRoles} defaultValue={1} disabledRole={false} />
+      <InviteUser
+          permissionsRoles={permissionsRoles}
+          defaultValue={1}
+          disabledRole={false}
+          entityId={entityId}
+          contentType={contentType}
+      />
     </Route>
     <Route path="/user-management">
       <BadgeclassUserManagement entity="badgeClass" entityId={entityId}/>

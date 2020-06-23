@@ -250,7 +250,10 @@ I18n.translations.nl = {
       title: "Voeg gebruiker toe",
       description: "Vul het e-mailadres in van de personen die je wilt uitnodigen voor deze entiteit."
     },
-    cancel: "annuleer"
+    cancel: "annuleer",
+    inviteStatus: "Status",
+    sent: "Invite sent",
+    accepted: "Accepted"
   },
   editUsers: {
     institutionPermissions: "Permissies op instellings nivo",
@@ -269,17 +272,24 @@ I18n.translations.nl = {
     },
     badgeClass: {
       header: "Badgeclass",
-      badgeclassOwner: "Badgeclass owner",
-      badgeclassEditor: "Badgeclass editor",
-      badgeclassAwarder: "Badgeclass awarder",
+      badgeclassOwner: "Owner",
+      badgeclassEditor: "Editor",
+      badgeclassAwarder: "Awarder",
       owner: "owner",
       editor: "editor",
       awarder: "awarder",
     },
     permissions: {
+      allRights: "All rights",
+      institutionAllRights: "(because Institution Admin)",
+      issuerGroupAllRights: "(because Issuer Group Admin)",
+      issuerAllRights: "(because Issuer Admin)",
       addPermissions: "Voeg permissies toe",
       removePermissions: "Verwijder permissies",
       removeAdmin: "Weet je zeker dat je de instellings Admin wilt verwijderen?",
+      removeIssuerGroupAdmin: "Are you sure you want to remove this issuer group admin?",
+      removeIssuerAdmin: "Are you sure you want to remove this issuer admin?",
+      removeBadgeClassUser: "Are you sure you want to remove this role?",
       setInstitutionAdmin: "Maak gebruiker instellings Admin",
       removeInstitutionAdmin: "Verwijder instellings Admin",
       inviteNewUser: "Nodig nieuwe gebruiker uit"

@@ -61,7 +61,7 @@ export const userTree = derived(
 
       tree.roles.find(el => el.role === 'Institution Admin').count++;
 
-      for(const faculty of institution.faculties) {
+      for (const faculty of institution.faculties) {
         faculty.count++;
         for (const issuer of faculty.issuers) {
           issuer.count++;
@@ -70,6 +70,10 @@ export const userTree = derived(
     }
 
     for (const faculty of institution.faculties) {
+      if(issuerIds.length > 0 && !faculty.issuers.some(iss => iss.entityId === issuerIds[0])) {
+        continue;
+      }
+
       if (facultyIds.length > 0 && facultyIds[0] !== faculty.entityId) {
         continue;
       }
@@ -99,6 +103,7 @@ export const userTree = derived(
             tree.roles.find(el => el.role === 'Issuer Admin').count++;
           }
 
+          faculty.count++;
           issuer.count++;
         }
 
@@ -123,6 +128,8 @@ export const userTree = derived(
                 tree.roles.find(el => el.role === 'Badgeclass Awarder').count++;
               }
             }
+            issuer.count++;
+            faculty.count++;
           }
         }
       }
@@ -154,8 +161,8 @@ export const userTree = derived(
     tree.users = filterBySearch(tree.users, userSearch);
 
     return {
-      faculties: sort(institution.faculties, true),
-      issuers: sort(issuers, true),
+      faculties: sort(institution.faculties, true).filter(fac => fac.count - tree.roles.find(el => el.role === 'Institution Admin').count),
+      issuers: sort(issuers, true).filter(iss => iss.count - tree.roles.find(el => el.role === 'Institution Admin').count),
       roles: tree.roles,
       users: tree.users
     };

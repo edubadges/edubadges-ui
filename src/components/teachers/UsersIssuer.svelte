@@ -155,7 +155,7 @@
   const submitPermissions = () => {
     switch (modalChosenRole.name) {
       case 'admin':
-        makeUserIssuerAdmin(modalSelectedBadgeClass.entityId, userId).then(() => {
+        makeUserIssuerAdmin(modalSelectedBadgeClass.entityId, userId, modalNotes).then(() => {
           reload();
           showAddModal = false;
         });
@@ -185,7 +185,7 @@
   const removePermissions = () => {
     showRemoveModal = true;
     removeModalTitle = I18n.t(['editUsers', 'permissions', 'removePermissions']);
-    removeModalQuestion = 'issuer';
+    removeModalQuestion = I18n.t(['editUsers', 'permissions', 'removeIssuerAdmin']);
     removeModalAction = removeSelectedPermissions;
   };
 
@@ -259,12 +259,13 @@
             <CheckBox
                 value={selection.includes(facultyStaffMembership.entityId)}
                 name={`select-${facultyStaffMembership.entityId}`}
-                disabled={true}
-                onChange={val => (console.log(val))}/>
+                disabled={true}/>
           </td>
           <td>{issuer.name}</td>
           <td>
-            {I18n.t(['editUsers', 'issuerGroup', 'allRights'])}
+            {I18n.t(['editUsers', 'permissions', 'allRights'])}
+            <br />
+            {I18n.t(['editUsers', 'permissions', 'issuerGroupAllRights'])}
           </td>
         </tr>
       {/each}
@@ -277,11 +278,14 @@
               <CheckBox
                   value={''}
                   name={''}
-                  disabled={true}
-                  onChange={val => (console.log(val))}/>
+                  disabled={true}/>
             </td>
             <td>{issuer.name}</td>
-            <td>{I18n.t(['editUsers', 'institution', 'allRights'])}</td>
+            <td>
+              {I18n.t(['editUsers', 'permissions', 'allRights'])}
+              <br />
+              <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'institutionAllRights'])}</span>
+            </td>
           </tr>
         {/each}
       {/each}

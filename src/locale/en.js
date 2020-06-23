@@ -250,7 +250,10 @@ I18n.translations.en = {
       title: "Add user",
       description: "Fill in the email address of the people you'd like to invite as a user to this entity. Your request will be sent, and you'll be notified when it's accepted or declined."
     },
-    cancel: "cancel"
+    cancel: "cancel",
+    inviteStatus: "Status",
+    sent: "Invite sent",
+    accepted: "Accepted"
   },
   editUsers: {
     institutionPermissions: "Permissions on institution level",
@@ -269,17 +272,24 @@ I18n.translations.en = {
     },
     badgeClass: {
       header: "Badgeclass",
-      badgeclassOwner: "Badgeclass owner",
-      badgeclassEditor: "Badgeclass editor",
-      badgeclassAwarder: "Badgeclass awarder",
+      badgeclassOwner: "Owner",
+      badgeclassEditor: "Editor",
+      badgeclassAwarder: "Awarder",
       owner: "owner",
       editor: "editor",
       awarder: "awarder",
     },
     permissions: {
+      allRights: "All rights",
+      institutionAllRights: "(because Institution Admin)",
+      issuerGroupAllRights: "(because Issuer Group Admin)",
+      issuerAllRights: "(because Issuer Admin)",
       addPermissions: "Add permissions",
       removePermissions: "Remove permissions",
       removeAdmin: "Are you sure you want to remove institution admin?",
+      removeIssuerGroupAdmin: "Are you sure you want to remove this issuer group admin?",
+      removeIssuerAdmin: "Are you sure you want to remove this issuer admin?",
+      removeBadgeClassUser: "Are you sure you want to remove this role?",
       setInstitutionAdmin: "Make user institution admin",
       removeInstitutionAdmin: "Remove user institution admin",
       inviteNewUser: "Invite new User"

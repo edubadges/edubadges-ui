@@ -1,7 +1,7 @@
 <script>
   import {queryData} from "../../api/graphql";
   import { onMount } from "svelte";
-  import { UsersTable  } from "../teachers";
+  import { UsersTable, InvitationStatusWidget } from "../teachers";
   import { sortType } from "../../util/sortData";
   import I18n from "i18n-js";
   import { CheckBox } from "../index";
@@ -14,9 +14,16 @@
   let users = [];
   let selection = [];
   let permissions;
+  let userprovisionments = [];
 
   const query = `{
     currentInstitution {
+      userprovisionments {
+        email,
+        createdAt,
+        entityId,
+        data
+      },
       permissions {
         mayAdministrateUsers
       },
@@ -37,6 +44,7 @@
     queryData(query).then(res => {
       users = res.currentInstitution.staff;
       permissions = res.currentInstitution.permissions;
+      userprovisionments = res.currentInstitution.userprovisionments;
     })
   });
 
@@ -51,7 +59,13 @@
       name: I18n.t("editUsers.role"),
       attribute: "roles",
       reverse: false,
-      sortType: sortType.COLLECTION
+      sortType: sortType.ROLES
+    },
+    {
+      name: I18n.t(["inviteUsers", "inviteStatus"]),
+      attribute: "",
+      reverse: false,
+      sortType: sortType.INVITATION_STATUS
     }
   ];
 
@@ -62,14 +76,14 @@
   let removeModalAction;
 
   const onCheckAll = val => {
-    selection = val ? users.map(({entityId}) => entityId) : [];
+    selection = val ? users.concat(userprovisionments).map(({entityId}) => entityId) : [];
     table.checkAllValue = val;
   };
 
   const onCheckOne = (val, entityId) => {
     if (val) {
       selection = selection.concat(entityId);
-      table.checkAllValue = selection.length === users.length;
+      table.checkAllValue = selection.length === users.length + userprovisionments.length;
     } else {
       selection = selection.filter(id => id !== entityId);
       table.checkAllValue = false;
@@ -124,12 +138,36 @@
   ];
 </script>
 
+<style>
+  tr {
+    height: 53px;
+  }
+</style>
+
 <div class="container">
   <UsersTable
       {...table}
       withCheckAll={true}
       bind:buttons={buttons}
   >
+    {#each userprovisionments as {email, entityId, createdAt}}
+      <tr>
+        <td>
+          <CheckBox
+              value={selection.includes(entityId)}
+              name={`select-${entityId}`}
+              disabled={false}
+              onChange={val => onCheckOne(val, entityId)}/>
+        </td>
+        <td>{email}</td>
+        <td>{I18n.t(['editUsers', 'institution', 'allRights'])}</td>
+        <td>
+          <InvitationStatusWidget
+            date={createdAt}
+          />
+        </td>
+      </tr>
+    {/each}
     {#each users as {mayAdministrateUsers, user, entityId}}
       <tr>
         <td>
@@ -146,6 +184,11 @@
         </td>
         <td>
           {I18n.t(['editUsers', 'institution', mayAdministrateUsers ? 'allRights' : 'noRights'])}
+        </td>
+        <td>
+            <InvitationStatusWidget
+              accepted={true}
+            />
         </td>
       </tr>
     {/each}

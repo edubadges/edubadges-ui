@@ -5,8 +5,15 @@
   import { sortType } from "../../util/sortData";
   import I18n from "i18n-js";
   import { CheckBox } from "../index";
-  import { removeUserIssuerGroupAdmin } from "../../api";
   import {navigate} from "svelte-routing";
+  import {Select, Modal} from "../forms";
+  import {
+      removeUserBadgeclassPermission,
+      changeUserToBadgeclassOwner,
+      changeUserToBadgeclassEditor,
+      changeUserToBadgeclassAwarder
+  } from "../../api";
+  import {flash} from "../../stores/flash";
 
   export let entity;
   export let entityId;
@@ -15,12 +22,19 @@
   let issuerGroupStaffMembers = [];
   let issuerStaffMembers = [];
   let badgeClassStaffMembers = [];
+  let userprovisionments = [];
   let selection = [];
   let permissions;
 
   const query = `{
     badgeClass(id: "${entityId}") {
       name,
+      userprovisionments {
+        email,
+        createdAt,
+        entityId,
+        data
+      },
       staff {
         entityId,
         mayAdministrateUsers,
@@ -106,7 +120,7 @@
   let removeModalAction;
 
   const onCheckAll = val => {
-    selection = val ? issuerGroupStaffMembers.map(({entityId}) => entityId) : [];
+    selection = val ? badgeClassStaffMembers.map(({entityId}) => entityId) : [];
     table.checkAllValue = val;
   };
 
@@ -114,7 +128,7 @@
   const onCheckOne = (val, entityId) => {
     if (val) {
       selection = selection.concat(entityId);
-      table.checkAllValue = selection.length === issuerGroupStaffMembers.length;
+      table.checkAllValue = selection.length === badgeClassStaffMembers.length;
     } else {
       selection = selection.filter(id => id !== entityId);
       table.checkAllValue = false;
@@ -130,13 +144,13 @@
 
   const reload = () => {
     queryData(query).then(res => {
-      issuerGroupStaffMembers = res.faculty.staff;
+      badgeClassStaffMembers = res.badgeClass.staff;
     });
   };
 
   const removeSelectedPermissions = () => {
     for (const selected of selection) {
-      removeUserIssuerGroupAdmin(selected).then(() => {
+      removeUserBadgeclassPermission(selected).then(() => {
         reload();
         showRemoveModal = false;
       })
@@ -147,7 +161,7 @@
   const removePermissions = () => {
     showRemoveModal = true;
     removeModalTitle = I18n.t(['editUsers', 'permissions', 'removePermissions']);
-    removeModalQuestion = I18n.t(['editUsers', 'permissions', 'removeAdmin']);
+    removeModalQuestion = I18n.t(['editUsers', 'permissions', 'removeBadgeClassUser']);
     removeModalAction = removeSelectedPermissions;
   };
 
@@ -167,7 +181,54 @@
       'allowed': (permissions && permissions.mayAdministrateUsers),
     }
   ];
+
+  const changeUserRole = (role, id) => {
+    switch(role.value) {
+      case 'badgeclassOwner':
+        changeUserToBadgeclassOwner(id).then(() => {
+          reload();
+          flash.setValue("1")
+        });
+        break;
+      case 'badgeclassEditor':
+        changeUserToBadgeclassEditor(id).then(() => {
+          reload();
+          flash.setValue("2")
+        });
+        break;
+      case 'badgeclassAwarder':
+        changeUserToBadgeclassAwarder(id).then(() => {
+          reload();
+          flash.setValue("3")
+        });
+        break;
+    }
+  };
+
+  let targetOptions = [
+    {name: I18n.t(['editUsers', 'badgeClass', 'badgeclassOwner']), value: 'badgeclassOwner'},
+    {name: I18n.t(['editUsers', 'badgeClass', 'badgeclassEditor']), value: 'badgeclassEditor'},
+    {name: I18n.t(['editUsers', 'badgeClass', 'badgeclassAwarder']), value: 'badgeclassAwarder'},
+  ];
 </script>
+
+<style>
+  div {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .badgeclass-role-select {
+    width: 170px;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
+</style>
+
 
 <div class="container">
   <UsersTable
@@ -175,7 +236,18 @@
       withCheckAll={true}
       bind:buttons={buttons}
   >
-    {#each badgeClassStaffMembers as {user, mayAdministrateUsers, mayUpdate, mayAward}}
+    {#each userprovisionments as {email, entityId, createdAt}}
+      <td>
+        <CheckBox
+            value={selection.includes(entityId)}
+            name={`select-${entityId}`}
+            disabled={false}
+            onChange={val => onCheckOne(val, entityId)}/>
+      </td>
+      <td>{email}</td>
+      <td>{targetOptions[0]}</td>
+    {/each}
+    {#each badgeClassStaffMembers as {user, entityId, mayAdministrateUsers, mayUpdate, mayAward}}
       <tr>
         <td>
           <CheckBox
@@ -190,7 +262,19 @@
           <span class="sub-text">{user.email}</span>
         </td>
         <td>
-          {I18n.t(['editUsers', 'badgeClass', mayAdministrateUsers ? 'owner' : mayUpdate ? 'editor': 'awarder'])}
+          <div class="badgeclass-role-select">
+            <Select
+                handleSelect={item => changeUserRole(item, entityId)}
+                value = {
+                  mayAdministrateUsers ? targetOptions[0] :
+                  (mayUpdate ? targetOptions[1] :
+                  (mayAward ? targetOptions[2] : 'error'))
+                }
+                items={targetOptions}
+                clearable={false}
+                optionIdentifier="name"
+            />
+          </div>
         </td>
       </tr>
     {/each}
@@ -253,3 +337,13 @@
     {/each}
   </UsersTable>
 </div>
+
+{#if showRemoveModal}
+  <Modal
+    submit={removeModalAction}
+    cancel={() => showRemoveModal = false}
+    question={removeModalQuestion}
+    title={removeModalTitle}
+  >
+  </Modal>
+{/if}

@@ -144,7 +144,7 @@
   const submitPermissions = () => {
     switch (modalChosenRole.name) {
       case 'admin':
-        makeUserIssuerGroupAdmin(modalSelectedBadgeClass.entityId, userId).then(() => {
+        makeUserIssuerGroupAdmin(modalSelectedBadgeClass.entityId, userId, modalNotes).then(() => {
           reload();
           showAddModal = false;
         });
@@ -174,7 +174,7 @@
   const removePermissions = () => {
     showRemoveModal = true;
     removeModalTitle = I18n.t(['editUsers', 'permissions', 'removePermissions']);
-    removeModalQuestion = 'issuerGroup';
+    removeModalQuestion = I18n.t(['editUsers', 'permissions', 'removeIssuerGroupAdmin']);
     removeModalAction = removeSelectedPermissions;
   };
 
@@ -248,11 +248,14 @@
               <CheckBox
                   value={''}
                   name={''}
-                  disabled={true}
-                  onChange={val => (console.log(val))}/>
+                  disabled={true}}/>
             </td>
             <td>{faculty.name}</td>
-            <td>{I18n.t(['editUsers', 'institution', 'allRights'])}</td>
+            <td>
+              {I18n.t(['editUsers', 'permissions', 'allRights'])}
+              <br />
+              <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'institutionAllRights'])}</span>
+            </td>
           </tr>
         {/each}
       {/if}

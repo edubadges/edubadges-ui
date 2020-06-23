@@ -24,7 +24,10 @@
     const apiCall = isCreate ? createIssuer : editIssuer;
 
     apiCall(...args)
-      .then(res => navigate(`/manage/issuer/${entityId}`))
+      .then(res => {
+        entityId = createIssuer ? res.entity_id : entityId;
+        navigate(`/manage/issuer/${entityId}`)
+      })
       .catch(err => err.then(({ fields }) => (errors = fields)));
   }
 </script>

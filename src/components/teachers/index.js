@@ -27,6 +27,8 @@ export { default as HeaderList } from "./HeaderList.svelte";
 export { default as Institution } from "./ManageInstitution.svelte";
 export { default as InstitutionEdit } from "./InstitutionEdit.svelte";
 export { default as InstitutionUserManagement } from "./InstitutionUserManagement.svelte";
+export { default as InvitationStatusWidget } from  "./InvitationStatusWidget.svelte"
+export { default as InviteEnrollments } from "./InviteEnrollments.svelte";
 export { default as InviteUser } from "./InviteUser.svelte";
 export { default as Issuer } from "./ManageIssuer.svelte";
 export { default as IssuerEdit } from "./IssuerEdit.svelte";

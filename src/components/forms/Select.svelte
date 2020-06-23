@@ -58,7 +58,7 @@
 
 <div class="select-field" {error} {disabled}>
   <Select
-    on:select={() => handleSelect(value[optionIdentifier])}
+    on:select={() => handleSelect(value)}
     {items}
     bind:selectedValue={value}
     {optionIdentifier}

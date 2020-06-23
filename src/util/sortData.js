@@ -5,7 +5,8 @@ export const sortType = {
   BOOLEAN: "boolean",
   NUMERIC: "numeric",
   COLLECTION: "collection",
-  ROLES: "roles"
+  ROLES: "roles",
+  INVITATION_STATUS: "invitationStatus"
 };
 
 const defaultValue = (attr, howToSort) => {
@@ -21,7 +22,7 @@ const defaultValue = (attr, howToSort) => {
     default:
       throw new Error(`Undefined sortType: ${howToSort}`);
   }
-}
+};
 
 const getNestedValue = (obj, attr, howToSort) => {
   const parts = attr.split(".");
@@ -50,10 +51,12 @@ export function sort(collection, attribute, reversed, howToSort = sortType.ALPHA
       case sortType.COLLECTION:
         return getNestedValue(b, attribute, howToSort).length - getNestedValue(a, attribute, howToSort).length;
       case sortType.ROLES:
-        return permissionRoleValue(a[attribute]) - permissionRoleValue(b[attribute]);
+        return permissionRoleValue(b[attribute]) - permissionRoleValue(a[attribute]);
+      case sortType.INVITATION_STATUS:
+        return 0;
       default:
         throw new Error(`Unsupported sortType ${howToSort}`);
     }
   });
   return reversed ? col.reverse() : col;
-}
+};

@@ -12,8 +12,11 @@
   import {role} from "../util/role";
   import Spinner from "../components/Spinner.svelte";
 
+  let authError;
+
   onMount(() => {
     $authToken = new URLSearchParams(window.location.search).get("authToken");
+    authError = new URLSearchParams(window.location.search).get("authError");
     $userLoggedIn = true;
 
     getSocialAccount().then(res => {
@@ -28,5 +31,9 @@
 </script>
 
 <div>
-  <Spinner/>
+  {#if !authError}
+    <Spinner/>
+  {:else}
+    <h1></h1>
+  {/if}
 </div>

@@ -17,6 +17,7 @@
       entityId,
       dateCreated,
       denied,
+      dateAwarded,
       badgeClass {
         entityId,
         name,
@@ -34,7 +35,7 @@
 
   onMount(() => {
     queryData(query).then(res => {
-      requests = res.enrollments;
+      requests = res.enrollments.filter(el => !el.dateAwarded);
     });
   });
 

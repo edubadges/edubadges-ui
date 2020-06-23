@@ -16,6 +16,7 @@
   import {headerStaff, headerEntity} from "../../api/queries";
   import {Spinner} from "../index";
   import {InstitutionUserManagement} from "../teachers/";
+  import {entityType} from "../../util/entityTypes"
 
   let entityId;
   export let subEntity;
@@ -153,7 +154,7 @@
       />
     </Route>
     <Route path="/user-management">
-      <InstitutionUserManagement entity="institution" />
+      <InstitutionUserManagement entity={entityType.INSTITUTION} />
     </Route>
   </Router>
 {/if}

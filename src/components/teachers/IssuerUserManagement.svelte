@@ -20,6 +20,11 @@
   const query = `{
     issuer(id: "${entityId}") {
       name,
+      userprovisionments {
+        email,
+        createdAt,
+        entityId
+      },
       staff {
         entityId,
         mayAdministrateUsers,
@@ -114,7 +119,7 @@
 
   const reload = () => {
     queryData(query).then(res => {
-      issuerStaffMembers = res.currentInstitution.staff;
+      issuerStaffMembers = res.issuer.staff;
     });
   };
 
@@ -193,7 +198,9 @@
             <span class="sub-text">{user.email}</span>
         </td>
         <td>
-          {I18n.t(['editUsers', 'issuerGroup', 'allRights'])}
+          {I18n.t(['editUsers', 'permissions', 'allRights'])}
+          <br />
+          {I18n.t(['editUsers', 'permissions', 'issuerGroupAllRights'])}
         </td>
       </tr>
     {/each}
@@ -212,7 +219,9 @@
           <span class="sub-text">{user.email}</span>
         </td>
         <td>
-          {I18n.t(['editUsers', 'institution', 'allRights'])}
+          {I18n.t(['editUsers', 'permissions', 'allRights'])}
+          <br />
+          <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'institutionAllRights'])}</span>
         </td>
       </tr>
     {/each}

@@ -18,7 +18,10 @@
     const apiCall = isCreate ? createFaculty : editFaculty;
 
     apiCall(...args)
-      .then(res => navigate(`/manage/faculty/${entityId}`))
+      .then(res => {
+        entityId = isCreate ? res.entity_id : entityId;
+        navigate(`/manage/faculty/${entityId}`)
+      })
       .catch(err => err.then(({ fields }) => (errors = fields)));
   }
 </script>

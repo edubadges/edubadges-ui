@@ -14,8 +14,7 @@
       changeUserToBadgeclassEditor,
       changeUserToBadgeclassAwarder
   } from "../../api";
-  import { AddPermissionsModal, Modal } from "../forms";
-  import Select from "../forms/Select.svelte";
+  import { AddPermissionsModal, Modal, Select } from "../forms";
 
   export let userId;
 
@@ -88,7 +87,10 @@
       entityId,
       issuer {
         badgeclasses {
-          name
+          name,
+          issuer {
+            name
+          }
         }
       },
       mayAdministrateUsers
@@ -100,7 +102,10 @@
         entityId,
         issuers {
           badgeclasses {
-            name
+            name,
+            issuer {
+              name
+            }
           }
         }
       },
@@ -185,19 +190,19 @@
   const submitPermissions = () => {
     switch (modalChosenRole.name) {
       case 'owner':
-        makeUserBadgeclassOwner(modalSelectedBadgeClass.entityId, userId).then(() => {
+        makeUserBadgeclassOwner(modalSelectedBadgeClass.entityId, userId, modalNotes).then(() => {
           reload();
           showAddModal = false;
         });
         break;
       case 'editor':
-        makeUserBadgeclassEditor(modalSelectedBadgeClass.entityId, userId).then(() => {
+        makeUserBadgeclassEditor(modalSelectedBadgeClass.entityId, userId, modalNotes).then(() => {
           reload();
           showAddModal = false;
         });
         break;
       case 'awarder':
-        makeUserBadgeclassAwarder(modalSelectedBadgeClass.entityId, userId).then(() => {
+        makeUserBadgeclassAwarder(modalSelectedBadgeClass.entityId, userId, modalNotes).then(() => {
           reload();
           showAddModal = false;
         });
@@ -227,7 +232,7 @@
   const removePermissions = () => {
     showRemoveModal = true;
     removeModalTitle = I18n.t(['editUsers', 'permissions', 'removePermissions']);
-    removeModalQuestion = 'badgeClass';
+    removeModalQuestion = I18n.t(['editUsers', 'permissions', 'removeBadgeClassUser']);
     removeModalAction = removeSelectedPermissions;
   };
 
@@ -264,15 +269,14 @@
   };
 
   let targetOptions = [
-    {name: 'badgeclassOwner'},
-    {name: 'badgeclassEditor'},
-    {name: 'badgeclassAwarder'},
+    {name: I18n.t(['editUsers', 'badgeClass', 'badgeclassOwner']), value: 'badgeclassOwner'},
+    {name: I18n.t(['editUsers', 'badgeClass', 'badgeclassEditor']), value: 'badgeclassEditor'},
+    {name: I18n.t(['editUsers', 'badgeClass', 'badgeclassAwarder']), value: 'badgeclassAwarder'},
   ];
   let target = targetOptions[0];
 
   const changeUserRole = (role, id) => {
-    console.log(role);
-    switch(role) {
+    switch(role.value) {
       case 'badgeclassOwner':
         changeUserToBadgeclassOwner(id).then(() => {
           reload()
@@ -330,19 +334,21 @@
         </td>
         <td>{badgeclassStaffMembership.badgeclass.issuer.name}</td>
         <td>{badgeclassStaffMembership.badgeclass.name}</td>
-        <div class="badgeclass-role-select">
-          <Select
-              handleSelect={value => changeUserRole(value, badgeclassStaffMembership.entityId)}
-              value = {
-                  badgeclassStaffMembership.mayAdministrateUsers ? 'badgeclassOwner' :
-                  (badgeclassStaffMembership.mayUpdate ? 'badgeclassEditor' :
-                  (badgeclassStaffMembership.mayAward ? 'badgeclassAwarder' : 'error'))
-              }
-              items={targetOptions}
-              clearable={false}
-              optionIdentifier="name"
-          />
-        </div>
+        <td>
+          <div class="badgeclass-role-select">
+            <Select
+                handleSelect={item => changeUserRole(item, badgeclassStaffMembership.entityId)}
+                value = {
+                  badgeclassStaffMembership.mayAdministrateUsers ? targetOptions[0] :
+                  (badgeclassStaffMembership.mayUpdate ? targetOptions[1] :
+                  (badgeclassStaffMembership.mayAward ? targetOptions[2] : 'error'))
+                }
+                items={targetOptions}
+                clearable={false}
+                optionIdentifier="name"
+            />
+          </div>
+        </td>
       </tr>
     {/each}
     {#each user.issuerStaffs as issuerStaffMembership}
@@ -352,12 +358,12 @@
             <CheckBox
                 value={selection.includes(badgeclass.entityId)}
                 name={`select-${badgeclass.entityId}`}
-                disabled={true}
-                onChange={val => (console.log(val))}/>
+                disabled={true}/>
           </td>
-          <td>{badgeclass.name}</td>
+            <td>{badgeclass.issuer.name}</td>
+            <td>{badgeclass.name}</td>
           <td>
-            {I18n.t(['editUsers', 'issuer', 'allRights'])}
+            {I18n.t(['editUsers', 'permissions', 'issuerAllRights'])}
           </td>
         </tr>
       {/each}
@@ -371,11 +377,14 @@
                     value={selection.includes(badgeclass.entityId)}
                     name={`select-${badgeclass.entityId}`}
                     disabled={true}
-                    onChange={val => (console.log(val))}/>
+                />
               </td>
-              <td>{badgeclass.name}</td>
+                <td>{badgeclass.issuer.name}</td>
+                <td>{badgeclass.name}</td>
               <td>
-                {I18n.t(['editUsers', 'issuerGroup', 'allRights'])}
+                {I18n.t(['editUsers', 'permissions', 'allRights'])}
+                <br />
+                {I18n.t(['editUsers', 'permissions', 'issuerGroupAllRights'])}
               </td>
             </tr>
           {/each}
@@ -391,11 +400,14 @@
                       value={selection.includes(badgeclass.entityId)}
                       name={`select-${badgeclass.entityId}`}
                       disabled={true}
-                      onChange={val => (console.log(val))}/>
+                  />
                 </td>
-                <td>{badgeclass.name}</td>
+                  <td>{issuer.name}</td>
+                  <td>{badgeclass.name}</td>
                 <td>
-                  {I18n.t(['editUsers', 'institution', 'allRights'])}
+                  {I18n.t(['editUsers', 'permissions', 'allRights'])}
+                  <br />
+                  <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'institutionAllRights'])}</span>
                 </td>
               </tr>
             {/each}
