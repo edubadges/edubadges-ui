@@ -101,7 +101,7 @@
   ];
 </script>
 
-<Breadcrumb {faculty} {issuer} badgeclassName={badgeclass.name} />
+<Breadcrumb {faculty} {issuer} {badgeclass} badgeclassName={badgeclass.name} />
 
 <EntityHeader object={badgeclass} entity="badgeclass" {tabs} {headerItems}
               mayUpdate={badgeclass.permissions && badgeclass.permissions.mayUpdate && badgeclass.badgeAssertions.length === 0}/>

@@ -151,6 +151,7 @@
   {entity}
   issuer={isCreate ? null : badgeclass.issuer}
   faculty={isCreate ? null : badgeclass.issuer.faculty}
+  badgeclass={isCreate ? null : badgeclass}
   badgeclassName={isCreate ? null : badgeclass.name}
   submit={onSubmit}
   create={isCreate}>

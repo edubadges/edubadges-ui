@@ -5,6 +5,7 @@
 
   export let faculty;
   export let issuer;
+  export let badgeclass;
   export let badgeclassName = "";
 
   export let create;
@@ -27,6 +28,7 @@
 <Breadcrumb
   {faculty}
   {issuer}
+  {badgeclass}
   {badgeclassName}
   edit={!create}
   {create}

@@ -8,6 +8,7 @@
 
   export let faculty;
   export let issuer;
+  export let badgeclass = {};
   export let badgeclassName = "";
   export let entity;
   export let edit = false;
@@ -91,7 +92,7 @@
 
   {#if badgeclassName}
     <span>{@html chevronRightSmall}</span>
-    <a use:link href={$currentPath}>{badgeclassName}</a>
+    <a use:link href={`/manage/badgeclass/${badgeclass.entityId}/overview`}>{badgeclassName}</a>
   {/if}
 
   {#if user}
