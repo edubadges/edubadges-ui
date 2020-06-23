@@ -21,8 +21,8 @@ I18n.translations.nl = {
     description:
       "Edubadges zijn digitale certificaten die aantonen dat de eigenaar bepaalde vaardigheden of kennis bezit. Edubadges kunnen worden uitgereikt voor zowel extracurriculaire activiteiten als geaccrediteerd onderwijs.",
     student: {
-      title: "Mijn Backpack",
-      subtitle: "Ontvang en deel edubadges",
+      title: "Ontvang en deel edubadges",
+      subtitle: "(Je hebt een eduID nodig om in te loggen))",
       action: "Open je Backpack",
       button: "Log in met je eduID",
       accountCreation: {
@@ -31,8 +31,8 @@ I18n.translations.nl = {
       },
     },
     teacher: {
-      title: "Issuers portaal",
-      subtitle: "Ken edubadges toe",
+      title: "Ken edubadges toe",
+      subtitle: "(Toegang wordt verleend door de beheerder van de instelling)",
       action: "Ga naar het Issuers portaal",
       button: "Log in via SURFconext",
       accountCreation: {
