@@ -6,7 +6,7 @@
 
 <style>
   .invisible {
-    visibility: hidden;
+    display: none;
   }
 
   .add {

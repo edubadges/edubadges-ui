@@ -13,9 +13,11 @@
     extensionValue,
     language,
     learningOutcome,
+    studyLoad,
   } from "../extensions/badges/extensions";
   import EctsCreditPoints from "../extensions/badges/EctsCreditPoints.svelte";
   import { setExpirationPeriod } from "../extensions/badges/expiration_period";
+  import { addAlignment } from "../extensions/badges/alignment";
 
   export let entityId;
   export let badgeclass = {extensions: []};
@@ -60,6 +62,7 @@
       [eqf.name]: extensionValue(badgeclass.extensions, eqf) || {name: "EQF 6", value: 6},
       [learningOutcome.name]: extensionValue(badgeclass.extensions, learningOutcome) || "",
       [educationProgramIdentifier.name]: extensionValue(badgeclass.extensions, educationProgramIdentifier) || "",
+      [studyLoad.name]: extensionValue(badgeclass.extensions, studyLoad) || "",
     };
     if (extensions[eqf.name] && typeof extensions[eqf.name] === "number") {
       extensions[eqf.name] = {name: `EQF ${extensions[eqf.name]}`, value: extensions[eqf.name]}
@@ -74,9 +77,9 @@
       ...badgeclass,
       criteria_text: badgeclass.criteriaText,
       criteria_url: badgeclass.criteriaUrl,
-      alignment: [alignment],
     };
     setExpirationPeriod(newBadgeclass);
+    addAlignment(newBadgeclass, alignment);
     newBadgeclass.extensions = extensionToJson([
       {name: language.name, value: extensions[language.name].name},
       {name: ects.name, value: extensions[ects.name]},
@@ -85,7 +88,8 @@
       {
         name: educationProgramIdentifier.name,
         value: parseInt(extensions[educationProgramIdentifier.name], 10)
-      }
+      },
+      {name: studyLoad.name, value: parseInt(extensions[studyLoad.name])}
     ]);
     if (badgeclass.issuer) {
       newBadgeclass.issuer = badgeclass.issuer.entityId;
@@ -223,8 +227,6 @@
     </Field>
   </div>
 
-  <h4>{I18n.t('models.badgeclass.headers.additionalSections')}</h4>
-
   {#if showEducationalIdentifiers}
     <div class="deletable-title"><h4>{I18n.t('models.badgeclass.headers.educationalIdentifiers')}</h4></div><button on:click={() => showEducationalIdentifiers = false}>rm</button>
 
@@ -316,27 +318,30 @@
     </div>
   {/if}
 
-  <div class="add-buttons">
-    <span class="add-button">
-      <AddButton
-          text={I18n.t('models.badgeclass.addButtons.educationalIdentifiers')}
-          handleClick={() => showEducationalIdentifiers = true}
-          visibility={!showEducationalIdentifiers}
-      />
-    </span>
-    <span class="add-button">
-      <AddButton
-          text={I18n.t('models.badgeclass.addButtons.studyLoad')}
-          handleClick={() => showStudyLoad = true}
-          visibility={!showStudyLoad}
-      />
-    </span>
-    <span class="add-button">
-      <AddButton
-          text={I18n.t('models.badgeclass.addButtons.alignment')}
-          handleClick={() => showAlignment = true}
-          visibility={!showAlignment}
-      />
-    </span>
-  </div>
+  {#if !(showStudyLoad && showEducationalIdentifiers && showAlignment)}
+    <h4>{I18n.t('models.badgeclass.headers.additionalSections')}</h4>
+    <div class="add-buttons">
+      <span class="add-button">
+        <AddButton
+            text={I18n.t('models.badgeclass.addButtons.educationalIdentifiers')}
+            handleClick={() => showEducationalIdentifiers = true}
+            visibility={!showEducationalIdentifiers}
+        />
+      </span>
+      <span class="add-button">
+        <AddButton
+            text={I18n.t('models.badgeclass.addButtons.studyLoad')}
+            handleClick={() => showStudyLoad = true}
+            visibility={!showStudyLoad}
+        />
+      </span>
+      <span class="add-button">
+        <AddButton
+            text={I18n.t('models.badgeclass.addButtons.alignment')}
+            handleClick={() => showAlignment = true}
+            visibility={!showAlignment}
+        />
+      </span>
+    </div>
+  {/if}
 </EntityForm>

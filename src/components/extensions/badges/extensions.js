@@ -4,6 +4,8 @@ export const language = {name: "LanguageExtension", value: "Language"};
 
 export const ects = {name: "ECTSExtension", value: "ECTS"};
 
+export const studyLoad = {name: "StudyLoadExtension", value: "StudyLoad"};
+
 export const eqf = {name: "EQFExtension", value: "EQF"};
 
 export const learningOutcome = {
@@ -86,6 +88,9 @@ export const publicBadgeInformation = (badgeClass, res) => {
   }
   if (res['extensions:ECTSExtension']) {
     badgeClass.ects = res['extensions:ECTSExtension']['ECTS'];
+  }
+  if (res['extensions:StudyLoadExtension']) {
+    badgeClass.studyLoad = res['extensions:StudyLoadExtension']['StudyLoad'];
   }
   if (res['extensions:EQFExtension']) {
     badgeClass.eqf = res['extensions:EQFExtension']['EQF'];
