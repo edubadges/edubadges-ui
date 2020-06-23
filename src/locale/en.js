@@ -21,8 +21,8 @@ I18n.translations.en = {
     description:
       "Edubadges are digital certificates and show that the owner has certain skills or knowledge. Edubadges can be issued for both extracurriculair activities and accredited education.",
     student: {
-      title: "My Backpack",
-      subtitle: "Receive and share edubadges",
+      title: "Receive badges",
+      subtitle: "(You need an eduID to login)",
       action: "Open your Backpack",
       button: "Log in with your eduID",
       accountCreation: {
@@ -31,8 +31,8 @@ I18n.translations.en = {
       },
     },
     teacher: {
-      title: "Issuer Portal",
-      subtitle: "Award edubadges",
+      title: "Award badges",
+      subtitle: "(Access is granted by institution admin)",
       action: "Enter the issuer portal",
       button: "Log in via SURFconext",
       accountCreation: {
@@ -77,7 +77,7 @@ I18n.translations.en = {
     unverified: "unverified",
     validatedByYourInstitution: "Validated by your institution",
     deleteHeader: "Deleting your edubadges backpack",
-    deleteInfo: "<p>You can delete your backpack whenever you want.</p><p>Proceed with care, as you will loose all your badges.</p>",
+    deleteInfo: "<p>You can delete your backpack whenever you want.</p><p>Proceed with care, as you will loose all your edubadges.</p>",
     submit: "Add",
     deleteEmail: "Delete this email",
     deleteEmailConfirmation: "Are you sure you want to delete this email?",
@@ -345,6 +345,11 @@ I18n.translations.en = {
       image: "Badge image",
       created: "Created",
       admin: "Admin",
+      alignmentName: "Name",
+      alignmentFramework: "Framework",
+      alignmentUrl: "URL",
+      alignmentCode: "Code",
+      amount: "Amount",
       name: "Name",
       description: "Short description",
       criteria_text: "What is required to earn this edubadge?",
@@ -358,8 +363,12 @@ I18n.translations.en = {
       expireSettings: "Default expiration settings",
       language: "Language of instruction",
       learningOutcome: "Learning outcome",
-      ects: "Credit points",
+      ects: {
+        creditPoints: "Credit points (according to ECTS)",
+        hours: "Hours"
+      },
       ectsLong: "European Credit Transfer and Accumulation System",
+      typeOfStudyLoad: "Type of study load",
       eqf: "NLQF level",
       educationProgramIdentifier: "ISAT",
       educationProgramIdentifierLong: "Programme Identifier",
@@ -373,12 +382,19 @@ I18n.translations.en = {
       headers: {
         basicInformation: "Basic information",
         earningCriteria: "Earning criteria",
-        creditPoints: "Credit Points",
-        educationalIdentifiers: "Educational Identifiers"
+        additionalSections: "Additional sections",
+        educationalIdentifiers: "Educational Identifiers",
+        studyLoad: "Credit Points",
+        alignment: "Alignment"
+      },
+      addButtons: {
+        educationalIdentifiers: "Add educational identifiers",
+        studyLoad: "Add study load",
+        alignment: "Add alignment",
       },
       info: {
         educationProgramIdentifier:
-          "Consult <a target='_blank' rel='noreferrer' href='https://apps.duo.nl/MCROHO/pages/zoeken.jsf'>the DUO CROHO register</a> or <a target='_blank' rel='noreferrer' href='https://kwalificaties.s-bb.nl/Lijsten/Groep/14'>the SBB CREDO lists</a> if you don’t know the code.",
+          "Consult <a target='_blank' rel='noreferrer' href='https://apps.duo.nl/MCROHO/pages/zoeken.jsf'>the DUO CROHO register</a> or <a target='_blank' rel='noreferrer' href='https://kwalificaties.s-bb.nl/Lijsten/Groep/14'>the SBB CREBO lists</a> if you don’t know the code.",
         eqf:
           "Check <a target='_blank' rel='noreferrer' href='https://www.nlqf.nl/nlqf-niveaus'>https://www.nlqf.nl/nlqf-niveaus</a> for help",
         ects:
@@ -436,7 +452,7 @@ I18n.translations.en = {
       confirmation: {
         award: "Award enrollment",
         awardConfirmation: "Are you sure you want to award this enrollment?",
-        deny: "Award enrollment",
+        deny: "Deny enrollment",
         denyConfirmation: "Are you sure you want to deny this enrollment?"
       },
       flash: {
@@ -447,7 +463,7 @@ I18n.translations.en = {
   },
   invites: {
     title: "Invite people to enroll",
-    copyPublicUrl: "If you want to place the link to the registration page on your intranet or EOL, you can copy the link",
+    copyPublicUrl: "If you want to place the link to the registration page on your intranet or ELO, you can copy the link",
     copyUrl: "Copy URL"
   },
   file: {

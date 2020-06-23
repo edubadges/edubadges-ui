@@ -39,6 +39,7 @@
         .catch(() => {
           $redirectPath = window.location.pathname;
           navigate("/login");
+          $userLoggedIn = false;
           loaded = true;
         });
     } else {

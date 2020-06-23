@@ -17,12 +17,12 @@ I18n.translations.nl = {
   },
   login: {
     title: "Leven lang ontwikkelen",
-    loginToEnrol: "Login to enroll for this Badge",
+    loginToEnrol: "Login om deze edubadge aan te vragen",
     description:
       "Edubadges zijn digitale certificaten die aantonen dat de eigenaar bepaalde vaardigheden of kennis bezit. Edubadges kunnen worden uitgereikt voor zowel extracurriculaire activiteiten als geaccrediteerd onderwijs.",
     student: {
-      title: "Mijn Backpack",
-      subtitle: "Ontvang en deel edubadges",
+      title: "Ontvang en deel edubadges",
+      subtitle: "(Je hebt een eduID nodig om in te loggen))",
       action: "Open je Backpack",
       button: "Log in met je eduID",
       accountCreation: {
@@ -31,8 +31,8 @@ I18n.translations.nl = {
       },
     },
     teacher: {
-      title: "Issuers portaal",
-      subtitle: "Ken edubadges toe aan studenten",
+      title: "Ken edubadges toe",
+      subtitle: "(Toegang wordt verleend door de beheerder van de instelling)",
       action: "Ga naar het Issuers portaal",
       button: "Log in via SURFconext",
       accountCreation: {
@@ -41,16 +41,16 @@ I18n.translations.nl = {
       },
     },
     createEduId: {
-      askAccountYes: "Al <strong>wel</strong> een Backpack?",
+      askAccountYes: "Al <strong>wel</strong> een edubadges Backpack?",
       logInAccount: "Log in",
       createAccountButton: "Maak een eduID aan",
       back: "Terug",
       title: "Maak een Backpack aan",
-      subtitle: "je hebt een eduID nodig",
+      subtitle: "Je hebt een eduID nodig",
       step1: "Stap 1: Maak een eduID aan",
       step2: "Stap 2: verifieer uw identiteit",
-      welcome: "Welkom bij je Backpack",
-      awarded: "We hebben u uw eerste edubadge toegekend 😀",
+      welcome: "Welkom bij je edubadges Backpack",
+      awarded: "We hebben je je eerste edubadge toegekend 😀",
       infoStep2:
         "Om edubadges verder te kunnen ontvangen, moet u <strong> uw identiteit verifiëren </strong> bij uw onderwijsinstellingen. U kunt dit bewijzen door op de knop te klikken en u aan te melden bij uw instelling met uw instellingsaccount.",
       verification: "Verificatie geslaagd!",
@@ -111,7 +111,7 @@ I18n.translations.nl = {
       },
     },
     breadcrumb: {
-      back: "terug",
+      back: "Terug",
     },
     name: "Naam",
     nameEmail: "Naam/Email",
@@ -142,39 +142,39 @@ I18n.translations.nl = {
     enrolled: "Aangevraagd",
     withdraw: "Aanvraag intrekken",
     flash: {
-      enrolled: "Successfully enrolled for badge {{name}}.",
-      published: "This badge has been made public. You now can download and share this badge",
-      private: "This badge has been made private. You can no longer download or share this badge",
-      deleted: "This badge has been deleted. You can no longer download or share this badge",
-      claimed: "Successfully claimed this badge."
+      enrolled: "Successvol voor deze edubadge ingeschreven: {{name}}.",
+      published: "Deze edubadge is nu publiek gemaakt. Je kunt deze nu downloaden en delen met anderen.",
+      private: "Deze edubadge is nu prive gemaakt. Je kunt deze niet langer downloaden of delen met anderen.",
+      deleted: "Deze edubadge is verwijderd. Je kunt deze niet langer downloaden of delen met anderen.",
+      claimed: "Deze edubadge is succesvol aangevraagd."
     },
-    enrollments: "Requested badges",
-    badges: "Your badges",
-    deleteBadge: "Delete this badge",
-    share: "Share",
-    copyUrl: "Copy URL",
-    shareYourBadge: "Share your badge",
-    shareYourBadgeQuestion: "Your public badge URL is accessible for everyone",
-    badgeRevoked: "This badge has been revoked. You can see the details, but this badge can no longer be shared or downloaded",
-    privateBadge: "Private badge",
-    publicPrivate: "When your badge is private, only you can see it and download it",
+    enrollments: "Aangevraagde edubadges",
+    badges: "Jouw edubadges",
+    deleteBadge: "Verwijder deze edubadge",
+    share: "Deel",
+    copyUrl: "Kopieer URL",
+    shareYourBadge: "Deel jouw edubadge",
+    shareYourBadgeQuestion: "Jouw publieke edubadge URL is voor iedereen toegankelijk",
+    badgeRevoked: "Deze edubadge is ingetrokken. Je ziet deze nog wel, maar deze edubadge kan je niet langer delen",
+    privateBadge: "Prive edubadge",
+    publicPrivate: "Wanneer je edubadge prive is gezet, dan kan alleen jij deze edubadge zien en downloaden.",
     confirmation: {
-      publish: "Make this badge public accessible",
-      private: "Make this badge private",
-      deleteBadge: "Delete badge",
-      publishConfirmation: "Are you sure you want to make this badge public?",
-      privateConfirmation: "Are you sure you want to make this badge private?",
-      deleteBadgeConfirmation: "Are you sure you want to delete this badge?",
+      publish: "Maak deze edubadge publiekelijk beschikbaar",
+      private: "Maak deze edubadge prive",
+      deleteBadge: "Verwijder edubadge",
+      publishConfirmation: "Weet je het zeker dat je deze edubadge publiek wilt maken?",
+      privateConfirmation: "Weet je het zeker dat je deze edubadge prive wilt maken",
+      deleteBadgeConfirmation: "Weet je het zeker dat je deze edubadge wil verwijderen?",
     },
     validation: {
-      loading: "Validating badge...",
-      valid: "Valid badge",
-      invalid: "Invalid badge"
+      loading: "Edubadge wordt gevalideerd...",
+      valid: "Geldige edubadge",
+      invalid: "Ongeldige edubadge"
     }
   },
   manage: {
     tabs: {
-      institution: "instituut",
+      institution: "Instituut",
       issuers: "Issuers",
       faculties: "Groepen",
       badgeclasses: "Badgeclasses",
@@ -184,7 +184,7 @@ I18n.translations.nl = {
       assertions: "Toegekend",
     },
     edit: {
-      edit: "edit",
+      edit: "wijzig",
       institution: "Wijzig instituut",
       faculty: "Wijzig groep",
       issuer: "Wijzig issuer",
@@ -243,24 +243,24 @@ I18n.translations.nl = {
     702: "Ongeldige share provider",
     801: "Kan grading table URL niet aanpassen, er zijn al edubadges uitgegeven",
     802: "Kan BRIN code niet aanpassen, er zijn al edubadges uitgegeven",
-    unexpected: "Unexpected exception occurred."
+    unexpected: "Oops, er is iets totaal onverwachts en onverklaarbaars gebeurt. Heb je de applicatie stuk gemaakt?"
   },
   inviteUsers: {
     addUser: {
-      title: "Add user",
-      description: "Fill in the email address of the people you'd like to invite as a user to this entity. Your request will be sent, and you'll be notified when it's accepted or declined."
+      title: "Voeg gebruiker toe",
+      description: "Vul het e-mailadres in van de personen die je wilt uitnodigen voor deze entiteit."
     },
-    cancel: "cancel",
+    cancel: "annuleer",
     inviteStatus: "Status",
     sent: "Invite sent",
     accepted: "Accepted"
   },
   editUsers: {
-    institutionPermissions: "Permissions on institution level",
+    institutionPermissions: "Permissies op instellings nivo",
     institution: {
-      header: "Institution",
-      allRights: "Institution Admin",
-      noRights: "No rights"
+      header: "Instelling",
+      allRights: "Instellings Admin",
+      noRights: "Geen rechten"
     },
     issuerGroup: {
       header: "Issuer Group",
@@ -284,34 +284,34 @@ I18n.translations.nl = {
       institutionAllRights: "(because Institution Admin)",
       issuerGroupAllRights: "(because Issuer Group Admin)",
       issuerAllRights: "(because Issuer Admin)",
-      addPermissions: "Add permissions",
-      removePermissions: "Remove permissions",
-      removeAdmin: "Are you sure you want to remove institution admin?",
+      addPermissions: "Voeg permissies toe",
+      removePermissions: "Verwijder permissies",
+      removeAdmin: "Weet je zeker dat je de instellings Admin wilt verwijderen?",
       removeIssuerGroupAdmin: "Are you sure you want to remove this issuer group admin?",
       removeIssuerAdmin: "Are you sure you want to remove this issuer admin?",
       removeBadgeClassUser: "Are you sure you want to remove this role?",
-      setInstitutionAdmin: "Make user institution admin",
-      removeInstitutionAdmin: "Remove user institution admin",
-      inviteNewUser: "Invite new User"
+      setInstitutionAdmin: "Maak gebruiker instellings Admin",
+      removeInstitutionAdmin: "Verwijder instellings Admin",
+      inviteNewUser: "Nodig nieuwe gebruiker uit"
     },
-    usersPermissions: "Users with permissions",
+    usersPermissions: "Gebruikers met permissies",
     modal: {
-      add: 'add'
+      add: 'voeg toe'
     },
-    role: "Role",
+    role: "Rol",
   },
   models: {
     inviteUsers: {
-      email: "email"
+      email: "e-mailadres"
     },
     editUsers: {
-      memberSince: "Member since",
-      email: "email",
-      role: 'Role',
-      notes: 'Notes',
-      badgeClass: "Select a badgeclass",
-      issuerGroup: "Select an issuer group",
-      issuer: "Select an issuer",
+      memberSince: "Lid sinds",
+      email: "e-mailadres",
+      role: 'Rol',
+      notes: 'Commentaar',
+      badgeClass: "Selecteer een badgeclass",
+      issuerGroup: "Selecteer een issuer group",
+      issuer: "Selecteer een issuer",
     },
     institution: {
       created: "Vanaf",
@@ -345,6 +345,11 @@ I18n.translations.nl = {
       image: "Badge afbeelding",
       created: "Aangemaakt",
       admin: "Admin",
+      alignmentName: "Name",
+      alignmentFramework: "Framework",
+      alignmentUrl: "URL",
+      alignmentCode: "Code",
+      amount: "Amount",
       name: "Naam",
       description: "Beschrijving",
       criteria_text: "Wat is benodigd om deze edubadge te verdienen?",
@@ -358,8 +363,12 @@ I18n.translations.nl = {
       expireSettings: "Standaard verloop setting",
       language: "Language of instruction",
       learningOutcome: "Leeruitkomst",
-      ects: "Credit points",
+      ects: {
+        creditPoints: "Studiepunten (ECTS)",
+        hours: "Uren"
+      },
       ectsLong: "European Credit Transfer and Accumulation System",
+      typeOfStudyLoad: "Soort studielast",
       eqf: "NLQF niveau",
       educationProgramIdentifier: "ISAT",
       educationProgramIdentifierLong: "Programme Identifier",
@@ -373,12 +382,19 @@ I18n.translations.nl = {
       headers: {
         basicInformation: "Basis informatie",
         earningCriteria: "Leer criteria",
-        creditPoints: "Credit Points",
-        educationalIdentifiers: "Educational Identifiers"
+        additionalSections: "Extra toevoegingen",
+        educationalIdentifiers: "Onderwijsidentificatie",
+        studyLoad: "Studiepunten",
+        alignment: "Alignment"
+      },
+      addButtons: {
+        educationalIdentifiers: "Add educational identifiers",
+        studyLoad: "Add study load",
+        alignment: "Add alignment",
       },
       info: {
         educationProgramIdentifier:
-          "Raadpleeg <a target='_blank' rel='noreferrer' href='https://apps.duo.nl/MCROHO/pages/zoeken.jsf'>het DUO CROHO register</a> of <a target='_blank' rel='noreferrer' href='https://kwalificaties.s-bb.nl/Lijsten/Groep/14'>de SBB CREDO lijsten</a> als je deze code niet weet.",
+          "Raadpleeg <a target='_blank' rel='noreferrer' href='https://apps.duo.nl/MCROHO/pages/zoeken.jsf'>het DUO CROHO register</a> of <a target='_blank' rel='noreferrer' href='https://kwalificaties.s-bb.nl/Lijsten/Groep/14'>de SBB CREBO lijsten</a> als je deze code niet weet.",
         eqf:
           "Check <a target='_blank' rel='noreferrer' href='https://www.nlqf.nl/nlqf-niveaus'>https://www.nlqf.nl/nlqf-niveaus</a> voor een overzicht",
         ects:
@@ -391,8 +407,8 @@ I18n.translations.nl = {
       emailAddresses: "Plak e-mailadressen",
       details: "Details",
       recipient: "Ontvanger",
-      requested: "Requested",
-      awarded: "Awarded badges",
+      requested: "Aangevraagd",
+      awarded: "Toegekende edubadges",
       awardType: {
         name: "Award type",
         enrolled: "Enrolled",
@@ -403,52 +419,52 @@ I18n.translations.nl = {
       expires: "Expires",
       expiresNever: "Never",
       download: "Download",
-      share: "Share",
+      share: "Deel",
       status: "Status",
       revoked: "Ingetrokken",
       validUntil: "Geldig tot",
       statuses: {
-        new: "New",
+        new: "Nieuw",
       },
       confirmation: {
-        revocationReason: "Reason for revocation (required)",
-        revoke: "Revoke assertion",
-        revokeConfirmation: "Are you sure you want to revoke this assertion?"
+        revocationReason: "Reden voor intrekking (verplicht)",
+        revoke: "Trek edubadge in",
+        revokeConfirmation: "Weet je zeker dat je deze edubadge wilt intrekken?"
       },
       flash: {
-        revoked: "The assertion(s) have been revoked."
+        revoked: "De edubadge(s) zijn ingetrokken."
       }
     },
     enrollment: {
-      title: "Enrolled persons",
-      enrolled: "Enrolled",
-      enrolledOn: "Enrolled on",
-      deleteEnrollment: "Verwijder assertion",
-      deleteEnrollmentConfirmation: "Weet je zeker dat je deze enrollment wilt verwijderen?",
-      award: "Award",
-      denied: "Denied",
-      deny: "Deny request",
+      title: "Ingeschreven personen",
+      enrolled: "Ingeschreven",
+      enrolledOn: "Ingeschreven op",
+      deleteEnrollment: "Verwijder inschrijving",
+      deleteEnrollmentConfirmation: "Weet je zeker dat je deze inschrijving wilt verwijderen?",
+      award: "Ken toe",
+      denied: "Geweigerd",
+      deny: "Weiger verzoek",
       enrollmentType: {
-        name: "Enrollment type",
-        enrolled: "Self - enrolled",
-        invited: "Invited"
+        name: "Type inschrijving",
+        enrolled: "Zelf ingeschreven",
+        invited: "Uitgenodigd"
       },
       confirmation: {
-        award: "Award enrollment",
-        awardConfirmation: "Are you sure you want to award this enrollment?",
-        deny: "Award enrollment",
-        denyConfirmation: "Are you sure you want to deny this enrollment?"
+        award: "Ken inschrijving toe",
+        awardConfirmation: "Weet je zeker dat je deze inschrijving wilt toekennen?",
+        deny: "Wijs inschrijving af",
+        denyConfirmation: "Weet u zeker dat u deze inschrijving wilt afwijzen?"
       },
       flash: {
-        denied: "The enrollment(s) have been denied.",
-        awarded: "The enrollment(s) have been awarded."
+        denied: "De inschrijving(en) zijn afgewezen.",
+        awarded: "De inschrijving(en) zijn toegekend."
       }
     },
   },
   invites: {
-    title: "Invite people to enroll",
-    copyPublicUrl: "If you want to place the link to the registration page on your intranet or EOL, you can copy the link",
-    copyUrl: "Copy URL"
+    title: "Nodig iemand uit om zich in te schrijven",
+    copyPublicUrl: "Als u de link naar de registratiepagina op uw intranet of ELO wilt plaatsen, kunt u de link kopiëren",
+    copyUrl: "Kopieer URL"
   },
   file: {
     noFileSelected: "Geen bestand geselecteerd",
@@ -458,6 +474,6 @@ I18n.translations.nl = {
       "Afbeelding moet van het type png zijn, tenminste 90x90 pixels en kleiner dan 256KB.",
   },
   copyToClipboard: {
-    copied: "Copied to clipboard"
+    copied: "Naar klembord gekopieerd"
   }
 };

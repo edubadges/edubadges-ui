@@ -4,7 +4,7 @@
   export let onClick;
 </script>
 
-<style>
+<style lang="scss">
   a {
     text-decoration: none;
 
@@ -13,13 +13,18 @@
     height: 70px;
     margin-top: 20px;
 
-    background-color: #d8d8d8;
+    background-color: var(--purple);
+    color: white;
     border-radius: 5px;
-    border: 1px solid #979797;
+    font-size: 20px;
 
     display: flex;
     flex-direction: column;
     justify-content: center;
+
+    &:hover {
+      color: darken(white, 10%);
+    }
   }
 </style>
 
