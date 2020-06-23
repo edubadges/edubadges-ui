@@ -335,6 +335,11 @@ I18n.translations.nl = {
       image: "Badge afbeelding",
       created: "Aangemaakt",
       admin: "Admin",
+      alignmentName: "Name",
+      alignmentFramework: "Framework",
+      alignmentUrl: "URL",
+      alignmentCode: "Code",
+      amount: "Amount",
       name: "Naam",
       description: "Beschrijving",
       criteria_text: "Wat is benodigd om deze edubadge te verdienen?",
@@ -348,8 +353,12 @@ I18n.translations.nl = {
       expireSettings: "Standaard verloop setting",
       language: "Language of instruction",
       learningOutcome: "Leeruitkomst",
-      ects: "Credit points",
+      ects: {
+        creditPoints: "Studiepunten (ECTS)",
+        hours: "Uren"
+      },
       ectsLong: "European Credit Transfer and Accumulation System",
+      typeOfStudyLoad: "Soort studielast",
       eqf: "NLQF niveau",
       educationProgramIdentifier: "ISAT",
       educationProgramIdentifierLong: "Programme Identifier",
@@ -363,8 +372,15 @@ I18n.translations.nl = {
       headers: {
         basicInformation: "Basis informatie",
         earningCriteria: "Leer criteria",
-        creditPoints: "Studie punten",
-        educationalIdentifiers: "Onderwijsidentificatie"
+        additionalSections: "Extra toevoegingen",
+        educationalIdentifiers: "Onderwijsidentificatie",
+        studyLoad: "Studiepunten",
+        alignment: "Alignment"
+      },
+      addButtons: {
+        educationalIdentifiers: "Add educational identifiers",
+        studyLoad: "Add study load",
+        alignment: "Add alignment",
       },
       info: {
         educationProgramIdentifier:
