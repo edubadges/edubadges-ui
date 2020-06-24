@@ -24,7 +24,7 @@ I18n.translations.en = {
     student: {
       title: "Backpack",
       subtitle: "Receive and collect badges",
-      noEduId: "<sup>*</sup>If you don't have an eduID yet, we'll help you get one in less then 30 seconds",
+      noEduId: "If you don't have an eduID yet, we'll help you get one in less then 30 seconds",
       action: "Enter with eduID",
     },
     teacher: {
