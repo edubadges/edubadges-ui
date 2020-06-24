@@ -22,7 +22,7 @@
     "serialize-javascript": "^2.1.2",
     "serve": "^11.2.0",
     "style-loader": "^1.0.0",
-    "svelte": "^3.23.3",
+    "svelte": "^3.23.1",
     "svelte-loader": "2.13.6",
     "svelte-preprocess": "^3.9.10",
     "svg-inline-loader": "^0.8.0",
