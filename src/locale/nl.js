@@ -18,41 +18,33 @@ I18n.translations.nl = {
   login: {
     title: "Leven lang ontwikkelen",
     loginToEnrol: "Login om deze edubadge aan te vragen",
+    destination: "Waar wil je heen?",
     description:
       "Edubadges zijn digitale certificaten die aantonen dat de eigenaar bepaalde vaardigheden of kennis bezit. Edubadges kunnen worden uitgereikt voor zowel extracurriculaire activiteiten als geaccrediteerd onderwijs.",
     student: {
       title: "Ontvang en deel edubadges",
       subtitle: "(Je hebt een eduID nodig om in te loggen))",
+      noEduId: "<sup>*</sup>Als je nog geen eduID hebt, dan helpen we je om er één aan te maken in minder dan 30 sseconden.",
       action: "Open je Backpack",
-      button: "Log in met je eduID",
-      accountCreation: {
-        askAccountNo: "Nog <strong>geen</strong> Backpack?",
-        startAccount: "Klik hier",
-      },
     },
     teacher: {
       title: "Ken edubadges toe",
       subtitle: "(Toegang wordt verleend door de instellingsbeheerder)",
       action: "Ga naar het Issuers portaal",
-      button: "Log in via SURFconext",
       accountCreation: {
         askAccount: "Nog <strong>geen</strong> toegang?",
         startAccount: "Neem contact op met je instellingsbeheerder",
       },
+      byInviteOnly: "Alleen op uitnodiging"
     },
     createEduId: {
-      askAccountYes: "Al <strong>wel</strong> een edubadges Backpack?",
       logInAccount: "Log in",
       createAccountButton: "Maak een eduID aan",
       back: "Terug",
       title: "Maak een Backpack aan",
       subtitle: "Je hebt een eduID nodig",
-      step1: "Stap 1: Maak een eduID aan",
-      step2: "Stap 2: verifieer uw identiteit",
       welcome: "Welkom bij je edubadges Backpack",
       awarded: "We hebben je je eerste edubadge toegekend 😀",
-      infoStep2:
-        "Om edubadges verder te kunnen ontvangen, moet u <strong> uw identiteit verifiëren </strong> bij uw onderwijsinstellingen. U kunt dit bewijzen door op de knop te klikken en u aan te melden bij uw instelling met uw instellingsaccount.",
       verification: "Verificatie geslaagd!",
       infoStep3: "Je kunt nu edubadges in je Backpack ontvangen.",
       require:
