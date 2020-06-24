@@ -45,7 +45,8 @@
     "js-cookie": "^2.2.1",
     "moment": "^2.24.0",
     "svelte-routing": "^1.4.2",
-    "svelte-select": "^3.8.1"
+    "svelte-select": "^3.8.1",
+    "jwt-decode": "^2.2.0"
   },
   "performance": {
     "hints": true

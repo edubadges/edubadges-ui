@@ -18,8 +18,6 @@
     userLoggedIn,
     userRole,
     authToken,
-    userVerifiedByInstitution,
-    userInVerificationFlow,
     redirectPath
   } from "../../stores/user";
   import {TextInput} from "../../components/forms";
@@ -108,8 +106,6 @@
         $userLoggedIn = "";
         $userRole = "";
         $authToken = "";
-        $userVerifiedByInstitution = false;
-        $userInVerificationFlow = false;
         $redirectPath = "";
         navigate("/login?after_delete=true");
       });

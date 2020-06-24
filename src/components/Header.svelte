@@ -9,8 +9,6 @@
     userLoggedIn,
     userRole,
     authToken,
-    userVerifiedByInstitution,
-    userInVerificationFlow,
     redirectPath
   } from "../stores/user";
 
@@ -18,8 +16,6 @@
     $userLoggedIn = "";
     $userRole = "";
     $authToken = "";
-    $userVerifiedByInstitution = false;
-    $userInVerificationFlow = false;
     $redirectPath = "";
 
     navigate("/login");

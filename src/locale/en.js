@@ -38,22 +38,9 @@ I18n.translations.en = {
       byInviteOnly: "By invite only"
     },
     createEduId: {
-      logInAccount: "Log in",
-      createAccountButton: "Create an eduID",
-      back: "Back",
-      title: "Create a Backpack",
-      subtitle: "you'll need an eduID",
       welcome: "Welcome to your Backpack",
       awarded: "We’ve awarded you with your first edubadge 😀",
-      verification: "Verification succeeded!",
-      infoStep3: "You can now receive edubadges in your Backpack.",
-      require:
-        "To create an edubadges Backpack, you will need an eduID.<br/><br/>While creating an eduID you are asked to prove that you are following education in the Netherlands by verifying your institution.",
-      steps: {
-        step1: "Create an eduID",
-        step2: "Verify your institution",
-        step3: "Receive & share edubadges",
-      },
+      info: "You can now receive edubadges in your Backpack."
     },
   },
   profile: {
@@ -86,7 +73,7 @@ I18n.translations.en = {
     confirm: "Confirm",
   },
   backpack: {
-    title: "Your edubadges",
+    title: "Your badges",
   },
   notFound: {
     main: "404 - Not Found",
@@ -467,5 +454,9 @@ I18n.translations.en = {
   },
   copyToClipboard: {
     copied: "Copied to clipboard"
+  },
+  acceptTerms: {
+    termsOfUseLink: "https://www.surf.nl/edubadges-nationale-aanpak-voor-inzet-van-badges",
+    badgeAwardTerms: "https://www.surf.nl/edubadges-nationale-aanpak-voor-inzet-van-badges"
   }
 };

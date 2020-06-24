@@ -1,7 +1,8 @@
 <script>
   import {onMount} from "svelte";
   import {Router, Route, navigate} from "svelte-routing";
-  import {Student, ProcessToken, NotFound, Login, Validate} from "./routes";
+  import {Student, ProcessToken, NotFound, Login} from "./routes";
+  import AcceptTerms from "./routes/AcceptTerms.svelte";
   import {Badges, Manage, Users, EditUsers} from "./routes/teachers";
   import Test from "./routes/Test.svelte";
   import {Header, Footer, SubscribeToPath, Spinner} from "./components";
@@ -31,7 +32,7 @@
   onMount(() => {
     //if we are heading to /auth/login/ then we proceed
     const path = window.location.pathname;
-    if (path.indexOf("public") === -1 && path !== "/auth/login/" && path !== "/validate") {
+    if (path.indexOf("public") === -1 && path !== "/auth/login/" && path.indexOf("signup") === -1) {
       getSocialAccount()
         .then(res => {
           loaded = true;
@@ -104,7 +105,7 @@
         <Route path="/details/:entityId/" let:params>
           <BadgeDetails entityId={params.entityId}/>
         </Route>
-        <Route path="/validate" component={Validate}/>
+        <Route path="/signup" component={AcceptTerms}/>
 
         <!-- Teacher -->
         <Route path="/users" component={Users}/>

@@ -6,20 +6,14 @@ export const userLoggedIn = writable(
   localStorage.getItem("userLoggedIn") || ""
 );
 export const authToken = writable(localStorage.getItem("authToken") || "");
-export const userVerifiedByInstitution = writable(
-  localStorage.getItem("userVerifiedByInstitution") || ""
-);
-export const userInVerificationFlow = writable(
-  localStorage.getItem("userInVerificationFlow") || ""
+export const userHasClosedWelcome = writable(
+  localStorage.getItem("userHasClosedWelcome") || ""
 );
 
 redirectPath.subscribe((val) => localStorage.setItem("redirectPath", val));
 userRole.subscribe((val) => localStorage.setItem("userRole", val));
 userLoggedIn.subscribe((val) => localStorage.setItem("userLoggedIn", val));
 authToken.subscribe((val) => localStorage.setItem("authToken", val));
-userVerifiedByInstitution.subscribe((val) =>
-  localStorage.setItem("userVerifiedByInstitution", val)
-);
-userInVerificationFlow.subscribe((val) =>
-  localStorage.setItem("userInVerificationFlow", val)
+userHasClosedWelcome.subscribe((val) =>
+  localStorage.setItem("userHasClosedWelcome", val)
 );

@@ -65,7 +65,9 @@
       badgeclass {
         name,
         image,
+        description,
         entityId,
+        criteriaUrl,
         issuer {
           name,
           image,
@@ -291,6 +293,10 @@
     }
   }
 
+  div.description {
+    margin-bottom: 40px;
+  }
+
   div.delete {
     display: flex;
     padding: 0 0 44px 0;
@@ -366,6 +372,10 @@
           <h3>{I18n.t("models.badge.expires")}</h3>
           <span>{badge.expires ? moment(badge.expires).format('MMM D, YYYY') : I18n.t("models.badge.expiresNever")}</span>
         </div>
+      </div>
+      <div class="description">
+        <h3>{I18n.t("models.badgeclass.description")}</h3>
+        <span>{badge.badgeclass.description}</span>
       </div>
       <div class="issued">
         <h3>{I18n.t("models.badge.issuedBy")}</h3>

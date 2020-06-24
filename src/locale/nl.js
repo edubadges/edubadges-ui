@@ -467,5 +467,10 @@ I18n.translations.nl = {
   },
   copyToClipboard: {
     copied: "Naar klembord gekopieerd"
+  },
+  acceptTerms: {
+    termsOfUseLink: "https://www.surf.nl/edubadges-nationale-aanpak-voor-inzet-van-badges",
+    badgeAwardTerms: "https://www.surf.nl/edubadges-nationale-aanpak-voor-inzet-van-badges"
   }
+
 };

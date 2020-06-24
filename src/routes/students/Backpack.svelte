@@ -3,9 +3,8 @@
   import Spinner from "../../components/Spinner.svelte";
   import {onMount} from "svelte";
   import {
-    userVerifiedByInstitution,
-    userInVerificationFlow,
     userLoggedIn,
+    userHasClosedWelcome,
     userRole,
     authToken
   } from "../../stores/user";
@@ -25,16 +24,7 @@
     });
   });
 
-
-  $: userIdentity =
-    $userVerifiedByInstitution === true || $userVerifiedByInstitution === "true"
-      ? true
-      : false;
-  $: userVerification =
-    $userInVerificationFlow === true || $userInVerificationFlow === "true"
-      ? true
-      : false;
-
+  $: showWelcome = !$userHasClosedWelcome || $userHasClosedWelcome === "false" ? true : false;
 
 </script>
 <style>
@@ -66,11 +56,8 @@
 </style>
 <div>
   <h3>{I18n.t('backpack.title')}</h3>
-  {#if !userIdentity}
-    <Welcome activeStep={2}/>
-  {/if}
-  {#if userVerification}
-    <Welcome activeStep={3}/>
+  {#if !$userHasClosedWelcome}
+    <Welcome/>
   {/if}
   {#if loaded}
     <div class="content">

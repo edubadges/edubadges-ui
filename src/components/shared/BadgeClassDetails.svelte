@@ -36,6 +36,7 @@
   table.extensions th,
   table.extensions td {
     text-align: left;
+    width: 33%;
   }
 
   thead.purple {
@@ -62,7 +63,9 @@
   </p>
   <h3>{I18n.t('models.badgeclass.criteria_text')}</h3>
   <div class="info">
-    <p>{fallBackValue(badgeclass.criteriaText || badgeclass.criteriaText)}</p>
+    {#if badgeclass.criteriaText}
+      <p>{fallBackValue(badgeclass.criteriaText || badgeclass.criteriaText)}</p>
+    {/if}
     <p class="green">
       {I18n.t('models.badgeclass.criteria_url_value')}
       {#if badgeclass.criteriaUrl}
@@ -75,9 +78,9 @@
     </p>
     <table class="extensions">
       <thead class="purple">
-      <th>{I18n.t('models.badgeclass.ects')}</th>
-      <th>{I18n.t('models.badgeclass.eqf')}</th>
-      <th>{I18n.t('models.badgeclass.educationProgramIdentifier')}</th>
+      <th class="ects">{I18n.t('models.badgeclass.ects.creditPoints')}</th>
+      <th class="eqf">{I18n.t('models.badgeclass.eqf')}</th>
+      <th class="epi">{I18n.t('models.badgeclass.educationProgramIdentifier')}</th>
       </thead>
       <tbody>
       <tr>
