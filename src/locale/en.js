@@ -45,8 +45,12 @@ I18n.translations.en = {
   },
   authError: {
     title: "Sorry, you don't have access",
-    subtitle: "The edubadges Issuer Portal is an invite-only service, so we can't show you anything now.",
-    tip: "You can request access to this service by contacting your institution admin via email."
+    adminEmail: "If you want, you can request access to this service by contacting your institution admin <a href='mailto:{{email}}' style='color: black;text-decoration: underline'>via email</a>",
+    tip: "TIP",
+    code: {
+      "1": "An unexpected exception has occurred. Please contact <a href='mailto:edubadges@surf.nl'>edubadges@surf.nl</a> for support",
+      "2": "The edubadges Issuer Portal is an invite-only service, so we can't show you anything now."
+    }
   },
   profile: {
     profile: "Your account",

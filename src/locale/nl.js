@@ -38,28 +38,19 @@ I18n.translations.nl = {
       byInviteOnly: "Alleen op uitnodiging"
     },
     createEduId: {
-      logInAccount: "Log in",
-      createAccountButton: "Maak een eduID aan",
-      back: "Terug",
-      title: "Maak een Backpack aan",
-      subtitle: "Je hebt een eduID nodig",
       welcome: "Welkom bij je edubadges Backpack",
       awarded: "We hebben je je eerste edubadge toegekend 😀",
-      verification: "Verificatie geslaagd!",
-      infoStep3: "Je kunt nu edubadges in je Backpack ontvangen.",
-      require:
-        "Om een edubadges Backpack aan te maken heb je een eduID nodig. Na het aanmaken van een eduID kan je je onderwijsinstelling verifiëren.",
-      steps: {
-        step1: "Maak een eduID aan",
-        step2: "Verifieer bij je instelling",
-        step3: "Ontvang & deel edubadges",
-      },
+      info: "Je kunt nu edubadges in je Backpack ontvangen.",
     },
   },
   authError: {
     title: "Sorry, you don't have access",
-    subtitle: "The edubadges Issuer Portal is an invite-only service, so we can't show you anything now.",
-    tip: "You can request access to this service by contacting your institution admin via email."
+    adminEmail: "If you want, you can request access to this service by contacting your institution admin <a href='mailto:{{email}}' style='color: black;text-decoration: underline'>via email</a>",
+    tip: "TIP",
+    code: {
+      "1": "An unexpected exception has occurred. Please contact <a href='mailto:edubadges@surf.nl'>edubadges@surf.nl</a> for support",
+      "2": "The edubadges Issuer Portal is an invite-only service, so we can't show you anything now."
+    }
   },
   profile: {
     profile: "Profiel",
@@ -475,8 +466,13 @@ I18n.translations.nl = {
     copied: "Naar klembord gekopieerd"
   },
   acceptTerms: {
-    termsOfUseLink: "https://www.surf.nl/edubadges-nationale-aanpak-voor-inzet-van-badges",
-    badgeAwardTerms: "https://www.surf.nl/edubadges-nationale-aanpak-voor-inzet-van-badges"
+    welcome: "Hi {{name}}",
+    acceptTerms: "To proceed you must accept these terms",
+    eduBadges: "Agreement with eduBadges",
+    termsOfUse: "Please read and accept the <a href=\"https://www.surf.nl/edubadges-nationale-aanpak-voor-inzet-van-badges\" target=\"_blank\">terms of service of edubadges<a/>.",
+    badgeAwardTerms: "Please read and accept the <a href=\"https://www.surf.nl/edubadges-nationale-aanpak-voor-inzet-van-badges\" target=\"_blank\">badge awarding terms<a/> for institution(s).",
+    acceptTermsOfUse: "I accept the Terms of Service",
+    acceptBadgeAwardTerms: "I accept the Awarding Terms",
+    accept: "Get it on!"
   }
-
 };

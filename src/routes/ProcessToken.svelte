@@ -1,41 +1,70 @@
 <script>
   import I18n from "i18n-js";
-  import {
-    userLoggedIn,
-    authToken,
-    userRole,
-    redirectPath
-  } from "../stores/user";
+  import {userLoggedIn, authToken, userRole, redirectPath} from "../stores/user";
   import {navigate} from "svelte-routing";
   import {onMount} from "svelte";
-  import {getSocialAccount} from "../api";
-  import {role} from "../util/role";
+  import tip from "../icons/tip.svg";
   import Spinner from "../components/Spinner.svelte";
 
   let authError;
+  let code = 1;
+  let adminEmail;
 
   onMount(() => {
-    $authToken = new URLSearchParams(window.location.search).get("authToken");
-    authError = new URLSearchParams(window.location.search).get("authError");
-    $userLoggedIn = true;
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    authError = urlSearchParams.get("authError");
 
-    let redirectTo = $redirectPath || "/";
-    if (redirectTo === "/login") {
-      redirectTo = "/";
+    if (!authError) {
+      $authToken = urlSearchParams.get("authToken");
+      $userLoggedIn = true;
+      let redirectTo = $redirectPath || "/";
+      if (redirectTo === "/login") {
+        redirectTo = "/";
+      }
+      navigate(redirectTo);
+    } else {
+      $userLoggedIn = false;
+      code = urlSearchParams.get("code") || "1";
+      adminEmail = urlSearchParams.get("admin_email");
     }
-    navigate(redirectTo);
+
   });
 </script>
 
 <style>
-  .content-auth-error {
+  .content-auth-error-container {
     display: flex;
-    justify-content: space-around;
+    margin: 10vh auto;
+    max-width: 420px;
   }
 
-  .auth-error-texts {
-    text-align: center;
+  .content-auth-error {
+    display: flex;
+    flex-direction: column;
   }
+
+  h1 {
+    color: var(--grey-9);
+    margin-bottom: 25px;
+  }
+
+  div.info {
+    display: flex;
+    align-items: center;
+    background-color: #fef49a;
+    border: 1px solid #dabc28;
+    border-bottom: 2px solid #dabc28;
+    padding: 15px 25px;
+    margin: 25px 0;
+    border-radius: 8px;
+  }
+
+  span.tip {
+    margin: 0 25px 0 10px;
+    font-weight: bold;
+  }
+
+
 </style>
 
 {#if !authError}
@@ -43,11 +72,19 @@
     <Spinner/>
   </div>
 {:else}
-  <div class="content-auth-error">
-    <div class="auth-error-texts">
-      <h1>{I18n.t(['authError', 'title'])}</h1>
-      <p>{I18n.t(['authError', 'subtitle'])}</p>
-      <p>{I18n.t(['authError', 'tip'])}</p>
+  <div class="content-auth-error-container">
+    <div class="content-auth-error">
+      <h1>{I18n.t("authError.title")}</h1>
+      <p>{@html I18n.t(`authError.code.${code}`)}</p>
+      {#if adminEmail && code === "2"}
+        <div class="info">
+          <span>{@html tip}</span>
+          <span class="tip">{I18n.t("authError.tip")}</span>
+          <span>{@html I18n.t("authError.adminEmail",{email:adminEmail})}</span>
+
+        </div>
+      {/if}
+
     </div>
   </div>
 {/if}

@@ -1,24 +1,27 @@
 <script>
-  import { link, navigate } from "svelte-routing";
+  import {link, navigate} from "svelte-routing";
   import I18n from "i18n-js";
-  import { currentPath } from "../../stores/currentPath";
+  import {
+    userLoggedIn, currentPath
 
-  import { Header } from "../../components";
+  } from "../../stores/user";
+
+  import {Header} from "../../components";
 
   $: tabs = [
     {
       path: "/",
-      active: !$currentPath.includes("/manage") && !$currentPath.includes("/users"),
+      active: $currentPath && !$currentPath.includes("/manage") && !$currentPath.includes("/users"),
       name: "badgeclasses"
     },
     {
       path: "/manage/institution/issuers",
-      active: $currentPath.includes("/manage"),
+      active: $currentPath && $currentPath.includes("/manage"),
       name: "manage"
     },
     {
       path: "/users",
-      active: $currentPath.includes("/users"),
+      active: $currentPath && $currentPath.includes("/users"),
       name: "users"
     }
   ];
@@ -53,10 +56,12 @@
 
 <Header logout>
   <nav>
-    {#each tabs as { path, active, name } (path)}
-      <a href={path} use:link class="button" class:active>
-        {I18n.t(['header', 'nav', name])}
-      </a>
-    {/each}
+    {#if $userLoggedIn}
+      {#each tabs as { path, active, name } (path)}
+        <a href={path} use:link class="button" class:active>
+          {I18n.t(['header', 'nav', name])}
+        </a>
+      {/each}
+    {/if}
   </nav>
 </Header>
