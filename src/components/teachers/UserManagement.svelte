@@ -6,6 +6,9 @@
   import {Select, Modal} from "../forms";
   import I18n from "i18n-js";
   import { navigate } from "svelte-routing";
+  // import { disinviteUser, removeStaffMembership } from "../../api";
+  import { sort, sortType } from "../../util/sortData";
+  import { searchMultiple } from "../../util/searchData";
 
   export let entity;
   export let entityId;
@@ -30,6 +33,9 @@
     ...badgeClassStaffs,
     ...userProvisionments
   ];
+
+  let staffSearch = '';
+  let staffSort = table.tableHeaders[2];
 
   // Remove permissions modal
   let showRemoveModal = false;
@@ -56,20 +62,20 @@
   };
 
   $: buttons = [
-      {
-          'action': removePermissions,
-          'text': I18n.t(['editUsers', 'permissions', 'removePermissions']),
-          'allowed': (permissions && permissions.mayAdministrateUsers && selection.length > 0),
-      },
-      {
-          'action': inviteNewUser,
-          'text': I18n.t(['editUsers', 'permissions', 'inviteNewUser']),
-          'allowed': (permissions && permissions.mayAdministrateUsers),
-      }
+    {
+      'action': removePermissions,
+      'text': I18n.t(['editUsers', 'permissions', 'removePermissions']),
+      'allowed': (permissions && permissions.mayAdministrateUsers && selection.length > 0),
+    },
+    {
+      'action': inviteNewUser,
+      'text': I18n.t(['editUsers', 'permissions', 'inviteNewUser']),
+      'allowed': (permissions && permissions.mayAdministrateUsers),
+    }
   ];
 
   const onCheckAll = val => {
-    selection = val ? staffs.map(({entityId, _staffType}) => {return {entityId, _staffType}}) : [];
+    selection = val ? staffs.map(({entityId, _staffType}) => ({entityId, _staffType})) : [];
     table.checkAllValue = val;
   };
 
@@ -82,6 +88,15 @@
       table.checkAllValue = false;
     }
   };
+
+  $: searchedStaffIds = searchMultiple(staffs, staffSearch, "entityId", "user.firstName", "email", "user.lastName", "user.email");
+
+  $: sortedFilteredStaffs = sort(
+    staffs.filter(el => searchedStaffIds.includes(el.entityId)),
+    staffSort.attribute,
+    staffSort.reverse,
+    staffSort.sortType
+  )
 </script>
 
 <div class="container">
@@ -90,8 +105,10 @@
       {onCheckAll}
       withCheckAll={true}
       bind:buttons={buttons}
+      bind:search={staffSearch}
+      bind:sort={staffSort}
   >
-    {#each staffs as {_staffType, user, entityId, email, createdAt, rejected, mayAdministrateUsers, mayUpdate, mayAward} (entityId)}
+    {#each sortedFilteredStaffs as {_staffType, user, entityId, email, createdAt, rejected, mayAdministrateUsers, mayUpdate, mayAward} (entityId)}
       <tr>
         {#if _staffType === staffType.USER_PROVISIONMENT}
           <td>
@@ -111,7 +128,7 @@
             <CheckBox
                 value={selection.includes(entityId)}
                 name={`select-${entityId}`}
-                disabled={entity === entityType.BADGE_CLASS}
+                disabled={false}
                 onChange={val => onCheckOne(val, entityId)}/>
           </td>
           <td>
@@ -142,7 +159,7 @@
             <CheckBox
                 value={selection.includes(entityId)}
                 name={`select-${entityId}`}
-                disabled={entity === entityType.ISSUER}
+                disabled={entity !== entityType.ISSUER}
                 onChange={val => onCheckOne(val, entityId)}/>
           </td>
           <td>
@@ -167,7 +184,7 @@
             <CheckBox
                 value={selection.includes(entityId)}
                 name={`select-${entityId}`}
-                disabled={entity === entityType.ISSUER_GROUP}
+                disabled={entity !== entityType.ISSUER_GROUP}
                 onChange={val => onCheckOne(val, entityId)}/>
           </td>
           <td>
@@ -192,7 +209,7 @@
             <CheckBox
                 value={selection.includes(entityId)}
                 name={`select-${entityId}`}
-                disabled={entity === entityType.INSTITUTION}
+                disabled={entity !== entityType.INSTITUTION}
                 onChange={val => onCheckOne(val, entityId)}/>
           </td>
           <td>

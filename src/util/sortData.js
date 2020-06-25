@@ -1,4 +1,5 @@
 import { permissionRoleValue } from "./permissionRolesToValue";
+import { staffType } from "./staffTypes";
 
 export const sortType = {
   ALPHA: "alpha",
@@ -6,7 +7,8 @@ export const sortType = {
   NUMERIC: "numeric",
   COLLECTION: "collection",
   ROLES: "roles",
-  INVITATION_STATUS: "invitationStatus"
+  INVITATION_STATUS: "invitationStatus",
+  PERSONAL_DATA: "personalData"
 };
 
 const defaultValue = (attr, howToSort) => {
@@ -53,7 +55,11 @@ export function sort(collection, attribute, reversed, howToSort = sortType.ALPHA
       case sortType.ROLES:
         return permissionRoleValue(b[attribute]) - permissionRoleValue(a[attribute]);
       case sortType.INVITATION_STATUS:
-        return 0;
+        return (b._staffType === staffType.USER_PROVISIONMENT ? Date.parse(b.createdAt) : 0) -
+            (a._staffType === staffType.USER_PROVISIONMENT ? Date.parse(a.createdAt) : 0);
+      case sortType.PERSONAL_DATA:
+        return (a._staffType === staffType.USER_PROVISIONMENT ? a.email : a.user.firstName + " " + a.user.lastName)
+            .localeCompare(b._staffType === staffType.USER_PROVISIONMENT ? b.email : b.user.firstName + " " + b.user.lastName);
       default:
         throw new Error(`Unsupported sortType ${howToSort}`);
     }

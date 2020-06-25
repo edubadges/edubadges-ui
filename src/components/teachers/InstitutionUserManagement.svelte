@@ -44,9 +44,15 @@
 
   onMount(() => {
     queryData(query).then(res => {
-      institutionStaffMembers = res.currentInstitution.staff.map(staff => staff._staffType = staffType.INSTITUTION_STAFF);
+      institutionStaffMembers = res.currentInstitution.staff.map(staff => {
+        staff._staffType = staffType.INSTITUTION_STAFF;
+        return staff;
+      });
+      userProvisionments = res.currentInstitution.userprovisionments.map(staff => {
+        staff._staffType = staffType.USER_PROVISIONMENT;
+        return staff;
+      });
       permissions = res.currentInstitution.permissions;
-      userProvisionments = res.currentInstitution.userprovisionments.map(staff => staff._staffType = staffType.USER_PROVISIONMENT);
     })
   });
 
@@ -55,7 +61,7 @@
       name: I18n.t(["teacher", "nameEmail"]),
       attribute: "name",
       reverse: false,
-      sortType: sortType.ALPHA
+      sortType: sortType.PERSONAL_DATA
     },
     {
       name: I18n.t("editUsers.role"),
@@ -65,7 +71,7 @@
     },
     {
       name: I18n.t(["inviteUsers", "inviteStatus"]),
-      attribute: "",
+      attribute: "invitation",
       reverse: false,
       sortType: sortType.INVITATION_STATUS
     }
@@ -85,7 +91,14 @@
 
   const reload = () => {
     queryData(query).then(res => {
-      institutionStaffMembers = res.currentInstitution.staff;
+      institutionStaffMembers = res.currentInstitution.staff.map(staff => {
+        staff._staffType = staffType.INSTITUTION_STAFF;
+        return staff;
+      });
+      userProvisionments = res.currentInstitution.userprovisionments.map(staff => {
+        staff._staffType = staffType.USER_PROVISIONMENT;
+        return staff;
+      });
     });
   };
 
