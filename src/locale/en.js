@@ -56,6 +56,11 @@ I18n.translations.en = {
       },
     },
   },
+  authError: {
+    title: "Sorry, you don't have access",
+    subtitle: "The edubadges Issuer Portal is an invite-only service, so we can't show you anything now.",
+    tip: "You can request access to this service by contacting your institution admin via email."
+  },
   profile: {
     profile: "Your account",
     name: "Name",
@@ -240,7 +245,8 @@ I18n.translations.en = {
   inviteUsers: {
     addUser: {
       title: "Add user",
-      description: "Fill in the email address of the people you'd like to invite as a user to this entity. Your request will be sent, and you'll be notified when it's accepted or declined."
+      description: "Fill in the email address of the people you'd like to invite as a user to this entity. Your request will be sent, and you'll be notified when it's accepted or declined.",
+      success: "User successfully invited",
     },
     cancel: "cancel",
     inviteStatus: "Status",

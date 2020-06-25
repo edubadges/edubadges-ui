@@ -56,6 +56,11 @@ I18n.translations.nl = {
       },
     },
   },
+  authError: {
+    title: "Sorry, you don't have access",
+    subtitle: "The edubadges Issuer Portal is an invite-only service, so we can't show you anything now.",
+    tip: "You can request access to this service by contacting your institution admin via email."
+  },
   profile: {
     profile: "Profiel",
     name: "Naam",
@@ -240,7 +245,8 @@ I18n.translations.nl = {
   inviteUsers: {
     addUser: {
       title: "Voeg gebruiker toe",
-      description: "Vul het e-mailadres in van de personen die je wilt uitnodigen voor deze entiteit."
+      description: "Vul het e-mailadres in van de personen die je wilt uitnodigen voor deze entiteit.",
+      success: "User successfully invited",
     },
     cancel: "annuleer",
     inviteStatus: "Status",

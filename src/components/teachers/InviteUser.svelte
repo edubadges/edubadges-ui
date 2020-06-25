@@ -5,6 +5,7 @@
   import { inviteUser } from "../../api";
   import { rolesToPermissions } from "../../util/rolesToPermissions";
   import {isNumber} from "lodash";
+  import {flash} from "../../stores/flash";
 
   export let contentType;
   export let entityId;
@@ -13,7 +14,7 @@
   export let defaultValue;
 
   let newUsers = [{'email': '', 'chosenRole': _.isNumber(defaultValue) ? permissionsRoles[defaultValue] : ''}];
-  let errors = {};
+  let errors = [];
 
   const addEmailField = () => {
     newUsers = [...newUsers, {'email': '', 'chosenRole': _.isNumber(defaultValue) ? permissionsRoles[defaultValue] : ''}];
@@ -22,12 +23,25 @@
   const cancel = () => window.history.back();
 
   const submit = () => {
-    const userProvisonments = newUsers.map(user => {
+    errors = [];
+    const userProvisonments = newUsers.filter(user => user.email !== '').map(user => {
       return {'userEmail': user.email, 'permissions': rolesToPermissions(user.chosenRole)};
     });
     inviteUser(contentType, entityId, userProvisonments).then(res => {
-      console.log(res);  // TODO: flash
-    });
+      if(res.some(el => {
+        return el.status === "failure"
+      })) {
+        errors = res.map(el => {
+          return [{'error_message': el.message.email[0]}]
+        });
+      }
+      if(res.some(el => {
+        return el.status === "success"
+      })) {
+        flash.setValue(I18n.t("inviteUsers.success"))
+      }
+
+    })
   };
 </script>
 
@@ -59,11 +73,11 @@
 
   <p>{I18n.t("inviteUsers.addUser.description")}</p>
 
-  {#each newUsers as newUser}
+  {#each newUsers as newUser, i}
     <div>
       <div class="user-invite">
         <div class="user-invite-field">
-          <Field entity={'inviteUsers'} attribute="email" errors={errors.email}>
+          <Field entity={'inviteUsers'} attribute="email" errors={errors[i]}>
             <TextInput bind:value={newUser.email} error={errors.email} />
           </Field>
         </div>
