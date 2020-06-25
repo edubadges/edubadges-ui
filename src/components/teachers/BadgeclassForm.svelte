@@ -5,6 +5,7 @@
   import { Field, Select, File, TextInput, AddButton } from "../forms";
   import { createBadgeclass, editBadgeclass } from "../../api";
   import ExpirationSettings from "./ExpirationSettings.svelte";
+  import {isEmpty} from "lodash";
   import {
     ects,
     educationProgramIdentifier,
@@ -36,6 +37,16 @@
     target_framework: "",
     target_code: ""
   };
+
+  $: if (!isEmpty(badgeclass.alignments)) {
+    alignment = {
+      target_name: badgeclass.alignments[0].targetName,
+      target_url: badgeclass.alignments[0].targetUrl,
+      target_framework: badgeclass.alignments[0].targetFramework,
+      target_code: badgeclass.alignments[0].targetCode
+    };
+    showAlignment = true;
+  }
 
   let EctsOrHours = [
       {name: I18n.t(['models', 'badgeclass', 'ects','creditPoints']), value:'creditPoints'},

@@ -24,7 +24,7 @@ I18n.translations.en = {
     student: {
       title: "Backpack",
       subtitle: "Receive and collect badges",
-      noEduId: "<sup>*</sup>If you don't have an eduID yet, we'll help you get one in less then 30 seconds",
+      noEduId: "If you don't have an eduID yet, we'll help you get one in less then 30 seconds",
       action: "Enter with eduID",
     },
     teacher: {
@@ -42,6 +42,11 @@ I18n.translations.en = {
       awarded: "We’ve awarded you with your first edubadge 😀",
       info: "You can now receive edubadges in your Backpack."
     },
+  },
+  authError: {
+    title: "Sorry, you don't have access",
+    subtitle: "The edubadges Issuer Portal is an invite-only service, so we can't show you anything now.",
+    tip: "You can request access to this service by contacting your institution admin via email."
   },
   profile: {
     profile: "Your account",
@@ -227,7 +232,8 @@ I18n.translations.en = {
   inviteUsers: {
     addUser: {
       title: "Add user",
-      description: "Fill in the email address of the people you'd like to invite as a user to this entity. Your request will be sent, and you'll be notified when it's accepted or declined."
+      description: "Fill in the email address of the people you'd like to invite as a user to this entity. Your request will be sent, and you'll be notified when it's accepted or declined.",
+      success: "User successfully invited",
     },
     cancel: "cancel",
     inviteStatus: "Status",

@@ -22,15 +22,15 @@ I18n.translations.nl = {
     description:
       "Edubadges zijn digitale certificaten die aantonen dat de eigenaar bepaalde vaardigheden of kennis bezit. Edubadges kunnen worden uitgereikt voor zowel extracurriculaire activiteiten als geaccrediteerd onderwijs.",
     student: {
-      title: "Ontvang en deel edubadges",
-      subtitle: "(Je hebt een eduID nodig om in te loggen))",
-      noEduId: "<sup>*</sup>Als je nog geen eduID hebt, dan helpen we je om er één aan te maken in minder dan 30 sseconden.",
-      action: "Open je Backpack",
+      title: "Backpack",
+      subtitle: "Ontvang en deel edubadges",
+      noEduId: "Als je nog geen eduID hebt, dan helpen we je om er één aan te maken in minder dan 30 sseconden.",
+      action: "Login met eduID",
     },
     teacher: {
-      title: "Ken edubadges toe",
-      subtitle: "(Toegang wordt verleend door de instellingsbeheerder)",
-      action: "Ga naar het Issuers portaal",
+      title: "Issuer portaal ",
+      subtitle: "Ken edubadges toe",
+      action: "Login met SURFconext",
       accountCreation: {
         askAccount: "Nog <strong>geen</strong> toegang?",
         startAccount: "Neem contact op met je instellingsbeheerder",
@@ -56,6 +56,11 @@ I18n.translations.nl = {
       },
     },
   },
+  authError: {
+    title: "Sorry, you don't have access",
+    subtitle: "The edubadges Issuer Portal is an invite-only service, so we can't show you anything now.",
+    tip: "You can request access to this service by contacting your institution admin via email."
+  },
   profile: {
     profile: "Profiel",
     name: "Naam",
@@ -67,9 +72,9 @@ I18n.translations.nl = {
     addEmail: "Voeg e-mailadres toe",
     addEmailInfo: "Je zult een e-mail ontvangen met een link om je e-mailadres te verifieren.",
     unverified: "Niet geverifieerd",
-    validatedByYourInstitution: "Validated by your institution",
-    deleteHeader: "Deleting your edubadges backpack",
-    deleteInfo: "<p>You can delete your backpack whenever you want.</p><p>Proceed with care, as you will loose all your badges.</p>",
+    validatedByYourInstitution: "Geverifieerd oor je instelling",
+    deleteHeader: "Bezig om je edubadges backpack te verwijderen",
+    deleteInfo: "<p>Je kunt je backpack verwijderen als je dat wilt.</p><p>Wees je dan wel bewust dat je al je edubadges zult verliezen.</p>",
     submit: "Voeg toe",
     deleteEmail: "Verwijder dit e-mailadres",
     deleteEmailConfirmation: "Weet je zeker dat je dit e-mailadres wilt verwijderen?",
@@ -240,7 +245,8 @@ I18n.translations.nl = {
   inviteUsers: {
     addUser: {
       title: "Voeg gebruiker toe",
-      description: "Vul het e-mailadres in van de personen die je wilt uitnodigen voor deze entiteit."
+      description: "Vul het e-mailadres in van de personen die je wilt uitnodigen voor deze entiteit.",
+      success: "User successfully invited",
     },
     cancel: "annuleer",
     inviteStatus: "Status",
@@ -272,7 +278,7 @@ I18n.translations.nl = {
       awarder: "awarder",
     },
     permissions: {
-      allRights: "All rights",
+      allRights: "Alle rechten",
       institutionAllRights: "(because Institution Admin)",
       issuerGroupAllRights: "(because Issuer Group Admin)",
       issuerAllRights: "(because Issuer Admin)",
