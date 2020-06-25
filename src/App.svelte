@@ -36,6 +36,7 @@
       getSocialAccount()
         .then(res => {
           loaded = true;
+          $userLoggedIn = true;
         })
         .catch(() => {
           $redirectPath = window.location.pathname;
