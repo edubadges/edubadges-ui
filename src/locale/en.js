@@ -456,7 +456,13 @@ I18n.translations.en = {
     copied: "Copied to clipboard"
   },
   acceptTerms: {
-    termsOfUseLink: "https://www.surf.nl/edubadges-nationale-aanpak-voor-inzet-van-badges",
-    badgeAwardTerms: "https://www.surf.nl/edubadges-nationale-aanpak-voor-inzet-van-badges"
+    welcome: "Hi {{name}}",
+    acceptTerms: "To proceed you must accept these terms",
+    eduBadges: "Agreement with eduBadges",
+    termsOfUse: "Please read and accept the <a href=\"https://www.surf.nl/edubadges-nationale-aanpak-voor-inzet-van-badges\" target=\"_blank\">terms of service of edubadges<a/>.",
+    badgeAwardTerms: "Please read and accept the <a href=\"https://www.surf.nl/edubadges-nationale-aanpak-voor-inzet-van-badges\" target=\"_blank\">badge awarding terms<a/> for institution(s).",
+    acceptTermsOfUse: "I accept the Terms of Service",
+    acceptBadgeAwardTerms: "I accept the Awarding Terms",
+    accept: "Get it on!"
   }
 };

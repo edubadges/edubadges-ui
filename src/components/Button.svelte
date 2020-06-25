@@ -1,5 +1,5 @@
 <script>
-  import { link } from "svelte-routing";
+  import {link} from "svelte-routing";
 
   export let text;
   export let href;
@@ -8,6 +8,7 @@
   export let secondary;
   export let disabled = false;
   export let small;
+  export let full;
 </script>
 
 <style lang="scss">
@@ -52,6 +53,16 @@
     font-size: 0.85rem;
   }
 
+  a.full {
+    width: 50%;
+  }
+
+  @media (max-width: 820px) {
+    a.full {
+      width: 100%;
+    }
+  }
+
   a:not(.secondary),
   label:not(.secondary) {
     background-color: var(--purple);
@@ -91,7 +102,7 @@
 {:else if action}
   <!-- svelte-ignore a11y-invalid-attribute -->
   <a
-    href="#"
+    href="#" class:full
     on:click|preventDefault={() => disabled ? false : action()}
     {disabled}
     class:small
