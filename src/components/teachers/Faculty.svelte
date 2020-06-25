@@ -5,6 +5,7 @@
   import { issuerIcon } from "../../icons";
   import { queryData } from "../../api/graphql";
   import { headerStaff, headerEntity } from "../../api/queries";
+  import {entityType} from "../../util/entityTypes"
 
   export let entityId;
   export let subEntity;
@@ -107,6 +108,6 @@
       <InviteUser permissionsRoles={permissionsRoles} defaultValue={0} disabledRole={true} />
   </Route>
   <Route path="/user-management">
-    <FacultyUserManagement entity="issuerGroup" entityId={entityId} />
+    <FacultyUserManagement entity={entityType.ISSUER_GROUP} entityId={entityId} />
   </Route>
 </Router>

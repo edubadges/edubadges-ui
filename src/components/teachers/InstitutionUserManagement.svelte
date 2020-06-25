@@ -1,20 +1,22 @@
 <script>
-  import {queryData} from "../../api/graphql";
+  import { queryData } from "../../api/graphql";
   import { onMount } from "svelte";
   import { UsersTable, InvitationStatusWidget } from "../teachers";
   import { sortType } from "../../util/sortData";
   import I18n from "i18n-js";
   import { CheckBox } from "../index";
   import { removeUserInstitutionAdmin } from "../../api";
-  import {navigate} from "svelte-routing";
+  import { navigate } from "svelte-routing";
   import { Modal } from "../forms";
+  import UserManagement from "./UserManagement.svelte";
+  import {staffType} from "../../util/staffTypes";
 
   export let entity;
 
-  let users = [];
+  let institutionStaffMembers = [];
   let selection = [];
   let permissions;
-  let userprovisionments = [];
+  let userProvisionments = [];
 
   const query = `{
     currentInstitution {
@@ -42,9 +44,9 @@
 
   onMount(() => {
     queryData(query).then(res => {
-      users = res.currentInstitution.staff;
+      institutionStaffMembers = res.currentInstitution.staff.map(staff => staff._staffType = staffType.INSTITUTION_STAFF);
       permissions = res.currentInstitution.permissions;
-      userprovisionments = res.currentInstitution.userprovisionments;
+      userProvisionments = res.currentInstitution.userprovisionments.map(staff => staff._staffType = staffType.USER_PROVISIONMENT);
     })
   });
 
@@ -75,31 +77,15 @@
   let removeModalQuestion;
   let removeModalAction;
 
-  const onCheckAll = val => {
-    selection = val ? users.concat(userprovisionments).map(({entityId}) => entityId) : [];
-    table.checkAllValue = val;
-  };
-
-  const onCheckOne = (val, entityId) => {
-    if (val) {
-      selection = selection.concat(entityId);
-      table.checkAllValue = selection.length === users.length + userprovisionments.length;
-    } else {
-      selection = selection.filter(id => id !== entityId);
-      table.checkAllValue = false;
-    }
-  };
-
   $: table = {
     entity: "user",
     title: `${I18n.t("editUsers.usersPermissions")}`,
     tableHeaders: tableHeaders,
-    onCheckAll
   };
 
   const reload = () => {
     queryData(query).then(res => {
-      users = res.currentInstitution.staff;
+      institutionStaffMembers = res.currentInstitution.staff;
     });
   };
 
@@ -144,63 +130,10 @@
   }
 </style>
 
-<div class="container">
-  <UsersTable
-      {...table}
-      withCheckAll={true}
-      bind:buttons={buttons}
-  >
-    {#each userprovisionments as {email, entityId, createdAt}}
-      <tr>
-        <td>
-          <CheckBox
-              value={selection.includes(entityId)}
-              name={`select-${entityId}`}
-              disabled={false}
-              onChange={val => onCheckOne(val, entityId)}/>
-        </td>
-        <td>{email}</td>
-        <td>{I18n.t(['editUsers', 'institution', 'allRights'])}</td>
-        <td>
-          <InvitationStatusWidget
-            date={createdAt}
-          />
-        </td>
-      </tr>
-    {/each}
-    {#each users as {mayAdministrateUsers, user, entityId}}
-      <tr>
-        <td>
-          <CheckBox
-              value={selection.includes(entityId)}
-              name={`select-${entityId}`}
-              disabled={false}
-              onChange={val => onCheckOne(val, entityId)}/>
-        </td>
-        <td>
-          {user.firstName} {user.lastName}
-          <br />
-          <span class="sub-text">{user.email}</span>
-        </td>
-        <td>
-          {I18n.t(['editUsers', 'institution', mayAdministrateUsers ? 'allRights' : 'noRights'])}
-        </td>
-        <td>
-            <InvitationStatusWidget
-              accepted={true}
-            />
-        </td>
-      </tr>
-    {/each}
-  </UsersTable>
-</div>
-
-{#if showRemoveModal}
-  <Modal
-      submit={removeModalAction}
-      cancel={() => showRemoveModal = false}
-      question={removeModalQuestion}
-      title={removeModalTitle}
-  >
-  </Modal>
-{/if}
+<UserManagement
+    {entity}
+    {permissions}
+    {table}
+    institutionStaffs={institutionStaffMembers}
+    {userProvisionments}
+/>

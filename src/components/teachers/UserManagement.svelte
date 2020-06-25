@@ -4,40 +4,72 @@
   import {CheckBox} from "../index";
   import {UsersTable, InvitationStatusWidget} from "../teachers";
   import {Select, Modal} from "../forms";
+  import I18n from "i18n-js";
+  import { navigate } from "svelte-routing";
 
   export let entity;
-  export let inviteUserURL;
+  export let entityId;
   export let permissions;
-  export let handleSelect;
   export let targetOptions;
   export let changeUserRole;
 
   export let table;
-  export let buttons;
 
   export let institutionStaffs = [];
   export let issuerGroupStaffs = [];
   export let issuerStaffs = [];
   export let badgeClassStaffs = [];
   export let userProvisionments = [];
+  let staffs = [];
 
   let selection = [];
   $: staffs = [
-    ...institutionStaffs.forEach(staff => staff.staffType = staffType.INSTITUTION_STAFF),
-    ...issuerGroupStaffs.forEach(staff => staff.staffType = staffType.ISSUER_GROUP_STAFF),
-    ...issuerStaffs.forEach(staff => staff.staffType = staffType.ISSUER_STAFF),
-    ...badgeClassStaffs.forEach(staff => staff.staffType = staffType.BADGE_CLASS_STAFF),
-    ...userProvisionments.forEach(staff => staff.staffType = staffType.USER_PROVISIONMENT)
+    ...institutionStaffs,
+    ...issuerGroupStaffs,
+    ...issuerStaffs,
+    ...badgeClassStaffs,
+    ...userProvisionments
   ];
 
   // Remove permissions modal
   let showRemoveModal = false;
-  let removeModalTitle;
-  let removeModalQuestion;
+  export let removeModalTitle;
+  export let removeModalQuestion;
   let removeModalAction;
 
+  const removeSelectedPermissions = () => {
+    for (const {entityId, _staffType} of selection) {
+      removeUserStaffMembership(selected).then(() => {
+        reload();
+        showRemoveModal = false;
+      })
+    }
+  };
+
+  const removePermissions = () => {
+    showRemoveModal = true;
+    removeModalAction = removeSelectedPermissions;
+  };
+
+  const inviteNewUser = () => {
+      navigate(`/manage/${entity}${entity !== entityType.INSTITUTION ? '/' + entityId : ''}/user-management/invite-new-user`, {replace: false});
+  };
+
+  $: buttons = [
+      {
+          'action': removePermissions,
+          'text': I18n.t(['editUsers', 'permissions', 'removePermissions']),
+          'allowed': (permissions && permissions.mayAdministrateUsers && selection.length > 0),
+      },
+      {
+          'action': inviteNewUser,
+          'text': I18n.t(['editUsers', 'permissions', 'inviteNewUser']),
+          'allowed': (permissions && permissions.mayAdministrateUsers),
+      }
+  ];
+
   const onCheckAll = val => {
-    selection = val ? staffs.map(({entityId}) => entityId) : [];
+    selection = val ? staffs.map(({entityId, _staffType}) => {return {entityId, _staffType}}) : [];
     table.checkAllValue = val;
   };
 
@@ -55,10 +87,11 @@
 <div class="container">
   <UsersTable
       {...table}
+      {onCheckAll}
       withCheckAll={true}
       bind:buttons={buttons}
   >
-    {#each staffs as {_staffType, user, entityId, email, createdAt, rejected, mayAdministrateUsers, mayUpdate, mayAward}}
+    {#each staffs as {_staffType, user, entityId, email, createdAt, rejected, mayAdministrateUsers, mayUpdate, mayAward} (entityId)}
       <tr>
         {#if _staffType === staffType.USER_PROVISIONMENT}
           <td>

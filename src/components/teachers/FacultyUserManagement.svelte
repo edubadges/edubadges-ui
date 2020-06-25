@@ -7,6 +7,7 @@
   import { CheckBox } from "../index";
   import { removeUserIssuerGroupAdmin } from "../../api";
   import {navigate} from "svelte-routing";
+  import UserManagement from "./UserManagement.svelte";
 
   export let entity;
   export let entityId;
@@ -15,7 +16,7 @@
   let issuerGroupStaffMembers = [];
   let selection = [];
   let permissions;
-  let userprovisionments = [];
+  let userProvisionments = [];
 
   const query = `{
     faculty(id: "${entityId}") {
@@ -58,6 +59,7 @@
       institutionStaffMembers = res.faculty.institution.staff;
       issuerGroupStaffMembers = res.faculty.staff;
       permissions = res.faculty.permissions;
+      userProvisionments = res.faculty.userprovisionments;
     })
   });
 
@@ -146,67 +148,12 @@
   ];
 </script>
 
-<div class="container">
-  <UsersTable
-      {...table}
-      withCheckAll={true}
-      bind:buttons={buttons}
-  >
-    {#each userprovisionments as {email, entityId, createdAt}}
-      <tr>
-        <td>
-          <CheckBox
-              value={selection.includes(entityId)}
-              name={`select-${entityId}`}
-              disabled={false}
-              onChange={val => onCheckOne(val, entityId)}/>
-        </td>
-        <td>{email}</td>
-        <td>{I18n.t(['editUsers', 'institution', 'allRights'])}</td>
-        <td>
-          <InvitationStatusWidget
-              date={createdAt}
-          />
-        </td>
-      </tr>
-    {/each}
-    {#each issuerGroupStaffMembers as {user}}
-      <tr>
-        <td>
-          <CheckBox
-              value={selection.includes(entityId)}
-              name={`select-${entityId}`}
-              disabled={true}
-              onChange={val => onCheckOne(val, entityId)}/>
-        </td>
-        <td>
-          {user.firstName} {user.lastName}
-          <br />
-          <span class="sub-text">{user.email}</span>
-        </td>
-        <td>
-          {I18n.t(['editUsers', 'issuerGroup', 'allRights'])}
-        </td>
-      </tr>
-    {/each}
-    {#each institutionStaffMembers as {user}}
-      <tr>
-        <td>
-          <CheckBox
-              value={selection.includes(entityId)}
-              name={`select-${entityId}`}
-              disabled={true}
-              onChange={val => onCheckOne(val, entityId)}/>
-        </td>
-        <td>
-          {user.firstName} {user.lastName}
-          <br />
-          <span class="sub-text">{user.email}</span>
-        </td>
-        <td>
-          {I18n.t(['editUsers', 'institution', 'allRights'])}
-        </td>
-      </tr>
-    {/each}
-  </UsersTable>
-</div>
+<UserManagement
+    {entity}
+    {entityId}
+    {permissions}
+    {table}
+    institutionStaffs={institutionStaffMembers}
+    issuerGroupStaffs={issuerGroupStaffMembers}
+    userProvisionments={userProvisionments}
+/>
