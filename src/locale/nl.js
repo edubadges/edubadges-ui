@@ -267,6 +267,9 @@ I18n.translations.nl = {
       owner: "owner",
       editor: "editor",
       awarder: "awarder",
+      switchToOwner: "Successfully changed user to badgeclass owner role.",
+      switchToEditor: "Successfully changed user to badgeclass editor role.",
+      switchToAwarder: "Successfully changed user to badgeclass awarder role.",
     },
     permissions: {
       allRights: "Alle rechten",

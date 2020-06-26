@@ -8,12 +8,26 @@
 
   export let title = "";
   export let tableHeaders = [];
+  export let search = "";
+  export let sort = {
+      attribute: null,
+      reverse: false,
+      sortType: sortType.ALPHA
+  };
 
   export let withCheckAll;
   export let checkAllValue;
   export let onCheckAll;
 
   export let buttons = [];
+
+  const setSort = tableHeader => {
+    if (sort.attribute === tableHeader.attribute) {
+      sort.reverse = !sort.reverse;
+    } else {
+      sort = tableHeader;
+    }
+  };
 </script>
 
 <style lang="scss">
@@ -53,6 +67,7 @@
 <div class="container main-content-margin">
   <div class="header">
     <h3>{title}</h3>
+    <Search bind:value={search}/>
     {#each buttons as button}
       {#if button.allowed}
         <Button text={button.text} action={button.action} disabled={button.disabled}/>
@@ -68,7 +83,7 @@
             <CheckBox bind:value={checkAllValue} onChange={onCheckAll}/>
           </th>
         {/if}
-        <UsersTableHeaders {tableHeaders}/>
+        <UsersTableHeaders {tableHeaders} {setSort} {sort}/>
       </tr>
     </thead>
     <tbody>

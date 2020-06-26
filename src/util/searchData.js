@@ -10,5 +10,3 @@ export const searchMultiple = (data, search, identifier = "entityId", ...attribu
 };
 
 export const search = (data, search, attribute, identifier = "entityId") => searchMultiple(data, search, identifier, attribute);
-
-

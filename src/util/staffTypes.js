@@ -5,3 +5,10 @@ export const staffType = {
   BADGE_CLASS_STAFF: "badge class staff",
   USER_PROVISIONMENT: "user provisionment"
 };
+
+export const addStaffType = (users, type) => {
+  return users.map(user => {
+    user._staffType = type;
+    return user;
+  })
+};
