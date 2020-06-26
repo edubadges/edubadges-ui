@@ -4,6 +4,11 @@
   import {userRole} from "../stores/user";
   import {role} from "../util/role";
   import surf from "../img/logo-surf.svg";
+  import ModalTerms from "./forms/ModalTerms.svelte";
+
+  let showModal = false;
+  let termsUrl;
+  let termsTitle;
 
   const changeLanguage = lang => () => {
     const urlSearchParams = new URLSearchParams(window.location.search);
@@ -11,6 +16,13 @@
     Cookies.set("lang", lang, {expires: 365});
     window.location.search = urlSearchParams.toString();
   };
+
+  const showTerms = (title, url) => () => {
+    showModal = true;
+    termsUrl = url;
+    termsTitle = title;
+  };
+
 </script>
 
 <style>
@@ -68,8 +80,15 @@
 
 <footer class="footer">
   <div class="help">
-    <span>{@html $userRole === role.STUDENT ? I18n.t('footer.termsStudent') : I18n.t('footer.termsTeacher')}</span>
-    <span>{@html I18n.t('footer.privacyPolicy')}</span>
+    <a href="/terms"
+       on:click|preventDefault|stopPropagation={showTerms(I18n.t("footer.termsTitle"),
+                $userRole === role.STUDENT ? I18n.t('footer.termsStudentRaw') : I18n.t('footer.termsTeacherRaw'))}>
+      {I18n.t("footer.termsTitle")}
+    </a>
+    <a href="/privacy"
+       on:click|preventDefault|stopPropagation={showTerms(I18n.t("footer.privacyPolicyTitle"),I18n.t('footer.privacyPolicyRaw'))}>
+      {I18n.t("footer.privacyPolicyTitle")}
+    </a>
   </div>
 
   <div class="lang">
@@ -92,3 +111,11 @@
     {@html surf}
   </div>
 </footer>
+
+{#if showModal}
+  <ModalTerms title={termsTitle}
+              submit={() => showModal = false}
+              cancel={() => showModal = false}
+                url={termsUrl}>
+  </ModalTerms>
+{/if}

@@ -6,6 +6,9 @@
   import {Button, Spinner} from "../components";
   import I18n from "i18n-js";
   import ToggleSwitch from "../components/ToggleSwitch.svelte";
+  import ModalTerms from "../components/forms/ModalTerms.svelte";
+  import {userRole} from "../stores/user";
+  import {role as roleConstants} from "../util/role";
 
   let idToken;
   let state;
@@ -16,6 +19,10 @@
   let loaded = false;
   let termsOfUseAccepted = false;
   let badgeAwardTermsAccepted = false;
+  let showModal = false;
+  let termsUrl;
+  let termsTitle;
+  let whichTerms;
 
   onMount(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -30,6 +37,22 @@
 
   const agree = () => {
     window.location.href = `${config.serverUrl}/account/${provider}/login/terms_accepted/${encodeURIComponent(state)}/${idToken}/`;
+  }
+
+  const showTerms = (title, url, whichTermsToAgree) => () => {
+    showModal = true;
+    termsUrl = url;
+    termsTitle = title;
+    whichTerms = whichTermsToAgree
+  };
+
+  const agreeWithTerms = value => () => {
+    showModal = false;
+    if (whichTerms === "termsOfUseAccepted") {
+      termsOfUseAccepted = value;
+    } else {
+      badgeAwardTermsAccepted = value;
+    }
   }
 
 </script>
@@ -114,39 +137,66 @@
 </style>
 
 <div class="page-container">
-  <div class="content">
-    {#if loaded}
-      <h1>{I18n.t("acceptTerms.welcome", {name: claims.preferred_username})}</h1>
-      <div class="info">
-        <span>{@html info}</span>
-        <span>{resign ? I18n.t("acceptTerms.renewTerms"): I18n.t("acceptTerms.acceptTerms")}</span>
+  <p class="content">
+  {#if loaded}
+    <h1>{I18n.t("acceptTerms.welcome", {name: claims.preferred_username})}</h1>
+    <div class="info">
+      <span>{@html info}</span>
+      <span>{resign ? I18n.t("acceptTerms.renewTerms"): I18n.t("acceptTerms.acceptTerms")}</span>
+    </div>
+    <h1 class="edubadges">{I18n.t("acceptTerms.eduBadges", {name: claims.preferred_username})}</h1>
+    <p class="terms">
+      <span>{I18n.t("acceptTerms.termsPre")}</span>
+      <a href="/terms"
+         on:click|preventDefault|stopPropagation={showTerms(
+                I18n.t("acceptTerms.termsTitle"),
+                $userRole === roleConstants.STUDENT ? I18n.t('acceptTerms.termsOfUseStudentRaw') : I18n.t('acceptTerms.termsOfUseTeacherRaw'),
+                "termsOfUseAccepted")}>
+        {I18n.t("acceptTerms.termsOfUseLink")}
+      </a>
+    </p>
+    <div class="agree">
+      <span>{I18n.t("acceptTerms.acceptTermsOfUse")}</span>
+      <div class="toggle">
+        <ToggleSwitch disabled={false} value={termsOfUseAccepted}
+                      onChange={() => termsOfUseAccepted = !termsOfUseAccepted}/>
       </div>
-      <h1 class="edubadges">{I18n.t("acceptTerms.eduBadges", {name: claims.preferred_username})}</h1>
-      <p
-        class="terms">{@html role === "teacher" ? I18n.t("acceptTerms.termsOfUseTeacher"): I18n.t("acceptTerms.termsOfUseStudent")}</p>
-      <div class="agree">
-        <span>{I18n.t("acceptTerms.acceptTermsOfUse")}</span>
-        <div class="toggle">
-          <ToggleSwitch disabled={false} value={termsOfUseAccepted}
-                        onChange={() => termsOfUseAccepted = !termsOfUseAccepted}/>
-        </div>
 
+    </div>
+    <p class="terms">
+      <span>{I18n.t("acceptTerms.termsPre")}</span>
+      <a href="/terms"
+         on:click|preventDefault|stopPropagation={showTerms(
+                I18n.t("acceptTerms.badgeAwardTitle"),
+                I18n.t('acceptTerms.badgeAwardTermsRaw'),
+                "badgeAwardTermsAccepted")}>
+        {I18n.t("acceptTerms.badgeAwardTerms")}
+      </a>
+      <span>{I18n.t("acceptTerms.badgeAwardTermsPost")}</span>
+    </p>
+    <div class="agree">
+      <span>{I18n.t("acceptTerms.acceptBadgeAwardTerms")}</span>
+      <div class="toggle">
+        <ToggleSwitch disabled={false} value={badgeAwardTermsAccepted}
+                      onChange={() => badgeAwardTermsAccepted = !badgeAwardTermsAccepted}/>
       </div>
-      <p class="terms">{@html I18n.t("acceptTerms.badgeAwardTerms")}</p>
-      <div class="agree">
-        <span>{I18n.t("acceptTerms.acceptTermsOfUse")}</span>
-        <div class="toggle">
-          <ToggleSwitch disabled={false} value={badgeAwardTermsAccepted}
-                        onChange={() => badgeAwardTermsAccepted = !badgeAwardTermsAccepted}/>
-        </div>
-      </div>
-      <div class="actions">
-        <Button text={I18n.t("acceptTerms.accept")} action={agree} full={true}
-                disabled={!badgeAwardTermsAccepted || !termsOfUseAccepted}/>
+    </div>
+    <div class="actions">
+      <Button text={I18n.t("acceptTerms.accept")} action={agree} full={true}
+              disabled={!badgeAwardTermsAccepted || !termsOfUseAccepted}/>
 
-      </div>
-    {:else}
-      <Spinner/>
-    {/if}
-  </div>
+    </div>
+  {:else}
+    <Spinner/>
+  {/if}
 </div>
+
+
+{#if showModal}
+  <ModalTerms title={termsTitle}
+              submit={agreeWithTerms(true)}
+              showAgree={true}
+              cancel={agreeWithTerms(false)}
+              url={termsUrl}>
+  </ModalTerms>
+{/if}
