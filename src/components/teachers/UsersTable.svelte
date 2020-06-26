@@ -22,7 +22,6 @@
   export let buttons = [];
 
   const setSort = tableHeader => {
-    console.log(sort);
     if (sort.attribute === tableHeader.attribute) {
       sort.reverse = !sort.reverse;
     } else {

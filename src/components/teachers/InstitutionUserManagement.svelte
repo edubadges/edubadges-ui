@@ -1,25 +1,20 @@
 <script>
   import { queryData } from "../../api/graphql";
   import { onMount } from "svelte";
-  import { UsersTable, InvitationStatusWidget } from "../teachers";
-  import { sortType } from "../../util/sortData";
   import I18n from "i18n-js";
-  import { CheckBox } from "../index";
-  import { removeUserInstitutionAdmin } from "../../api";
-  import { navigate } from "svelte-routing";
-  import { Modal } from "../forms";
   import UserManagement from "./UserManagement.svelte";
   import {staffType} from "../../util/staffTypes";
 
   export let entity;
 
   let institutionStaffMembers = [];
-  let selection = [];
-  let permissions;
   let userProvisionments = [];
+  let permissions;
+  let contentType;
 
   const query = `{
     currentInstitution {
+      contentTypeId,
       userprovisionments {
         email,
         createdAt,
@@ -53,41 +48,13 @@
         return staff;
       });
       permissions = res.currentInstitution.permissions;
+      contentType = res.currentInstitution.contentId;
     })
   });
 
-  const tableHeaders = [
-    {
-      name: I18n.t(["teacher", "nameEmail"]),
-      attribute: "name",
-      reverse: false,
-      sortType: sortType.PERSONAL_DATA
-    },
-    {
-      name: I18n.t("editUsers.role"),
-      attribute: "roles",
-      reverse: false,
-      sortType: sortType.ROLES
-    },
-    {
-      name: I18n.t(["inviteUsers", "inviteStatus"]),
-      attribute: "invitation",
-      reverse: false,
-      sortType: sortType.INVITATION_STATUS
-    }
-  ];
-
   // Remove permissions modal
-  let showRemoveModal = false;
-  let removeModalTitle;
-  let removeModalQuestion;
-  let removeModalAction;
-
-  $: table = {
-    entity: "user",
-    title: `${I18n.t("editUsers.usersPermissions")}`,
-    tableHeaders: tableHeaders,
-  };
+  let removeModalTitle = I18n.t(['editUsers', 'permissions', 'removePermissions']);
+  let removeModalQuestion = I18n.t(['editUsers', 'permissions', 'removeAdmin']);
 
   const reload = () => {
     queryData(query).then(res => {
@@ -101,52 +68,15 @@
       });
     });
   };
-
-  const removeSelectedPermissions = () => {
-    for (const selected of selection) {
-      removeUserInstitutionAdmin(selected).then(() => {
-        reload();
-        showRemoveModal = false;
-      })
-    }
-    selection.length = 0;
-  };
-
-  const removePermissions = () => {
-    showRemoveModal = true;
-    removeModalTitle = I18n.t(['editUsers', 'permissions', 'removePermissions']);
-    removeModalQuestion = I18n.t(['editUsers', 'permissions', 'removeAdmin']);
-    removeModalAction = removeSelectedPermissions;
-  };
-
-  const inviteNewUser = () => {
-    navigate('/manage/institution/user-management/invite-new-user', {replace: false});
-  };
-
-  $: buttons = [
-    {
-      'action': removePermissions,
-      'text': I18n.t(['editUsers', 'permissions', 'removePermissions']),
-      'allowed': (permissions && permissions.mayAdministrateUsers && selection.length > 0),
-    },
-    {
-      'action': inviteNewUser,
-      'text': I18n.t(['editUsers', 'permissions', 'inviteNewUser']),
-      'allowed': (permissions && permissions.mayAdministrateUsers),
-    }
-  ];
 </script>
-
-<style>
-  tr {
-    height: 53px;
-  }
-</style>
 
 <UserManagement
     {entity}
+    {contentType}
     {permissions}
-    {table}
     institutionStaffs={institutionStaffMembers}
     {userProvisionments}
+    {removeModalTitle}
+    {removeModalQuestion}
+    {reload}
 />
