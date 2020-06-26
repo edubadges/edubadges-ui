@@ -3,7 +3,7 @@
   import { onMount } from "svelte";
   import I18n from "i18n-js";
   import UserManagement from "./UserManagement.svelte";
-  import {staffType} from "../../util/staffTypes";
+  import {staffType, addStaffType} from "../../util/staffTypes";
 
   export let entity;
   export let entityId;
@@ -80,26 +80,11 @@
 
   onMount(() => {
     queryData(query).then(res => {
-      institutionStaffMembers = res.badgeClass.issuer.faculty.institution.staff.map(staff => {
-        staff._staffType = staffType.INSTITUTION_STAFF;
-        return staff;
-      });
-      issuerGroupStaffMembers = res.badgeClass.issuer.faculty.staff.map(staff => {
-        staff._staffType = staffType.ISSUER_GROUP_STAFF;
-        return staff;
-      });
-      issuerStaffMembers = res.badgeClass.issuer.staff.map(staff => {
-        staff._staffType = staffType.ISSUER_STAFF;
-        return staff;
-      });
-      badgeClassStaffMembers = res.badgeClass.staff.map(staff => {
-        staff._staffType = staffType.BADGE_CLASS_STAFF;
-        return staff;
-      });
-      userProvisionments = res.badgeClass.userprovisionments.map(staff => {
-        staff._staffType = staffType.USER_PROVISIONMENT;
-        return staff;
-      });
+      institutionStaffMembers = addStaffType(res.badgeClass.issuer.faculty.institution.staff, staffType.INSTITUTION_STAFF);
+      issuerGroupStaffMembers = addStaffType(res.badgeClass.issuer.faculty.staff, staffType.ISSUER_GROUP_STAFF);
+      issuerStaffMembers = addStaffType(res.badgeClass.issuer.staff, staffType.ISSUER_STAFF);
+      badgeClassStaffMembers = addStaffType(res.badgeClass.staff, staffType.BADGE_CLASS_STAFF);
+      userProvisionments = addStaffType(res.badgeClass.userprovisionments, staffType.USER_PROVISIONMENT);
       permissions = res.badgeClass.permissions;
     })
   });
@@ -110,14 +95,8 @@
 
   const reload = () => {
     queryData(query).then(res => {
-      badgeClassStaffMembers = res.badgeClass.staff.map(staff => {
-        staff._staffType = staffType.BADGE_CLASS_STAFF;
-        return staff;
-      });
-      userProvisionments = res.badgeClass.userprovisionments.map(staff => {
-        staff._staffType = staffType.USER_PROVISIONMENT;
-        return staff;
-      });
+      badgeClassStaffMembers = addStaffType(res.badgeClass.staff, staffType.BADGE_CLASS_STAFF);
+      userProvisionments = addStaffType(res.badgeClass.userprovisionments, staffType.USER_PROVISIONMENT);
     });
   };
 </script>

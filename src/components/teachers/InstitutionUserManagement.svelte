@@ -3,7 +3,7 @@
   import { onMount } from "svelte";
   import I18n from "i18n-js";
   import UserManagement from "./UserManagement.svelte";
-  import {staffType} from "../../util/staffTypes";
+  import {staffType, addStaffType} from "../../util/staffTypes";
 
   export let entity;
 
@@ -39,14 +39,8 @@
 
   onMount(() => {
     queryData(query).then(res => {
-      institutionStaffMembers = res.currentInstitution.staff.map(staff => {
-        staff._staffType = staffType.INSTITUTION_STAFF;
-        return staff;
-      });
-      userProvisionments = res.currentInstitution.userprovisionments.map(staff => {
-        staff._staffType = staffType.USER_PROVISIONMENT;
-        return staff;
-      });
+      institutionStaffMembers = addStaffType(res.currentInstitution.staff, staffType.INSTITUTION_STAFF);
+      userProvisionments = addStaffType(res.currentInstitution.userprovisionments, staffType.USER_PROVISIONMENT);
       permissions = res.currentInstitution.permissions;
       contentType = res.currentInstitution.contentId;
     })
@@ -58,14 +52,8 @@
 
   const reload = () => {
     queryData(query).then(res => {
-      institutionStaffMembers = res.currentInstitution.staff.map(staff => {
-        staff._staffType = staffType.INSTITUTION_STAFF;
-        return staff;
-      });
-      userProvisionments = res.currentInstitution.userprovisionments.map(staff => {
-        staff._staffType = staffType.USER_PROVISIONMENT;
-        return staff;
-      });
+      institutionStaffMembers = addStaffType(res.currentInstitution.staff, staffType.INSTITUTION_STAFF);
+      userProvisionments = addStaffType(res.currentInstitution.userprovisionments, staffType.USER_PROVISIONMENT);
     });
   };
 </script>
