@@ -9,6 +9,7 @@
   import { expirationValueToPeriod } from "../extensions/badges/expiration_period";
   import I18n from "i18n-js";
   import { expirationPeriod } from "../../util/entityHeader";
+  import {entityType} from "../../util/entityTypes"
 
   export let entityId;
   export let tab;
@@ -121,7 +122,7 @@
       />
     </Route>
     <Route path="/user-management">
-      <BadgeclassUserManagement entity="badgeClass" entityId={entityId}/>
+      <BadgeclassUserManagement entity={entityType.BADGE_CLASS} {entityId}/>
     </Route>
   </Router>
 </div>

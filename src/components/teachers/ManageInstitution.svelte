@@ -150,7 +150,6 @@
           defaultValue={0}
           disabledRole={true}
           entityId={entityId}
-          contentType={contentType}
       />
     </Route>
     <Route path="/user-management">
