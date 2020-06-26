@@ -203,10 +203,10 @@ I18n.translations.nl = {
     },
   },
   footer: {
-    tip: "Tips of hulp nodig?",
-    help: "Help & FAQ",
-    poweredBy: "Trots aangeboden door",
-    surf: "SURF",
+    termsStudent: "<a href=\"https://github.com/edubadges/privacy/blob/master/termsofservice-create-account-student-nl.md\" target=\"_blank\">Servicevoorwaarden</a>",
+    termsTeacher: "<a href=\"https://github.com/edubadges/privacy/blob/master/termsofservice-create-account-employee-nl.md\" target=\"_blank\">Servicevoorwaarden</a>",
+    privacyPolicy: "<a href=\"https://github.com/edubadges/privacy/blob/master/edubadges-privacy-statement-nl.md\" target=\"_blank\">Privacybeleid</a>",
+    poweredBy: "Trots aangeboden door"
   },
   error: {
     101: "Kan e-mailadres niet registreren. Het e-mailadres is al in gebruik",
@@ -469,13 +469,15 @@ I18n.translations.nl = {
     copied: "Naar klembord gekopieerd"
   },
   acceptTerms: {
-    welcome: "Hi {{name}}",
-    acceptTerms: "To proceed you must accept these terms",
-    eduBadges: "Agreement with eduBadges",
-    termsOfUse: "Please read and accept the <a href=\"https://www.surf.nl/edubadges-nationale-aanpak-voor-inzet-van-badges\" target=\"_blank\">terms of service of edubadges<a/>.",
-    badgeAwardTerms: "Please read and accept the <a href=\"https://www.surf.nl/edubadges-nationale-aanpak-voor-inzet-van-badges\" target=\"_blank\">badge awarding terms<a/> for institution(s).",
-    acceptTermsOfUse: "I accept the Terms of Service",
-    acceptBadgeAwardTerms: "I accept the Awarding Terms",
-    accept: "Get it on!"
+    welcome: "Hallo {{name}}",
+    acceptTerms: "Om door te gaan moet je deze voorwaarden accepteren",
+    renewTerms: "De voorwaarden van eduBadges zijn gewijzigd. Om door te gaan moet je de nieuwe voorwaarden accepteren",
+    eduBadges: "Overeenkomst met eduBadges",
+    termsOfUseStudent: "Lees en accepteer de <a href=\"https://github.com/edubadges/privacy/blob/master/termsofservice-create-account-student-nl.md\" target=\"_blank\">Servicevoorwaarden van edubadges<a/>.",
+    termsOfUseTeacher: "Please read and accept the <a href=\"https://github.com/edubadges/privacy/blob/master/termsofservice-create-account-employee-nl.md\" target=\"_blank\">Servicevoorwaarden van edubadges<a/>.",
+    badgeAwardTerms: "Lees en accepteer de <a href=\"https://github.com/edubadges/privacy/blob/master/termsofservice-create-account-institution-nl.md\" target=\"_blank\"> badge-toekenningsvoorwaarden <a/> voor instelling(en).",
+    acceptTermsOfUse: "Ik accepteer de Servicevoorwaarden",
+    acceptBadgeAwardTerms: "Ik accepteer de toekenningsvoorwaarden",
+    accept: "Get in on!"
   }
 };

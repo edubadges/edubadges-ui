@@ -56,7 +56,7 @@
 
 <Header logout>
   <nav>
-    {#if $userLoggedIn}
+    {#if $userLoggedIn && $userLoggedIn !== "false"}
       {#each tabs as { path, active, name } (path)}
         <a href={path} use:link class="button" class:active>
           {I18n.t(['header', 'nav', name])}

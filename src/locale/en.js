@@ -203,10 +203,10 @@ I18n.translations.en = {
     },
   },
   footer: {
-    tip: "Need tips or support?",
-    help: "Help & FAQ",
-    poweredBy: "Proudly powered by",
-    surf: "SURF",
+    termsStudent: "<a href=\"https://github.com/edubadges/privacy/blob/master/termsofservice-create-account-student-en.md\" target=\"_blank\">Terms of use</a>",
+    termsTeacher: "<a href=\"https://github.com/edubadges/privacy/blob/master/termsofservice-create-account-employee-en.md\" target=\"_blank\">Terms of use</a>",
+    privacyPolicy: "<a href=\"https://github.com/edubadges/privacy/blob/master/edubadges-privacy-statement-en.md\" target=\"_blank\">Privacy Policy</a>",
+    poweredBy: "Proudly powered by"
   },
   error: {
     101: "Could not register email address. Address already in use",
@@ -471,9 +471,11 @@ I18n.translations.en = {
   acceptTerms: {
     welcome: "Hi {{name}}",
     acceptTerms: "To proceed you must accept these terms",
+    renewTerms: "The edubadges terms have changed. To proceed you must accept the renewed terms",
     eduBadges: "Agreement with eduBadges",
-    termsOfUse: "Please read and accept the <a href=\"https://www.surf.nl/edubadges-nationale-aanpak-voor-inzet-van-badges\" target=\"_blank\">terms of service of edubadges<a/>.",
-    badgeAwardTerms: "Please read and accept the <a href=\"https://www.surf.nl/edubadges-nationale-aanpak-voor-inzet-van-badges\" target=\"_blank\">badge awarding terms<a/> for institution(s).",
+    termsOfUseStudent: "Please read and accept the <a href=\"https://github.com/edubadges/privacy/blob/master/termsofservice-create-account-student-en.md\" target=\"_blank\">terms of service of edubadges<a/>.",
+    termsOfUseTeacher: "Please read and accept the <a href=\"https://github.com/edubadges/privacy/blob/master/termsofservice-create-account-employee-en.md\" target=\"_blank\">terms of service of edubadges<a/>.",
+    badgeAwardTerms: "Please read and accept the <a href=\"https://github.com/edubadges/privacy/blob/master/termsofservice-create-account-institution-en.md\" target=\"_blank\">badge awarding terms<a/> for institution(s).",
     acceptTermsOfUse: "I accept the Terms of Service",
     acceptBadgeAwardTerms: "I accept the Awarding Terms",
     accept: "Get it on!"

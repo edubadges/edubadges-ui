@@ -1,11 +1,14 @@
 <script>
   import I18n from "i18n-js";
   import Cookies from "js-cookie";
+  import {userRole} from "../stores/user";
+  import {role} from "../util/role";
+  import surf from "../img/logo-surf.svg";
 
   const changeLanguage = lang => () => {
     const urlSearchParams = new URLSearchParams(window.location.search);
     urlSearchParams.set("lang", lang);
-    Cookies.set("lang", lang, { expires: 365 });
+    Cookies.set("lang", lang, {expires: 365});
     window.location.search = urlSearchParams.toString();
   };
 </script>
@@ -27,6 +30,20 @@
 
   .info {
     text-align: right;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+  }
+
+  .info span {
+    display: inline-block;
+    margin-right: 5px;
+  }
+
+  @media (max-width: 510px) {
+    .info span {
+      display: none
+    }
   }
 
   .lang {
@@ -51,8 +68,8 @@
 
 <footer class="footer">
   <div class="help">
-    <span>{I18n.t('footer.tip')}</span>
-    <a href="https://wiki.surfnet.nl/display/OB/FAQ" target="_blank">{I18n.t('footer.help')}</a>
+    <span>{@html $userRole === role.STUDENT ? I18n.t('footer.termsStudent') : I18n.t('footer.termsTeacher')}</span>
+    <span>{@html I18n.t('footer.privacyPolicy')}</span>
   </div>
 
   <div class="lang">
@@ -72,6 +89,6 @@
 
   <div class="info">
     <span>{I18n.t('footer.poweredBy')}</span>
-    <a href="https://surf.nl" target="_blank">{I18n.t('footer.surf')}</a>
+    {@html surf}
   </div>
 </footer>
