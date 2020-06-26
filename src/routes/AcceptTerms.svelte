@@ -6,7 +6,7 @@
   import {Button, Spinner} from "../components";
   import I18n from "i18n-js";
   import ToggleSwitch from "../components/ToggleSwitch.svelte";
-  import ModalTerms from "../components/forms/ModalTerms.svelte";
+  import ModalTerms from "../components/forms/FancyMarkdownModalTermsViewer.svelte";
   import {userRole} from "../stores/user";
   import {role as roleConstants} from "../util/role";
 

@@ -4,7 +4,7 @@
   import {userRole} from "../stores/user";
   import {role} from "../util/role";
   import surf from "../img/logo-surf.svg";
-  import ModalTerms from "./forms/ModalTerms.svelte";
+  import ModalTerms from "./forms/FancyMarkdownModalTermsViewer.svelte";
 
   let showModal = false;
   let termsUrl;
