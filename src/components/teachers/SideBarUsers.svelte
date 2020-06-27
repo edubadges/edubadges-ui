@@ -14,10 +14,6 @@
     padding: 30px 12px;
     background: var(--grey-2);
 
-    h3 {
-      margin-bottom: 8px;
-    }
-
     > div {
       padding-bottom: 24px;
 
@@ -36,7 +32,6 @@
         collection={$userTree.faculties}
         title="faculties" />
   </div>
-
   <div>
     <FilterBlock
         bind:value={$issuerIds}

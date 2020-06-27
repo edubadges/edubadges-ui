@@ -1,10 +1,8 @@
 <script>
-  import {link, navigate} from "svelte-routing";
+  import {link} from "svelte-routing";
   import I18n from "i18n-js";
-  import {
-    userLoggedIn, currentPath
-
-  } from "../../stores/user";
+  import {currentPath} from "../../stores/currentPath";
+  import {userLoggedIn} from "../../stores/user";
 
   import {Header} from "../../components";
 

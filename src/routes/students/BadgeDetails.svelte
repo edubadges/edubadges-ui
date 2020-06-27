@@ -196,16 +196,6 @@
     }
   }
 
-  :global(div.actions svg.svg-inline--fa) {
-    width: 22px;
-    height: 22px;
-    display: inline-block;
-
-    path {
-      fill: var(--grey-7);
-    }
-  }
-
   div.actions {
     margin: 25px 0;
     display: flex;
