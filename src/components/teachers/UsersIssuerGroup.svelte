@@ -167,7 +167,7 @@
   const addPermissions = () => {
     showAddModal = true;
     addModalTitle = I18n.t(['editUsers', 'permissions', 'addPermissions']);
-    selectEntity = 'issuerGroup';
+    selectEntity = 'faculty';
     addModalAction = submitPermissions;
   };
 
@@ -237,7 +237,7 @@
           </td>
           <td>{facultyStaffMembership.faculty.name}</td>
           <td>
-            {I18n.t(['editUsers', 'issuerGroup', 'allRights'])}
+            {I18n.t(['editUsers', 'faculty', 'allRights'])}
           </td>
         </tr>
       {/each}
@@ -280,7 +280,7 @@
       selectEntity={selectEntity}
       permissionsRoles={permissionsRoles}
       title={addModalTitle}
-      entity={'issuerGroup'}
+      entity={'faculty'}
       targetOptions={faculties}
       bind:target={modalSelectedBadgeClass}
       bind:chosenRole={modalChosenRole}

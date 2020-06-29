@@ -251,7 +251,7 @@ I18n.translations.nl = {
       allRights: "Instellings Admin",
       noRights: "Geen rechten"
     },
-    issuerGroup: {
+    faculty: {
       header: "Issuer Group",
       allRights: "Issuer Group Admin",
     },

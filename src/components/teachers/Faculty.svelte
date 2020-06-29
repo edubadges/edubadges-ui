@@ -15,6 +15,8 @@
   let mayCreate = false;
   let issuers = [];
 
+  let contentType;
+
   const query = `{
     currentUser {
       facultyStaffs {
@@ -29,6 +31,7 @@
     faculty(id: "${entityId}") {
       ${headerEntity},
       ${headerStaff},
+      contentTypeId,
       issuers {
         entityId
       },
@@ -54,6 +57,7 @@
       mayUpdate = res.currentUser.institutionStaff.mayUpdate || res.currentUser.facultyStaffs.mayUpdate
       faculty = res.faculty;
       issuers = res.faculty.issuers;
+      contentType = res.faculty.contentTypeId;
     });
   });
 
@@ -101,11 +105,17 @@
 <Router>
   <Route path="/issuers">
     <Issuers
-      {issuers}
-      mayCreate={mayCreate} />
+        {issuers}
+        mayCreate={mayCreate} />
   </Route>
   <Route path="/user-management/invite-new-user">
-      <InviteUser permissionsRoles={permissionsRoles} defaultValue={0} disabledRole={true} />
+    <InviteUser
+        permissionsRoles={permissionsRoles}
+        entityId={entityId}
+        defaultValue={0}
+        disabledRole={true}
+        contentType={contentType}
+    />
   </Route>
   <Route path="/user-management">
     <FacultyUserManagement entity={entityType.ISSUER_GROUP} entityId={entityId} />
