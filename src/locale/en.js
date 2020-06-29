@@ -270,7 +270,7 @@ I18n.translations.en = {
       allRights: "Institution Admin",
       noRights: "No rights"
     },
-    issuerGroup: {
+    faculty: {
       header: "Issuer Group",
       allRights: "Issuer Group Admin",
     },

@@ -5,7 +5,6 @@
   import { inviteUser } from "../../api";
   import { rolesToPermissions } from "../../util/rolesToPermissions";
   import {isNumber} from "lodash";
-  import {flash} from "../../stores/flash";
 
   export let contentType;
   export let entityId;
@@ -32,15 +31,20 @@
         return el.status === "failure"
       })) {
         errors = res.map(el => {
-          return [{'error_message': el.message.email[0]}]
+          if (el.status === "failure") {
+            if (el.message.email) {
+              return [{'error_message': el.message.email[0]}]
+            }
+            if (el.message.fields) {
+              return [{'error_message': el.message.fields}]
+            }
+          } else {
+            return [{'error_message': ''}]
+          }
         });
+      } else {
+        window.history.back();
       }
-      if(res.some(el => {
-        return el.status === "success"
-      })) {
-        flash.setValue(I18n.t("inviteUsers.success"))
-      }
-
     })
   };
 </script>

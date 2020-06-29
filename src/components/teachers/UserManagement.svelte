@@ -305,7 +305,7 @@
               <br />
               {I18n.t(['editUsers', 'permissions', 'issuerGroupAllRights'])}
             {:else}
-              {I18n.t(['editUsers', 'issuerGroup', 'allRights'])}
+              {I18n.t(['editUsers', 'faculty', 'allRights'])}
             {/if}
           </td>
           <td>
@@ -330,7 +330,7 @@
               <br />
               {I18n.t(['editUsers', 'permissions', 'issuerGroupAllRights'])}
             {:else}
-              {I18n.t(['editUsers', 'issuerGroup', 'allRights'])}
+              {I18n.t(['editUsers', 'faculty', 'allRights'])}
             {/if}
           </td>
           <td>

@@ -409,23 +409,24 @@ export function changeUserToBadgeclassAwarder(badgeclassMembershipId) {
 }
 
 export function changeProvisionmentToBadgeclassOwner(provisionmentId) {
-  const path = `${serverUrl}/v1/user/provision/edit/${provisionmentId}}`;
+  const path = `${serverUrl}/v1/user/provision/edit/${provisionmentId}`;
   const payload = {
-    "may_create": 1,
-    "may_read": 1,
-    "may_update": 1,
-    "may_delete": 1,
-    "may_sign": 1,
-    "may_award": 1,
-    "may_administrate_users": 1,
+    data: {
+      "may_create": 1,
+      "may_read": 1,
+      "may_update": 1,
+      "may_delete": 1,
+      "may_sign": 1,
+      "may_award": 1,
+      "may_administrate_users": 1,
+    }
   };
   return validFetch(path, {body: JSON.stringify(payload)}, "PUT");
 }
 
-export function changeProvisionmentToBadgeclassEditor(provisionmentId, contentType) {
-  const path = `${serverUrl}/v1/user/provision/edit/${provisionmentId}}`;
+export function changeProvisionmentToBadgeclassEditor(provisionmentId) {
+  const path = `${serverUrl}/v1/user/provision/edit/${provisionmentId}`;
   const payload = {
-    contentType,
     data: {
       "may_create": 1,
       "may_read": 1,
@@ -440,15 +441,17 @@ export function changeProvisionmentToBadgeclassEditor(provisionmentId, contentTy
 }
 
 export function changeProvisionmentToBadgeclassAwarder(provisionmentId) {
-  const path = `${serverUrl}/v1/user/provision/edit/${provisionmentId}}`;
+  const path = `${serverUrl}/v1/user/provision/edit/${provisionmentId}`;
   const payload = {
-    "may_create": 0,
-    "may_read": 1,
-    "may_update": 0,
-    "may_delete": 0,
-    "may_sign": 1,
-    "may_award": 1,
-    "may_administrate_users": 0,
+    data: {
+      "may_create": 0,
+      "may_read": 1,
+      "may_update": 0,
+      "may_delete": 0,
+      "may_sign": 1,
+      "may_award": 1,
+      "may_administrate_users": 0,
+    }
   };
   return validFetch(path, {body: JSON.stringify(payload)}, "PUT");
 }
@@ -469,6 +472,6 @@ export function inviteUser(entityType, entityId, userProvisonments) {
 }
 
 export function disinviteUser(provisionmentId) {
-  const path = `${serverUrl}/v1/user/provision/edit/${provisionmentId}}`;
+  const path = `${serverUrl}/v1/user/provision/edit/${provisionmentId}`;
   return validFetch(path, {}, "DELETE");
 }

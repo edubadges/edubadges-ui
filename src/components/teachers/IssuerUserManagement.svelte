@@ -67,7 +67,7 @@
       institutionStaffMembers = addStaffType(res.issuer.faculty.institution.staff, staffType.INSTITUTION_STAFF);
       issuerGroupStaffMembers = addStaffType(res.issuer.faculty.staff, staffType.ISSUER_GROUP_STAFF);
       issuerStaffMembers = addStaffType(res.issuer.staff, staffType.ISSUER_STAFF);
-      userProvisionments = addStaffType(res.issuer.userprovisionments, staffType.ISSUER_STAFF);
+      userProvisionments = addStaffType(res.issuer.userprovisionments, staffType.USER_PROVISIONMENT);
       permissions = res.issuer.permissions;
     })
   });
@@ -79,7 +79,7 @@
   const reload = () => {
     queryData(query).then(res => {
       issuerStaffMembers = addStaffType(res.issuer.staff, staffType.ISSUER_STAFF);
-      userProvisionments = addStaffType(res.issuer.userprovisionments, staffType.ISSUER_STAFF);
+      userProvisionments = addStaffType(res.issuer.userprovisionments, staffType.USER_PROVISIONMENT);
     });
   };
 </script>
