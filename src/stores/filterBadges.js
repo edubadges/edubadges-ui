@@ -17,10 +17,11 @@ function filterBySearch(badgeclasses, search) {
 }
 
 function sort(collection, count = false) {
-  return collection.sort((a, b) => {
-    if (!count) return a.name.localeCompare(b.name);
-    return b.count - a.count || a.name.localeCompare(b.name);
-  });
+  return collection.sort((a, b) => count ? b.count - a.count || a.name.localeCompare(b.name) : a.name.localeCompare(b.name));
+}
+
+export const sortCreatedAt = collection => {
+  return collection.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 }
 
 export const selectedEntity = derived(
@@ -91,7 +92,7 @@ export const tree = derived(
     return {
       faculties: sort(tree.faculties, true),
       issuers: sort(tree.issuers, true),
-      badgeClasses: sort(tree.badgeClasses),
+      badgeClasses: sortCreatedAt(tree.badgeClasses),
     };
   },
   { faculties: [], issuers: [], badgeClasses: [] }

@@ -13,13 +13,14 @@
   import {queryData} from "../../api/graphql";
   import {studentBadgeInstances} from "../../api/queries";
   import BadgeCard from "../../components/shared/BadgeCard.svelte";
+  import {sortCreatedAt} from "../../stores/filterBadges";
 
   let loaded = false;
   let badges = [];
 
   onMount(() => {
     queryData(studentBadgeInstances).then(res => {
-      badges = res.badgeInstances;
+      badges = sortCreatedAt(res.badgeInstances);
       loaded = true;
     });
   });

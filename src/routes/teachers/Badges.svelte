@@ -19,6 +19,7 @@
           name,
           image,
           entityId,
+          createdAt
           issuer {
             name,
             image,
