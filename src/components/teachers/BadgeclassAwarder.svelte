@@ -54,7 +54,7 @@
     ${assertionsQuery(entityId)},
   }`;
 
-  onMount(() => {
+    const refresh = () => {
     queryData(query).then(res => {
       badgeclass = res.badgeClass;
       issuer = res.badgeClass.issuer;
@@ -63,7 +63,10 @@
       enrollments = res.badgeClass.pendingEnrollments;
       assertions = res.badgeClass.badgeAssertions;
     });
-  });
+  }
+
+  onMount(() => refresh());
+
 
   $: tabs = [
     {
@@ -187,11 +190,11 @@
     </Route>
 
     <Route path="/enrollments">
-      <Enrollments {entityId} bind:enrollments refresh={onMount}/>
+      <Enrollments {entityId} bind:enrollments refresh={refresh}/>
     </Route>
 
     <Route path="/awarded">
-      <Assertions {issuer} {badgeclass} {assertions} refresh={onMount}/>
+      <Assertions {issuer} {badgeclass} {assertions} refresh={refresh}/>
     </Route>
   </Router>
 </div>
