@@ -13,7 +13,7 @@
   import moment from "moment";
   import Modal from "../../components/forms/Modal.svelte";
   import DownloadButton from "../../components/DownloadButton.svelte";
-  import {getPublicBadge, revokeAssertion, validateBadge} from "../../api";
+  import {getPublicBadge, revokeAssertion, validateBadge, validateName} from "../../api";
   import {flash} from "../../stores/flash";
   import CopyToClipboardButton from "../../components/CopyToClipboardButton.svelte";
   import {publicBadgeInformation} from "../extensions/badges/extensions";
@@ -25,6 +25,7 @@
 
   let fetchingValidation = false;
   let validation = {valid: false, messages: [], unloaded: true};
+  let validatedName;
 
   onMount(() => {
     getPublicBadge(entityId).then(res => {
@@ -32,10 +33,14 @@
       publicBadgeInformation(badge, res.badge);
       if (validation.unloaded) {
         fetchingValidation = true;
-        validateBadge(entityId).then(res => {
-          validation = res.report;
+        Promise.all([
+          validateBadge(entityId),
+          validateName(res.recipient.identity, res.recipient.salt)
+        ]).then(res => {
+          validation = res[0].report;
+          validatedName = res[1].name;
           fetchingValidation = false;
-        })
+        });
       }
     })
   });
@@ -109,13 +114,18 @@
       <div class="badge-card-container">
         <BadgeCard badgeClass={badge} standAlone={true}/>
       </div>
-      <BadgeValidation fetchingValidation={fetchingValidation} validation={validation}/>
+      <BadgeValidation fetchingValidation={fetchingValidation} validation={validation} validatedName={validatedName}/>
       <div class="dates">
         <div class="issued-on">
           <h3>{I18n.t("models.badge.issuedOn")}</h3>
           <span>{moment(badge.issuedOn).format('MMM D, YYYY')}</span>
         </div>
       </div>
+      <div class="description">
+        <h3>{I18n.t("models.badgeclass.description")}</h3>
+        <span>{badge.description}</span>
+      </div>
+
       <BadgeClassDetails badgeclass={badge}/>
     {:else}
       <Spinner/>

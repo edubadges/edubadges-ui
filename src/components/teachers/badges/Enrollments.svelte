@@ -17,6 +17,7 @@
 
   export let entityId;
   export let enrollments = [];
+  export let refresh;
 
   let selection = [];
   let checkAllValue = false;
@@ -29,9 +30,10 @@
 
   const refreshEnrollments = () => {
     selection = [];
-    queryData(`{ ${enrollmentsQuery(entityId)} }`).then(res => {
-      enrollments = res.badgeClass.pendingEnrollments;
-    });
+    // queryData(`{ ${enrollmentsQuery(entityId)} }`).then(res => {
+    //   enrollments = res.badgeClass.pendingEnrollments;
+    // });
+    refresh();
   };
 
   const award = showConfirmation => {

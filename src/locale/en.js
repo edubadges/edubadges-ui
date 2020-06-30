@@ -133,12 +133,14 @@ I18n.translations.en = {
       enrolled: "Successfully enrolled for badge {{name}}.",
       published: "This badge has been made public. You now can download and share this badge",
       private: "This badge has been made private. You can no longer download or share this badge",
-      deleted: "This badge has been deleted. You can no longer download or share this badge",
+      deleted: "This badge has been rejected. You can no longer download or share this badge",
+      accepted: "This badge has been accepted. You can now download or share this badge",
       claimed: "Successfully claimed this badge."
     },
     enrollments: "Requested badges",
     badges: "Your badges",
-    deleteBadge: "Delete this badge",
+    deleteBadge: "Reject this badge",
+    acceptBadge: "Accept this badge",
     share: "Share",
     copyUrl: "Copy URL",
     shareYourBadge: "Share your badge",
@@ -146,18 +148,23 @@ I18n.translations.en = {
     badgeRevoked: "This badge has been revoked. You can see the details, but this badge can no longer be shared or downloaded",
     privateBadge: "Private badge",
     publicPrivate: "When your badge is private, only you can see it and download it",
+    publicPrivateRejected : "In order for you to make this badge public, you'll first have to accept this badge",
+    revokedWithReason: "This badge has been revoked by the issuer for the reason: '{{revocationReason}}'",
     confirmation: {
       publish: "Make this badge public accessible",
       private: "Make this badge private",
-      deleteBadge: "Delete badge",
-      publishConfirmation: "Are you sure you want to make this badge public?",
+      deleteBadge: "Reject this badge",
+      acceptBadge: "Accept this badge",
+      publishConfirmation: "Are you sure you want to make this badge public?<br/><br/>If you make this badge public then your validated name <strong>{{name}}</strong> will be displayed in the validation section of the public badge webpage.",
       privateConfirmation: "Are you sure you want to make this badge private?",
-      deleteBadgeConfirmation: "Are you sure you want to delete this badge?",
+      deleteBadgeConfirmation: "Are you sure you want to reject this badge?",
+      acceptBadgeConfirmation: "Are you sure you want to accept this badge?",
     },
     validation: {
       loading: "Validating badge...",
       valid: "Valid badge",
-      invalid: "Invalid badge"
+      invalid: "Invalid badge",
+      validatedName: "Validated name of the badge recipient: <strong>{{name}}</strong>"
     }
   },
   manage: {
@@ -435,7 +442,9 @@ I18n.translations.en = {
       revoked: "Revoked",
       validUntil: "Valid until",
       statuses: {
-        new: "new",
+        new: "New",
+        rejected: "Rejected",
+        revoked: "Revoked"
       },
       confirmation: {
         revocationReason: "Reason for revocation (required)",

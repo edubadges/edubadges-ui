@@ -138,7 +138,8 @@ I18n.translations.nl = {
     },
     enrollments: "Aangevraagde edubadges",
     badges: "Jouw edubadges",
-    deleteBadge: "Verwijder deze edubadge",
+    deleteBadge: "Weiger deze edubadge",
+    acceptBadge: "Accepteer deze edubadge",
     share: "Deel",
     copyUrl: "Kopieer URL",
     shareYourBadge: "Deel jouw edubadge",
@@ -146,18 +147,24 @@ I18n.translations.nl = {
     badgeRevoked: "Deze edubadge is ingetrokken. Je ziet deze nog wel, maar deze edubadge kan je niet langer delen",
     privateBadge: "Prive edubadge",
     publicPrivate: "Wanneer je edubadge prive is gezet, dan kan alleen jij deze edubadge zien en downloaden.",
+    publicPrivateRejected: "Voordat je deze badge publiek kan maken, moety je deze badge eerst accepteren.",
+    revoked: "Deze badge is ingetrokken door de uitgever",
+    revokedWithReason: "Deze badge is ingetrokken door de uitgever met als reden: '{{revocationReason}}'",
     confirmation: {
       publish: "Maak deze edubadge publiekelijk beschikbaar",
       private: "Maak deze edubadge prive",
-      deleteBadge: "Verwijder edubadge",
-      publishConfirmation: "Weet je het zeker dat je deze edubadge publiek wilt maken?",
+      deleteBadge: "Weiger edubadge",
+      acceptBadge: "Accepteer edubadge",
+      publishConfirmation: "Weet je zeker dat u deze edubadge publiek wilt maken?<b/><br/>Als je deze edubadge publiek maakt, wordt je gevalideerde naam <strong>{{name}}</strong> weergegeven in het validatiegedeelte van de openbare badge-webpagina.",
       privateConfirmation: "Weet je het zeker dat je deze edubadge prive wilt maken",
-      deleteBadgeConfirmation: "Weet je het zeker dat je deze edubadge wil verwijderen?",
+      deleteBadgeConfirmation: "Weet je het zeker dat je deze edubadge wil weigeren?",
+      acceptBadgeConfirmation: "Weet je het zeker dat je deze edubadge wil accepteren?",
     },
     validation: {
       loading: "Edubadge wordt gevalideerd...",
       valid: "Geldige edubadge",
-      invalid: "Ongeldige edubadge"
+      invalid: "Ongeldige edubadge",
+      validatedName: "Gevalideerde naam van de badge ontvanger: <strong>{{name}}</strong>"
     }
   },
   manage: {
@@ -236,7 +243,7 @@ I18n.translations.nl = {
     212: "Awarded enrollments kunnen niet afgewezen worden",
     213: "Kan voor deze enrollment geen badge uitgeven, dit is al gebeurd",
     214: "Je kunt niets annpassen, badges zijn al uitgegeven binnen deze entiteit",
-    500: 'Kan niet de laatste permissie van de het instituut verwijderen', 
+    500: 'Kan niet de laatste permissie van de het instituut verwijderen',
     501: 'Je kunt maar één uitnodiging hebben per emailadres',
     502: 'Kan de gebruiker niet uitnodigen voor deze entiteit: er is een conflicterende permissie',
     503: 'Kan de gebruiker niet uitnodigen voor deze entiteit: er is een conflicterende uitnodiging',
@@ -436,6 +443,8 @@ I18n.translations.nl = {
       validUntil: "Geldig tot",
       statuses: {
         new: "Nieuw",
+        rejected: "Geweigerd",
+        revoked: "Ingetrokken"
       },
       confirmation: {
         revocationReason: "Reden voor intrekking (verplicht)",

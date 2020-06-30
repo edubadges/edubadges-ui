@@ -23,6 +23,13 @@
   export let entityId;
   export let badgeclass = {extensions: []};
   export let issuers = [];
+  export let issuer;
+
+  const isCreate = !entityId;
+
+  if (isCreate && issuer) {
+    badgeclass.issuer = issuer;
+  }
 
   let expireValueSet = false;
   let loaded = false;
@@ -56,7 +63,6 @@
 
   const entity = "badgeclass";
   let errors = {};
-  const isCreate = !entityId;
 
   const languages = [{name: "Nl_Nl"}, {name: "En_En"}];
 
@@ -215,7 +221,8 @@
       <Select
         bind:value={badgeclass.issuer}
         error={errors.issuer}
-        disabled={!isCreate}
+        disabled={true}
+        clearable={false}
         items={issuers}/>
     </Field>
 

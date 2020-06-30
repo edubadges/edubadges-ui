@@ -18,6 +18,7 @@
   export let assertions = [];
   export let issuer;
   export let badgeclass;
+  export let refresh;
 
   let selection = [];
   let checkAllValue = false;
@@ -53,9 +54,10 @@
   const refreshEnrollments = () => {
     selection = [];
     revocationReason = "";
-    queryData(`{ ${assertionsQuery(badgeclass.entityId)} }`).then(res => {
-      assertions = res.badgeClass.badgeAssertions;
-    });
+    // queryData(`{ ${assertionsQuery(badgeclass.entityId)} }`).then(res => {
+    //   assertions = res.badgeClass.badgeAssertions;
+    // });
+    refresh();
   };
 
   const onCheckAll = val => {

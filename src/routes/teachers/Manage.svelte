@@ -42,7 +42,7 @@
     <Route path="/issuer/:entityId/edit" component={IssuerEdit} />
     <Route path="/issuer/:entityId/*subEntity" component={Issuer} />
 
-    <Route path="/badgeclass/new" component={BadgeclassNew} />
+    <Route path="/badgeclass/new/*issuerEntityId" component={BadgeclassNew} />
     <Route path="/badgeclass/:entityId/edit" component={BadgeclassEdit} />
     <Route path="/badgeclass/:entityId/*tab" component={BadgeclassManage} />
 

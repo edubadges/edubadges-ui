@@ -11,7 +11,7 @@
     BadgeclassAwarder,
     InviteEnrollments
   } from "./components/teachers";
-  import {userRole, userLoggedIn, redirectPath} from "./stores/user";
+  import {userRole, userLoggedIn, userName, redirectPath} from "./stores/user";
   import {role} from "./util/role";
   import {getSocialAccount} from "./api";
   import PublicBadgeClassPage from "./components/shared/PublicBadgeClassPage.svelte"
@@ -37,11 +37,13 @@
         .then(res => {
           loaded = true;
           $userLoggedIn = true;
+          $userName = `${res[0].firstName} ${res[0].lastName}`;
         })
         .catch(() => {
           $redirectPath = window.location.pathname;
           navigate("/login");
           $userLoggedIn = false;
+          $userName = "";
           loaded = true;
         });
     } else {

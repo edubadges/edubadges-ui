@@ -1,5 +1,7 @@
 <script>
   import I18n from "i18n-js";
+  import {userName} from "../../stores/user";
+
   import {onMount} from "svelte";
   import shieldUnlocked from "../../icons/shield-unlock.svg";
   import shieldLocked from "../../icons/lock-shield.svg";
@@ -14,7 +16,14 @@
   import moment from "moment";
   import Modal from "../../components/forms/Modal.svelte";
   import DownloadButton from "../../components/DownloadButton.svelte";
-  import {revokeAssertion, publicAssertion, deleteAssertion, validateBadge, claimAssertion} from "../../api";
+  import {
+    revokeAssertion,
+    publicAssertion,
+    deleteAssertion,
+    validateBadge,
+    claimAssertion,
+    acceptAssertion
+  } from "../../api";
   import {flash} from "../../stores/flash";
   import CopyToClipboardButton from "../../components/CopyToClipboardButton.svelte";
   import BadgeValidation from "./BadgeValidation.svelte";
@@ -50,6 +59,10 @@
     showShareModal = false;
   }
 
+  const downloadFileName = badge => {
+    const sanitizedName = badge.badgeclass.name.replace(/ /g, "_").toLowerCase();
+    return `${sanitizedName}_edubadge.png`;
+  }
 
   const query = `{
     badgeInstance(id: "${entityId}") {
@@ -105,11 +118,11 @@
     refreshBadgeDetails();
   });
 
-  const deleteBadge = showConfirmation => {
+  const rejectBadge = showConfirmation => {
     if (showConfirmation) {
       modalTitle = I18n.t("student.confirmation.deleteBadge");
       modalQuestion = I18n.t("student.confirmation.deleteBadgeConfirmation");
-      modalAction = () => deleteBadge(false);
+      modalAction = () => rejectBadge(false);
       showModal = true;
     } else {
       showModal = false;
@@ -121,10 +134,27 @@
     }
   }
 
+  const acceptBadge = showConfirmation => {
+    if (showConfirmation) {
+      modalTitle = I18n.t("student.confirmation.acceptBadge");
+      modalQuestion = I18n.t("student.confirmation.acceptBadgeConfirmation");
+      modalAction = () => acceptBadge(false);
+      showModal = true;
+    } else {
+      showModal = false;
+      acceptAssertion(badge.entityId)
+        .then(() => {
+          flash.setValue(I18n.t("student.flash.accepted"));
+          refreshBadgeDetails();
+        });
+    }
+  }
+
+
   const makePublic = (showConfirmation, isPublic) => {
     if (showConfirmation) {
       modalTitle = isPublic ? I18n.t("student.confirmation.publish") : I18n.t("student.confirmation.private");
-      modalQuestion = isPublic ? I18n.t("student.confirmation.publishConfirmation") : I18n.t("student.confirmation.privateConfirmation");
+      modalQuestion = isPublic ? I18n.t("student.confirmation.publishConfirmation", {name: $userName}) : I18n.t("student.confirmation.privateConfirmation");
       modalAction = () => makePublic(false, isPublic);
       showModal = true;
     } else {
@@ -157,10 +187,37 @@
     }
   }
 
+  span.status-indicator {
+    display: inline-block;
+    position: absolute;
+    border-radius: 14px;
+    box-shadow: 0 1px 0 1px var(--grey-4);
+    font-weight: bold;
+    font-size: 14px;
+    padding: 4px 8px;
+    text-align: center;
+    left: 30px;
+    top: -14px;
+    background-color: var(--red-dark);
+    color: white;
+    max-width: 85px;
+    z-index: 9;
+  }
+
+  span.status-indicator.rejected {
+    background-color: var(--red-dark);
+    color: white;
+  }
+
+  span.status-indicator.revoked {
+    background-color: var(--red-strong-dark);
+  }
+
   div.badge-card-container {
     display: flex;
     max-width: 320px;
     margin: 0 auto 40px auto;
+    position: relative;
   }
 
   div.bread-crumb {
@@ -253,10 +310,16 @@
     }
   }
 
+  p.rejected {
+    margin-top: 15px;
+  }
   p.revoked {
-    color: var(--red-dark);
-    font-size: 22px;
-    margin: 25px 0;
+    background-color: var(--grey-2);
+    border-radius: 8px;
+    padding: 12px;
+    color: var(--red-strong-dark);
+    margin: 30px 0;
+    display: inline-block;
   }
 
   @media (max-width: 1120px) {
@@ -268,7 +331,6 @@
   div.issued {
     display: flex;
     flex-direction: column;
-    margin-bottom: 40px;
 
     span.issuer {
       color: var(--purple);
@@ -313,24 +375,36 @@
         {/if}
       </div>
       <div class="badge-card-container">
+        {#if badge && badge.revoked}
+          <span class="status-indicator revoked">{I18n.t("models.badge.statuses.revoked")}</span>
+        {:else if badge && badge.acceptance === "REJECTED"}
+          <span class="status-indicator rejected">{I18n.t("models.badge.statuses.rejected")}</span>
+        {/if}
         <BadgeCard badgeClass={badge.badgeclass} standAlone={true}/>
       </div>
       {#if badge.revoked}
-        <p class="revoked">{I18n.t("student.badgeRevoked")}</p>
+        <p class="revoked">{ I18n.t("student.badgeRevoked")}</p>
       {:else}
         <div class="public-private">
           <div class="header">
             <h3>{I18n.t("student.privateBadge")}</h3>
             <div class="switch-container">
-              <ToggleSwitch disabled={false} value={!badge.public} onChange={val => makePublic(true, !val)}/>
+              <ToggleSwitch disabled={badge && badge.acceptance === "REJECTED"}
+                            value={!badge.public} onChange={val => makePublic(true, !val)}/>
             </div>
           </div>
 
           <p>{I18n.t("student.publicPrivate")}</p>
+          {#if badge && badge.acceptance === "REJECTED"}
+            <p class="rejected">{I18n.t("student.publicPrivateRejected")}</p>
+          {/if}
+
         </div>
         <div class="actions">
           <div class="button-container">
-            <DownloadButton text={I18n.t("models.badge.download")} secondary={true} filename="assertion.png"
+            <DownloadButton text={I18n.t("models.badge.download")} secondary={true}
+                            filename={downloadFileName(badge)}
+                            disabled={badge && badge.acceptance === "REJECTED"}
                             url={badge.image}/>
           </div>
           <div class="button-container">
@@ -375,10 +449,15 @@
 
       <BadgeClassDetails badgeclass={badge.badgeclass}/>
     </div>
-    <div class="delete">
-      <Button action={() => deleteBadge(true)} secondary={true} text={I18n.t("student.deleteBadge")}
-        disabled={badge.acceptance === "REJECTED"}/>
-    </div>
+    {#if !badge.revoked}
+      <div class="delete">
+        {#if badge && badge.acceptance === "ACCEPTED"}
+          <Button action={() => rejectBadge(true)} secondary={true} text={I18n.t("student.deleteBadge")} />
+        {:else}
+          <Button action={() => acceptBadge(true)} secondary={true} text={I18n.t("student.acceptBadge")} />
+        {/if}
+      </div>
+    {/if}
   {:else}
     <Spinner/>
   {/if}

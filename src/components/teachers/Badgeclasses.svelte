@@ -8,6 +8,7 @@
 
   export let badgeclasses = [];
   export let mayCreate;
+  export let issuer;
 
   const tableHeaders = [
     {
@@ -58,6 +59,7 @@
 <Table
   {...table}
   bind:search={badgeclassSearch}
+  pathParameters={[issuer.entityId]}
   bind:sort={badgeclassSort}
   {mayCreate}>
   {#each sortedFilteredBadgeclasses as badgeclass (badgeclass.entityId)}

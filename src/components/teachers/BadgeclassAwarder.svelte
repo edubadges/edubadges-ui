@@ -187,11 +187,11 @@
     </Route>
 
     <Route path="/enrollments">
-      <Enrollments {entityId} bind:enrollments/>
+      <Enrollments {entityId} bind:enrollments refresh={onMount}/>
     </Route>
 
     <Route path="/awarded">
-      <Assertions {issuer} {badgeclass} {assertions}/>
+      <Assertions {issuer} {badgeclass} {assertions} refresh={onMount}/>
     </Route>
   </Router>
 </div>

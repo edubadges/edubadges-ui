@@ -127,7 +127,8 @@
   <Route path="/badgeclasses">
     <Badgeclasses
       {badgeclasses}
-      mayCreate={mayCreate}/>
+      mayCreate={mayCreate}
+      issuer={issuer}/>
   </Route>
   <Route path="/user-management/invite-new-user">
     <InviteUser

@@ -1,11 +1,13 @@
 <script>
   import DotSpinner from "../../components/DotSpinner.svelte";
-  import validIcon from "../../icons/check-green.svg";
+  import validIcon from "../../icons/check.svg";
   import invalidIcon from "../../icons/close_smll.svg";
   import I18n from "i18n-js";
 
   export let fetchingValidation;
   export let validation;
+  export let validatedName;
+
 </script>
 <style lang="scss">
   div.validation {
@@ -43,35 +45,42 @@
       div.summary {
         display: flex;
         align-items: center;
-      }
 
-      :global(svg) {
-        width: 30px;
-      }
+        span.svg-container {
+          width: 40px;
+          margin-right: 15px;
 
-      :global(svg.close) {
-        fill: var(--red-dark);
-      }
+          :global(svg.close) {
+            fill: var(--red-dark);
+          }
 
-      span {
-        color: var(--red-dark);
-
-        &.valid {
-          color: white;
         }
-      }
-      .messages {
-        margin-top: 15px;
-        display: flex;
-        flex-direction: column;
 
-        span.validation-error {
+        span.validated-name {
+          margin-left: auto;
           display: inline-block;
-          margin-bottom: 10px;
         }
+      }
+
+      span.invalid {
+        color: var(--red-dark);
+      }
+
+      span.valid {
+        color: white;
       }
     }
 
+    .messages {
+      margin-top: 15px;
+      display: flex;
+      flex-direction: column;
+
+      span.validation-error {
+        display: inline-block;
+        margin-bottom: 10px;
+      }
+    }
   }
 
 </style>
@@ -86,10 +95,16 @@
   {:else}
     <div class="validation-report" class:valid={validation.valid}>
       <div class="summary">
-        {@html validation.valid ? validIcon : invalidIcon }
-        <span class:valid={validation.valid}>
+        <span class="svg-container">
+          {@html validation.valid ? validIcon : invalidIcon }
+        </span>
+        <span class:valid={validation.valid} class:invalid={!validation.valid}>
           {validation.valid ? I18n.t("student.validation.valid") : I18n.t("student.validation.invalid")}
         </span>
+        {#if validatedName}
+          <span class="valid validated-name">{@html I18n.t("student.validation.validatedName",{name:validatedName})}</span>
+        {/if}
+
       </div>
       {#if !validation.valid}
         <div class="messages">

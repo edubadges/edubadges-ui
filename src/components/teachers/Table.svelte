@@ -7,6 +7,7 @@
 
   export let mayCreate;
   export let entity = "";
+  export let pathParameters = [];
   export let title = "";
   export let tableHeaders = [];
   export let search = "";
@@ -69,7 +70,7 @@
     <Search bind:value={search}/>
     {#if mayCreate}
       <Button
-          href={`/manage/${entity}/new`}
+          href={`/manage/${entity}/new/${pathParameters.join("/")}`}
           text={I18n.t(['manage', 'new', entity])}/>
     {/if}
   </div>

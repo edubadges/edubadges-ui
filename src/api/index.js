@@ -163,6 +163,15 @@ export function publicAssertion(assertionEntityId, isPublic) {
   );
 }
 
+export function acceptAssertion(assertionEntityId) {
+  const path = `${serverUrl}/v1/earner/badges/${assertionEntityId}`;
+  return validFetch(
+    path,
+    {body: JSON.stringify({"acceptance": "Accepted"})},
+    "PUT"
+  );
+}
+
 export function claimAssertion(assertionEntityId) {
   const path = `${serverUrl}/v1/earner/badges/${assertionEntityId}`;
   return validFetch(
@@ -225,6 +234,11 @@ export function getPublicBadge(entityId) {
 export function validateBadge(entityId) {
   const path = `${serverUrl}/public/assertions/validate/${entityId}`;
   return validFetch(path, {}, "GET", false);
+}
+
+export function validateName(identityHash, salt) {
+  const path = `${serverUrl}/public/assertions/identity/${identityHash}/${salt}`;
+  return validFetch(path);
 }
 
 // Manage users

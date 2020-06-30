@@ -2,6 +2,7 @@
 
   export let value;
   export let onChange;
+  export let disabled = false;
 
 </script>
 
@@ -40,6 +41,11 @@
       transition: .4s;
     }
 
+    &.disabled {
+      cursor: not-allowed;
+      background-color: var(--grey-4);
+    }
+
     &.round {
       border-radius: 34px;
     }
@@ -58,8 +64,16 @@
     background-color: var(--purple);
   }
 
+  input:checked + .slider.checked.disabled {
+    background-color: var(--grey-4);
+  }
+
   input:focus + .slider.checked {
     box-shadow: 0 0 1px var(--purple);
+  }
+
+  input:focus + .slider.checked.disabled {
+    box-shadow: 0 0 1px var(--grey-4);
   }
 
   input:checked + .slider.checked:before {
@@ -71,5 +85,5 @@
 <label class="switch">
   <input type="checkbox" checked={value}
          disabled={true}>
-  <span class:checked={value} class="slider round" on:click={() => onChange(!value)}></span>
+  <span class:checked={value} class:disabled class="slider round" on:click={() => !disabled && onChange(!value)}></span>
 </label>
