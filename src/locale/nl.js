@@ -395,11 +395,11 @@ I18n.translations.nl = {
         earningCriteria: "Leer criteria",
         additionalSections: "Extra toevoegingen",
         educationalIdentifiers: "Onderwijsidentificatie",
-        studyLoad: "Studiepunten",
+        studyLoad: "Study load",
         alignment: "Alignment"
       },
       addButtons: {
-        educationalIdentifiers: "Add educational identifiers",
+        educationalIdentifiers: "Add educational identifier(s)",
         studyLoad: "Add study load",
         alignment: "Add alignment",
       },

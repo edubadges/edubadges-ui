@@ -68,5 +68,4 @@
     showChevron={true}
     isDisabled={disabled}
     isClearable={clearable} />
-
 </div>

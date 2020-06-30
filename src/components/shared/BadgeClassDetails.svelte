@@ -79,16 +79,16 @@
     <table class="extensions">
       <thead class="purple">
       <th class="ects">{I18n.t('models.badgeclass.ects.creditPoints')}</th>
-      <th class="eqf">{I18n.t('models.badgeclass.eqf')}</th>
       <th class="epi">{I18n.t('models.badgeclass.educationProgramIdentifier')}</th>
+      <th class="eqf">{I18n.t('models.badgeclass.eqf')}</th>
       </thead>
       <tbody>
       <tr>
         <td>{fallBackValue(badgeclass.ects || extensionValue(badgeclass.extensions, ects))}</td>
-        <td>{`EQF ${fallBackValue(badgeclass.eqf || extensionValue(badgeclass.extensions, eqf))}`}</td>
         <td>
           {fallBackValue(badgeclass.educationProgramIdentifier || extensionValue(badgeclass.extensions, educationProgramIdentifier))}
         </td>
+        <td>{`EQF ${fallBackValue(badgeclass.eqf || extensionValue(badgeclass.extensions, eqf))}`}</td>
       </tr>
       </tbody>
     </table>

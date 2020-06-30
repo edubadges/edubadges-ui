@@ -99,7 +99,7 @@
 
   const tableHeaders = [
     {
-      name: I18n.t("editUsers.issuerGroup.header"),
+      name: I18n.t("editUsers.faculty.header"),
       attribute: "name",
       reverse: false,
       sortType: sortType.ALPHA
