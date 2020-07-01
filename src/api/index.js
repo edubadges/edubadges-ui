@@ -220,6 +220,12 @@ export function createBadgeclass(badgeclass) {
   return validFetch(path, {body: JSON.stringify(badgeclass)}, "POST");
 }
 
+// Entities
+export function deleteEntity(entityType, entityId) {
+  const path = `${serverUrl}/${entityType}/edit/${entityId}`;
+  return validFetch(path, {}, "DELETE");
+}
+
 // Public
 export function getPublicBadgeClass(badgeId) {
   const path = `${serverUrl}/public/badges/${badgeId}?expand=issuer`;
