@@ -10,7 +10,7 @@
   }
 
   .add {
-    color: green;
+    color: var(--green-medium);
     border: none;
     background-color: inherit;
     font-size: 16px;

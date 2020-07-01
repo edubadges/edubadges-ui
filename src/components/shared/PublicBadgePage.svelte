@@ -5,7 +5,6 @@
   import {queryData} from "../../api/graphql";
   import {isEmpty} from "lodash";
   import chevronRightSmall from "../../icons/chevron-right-small.svg";
-  import trash from "../../icons/trash.svg";
   import Button from "../../components/Button.svelte";
   import Spinner from "../../components/Spinner.svelte";
   import BadgeCard from "../../components/shared/BadgeCard.svelte";

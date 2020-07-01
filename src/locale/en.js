@@ -402,11 +402,11 @@ I18n.translations.en = {
         earningCriteria: "Earning criteria",
         additionalSections: "Additional sections",
         educationalIdentifiers: "Educational Identifiers",
-        studyLoad: "Credit Points",
+        studyLoad: "Study load",
         alignment: "Alignment"
       },
       addButtons: {
-        educationalIdentifiers: "Add educational identifiers",
+        educationalIdentifiers: "Add educational identifier(s)",
         studyLoad: "Add study load",
         alignment: "Add alignment",
       },

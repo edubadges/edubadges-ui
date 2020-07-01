@@ -13,4 +13,5 @@ export { default as issuerIcon } from "./issuer.svg";
 export { default as navigateBack } from "./navigation-left-2.svg";
 export { default as searchIcon } from "./search.svg";
 export { default as stepChecked } from "./step-checked.svg";
+export { default as trash } from "./trash.svg";
 export { default as warningIcon } from "./warning.svg";

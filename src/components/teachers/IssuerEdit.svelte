@@ -8,6 +8,7 @@
   const query = `{
     issuer(id: "${entityId}") {
       name,
+      entityId,
       description,
       image,
       url,

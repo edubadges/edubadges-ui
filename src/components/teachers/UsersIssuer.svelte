@@ -110,7 +110,7 @@
 
   const tableHeaders = [
     {
-      name: I18n.t("editUsers.issuerGroup.header"),
+      name: I18n.t("editUsers.issuer.header"),
       attribute: "name",
       reverse: false,
       sortType: sortType.ALPHA

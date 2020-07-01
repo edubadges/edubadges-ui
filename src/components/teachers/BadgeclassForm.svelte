@@ -19,6 +19,7 @@
   import EctsCreditPoints from "../extensions/badges/EctsCreditPoints.svelte";
   import { setExpirationPeriod } from "../extensions/badges/expiration_period";
   import { addAlignment } from "../extensions/badges/alignment";
+  import {trash} from '../../icons';
 
   export let entityId;
   export let badgeclass = {extensions: []};
@@ -34,7 +35,7 @@
   let expireValueSet = false;
   let loaded = false;
 
-  let showStudyLoad = false;
+  let showStudyLoad = true;
   let showEducationalIdentifiers = false;
   let showAlignment = false;
 
@@ -96,18 +97,29 @@
       criteria_url: badgeclass.criteriaUrl,
     };
     setExpirationPeriod(newBadgeclass);
-    addAlignment(newBadgeclass, alignment);
+    if (showAlignment) {
+      addAlignment(newBadgeclass, alignment);
+    } else {
+      newBadgeclass.alignment = [];
+    }
     newBadgeclass.extensions = extensionToJson([
       {name: language.name, value: extensions[language.name].name},
-      {name: ects.name, value: extensions[ects.name]},
       {name: eqf.name, value: extensions[eqf.name].value},
       {name: learningOutcome.name, value: extensions[learningOutcome.name]},
-      {
+    ]);
+    if (showEducationalIdentifiers) {
+      Object.assign(extensionToJson([{
         name: educationProgramIdentifier.name,
         value: parseInt(extensions[educationProgramIdentifier.name], 10)
-      },
-      {name: studyLoad.name, value: parseInt(extensions[studyLoad.name])}
-    ]);
+      }]), newBadgeclass.extensions)
+    }
+    if (showStudyLoad) {
+      if(EctsOrHoursSelection) {
+        Object.assign(extensionToJson([{name: ects.name, value: extensions[ects.name]}]), newBadgeclass.extensions)
+      } else {
+        Object.assign(extensionToJson([{name: studyLoad.name, value: parseInt(extensions[studyLoad.name])}]), newBadgeclass.extensions)
+      }
+    }
     if (badgeclass.issuer) {
       newBadgeclass.issuer = badgeclass.issuer.entityId;
     }
@@ -140,9 +152,10 @@
 
   h4 {
     color: var(--purple);
-    border-left: 3px solid var(--purple-2);
     padding: var(--ver-padding-s);
-    margin: var(--ver-padding-l) 0;
+    margin-top: var(--ver-padding-l) 0;
+    padding-left: 0;
+    font-size: 20px;
   }
 
   span.info {
@@ -162,6 +175,23 @@
   .add-button {
     margin-right: 20px;
   }
+
+  .rm-icon-container {
+    border: none;
+    background-color: inherit;
+    color: purple;
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+    margin: 0 0 5px 0;
+    align-self: center;
+  }
+
+  .header-line {
+    border-top: purple solid 1px;
+    margin-top: 0;
+    margin-bottom: 20px;
+  }
 </style>
 
 <EntityForm
@@ -174,6 +204,7 @@
   create={isCreate}>
 
   <h4>{I18n.t("models.badgeclass.headers.basicInformation")}</h4>
+  <hr class="header-line">
 
   <div class="form">
 
@@ -207,14 +238,18 @@
       <TextInput
         bind:value={badgeclass.description}
         error={errors.description}
-        area/>
+        area
+        size="100"
+      />
     </Field>
 
     <Field {entity} attribute="learningOutcome" errors={errors.learningOutcome}>
       <TextInput
         bind:value={extensions[learningOutcome.name]}
         error={errors.learningOutcome}
-        area/>
+        area
+        size="100"
+      />
     </Field>
 
     <Field {entity} attribute="issuer" errors={errors.issuer}>
@@ -229,6 +264,7 @@
   </div>
 
   <h4>{I18n.t('models.badgeclass.headers.earningCriteria')}</h4>
+  <hr class="header-line">
 
   <div class="form">
 
@@ -236,7 +272,9 @@
       <TextInput
         area
         bind:value={badgeclass.criteriaText}
-        error={errors.criteria_text}/>
+        error={errors.criteria_text}
+        size="150"
+      />
     </Field>
 
     <Field {entity} attribute="criteria_url" errors={errors.criteria_url}>
@@ -247,7 +285,11 @@
   </div>
 
   {#if showEducationalIdentifiers}
-    <div class="deletable-title"><h4>{I18n.t('models.badgeclass.headers.educationalIdentifiers')}</h4></div><button on:click={() => showEducationalIdentifiers = false}>rm</button>
+    <div style="display: flex">
+      <div class="deletable-title"><h4>{I18n.t('models.badgeclass.headers.educationalIdentifiers')}</h4></div>
+      <button class="rm-icon-container" on:click={() => showEducationalIdentifiers = false}>{@html trash}</button>
+    </div>
+    <hr class="header-line">
 
     <div class="form">
       <Field
@@ -278,7 +320,11 @@
   {/if}
 
   {#if showStudyLoad}
-    <div class="deletable-title"><h4>{I18n.t('models.badgeclass.headers.studyLoad')}</h4></div><button on:click={() => showStudyLoad = false}>rm</button>
+    <div style="display: flex">
+      <div class="deletable-title"><h4>{I18n.t('models.badgeclass.headers.studyLoad')}</h4></div>
+      <button class="rm-icon-container" on:click={() => showStudyLoad = false}>{@html trash}</button>
+    </div>
+    <hr class="header-line">
 
     <div class="form">
       <Field {entity} attribute="typeOfStudyLoad" errors={errors.type}>
@@ -304,7 +350,12 @@
 
 
   {#if showAlignment}
-    <div class="deletable-title"><h4>{I18n.t('models.badgeclass.headers.alignment')}</h4></div><button on:click={() => showAlignment = false}>rm</button>
+    <div style="display: flex">
+      <div class="deletable-title"><h4>{I18n.t('models.badgeclass.headers.alignment')}</h4></div>
+      <button class="rm-icon-container" on:click={() => showAlignment = false}>{@html trash}</button>
+    </div>
+    <hr class="header-line">
+
     <div class="form">
       <Field {entity} attribute="alignmentName">
         <TextInput
@@ -339,6 +390,8 @@
 
   {#if !(showStudyLoad && showEducationalIdentifiers && showAlignment)}
     <h4>{I18n.t('models.badgeclass.headers.additionalSections')}</h4>
+    <hr class="header-line">
+
     <div class="add-buttons">
       <span class="add-button">
         <AddButton
