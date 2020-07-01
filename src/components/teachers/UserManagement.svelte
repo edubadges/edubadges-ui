@@ -253,7 +253,7 @@
             <td>{I18n.t(['editUsers', entity, 'allRights'])}</td>
           {/if}
           <td>
-            <InvitationStatusWidget date={createdAt} rejected={rejected}/>
+            <InvitationStatusWidget date={createdAt}/>
           </td>
         {:else if _staffType === staffType.BADGE_CLASS_STAFF}
           <td>

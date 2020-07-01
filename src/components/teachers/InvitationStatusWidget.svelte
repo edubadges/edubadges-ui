@@ -3,33 +3,26 @@
   import I18n from "i18n-js";
 
   export let accepted;
-  export let rejected;
   export let date;
 </script>
 
 <style>
   .invite-widget {
     width: 100%;
-    padding: 7px;
+    padding: 5px 15px;
     font-size: small;
+    border-radius: 20px;
   }
 
   .invite-widget-accepted {
-    background-color: lightgreen;
-    border-radius: 40px;
+    background-color: var(--green-light);
   }
 
   .invite-widget-pending {
-    background-color: lightgoldenrodyellow;
-    border-radius: 40px;
-  }
-
-  .invite-widget-pending {
-    background-color: indianred;
-    border-radius: 40px;
+    background-color: var(--yellow-light);
   }
 </style>
 
-<span class="invite-widget {accepted ? 'invite-widget-accepted' : rejected ? 'invite-widget-rejected' : 'invite-widget-pending'}">
+<span class="invite-widget {accepted ? 'invite-widget-accepted' : 'invite-widget-pending'}">
   {accepted ? I18n.t(['inviteUsers', 'accepted']) : `${I18n.t(['inviteUsers', 'sent'])} ${moment(date).format('DD MMM')}`}
 </span>
