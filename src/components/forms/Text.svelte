@@ -2,7 +2,7 @@
   export let value = "";
   export let type = "text";
   export let max = "999999999999999";
-  export let disabled = false;
+  export let disabled;
   export let error;
   export let size;
 
@@ -10,7 +10,16 @@
 </script>
 
 <style>
+  /* Disabled */
+  div[disabled] * {
+    color: var(--color-text-light-grey);
+  }
 
+  div[disabled] input,
+  div[disabled] textarea {
+    cursor: not-allowed;
+    border-color: var(--color-text-light-grey);
+  }
 </style>
 
 <div {disabled} {error}>

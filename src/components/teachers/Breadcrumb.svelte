@@ -51,6 +51,7 @@
     min-height: 47px;
     display: flex;
     align-items: center;
+    font-size: 14px;
   }
 
   a {
@@ -58,14 +59,16 @@
   }
 
   a:last-of-type {
-    font-weight: bold;
+    font-weight: var(--semi-bold);
   }
 
   a:not(:last-of-type) {
-    text-decoration: underline;
+    color: var(--text-grey-dark)
   }
 
   span {
+    height: 14px;
+    width: 14px;
     margin: auto 4px;
   }
 </style>

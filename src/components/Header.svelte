@@ -29,8 +29,8 @@
     display: flex;
     align-items: center;
 
-    padding-top: var(--ver-padding-s);
-    padding-bottom: var(--ver-padding-s);
+    padding-top: var(--ver-padding-header);
+    padding-bottom: var(--ver-padding-header);
     padding-right: var(--hor-padding-s);
   }
 

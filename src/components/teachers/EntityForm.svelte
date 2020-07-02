@@ -14,14 +14,14 @@
 </script>
 
 <style lang="scss">
-  h3 {
+  h2 {
     background: var(--purple-1);
-    padding: var(--ver-padding-m) var(--hor-padding-m);
+    padding: var(--ver-padding-l) var(--hor-padding-l);
   }
 
   .offset {
     max-width: fit-content;
-    margin: 0 auto;
+    margin: 0;
   }
 </style>
 
@@ -34,7 +34,7 @@
   {create}
   {entity} />
 
-<h3>{I18n.t(['manage', create ? 'new' : 'edit', entity])}</h3>
+<h2>{I18n.t(['manage', create ? 'new' : 'edit', entity])}</h2>
 
 <div class="main-content-margin">
   <div class="offset">

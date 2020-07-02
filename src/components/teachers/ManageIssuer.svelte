@@ -5,6 +5,7 @@
   import {badgeclassIcon} from "../../icons";
   import {queryData} from "../../api/graphql";
   import {headerStaff, headerEntity} from "../../api/queries";
+  import {entityType} from "../../util/entityTypes"
 
   export let entityId;
   export let subEntity;
@@ -120,8 +121,9 @@
   {tabs}
   {headerItems}
   object={issuer}
-  entity="issuer"
-  mayUpdate={mayUpdate}/>
+  entity={entityType.ISSUER}
+  mayUpdate={mayUpdate}
+/>
 
 <Router>
   <Route path="/badgeclasses">

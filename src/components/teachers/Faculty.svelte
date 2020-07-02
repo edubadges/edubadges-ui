@@ -100,7 +100,8 @@
   {headerItems}
   object={faculty}
   mayUpdate={mayUpdate}
-  entity="faculty" />
+  entity={entityType.ISSUER_GROUP}
+/>
 
 <Router>
   <Route path="/issuers">

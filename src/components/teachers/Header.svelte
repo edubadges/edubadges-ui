@@ -31,8 +31,10 @@
   }
 
   nav a {
-    font-weight: bold;
+    font-weight: var(--medium);
+    font-size: 18px;
     letter-spacing: 0.34px;
+    font-family: Proxima Nova;
 
     padding: 4px 0;
     margin-right: 30px;

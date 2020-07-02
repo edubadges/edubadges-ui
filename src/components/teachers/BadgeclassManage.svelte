@@ -104,8 +104,13 @@
 
 <Breadcrumb {faculty} {issuer} {badgeclass} badgeclassName={badgeclass.name} />
 
-<EntityHeader object={badgeclass} entity="badgeclass" {tabs} {headerItems}
-              mayUpdate={badgeclass.permissions && badgeclass.permissions.mayUpdate && badgeclass.badgeAssertions.length === 0}/>
+<EntityHeader
+    object={badgeclass}
+    entity={entityType.BADGE_CLASS}
+    {tabs}
+    {headerItems}
+    mayUpdate={badgeclass.permissions && badgeclass.permissions.mayUpdate && badgeclass.badgeAssertions.length === 0}
+/>
 
 <div class="main-content-margin">
   <Router>

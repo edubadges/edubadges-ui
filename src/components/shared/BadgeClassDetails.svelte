@@ -23,6 +23,7 @@
 
   .info {
     margin-bottom: 40px;
+    word-break: break-all;
   }
 
   table.extensions {
@@ -49,13 +50,18 @@
     }
   }
 </style>
+
 <div class="slots">
   <slot/>
 </div>
 <div class="badge-class-detail">
+  <h3>{I18n.t('models.badgeclass.description')}</h3>
+  <p class="info">
+    {badgeclass.description}
+  </p>
   <h3>{I18n.t('models.badgeclass.language')}</h3>
   <p class="info">
-    {fallBackValue(badgeclass.language || extensionValue(badgeclass.extensions, language))}
+    {fallBackValue(I18n.t(['models', 'badgeclass', 'languageLabels', badgeclass.language || extensionValue(badgeclass.extensions, language)]))}
   </p>
   <h3>{I18n.t('models.badgeclass.learningOutcome')}</h3>
   <p class="info">

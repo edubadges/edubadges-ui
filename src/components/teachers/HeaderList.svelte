@@ -1,6 +1,7 @@
 <script>
   import I18n from "i18n-js";
   import { formatAdminNames } from "../../util/entityHeader";
+  import moment from "moment";
 
   export let entity;
   export let headerItems = [];
@@ -34,12 +35,12 @@
       <h5>{I18n.t(['models', entity, attr])}</h5>
 
       {#if type === 'date'}
-        {new Date(value).toLocaleDateString()}
+        {moment(value).format('MMM D, YYYY')}
       {:else if type === 'adminNames'}
         {formatAdminNames(value)}
       {:else if type === 'link'}
         {#if value}
-          <a class="is-link" href={value} target="_blank">{value}</a>
+          <a class="is-link" href={value} target="_blank">visit website</a>
         {:else}-{/if}
       {:else if type === 'email'}
         {#if value}

@@ -18,6 +18,7 @@
   } from "../../api/queries";
   import {expirationPeriod} from "../../util/entityHeader";
   import CopyToClipboardButton from "../CopyToClipboardButton.svelte";
+  import {entityType} from "../../util/entityTypes"
 
   export let entityId;
   export let subEntity;
@@ -162,7 +163,7 @@
 
 <EntityHeader
   object={badgeclass}
-  entity="badgeclass"
+  entity={entityType.BADGE_CLASS}
   {tabs}
   {headerItems}
   mayUpdate={false}>

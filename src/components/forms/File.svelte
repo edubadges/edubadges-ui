@@ -42,6 +42,10 @@
     width: 120px;
     margin-right: var(--hor-padding-m);
 
+    display: flex;
+    justify-content: space-around;
+    object-fit: contain;
+
     p {
       text-align: center;
       padding: 6px;
@@ -86,11 +90,12 @@
     <Button
       label="file"
       text={I18n.t('file.upload')} />
-    <Button
-      disabled={!removeAllowed}
-      secondary
-      action={_ => setFile()}
-      text={I18n.t('file.remove')} />
+    {#if removeAllowed}
+      <Button
+        secondary
+        action={_ => setFile()}
+        text={I18n.t('file.remove')} />
+    {/if}
     <span class="disclaimer">{I18n.t('file.disclaimer')}</span>
 
   </div>

@@ -134,8 +134,9 @@
     {tabs}
     {headerItems}
     object={institution}
-    entity="institution"
-    {mayUpdate}/>
+    entity={entityType.INSTITUTION}
+    {mayUpdate}
+  />
 
   <Router>
     <Route path="/issuers">

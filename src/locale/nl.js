@@ -10,7 +10,7 @@ I18n.translations.nl = {
   header: {
     logout: "Logout",
     nav: {
-      badgeclasses: "Edubadges",
+      badgeclasses: "Badge classes",
       manage: "Beheer",
       users: "Gebruikers"
     },

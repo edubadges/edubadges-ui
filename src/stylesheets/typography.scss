@@ -56,7 +56,20 @@ h4,
 h5,
 h6 {
   font-family: "Proxima Nova", sans-serif;
+}
+
+h1,
+h3,
+h4,
+h5,
+h6 {
   color: var(--purple);
+}
+
+h2 {
+  color: var(--purple-8);
+  font-size: 30px;
+  font-weight: var(--medium);
 }
 
 a,

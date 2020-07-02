@@ -10,7 +10,7 @@ I18n.translations.en = {
   header: {
     logout: "Logout",
     nav: {
-      badgeclasses: "Badges",
+      badgeclasses: "Badge classes",
       manage: "Manage",
       users: "Users"
     },
@@ -369,7 +369,7 @@ I18n.translations.en = {
       alignmentCode: "Code",
       amount: "Amount",
       name: "Name",
-      description: "Short description",
+      description: "Description",
       criteria_text: "What is required to earn this edubadge?",
       criteria_url: "Or provide a criteria URL",
       criteria_url_value: "Link to the earning criteria:",
@@ -380,6 +380,10 @@ I18n.translations.en = {
       expiresAfterValue: "{{nbr}} weeks",
       expireSettings: "Default expiration settings",
       language: "Language of instruction",
+      languageLabels: {
+        En_En: "English",
+        Nl_Nl: "Dutch",
+      },
       learningOutcome: "Learning outcome",
       ects: {
         creditPoints: "Credit points (according to ECTS)",

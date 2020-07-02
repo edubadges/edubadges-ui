@@ -11,6 +11,7 @@
   import {publicBadgeInformation} from "../extensions/badges/extensions";
   import {userLoggedIn, redirectPath} from "../../stores/user";
   import {navigate} from "svelte-routing";
+  import {entityType} from "../../util/entityTypes"
 
   export let entityId;
   export let visitorRole;
@@ -61,7 +62,7 @@
 
 <div class="page-container">
   <EntityHeader
-    entity="badgeclass"
+    entity={entityType.BADGE_CLASS}
     object={badgeClass}
     visitorRole={visitorRole}
     enrolled={studentEnrolled}

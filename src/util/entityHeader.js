@@ -5,10 +5,10 @@ export const formatAdminNames = (staffContainer) => {
   const staff = staffContainer.staff || [];
   let names = staff
     .map((u) => u.user.firstName + " " + u.user.lastName)
-    .slice(0, 2)
+    .slice(0, 1)
     .join(", ");
-  if (staff.length > 2) {
-    names += ` (+${staff.length - 2})`;
+  if (staff.length > 1) {
+    names += ` (+${staff.length - 1})`;
   }
   return names || "-";
 };

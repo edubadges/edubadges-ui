@@ -44,7 +44,7 @@
     <File bind:value={institution.image} error={errors.image} removeAllowed={false}/>
   </Field>
 
-  <Field {entity} attribute="name" errors={errors.name}>
+  <Field {entity} attribute="name" errors={errors.name} disabled={true}>
     <TextInput bind:value={institution.name} error={errors.name} disabled={true} />
   </Field>
 

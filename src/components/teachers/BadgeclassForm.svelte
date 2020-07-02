@@ -65,7 +65,7 @@
   const entity = "badgeclass";
   let errors = {};
 
-  const languages = [{name: "Nl_Nl"}, {name: "En_En"}];
+  const languages = [{name: I18n.t(['models', 'badgeclass', 'languageLabels', 'Nl_Nl']), value: "Nl_Nl"}, {name: I18n.t(['models', 'badgeclass', 'languageLabels', 'En_En']), value: "En_En"}];
 
   const eqfItems = [...Array(8).keys()].map(i => {
     return {name: `EQF ${i + 1}`, value: i}
@@ -75,7 +75,7 @@
 
   $: if (badgeclass.extensions.length > 0 && !loaded) {
     extensions = {
-      [language.name]: extensionValue(badgeclass.extensions, language) || {name: "En_En"},
+      [language.name]: extensionValue(badgeclass.extensions, language) || {name: I18n.t(['models', 'badgeclass', 'languageLabels', 'En_En']), value: "En_En"},
       [ects.name]: extensionValue(badgeclass.extensions, ects) || 2.5,
       [eqf.name]: extensionValue(badgeclass.extensions, eqf) || {name: "EQF 6", value: 6},
       [learningOutcome.name]: extensionValue(badgeclass.extensions, learningOutcome) || "",
@@ -103,7 +103,7 @@
       newBadgeclass.alignment = [];
     }
     newBadgeclass.extensions = extensionToJson([
-      {name: language.name, value: extensions[language.name].name},
+      {name: language.name, value: extensions[language.name].value},
       {name: eqf.name, value: extensions[eqf.name].value},
       {name: learningOutcome.name, value: extensions[learningOutcome.name]},
     ]);
@@ -126,11 +126,13 @@
     const args = isCreate ? [newBadgeclass] : [entityId, newBadgeclass];
     const apiCall = isCreate ? createBadgeclass : editBadgeclass;
 
-    apiCall(...args)
-      .then(res => {
-        navigate(`/manage/badgeclass/${res.entity_id}`)
-      })
-      .catch(err => err.then(({fields}) => (errors = fields)));
+    console.log(newBadgeclass);
+
+    // apiCall(...args)
+    //   .then(res => {
+    //     navigate(`/manage/badgeclass/${res.entity_id}`)
+    //   })
+    //   .catch(err => err.then(({fields}) => (errors = fields)));
   }
 </script>
 
@@ -230,7 +232,7 @@
       <Select
         bind:value={extensions[language.name]}
         items={languages}
-        optionIdentifier="name"
+        optionIdentifier="value"
         clearable={false}/>
     </Field>
 
@@ -267,7 +269,6 @@
   <hr class="header-line">
 
   <div class="form">
-
     <Field {entity} attribute="criteria_text" errors={errors.criteria_text}>
       <TextInput
         area
