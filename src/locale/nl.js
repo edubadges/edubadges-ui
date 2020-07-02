@@ -536,5 +536,17 @@ I18n.translations.nl = {
     acceptTermsOfUse: "Ik accepteer de servicevoorwaarden",
     acceptBadgeAwardTerms: "Ik accepteer de toekenningsvoorwaarden",
     accept: "Get it on!"
-  }
+  },
+  language:{
+    en_EN: "Engels",
+    nl_NL: "Nederlands"
+  },
+  publicBadge: {
+    issuedTo: "This badge was issued to <strong>{{name}}</strong> on {{date}}",
+    expires: "It expires on {{date}}",
+    neverExpires: "It has not expiry date",
+    verify: "Verify"
+
+  },
+  monthNames: ["Januari", "Februari", "Maart", "April", "Mei", "Juni","Juli", "Augustus", "September", "October", "November", "December"]
 };
