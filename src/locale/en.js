@@ -369,7 +369,7 @@ I18n.translations.en = {
       alignmentCode: "Code",
       amount: "Amount",
       name: "Name",
-      description: "Short description",
+      description: "Description",
       criteria_text: "What is required to earn this edubadge?",
       criteria_url: "Or provide a criteria URL",
       criteria_url_value: "Link to the earning criteria:",
@@ -513,5 +513,25 @@ I18n.translations.en = {
     acceptTermsOfUse: "I accept the Terms of Service",
     acceptBadgeAwardTerms: "I accept the Awarding Terms",
     accept: "Get it on!"
-  }
+  },
+  language:{
+    en_EN: "English",
+    nl_NL: "Dutch"
+  },
+  publicBadge: {
+    verification: "Verification",
+    issuedTo: "This badge was issued to <strong>{{name}}</strong> on {{date}}",
+    expires: "It expires on {{date}}",
+    neverExpires: "It has no expiry date",
+    verify: "Verify",
+    validations: {
+      issuedOn: "Issued on {{val}}",
+      issuedBy: "Issued by {{val}}",
+      issuedUsing: "Issued using {{val}}",
+      issuedTo: "Issued to <strong>{{val}}</strong>",
+      claimedOn: "Claimed on {{val}}",
+      verified: "<strong>Verified<strong> {{val}}"
+    }
+  },
+  monthNames: ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"]
 };

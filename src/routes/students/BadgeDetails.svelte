@@ -22,7 +22,7 @@
     deleteAssertion,
     validateBadge,
     claimAssertion,
-    acceptAssertion
+    acceptAssertion, validateName
   } from "../../api";
   import {flash} from "../../stores/flash";
   import CopyToClipboardButton from "../../components/CopyToClipboardButton.svelte";
@@ -33,9 +33,7 @@
   export let entityId;
 
   let badge = {};
-
-  let fetchingValidation = false;
-  let validation = {valid: false, messages: [], unloaded: true};
+  // let validation = {valid: false, messages: [], unloaded: true};
 
   //Modal
   let showModal = false;
@@ -104,13 +102,11 @@
       if (!badge.public && badge.acceptance === 'UNACCEPTED') {
         claimAssertion(badge.entityId);
       }
-      if (badge.public && validation.unloaded) {
-        fetchingValidation = true;
-        validateBadge(entityId).then(res => {
-          validation = res.report;
-          fetchingValidation = false;
-        })
-      }
+      // if (badge.public && validation.unloaded) {
+      //   validateBadge(entityId).then(res => {
+      //     validation = res.report;
+      //   })
+      // }
     });
   }
 
@@ -244,9 +240,9 @@
     color: var(--purple);
     display: flex;
     align-items: center;
+    flex-direction: column;
     justify-content: center;
     height: 60px;
-    margin-bottom: 25px;
 
     h1 {
       font-size: 28px;
@@ -366,6 +362,7 @@
     <div class="badge-header">
       <h1>{badge.badgeclass.name}</h1>
     </div>
+<!--    <BadgeValidation validation={validation} public={badge} name={$userName}/>-->
     <div class="badge-detail">
       <div class="shield">
         {#if badge.public}
@@ -423,9 +420,6 @@
                     disabled={!badge.public}/>
           </div>
         </div>
-      {/if}
-      {#if badge.public}
-        <BadgeValidation fetchingValidation={fetchingValidation} validation={validation}/>
       {/if}
       <div class="dates">
         <div class="issued-on">

@@ -12,7 +12,7 @@
   import moment from "moment";
   import Modal from "../../components/forms/Modal.svelte";
   import DownloadButton from "../../components/DownloadButton.svelte";
-  import {getPublicBadge, revokeAssertion, validateBadge, validateName} from "../../api";
+  import {getPublicBadge, revokeAssertion, validateName} from "../../api";
   import {flash} from "../../stores/flash";
   import CopyToClipboardButton from "../../components/CopyToClipboardButton.svelte";
   import {publicBadgeInformation} from "../extensions/badges/extensions";
@@ -22,26 +22,21 @@
 
   let badge = {};
 
-  let fetchingValidation = false;
-  let validation = {valid: false, messages: [], unloaded: true};
+  let validation = {};
   let validatedName;
 
   onMount(() => {
     getPublicBadge(entityId).then(res => {
       badge = res.badge;
+      badge.issuedOn = res.issuedOn;
+      badge.expires = res.expires;
+      badge.updatedAt = res.updatedAt;
+      badge.verfication = res.verification.type;
+      badge.entityId = entityId;
       publicBadgeInformation(badge, res.badge);
-      if (validation.unloaded) {
-        fetchingValidation = true;
-        Promise.all([
-          validateBadge(entityId),
-          validateName(res.recipient.identity, res.recipient.salt)
-        ]).then(res => {
-          validation = res[0].report;
-          validatedName = res[1].name;
-          fetchingValidation = false;
-        });
-      }
-    })
+      validateName(res.recipient.identity, res.recipient.salt)
+        .then(res => validatedName = res.name);
+    });
   });
 
 </script>
@@ -83,16 +78,8 @@
     margin-bottom: 12px;
   }
 
-  div.dates {
-    display: flex;
-    width: 100%;
-    align-content: space-between;
-
-    div {
-      flex-grow: 1;
-    }
-
-    margin-bottom: 40px;
+  div.description {
+    margin-bottom: 30px;
   }
 
   @media (max-width: 1120px) {
@@ -113,18 +100,11 @@
       <div class="badge-card-container">
         <BadgeCard badgeClass={badge} standAlone={true}/>
       </div>
-      <BadgeValidation fetchingValidation={fetchingValidation} validation={validation} validatedName={validatedName}/>
-      <div class="dates">
-        <div class="issued-on">
-          <h3>{I18n.t("models.badge.issuedOn")}</h3>
-          <span>{moment(badge.issuedOn).format('MMM D, YYYY')}</span>
-        </div>
-      </div>
+      <BadgeValidation badge={badge} validatedName={validatedName}/>
       <div class="description">
         <h3>{I18n.t("models.badgeclass.description")}</h3>
         <span>{badge.description}</span>
       </div>
-
       <BadgeClassDetails badgeclass={badge}/>
     {:else}
       <Spinner/>
