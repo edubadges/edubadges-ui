@@ -126,13 +126,11 @@
     const args = isCreate ? [newBadgeclass] : [entityId, newBadgeclass];
     const apiCall = isCreate ? createBadgeclass : editBadgeclass;
 
-    console.log(newBadgeclass);
-
-    // apiCall(...args)
-    //   .then(res => {
-    //     navigate(`/manage/badgeclass/${res.entity_id}`)
-    //   })
-    //   .catch(err => err.then(({fields}) => (errors = fields)));
+    apiCall(...args)
+      .then(res => {
+        navigate(`/manage/badgeclass/${res.entity_id}`)
+      })
+      .catch(err => err.then(({fields}) => (errors = fields)));
   }
 </script>
 
