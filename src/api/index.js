@@ -238,7 +238,7 @@ export function validateBadge(entityId) {
 
 export function validateName(identityHash, salt) {
   const path = `${serverUrl}/public/assertions/identity/${identityHash}/${salt}`;
-  return validFetch(path);
+  return validFetch(path, {}, "GET", false);
 }
 
 // Manage users

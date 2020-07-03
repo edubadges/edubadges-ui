@@ -9,6 +9,7 @@
     learningOutcome
   } from "../extensions/badges/extensions";
   import {fallBackValue} from "../../util/forms";
+  import {onMount} from "svelte";
 
   export let badgeclass;
 
@@ -45,7 +46,7 @@
 
   @media (max-width: 1120px) {
     .badge-class-detail {
-      padding: 40px 0 !important;
+      padding: 30px 0 !important;
     }
   }
 </style>
@@ -55,7 +56,7 @@
 <div class="badge-class-detail">
   <h3>{I18n.t('models.badgeclass.language')}</h3>
   <p class="info">
-    {fallBackValue(I18n.t(`language.${badgeclass.language}`) || I18n.t(`language.${extensionValue(badgeclass.extensions, language)}`))}
+    {fallBackValue(I18n.t(`language.${badgeclass.language || extensionValue(badgeclass.extensions, language)}`))}
   </p>
   <h3>{I18n.t('models.badgeclass.learningOutcome')}</h3>
   <p class="info">

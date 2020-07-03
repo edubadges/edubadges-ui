@@ -147,8 +147,10 @@ I18n.translations.en = {
     shareYourBadgeQuestion: "Your public badge URL is accessible for everyone",
     badgeRevoked: "This badge has been revoked. You can see the details, but this badge can no longer be shared or downloaded",
     privateBadge: "Private badge",
-    publicPrivate: "When your badge is private, only you can see it and download it",
+    publicPrivate: "Your badge is set to private, only you can see it and download it.",
+    publicPrivatePublic: "Your badge is not set to private, everyone with your sharelink will be able to see it.",
     publicPrivateRejected : "In order for you to make this badge public, you'll first have to accept this badge",
+    revoked: "Thsi badge has been revoked",
     revokedWithReason: "This badge has been revoked by the issuer for the reason: '{{revocationReason}}'",
     confirmation: {
       publish: "Make this badge public accessible",

@@ -134,6 +134,7 @@ I18n.translations.nl = {
       published: "Deze edubadge is nu publiek gemaakt. Je kunt deze nu downloaden en delen met anderen.",
       private: "Deze edubadge is nu prive gemaakt. Je kunt deze niet langer downloaden of delen met anderen.",
       deleted: "Deze edubadge is verwijderd. Je kunt deze niet langer downloaden of delen met anderen.",
+      accepted: "Deze edubadge is geaccepteerd. Je kan deze nu downloaden of delen met anderen.",
       claimed: "Deze edubadge is succesvol aangevraagd."
     },
     enrollments: "Aangevraagde edubadges",
@@ -146,7 +147,8 @@ I18n.translations.nl = {
     shareYourBadgeQuestion: "Jouw publieke edubadge URL is voor iedereen toegankelijk",
     badgeRevoked: "Deze edubadge is ingetrokken. Je ziet deze nog wel, maar deze edubadge kan je niet langer delen",
     privateBadge: "Prive edubadge",
-    publicPrivate: "Wanneer je edubadge prive is gezet, dan kan alleen jij deze edubadge zien en downloaden.",
+    publicPrivate: "Je edubadge staat op prive, alleen jij kan deze edubadge zien en downloaden.",
+    publicPrivatePublic: "Je edubadge staat niet op prive, iedereen met de publieke link kan deze edubadge zien en downloaden.",
     publicPrivateRejected: "Voordat je deze badge publiek kan maken, moety je deze badge eerst accepteren.",
     revoked: "Deze badge is ingetrokken door de uitgever",
     revokedWithReason: "Deze badge is ingetrokken door de uitgever met als reden: '{{revocationReason}}'",
@@ -519,11 +521,19 @@ I18n.translations.nl = {
     nl_NL: "Nederlands"
   },
   publicBadge: {
+    verification: "Verification",
     issuedTo: "This badge was issued to <strong>{{name}}</strong> on {{date}}",
     expires: "It expires on {{date}}",
-    neverExpires: "It has not expiry date",
-    verify: "Verify"
-
+    neverExpires: "It has no expiry date",
+    verify: "Verify",
+    validations: {
+      issuedOn: "Issued on {{val}}",
+      issuedBy: "Issued by {{val}}",
+      issuedUsing: "Issued using {{val}}",
+      issuedTo: "Issued to <strong>{{val}}</strong>",
+      claimedOn: "Claimed on {{val}}",
+      verified: "<strong>Verified<strong> {{val}}"
+    }
   },
   monthNames: ["Januari", "Februari", "Maart", "April", "Mei", "Juni","Juli", "Augustus", "September", "October", "November", "December"]
 };
