@@ -6,6 +6,7 @@
   export let label;
   export let action;
   export let secondary;
+  export let warning;
   export let disabled = false;
   export let small;
   export let full;
@@ -80,6 +81,16 @@
     }
   }
 
+  a.warning {
+    background-color: var(--red-strong-dark);
+    color: white;
+
+    &:hover {
+      background-color: #710000;
+      color: whitesmoke;
+    }
+  }
+
   a.secondary,
   label.secondary {
     background: white;
@@ -105,7 +116,8 @@
     href="#" class:full
     on:click|preventDefault={() => disabled ? false : action()}
     {disabled}
-    class:small
+      class:small
+    class:warning
     class:secondary>
     {text}
   </a>

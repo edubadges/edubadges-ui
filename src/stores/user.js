@@ -5,6 +5,7 @@ export const userRole = writable(localStorage.getItem("userRole") || "");
 export const userLoggedIn = writable(
   localStorage.getItem("userLoggedIn") || ""
 );
+export const showMainErrorDialog = writable(false);
 export const userName = writable(
   localStorage.getItem("userName") || ""
 );

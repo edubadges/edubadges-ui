@@ -6,7 +6,11 @@
   export let cancel;
   export let title;
   export let question;
+  export let warning = false;
+  export let hideSubmit = false;
+
   export let submitLabel = I18n.t("modal.confirm");
+  export let cancelLabel = I18n.t("modal.cancel")
   export let disabled = false;
 
   let modal;
@@ -23,7 +27,7 @@
 
 <div class="modal">
   <div class="modal-content">
-    <div class="modal-header">
+    <div class="modal-header" class:warning>
       <h3>{title}</h3>
     </div>
     <div class="modal-body">
@@ -32,9 +36,11 @@
     <div class="slots">
       <slot/>
     </div>
-    <div class="options">
-      <Button secondary={true} action={cancel} text={I18n.t("modal.cancel")}/>
-      <Button action={submit} text={submitLabel} disabled={disabled}/>
+    <div class="options" class:hideSubmit>
+      <Button secondary={true} action={cancel} text={cancelLabel} />
+      {#if !hideSubmit}
+        <Button warning={warning} action={submit} text={submitLabel} disabled={disabled}/>
+      {/if}
     </div>
   </div>
 </div>
@@ -67,6 +73,14 @@
     border-top-right-radius: 8px;
   }
 
+  .modal-header.warning {
+    background-color: var(--red-strong-dark);
+    color: white;
+    h3 {
+      color: white;
+    }
+  }
+
   .modal-body {
     padding: 18px 32px;
   }
@@ -78,6 +92,10 @@
   div.options {
     padding: 18px;
     text-align: center;
+
+    &.hideSubmit {
+      text-align: right;
+    }
 
     :global(a:last-child) {
       margin-left: 25px;

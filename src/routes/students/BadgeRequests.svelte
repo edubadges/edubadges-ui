@@ -6,6 +6,7 @@
   } from "../../api";
   import {queryData} from "../../api/graphql";
   import EnrollmentBadge from "./EnrollmentBadge.svelte";
+  import I18n from "i18n-js";
 
   let form;
   let provider;
@@ -99,8 +100,11 @@
 </style>
 
 <div>
-  <h3>Badge requests</h3>
+  <h3>{I18n.t("routes.badge-requests")}</h3>
 
+  {#if requests.length === 0}
+    {I18n.t("badgeRequests.none")}
+  {/if}
   <div class="content">
     {#each requests as request}
       <EnrollmentBadge enrollmentId={request.entityId} badgeClass={request.badgeClass} detailPage={false}/>
