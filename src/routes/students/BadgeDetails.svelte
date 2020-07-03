@@ -40,11 +40,10 @@
   let modalTitle;
   let modalQuestion;
   let modalAction;
-  let showShareModal = false;
+  let showShareFeedback = false;
 
   const cancel = () => {
     showModal = false;
-    showShareModal = false
   }
 
   const publicUrl = () => {
@@ -54,7 +53,8 @@
 
   const copyToClipboard = () => {
     copy(publicUrl());
-    showShareModal = false;
+    showShareFeedback = true;
+    setTimeout(() => showShareFeedback = false, 2500)
   }
 
   const downloadFileName = badge => {
@@ -102,11 +102,6 @@
       if (!badge.public && badge.acceptance === 'UNACCEPTED') {
         claimAssertion(badge.entityId);
       }
-      // if (badge.public && validation.unloaded) {
-      //   validateBadge(entityId).then(res => {
-      //     validation = res.report;
-      //   })
-      // }
     });
   }
 
@@ -257,6 +252,31 @@
     .button-container {
       margin-left: 25px;
       display: flex;
+      position: relative;
+    }
+
+    div.tooltip {
+      z-index: 9;
+      position: absolute;
+      border-radius: 4px;
+      padding: 4px 8px;
+      right: 22px;
+      top: 120%;
+      left: 40%;
+      width: 134px;
+      background-color: var(--grey-3);
+      font-size: 13px;
+
+      &::after {
+        content: " ";
+        position: absolute;
+        top: -15px;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 8px;
+        border-style: solid;
+        border-color: transparent transparent var(--grey-3) transparent;
+      }
     }
 
   }
@@ -271,6 +291,7 @@
         margin-top: 15px;
         display: flex;
       }
+
     }
   }
 
@@ -309,6 +330,7 @@
   p.rejected {
     margin-top: 15px;
   }
+
   p.revoked {
     background-color: var(--grey-2);
     border-radius: 8px;
@@ -327,6 +349,7 @@
   div.issued {
     display: flex;
     flex-direction: column;
+    margin-bottom: 30px;
 
     span.issuer {
       color: var(--purple);
@@ -362,7 +385,7 @@
     <div class="badge-header">
       <h1>{badge.badgeclass.name}</h1>
     </div>
-<!--    <BadgeValidation validation={validation} public={badge} name={$userName}/>-->
+    <!--    <BadgeValidation validation={validation} public={badge} name={$userName}/>-->
     <div class="badge-detail">
       <div class="shield">
         {#if badge.public}
@@ -391,7 +414,7 @@
             </div>
           </div>
 
-          <p>{I18n.t("student.publicPrivate")}</p>
+          <p>{I18n.t(badge.public ? "student.publicPrivatePublic" : "student.publicPrivate")}</p>
           {#if badge && badge.acceptance === "REJECTED"}
             <p class="rejected">{I18n.t("student.publicPrivateRejected")}</p>
           {/if}
@@ -405,18 +428,12 @@
                             url={badge.image}/>
           </div>
           <div class="button-container">
-            {#if showShareModal}
-              <Modal submit={copyToClipboard}
-                     cancel={cancel}
-                     question={I18n.t("student.shareYourBadgeQuestion")}
-                     title={I18n.t("student.shareYourBadge")}
-                     submitLabel={I18n.t("student.copyUrl")}>
-                <div class="slots">
-                  <input class="input-field full" value={publicUrl()} disabled/>
-                </div>
-              </Modal>
+            {#if showShareFeedback}
+              <div class="tooltip">
+                {I18n.t("copyToClipboard.copied")}
+              </div>
             {/if}
-            <Button text={I18n.t("models.badge.share")} action={() => showShareModal = true}
+            <Button text={I18n.t("models.badge.share")} action={copyToClipboard}
                     disabled={!badge.public}/>
           </div>
         </div>
@@ -446,7 +463,7 @@
     {#if !badge.revoked}
       <div class="delete">
         {#if badge && badge.acceptance === "ACCEPTED"}
-          <Button action={() => rejectBadge(true)} secondary={true} text={I18n.t("student.deleteBadge")} />
+        <Button action={() => rejectBadge(true)} secondary={true} text={I18n.t("student.deleteBadge")} />
         {:else}
           <Button action={() => acceptBadge(true)} secondary={true} text={I18n.t("student.acceptBadge")} />
         {/if}

@@ -34,8 +34,10 @@
       badge.verfication = res.verification.type;
       badge.entityId = entityId;
       publicBadgeInformation(badge, res.badge);
-      validateName(res.recipient.identity, res.recipient.salt)
-        .then(res => validatedName = res.name);
+      validateName(encodeURIComponent(res.recipient.identity), encodeURIComponent(res.recipient.salt))
+        .then(res => {
+          validatedName = res.name
+        });
     });
   });
 
@@ -78,13 +80,15 @@
     margin-bottom: 12px;
   }
 
-  div.description {
-    margin-bottom: 30px;
-  }
-
   @media (max-width: 1120px) {
     .badge-public-detail {
       padding: 40px 20px !important;
+    }
+  }
+
+  @media (min-width: 1120px) {
+    .description {
+      margin-bottom: 30px;
     }
   }
 
