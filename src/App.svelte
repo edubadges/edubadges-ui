@@ -1,5 +1,6 @@
 <script>
   import {onMount} from "svelte";
+  import I18n from "i18n-js";
   import {Router, Route, navigate} from "svelte-routing";
   import {Student, ProcessToken, NotFound, Login} from "./routes";
   import AcceptTerms from "./routes/AcceptTerms.svelte";
@@ -11,7 +12,7 @@
     BadgeclassAwarder,
     InviteEnrollments
   } from "./components/teachers";
-  import {userRole, userLoggedIn, userName, redirectPath} from "./stores/user";
+  import {userRole, userLoggedIn, userName, redirectPath, showMainErrorDialog} from "./stores/user";
   import {role} from "./util/role";
   import {getSocialAccount} from "./api";
   import PublicBadgeClassPage from "./components/shared/PublicBadgeClassPage.svelte"
@@ -20,6 +21,7 @@
   import BadgeDetails from "./routes/students/BadgeDetails.svelte";
   import PublicBadgePage from "./components/shared/PublicBadgePage.svelte";
   import {config} from "./util/config";
+  import Modal from "./components/forms/Modal.svelte";
 
   const homepage = {
     guest: Login,
@@ -73,6 +75,15 @@
     box-shadow: 0 3px 0 2px #abb4bd;
     position: relative;
   }
+
+  div.page.flex {
+    display: flex;
+  }
+
+  div.page-container {
+    height: auto;
+  }
+
 </style>
 
 <div class="app">
@@ -86,7 +97,7 @@
       <Header/>
     {/if}
 
-    <div class="page">
+    <div class={`page ${visitorRole === role.STUDENT ? 'flex' : ''}`} >
       <Router>
         <!-- Student -->
         <Route path="/backpack">
@@ -143,5 +154,9 @@
     </div>
 
     <Footer/>
+    {#if $showMainErrorDialog}
+      <Modal cancel={() => $showMainErrorDialog = false} hideSubmit={true} warning={true} title={I18n.t("error.unexpected")}
+        question={I18n.t("error.description")} cancelLabel={I18n.t("error.close")}/>
+    {/if}
   {/if}
 </div>

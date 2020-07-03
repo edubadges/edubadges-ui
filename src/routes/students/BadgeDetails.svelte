@@ -169,7 +169,7 @@
   }
 
   div.badge-detail {
-    padding: 10px 40px;
+    padding: 20px 40px 10px 40px;
     position: relative;
 
     div.shield {

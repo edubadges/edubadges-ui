@@ -63,9 +63,12 @@ I18n.translations.nl = {
     addEmail: "Voeg e-mailadres toe",
     addEmailInfo: "Je zult een e-mail ontvangen met een link om je e-mailadres te verifieren.",
     unverified: "Niet geverifieerd",
-    validatedByYourInstitution: "Geverifieerd oor je instelling",
+    validatedByYourInstitution: "geverifieerd",
     deleteHeader: "Bezig om je edubadges backpack te verwijderen",
-    deleteInfo: "<p>Je kunt je backpack verwijderen als je dat wilt.</p><p>Wees je dan wel bewust dat je al je edubadges zult verliezen.</p>",
+    deleteInfo1: "Je kunt je backpack verwijderen als je dat wilt.",
+    deleteInfo2: "Wees je dan wel bewust dat je al je edubadges zult verliezen.",
+    deleteInfo3: "Het verwijderen van je edubadges betekent overigens niet dat je eduID ook verwijderd wordt.",
+    deleteInfo4: "Om het proces van het verwijderen van je eduBadges-account volledig te voltooien, moet je je browser sluiten nadat je account is verwijderd.",
     submit: "Voeg toe",
     deleteEmail: "Verwijder dit e-mailadres",
     deleteEmailConfirmation: "Weet je zeker dat je dit e-mailadres wilt verwijderen?",
@@ -73,9 +76,8 @@ I18n.translations.nl = {
     account: "Account",
     eduid: "#eduid",
     accountInfo: "Als je je account verwijderd zullen al je edubadges ongeldig worden.",
-    deleteAccount: "Verwijder mijn account",
-    deleteAccountConfirmation:
-      "Weet je zeker dat je je edubadges account wilt verwijderen?",
+    deleteAccount: "Verwijder mijn backpack",
+    deleteAccountConfirmation: "Weet je zeker dat je je backpack wilt verwijderen?",
   },
   modal: {
     cancel: "Annuleer",
@@ -169,6 +171,9 @@ I18n.translations.nl = {
       validatedName: "Gevalideerde naam van de badge ontvanger: <strong>{{name}}</strong>"
     }
   },
+  badgeRequests: {
+    none: "Je hebt geen openstaande badge verzoeken op dit moment. "
+  },
   manage: {
     tabs: {
       institution: "Instituut",
@@ -259,7 +264,9 @@ I18n.translations.nl = {
     702: "Ongeldige share provider",
     801: "Kan grading table URL niet aanpassen, er zijn al edubadges uitgegeven",
     802: "Kan BRIN code niet aanpassen, er zijn al edubadges uitgegeven",
-    unexpected: "Oops, er is iets totaal onverwachts en onverklaarbaars gebeurt. Heb je de applicatie stuk gemaakt?"
+    unexpected: "Oops, er is iets totaal onverwachts en onverklaarbaars gebeurt. Heb je de applicatie stuk gemaakt?",
+    description: "Een onverwachte fout is opgetreden. Probeer het opnieuw of neem contact op met <a href='mailto:edubadges@surf.nl'>edubadges@surf.nl</a> voor ondersteuning",
+    close: "Close"
   },
   inviteUsers: {
     addUser: {
@@ -516,7 +523,7 @@ I18n.translations.nl = {
     acceptBadgeAwardTerms: "Ik accepteer de toekenningsvoorwaarden",
     accept: "Get it on!"
   },
-  language:{
+  language: {
     en_EN: "Engels",
     nl_NL: "Nederlands"
   },
@@ -535,5 +542,5 @@ I18n.translations.nl = {
       verified: "<strong>Verified<strong> {{val}}"
     }
   },
-  monthNames: ["Januari", "Februari", "Maart", "April", "Mei", "Juni","Juli", "Augustus", "September", "October", "November", "December"]
+  monthNames: ["Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "October", "November", "December"]
 };
