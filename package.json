@@ -47,7 +47,7 @@
     "marked": "^1.1.0",
     "moment": "^2.24.0",
     "svelte-routing": "^1.4.2",
-    "svelte-select": "^3.8.1"
+    "svelte-select": "edubadges/svelte-select#master"
   },
   "performance": {
     "hints": true
