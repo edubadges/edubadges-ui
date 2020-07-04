@@ -7156,10 +7156,9 @@ svelte-routing@^1.4.2:
   resolved "https://registry.yarnpkg.com/svelte-routing/-/svelte-routing-1.4.2.tgz#291160b537c9c73e711731eb099c48bb24cc3419"
   integrity sha512-CSCKRLeOp9vjsDGGOEgL9DPm9HZLgZuTNehyTCl3K+6fCVH1Aw/K/WicavAVNcbsHmdR4wgF//0YVR9hrcdvGA==
 
-svelte-select@^3.8.1:
+svelte-select@edubadges/svelte-select#master:
   version "3.8.1"
-  resolved "https://registry.yarnpkg.com/svelte-select/-/svelte-select-3.8.1.tgz#f93b4fc3824109c6c3e158897d3df0d922f6da9a"
-  integrity sha512-yzwPxayhxJv1fQ/7b0NZgrDrmSN32curWmBbzzQcdzeVmCo12X7S6Jda22I+o4+XPIRrtKeCum484VeU2AUewQ==
+  resolved "https://codeload.github.com/edubadges/svelte-select/tar.gz/08e0eba03e85920e363ba78c0983e6d11aedaa88"
 
 svelte@^3.23.1:
   version "3.23.2"
