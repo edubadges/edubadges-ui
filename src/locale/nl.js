@@ -59,6 +59,8 @@ I18n.translations.nl = {
     emails: "E-mailadressen",
     email: "E-mailadres",
     makePrimary: "Maak primair",
+    memberSince: "Lid sinds",
+    memberSinceDate: "{{date}} om {{hours}}:{{minutes}}",
     makePrimaryConfirmation: "Weet je zeker dat je dit e-maiadres primair wilt maken?",
     addEmail: "Voeg e-mailadres toe",
     addEmailInfo: "Je zult een e-mail ontvangen met een link om je e-mailadres te verifieren.",

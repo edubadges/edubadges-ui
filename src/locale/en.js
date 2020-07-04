@@ -59,6 +59,8 @@ I18n.translations.en = {
     emails: "Emails",
     email: "Email",
     makePrimary: "Make primary",
+    memberSince: "Member since",
+    memberSinceDate: "{{date}} at {{hours}}:{{minutes}}",
     makePrimaryConfirmation: "Are you sure you want to make this email your primary email?",
     addEmail: "Add e-mail",
     addEmailInfo: "You will receive an email with a link to verify your new email",
