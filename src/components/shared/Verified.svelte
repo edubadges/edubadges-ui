@@ -3,6 +3,7 @@
   import I18n from "i18n-js";
 
   export let value;
+  export let showVerified = true;
 
 </script>
 <style lang="scss">
@@ -32,8 +33,9 @@
 </style>
 <div class="verified">
   <span>{value}</span>
-  <div class="marker">
-    {@html check} <span>{I18n.t("profile.validatedByYourInstitution")}</span>
-  </div>
-
+  {#if showVerified}
+    <div class="marker">
+      {@html check} <span>{I18n.t("profile.validatedByYourInstitution")}</span>
+    </div>
+  {/if}
 </div>

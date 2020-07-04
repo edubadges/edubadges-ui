@@ -4,6 +4,7 @@
   import {navigate} from "svelte-routing";
   import Modal from '../../components/forms/Modal.svelte';
   import Button from "../../components/Button.svelte";
+  import {formatCreateDate} from "../../util/utils";
   import {
     getProfile,
     deleteProfile,
@@ -34,6 +35,7 @@
     Promise.all([getProfile(), getSocialAccount()]).then(res => {
       profile = res[0];
       profile.eduid = res[1][0].eduid;
+      profile.dateAdded = res[1][0].dateAdded;
       loaded = true;
     });
   });
@@ -113,6 +115,10 @@
         <Verified value={eduIdValue()}/>
       </div>
 
+      <div class="profile-section">
+        <h3>{I18n.t("profile.memberSince")}</h3>
+        <Verified value={I18n.t("profile.memberSinceDate", formatCreateDate(profile.dateAdded))} showVerified={false}/>
+      </div>
     {/if}
   </div>
 
