@@ -22,3 +22,4 @@ authToken.subscribe((val) => localStorage.setItem("authToken", val));
 userHasClosedWelcome.subscribe((val) =>
   localStorage.setItem("userHasClosedWelcome", val)
 );
+

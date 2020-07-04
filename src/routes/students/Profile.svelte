@@ -8,8 +8,7 @@
   import {
     getProfile,
     deleteProfile,
-    getSocialAccount,
-    getEmails,
+    getSocialAccountsSafe,
   } from "../../api";
 
   import {
@@ -32,7 +31,7 @@
   let modalAction;
 
   onMount(() => {
-    Promise.all([getProfile(), getSocialAccount()]).then(res => {
+    Promise.all([getProfile(), getSocialAccountsSafe()]).then(res => {
       profile = res[0];
       profile.eduid = res[1][0].eduid;
       profile.dateAdded = res[1][0].dateAdded;

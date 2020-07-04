@@ -1,9 +1,14 @@
-import { get } from "svelte/store";
-import { authToken } from "../stores/user";
-import { config } from "../util/config";
+import {get, } from "svelte/store";
+import {authToken, showMainErrorDialog} from "../stores/user";
+import {config} from "../util/config";
+
+function badResponse(res) {
+  showMainErrorDialog.set(true);
+  return Promise.reject(res);
+}
 
 function validateResponse(res) {
-  return res.ok ? res.json().then(({ data }) => data) : Promise.reject(res);
+  return res.ok ? res.json().then(({data}) => data) : badResponse(res);
 }
 
 function validFetch(query) {
@@ -16,7 +21,7 @@ function validFetch(query) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${get(authToken)}`,
       },
-      body: JSON.stringify({ query })
+      body: JSON.stringify({query})
     }
   ).then(validateResponse)
 }
