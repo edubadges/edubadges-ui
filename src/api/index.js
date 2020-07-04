@@ -17,7 +17,7 @@ function validateResponse(res, method, showErrorDialog) {
   const status = res.status.toString();
   if (status.startsWith("4") || status.startsWith("5")) {
     if (showErrorDialog) {
-      $showMainErrorDialog = true;
+      showMainErrorDialog.set(true);
     }
     throw res.json();
   }
@@ -64,6 +64,11 @@ export function getProfile() {
 export function deleteProfile() {
   const path = `${serverUrl}/v1/user/profile`;
   return validFetch(path, {}, "DELETE");
+}
+
+export function getSocialAccountsSafe() {
+  const path = `${serverUrl}/v1/user/socialaccounts`;
+  return validFetch(path);
 }
 
 export function getSocialAccount() {
@@ -268,7 +273,7 @@ export function removeStaffMembership(entityType, staffMembershipId) {
 export function makeUserInstitutionAdmin(insitutionId, userId, notes) {
   const path = `${serverUrl}/staff-membership/institution/${insitutionId}/create`;
   const payload = {
-    "may_create":1,
+    "may_create": 1,
     "may_read": 1,
     "may_update": 1,
     "may_delete": 1,
@@ -290,7 +295,7 @@ export function removeUserInstitutionAdmin(institutionMembershipId) {
 export function makeUserIssuerGroupAdmin(facultyId, userId, notes) {
   const path = `${serverUrl}/staff-membership/faculty/${facultyId}/create`;
   const payload = {
-    "may_create":1,
+    "may_create": 1,
     "may_read": 1,
     "may_update": 1,
     "may_delete": 1,
@@ -312,7 +317,7 @@ export function removeUserIssuerGroupAdmin(facultyMembershipId) {
 export function makeUserIssuerAdmin(issuerId, userId, notes) {
   const path = `${serverUrl}/staff-membership/issuer/${issuerId}/create`;
   const payload = {
-    "may_create":1,
+    "may_create": 1,
     "may_read": 1,
     "may_update": 1,
     "may_delete": 1,
@@ -334,7 +339,7 @@ export function removeUserIssuerAdmin(issuerMembershipId) {
 export function makeUserBadgeclassOwner(badgeclassId, userId, notes) {
   const path = `${serverUrl}/staff-membership/badgeclass/${badgeclassId}/create`;
   const payload = {
-    "may_create":1,
+    "may_create": 1,
     "may_read": 1,
     "may_update": 1,
     "may_delete": 1,
@@ -351,7 +356,7 @@ export function makeUserBadgeclassOwner(badgeclassId, userId, notes) {
 export function makeUserBadgeclassEditor(badgeclassId, userId, notes) {
   const path = `${serverUrl}/staff-membership/badgeclass/${badgeclassId}/create`;
   const payload = {
-    "may_create":1,
+    "may_create": 1,
     "may_read": 1,
     "may_update": 1,
     "may_delete": 0,
@@ -368,7 +373,7 @@ export function makeUserBadgeclassEditor(badgeclassId, userId, notes) {
 export function makeUserBadgeclassAwarder(badgeclassId, userId, notes) {
   const path = `${serverUrl}/staff-membership/badgeclass/${badgeclassId}/create`;
   const payload = {
-    "may_create":0,
+    "may_create": 0,
     "may_read": 1,
     "may_update": 0,
     "may_delete": 0,
@@ -486,7 +491,7 @@ export function inviteUser(entityType, entityId, userProvisonments) {
       'email': userEmail,
       'for_teacher': true,
       'data': permissions,
-      'type' : 'Invitation'
+      'type': 'Invitation'
     }
   });
   return validFetch(path, {body: JSON.stringify(payload)}, "POST");
