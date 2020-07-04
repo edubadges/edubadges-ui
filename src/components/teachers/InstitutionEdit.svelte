@@ -35,7 +35,7 @@
       .then(res => {
         navigate(`/manage/institution`);
       })
-      .catch(err => err.then(({ fields }) => (errors = fields)));
+      .catch(err => err.then(({ fields }) => (errors = fields.error_message)));
   }
 </script>
 
