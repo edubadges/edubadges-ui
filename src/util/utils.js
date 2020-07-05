@@ -10,7 +10,7 @@ export const isObject = val => {
 export const formatDate = iso => {
   const date = new Date(iso);
   const translation = I18n.locale === 'en' ? I18n.translations.en : I18n.translations.nl;
-  return `${date.getDay()} ${translation.monthNames[date.getMonth()]} ${date.getFullYear()}`;
+  return `${date.getDate()} ${translation.monthNames[date.getMonth()]} ${date.getFullYear()}`;
 }
 
 const formatOptions = {weekday: "long", year: "numeric", month: "long", day: "numeric"};
