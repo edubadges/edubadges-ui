@@ -320,6 +320,8 @@
 
     .header {
       display: flex;
+      align-items: center;
+      margin-bottom: 5px;
 
       .switch-container {
         margin-left: auto;

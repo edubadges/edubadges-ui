@@ -67,8 +67,8 @@
     background-color: inherit;
     font-size: 16px;
     padding: 0;
-    margin-left: 5px;
-    margin-right: 5px;
+    margin-bottom: 10px;
+    cursor: pointer;
   }
 </style>
 
