@@ -10,7 +10,9 @@
   import {
     Header as TeacherHeader,
     BadgeclassAwarder,
-    InviteEnrollments
+    InviteEnrollments,
+    TeacherProfile,
+    PermissionsManagement
   } from "./components/teachers";
   import {userRole, userLoggedIn, userName, redirectPath, showMainErrorDialog} from "./stores/user";
   import {role} from "./util/role";
@@ -110,9 +112,6 @@
         <Route path="/collections">
           <Student bookmark="collections"/>
         </Route>
-        <Route path="/profile">
-          <Student bookmark="profile"/>
-        </Route>
         <Route path="/enrollment/:enrollmentId/" let:params>
           <EnrollmentDetails enrollmentId={params.enrollmentId}/>
         </Route>
@@ -131,7 +130,7 @@
         <Route path="/invite-enrollements/:entityId/" let:params>
           <InviteEnrollments entityId={params.entityId}/>
         </Route>
-
+        <Route path="/permissions" component={PermissionsManagement} />
 
         <!-- Shared -->
         <Route path="/public/:entityId/" let:params>
@@ -139,6 +138,13 @@
         </Route>
         <Route path="/public/assertions/:entityId/" let:params>
           <PublicBadgePage entityId={params.entityId}/>
+        </Route>
+        <Route path="/profile">
+          {#if visitorRole === role.TEACHER}
+            <TeacherProfile/>
+          {:else if visitorRole === role.STUDENT}
+            <Student bookmark="profile"/>
+          {/if}
         </Route>
         {#if config.local}
           <Route path="/public/test" component={Test}/>

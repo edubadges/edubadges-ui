@@ -10,6 +10,7 @@ I18n.translations.en = {
   header: {
     logout: "Logout",
     profile: "Profile",
+    permissions: "Permissions",
     nav: {
       badgeclasses: "Badge classes",
       manage: "Manage",
