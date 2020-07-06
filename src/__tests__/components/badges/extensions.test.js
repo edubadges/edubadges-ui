@@ -8,6 +8,9 @@ import {
   learningOutcome
 } from "../../../components/extensions/badges/extensions";
 import { config } from "../../../util/config";
+import I18n from "i18n-js";
+import en from "../../../locale/en";
+import nl from "../../../locale/nl";
 
 const extensions = [{
   name: "extensions:LanguageExtension",
@@ -27,7 +30,7 @@ const extensions = [{
 }];
 
 test("Extensions value", () => {
-  expect(extensionValue(extensions, language)).toStrictEqual('nl_NL');
+  expect(extensionValue(extensions, language)).toStrictEqual({"name": "Dutch", "value": "nl_NL"});
   expect(extensionValue(extensions, ects)).toStrictEqual(2.5);
   expect(extensionValue(extensions, eqf)).toStrictEqual(7);
   expect(extensionValue(extensions, learningOutcome)).toStrictEqual("Will appreciate the benefits of learning a foreign language.");
@@ -39,7 +42,7 @@ test("Extensions value", () => {
 
 test("Extensions JSON", () => {
   const nameValuePairs = [
-    {name: language.name, value: "Nl_Nl"},
+    {name: language.name, value: "nl_Nl"},
     {name: ects.name, value: 6},
     {name: eqf.name, value: 3.5},
     {name: educationProgramIdentifier.name, value: "123456"},
@@ -49,7 +52,7 @@ test("Extensions JSON", () => {
 
     "extensions:LanguageExtension": {
       "@context": `${config.extensionsRootUrl}/extensions/LanguageExtension/context.json`,
-      "Language": "Nl_Nl",
+      "Language": "nl_Nl",
       "type": [
         "Extension",
         "extensions:LanguageExtension"
