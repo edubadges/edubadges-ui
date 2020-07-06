@@ -72,10 +72,21 @@
 
       .img-container {
         flex-shrink: 0;
-        height: 100px;
-        width: 100px;
+        height: 120px;
+        width: 120px;
         background: white;
         margin-right: var(--hor-padding-m);
+        display: flex;
+        justify-content: space-around;
+      }
+
+      .img-icon {
+        height: 100px;
+        width: 100px;
+        background-color: white;
+        align-self: center;
+        display: flex;
+        justify-content: space-around;
       }
 
       .info {
@@ -103,12 +114,16 @@
   <div class="content">
     {#if object.image}
       <div class="img-container">
-        <RemoteImage imageUrl={object.image} alt={`${object.name} logo`}/>
+        <div class="img-icon">
+          <RemoteImage imageUrl={object.image} alt={`${object.name} logo`}/>
+        </div>
       </div>
     {/if}
     <div class="info">
       <h2>{object.name}</h2>
-      <p>{object.description}</p>
+      {#if entity !== entityType.BADGE_CLASS}
+        <p>{object.description}</p>
+      {/if}
 
       <div class="list">
         <HeaderList {entity} {headerItems}/>

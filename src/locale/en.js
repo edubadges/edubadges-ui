@@ -11,7 +11,7 @@ I18n.translations.en = {
     logout: "Logout",
     profile: "Profile",
     nav: {
-      badgeclasses: "Badges",
+      badgeclasses: "Badge classes",
       manage: "Manage",
       users: "Users"
     },
@@ -415,6 +415,10 @@ I18n.translations.en = {
       expiresAfterValue: "{{nbr}} weeks",
       expireSettings: "Default expiration settings",
       language: "Language of instruction",
+      languageLabels: {
+        En_En: "English",
+        Nl_Nl: "Dutch",
+      },
       learningOutcome: "Learning outcome",
       ects: {
         creditPoints: "Credit points (according to ECTS)",

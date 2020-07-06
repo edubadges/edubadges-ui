@@ -11,7 +11,7 @@ I18n.translations.nl = {
     logout: "Logout",
     profile: "Profiel",
     nav: {
-      badgeclasses: "Edubadges",
+      badgeclasses: "Badge classes",
       manage: "Beheer",
       users: "Gebruikers"
     },

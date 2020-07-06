@@ -244,7 +244,11 @@
                 disabled={false}
                 onChange={val => onCheckOne(val, entityId, _staffType)}/>
           </td>
-          <td>{email}</td>
+          <td>
+            -
+            <br />
+            <span class="sub-text">{email}</span>
+          </td>
           {#if entity === entityType.BADGE_CLASS}
             <td>
               <div class="badgeclass-role-select">

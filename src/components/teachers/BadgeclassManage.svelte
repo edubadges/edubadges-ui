@@ -116,7 +116,7 @@
     parentId={badgeclass.issuer.entityId}
     {tabs}
     {headerItems}
-    mayUpdate={mayUpdate && badgeclass.badgeAssertions.length === 0}
+    mayUpdate={badgeclass.permissions && badgeclass.permissions.mayUpdate && badgeclass.badgeAssertions.length === 0}
     mayDelete={mayDelete && badgeclass.badgeAssertions.length === 0}
 />
 

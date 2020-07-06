@@ -1,4 +1,5 @@
 import { config } from "../../../util/config";
+import I18n from "i18n-js";
 
 export const language = {name: "LanguageExtension", value: "Language"};
 
@@ -24,6 +25,12 @@ export const extensionValue = (extensions, extension) => {
   }
   const ext = extensions.find(ext => ext.name === `extensions:${extension.name}`);
   if (ext) {
+    if (extension.name === "LanguageExtension") {
+      const json = JSON.parse(ext.originalJson.replace(/'/g, "\""));
+      const _lang = json[extension.value];
+      return {name: I18n.t(['models', 'badgeclass', 'languageLabels', _lang]), value: _lang};
+    }
+
     const json = JSON.parse(ext.originalJson.replace(/'/g, "\""));
     return json[extension.value];
   }

@@ -273,7 +273,6 @@
   <hr class="header-line">
 
   <div class="form">
-
     <Field {entity} attribute="criteria_text" errors={errors.criteria_text}>
       <TextInput
         area

@@ -135,7 +135,6 @@
     {headerItems}
     object={institution}
     entity={entityType.INSTITUTION}
-    entityId={entityId}
     mayUpdate={mayUpdate}
     mayDelete={mayDelete}
   />

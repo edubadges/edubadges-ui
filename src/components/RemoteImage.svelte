@@ -22,6 +22,13 @@
     return url;
   }
 </script>
+
+<style>
+  img {
+    align-self: center;
+  }
+</style>
+
 {#if imageUrl}
   {#await fetchData()}
     <span></span>
@@ -31,4 +38,3 @@
     <span></span>
   {/await}
 {/if}
-
