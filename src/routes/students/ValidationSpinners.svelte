@@ -17,7 +17,7 @@
 
   const validations = [
     {key: "issuedOn", val: formatDate(badge.issuedOn)},
-    {key: "issuedBy", val: badge.issuer.description},
+    {key: "issuedBy", val: badge.issuer.name},
     {key: "issuedUsing", val: "eduBadges"},
     {key: "issuedTo", val: validatedName},
     {key: "claimedOn", val: formatDate(badge.updatedAt)},

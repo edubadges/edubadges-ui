@@ -12,11 +12,12 @@
   import moment from "moment";
   import Modal from "../../components/forms/Modal.svelte";
   import DownloadButton from "../../components/DownloadButton.svelte";
-  import {getPublicBadge, revokeAssertion, validateName} from "../../api";
+  import {getPublicBadge, getPublicIssuer, revokeAssertion, validateName} from "../../api";
   import {flash} from "../../stores/flash";
   import CopyToClipboardButton from "../../components/CopyToClipboardButton.svelte";
   import {publicBadgeInformation} from "../extensions/badges/extensions";
   import BadgeValidation from "../../routes/students/BadgeValidation.svelte";
+  import {config} from "../../util/config";
 
   export let entityId;
 
@@ -24,6 +25,7 @@
 
   let validation = {};
   let validatedName;
+  let loaded;
 
   onMount(() => {
     getPublicBadge(entityId).then(res => {
@@ -36,7 +38,8 @@
       publicBadgeInformation(badge, res.badge);
       validateName(encodeURIComponent(res.recipient.identity), encodeURIComponent(res.recipient.salt))
         .then(res => {
-          validatedName = res.name
+          validatedName = res.name;
+          loaded = true
         });
     });
   });
@@ -80,18 +83,15 @@
     margin-bottom: 12px;
   }
 
+  div.issuer {
+    margin-bottom: 12px;
+  }
+
   @media (max-width: 1120px) {
     .badge-public-detail {
       padding: 40px 20px !important;
     }
   }
-
-  @media (min-width: 1120px) {
-    .description {
-      margin-bottom: 30px;
-    }
-  }
-
 
 </style>
 <div class="badge-public-detail-container">
@@ -105,11 +105,10 @@
         <BadgeCard badgeClass={badge} standAlone={true}/>
       </div>
       <BadgeValidation badge={badge} validatedName={validatedName}/>
-      <div class="description">
-        <h3>{I18n.t("models.badgeclass.description")}</h3>
-        <span>{badge.description}</span>
-      </div>
-      <BadgeClassDetails badgeclass={badge}/>
+      <div class="issuer">
+        <h3>{I18n.t("models.badgeclass.issuer")}</h3>
+        <span><a href={badge.issuer.id} target="_blank">{badge.issuer.name}</a></span>
+      </div><BadgeClassDetails badgeclass={badge}/>
     {:else}
       <Spinner/>
     {/if}
