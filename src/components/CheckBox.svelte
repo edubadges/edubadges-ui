@@ -1,5 +1,5 @@
 <script>
-  import check from "../icons/check.svg";
+  import check from "../icons/check16.svg";
   import checkDisabled from "../icons/check-disabled.svg";
 
   export let value;

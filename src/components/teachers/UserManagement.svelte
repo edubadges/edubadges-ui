@@ -166,7 +166,19 @@
   };
 
   const onCheckAll = val => {
-    selection = val ? staffs.map(({entityId, _staffType}) => ({entityId, _staffType})) : []; // TODO: filter
+    selection = val ? staffs.filter(({_staffType}) => {
+      if (_staffType === staffType.USER_PROVISIONMENT) return true;
+      switch (entity) {
+        case entityType.INSTITUTION:
+          return _staffType === staffType.INSTITUTION_STAFF;
+        case entityType.ISSUER_GROUP:
+          return _staffType === staffType.ISSUER_GROUP_STAFF;
+        case entityType.ISSUER:
+          return _staffType === staffType.ISSUER_STAFF;
+        case entityType.BADGE_CLASS:
+          return _staffType === staffType.BADGE_CLASS_STAFF;
+      }
+    }).map(({entityId, _staffType}) => ({entityId, _staffType})) : [];
     table.checkAllValue = val;
   };
 

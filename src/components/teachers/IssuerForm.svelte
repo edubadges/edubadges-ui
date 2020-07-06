@@ -28,7 +28,7 @@
         entityId = createIssuer ? res.entity_id : entityId;
         navigate(`/manage/issuer/${entityId}`)
       })
-      .catch(err => err.then(({ fields }) => (errors = fields)));
+      .catch(err => err.then(({ fields }) => (errors = fields.error_message)));
   }
 </script>
 

@@ -1,9 +1,9 @@
 <script>
   import I18n from "i18n-js";
-  import { navigate } from "svelte-routing";
-  import { EntityForm } from "../teachers";
-  import { Field, Select, File, TextInput, AddButton } from "../forms";
-  import { createBadgeclass, editBadgeclass } from "../../api";
+  import {navigate} from "svelte-routing";
+  import {EntityForm} from "../teachers";
+  import {Field, Select, File, TextInput, AddButton} from "../forms";
+  import {createBadgeclass, editBadgeclass} from "../../api";
   import ExpirationSettings from "./ExpirationSettings.svelte";
   import {isEmpty} from "lodash";
   import {
@@ -17,8 +17,8 @@
     studyLoad,
   } from "../extensions/badges/extensions";
   import EctsCreditPoints from "../extensions/badges/EctsCreditPoints.svelte";
-  import { setExpirationPeriod } from "../extensions/badges/expiration_period";
-  import { addAlignment } from "../extensions/badges/alignment";
+  import {setExpirationPeriod} from "../extensions/badges/expiration_period";
+  import {addAlignment} from "../extensions/badges/alignment";
   import {trash} from '../../icons';
 
   export let entityId;
@@ -57,15 +57,16 @@
   }
 
   let EctsOrHours = [
-      {name: I18n.t(['models', 'badgeclass', 'ects','creditPoints']), value:'creditPoints'},
-      {name: I18n.t(['models', 'badgeclass', 'ects','hours']), value:'hours'},
+    {name: I18n.t(['models', 'badgeclass', 'ects', 'creditPoints']), value: 'creditPoints'},
+    {name: I18n.t(['models', 'badgeclass', 'ects', 'hours']), value: 'hours'},
   ];
-  let EctsOrHoursSelection = EctsOrHours[0];
+  let ectsOrHoursSelection = EctsOrHours[0];
 
   const entity = "badgeclass";
   let errors = {};
 
-  const languages = [{name: I18n.t(['models', 'badgeclass', 'languageLabels', 'Nl_Nl']), value: "Nl_Nl"}, {name: I18n.t(['models', 'badgeclass', 'languageLabels', 'En_En']), value: "En_En"}];
+  const languages = [{value: "en_En", name: I18n.t("language.en_EN")}, {value: "nl_Nl", name: I18n.t("language.nl_NL")}];
+  let languageSelection = languages[0];
 
   const eqfItems = [...Array(8).keys()].map(i => {
     return {name: `EQF ${i + 1}`, value: i}
@@ -75,7 +76,7 @@
 
   $: if (badgeclass.extensions.length > 0 && !loaded) {
     extensions = {
-      [language.name]: extensionValue(badgeclass.extensions, language) || {name: I18n.t(['models', 'badgeclass', 'languageLabels', 'En_En']), value: "En_En"},
+      [language.name]: extensionValue(badgeclass.extensions, language) || "en_En",
       [ects.name]: extensionValue(badgeclass.extensions, ects) || 2.5,
       [eqf.name]: extensionValue(badgeclass.extensions, eqf) || {name: "EQF 6", value: 6},
       [learningOutcome.name]: extensionValue(badgeclass.extensions, learningOutcome) || "",
@@ -103,7 +104,7 @@
       newBadgeclass.alignment = [];
     }
     newBadgeclass.extensions = extensionToJson([
-      {name: language.name, value: extensions[language.name].value},
+      {name: language.name, value: languageSelection.value},
       {name: eqf.name, value: extensions[eqf.name].value},
       {name: learningOutcome.name, value: extensions[learningOutcome.name]},
     ]);
@@ -114,10 +115,13 @@
       }]), newBadgeclass.extensions)
     }
     if (showStudyLoad) {
-      if(EctsOrHoursSelection) {
+      if (ectsOrHoursSelection) {
         Object.assign(extensionToJson([{name: ects.name, value: extensions[ects.name]}]), newBadgeclass.extensions)
       } else {
-        Object.assign(extensionToJson([{name: studyLoad.name, value: parseInt(extensions[studyLoad.name])}]), newBadgeclass.extensions)
+        Object.assign(extensionToJson([{
+          name: studyLoad.name,
+          value: parseInt(extensions[studyLoad.name])
+        }]), newBadgeclass.extensions)
       }
     }
     if (badgeclass.issuer) {
@@ -130,7 +134,9 @@
       .then(res => {
         navigate(`/manage/badgeclass/${res.entity_id}`)
       })
-      .catch(err => err.then(({fields}) => (errors = fields)));
+      .catch(err => err.then(({fields}) => {
+        errors = fields.error_message;
+      }));
   }
 </script>
 
@@ -164,7 +170,7 @@
     font-size: 14px;
   }
 
-  .deletable-title{
+  .deletable-title {
     display: inline-block;
   }
 
@@ -228,7 +234,7 @@
 
     <Field {entity} attribute="language" errors={errors.language}>
       <Select
-        bind:value={extensions[language.name]}
+        bind:value={languageSelection}
         items={languages}
         optionIdentifier="value"
         clearable={false}/>
@@ -328,14 +334,14 @@
     <div class="form">
       <Field {entity} attribute="typeOfStudyLoad" errors={errors.type}>
         <Select
-            bind:value={EctsOrHoursSelection}
-            items={EctsOrHours}
-            optionIdentifier="value"
-            clearable={false}
+          bind:value={ectsOrHoursSelection}
+          items={EctsOrHours}
+          optionIdentifier="value"
+          clearable={false}
         />
       </Field>
 
-      {#if EctsOrHoursSelection.value === 'creditPoints'}
+      {#if ectsOrHoursSelection.value === 'creditPoints'}
         <Field {entity} attribute="amount" errors={errors.ectsLong}>
           <EctsCreditPoints bind:ectsValue={extensions[ects.name]}/>
         </Field>
@@ -358,30 +364,30 @@
     <div class="form">
       <Field {entity} attribute="alignmentName">
         <TextInput
-            bind:value={alignment.target_name}
-            error={errors.alignmentName}
-            area
-          />
+          bind:value={alignment.target_name}
+          error={errors.alignmentName}
+          area
+        />
       </Field>
       <Field {entity} attribute="alignmentFramework">
         <TextInput
-            bind:value={alignment.target_framework}
-            error={errors.alignment_framework}
-            area
+          bind:value={alignment.target_framework}
+          error={errors.alignment_framework}
+          area
         />
       </Field>
       <Field {entity} attribute="alignmentUrl">
         <TextInput
-            bind:value={alignment.target_url}
-            error={errors.alignment_framework}
-            area
+          bind:value={alignment.target_url}
+          error={errors.alignment_framework}
+          area
         />
       </Field>
       <Field {entity} attribute="alignmentCode">
         <TextInput
-            bind:value={alignment.target_code}
-            error={errors.alignmentCode}
-            area
+          bind:value={alignment.target_code}
+          error={errors.alignmentCode}
+          area
         />
       </Field>
     </div>
@@ -394,23 +400,23 @@
     <div class="add-buttons">
       <span class="add-button">
         <AddButton
-            text={I18n.t('models.badgeclass.addButtons.educationalIdentifiers')}
-            handleClick={() => showEducationalIdentifiers = true}
-            visibility={!showEducationalIdentifiers}
+          text={I18n.t('models.badgeclass.addButtons.educationalIdentifiers')}
+          handleClick={() => showEducationalIdentifiers = true}
+          visibility={!showEducationalIdentifiers}
         />
       </span>
       <span class="add-button">
         <AddButton
-            text={I18n.t('models.badgeclass.addButtons.studyLoad')}
-            handleClick={() => showStudyLoad = true}
-            visibility={!showStudyLoad}
+          text={I18n.t('models.badgeclass.addButtons.studyLoad')}
+          handleClick={() => showStudyLoad = true}
+          visibility={!showStudyLoad}
         />
       </span>
       <span class="add-button">
         <AddButton
-            text={I18n.t('models.badgeclass.addButtons.alignment')}
-            handleClick={() => showAlignment = true}
-            visibility={!showAlignment}
+          text={I18n.t('models.badgeclass.addButtons.alignment')}
+          handleClick={() => showAlignment = true}
+          visibility={!showAlignment}
         />
       </span>
     </div>

@@ -11,23 +11,12 @@
   export let subEntity;
 
   let faculty = { staff: [] };
-  let mayUpdate = false;
-  let mayCreate = false;
+  let permissions;
   let issuers = [];
 
   let contentType;
 
   const query = `{
-    currentUser {
-      facultyStaffs {
-        mayUpdate,
-        mayCreate
-      },
-      institutionStaff {
-        mayUpdate,
-        mayCreate
-      }
-    },
     faculty(id: "${entityId}") {
       ${headerEntity},
       ${headerStaff},
@@ -47,16 +36,20 @@
         faculty {
           name
         }
+      },
+      permissions {
+        mayCreate
+        mayUpdate,
+        mayDelete
       }
     }
   }`;
 
   onMount(() => {
     queryData(query).then(res => {
-      mayCreate = res.currentUser.institutionStaff.mayCreate || res.currentUser.facultyStaffs.mayCreate
-      mayUpdate = res.currentUser.institutionStaff.mayUpdate || res.currentUser.facultyStaffs.mayUpdate
       faculty = res.faculty;
       issuers = res.faculty.issuers;
+      permissions = res.faculty.permissions;
       contentType = res.faculty.contentTypeId;
     });
   });
@@ -75,6 +68,9 @@
   ];
 
   $: if (!subEntity) navigate(tabs[0].href, { replace: true });
+  $: mayCreate = permissions && permissions.mayCreate;
+  $: mayUpdate = permissions && permissions.mayUpdate;
+  $: mayDelete = permissions && permissions.mayDelete;
 
   $: headerItems = [
     {
@@ -99,8 +95,10 @@
   {tabs}
   {headerItems}
   object={faculty}
-  mayUpdate={mayUpdate}
   entity={entityType.ISSUER_GROUP}
+  entityId={entityId}
+  mayUpdate={mayUpdate}
+  mayDelete={mayDelete && faculty.issuers.length === 0}
 />
 
 <Router>

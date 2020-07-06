@@ -30,12 +30,6 @@
   let contentType;
 
   const query = `{
-    currentUser {
-      institutionStaff {
-        mayUpdate,
-        mayCreate
-      }
-    },
     currentInstitution {
       ${headerEntity},
       ${headerStaff},
@@ -43,7 +37,12 @@
       gradingTable,
       brin,
       entityId,
-      contentTypeId
+      contentTypeId,
+      permissions {
+        mayCreate,
+        mayUpdate,
+        mayDelete
+      }
 		},
 		faculties {
       name,
@@ -66,7 +65,7 @@
 
   onMount(() => {
     queryData(query).then(res => {
-      permissions = res.currentUser.institutionStaff;
+      permissions = res.currentInstitution.permissions;
       institution = res.currentInstitution;
       faculties = res.faculties;
       issuers = res.issuers;
@@ -95,8 +94,9 @@
   ];
 
   $: if (!subEntity) navigate(tabs[0].href, {replace: true});
-  $: mayUpdate = permissions && permissions.mayUpdate;
   $: mayCreate = permissions && permissions.mayCreate;
+  $: mayUpdate = permissions && permissions.mayUpdate;
+  $: mayDelete = permissions && permissions.mayDelete && faculties.length === 0;
 
   $: headerItems = [
     {
@@ -135,7 +135,8 @@
     {headerItems}
     object={institution}
     entity={entityType.INSTITUTION}
-    {mayUpdate}
+    mayUpdate={mayUpdate}
+    mayDelete={mayDelete}
   />
 
   <Router>

@@ -17,6 +17,7 @@
   let issuer;
   let faculty;
   let badgeclass = {extensions: [], issuer: {}};
+  let permissions;
 
   let contentType;
 
@@ -37,9 +38,6 @@
           entityId,
         }
       },
-      permissions {
-        mayUpdate
-      },
       enrollments {
         entityId,
         dateAwarded
@@ -51,6 +49,10 @@
       extensions {
         name,
         originalJson
+      },
+      permissions {
+        mayUpdate,
+        mayDelete
       }
     }
   }`;
@@ -61,6 +63,7 @@
       issuer = res.badgeClass.issuer;
       faculty = issuer.faculty;
       contentType = res.badgeClass.contentTypeId;
+      permissions = res.badgeClass.permissions;
     });
   });
 
@@ -76,6 +79,8 @@
   ];
 
   $: if (!tab) navigate(tabs[0].href, {replace: true});
+  $: mayUpdate = permissions && permissions.mayUpdate;
+  $: mayDelete = permissions && permissions.mayDelete;
 
   $: headerItems = [
     {
@@ -107,9 +112,12 @@
 <EntityHeader
     object={badgeclass}
     entity={entityType.BADGE_CLASS}
+    entityId={entityId}
+    parentId={badgeclass.issuer.entityId}
     {tabs}
     {headerItems}
     mayUpdate={badgeclass.permissions && badgeclass.permissions.mayUpdate && badgeclass.badgeAssertions.length === 0}
+    mayDelete={mayDelete && badgeclass.badgeAssertions.length === 0}
 />
 
 <div class="main-content-margin">
