@@ -1,15 +1,16 @@
 <script>
-  import { onMount } from "svelte";
-  import { Router, Route, navigate } from "svelte-routing";
-  import { EntityHeader, Breadcrumb, BadgeclassUserManagement, InviteUser } from "../teachers";
+  import {onMount} from "svelte";
+  import {Router, Route, navigate} from "svelte-routing";
+  import {EntityHeader, Breadcrumb, BadgeclassUserManagement, InviteUser} from "../teachers";
   import {Overview} from "./badgeclass";
-  import { badgeclassIcon } from "../../icons";
-  import { queryData } from "../../api/graphql";
-  import { headerStaff, headerEntity } from "../../api/queries";
-  import { expirationValueToPeriod } from "../extensions/badges/expiration_period";
+  import {badgeclassIcon} from "../../icons";
+  import {queryData} from "../../api/graphql";
+  import {headerStaff, headerEntity} from "../../api/queries";
+  import {expirationValueToPeriod} from "../extensions/badges/expiration_period";
   import I18n from "i18n-js";
-  import { expirationPeriod } from "../../util/entityHeader";
+  import {expirationPeriod} from "../../util/entityHeader";
   import {entityType} from "../../util/entityTypes"
+  import Spinner from "../Spinner.svelte";
 
   export let entityId;
   export let tab;
@@ -20,6 +21,7 @@
   let permissions;
 
   let contentType;
+  let loaded;
 
   const query = `{
     badgeClass(id: "${entityId}") {
@@ -64,6 +66,7 @@
       faculty = issuer.faculty;
       contentType = res.badgeClass.contentTypeId;
       permissions = res.badgeClass.permissions;
+      loaded = true;
     });
   });
 
@@ -106,10 +109,11 @@
     {name: I18n.t(['editUsers', 'badgeClass', 'awarder'])}
   ];
 </script>
+{#if loaded}
 
-<Breadcrumb {faculty} {issuer} {badgeclass} badgeclassName={badgeclass.name} />
+  <Breadcrumb {faculty} {issuer} {badgeclass} badgeclassName={badgeclass.name}/>
 
-<EntityHeader
+  <EntityHeader
     object={badgeclass}
     entity={entityType.BADGE_CLASS}
     entityId={entityId}
@@ -118,24 +122,27 @@
     {headerItems}
     mayUpdate={badgeclass.permissions && badgeclass.permissions.mayUpdate && badgeclass.badgeAssertions.length === 0}
     mayDelete={mayDelete && badgeclass.badgeAssertions.length === 0}
-/>
+  />
 
-<div class="main-content-margin">
-  <Router>
-    <Route path="/overview">
-      <Overview {badgeclass} />
-    </Route>
-    <Route path="/user-management/invite-new-user">
-      <InviteUser
+  <div class="main-content-margin">
+    <Router>
+      <Route path="/overview">
+        <Overview {badgeclass}/>
+      </Route>
+      <Route path="/user-management/invite-new-user">
+        <InviteUser
           permissionsRoles={permissionsRoles}
           defaultValue={1}
           disabledRole={false}
           entityId={entityId}
           contentType={contentType}
-      />
-    </Route>
-    <Route path="/user-management">
-      <BadgeclassUserManagement entity={entityType.BADGE_CLASS} {entityId}/>
-    </Route>
-  </Router>
-</div>
+        />
+      </Route>
+      <Route path="/user-management">
+        <BadgeclassUserManagement entity={entityType.BADGE_CLASS} {entityId}/>
+      </Route>
+    </Router>
+  </div>
+{:else}
+  <Spinner/>
+{/if}

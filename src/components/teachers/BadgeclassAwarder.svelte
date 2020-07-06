@@ -19,6 +19,7 @@
   import {expirationPeriod} from "../../util/entityHeader";
   import CopyToClipboardButton from "../CopyToClipboardButton.svelte";
   import {entityType} from "../../util/entityTypes"
+  import Spinner from "../Spinner.svelte";
 
   export let entityId;
   export let subEntity;
@@ -55,7 +56,9 @@
     ${assertionsQuery(entityId)},
   }`;
 
-    const refresh = () => {
+  let loaded;
+
+  const refresh = () => {
     queryData(query).then(res => {
       badgeclass = res.badgeClass;
       issuer = res.badgeClass.issuer;
@@ -63,6 +66,7 @@
 
       enrollments = res.badgeClass.pendingEnrollments;
       assertions = res.badgeClass.badgeAssertions;
+      loaded = true;
     });
   }
 
@@ -153,49 +157,52 @@
   }
 
 </style>
-
-<div class="nav">
-  {@html chevronLeft}
-  <span class="click" on:click={() => window.history.back()}>
+{#if loaded}
+  <div class="nav">
+    {@html chevronLeft}
+    <span class="click" on:click={() => window.history.back()}>
     {I18n.t('teacher.breadcrumb.back')}
   </span>
-</div>
+  </div>
 
-<EntityHeader
-  object={badgeclass}
-  entity={entityType.BADGE_CLASS}
-  {tabs}
-  {headerItems}
-  mayUpdate={false}>
-  <!--  <div class="slots">-->
-  <!--    <Button href={`/invite-enrollements/${badgeclass.entityId}`} text={I18n.t("models.badgeclass.inviteEnrollements")}/>-->
-  <!--  </div>-->
-</EntityHeader>
+  <EntityHeader
+    object={badgeclass}
+    entity={entityType.BADGE_CLASS}
+    {tabs}
+    {headerItems}
+    mayUpdate={false}>
+    <!--  <div class="slots">-->
+    <!--    <Button href={`/invite-enrollements/${badgeclass.entityId}`} text={I18n.t("models.badgeclass.inviteEnrollements")}/>-->
+    <!--  </div>-->
+  </EntityHeader>
 
-<div class="main-content-margin">
-  <Router>
-    <Route path="/overview">
-      <Overview {badgeclass}>
-        <div class="public-link">
-          <div class="info">
-            <span>{@html info}</span>
-            <span>{I18n.t("invites.copyPublicUrl")}</span>
+  <div class="main-content-margin">
+    <Router>
+      <Route path="/overview">
+        <Overview {badgeclass}>
+          <div class="public-link">
+            <div class="info">
+              <span>{@html info}</span>
+              <span>{I18n.t("invites.copyPublicUrl")}</span>
+            </div>
+            <div class="options">
+              <input class="input-field full" disabled={true} value={publicUrl()}/>
+              <CopyToClipboardButton toCopy={publicUrl()} text={I18n.t("invites.copyUrl")}/>
+            </div>
           </div>
-          <div class="options">
-            <input class="input-field full" disabled={true} value={publicUrl()}/>
-            <CopyToClipboardButton toCopy={publicUrl()} text={I18n.t("invites.copyUrl")}/>
-          </div>
-        </div>
 
-      </Overview>
-    </Route>
+        </Overview>
+      </Route>
 
-    <Route path="/enrollments">
-      <Enrollments {entityId} bind:enrollments refresh={refresh}/>
-    </Route>
+      <Route path="/enrollments">
+        <Enrollments {entityId} bind:enrollments refresh={refresh}/>
+      </Route>
 
-    <Route path="/awarded">
-      <Assertions {issuer} {badgeclass} {assertions} refresh={refresh}/>
-    </Route>
-  </Router>
-</div>
+      <Route path="/awarded">
+        <Assertions {issuer} {badgeclass} {assertions} refresh={refresh}/>
+      </Route>
+    </Router>
+  </div>
+{:else}
+  <Spinner/>
+{/if}

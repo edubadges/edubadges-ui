@@ -1,20 +1,22 @@
 <script>
-  import { onMount } from "svelte";
-  import { Router, Route, navigate } from "svelte-routing";
-  import { Breadcrumb, EntityHeader, Issuers, FacultyUserManagement, InviteUser } from "../teachers";
-  import { issuerIcon } from "../../icons";
-  import { queryData } from "../../api/graphql";
-  import { headerStaff, headerEntity } from "../../api/queries";
+  import {onMount} from "svelte";
+  import {Router, Route, navigate} from "svelte-routing";
+  import {Breadcrumb, EntityHeader, Issuers, FacultyUserManagement, InviteUser} from "../teachers";
+  import {issuerIcon} from "../../icons";
+  import {queryData} from "../../api/graphql";
+  import {headerStaff, headerEntity} from "../../api/queries";
   import {entityType} from "../../util/entityTypes"
+  import Spinner from "../Spinner.svelte";
 
   export let entityId;
   export let subEntity;
 
-  let faculty = { staff: [] };
+  let faculty = {staff: []};
   let permissions;
   let issuers = [];
 
   let contentType;
+  let loaded;
 
   const query = `{
     faculty(id: "${entityId}") {
@@ -51,6 +53,7 @@
       issuers = res.faculty.issuers;
       permissions = res.faculty.permissions;
       contentType = res.faculty.contentTypeId;
+      loaded = true;
     });
   });
 
@@ -67,7 +70,7 @@
     }
   ];
 
-  $: if (!subEntity) navigate(tabs[0].href, { replace: true });
+  $: if (!subEntity) navigate(tabs[0].href, {replace: true});
   $: mayCreate = permissions && permissions.mayCreate;
   $: mayUpdate = permissions && permissions.mayUpdate;
   $: mayDelete = permissions && permissions.mayDelete;
@@ -89,34 +92,37 @@
     {name: 'admin'}
   ];
 </script>
+{#if loaded}
+  <Breadcrumb {faculty}/>
+  <EntityHeader
+    {tabs}
+    {headerItems}
+    object={faculty}
+    entity={entityType.ISSUER_GROUP}
+    entityId={entityId}
+    mayUpdate={mayUpdate}
+    mayDelete={mayDelete && faculty.issuers.length === 0}
+  />
 
-<Breadcrumb {faculty} />
-<EntityHeader
-  {tabs}
-  {headerItems}
-  object={faculty}
-  entity={entityType.ISSUER_GROUP}
-  entityId={entityId}
-  mayUpdate={mayUpdate}
-  mayDelete={mayDelete && faculty.issuers.length === 0}
-/>
-
-<Router>
-  <Route path="/issuers">
-    <Issuers
+  <Router>
+    <Route path="/issuers">
+      <Issuers
         {issuers}
-        mayCreate={mayCreate} />
-  </Route>
-  <Route path="/user-management/invite-new-user">
-    <InviteUser
+        mayCreate={mayCreate}/>
+    </Route>
+    <Route path="/user-management/invite-new-user">
+      <InviteUser
         permissionsRoles={permissionsRoles}
         entityId={entityId}
         defaultValue={0}
         disabledRole={true}
         contentType={contentType}
-    />
-  </Route>
-  <Route path="/user-management">
-    <FacultyUserManagement entity={entityType.ISSUER_GROUP} entityId={entityId} />
-  </Route>
-</Router>
+      />
+    </Route>
+    <Route path="/user-management">
+      <FacultyUserManagement entity={entityType.ISSUER_GROUP} entityId={entityId}/>
+    </Route>
+  </Router>
+{:else}
+  <Spinner/>
+{/if}

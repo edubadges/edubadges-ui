@@ -1,13 +1,14 @@
 <script>
-  import { SideBarUsers, UsersHeader } from "../../components/teachers/";
-  import { institution, users, userTree, userSearch } from "../../stores/filterUsers";
-  import { onMount } from "svelte";
-  import { queryData } from "../../api/graphql";
+  import {SideBarUsers, UsersHeader} from "../../components/teachers/";
+  import {institution, users, userTree, userSearch} from "../../stores/filterUsers";
+  import {onMount} from "svelte";
+  import {queryData} from "../../api/graphql";
   import I18n from "i18n-js";
-  import { Table } from "../../components/teachers";
-  import { search } from "../../util/searchData";
-  import { sort, sortType } from "../../util/sortData";
+  import {Table} from "../../components/teachers";
+  import {search} from "../../util/searchData";
+  import {sort, sortType} from "../../util/sortData";
   import {navigate} from "svelte-routing";
+  import Spinner from "../../components/Spinner.svelte";
 
   const query = `{
     currentInstitution {
@@ -81,11 +82,13 @@
     }
    }`;
 
+  let loaded = false;
 
   onMount(() => {
     queryData(query).then(res => {
       $institution = res.currentInstitution;
       $users = res.users;
+      loaded = true;
     });
   });
 
@@ -133,27 +136,31 @@
 </style>
 
 <div class="page-container">
-  <SideBarUsers />
+  {#if loaded}
+    <SideBarUsers/>
 
-  <div class="content">
-    <UsersHeader/>
-    <Table
+    <div class="content">
+      <UsersHeader/>
+      <Table
         {...table}
         bind:search={$userSearch}
         bind:sort={userSort}
         mayCreate={false}>
-      {#each sortedFilteredUsers as user (user.entityId)}
-        <tr
+        {#each sortedFilteredUsers as user (user.entityId)}
+          <tr
             class="click"
             on:click={() => navigate(`/users/${user.entityId}/institution`)}>
-          <td>
-            {user.firstName} {user.lastName}
-            <br />
-            <span class="sub-text">{user.email}</span>
-          </td>
-          <td>{user.role}</td>
-        </tr>
-      {/each}
-    </Table>
-  </div>
+            <td>
+              {user.firstName} {user.lastName}
+              <br/>
+              <span class="sub-text">{user.email}</span>
+            </td>
+            <td>{user.role}</td>
+          </tr>
+        {/each}
+      </Table>
+    </div>
+  {:else}
+    <Spinner/>
+  {/if}
 </div>

@@ -6,6 +6,7 @@
   import {headerEntity, headerStaff} from "../../api/queries";
   import {faculties, tree} from "../../stores/filterBadges";
   import BadgeCard from "../../components/shared/BadgeCard.svelte";
+  import Spinner from "../../components/Spinner.svelte";
 
   const query = `{
     faculties {
@@ -32,8 +33,13 @@
     }
   }`;
 
+  let loaded;
+
   onMount(() => {
-    queryData(query).then(res => ($faculties = res.faculties));
+    queryData(query).then(res => {
+      $faculties = res.faculties;
+      loaded = true;
+    });
   });
 </script>
 
@@ -74,15 +80,20 @@
 </style>
 
 <div class="page-container">
-  <SideBarBadges/>
+  {#if loaded}
+    <SideBarBadges/>
 
-  <div class="content">
-    <BadgesHeader/>
+    <div class="content">
+      <BadgesHeader/>
 
-    <div class="badges">
-      {#each $tree.badgeClasses as badge}
-        <BadgeCard badgeClass={badge}/>
-      {/each}
+      <div class="badges">
+        {#each $tree.badgeClasses as badge}
+          <BadgeCard badgeClass={badge}/>
+        {/each}
+      </div>
     </div>
-  </div>
+  {:else}
+    <Spinner/>
+  {/if}
+
 </div>
