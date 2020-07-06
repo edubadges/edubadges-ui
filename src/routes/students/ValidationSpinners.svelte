@@ -38,11 +38,11 @@
   onMount(() => {
     validateBadge(badge.entityId)
       .then(res => {
-      validationResult = res.report;
-      done = true;
-    }).catch(() => done = true);
+        validationResult = res.report;
+        done = true;
+      }).catch(() => done = true);
     validations.forEach((validation, i) => {
-      setTimeout(() =>  timeOuts = {...timeOuts, [validation.key]: false}, (i + 1) * timer)
+      setTimeout(() => timeOuts = {...timeOuts, [validation.key]: false}, (i + 1) * timer)
     })
   })
 
@@ -89,9 +89,10 @@
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
     position: relative;
+
     h3 {
       font-weight: bold;
-      font-size: 26px;
+      font-size: 28px;
     }
   }
 
@@ -111,7 +112,7 @@
       }
 
       &:not(:last-child) {
-        border-bottom: 1px solid var(--grey-7);
+        border-bottom: 4px solid var(--grey-2);
       }
 
       span.pre {
