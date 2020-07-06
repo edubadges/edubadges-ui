@@ -222,6 +222,8 @@
     align-items: center;
 
     span.icon {
+      height: 14px;
+      width: 14px;
       margin: auto 4px;
     }
 
