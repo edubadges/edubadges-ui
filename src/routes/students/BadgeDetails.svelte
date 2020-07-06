@@ -95,13 +95,17 @@
     }
   }`;
 
+  let loaded;
+
   const refreshBadgeDetails = () => {
+    loaded = false;
     queryData(query).then(res => {
       badge = res.badgeInstance;
       showModal = false;
       if (!badge.public && badge.acceptance === 'UNACCEPTED') {
         claimAssertion(badge.entityId);
       }
+      loaded = true;
     });
   }
 
@@ -378,7 +382,7 @@
 
 </style>
 <div class="badge-detail-container">
-  {#if !isEmpty(badge)}
+  {#if loaded}
     <div class="bread-crumb">
       <a use:link href={`/backpack`}>{I18n.t("student.badges")}</a>
       <span class="icon">{@html chevronRightSmall}</span>
