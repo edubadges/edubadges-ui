@@ -28,7 +28,7 @@ export const extensionValue = (extensions, extension) => {
     if (extension.name === "LanguageExtension") {
       const json = JSON.parse(ext.originalJson.replace(/'/g, "\""));
       const _lang = json[extension.value];
-      return {name: I18n.t(['models', 'badgeclass', 'languageLabels', _lang]), value: _lang};
+      return {name: I18n.t(`language.${_lang}`), value: _lang};
     }
 
     const json = JSON.parse(ext.originalJson.replace(/'/g, "\""));
