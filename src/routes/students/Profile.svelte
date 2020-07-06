@@ -108,12 +108,12 @@
         <h3>{I18n.t("profile.email")}</h3>
         <Verified value={profile.email}/>
       </div>
-
-      <div class="profile-section">
-        <h3>{I18n.t("profile.eduid")}</h3>
-        <Verified value={eduIdValue()}/>
-      </div>
-
+      {#if profile.eduid}
+        <div class="profile-section">
+          <h3>{I18n.t("profile.eduid")}</h3>
+          <Verified value={eduIdValue()}/>
+        </div>
+      {/if}
       <div class="profile-section">
         <h3>{I18n.t("profile.memberSince")}</h3>
         <Verified value={I18n.t("profile.memberSinceDate", formatCreateDate(profile.dateAdded))} showVerified={false}/>

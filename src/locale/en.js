@@ -9,6 +9,7 @@ I18n.translations.en = {
   },
   header: {
     logout: "Logout",
+    profile: "Profile",
     nav: {
       badgeclasses: "Badges",
       manage: "Manage",

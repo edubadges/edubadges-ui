@@ -9,6 +9,7 @@ I18n.translations.nl = {
   },
   header: {
     logout: "Logout",
+    profile: "Profiel",
     nav: {
       badgeclasses: "Edubadges",
       manage: "Beheer",
