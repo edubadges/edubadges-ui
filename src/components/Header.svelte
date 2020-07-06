@@ -4,6 +4,7 @@
   import {clickOutside} from "../util/clickOutside.js";
   import logo from "../img/logo.svg";
   import {chevronUp, chevronDown} from "../icons";
+  import {role} from "../util/role";
 
   import {
     userLoggedIn,
@@ -64,9 +65,13 @@
       min-width: 180px;
       z-index: 99;
 
-      div.divider {
+      div {
         border-bottom: 2px solid var(--grey-4);
-        margin: 15px 0;
+        padding: 15px 0;
+
+        &:last-child {
+          border-bottom: none;
+        }
       }
 
     }
@@ -94,8 +99,12 @@
       on:clickOutside={() => (menuOpen = false)}>
       {@html menuOpen ? chevronUp : chevronDown}
       <div class="menu card" class:show={menuOpen}>
-        <div on:click={() => navigate("/profile")}>{I18n.t('header.profile')}</div>
-        <div class="divider"></div>
+        {#if $userRole === role.STUDENT}
+          <div on:click={() => navigate("/profile")}>{I18n.t('header.profile')}</div>
+        {/if}
+        {#if $userRole === role.TEACHER}
+          <div on:click={() => navigate("/permissions")}>{I18n.t('header.permissions')}</div>
+        {/if}
         <div on:click={logoutUser}>{I18n.t('header.logout')}</div>
       </div>
     </div>
