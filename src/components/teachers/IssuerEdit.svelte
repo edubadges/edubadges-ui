@@ -27,4 +27,4 @@
   });
 </script>
 
-<IssuerForm {issuer} {entityId} />
+<IssuerForm {issuer} {entityId} facultyChooseAllowed={false}/>

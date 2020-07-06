@@ -138,7 +138,9 @@
       {#if entity !== entityType.BADGE_CLASS}
         <p>{object.description}</p>
       {/if}
-
+      {#if object.publicLink}
+        <p><a href={object.publicLink} target="_blank">{object.publicLink}</a></p>
+      {/if}
       <div class="list">
         <HeaderList {entity} {headerItems}/>
       </div>

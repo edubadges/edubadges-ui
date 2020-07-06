@@ -39,6 +39,7 @@
     <Route path="/faculty/:entityId/*subEntity" component={Faculty} />
 
     <Route path="/issuer/new" component={IssuerNew} />
+    <Route path="/issuer/new/*facultyEntityId" component={IssuerNew} />
     <Route path="/issuer/:entityId/edit" component={IssuerEdit} />
     <Route path="/issuer/:entityId/*subEntity" component={Issuer} />
 

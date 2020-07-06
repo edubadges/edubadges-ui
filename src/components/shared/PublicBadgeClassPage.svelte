@@ -22,6 +22,7 @@
   let requestedDate;
 
   let isGuest = false;
+  let loaded;
 
   const login = () => {
     $redirectPath = window.location.pathname;
@@ -56,25 +57,26 @@
     getPublicBadgeClass(entityId).then(res => {
       badgeClass = res;
       publicBadgeInformation(badgeClass, res);
+      loaded = true;
     })
   });
 </script>
 
 <div class="page-container">
-  <EntityHeader
-    entity={entityType.BADGE_CLASS}
-    object={badgeClass}
-    visitorRole={visitorRole}
-    enrolled={studentEnrolled}
-    entityId={entityId}>
-    {#if visitorRole === role.GUEST}
-      <div class="slots">
-        <Button text={I18n.t("login.loginToEnrol")} action={login}/>
-      </div>
-    {/if}
-  </EntityHeader>
+  {#if loaded}
+    <EntityHeader
+      entity={entityType.BADGE_CLASS}
+      object={badgeClass}
+      visitorRole={visitorRole}
+      enrolled={studentEnrolled}
+      entityId={entityId}>
+      {#if visitorRole === role.GUEST}
+        <div class="slots">
+          <Button text={I18n.t("login.loginToEnrol")} action={login}/>
+        </div>
+      {/if}
+    </EntityHeader>
 
-  {#if !isEmpty(badgeClass)}
     <Overview badgeclass={badgeClass} studentEnrolled={studentEnrolled} enrollmentId={enrollmentId}
               requested={requestedDate} studentPath={I18n.t("student.enrollments")}/>
   {:else}

@@ -397,6 +397,9 @@ I18n.translations.en = {
       name: "Name",
       url: "Website URL",
       faculty: "Group",
+      gradingTable: "Institution grading table URL",
+      institutionName: "Institution name",
+      institutionIdentifier: "Institution identifier"
     },
     badgeclass: {
       issuer: "Issuer",

@@ -6,6 +6,7 @@
   import {queryData} from "../../api/graphql";
   import {headerStaff, headerEntity} from "../../api/queries";
   import {entityType} from "../../util/entityTypes";
+  import {config} from "../../util/config";
 
   export let entityId;
   export let subEntity;
@@ -51,6 +52,7 @@
   onMount(() => {
     queryData(query).then(res => {
       issuer = res.issuer;
+      issuer.publicLink = `${config.serverUrl}/public/issuers/${entityId}`;
       faculty = issuer.faculty;
       badgeclasses = issuer.badgeclasses;
       permissions = res.issuer.permissions;
@@ -96,7 +98,7 @@
       attr: "email",
       type: "email",
       value: issuer.email
-    }
+    },
   ];
 
   const permissionsRoles = [
@@ -125,14 +127,14 @@
   </Route>
   <Route path="/user-management/invite-new-user">
     <InviteUser
-        permissionsRoles={permissionsRoles}
-        entityId={entityId}
-        defaultValue={0}
-        disabledRole={true}
-        contentType={contentType}
+      permissionsRoles={permissionsRoles}
+      entityId={entityId}
+      defaultValue={0}
+      disabledRole={true}
+      contentType={contentType}
     />
   </Route>
   <Route path="/user-management">
-    <IssuerUserManagement entity="issuer" entityId={entityId} />
+    <IssuerUserManagement entity="issuer" entityId={entityId}/>
   </Route>
 </Router>

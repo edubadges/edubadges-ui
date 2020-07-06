@@ -3,6 +3,8 @@
   import {queryData} from "../../api/graphql";
   import {IssuerForm} from "../teachers";
 
+  export let facultyEntityId;
+
   const query = `{
     faculties {
       name,
@@ -11,15 +13,21 @@
   }`;
 
   let faculties = [];
-  let issuer = { faculty: {}};
+  let issuer = {faculty: {}};
 
   onMount(() => {
     queryData(query).then(res => {
       faculties = res.faculties;
-      issuer.faculty = faculties[0];
-    })});
+      if (facultyEntityId) {
+        issuer.faculty = faculties.find(faculty => faculty.entityId === facultyEntityId);
+      } else {
+        issuer.faculty = faculties[0];
+      }
+
+    })
+  });
 
 </script>
 
-<IssuerForm {faculties} {issuer}/>
+<IssuerForm {faculties} {issuer} facultyChooseAllowed={!facultyEntityId}/>
 

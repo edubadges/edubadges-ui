@@ -8,6 +8,7 @@
 
   export let mayCreate;
   export let issuers = [];
+  export let facultyEntityId;
 
   const tableHeaders = [
     {
@@ -47,6 +48,7 @@
   {...table}
   bind:search={issuerSearch}
   bind:sort={issuerSort}
+  pathParameters={facultyEntityId ? [facultyEntityId] : []}
   {mayCreate}>
   {#each sortedFilteredIssuers as issuer (issuer.entityId)}
     <tr

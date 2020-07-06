@@ -258,6 +258,11 @@ export function getPublicBadgeClass(badgeId) {
   return validFetch(path, {}, "GET", false);
 }
 
+export function getPublicIssuer(entityId) {
+  const path = `${serverUrl}/public/issuers/${entityId}`;
+  return validFetch(path, {}, "GET", false);
+}
+
 export function getPublicBadge(entityId) {
   const path = `${serverUrl}/public/assertions/${entityId}?expand=badge&expand=badge.issuer`;
   return validFetch(path, {}, "GET", false);

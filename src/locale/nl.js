@@ -397,6 +397,9 @@ I18n.translations.nl = {
       name: "Naam",
       url: "Website URL",
       faculty: "Groep",
+      gradingTable: "Instelling beoordelingstabel URL",
+      institutionName: "Instelling naam",
+      institutionIdentifier: "Instelling identifier"
     },
     badgeclass: {
       issuer: "Issuer",

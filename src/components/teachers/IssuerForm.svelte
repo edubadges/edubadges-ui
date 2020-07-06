@@ -7,6 +7,7 @@
   export let entityId;
   export let issuer = { faculty: {}};
   export let faculties = [];
+  export let facultyChooseAllowed;
 
   const entity = "issuer";
   let errors = {};
@@ -36,6 +37,7 @@
   <Field {entity} attribute="faculty" errors={errors.faculty}>
     <Select
       bind:value={issuer.faculty}
+      disabled={!facultyChooseAllowed}
       error={errors.faculty}
       items={faculties} />
   </Field>

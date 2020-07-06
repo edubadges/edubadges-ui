@@ -107,6 +107,7 @@
   <Router>
     <Route path="/issuers">
       <Issuers
+        facultyEntityId={entityId}
         {issuers}
         mayCreate={mayCreate}/>
     </Route>
