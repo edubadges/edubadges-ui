@@ -10,6 +10,7 @@
   export let disabled = false;
   export let small;
   export let full;
+  export let fill;
 </script>
 
 <style lang="scss">
@@ -56,6 +57,10 @@
 
   a.full {
     width: 50%;
+  }
+
+  a.fill {
+    width: 100%;
   }
 
   @media (max-width: 820px) {
@@ -113,7 +118,7 @@
 {:else if action}
   <!-- svelte-ignore a11y-invalid-attribute -->
   <a
-    href="#" class:full
+    href="#" class:full class:fill
     on:click|preventDefault={() => disabled ? false : action()}
     {disabled}
       class:small
@@ -122,5 +127,5 @@
     {text}
   </a>
 {:else if href}
-  <a use:link {href} {disabled} class:small class:secondary>{text}</a>
+  <a use:link {href} {disabled} class:fill class:small class:secondary>{text}</a>
 {/if}

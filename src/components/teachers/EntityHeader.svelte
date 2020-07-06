@@ -41,7 +41,7 @@
   };
   export let tabs;
   export let headerItems;
-  export let visitorRole;
+  export let visitorRole = role.TEACHER;
   export let enrolled;
 
   let imageId = "";
@@ -101,6 +101,17 @@
     }
   }
 
+  .actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: auto 0 auto calc(var(--hor-padding-xl) / 2);
+
+    .button-container:first-child {
+      margin-bottom: 15px;
+    }
+  }
+
   .slots {
     display: flex;
     align-items: center;
@@ -137,11 +148,18 @@
           <Button label="alreadyEnrolled" disabled={true} text={I18n.t('student.enrolled')}/>
         {/if}
       {/if}
-      {#if mayUpdate}
-        <Button secondary href="edit" text={I18n.t(['manage', 'edit', entity])}/>
-      {/if}
-      <Button disabled={!mayDelete} action={deleteAction} text={I18n.t(['manage', 'delete', entity, 'button'])}/>
     </div>
+    {#if visitorRole === role.TEACHER}
+      <div class="actions">
+        <div class="button-container">
+          <Button fill={true} disabled={!mayUpdate} secondary href="edit" text={I18n.t(['manage', 'edit', entity])}/>
+        </div>
+        <div class="button-container">
+          <Button fill={true} disabled={!mayDelete} action={deleteAction}
+                  text={I18n.t(['manage', 'delete', entity, 'button'])}/>
+        </div>
+      </div>
+    {/if}
     <div class="slots">
       <slot/>
     </div>
@@ -151,9 +169,9 @@
 
 {#if showRemoveModal}
   <Modal
-      submit={removeModalAction}
-      cancel={() => showRemoveModal = false}
-      question={removeModalQuestion}
+    submit={removeModalAction}
+    cancel={() => showRemoveModal = false}
+    question={removeModalQuestion}
       title={removeModalTitle}
-  />
+      />
 {/if}
