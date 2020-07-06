@@ -2,7 +2,7 @@
   import { queryData } from "../../api/graphql";
   import { onMount } from "svelte";
   import I18n from "i18n-js";
-  import UserManagement from "./UserManagement.svelte";
+  import {UserManagement} from "../teachers";
   import {staffType, addStaffType} from "../../util/staffTypes";
 
   export let entity;
