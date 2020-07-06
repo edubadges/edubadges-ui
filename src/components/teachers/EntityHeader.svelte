@@ -146,7 +146,7 @@
       </div>
     </div>
     <div class="slots">
-      {#if visitorRole === role.STUDENT}
+      {#if visitorRole === role.STUDENT && entity === entityType.BADGE_CLASS}
         {#if !enrolled}
           <Button secondary action={enrollStudent} text={I18n.t('student.enroll')} class="btn"/>
         {:else}

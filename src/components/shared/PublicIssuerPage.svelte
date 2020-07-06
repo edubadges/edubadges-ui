@@ -57,6 +57,11 @@
     padding: 40px 140px;
   }
 
+  div.page-container {
+    width: 100%;
+  }
+
+
 </style>
 <div class="page-container">
   {#if loaded}
