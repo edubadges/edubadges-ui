@@ -30,7 +30,7 @@ const extensions = [{
 }];
 
 test("Extensions value", () => {
-  expect(extensionValue(extensions, language)).toStrictEqual({"name": "Dutch", "value": "nl_NL"});
+  expect(extensionValue(extensions, language)).toStrictEqual("nl_NL");
   expect(extensionValue(extensions, ects)).toStrictEqual(2.5);
   expect(extensionValue(extensions, eqf)).toStrictEqual(7);
   expect(extensionValue(extensions, learningOutcome)).toStrictEqual("Will appreciate the benefits of learning a foreign language.");

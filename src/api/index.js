@@ -1,6 +1,7 @@
 import {get} from "svelte/store";
 import {authToken, showMainErrorDialog} from "../stores/user";
 import {config} from "../util/config";
+import {entityType} from "../util/entityTypes";
 
 //Internal API
 const serverUrl = config.serverUrl;
@@ -233,8 +234,21 @@ export function createBadgeclass(badgeclass) {
 }
 
 // Entities
-export function deleteEntity(entityType, entityId) {
-  const path = `${serverUrl}/${entityType}/edit/${entityId}`;
+export function deleteEntity(entityTypeName, entityId) {
+  let path;
+  switch (entityTypeName) {
+    case entityType.ISSUER_GROUP:
+      path = `${serverUrl}/institution/faculties/edit/${entityId}`;
+      break;
+    case entityType.ISSUER:
+      path = `${serverUrl}/issuer/edit/${entityId}`;
+      break;
+    case entityType.BADGE_CLASS:
+      path = `${serverUrl}/issuer/badgeclasses/edit/${entityId}`;
+      break;
+    default:
+      throw new Error(`Unsupported delete ${entityTypeName}`)
+  }
   return validFetch(path, {}, "DELETE");
 }
 

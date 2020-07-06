@@ -199,22 +199,27 @@ I18n.translations.nl = {
     },
     delete: {
       delete: "delete",
+      flash: "{{type}} {{name}} is verwijderd",
       institution: {
+        name: "Instituut",
         button: "Delete institution",
         title: "Delete institution",
         question: "Do you really want to delete this institution?"
       },
       faculty: {
+        name: "Faculteit",
         button: "Delete issuergroup",
         title: "Delete issuergroup",
         question: "Do you really want to delete this issuergroup?"
       },
       issuer: {
+        name: "Issuer",
         button: "Delete issuer",
         title: "Delete issuer",
         question: "Do you really want to delete this issuer?"
       },
       badgeclass: {
+        name: "Badge class",
         button: "Delete badgeclass",
         title: "Delete badgeclass",
         question: "Do you really want to delete this badgeclass?"

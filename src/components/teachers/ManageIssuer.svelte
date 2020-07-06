@@ -55,7 +55,6 @@
       badgeclasses = issuer.badgeclasses;
       permissions = res.issuer.permissions;
       contentType = res.issuer.contentTypeId;
-      console.log(issuer);
     });
   });
 

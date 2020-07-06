@@ -58,19 +58,19 @@
       case 'badgeclassOwner':
         changeUserToBadgeclassOwner(id).then(() => {
           reload();
-          flash.setValue(I18n.t('editUsers.badgeClass.switchToOwner'))
+          flash.setValue(I18n.t('editUsers.badgeClass.switchToOwner'));
         });
         break;
       case 'badgeclassEditor':
         changeUserToBadgeclassEditor(id).then(() => {
           reload();
-          flash.setValue(I18n.t('editUsers.badgeClass.switchToEditor'))
+          flash.setValue(I18n.t('editUsers.badgeClass.switchToEditor'));
         });
         break;
       case 'badgeclassAwarder':
         changeUserToBadgeclassAwarder(id).then(() => {
           reload();
-          flash.setValue(I18n.t('editUsers.badgeClass.switchToAwarder'))
+          flash.setValue(I18n.t('editUsers.badgeClass.switchToAwarder'));
         });
         break;
     }

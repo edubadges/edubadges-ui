@@ -17,22 +17,25 @@
   export let mayUpdate;
   export let mayDelete;
   export let parentId;
+
   let showRemoveModal = false;
   let removeModalTitle = I18n.t(['manage', 'delete', entity, 'title']);
   let removeModalQuestion = I18n.t(['manage', 'delete', entity, 'question']);
+
   let removeModalAction = () => deleteEntity(entity, entityId).then(() => {
+    flash.setValue(I18n.t(`manage.delete.flash`, {type: entity, name: object.name}));
     switch (entity) {
       case entityType.ISSUER_GROUP:
         showRemoveModal = false;
-        navigate(`manage/institution/groups`);
+        navigate(`/manage/institution/groups`);
         break;
       case entityType.ISSUER:
         showRemoveModal = false;
-        navigate(`manage/faculty/${parentId}/issuers`);
+        navigate(`/manage/institution/issuers`);
         break;
       case entityType.BADGE_CLASS:
         showRemoveModal = false;
-        navigate(`manage/issuer/${parentId}/badgeclasses`);
+        navigate(`/manage/issuer/${parentId}/badgeclasses`);
         break;
     }
   });

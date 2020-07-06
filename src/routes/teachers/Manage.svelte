@@ -1,4 +1,4 @@
-<script>
+  <script>
   import { Router, Route, navigate } from "svelte-routing";
   import {
     BadgeclassManage,
