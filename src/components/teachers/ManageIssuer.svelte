@@ -5,6 +5,7 @@
   import {badgeclassIcon} from "../../icons";
   import {queryData} from "../../api/graphql";
   import {headerStaff, headerEntity} from "../../api/queries";
+  import {entityType} from "../../util/entityTypes";
 
   export let entityId;
   export let subEntity;
@@ -12,26 +13,11 @@
   let issuer = {staff: []};
   let faculty = {};
   let badgeclasses = [];
-  let mayUpdate;
-  let mayCreate;
+  let permissions;
 
   let contentType;
 
   const query = `{
-    currentUser {
-      institutionStaff {
-        mayUpdate,
-        mayCreate
-      },
-      facultyStaffs {
-        mayUpdate,
-        mayCreate
-      },
-      issuerStaffs {
-        mayUpdate,
-        mayCreate
-      }
-    },
     issuer(id: "${entityId}") {
       ${headerEntity},
       ${headerStaff},
@@ -55,8 +41,9 @@
         }
       },
       permissions {
-        mayUpdate,
         mayCreate
+        mayUpdate,
+        mayDelete
       }
   	}
   }`;
@@ -66,9 +53,9 @@
       issuer = res.issuer;
       faculty = issuer.faculty;
       badgeclasses = issuer.badgeclasses;
-      mayCreate = res.currentUser.institutionStaff.mayCreate || res.currentUser.facultyStaffs.mayCreate || res.currentUser.issuerStaffs.mayCreate;
-      mayUpdate = res.currentUser.institutionStaff.mayUpdate || res.currentUser.facultyStaffs.mayUpdate || res.currentUser.issuerStaffs.mayUpdate;
+      permissions = res.issuer.permissions;
       contentType = res.issuer.contentTypeId;
+      console.log(issuer);
     });
   });
 
@@ -86,6 +73,9 @@
   ];
 
   $: if (!subEntity) navigate(tabs[0].href, {replace: true});
+  $: mayCreate = permissions && permissions.mayCreate;
+  $: mayUpdate = permissions && permissions.mayUpdate;
+  $: mayDelete = permissions && permissions.mayDelete;
 
   $: headerItems = [
     {
@@ -120,8 +110,12 @@
   {tabs}
   {headerItems}
   object={issuer}
-  entity="issuer"
-  mayUpdate={mayUpdate}/>
+  entity={entityType.ISSUER}
+  entityId={entityId}
+  parentId={issuer.faculty && issuer.faculty.entityId}
+  mayUpdate={mayUpdate}
+  mayDelete={mayDelete && issuer.badgeclasses.length === 0}
+/>
 
 <Router>
   <Route path="/badgeclasses">

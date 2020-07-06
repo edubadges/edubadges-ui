@@ -197,6 +197,29 @@ I18n.translations.nl = {
       save: "Opslaan",
       cancel: "Annuleren",
     },
+    delete: {
+      delete: "delete",
+      institution: {
+        button: "Delete institution",
+        title: "Delete institution",
+        question: "Do you really want to delete this institution?"
+      },
+      faculty: {
+        button: "Delete issuergroup",
+        title: "Delete issuergroup",
+        question: "Do you really want to delete this issuergroup?"
+      },
+      issuer: {
+        button: "Delete issuer",
+        title: "Delete issuer",
+        question: "Do you really want to delete this issuer?"
+      },
+      badgeclass: {
+        button: "Delete badgeclass",
+        title: "Delete badgeclass",
+        question: "Do you really want to delete this badgeclass?"
+      },
+    },
     new: {
       create: "nieuw",
       faculty: "Nieuwe groep maken",
