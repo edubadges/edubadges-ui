@@ -142,6 +142,7 @@
         </Route>
         <Route path="/public/issuers/:entityId/" let:params>
           <PublicIssuerPage visitorRole={visitorRole} entityId={params.entityId}/>
+        </Route>
         <Route path="/profile">
           {#if visitorRole === role.TEACHER}
             <TeacherProfile/>
