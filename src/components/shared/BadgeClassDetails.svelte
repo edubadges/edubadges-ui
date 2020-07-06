@@ -63,6 +63,7 @@
   <h3>{I18n.t('models.badgeclass.language')}</h3>
   <p class="info">
     {fallBackValue(I18n.t(`language.${badgeclass.language || extensionValue(badgeclass.extensions, language)}`))}
+
   </p>
   <h3>{I18n.t('models.badgeclass.learningOutcome')}</h3>
   <p class="info">
