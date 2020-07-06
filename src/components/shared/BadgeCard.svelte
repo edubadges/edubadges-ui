@@ -40,6 +40,7 @@
     flex-direction: column;
     text-align: center;
     background-color: white;
+    height: 230px;
 
     .shield {
       position: absolute;
@@ -59,6 +60,7 @@
   }
 
   .header img {
+    max-height: 200px;
     max-width: 200px;
     margin: 15px auto;
   }
