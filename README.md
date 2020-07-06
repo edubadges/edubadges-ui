@@ -1,5 +1,8 @@
 #### [edubages-ui](#edubages-ui)
 
+[![Build Status](https://travis-ci.com/edubadges/edubadges-ui.svg?branch=master)](https://travis-ci.com/edubadges/edubadges-ui)
+[![codecov](https://codecov.io/gh/edubadges/edubadges-ui/branch/master/graph/badge.svg)](https://codecov.io/gh/edubadges/edubadges-ui)
+
 ```
 yarn install
 yarn dev

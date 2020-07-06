@@ -9,6 +9,7 @@ I18n.translations.en = {
   },
   header: {
     logout: "Logout",
+    profile: "Profile",
     nav: {
       badgeclasses: "Badges",
       manage: "Manage",
@@ -59,13 +60,18 @@ I18n.translations.en = {
     emails: "Emails",
     email: "Email",
     makePrimary: "Make primary",
+    memberSince: "Member since",
+    memberSinceDate: "{{date}} at {{hours}}:{{minutes}}",
     makePrimaryConfirmation: "Are you sure you want to make this email your primary email?",
     addEmail: "Add e-mail",
     addEmailInfo: "You will receive an email with a link to verify your new email",
     unverified: "unverified",
-    validatedByYourInstitution: "Validated by your institution",
+    validatedByYourInstitution: "verified",
     deleteHeader: "Deleting your edubadges backpack",
-    deleteInfo: "<p>You can delete your backpack whenever you want.</p><p>Proceed with care, as you will loose all your edubadges.</p>",
+    deleteInfo1: "You can delete your backpack whenever you want.",
+    deleteInfo2: "Proceed with care, as you will loose all your edubadges.",
+    deleteInfo3: "Please note that deleting your edubadges backpack does not mean you delete your eduID.",
+    deleteInfo4: "To fully complete the process of deleting you eduBadges account you must close your browser after your accout has been removed.",
     submit: "Add",
     deleteEmail: "Delete this email",
     deleteEmailConfirmation: "Are you sure you want to delete this email?",
@@ -73,9 +79,8 @@ I18n.translations.en = {
     account: "Account",
     eduid: "#eduid",
     accountInfo: "If you remove your account all your edubadges will become invalid.",
-    deleteAccount: "Delete my account",
-    deleteAccountConfirmation:
-      "Are you sure you want to delete your edubadges account?",
+    deleteAccount: "Delete your backpack",
+    deleteAccountConfirmation: "Are you sure you want to delete your backpack?",
   },
   modal: {
     cancel: "Cancel",
@@ -147,8 +152,10 @@ I18n.translations.en = {
     shareYourBadgeQuestion: "Your public badge URL is accessible for everyone",
     badgeRevoked: "This badge has been revoked. You can see the details, but this badge can no longer be shared or downloaded",
     privateBadge: "Private badge",
-    publicPrivate: "When your badge is private, only you can see it and download it",
-    publicPrivateRejected : "In order for you to make this badge public, you'll first have to accept this badge",
+    publicPrivate: "Your badge is set to private, only you can see it and download it.",
+    publicPrivatePublic: "Your badge is not set to private, everyone with your sharelink will be able to see it.",
+    publicPrivateRejected: "In order for you to make this badge public, you'll first have to accept this badge",
+    revoked: "Thsi badge has been revoked",
     revokedWithReason: "This badge has been revoked by the issuer for the reason: '{{revocationReason}}'",
     confirmation: {
       publish: "Make this badge public accessible",
@@ -166,6 +173,9 @@ I18n.translations.en = {
       invalid: "Invalid badge",
       validatedName: "Validated name of the badge recipient: <strong>{{name}}</strong>"
     }
+  },
+  badgeRequests: {
+    none: "You have no outstanding badge requests. "
   },
   manage: {
     tabs: {
@@ -266,8 +276,8 @@ I18n.translations.en = {
     212: "Awarded enrollments can't be denied",
     213: "Can't award enrollment, it has already been awarded",
     214: "Cannot change any value, assertions have already been issued within this entity",
-    500: 'Cannot remove the last staff membership of this institution', 
-    501: 'There may be only one invite per email address', 
+    500: 'Cannot remove the last staff membership of this institution',
+    501: 'There may be only one invite per email address',
     502: 'Cannot invite user for this entity: there is a conflicting staff membership',
     503: 'Cannot invite user for this entity: there is a conflicting invite',
     504: 'May not invite user from other institution',
@@ -280,7 +290,9 @@ I18n.translations.en = {
     702: "Invalid share provider",
     801: "Cannot change grading table URL, edubadges have already been issued",
     802: "Cannot change BRIN code, edubadges have already been issued",
-    unexpected: "Unexpected exception occurred."
+    unexpected: "Unexpected exception occurred.",
+    description: "An unexpected error has occurred. Please try again later or contact <a href='mailto:edubadges@surf.nl'>edubadges@surf.nl</a> for support",
+    close: "Close"
   },
   inviteUsers: {
     addUser: {
@@ -392,7 +404,7 @@ I18n.translations.en = {
       alignmentCode: "Code",
       amount: "Amount",
       name: "Name",
-      description: "Short description",
+      description: "Description",
       criteria_text: "What is required to earn this edubadge?",
       criteria_url: "Or provide a criteria URL",
       criteria_url_value: "Link to the earning criteria:",
@@ -536,5 +548,25 @@ I18n.translations.en = {
     acceptTermsOfUse: "I accept the Terms of Service",
     acceptBadgeAwardTerms: "I accept the Awarding Terms",
     accept: "Get it on!"
-  }
+  },
+  language: {
+    en_EN: "English",
+    nl_NL: "Dutch"
+  },
+  publicBadge: {
+    verification: "Verification",
+    issuedTo: "This badge was issued to <strong>{{name}}</strong> on {{date}}",
+    expires: "It expires on {{date}}",
+    neverExpires: "It has no expiry date",
+    verify: "Verify",
+    validations: {
+      issuedOn: "Issued on {{val}}",
+      issuedBy: "Issued by {{val}}",
+      issuedUsing: "Issued using {{val}}",
+      issuedTo: "Issued to <strong>{{val}}</strong>",
+      claimedOn: "Claimed on {{val}}",
+      verified: "<strong>Verified<strong> {{val}}"
+    }
+  },
+  monthNames: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 };

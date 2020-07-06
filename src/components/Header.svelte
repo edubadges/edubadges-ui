@@ -1,9 +1,9 @@
 <script>
   import I18n from "i18n-js";
-  import { navigate, link } from "svelte-routing";
-  import { clickOutside } from "../util/clickOutside.js";
+  import {navigate, link} from "svelte-routing";
+  import {clickOutside} from "../util/clickOutside.js";
   import logo from "../img/logo.svg";
-  import { chevronUp, chevronDown } from "../icons";
+  import {chevronUp, chevronDown} from "../icons";
 
   import {
     userLoggedIn,
@@ -63,6 +63,12 @@
       padding: var(--ver-padding-m) var(--hor-padding-m);
       min-width: 180px;
       z-index: 99;
+
+      div.divider {
+        border-bottom: 2px solid var(--grey-4);
+        margin: 15px 0;
+      }
+
     }
 
     div.menu:not(.show) {
@@ -77,7 +83,7 @@
   </a>
 
   <div class="slot-container">
-    <slot />
+    <slot/>
   </div>
 
   {#if $userLoggedIn}
@@ -88,6 +94,8 @@
       on:clickOutside={() => (menuOpen = false)}>
       {@html menuOpen ? chevronUp : chevronDown}
       <div class="menu card" class:show={menuOpen}>
+        <div on:click={() => navigate("/profile")}>{I18n.t('header.profile')}</div>
+        <div class="divider"></div>
         <div on:click={logoutUser}>{I18n.t('header.logout')}</div>
       </div>
     </div>

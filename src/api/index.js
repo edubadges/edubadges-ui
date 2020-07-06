@@ -1,11 +1,11 @@
 import {get} from "svelte/store";
-import {authToken} from "../stores/user";
+import {authToken, showMainErrorDialog} from "../stores/user";
 import {config} from "../util/config";
 
 //Internal API
 const serverUrl = config.serverUrl;
 
-function validateResponse(res, method) {
+function validateResponse(res, method, showErrorDialog) {
   if (res.ok && method === "DELETE") {
     //Stupid backend API returns 200 but no content
     return Promise.resolve({});
@@ -16,11 +16,18 @@ function validateResponse(res, method) {
 
   const status = res.status.toString();
   if (status.startsWith("4") || status.startsWith("5")) {
+    if (showErrorDialog) {
+      showMainErrorDialog.set(true);
+    }
     throw res.json();
   }
 }
 
-function validFetch(path, options = {}, method = "GET", useToken = true) {
+function validFetchNoErrorDialog(path, options = {}, method = "GET", useToken = true) {
+  return validFetch(path, options, method, useToken, false)
+}
+
+function validFetch(path, options = {}, method = "GET", useToken = true, showErrorDialog = true) {
   const fetchOptions = {
     ...options,
     method,
@@ -35,12 +42,12 @@ function validFetch(path, options = {}, method = "GET", useToken = true) {
   if (useToken) {
     const token = get(authToken);
     if (!token) {
-      return Promise.reject("no token");
+      return Promise.reject("No token, but required in JS API. Please check the API call if a token is required");
     }
     fetchOptions.headers.Authorization = "Bearer " + token;
   }
 
-  return fetch(path, fetchOptions).then(res => validateResponse(res, method));
+  return fetch(path, fetchOptions).then(res => validateResponse(res, method, showErrorDialog));
 }
 
 // External API
@@ -59,9 +66,14 @@ export function deleteProfile() {
   return validFetch(path, {}, "DELETE");
 }
 
-export function getSocialAccount() {
+export function getSocialAccountsSafe() {
   const path = `${serverUrl}/v1/user/socialaccounts`;
   return validFetch(path);
+}
+
+export function getSocialAccount() {
+  const path = `${serverUrl}/v1/user/socialaccounts`;
+  return validFetchNoErrorDialog(path);
 }
 
 export function getEmails() {
@@ -71,7 +83,7 @@ export function getEmails() {
 
 export function addEmail(newEmail) {
   const path = `${serverUrl}/v1/user/emails`;
-  return validFetch(
+  return validFetchNoErrorDialog(
     path,
     {body: JSON.stringify({email: newEmail})},
     "POST"
@@ -80,12 +92,12 @@ export function addEmail(newEmail) {
 
 export function setPrimaryEmail(emailId) {
   const path = `${serverUrl}/v1/user/emails/${emailId}`;
-  return validFetch(path, {body: JSON.stringify({primary: true})}, "PUT");
+  return validFetchNoErrorDialog(path, {body: JSON.stringify({primary: true})}, "PUT");
 }
 
 export function deleteEmail(emailId) {
   const path = `${serverUrl}/v1/user/emails/${emailId}`;
-  return validFetch(path, {}, "DELETE");
+  return validFetchNoErrorDialog(path, {}, "DELETE");
 }
 
 export function getSocialAccounts() {
@@ -96,7 +108,7 @@ export function getSocialAccounts() {
 // Student badges
 export function requestBadge(id) {
   const path = `${serverUrl}/lti_edu/enroll`;
-  return validFetch(
+  return validFetchNoErrorDialog(
     path,
     {body: JSON.stringify({badgeclass_slug: id})},
     "POST"
@@ -105,7 +117,7 @@ export function requestBadge(id) {
 
 export function withdrawRequestBadge(enrollmentID) {
   const path = `${serverUrl}/lti_edu/student/enrollments`;
-  return validFetch(
+  return validFetchNoErrorDialog(
     path,
     {body: JSON.stringify({enrollmentID: enrollmentID})},
     "DELETE"
@@ -184,40 +196,40 @@ export function claimAssertion(assertionEntityId) {
 // Institution
 export function editInstitution(entityId, institution) {
   const path = `${serverUrl}/institution/edit/${entityId}`;
-  return validFetch(path, {body: JSON.stringify(institution)}, "PUT");
+  return validFetchNoErrorDialog(path, {body: JSON.stringify(institution)}, "PUT");
 }
 
 // Faculty
 export function editFaculty(entityId, faculty) {
   const path = `${serverUrl}/institution/faculties/edit/${entityId}`;
-  return validFetch(path, {body: JSON.stringify(faculty)}, "PUT");
+  return validFetchNoErrorDialog(path, {body: JSON.stringify(faculty)}, "PUT");
 }
 
 export function createFaculty(faculty) {
   const path = `${serverUrl}/institution/faculties/create`;
-  return validFetch(path, {body: JSON.stringify(faculty)}, "POST");
+  return validFetchNoErrorDialog(path, {body: JSON.stringify(faculty)}, "POST");
 }
 
 // Issuer
 export function editIssuer(entityId, issuer) {
   const path = `${serverUrl}/issuer/edit/${entityId}`;
-  return validFetch(path, {body: JSON.stringify(issuer)}, "PUT");
+  return validFetchNoErrorDialog(path, {body: JSON.stringify(issuer)}, "PUT");
 }
 
 export function createIssuer(issuer) {
   const path = `${serverUrl}/issuer/create`;
-  return validFetch(path, {body: JSON.stringify(issuer)}, "POST");
+  return validFetchNoErrorDialog(path, {body: JSON.stringify(issuer)}, "POST");
 }
 
 // Badgeclass
 export function editBadgeclass(entityId, badgeclass) {
   const path = `${serverUrl}/issuer/badgeclasses/edit/${entityId}`;
-  return validFetch(path, {body: JSON.stringify(badgeclass)}, "PUT");
+  return validFetchNoErrorDialog(path, {body: JSON.stringify(badgeclass)}, "PUT");
 }
 
 export function createBadgeclass(badgeclass) {
   const path = `${serverUrl}/issuer/badgeclasses/create`;
-  return validFetch(path, {body: JSON.stringify(badgeclass)}, "POST");
+  return validFetchNoErrorDialog(path, {body: JSON.stringify(badgeclass)}, "POST");
 }
 
 // Entities
@@ -239,12 +251,12 @@ export function getPublicBadge(entityId) {
 
 export function validateBadge(entityId) {
   const path = `${serverUrl}/public/assertions/validate/${entityId}`;
-  return validFetch(path, {}, "GET", false);
+  return validFetchNoErrorDialog(path, {}, "GET", false);
 }
 
 export function validateName(identityHash, salt) {
   const path = `${serverUrl}/public/assertions/identity/${identityHash}/${salt}`;
-  return validFetch(path);
+  return validFetch(path, {}, "GET", false);
 }
 
 // Manage users
@@ -267,7 +279,7 @@ export function removeStaffMembership(entityType, staffMembershipId) {
 export function makeUserInstitutionAdmin(insitutionId, userId, notes) {
   const path = `${serverUrl}/staff-membership/institution/${insitutionId}/create`;
   const payload = {
-    "may_create":1,
+    "may_create": 1,
     "may_read": 1,
     "may_update": 1,
     "may_delete": 1,
@@ -289,7 +301,7 @@ export function removeUserInstitutionAdmin(institutionMembershipId) {
 export function makeUserIssuerGroupAdmin(facultyId, userId, notes) {
   const path = `${serverUrl}/staff-membership/faculty/${facultyId}/create`;
   const payload = {
-    "may_create":1,
+    "may_create": 1,
     "may_read": 1,
     "may_update": 1,
     "may_delete": 1,
@@ -311,7 +323,7 @@ export function removeUserIssuerGroupAdmin(facultyMembershipId) {
 export function makeUserIssuerAdmin(issuerId, userId, notes) {
   const path = `${serverUrl}/staff-membership/issuer/${issuerId}/create`;
   const payload = {
-    "may_create":1,
+    "may_create": 1,
     "may_read": 1,
     "may_update": 1,
     "may_delete": 1,
@@ -333,7 +345,7 @@ export function removeUserIssuerAdmin(issuerMembershipId) {
 export function makeUserBadgeclassOwner(badgeclassId, userId, notes) {
   const path = `${serverUrl}/staff-membership/badgeclass/${badgeclassId}/create`;
   const payload = {
-    "may_create":1,
+    "may_create": 1,
     "may_read": 1,
     "may_update": 1,
     "may_delete": 1,
@@ -350,7 +362,7 @@ export function makeUserBadgeclassOwner(badgeclassId, userId, notes) {
 export function makeUserBadgeclassEditor(badgeclassId, userId, notes) {
   const path = `${serverUrl}/staff-membership/badgeclass/${badgeclassId}/create`;
   const payload = {
-    "may_create":1,
+    "may_create": 1,
     "may_read": 1,
     "may_update": 1,
     "may_delete": 0,
@@ -367,7 +379,7 @@ export function makeUserBadgeclassEditor(badgeclassId, userId, notes) {
 export function makeUserBadgeclassAwarder(badgeclassId, userId, notes) {
   const path = `${serverUrl}/staff-membership/badgeclass/${badgeclassId}/create`;
   const payload = {
-    "may_create":0,
+    "may_create": 0,
     "may_read": 1,
     "may_update": 0,
     "may_delete": 0,
@@ -485,7 +497,7 @@ export function inviteUser(entityType, entityId, userProvisonments) {
       'email': userEmail,
       'for_teacher': true,
       'data': permissions,
-      'type' : 'Invitation'
+      'type': 'Invitation'
     }
   });
   return validFetch(path, {body: JSON.stringify(payload)}, "POST");

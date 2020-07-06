@@ -35,7 +35,11 @@
     width: 36px;
     right: 0;
     top: 0;
-    background-color: var(--text-grey-dark);
+    background-color: var(--purple);
+  }
+
+  div :global(.selectContainer .indicator svg) {
+    fill: white;
   }
 
   div :global(.selectContainer.disabled .indicator) {
@@ -44,7 +48,7 @@
 
   /* Disabled */
   div[disabled="true"] :global(.selectContainer input) {
-    cursor: var(--field-cursor-disabled) !important;
+    cursor: not-allowed !important;
   }
 
   /* Invalid */
@@ -66,6 +70,7 @@
     getSelectionLabel={({ name }) => name}
     placeholder={''}
     showChevron={true}
+    showIndicator={true}
     isDisabled={disabled}
     isClearable={clearable} />
 </div>

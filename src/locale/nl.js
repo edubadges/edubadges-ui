@@ -9,6 +9,7 @@ I18n.translations.nl = {
   },
   header: {
     logout: "Logout",
+    profile: "Profiel",
     nav: {
       badgeclasses: "Edubadges",
       manage: "Beheer",
@@ -59,13 +60,18 @@ I18n.translations.nl = {
     emails: "E-mailadressen",
     email: "E-mailadres",
     makePrimary: "Maak primair",
+    memberSince: "Lid sinds",
+    memberSinceDate: "{{date}} om {{hours}}:{{minutes}}",
     makePrimaryConfirmation: "Weet je zeker dat je dit e-maiadres primair wilt maken?",
     addEmail: "Voeg e-mailadres toe",
     addEmailInfo: "Je zult een e-mail ontvangen met een link om je e-mailadres te verifieren.",
     unverified: "Niet geverifieerd",
-    validatedByYourInstitution: "Geverifieerd oor je instelling",
+    validatedByYourInstitution: "geverifieerd",
     deleteHeader: "Bezig om je edubadges backpack te verwijderen",
-    deleteInfo: "<p>Je kunt je backpack verwijderen als je dat wilt.</p><p>Wees je dan wel bewust dat je al je edubadges zult verliezen.</p>",
+    deleteInfo1: "Je kunt je backpack verwijderen als je dat wilt.",
+    deleteInfo2: "Wees je dan wel bewust dat je al je edubadges zult verliezen.",
+    deleteInfo3: "Het verwijderen van je edubadges betekent overigens niet dat je eduID ook verwijderd wordt.",
+    deleteInfo4: "Om het proces van het verwijderen van je eduBadges-account volledig te voltooien, moet je je browser sluiten nadat je account is verwijderd.",
     submit: "Voeg toe",
     deleteEmail: "Verwijder dit e-mailadres",
     deleteEmailConfirmation: "Weet je zeker dat je dit e-mailadres wilt verwijderen?",
@@ -73,9 +79,8 @@ I18n.translations.nl = {
     account: "Account",
     eduid: "#eduid",
     accountInfo: "Als je je account verwijderd zullen al je edubadges ongeldig worden.",
-    deleteAccount: "Verwijder mijn account",
-    deleteAccountConfirmation:
-      "Weet je zeker dat je je edubadges account wilt verwijderen?",
+    deleteAccount: "Verwijder mijn backpack",
+    deleteAccountConfirmation: "Weet je zeker dat je je backpack wilt verwijderen?",
   },
   modal: {
     cancel: "Annuleer",
@@ -134,6 +139,7 @@ I18n.translations.nl = {
       published: "Deze edubadge is nu publiek gemaakt. Je kunt deze nu downloaden en delen met anderen.",
       private: "Deze edubadge is nu prive gemaakt. Je kunt deze niet langer downloaden of delen met anderen.",
       deleted: "Deze edubadge is verwijderd. Je kunt deze niet langer downloaden of delen met anderen.",
+      accepted: "Deze edubadge is geaccepteerd. Je kan deze nu downloaden of delen met anderen.",
       claimed: "Deze edubadge is succesvol aangevraagd."
     },
     enrollments: "Aangevraagde edubadges",
@@ -146,7 +152,8 @@ I18n.translations.nl = {
     shareYourBadgeQuestion: "Jouw publieke edubadge URL is voor iedereen toegankelijk",
     badgeRevoked: "Deze edubadge is ingetrokken. Je ziet deze nog wel, maar deze edubadge kan je niet langer delen",
     privateBadge: "Prive edubadge",
-    publicPrivate: "Wanneer je edubadge prive is gezet, dan kan alleen jij deze edubadge zien en downloaden.",
+    publicPrivate: "Je edubadge staat op prive, alleen jij kan deze edubadge zien en downloaden.",
+    publicPrivatePublic: "Je edubadge staat niet op prive, iedereen met de publieke link kan deze edubadge zien en downloaden.",
     publicPrivateRejected: "Voordat je deze badge publiek kan maken, moety je deze badge eerst accepteren.",
     revoked: "Deze badge is ingetrokken door de uitgever",
     revokedWithReason: "Deze badge is ingetrokken door de uitgever met als reden: '{{revocationReason}}'",
@@ -166,6 +173,9 @@ I18n.translations.nl = {
       invalid: "Ongeldige edubadge",
       validatedName: "Gevalideerde naam van de badge ontvanger: <strong>{{name}}</strong>"
     }
+  },
+  badgeRequests: {
+    none: "Je hebt geen openstaande badge verzoeken op dit moment. "
   },
   manage: {
     tabs: {
@@ -280,7 +290,9 @@ I18n.translations.nl = {
     702: "Ongeldige share provider",
     801: "Kan grading table URL niet aanpassen, er zijn al edubadges uitgegeven",
     802: "Kan BRIN code niet aanpassen, er zijn al edubadges uitgegeven",
-    unexpected: "Oops, er is iets totaal onverwachts en onverklaarbaars gebeurt. Heb je de applicatie stuk gemaakt?"
+    unexpected: "Oops, er is iets totaal onverwachts en onverklaarbaars gebeurt. Heb je de applicatie stuk gemaakt?",
+    description: "Een onverwachte fout is opgetreden. Probeer het opnieuw of neem contact op met <a href='mailto:edubadges@surf.nl'>edubadges@surf.nl</a> voor ondersteuning",
+    close: "Close"
   },
   inviteUsers: {
     addUser: {
@@ -536,5 +548,25 @@ I18n.translations.nl = {
     acceptTermsOfUse: "Ik accepteer de servicevoorwaarden",
     acceptBadgeAwardTerms: "Ik accepteer de toekenningsvoorwaarden",
     accept: "Get it on!"
-  }
+  },
+  language: {
+    en_EN: "Engels",
+    nl_NL: "Nederlands"
+  },
+  publicBadge: {
+    verification: "Verification",
+    issuedTo: "This badge was issued to <strong>{{name}}</strong> on {{date}}",
+    expires: "It expires on {{date}}",
+    neverExpires: "It has no expiry date",
+    verify: "Verify",
+    validations: {
+      issuedOn: "Issued on {{val}}",
+      issuedBy: "Issued by {{val}}",
+      issuedUsing: "Issued using {{val}}",
+      issuedTo: "Issued to <strong>{{val}}</strong>",
+      claimedOn: "Claimed on {{val}}",
+      verified: "<strong>Verified<strong> {{val}}"
+    }
+  },
+  monthNames: ["Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "October", "November", "December"]
 };
