@@ -126,7 +126,7 @@
         {/if}
       {/if}
     </div>
-    {#if visitorRole === role.TEACHER}
+    {#if visitorRole === role.TEACHER && mayUpdate}
       <div class="actions">
         <div class="button-container">
           <Button fill={true} disabled={!mayUpdate} secondary href="edit" text={I18n.t(['manage', 'edit', entity])}/>

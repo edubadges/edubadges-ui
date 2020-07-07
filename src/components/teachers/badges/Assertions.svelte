@@ -143,12 +143,15 @@
   }
 
   div.recipient {
-    span {
-      display: block;
+    display: flex;
+    flex-direction: column;
+
+    span:not(:last-child) {
+      margin-bottom: 5px;
     }
   }
 
-    div.action-buttons {
+  div.action-buttons {
     display: flex;
     margin: 15px 0;
   }
@@ -161,7 +164,6 @@
       margin-bottom: 10px;
     }
   }
-
 
 
 </style>

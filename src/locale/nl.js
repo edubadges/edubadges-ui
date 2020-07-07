@@ -45,6 +45,7 @@ I18n.translations.nl = {
       info: "Je kunt nu edubadges in je Backpack ontvangen.",
     },
   },
+  searchPlaceholder: "Zoek...",
   authError: {
     title: "Sorry, you don't have access",
     adminEmail: "If you want, you can request access to this service by contacting your institution admin <a href='mailto:{{email}}' style='color: black;text-decoration: underline'>via email</a>",

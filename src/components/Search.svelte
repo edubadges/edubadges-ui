@@ -1,5 +1,6 @@
 <script>
   import search from "../icons/search.svg";
+  import I18n from "i18n-js";
 
   export let value;
 </script>
@@ -33,6 +34,6 @@
 </style>
 
 <div>
-  <input bind:value class="input-field" />
+  <input bind:value class="input-field" placeholder={I18n.t("searchPlaceholder")}/>
   {@html search}
 </div>

@@ -176,7 +176,7 @@
     <!--  </div>-->
   </EntityHeader>
 
-  <div class="main-content-margin">
+  <div>
     <Router>
       <Route path="/overview">
         <Overview {badgeclass}>

@@ -30,9 +30,6 @@
 
   const refreshEnrollments = () => {
     selection = [];
-    // queryData(`{ ${enrollmentsQuery(entityId)} }`).then(res => {
-    //   enrollments = res.badgeClass.pendingEnrollments;
-    // });
     refresh();
   };
 
@@ -139,8 +136,11 @@
   }
 
   div.recipient {
-    span {
-      display: block;
+    display: flex;
+    flex-direction: column;
+
+    span:not(:last-child) {
+      margin-bottom: 5px;
     }
   }
 
