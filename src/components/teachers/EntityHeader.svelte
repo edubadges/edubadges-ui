@@ -2,46 +2,18 @@
   import I18n from "i18n-js";
   import {EntityHeaderTabs, HeaderList} from "../teachers";
   import {Button} from "../../components";
-  import {deleteEntity, requestBadge} from "../../api";
+  import { requestBadge} from "../../api";
   import {role} from "../../util/role";
   import {flash} from "../../stores/flash";
   import {onMount} from "svelte";
   import RemoteImage from "../RemoteImage.svelte";
   import {entityType} from "../../util/entityTypes"
-  import {Modal} from "../forms";
-  import {navigate} from "svelte-routing";
 
   export let entity;
   export let entityId;
   export let object = {};
   export let mayUpdate;
-  export let mayDelete;
-  export let parentId;
 
-  let showRemoveModal = false;
-  let removeModalTitle = I18n.t(['manage', 'delete', entity, 'title']);
-  let removeModalQuestion = I18n.t(['manage', 'delete', entity, 'question']);
-
-  let removeModalAction = () => deleteEntity(entity, entityId).then(() => {
-    flash.setValue(I18n.t(`manage.delete.flash`, {type: entity, name: object.name}));
-    switch (entity) {
-      case entityType.ISSUER_GROUP:
-        showRemoveModal = false;
-        navigate(`/manage/institution/groups`);
-        break;
-      case entityType.ISSUER:
-        showRemoveModal = false;
-        navigate(`/manage/institution/issuers`);
-        break;
-      case entityType.BADGE_CLASS:
-        showRemoveModal = false;
-        navigate(`/manage/issuer/${parentId}/badgeclasses`);
-        break;
-    }
-  });
-  let deleteAction = () => {
-    showRemoveModal = true;
-  };
   export let tabs;
   export let headerItems;
   export let visitorRole = role.TEACHER;
@@ -159,10 +131,6 @@
         <div class="button-container">
           <Button fill={true} disabled={!mayUpdate} secondary href="edit" text={I18n.t(['manage', 'edit', entity])}/>
         </div>
-        <div class="button-container">
-          <Button fill={true} disabled={!mayDelete} action={deleteAction}
-                  text={I18n.t(['manage', 'delete', entity, 'button'])}/>
-        </div>
       </div>
     {/if}
     <div class="slots">
@@ -171,12 +139,3 @@
   </div>
   <EntityHeaderTabs {tabs}/>
 </div>
-
-{#if showRemoveModal}
-  <Modal
-    submit={removeModalAction}
-    cancel={() => showRemoveModal = false}
-    question={removeModalQuestion}
-      title={removeModalTitle}
-      />
-{/if}

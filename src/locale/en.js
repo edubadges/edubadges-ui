@@ -199,29 +199,25 @@ I18n.translations.en = {
       cancel: "Cancel",
     },
     delete: {
-      delete: "delete",
-      flash: "Successfully deleted {{type}} {{name}}",
+      delete: "Delete",
+      flash: "Successfully deleted {{type}}",
       institution: {
         name: "institution",
-        button: "Delete institution",
         title: "Delete institution",
         question: "Do you really want to delete this institution?"
       },
       faculty: {
         name: "faculty",
-        button: "Delete issuergroup",
         title: "Delete issuergroup",
         question: "Do you really want to delete this issuergroup?"
       },
       issuer: {
         name: "issuer",
-        button: "Delete issuer",
         title: "Delete issuer",
         question: "Do you really want to delete this issuer?"
       },
       badgeclass: {
         name: "badge class",
-        button: "Delete badgeclass",
         title: "Delete badgeclass",
         question: "Do you really want to delete this badgeclass?"
       },

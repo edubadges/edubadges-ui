@@ -23,9 +23,6 @@
       ${headerEntity},
       ${headerStaff},
       contentTypeId,
-      issuers {
-        entityId
-      },
       institution {
         name
       },
@@ -73,7 +70,6 @@
   $: if (!subEntity) navigate(tabs[0].href, {replace: true});
   $: mayCreate = permissions && permissions.mayCreate;
   $: mayUpdate = permissions && permissions.mayUpdate;
-  $: mayDelete = permissions && permissions.mayDelete;
 
   $: headerItems = [
     {
@@ -101,7 +97,6 @@
     entity={entityType.ISSUER_GROUP}
     entityId={entityId}
     mayUpdate={mayUpdate}
-    mayDelete={mayDelete && faculty.issuers.length === 0}
   />
 
   <Router>

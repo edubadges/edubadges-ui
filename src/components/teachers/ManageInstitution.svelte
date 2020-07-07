@@ -96,7 +96,6 @@
   $: if (!subEntity) navigate(tabs[0].href, {replace: true});
   $: mayCreate = permissions && permissions.mayCreate;
   $: mayUpdate = permissions && permissions.mayUpdate;
-  $: mayDelete = permissions && permissions.mayDelete && faculties.length === 0;
 
   $: headerItems = [
     {
@@ -136,7 +135,6 @@
     object={institution}
     entity={entityType.INSTITUTION}
     mayUpdate={mayUpdate}
-    mayDelete={mayDelete}
   />
 
   <Router>

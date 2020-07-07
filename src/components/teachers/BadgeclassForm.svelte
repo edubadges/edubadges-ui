@@ -20,20 +20,19 @@
   import {setExpirationPeriod} from "../extensions/badges/expiration_period";
   import {addAlignment} from "../extensions/badges/alignment";
   import {trash} from '../../icons';
+  import {entityType} from "../../util/entityTypes";
 
   export let entityId;
-  export let badgeclass = {extensions: []};
+  export let badgeclass = {extensions: [], issuer: {}};
   export let issuers = [];
-  export let issuer;
+  export let mayDelete;
 
   const isCreate = !entityId;
-
-  if (isCreate && issuer) {
-    badgeclass.issuer = issuer;
-  }
+  const entity = entityType.BADGE_CLASS;
 
   let expireValueSet = false;
   let loaded = false;
+  let processing = false;
 
   let showStudyLoad = true;
   let showEducationalIdentifiers = false;
@@ -62,10 +61,9 @@
   ];
   let ectsOrHoursSelection = EctsOrHours[0];
 
-  const entity = "badgeclass";
   let errors = {};
 
-  const languages = [{value: "en_En", name: I18n.t("language.en_EN")}, {value: "nl_Nl", name: I18n.t("language.nl_NL")}];
+  const languages = [{value: "en_EN", name: I18n.t("language.en_EN")}, {value: "nl_NL", name: I18n.t("language.nl_NL")}];
   let languageSelection = languages[0];
 
   const eqfItems = [...Array(8).keys()].map(i => {
@@ -76,7 +74,7 @@
 
   $: if (badgeclass.extensions.length > 0 && !loaded) {
     extensions = {
-      [language.name]: extensionValue(badgeclass.extensions, language) || "en_En",
+      [language.name]: extensionValue(badgeclass.extensions, language) || "en_EN",
       [ects.name]: extensionValue(badgeclass.extensions, ects) || 2.5,
       [eqf.name]: extensionValue(badgeclass.extensions, eqf) || {name: "EQF 6", value: 6},
       [learningOutcome.name]: extensionValue(badgeclass.extensions, learningOutcome) || "",
@@ -91,6 +89,7 @@
 
   function onSubmit() {
     errors = {};
+    processing = true;
 
     let newBadgeclass = {
       ...badgeclass,
@@ -135,6 +134,7 @@
         navigate(`/manage/badgeclass/${res.entity_id}`)
       })
       .catch(err => err.then(({fields}) => {
+        processing = false;
         errors = fields.error_message;
       }));
   }
@@ -201,13 +201,17 @@
 </style>
 
 <EntityForm
-  {entity}
+  entityTypeName={entity}
+  parentId={badgeclass.issuer.entityId}
+  {mayDelete}
+  entityId={entityId}
   issuer={isCreate ? null : badgeclass.issuer}
   faculty={isCreate ? null : badgeclass.issuer.faculty}
   badgeclass={isCreate ? null : badgeclass}
   badgeclassName={isCreate ? null : badgeclass.name}
   submit={onSubmit}
-  create={isCreate}>
+  create={isCreate}
+  {processing}>
 
   <h4>{I18n.t("models.badgeclass.headers.basicInformation")}</h4>
   <hr class="header-line">

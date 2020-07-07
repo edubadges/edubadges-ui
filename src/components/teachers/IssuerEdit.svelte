@@ -1,7 +1,8 @@
 <script>
-  import { onMount } from "svelte";
-  import { IssuerForm } from "../teachers";
-  import { queryData } from "../../api/graphql";
+  import {onMount} from "svelte";
+  import {IssuerForm} from "../teachers";
+  import {queryData} from "../../api/graphql";
+  import Spinner from "../Spinner.svelte";
 
   export let entityId;
 
@@ -16,15 +17,33 @@
       faculty {
         name,
         entityId
+      },
+      badgeclasses {
+        entityId,
+      },
+      permissions {
+        mayCreate
+        mayUpdate,
+        mayDelete
       }
     },
   }`;
 
   let issuer = {};
+  let permissions = {};
+  let loaded = false;
 
   onMount(() => {
-    queryData(query).then(res => (issuer = res.issuer));
+    queryData(query).then(res => {
+      issuer = res.issuer;
+      permissions = res.issuer.permissions;
+      loaded = true;
+    })
   });
 </script>
-
-<IssuerForm {issuer} {entityId} facultyChooseAllowed={false}/>
+{#if loaded}
+  <IssuerForm {issuer} {entityId} facultyChooseAllowed={false}
+              mayDelete={permissions && permissions.mayDelete && issuer.badgeclasses.length === 0}/>
+{:else}
+  <Spinner/>
+{/if}

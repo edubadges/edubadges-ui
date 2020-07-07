@@ -69,7 +69,7 @@
     }
   }
 
-  a:not(.secondary),
+  a:not(.secondary):not(.warning),
   label:not(.secondary) {
     background-color: var(--purple);
     color: white;
@@ -83,16 +83,6 @@
       background: var(--grey-2);
       border-color: var(--grey-2);
       color: var(--grey-4);
-    }
-  }
-
-  a.warning {
-    background-color: var(--red-strong-dark);
-    color: white;
-
-    &:hover {
-      background-color: #710000;
-      color: whitesmoke;
     }
   }
 
@@ -111,6 +101,26 @@
       border-color: var(--grey-3);
     }
   }
+
+  a.warning {
+    background-color: white;
+    border: 1px solid var(--red-dark);
+    color: var(--red-dark);
+
+    &:hover {
+      background-color: whitesmoke;
+      border: 1px solid var(--red-strong-dark);
+      color: var(--red-strong-dark);
+    }
+
+    &[disabled="true"] {
+      background: var(--grey-2);
+      border-color: var(--grey-2);
+      color: var(--grey-4);
+    }
+
+  }
+
 </style>
 
 {#if label}

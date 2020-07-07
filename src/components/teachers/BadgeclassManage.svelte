@@ -53,8 +53,7 @@
         originalJson
       },
       permissions {
-        mayUpdate,
-        mayDelete
+        mayUpdate
       }
     }
   }`;
@@ -83,8 +82,6 @@
 
   $: if (!tab) navigate(tabs[0].href, {replace: true});
   $: mayUpdate = permissions && permissions.mayUpdate;
-  $: mayDelete = permissions && permissions.mayDelete;
-
   $: headerItems = [
     {
       attr: "created",
@@ -117,11 +114,9 @@
     object={badgeclass}
     entity={entityType.BADGE_CLASS}
     entityId={entityId}
-    parentId={badgeclass.issuer.entityId}
     {tabs}
     {headerItems}
     mayUpdate={badgeclass.permissions && badgeclass.permissions.mayUpdate && badgeclass.badgeAssertions.length === 0}
-    mayDelete={mayDelete && badgeclass.badgeAssertions.length === 0}
   />
 
   <div class="main-content-margin">

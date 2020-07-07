@@ -1,11 +1,12 @@
 <script>
-  import { onMount } from "svelte";
-  import { BadgeclassForm } from "../teachers";
-  import { queryData } from "../../api/graphql";
+  import {onMount} from "svelte";
+  import {BadgeclassForm} from "../teachers";
+  import {queryData} from "../../api/graphql";
   import {
     deduceExpirationPeriod,
     expirationPeriods
   } from "../extensions/badges/expiration_period";
+  import Spinner from "../Spinner.svelte";
 
   export let entityId;
 
@@ -40,6 +41,12 @@
       extensions {
         name,
         originalJson
+      },
+      permissions {
+        mayCreate
+        mayUpdate,
+        mayDelete
+
       }
     },
     issuers {
@@ -48,8 +55,10 @@
     },
   }`;
 
-  let badgeclass = { issuer: { faculty: {} }, extensions: [] };
+  let badgeclass = {issuer: {faculty: {}}, extensions: []};
   let issuers = [];
+  let permissions = {};
+  let loaded = false;
 
   onMount(() => {
     queryData(query).then(res => {
@@ -57,8 +66,15 @@
       deduceExpirationPeriod(badgeclass);
 
       issuers = res.issuers;
+      permissions = res.badgeClass.permissions;
+      loaded = true;
     });
   });
 </script>
+{#if loaded}
+  <BadgeclassForm {issuers} {badgeclass} {entityId}
+                  mayDelete={permissions && permissions.mayDelete && badgeclass.badgeAssertions.length === 0}/>
+{:else}
+  <Spinner/>
+{/if}
 
-<BadgeclassForm {issuers} {badgeclass} {entityId} />

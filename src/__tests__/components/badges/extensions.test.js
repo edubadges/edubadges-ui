@@ -42,7 +42,7 @@ test("Extensions value", () => {
 
 test("Extensions JSON", () => {
   const nameValuePairs = [
-    {name: language.name, value: "nl_Nl"},
+    {name: language.name, value: "nl_NL"},
     {name: ects.name, value: 6},
     {name: eqf.name, value: 3.5},
     {name: educationProgramIdentifier.name, value: "123456"},
@@ -52,7 +52,7 @@ test("Extensions JSON", () => {
 
     "extensions:LanguageExtension": {
       "@context": `${config.extensionsRootUrl}/extensions/LanguageExtension/context.json`,
-      "Language": "nl_Nl",
+      "Language": "nl_NL",
       "type": [
         "Extension",
         "extensions:LanguageExtension"
