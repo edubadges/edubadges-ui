@@ -364,7 +364,9 @@
             <td>{badgeclass.issuer.name}</td>
             <td>{badgeclass.name}</td>
           <td>
-            {I18n.t(['editUsers', 'permissions', 'issuerAllRights'])}
+            {I18n.t(['editUsers', 'permissions', 'allRights'])}
+            <br />
+            <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'issuerAllRights'])}</span>
           </td>
         </tr>
       {/each}
@@ -385,7 +387,7 @@
               <td>
                 {I18n.t(['editUsers', 'permissions', 'allRights'])}
                 <br />
-                {I18n.t(['editUsers', 'permissions', 'issuerGroupAllRights'])}
+                <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'issuerGroupAllRights'])}</span>
               </td>
             </tr>
           {/each}

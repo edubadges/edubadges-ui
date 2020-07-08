@@ -95,7 +95,8 @@ I18n.translations.nl = {
   },
   teacher: {
     sidebar: {
-      search: "Zoeken",
+      filterBadges: "Filter Badge Classes",
+      filterUsers: "Filter Gebruikers",
       filters: {
         faculties: "Issuer groepen",
         issuers: "Issuers",
@@ -110,7 +111,7 @@ I18n.translations.nl = {
     name: "Naam",
     nameEmail: "Naam/Email",
     badgeclasses: {
-      title: "Badgeclasses",
+      title: "Badge Classes",
       created: "Datum gecreëerd",
       recipients: "Ontvangers",
       ects: "ECTS-credits",

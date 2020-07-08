@@ -1,6 +1,6 @@
 :root {
   /* Sizes */
-  --width-side-bar: 220px;
+  --width-side-bar: 368px;
 
   /* Font-weights */
   --medium: 500;
@@ -11,12 +11,16 @@
   --ver-padding-m: 13px;
   --ver-padding-l: 18px;
   --ver-padding-xl: 27px;
+  --ver-padding-xxl: 50px;
   --ver-padding-header: 18px;
 
   --hor-padding-s: 13px;
   --hor-padding-m: 20px;
   --hor-padding-l: 32px;
   --hor-padding-xl: 34px;
+
+  --side-bar-alignment-h: var(--hor-padding-l);
+  --side-bar-alignment-v: var(--ver-padding-xxl);
 
   /*Colors*/
   --purple-1: #f5ecfb;

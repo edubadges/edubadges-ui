@@ -10,7 +10,7 @@
     border-top-left-radius: var(--card-border-radius);
     border-bottom-left-radius: var(--card-border-radius);
     width: var(--width-side-bar);
-    padding: 30px 12px;
+    padding: var(--side-bar-alignment-v) var(--side-bar-alignment-h);
     background: var(--grey-2);
 
     h3 {
@@ -30,8 +30,7 @@
 
 <div class="sidebar">
   <div>
-    <h3>{I18n.t('teacher.sidebar.search')}</h3>
-    <Search bind:value={$search} />
+    <h3>{I18n.t('teacher.sidebar.filterBadges')}</h3>
   </div>
 
   <div>

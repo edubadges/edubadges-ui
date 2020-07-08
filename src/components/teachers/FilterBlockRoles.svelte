@@ -15,15 +15,20 @@
 </script>
 
 <style lang="scss">
+  .filter-block {
+    padding-left: var(--hor-padding-s);
+  }
+
   input[type="checkbox"] {
-      display: none;
+    display: none;
   }
 
   label {
-    font-size: 14px;
+    font-size: 18px;
     display: block;
-    margin: 12px 0;
+    margin: 14px 0;
     position: relative;
+    line-height: 26px;
 
     &.inactive {
       display: none;
@@ -36,6 +41,7 @@
       padding: 8px;
       border: var(--card-border);
       border-radius: var(--card-border-radius);
+      font-size: 16px;
 
       div {
         flex: 1;
@@ -54,7 +60,7 @@
     }
 
     &:not(.active) {
-      font-weight: bold;
+      font-weight: var(--semi-bold);
 
       &:hover {
         text-decoration: underline;
@@ -75,26 +81,28 @@
   }
 </style>
 
-<h3>{I18n.t(`teacher.sidebar.filters.${title}`)}</h3>
+<div class="filter-block">
+  <h3>{I18n.t(`teacher.sidebar.filters.${title}`)}</h3>
 
-{#each items as item (item.role)}
-  <label
-      class="link"
-      class:active={value.includes(item.role)}
-      class:inactive={value.length && !value.includes(item.role)}>
-    <input type="checkbox" bind:group={value} value={item.role} />
-    <div>{item.role} ({item.count})</div>
+  {#each items as item (item.role)}
+    <label
+        class="link"
+        class:active={value.includes(item.role)}
+        class:inactive={value.length && !value.includes(item.role)}>
+      <input type="checkbox" bind:group={value} value={item.role} />
+      <div>{item.role} ({item.count})</div>
 
-    {#if value.includes(item.role)}
-      {@html closeIcon}
-    {/if}
-  </label>
-{/each}
+      {#if value.includes(item.role)}
+        {@html closeIcon}
+      {/if}
+    </label>
+  {/each}
 
-{#if showExpand}
-  <label class="expand click">
+  {#if showExpand}
+    <label class="expand click">
       <input type="checkbox" bind:checked={expanded} />
-    {expanded ? I18n.t(`teacher.sidebar.filters.show_less`) : I18n.t(`teacher.sidebar.filters.show_all`)}
-    {@html expanded ? chevronUp : chevronDown}
-  </label>
-{/if}
+      {expanded ? I18n.t(`teacher.sidebar.filters.show_less`) : I18n.t(`teacher.sidebar.filters.show_all`)}
+      {@html expanded ? chevronUp : chevronDown}
+    </label>
+  {/if}
+</div>

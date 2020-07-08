@@ -63,7 +63,7 @@
   @import "stylesheets/main";
 
   .app {
-    max-width: 1090px;
+    max-width: 1480px;
     min-height: 100vh;
     margin: 0 auto;
     display: flex;

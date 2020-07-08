@@ -12,7 +12,7 @@ I18n.translations.en = {
     profile: "Profile",
     permissions: "Permissions",
     nav: {
-      badgeclasses: "Badge classes",
+      badgeclasses: "Badge Classes",
       manage: "Manage",
       users: "Users"
     },
@@ -95,7 +95,8 @@ I18n.translations.en = {
   },
   teacher: {
     sidebar: {
-      search: "Search",
+      filterBadges: "Filter Badge Classes",
+      filterUsers: "Filter Users",
       filters: {
         faculties: "Issuer groups",
         issuers: "Issuers",
@@ -110,7 +111,7 @@ I18n.translations.en = {
     name: "Name",
     nameEmail: "Name/Email",
     badgeclasses: {
-      title: "Badgeclasses",
+      title: "Badge Classes",
       created: "Date created",
       recipients: "Recipients",
       ects: "ECTS-credits",
