@@ -4,7 +4,7 @@
   import {Router, Route, navigate} from "svelte-routing";
   import {Student, ProcessToken, NotFound, Login} from "./routes";
   import AcceptTerms from "./routes/AcceptTerms.svelte";
-  import {Badges, Manage, Users, EditUsers} from "./routes/teachers";
+  import {Badges, Manage, Users, UserPermissions} from "./routes/teachers";
   import Test from "./routes/Test.svelte";
   import {Header, Footer, SubscribeToPath, Spinner} from "./components";
   import {
@@ -12,7 +12,7 @@
     BadgeclassAwarder,
     InviteEnrollments,
     TeacherProfile,
-    PermissionsManagement
+    TeacherPermissions
   } from "./components/teachers";
   import {userRole, userLoggedIn, userName, redirectPath, showMainErrorDialog} from "./stores/user";
   import {role} from "./util/role";
@@ -64,7 +64,7 @@
   @import "stylesheets/main";
 
   .app {
-    max-width: 1090px;
+    max-width: 1480px;
     min-height: 100vh;
     margin: 0 auto;
     display: flex;
@@ -123,7 +123,7 @@
 
         <!-- Teacher -->
         <Route path="/users" component={Users}/>
-        <Route path="/users/:userId/:entity" component={EditUsers}/>
+        <Route path="/users/:userId/:entity" component={UserPermissions}/>
         <Route path="/manage/*mainEntity" component={Manage}/>
         <Route
           path="/badgeclass/:entityId/*subEntity"
@@ -131,7 +131,7 @@
         <Route path="/invite-enrollements/:entityId/" let:params>
           <InviteEnrollments entityId={params.entityId}/>
         </Route>
-        <Route path="/permissions" component={PermissionsManagement} />
+        <Route path="/permissions/:entity" component={TeacherPermissions} />
 
         <!-- Shared -->
         <Route path="/public/:entityId/" let:params>

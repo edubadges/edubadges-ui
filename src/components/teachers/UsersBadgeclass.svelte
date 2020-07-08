@@ -3,6 +3,7 @@
   import { queryData } from "../../api/graphql";
   import { Button, CheckBox } from "../../components";
   import { UsersTable } from "../teachers";
+  import {entityType} from "../../util/entityTypes";
   import { sortType } from "../../util/sortData";
   import I18n from "i18n-js";
   import {
@@ -145,7 +146,7 @@
       sortType: sortType.ALPHA
     },
     {
-      name: I18n.t("editUsers.badgeClass.header"),
+      name: I18n.t("editUsers.badgeclass.header"),
       attribute: "name",
       reverse: false,
       sortType: sortType.ALPHA
@@ -160,7 +161,7 @@
 
   $: table = {
     entity: "user",
-    title: `${I18n.t("editUsers.institutionPermissions")}`,
+    title: `${I18n.t(["editUsers", entityType.BADGE_CLASS, 'permissions'])}`,
     tableHeaders: tableHeaders
   };
 
@@ -225,7 +226,7 @@
   const addPermissions = () => {
     showAddModal = true;
     addModalTitle = I18n.t(['editUsers', 'permissions', 'addPermissions']);
-    selectEntity = 'badgeClass';
+    selectEntity = 'badgeclass';
     addModalAction = submitPermissions;
   };
 
@@ -237,9 +238,9 @@
   };
 
   const permissionsRoles = [
-    {name: I18n.t(['editUsers', 'badgeClass', 'editor'])},
-    {name: I18n.t(['editUsers', 'badgeClass', 'awarder'])},
-    {name: I18n.t(['editUsers', 'badgeClass', 'owner'])}
+    {name: I18n.t(['editUsers', 'badgeclass', 'editor'])},
+    {name: I18n.t(['editUsers', 'badgeclass', 'awarder'])},
+    {name: I18n.t(['editUsers', 'badgeclass', 'owner'])}
   ];
 
   $: buttons = [
@@ -269,9 +270,9 @@
   };
 
   let targetOptions = [
-    {name: I18n.t(['editUsers', 'badgeClass', 'badgeclassOwner']), value: 'badgeclassOwner'},
-    {name: I18n.t(['editUsers', 'badgeClass', 'badgeclassEditor']), value: 'badgeclassEditor'},
-    {name: I18n.t(['editUsers', 'badgeClass', 'badgeclassAwarder']), value: 'badgeclassAwarder'},
+    {name: I18n.t(['editUsers', 'badgeclass', 'badgeclassOwner']), value: 'badgeclassOwner'},
+    {name: I18n.t(['editUsers', 'badgeclass', 'badgeclassEditor']), value: 'badgeclassEditor'},
+    {name: I18n.t(['editUsers', 'badgeclass', 'badgeclassAwarder']), value: 'badgeclassAwarder'},
   ];
   let target = targetOptions[0];
 
@@ -363,7 +364,9 @@
             <td>{badgeclass.issuer.name}</td>
             <td>{badgeclass.name}</td>
           <td>
-            {I18n.t(['editUsers', 'permissions', 'issuerAllRights'])}
+            {I18n.t(['editUsers', 'permissions', 'allRights'])}
+            <br />
+            <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'issuerAllRights'])}</span>
           </td>
         </tr>
       {/each}
@@ -384,7 +387,7 @@
               <td>
                 {I18n.t(['editUsers', 'permissions', 'allRights'])}
                 <br />
-                {I18n.t(['editUsers', 'permissions', 'issuerGroupAllRights'])}
+                <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'issuerGroupAllRights'])}</span>
               </td>
             </tr>
           {/each}

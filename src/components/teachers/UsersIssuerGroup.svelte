@@ -3,6 +3,7 @@
   import { queryData } from "../../api/graphql";
   import { Button, CheckBox } from "../../components";
   import { UsersTable } from "../teachers";
+  import {entityType} from "../../util/entityTypes";
   import { sortType } from "../../util/sortData";
   import I18n from "i18n-js";
   import {
@@ -129,7 +130,7 @@
 
   $: table = {
     entity: "user",
-    title: `${I18n.t("editUsers.institutionPermissions")}`,
+    title: `${I18n.t(["editUsers", entityType.ISSUER, 'permissions'])}`,
     tableHeaders: tableHeaders
   };
 

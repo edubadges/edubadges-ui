@@ -1,10 +1,7 @@
 <script>
   import I18n from "i18n-js";
   import {EntityHeaderTabs, HeaderList} from "../teachers";
-  import {Button} from "../../components";
   import {flash} from "../../stores/flash";
-  import {onMount} from "svelte";
-  import RemoteImage from "../RemoteImage.svelte";
 
   export let user = {};
   export let entityId;
@@ -27,6 +24,7 @@
       href: `/users/${entityId}/badgeclasses`,
     },
   ];
+
   let headerItems = [
     {
       'attr': 'memberSince',
@@ -51,14 +49,6 @@
     .content {
       display: flex;
       margin-bottom: var(--ver-padding-m);
-
-      /*.img-container {*/
-      /*  flex-shrink: 0;*/
-      /*  height: 100px;*/
-      /*  width: 100px;*/
-      /*  background: white;*/
-      /*  margin-right: var(--hor-padding-m);*/
-      /*}*/
 
       .info {
         flex: 1;

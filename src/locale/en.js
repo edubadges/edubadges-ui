@@ -12,7 +12,7 @@ I18n.translations.en = {
     profile: "Profile",
     permissions: "Permissions",
     nav: {
-      badgeclasses: "Badge classes",
+      badgeclasses: "Badge Classes",
       manage: "Manage",
       users: "Users"
     },
@@ -96,7 +96,8 @@ I18n.translations.en = {
   },
   teacher: {
     sidebar: {
-      search: "Search",
+      filterBadges: "Filter Badge Classes",
+      filterUsers: "Filter Users",
       filters: {
         faculties: "Issuer groups",
         issuers: "Issuers",
@@ -111,7 +112,7 @@ I18n.translations.en = {
     name: "Name",
     nameEmail: "Name/Email",
     badgeclasses: {
-      title: "Badgeclasses",
+      title: "Badge Classes",
       created: "Date created",
       recipients: "Recipients",
       ects: "ECTS-credits",
@@ -309,21 +310,23 @@ I18n.translations.en = {
     accepted: "Accepted"
   },
   editUsers: {
-    institutionPermissions: "Permissions on institution level",
     institution: {
       header: "Institution",
       allRights: "Institution Admin",
-      noRights: "No rights"
+      noRights: "No rights",
+      permissions: "Permissions on Institution level"
     },
     faculty: {
       header: "Issuer Group",
       allRights: "Issuer Group Admin",
+      permissions: "Permissions on Issuer Group level"
     },
     issuer: {
       header: "Issuer",
       allRights: "Issuer Admin",
+      permissions: "Permissions on Issuer level"
     },
-    badgeClass: {
+    badgeclass: {
       header: "Badgeclass",
       badgeclassOwner: "Owner",
       badgeclassEditor: "Editor",
@@ -334,8 +337,11 @@ I18n.translations.en = {
       switchToOwner: "Successfully changed user to badgeclass owner role.",
       switchToEditor: "Successfully changed user to badgeclass editor role.",
       switchToAwarder: "Successfully changed user to badgeclass awarder role.",
+      permissions: "Permissions on Badge Class level"
     },
     permissions: {
+      header: "Permissions",
+      headerUser: "Permissions for",
       allRights: "All rights",
       institutionAllRights: "(because Institution Admin)",
       issuerGroupAllRights: "(because Issuer Group Admin)",
@@ -365,7 +371,7 @@ I18n.translations.en = {
       email: "email",
       role: 'Role',
       notes: 'Notes',
-      badgeClass: "Select a badgeclass",
+      badgeclass: "Select a badgeclass",
       issuerGroup: "Select an issuer group",
       issuer: "Select an issuer",
     },

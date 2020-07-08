@@ -36,11 +36,13 @@ export { default as IssuerForm } from "./IssuerForm.svelte";
 export { default as IssuerNew } from "./IssuerNew.svelte";
 export { default as IssuerUserManagement } from "./IssuerUserManagement.svelte";
 export { default as Issuers } from "./ManageIssuers.svelte";
+export { default as PermissionsHeader } from "./PermissionsHeader.svelte"
 export { default as PermissionsManagement } from "./PermissionsManagement.svelte"
 export { default as SideBarBadges } from "./SideBarBadges.svelte";
 export { default as SideBarUsers } from "./SideBarUsers.svelte";
 export { default as Table } from "./Table.svelte";
 export { default as TableHeaders } from "./TableHeaders.svelte";
+export { default as TeacherPermissions } from "./TeacherPermissions.svelte"
 export { default as TeacherProfile } from "./TeacherProfile.svelte"
 export { default as UsersBadgeclass } from "./UsersBadgeclass.svelte";
 export { default as UsersHeader } from "./UsersHeader.svelte";

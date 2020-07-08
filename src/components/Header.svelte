@@ -61,17 +61,11 @@
       display: block;
       position: absolute;
       right: 0;
-      padding: var(--ver-padding-m) var(--hor-padding-m);
       min-width: 180px;
       z-index: 99;
 
-      div {
+      div.divider {
         border-bottom: 2px solid var(--grey-4);
-        padding: 15px 0;
-
-        &:last-child {
-          border-bottom: none;
-        }
       }
 
     }
@@ -79,6 +73,16 @@
     div.menu:not(.show) {
       display: none;
     }
+  }
+
+  .profile-menu {
+    color: var(--text-grey-dark);
+    padding: var(--ver-padding-m) var(--hor-padding-m);
+  }
+
+  .profile-menu:hover {
+    background-color: var(--grey-2);
+    color: var(--grey-10);
   }
 </style>
 
@@ -99,13 +103,12 @@
       on:clickOutside={() => (menuOpen = false)}>
       {@html menuOpen ? chevronUp : chevronDown}
       <div class="menu card" class:show={menuOpen}>
-        {#if $userRole === role.STUDENT}
-          <div on:click={() => navigate("/profile")}>{I18n.t('header.profile')}</div>
-        {/if}
+        <div class="profile-menu" on:click={() => navigate("/profile")}>{I18n.t('header.profile')}</div>
         {#if $userRole === role.TEACHER}
-          <div on:click={() => navigate("/permissions")}>{I18n.t('header.permissions')}</div>
+          <div class="profile-menu" on:click={() => navigate("/permissions/institution")}>{I18n.t('header.permissions')}</div>
         {/if}
-        <div on:click={logoutUser}>{I18n.t('header.logout')}</div>
+        <div class="divider"></div>
+        <div class="profile-menu" on:click={logoutUser}>{I18n.t('header.logout')}</div>
       </div>
     </div>
   {/if}

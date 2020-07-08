@@ -4,6 +4,7 @@
   import { Button, CheckBox } from "../../components";
   import { UsersTable } from "../teachers";
   import { sortType } from "../../util/sortData";
+  import {entityType} from "../../util/entityTypes";
   import I18n from "i18n-js";
   import { makeUserInstitutionAdmin, removeUserInstitutionAdmin } from "../../api";
 
@@ -113,7 +114,7 @@
 
   $: table = {
     entity: "user",
-    title: `${I18n.t("editUsers.institutionPermissions")}`,
+    title: `${I18n.t(["editUsers", entityType.INSTITUTION, 'permissions'])}`,
     tableHeaders: tableHeaders
   };
 
