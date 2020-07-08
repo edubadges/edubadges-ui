@@ -307,21 +307,23 @@ I18n.translations.nl = {
     accepted: "Accepted"
   },
   editUsers: {
-    institutionPermissions: "Permissies op instellings nivo",
     institution: {
       header: "Instelling",
       allRights: "Instellings Admin",
-      noRights: "Geen rechten"
+      noRights: "Geen rechten",
+      permissions: "Permissies op Institution niveau"
     },
     faculty: {
       header: "Issuer Group",
       allRights: "Issuer Group Admin",
+      permissions: "Permissies op Issuer Group niveau"
     },
     issuer: {
       header: "Issuer",
       allRights: "Issuer Admin",
+      permissions: "Permissies op Issuer niveau"
     },
-    badgeClass: {
+    badgeclass: {
       header: "Badgeclass",
       badgeclassOwner: "Owner",
       badgeclassEditor: "Editor",
@@ -332,6 +334,7 @@ I18n.translations.nl = {
       switchToOwner: "Successfully changed user to badgeclass owner role.",
       switchToEditor: "Successfully changed user to badgeclass editor role.",
       switchToAwarder: "Successfully changed user to badgeclass awarder role.",
+      permissions: "Permissies op Badge Class niveau"
     },
     permissions: {
       allRights: "Alle rechten",
@@ -363,7 +366,7 @@ I18n.translations.nl = {
       email: "e-mailadres",
       role: 'Rol',
       notes: 'Commentaar',
-      badgeClass: "Selecteer een badgeclass",
+      badgeclass: "Selecteer een badgeclass",
       issuerGroup: "Selecteer een issuer group",
       issuer: "Selecteer een issuer",
     },

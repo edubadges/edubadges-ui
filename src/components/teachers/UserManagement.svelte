@@ -48,9 +48,9 @@
   let removeModalAction;
 
   let targetOptions = [
-    {name: I18n.t(['editUsers', 'badgeClass', 'badgeclassOwner']), value: 'badgeclassOwner'},
-    {name: I18n.t(['editUsers', 'badgeClass', 'badgeclassEditor']), value: 'badgeclassEditor'},
-    {name: I18n.t(['editUsers', 'badgeClass', 'badgeclassAwarder']), value: 'badgeclassAwarder'},
+    {name: I18n.t(['editUsers', 'badgeclass', 'badgeclassOwner']), value: 'badgeclassOwner'},
+    {name: I18n.t(['editUsers', 'badgeclass', 'badgeclassEditor']), value: 'badgeclassEditor'},
+    {name: I18n.t(['editUsers', 'badgeclass', 'badgeclassAwarder']), value: 'badgeclassAwarder'},
   ];
 
   const changeUserRole = (role, id) => {
@@ -58,19 +58,19 @@
       case 'badgeclassOwner':
         changeUserToBadgeclassOwner(id).then(() => {
           reload();
-          flash.setValue(I18n.t('editUsers.badgeClass.switchToOwner'))
+          flash.setValue(I18n.t('editUsers.badgeclass.switchToOwner'))
         });
         break;
       case 'badgeclassEditor':
         changeUserToBadgeclassEditor(id).then(() => {
           reload();
-          flash.setValue(I18n.t('editUsers.badgeClass.switchToEditor'))
+          flash.setValue(I18n.t('editUsers.badgeclass.switchToEditor'))
         });
         break;
       case 'badgeclassAwarder':
         changeUserToBadgeclassAwarder(id).then(() => {
           reload();
-          flash.setValue(I18n.t('editUsers.badgeClass.switchToAwarder'))
+          flash.setValue(I18n.t('editUsers.badgeclass.switchToAwarder'))
         });
         break;
     }
@@ -81,19 +81,19 @@
       case 'badgeclassOwner':
         changeProvisionmentToBadgeclassOwner(id).then(() => {
           reload();
-          flash.setValue(I18n.t('editUsers.badgeClass.switchToOwner'))
+          flash.setValue(I18n.t('editUsers.badgeclass.switchToOwner'))
         });
         break;
       case 'badgeclassEditor':
         changeProvisionmentToBadgeclassEditor(id).then(() => {
           reload();
-          flash.setValue(I18n.t('editUsers.badgeClass.switchToEditor'))
+          flash.setValue(I18n.t('editUsers.badgeclass.switchToEditor'))
         });
         break;
       case 'badgeclassAwarder':
         changeProvisionmentToBadgeclassAwarder(id).then(() => {
           reload();
-          flash.setValue(I18n.t('editUsers.badgeClass.switchToAwarder'))
+          flash.setValue(I18n.t('editUsers.badgeclass.switchToAwarder'))
         });
         break;
     }

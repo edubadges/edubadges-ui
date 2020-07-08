@@ -39,7 +39,7 @@ export const staffRole = {
     }
   },
   BADGE_CLASS_OWNER: {
-    LOCALE_VALUE: 'badgeClassOwner',
+    LOCALE_VALUE: 'badgeclassOwner',
     SORTING_VALUE: 3,
     PERMISSIONS: {
       "may_create": 1,
@@ -52,7 +52,7 @@ export const staffRole = {
     }
   },
   BADGE_CLASS_EDITOR: {
-    LOCALE_VALUE: 'badgeClassEditor',
+    LOCALE_VALUE: 'badgeclassEditor',
     SORTING_VALUE: 2,
     PERMISSIONS: {
       "may_create": 1,
@@ -65,7 +65,7 @@ export const staffRole = {
     }
   },
   BADGE_CLASS_AWARDER: {
-    LOCALE_VALUE: 'badgeClassAwarder',
+    LOCALE_VALUE: 'badgeclassAwarder',
     SORTING_VALUE: 1,
     PERMISSIONS: {
       "may_create": 0,

@@ -97,7 +97,7 @@
       <div class="menu card" class:show={menuOpen}>
         <div on:click={() => navigate("/profile")}>{I18n.t('header.profile')}</div>
         {#if $userRole === role.TEACHER}
-          <div on:click={() => navigate("/permissions")}>{I18n.t('header.permissions')}</div>
+          <div on:click={() => navigate("/permissions/institution")}>{I18n.t('header.permissions')}</div>
         {/if}
         <div class="divider"></div>
         <div on:click={logoutUser}>{I18n.t('header.logout')}</div>

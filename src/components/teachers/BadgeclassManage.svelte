@@ -101,9 +101,9 @@
   ];
 
   const permissionsRoles = [
-    {name: I18n.t(['editUsers', 'badgeClass', 'owner'])},
-    {name: I18n.t(['editUsers', 'badgeClass', 'editor'])},
-    {name: I18n.t(['editUsers', 'badgeClass', 'awarder'])}
+    {name: I18n.t(['editUsers', 'badgeclass', 'owner'])},
+    {name: I18n.t(['editUsers', 'badgeclass', 'editor'])},
+    {name: I18n.t(['editUsers', 'badgeclass', 'awarder'])}
   ];
 </script>
 
