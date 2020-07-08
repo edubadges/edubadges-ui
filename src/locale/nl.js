@@ -475,6 +475,7 @@ I18n.translations.nl = {
       },
       issuedOn: "Uitgegeven op",
       issuedBy: "Uitgegeven door",
+      claimed: "Claimed",
       expires: "Expires",
       expiresNever: "Never",
       download: "Download",
@@ -485,7 +486,9 @@ I18n.translations.nl = {
       statuses: {
         new: "Nieuw",
         rejected: "Geweigerd",
-        revoked: "Ingetrokken"
+        revoked: "Ingetrokken",
+        accepted: "Claimed",
+        unaccepted: "Pending"
       },
       confirmation: {
         revocationReason: "Reden voor intrekking (verplicht)",

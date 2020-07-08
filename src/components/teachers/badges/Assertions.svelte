@@ -68,7 +68,7 @@
     table.checkAllValue = val;
   };
 
-  function onCheckOne(val, entityId) {
+  const onCheckOne = (val, entityId) => {
     if (val) {
       selection = selection.concat(entityId);
       table.checkAllValue = selection.length === assertions.filter(assertion => !assertion.revoked).length;
@@ -76,6 +76,20 @@
       selection = selection.filter(id => id !== entityId);
       table.checkAllValue = false;
     }
+  }
+
+  const assertionStatus = assertion => {
+    if (assertion.revoked) {
+      return I18n.t("models.badge.statuses.revoked");
+    }
+    return I18n.t(`models.badge.statuses.${assertion.acceptance.toLowerCase()}`);
+  }
+
+  const assertionStatusClass = assertion => {
+    if (assertion.revoked) {
+      return "revoked";
+    }
+    return assertion.acceptance.toLowerCase();
   }
 
   const tableHeaders = [
@@ -98,7 +112,7 @@
       name: I18n.t("models.badge.issuedOn"),
       attribute: "issuedOn",
       reverse: false,
-      sortType: sortType.ALPHA
+      sortType: sortType.DATE
     },
     {
       name: I18n.t("models.badge.status"),
@@ -107,12 +121,17 @@
       sortType: sortType.ALPHA
     },
     {
-      name: I18n.t("models.badge.revoked"),
-      attribute: "revoked",
+      name: I18n.t("models.badge.claimed"),
+      attribute: "updatedOn",
       reverse: false,
-      sortType: sortType.BOOLEAN
+      sortType: sortType.DATE
+    },
+    {
+      name: I18n.t("models.badge.expires"),
+      attribute: "expiresAt",
+      reverse: false,
+      sortType: sortType.DATE
     }
-
   ];
 
   $: table = {
@@ -165,6 +184,30 @@
     }
   }
 
+  :global(td.assertion-status span) {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: bold;
+    &.accepted {
+      background-color: var(--green-light);
+    }
+
+    &.revoked {
+      background-color: var(--red-strong-dark);
+      color: white;
+    }
+
+    &.unaccepted {
+      background-color: var(--grey-3);
+    }
+
+    &.rejected {
+      background-color: var(--red-dark);
+      color: white;
+    }
+  }
+
 
 </style>
 
@@ -204,10 +247,11 @@
         {I18n.t("models.badge.awardType.enrolled")}
       </td>
       <td>{moment(assertion.dateCreated).format('MMM D, YYYY')}</td>
-      <td>{assertion.acceptance}</td>
-      <td>
-        <CheckBox name={assertion.entityId} value={assertion.revoked} disabled={true}/>
+      <td class="assertion-status">
+        <span class={assertionStatusClass(assertion)}>{assertionStatus(assertion)}</span>
       </td>
+      <td>{assertion.updatedAt ? moment(assertion.updatedAt).format('MMM D, YYYY') : ""}</td>
+      <td>{assertion.expiresAt ? moment(assertion.expiresAt).format('MMM D, YYYY') : ""}</td>
     </tr>
   {/each}
 </Table>

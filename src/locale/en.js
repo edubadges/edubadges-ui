@@ -475,6 +475,7 @@ I18n.translations.en = {
       },
       issuedOn: "Issued",
       issuedBy: "Issued by",
+      claimed: "Claimed",
       expires: "Expires",
       expiresNever: "Never",
       download: "Download",
@@ -485,7 +486,9 @@ I18n.translations.en = {
       statuses: {
         new: "New",
         rejected: "Rejected",
-        revoked: "Revoked"
+        revoked: "Revoked",
+        accepted: "Claimed",
+        unaccepted: "Pending"
       },
       confirmation: {
         revocationReason: "Reason for revocation (required)",

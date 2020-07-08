@@ -3,6 +3,7 @@ import { staffType } from "./staffTypes";
 
 export const sortType = {
   ALPHA: "alpha",
+  DATE: "date",
   BOOLEAN: "boolean",
   NUMERIC: "numeric",
   COLLECTION: "collection",
@@ -15,6 +16,8 @@ const defaultValue = (attr, howToSort) => {
   switch (howToSort) {
     case sortType.ALPHA:
       return attr || "";
+    case sortType.DATE:
+      return attr || null;
     case sortType.NUMERIC:
       return attr || 0;
     case sortType.COLLECTION:
@@ -46,6 +49,8 @@ export function sort(collection, attribute, reversed, howToSort = sortType.ALPHA
     switch (howToSort) {
       case sortType.ALPHA:
         return getNestedValue(a, attribute, howToSort).localeCompare(getNestedValue(b, attribute, howToSort));
+      case sortType.DATE:
+        return new Date(getNestedValue(a, attribute, howToSort)) - new Date(getNestedValue(b, attribute, howToSort));
       case sortType.BOOLEAN:
         return getNestedValue(a, attribute, howToSort).toString().localeCompare(getNestedValue(b, attribute, howToSort).toString());
       case sortType.NUMERIC:

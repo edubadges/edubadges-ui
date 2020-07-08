@@ -64,8 +64,10 @@ export function assertionsQuery(entityId) {
       badgeAssertions {
         entityId,
         createdAt,
+        updatedAt,
         revoked,
         acceptance,
+        expiresAt,
         issuedOn,
         user {
           entityId,
