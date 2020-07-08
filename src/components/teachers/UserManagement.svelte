@@ -30,6 +30,10 @@
   export let issuerStaffs = [];
   export let badgeClassStaffs = [];
   export let userProvisionments = [];
+
+  export let removeModalTitle;
+  export let removeModalQuestion;
+
   let staffs = [];
 
   let selection = [];
@@ -43,8 +47,6 @@
 
   // Remove permissions modal
   let showRemoveModal = false;
-  export let removeModalTitle;
-  export let removeModalQuestion;
   let removeModalAction;
 
   let targetOptions = [
@@ -124,7 +126,7 @@
     navigate(`/manage/${entity}${entity !== entityType.INSTITUTION ? '/' + entityId : ''}/user-management/invite-new-user`, {replace: false});
   };
 
-  const oneInstitutionStaff = entity === entityType.INSTITUTION && institutionStaffs.length < 2;
+  $: oneInstitutionStaff = entity === entityType.INSTITUTION && institutionStaffs.length < 2;
 
   $: buttons = [
     {
