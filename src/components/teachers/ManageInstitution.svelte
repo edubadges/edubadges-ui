@@ -139,10 +139,10 @@
 
   <Router>
     <Route path="/issuers">
-      <Issuers {issuers} {mayCreate}/>
+      <Issuers {issuers} {mayCreate} institutionName={institution.name}/>
     </Route>
     <Route path="/groups">
-      <Faculties {faculties} {mayCreate}/>
+      <Faculties {faculties} {mayCreate} institutionName={institution.name}/>
     </Route>
     <Route path="/user-management/invite-new-user">
       <InviteUser

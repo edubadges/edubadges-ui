@@ -15,6 +15,7 @@
   const query = `{
     currentInstitution {
       contentTypeId,
+      name,
       userprovisionments {
         email,
         createdAt,

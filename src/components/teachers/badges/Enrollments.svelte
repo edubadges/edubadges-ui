@@ -19,6 +19,8 @@
   export let enrollments = [];
   export let refresh;
 
+  export let badgeclassName;
+
   let selection = [];
   let checkAllValue = false;
 
@@ -159,7 +161,7 @@
   {...table}
   bind:search={enrollmentSearch}
   bind:sort={enrollmentSort}
-
+  isEmpty={enrollments.length === 0}
   withCheckAll={true}
   bind:checkAllValue>
   <div class="action-buttons" slot="check-buttons">
@@ -199,6 +201,11 @@
       </td>
     </tr>
   {/each}
+  {#if enrollments.length === 0}
+    <tr>
+      <td colspan="6">{I18n.t("zeroState.enrollments",{name:badgeclassName})}</td>
+    </tr>
+  {/if}
 </Table>
 
 {#if showModal}

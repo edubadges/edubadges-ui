@@ -9,6 +9,7 @@
   export let mayCreate;
   export let issuers = [];
   export let facultyEntityId;
+  export let institutionName;
 
   const tableHeaders = [
     {
@@ -48,6 +49,7 @@
   {...table}
   bind:search={issuerSearch}
   bind:sort={issuerSort}
+  isEmpty={issuers.length === 0}
   pathParameters={facultyEntityId ? [facultyEntityId] : []}
   {mayCreate}>
   {#each sortedFilteredIssuers as issuer (issuer.entityId)}
@@ -62,4 +64,10 @@
       <td>{issuer.badgeclasses.length}</td>
     </tr>
   {/each}
+    {#if issuers.length === 0}
+    <tr>
+      <td colspan="2">{I18n.t("zeroState.issuers",{name:institutionName})}</td>
+    </tr>
+  {/if}
+
 </Table>

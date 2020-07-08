@@ -11,7 +11,7 @@
   export let entityId;
   export let subEntity;
 
-  let faculty = {staff: []};
+  let faculty = {staff: [], institution: {}, issuers: []};
   let permissions;
   let issuers = [];
 
@@ -104,7 +104,8 @@
       <Issuers
         facultyEntityId={entityId}
         {issuers}
-        mayCreate={mayCreate}/>
+        mayCreate={mayCreate}
+        institutionName={faculty.name}/>
     </Route>
     <Route path="/user-management/invite-new-user">
       <InviteUser

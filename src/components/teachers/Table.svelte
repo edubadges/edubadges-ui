@@ -20,6 +20,7 @@
   export let withCheckAll;
   export let checkAllValue;
   export let onCheckAll;
+  export let isEmpty;
 
   const setSort = tableHeader => {
     if (sort.attribute === tableHeader.attribute) {
@@ -70,13 +71,14 @@
     <Search bind:value={search}/>
     {#if mayCreate}
       <Button
-          href={`/manage/${entity}/new/${pathParameters.join("/")}`}
-          text={I18n.t(['manage', 'new', entity])}/>
+        href={`/manage/${entity}/new/${pathParameters.join("/")}`}
+        text={I18n.t(['manage', 'new', entity])}/>
     {/if}
   </div>
   <slot name="check-buttons"/>
   <table class="entity-table">
     <thead>
+    {#if !isEmpty}
       <tr>
         {#if withCheckAll}
           <th>
@@ -85,9 +87,10 @@
         {/if}
         <TableHeaders {tableHeaders} {setSort} {sort}/>
       </tr>
+    {/if}
     </thead>
     <tbody>
-      <slot/>
+    <slot/>
     </tbody>
   </table>
 </div>

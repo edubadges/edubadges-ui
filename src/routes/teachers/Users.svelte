@@ -145,6 +145,7 @@
         {...table}
         bind:search={$userSearch}
         bind:sort={userSort}
+        isEmpty={users.length === 0}
         mayCreate={false}>
         {#each sortedFilteredUsers as user (user.entityId)}
           <tr
@@ -158,6 +159,11 @@
             <td>{user.role}</td>
           </tr>
         {/each}
+        {#if users.length === 0}
+          <tr>
+            <td colspan="2">{I18n.t("zeroState.users",{name:institution.name})}</td>
+          </tr>
+        {/if}
       </Table>
     </div>
   {:else}

@@ -577,5 +577,13 @@ I18n.translations.en = {
       verified: "<strong>Verified<strong> {{val}}"
     }
   },
-  monthNames: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+  monthNames: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+  zeroState: {
+    badgeClasses: "There are no badge-classes for issuer {{name}}.",
+    issuers: "There are no issuers for {{name}}.",
+    faculties: "There are no faculties for institution {{name}}.",
+    users: "There are no users for institution {{name}}.",
+    assertions: "There are no assertions for badge {{name}}.",
+    enrollments: "There are no enrollments for badge {{name}}.",
+  }
 };

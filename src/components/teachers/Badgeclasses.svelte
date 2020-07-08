@@ -1,9 +1,9 @@
 <script>
-  import { navigate } from "svelte-routing";
+  import {navigate} from "svelte-routing";
   import I18n from "i18n-js";
-  import { Table } from "../teachers";
-  import { search } from "../../util/searchData";
-  import { sort, sortType } from "../../util/sortData";
+  import {Table} from "../teachers";
+  import {search} from "../../util/searchData";
+  import {sort, sortType} from "../../util/sortData";
   import moment from "moment";
 
   export let badgeclasses = [];
@@ -60,6 +60,7 @@
   {...table}
   bind:search={badgeclassSearch}
   pathParameters={[issuer.entityId]}
+  isEmpty={badgeclasses.length === 0}
   bind:sort={badgeclassSort}
   {mayCreate}>
   {#each sortedFilteredBadgeclasses as badgeclass (badgeclass.entityId)}
@@ -72,4 +73,9 @@
       <td>-</td>
     </tr>
   {/each}
+  {#if badgeclasses.length === 0}
+    <tr>
+      <td colspan="4">{I18n.t("zeroState.badgeClasses",{name:issuer.name})}</td>
+    </tr>
+  {/if}
 </Table>

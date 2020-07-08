@@ -189,6 +189,7 @@
     border-radius: 12px;
     font-size: 14px;
     font-weight: bold;
+
     &.accepted {
       background-color: var(--green-light);
     }
@@ -216,6 +217,7 @@
   bind:search={assertionSearch}
   bind:sort={assertionsSort}
   withCheckAll={true}
+  isEmpty={assertions.length === 0}
   bind:checkAllValue>
   <div class="action-buttons" slot="check-buttons">
     <Button small disabled={selection.length === 0} action={() => revoke(true)}
@@ -254,6 +256,12 @@
       <td>{assertion.expiresAt ? moment(assertion.expiresAt).format('MMM D, YYYY') : ""}</td>
     </tr>
   {/each}
+  {#if assertions.length === 0}
+    <tr>
+      <td colspan="8">{I18n.t("zeroState.assertions",{name:badgeclass.name})}</td>
+    </tr>
+  {/if}
+
 </Table>
 
 {#if showModal}

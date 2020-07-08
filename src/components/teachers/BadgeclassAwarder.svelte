@@ -195,7 +195,7 @@
       </Route>
 
       <Route path="/enrollments">
-        <Enrollments {entityId} bind:enrollments refresh={refresh}/>
+        <Enrollments {entityId} bind:enrollments badgeclassName={badgeclass.name} refresh={refresh}/>
       </Route>
 
       <Route path="/awarded">

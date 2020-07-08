@@ -1,12 +1,13 @@
 <script>
-  import { navigate } from "svelte-routing";
+  import {navigate} from "svelte-routing";
   import I18n from "i18n-js";
-  import { Table } from "../teachers";
-  import { search } from "../../util/searchData";
-  import { sort, sortType } from "../../util/sortData";
+  import {Table} from "../teachers";
+  import {search} from "../../util/searchData";
+  import {sort, sortType} from "../../util/sortData";
 
   export let faculties = [];
   export let mayCreate;
+  export let institutionName;
 
   const tableHeaders = [
     {
@@ -46,6 +47,7 @@
   {...table}
   bind:search={facultySearch}
   bind:sort={facultySort}
+  isEmpty={faculties.length === 0}
   {mayCreate}>
   {#each sortedFilteredFaculties as faculty (faculty.entityId)}
     <tr
@@ -55,4 +57,10 @@
       <td>{faculty.issuers.length}</td>
     </tr>
   {/each}
+  {#if faculties.length === 0}
+    <tr>
+      <td colspan="2">{I18n.t("zeroState.faculties",{name:institutionName})}</td>
+    </tr>
+  {/if}
+
 </Table>
