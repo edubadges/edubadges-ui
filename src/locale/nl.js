@@ -580,7 +580,7 @@ I18n.translations.nl = {
   monthNames: ["Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "October", "November", "December"],
   zeroState: {
     badgeClasses: "Er zijn geen badge-classes voor issuer {}.",
-    issuers: "Er zijn geen issuers voor instelling {}.",
+    issuers: "Er zijn geen issuers voor {}.",
     faculties: "Er zijn geen faculties voor instelling {}.",
     users: "Er zijn geen users voor instelling {}.",
     assertions: "Er zijn geen assertions voor badge {}.",
