@@ -36,6 +36,7 @@
   }
 
   .slot-container {
+    margin-left: 24px;
     flex: 1;
   }
 
