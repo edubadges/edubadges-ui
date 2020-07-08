@@ -172,7 +172,7 @@
 
   $: table = {
     entity: "user",
-    title: `${I18n.t("editUsers.institutionPermissions", {instance: I18n.t("editUsers.badgeClass.header")})}`,
+    title: `${I18n.t("editUsers.institutionPermissions", {instance: I18n.t("editUsers.badgeclass.header")})}`,
     tableHeaders: tableHeaders
   };
 
