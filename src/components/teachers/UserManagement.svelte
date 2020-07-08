@@ -5,19 +5,19 @@
   import {UsersTable, InvitationStatusWidget} from "../teachers";
   import {Select, Modal} from "../forms";
   import I18n from "i18n-js";
-  import { navigate } from "svelte-routing";
+  import {navigate} from "svelte-routing";
   import {
-      changeProvisionmentToBadgeclassAwarder,
-      changeProvisionmentToBadgeclassEditor,
-      changeProvisionmentToBadgeclassOwner,
-      changeUserToBadgeclassAwarder,
-      changeUserToBadgeclassEditor,
-      changeUserToBadgeclassOwner,
-      disinviteUser,
-      removeStaffMembership
+    changeProvisionmentToBadgeclassAwarder,
+    changeProvisionmentToBadgeclassEditor,
+    changeProvisionmentToBadgeclassOwner,
+    changeUserToBadgeclassAwarder,
+    changeUserToBadgeclassEditor,
+    changeUserToBadgeclassOwner,
+    disinviteUser,
+    removeStaffMembership
   } from "../../api";
-  import { sort, sortType } from "../../util/sortData";
-  import { searchMultiple } from "../../util/searchData";
+  import {sort, sortType} from "../../util/sortData";
+  import {searchMultiple} from "../../util/searchData";
   import {flash} from "../../stores/flash";
 
   export let entity;
@@ -54,7 +54,7 @@
   ];
 
   const changeUserRole = (role, id) => {
-    switch(role.value) {
+    switch (role.value) {
       case 'badgeclassOwner':
         changeUserToBadgeclassOwner(id).then(() => {
           reload();
@@ -77,7 +77,7 @@
   };
 
   const changeProvisionmentRole = (role, id) => {
-    switch(role.value) {
+    switch (role.value) {
       case 'badgeclassOwner':
         changeProvisionmentToBadgeclassOwner(id).then(() => {
           reload();
@@ -121,19 +121,21 @@
   };
 
   const inviteNewUser = () => {
-      navigate(`/manage/${entity}${entity !== entityType.INSTITUTION ? '/' + entityId : ''}/user-management/invite-new-user`, {replace: false});
+    navigate(`/manage/${entity}${entity !== entityType.INSTITUTION ? '/' + entityId : ''}/user-management/invite-new-user`, {replace: false});
   };
+
+  const oneInstitutionStaff = entity === entityType.INSTITUTION && institutionStaffs.length < 2;
 
   $: buttons = [
     {
       'action': removePermissions,
       'text': I18n.t(['editUsers', 'permissions', 'removePermissions']),
-      'allowed': (permissions && permissions.mayAdministrateUsers && selection.length > 0),
+      'allowed': permissions && permissions.mayAdministrateUsers && selection.length > 0 && !oneInstitutionStaff,
     },
     {
       'action': inviteNewUser,
       'text': I18n.t(['editUsers', 'permissions', 'inviteNewUser']),
-      'allowed': (permissions && permissions.mayAdministrateUsers),
+      'allowed': permissions && permissions.mayAdministrateUsers,
     }
   ];
 
@@ -167,7 +169,9 @@
 
   const onCheckAll = val => {
     selection = val ? staffs.filter(({_staffType}) => {
-      if (_staffType === staffType.USER_PROVISIONMENT) return true;
+      if (_staffType === staffType.USER_PROVISIONMENT) {
+        return true;
+      }
       switch (entity) {
         case entityType.INSTITUTION:
           return _staffType === staffType.INSTITUTION_STAFF;
@@ -228,37 +232,38 @@
 
 <div class="container">
   <UsersTable
-      {...table}
-      {onCheckAll}
-      bind:buttons={buttons}
-      bind:search={staffSearch}
-      bind:sort={staffSort}
+    {...table}
+    isEmpty={staffs.length === 0}
+    {onCheckAll}
+    bind:buttons={buttons}
+    bind:search={staffSearch}
+    bind:sort={staffSort}
   >
     {#each sortedFilteredStaffs as {_staffType, user, entityId, email, createdAt, rejected, mayAdministrateUsers, mayUpdate, mayAward, data} (entityId)}
       <tr>
         {#if _staffType === staffType.USER_PROVISIONMENT}
           <td>
             <CheckBox
-                value={selection.some(el => el.entityId === entityId)}
-                name={`select-${entityId}`}
+              value={selection.some(el => el.entityId === entityId)}
+              name={`select-${entityId}`}
                 disabled={false}
                 onChange={val => onCheckOne(val, entityId, _staffType)}/>
           </td>
           <td>
             -
-            <br />
+            <br/>
             <span class="sub-text">{email}</span>
           </td>
           {#if entity === entityType.BADGE_CLASS}
             <td>
               <div class="badgeclass-role-select">
                 <Select
-                    handleSelect={item => changeProvisionmentRole(item, entityId)}
-                    value = {
-                      data.may_administrate_users ? targetOptions[0] :
-                      (data.may_update ? targetOptions[1] :
-                      (data.may_award ? targetOptions[2] : 'error'))
-                    }
+                  handleSelect={item => changeProvisionmentRole(item, entityId)}
+                  value={
+                  data.may_administrate_users ? targetOptions[0] :
+                  (data.may_update ? targetOptions[1] :
+                  (data.may_award ? targetOptions[2] : 'error'))
+                  }
                     items={targetOptions}
                     clearable={false}
                     optionIdentifier="name"
@@ -274,25 +279,25 @@
         {:else if _staffType === staffType.BADGE_CLASS_STAFF}
           <td>
             <CheckBox
-                value={selection.some(el => el.entityId === entityId)}
-                name={`select-${entityId}`}
+              value={selection.some(el => el.entityId === entityId)}
+              name={`select-${entityId}`}
                 disabled={false}
                 onChange={val => onCheckOne(val, entityId)}/>
           </td>
           <td>
             {user.firstName} {user.lastName}
-            <br />
+            <br/>
             <span class="sub-text">{user.email}</span>
           </td>
           <td>
             <div class="badgeclass-role-select">
               <Select
-                  handleSelect={item => changeUserRole(item, entityId)}
-                  value = {
-                    mayAdministrateUsers ? targetOptions[0] :
-                    (mayUpdate ? targetOptions[1] :
-                    (mayAward ? targetOptions[2] : 'error'))
-                  }
+                handleSelect={item => changeUserRole(item, entityId)}
+                value={
+                mayAdministrateUsers ? targetOptions[0] :
+                (mayUpdate ? targetOptions[1] :
+                (mayAward ? targetOptions[2] : 'error'))
+                }
                   items={targetOptions}
                   clearable={false}
                   optionIdentifier="name"
@@ -305,20 +310,20 @@
         {:else if _staffType === staffType.ISSUER_STAFF}
           <td>
             <CheckBox
-                value={selection.some(el => el.entityId === entityId)}
-                name={`select-${entityId}`}
+              value={selection.some(el => el.entityId === entityId)}
+              name={`select-${entityId}`}
                 disabled={entity !== entityType.ISSUER}
                 onChange={val => onCheckOne(val, entityId)}/>
           </td>
           <td>
             {user.firstName} {user.lastName}
-            <br />
+            <br/>
             <span class="sub-text">{user.email}</span>
           </td>
           <td>
             {#if entity !== entityType.ISSUER}
               {I18n.t(['editUsers', 'permissions', 'allRights'])}
-              <br />
+              <br/>
               {I18n.t(['editUsers', 'permissions', 'issuerGroupAllRights'])}
             {:else}
               {I18n.t(['editUsers', 'faculty', 'allRights'])}
@@ -330,20 +335,20 @@
         {:else if _staffType === staffType.ISSUER_GROUP_STAFF}
           <td>
             <CheckBox
-                value={selection.some(el => el.entityId === entityId)}
-                name={`select-${entityId}`}
+              value={selection.some(el => el.entityId === entityId)}
+              name={`select-${entityId}`}
                 disabled={entity !== entityType.ISSUER_GROUP}
                 onChange={val => onCheckOne(val, entityId)}/>
           </td>
           <td>
             {user.firstName} {user.lastName}
-            <br />
+            <br/>
             <span class="sub-text">{user.email}</span>
           </td>
           <td>
             {#if entity !== entityType.ISSUER_GROUP}
               {I18n.t(['editUsers', 'permissions', 'allRights'])}
-              <br />
+              <br/>
               {I18n.t(['editUsers', 'permissions', 'issuerGroupAllRights'])}
             {:else}
               {I18n.t(['editUsers', 'faculty', 'allRights'])}
@@ -355,20 +360,20 @@
         {:else if _staffType === staffType.INSTITUTION_STAFF}
           <td>
             <CheckBox
-                value={selection.some(el => el.entityId === entityId)}
-                name={`select-${entityId}`}
-                disabled={entity !== entityType.INSTITUTION}
+              value={selection.some(el => el.entityId === entityId)}
+              name={`select-${entityId}`}
+                disabled={entity !== entityType.INSTITUTION || oneInstitutionStaff}
                 onChange={val => onCheckOne(val, entityId)}/>
           </td>
           <td>
             {user.firstName} {user.lastName}
-            <br />
+            <br/>
             <span class="sub-text">{user.email}</span>
           </td>
           <td>
             {#if entity !== entityType.INSTITUTION}
               {I18n.t(['editUsers', 'permissions', 'allRights'])}
-              <br />
+              <br/>
               {I18n.t(['editUsers', 'permissions', 'institutionAllRights'])}
             {:else}
               {I18n.t(['editUsers', 'institution', 'allRights'])}
@@ -380,6 +385,11 @@
         {/if}
       </tr>
     {/each}
+    {#if staffs.length === 0}
+      <tr>
+        <td colspan="4">{I18n.t("zeroState.badgeClasses",{name: I18n.t(`userManagement.${"institution_staff"}`)})}</td>
+      </tr>
+    {/if}
   </UsersTable>
 </div>
 
@@ -388,6 +398,6 @@
     submit={removeModalAction}
     cancel={() => showRemoveModal = false}
     question={removeModalQuestion}
-    title={removeModalTitle}
-  />
+      title={removeModalTitle}
+      />
 {/if}

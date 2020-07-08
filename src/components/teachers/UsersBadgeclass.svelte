@@ -1,21 +1,22 @@
 <script>
-  import { onMount } from "svelte";
-  import { queryData } from "../../api/graphql";
-  import { Button, CheckBox } from "../../components";
-  import { UsersTable } from "../teachers";
   import {entityType} from "../../util/entityTypes";
-  import { sortType } from "../../util/sortData";
+  import {onMount} from "svelte";
+  import {queryData} from "../../api/graphql";
+  import {Button, CheckBox} from "../../components";
+  import {UsersTable} from "../teachers";
+  import {sortType} from "../../util/sortData";
   import I18n from "i18n-js";
   import {
-      makeUserBadgeclassOwner,
-      makeUserBadgeclassEditor,
-      makeUserBadgeclassAwarder,
-      removeUserBadgeclassPermission,
-      changeUserToBadgeclassOwner,
-      changeUserToBadgeclassEditor,
-      changeUserToBadgeclassAwarder
+    makeUserBadgeclassOwner,
+    makeUserBadgeclassEditor,
+    makeUserBadgeclassAwarder,
+    removeUserBadgeclassPermission,
+    changeUserToBadgeclassOwner,
+    changeUserToBadgeclassEditor,
+    changeUserToBadgeclassAwarder
   } from "../../api";
-  import { AddPermissionsModal, Modal, Select } from "../forms";
+  import {AddPermissionsModal, Modal, Select} from "../forms";
+  import Spinner from "../Spinner.svelte";
 
   export let userId;
 
@@ -28,6 +29,8 @@
   let checkAllValue = false;
 
   let badgeclasses = [];
+  let loaded;
+  let isEmpty;
 
   const query = `{
   currentInstitution {
@@ -123,7 +126,8 @@
   }
  }`;
 
-  onMount(() => {
+  const reload = () => {
+    loaded = false;
     queryData(query).then(res => {
       faculties = res.currentInstitution.faculties;
       user = res.user;
@@ -135,8 +139,15 @@
           })
         })
       });
+      isEmpty = user.badgeclassStaffs.length === 0 &&
+        user.issuerStaffs.length === 0 &&
+        user.facultyStaffs.length === 0 &&
+        (!user.institutionStaff || (user.institutionStaff && faculties.length === 0));
+      loaded = true;
     });
-  });
+  };
+
+  onMount(reload);
 
   const tableHeaders = [
     {
@@ -161,7 +172,7 @@
 
   $: table = {
     entity: "user",
-    title: `${I18n.t(["editUsers", entityType.BADGE_CLASS, 'permissions'])}`,
+    title: `${I18n.t("editUsers.institutionPermissions", {instance: I18n.t("editUsers.badgeClass.header")})}`,
     tableHeaders: tableHeaders
   };
 
@@ -179,14 +190,6 @@
   let removeModalTitle;
   let removeModalQuestion;
   let removeModalAction;
-
-  const reload = () => {
-    queryData(query).then(res => {
-      faculties = res.currentInstitution.faculties;
-      user = res.user;
-      currentUser = res.currentUser;
-    });
-  };
 
   const submitPermissions = () => {
     switch (modalChosenRole.name) {
@@ -277,7 +280,7 @@
   let target = targetOptions[0];
 
   const changeUserRole = (role, id) => {
-    switch(role.value) {
+    switch (role.value) {
       case 'badgeclassOwner':
         changeUserToBadgeclassOwner(id).then(() => {
           reload()
@@ -314,53 +317,54 @@
   }
 </style>
 
-{#if user}
+{#if loaded}
   <div class="container">
     <UsersTable
-        {...table}
-        bind:search={issuerSearch}
-        withCheckAll={true}
-        bind:checkAllValue={checkAllValue}
-        bind:buttons={buttons}
-        onCheckAll={checkedAll}
+      {...table}
+      isEmpty={isEmpty}
+      bind:search={issuerSearch}
+      withCheckAll={true}
+      bind:checkAllValue={checkAllValue}
+      bind:buttons={buttons}
+      onCheckAll={checkedAll}
     >
-    {#each user.badgeclassStaffs as badgeclassStaffMembership}
-      <tr>
-        <td>
-          <CheckBox
+      {#each user.badgeclassStaffs as badgeclassStaffMembership}
+        <tr>
+          <td>
+            <CheckBox
               value={selection.includes(badgeclassStaffMembership.entityId)}
               name={`select-${badgeclassStaffMembership.badgeclass.entityId}`}
               disabled={false}
               onChange={val => onCheckOne(val, badgeclassStaffMembership.entityId)}/>
-        </td>
-        <td>{badgeclassStaffMembership.badgeclass.issuer.name}</td>
-        <td>{badgeclassStaffMembership.badgeclass.name}</td>
-        <td>
-          <div class="badgeclass-role-select">
-            <Select
-                handleSelect={item => changeUserRole(item, badgeclassStaffMembership.entityId)}
-                value = {
-                  badgeclassStaffMembership.mayAdministrateUsers ? targetOptions[0] :
-                  (badgeclassStaffMembership.mayUpdate ? targetOptions[1] :
-                  (badgeclassStaffMembership.mayAward ? targetOptions[2] : 'error'))
-                }
-                items={targetOptions}
-                clearable={false}
-                optionIdentifier="name"
-            />
-          </div>
-        </td>
-      </tr>
-    {/each}
-    {#each user.issuerStaffs as issuerStaffMembership}
-      {#each issuerStaffMembership.issuer.badgeclasses as badgeclass}
-        <tr>
+          </td>
+          <td>{badgeclassStaffMembership.badgeclass.issuer.name}</td>
+          <td>{badgeclassStaffMembership.badgeclass.name}</td>
           <td>
-            <CheckBox
+            <div class="badgeclass-role-select">
+              <Select
+                handleSelect={item => changeUserRole(item, badgeclassStaffMembership.entityId)}
+                value={
+                badgeclassStaffMembership.mayAdministrateUsers ? targetOptions[0] :
+                (badgeclassStaffMembership.mayUpdate ? targetOptions[1] :
+                (badgeclassStaffMembership.mayAward ? targetOptions[2] : 'error'))
+                }
+                  items={targetOptions}
+                  clearable={false}
+                  optionIdentifier="name"
+              />
+            </div>
+          </td>
+        </tr>
+      {/each}
+      {#each user.issuerStaffs as issuerStaffMembership}
+        {#each issuerStaffMembership.issuer.badgeclasses as badgeclass}
+          <tr>
+            <td>
+              <CheckBox
                 value={selection.includes(badgeclass.entityId)}
                 name={`select-${badgeclass.entityId}`}
                 disabled={true}/>
-          </td>
+            </td>
             <td>{badgeclass.issuer.name}</td>
             <td>{badgeclass.name}</td>
           <td>
@@ -368,22 +372,22 @@
             <br />
             <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'issuerAllRights'])}</span>
           </td>
-        </tr>
+          </tr>
+        {/each}
       {/each}
-    {/each}
       {#each user.facultyStaffs as facultyStaffMembership}
         {#each facultyStaffMembership.faculty.issuers as issuer}
           {#each issuer.badgeclasses as badgeclass}
             <tr>
               <td>
                 <CheckBox
-                    value={selection.includes(badgeclass.entityId)}
-                    name={`select-${badgeclass.entityId}`}
-                    disabled={true}
+                  value={selection.includes(badgeclass.entityId)}
+                  name={`select-${badgeclass.entityId}`}
+                  disabled={true}
                 />
               </td>
-                <td>{badgeclass.issuer.name}</td>
-                <td>{badgeclass.name}</td>
+              <td>{badgeclass.issuer.name}</td>
+              <td>{badgeclass.name}</td>
               <td>
                 {I18n.t(['editUsers', 'permissions', 'allRights'])}
                 <br />
@@ -400,16 +404,16 @@
               <tr>
                 <td>
                   <CheckBox
-                      value={selection.includes(badgeclass.entityId)}
-                      name={`select-${badgeclass.entityId}`}
-                      disabled={true}
+                    value={selection.includes(badgeclass.entityId)}
+                    name={`select-${badgeclass.entityId}`}
+                    disabled={true}
                   />
                 </td>
-                  <td>{issuer.name}</td>
-                  <td>{badgeclass.name}</td>
+                <td>{issuer.name}</td>
+                <td>{badgeclass.name}</td>
                 <td>
                   {I18n.t(['editUsers', 'permissions', 'allRights'])}
-                  <br />
+                  <br/>
                   <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'institutionAllRights'])}</span>
                 </td>
               </tr>
@@ -417,23 +421,30 @@
           {/each}
         {/each}
       {/if}
+      {#if isEmpty}
+        <tr>
+          <td colspan="4">{I18n.t("zeroState.permissions",{name: I18n.t("userManagement.badge_class_staff")})}</td>
+        </tr>
+      {/if}
     </UsersTable>
   </div>
+{:else}
+  <Spinner/>
 {/if}
 
 {#if showRemoveModal}
   <Modal submit={removeModalAction}
-      cancel={() => showRemoveModal = false}
-      question={removeModalQuestion}
-      title={removeModalTitle}>
+         cancel={() => showRemoveModal = false}
+         question={removeModalQuestion}
+           title={removeModalTitle}>
   </Modal>
 {/if}
 
 {#if showAddModal}
   <AddPermissionsModal
-      submit={addModalAction}
-      cancel={() => showAddModal = false}
-      selectEntity={selectEntity}
+    submit={addModalAction}
+    cancel={() => showAddModal = false}
+    selectEntity={selectEntity}
       permissionsRoles={permissionsRoles}
       title={addModalTitle}
       entity={'badgeclass'}

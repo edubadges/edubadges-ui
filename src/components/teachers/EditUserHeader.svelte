@@ -66,8 +66,7 @@
 <div class="entity">
   <div class="content">
     <div class="info">
-      <h2>Permissions for {user.firstName} {user.lastName}</h2>
-
+      <h2>{I18n.t("userManagement.permissions",{name:`${user.firstName} ${user.lastName}`})}</h2>
       <div class="list">
         <HeaderList entity="editUsers" {headerItems}/>
       </div>

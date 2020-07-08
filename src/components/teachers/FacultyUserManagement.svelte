@@ -49,26 +49,21 @@
       }
 		}
   }`;
-
-  onMount(() => {
+  const reload = () => {
     queryData(query).then(res => {
       institutionStaffMembers = addStaffType(res.faculty.institution.staff, staffType.INSTITUTION_STAFF);
       issuerGroupStaffMembers = addStaffType(res.faculty.staff, staffType.ISSUER_GROUP_STAFF);
       userProvisionments = addStaffType(res.faculty.userprovisionments, staffType.USER_PROVISIONMENT);
       permissions = res.faculty.permissions;
     })
-  });
+  };
+
+  onMount(reload);
 
   // Remove permissions modal
   let removeModalTitle = I18n.t(['editUsers', 'permissions', 'removePermissions']);
   let removeModalQuestion = I18n.t(['editUsers', 'permissions', 'removeAdmin']);
 
-  const reload = () => {
-    queryData(query).then(res => {
-      issuerGroupStaffMembers = addStaffType(res.faculty.staff, staffType.ISSUER_GROUP_STAFF);
-      userProvisionments = addStaffType(res.faculty.userprovisionments, staffType.USER_PROVISIONMENT);
-    });
-  };
 </script>
 
 <UserManagement
