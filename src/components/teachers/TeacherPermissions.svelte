@@ -4,16 +4,33 @@
   import { Breadcrumb, PermissionsHeader, PermissionsManagement } from "./index";
   import {entityType} from "../../util/entityTypes"
   import {addStaffType, staffType} from "../../util/staffTypes";
+  import { enrichUser } from "../../util/userPermissions";
 
   export let entity;
 
-  let institutionStaffMembers = [];
-  let issuerGroupStaffMembers = [];
-  let issuerStaffMembers = [];
-  let badgeClassStaffMembers = [];
-  let userProvisionments = [];
+  let institution;
+  let institutionStaffMemberships = [];
+  let issuerGroupStaffMemberships = [];
+  let issuerStaffMemberships = [];
+  let badgeClassStaffMemberships = [];
 
   const query = `{
+    currentInstitution {
+      entityId,
+      name,
+      faculties {
+        name,
+        entityId,
+        issuers {
+          name,
+          entityId,
+          badgeclasses {
+            name,
+            entityId
+          }
+        }
+      }
+    },
     currentUser {
       entityId,
       firstName,
@@ -66,14 +83,15 @@
       }
       badgeclassStaffs {
         entityId,
+        mayAdministrateUsers,
+        mayUpdate,
+        mayAward,
         badgeclass {
+          entityId,
+          name,
           issuer {
             name,
             entityId,
-            badgeclasses {
-              name,
-              entityId
-            }
           }
         }
       },
@@ -82,11 +100,16 @@
 
   onMount(() => {
     queryData(query).then(res => {
-      institutionStaffMembers = addStaffType([res.currentUser.institutionStaff], staffType.INSTITUTION_STAFF);
-      issuerGroupStaffMembers = addStaffType(res.currentUser.facultyStaffs, staffType.ISSUER_GROUP_STAFF);
-      issuerStaffMembers = addStaffType(res.currentUser.issuerStaffs, staffType.ISSUER_STAFF);
-      badgeClassStaffMembers = addStaffType(res.currentUser.badgeclassStaffs, staffType.BADGE_CLASS_STAFF);
-      // userProvisionments = addStaffType(res.currentUser.userprovisionments, staffType.USER_PROVISIONMENT);
+      institution = res.currentInstitution;
+      if (res.currentUser.institutionStaff) {
+        institutionStaffMemberships = addStaffType([res.currentUser.institutionStaff], staffType.INSTITUTION_STAFF);
+      } else {
+        institutionStaffMemberships = [];
+      }
+      issuerGroupStaffMemberships = addStaffType(res.currentUser.facultyStaffs, staffType.ISSUER_GROUP_STAFF);
+      issuerStaffMemberships = addStaffType(res.currentUser.issuerStaffs, staffType.ISSUER_STAFF);
+      badgeClassStaffMemberships = addStaffType(res.currentUser.badgeclassStaffs, staffType.BADGE_CLASS_STAFF);
+      enrichUser(institution, institutionStaffMemberships, issuerGroupStaffMemberships, issuerStaffMemberships, badgeClassStaffMemberships);
     })
   });
 
@@ -118,9 +141,8 @@
 
 <PermissionsManagement
     {entity}
-    institutionStaffs={institutionStaffMembers}
-    issuerGroupStaffs={issuerGroupStaffMembers}
-    issuerStaffs={issuerStaffMembers}
-    badgeClassStaffs={badgeClassStaffMembers}
-    {userProvisionments}
+    institutionStaffs={institutionStaffMemberships}
+    issuerGroupStaffs={issuerGroupStaffMemberships}
+    issuerStaffs={issuerStaffMemberships}
+    badgeClassStaffs={badgeClassStaffMemberships}
 />

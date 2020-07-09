@@ -564,7 +564,9 @@ I18n.translations.nl = {
   },
   language: {
     en_EN: "Engels",
-    nl_NL: "Nederlands"
+    En_En: "Engels",
+    nl_NL: "Nederlands",
+    Nl_Nl: "Nederlands"
   },
   publicBadge: {
     verification: "Verification",
@@ -589,5 +591,7 @@ I18n.translations.nl = {
     users: "Er zijn geen users voor instelling {}.",
     assertions: "Er zijn geen assertions voor badge {}.",
     enrollments: "Er zijn geen enrollments voor badge {}.",
+    selfPermissions: "U heeft geen permissies op {{entity}} niveau.",
+    userPermissions: "Deze gebruiker heeft geen permissies op {{entity}} niveau."
   }
 };
