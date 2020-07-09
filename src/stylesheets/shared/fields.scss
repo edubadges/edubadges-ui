@@ -1,5 +1,5 @@
 @mixin input-label {
-  max-width: 360px;
+  max-width: 460px;
   width: 100%;
   font-size: 1rem;
   color: var(--text-grey-dark);
@@ -51,7 +51,7 @@
   }
 
   &.full {
-    max-width: 100%;
+    max-width: 1188px;
   }
 
   height: 42px;

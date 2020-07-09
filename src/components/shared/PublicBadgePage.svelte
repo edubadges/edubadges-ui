@@ -18,6 +18,7 @@
   import {publicBadgeInformation} from "../extensions/badges/extensions";
   import BadgeValidation from "../../routes/students/BadgeValidation.svelte";
   import {config} from "../../util/config";
+  import ShareDialog from "../../routes/students/ShareDialog.svelte";
 
   export let entityId;
 
@@ -53,6 +54,11 @@
     flex-direction: column;
   }
 
+  div.badge-validation {
+    background-color: var(--grey-2);
+    padding: 20px 40px;
+  }
+
   div.badge-public-detail {
     padding: 10px 40px;
   }
@@ -74,7 +80,7 @@
   div.badge-card-container {
     display: flex;
     max-width: 320px;
-    margin: 0 auto 40px auto;
+    margin: 10px auto 40px auto;
   }
 
   h3 {
@@ -94,23 +100,27 @@
   }
 
 </style>
-<div class="badge-public-detail-container">
-  <div class="badge-header">
-    <h1>{badge.name}</h1>
-  </div>
+{#if !isEmpty(badge)}
 
-  <div class="badge-public-detail">
-    {#if !isEmpty(badge)}
-      <div class="badge-card-container">
-        <BadgeCard badgeClass={badge} standAlone={true}/>
-      </div>
+  <div class="badge-public-detail-container">
+    <div class="badge-header">
+      <h1>{badge.name}</h1>
+    </div>
+
+    <div class="badge-card-container">
+      <BadgeCard badgeClass={badge} standAlone={true}/>
+    </div>
+    <div class="badge-validation">
       <BadgeValidation badge={badge} validatedName={validatedName}/>
+    </div>
+    <div class="badge-public-detail">
       <div class="issuer">
         <h3>{I18n.t("models.badgeclass.issuer")}</h3>
         <span><a href={badge.issuer.id} target="_blank">{badge.issuer.name}</a></span>
-      </div><BadgeClassDetails badgeclass={badge}/>
-    {:else}
-      <Spinner/>
-    {/if}
+      </div>
+      <BadgeClassDetails badgeclass={badge}/>
+    </div>
   </div>
-</div>
+{:else}
+  <Spinner/>
+{/if}

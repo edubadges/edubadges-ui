@@ -418,6 +418,7 @@ I18n.translations.en = {
       alignmentFramework: "Framework",
       alignmentUrl: "URL",
       alignmentCode: "Code",
+      alignmentDescription: "Description",
       amount: "Amount",
       name: "Name",
       description: "Description",
@@ -535,10 +536,15 @@ I18n.translations.en = {
       }
     },
   },
+  shareDialog: {
+    title: "Share your badge",
+    copyPublicUrl: "If you want to share the link of the public page on this badge, you can copy the link to your clipboard.",
+    copy: "Copy the link"
+  },
   invites: {
     title: "Invite people to enroll",
-    copyPublicUrl: "If you want to place the link to the registration page on your intranet or ELO, you can copy the link",
-    copyUrl: "Copy URL"
+    copyPublicUrl: "If you want to place the link to the registration page on your intranet or ELO, you can copy the link.",
+    copyUrl: "Copy the link"
   },
   file: {
     noFileSelected: "No file selected",

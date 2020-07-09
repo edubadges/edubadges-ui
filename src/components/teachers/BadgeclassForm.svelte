@@ -41,6 +41,7 @@
   let alignment = {
     target_name: "",
     target_url: "",
+    target_description: "",
     target_framework: "",
     target_code: ""
   };
@@ -49,21 +50,25 @@
     alignment = {
       target_name: badgeclass.alignments[0].targetName,
       target_url: badgeclass.alignments[0].targetUrl,
+      target_description: badgeclass.alignments[0].targetDescription,
       target_framework: badgeclass.alignments[0].targetFramework,
       target_code: badgeclass.alignments[0].targetCode
     };
     showAlignment = true;
   }
 
-  let EctsOrHours = [
+  let ectsOrHours = [
     {name: I18n.t(['models', 'badgeclass', 'ects', 'creditPoints']), value: 'creditPoints'},
     {name: I18n.t(['models', 'badgeclass', 'ects', 'hours']), value: 'hours'},
   ];
-  let ectsOrHoursSelection = EctsOrHours[0];
+  let ectsOrHoursSelection = ectsOrHours[0];
 
   let errors = {};
 
-  const languages = [{value: "en_EN", name: I18n.t("language.en_EN")}, {value: "nl_NL", name: I18n.t("language.nl_NL")}];
+  const languages = [{value: "en_EN", name: I18n.t("language.en_EN")}, {
+    value: "nl_NL",
+    name: I18n.t("language.nl_NL")
+  }];
   let languageSelection = languages[0];
 
   const eqfItems = [...Array(8).keys()].map(i => {
@@ -84,10 +89,18 @@
     if (extensions[eqf.name] && typeof extensions[eqf.name] === "number") {
       extensions[eqf.name] = {name: `EQF ${extensions[eqf.name]}`, value: extensions[eqf.name]}
     }
+    if (extensions[educationProgramIdentifier.name]) {
+      showEducationalIdentifiers = true;
+    }
+    if (extensions[eqf.name] || extensions[studyLoad.name]) {
+      showStudyLoad = true;
+      ectsOrHoursSelection = extensions[eqf.name] ? ectsOrHours[0] : ectsOrHours[1];
+    }
     loaded = true;
   }
 
   function onSubmit() {
+    debugger;
     errors = {};
     processing = true;
 
@@ -97,30 +110,38 @@
       criteria_url: badgeclass.criteriaUrl,
     };
     setExpirationPeriod(newBadgeclass);
+
     if (showAlignment) {
       addAlignment(newBadgeclass, alignment);
     } else {
-      newBadgeclass.alignment = [];
+      newBadgeclass.alignments = [];
     }
     newBadgeclass.extensions = extensionToJson([
-      {name: language.name, value: languageSelection.value},
-      {name: eqf.name, value: extensions[eqf.name].value},
-      {name: learningOutcome.name, value: extensions[learningOutcome.name]},
+      {name: language.name, value: languageSelection.value}
     ]);
+    const learningOutcomeValue = extensions[learningOutcome.name];
+    if (learningOutcomeValue) {
+      const learningOutcomeExt = extensionToJson([
+        {name: learningOutcome.name, value: learningOutcomeValue}
+      ]);
+      newBadgeclass.extensions = {...newBadgeclass.extensions, ...learningOutcomeExt}
+    }
     if (showEducationalIdentifiers) {
-      Object.assign(extensionToJson([{
-        name: educationProgramIdentifier.name,
-        value: parseInt(extensions[educationProgramIdentifier.name], 10)
-      }]), newBadgeclass.extensions)
+      const educationalIdentifiers = extensionToJson([
+        {name: eqf.name, value: extensions[eqf.name].value},
+        {
+          name: educationProgramIdentifier.name,
+          value: parseInt(extensions[educationProgramIdentifier.name], 10)
+        }]);
+      newBadgeclass.extensions = {...newBadgeclass.extensions, ...educationalIdentifiers};
     }
     if (showStudyLoad) {
-      if (ectsOrHoursSelection) {
-        Object.assign(extensionToJson([{name: ects.name, value: extensions[ects.name]}]), newBadgeclass.extensions)
+      if (ectsOrHoursSelection.value === "hours") {
+        newBadgeclass.extensions = {...newBadgeclass.extensions,
+          ...extensionToJson([{name: studyLoad.name, value: parseInt(extensions[studyLoad.name])}])}
       } else {
-        Object.assign(extensionToJson([{
-          name: studyLoad.name,
-          value: parseInt(extensions[studyLoad.name])
-        }]), newBadgeclass.extensions)
+        newBadgeclass.extensions = {...newBadgeclass.extensions,
+          ...extensionToJson([{name: ects.name, value: extensions[ects.name]}])}
       }
     }
     if (badgeclass.issuer) {
@@ -140,7 +161,7 @@
   }
 </script>
 
-<style>
+<style lang="scss">
   div.form {
     display: grid;
     grid-template-columns: 50% 50%;
@@ -148,6 +169,7 @@
     grid-column-gap: 40px;
     grid-row-gap: 20px;
     padding-right: 40px;
+
   }
 
   @media (max-width: 820px) {
@@ -293,6 +315,35 @@
     </Field>
   </div>
 
+  {#if showStudyLoad}
+    <div style="display: flex">
+      <div class="deletable-title"><h4>{I18n.t('models.badgeclass.headers.studyLoad')}</h4></div>
+      <button class="rm-icon-container" on:click={() => showStudyLoad = false}>{@html trash}</button>
+    </div>
+    <hr class="header-line">
+
+    <div class="form">
+      <Field {entity} attribute="typeOfStudyLoad" errors={errors.type}>
+        <Select
+          bind:value={ectsOrHoursSelection}
+          items={ectsOrHours}
+          optionIdentifier="value"
+          clearable={false}
+        />
+      </Field>
+
+      {#if ectsOrHoursSelection.value === 'creditPoints'}
+        <Field {entity} attribute="amount" errors={errors.ectsLong}>
+          <EctsCreditPoints bind:ectsValue={extensions[ects.name]}/>
+        </Field>
+      {:else}
+        <Field {entity} attribute="amount" errors={errors.studyLoad}>
+          <TextInput type="number" bind:ectsValue={extensions[studyLoad.name]}/>
+        </Field>
+      {/if}
+    </div>
+  {/if}
+
   {#if showEducationalIdentifiers}
     <div style="display: flex">
       <div class="deletable-title"><h4>{I18n.t('models.badgeclass.headers.educationalIdentifiers')}</h4></div>
@@ -328,36 +379,6 @@
     </div>
   {/if}
 
-  {#if showStudyLoad}
-    <div style="display: flex">
-      <div class="deletable-title"><h4>{I18n.t('models.badgeclass.headers.studyLoad')}</h4></div>
-      <button class="rm-icon-container" on:click={() => showStudyLoad = false}>{@html trash}</button>
-    </div>
-    <hr class="header-line">
-
-    <div class="form">
-      <Field {entity} attribute="typeOfStudyLoad" errors={errors.type}>
-        <Select
-          bind:value={ectsOrHoursSelection}
-          items={EctsOrHours}
-          optionIdentifier="value"
-          clearable={false}
-        />
-      </Field>
-
-      {#if ectsOrHoursSelection.value === 'creditPoints'}
-        <Field {entity} attribute="amount" errors={errors.ectsLong}>
-          <EctsCreditPoints bind:ectsValue={extensions[ects.name]}/>
-        </Field>
-      {:else}
-        <Field {entity} attribute="amount" errors={errors.ectsLong}>
-          <TextInput bind:ectsValue={extensions[ects.name]}/>
-        </Field>
-      {/if}
-    </div>
-  {/if}
-
-
   {#if showAlignment}
     <div style="display: flex">
       <div class="deletable-title"><h4>{I18n.t('models.badgeclass.headers.alignment')}</h4></div>
@@ -370,31 +391,36 @@
         <TextInput
           bind:value={alignment.target_name}
           error={errors.alignmentName}
-          area
         />
       </Field>
       <Field {entity} attribute="alignmentFramework">
         <TextInput
           bind:value={alignment.target_framework}
           error={errors.alignment_framework}
-          area
         />
       </Field>
       <Field {entity} attribute="alignmentUrl">
         <TextInput
           bind:value={alignment.target_url}
           error={errors.alignment_framework}
-          area
         />
       </Field>
       <Field {entity} attribute="alignmentCode">
         <TextInput
           bind:value={alignment.target_code}
           error={errors.alignmentCode}
+        />
+      </Field>
+      <Field {entity} attribute="alignmentDescription">
+        <TextInput
+          bind:value={alignment.target_description}
+          error={errors.targetDescription}
           area
+          size="100"
         />
       </Field>
     </div>
+
   {/if}
 
   {#if !(showStudyLoad && showEducationalIdentifiers && showAlignment)}

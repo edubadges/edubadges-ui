@@ -29,6 +29,7 @@
   import BadgeValidation from "./BadgeValidation.svelte";
   import ToggleSwitch from "../../components/ToggleSwitch.svelte";
   import copy from 'copy-to-clipboard';
+  import ShareDialog from "./ShareDialog.svelte";
 
   export let entityId;
 
@@ -41,9 +42,22 @@
   let modalQuestion;
   let modalAction;
   let showShareFeedback = false;
+  let showShareDialog = false;
+
 
   const cancel = () => {
     showModal = false;
+  }
+
+  const cancelShareDialog = () => {
+    showShareDialog = false;
+  }
+
+  const copiedLink = () => {
+    showShareDialog = false;
+    showShareFeedback = true;
+    setTimeout(() => showShareFeedback = false, 2500)
+
   }
 
   const publicUrl = () => {
@@ -52,9 +66,7 @@
   }
 
   const copyToClipboard = () => {
-    copy(publicUrl());
-    showShareFeedback = true;
-    setTimeout(() => showShareFeedback = false, 2500)
+    showShareDialog = true;
   }
 
   const downloadFileName = badge => {
@@ -489,3 +501,10 @@
          question={modalQuestion}
          title={modalTitle}/>
 {/if}
+
+{#if showShareDialog}
+  <ShareDialog copied={copiedLink}
+               cancel={cancelShareDialog}
+               publicUrl={publicUrl()}/>
+{/if}
+

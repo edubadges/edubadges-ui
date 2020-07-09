@@ -414,11 +414,12 @@ I18n.translations.nl = {
       image: "Badge afbeelding",
       created: "Aangemaakt",
       admin: "Admin",
-      alignmentName: "Name",
+      alignmentName: "Naam",
       alignmentFramework: "Framework",
       alignmentUrl: "URL",
       alignmentCode: "Code",
-      amount: "Amount",
+      alignmentDescription: "Omschrijving",
+      amount: "Aantaal",
       name: "Naam",
       description: "Beschrijving",
       criteria_text: "Wat is benodigd om deze edubadge te verdienen?",
@@ -534,6 +535,11 @@ I18n.translations.nl = {
         awarded: "De inschrijving(en) zijn toegekend."
       }
     },
+  },
+  shareDialog: {
+    title: "Deel jer badge",
+    copyPublicUrl: "Als je de link naar de publieke pagina van deze badge wilt delen, kan je de link kopiëren",
+    copy: "Kopieer de link"
   },
   invites: {
     title: "Nodig iemand uit om zich in te schrijven",

@@ -24,7 +24,8 @@
         targetName,
         targetUrl,
         targetCode,
-        targetFramework
+        targetFramework,
+        targetDescription
       },
       issuer {
         name,
