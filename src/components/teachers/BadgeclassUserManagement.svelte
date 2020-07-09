@@ -1,6 +1,6 @@
 <script>
   import {queryData} from "../../api/graphql";
-  import { onMount } from "svelte";
+  import {onMount} from "svelte";
   import I18n from "i18n-js";
   import {UserManagement} from "../teachers";
   import {staffType, addStaffType} from "../../util/staffTypes";
@@ -78,7 +78,7 @@
 		}
 	}`;
 
-  onMount(() => {
+  const reload = () => {
     queryData(query).then(res => {
       institutionStaffMembers = addStaffType(res.badgeClass.issuer.faculty.institution.staff, staffType.INSTITUTION_STAFF);
       issuerGroupStaffMembers = addStaffType(res.badgeClass.issuer.faculty.staff, staffType.ISSUER_GROUP_STAFF);
@@ -87,30 +87,27 @@
       userProvisionments = addStaffType(res.badgeClass.userprovisionments, staffType.USER_PROVISIONMENT);
       permissions = res.badgeClass.permissions;
     })
-  });
+  };
+
+
+  onMount(reload);
 
   // Remove permissions modal
   let removeModalTitle = I18n.t(['editUsers', 'permissions', 'removePermissions']);
   let removeModalQuestion = I18n.t(['editUsers', 'permissions', 'removeBadgeClassUser']);
 
-  const reload = () => {
-    queryData(query).then(res => {
-      badgeClassStaffMembers = addStaffType(res.badgeClass.staff, staffType.BADGE_CLASS_STAFF);
-      userProvisionments = addStaffType(res.badgeClass.userprovisionments, staffType.USER_PROVISIONMENT);
-    });
-  };
 </script>
 
 <UserManagement
-    {entity}
-    {entityId}
-    {permissions}
-    institutionStaffs={institutionStaffMembers}
-    issuerGroupStaffs={issuerGroupStaffMembers}
-    issuerStaffs={issuerStaffMembers}
-    badgeClassStaffs={badgeClassStaffMembers}
-    {userProvisionments}
-    {removeModalTitle}
-    {removeModalQuestion}
-    {reload}
+  {entity}
+  {entityId}
+  {permissions}
+  institutionStaffs={institutionStaffMembers}
+  issuerGroupStaffs={issuerGroupStaffMembers}
+  issuerStaffs={issuerStaffMembers}
+  badgeClassStaffs={badgeClassStaffMembers}
+  {userProvisionments}
+  {removeModalTitle}
+  {removeModalQuestion}
+  {reload}
 />

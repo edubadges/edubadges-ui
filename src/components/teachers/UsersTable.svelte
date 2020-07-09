@@ -4,20 +4,21 @@
   import {Search, Button, CheckBox} from "../../components";
   import {UsersTableHeaders} from "../teachers";
   import {sortType} from "../../util/sortData";
-  import { onMount } from "svelte";
+  import {onMount} from "svelte";
 
   export let title = "";
   export let tableHeaders = [];
   export let search = "";
   export let sort = {
-      attribute: null,
-      reverse: false,
-      sortType: sortType.ALPHA
+    attribute: null,
+    reverse: false,
+    sortType: sortType.ALPHA
   };
 
   export let withCheckAll;
   export let checkAllValue;
   export let onCheckAll;
+  export let isEmpty;
 
   export let buttons = [];
 
@@ -77,6 +78,7 @@
   <slot name="check-buttons"/>
   <table class="entity-table">
     <thead>
+    {#if !isEmpty}
       <tr>
         {#if withCheckAll}
           <th>
@@ -85,9 +87,10 @@
         {/if}
         <UsersTableHeaders {tableHeaders} {setSort} {sort}/>
       </tr>
+    {/if}
     </thead>
     <tbody>
-      <slot/>
+    <slot/>
     </tbody>
   </table>
 </div>

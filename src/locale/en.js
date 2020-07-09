@@ -310,6 +310,10 @@ I18n.translations.en = {
     accepted: "Accepted"
   },
   editUsers: {
+    institutionPermissions: "Permissions on {{instance}} level",
+    user: {
+      header: "User",
+    },
     institution: {
       header: "Institution",
       allRights: "Institution Admin",
@@ -591,5 +595,14 @@ I18n.translations.en = {
     users: "There are no users for institution {{name}}.",
     assertions: "There are no assertions for badge {{name}}.",
     enrollments: "There are no enrollments for badge {{name}}.",
+    permissions: "There are no permissions for this user on the {{name}} level.",
+  },
+  userManagement: {
+    permissions: "Permissions for {{name}}",
+    institution_staff: "institution staff",
+    issuer_group_staff: "group staff",
+    issuer_staff: "issuer staff",
+    badge_class_staff: "badgeclass staff",
+    user_provisionment: "user provisionment"
   }
 };

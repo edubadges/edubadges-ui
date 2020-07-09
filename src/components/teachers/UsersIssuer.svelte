@@ -1,16 +1,17 @@
 <script>
-  import { onMount } from "svelte";
-  import { queryData } from "../../api/graphql";
-  import { Button, CheckBox } from "../../components";
-  import { UsersTable } from "../teachers";
-  import { sortType } from "../../util/sortData";
   import {entityType} from "../../util/entityTypes";
+  import {onMount} from "svelte";
+  import {queryData} from "../../api/graphql";
+  import {Button, CheckBox} from "../../components";
+  import {UsersTable} from "../teachers";
+  import {sortType} from "../../util/sortData";
   import I18n from "i18n-js";
   import {
-      makeUserIssuerAdmin,
-      removeUserIssuerAdmin
+    makeUserIssuerAdmin,
+    removeUserIssuerAdmin
   } from "../../api";
-  import { AddPermissionsModal, Modal} from "../forms";
+  import {AddPermissionsModal, Modal} from "../forms";
+  import Spinner from "../Spinner.svelte";
 
   export let userId;
 
@@ -24,6 +25,8 @@
   let checkAllValue = false;
 
   let issuers = [];
+  let loaded;
+  let isEmpty;
 
   const query = `{
   currentInstitution {
@@ -94,8 +97,8 @@
     }
   }
  }`;
-
-  onMount(() => {
+  const reload = () => {
+    loaded = false;
     queryData(query).then(res => {
       institutionId = res.currentInstitution.entityId;
       faculties = res.currentInstitution.faculties;
@@ -106,8 +109,15 @@
           issuers = [issuer, ...issuers]
         })
       });
+      isEmpty = user.issuerStaffs.length === 0 &&
+        user.facultyStaffs.length === 0 &&
+        (!user.institutionStaff || (user.institutionStaff && faculties.length === 0));
+      loaded = true;
     });
-  });
+  };
+
+
+  onMount(reload);
 
   const tableHeaders = [
     {
@@ -141,16 +151,8 @@
 
   $: table = {
     entity: "user",
-    title: `${I18n.t(["editUsers", entityType.ISSUER, 'permissions'])}`,
+    title: `${I18n.t("editUsers.institutionPermissions", {instance: I18n.t("editUsers.issuer.header")})}`,
     tableHeaders: tableHeaders
-  };
-
-  const reload = () => {
-    queryData(query).then(res => {
-      faculties = res.currentInstitution.faculties;
-      user = res.user;
-      currentUser = res.currentUser;
-    });
   };
 
   const submitPermissions = () => {
@@ -230,76 +232,84 @@
   }
 </style>
 
-{#if user}
+{#if loaded}
   <div class="container">
     <UsersTable
-        {...table}
-        bind:search={issuerSearch}
-        withCheckAll={true}
-        bind:buttons={buttons}
+      {...table}
+      isEmpty={isEmpty}
+      bind:search={issuerSearch}
+      withCheckAll={true}
+      bind:buttons={buttons}
     >
-    {#each user.issuerStaffs as issuerStaffMembership}
-      <tr>
-        <td>
-          <CheckBox
+      {#each user.issuerStaffs as issuerStaffMembership}
+        <tr>
+          <td>
+            <CheckBox
               value={selection.includes(issuerStaffMembership.entityId)}
               name={`select-${issuerStaffMembership.entityId}`}
               disabled={false}
               onChange={val => onCheckOne(val, issuerStaffMembership.entityId)}/>
-        </td>
-        <td>{issuerStaffMembership.issuer.name}</td>
-        <td>
-          {I18n.t(['editUsers', 'issuer', 'allRights'])}
-        </td>
-      </tr>
-    {/each}
-    {#each user.facultyStaffs as facultyStaffMembership}
-      {#each facultyStaffMembership.faculty.issuers as issuer}
-        <tr>
-          <td>
-            <CheckBox
-                value={selection.includes(facultyStaffMembership.entityId)}
-                name={`select-${facultyStaffMembership.entityId}`}
-                disabled={true}/>
           </td>
-          <td>{issuer.name}</td>
+          <td>{issuerStaffMembership.issuer.name}</td>
           <td>
-            {I18n.t(['editUsers', 'permissions', 'allRights'])}
-            <br />
-            {I18n.t(['editUsers', 'permissions', 'issuerGroupAllRights'])}
+            {I18n.t(['editUsers', 'issuer', 'allRights'])}
           </td>
         </tr>
       {/each}
-    {/each}
-    {#if user.institutionStaff}
-      {#each faculties as faculty}
-        {#each faculty.issuers as issuer}
+      {#each user.facultyStaffs as facultyStaffMembership}
+        {#each facultyStaffMembership.faculty.issuers as issuer}
           <tr>
             <td>
               <CheckBox
-                  value={''}
-                  name={''}
-                  disabled={true}/>
+                value={selection.includes(facultyStaffMembership.entityId)}
+                name={`select-${facultyStaffMembership.entityId}`}
+                disabled={true}/>
             </td>
             <td>{issuer.name}</td>
             <td>
               {I18n.t(['editUsers', 'permissions', 'allRights'])}
-              <br />
-              <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'institutionAllRights'])}</span>
+              <br/>
+              {I18n.t(['editUsers', 'permissions', 'issuerGroupAllRights'])}
             </td>
           </tr>
         {/each}
       {/each}
-    {/if}
+      {#if user.institutionStaff}
+        {#each faculties as faculty}
+          {#each faculty.issuers as issuer}
+            <tr>
+              <td>
+                <CheckBox
+                  value={''}
+                  name={''}
+                  disabled={true}/>
+              </td>
+              <td>{issuer.name}</td>
+              <td>
+                {I18n.t(['editUsers', 'permissions', 'allRights'])}
+                <br/>
+                <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'institutionAllRights'])}</span>
+              </td>
+            </tr>
+          {/each}
+        {/each}
+      {/if}
+      {#if isEmpty}
+        <tr>
+          <td colspan="4">{I18n.t("zeroState.permissions",{name: I18n.t("userManagement.issuer_staff")})}</td>
+        </tr>
+      {/if}
     </UsersTable>
   </div>
+{:else}
+  <Spinner/>
 {/if}
 
 {#if showRemoveModal}
   <Modal
-      submit={removeModalAction}
-      cancel={() => showRemoveModal = false}
-      question={removeModalQuestion}
+    submit={removeModalAction}
+    cancel={() => showRemoveModal = false}
+    question={removeModalQuestion}
       title={removeModalTitle}
   >
   </Modal>
@@ -307,9 +317,9 @@
 
 {#if showAddModal}
   <AddPermissionsModal
-      submit={addModalAction}
-      cancel={() => showAddModal = false}
-      selectEntity={selectEntity}
+    submit={addModalAction}
+    cancel={() => showAddModal = false}
+    selectEntity={selectEntity}
       permissionsRoles={permissionsRoles}
       title={addModalTitle}
       entity={'issuer'}

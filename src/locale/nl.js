@@ -310,6 +310,10 @@ I18n.translations.nl = {
     accepted: "Accepted"
   },
   editUsers: {
+    institutionPermissions: "Permissies op {{instance}} niveau",
+    user: {
+      header: "Gebruiker",
+    },
     institution: {
       header: "Instelling",
       allRights: "Instellings Admin",
@@ -340,6 +344,8 @@ I18n.translations.nl = {
       permissions: "Permissies op Badge Class niveau"
     },
     permissions: {
+      header: "Permissies",
+      headerUser: "Permissies voor",
       allRights: "Alle rechten",
       institutionAllRights: "(because Institution Admin)",
       issuerGroupAllRights: "(because Issuer Group Admin)",
@@ -589,5 +595,14 @@ I18n.translations.nl = {
     users: "Er zijn geen users voor instelling {}.",
     assertions: "Er zijn geen assertions voor badge {}.",
     enrollments: "Er zijn geen enrollments voor badge {}.",
+    permissions: "Er zijn geen permissies voor deze gebruiker {{name}} niveau.",
+  },
+  userManagement: {
+    permissions: "Permissies voor {{name}}",
+    institution_staff: "institution staff",
+    issuer_group_staff: "issuer group staff",
+    issuer_staff: "issuer staff",
+    badge_class_staff: "badge class staff",
+    user_provisionment: "user provisionment"
   }
 };
