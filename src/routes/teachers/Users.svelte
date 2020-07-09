@@ -88,6 +88,7 @@
     queryData(query).then(res => {
       $institution = res.currentInstitution;
       $users = res.users;
+      res.users.forEach(u => console.log(`${u.email} ${u.entityId}`))
       loaded = true;
     });
   });
@@ -157,6 +158,7 @@
               <span class="sub-text">{user.email}</span>
             </td>
             <td>{user.role}</td>
+            <td>{user.entityId}</td>
           </tr>
         {/each}
         {#if users.length === 0}

@@ -1,12 +1,13 @@
 <script>
-  import { onMount } from "svelte";
-  import { queryData } from "../../api/graphql";
-  import { Button, CheckBox } from "../../components";
-  import { UsersTable } from "../teachers";
-  import { sortType } from "../../util/sortData";
   import {entityType} from "../../util/entityTypes";
+  import {onMount} from "svelte";
+  import {queryData} from "../../api/graphql";
+  import {Button, CheckBox} from "../../components";
+  import {UsersTable} from "../teachers";
+  import {sortType} from "../../util/sortData";
   import I18n from "i18n-js";
-  import { makeUserInstitutionAdmin, removeUserInstitutionAdmin } from "../../api";
+  import {makeUserInstitutionAdmin, removeUserInstitutionAdmin} from "../../api";
+  import Spinner from "../Spinner.svelte";
 
   export let userId;
 
@@ -114,7 +115,7 @@
 
   $: table = {
     entity: "user",
-    title: `${I18n.t(["editUsers", entityType.INSTITUTION, 'permissions'])}`,
+    title: `${I18n.t("editUsers.institutionPermissions", {instance: I18n.t("editUsers.institution.header")})}`,
     tableHeaders: tableHeaders
   };
 
@@ -130,8 +131,8 @@
     {
       'action': toggleInstitutionAdmin,
       'text': user && user.institutionStaff ?
-          I18n.t(['editUsers', 'permissions', 'removeInstitutionAdmin']) :
-          I18n.t(['editUsers', 'permissions', 'setInstitutionAdmin']),
+        I18n.t(['editUsers', 'permissions', 'removeInstitutionAdmin']) :
+        I18n.t(['editUsers', 'permissions', 'setInstitutionAdmin']),
       'allowed': (currentUser && currentUser.institutionStaff),
       'disabled': false
     }
@@ -164,10 +165,11 @@
 {#if user}
   <div class="container">
     <UsersTable
-        {...table}
-        bind:search={institutionSearch}
-        withCheckAll={false}
-        bind:buttons={buttons}
+      {...table}
+      isEmpty={false}
+      bind:search={institutionSearch}
+      withCheckAll={false}
+      bind:buttons={buttons}
     >
       <tr>
         <td>{institutionName}</td>
@@ -177,4 +179,6 @@
       </tr>
     </UsersTable>
   </div>
+{:else}
+  <Spinner/>
 {/if}

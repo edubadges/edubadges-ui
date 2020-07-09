@@ -1,16 +1,17 @@
 <script>
-  import { onMount } from "svelte";
-  import { queryData } from "../../api/graphql";
-  import { Button, CheckBox } from "../../components";
-  import { UsersTable } from "../teachers";
   import {entityType} from "../../util/entityTypes";
-  import { sortType } from "../../util/sortData";
+  import {onMount} from "svelte";
+  import {queryData} from "../../api/graphql";
+  import {Button, CheckBox} from "../../components";
+  import {UsersTable} from "../teachers";
+  import {sortType} from "../../util/sortData";
   import I18n from "i18n-js";
   import {
-      makeUserIssuerGroupAdmin,
-      removeUserIssuerGroupAdmin
+    makeUserIssuerGroupAdmin,
+    removeUserIssuerGroupAdmin
   } from "../../api";
-  import { AddPermissionsModal, Modal} from "../forms";
+  import {AddPermissionsModal, Modal} from "../forms";
+  import Spinner from "../Spinner.svelte";
 
   export let userId;
 
@@ -22,6 +23,9 @@
 
   let selection = [];
   let checkAllValue = false;
+
+  let loaded;
+  let isEmpty;
 
   const query = `{
   currentInstitution {
@@ -88,15 +92,21 @@
     }
   }
  }`;
-
-  onMount(() => {
+  const reload = () => {
+    loaded = false;
     queryData(query).then(res => {
       institutionId = res.currentInstitution.entityId;
       faculties = res.currentInstitution.faculties;
       user = res.user;
       currentUser = res.currentUser;
+      isEmpty = user.facultyStaffs.length === 0 &&
+        (!user.institutionStaff || (user.institutionStaff && faculties.length === 0));
+      loaded = true;
     });
-  });
+  };
+
+
+  onMount(reload);
 
   const tableHeaders = [
     {
@@ -130,16 +140,8 @@
 
   $: table = {
     entity: "user",
-    title: `${I18n.t(["editUsers", entityType.ISSUER, 'permissions'])}`,
+    title: `${I18n.t("editUsers.institutionPermissions", {instance: I18n.t("editUsers.faculty.header")})}`,
     tableHeaders: tableHeaders
-  };
-
-  const reload = () => {
-      queryData(query).then(res => {
-          faculties = res.currentInstitution.faculties;
-          user = res.user;
-          currentUser = res.currentUser;
-      });
   };
 
   const submitPermissions = () => {
@@ -149,7 +151,7 @@
           reload();
           showAddModal = false;
         });
-          break;
+        break;
       default:
         console.error('error: invalid role');
     }
@@ -157,10 +159,10 @@
 
   const removeSelectedPermissions = () => {
     for (const selected of selection) {
-        removeUserIssuerGroupAdmin(selected).then(() => {
-            reload();
-            showRemoveModal = false;
-        })
+      removeUserIssuerGroupAdmin(selected).then(() => {
+        reload();
+        showRemoveModal = false;
+      })
     }
     selection.length = 0;
   };
@@ -219,22 +221,23 @@
   }
 </style>
 
-{#if user}
+{#if loaded}
   <div class="container">
     <UsersTable
-        {...table}
-        bind:search={issuerGroupSearch}
-        withCheckAll={true}
-        bind:buttons={buttons}
+      {...table}
+      isEmpty={isEmpty}
+      bind:search={issuerGroupSearch}
+      withCheckAll={true}
+      bind:buttons={buttons}
     >
       {#each user.facultyStaffs as facultyStaffMembership}
         <tr>
           <td>
             <CheckBox
-                value={selection.includes(facultyStaffMembership.entityId)}
-                name={`select-${facultyStaffMembership.entityId}`}
-                disabled={false}
-                onChange={val => onCheckOne(val, facultyStaffMembership.entityId)}/>
+              value={selection.includes(facultyStaffMembership.entityId)}
+              name={`select-${facultyStaffMembership.entityId}`}
+              disabled={false}
+              onChange={val => onCheckOne(val, facultyStaffMembership.entityId)}/>
           </td>
           <td>{facultyStaffMembership.faculty.name}</td>
           <td>
@@ -247,28 +250,36 @@
           <tr>
             <td>
               <CheckBox
-                  value={''}
-                  name={''}
-                  disabled={true}}/>
+                value={''}
+                name={''}
+                disabled={true}}/>
             </td>
             <td>{faculty.name}</td>
             <td>
               {I18n.t(['editUsers', 'permissions', 'allRights'])}
-              <br />
+              <br/>
               <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'institutionAllRights'])}</span>
             </td>
           </tr>
         {/each}
       {/if}
+      {#if isEmpty}
+        <tr>
+          <td colspan="4">{I18n.t("zeroState.permissions",{name: I18n.t("userManagement.issuer_group_staff")})}</td>
+        </tr>
+      {/if}
     </UsersTable>
   </div>
+{:else}
+  <Spinner/>
 {/if}
+
 
 {#if showRemoveModal}
   <Modal
-      submit={removeModalAction}
-      cancel={() => showRemoveModal = false}
-      question={removeModalQuestion}
+    submit={removeModalAction}
+    cancel={() => showRemoveModal = false}
+    question={removeModalQuestion}
       title={removeModalTitle}
   >
   </Modal>
@@ -276,9 +287,9 @@
 
 {#if showAddModal}
   <AddPermissionsModal
-      submit={addModalAction}
-      cancel={() => showAddModal = false}
-      selectEntity={selectEntity}
+    submit={addModalAction}
+    cancel={() => showAddModal = false}
+    selectEntity={selectEntity}
       permissionsRoles={permissionsRoles}
       title={addModalTitle}
       entity={'faculty'}
