@@ -21,7 +21,7 @@
   };
 
   const actionAfterCopy = () => {
-    setTimeout(copied, 2500);
+    setTimeout(copied, 1750);
   }
 
 </script>

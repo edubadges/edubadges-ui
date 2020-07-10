@@ -202,6 +202,12 @@ I18n.translations.nl = {
     },
     delete: {
       delete: "delete",
+      info: {
+        institution: "Instellingen kunnen niet verwijderd worden in het issuer portaal.",
+        faculty: "Faculteit heeft issuers en kan niet verwijderd worden.",
+        issuer: "Issuer heeft badge classes en kan niet verwijderd worden.",
+        badgeclass: "Badge class heeft assertions en kan niet verwijderd worden."
+      },
       flash: "{{type}} is verwijderd",
       institution: {
         name: "Instituut",
@@ -597,13 +603,14 @@ I18n.translations.nl = {
   },
   monthNames: ["Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "October", "November", "December"],
   zeroState: {
-    badgeClasses: "Er zijn geen badge-classes voor issuer {}.",
-    issuers: "Er zijn geen issuers voor {}.",
-    faculties: "Er zijn geen faculties voor instelling {}.",
-    users: "Er zijn geen users voor instelling {}.",
-    assertions: "Er zijn geen assertions voor badge {}.",
-    enrollments: "Er zijn geen enrollments voor badge {}.",
+    badgeClasses: "Er zijn geen badge-classes voor issuer {{name}}.",
+    issuers: "Er zijn geen issuers voor {{name}}.",
+    faculties: "Er zijn geen faculties voor instelling {{name}}.",
+    users: "Er zijn geen users voor instelling {{name}}.",
+    assertions: "Er zijn geen assertions voor badge {{name}}.",
+    enrollments: "Er zijn geen enrollments voor badge {{name}}.",
     permissions: "Er zijn geen permissies voor deze gebruiker {{entity}} niveau.",
+    selfPermissions: "Deze gebruiker heeft geen permissies op {{entity}} niveau.",
     userPermissions: "Deze gebruiker heeft geen permissies op {{entity}} niveau."
   },
   userManagement: {

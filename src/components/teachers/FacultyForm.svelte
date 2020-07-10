@@ -14,7 +14,7 @@
   let errors = {};
   let isCreate = !entityId;
   let showRemoveModal = false;
-  let processing  = false;
+  let processing = false;
 
   function onSubmit() {
     processing = true;
@@ -30,7 +30,7 @@
       })
       .catch(err => err.then(({fields}) => {
         errors = fields.error_message;
-                processing = false;
+        processing = false;
 
       }));
   }
@@ -44,7 +44,7 @@
   </Field>
 
   <Field {entity} attribute="description" errors={errors.description}>
-    <TextInput bind:value={faculty.description} error={errors.description} area/>
+    <TextInput bind:value={faculty.description} error={errors.description} area size="100"/>
   </Field>
 
 </EntityForm>

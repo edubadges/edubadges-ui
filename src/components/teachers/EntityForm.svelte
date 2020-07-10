@@ -43,6 +43,16 @@
       &.delete {
         margin-left: auto;
         margin-right: 0;
+        display: flex;
+        flex-direction: column;
+        span.may-not-delete {
+          display: inline-block;
+          margin-top: 10px;
+          color: var(--grey-7);
+          font-style: italic;
+          font-size: 14px;
+          max-width: 160px;
+        }
       }
     }
   }
@@ -77,13 +87,16 @@
           action={submit}
           text={I18n.t(['manage', create ? 'new' : 'edit', 'save'])}/>
       </div>
-      {#if mayDelete}
+      {#if !create}
         <div class="button-container delete">
           <Button
             warning={true}
-            disabled={processing || deleting}
+            disabled={!mayDelete || processing || deleting}
             action={() => showRemoveModal = true}
             text={I18n.t("manage.delete.delete")}/>
+          {#if !mayDelete}
+            <span class="may-not-delete">{I18n.t(`manage.delete.info.${entityTypeName}`)}</span>
+          {/if}
         </div>
       {/if}
     </div>

@@ -202,6 +202,12 @@ I18n.translations.en = {
     },
     delete: {
       delete: "Delete",
+      info: {
+        institution: "Institutions can't be deleted in the issuer portal",
+        faculty: "Faculty has issuers and can't be deleted",
+        issuer: "Issuer has badge classes and can't be deleted",
+        badgeclass: "Badge class has assertions and can't be deleted"
+      },
       flash: "Successfully deleted {{type}}",
       institution: {
         name: "institution",
@@ -603,6 +609,7 @@ I18n.translations.en = {
     users: "There are no users for institution {{name}}.",
     assertions: "There are no assertions for badge {{name}}.",
     enrollments: "There are no enrollments for badge {{name}}.",
+    permissions: "There are no perissions for this user on the {{entity}} level.",
     selfPermissions: "There are no permissions for this user on the {{entity}} level.",
     userPermissions: "This user does not have any permissions for {{entity}} {{name}}."
   },
