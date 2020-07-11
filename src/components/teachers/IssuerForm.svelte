@@ -59,7 +59,7 @@
   </Field>
 
   <Field {entity} attribute="description" errors={errors.description}>
-    <TextInput bind:value={issuer.description} error={errors.description} area/>
+    <TextInput bind:value={issuer.description} error={errors.description} area size="100"/>
   </Field>
 
   <Field {entity} attribute="url" errors={errors.url}>

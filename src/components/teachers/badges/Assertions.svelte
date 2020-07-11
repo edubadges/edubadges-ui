@@ -13,7 +13,7 @@
   import {search, searchMultiple} from "../../../util/searchData";
   import Modal from "../../forms/Modal.svelte";
   import {flash} from "../../../stores/flash";
-
+import filter from "../../../icons/filter-1.svg";
 
   export let assertions = [];
   export let issuer;
@@ -106,6 +106,7 @@
       name: I18n.t("models.badge.awardType.name"),
       attribute: "award_type",
       reverse: false,
+      icon: filter,
       sortType: sortType.ALPHA
     },
     {

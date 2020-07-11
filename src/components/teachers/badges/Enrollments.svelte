@@ -13,7 +13,7 @@
   import singleNeutralCheck from "../../../icons/single-neutral-check.svg";
   import {userName} from "../../../util/users";
   import Modal from "../../forms/Modal.svelte";
-
+  import filter from "../../../icons/filter-1.svg";
 
   export let entityId;
   export let enrollments = [];
@@ -96,6 +96,7 @@
       name: I18n.t("models.enrollment.enrollmentType.name"),
       attribute: "award_type",
       reverse: false,
+      icon: filter,
       sortType: sortType.ALPHA
     },
     {
