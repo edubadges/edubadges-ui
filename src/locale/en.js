@@ -426,6 +426,7 @@ I18n.translations.en = {
       image: "Badge image",
       created: "Created",
       admin: "Admin",
+      alignment: "Alignment",
       alignmentName: "Name",
       alignmentFramework: "Framework",
       alignmentUrl: "URL",
@@ -445,6 +446,7 @@ I18n.translations.en = {
       expireSettings: "Default expiration settings",
       language: "Language of instruction",
       learningOutcome: "Learning outcome",
+      studyLoad: "Study load",
       ects: {
         creditPoints: "Credit points (according to ECTS)",
         hours: "Hours"
@@ -454,7 +456,7 @@ I18n.translations.en = {
       eqf: "NLQF level",
       educationProgramIdentifier: "ISAT",
       educationProgramIdentifierLong: "Programme Identifier",
-      notSet: "No value set",
+      notSet: "None",
       expirationPeriods: {
         days: "Days",
         weeks: "Weeks",

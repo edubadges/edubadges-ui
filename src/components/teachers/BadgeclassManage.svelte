@@ -52,6 +52,13 @@
         name,
         originalJson
       },
+      alignments {
+        targetName,
+        targetUrl,
+        targetCode,
+        targetFramework,
+        targetDescription
+      },
       permissions {
         mayUpdate
       }

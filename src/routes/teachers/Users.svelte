@@ -88,7 +88,6 @@
     queryData(query).then(res => {
       $institution = res.currentInstitution;
       $users = res.users;
-      res.users.forEach(u => console.log(`${u.email} ${u.entityId}`))
       loaded = true;
     });
   });

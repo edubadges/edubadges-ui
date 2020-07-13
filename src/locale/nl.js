@@ -426,6 +426,7 @@ I18n.translations.nl = {
       image: "Badge afbeelding",
       created: "Aangemaakt",
       admin: "Admin",
+      alignment: "Alignment",
       alignmentName: "Naam",
       alignmentFramework: "Framework",
       alignmentUrl: "URL",
@@ -454,7 +455,7 @@ I18n.translations.nl = {
       eqf: "NLQF niveau",
       educationProgramIdentifier: "ISAT",
       educationProgramIdentifierLong: "Programme Identifier",
-      notSet: "Geen waarde opgegeven",
+      notSet: "Geen",
       expirationPeriods: {
         days: "Dagen",
         weeks: "Weken",

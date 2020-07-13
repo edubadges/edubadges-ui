@@ -50,7 +50,14 @@
         faculty { name, entityId }
       },
       permissions { mayUpdate },
-      extensions { name, originalJson }
+      extensions { name, originalJson },
+      alignments {
+        targetName,
+        targetUrl,
+        targetCode,
+        targetFramework,
+        targetDescription
+      }
     },
     ${enrollmentsQuery(entityId)},
     ${assertionsQuery(entityId)},

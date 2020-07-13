@@ -1,16 +1,9 @@
 <script>
   import {onMount} from "svelte";
   import I18n from "i18n-js";
-  import {queryData} from "../../api/graphql";
-  import {role} from "../../util/role";
-  import {getPublicBadgeClass, getPublicIssuer} from "../../api";
-  import {isEmpty} from "lodash";
+  import { getPublicIssuer} from "../../api";
   import {EntityHeader} from "../teachers";
-  import {Overview} from "../teachers/badgeclass";
   import {Button, Spinner} from "../index";
-  import {publicBadgeInformation} from "../extensions/badges/extensions";
-  import {userLoggedIn, redirectPath} from "../../stores/user";
-  import {navigate} from "svelte-routing";
   import {entityType} from "../../util/entityTypes"
 
   export let entityId;
