@@ -446,6 +446,7 @@ I18n.translations.nl = {
       expireSettings: "Standaard verloop setting",
       language: "Language of instruction",
       learningOutcome: "Leeruitkomst",
+      studyLoad: "Study load",
       ects: {
         creditPoints: "Studiepunten (ECTS)",
         hours: "Uren"
