@@ -78,13 +78,14 @@
   let extensions = {};
 
   $: if (badgeclass.extensions.length > 0 && !loaded) {
+    const studyLoadValue = extensionValue(badgeclass.extensions, studyLoad);
     extensions = {
       [language.name]: extensionValue(badgeclass.extensions, language) || "en_EN",
       [ects.name]: extensionValue(badgeclass.extensions, ects) || 2.5,
       [eqf.name]: extensionValue(badgeclass.extensions, eqf) || {name: "EQF 6", value: 6},
       [learningOutcome.name]: extensionValue(badgeclass.extensions, learningOutcome) || "",
       [educationProgramIdentifier.name]: extensionValue(badgeclass.extensions, educationProgramIdentifier) || "",
-      [studyLoad.name]: extensionValue(badgeclass.extensions, studyLoad) || "",
+      [studyLoad.name]: studyLoadValue || "",
     };
     if (extensions[eqf.name] && typeof extensions[eqf.name] === "number") {
       extensions[eqf.name] = {name: `EQF ${extensions[eqf.name]}`, value: extensions[eqf.name]}
@@ -94,13 +95,12 @@
     }
     if (extensions[eqf.name] || extensions[studyLoad.name]) {
       showStudyLoad = true;
-      ectsOrHoursSelection = extensions[eqf.name] ? ectsOrHours[0] : ectsOrHours[1];
+      ectsOrHoursSelection = studyLoadValue ? ectsOrHours[1] : ectsOrHours[0];
     }
     loaded = true;
   }
 
   function onSubmit() {
-    debugger;
     errors = {};
     processing = true;
 
@@ -157,6 +157,9 @@
       .catch(err => err.then(({fields}) => {
         processing = false;
         errors = fields.error_message;
+        if (errors.alignments) {
+          errors = {...errors, ...fields.error_message.alignments[0]}
+        }
       }));
   }
 </script>
@@ -331,14 +334,14 @@
           clearable={false}
         />
       </Field>
-
+      <p></p>
       {#if ectsOrHoursSelection.value === 'creditPoints'}
         <Field {entity} attribute="amount" errors={errors.ectsLong}>
           <EctsCreditPoints bind:ectsValue={extensions[ects.name]}/>
         </Field>
       {:else}
         <Field {entity} attribute="amount" errors={errors.studyLoad}>
-          <TextInput type="number" bind:ectsValue={extensions[studyLoad.name]}/>
+          <TextInput type="number" bind:value={extensions[studyLoad.name]}/>
         </Field>
       {/if}
     </div>
@@ -387,34 +390,34 @@
     <hr class="header-line">
 
     <div class="form">
-      <Field {entity} attribute="alignmentName">
+      <Field {entity} attribute="alignmentName" errors={errors.target_name}>
         <TextInput
           bind:value={alignment.target_name}
-          error={errors.alignmentName}
+          error={errors.target_name}
         />
       </Field>
-      <Field {entity} attribute="alignmentFramework">
+      <Field {entity} attribute="alignmentFramework" errors={errors.target_framework}>
         <TextInput
           bind:value={alignment.target_framework}
-          error={errors.alignment_framework}
+          error={errors.target_framework}
         />
       </Field>
-      <Field {entity} attribute="alignmentUrl">
+      <Field {entity} attribute="alignmentUrl" errors={errors.target_url}>
         <TextInput
           bind:value={alignment.target_url}
-          error={errors.alignment_framework}
+          error={errors.target_url}
         />
       </Field>
-      <Field {entity} attribute="alignmentCode">
+      <Field {entity} attribute="alignmentCode" errors{errors.target_code}>
         <TextInput
           bind:value={alignment.target_code}
-          error={errors.alignmentCode}
+          error={errors.target_code}
         />
       </Field>
-      <Field {entity} attribute="alignmentDescription">
+      <Field {entity} attribute="alignmentDescription" errors={errors.target_description}>
         <TextInput
           bind:value={alignment.target_description}
-          error={errors.targetDescription}
+          error={errors.target_description}
           area
           size="100"
         />

@@ -37,6 +37,7 @@ const extensionNameValueDict = [
   eqf,
   learningOutcome,
   educationProgramIdentifier,
+  studyLoad
 ].reduce((acc, extension) => {
   acc[extension.name] = extension.value;
   return acc;

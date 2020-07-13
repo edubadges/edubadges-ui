@@ -1,4 +1,5 @@
 <script>
+  import I18n from "i18n-js";
   import {onMount} from "svelte";
   import {Router, Route, navigate} from "svelte-routing";
   import {Breadcrumb, EntityHeader, Badgeclasses, IssuerUserManagement, InviteUser} from "../teachers";
@@ -7,6 +8,13 @@
   import {headerStaff, headerEntity} from "../../api/queries";
   import {entityType} from "../../util/entityTypes";
   import {config} from "../../util/config";
+
+
+import {
+    ects,
+    extensionValue,
+    studyLoad
+  } from "../extensions/badges/extensions";
 
   export let entityId;
   export let subEntity;
@@ -39,6 +47,10 @@
         },
         enrollments {
           entityId
+        },
+        extensions {
+         name,
+         originalJson
         }
       },
       permissions {
@@ -55,6 +67,12 @@
       issuer.publicLink = `${config.serverUrl}/public/issuers/${entityId}`;
       faculty = issuer.faculty;
       badgeclasses = issuer.badgeclasses;
+      badgeclasses.forEach(badgeClass => {
+        const studyLoadValue = extensionValue(badgeClass.extensions, studyLoad);
+        const ectsValue = extensionValue(badgeClass.extensions, ects);
+        badgeClass.studyLoad = studyLoadValue ? I18n.t("teacher.badgeclasses.hours", {value: studyLoadValue}) : ectsValue ?
+          I18n.t("teacher.badgeclasses.ects", {value: ectsValue}) : "-";
+      });
       permissions = res.issuer.permissions;
       contentType = res.issuer.contentTypeId;
     });

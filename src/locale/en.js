@@ -115,7 +115,9 @@ I18n.translations.en = {
       title: "Badge Classes",
       created: "Date created",
       recipients: "Recipients",
-      ects: "ECTS-credits",
+      studyLoad: "Study load",
+      ects: "{{value}} ECTS",
+      hours: "{{value}} hours",
     },
     issuers: {
       title: "Issuers",
@@ -300,6 +302,10 @@ I18n.translations.en = {
     702: "Invalid share provider",
     801: "Cannot change grading table URL, edubadges have already been issued",
     802: "Cannot change BRIN code, edubadges have already been issued",
+    902: "Must be a valid URL",
+    903: "This is a required attribute",
+    904: "No file was uploaded.",
+    905: "Either criteria or criteria URL is required.",
     unexpected: "Unexpected exception occurred.",
     description: "An unexpected error has occurred. Please try again later or contact <a href='mailto:edubadges@surf.nl'>edubadges@surf.nl</a> for support",
     close: "Close"

@@ -115,7 +115,9 @@ I18n.translations.nl = {
       title: "Badge Classes",
       created: "Datum gecreëerd",
       recipients: "Ontvangers",
-      ects: "ECTS-credits",
+      studyLoad: "Studie load",
+      ects: "{{value}} ECTS",
+      hours: "{{value}} uren",
     },
     issuers: {
       title: "Issuers",
@@ -298,8 +300,12 @@ I18n.translations.nl = {
     601: "Geen toegang. Check je assigned role in de Issuer",
     701: "Ongespecifieerde share provider",
     702: "Ongeldige share provider",
-    801: "Kan grading table URL niet aanpassen, er zijn al edubadges uitgegeven",
-    802: "Kan BRIN code niet aanpassen, er zijn al edubadges uitgegeven",
+    801: "Kan grading table URL niet aanpassen, er zijn al edubadges uitgegeven.",
+    802: "Kan BRIN code niet aanpassen, er zijn al edubadges uitgegeven.",
+    902: "Moet een geldige URL zijn.",
+    903: "Dit veld is verplicht.",
+    904: "Geen bestand gekozen.",
+    905: "Dan wel criteria of criteria URL zijn verplicht.",
     unexpected: "Oops, er is iets totaal onverwachts en onverklaarbaars gebeurt. Heb je de applicatie stuk gemaakt?",
     description: "Een onverwachte fout is opgetreden. Probeer het opnieuw of neem contact op met <a href='mailto:edubadges@surf.nl'>edubadges@surf.nl</a> voor ondersteuning",
     close: "Close"
@@ -464,9 +470,9 @@ I18n.translations.nl = {
         alignment: "Alignment"
       },
       addButtons: {
-        educationalIdentifiers: "Add educational identifier(s)",
-        studyLoad: "Add study load",
-        alignment: "Add alignment",
+        educationalIdentifiers: "Educatie identifier(s) toevoegen",
+        studyLoad: "Study load toevoegen",
+        alignment: "Alignment toevoegen",
       },
       info: {
         educationProgramIdentifier:
