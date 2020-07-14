@@ -8,14 +8,20 @@
   export let secondary;
   export let disabled = false;
   export let small;
+  export let full;
   export let toCopy;
   export let copied = false;
+  export let actionAfterCopy;
+
 
   const copyToClipboard = toCopy => {
     copy(toCopy);
     copied = true;
-    setTimeout(() => copied = false, 1800);
+    setTimeout(() => copied = false, 1500);
+    actionAfterCopy && actionAfterCopy();
   }
+
+
 
 </script>
 
@@ -23,13 +29,21 @@
   div.copy-to-clipboard-container {
     display: flex;
     position: relative;
+
+    &.full {
+      width: 100%;
+    }
   }
 
   div.copy-to-clipboard {
     display: flex;
 
+    &.full {
+      width: 100%;
+    }
+
     &.copied {
-      animation: pulse 1.8s;
+      animation: pulse 1.2s;
       animation-iteration-count: 1;
       position: relative;
       border-radius: 5px;
@@ -50,9 +64,9 @@
   }
 
 </style>
-<div class="copy-to-clipboard-container">
-  <div class="copy-to-clipboard" class:copied>
-    <Button {secondary} {text} {disabled} {small} action={() => copyToClipboard(toCopy)}/>
+<div class="copy-to-clipboard-container" class:full>
+  <div class="copy-to-clipboard" class:copied class:full>
+    <Button {secondary} {text} {disabled} {small} fill={full} action={() => copyToClipboard(toCopy)}/>
   </div>
 </div>
 

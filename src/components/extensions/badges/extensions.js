@@ -37,6 +37,7 @@ const extensionNameValueDict = [
   eqf,
   learningOutcome,
   educationProgramIdentifier,
+  studyLoad
 ].reduce((acc, extension) => {
   acc[extension.name] = extension.value;
   return acc;
@@ -82,6 +83,7 @@ export const extensionToJson = (nameValuePairs) => {
 
 export const publicBadgeInformation = (badgeClass, res) => {
   //The data from the public endpoint is different then from the graphQL query endpoint
+  badgeClass.alignments = badgeClass.alignment;
   badgeClass.criteriaUrl = res['criteria']['id'];
   badgeClass.criteriaText = res['criteria']['narrative'];
   if (res['extensions:LanguageExtension']) {
@@ -104,4 +106,5 @@ export const publicBadgeInformation = (badgeClass, res) => {
   }
   //When using graphQL the extensions field is an array - for compatibility we set an empty array as we already populated the badgeClass
   badgeClass.extensions = [];
+  badgeClass.ignoreExtensions = true;
 }

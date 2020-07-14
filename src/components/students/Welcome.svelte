@@ -13,7 +13,7 @@
     $userHasClosedWelcome = true;
   };
 
-  $: showCloseButton = !$userHasClosedWelcome || $userHasClosedWelcome === "false" ? true : false;
+  $: showCloseButton = !$userHasClosedWelcome;
 </script>
 
 <style lang="scss">

@@ -17,11 +17,10 @@
 
   const addEmailField = () => {
     $emailAddresses = [...$emailAddresses, {'emailAddress': ''}];
-    console.log($emailAddresses)
   };
 
   const award = (badgeId, emailAddresses) => {
-    console.log('direct award', emailAddresses, badgeId);
+    // TODO
   };
 
   function onSubmit() {

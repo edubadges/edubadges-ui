@@ -29,6 +29,7 @@
   import BadgeValidation from "./BadgeValidation.svelte";
   import ToggleSwitch from "../../components/ToggleSwitch.svelte";
   import copy from 'copy-to-clipboard';
+  import ShareDialog from "./ShareDialog.svelte";
 
   export let entityId;
 
@@ -41,9 +42,22 @@
   let modalQuestion;
   let modalAction;
   let showShareFeedback = false;
+  let showShareDialog = false;
+
 
   const cancel = () => {
     showModal = false;
+  }
+
+  const cancelShareDialog = () => {
+    showShareDialog = false;
+  }
+
+  const copiedLink = () => {
+    showShareDialog = false;
+    showShareFeedback = true;
+    setTimeout(() => showShareFeedback = false, 2500)
+
   }
 
   const publicUrl = () => {
@@ -52,9 +66,7 @@
   }
 
   const copyToClipboard = () => {
-    copy(publicUrl());
-    showShareFeedback = true;
-    setTimeout(() => showShareFeedback = false, 2500)
+    showShareDialog = true;
   }
 
   const downloadFileName = badge => {
@@ -90,7 +102,14 @@
         extensions {
           name,
           originalJson
-        }
+        },
+        alignments {
+          targetName,
+          targetUrl,
+          targetCode,
+          targetFramework,
+          targetDescription
+        },
       }
     }
   }`;
@@ -99,6 +118,7 @@
 
   const refreshBadgeDetails = () => {
     loaded = false;
+    //TODO read all extensions
     queryData(query).then(res => {
       badge = res.badgeInstance;
       showModal = false;
@@ -372,10 +392,6 @@
     }
   }
 
-  div.description {
-    margin-bottom: 40px;
-  }
-
   div.delete {
     display: flex;
     padding: 0 0 44px 0;
@@ -456,10 +472,6 @@
           <span>{badge.expires ? moment(badge.expires).format('MMM D, YYYY') : I18n.t("models.badge.expiresNever")}</span>
         </div>
       </div>
-      <div class="description">
-        <h3>{I18n.t("models.badgeclass.description")}</h3>
-        <span>{badge.badgeclass.description}</span>
-      </div>
       <div class="issued">
         <h3>{I18n.t("models.badge.issuedBy")}</h3>
         <span class="issuer">{badge.badgeclass.issuer.name}</span>
@@ -489,3 +501,10 @@
          question={modalQuestion}
          title={modalTitle}/>
 {/if}
+
+{#if showShareDialog}
+  <ShareDialog copied={copiedLink}
+               cancel={cancelShareDialog}
+               publicUrl={publicUrl()}/>
+{/if}
+

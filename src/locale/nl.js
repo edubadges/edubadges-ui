@@ -115,7 +115,9 @@ I18n.translations.nl = {
       title: "Badge Classes",
       created: "Datum gecreëerd",
       recipients: "Ontvangers",
-      ects: "ECTS-credits",
+      studyLoad: "Studie load",
+      ects: "{{value}} ECTS",
+      hours: "{{value}} uren",
     },
     issuers: {
       title: "Issuers",
@@ -202,6 +204,12 @@ I18n.translations.nl = {
     },
     delete: {
       delete: "delete",
+      info: {
+        institution: "Instellingen kunnen niet verwijderd worden in het issuer portaal.",
+        faculty: "Faculteit heeft issuers en kan niet verwijderd worden.",
+        issuer: "Issuer heeft badge classes en kan niet verwijderd worden.",
+        badgeclass: "Badge class heeft assertions en kan niet verwijderd worden."
+      },
       flash: "{{type}} is verwijderd",
       institution: {
         name: "Instituut",
@@ -292,8 +300,12 @@ I18n.translations.nl = {
     601: "Geen toegang. Check je assigned role in de Issuer",
     701: "Ongespecifieerde share provider",
     702: "Ongeldige share provider",
-    801: "Kan grading table URL niet aanpassen, er zijn al edubadges uitgegeven",
-    802: "Kan BRIN code niet aanpassen, er zijn al edubadges uitgegeven",
+    801: "Kan grading table URL niet aanpassen, er zijn al edubadges uitgegeven.",
+    802: "Kan BRIN code niet aanpassen, er zijn al edubadges uitgegeven.",
+    902: "Moet een geldige URL zijn.",
+    903: "Dit veld is verplicht.",
+    904: "Geen bestand gekozen.",
+    905: "Dan wel criteria of criteria URL zijn verplicht.",
     unexpected: "Oops, er is iets totaal onverwachts en onverklaarbaars gebeurt. Heb je de applicatie stuk gemaakt?",
     description: "Een onverwachte fout is opgetreden. Probeer het opnieuw of neem contact op met <a href='mailto:edubadges@surf.nl'>edubadges@surf.nl</a> voor ondersteuning",
     close: "Close"
@@ -414,11 +426,13 @@ I18n.translations.nl = {
       image: "Badge afbeelding",
       created: "Aangemaakt",
       admin: "Admin",
-      alignmentName: "Name",
+      alignment: "Alignment",
+      alignmentName: "Naam",
       alignmentFramework: "Framework",
       alignmentUrl: "URL",
       alignmentCode: "Code",
-      amount: "Amount",
+      alignmentDescription: "Omschrijving",
+      amount: "Aantaal",
       name: "Naam",
       description: "Beschrijving",
       criteria_text: "Wat is benodigd om deze edubadge te verdienen?",
@@ -432,6 +446,7 @@ I18n.translations.nl = {
       expireSettings: "Standaard verloop setting",
       language: "Language of instruction",
       learningOutcome: "Leeruitkomst",
+      studyLoad: "Study load",
       ects: {
         creditPoints: "Studiepunten (ECTS)",
         hours: "Uren"
@@ -441,7 +456,7 @@ I18n.translations.nl = {
       eqf: "NLQF niveau",
       educationProgramIdentifier: "ISAT",
       educationProgramIdentifierLong: "Programme Identifier",
-      notSet: "Geen waarde opgegeven",
+      notSet: "Geen",
       expirationPeriods: {
         days: "Dagen",
         weeks: "Weken",
@@ -457,9 +472,9 @@ I18n.translations.nl = {
         alignment: "Alignment"
       },
       addButtons: {
-        educationalIdentifiers: "Add educational identifier(s)",
-        studyLoad: "Add study load",
-        alignment: "Add alignment",
+        educationalIdentifiers: "Educatie identifier(s) toevoegen",
+        studyLoad: "Study load toevoegen",
+        alignment: "Alignment toevoegen",
       },
       info: {
         educationProgramIdentifier:
@@ -535,6 +550,11 @@ I18n.translations.nl = {
       }
     },
   },
+  shareDialog: {
+    title: "Deel jer badge",
+    copyPublicUrl: "Als je de link naar de publieke pagina van deze badge wilt delen, kan je de link kopiëren",
+    copy: "Kopieer de link"
+  },
   invites: {
     title: "Nodig iemand uit om zich in te schrijven",
     copyPublicUrl: "Als u de link naar de registratiepagina op uw intranet of ELO wilt plaatsen, kunt u de link kopiëren",
@@ -591,13 +611,14 @@ I18n.translations.nl = {
   },
   monthNames: ["Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "October", "November", "December"],
   zeroState: {
-    badgeClasses: "Er zijn geen badge-classes voor issuer {}.",
-    issuers: "Er zijn geen issuers voor {}.",
-    faculties: "Er zijn geen faculties voor instelling {}.",
-    users: "Er zijn geen users voor instelling {}.",
-    assertions: "Er zijn geen assertions voor badge {}.",
-    enrollments: "Er zijn geen enrollments voor badge {}.",
+    badgeClasses: "Er zijn geen badge-classes voor issuer {{name}}.",
+    issuers: "Er zijn geen issuers voor {{name}}.",
+    faculties: "Er zijn geen faculties voor instelling {{name}}.",
+    users: "Er zijn geen users voor instelling {{name}}.",
+    assertions: "Er zijn geen assertions voor badge {{name}}.",
+    enrollments: "Er zijn geen enrollments voor badge {{name}}.",
     permissions: "Er zijn geen permissies voor deze gebruiker {{entity}} niveau.",
+    selfPermissions: "Deze gebruiker heeft geen permissies op {{entity}} niveau.",
     userPermissions: "Deze gebruiker heeft geen permissies op {{entity}} niveau."
   },
   userManagement: {

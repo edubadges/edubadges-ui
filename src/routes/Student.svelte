@@ -12,7 +12,6 @@
   const pages = [
     { path: "backpack", icon: data_activity, component: Backpack },
     { path: "badge-requests", icon: security, component: BadgeRequests },
-    // { path: "collections", icon: data_activity, component: Collections },
     { path: "profile", icon: personal_info, component: Profile }
   ];
 

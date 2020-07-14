@@ -115,7 +115,9 @@ I18n.translations.en = {
       title: "Badge Classes",
       created: "Date created",
       recipients: "Recipients",
-      ects: "ECTS-credits",
+      studyLoad: "Study load",
+      ects: "{{value}} ECTS",
+      hours: "{{value}} hours",
     },
     issuers: {
       title: "Issuers",
@@ -202,6 +204,12 @@ I18n.translations.en = {
     },
     delete: {
       delete: "Delete",
+      info: {
+        institution: "Institutions can't be deleted in the issuer portal",
+        faculty: "Faculty has issuers and can't be deleted",
+        issuer: "Issuer has badge classes and can't be deleted",
+        badgeclass: "Badge class has assertions and can't be deleted"
+      },
       flash: "Successfully deleted {{type}}",
       institution: {
         name: "institution",
@@ -294,6 +302,10 @@ I18n.translations.en = {
     702: "Invalid share provider",
     801: "Cannot change grading table URL, edubadges have already been issued",
     802: "Cannot change BRIN code, edubadges have already been issued",
+    902: "Must be a valid URL",
+    903: "This is a required attribute",
+    904: "No file was uploaded.",
+    905: "Either criteria or criteria URL is required.",
     unexpected: "Unexpected exception occurred.",
     description: "An unexpected error has occurred. Please try again later or contact <a href='mailto:edubadges@surf.nl'>edubadges@surf.nl</a> for support",
     close: "Close"
@@ -414,10 +426,12 @@ I18n.translations.en = {
       image: "Badge image",
       created: "Created",
       admin: "Admin",
+      alignment: "Alignment",
       alignmentName: "Name",
       alignmentFramework: "Framework",
       alignmentUrl: "URL",
       alignmentCode: "Code",
+      alignmentDescription: "Description",
       amount: "Amount",
       name: "Name",
       description: "Description",
@@ -432,6 +446,7 @@ I18n.translations.en = {
       expireSettings: "Default expiration settings",
       language: "Language of instruction",
       learningOutcome: "Learning outcome",
+      studyLoad: "Study load",
       ects: {
         creditPoints: "Credit points (according to ECTS)",
         hours: "Hours"
@@ -441,7 +456,7 @@ I18n.translations.en = {
       eqf: "NLQF level",
       educationProgramIdentifier: "ISAT",
       educationProgramIdentifierLong: "Programme Identifier",
-      notSet: "No value set",
+      notSet: "None",
       expirationPeriods: {
         days: "Days",
         weeks: "Weeks",
@@ -535,10 +550,15 @@ I18n.translations.en = {
       }
     },
   },
+  shareDialog: {
+    title: "Share your badge",
+    copyPublicUrl: "If you want to share the link of the public page on this badge, you can copy the link to your clipboard.",
+    copy: "Copy the link"
+  },
   invites: {
     title: "Invite people to enroll",
-    copyPublicUrl: "If you want to place the link to the registration page on your intranet or ELO, you can copy the link",
-    copyUrl: "Copy URL"
+    copyPublicUrl: "If you want to place the link to the registration page on your intranet or ELO, you can copy the link.",
+    copyUrl: "Copy the link"
   },
   file: {
     noFileSelected: "No file selected",
@@ -597,6 +617,7 @@ I18n.translations.en = {
     users: "There are no users for institution {{name}}.",
     assertions: "There are no assertions for badge {{name}}.",
     enrollments: "There are no enrollments for badge {{name}}.",
+    permissions: "There are no perissions for this user on the {{entity}} level.",
     selfPermissions: "There are no permissions for this user on the {{entity}} level.",
     userPermissions: "This user does not have any permissions for {{entity}} {{name}}."
   },

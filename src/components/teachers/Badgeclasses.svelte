@@ -30,8 +30,8 @@
       sortType: sortType.ALPHA
     },
     {
-      name: I18n.t("teacher.badgeclasses.ects"),
-      attribute: "ects",
+      name: I18n.t("teacher.badgeclasses.studyLoad"),
+      attribute: "studyLoad",
       reverse: false,
       sortType: sortType.ALPHA
     }
@@ -70,7 +70,7 @@
       <td>{badgeclass.name}</td>
       <td>{moment(badgeclass.dateCreated).format('MMM D, YYYY')}</td>
       <td>{badgeclass.badgeAssertions.length}</td>
-      <td>-</td>
+      <td>{badgeclass.studyLoad}</td>
     </tr>
   {/each}
   {#if badgeclasses.length === 0}

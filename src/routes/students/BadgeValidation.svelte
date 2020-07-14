@@ -29,7 +29,6 @@
   div.validation {
     width: 100%;
     display: flex;
-    margin-bottom: 30px;
     align-items: center;
 
     div.button-container {
@@ -38,18 +37,20 @@
   }
 
 </style>
-<h3>{I18n.t("publicBadge.verification")}</h3>
-<div class="validation">
+<div>
+  <h3>{I18n.t("publicBadge.verification")}</h3>
+  <div class="validation">
 
-  <div class="info">
-    <p>{@html I18n.t("publicBadge.issuedTo", {name: validatedName, date: formatDate(badge.issuedOn)})}</p>
-    <p>{badge.expires ? I18n.t("publicBadge.expires", {date: formatDate(badge.expires)}) : I18n.t("publicBadge.neverExpires")}</p>
+    <div class="info">
+      <p>{@html I18n.t("publicBadge.issuedTo", {name: validatedName, date: formatDate(badge.issuedOn)})}</p>
+      <p>{badge.expires ? I18n.t("publicBadge.expires", {date: formatDate(badge.expires)}) : I18n.t("publicBadge.neverExpires")}</p>
+    </div>
+    <div class="button-container">
+      <Button text={I18n.t("publicBadge.verify")} action={validate}/>
+    </div>
+
+
   </div>
-  <div class="button-container">
-    <Button text={I18n.t("publicBadge.verify")} action={validate}/>
-  </div>
-
-
 </div>
 {#if fetchingValidation}
   <ValidationSpinners badge={badge} validatedName={validatedName} close={() => fetchingValidation = false}/>

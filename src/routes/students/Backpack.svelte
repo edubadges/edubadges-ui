@@ -25,7 +25,8 @@
     });
   });
 
-  $: showWelcome = !$userHasClosedWelcome || $userHasClosedWelcome === "false" ? true : false;
+  $: showWelcome = loaded && !badges.some(badge => badge.acceptance !== "UNACCEPTED") && !$userHasClosedWelcome;
+
 
 </script>
 <style>
@@ -57,7 +58,7 @@
 </style>
 <div>
   <h3>{I18n.t('backpack.title')}</h3>
-  {#if !$userHasClosedWelcome}
+  {#if showWelcome}
     <Welcome/>
   {/if}
   {#if loaded}
