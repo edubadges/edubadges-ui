@@ -5,6 +5,7 @@
   import {inviteUser} from "../../api";
   import {rolesToPermissions} from "../../util/rolesToPermissions";
   import {isNumber} from "lodash";
+  import {trash} from "../../icons";
 
   export let contentType;
   export let entityId;
@@ -23,6 +24,10 @@
       'chosenRole': _.isNumber(defaultValue) ? permissionsRoles[defaultValue] : ''
     }];
   };
+
+  const deleteEmailField = index => {
+    newUsers = newUsers.filter((user, i) => i !== index);
+  }
 
   const cancel = () => window.history.back();
 
@@ -59,10 +64,20 @@
     margin-bottom: 10px;
     display: flex;
     width: 100%;
+    align-items: center;
+    align-content: center;
   }
 
   .user-invite-field {
     width: 50%;
+
+    &.first {
+      padding-left: 28px;
+    }
+
+    &.second {
+      padding-left: 15px;
+    }
   }
 
   @media (max-width: 820px) {
@@ -71,6 +86,14 @@
     }
     .user-invite-field {
       width: 100%;
+
+      &.first {
+        padding-left: 0;
+      }
+
+      &.second {
+        padding-left: 0;
+      }
     }
   }
 
@@ -93,7 +116,21 @@
     :global(a:last-child) {
       margin-left: 25px;
     }
+
   }
+
+  .rm-icon-container {
+    border: none;
+    background-color: inherit;
+    color: purple;
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+    margin: 12px 0 5px 0;
+    align-self: center;
+    cursor: pointer;
+  }
+
 </style>
 
 <div class="container main-content-margin">
@@ -104,12 +141,15 @@
   {#each newUsers as newUser, i}
     <div>
       <div class="user-invite">
-        <div class="user-invite-field">
+        {#if i !== 0}
+          <button class="rm-icon-container" on:click={() => deleteEmailField(i)}>{@html trash}</button>
+        {/if}
+        <div class={`user-invite-field ${i === 0 ? "first" : ""}`}>
           <Field entity={'inviteUsers'} attribute="email" errors={errors[i]}>
             <TextInput bind:value={newUser.email} error={errors.email}/>
           </Field>
         </div>
-        <div class="user-invite-field">
+        <div class={`user-invite-field ${i === 0 ? "second" : ""}`}>
           <Field entity={'editUsers'} attribute={'role'}>
             <Select
               disabled={disabledRole}
@@ -128,7 +168,6 @@
 
   <div class="options">
     <Button secondary={true} action={cancel} text={I18n.t("inviteUsers.cancel")}/>
-    <p>disable {newUsers.some(user => !emailRegExp.test(user.email))}</p>
     <Button disabled={newUsers.some(user => !emailRegExp.test(user.email))}
             action={submit} text={I18n.t(['editUsers', 'modal', 'add'])}/>
   </div>
