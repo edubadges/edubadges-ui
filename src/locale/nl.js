@@ -495,6 +495,7 @@ I18n.translations.nl = {
           "Alleen hele en halve punten. <br/>Een minimum van 0,5 punt is vereist.",
       },
       publicUrl: "Publieke URL",
+      sorting: "Sorteer:"
     },
     badge: {
       emailAddress: "E-mailadres",

@@ -495,6 +495,7 @@ I18n.translations.en = {
           "Whole and half points only. <br/>A minimum of 0.5 points is required.",
       },
       publicUrl: "Public URL",
+      sorting: "Sorting:"
     },
     badge: {
       emailAddress: "Email address",

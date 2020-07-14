@@ -30,6 +30,9 @@
           },
           permissions {
             mayAward
+          },
+          badgeAssertions {
+            entityId
           }
         }
       },
@@ -38,6 +41,23 @@
 
   let loaded;
   let awardFilter = true;
+  let sorting;
+
+  const sortBadges = (badges, sorting) => {
+    if (!sorting) return badges;
+
+    return badges.sort((a, b) => {
+      switch (sorting.value) {
+        case "recent":
+          return a.createdAt - b.createdAt;
+        case "awarded":
+          console.log(a.badgeAssertions.length);
+          return b.badgeAssertions.length - a.badgeAssertions.length;
+      }
+    });
+  };
+
+  $: sortedBadges = sortBadges($tree.badgeClasses.filter(el => !awardFilter || el.permissions.mayAward), sorting);
 
   onMount(() => {
     queryData(query).then(res => {
@@ -90,10 +110,13 @@
     <div class="content">
       <BadgesHeader/>
 
-      <BadgeClassesToolBar bind:awardFilter={awardFilter} />
+      <BadgeClassesToolBar
+          bind:awardFilter={awardFilter}
+          bind:sorting={sorting}
+      />
 
       <div class="badges">
-        {#each $tree.badgeClasses.filter(el => !awardFilter || el.permissions.mayAward) as badge}
+        {#each sortedBadges as badge}
           <BadgeCard badgeClass={badge}/>
         {/each}
       </div>

@@ -1,4 +1,5 @@
 <script>
+  import I18n from "i18n-js";
   import {onMount} from "svelte";
   import {Router, Route, navigate} from "svelte-routing";
   import {Breadcrumb, EntityHeader, Issuers, FacultyUserManagement, InviteUser} from "../teachers";
