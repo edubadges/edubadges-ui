@@ -93,6 +93,8 @@ I18n.translations.nl = {
   },
   notFound: {
     main: "404 - Niet gevonden",
+    publicBadge: "Deze badge is niet meer publiek of is ingetrokken.",
+    issuer: "Deze issuer is verwijderd."
   },
   teacher: {
     sidebar: {
@@ -113,6 +115,9 @@ I18n.translations.nl = {
     nameEmail: "Naam/Email",
     badgeclasses: {
       title: "Badge Classes",
+      badges: "Badges",
+      noBadges: "(Nog geen badges uitgegeven)",
+      badgesCount: "{{count}} badges uitgegeven",
       created: "Datum gecreëerd",
       recipients: "Ontvangers",
       studyLoad: "Studie load",
@@ -327,17 +332,20 @@ I18n.translations.nl = {
       header: "Gebruiker",
     },
     institution: {
+      admin: "Institution admin",
       header: "Instelling",
       allRights: "Instellings Admin",
       noRights: "Geen rechten",
       permissions: "Permissies op Institution niveau"
     },
     faculty: {
+      admin: "Group admin",
       header: "Issuer Group",
       allRights: "Issuer Group Admin",
       permissions: "Permissies op Issuer Group niveau"
     },
     issuer: {
+      admin: "Issuer admin",
       header: "Issuer",
       allRights: "Issuer Admin",
       permissions: "Permissies op Issuer niveau"
@@ -396,7 +404,7 @@ I18n.translations.nl = {
       admin: "Admin",
       brin: "BRIN code",
       description: "Beschrijving",
-      grading_table: "Grading table URL",
+      grading_table: "Grading tabel",
       image: "Logo",
       name: "Naam",
     },
@@ -628,5 +636,12 @@ I18n.translations.nl = {
     issuer_staff: "issuer staff",
     badge_class_staff: "badge class staff",
     user_provisionment: "user provisionment"
+  },
+  user: {
+    home: "Home",
+    permissions: "Je permissies",
+    banner: "Hi {{firstName}} {{lastName}}",
+    profile: "Profiel",
+    loggedIn: "Je bent momenteel ingelogd met je instellings account, via SURFconext"
   }
 };

@@ -100,7 +100,7 @@
 
   {#if user}
     <a use:link href={`/users/`}>Users</a>
-    <span>></span>
+    <span>{@html chevronRightSmall}</span>
     <a use:link href={$currentPath}>{user.firstName} {user.lastName}</a>
 
   {/if}

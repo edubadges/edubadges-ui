@@ -20,6 +20,9 @@
   import {TextInput} from "../../components/forms";
   import {Spinner} from "../../components";
   import Verified from "../../components/shared/Verified.svelte";
+  import UserBreadcrumb from "../../components/teachers/UserBreadcrumb.svelte";
+
+  export let isStudent = true;
 
   let profile;
   let loaded = false;
@@ -76,8 +79,6 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
-
-
   }
 
   h3 {
@@ -89,15 +90,18 @@
   }
 
   div.delete {
-    margin-top: 65px;
+    margin-top: 50px;
+    padding-top: 15px;
+    border-top: 4px solid var(--grey-3);
   }
 
 </style>
 
 {#if loaded}
-
   <div class="profile">
-    <h1>{I18n.t("profile.profile")}</h1>
+    {#if isStudent}
+      <h1>{I18n.t("profile.profile")}</h1>
+    {/if}
     {#if profile}
       <div class="profile"></div>
       <div class="profile-section">
@@ -124,8 +128,7 @@
   <div class="delete">
     <h3>{I18n.t("profile.deleteHeader")}</h3>
     <p class="account-info">{@html I18n.t("profile.deleteInfo1")}</p>
-    <p class="account-info">{@html I18n.t("profile.deleteInfo2")}</p>
-    <p class="account-info">{@html I18n.t("profile.deleteInfo3")}</p>
+    <p class="account-info">{@html I18n.t("profile.deleteInfo2")}. {@html I18n.t("profile.deleteInfo3")}</p>
     <p class="account-info">{@html I18n.t("profile.deleteInfo4")}</p>
     <Button secondary={true} action={deleteProfileAction(true)} text={I18n.t("profile.deleteAccount")}/>
   </div>

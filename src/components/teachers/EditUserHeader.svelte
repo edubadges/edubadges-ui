@@ -2,7 +2,7 @@
   import I18n from "i18n-js";
   import {EntityHeaderTabs, HeaderList} from "../teachers";
   import {flash} from "../../stores/flash";
-
+  import {issuerIcon, facultyIcon, userManagementIcon, institutionIcon} from "../../icons";
   export let user = {};
   export let entityId;
 
@@ -10,18 +10,22 @@
     {
       entity: "institution",
       href: `/users/${entityId}/institution`,
+      icon: institutionIcon
     },
     {
       entity: "faculties",
       href: `/users/${entityId}/issuerGroups`,
+      icon: facultyIcon
     },
     {
       entity: "issuers",
       href: `/users/${entityId}/issuers`,
+      icon: issuerIcon
     },
     {
       entity: "badgeclasses",
       href: `/users/${entityId}/badgeclasses`,
+      icon: userManagementIcon
     },
   ];
 

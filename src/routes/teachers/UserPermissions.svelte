@@ -1,7 +1,7 @@
 <script>
-  import { Router, Route, navigate } from "svelte-routing";
-  import { onMount } from "svelte";
-  import { queryData } from "../../api/graphql";
+  import {Router, Route, navigate} from "svelte-routing";
+  import {onMount} from "svelte";
+  import {queryData} from "../../api/graphql";
   import {
     UsersInstitution,
     UsersBadgeclass,
@@ -10,6 +10,7 @@
     Breadcrumb,
     PermissionsHeader
   } from "../../components/teachers";
+  import {issuerIcon, facultyIcon, badgeclassIcon, institutionIcon} from "../../icons";
 
   export let userId;
   export let entity;
@@ -72,18 +73,22 @@
     {
       entity: "institution",
       href: `/users/${userId}/institution`,
+      icon: institutionIcon
     },
     {
       entity: "faculties",
       href: `/users/${userId}/issuerGroups`,
+      icon: facultyIcon
     },
     {
       entity: "issuers",
       href: `/users/${userId}/issuers`,
+      icon: issuerIcon
     },
     {
       entity: "badgeclasses",
       href: `/users/${userId}/badgeclasses`,
+      icon: badgeclassIcon
     },
   ];
 

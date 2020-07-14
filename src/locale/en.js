@@ -93,6 +93,8 @@ I18n.translations.en = {
   },
   notFound: {
     main: "404 - Not Found",
+    publicBadge: "The badge is either not public anymore or has been revoked.",
+    issuer: "This issuer has been deleted."
   },
   teacher: {
     sidebar: {
@@ -113,6 +115,9 @@ I18n.translations.en = {
     nameEmail: "Name/Email",
     badgeclasses: {
       title: "Badge Classes",
+      badges: "Badges",
+      noBadges: "(No badges issued yet)",
+      badgesCount: "{{count}} badges issued",
       created: "Date created",
       recipients: "Recipients",
       studyLoad: "Study load",
@@ -316,7 +321,7 @@ I18n.translations.en = {
       description: "Fill in the email address of the people you'd like to invite as a user to this entity. Your request will be sent, and you'll be notified when it's accepted or declined.",
       success: "User successfully invited",
     },
-    cancel: "cancel",
+    cancel: "Cancel",
     inviteStatus: "Status",
     sent: "Invite sent",
     accepted: "Accepted"
@@ -327,17 +332,20 @@ I18n.translations.en = {
       header: "User",
     },
     institution: {
+      admin: "Institution admin",
       header: "Institution",
       allRights: "Institution Admin",
       noRights: "No rights",
       permissions: "Permissions on Institution level"
     },
     faculty: {
+      admin: "Group admin",
       header: "Issuer Group",
       allRights: "Issuer Group Admin",
       permissions: "Permissions on Issuer Group level"
     },
     issuer: {
+      admin: "Issuer admin",
       header: "Issuer",
       allRights: "Issuer Admin",
       permissions: "Permissions on Issuer level"
@@ -374,7 +382,7 @@ I18n.translations.en = {
     },
     usersPermissions: "Users with permissions",
     modal: {
-      add: 'add'
+      add: 'Add'
     },
     role: "Role",
   },
@@ -396,7 +404,7 @@ I18n.translations.en = {
       admin: "Admin",
       brin: "BRIN code",
       description: "Description",
-      grading_table: "Grading table URL",
+      grading_table: "Grading table",
       image: "Institution Logo",
       name: "Institution Name",
     },
@@ -628,5 +636,12 @@ I18n.translations.en = {
     issuer_staff: "issuer staff",
     badge_class_staff: "badgeclass staff",
     user_provisionment: "user provisionment"
+  },
+  user: {
+    home: "Home",
+    permissions: "Your permissions",
+    banner: "Hi {{firstName}} {{lastName}}",
+    profile: "Profile",
+    loggedIn: "You are currently logged in with your institution account, via SURFconext"
   }
 };

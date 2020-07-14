@@ -9,7 +9,8 @@ export const sortType = {
   COLLECTION: "collection",
   ROLES: "roles",
   INVITATION_STATUS: "invitationStatus",
-  PERSONAL_DATA: "personalData"
+  PERSONAL_DATA: "personalData",
+  ISSUER_BADGE_CLASS_ASSERTIONS: "issuerBadgeClassSssertions"
 };
 
 const defaultValue = (attr, howToSort) => {
@@ -24,6 +25,8 @@ const defaultValue = (attr, howToSort) => {
       return attr || [];
     case sortType.BOOLEAN:
       return attr || false;
+    case sortType.ISSUER_BADGE_CLASS_ASSERTIONS:
+      return attr || 0;
     default:
       throw new Error(`Undefined sortType: ${howToSort}`);
   }
@@ -65,6 +68,9 @@ export function sort(collection, attribute, reversed, howToSort = sortType.ALPHA
       case sortType.PERSONAL_DATA:
         return (a._staffType === staffType.USER_PROVISIONMENT ? a.email : a.user.firstName + " " + a.user.lastName)
             .localeCompare(b._staffType === staffType.USER_PROVISIONMENT ? b.email : b.user.firstName + " " + b.user.lastName);
+      case sortType.ISSUER_BADGE_CLASS_ASSERTIONS:
+        return parseInt(b.badgeclasses.reduce((acc, badgeClass) => acc += badgeClass.badgeAssertions.length, 0))
+          - parseInt(a.badgeclasses.reduce((acc, badgeClass) => acc += badgeClass.badgeAssertions.length, 0))
       default:
         throw new Error(`Unsupported sortType ${howToSort}`);
     }

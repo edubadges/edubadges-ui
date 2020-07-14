@@ -1,10 +1,13 @@
 <script>
-  import { onMount } from "svelte";
-  import { queryData } from "../../api/graphql";
-  import { Breadcrumb, PermissionsHeader, PermissionsManagement } from "./index";
+  import {onMount} from "svelte";
+  import {queryData} from "../../api/graphql";
+  import {Breadcrumb, PermissionsHeader, PermissionsManagement} from "./index";
   import {entityType} from "../../util/entityTypes"
   import {addStaffType, staffType} from "../../util/staffTypes";
-  import { enrichUser } from "../../util/userPermissions";
+  import {enrichUser} from "../../util/userPermissions";
+  import {issuerIcon, facultyIcon, badgeclassIcon, userManagementIcon, institutionIcon} from "../../icons";
+  import UserBreadcrumb from "./UserBreadcrumb.svelte";
+  import Spinner from "../Spinner.svelte";
 
   export let entity;
 
@@ -13,6 +16,8 @@
   let issuerGroupStaffMemberships = [];
   let issuerStaffMemberships = [];
   let badgeClassStaffMemberships = [];
+  let currentUser = {};
+  let loaded = false;
 
   const query = `{
     currentInstitution {
@@ -110,6 +115,8 @@
       issuerStaffMemberships = addStaffType(res.currentUser.issuerStaffs, staffType.ISSUER_STAFF);
       badgeClassStaffMemberships = addStaffType(res.currentUser.badgeclassStaffs, staffType.BADGE_CLASS_STAFF);
       enrichUser(institution, institutionStaffMemberships, issuerGroupStaffMemberships, issuerStaffMemberships, badgeClassStaffMemberships);
+      currentUser = res.currentUser;
+      loaded = true;
     })
   });
 
@@ -117,32 +124,39 @@
     {
       entity: "institution",
       href: `/permissions/${entityType.INSTITUTION}`,
+      icon: institutionIcon
     },
     {
       entity: "faculties",
       href: `/permissions/${entityType.ISSUER_GROUP}`,
+      icon: facultyIcon
     },
     {
       entity: "issuers",
       href: `/permissions/${entityType.ISSUER}`,
+      icon: issuerIcon
     },
     {
       entity: "badgeclasses",
       href: `/permissions/${entityType.BADGE_CLASS}`,
+      icon: badgeclassIcon
     },
   ];
 </script>
+{#if loaded}
+  <UserBreadcrumb isProfile={false} user={currentUser}/>
 
-<Breadcrumb />
-
-<PermissionsHeader
+  <PermissionsHeader
     {tabs}
-/>
+  />
 
-<PermissionsManagement
+  <PermissionsManagement
     {entity}
     institutionStaffs={institutionStaffMemberships}
     issuerGroupStaffs={issuerGroupStaffMemberships}
     issuerStaffs={issuerStaffMemberships}
     badgeClassStaffs={badgeClassStaffMemberships}
-/>
+  />
+{:else}
+  <Spinner/>
+{/if}

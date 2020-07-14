@@ -56,7 +56,7 @@
   }
 
   :global(table.entity-table th, table.entity-table td) {
-    padding: var(--ver-padding-s) 0;
+    padding: var(--ver-padding-m) 0;
   }
 
   :global(table.entity-table tbody tr:not(:last-of-type) td) {

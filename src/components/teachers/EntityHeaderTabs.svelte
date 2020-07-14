@@ -1,24 +1,31 @@
 <script>
   import I18n from "i18n-js";
-  import { Link } from "svelte-routing";
-  import { institutionIcon } from "../../icons";
-  import { currentPath } from "../../stores/currentPath";
+  import {Link} from "svelte-routing";
+  import {institutionIcon} from "../../icons";
+  import {currentPath} from "../../stores/currentPath";
 
   export let tabs = [];
 </script>
 
 <style lang="scss">
+
+  .tabs {
+    display: flex;
+  }
+
   .tab {
-    // display: flex;
-    display: inline-block;
+    display: flex;
+    align-content: center;
+    align-items: center;
 
     padding: var(--ver-padding-m) var(--hor-padding-m);
-    margin-right: 4px;
     white-space: nowrap;
+    margin-right: 2px;
 
     border-top-style: solid;
     border-top-width: 2px;
     font-weight: bold;
+    font-size: 18px;
 
     &.active {
       background: white;
@@ -48,17 +55,26 @@
       margin-right: 8px;
       vertical-align: middle;
     }
+
+    span.icon {
+      display: inline-block;
+      margin: 0 8px 0 6px;
+    }
   }
 </style>
+<div class="tabs">
+  {#each tabs as { href, icon, entity, count } (entity)}
 
-{#each tabs as { href, icon, entity, count } (entity)}
-  <Link to={href}>
-    <div class="tab click" class:active={($currentPath).includes(href)}>
-      {#if icon}
-        {@html icon}
-      {/if}
-      {I18n.t(['manage', 'tabs', entity])}
-      {#if !isNaN(count)}({count}){/if}
-    </div>
-  </Link>
-{/each}
+    <Link to={href}>
+      <div class="tab click" class:active={($currentPath).includes(href)}>
+
+        {#if icon}
+          <span class="icon">{@html icon}</span>
+        {/if}
+        <span class="title">{I18n.t(['manage', 'tabs', entity])}</span>
+        {#if !isNaN(count)}({count}){/if}
+      </div>
+    </Link>
+
+  {/each}
+</div>
