@@ -172,8 +172,6 @@ I18n.translations.nl = {
     confirmation: {
       publish: "Maak deze edubadge publiekelijk beschikbaar",
       private: "Maak deze edubadge prive",
-      deleteBadge: "Weiger edubadge",
-      acceptBadge: "Accepteer edubadge",
       publishConfirmation: "Weet je zeker dat u deze edubadge publiek wilt maken?<b/><br/>Als je deze edubadge publiek maakt, wordt je gevalideerde naam <strong>{{name}}</strong> weergegeven in het validatiegedeelte van de openbare badge-webpagina.",
       privateConfirmation: "Weet je het zeker dat je deze edubadge prive wilt maken",
       deleteBadgeConfirmation: "Weet je het zeker dat je deze edubadge wil weigeren?",

@@ -68,7 +68,7 @@ I18n.translations.en = {
     addEmail: "Add e-mail",
     addEmailInfo: "You will receive an email with a link to verify your new email address",
     unverified: "unverified",
-    validatedByYourInstitution: "verified",
+    validatedByYourInstitution: "Verified by your institution",
     deleteHeader: "Deleting your edubadges backpack",
     deleteInfo1: "You can delete your backpack whenever you want.",
     deleteInfo2: "Proceed with care, as you will loose all your edubadges.",
@@ -172,8 +172,6 @@ I18n.translations.en = {
     confirmation: {
       publish: "Make this edubadge public accessible",
       private: "Make this edubadge private",
-      deleteedubadge: "Reject this edubadge",
-      acceptedubadge: "Accept this edubadge",
       publishConfirmation: "Are you sure you want to make this edubadge public?<br/><br/>If you make this edubadge public then your validated name <strong>{{name}}</strong> will be displayed in the validation section of the public edubadge webpage.",
       privateConfirmation: "Are you sure you want to make this edubadge private?",
       deleteBadgeConfirmation: "Are you sure you want to reject this edubadge?",
@@ -563,7 +561,7 @@ I18n.translations.en = {
   },
   shareDialog: {
     title: "Share your edubadge",
-    copyPublicUrl: "If you want to share the link of the public page on this edubadge, you can copy the link to your clipboard.",
+    copyPublicUrl: "If you want to share the public page link of this edubadge, you can copy the link to your clipboard.",
     copy: "Copy the link"
   },
   invites: {

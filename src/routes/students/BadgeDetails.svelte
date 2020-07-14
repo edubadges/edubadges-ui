@@ -135,7 +135,7 @@
 
   const rejectBadge = showConfirmation => {
     if (showConfirmation) {
-      modalTitle = I18n.t("student.confirmation.deleteBadge");
+      modalTitle = I18n.t("student.deleteBadge");
       modalQuestion = I18n.t("student.confirmation.deleteBadgeConfirmation");
       modalAction = () => rejectBadge(false);
       showModal = true;
@@ -151,7 +151,7 @@
 
   const acceptBadge = showConfirmation => {
     if (showConfirmation) {
-      modalTitle = I18n.t("student.confirmation.acceptBadge");
+      modalTitle = I18n.t("student.acceptBadge");
       modalQuestion = I18n.t("student.confirmation.acceptBadgeConfirmation");
       modalAction = () => acceptBadge(false);
       showModal = true;
