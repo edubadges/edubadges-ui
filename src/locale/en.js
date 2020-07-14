@@ -118,6 +118,8 @@ I18n.translations.en = {
       studyLoad: "Study load",
       ects: "{{value}} ECTS",
       hours: "{{value}} hours",
+      canAward: "Badges you can award",
+      allBadges: "All Badges"
     },
     issuers: {
       title: "Issuers",

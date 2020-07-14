@@ -1,7 +1,7 @@
 <script>
   import {onMount} from "svelte";
   import {navigate} from "svelte-routing";
-  import {SideBarBadges, BadgesHeader} from "../../components/teachers";
+  import {SideBarBadges, BadgesHeader, BadgeClassesToolBar} from "../../components/teachers";
   import {queryData} from "../../api/graphql";
   import {headerEntity, headerStaff} from "../../api/queries";
   import {faculties, tree} from "../../stores/filterBadges";
@@ -27,6 +27,9 @@
             faculty {
               name
             }
+          },
+          permissions {
+            mayAward
           }
         }
       },
@@ -34,6 +37,7 @@
   }`;
 
   let loaded;
+  let awardFilter = true;
 
   onMount(() => {
     queryData(query).then(res => {
@@ -86,8 +90,10 @@
     <div class="content">
       <BadgesHeader/>
 
+      <BadgeClassesToolBar bind:awardFilter={awardFilter} />
+
       <div class="badges">
-        {#each $tree.badgeClasses as badge}
+        {#each $tree.badgeClasses.filter(el => !awardFilter || el.permissions.mayAward) as badge}
           <BadgeCard badgeClass={badge}/>
         {/each}
       </div>
