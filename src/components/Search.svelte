@@ -21,6 +21,10 @@
       border: var(--card-border);
       padding-right: 30px;
       padding-left: 10px;
+
+      &:focus {
+        border-color: var(--purple);
+      }
     }
 
     :global(svg.search) {

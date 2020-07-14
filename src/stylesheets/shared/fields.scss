@@ -13,8 +13,8 @@
 }
 
 @mixin input-focus {
-  border-color: var(--purple);
-  outline: 1px solid var(--purple);
+  border: solid 1px var(--purple);
+  outline: none;
   box-shadow: 1px 1px 3px var(--purple), -1px -1px 3px var(--purple);
 }
 
