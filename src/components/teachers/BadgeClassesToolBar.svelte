@@ -2,7 +2,7 @@
   import I18n from "i18n-js";
   import { Search } from "../../components";
   import { search } from "../../stores/filterBadges";
-  import { Field, Select } from "../forms";
+  import { Field, MinimalisticSelect } from "../forms";
 
   export let awardFilter = false;
   let targetOptions = [
@@ -64,13 +64,14 @@
   </span>
 </div>
 
-<div>
-  <Field entity={'badgeclass'} attribute={'sorting'}>
-    <Select
-        bind:value={sorting}
-        items={targetOptions}
-        clearable={false}
-        optionIdentifier="name"
-    />
-  </Field>
-</div>
+<!-- Sorting: -->
+<!--<div>-->
+<!--  <Field entity={'badgeclass'} attribute={'sorting'}>-->
+<!--    <MinimalisticSelect-->
+<!--        bind:value={sorting}-->
+<!--        items={targetOptions}-->
+<!--        clearable={false}-->
+<!--        optionIdentifier="name"-->
+<!--    />-->
+<!--  </Field>-->
+<!--</div>-->
