@@ -70,7 +70,7 @@ export const userTree = derived(
     }
 
     for (const faculty of institution.faculties) {
-      if(issuerIds.length > 0 && !faculty.issuers.some(iss => iss.entityId === issuerIds[0])) {
+      if (issuerIds.length > 0 && !faculty.issuers.some(iss => iss.entityId === issuerIds[0])) {
         continue;
       }
 
@@ -90,6 +90,12 @@ export const userTree = derived(
           issuer.count++;
         }
       }
+    }
+
+    for (const faculty of institution.faculties) {
+      if (facultyIds.length > 0 && facultyIds[0] !== faculty.entityId) {
+        continue;
+      }
 
       for (const issuer of faculty.issuers) {
         if (issuerIds.length > 0 && issuerIds[0] !== issuer.entityId) {
@@ -106,24 +112,36 @@ export const userTree = derived(
           faculty.count++;
           issuer.count++;
         }
+      }
+    }
+
+    for (const faculty of institution.faculties) {
+      if (facultyIds.length > 0 && facultyIds[0] !== faculty.entityId) {
+        continue;
+      }
+
+      for (const issuer of faculty.issuers) {
+        if (issuerIds.length > 0 && issuer.entityId !== issuerIds[0]) {
+          continue;
+        }
 
         for (const badgeClass of issuer.badgeclasses) {
           for (const {user, mayAdministrateUsers, mayUpdate, mayAward} of badgeClass.staff) {
             if (mayAdministrateUsers) {
-              user.role = 'Badgeclass Owner';
               if (!tree.users.some(_user => _user.entityId === user.entityId)) {
+                user.role = 'Badgeclass Owner';
                 tree.users = [user, ...tree.users];
                 tree.roles.find(el => el.role === 'Badgeclass Owner').count++;
               }
             } else if (mayUpdate) {
-              user.role = 'Badgeclass Editor';
               if (!tree.users.some(_user => _user.entityId === user.entityId)) {
+                user.role = 'Badgeclass Editor';
                 tree.users = [user, ...tree.users];
                 tree.roles.find(el => el.role === 'Badgeclass Editor').count++;
               }
             } else if (mayAward) {
-              user.role = 'Badgeclass Awarder';
               if (!tree.users.some(_user => _user.entityId === user.entityId)) {
+                user.role = 'Badgeclass Awarder';
                 tree.users = [user, ...tree.users];
                 tree.roles.find(el => el.role === 'Badgeclass Awarder').count++;
               }
