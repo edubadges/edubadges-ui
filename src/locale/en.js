@@ -68,7 +68,7 @@ I18n.translations.en = {
     addEmail: "Add e-mail",
     addEmailInfo: "You will receive an email with a link to verify your new email address",
     unverified: "unverified",
-    validatedByYourInstitution: "verified",
+    validatedByYourInstitution: "Verified by your institution",
     deleteHeader: "Deleting your edubadges backpack",
     deleteInfo1: "You can delete your backpack whenever you want.",
     deleteInfo2: "Proceed with care, as you will loose all your edubadges.",
