@@ -1,24 +1,13 @@
 <script>
   import I18n from "i18n-js";
   import {onMount} from "svelte";
-  import {link} from "svelte-routing";
-  import {queryData} from "../../api/graphql";
-  import {isEmpty} from "lodash";
-  import chevronRightSmall from "../../icons/chevron-right-small.svg";
-  import Button from "../../components/Button.svelte";
+  import {navigate} from "svelte-routing";
   import Spinner from "../../components/Spinner.svelte";
   import BadgeCard from "../../components/shared/BadgeCard.svelte";
   import BadgeClassDetails from "../../components/shared/BadgeClassDetails.svelte";
-  import moment from "moment";
-  import Modal from "../../components/forms/Modal.svelte";
-  import DownloadButton from "../../components/DownloadButton.svelte";
-  import {getPublicBadge, getPublicIssuer, revokeAssertion, validateName} from "../../api";
-  import {flash} from "../../stores/flash";
-  import CopyToClipboardButton from "../../components/CopyToClipboardButton.svelte";
+  import {getPublicBadge,  validateName} from "../../api";
   import {publicBadgeInformation} from "../extensions/badges/extensions";
   import BadgeValidation from "../../routes/students/BadgeValidation.svelte";
-  import {config} from "../../util/config";
-  import ShareDialog from "../../routes/students/ShareDialog.svelte";
 
   export let entityId;
 
@@ -42,7 +31,7 @@
           validatedName = res.name;
           loaded = true
         });
-    });
+    }).catch(() => navigate("/404?public=true"));
   });
 
 </script>
@@ -100,7 +89,7 @@
   }
 
 </style>
-{#if !isEmpty(badge)}
+{#if loaded}
 
   <div class="badge-public-detail-container">
     <div class="badge-header">

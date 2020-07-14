@@ -3,7 +3,7 @@
   import {onMount} from "svelte";
   import {Router, Route, navigate} from "svelte-routing";
   import {Breadcrumb, EntityHeader, Badgeclasses, IssuerUserManagement, InviteUser} from "../teachers";
-  import {badgeclassIcon} from "../../icons";
+  import {badgeclassIcon, userManagementIcon} from "../../icons";
   import {queryData} from "../../api/graphql";
   import {headerStaff, headerEntity} from "../../api/queries";
   import {entityType} from "../../util/entityTypes";
@@ -87,7 +87,7 @@ import {
     {
       entity: "userManagement",
       href: `/manage/issuer/${entityId}/user-management`,
-      icon: badgeclassIcon
+      icon: userManagementIcon
     }
   ];
 
@@ -118,9 +118,8 @@ import {
     },
   ];
 
-  const permissionsRoles = [
-    {name: 'admin'}
-  ];
+  const permissionsRoles = [{name: I18n.t("editUsers.issuer.admin")}];
+
 </script>
 
 <Breadcrumb {faculty} {issuer}/>

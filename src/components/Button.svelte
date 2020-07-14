@@ -45,14 +45,14 @@
   label:not(.small) {
     min-width: 140px;
     padding: 8px 18px;
-    font-size: 1rem;
+    font-size: 18px;
     font-weight: bold;
   }
 
   a.small,
   label.small {
     padding: 5px 10px;
-    font-size: 0.85rem;
+    font-size: 16rem;
   }
 
   a.full {

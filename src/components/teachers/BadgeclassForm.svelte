@@ -216,6 +216,7 @@
     width: 30px;
     margin: 0 0 5px 0;
     align-self: center;
+    cursor: pointer;
   }
 
   .header-line {

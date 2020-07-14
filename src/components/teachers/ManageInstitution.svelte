@@ -11,7 +11,7 @@
     HeaderList,
     InviteUser
   } from "../teachers";
-  import {issuerIcon, facultyIcon} from "../../icons";
+  import {issuerIcon, facultyIcon, userManagementIcon} from "../../icons";
   import {queryData} from "../../api/graphql";
   import {headerStaff, headerEntity} from "../../api/queries";
   import {Spinner} from "../index";
@@ -58,7 +58,10 @@
 				name
 			},
 			badgeclasses {
-				entityId
+				entityId,
+				badgeAssertions {
+				  entityId
+				}
       },
 		}
   }`;
@@ -89,7 +92,7 @@
     {
       entity: "userManagement",
       href: "/manage/institution/user-management",
-      icon: facultyIcon
+      icon: userManagementIcon
     }
   ];
 
@@ -120,9 +123,8 @@
     }
   ];
 
-  const permissionsRoles = [
-    {name: 'admin'}
-  ];
+  const permissionsRoles = [{name: I18n.t("editUsers.institution.admin")}];
+
 </script>
 
 {#if !loaded}

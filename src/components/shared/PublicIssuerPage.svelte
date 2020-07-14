@@ -25,7 +25,7 @@
         issuer.institutionName = res['extensions:InstitutionNameExtension']['InstitutionName'];
       }
       loaded = true;
-    })
+    }).catch(() => navigate("/404?issuer=true"));
   });
 </script>
 <style lang="scss">
