@@ -2,6 +2,7 @@
   import RemoteImage from "../components/RemoteImage.svelte";
   import DownloadButton from "../components/DownloadButton.svelte";
   import marked from 'marked';
+  import Select from "svelte-select";
 
 
   const text = `# DRAFT - Edubadges Privacy Statement - DIENST EDUBADGES - NL
@@ -82,15 +83,19 @@ Om deze rechten uit te kunnen oefenen, kun je contact opnemen met [info@edubadge
 Er kunnen wijzigingen worden aangebracht in deze privacyverklaring. We raden je daarom aan om deze privacyverklaring geregeld te raadplegen. `
 
   let htmlTerms = marked(text);
+
+    const items = ['One', 'Two', 'Three', '4'];
+    let ms = ['One',  '4'];
 </script>
 <style>
 
 </style>
 <h1>test</h1>
 
-  {@html htmlTerms}
-
-
+<!--  {@html htmlTerms}-->
+<p>{JSON.stringify(ms)}</p>
+<hr/>
+<Select items={items} isMulti={true} bind:selectedValue={ms}></Select>
 <!--<hr>-->
 <!--<RemoteImage imageUrl="https://api-test.edubadges.nl/media/uploads/institution/surf.png" useToken={true}/>-->
 <!--<hr>-->

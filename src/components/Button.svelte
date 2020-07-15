@@ -30,6 +30,7 @@
     white-space: nowrap;
     overflow-x: hidden;
     text-overflow: ellipsis;
+    cursor: pointer;
 
     &:not([disabled="true"]):focus {
       outline: 1px solid var(--purple);
@@ -131,7 +132,7 @@
     href="#" class:full class:fill
     on:click|preventDefault={() => disabled ? false : action()}
     {disabled}
-      class:small
+    class:small
     class:warning
     class:secondary>
     {text}
