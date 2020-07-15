@@ -110,17 +110,18 @@
       </div>
       <div class="profile-section">
         <h3>{I18n.t("profile.email")}</h3>
-        <Verified value={profile.email}/>
+        <Verified value={profile.email} fromEduID={isStudent}/>
       </div>
       {#if profile.eduid}
         <div class="profile-section">
           <h3>{I18n.t("profile.eduid")}</h3>
-          <Verified value={eduIdValue()}/>
+          <Verified value={eduIdValue()} fromEduID={true}/>
         </div>
       {/if}
       <div class="profile-section">
         <h3>{I18n.t("profile.memberSince")}</h3>
-        <Verified value={I18n.t("profile.memberSinceDate", formatCreateDate(profile.dateAdded))} showVerified={false}/>
+        <Verified value={I18n.t("profile.memberSinceDate", formatCreateDate(profile.dateAdded))}
+                  showVerified={false}/>
       </div>
     {/if}
   </div>

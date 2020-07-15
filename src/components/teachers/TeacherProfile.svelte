@@ -6,6 +6,7 @@
   import Spinner from "../Spinner.svelte";
   import {getProfile} from "../../api";
   import {userManagementIcon} from "../../icons";
+  import PermissionsHeader from "./PermissionsHeader.svelte";
 
   let profile;
   let loaded;
@@ -16,35 +17,18 @@
       loaded = true;
     });
   });
+
+  const tabs = [
+    {
+      entity: "profile",
+      href: `/profile`,
+      icon: userManagementIcon
+    }
+  ];
+
 </script>
 
 <style lang="scss">
-  .profile-container {
-    padding: 25px 80px;
-  }
-
-  @media (max-width: 820px) {
-    .profile-container {
-      padding: 25px 15px;
-    }
-  }
-
-  .banner {
-    background-color: var(--grey-2);
-    padding: 5px 0 25px;
-    margin: 15px 0;
-  }
-
-  .header {
-    display: flex;
-    align-content: center;
-    align-items: center;
-    margin: 25px 0;
-  }
-
-  h1 {
-    color: var(--black)
-  }
 
   .svg-container {
     width: 30px;
@@ -57,21 +41,22 @@
     color: var(--grey-7);
   }
 
+  .header {
+    margin-bottom: 25px;
+  }
 </style>
 
 {#if loaded}
 
   <UserBreadcrumb isProfile={true}/>
-  <div class="banner">
+  <PermissionsHeader
+    {tabs}
+    title={I18n.t("user.banner", {firstName: profile.first_name, lastName: profile.last_name})}
+  />
+  <div class="container main-content-margin">
     <div class="header">
-      <div class="svg-container">
-        {@html userManagementIcon}
-      </div>
-      <h1>{I18n.t("user.banner", {firstName: profile.first_name, lastName: profile.last_name})}</h1>
+      <h4>{I18n.t("user.loggedIn")}</h4>
     </div>
-    <span class="logged-in">{I18n.t("user.loggedIn")}</span>
-  </div>
-  <div class="profile-container">
     <Profile isStudent={false}/>
   </div>
 {:else}

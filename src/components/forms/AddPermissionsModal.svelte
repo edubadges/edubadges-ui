@@ -51,7 +51,7 @@
         />
       </Field>
       <Field entity={'editUsers'} attribute={'notes'}>
-        <TextInput bind:value={notes} area={true}/>
+        <TextInput bind:value={notes} area={true} placeholder={I18n.t("placeholders.permissions.notes")}/>
       </Field>
     </div>
     <div class="options">

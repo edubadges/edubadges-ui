@@ -68,7 +68,8 @@ I18n.translations.nl = {
     addEmail: "Voeg e-mailadres toe",
     addEmailInfo: "Je zult een e-mail ontvangen met een link om je e-mailadres te verifieren.",
     unverified: "Niet geverifieerd",
-    validatedByYourInstitution: "geverifieerd",
+    validatedByYourInstitution: "Geleverd door je instelling",
+    validatedByEduId: "Geleverd door eduID",
     deleteHeader: "Bezig om je edubadges backpack te verwijderen",
     deleteInfo1: "Je kunt je backpack verwijderen als je dat wilt.",
     deleteInfo2: "Wees je dan wel bewust dat je al je edubadges zult verliezen.",
@@ -197,6 +198,7 @@ I18n.translations.nl = {
       userManagement: "Gebruikers beheer",
       enrollments: "Ingeschreven",
       assertions: "Toegekend",
+      profile: "Profiel"
     },
     edit: {
       edit: "wijzig",

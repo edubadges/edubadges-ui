@@ -59,11 +59,12 @@
       <TextInput
         bind:value={institution.description}
         error={errors.description}
+        size="100"
         area/>
     </Field>
 
     <Field {entity} attribute="brin" errors={errors.brin}>
-      <TextInput bind:value={institution.brin} error={errors.brin}/>
+      <TextInput bind:value={institution.brin} error={errors.brin} placeholder={"somesdfjasdf fv.."}/>
     </Field>
 
     <Field {entity} attribute="grading_table" errors={errors.grading_table}>

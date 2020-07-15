@@ -6,6 +6,7 @@
   export let user;
   export let tabs;
   export let headerItems;
+  export let title;
 </script>
 
 <style lang="scss">
@@ -38,8 +39,10 @@
         <div class="list">
           <HeaderList entity="editUsers" {headerItems}/>
         </div>
-      {:else}
+      {:else if !title}
         <h2>{I18n.t(['editUsers', 'permissions', 'header'])}</h2>
+      {:else}
+        <h2>{title}</h2>
       {/if}
     </div>
   </div>
