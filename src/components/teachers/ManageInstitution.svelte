@@ -17,6 +17,7 @@
   import {Spinner} from "../index";
   import {InstitutionUserManagement} from "../teachers/";
   import {entityType} from "../../util/entityTypes"
+  import {permissionsRole} from "../../util/rolesToPermissions";
 
   let entityId;
   export let subEntity;
@@ -123,7 +124,7 @@
     }
   ];
 
-  const permissionsRoles = [{name: I18n.t("editUsers.institution.admin")}];
+  const permissionsRoles = [{value: permissionsRole.ADMIN, name: I18n.t("editUsers.institution.admin")}];
 
 </script>
 
@@ -149,7 +150,6 @@
     <Route path="/user-management/invite-new-user">
       <InviteUser
           permissionsRoles={permissionsRoles}
-          defaultValue={0}
           disabledRole={true}
           entityId={entityId}
           contentType={contentType}

@@ -11,6 +11,7 @@
   import {expirationPeriod} from "../../util/entityHeader";
   import {entityType} from "../../util/entityTypes"
   import Spinner from "../Spinner.svelte";
+  import {permissionsRole} from "../../util/rolesToPermissions";
 
   export let entityId;
   export let tab;
@@ -108,9 +109,9 @@
   ];
 
   const permissionsRoles = [
-    {name: I18n.t(['editUsers', 'badgeclass', 'owner'])},
-    {name: I18n.t(['editUsers', 'badgeclass', 'editor'])},
-    {name: I18n.t(['editUsers', 'badgeclass', 'awarder'])}
+    {value: permissionsRole.ADMIN, name: I18n.t("editUsers.badgeclass.owner")},
+    {value: permissionsRole.EDITOR, name: I18n.t("editUsers.badgeclass.editor")},
+    {value: permissionsRole.AWARDER, name: I18n.t("editUsers.badgeclass.awarder")}
   ];
 </script>
 {#if loaded}
@@ -134,7 +135,6 @@
       <Route path="/user-management/invite-new-user">
         <InviteUser
           permissionsRoles={permissionsRoles}
-          defaultValue={1}
           disabledRole={false}
           entityId={entityId}
           contentType={contentType}

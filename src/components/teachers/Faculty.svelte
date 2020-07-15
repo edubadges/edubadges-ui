@@ -8,6 +8,7 @@
   import {headerStaff, headerEntity} from "../../api/queries";
   import {entityType} from "../../util/entityTypes"
   import Spinner from "../Spinner.svelte";
+  import {permissionsRole} from "../../util/rolesToPermissions";
 
   export let entityId;
   export let subEntity;
@@ -85,7 +86,7 @@
     }
   ];
 
-  const permissionsRoles = [{name: I18n.t("editUsers.faculty.admin")}];
+  const permissionsRoles = [{value: permissionsRole.ADMIN, name: I18n.t("editUsers.faculty.admin")}];
 
 </script>
 {#if loaded}
@@ -111,7 +112,6 @@
       <InviteUser
         permissionsRoles={permissionsRoles}
         entityId={entityId}
-        defaultValue={0}
         disabledRole={true}
         contentType={contentType}
       />

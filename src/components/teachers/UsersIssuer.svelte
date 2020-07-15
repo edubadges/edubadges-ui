@@ -12,6 +12,7 @@
   } from "../../api";
   import {AddPermissionsModal, Modal} from "../forms";
   import Spinner from "../Spinner.svelte";
+  import {permissionsRole} from "../../util/rolesToPermissions";
 
   export let userId;
 
@@ -156,15 +157,15 @@
   };
 
   const submitPermissions = () => {
-    switch (modalChosenRole.name) {
-      case 'admin':
+    switch (modalChosenRole.value) {
+      case permissionsRole.ADMIN:
         makeUserIssuerAdmin(modalSelectedBadgeClass.entityId, userId, modalNotes).then(() => {
           reload();
           showAddModal = false;
         });
         break;
       default:
-        console.error('error: invalid role');
+        throw new Error(`Invalid role ${modalChosenRole.value}`)
     }
   };
 
@@ -192,9 +193,7 @@
     removeModalAction = removeSelectedPermissions;
   };
 
-  const permissionsRoles = [
-    {name: 'admin'}
-  ];
+  const permissionsRoles = [{value:"admin", name: I18n.t("editUsers.issuer.admin")}];
 
   $: buttons = [
     {
@@ -322,7 +321,6 @@
     selectEntity={selectEntity}
       permissionsRoles={permissionsRoles}
       title={addModalTitle}
-      entity={'issuer'}
       targetOptions={issuers}
       bind:target={modalSelectedBadgeClass}
       bind:chosenRole={modalChosenRole}
