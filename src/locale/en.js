@@ -424,7 +424,7 @@ I18n.translations.en = {
       image: "Issuer Logo",
       name: "Name",
       url: "Website URL",
-      faculty: "Group",
+      faculty: "Issuer Group",
       gradingTable: "Institution grading table URL",
       institutionName: "Institution name",
       institutionIdentifier: "Institution identifier"
