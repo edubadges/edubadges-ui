@@ -1,10 +1,12 @@
 <script>
   import Select from "svelte-select";
+  import {TextInput} from "../forms";
 
   export let value;
   export let items = [];
 
   export let disabled = false;
+  export let nonEditable = false;
   export let clearable = true;
   export let error;
 
@@ -60,17 +62,21 @@
   }
 </style>
 
-<div class="select-field" {error} {disabled}>
-  <Select
-    on:select={() => handleSelect(value)}
-    {items}
-    bind:selectedValue={value}
-    {optionIdentifier}
-    getOptionLabel={({ name }) => name}
-    getSelectionLabel={({ name }) => name}
-    placeholder={''}
-    showChevron={true}
-    showIndicator={true}
-    isDisabled={disabled}
-    isClearable={clearable} />
-</div>
+{#if nonEditable || disabled}
+  <TextInput />
+{:else}
+  <div class="select-field" {error} {disabled}>
+    <Select
+        on:select={() => handleSelect(value)}
+        {items}
+        bind:selectedValue={value}
+        {optionIdentifier}
+        getOptionLabel={({ name }) => name}
+        getSelectionLabel={({ name }) => name}
+        placeholder={''}
+        showChevron={true}
+        showIndicator={true}
+        isDisabled={disabled}
+        isClearable={clearable} />
+  </div>
+{/if}

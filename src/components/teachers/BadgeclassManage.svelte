@@ -134,7 +134,7 @@
       <Route path="/user-management/invite-new-user">
         <InviteUser
           permissionsRoles={permissionsRoles}
-          defaultValue={1}
+          defaultValue={2}
           disabledRole={false}
           entityId={entityId}
           contentType={contentType}

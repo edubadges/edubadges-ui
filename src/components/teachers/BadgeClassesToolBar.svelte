@@ -36,6 +36,7 @@
     margin-left: 5px;
     margin-right: 5px;
     color: var(--text-grey-dark);
+    cursor: pointer;
   }
 
   .active {
@@ -54,9 +55,9 @@
 
 <div id="buttons">
   <span>
-    <button class="badge-filter-button {awardFilter ? 'active' : 'inactive'}" on:click={() => setBadgeFilter(true)}>{I18n.t('teacher.badgeclasses.canAward')}</button>
+    <span class="badge-filter-button {awardFilter ? 'active' : 'inactive'}" on:click={() => setBadgeFilter(true)}>{I18n.t('teacher.badgeclasses.canAward')}</span>
     |
-    <button class="badge-filter-button {awardFilter ? 'inactive' : 'active'}" on:click={() => setBadgeFilter(false)}>{I18n.t('teacher.badgeclasses.allBadges')}</button>
+    <span class="badge-filter-button {awardFilter ? 'inactive' : 'active'}" on:click={() => setBadgeFilter(false)}>{I18n.t('teacher.badgeclasses.allBadges')}</span>
   </span>
 
   <span id="search">
