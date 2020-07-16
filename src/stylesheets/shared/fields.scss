@@ -33,6 +33,8 @@
   @include input-label;
   @include input-element;
 
+  color: var(--black);
+
   &:focus,
   &:focus + label {
     @include input-focus;

@@ -10,10 +10,9 @@
   export let contentType;
   export let entityId;
   export let disabledRole;
-  export let permissionsRoles;
-  export let defaultValue;
+  export let permissionsRoles = [];
 
-  let newUsers = [{'email': '', 'chosenRole': _.isNumber(defaultValue) ? permissionsRoles[defaultValue] : ''}];
+  let newUsers = [{"email": "", "chosenRole": permissionsRoles[0]}];
   let errors = [];
 
   const emailRegExp = /(.+)@(.+){1,}/
@@ -21,7 +20,7 @@
   const addEmailField = () => {
     newUsers = [...newUsers, {
       'email': '',
-      'chosenRole': _.isNumber(defaultValue) ? permissionsRoles[defaultValue] : ''
+      'chosenRole': permissionsRoles[0]
     }];
   };
 
@@ -33,8 +32,8 @@
 
   const submit = () => {
     errors = [];
-    const userProvisonments = newUsers.filter(user => emailRegExp.test(user.email.test))
-      .map(user => ({'userEmail': user.email, 'permissions': rolesToPermissions(user.chosenRole)}));
+    const userProvisonments = newUsers.filter(user => emailRegExp.test(user.email))
+      .map(user => ({'userEmail': user.email, 'permissions': rolesToPermissions(user.chosenRole.value)}));
     inviteUser(contentType, entityId, userProvisonments).then(res => {
       if (res.some(el => {
         return el.status === "failure"
@@ -156,7 +155,7 @@
               bind:value={newUser.chosenRole}
               items={permissionsRoles}
               clearable={false}
-              optionIdentifier="name"
+              optionIdentifier="value"
             />
           </Field>
         </div>

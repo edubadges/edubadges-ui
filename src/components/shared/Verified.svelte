@@ -3,7 +3,8 @@
   import I18n from "i18n-js";
 
   export let value;
-  export let showVerified = false;
+  export let showVerified = true;
+  export let fromEduID = false;
 
 </script>
 <style lang="scss">
@@ -35,7 +36,7 @@
   <span>{value}</span>
   {#if showVerified}
     <div class="marker">
-      {@html check} <span>{I18n.t("profile.validatedByYourInstitution")}</span>
+      {@html check} <span>{fromEduID ? I18n.t("profile.validatedByEduId") : I18n.t("profile.validatedByYourInstitution")}</span>
     </div>
   {/if}
 </div>

@@ -7,7 +7,7 @@
   export let cancel;
   export let title;
   export let selectEntity;
-  export let permissionsRoles;
+  export let permissionsRoles = [];
   export let chosenRole = permissionsRoles[0];
   export let disabledRole;
   export let disabled = false;
@@ -47,11 +47,11 @@
             bind:value={chosenRole}
             items={permissionsRoles}
             clearable={false}
-            optionIdentifier="name"
+            optionIdentifier="value"
         />
       </Field>
       <Field entity={'editUsers'} attribute={'notes'}>
-        <TextInput bind:value={notes} area={true}/>
+        <TextInput bind:value={notes} area={true} placeholder={I18n.t("placeholders.permissions.notes")}/>
       </Field>
     </div>
     <div class="options">

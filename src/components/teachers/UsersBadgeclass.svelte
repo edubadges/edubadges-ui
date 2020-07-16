@@ -17,6 +17,7 @@
   } from "../../api";
   import {AddPermissionsModal, Modal, Select} from "../forms";
   import Spinner from "../Spinner.svelte";
+  import {permissionsRole} from "../../util/rolesToPermissions";
 
   export let userId;
 
@@ -192,20 +193,20 @@
   let removeModalAction;
 
   const submitPermissions = () => {
-    switch (modalChosenRole.name) {
-      case 'owner':
+    switch (modalChosenRole.value) {
+      case permissionsRole.OWNER:
         makeUserBadgeclassOwner(modalSelectedBadgeClass.entityId, userId, modalNotes).then(() => {
           reload();
           showAddModal = false;
         });
         break;
-      case 'editor':
+      case permissionsRole.EDITOR:
         makeUserBadgeclassEditor(modalSelectedBadgeClass.entityId, userId, modalNotes).then(() => {
           reload();
           showAddModal = false;
         });
         break;
-      case 'awarder':
+      case permissionsRole.AWARDER:
         makeUserBadgeclassAwarder(modalSelectedBadgeClass.entityId, userId, modalNotes).then(() => {
           reload();
           showAddModal = false;
@@ -241,9 +242,9 @@
   };
 
   const permissionsRoles = [
-    {name: I18n.t(['editUsers', 'badgeclass', 'editor'])},
-    {name: I18n.t(['editUsers', 'badgeclass', 'awarder'])},
-    {name: I18n.t(['editUsers', 'badgeclass', 'owner'])}
+    {value: permissionsRole.ADMIN, name: I18n.t("editUsers.badgeclass.owner")},
+    {value: permissionsRole.EDITOR, name: I18n.t("editUsers.badgeclass.editor")},
+    {value: permissionsRole.AWARDER, name: I18n.t("editUsers.badgeclass.awarder")}
   ];
 
   $: buttons = [
@@ -447,7 +448,6 @@
     selectEntity={selectEntity}
       permissionsRoles={permissionsRoles}
       title={addModalTitle}
-      entity={'badgeclass'}
       targetOptions={badgeclasses}
       bind:target={modalSelectedBadgeClass}
       bind:chosenRole={modalChosenRole}

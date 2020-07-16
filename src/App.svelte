@@ -87,6 +87,11 @@
     height: auto;
   }
 
+  input::placeholder {
+    color: var(--grey-7);
+  }
+
+
 </style>
 
 <div class="app">

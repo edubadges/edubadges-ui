@@ -1,9 +1,10 @@
 <script>
   import I18n from "i18n-js";
-  import { UsersTable } from "../teachers";
-  import { sortType } from "../../util/sortData";
-  import { entityType } from "../../util/entityTypes";
-  import { staffType } from "../../util/staffTypes";
+  import {UsersTable} from "../teachers";
+  import {sortType} from "../../util/sortData";
+  import {entityType} from "../../util/entityTypes";
+  import {staffType} from "../../util/staffTypes";
+  import {permissionsRole} from "../../util/rolesToPermissions";
 
   export let entity;
   export let institutionStaffs = [];
@@ -28,7 +29,7 @@
         reverse: false,
         sortType: sortType.COLLECTION
       }
-    ] : entity === entityType.ISSUER_GROUP ?[
+    ] : entity === entityType.ISSUER_GROUP ? [
       {
         name: I18n.t("editUsers.faculty.header"),
         attribute: "name",
@@ -41,7 +42,7 @@
         reverse: false,
         sortType: sortType.COLLECTION
       }
-    ] : entity === entityType.ISSUER ?[
+    ] : entity === entityType.ISSUER ? [
       {
         name: I18n.t("editUsers.issuer.header"),
         attribute: "name",
@@ -54,7 +55,7 @@
         reverse: false,
         sortType: sortType.COLLECTION
       }
-    ] : entity === entityType.BADGE_CLASS ?[
+    ] : entity === entityType.BADGE_CLASS ? [
       {
         name: I18n.t("editUsers.issuer.header"),
         attribute: "name",
@@ -84,9 +85,9 @@
 </script>
 
 <UsersTable
-    {...table}
-    bind:search={entitySearch}
-    withCheckAll={false}
+  {...table}
+  bind:search={entitySearch}
+  withCheckAll={false}
 >
   {#if entity === entityType.INSTITUTION}
     {#if institutionStaffs.length === 0}
@@ -110,7 +111,7 @@
         {:else if staff._staffType === staffType.INSTITUTION_STAFF}
           <td>
             {I18n.t(['editUsers', 'permissions', 'allRights'])}
-            <br />
+            <br/>
             {I18n.t(['editUsers', 'permissions', 'institutionAllRights'])}
           </td>
         {/if}
@@ -128,13 +129,13 @@
         {:else if staff._staffType === staffType.ISSUER_GROUP_STAFF}
           <td>
             {I18n.t(['editUsers', 'permissions', 'allRights'])}
-            <br />
+            <br/>
             {I18n.t(['editUsers', 'permissions', 'issuerGroupAllRights'])}
           </td>
         {:else if staff._staffType === staffType.INSTITUTION_STAFF}
           <td>
             {I18n.t(['editUsers', 'permissions', 'allRights'])}
-            <br />
+            <br/>
             {I18n.t(['editUsers', 'permissions', 'institutionAllRights'])}
           </td>
         {/if}
@@ -151,26 +152,26 @@
         {#if staff._staffType === staffType.BADGE_CLASS_STAFF}
           <td>
             {I18n.t(['editUsers', 'badgeclass',
-            staff.mayAdministrateUsers? 'owner' :
-            staff.mayUpdate ? 'editor' : 'awarder'
+            staff.mayAdministrateUsers? permissionsRole.OWNER :
+            staff.mayUpdate ? permissionsRole.EDITOR : permissionsRole.AWARDER
             ])}
           </td>
         {:else if staff._staffType === staffType.ISSUER_STAFF}
           <td>
             {I18n.t(['editUsers', 'permissions', 'allRights'])}
-            <br />
+            <br/>
             {I18n.t(['editUsers', 'permissions', 'issuerAllRights'])}
           </td>
         {:else if staff._staffType === staffType.ISSUER_GROUP_STAFF}
           <td>
             {I18n.t(['editUsers', 'permissions', 'allRights'])}
-            <br />
+            <br/>
             {I18n.t(['editUsers', 'permissions', 'issuerGroupAllRights'])}
           </td>
         {:else if staff._staffType === staffType.INSTITUTION_STAFF}
           <td>
             {I18n.t(['editUsers', 'permissions', 'allRights'])}
-            <br />
+            <br/>
             {I18n.t(['editUsers', 'permissions', 'institutionAllRights'])}
           </td>
         {/if}

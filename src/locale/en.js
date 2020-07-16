@@ -68,7 +68,8 @@ I18n.translations.en = {
     addEmail: "Add e-mail",
     addEmailInfo: "You will receive an email with a link to verify your new email address",
     unverified: "unverified",
-    validatedByYourInstitution: "Verified by your institution",
+    validatedByYourInstitution: "Delivered by your institution",
+    validatedByEduId: "Delivered by eduID",
     deleteHeader: "Deleting your edubadges backpack",
     deleteInfo1: "You can delete your backpack whenever you want.",
     deleteInfo2: "Proceed with care, as you will loose all your edubadges.",
@@ -197,6 +198,7 @@ I18n.translations.en = {
       userManagement: "User management",
       enrollments: "Enrolled",
       assertions: "Awarded",
+      profile: "Profile"
     },
     edit: {
       edit: "edit",
@@ -355,9 +357,9 @@ I18n.translations.en = {
       badgeclassOwner: "Owner",
       badgeclassEditor: "Editor",
       badgeclassAwarder: "Awarder",
-      owner: "owner",
-      editor: "editor",
-      awarder: "awarder",
+      owner: "Owner",
+      editor: "Editor",
+      awarder: "Awarder",
       switchToOwner: "Successfully changed user to badgeclass owner role.",
       switchToEditor: "Successfully changed user to badgeclass editor role.",
       switchToAwarder: "Successfully changed user to badgeclass awarder role.",
@@ -424,7 +426,7 @@ I18n.translations.en = {
       image: "Issuer Logo",
       name: "Name",
       url: "Website URL",
-      faculty: "Group",
+      faculty: "Issuer Group",
       gradingTable: "Institution grading table URL",
       institutionName: "Institution name",
       institutionIdentifier: "Institution identifier"
@@ -644,5 +646,13 @@ I18n.translations.en = {
     banner: "Hi {{firstName}} {{lastName}}",
     profile: "Profile",
     loggedIn: "You are currently logged in with your institution account, via SURFconext"
+  },
+  placeholders: {
+    institution: {},
+    faculty: {},
+    badgeclass: {},
+    permissions: {
+      notes: "e.g. why did you add permissions?"
+    }
   }
 };

@@ -118,7 +118,7 @@ import {
     },
   ];
 
-  const permissionsRoles = [{name: I18n.t("editUsers.issuer.admin")}];
+  const permissionsRoles = [{value:"admin", name: I18n.t("editUsers.issuer.admin")}];
 
 </script>
 
@@ -143,7 +143,6 @@ import {
     <InviteUser
       permissionsRoles={permissionsRoles}
       entityId={entityId}
-      defaultValue={0}
       disabledRole={true}
       contentType={contentType}
     />

@@ -6,6 +6,7 @@
   export let error;
   export let size;
   export let full;
+  export let placeholder;
 
   export let area;
 </script>
@@ -25,10 +26,10 @@
 
 <div {disabled} {error}>
   {#if area}
-    <textarea class="input-field" style="{size ? 'height:' + size + 'px' : ''}" class:full class:error bind:value rows="4" {disabled}/>
+    <textarea {placeholder} class="input-field" style="{size ? 'height:' + size + 'px' : ''}" class:full class:error bind:value rows="4" {disabled}/>
   {:else if type === "text"}
-    <input type="text" class="input-field" class:error bind:value {disabled}/>
+    <input type="text" {placeholder} class="input-field" class:error bind:value {disabled}/>
   {:else}
-    <input type="number" max={max} class="input-field" class:error bind:value {disabled}/>
+    <input type="number" {placeholder} max={max} class="input-field" class:error bind:value {disabled}/>
   {/if}
 </div>
