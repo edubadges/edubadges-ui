@@ -366,7 +366,7 @@ I18n.translations.en = {
       permissions: "Permissions on edubadge Class level"
     },
     permissions: {
-      header: "Permissions",
+      header: "Your Permissions",
       headerUser: "Permissions for",
       allRights: "All rights",
       institutionAllRights: "(because Institution Admin)",

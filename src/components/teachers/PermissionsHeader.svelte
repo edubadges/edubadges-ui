@@ -2,6 +2,7 @@
   import I18n from "i18n-js";
   import {EntityHeaderTabs, HeaderList} from "../teachers";
   import {flash} from "../../stores/flash";
+  import {userManagementIcon} from "../../icons";
 
   export let user;
   export let tabs;
@@ -21,7 +22,7 @@
       .info {
         flex: 1;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
       }
 
       .list {
@@ -29,11 +30,20 @@
       }
     }
   }
+
+  .svg-container {
+    width: 30px;
+    margin: 0 25px;
+  }
+
 </style>
 
 <div class="entity">
   <div class="content">
     <div class="info">
+      <div class="svg-container">
+        {@html userManagementIcon}
+      </div>
       {#if user}
         <h2>{I18n.t(['editUsers', 'permissions', 'headerUser'])} {user.firstName} {user.lastName}</h2>
         <div class="list">

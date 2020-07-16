@@ -18,13 +18,7 @@
     });
   });
 
-  const tabs = [
-    {
-      entity: "profile",
-      href: `/profile`,
-      icon: userManagementIcon
-    }
-  ];
+  const tabs = [];
 
 </script>
 

@@ -366,7 +366,7 @@ I18n.translations.nl = {
       permissions: "Permissies op Badge Class niveau"
     },
     permissions: {
-      header: "Permissies",
+      header: "Uw Permissies",
       headerUser: "Permissies voor",
       allRights: "Alle rechten",
       institutionAllRights: "(because Institution Admin)",

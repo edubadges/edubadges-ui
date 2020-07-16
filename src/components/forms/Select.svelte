@@ -85,6 +85,7 @@
         showChevron={true}
         showIndicator={true}
         isDisabled={disabled}
-        indicatorSvg={indicator}isClearable={clearable} />
+        indicatorSvg={indicator}
+        isClearable={clearable} />
   </div>
 {/if}
