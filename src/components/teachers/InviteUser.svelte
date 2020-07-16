@@ -11,8 +11,9 @@
   export let entityId;
   export let disabledRole;
   export let permissionsRoles = [];
+  export let defaultValue = 0;
 
-  let newUsers = [{"email": "", "chosenRole": permissionsRoles[0]}];
+  let newUsers = [{"email": "", "chosenRole": permissionsRoles[defaultValue]}];
   let errors = [];
 
   const emailRegExp = /(.+)@(.+){1,}/
@@ -20,7 +21,7 @@
   const addEmailField = () => {
     newUsers = [...newUsers, {
       'email': '',
-      'chosenRole': permissionsRoles[0]
+      'chosenRole': permissionsRoles[defaultValue]
     }];
   };
 
