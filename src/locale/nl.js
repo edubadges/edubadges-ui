@@ -354,6 +354,7 @@ I18n.translations.nl = {
     },
     badgeclass: {
       header: "Badgeclass",
+      issuedBy: "Issued by",
       badgeclassOwner: "Eigenaar",
       badgeclassEditor: "Bewerker",
       badgeclassAwarder: "Awarder",

@@ -81,7 +81,10 @@
         name,
         entityId,
         issuer {
-          name
+          name,
+          faculty {
+            name
+          }
         }
       },
       mayAdministrateUsers,
@@ -152,13 +155,13 @@
 
   const tableHeaders = [
     {
-      name: I18n.t("editUsers.issuer.header"),
+      name: I18n.t("editUsers.badgeclass.header"),
       attribute: "name",
       reverse: false,
       sortType: sortType.ALPHA
     },
     {
-      name: I18n.t("editUsers.badgeclass.header"),
+      name: I18n.t("editUsers.badgeclass.issuedBy"),
       attribute: "name",
       reverse: false,
       sortType: sortType.ALPHA
@@ -338,8 +341,12 @@
               disabled={false}
               onChange={val => onCheckOne(val, badgeclassStaffMembership.entityId)}/>
           </td>
-          <td>{badgeclassStaffMembership.badgeclass.issuer.name}</td>
           <td>{badgeclassStaffMembership.badgeclass.name}</td>
+          <td>
+            {badgeclassStaffMembership.badgeclass.issuer.name}
+            <br />
+            <span class="sub-text">{badgeclassStaffMembership.badgeclass.issuer.faculty.name}</span>
+          </td>
           <td>
             <div class="badgeclass-role-select">
               <Select
@@ -366,8 +373,12 @@
                 name={`select-${badgeclass.entityId}`}
                 disabled={true}/>
             </td>
-            <td>{badgeclass.issuer.name}</td>
             <td>{badgeclass.name}</td>
+            <td>
+              {badgeclass.issuer.name}
+              <br />
+              <span class="sub-text">{badgeclass.issuer.faculty.name}</span>
+            </td>
           <td>
             {I18n.t(['editUsers', 'permissions', 'allRights'])}
             <br />
@@ -387,8 +398,12 @@
                   disabled={true}
                 />
               </td>
-              <td>{badgeclass.issuer.name}</td>
               <td>{badgeclass.name}</td>
+              <td>
+                {badgeclass.issuer.name}
+                <br />
+                <span class="sub-text">{badgeclass.issuer.faculty.name}</span>
+              </td>
               <td>
                 {I18n.t(['editUsers', 'permissions', 'allRights'])}
                 <br />
@@ -410,8 +425,12 @@
                     disabled={true}
                   />
                 </td>
-                <td>{issuer.name}</td>
                 <td>{badgeclass.name}</td>
+                <td>
+                  {issuer.name}
+                  <br />
+                  <span class="sub-text">{faculty.name}</span>
+                </td>
                 <td>
                   {I18n.t(['editUsers', 'permissions', 'allRights'])}
                   <br/>

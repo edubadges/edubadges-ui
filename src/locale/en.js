@@ -362,6 +362,7 @@ I18n.translations.en = {
     },
     badgeclass: {
       header: "Badgeclass",
+      issuedBy: "Issued by",
       badgeclassOwner: "Owner",
       badgeclassEditor: "Editor",
       badgeclassAwarder: "Awarder",
