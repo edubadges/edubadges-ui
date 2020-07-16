@@ -12,7 +12,7 @@
   export let institutionName;
 
   const badgesCount = badgeClasses => {
-    const count = badgeClasses.reduce((acc, badgeClass) => acc += badgeClass.badgeAssertions.length, 0);
+    const count = badgeClasses.reduce((acc, badgeClass) => acc += (badgeClass.badgeAssertions || []).length, 0);
     return count === 0 ? I18n.t("teacher.badgeclasses.noBadges") : I18n.t("teacher.badgeclasses.badgesCount", {count})
   }
 
