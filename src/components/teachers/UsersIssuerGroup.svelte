@@ -19,6 +19,7 @@
   let user;
   let currentUser;
   let faculties;
+  let newPermissionOptions = [];
   let institutionId;
   let issuerGroupSearch;
 
@@ -35,6 +36,9 @@
     faculties {
       name,
       entityId,
+      permissions {
+        mayAdministrateUsers
+      },
       issuers {
         name,
         entityId,
@@ -98,6 +102,7 @@
     queryData(query).then(res => {
       institutionId = res.currentInstitution.entityId;
       faculties = res.currentInstitution.faculties;
+      newPermissionOptions = faculties.filter(faculty => !faculty.permissions.mayAdministrateUsers);
       user = res.user;
       currentUser = res.currentUser;
       isEmpty = user.facultyStaffs.length === 0 &&
@@ -194,6 +199,7 @@
       'action': addPermissions,
       'text': I18n.t(['editUsers', 'permissions', 'addPermissions']),
       'allowed': (currentUser && currentUser.institutionStaff),
+      'disabled': newPermissionOptions.length === 0
     }
   ];
 
@@ -276,9 +282,9 @@
 
 {#if showRemoveModal}
   <Modal
-    submit={removeModalAction}
-    cancel={() => showRemoveModal = false}
-    question={removeModalQuestion}
+      submit={removeModalAction}
+      cancel={() => showRemoveModal = false}
+      question={removeModalQuestion}
       title={removeModalTitle}
   >
   </Modal>
@@ -286,12 +292,12 @@
 
 {#if showAddModal}
   <AddPermissionsModal
-    submit={addModalAction}
-    cancel={() => showAddModal = false}
-    selectEntity={selectEntity}
+      submit={addModalAction}
+      cancel={() => showAddModal = false}
+      selectEntity={selectEntity}
       permissionsRoles={permissionsRoles}
       title={addModalTitle}
-      targetOptions={faculties}
+      targetOptions={newPermissionOptions}
       bind:target={modalSelectedBadgeClass}
       bind:chosenRole={modalChosenRole}
       bind:notes={modalNotes}

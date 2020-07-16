@@ -25,7 +25,7 @@
   let selection = [];
   let checkAllValue = false;
 
-  let issuers = [];
+  let newPermissionOptions = [];
   let loaded;
   let isEmpty;
 
@@ -39,6 +39,9 @@
       issuers {
         name,
         entityId,
+        permissions {
+          mayAdministrateUsers
+        }
       }
     }
   },
@@ -107,7 +110,9 @@
       currentUser = res.currentUser;
       faculties.forEach(faculty => {
         faculty.issuers.forEach(issuer => {
-          issuers = [issuer, ...issuers]
+          if (!issuer.permissions.mayAdministrateUsers) {
+            newPermissionOptions = [issuer, ...newPermissionOptions]
+          }
         })
       });
       isEmpty = user.issuerStaffs.length === 0 &&
@@ -205,6 +210,7 @@
       'action': addPermissions,
       'text': I18n.t(['editUsers', 'permissions', 'addPermissions']),
       'allowed': (currentUser && currentUser.institutionStaff),
+      'disabled': newPermissionOptions.length === 0
     }
   ];
 
@@ -319,12 +325,12 @@
     submit={addModalAction}
     cancel={() => showAddModal = false}
     selectEntity={selectEntity}
-      permissionsRoles={permissionsRoles}
-      title={addModalTitle}
-      targetOptions={issuers}
-      bind:target={modalSelectedBadgeClass}
-      bind:chosenRole={modalChosenRole}
-      bind:notes={modalNotes}
+    permissionsRoles={permissionsRoles}
+    title={addModalTitle}
+    targetOptions={newPermissionOptions}
+    bind:target={modalSelectedBadgeClass}
+    bind:chosenRole={modalChosenRole}
+    bind:notes={modalNotes}
   >
   </AddPermissionsModal>
 {/if}
