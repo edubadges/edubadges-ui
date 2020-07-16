@@ -338,7 +338,15 @@ I18n.translations.en = {
       header: "Institution",
       allRights: "Institution Admin",
       noRights: "No rights",
-      permissions: "Permissions on Institution level"
+      permissions: "Permissions on Institution level",
+      makeUserInstitutionAdmin: "Grant user {{name}} institution admin rights",
+      makeUserInstitutionAdminQuestion: "Are you sure you want to promote {{name}} to institution admin?",
+      removeUserInstitutionAdmin: "Remove user institution admin rights from {{name}}",
+      removeUserInstitutionAdminQuestion: "Are you sure you want to remove the institution admin from {{name}}?",
+      flash: {
+        makeUserInstitutionAdmin: "{{name}} is granted institution admin rights",
+        removeUserInstitutionAdmin: "Institution admin rights have been removed from {{name}}"
+      }
     },
     faculty: {
       admin: "Group admin",
@@ -628,7 +636,7 @@ I18n.translations.en = {
     users: "There are no users for institution {{name}}.",
     assertions: "There are no assertions for edubadge {{name}}.",
     enrollments: "There are no enrollments for edubadge {{name}}.",
-    permissions: "There are no perissions for this user on the {{entity}} level.",
+    permissions: "There are no perissions for this user on the {{name}} level.",
     selfPermissions: "There are no permissions for this user on the {{entity}} level.",
     userPermissions: "This user does not have any permissions for {{entity}} {{name}}."
   },
@@ -648,11 +656,41 @@ I18n.translations.en = {
     loggedIn: "You are currently logged in with your institution account, via SURFconext"
   },
   placeholders: {
-    institution: {},
-    faculty: {},
-    badgeclass: {},
+    institution: {
+      name: "e.g. University of Harderwijk",
+      brin: "Basic Registration Settings number",
+      gradingTable: "URL of the grading table",
+      description: "e.g. The University of Harderwijk was founded in 1977"
+    },
+    faculty: {
+      name: "e.g. History",
+      description: "e.g. all History related studies"
+    },
+    issuer: {
+      name: "e.g. Social Historic Studies",
+      description: "e.g. the study of social behaviour in the Middle Ages",
+      email: "e.g. john.doe@example.com",
+      url: "e.g. https://harderwijk.nl"
+    },
+    badgeClass: {
+      name: "e.g. Renaissance",
+      description: "e.g. Political infuence of the Church during the Renaissance",
+      learningOutcome: "e.g. will be able to read and demonstrate good comprehension of text in areas of the student’s interest or professional field.",
+      criteriaText: "e.g. online multiple choice exam",
+      criteriaUrl: "e.g. https://harderwijk.nl/renaissance/criteria",
+      studyLoad: "e.g. 120",
+      educationProgramIdentifier: "e.g. 12111990",
+      alignmentName: "e.g. Big Skill",
+      alignmentFramework: "e.g. Skill Matter",
+      alignmentDescription: "A big skill, takes many hours to learn",
+      alignmentUrl: "http://standards.net/CCELA-RL-6",
+      alignmentCode: "CCSS.ELA-Literacy.RL.6.3"
+    },
     permissions: {
       notes: "e.g. why did you add permissions?"
+    },
+    userManagement: {
+      email: "e.g. john.doe@example.com"
     }
   }
 };

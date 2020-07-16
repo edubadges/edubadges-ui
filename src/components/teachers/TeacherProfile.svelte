@@ -24,17 +24,6 @@
 
 <style lang="scss">
 
-  .svg-container {
-    width: 30px;
-    margin: 0 25px;
-  }
-
-  span.logged-in {
-    display: inline-block;
-    margin-left: 80px;
-    color: var(--grey-7);
-  }
-
   .header {
     margin-bottom: 25px;
   }

@@ -7,6 +7,7 @@
   import {editInstitution} from "../../api";
   import {entityType} from "../../util/entityTypes";
   import Spinner from "../Spinner.svelte";
+  import I18n from "i18n-js";
 
   const entity = entityType.INSTITUTION;
   const query = `{
@@ -52,24 +53,27 @@
     </Field>
 
     <Field {entity} attribute="name" errors={errors.name} disabled={true}>
-      <TextInput bind:value={institution.name} error={errors.name} disabled={true}/>
+      <TextInput bind:value={institution.name} error={errors.name} disabled={true}  placeholder={I18n.t("placeholders.institution.name")}/>
     </Field>
 
     <Field {entity} attribute="description" errors={errors.description}>
       <TextInput
         bind:value={institution.description}
         error={errors.description}
+        placeholder={I18n.t("placeholders.institution.description")}
         size="100"
         area/>
     </Field>
 
     <Field {entity} attribute="brin" errors={errors.brin}>
-      <TextInput bind:value={institution.brin} error={errors.brin} placeholder={"somesdfjasdf fv.."}/>
+      <TextInput bind:value={institution.brin} error={errors.brin}
+                 placeholder={I18n.t("placeholders.institution.brin")}/>
     </Field>
 
     <Field {entity} attribute="grading_table" errors={errors.grading_table}>
       <TextInput
         bind:value={institution.grading_table}
+        placeholder={I18n.t("placeholders.institution.gradingTable")}
         error={errors.grading_table}/>
     </Field>
 

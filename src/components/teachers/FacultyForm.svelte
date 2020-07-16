@@ -4,6 +4,7 @@
   import {Field, File, TextInput} from "../forms";
   import {createFaculty, editFaculty} from "../../api";
   import {entityType} from "../../util/entityTypes";
+  import I18n from "i18n-js";
 
   export let entityId;
   export let faculty = {};
@@ -40,11 +41,11 @@
             {mayDelete} entityTypeName={entity} entityId={entityId}>
 
   <Field {entity} attribute="name" errors={errors.name}>
-    <TextInput bind:value={faculty.name} error={errors.name}/>
+    <TextInput bind:value={faculty.name} error={errors.name} placeholder={I18n.t("placeholders.faculty.name")}/>
   </Field>
 
   <Field {entity} attribute="description" errors={errors.description}>
-    <TextInput bind:value={faculty.description} error={errors.description} area size="100"/>
+    <TextInput bind:value={faculty.description} error={errors.description} area size="100"  placeholder={I18n.t("placeholders.faculty.description")}/>
   </Field>
 
 </EntityForm>

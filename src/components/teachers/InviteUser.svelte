@@ -146,7 +146,7 @@
         {/if}
         <div class={`user-invite-field ${i === 0 ? "first" : ""}`}>
           <Field entity={'inviteUsers'} attribute="email" errors={errors[i]}>
-            <TextInput bind:value={newUser.email} error={errors.email}/>
+            <TextInput bind:value={newUser.email} error={errors.email} placeholder={I18n.t("placeholders.userManagement.email")}/>
           </Field>
         </div>
         <div class={`user-invite-field ${i === 0 ? "second" : ""}`}>

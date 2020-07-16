@@ -8,10 +8,13 @@
   import I18n from "i18n-js";
   import {makeUserInstitutionAdmin, removeUserInstitutionAdmin} from "../../api";
   import Spinner from "../Spinner.svelte";
+  import {flash} from "../../stores/flash";
+  import Modal from "../forms/Modal.svelte";
 
   export let userId;
 
   let user;
+  let userNameDict;
   let currentUser;
   let faculties;
   let institutionName;
@@ -20,6 +23,44 @@
 
   let selection = [];
   let checkAllValue = false;
+  let loaded = false;
+
+  let showModal = false;
+  let modalTitle;
+  let modalQuestion;
+  let modalAction;
+
+  const doMakeUserInstitutionAdmin = showConfirmation => () => {
+    if (showConfirmation) {
+      modalTitle = I18n.t("editUsers.institution.makeUserInstitutionAdmin", userNameDict);
+      modalQuestion = I18n.t("editUsers.institution.makeUserInstitutionAdminQuestion", userNameDict);
+      modalAction = doMakeUserInstitutionAdmin(false);
+      showModal = true;
+    } else {
+      showModal = false;
+      makeUserInstitutionAdmin(institutionId, userId)
+        .then(() => {
+          refresh();
+          flash.setValue(I18n.t("editUsers.institution.flash.makeUserInstitutionAdmin", userNameDict));
+        });
+    }
+  }
+
+  const doRemoveUserInstitutionAdmin = showConfirmation => () => {
+    if (showConfirmation) {
+      modalTitle = I18n.t("editUsers.institution.removeUserInstitutionAdmin", userNameDict);
+      modalQuestion = I18n.t("editUsers.institution.removeUserInstitutionAdminQuestion", userNameDict);
+      modalAction = doRemoveUserInstitutionAdmin(false);
+      showModal = true;
+    } else {
+      showModal = false;
+      removeUserInstitutionAdmin(user.institutionStaff.entityId)
+        .then(() => {
+          refresh();
+          flash.setValue(I18n.t("editUsers.institution.flash.removeUserInstitutionAdmin", userNameDict));
+        });
+    }
+  }
 
   const query = `{
   currentInstitution {
@@ -88,15 +129,21 @@
  }`;
 
 
-  onMount(() => {
+  const refresh = () => {
+    loaded = false;
     queryData(query).then(res => {
       institutionId = res.currentInstitution.entityId;
       faculties = res.currentInstitution.faculties;
       user = res.user;
       currentUser = res.currentUser;
       institutionName = res.currentInstitution.name;
+      userNameDict = {name: `${user.firstName} ${user.lastName}`};
+      loaded = true;
     });
-  });
+  }
+
+
+  onMount(refresh);
 
   const tableHeaders = [
     {
@@ -119,21 +166,23 @@
     tableHeaders: tableHeaders
   };
 
+  const isInstitutionAdmin = () => user.institutionStaff && user.institutionStaff.entityId;
+
   const toggleInstitutionAdmin = () => {
-    if (user.institutionStaff) {
-      removeUserInstitutionAdmin(user.institutionStaff.entityId);
+    if (isInstitutionAdmin()) {
+      doRemoveUserInstitutionAdmin(true)();
     } else {
-      makeUserInstitutionAdmin(institutionId, userId);
+      doMakeUserInstitutionAdmin(true)();
     }
   };
 
   $: buttons = [
     {
       'action': toggleInstitutionAdmin,
-      'text': user && user.institutionStaff ?
+      'text': user && isInstitutionAdmin() ?
         I18n.t(['editUsers', 'permissions', 'removeInstitutionAdmin']) :
         I18n.t(['editUsers', 'permissions', 'setInstitutionAdmin']),
-      'allowed': (currentUser && currentUser.institutionStaff),
+      'allowed': (currentUser && currentUser.institutionStaff && currentUser.institutionStaff.mayAdministrateUsers),
       'disabled': false
     }
   ];
@@ -162,7 +211,7 @@
   }
 </style>
 
-{#if user}
+{#if loaded}
   <div class="container">
     <UsersTable
       {...table}
@@ -181,4 +230,13 @@
   </div>
 {:else}
   <Spinner/>
+{/if}
+
+{#if showModal}
+  <Modal submit={modalAction}
+         warning={isInstitutionAdmin()}
+         cancel={() => showModal = false}
+         question={modalQuestion}
+           title={modalTitle}>
+  </Modal>
 {/if}

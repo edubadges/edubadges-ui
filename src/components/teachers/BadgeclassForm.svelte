@@ -137,11 +137,15 @@
     }
     if (showStudyLoad) {
       if (ectsOrHoursSelection.value === "hours") {
-        newBadgeclass.extensions = {...newBadgeclass.extensions,
-          ...extensionToJson([{name: studyLoad.name, value: parseInt(extensions[studyLoad.name])}])}
+        newBadgeclass.extensions = {
+          ...newBadgeclass.extensions,
+          ...extensionToJson([{name: studyLoad.name, value: parseInt(extensions[studyLoad.name])}])
+        }
       } else {
-        newBadgeclass.extensions = {...newBadgeclass.extensions,
-          ...extensionToJson([{name: ects.name, value: extensions[ects.name]}])}
+        newBadgeclass.extensions = {
+          ...newBadgeclass.extensions,
+          ...extensionToJson([{name: ects.name, value: extensions[ects.name]}])
+        }
       }
     }
     if (badgeclass.issuer) {
@@ -259,7 +263,7 @@
       bind:period={badgeclass.expirationPeriod}/>
 
     <Field {entity} attribute="name" errors={errors.name}>
-      <TextInput bind:value={badgeclass.name} error={errors.name}/>
+      <TextInput bind:value={badgeclass.name} error={errors.name} placeholder={I18n.t("placeholders.badgeClass.name")}/>
     </Field>
 
     <Field {entity} attribute="language" errors={errors.language}>
@@ -275,6 +279,7 @@
         bind:value={badgeclass.description}
         error={errors.description}
         area
+        placeholder={I18n.t("placeholders.badgeClass.description")}
         size="100"
       />
     </Field>
@@ -284,6 +289,7 @@
         bind:value={extensions[learningOutcome.name]}
         error={errors.learningOutcome}
         area
+        placeholder={I18n.t("placeholders.badgeClass.learningOutcome")}
         size="100"
       />
     </Field>
@@ -307,6 +313,7 @@
       <TextInput
         area
         bind:value={badgeclass.criteriaText}
+        placeholder={I18n.t("placeholders.badgeClass.criteriaText")}
         error={errors.criteria_text}
         size="150"
       />
@@ -315,6 +322,7 @@
     <Field {entity} attribute="criteria_url" errors={errors.criteria_url}>
       <TextInput
         bind:value={badgeclass.criteriaUrl}
+        placeholder={I18n.t("placeholders.badgeClass.criteriaUrl")}
         error={errors.criteria_url}/>
     </Field>
   </div>
@@ -342,7 +350,8 @@
         </Field>
       {:else}
         <Field {entity} attribute="amount" errors={errors.studyLoad}>
-          <TextInput type="number" bind:value={extensions[studyLoad.name]}/>
+          <TextInput type="number" bind:value={extensions[studyLoad.name]}
+                     placeholder={I18n.t("placeholders.badgeClass.studyLoad")}/>
         </Field>
       {/if}
     </div>
@@ -364,6 +373,7 @@
           type="number"
           max="999999999999999"
           bind:value={extensions[educationProgramIdentifier.name]}
+          placeholder={I18n.t("placeholders.badgeClass.educationProgramIdentifier")}
           error={errors.educationProgramIdentifierLong}/>
         <span class="info">
           {@html I18n.t('models.badgeclass.info.educationProgramIdentifier')}
@@ -395,24 +405,28 @@
         <TextInput
           bind:value={alignment.target_name}
           error={errors.target_name}
+          placeholder={I18n.t("placeholders.badgeClass.alignmentName")}
         />
       </Field>
       <Field {entity} attribute="alignmentFramework" errors={errors.target_framework}>
         <TextInput
           bind:value={alignment.target_framework}
           error={errors.target_framework}
+          placeholder={I18n.t("placeholders.badgeClass.alignmentFramework")}
         />
       </Field>
       <Field {entity} attribute="alignmentUrl" errors={errors.target_url}>
         <TextInput
           bind:value={alignment.target_url}
           error={errors.target_url}
+          placeholder={I18n.t("placeholders.badgeClass.alignmentUrl")}
         />
       </Field>
       <Field {entity} attribute="alignmentCode" errors{errors.target_code}>
         <TextInput
           bind:value={alignment.target_code}
           error={errors.target_code}
+          placeholder={I18n.t("placeholders.badgeClass.alignmentCode")}
         />
       </Field>
       <Field {entity} attribute="alignmentDescription" errors={errors.target_description}>
@@ -421,6 +435,7 @@
           error={errors.target_description}
           area
           size="100"
+          placeholder={I18n.t("placeholders.badgeClass.alignmentDescription")}
         />
       </Field>
     </div>

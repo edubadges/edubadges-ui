@@ -4,6 +4,7 @@
   import {Field, Select, File, TextInput} from "../forms";
   import {createIssuer, editIssuer} from "../../api";
   import {entityType} from "../../util/entityTypes";
+  import I18n from "i18n-js";
 
   export let entityId;
   export let issuer = {faculty: {}};
@@ -55,18 +56,18 @@
   </Field>
 
   <Field {entity} attribute="name" errors={errors.name}>
-    <TextInput bind:value={issuer.name} error={errors.name}/>
+    <TextInput bind:value={issuer.name} error={errors.name}  placeholder={I18n.t("placeholders.issuer.name")}/>
   </Field>
 
   <Field {entity} attribute="description" errors={errors.description}>
-    <TextInput bind:value={issuer.description} error={errors.description} area size="100"/>
+    <TextInput bind:value={issuer.description} error={errors.description} area size="100" placeholder={I18n.t("placeholders.issuer.description")}/>
   </Field>
 
   <Field {entity} attribute="url" errors={errors.url}>
-    <TextInput bind:value={issuer.url} error={errors.url}/>
+    <TextInput bind:value={issuer.url} error={errors.url} placeholder={I18n.t("placeholders.issuer.url")}/>
   </Field>
 
   <Field {entity} attribute="email" errors={errors.email}>
-    <TextInput bind:value={issuer.email} error={errors.email}/>
+    <TextInput bind:value={issuer.email} error={errors.email} placeholder={I18n.t("placeholders.issuer.email")}/>
   </Field>
 </EntityForm>

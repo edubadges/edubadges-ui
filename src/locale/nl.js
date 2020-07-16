@@ -646,5 +646,16 @@ I18n.translations.nl = {
     banner: "Hi {{firstName}} {{lastName}}",
     profile: "Profiel",
     loggedIn: "Je bent momenteel ingelogd met je instellings account, via SURFconext"
+  },
+  placeholders: {
+    institution: {
+      brin: "Basisregistratie Instellingen nummer",
+      gradingTable: "URL of the grading table"
+    },
+    faculty: {},
+    badgeclass: {},
+    permissions: {
+      notes: "e.g. why did you add permissions?"
+    }
   }
 };
