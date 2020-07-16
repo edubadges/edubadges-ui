@@ -36,9 +36,15 @@
     background-color: inherit;
     font-size: 20px;
     padding: 0;
-    margin: 0 5px;
+    margin: 0 10px 0 0;
+    &:last-child {
+      margin: 0 0 0 10px;
+    }
     color: var(--text-grey-dark);
     cursor: pointer;
+    &.active {
+      cursor: default;
+    }
   }
 
   .active {
@@ -70,7 +76,7 @@
   <span>
     <span class="badge-filter-button {awardFilter ? 'active' : 'inactive'}"
           on:click={() => setBadgeFilter(true)}>{I18n.t('teacher.badgeclasses.canAward')}</span>
-    |
+    <span>|</span>
     <span class="badge-filter-button {awardFilter ? 'inactive' : 'active'}"
           on:click={() => setBadgeFilter(false)}>{I18n.t('teacher.badgeclasses.allBadges')}</span>
   </span>

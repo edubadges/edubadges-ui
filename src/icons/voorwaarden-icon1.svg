@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="56px" height="56px" viewBox="0 0 56 56" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group 2</title>
+    <defs>
+        <circle id="path-1" cx="24" cy="24" r="24"></circle>
+        <filter x="-14.6%" y="-10.4%" width="129.2%" height="129.2%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="TOS-edubadges" transform="translate(-37.000000, -589.000000)">
+            <g id="Group-2" transform="translate(41.000000, 591.000000)">
+                <g id="Oval-Copy">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                    <use fill="#DFE3E8" fill-rule="evenodd" xlink:href="#path-1"></use>
+                </g>
+                <g id="common-file-text" transform="translate(13.000000, 13.000000)" fill="#772583" fill-rule="nonzero">
+                    <path d="M2.75,22 C1.61241667,22 0.6875,21.0750833 0.6875,19.9375 L0.6875,2.0625 C0.6875,0.924916667 1.61241667,0 2.75,0 L16.54125,0 C17.0839167,0 17.5945,0.208083333 17.98225,0.58575 L20.6900833,3.2285 C21.0851667,3.61441667 21.3125,4.1525 21.3125,4.70525 L21.3125,19.9375 C21.3125,21.0750833 20.3875833,22 19.25,22 L2.75,22 Z M2.75,1.375 C2.3705,1.375 2.0625,1.683 2.0625,2.0625 L2.0625,19.9375 C2.0625,20.317 2.3705,20.625 2.75,20.625 L19.25,20.625 C19.6295,20.625 19.9375,20.317 19.9375,19.9375 L19.9375,4.70525 C19.9375,4.521 19.8614167,4.34133333 19.7294167,4.213 L17.0215833,1.57025 C16.8923333,1.44466667 16.72275,1.375 16.5421667,1.375 L2.75,1.375 Z" id="Shape"></path>
+                    <path d="M5.54125,8.25 C5.16175,8.25 4.85375,7.942 4.85375,7.5625 C4.85375,7.183 5.16175,6.875 5.54125,6.875 L16.54125,6.875 C16.92075,6.875 17.22875,7.183 17.22875,7.5625 C17.22875,7.942 16.9198333,8.25 16.54125,8.25 L5.54125,8.25 Z" id="Path"></path>
+                    <path d="M5.54125,12.375 C5.16175,12.375 4.85375,12.067 4.85375,11.6875 C4.85375,11.308 5.16175,11 5.54125,11 L16.54125,11 C16.92075,11 17.22875,11.308 17.22875,11.6875 C17.22875,12.067 16.92075,12.375 16.54125,12.375 L5.54125,12.375 Z" id="Path"></path>
+                    <path d="M5.54125,16.5 C5.16175,16.5 4.85375,16.192 4.85375,15.8125 C4.85375,15.433 5.16175,15.125 5.54125,15.125 L11.04125,15.125 C11.4198333,15.125 11.72875,15.433 11.72875,15.8125 C11.72875,16.192 11.4198333,16.5 11.04125,16.5 L5.54125,16.5 Z" id="Path"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
