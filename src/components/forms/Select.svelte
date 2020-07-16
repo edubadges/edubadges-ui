@@ -71,7 +71,7 @@
 </style>
 
 {#if nonEditable || disabled}
-  <TextInput disabled={true} value={value.name}/>
+  <TextInput disabled={true} value={value ? value.name : ""}/>
 {:else}
   <div class="select-field" {error} {disabled}>
     <Select

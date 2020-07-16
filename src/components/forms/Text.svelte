@@ -23,6 +23,11 @@
     background-color: var(--grey-2) ;
     color: var(--grey-10);
   }
+
+  input:hover {
+    cursor: pointer;
+    background-color: var(--grey-1) ;
+  }
 </style>
 
 <div {disabled} {error}>
