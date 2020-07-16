@@ -22,6 +22,11 @@
       .info {
         flex: 1;
         display: flex;
+        flex-direction: column;
+      }
+
+      .title {
+        display: flex;
         flex-direction: row;
       }
 
@@ -41,18 +46,22 @@
 <div class="entity">
   <div class="content">
     <div class="info">
-      <div class="svg-container">
-        {@html userManagementIcon}
+      <div class="title">
+        <div class="svg-container">
+          {@html userManagementIcon}
+        </div>
+        {#if user}
+          <h2>{I18n.t(['editUsers', 'permissions', 'headerUser'])} {user.firstName} {user.lastName}</h2>
+        {:else if !title}
+          <h2>{I18n.t(['editUsers', 'permissions', 'header'])}</h2>
+        {:else}
+          <h2>{title}</h2>
+        {/if}
       </div>
       {#if user}
-        <h2>{I18n.t(['editUsers', 'permissions', 'headerUser'])} {user.firstName} {user.lastName}</h2>
         <div class="list">
           <HeaderList entity="editUsers" {headerItems}/>
         </div>
-      {:else if !title}
-        <h2>{I18n.t(['editUsers', 'permissions', 'header'])}</h2>
-      {:else}
-        <h2>{title}</h2>
       {/if}
     </div>
   </div>
