@@ -10,10 +10,10 @@ export const enrichUser = (institution, institutionStaffMemberships, issuerGroup
       issuerGroupStaffMemberships.push({faculty: {name: faculty.name, entityId: faculty.entityId}, _staffType: staffType.INSTITUTION_STAFF});
 
       for (const issuer of faculty.issuers) {
-        issuerStaffMemberships.push({issuer: {name: issuer.name, entityId: issuer.entityId}, _staffType: staffType.INSTITUTION_STAFF});
+        issuerStaffMemberships.push({issuer: {name: issuer.name, entityId: issuer.entityId, faculty: {name: faculty.name, entityId: faculty.entityId}}, _staffType: staffType.INSTITUTION_STAFF});
 
         for (const badgeClass of issuer.badgeclasses) {
-          badgeClassStaffMemberships.push({badgeclass: {issuer: {name: issuer.name}, name: badgeClass.name, entityId: badgeClass.entityId}, _staffType: staffType.INSTITUTION_STAFF});
+          badgeClassStaffMemberships.push({badgeclass: {issuer: {name: issuer.name, entityId: issuer.entityId}, name: badgeClass.name, entityId: badgeClass.entityId}, _staffType: staffType.INSTITUTION_STAFF});
         }
       }
     }

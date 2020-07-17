@@ -5,6 +5,7 @@
   import {entityType} from "../../util/entityTypes";
   import {staffType} from "../../util/staffTypes";
   import {permissionsRole} from "../../util/rolesToPermissions";
+  import ListLink from "./ListLink.svelte";
 
   export let entity;
   export let institutionStaffs = [];
@@ -50,6 +51,12 @@
         sortType: sortType.ALPHA
       },
       {
+        name: I18n.t("editUsers.faculty.header"),
+        attribute: "faculty.name",
+        reverse: false,
+        sortType: sortType.ALPHA
+      },
+      {
         name: I18n.t("editUsers.role"),
         attribute: "roles",
         reverse: false,
@@ -57,13 +64,13 @@
       }
     ] : entity === entityType.BADGE_CLASS ? [
       {
-        name: I18n.t("editUsers.issuer.header"),
+        name: I18n.t("editUsers.badgeclass.header"),
         attribute: "name",
         reverse: false,
         sortType: sortType.ALPHA
       },
       {
-        name: I18n.t("editUsers.badgeclass.header"),
+        name: I18n.t("editUsers.issuer.header"),
         attribute: "name",
         reverse: false,
         sortType: sortType.ALPHA
@@ -95,7 +102,9 @@
     {/if}
     {#each institutionStaffs as staff}
       <tr>
-        <td>{staff.institution.name}</td>
+        <td>
+          <ListLink path="/manage/institution/issuers" name={staff.institution.name}/>
+        </td>
         <td>{I18n.t(['editUsers', 'institution', 'allRights'])}</td>
       </tr>
     {/each}
@@ -105,7 +114,9 @@
     {/if}
     {#each issuerGroupStaffs as staff}
       <tr>
-        <td>{staff.faculty.name}</td>
+        <td>
+          <ListLink path={`/manage/faculty/${staff.faculty.entityId}/issuers`} name={staff.faculty.name}/>
+        </td>
         {#if staff._staffType === staffType.ISSUER_GROUP_STAFF}
           <td>{I18n.t(['editUsers', 'faculty', 'allRights'])}</td>
         {:else if staff._staffType === staffType.INSTITUTION_STAFF}
@@ -123,7 +134,12 @@
     {/if}
     {#each issuerStaffs as staff}
       <tr>
-        <td>{staff.issuer.name}</td>
+        <td>
+          <ListLink path={`/manage/issuer/${staff.issuer.entityId}/badgeclasses`} name={staff.issuer.name}/>
+        </td>
+        <td>
+          <ListLink path={`/manage/faculty/${staff.issuer.faculty.entityId}/issuers`} name={staff.issuer.faculty.name}/>
+        </td>
         {#if staff._staffType === staffType.ISSUER_STAFF}
           <td>{I18n.t(['editUsers', 'issuer', 'allRights'])}</td>
         {:else if staff._staffType === staffType.ISSUER_GROUP_STAFF}
@@ -147,8 +163,13 @@
     {/if}
     {#each badgeClassStaffs as staff}
       <tr>
-        <td>{staff.badgeclass.issuer.name}</td>
-        <td>{staff.badgeclass.name}</td>
+        <td>
+          <ListLink path={`/manage/badgeclass/${staff.badgeclass.entityId}/overview`} name={staff.badgeclass.name}/>
+        </td>
+        <td>
+          <ListLink path={`/manage/issuer/${staff.badgeclass.issuer.entityId}/badgeclasses`}
+                    name={staff.badgeclass.issuer.name}/>
+        </td>
         {#if staff._staffType === staffType.BADGE_CLASS_STAFF}
           <td>
             {I18n.t(['editUsers', 'badgeclass',

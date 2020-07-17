@@ -95,8 +95,8 @@
           entityId,
           name,
           issuer {
-            name,
             entityId,
+            name
           }
         }
       },
