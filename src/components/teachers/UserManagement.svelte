@@ -6,6 +6,8 @@
   import {Select, Modal} from "../forms";
   import I18n from "i18n-js";
   import {navigate} from "svelte-routing";
+  import memberCheck from "../../icons/single-neutral-check.svg";
+  import inviteCheck from "../../icons/single-neutral-question.svg";
   import {
     changeProvisionmentToBadgeclassAwarder,
     changeProvisionmentToBadgeclassEditor,
@@ -133,6 +135,7 @@
   ];
 
   const tableHeaders = [
+    {name: null, class: "member-icon"},
     {
       name: I18n.t(["teacher", "nameEmail"]),
       attribute: "name",
@@ -221,6 +224,19 @@
   tr {
     height: 53px;
   }
+
+  div.member-icon {
+    width: 26px;
+  }
+
+  :global(th.member-icon) {
+    width: 26px;
+  }
+  :global(td.member-icon) {
+    width: 36px;
+    text-align: center;
+  }
+
 </style>
 
 <div class="container">
@@ -241,6 +257,11 @@
               name={`select-${entityId}`}
                 disabled={false}
                 onChange={val => onCheckOne(val, entityId, _staffType)}/>
+          </td>
+          <td class="member-icon">
+            <div class="member-icon">
+              {@html inviteCheck}
+            </div>
           </td>
           <td>
             -
@@ -277,8 +298,13 @@
                 disabled={false}
                 onChange={val => onCheckOne(val, entityId)}/>
           </td>
+          <td class="member-icon">
+            <div class="member-icon">
+              {@html memberCheck}
+            </div>
+          </td>
           <td>
-            <ListLink path={`/users/${user.entityId}/institution`} name={`${user.firstName} ${user.lastName}`} />
+            <ListLink path={`/users/${user.entityId}/institution`} name={`${user.firstName} ${user.lastName}`}/>
             <br/>
             <span class="sub-text">{user.email}</span>
           </td>
@@ -308,8 +334,13 @@
                 disabled={entity !== entityType.ISSUER}
                 onChange={val => onCheckOne(val, entityId)}/>
           </td>
+          <td class="member-icon">
+            <div class="member-icon">
+              {@html memberCheck}
+            </div>
+          </td>
           <td>
-            <ListLink path={`/users/${user.entityId}/institution`} name={`${user.firstName} ${user.lastName}`} />
+            <ListLink path={`/users/${user.entityId}/institution`} name={`${user.firstName} ${user.lastName}`}/>
             <br/>
             <span class="sub-text">{user.email}</span>
           </td>
@@ -333,8 +364,13 @@
                 disabled={entity !== entityType.ISSUER_GROUP}
                 onChange={val => onCheckOne(val, entityId)}/>
           </td>
+          <td class="member-icon">
+            <div class="member-icon">
+              {@html memberCheck}
+            </div>
+          </td>
           <td>
-            <ListLink path={`/users/${user.entityId}/institution`} name={`${user.firstName} ${user.lastName}`} />
+            <ListLink path={`/users/${user.entityId}/institution`} name={`${user.firstName} ${user.lastName}`}/>
             <br/>
             <span class="sub-text">{user.email}</span>
           </td>
@@ -358,8 +394,13 @@
                 disabled={entity !== entityType.INSTITUTION || oneInstitutionStaff}
                 onChange={val => onCheckOne(val, entityId)}/>
           </td>
+          <td class="member-icon">
+            <div class="member-icon">
+              {@html memberCheck}
+            </div>
+          </td>
           <td>
-            <ListLink path={`/users/${user.entityId}/institution`} name={`${user.firstName} ${user.lastName}`} />
+            <ListLink path={`/users/${user.entityId}/institution`} name={`${user.firstName} ${user.lastName}`}/>
             <br/>
             <span class="sub-text">{user.email}</span>
           </td>

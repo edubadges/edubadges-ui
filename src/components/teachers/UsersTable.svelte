@@ -51,6 +51,10 @@
       border-bottom: 3px solid var(--grey-3);
       text-align: left;
       cursor: pointer;
+
+      th.checker {
+        width: 35px;
+      }
     }
 
   }
@@ -81,7 +85,7 @@
     {#if !isEmpty}
       <tr>
         {#if withCheckAll}
-          <th>
+          <th class="checker">
             <CheckBox bind:value={checkAllValue} onChange={onCheckAll}/>
           </th>
         {/if}

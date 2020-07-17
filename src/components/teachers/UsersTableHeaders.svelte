@@ -14,7 +14,9 @@
   <th
       on:click={() => setSort(th)}
       class:asc={sort.attribute === th.attribute && sort.reverse}
-      class:desc={sort.attribute === th.attribute && !sort.reverse}>
+      class:desc={sort.attribute === th.attribute && !sort.reverse}
+      class={th.class ? th.class : ""}
+  >
   {th.name || ""}
   </th>
 {/each}
