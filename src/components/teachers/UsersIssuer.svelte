@@ -13,6 +13,7 @@
   import {AddPermissionsModal, Modal} from "../forms";
   import Spinner from "../Spinner.svelte";
   import {permissionsRole} from "../../util/rolesToPermissions";
+  import ListLink from "./ListLink.svelte";
 
   export let userId;
 
@@ -51,24 +52,12 @@
     },
     issuerStaffs {
       mayAdministrateUsers
-    },
-    badgeclassStaffs {
-      mayAdministrateUsers
-    },
+    }
   },
   user(id: "${userId}") {
     firstName,
     lastName,
     entityId,
-    badgeclassStaffs {
-      entityId,
-      badgeclass {
-        name,
-        entityId
-      },
-      mayAdministrateUsers,
-      mayAward
-    }
     issuerStaffs {
       entityId,
       issuer {
@@ -193,7 +182,7 @@
     removeModalAction = removeSelectedPermissions;
   };
 
-  const permissionsRoles = [{value:"admin", name: I18n.t("editUsers.issuer.admin")}];
+  const permissionsRoles = [{value: "admin", name: I18n.t("editUsers.issuer.admin")}];
 
   $: buttons = [
     {
@@ -249,7 +238,9 @@
               disabled={false}
               onChange={val => onCheckOne(val, issuerStaffMembership.entityId)}/>
           </td>
-          <td>{issuerStaffMembership.issuer.name}</td>
+          <td>
+            <ListLink path={`/manage/issuer/${issuerStaffMembership.issuer.entityId}/badgeclasses`} name={issuerStaffMembership.issuer.name}/>
+          </td>
           <td>
             {I18n.t(['editUsers', 'issuer', 'allRights'])}
           </td>
@@ -264,7 +255,9 @@
                 name={`select-${facultyStaffMembership.entityId}`}
                 disabled={true}/>
             </td>
-            <td>{issuer.name}</td>
+            <td>
+              <ListLink path={`/manage/issuer/${issuer.entityId}/badgeclasses`} name={issuer.name}/>
+            </td>
             <td>
               {I18n.t(['editUsers', 'permissions', 'allRights'])}
               <br/>
@@ -283,7 +276,9 @@
                   name={''}
                   disabled={true}/>
               </td>
-              <td>{issuer.name}</td>
+              <td>
+                <ListLink path={`/manage/issuer/${issuer.entityId}/badgeclasses`} name={issuer.name}/>
+              </td>
               <td>
                 {I18n.t(['editUsers', 'permissions', 'allRights'])}
                 <br/>

@@ -18,6 +18,7 @@
   import {AddPermissionsModal, Modal, Select} from "../forms";
   import Spinner from "../Spinner.svelte";
   import {permissionsRole} from "../../util/rolesToPermissions";
+  import ListLink from "./ListLink.svelte";
 
   export let userId;
 
@@ -152,13 +153,13 @@
 
   const tableHeaders = [
     {
-      name: I18n.t("editUsers.issuer.header"),
+      name: I18n.t("editUsers.badgeclass.header"),
       attribute: "name",
       reverse: false,
       sortType: sortType.ALPHA
     },
     {
-      name: I18n.t("editUsers.badgeclass.header"),
+      name: I18n.t("editUsers.issuer.header"),
       attribute: "name",
       reverse: false,
       sortType: sortType.ALPHA
@@ -338,8 +339,12 @@
               disabled={false}
               onChange={val => onCheckOne(val, badgeclassStaffMembership.entityId)}/>
           </td>
-          <td>{badgeclassStaffMembership.badgeclass.issuer.name}</td>
-          <td>{badgeclassStaffMembership.badgeclass.name}</td>
+          <td>
+            <ListLink path={`/manage/badgeclass/${badgeclassStaffMembership.badgeclass.entityId}/overview`} name={badgeclassStaffMembership.badgeclass.name}/>
+          </td>
+          <td>
+            <ListLink path={`/manage/issuer/${badgeclassStaffMembership.badgeclass.issuer.entityId}/badgeclasses`} name={badgeclassStaffMembership.badgeclass.issuer.name}/>
+          </td>
           <td>
             <div class="badgeclass-role-select">
               <Select
@@ -366,8 +371,12 @@
                 name={`select-${badgeclass.entityId}`}
                 disabled={true}/>
             </td>
-            <td>{badgeclass.issuer.name}</td>
-            <td>{badgeclass.name}</td>
+            <td>
+            <ListLink path={`/manage/badgeclass/${badgeclass.entityId}/overview`} name={badgeclass.name}/>
+            </td>
+            <td>
+              <ListLink path={`/manage/issuer/${badgeclass.issuer.entityId}/badgeclasses`} name={badgeclass.issuer.name}/>
+            </td>
           <td>
             {I18n.t(['editUsers', 'permissions', 'allRights'])}
             <br />
@@ -387,8 +396,12 @@
                   disabled={true}
                 />
               </td>
-              <td>{badgeclass.issuer.name}</td>
-              <td>{badgeclass.name}</td>
+              <td>
+                <ListLink path={`/manage/badgeclass/${badgeclass.entityId}/overview`} name={badgeclass.name}/>
+              </td>
+              <td>
+                <ListLink path={`/manage/issuer/${badgeclass.issuer.entityId}/badgeclasses`} name={badgeclass.issuer.name}/>
+              </td>
               <td>
                 {I18n.t(['editUsers', 'permissions', 'allRights'])}
                 <br />
@@ -410,8 +423,12 @@
                     disabled={true}
                   />
                 </td>
-                <td>{issuer.name}</td>
-                <td>{badgeclass.name}</td>
+                <td>
+                  <ListLink path={`/manage/badgeclass/${badgeclass.entityId}/overview`} name={badgeclass.name}/>
+                </td>
+                <td>
+                  <ListLink path={`/manage/issuer/${issuer.entityId}/badgeclasses`} name={issuer.name}/>
+                </td>
                 <td>
                   {I18n.t(['editUsers', 'permissions', 'allRights'])}
                   <br/>
