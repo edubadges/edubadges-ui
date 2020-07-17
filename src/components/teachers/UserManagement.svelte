@@ -19,6 +19,7 @@
   import {sort, sortType} from "../../util/sortData";
   import {searchMultiple} from "../../util/searchData";
   import {flash} from "../../stores/flash";
+  import ListLink from "./ListLink.svelte";
 
   export let entity;
   export let entityId;
@@ -277,7 +278,7 @@
                 onChange={val => onCheckOne(val, entityId)}/>
           </td>
           <td>
-            {user.firstName} {user.lastName}
+            <ListLink path={`/users/${user.entityId}/institution`} name={`${user.firstName} ${user.lastName}`} />
             <br/>
             <span class="sub-text">{user.email}</span>
           </td>
@@ -308,7 +309,7 @@
                 onChange={val => onCheckOne(val, entityId)}/>
           </td>
           <td>
-            {user.firstName} {user.lastName}
+            <ListLink path={`/users/${user.entityId}/institution`} name={`${user.firstName} ${user.lastName}`} />
             <br/>
             <span class="sub-text">{user.email}</span>
           </td>
@@ -333,7 +334,7 @@
                 onChange={val => onCheckOne(val, entityId)}/>
           </td>
           <td>
-            {user.firstName} {user.lastName}
+            <ListLink path={`/users/${user.entityId}/institution`} name={`${user.firstName} ${user.lastName}`} />
             <br/>
             <span class="sub-text">{user.email}</span>
           </td>
@@ -358,7 +359,7 @@
                 onChange={val => onCheckOne(val, entityId)}/>
           </td>
           <td>
-            {user.firstName} {user.lastName}
+            <ListLink path={`/users/${user.entityId}/institution`} name={`${user.firstName} ${user.lastName}`} />
             <br/>
             <span class="sub-text">{user.email}</span>
           </td>

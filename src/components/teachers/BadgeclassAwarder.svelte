@@ -8,7 +8,7 @@
   import {Overview} from "../teachers/badgeclass";
   import Assertions from "../teachers/badges/Assertions.svelte";
   import Enrollments from "../teachers/badges/Enrollments.svelte";
-  import {badgeclassIcon, chevronLeft} from "../../icons";
+  import { chevronLeft} from "../../icons";
   import {queryData} from "../../api/graphql";
   import {
     headerStaff,
@@ -20,6 +20,7 @@
   import CopyToClipboardButton from "../CopyToClipboardButton.svelte";
   import {entityType} from "../../util/entityTypes"
   import Spinner from "../Spinner.svelte";
+  import LinkEye from "./LinkEye.svelte";
 
   export let entityId;
   export let subEntity;
@@ -122,18 +123,17 @@
   div.nav {
     padding: var(--ver-padding-m) var(--hor-padding-m);
     min-height: 47px;
+    display: flex;
+    align-items: center;
 
     span {
       font-weight: bold;
     }
 
-    :global(svg) {
+    :global(.svg-container svg) {
       height: 16px;
     }
 
-    > :global(*) {
-      vertical-align: middle;
-    }
   }
 
   div.public-link {
@@ -166,10 +166,11 @@
 </style>
 {#if loaded}
   <div class="nav">
-    {@html chevronLeft}
-    <span class="click" on:click={() => window.history.back()}>
-    {I18n.t('teacher.breadcrumb.back')}
-  </span>
+    <span class="svg-container">{@html chevronLeft}</span>
+    <span class="click" on:click={() => navigate("/")}>
+      {I18n.t('teacher.breadcrumb.back')}
+    </span>
+    <LinkEye badgeclass={badgeclass} isAdminView={false}/>
   </div>
 
   <EntityHeader

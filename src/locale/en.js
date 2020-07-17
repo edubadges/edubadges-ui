@@ -698,5 +698,9 @@ I18n.translations.en = {
     userManagement: {
       email: "e.g. john.doe@example.com"
     }
+  },
+  eye: {
+    awardView: "Award view",
+    adminView: "Admin view"
   }
 };

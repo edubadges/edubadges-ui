@@ -5,11 +5,15 @@
   export let name;
 
 </script>
-<style>
+<style lang="scss">
 
   a {
     color: var(--black);
     text-decoration: underline;
+
+    &:hover {
+      color: var(--black);
+    }
   }
 
 </style>
