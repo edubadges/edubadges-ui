@@ -35,8 +35,8 @@
   export let removeModalQuestion;
 
   let staffs = [];
-
   let selection = [];
+
   $: staffs = [
     ...institutionStaffs,
     ...issuerGroupStaffs,
@@ -55,64 +55,54 @@
     {name: I18n.t(['editUsers', 'badgeclass', 'badgeclassAwarder']), value: 'badgeclassAwarder'},
   ];
 
+  const reloadAndReset = flashMessage => {
+    reload();
+    showRemoveModal = false;
+    flash.setValue(I18n.t(flashMessage));
+  }
+
   const changeUserRole = (role, id) => {
     switch (role.value) {
       case 'badgeclassOwner':
-        changeUserToBadgeclassOwner(id).then(() => {
-          reload();
-          flash.setValue(I18n.t('editUsers.badgeclass.switchToOwner'))
-        });
+        selection = [];
+        changeUserToBadgeclassOwner(id).then(() => reloadAndReset('editUsers.badgeclass.switchToOwner'));
         break;
       case 'badgeclassEditor':
-        changeUserToBadgeclassEditor(id).then(() => {
-          reload();
-          flash.setValue(I18n.t('editUsers.badgeclass.switchToEditor'))
-        });
+        selection = [];
+        changeUserToBadgeclassEditor(id).then(() => reloadAndReset('editUsers.badgeclass.switchToEditor'));
         break;
       case 'badgeclassAwarder':
-        changeUserToBadgeclassAwarder(id).then(() => {
-          reload();
-          flash.setValue(I18n.t('editUsers.badgeclass.switchToAwarder'))
-        });
+        selection = [];
+        changeUserToBadgeclassAwarder(id).then(() => reloadAndReset('editUsers.badgeclass.switchToAwarder'));
         break;
     }
   };
 
   const changeProvisionmentRole = (role, id) => {
+    debugger;
     switch (role.value) {
       case 'badgeclassOwner':
-        changeProvisionmentToBadgeclassOwner(id).then(() => {
-          reload();
-          flash.setValue(I18n.t('editUsers.badgeclass.switchToOwner'))
-        });
+        selection = [];
+        changeProvisionmentToBadgeclassOwner(id).then(() => reloadAndReset('editUsers.badgeclass.switchToOwner'));
         break;
       case 'badgeclassEditor':
-        changeProvisionmentToBadgeclassEditor(id).then(() => {
-          reload();
-          flash.setValue(I18n.t('editUsers.badgeclass.switchToEditor'))
-        });
+        selection = [];
+        changeProvisionmentToBadgeclassEditor(id).then(() => reloadAndReset('editUsers.badgeclass.switchToEditor'));
         break;
       case 'badgeclassAwarder':
-        changeProvisionmentToBadgeclassAwarder(id).then(() => {
-          reload();
-          flash.setValue(I18n.t('editUsers.badgeclass.switchToAwarder'))
-        });
+        selection = [];
+        changeProvisionmentToBadgeclassAwarder(id).then(() => reloadAndReset('editUsers.badgeclass.switchToAwarder'));
         break;
     }
   };
 
   const removeSelectedPermissions = () => {
     for (const {entityId, _staffType} of selection) {
+      selection = [];
       if (_staffType === staffType.USER_PROVISIONMENT) {
-        disinviteUser(entityId).then(() => {
-          reload();
-          showRemoveModal = false;
-        });
+        disinviteUser(entityId).then(() => reloadAndReset('editUsers.institution.flash.invite'));
       } else {
-        removeStaffMembership(entity, entityId).then(() => {
-          reload();
-          showRemoveModal = false;
-        })
+        removeStaffMembership(entity, entityId).then(() => reloadAndReset('editUsers.institution.flash.removed'));
       }
     }
   };

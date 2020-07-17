@@ -32,9 +32,12 @@ h4,
 h5,
 h6,
 p,
+span,
+label,
 ol,
 ul,
 .button {
   margin: 0;
   padding: 0;
+  word-break: break-word;
 }

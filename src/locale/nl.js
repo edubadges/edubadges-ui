@@ -349,7 +349,9 @@ I18n.translations.nl = {
       removeUserInstitutionAdminQuestion: "Are you sure you want to remove the institution admin from {{name}}?",
       flash: {
         makeUserInstitutionAdmin: "{{name}} is granted institution admin rights",
-        removeUserInstitutionAdmin: "Institution admin rights have been removed from {{name}}"
+        removeUserInstitutionAdmin: "Institution admin rights have been removed from {{name}}",
+        invite: "Successfully removed invite.",
+        removed: "Successfully removed rights"
       }
     },
     faculty: {
