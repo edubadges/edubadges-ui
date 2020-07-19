@@ -14,12 +14,13 @@
   import Spinner from "../Spinner.svelte";
   import {permissionsRole} from "../../util/rolesToPermissions";
   import ListLink from "./ListLink.svelte";
+  import {flatten} from "../../util/utils";
 
   export let userId;
 
   let user;
   let currentUser;
-  let faculties;
+  let faculties = [];
   let institutionId;
   let issuerSearch;
 
@@ -72,7 +73,8 @@
         name,
         entityId,
         issuers {
-          name
+          name,
+          entityId
         }
       },
       mayAdministrateUsers
@@ -94,11 +96,7 @@
       faculties = res.currentInstitution.faculties;
       user = res.user;
       currentUser = res.currentUser;
-      faculties.forEach(faculty => {
-        faculty.issuers.forEach(issuer => {
-          issuers = [issuer, ...issuers]
-        })
-      });
+      issuers = flatten(faculties.map(fac => fac.issuers));
       isEmpty = user.issuerStaffs.length === 0 &&
         user.facultyStaffs.length === 0 &&
         (!user.institutionStaff || (user.institutionStaff && faculties.length === 0));
@@ -113,6 +111,12 @@
     {
       name: I18n.t("editUsers.issuer.header"),
       attribute: "name",
+      reverse: false,
+      sortType: sortType.ALPHA
+    },
+    {
+      name: I18n.t("editUsers.faculty.header"),
+      attribute: "faculty.name",
       reverse: false,
       sortType: sortType.ALPHA
     },
@@ -205,6 +209,11 @@
       checkAllValue = false;
     }
   }
+
+  const findFacultyByIssuerEntityId = issuerEntityId => {
+    const faculty = faculties.find(faculty => faculty.issuers.find(issuer => issuer.entityId === issuerEntityId));
+    return faculty || {};
+  }
 </script>
 
 <style>
@@ -239,7 +248,13 @@
               onChange={val => onCheckOne(val, issuerStaffMembership.entityId)}/>
           </td>
           <td>
-            <ListLink path={`/manage/issuer/${issuerStaffMembership.issuer.entityId}/badgeclasses`} name={issuerStaffMembership.issuer.name}/>
+            <ListLink path={`/manage/issuer/${issuerStaffMembership.issuer.entityId}/badgeclasses`}
+                      name={issuerStaffMembership.issuer.name}/>
+          </td>
+          <td>
+            <ListLink
+              path={`/manage/faculty/${findFacultyByIssuerEntityId(issuerStaffMembership.issuer.entityId).entityId}/issuers`}
+              name={findFacultyByIssuerEntityId(issuerStaffMembership.issuer.entityId).name}/>
           </td>
           <td>
             {I18n.t(['editUsers', 'issuer', 'allRights'])}
@@ -257,6 +272,10 @@
             </td>
             <td>
               <ListLink path={`/manage/issuer/${issuer.entityId}/badgeclasses`} name={issuer.name}/>
+            </td>
+            <td>
+              <ListLink path={`/manage/faculty/${findFacultyByIssuerEntityId(issuer.entityId).entityId}/issuers`}
+                        name={findFacultyByIssuerEntityId(issuer.entityId).name}/>
             </td>
             <td>
               {I18n.t(['editUsers', 'permissions', 'allRights'])}
@@ -278,6 +297,10 @@
               </td>
               <td>
                 <ListLink path={`/manage/issuer/${issuer.entityId}/badgeclasses`} name={issuer.name}/>
+              </td>
+              <td>
+                <ListLink path={`/manage/faculty/${findFacultyByIssuerEntityId(issuer.entityId).entityId}/issuers`}
+                          name={findFacultyByIssuerEntityId(issuer.entityId).name}/>
               </td>
               <td>
                 {I18n.t(['editUsers', 'permissions', 'allRights'])}

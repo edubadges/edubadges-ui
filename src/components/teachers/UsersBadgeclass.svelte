@@ -19,6 +19,7 @@
   import Spinner from "../Spinner.svelte";
   import {permissionsRole} from "../../util/rolesToPermissions";
   import ListLink from "./ListLink.svelte";
+  import {flatten} from "../../util/utils";
 
   export let userId;
 
@@ -92,11 +93,11 @@
     issuerStaffs {
       entityId,
       issuer {
+        name,
+        entityId,
         badgeclasses {
+        entityId,
           name,
-          issuer {
-            name
-          }
         }
       },
       mayAdministrateUsers
@@ -107,11 +108,11 @@
         name,
         entityId,
         issuers {
+          name,
+          entityId,
           badgeclasses {
             name,
-            issuer {
-              name
-            }
+            entityId
           }
         }
       },
@@ -134,13 +135,7 @@
       faculties = res.currentInstitution.faculties;
       user = res.user;
       currentUser = res.currentUser;
-      faculties.forEach(faculty => {
-        faculty.issuers.forEach(issuer => {
-          issuer.badgeclasses.forEach(badgeclass => {
-            badgeclasses = [badgeclass, ...badgeclasses];
-          })
-        })
-      });
+      badgeclasses = flatten(faculties.map(fac => fac.issuers.map(iss => iss.badgeclasses)));
       isEmpty = user.badgeclassStaffs.length === 0 &&
         user.issuerStaffs.length === 0 &&
         user.facultyStaffs.length === 0 &&
@@ -214,7 +209,7 @@
         });
         break;
       default:
-        console.error('error: invalid role');
+        throw new Error(`error: invalid role ${modalChosenRole.value}`);
     }
   };
 
@@ -243,7 +238,7 @@
   };
 
   const permissionsRoles = [
-    {value: permissionsRole.ADMIN, name: I18n.t("editUsers.badgeclass.owner")},
+    {value: permissionsRole.OWNER, name: I18n.t("editUsers.badgeclass.owner")},
     {value: permissionsRole.EDITOR, name: I18n.t("editUsers.badgeclass.editor")},
     {value: permissionsRole.AWARDER, name: I18n.t("editUsers.badgeclass.awarder")}
   ];
@@ -400,7 +395,7 @@
                 <ListLink path={`/manage/badgeclass/${badgeclass.entityId}/overview`} name={badgeclass.name}/>
               </td>
               <td>
-                <ListLink path={`/manage/issuer/${badgeclass.issuer.entityId}/badgeclasses`} name={badgeclass.issuer.name}/>
+                <ListLink path={`/manage/issuer/${issuer.entityId}/badgeclasses`} name={issuer.name}/>
               </td>
               <td>
                 {I18n.t(['editUsers', 'permissions', 'allRights'])}

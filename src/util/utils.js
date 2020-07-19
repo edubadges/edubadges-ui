@@ -24,3 +24,4 @@ export const formatCreateDate = iso => {
     return {date: datePart, hours: date.getHours(), minutes: minutes};
 };
 
+export const flatten = arr => arr.reduce((acc, cur) => acc.concat(Array.isArray(cur) ? flatten(cur) : cur), []);

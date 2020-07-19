@@ -82,7 +82,6 @@
   };
 
   const changeProvisionmentRole = (role, id) => {
-    debugger;
     switch (role.value) {
       case 'badgeclassOwner':
         selection = [];
