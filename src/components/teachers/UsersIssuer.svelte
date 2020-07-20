@@ -113,7 +113,6 @@
       const badgeClassStaffs = res.user.badgeclassStaffs;
       let issuers = flatten(faculties.map(fac => fac.issuers));
       newPermissionOptions = issuers.filter(issuer => !userAlreadyHasPermissions(issuer, entityType.ISSUER, institutionStaffs, issuerGroupStaffs, issuerStaffs, badgeClassStaffs));
-      console.log(issuers);
       modalSelectedEntity = newPermissionOptions[0];
       isEmpty = user.issuerStaffs.length === 0 &&
       user.facultyStaffs.length === 0 && (!user.institutionStaff || (user.institutionStaff && faculties.length === 0));

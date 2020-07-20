@@ -70,7 +70,7 @@
         sortType: sortType.ALPHA
       },
       {
-        name: I18n.t("editUsers.issuer.issuedBy"),
+        name: I18n.t("editUsers.badgeclass.issuedBy"),
         attribute: "name",
         reverse: false,
         sortType: sortType.ALPHA

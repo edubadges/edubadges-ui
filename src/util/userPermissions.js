@@ -51,8 +51,6 @@ export const enrichUser = (institution, institutionStaffMemberships, issuerGroup
 export const userAlreadyHasPermissions = (entity, _entityType, institutionStaffs, issuerGroupStaffs, issuerStaffs, badgeClassStaffs) => {
   if (!isEmpty(institutionStaffs)) return true;
 
-  console.log(entity);
-
   switch (_entityType) {
     case entityType.ISSUER_GROUP:
       return issuerGroupStaffs.some(iGS => iGS.faculty.entityId === entity.entityId);
