@@ -66,9 +66,7 @@
          disabled={disabled}>
   <span class="checkmarked" class:active={value} class:disabled={disabled}>
     {#if value}
-      {#if disabled}
-        {@html checkDisabled}
-      {:else}
+      {#if !disabled}
         {@html check}
       {/if}
     {/if}
