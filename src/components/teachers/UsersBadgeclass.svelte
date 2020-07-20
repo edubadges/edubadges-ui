@@ -15,7 +15,7 @@
     changeUserToBadgeclassEditor,
     changeUserToBadgeclassAwarder
   } from "../../api";
-  import {AddPermissionsModal, Modal, Select} from "../forms";
+  import {AddPermissionsBadgeClassesModal, Modal, Select} from "../forms";
   import Spinner from "../Spinner.svelte";
   import {permissionsRole} from "../../util/rolesToPermissions";
 
@@ -29,7 +29,8 @@
   let selection = [];
   let checkAllValue = false;
 
-  let badgeclasses = [];
+  let badgeClasses = [];
+
   let loaded;
   let isEmpty;
 
@@ -45,7 +46,12 @@
         entityId,
         badgeclasses {
           name,
-          entityId
+          entityId,
+          permissions {
+            mayAdministrateUsers,
+            mayUpdate,
+            mayAward
+          }
         }
       }
     }
@@ -139,7 +145,9 @@
       faculties.forEach(faculty => {
         faculty.issuers.forEach(issuer => {
           issuer.badgeclasses.forEach(badgeclass => {
-            badgeclasses = [badgeclass, ...badgeclasses];
+            if (!badgeclass.permissions.mayAdministrateUsers) {
+              badgeClasses = [badgeclass, ...badgeClasses];
+            }
           })
         })
       });
@@ -245,7 +253,7 @@
   };
 
   const permissionsRoles = [
-    {value: permissionsRole.ADMIN, name: I18n.t("editUsers.badgeclass.owner")},
+    {value: permissionsRole.OWNER, name: I18n.t("editUsers.badgeclass.owner")},
     {value: permissionsRole.EDITOR, name: I18n.t("editUsers.badgeclass.editor")},
     {value: permissionsRole.AWARDER, name: I18n.t("editUsers.badgeclass.awarder")}
   ];
@@ -276,26 +284,20 @@
 
   };
 
-  let targetOptions = [
-    {name: I18n.t(['editUsers', 'badgeclass', 'badgeclassOwner']), value: 'badgeclassOwner'},
-    {name: I18n.t(['editUsers', 'badgeclass', 'badgeclassEditor']), value: 'badgeclassEditor'},
-    {name: I18n.t(['editUsers', 'badgeclass', 'badgeclassAwarder']), value: 'badgeclassAwarder'},
-  ];
-  let target = targetOptions[0];
-
   const changeUserRole = (role, id) => {
+    loaded = false;
     switch (role.value) {
-      case 'badgeclassOwner':
+      case permissionsRole.OWNER:
         changeUserToBadgeclassOwner(id).then(() => {
           reload()
         });
         break;
-      case 'badgeclassEditor':
+      case permissionsRole.EDITOR:
         changeUserToBadgeclassEditor(id).then(() => {
           reload()
         });
         break;
-      case 'badgeclassAwarder':
+      case permissionsRole.AWARDER:
         changeUserToBadgeclassAwarder(id).then(() => {
           reload()
         });
@@ -350,13 +352,13 @@
           <td>
             <div class="badgeclass-role-select">
               <Select
-                handleSelect={item => changeUserRole(item, badgeclassStaffMembership.entityId)}
-                value={
-                badgeclassStaffMembership.mayAdministrateUsers ? targetOptions[0] :
-                (badgeclassStaffMembership.mayUpdate ? targetOptions[1] :
-                (badgeclassStaffMembership.mayAward ? targetOptions[2] : 'error'))
-                }
-                  items={targetOptions}
+                  handleSelect={item => changeUserRole(item, badgeclassStaffMembership.entityId)}
+                  value={
+                    badgeclassStaffMembership.mayAdministrateUsers ? permissionsRoles[0] :
+                    (badgeclassStaffMembership.mayUpdate ? permissionsRoles[1] :
+                    (badgeclassStaffMembership.mayAward ? permissionsRoles[2] : 'error'))
+                  }
+                  items={permissionsRoles}
                   clearable={false}
                   optionIdentifier="name"
               />
@@ -454,23 +456,18 @@
 
 {#if showRemoveModal}
   <Modal submit={removeModalAction}
-         cancel={() => showRemoveModal = false}
-         question={removeModalQuestion}
-           title={removeModalTitle}>
+      cancel={() => showRemoveModal = false}
+      question={removeModalQuestion}
+      title={removeModalTitle}>
   </Modal>
 {/if}
 
 {#if showAddModal}
-  <AddPermissionsModal
-    submit={addModalAction}
-    cancel={() => showAddModal = false}
-    selectEntity={selectEntity}
-      permissionsRoles={permissionsRoles}
+  <AddPermissionsBadgeClassesModal
+      submit={addModalAction}
+      bind:badgeClasses={badgeClasses}
+      cancel={() => showAddModal = false}
+      selectEntity={selectEntity}
       title={addModalTitle}
-      targetOptions={badgeclasses}
-      bind:target={modalSelectedBadgeClass}
-      bind:chosenRole={modalChosenRole}
-      bind:notes={modalNotes}
-  >
-  </AddPermissionsModal>
+  />
 {/if}

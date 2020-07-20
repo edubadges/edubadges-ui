@@ -57,13 +57,13 @@
       }
     ] : entity === entityType.BADGE_CLASS ? [
       {
-        name: I18n.t("editUsers.issuer.header"),
+        name: I18n.t("editUsers.badgeclass.header"),
         attribute: "name",
         reverse: false,
         sortType: sortType.ALPHA
       },
       {
-        name: I18n.t("editUsers.badgeclass.header"),
+        name: I18n.t("editUsers.badgeclass.issuedBy"),
         attribute: "name",
         reverse: false,
         sortType: sortType.ALPHA
@@ -85,9 +85,9 @@
 </script>
 
 <UsersTable
-  {...table}
-  bind:search={entitySearch}
-  withCheckAll={false}
+    {...table}
+    bind:search={entitySearch}
+    withCheckAll={false}
 >
   {#if entity === entityType.INSTITUTION}
     {#if institutionStaffs.length === 0}
@@ -147,8 +147,12 @@
     {/if}
     {#each badgeClassStaffs as staff}
       <tr>
-        <td>{staff.badgeclass.issuer.name}</td>
         <td>{staff.badgeclass.name}</td>
+        <td>
+          {staff.badgeclass.issuer.name}
+          <br />
+          <span class="sub-text">{staff.badgeclass.issuer.faculty.name}</span>
+        </td>
         {#if staff._staffType === staffType.BADGE_CLASS_STAFF}
           <td>
             {I18n.t(['editUsers', 'badgeclass',

@@ -1,4 +1,5 @@
 import {staffType} from "./staffTypes";
+import {entityType} from "./entityTypes";
 import {isEmpty} from "lodash";
 
 export const enrichUser = (institution, institutionStaffMemberships, issuerGroupStaffMemberships, issuerStaffMemberships, badgeClassStaffMemberships) => {
@@ -13,7 +14,7 @@ export const enrichUser = (institution, institutionStaffMemberships, issuerGroup
         issuerStaffMemberships.push({issuer: {name: issuer.name, entityId: issuer.entityId}, _staffType: staffType.INSTITUTION_STAFF});
 
         for (const badgeClass of issuer.badgeclasses) {
-          badgeClassStaffMemberships.push({badgeclass: {issuer: {name: issuer.name}, name: badgeClass.name, entityId: badgeClass.entityId}, _staffType: staffType.INSTITUTION_STAFF});
+          badgeClassStaffMemberships.push({badgeclass: {issuer: {name: issuer.name, faculty: {name: faculty.name}}, name: badgeClass.name, entityId: badgeClass.entityId}, _staffType: staffType.INSTITUTION_STAFF});
         }
       }
     }
@@ -25,7 +26,7 @@ export const enrichUser = (institution, institutionStaffMemberships, issuerGroup
         issuerStaffMemberships.push({issuer: {name: issuer.name, entityId: issuer.entityId}, _staffType: staffType.ISSUER_GROUP_STAFF});
 
         for (const badgeClass of issuer.badgeclasses) {
-          badgeClassStaffMemberships.push({badgeclass: {issuer: {name: issuer.name}, name: badgeClass.name, entityId: badgeClass.entityId}, _staffType: staffType.ISSUER_GROUP_STAFF});
+          badgeClassStaffMemberships.push({badgeclass: {issuer: {name: issuer.name, faculty: {name: faculty.name}}, name: badgeClass.name, entityId: badgeClass.entityId}, _staffType: staffType.ISSUER_GROUP_STAFF});
         }
       }
     }
@@ -41,8 +42,21 @@ export const enrichUser = (institution, institutionStaffMemberships, issuerGroup
     const issuers = allIssuers.filter(issuer => _issuerStaffMemberships.some(_issuerMembership => _issuerMembership.issuer.entityId === issuer.entityId));
     for (const issuer of issuers) {
       for (const badgeClass of issuer.badgeclasses) {
-        badgeClassStaffMemberships.push({badgeclass: {issuer: {name: issuer.name}, name: badgeClass.name, entityId: badgeClass.entityId}, _staffType: staffType.ISSUER_STAFF});
+        badgeClassStaffMemberships.push({badgeclass: {issuer: {name: issuer.name, faculty: {name: issuer.faculty.name}}, name: badgeClass.name, entityId: badgeClass.entityId}, _staffType: staffType.ISSUER_STAFF});
       }
     }
+  }
+};
+
+export const userAlreadyHasPermissions = (entity, _entityType, institutionStaffs, issuerGroupStaffs, issuerStaffs, badgeClassStaffs) => {
+  if (institutionStaffs) return true;
+
+  switch (_entityType) {
+    case entityType.ISSUER_GROUP:
+      return issuerGroupStaffs.some(iGS => iGS.faculty.entityId === entity.entityId);
+    case entityType.ISSUER:
+      return issuerStaffs.some(iS => iS.issuer.entityId === entity.entityId) || issuerGroupStaffs.some(iGS => iGS.faculty.issuers.some(issuer => issuer.entityId === entity.entityId));
+    case entityType.BADGE_CLASS:
+      break;
   }
 };

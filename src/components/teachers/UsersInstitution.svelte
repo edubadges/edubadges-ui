@@ -234,9 +234,9 @@
 
 {#if showModal}
   <Modal submit={modalAction}
-         warning={isInstitutionAdmin()}
-         cancel={() => showModal = false}
-         question={modalQuestion}
-           title={modalTitle}>
+      warning={isInstitutionAdmin()}
+      cancel={() => showModal = false}
+      question={modalQuestion}
+      title={modalTitle}>
   </Modal>
 {/if}

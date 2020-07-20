@@ -13,6 +13,7 @@
   import {AddPermissionsModal, Modal} from "../forms";
   import Spinner from "../Spinner.svelte";
   import {permissionsRole} from "../../util/rolesToPermissions";
+  import {userAlreadyHasPermissions} from "../../util/userPermissions";
 
   export let userId;
 
@@ -86,7 +87,8 @@
         name,
         entityId,
         issuers {
-          name
+          name,
+          entityId
         }
       },
       mayAdministrateUsers
@@ -108,16 +110,20 @@
       faculties = res.currentInstitution.faculties;
       user = res.user;
       currentUser = res.currentUser;
+      const institutionStaffs = res.user.institutionStaff;
+      const issuerGroupStaffs = res.user.facultyStaffs;
+      const issuerStaffs = res.user.issuerStaffs;
+      const badgeClassStaffs = res.user.badgeclassStaffs;
+      let issuers = [];
       faculties.forEach(faculty => {
         faculty.issuers.forEach(issuer => {
-          if (!issuer.permissions.mayAdministrateUsers) {
-            newPermissionOptions = [issuer, ...newPermissionOptions]
-          }
+          issuers = [issuer, ...issuers]
         })
       });
+      newPermissionOptions = issuers.filter(issuer => !userAlreadyHasPermissions(issuer, entityType.ISSUER, institutionStaffs, issuerGroupStaffs, issuerStaffs, badgeClassStaffs));
+      modalSelectedEntity = newPermissionOptions[0];
       isEmpty = user.issuerStaffs.length === 0 &&
-        user.facultyStaffs.length === 0 &&
-        (!user.institutionStaff || (user.institutionStaff && faculties.length === 0));
+      user.facultyStaffs.length === 0 && (!user.institutionStaff || (user.institutionStaff && faculties.length === 0));
       loaded = true;
     });
   };
@@ -145,7 +151,7 @@
   let addModalTitle;
   let selectEntity;
   let addModalAction;
-  let modalSelectedBadgeClass;
+  let modalSelectedEntity;
   let modalChosenRole;
   let modalNotes;
 
@@ -164,7 +170,7 @@
   const submitPermissions = () => {
     switch (modalChosenRole.value) {
       case permissionsRole.ADMIN:
-        makeUserIssuerAdmin(modalSelectedBadgeClass.entityId, userId, modalNotes).then(() => {
+        makeUserIssuerAdmin(modalSelectedEntity.entityId, userId, modalNotes).then(() => {
           reload();
           showAddModal = false;
         });
@@ -328,7 +334,7 @@
     permissionsRoles={permissionsRoles}
     title={addModalTitle}
     targetOptions={newPermissionOptions}
-    bind:target={modalSelectedBadgeClass}
+    bind:target={modalSelectedEntity}
     bind:chosenRole={modalChosenRole}
     bind:notes={modalNotes}
   >

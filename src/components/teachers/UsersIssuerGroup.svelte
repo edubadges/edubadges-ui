@@ -13,6 +13,7 @@
   import {AddPermissionsModal, Modal} from "../forms";
   import Spinner from "../Spinner.svelte";
   import {permissionsRole} from "../../util/rolesToPermissions";
+  import {userAlreadyHasPermissions} from "../../util/userPermissions";
 
   export let userId;
 
@@ -97,12 +98,18 @@
     }
   }
  }`;
+
   const reload = () => {
     loaded = false;
     queryData(query).then(res => {
       institutionId = res.currentInstitution.entityId;
       faculties = res.currentInstitution.faculties;
-      newPermissionOptions = faculties.filter(faculty => !faculty.permissions.mayAdministrateUsers);
+      const institutionStaffs = res.user.institutionStaff;
+      const issuerGroupStaffs = res.user.facultyStaffs;
+      const issuerStaffs = res.user.issuerStaffs;
+      const badgeClassStaffs = res.user.badgeclassStaffs;
+      newPermissionOptions = faculties.filter(faculty => !userAlreadyHasPermissions(faculty, entityType.ISSUER_GROUP, institutionStaffs, issuerGroupStaffs, issuerStaffs, badgeClassStaffs));
+      modalSelectedEntity = newPermissionOptions[0];
       user = res.user;
       currentUser = res.currentUser;
       isEmpty = user.facultyStaffs.length === 0 &&
@@ -110,7 +117,6 @@
       loaded = true;
     });
   };
-
 
   onMount(reload);
 
@@ -134,7 +140,7 @@
   let addModalTitle;
   let selectEntity;
   let addModalAction;
-  let modalSelectedBadgeClass;
+  let modalSelectedEntity;
   let modalChosenRole;
   let modalNotes;
 
@@ -153,7 +159,7 @@
   const submitPermissions = () => {
     switch (modalChosenRole.value) {
       case permissionsRole.ADMIN:
-        makeUserIssuerGroupAdmin(modalSelectedBadgeClass.entityId, userId, modalNotes).then(() => {
+        makeUserIssuerGroupAdmin(modalSelectedEntity.entityId, userId, modalNotes).then(() => {
           reload();
           showAddModal = false;
         });
@@ -297,8 +303,8 @@
       selectEntity={selectEntity}
       permissionsRoles={permissionsRoles}
       title={addModalTitle}
-      targetOptions={newPermissionOptions}
-      bind:target={modalSelectedBadgeClass}
+      bind:targetOptions={newPermissionOptions}
+      bind:target={modalSelectedEntity}
       bind:chosenRole={modalChosenRole}
       bind:notes={modalNotes}
   >
