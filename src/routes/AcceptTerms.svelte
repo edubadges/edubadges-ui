@@ -197,13 +197,13 @@
 <div class="page-container">
   <p class="content">
   {#if loaded}
-    <h1>{I18n.t("acceptTerms.welcome", {name: claims.preferred_username})}</h1>
+      <h1>{I18n.t("acceptTerms.welcome", {name: claims.preferred_username})}</h1>
       <h3>{resign ? I18n.t("acceptTerms.renewTerms"): I18n.t("acceptTerms.acceptTerms")}</h3>
-<ul>
-  {#each I18n.translations[I18n.locale].acceptTerms[$userRole].termsBullets as bullet}
-    <li>{bullet}</li>
-  {/each}
-</ul>
+      <ul>
+        {#each I18n.translations[I18n.locale].acceptTerms.termsBullets[$userRole] as bullet}
+          <li>{bullet}</li>
+        {/each}
+    </ul>
     <h1 class="edubadges">{I18n.t("acceptTerms.eduBadges", {name: claims.preferred_username})}</h1>
     <p class="terms">
       <span>{I18n.t("acceptTerms.termsPre")}</span>

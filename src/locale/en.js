@@ -596,8 +596,14 @@ I18n.translations.en = {
     welcome: "Hi {{name}}",
     acceptTerms: "Take notice of our terms",
     renewTerms: "The eduBadges terms have changed. Take notice of our new terms",
-    termsInfo: "Het aanmaken van een backpack en het koppelen hiervan aan je eduID is noodzakelijk om " +
-      "om badges te kunnen ontvangen. Het backpack valt onder de verwerkingsverantwoordelijkheid van SURF",
+    teacher: {
+      termsInfo: "Het aanmaken van een backpack en het koppelen hiervan aan je eduID is noodzakelijk om " +
+        "om badges te kunnen ontvangen. Het backpack valt onder de verwerkingsverantwoordelijkheid van SURF",
+    },
+    student: {
+      termsInfo: "Het aanmaken van een backpack en het koppelen hiervan aan je eduID is noodzakelijk om " +
+        "om badges te kunnen ontvangen. Het backpack valt onder de verwerkingsverantwoordelijkheid van SURF",
+    },
     termsBullets: {
       teacher:
         [
@@ -605,7 +611,7 @@ I18n.translations.en = {
           "SURF verwerkt hiervoor persoonsgegevens: je voornaam, achternaam, e-mailadres, eduID en eventuele persoonlijke teksten in badges.",
           "Alleen jouw onderwijsinstelling en SURF hebben toegang tot deze persoonsgegevens."
         ],
-            student:
+      student:
         [
           "SURF maakt een backpack voor je op basis van je eduID. Dit backkppack blijft bestaan totdat je dit backpack opheft.",
           "SURF verwerkt hiervoor persoonsgegevens: je voornaam, achternaam, e-mailadres, eduID en eventuele persoonlijke teksten in badges.",
