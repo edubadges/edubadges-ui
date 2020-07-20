@@ -368,15 +368,15 @@ I18n.translations.nl = {
     },
     badgeclass: {
       header: "Badgeclass",
-      badgeclassOwner: "Eigenaar",
-      badgeclassEditor: "Bewerker",
+      badgeclassOwner: "Admin",
+      badgeclassEditor: "Editor",
       badgeclassAwarder: "Awarder",
-      owner: "Eigenaar",
-      editor: "Bewerker",
+      owner: "Admin",
+      editor: "Editor",
       awarder: "Awarder",
-      switchToOwner: "Permissie succesvol aangepast naar  badgeclass eigenaar.",
-      switchToEditor: "Permissie succesvol aangepast naar badgeclass bewerker.",
-      switchToAwarder: "Permissie succesvol aangepast naar  badgeclass awarder.",
+      switchToOwner: "Permissie succesvol aangepast naar badgeclass Admin.",
+      switchToEditor: "Permissie succesvol aangepast naar badgeclass Editor.",
+      switchToAwarder: "Permissie succesvol aangepast naar badgeclass Awarder.",
       permissions: "Permissies op badgeclass niveau"
     },
     permissions: {
@@ -388,10 +388,10 @@ I18n.translations.nl = {
       issuerAllRights: "(vanwege Issuer Admin)",
       addPermissions: "Voeg permissies toe",
       removePermissions: "Verwijder permissies",
-      removeAdmin: "Weet je zeker dat je de instellings admin wilt verwijderen?",
-      removeIssuerGroupAdmin: "Are you sure you want to remove this issuer group admin?",
-      removeIssuerAdmin: "Are you sure you want to remove this issuer admin?",
-      removeBadgeClassUser: "Are you sure you want to remove this role?",
+      removeAdmin: "Weet je zeker dat je de instellings Admin wilt verwijderen?",
+      removeIssuerGroupAdmin: "Weet je het zeker dat je de issuer group Admin wilt verwijderen?",
+      removeIssuerAdmin: "Weet je het zeker dat je de issuer Admin wilt verwijderen?",
+      removeBadgeClassUser: "Weet je het zeker dat je deze rol wilt verwijderen?",
       setInstitutionAdmin: "Maak gebruiker instellings Admin",
       removeInstitutionAdmin: "Verwijder instellings Admin",
       inviteNewUser: "Nodig nieuwe gebruiker uit"
@@ -456,21 +456,21 @@ I18n.translations.nl = {
       alignmentUrl: "URL",
       alignmentCode: "Code",
       alignmentDescription: "Omschrijving",
-      amount: "Aantaal",
+      amount: "Aantal",
       name: "Naam",
       description: "Beschrijving",
       criteria_text: "Wat is benodigd om deze edubadge te verdienen?",
       criteria_url: "Criteria URL",
       criteria_url_value: "Link naar de criteria:",
       directAward: "Direct award",
-      inviteEnrollements: "Invite people to enroll",
+      inviteEnrollements: "Nodig iemand uit om deze edubadge te verdienen",
       expiresAfter: "Verloopt na",
       expiresAfterNever: "Nooit",
       expiresAfterValue: "{{nbr}} weken",
       expireSettings: "Standaard verloop setting",
       language: "Language of instruction",
       learningOutcome: "Leeruitkomst",
-      studyLoad: "Study load",
+      studyLoad: "Studielast",
       ects: {
         creditPoints: "Studiepunten (ECTS)",
         hours: "Uren"
@@ -492,7 +492,7 @@ I18n.translations.nl = {
         earningCriteria: "Leer criteria",
         additionalSections: "Extra toevoegingen",
         educationalIdentifiers: "Onderwijsidentificatie",
-        studyLoad: "Study load",
+        studyLoad: "Studielast",
         alignment: "Alignment"
       },
       addButtons: {
@@ -525,9 +525,9 @@ I18n.translations.nl = {
       },
       issuedOn: "Uitgegeven op",
       issuedBy: "Uitgegeven door",
-      claimed: "Claimed",
-      expires: "Expires",
-      expiresNever: "Never",
+      claimed: "Geclaimed",
+      expires: "Verloopt op",
+      expiresNever: "Nooit",
       download: "Download",
       share: "Deel",
       status: "Status",
@@ -538,7 +538,7 @@ I18n.translations.nl = {
         rejected: "Geweigerd",
         revoked: "Ingetrokken",
         accepted: "Claimed",
-        unaccepted: "Pending"
+        unaccepted: "In afwachting"
       },
       confirmation: {
         revocationReason: "Reden voor intrekking (verplicht)",
@@ -576,8 +576,8 @@ I18n.translations.nl = {
     },
   },
   shareDialog: {
-    title: "Deel jer badge",
-    copyPublicUrl: "Als je de link naar de publieke pagina van deze badge wilt delen, kan je de link kopiëren",
+    title: "Deel je edubadge",
+    copyPublicUrl: "Als je de link naar de publieke pagina van deze edubadge wilt delen, kan je de link kopiëren",
     copy: "Kopieer de link"
   },
   invites: {
@@ -598,15 +598,15 @@ I18n.translations.nl = {
   acceptTerms: {
     welcome: "Hi {{name}}",
     acceptTerms: "Om door te gaan moet je deze voorwaarden accepteren",
-    renewTerms: "De voorwaarden van eduBadges zijn gewijzigd. Om door te gaan moet je de nieuwe voorwaarden accepteren",
-    eduBadges: "Overeenkomst met eduBadges",
+    renewTerms: "De voorwaarden van edubadges zijn gewijzigd. Om door te gaan moet je de nieuwe voorwaarden accepteren",
+    eduBadges: "Overeenkomst met edubadges",
     termsTitle: "Servicevoorwaarden van edubadges",
     termsPre: "Lees en accepteer de ",
     termsOfUseLink: "Servicevoorwaarden van edubadges.",
     termsOfUseStudentRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/termsofservice-create-account-employee-nl.md",
     termsOfUseTeacherRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/termsofservice-create-account-employee-nl.md",
-    badgeAwardTitle: "Badge toekenning voorwaarden van eduBadges",
-    badgeAwardTerms: "badge toekennings voorwaarden",
+    badgeAwardTitle: "Badge toekenning voorwaarden van edubadges",
+    badgeAwardTerms: "Badge toekennings voorwaarden",
     badgeAwardTermsPost: " voor instelling (en)",
     badgeAwardTermsRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/termsofservice-create-account-institution-nl.md",
     acceptTermsOfUse: "Ik accepteer de servicevoorwaarden",
@@ -620,28 +620,28 @@ I18n.translations.nl = {
     Nl_Nl: "Nederlands"
   },
   publicBadge: {
-    verification: "Verification",
-    issuedTo: "This badge was issued to <strong>{{name}}</strong> on {{date}}",
-    expires: "It expires on {{date}}",
-    neverExpires: "It has no expiry date",
-    verify: "Verify",
+    verification: "Verificatie",
+    issuedTo: "Deze edubadge is uitgereikt aan <strong>{{name}}</strong> op {{date}}",
+    expires: "Het verloopt op {{date}}",
+    neverExpires: "Het heeft geen expiratie datum.",
+    verify: "Verifieer",
     validations: {
-      issuedOn: "Issued on {{val}}",
-      issuedBy: "Issued by {{val}}",
+      issuedOn: "Uitgereikt op {{val}}",
+      issuedBy: "Uitgereikt door {{val}}",
       issuedUsing: "Issued using {{val}}",
-      issuedTo: "Issued to <strong>{{val}}</strong>",
-      claimedOn: "Claimed on {{val}}",
-      verified: "<strong>Verified<strong> {{val}}"
+      issuedTo: "Uitgereikt aan <strong>{{val}}</strong>",
+      claimedOn: "Geaccepteerd op {{val}}",
+      verified: "<strong>Gevalideerd!<strong> {{val}}"
     }
   },
   monthNames: ["Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "October", "November", "December"],
   zeroState: {
     badgeClasses: "Er zijn geen badge-classes voor issuer {{name}}.",
     issuers: "Er zijn geen issuers voor {{name}}.",
-    faculties: "Er zijn geen faculties voor instelling {{name}}.",
+    faculties: "Er zijn geen Issuer Groups voor instelling {{name}}.",
     users: "Er zijn geen users voor instelling {{name}}.",
-    assertions: "Er zijn geen assertions voor badge {{name}}.",
-    enrollments: "Er zijn geen enrollments voor badge {{name}}.",
+    assertions: "Er zijn geen assertions voor edubadge {{name}}.",
+    enrollments: "Er zijn geen enrollments voor edubadge {{name}}.",
     permissions: "Er zijn geen permissies voor deze gebruiker {{entity}} niveau.",
     selfPermissions: "Deze gebruiker heeft geen permissies op {{entity}} niveau.",
     userPermissions: "Deze gebruiker heeft geen permissies op {{entity}} niveau."
@@ -663,40 +663,40 @@ I18n.translations.nl = {
   },
   placeholders: {
     institution: {
-      name: "e.g. University of Harderwijk",
-      brin: "Basic Registration Settings number",
-      gradingTable: "URL of the grading table",
-      description: "e.g. The University of Harderwijk was founded in 1977"
+      name: "Bijv. Universiteit van Harderwijk",
+      brin: "Basisregistratie Instellingen - BRIN",
+      gradingTable: "URL van de grading table",
+      description: "Bijv De Universiteit van Harderwijk is gesticht in 1977"
     },
     faculty: {
-      name: "e.g. History",
-      description: "e.g. all History related studies"
+      name: "Bijv. Geschiedenis",
+      description: "Bijv. Alle issuers van de faculteit Geschiedenis"
     },
     issuer: {
-      name: "e.g. Social Historic Studies",
-      description: "e.g. the study of social behaviour in the Middle Ages",
-      email: "e.g. john.doe@example.com",
-      url: "e.g. https://harderwijk.nl"
+      name: "Bijv. Social Historic Studies",
+      description: "Bijv. the study of social behaviour in the Middle Ages",
+      email: "Bijv. john.doe@example.com",
+      url: "Bijv. https://harderwijk.nl"
     },
     badgeClass: {
-      name: "e.g. Renaissance",
-      description: "e.g. Political infuence of the Church during the Renaissance",
-      learningOutcome: "e.g. will be able to read and demonstrate good comprehension of text in areas of the student’s interest or professional field.",
-      criteriaText: "e.g. online multiple choice exam",
-      criteriaUrl: "e.g. https://harderwijk.nl/renaissance/criteria",
-      studyLoad: "e.g. 120",
-      educationProgramIdentifier: "e.g. 12111990",
-      alignmentName: "e.g. Big Skill",
-      alignmentFramework: "e.g. Skill Matter",
+      name: "Bijv. Renaissance",
+      description: "Bijv. Political infuence of the Church during the Renaissance",
+      learningOutcome: "Bijv. will be able to read and demonstrate good comprehension of text in areas of the student’s interest or professional field.",
+      criteriaText: "Bijv. online multiple choice exam",
+      criteriaUrl: "Bijv. https://harderwijk.nl/renaissance/criteria",
+      studyLoad: "Bijv. 120",
+      educationProgramIdentifier: "Bijv. 12111990",
+      alignmentName: "Bijv. Big Skill",
+      alignmentFramework: "Bijv. Skill Matter",
       alignmentDescription: "A big skill, takes many hours to learn",
       alignmentUrl: "http://standards.net/CCELA-RL-6",
       alignmentCode: "CCSS.ELA-Literacy.RL.6.3"
     },
     permissions: {
-      notes: "e.g. why did you add permissions?"
+      notes: "Bijv. waarom heb je permissies gegeven?"
     },
     userManagement: {
-      email: "e.g. john.doe@example.com"
+      email: "Bijv. john.doe@example.com"
     }
   },
   eye: {
