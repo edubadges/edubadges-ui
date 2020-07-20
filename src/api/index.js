@@ -53,8 +53,8 @@ function validFetch(path, options = {}, method = "GET", useToken = true, showErr
 
 // External API
 // Token and Profile
-export function requestLoginToken(service) {
-  window.location.href = `${serverUrl}/account/sociallogin?provider=${service}`;
+export function requestLoginToken(service, forceAuthn = false) {
+  window.location.href = `${serverUrl}/account/sociallogin?provider=${service}&forceAuthn=${forceAuthn}`;
 }
 
 export function getProfile() {
@@ -105,6 +105,31 @@ export function getSocialAccounts() {
   const path = `${serverUrl}/v1/user/socialaccounts`;
   return validFetch(path);
 }
+// Institutions
+export function validateInstitutions(schacHomeOrganisations, invalid = false) {
+  return Promise.resolve( schacHomeOrganisations.map(org => ({schac_home_organisation: org, valid: !invalid})));
+}
+
+// Institutions
+export function institutionDetail(schacHomeOrganisation) {
+  return Promise.resolve( {
+    identifier: schacHomeOrganisation,
+    logo_url: "https://d1rkab7tlqy5f1.cloudfront.net/Admin/Julie/TUD.png",
+    name: `Name ${schacHomeOrganisation}`,
+    formal_badge_award_terms_nl_url: "https://raw.githubusercontent.com/edubadges/privacy/master/termsofservice-create-account-institution-nl.md",
+    informal_badge_award_terms_nl_url: "https://raw.githubusercontent.com/edubadges/privacy/master/termsofservice-create-account-institution-nl.md",
+    terms_of_use_student_nl_url: "https://raw.githubusercontent.com/edubadges/privacy/master/termsofservice-create-account-student-nl.md",
+    terms_of_use_teacher_nl_url: "https://raw.githubusercontent.com/edubadges/privacy/master/termsofservice-create-account-employee-nl.md",
+    privacy_policy_nl_url: "https://raw.githubusercontent.com/edubadges/privacy/master/edubadges-privacy-statement-nl.md",
+    formal_badge_award_terms_en_url: "https://raw.githubusercontent.com/edubadges/privacy/master/termsofservice-create-account-institution-nl.md",
+    informal_badge_award_terms_en_url: "https://raw.githubusercontent.com/edubadges/privacy/master/termsofservice-create-account-institution-nl.md",
+    terms_of_use_student_en_url: "https://raw.githubusercontent.com/edubadges/privacy/master/termsofservice-create-account-student-nl.md",
+    terms_of_use_teacher_en_url: "https://raw.githubusercontent.com/edubadges/privacy/master/termsofservice-create-account-employee-nl.md",
+    privacy_policy_en_url: "https://raw.githubusercontent.com/edubadges/privacy/master/edubadges-privacy-statement-nl.md",
+  });
+
+}
+
 
 // Student badges
 export function requestBadge(id) {

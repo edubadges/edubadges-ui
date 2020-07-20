@@ -82,11 +82,11 @@
   <div class="help">
     <a href="/terms"
        on:click|preventDefault|stopPropagation={showTerms(I18n.t("footer.termsTitle"),
-                $userRole === role.STUDENT ? I18n.t('footer.termsStudentRaw') : I18n.t('footer.termsTeacherRaw'))}>
+                $userRole === role.STUDENT ? I18n.t('terms.termsOfUseStudentRaw') : I18n.t('terms.termsOfUseTeacherRaw'))}>
       {I18n.t("footer.termsTitle")}
     </a>
     <a href="/privacy"
-       on:click|preventDefault|stopPropagation={showTerms(I18n.t("footer.privacyPolicyTitle"),I18n.t('footer.privacyPolicyRaw'))}>
+       on:click|preventDefault|stopPropagation={showTerms(I18n.t("terms.privacyPolicyTitle"),I18n.t('terms.privacyPolicyRaw'))}>
       {I18n.t("footer.privacyPolicyTitle")}
     </a>
   </div>

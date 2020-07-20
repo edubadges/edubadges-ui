@@ -262,10 +262,7 @@ I18n.translations.nl = {
     },
   },
   footer: {
-    termsStudentRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/termsofservice-create-account-student-nl.md",
-    termsTeacherRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/termsofservice-create-account-employee-nl.md",
     termsTitle: "Voorwaarden",
-    privacyPolicyRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/edubadges-privacy-statement-nl.md",
     privacyPolicyTitle: "Privacy",
     poweredBy: "Trots aangeboden door"
   },
@@ -603,15 +600,19 @@ I18n.translations.nl = {
     termsTitle: "Servicevoorwaarden van edubadges",
     termsPre: "Lees en accepteer de ",
     termsOfUseLink: "Servicevoorwaarden van edubadges.",
-    termsOfUseStudentRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/termsofservice-create-account-employee-nl.md",
-    termsOfUseTeacherRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/termsofservice-create-account-employee-nl.md",
     badgeAwardTitle: "Badge toekenning voorwaarden van eduBadges",
     badgeAwardTerms: "badge toekennings voorwaarden",
     badgeAwardTermsPost: " voor instelling (en)",
-    badgeAwardTermsRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/termsofservice-create-account-institution-nl.md",
     acceptTermsOfUse: "Ik accepteer de servicevoorwaarden",
     acceptBadgeAwardTerms: "Ik accepteer de toekenningsvoorwaarden",
-    accept: "Get it on!"
+    accept: "Get it on!",
+    noValidInstitution: "No valid institution",
+    noValidInstitutionInfo: "The institution <strong>{{name}}</strong> connected to your eduID account is not participating in the eduBadges programme.<br/><br/>" +
+      "Please contact <a href='mailto:support@edubadges.nl'>support@edubadges.nl</a> for support or try linking an extra institution to your eduID account",
+    goToSurfConext: "Proceed to eduBadges",
+    multipleValidInstitutions: "Multiple valid institutions",
+    multipleValidInstitutionsInfo: "You have multiple institutions connected to your eduID account.<br/><br/>" +
+      "Please choose with which institution you want to start using eduBadges."
   },
   language: {
     en_EN: "Engels",
@@ -702,5 +703,11 @@ I18n.translations.nl = {
   eye: {
     awardView: "Award view",
     adminView: "Admin view"
+  },
+  terms: {
+    badgeAwardTermsRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/termsofservice-create-account-institution-nl.md",
+    termsOfUseStudentRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/termsofservice-create-account-student-nl.md",
+    termsOfUseTeacherRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/termsofservice-create-account-employee-nl.md",
+    privacyPolicyRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/edubadges-privacy-statement-nl.md",
   }
 };

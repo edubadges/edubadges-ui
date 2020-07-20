@@ -262,10 +262,7 @@ I18n.translations.en = {
     },
   },
   footer: {
-    termsStudentRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/termsofservice-create-account-student-en.md",
-    termsTeacherRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/termsofservice-create-account-employee-en.md",
     termsTitle: "Terms of use",
-    privacyPolicyRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/edubadges-privacy-statement-en.md",
     privacyPolicyTitle: "Privacy Policy",
     poweredBy: "Proudly powered by"
   },
@@ -597,21 +594,41 @@ I18n.translations.en = {
   },
   acceptTerms: {
     welcome: "Hi {{name}}",
-    acceptTerms: "To proceed you must accept these terms",
-    renewTerms: "The edubadges terms have changed. To proceed you must accept the renewed terms",
-    eduBadges: "Agreement with edubadges",
+    acceptTerms: "Take notice of our terms",
+    renewTerms: "The eduBadges terms have changed. Take notice of our new terms",
+    termsInfo: "Het aanmaken van een backpack en het koppelen hiervan aan je eduID is noodzakelijk om " +
+      "om badges te kunnen ontvangen. Het backpack valt onder de verwerkingsverantwoordelijkheid van SURF",
+    termsBullets: {
+      teacher:
+        [
+          "SURF maakt een backpack voor je op basis van je eduID. Dit backkppack blijft bestaan totdat je dit backpack opheft.",
+          "SURF verwerkt hiervoor persoonsgegevens: je voornaam, achternaam, e-mailadres, eduID en eventuele persoonlijke teksten in badges.",
+          "Alleen jouw onderwijsinstelling en SURF hebben toegang tot deze persoonsgegevens."
+        ],
+            student:
+        [
+          "SURF maakt een backpack voor je op basis van je eduID. Dit backkppack blijft bestaan totdat je dit backpack opheft.",
+          "SURF verwerkt hiervoor persoonsgegevens: je voornaam, achternaam, e-mailadres, eduID en eventuele persoonlijke teksten in badges.",
+          "Alleen jouw onderwijsinstelling en SURF hebben toegang tot deze persoonsgegevens."
+        ]
+
+    },
     termsTitle: "Terms of service of edubadges",
     termsPre: "Please read and accept the ",
     termsOfUseLink: "terms of service of edubadges.",
-    termsOfUseStudentRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/termsofservice-create-account-employee-en.md",
-    termsOfUseTeacherRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/termsofservice-create-account-employee-en.md",
     badgeAwardTitle: "Badge awarding terms of edubadges",
     badgeAwardTerms: "badge awarding terms",
     badgeAwardTermsPost: " for institution(s)",
-    badgeAwardTermsRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/termsofservice-create-account-institution-en.md",
     acceptTermsOfUse: "I accept the Terms of Service",
     acceptBadgeAwardTerms: "I accept the Awarding Terms",
-    accept: "Get it on!"
+    accept: "Get it on!",
+    noValidInstitution: "No valid institution",
+    noValidInstitutionInfo: "The institution <strong>{{name}}</strong> connected to your eduID account is not participating in the eduBadges programme.<br/><br/>" +
+      "Please contact <a href='mailto:support@edubadges.nl'>support@edubadges.nl</a> for support or try linking an extra institution to your eduID account",
+    goToSurfConext: "Proceed to eduBadges",
+    multipleValidInstitutions: "Multiple valid institutions",
+    multipleValidInstitutionsInfo: "You have multiple institutions connected to your eduID account.<br/><br/>" +
+      "Please choose with which institution you want to start using eduBadges."
   },
   language: {
     en_EN: "English",
@@ -702,5 +719,11 @@ I18n.translations.en = {
   eye: {
     awardView: "Award view",
     adminView: "Admin view"
+  },
+  terms: {
+    badgeAwardTermsRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/termsofservice-create-account-institution-en.md",
+    termsOfUseStudentRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/termsofservice-create-account-student-en.md",
+    termsOfUseTeacherRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/termsofservice-create-account-employee-en.md",
+    privacyPolicyRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/edubadges-privacy-statement-en.md",
   }
 };
