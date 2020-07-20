@@ -96,7 +96,7 @@
         name,
         entityId,
         badgeclasses {
-        entityId,
+          entityId,
           name,
         }
       },
@@ -335,10 +335,12 @@
               onChange={val => onCheckOne(val, badgeclassStaffMembership.entityId)}/>
           </td>
           <td>
-            <ListLink path={`/manage/badgeclass/${badgeclassStaffMembership.badgeclass.entityId}/overview`} name={badgeclassStaffMembership.badgeclass.name}/>
+            <ListLink path={`/manage/badgeclass/${badgeclassStaffMembership.badgeclass.entityId}/overview`}
+                      name={badgeclassStaffMembership.badgeclass.name}/>
           </td>
           <td>
-            <ListLink path={`/manage/issuer/${badgeclassStaffMembership.badgeclass.issuer.entityId}/badgeclasses`} name={badgeclassStaffMembership.badgeclass.issuer.name}/>
+            <ListLink path={`/manage/issuer/${badgeclassStaffMembership.badgeclass.issuer.entityId}/badgeclasses`}
+                      name={badgeclassStaffMembership.badgeclass.issuer.name}/>
           </td>
           <td>
             <div class="badgeclass-role-select">
@@ -370,7 +372,7 @@
             <ListLink path={`/manage/badgeclass/${badgeclass.entityId}/overview`} name={badgeclass.name}/>
             </td>
             <td>
-              <ListLink path={`/manage/issuer/${badgeclass.issuer.entityId}/badgeclasses`} name={badgeclass.issuer.name}/>
+              <ListLink path={`/manage/issuer/${issuerStaffMembership.issuer.entityId}/badgeclasses`} name={issuerStaffMembership.issuer.name}/>
             </td>
           <td>
             {I18n.t(['editUsers', 'permissions', 'allRights'])}
@@ -399,7 +401,7 @@
               </td>
               <td>
                 {I18n.t(['editUsers', 'permissions', 'allRights'])}
-                <br />
+                <br/>
                 <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'issuerGroupAllRights'])}</span>
               </td>
             </tr>
