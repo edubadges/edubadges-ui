@@ -18,6 +18,8 @@
   import {AddPermissionsBadgeClassesModal, Modal, Select} from "../forms";
   import Spinner from "../Spinner.svelte";
   import {permissionsRole} from "../../util/rolesToPermissions";
+  import ListLink from "./ListLink.svelte";
+  import {flatten} from "../../util/utils";
 
   export let userId;
 
@@ -100,7 +102,10 @@
     issuerStaffs {
       entityId,
       issuer {
+        name,
+        entityId,
         badgeclasses {
+          entityId,
           name,
           issuer {
             name
@@ -115,8 +120,11 @@
         name,
         entityId,
         issuers {
+          name,
+          entityId,
           badgeclasses {
             name,
+            entityId,
             issuer {
               name
             }
@@ -142,15 +150,7 @@
       faculties = res.currentInstitution.faculties;
       user = res.user;
       currentUser = res.currentUser;
-      faculties.forEach(faculty => {
-        faculty.issuers.forEach(issuer => {
-          issuer.badgeclasses.forEach(badgeclass => {
-            if (!badgeclass.permissions.mayAdministrateUsers) {
-              badgeClasses = [badgeclass, ...badgeClasses];
-            }
-          })
-        })
-      });
+      badgeClasses = flatten(faculties.map(fac => fac.issuers.map(iss => iss.badgeclasses)));
       isEmpty = user.badgeclassStaffs.length === 0 &&
         user.issuerStaffs.length === 0 &&
         user.facultyStaffs.length === 0 &&
@@ -224,7 +224,7 @@
         });
         break;
       default:
-        console.error('error: invalid role');
+        throw new Error(`error: invalid role ${modalChosenRole.value}`);
     }
   };
 
@@ -343,9 +343,13 @@
               disabled={false}
               onChange={val => onCheckOne(val, badgeclassStaffMembership.entityId)}/>
           </td>
-          <td>{badgeclassStaffMembership.badgeclass.name}</td>
           <td>
-            {badgeclassStaffMembership.badgeclass.issuer.name}
+            <ListLink path={`/manage/badgeclass/${badgeclassStaffMembership.badgeclass.entityId}/overview`}
+                      name={badgeclassStaffMembership.badgeclass.name}/>
+          </td>
+          <td>
+            <ListLink path={`/manage/issuer/${badgeclassStaffMembership.badgeclass.issuer.entityId}/badgeclasses`}
+                      name={badgeclassStaffMembership.badgeclass.issuer.name}/>
             <br />
             <span class="sub-text">{badgeclassStaffMembership.badgeclass.issuer.faculty.name}</span>
           </td>
@@ -375,9 +379,11 @@
                 name={`select-${badgeclass.entityId}`}
                 disabled={true}/>
             </td>
-            <td>{badgeclass.name}</td>
             <td>
-              {badgeclass.issuer.name}
+              <ListLink path={`/manage/badgeclass/${badgeclass.entityId}/overview`} name={badgeclass.name}/>
+            </td>
+            <td>
+              <ListLink path={`/manage/issuer/${issuerStaffMembership.issuer.entityId}/badgeclasses`} name={issuerStaffMembership.issuer.name}/>
               <br />
               <span class="sub-text">{badgeclass.issuer.faculty.name}</span>
             </td>
@@ -400,9 +406,11 @@
                   disabled={true}
                 />
               </td>
-              <td>{badgeclass.name}</td>
               <td>
-                {badgeclass.issuer.name}
+                <ListLink path={`/manage/badgeclass/${badgeclass.entityId}/overview`} name={badgeclass.name}/>
+              </td>
+              <td>
+                <ListLink path={`/manage/issuer/${issuer.entityId}/badgeclasses`} name={issuer.name}/>
                 <br />
                 <span class="sub-text">{badgeclass.issuer.faculty.name}</span>
               </td>
@@ -427,9 +435,11 @@
                     disabled={true}
                   />
                 </td>
-                <td>{badgeclass.name}</td>
                 <td>
-                  {issuer.name}
+                  <ListLink path={`/manage/badgeclass/${badgeclass.entityId}/overview`} name={badgeclass.name}/>
+                </td>
+                <td>
+                  <ListLink path={`/manage/issuer/${issuer.entityId}/badgeclasses`} name={issuer.name}/>
                   <br />
                   <span class="sub-text">{faculty.name}</span>
                 </td>

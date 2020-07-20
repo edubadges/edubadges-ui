@@ -53,7 +53,7 @@
   a.small,
   label.small {
     padding: 5px 10px;
-    font-size: 16rem;
+    font-size: 16px;
   }
 
   a.full {

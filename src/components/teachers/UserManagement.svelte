@@ -6,6 +6,8 @@
   import {Select, Modal} from "../forms";
   import I18n from "i18n-js";
   import {navigate} from "svelte-routing";
+  import memberCheck from "../../icons/single-neutral-check.svg";
+  import inviteCheck from "../../icons/single-neutral-question.svg";
   import {
     changeProvisionmentToBadgeclassAwarder,
     changeProvisionmentToBadgeclassEditor,
@@ -19,6 +21,7 @@
   import {sort, sortType} from "../../util/sortData";
   import {searchMultiple} from "../../util/searchData";
   import {flash} from "../../stores/flash";
+  import ListLink from "./ListLink.svelte";
 
   export let entity;
   export let entityId;
@@ -35,8 +38,8 @@
   export let removeModalQuestion;
 
   let staffs = [];
-
   let selection = [];
+
   $: staffs = [
     ...institutionStaffs,
     ...issuerGroupStaffs,
@@ -55,25 +58,25 @@
     {name: I18n.t(['editUsers', 'badgeclass', 'badgeclassAwarder']), value: 'badgeclassAwarder'},
   ];
 
+  const reloadAndReset = flashMessage => {
+    reload();
+    showRemoveModal = false;
+    flash.setValue(I18n.t(flashMessage));
+  }
+
   const changeUserRole = (role, id) => {
     switch (role.value) {
       case 'badgeclassOwner':
-        changeUserToBadgeclassOwner(id).then(() => {
-          reload();
-          flash.setValue(I18n.t('editUsers.badgeclass.switchToOwner'))
-        });
+        selection = [];
+        changeUserToBadgeclassOwner(id).then(() => reloadAndReset('editUsers.badgeclass.switchToOwner'));
         break;
       case 'badgeclassEditor':
-        changeUserToBadgeclassEditor(id).then(() => {
-          reload();
-          flash.setValue(I18n.t('editUsers.badgeclass.switchToEditor'))
-        });
+        selection = [];
+        changeUserToBadgeclassEditor(id).then(() => reloadAndReset('editUsers.badgeclass.switchToEditor'));
         break;
       case 'badgeclassAwarder':
-        changeUserToBadgeclassAwarder(id).then(() => {
-          reload();
-          flash.setValue(I18n.t('editUsers.badgeclass.switchToAwarder'))
-        });
+        selection = [];
+        changeUserToBadgeclassAwarder(id).then(() => reloadAndReset('editUsers.badgeclass.switchToAwarder'));
         break;
     }
   };
@@ -81,38 +84,27 @@
   const changeProvisionmentRole = (role, id) => {
     switch (role.value) {
       case 'badgeclassOwner':
-        changeProvisionmentToBadgeclassOwner(id).then(() => {
-          reload();
-          flash.setValue(I18n.t('editUsers.badgeclass.switchToOwner'))
-        });
+        selection = [];
+        changeProvisionmentToBadgeclassOwner(id).then(() => reloadAndReset('editUsers.badgeclass.switchToOwner'));
         break;
       case 'badgeclassEditor':
-        changeProvisionmentToBadgeclassEditor(id).then(() => {
-          reload();
-          flash.setValue(I18n.t('editUsers.badgeclass.switchToEditor'))
-        });
+        selection = [];
+        changeProvisionmentToBadgeclassEditor(id).then(() => reloadAndReset('editUsers.badgeclass.switchToEditor'));
         break;
       case 'badgeclassAwarder':
-        changeProvisionmentToBadgeclassAwarder(id).then(() => {
-          reload();
-          flash.setValue(I18n.t('editUsers.badgeclass.switchToAwarder'))
-        });
+        selection = [];
+        changeProvisionmentToBadgeclassAwarder(id).then(() => reloadAndReset('editUsers.badgeclass.switchToAwarder'));
         break;
     }
   };
 
   const removeSelectedPermissions = () => {
     for (const {entityId, _staffType} of selection) {
+      selection = [];
       if (_staffType === staffType.USER_PROVISIONMENT) {
-        disinviteUser(entityId).then(() => {
-          reload();
-          showRemoveModal = false;
-        });
+        disinviteUser(entityId).then(() => reloadAndReset('editUsers.institution.flash.invite'));
       } else {
-        removeStaffMembership(entity, entityId).then(() => {
-          reload();
-          showRemoveModal = false;
-        })
+        removeStaffMembership(entity, entityId).then(() => reloadAndReset('editUsers.institution.flash.removed'));
       }
     }
   };
@@ -142,6 +134,7 @@
   ];
 
   const tableHeaders = [
+    {name: null, class: "member-icon"},
     {
       name: I18n.t(["teacher", "nameEmail"]),
       attribute: "name",
@@ -230,6 +223,19 @@
   tr {
     height: 53px;
   }
+
+  div.member-icon {
+    width: 26px;
+  }
+
+  :global(th.member-icon) {
+    width: 26px;
+  }
+  :global(td.member-icon) {
+    width: 36px;
+    text-align: center;
+  }
+
 </style>
 
 <div class="container">
@@ -250,6 +256,11 @@
               name={`select-${entityId}`}
                 disabled={false}
                 onChange={val => onCheckOne(val, entityId, _staffType)}/>
+          </td>
+          <td class="member-icon">
+            <div class="member-icon">
+              {@html inviteCheck}
+            </div>
           </td>
           <td>
             -
@@ -286,8 +297,13 @@
                 disabled={false}
                 onChange={val => onCheckOne(val, entityId)}/>
           </td>
+          <td class="member-icon">
+            <div class="member-icon">
+              {@html memberCheck}
+            </div>
+          </td>
           <td>
-            {user.firstName} {user.lastName}
+            <ListLink path={`/users/${user.entityId}/institution`} name={`${user.firstName} ${user.lastName}`}/>
             <br/>
             <span class="sub-text">{user.email}</span>
           </td>
@@ -317,8 +333,13 @@
                 disabled={entity !== entityType.ISSUER}
                 onChange={val => onCheckOne(val, entityId)}/>
           </td>
+          <td class="member-icon">
+            <div class="member-icon">
+              {@html memberCheck}
+            </div>
+          </td>
           <td>
-            {user.firstName} {user.lastName}
+            <ListLink path={`/users/${user.entityId}/institution`} name={`${user.firstName} ${user.lastName}`}/>
             <br/>
             <span class="sub-text">{user.email}</span>
           </td>
@@ -342,8 +363,13 @@
                 disabled={entity !== entityType.ISSUER_GROUP}
                 onChange={val => onCheckOne(val, entityId)}/>
           </td>
+          <td class="member-icon">
+            <div class="member-icon">
+              {@html memberCheck}
+            </div>
+          </td>
           <td>
-            {user.firstName} {user.lastName}
+            <ListLink path={`/users/${user.entityId}/institution`} name={`${user.firstName} ${user.lastName}`}/>
             <br/>
             <span class="sub-text">{user.email}</span>
           </td>
@@ -367,8 +393,13 @@
                 disabled={entity !== entityType.INSTITUTION || oneInstitutionStaff}
                 onChange={val => onCheckOne(val, entityId)}/>
           </td>
+          <td class="member-icon">
+            <div class="member-icon">
+              {@html memberCheck}
+            </div>
+          </td>
           <td>
-            {user.firstName} {user.lastName}
+            <ListLink path={`/users/${user.entityId}/institution`} name={`${user.firstName} ${user.lastName}`}/>
             <br/>
             <span class="sub-text">{user.email}</span>
           </td>

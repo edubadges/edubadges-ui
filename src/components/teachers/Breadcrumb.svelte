@@ -1,10 +1,11 @@
 <script>
-  import { onMount } from "svelte";
+  import {onMount} from "svelte";
   import I18n from "i18n-js";
-  import { link, navigate } from "svelte-routing";
-  import { queryData } from "../../api/graphql";
-  import { currentPath } from "../../stores/currentPath";
+  import {link, navigate} from "svelte-routing";
+  import {queryData} from "../../api/graphql";
+  import {currentPath} from "../../stores/currentPath";
   import chevronRightSmall from "../../icons/chevron-right-small.svg";
+  import LinkEye from "./LinkEye.svelte";
 
   export let faculty;
   export let issuer;
@@ -29,23 +30,23 @@
     return isEdited
       ? I18n.t(["manage", "edit", entity])
       : isCreate
-      ? I18n.t(["manage", "new", entity])
-      : undefined;
+        ? I18n.t(["manage", "new", entity])
+        : undefined;
   };
 
   onMount(() => {
-    if (studentBadge){
+    if (studentBadge) {
       return;
     }
     queryData(query)
-      .then(({ currentInstitution: { name } }) => {
+      .then(({currentInstitution: {name}}) => {
         institutionName = name;
       })
       .catch(() => navigate("/notFound"));
   });
 </script>
 
-<style>
+<style lang="scss">
   div.bread-crumb {
     padding: var(--ver-padding-m) var(--hor-padding-m);
     min-height: 47px;
@@ -66,11 +67,13 @@
     color: var(--text-grey-dark)
   }
 
-  span {
+  span.crumb {
     height: 14px;
     width: 14px;
     margin: auto 4px;
   }
+
+
 </style>
 
 <div class="bread-crumb">
@@ -84,29 +87,33 @@
   {/if}
 
   {#if faculty}
-    <span>{@html chevronRightSmall}</span>
+    <span class="crumb">{@html chevronRightSmall}</span>
     <a use:link href={`/manage/faculty/${faculty.entityId}`}>{faculty.name}</a>
   {/if}
 
   {#if issuer}
-    <span>{@html chevronRightSmall}</span>
+    <span class="crumb">{@html chevronRightSmall}</span>
     <a use:link href={`/manage/issuer/${issuer.entityId}`}>{issuer.name}</a>
   {/if}
 
   {#if badgeclassName}
-    <span>{@html chevronRightSmall}</span>
+    <span class="crumb">{@html chevronRightSmall}</span>
     <a use:link href={`/manage/badgeclass/${badgeclass.entityId}/overview`}>{badgeclassName}</a>
   {/if}
 
   {#if user}
     <a use:link href={`/users/`}>Users</a>
-    <span>{@html chevronRightSmall}</span>
+    <span class="crumb">{@html chevronRightSmall}</span>
     <a use:link href={$currentPath}>{user.firstName} {user.lastName}</a>
 
   {/if}
 
   {#if edit || create}
-    <span>{@html chevronRightSmall}</span>
+    <span class="crumb">{@html chevronRightSmall}</span>
     <a use:link href={$currentPath}>{editCreatePart(edit, create)}</a>
+  {/if}
+
+  {#if badgeclassName}
+    <LinkEye badgeclass={badgeclass}  isAdminView={true}/>
   {/if}
 </div>

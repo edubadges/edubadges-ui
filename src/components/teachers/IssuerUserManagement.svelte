@@ -29,6 +29,7 @@
         user {
           firstName,
           lastName,
+          entityId,
           email
         }
       },
@@ -40,6 +41,7 @@
           user {
             firstName,
             lastName,
+            entityId,
             email
           }
         },
@@ -51,6 +53,7 @@
             user {
               firstName,
               lastName,
+              entityId,
               email
             }
           }

@@ -62,6 +62,10 @@
     background: purple;
   }
 
+  span.label {
+    word-break: normal;
+  }
+
 </style>
 
 <label class="container">

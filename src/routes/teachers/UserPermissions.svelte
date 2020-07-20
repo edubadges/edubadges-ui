@@ -16,56 +16,12 @@
   export let entity;
 
   let user = {};
-  let faculties;
-  let institutionId;
 
   const query = `{
-    currentInstitution {
-      name,
-      entityId,
-      faculties {
-        name,
-        entityId,
-        issuers {
-          name,
-          entityId,
-        }
-      }
-    },
     user(id: "${userId}") {
       firstName,
       lastName,
-      email,
-      dateJoined,
-      badgeclassStaffs {
-        entityId,
-        badgeclass {
-          name,
-          entityId
-        },
-        mayAdministrateUsers,
-        mayAward
-      }
-      issuerStaffs {
-        entityId,
-        issuer {
-          name,
-          entityId,
-        },
-        mayAdministrateUsers
-      }
-      facultyStaffs {
-        entityId,
-        faculty {
-          name,
-          entityId
-        },
-        mayAdministrateUsers
-      }
-      institutionStaff {
-        entityId,
-        mayAdministrateUsers
-      }
+      email
     }
    }`;
 
@@ -108,8 +64,6 @@
 
   onMount(() => {
     queryData(query).then(res => {
-      institutionId = res.currentInstitution.entityId;
-      faculties = res.currentInstitution.faculties;
       user = res.user;
     });
   });

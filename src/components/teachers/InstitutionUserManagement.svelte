@@ -32,6 +32,7 @@
         user {
           firstName,
           lastName,
+          entityId,
           email
         }
       }

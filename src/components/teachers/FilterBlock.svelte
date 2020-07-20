@@ -10,7 +10,7 @@
   let expanded = false;
   let maxLength = 5;
 
-  $: showExpand = !value.length && collection.length > maxLength;
+  $: showExpand = !value.length && collection.length > maxLength && collection.filter(item => item.count > 0) > maxLength;
   $: items = expanded ? collection : collection.slice(0, maxLength);
 </script>
 
@@ -84,7 +84,7 @@
 <div class="filter-block">
   <h3>{I18n.t(`teacher.sidebar.filters.${title}`)}</h3>
 
-  {#each items as item (item.entityId)}
+  {#each items.filter(item => item.count > 0) as item (item.entityId)}
     <label
       class="link"
       class:active={value.includes(item.entityId)}

@@ -13,13 +13,15 @@
   import {AddPermissionsModal, Modal} from "../forms";
   import Spinner from "../Spinner.svelte";
   import {permissionsRole} from "../../util/rolesToPermissions";
+  import ListLink from "./ListLink.svelte";
+  import {flatten} from "../../util/utils";
   import {userAlreadyHasPermissions} from "../../util/userPermissions";
 
   export let userId;
 
   let user;
   let currentUser;
-  let faculties;
+  let faculties = [];
   let institutionId;
   let issuerSearch;
 
@@ -55,24 +57,12 @@
     },
     issuerStaffs {
       mayAdministrateUsers
-    },
-    badgeclassStaffs {
-      mayAdministrateUsers
-    },
+    }
   },
   user(id: "${userId}") {
     firstName,
     lastName,
     entityId,
-    badgeclassStaffs {
-      entityId,
-      badgeclass {
-        name,
-        entityId
-      },
-      mayAdministrateUsers,
-      mayAward
-    }
     issuerStaffs {
       entityId,
       issuer {
@@ -114,12 +104,7 @@
       const issuerGroupStaffs = res.user.facultyStaffs;
       const issuerStaffs = res.user.issuerStaffs;
       const badgeClassStaffs = res.user.badgeclassStaffs;
-      let issuers = [];
-      faculties.forEach(faculty => {
-        faculty.issuers.forEach(issuer => {
-          issuers = [issuer, ...issuers]
-        })
-      });
+      let issuers = flatten(faculties.map(fac => fac.issuers));
       newPermissionOptions = issuers.filter(issuer => !userAlreadyHasPermissions(issuer, entityType.ISSUER, institutionStaffs, issuerGroupStaffs, issuerStaffs, badgeClassStaffs));
       modalSelectedEntity = newPermissionOptions[0];
       isEmpty = user.issuerStaffs.length === 0 &&
@@ -135,6 +120,12 @@
     {
       name: I18n.t("editUsers.issuer.header"),
       attribute: "name",
+      reverse: false,
+      sortType: sortType.ALPHA
+    },
+    {
+      name: I18n.t("editUsers.faculty.header"),
+      attribute: "faculty.name",
       reverse: false,
       sortType: sortType.ALPHA
     },
@@ -204,7 +195,7 @@
     removeModalAction = removeSelectedPermissions;
   };
 
-  const permissionsRoles = [{value:"admin", name: I18n.t("editUsers.issuer.admin")}];
+  const permissionsRoles = [{value: "admin", name: I18n.t("editUsers.issuer.admin")}];
 
   $: buttons = [
     {
@@ -227,6 +218,11 @@
       selection = selection.filter(id => id !== entityId);
       checkAllValue = false;
     }
+  }
+
+  const findFacultyByIssuerEntityId = issuerEntityId => {
+    const faculty = faculties.find(faculty => faculty.issuers.find(issuer => issuer.entityId === issuerEntityId));
+    return faculty || {};
   }
 </script>
 
@@ -261,7 +257,15 @@
               disabled={false}
               onChange={val => onCheckOne(val, issuerStaffMembership.entityId)}/>
           </td>
-          <td>{issuerStaffMembership.issuer.name}</td>
+          <td>
+            <ListLink path={`/manage/issuer/${issuerStaffMembership.issuer.entityId}/badgeclasses`}
+                      name={issuerStaffMembership.issuer.name}/>
+          </td>
+          <td>
+            <ListLink
+              path={`/manage/faculty/${findFacultyByIssuerEntityId(issuerStaffMembership.issuer.entityId).entityId}/issuers`}
+              name={findFacultyByIssuerEntityId(issuerStaffMembership.issuer.entityId).name}/>
+          </td>
           <td>
             {I18n.t(['editUsers', 'issuer', 'allRights'])}
           </td>
@@ -276,7 +280,13 @@
                 name={`select-${facultyStaffMembership.entityId}`}
                 disabled={true}/>
             </td>
-            <td>{issuer.name}</td>
+            <td>
+              <ListLink path={`/manage/issuer/${issuer.entityId}/badgeclasses`} name={issuer.name}/>
+            </td>
+            <td>
+              <ListLink path={`/manage/faculty/${findFacultyByIssuerEntityId(issuer.entityId).entityId}/issuers`}
+                        name={findFacultyByIssuerEntityId(issuer.entityId).name}/>
+            </td>
             <td>
               {I18n.t(['editUsers', 'permissions', 'allRights'])}
               <br/>
@@ -295,7 +305,13 @@
                   name={''}
                   disabled={true}/>
               </td>
-              <td>{issuer.name}</td>
+              <td>
+                <ListLink path={`/manage/issuer/${issuer.entityId}/badgeclasses`} name={issuer.name}/>
+              </td>
+              <td>
+                <ListLink path={`/manage/faculty/${findFacultyByIssuerEntityId(issuer.entityId).entityId}/issuers`}
+                          name={findFacultyByIssuerEntityId(issuer.entityId).name}/>
+              </td>
               <td>
                 {I18n.t(['editUsers', 'permissions', 'allRights'])}
                 <br/>

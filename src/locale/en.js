@@ -304,6 +304,7 @@ I18n.translations.en = {
     506: 'This invite is for a teacher',
     507: 'You do not have permission to invite user for this entity',
     508: 'You cannot edit an invitation that has been rejected',
+    509: 'Not a vaild email addess',
     601: "You do not have permission. Check your assigned role in the Issuerportal",
     701: "Unspecified share provider",
     702: "Invalid share provider",
@@ -326,7 +327,10 @@ I18n.translations.en = {
     cancel: "Cancel",
     inviteStatus: "Status",
     sent: "Invite sent",
-    accepted: "Accepted"
+    accepted: "Accepted",
+    flash: {
+      confirm: "Successfully invited {{emails}}"
+    }
   },
   editUsers: {
     institutionPermissions: "Permissions on {{instance}} level",
@@ -345,7 +349,9 @@ I18n.translations.en = {
       removeUserInstitutionAdminQuestion: "Are you sure you want to remove the institution admin from {{name}}?",
       flash: {
         makeUserInstitutionAdmin: "{{name}} is granted institution admin rights",
-        removeUserInstitutionAdmin: "Institution admin rights have been removed from {{name}}"
+        removeUserInstitutionAdmin: "Institution admin rights have been removed from {{name}}",
+        invite: "Successfully removed invite.",
+        removed: "Successfully removed rights"
       }
     },
     faculty: {
@@ -693,5 +699,9 @@ I18n.translations.en = {
     userManagement: {
       email: "e.g. john.doe@example.com"
     }
+  },
+  eye: {
+    awardView: "Award view",
+    adminView: "Admin view"
   }
 };

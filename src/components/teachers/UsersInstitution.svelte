@@ -10,25 +10,57 @@
   import Spinner from "../Spinner.svelte";
   import {flash} from "../../stores/flash";
   import Modal from "../forms/Modal.svelte";
+  import ListLink from "./ListLink.svelte";
 
   export let userId;
 
   let user;
   let userNameDict;
   let currentUser;
-  let faculties;
-  let institutionName;
-  let institutionId;
+  let institution;
   let institutionSearch;
 
-  let selection = [];
-  let checkAllValue = false;
   let loaded = false;
 
   let showModal = false;
   let modalTitle;
   let modalQuestion;
   let modalAction;
+
+  const query = `{
+    currentInstitution {
+      name,
+      entityId
+    },
+    currentUser {
+      institutionStaff {
+        mayAdministrateUsers
+      }
+    },
+    user(id: "${userId}") {
+      firstName,
+      lastName,
+      institutionStaff {
+        entityId,
+        mayAdministrateUsers
+      }
+    }
+ }`;
+
+
+  const refresh = () => {
+    loaded = false;
+    queryData(query).then(res => {
+      institution = res.currentInstitution;
+      user = res.user;
+      currentUser = res.currentUser;
+      userNameDict = {name: `${user.firstName} ${user.lastName}`};
+      loaded = true;
+    });
+  }
+
+  onMount(refresh);
+
 
   const doMakeUserInstitutionAdmin = showConfirmation => () => {
     if (showConfirmation) {
@@ -38,7 +70,7 @@
       showModal = true;
     } else {
       showModal = false;
-      makeUserInstitutionAdmin(institutionId, userId)
+      makeUserInstitutionAdmin(institution.entityId, userId)
         .then(() => {
           refresh();
           flash.setValue(I18n.t("editUsers.institution.flash.makeUserInstitutionAdmin", userNameDict));
@@ -61,89 +93,6 @@
         });
     }
   }
-
-  const query = `{
-  currentInstitution {
-    name,
-    entityId,
-    faculties {
-      name,
-      entityId,
-      issuers {
-        name,
-        entityId,
-      }
-    }
-  },
-  currentUser {
-    institutionStaff {
-      mayAdministrateUsers
-    },
-    facultyStaffs {
-      mayAdministrateUsers
-    },
-    issuerStaffs {
-      mayAdministrateUsers
-    },
-    badgeclassStaffs {
-      mayAdministrateUsers
-    },
-  },
-  user(id: "${userId}") {
-    firstName,
-    lastName,
-    badgeclassStaffs {
-      entityId,
-      badgeclass {
-        name,
-        entityId
-      },
-      mayAdministrateUsers,
-      mayAward
-    }
-    issuerStaffs {
-      entityId,
-      issuer {
-        name,
-        entityId,
-      },
-      mayAdministrateUsers
-    }
-    facultyStaffs {
-      entityId,
-      faculty {
-        name,
-        entityId
-      },
-      mayAdministrateUsers
-    }
-    institutionStaff {
-      entityId,
-      mayAdministrateUsers,
-      institution {
-        name,
-        entityId
-      }
-    }
-  }
- }`;
-
-
-  const refresh = () => {
-    loaded = false;
-    queryData(query).then(res => {
-      institutionId = res.currentInstitution.entityId;
-      faculties = res.currentInstitution.faculties;
-      user = res.user;
-      currentUser = res.currentUser;
-      institutionName = res.currentInstitution.name;
-      userNameDict = {name: `${user.firstName} ${user.lastName}`};
-      loaded = true;
-    });
-  }
-
-
-  onMount(refresh);
 
   const tableHeaders = [
     {
@@ -187,15 +136,6 @@
     }
   ];
 
-  function onCheckOne(val, entityId) {
-    if (val) {
-      selection = selection.concat(entityId);
-    } else {
-      selection = selection.filter(id => id !== entityId);
-      checkAllValue = false;
-    }
-  }
-
 </script>
 
 <style>
@@ -221,7 +161,9 @@
       bind:buttons={buttons}
     >
       <tr>
-        <td>{institutionName}</td>
+        <td>
+          <ListLink path="/manage/institution/issuers" name={institution.name}/>
+        </td>
         <td>
           {I18n.t(['editUsers', 'institution', user.institutionStaff ? 'allRights' : 'noRights'])}
         </td>

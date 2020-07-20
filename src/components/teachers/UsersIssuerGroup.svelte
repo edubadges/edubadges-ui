@@ -13,6 +13,7 @@
   import {AddPermissionsModal, Modal} from "../forms";
   import Spinner from "../Spinner.svelte";
   import {permissionsRole} from "../../util/rolesToPermissions";
+  import ListLink from "./ListLink.svelte";
   import {userAlreadyHasPermissions} from "../../util/userPermissions";
 
   export let userId;
@@ -37,9 +38,6 @@
     faculties {
       name,
       entityId,
-      permissions {
-        mayAdministrateUsers
-      },
       issuers {
         name,
         entityId,
@@ -250,7 +248,7 @@
               disabled={false}
               onChange={val => onCheckOne(val, facultyStaffMembership.entityId)}/>
           </td>
-          <td>{facultyStaffMembership.faculty.name}</td>
+          <td><ListLink path={`/manage/faculty/${facultyStaffMembership.faculty.entityId}/issuers`} name={facultyStaffMembership.faculty.name}/></td>
           <td>
             {I18n.t(['editUsers', 'faculty', 'allRights'])}
           </td>
@@ -265,7 +263,7 @@
                 name={''}
                 disabled={true}}/>
             </td>
-            <td>{faculty.name}</td>
+            <td><ListLink path={`/manage/faculty/${faculty.entityId}/issuers`} name={faculty.name}/></td>
             <td>
               {I18n.t(['editUsers', 'permissions', 'allRights'])}
               <br/>

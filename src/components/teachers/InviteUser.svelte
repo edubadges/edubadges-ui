@@ -6,6 +6,8 @@
   import {rolesToPermissions} from "../../util/rolesToPermissions";
   import {isNumber} from "lodash";
   import {trash} from "../../icons";
+  import {flash} from "../../stores/flash";
+  import {navigate} from "svelte-routing";
 
   export let contentType;
   export let entityId;
@@ -15,6 +17,7 @@
 
   let newUsers = [{"email": "", "chosenRole": permissionsRoles[defaultValue]}];
   let errors = [];
+  let working = false;
 
   const emailRegExp = /(.+)@(.+){1,}/
 
@@ -25,6 +28,11 @@
     }];
   };
 
+  const findErrors = email => {
+    const error = errors.find(error => error.email === email);
+    return error ? [error] : undefined;
+  }
+
   const deleteEmailField = index => {
     newUsers = newUsers.filter((user, i) => i !== index);
   }
@@ -32,29 +40,30 @@
   const cancel = () => window.history.back();
 
   const submit = () => {
-    errors = [];
+    working = true;
     const userProvisonments = newUsers.filter(user => emailRegExp.test(user.email))
       .map(user => ({'userEmail': user.email, 'permissions': rolesToPermissions(user.chosenRole.value)}));
     inviteUser(contentType, entityId, userProvisonments).then(res => {
-      if (res.some(el => {
-        return el.status === "failure"
-      })) {
-        errors = res.map(el => {
-          if (el.status === "failure") {
-            if (el.message.email) {
-              return [{'error_message': el.message.email[0]}]
-            }
-            if (el.message.fields) {
-              return [{'error_message': el.message.fields}]
-            }
-          } else {
-            return [{'error_message': ''}]
-          }
-        });
-      } else {
+      let hasFailures = res.some(el => el.status === "failure");
+      if (hasFailures) {
+        errors = res
+          .filter(el => el.status === "failure")
+          .map(el => ({
+            email: el.email,
+            error_code: el.message.fields.error_code,
+            error_message: el.message.fields.error_message
+          }));
+      }
+      newUsers = newUsers.filter(user => errors.find(error => error.email === user.email));
+      const emails = res.filter(el => el.status === "success").map(el => el.email);
+      if (emails.length > 0) {
+        flash.setValue(I18n.t('inviteUsers.flash.confirm', {emails: emails.join(", ")}));
+      }
+      working = false;
+      if (!hasFailures) {
         window.history.back();
       }
-    })
+    });
   };
 </script>
 
@@ -108,8 +117,9 @@
     background-color: inherit;
     font-size: 16px;
     padding: 0;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     cursor: pointer;
+    display: inline-block;
   }
 
   .options {
@@ -145,8 +155,9 @@
           <button class="rm-icon-container" on:click={() => deleteEmailField(i)}>{@html trash}</button>
         {/if}
         <div class={`user-invite-field ${i === 0 ? "first" : ""}`}>
-          <Field entity={'inviteUsers'} attribute="email" errors={errors[i]}>
-            <TextInput bind:value={newUser.email} error={errors.email} placeholder={I18n.t("placeholders.userManagement.email")}/>
+          <Field entity={'inviteUsers'} attribute="email" errors={findErrors(newUser.email)}>
+            <TextInput bind:value={newUser.email} error={findErrors(newUser.email)}
+                       placeholder={I18n.t("placeholders.userManagement.email")}/>
           </Field>
         </div>
         <div class={`user-invite-field ${i === 0 ? "second" : ""}`}>
@@ -164,11 +175,13 @@
     </div>
   {/each}
 
-  <button class="add-email" on:click={() => addEmailField()}>{I18n.t(['manage', 'award', 'addAnother'])}</button>
+  <a href="/add-email" class="add-email" on:click|preventDefault|stopPropagation={() => addEmailField()}>
+    {I18n.t(['manage', 'award', 'addAnother'])}
+  </a>
 
   <div class="options">
     <Button secondary={true} action={cancel} text={I18n.t("inviteUsers.cancel")}/>
-    <Button disabled={newUsers.some(user => !emailRegExp.test(user.email))}
+    <Button disabled={working || newUsers.some(user => !emailRegExp.test(user.email))}
             action={submit} text={I18n.t(['editUsers', 'modal', 'add'])}/>
   </div>
 </div>

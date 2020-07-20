@@ -17,6 +17,7 @@
     display: flex;
     align-content: center;
     align-items: center;
+    height: 100%;
 
     padding: var(--ver-padding-m) var(--hor-padding-m);
     white-space: nowrap;

@@ -20,7 +20,13 @@
   div[disabled] input,
   div[disabled] textarea {
     cursor: not-allowed;
-    border-color: var(--color-text-light-grey);
+    background-color: var(--grey-2) ;
+    color: var(--grey-10);
+  }
+
+  input:hover {
+    cursor: pointer;
+    background-color: var(--grey-1) ;
   }
 </style>
 
