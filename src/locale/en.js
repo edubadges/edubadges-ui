@@ -9,8 +9,8 @@ I18n.translations.en = {
   },
   header: {
     logout: "Logout",
-    profile: "Profile",
-    permissions: "Permissions",
+    profile: "My Profile",
+    permissions: "My Permissions",
     nav: {
       badgeclasses: "Badge Classes",
       manage: "Manage",
@@ -689,7 +689,7 @@ I18n.translations.en = {
       educationProgramIdentifier: "e.g. 12111990",
       alignmentName: "e.g. Big Skill",
       alignmentFramework: "e.g. Skill Matter",
-      alignmentDescription: "A big skill, takes many hours to learn",
+      alignmentDescription: "A big skill takes many hours to learn",
       alignmentUrl: "http://standards.net/CCELA-RL-6",
       alignmentCode: "CCSS.ELA-Literacy.RL.6.3"
     },
