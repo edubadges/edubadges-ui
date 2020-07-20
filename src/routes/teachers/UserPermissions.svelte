@@ -20,7 +20,8 @@
   const query = `{
     user(id: "${userId}") {
       firstName,
-      lastName
+      lastName,
+      email
     }
    }`;
 
