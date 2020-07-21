@@ -15,7 +15,7 @@
   import {permissionsRole} from "../../util/rolesToPermissions";
   import ListLink from "./ListLink.svelte";
   import {flatten} from "../../util/utils";
-  import {userAlreadyHasPermissions} from "../../util/userPermissions";
+  import {userAlreadyHasAdminPermissions} from "../../util/userPermissions";
   import { addStaffType, staffType } from "../../util/staffTypes";
 
   export let userId;
@@ -110,9 +110,8 @@
       institutionStaffs = res.user.institutionStaff ? addStaffType([res.user.institutionStaff], staffType.INSTITUTION_STAFF) : [];
       issuerGroupStaffs = addStaffType(res.user.facultyStaffs, staffType.ISSUER_GROUP_STAFF);
       issuerStaffs = addStaffType(res.user.issuerStaffs, staffType.ISSUER_STAFF);
-      const badgeClassStaffs = res.user.badgeclassStaffs;
       let issuers = flatten(faculties.map(fac => fac.issuers));
-      newPermissionOptions = issuers.filter(issuer => !userAlreadyHasPermissions(issuer, entityType.ISSUER, institutionStaffs, issuerGroupStaffs, issuerStaffs, badgeClassStaffs));
+      newPermissionOptions = issuers.filter(issuer => !userAlreadyHasAdminPermissions(issuer, entityType.ISSUER, institutionStaffs, issuerGroupStaffs, issuerStaffs, []));
       modalSelectedEntity = newPermissionOptions[0];
       isEmpty = user.issuerStaffs.length === 0 &&
       user.facultyStaffs.length === 0 && (!user.institutionStaff || (user.institutionStaff && faculties.length === 0));

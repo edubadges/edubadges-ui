@@ -5,39 +5,91 @@
   import { onMount } from "svelte";
   import {entityType} from "../../util/entityTypes";
   import { permissionsRole } from "../../util/rolesToPermissions";
+  import {
+      changeUserToBadgeclassAwarder,
+      changeUserToBadgeclassEditor,
+      changeUserToBadgeclassOwner,
+      makeUserBadgeclassAwarder,
+      makeUserBadgeclassEditor,
+      makeUserBadgeclassOwner
+  } from "../../api";
+  import { createEventDispatcher } from 'svelte';
 
-  export let submit;
+  const dispatch = createEventDispatcher();
+
   export let cancel;
   export let title;
 
   export let userId;
-  export let badgeClasses = [];
-  export let userInstitutionStaffs = [];
-  export let userIssuerGroupStaffs = [];
-  export let userIssuerStaffs = [];
-  export let userBadgeClassStaffs = [];
+  export let targetOptions = [];
+  export let badgeClassStaffs = [];
   let roles = [];
 
-  let chosenBadgeClass;
-  let alreadyHasPermissionsOnChosenBadgeClass;
+  let chosenBadgeClass = targetOptions[0];
   let chosenRole;
 
   const setRolesForBadgeClass = selectedBadgeClass => {
     roles = [];
-    if (!selectedBadgeClass.permissions.mayAdministrateUsers) {
+    let permissions = badgeClassStaffs.find(bCF => bCF.badgeclass.entityId === selectedBadgeClass.entityId);
+    if (!permissions || !permissions.mayAdministrateUsers) {
       roles = [...roles, {name: I18n.t(['editUsers', 'badgeclass', permissionsRole.OWNER]), value: permissionsRole.OWNER}]
     }
-    if (!selectedBadgeClass.permissions.mayUpdate) {
+    if (!permissions || !permissions.mayUpdate) {
       roles = [...roles, {name: I18n.t(['editUsers', 'badgeclass', permissionsRole.EDITOR]), value: permissionsRole.EDITOR}]
     }
-    if (!selectedBadgeClass.permissions.mayAward) {
+    if (!permissions || !permissions.mayAward) {
       roles = [...roles, {name: I18n.t(['editUsers', 'badgeclass', permissionsRole.AWARDER]), value: permissionsRole.AWARDER}]
     }
     chosenRole = roles[roles.length - 1];
   };
 
-  export let selectEntity;
-  export let notes;
+  setRolesForBadgeClass(chosenBadgeClass);
+
+  let notes;
+
+  const submit = () => {
+    let alreadyHasPermissions = badgeClassStaffs.find(bCF => bCF.badgeclass.entityId === chosenBadgeClass.entityId);
+
+    if (alreadyHasPermissions) {
+      switch (chosenRole.value) {
+        case permissionsRole.OWNER:
+          changeUserToBadgeclassOwner(alreadyHasPermissions.entityId).then(() => {
+            dispatch('permissionAdded');
+          });
+          break;
+        case permissionsRole.EDITOR:
+          changeUserToBadgeclassEditor(alreadyHasPermissions.entityId).then(() => {
+            dispatch('permissionAdded');
+          });
+          break;
+        case permissionsRole.AWARDER:
+          changeUserToBadgeclassAwarder(alreadyHasPermissions.entityId).then(() => {
+            dispatch('permissionAdded');
+          });
+          break;
+      }
+    } else {
+      switch (chosenRole.value) {
+        case permissionsRole.OWNER:
+          makeUserBadgeclassOwner(chosenBadgeClass.entityId, userId, notes).then(() => {
+            dispatch('permissionAdded');
+          });
+          break;
+        case permissionsRole.EDITOR:
+          makeUserBadgeclassEditor(chosenBadgeClass.entityId, userId, notes).then(() => {
+            dispatch('permissionAdded');
+          });
+          break;
+        case permissionsRole.AWARDER:
+          makeUserBadgeclassAwarder(chosenBadgeClass.entityId, userId, notes).then(() => {
+            dispatch('permissionAdded');
+          });
+          break;
+        default:
+          throw new Error(`error: invalid role ${chosenBadgeClass.value}`);
+      }
+    }
+  };
 
   let modal;
 
@@ -61,7 +113,7 @@
       <Field entity={'editUsers'} attribute={entityType.BADGE_CLASS}>
         <Select
             bind:value={chosenBadgeClass}
-            items={badgeClasses}
+            items={targetOptions}
             handleSelect={setRolesForBadgeClass}
             clearable={false}
             optionIdentifier="name"

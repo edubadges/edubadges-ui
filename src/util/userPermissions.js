@@ -48,7 +48,7 @@ export const enrichUser = (institution, institutionStaffMemberships, issuerGroup
   }
 };
 
-export const userAlreadyHasPermissions = (entity, _entityType, institutionStaffs, issuerGroupStaffs, issuerStaffs, badgeClassStaffs) => {
+export const userAlreadyHasAdminPermissions = (entity, _entityType, institutionStaffs, issuerGroupStaffs, issuerStaffs, badgeClassStaffs) => {
   if (!isEmpty(institutionStaffs)) return true;
 
   switch (_entityType) {
@@ -57,6 +57,25 @@ export const userAlreadyHasPermissions = (entity, _entityType, institutionStaffs
     case entityType.ISSUER:
       return issuerStaffs.some(iS => iS.issuer.entityId === entity.entityId) || issuerGroupStaffs.some(iGS => iGS.faculty.issuers.some(issuer => issuer.entityId === entity.entityId));
     case entityType.BADGE_CLASS:
-      break;
+      const foundBadgeClassStaff = badgeClassStaffs.find(bCS => bCS.badgeclass.entityId === entity.entityId);
+      const foundIssuerStaff = issuerStaffs.find(iS => iS.issuer.badgeclasses.find(badgeClass => badgeClass.entityId === entity.entityId));
+      const foundIssuerGroupStaff = issuerGroupStaffs.find(iGS => iGS.faculty.issuers.find(issuer => issuer.badgeclasses.find(badgeClass => badgeClass.entityId === entity.entityId)));
+      return foundBadgeClassStaff && foundBadgeClassStaff.mayAdministrateUsers || foundIssuerStaff && foundIssuerStaff.mayAdministrateUsers || foundIssuerGroupStaff && foundIssuerGroupStaff.mayAdministrateUsers;
+  }
+};
+
+export const userAlreadyHasAnyPermissions = (entity, _entityType, institutionStaffs, issuerGroupStaffs, issuerStaffs, badgeClassStaffs) => {
+  if (!isEmpty(institutionStaffs)) return true;
+
+  switch (_entityType) {
+    case entityType.ISSUER_GROUP:
+      return issuerGroupStaffs.some(iGS => iGS.faculty.entityId === entity.entityId);
+    case entityType.ISSUER:
+      return issuerStaffs.some(iS => iS.issuer.entityId === entity.entityId) || issuerGroupStaffs.some(iGS => iGS.faculty.issuers.some(issuer => issuer.entityId === entity.entityId));
+    case entityType.BADGE_CLASS:
+      const foundBadgeClassStaff = badgeClassStaffs.find(bCS => bCS.badgeclass.entityId === entity.entityId);
+      const foundIssuerStaff = issuerStaffs.find(iS => iS.issuer.badgeclasses.find(badgeClass => badgeClass.entityId === entity.entityId));
+      const foundIssuerGroupStaff = issuerGroupStaffs.find(iGS => iGS.faculty.issuers.find(issuer => issuer.badgeclasses.find(badgeClass => badgeClass.entityId === entity.entityId)));
+      return foundBadgeClassStaff && foundBadgeClassStaff.mayAward || foundIssuerStaff && foundIssuerStaff.mayAdministrateUsers || foundIssuerGroupStaff && foundIssuerGroupStaff.mayAdministrateUsers;
   }
 };

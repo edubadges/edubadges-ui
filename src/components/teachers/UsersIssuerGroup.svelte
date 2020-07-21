@@ -14,8 +14,8 @@
   import Spinner from "../Spinner.svelte";
   import {permissionsRole} from "../../util/rolesToPermissions";
   import ListLink from "./ListLink.svelte";
-  import {userAlreadyHasPermissions} from "../../util/userPermissions";
-  import { addStaffType, staffType } from "../../util/staffTypes";
+  import {userAlreadyHasAdminPermissions} from "../../util/userPermissions";
+  import {addStaffType, staffType} from "../../util/staffTypes";
 
   export let userId;
 
@@ -67,23 +67,6 @@
   user(id: "${userId}") {
     firstName,
     lastName,
-    badgeclassStaffs {
-      entityId,
-      badgeclass {
-        name,
-        entityId
-      },
-      mayAdministrateUsers,
-      mayAward
-    }
-    issuerStaffs {
-      entityId,
-      issuer {
-        name,
-        entityId,
-      },
-      mayAdministrateUsers
-    }
     facultyStaffs {
       entityId,
       faculty {
@@ -110,9 +93,7 @@
       faculties = res.currentInstitution.faculties;
       institutionStaffs = res.user.institutionStaff ? addStaffType([res.user.institutionStaff], staffType.INSTITUTION_STAFF) : [];
       issuerGroupStaffs = addStaffType(res.user.facultyStaffs, staffType.ISSUER_GROUP_STAFF);
-      const issuerStaffs = res.user.issuerStaffs;
-      const badgeClassStaffs = res.user.badgeclassStaffs;
-      newPermissionOptions = faculties.filter(faculty => !userAlreadyHasPermissions(faculty, entityType.ISSUER_GROUP, institutionStaffs, issuerGroupStaffs, issuerStaffs, badgeClassStaffs));
+      newPermissionOptions = faculties.filter(faculty => !userAlreadyHasAdminPermissions(faculty, entityType.ISSUER_GROUP, institutionStaffs, issuerGroupStaffs, [], []));
       modalSelectedEntity = newPermissionOptions[0];
       user = res.user;
       currentUser = res.currentUser;
