@@ -174,7 +174,7 @@
       <div class="details">
         <img src={badgeClass.issuer.image} alt=""/>
         <div class="issued">
-          <span class="issued-by">{I18n.t("models.badge.issuedBy")}</span>
+          <span class="issued-by">{I18n.t("models.badgeclass.issuedBy")}</span>
           <span class="issuer">{badgeClass.issuer.name}</span>
           {#if badgeClass.issuer.faculty}
             <span class="faculty">({badgeClass.issuer.faculty.name})</span>

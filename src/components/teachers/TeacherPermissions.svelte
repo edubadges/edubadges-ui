@@ -82,7 +82,10 @@
           entityId,
           badgeclasses {
             name,
-            entityId
+            entityId,
+          },
+          faculty {
+            name
           }
         }
       }
@@ -95,8 +98,11 @@
           entityId,
           name,
           issuer {
+            name,
             entityId,
-            name
+            faculty {
+              name
+            }
           }
         }
       },
@@ -147,15 +153,15 @@
   <UserBreadcrumb isProfile={false} user={currentUser}/>
 
   <PermissionsHeader
-    {tabs}
+      {tabs}
   />
 
   <PermissionsManagement
-    {entity}
-    institutionStaffs={institutionStaffMemberships}
-    issuerGroupStaffs={issuerGroupStaffMemberships}
-    issuerStaffs={issuerStaffMemberships}
-    badgeClassStaffs={badgeClassStaffMemberships}
+      {entity}
+      institutionStaffs={institutionStaffMemberships}
+      issuerGroupStaffs={issuerGroupStaffMemberships}
+      issuerStaffs={issuerStaffMemberships}
+      badgeClassStaffs={badgeClassStaffMemberships}
   />
 {:else}
   <Spinner/>

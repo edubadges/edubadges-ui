@@ -47,12 +47,12 @@ I18n.translations.nl = {
   },
   searchPlaceholder: "Zoek...",
   authError: {
-    title: "Sorry, you don't have access",
-    adminEmail: "If you want, you can request access to this service by contacting your institution admin <a href='mailto:{{email}}' style='color: black;text-decoration: underline'>via email</a>",
+    title: "Sorry, je hebt geen toegang",
+    adminEmail: "Indien je wilt kan je toegang tot deze dienst vragen aan je instellings admin <a href='mailto:{{email}}' style='color: black;text-decoration: underline'>via dit e-mailadres</a>",
     tip: "TIP",
     code: {
-      "1": "An unexpected exception has occurred. Please contact <a href='mailto:edubadges@surf.nl'>edubadges@surf.nl</a> for support",
-      "2": "The edubadges Issuer Portal is an invite-only service, so we can't show you anything now."
+      "1": "Een onverwachte fout is opgetreden. Neem contact op met <a href='mailto:support@edubadges.nl'>support@edubadges.nl</a> voor ondersteuning.",
+      "2": "Toegang tot de edubadges Issuer Portal is alleen mogelijk met een geldige uitnodiging.  We kunnen je nu dus niets laten zien."
     }
   },
   profile: {
@@ -93,8 +93,8 @@ I18n.translations.nl = {
     title: "Behaalde edubadges",
   },
   notFound: {
-    main: "404 - Niet gevonden",
-    publicBadge: "Deze badge is niet meer publiek of is ingetrokken.",
+    main: "Edubadge niet gevonden",
+    publicBadge: "Deze edubadge is niet meer publiek of is ingetrokken.",
     issuer: "Deze issuer is verwijderd."
   },
   teacher: {
@@ -113,19 +113,19 @@ I18n.translations.nl = {
       back: "Terug",
     },
     name: "Naam",
-    nameEmail: "Naam/Email",
+    nameEmail: "Naam/E-mailadres",
     badgeclasses: {
       title: "Badge Classes",
       badges: "Badges",
-      noBadges: "(Nog geen badges uitgegeven)",
-      badgesCount: "{{count}} badges uitgegeven",
+      noBadges: "(Nog geen edubadges uitgegeven)",
+      badgesCount: "{{count}} edubadges uitgegeven",
       created: "Datum gecreëerd",
       recipients: "Ontvangers",
-      studyLoad: "Studie load",
+      studyLoad: "Studie belasting",
       ects: "{{value}} ECTS",
       hours: "{{value}} uren",
-      canAward: "Badges die u kunt uitdelen",
-      allBadges: "Alle Badges"
+      canAward: "Edubadges die u kunt uitdelen",
+      allBadges: "Alle edubadges"
     },
     issuers: {
       title: "Issuers",
@@ -167,9 +167,9 @@ I18n.translations.nl = {
     privateBadge: "Prive edubadge",
     publicPrivate: "Je edubadge staat op prive, alleen jij kan deze edubadge zien en downloaden.",
     publicPrivatePublic: "Je edubadge staat niet op prive, iedereen met de publieke link kan deze edubadge zien en downloaden.",
-    publicPrivateRejected: "Voordat je deze badge publiek kan maken, moety je deze badge eerst accepteren.",
-    revoked: "Deze badge is ingetrokken door de uitgever",
-    revokedWithReason: "Deze badge is ingetrokken door de uitgever met als reden: '{{revocationReason}}'",
+    publicPrivateRejected: "Voordat je deze edubadge publiek kan maken, moet je deze edubadge eerst accepteren.",
+    revoked: "Deze edubadge is ingetrokken door de uitgever",
+    revokedWithReason: "Deze edubadge is ingetrokken door de uitgever met als reden: '{{revocationReason}}'",
     confirmation: {
       publish: "Maak deze edubadge publiekelijk beschikbaar",
       private: "Maak deze edubadge prive",
@@ -182,11 +182,11 @@ I18n.translations.nl = {
       loading: "Edubadge wordt gevalideerd...",
       valid: "Geldige edubadge",
       invalid: "Ongeldige edubadge",
-      validatedName: "Gevalideerde naam van de badge ontvanger: <strong>{{name}}</strong>"
+      validatedName: "Gevalideerde naam van de edubadge ontvanger: <strong>{{name}}</strong>"
     }
   },
   badgeRequests: {
-    none: "Je hebt geen openstaande badge verzoeken op dit moment. "
+    none: "Je hebt geen openstaande edubadge verzoeken op dit moment. "
   },
   manage: {
     tabs: {
@@ -210,7 +210,7 @@ I18n.translations.nl = {
       cancel: "Annuleren",
     },
     delete: {
-      delete: "delete",
+      delete: "verwijder",
       info: {
         institution: "Instellingen kunnen niet verwijderd worden in het issuer portaal.",
         faculty: "Faculteit heeft issuers en kan niet verwijderd worden.",
@@ -221,27 +221,27 @@ I18n.translations.nl = {
       institution: {
         name: "Instituut",
         title: "Verwijder instelling",
-        question: "Do you really want to delete this institution?"
+        question: "Wil je deze instelling echt verwijderen?"
       },
       faculty: {
         name: "Faculteit",
-        title: "Delete issuergroup",
-        question: "Do you really want to delete this issuergroup?"
+        title: "Verwijder issuergroup",
+        question: "Wil je deze issuergroup echt verwijderen?"
       },
       issuer: {
         name: "Issuer",
-        title: "Delete issuer",
-        question: "Do you really want to delete this issuer?"
+        title: "Verwijder issuer",
+        question: "Wil je deze issuer echt verwijderen?"
       },
       badgeclass: {
         name: "Badge class",
-        title: "Delete badgeclass",
-        question: "Do you really want to delete this badgeclass?"
+        title: "Verwijder badgeclass",
+        question: "Wil je deze badgeclass echt verwijderen?"
       },
     },
     new: {
       create: "nieuw",
-      faculty: "Nieuwe groep maken",
+      faculty: "Nieuwe issuer groep maken",
       issuer: "Nieuwe issuer maken",
       badgeclass: "Nieuwe badgeclass maken",
       save: "Opslaan",
@@ -288,8 +288,8 @@ I18n.translations.nl = {
     210: "Geen toegang. Controleer je assigned role in de Badgeclass die hoort bij deze enrollment",
     211: "Enrollment is al afgewezen",
     212: "Awarded enrollments kunnen niet afgewezen worden",
-    213: "Kan voor deze enrollment geen badge uitgeven, dit is al gebeurd",
-    214: "Je kunt niets annpassen, badges zijn al uitgegeven binnen deze entiteit",
+    213: "Kan voor deze enrollment geen edubadge uitgeven, dit is al gebeurd",
+    214: "Je kunt niets annpassen, edbadges zijn al uitgegeven binnen deze entiteit",
     500: 'Kan niet de laatste permissie van de het instituut verwijderen',
     501: 'Je kunt maar één uitnodiging hebben per emailadres',
     502: 'Kan de gebruiker niet uitnodigen voor deze entiteit: er is een conflicterende permissie',
@@ -309,22 +309,22 @@ I18n.translations.nl = {
     903: "Dit veld is verplicht.",
     904: "Geen bestand gekozen.",
     905: "Dan wel criteria of criteria URL zijn verplicht.",
-    unexpected: "Oops, er is iets totaal onverwachts en onverklaarbaars gebeurt. Heb je de applicatie stuk gemaakt?",
-    description: "Een onverwachte fout is opgetreden. Probeer het opnieuw of neem contact op met <a href='mailto:edubadges@surf.nl'>edubadges@surf.nl</a> voor ondersteuning",
-    close: "Close"
+    unexpected: "Oops, er is iets totaal onverwachts en onverklaarbaars gebeurt.",
+    description: "Een onverwachte fout is opgetreden. Probeer het opnieuw of neem contact op met <a href='mailto:support@edubadges.nl'>support@edubadges.nl</a> voor ondersteuning",
+    close: "Sluit"
   },
   inviteUsers: {
     addUser: {
       title: "Voeg gebruiker toe",
       description: "Vul het e-mailadres in van de personen die je wilt uitnodigen voor deze entiteit.",
-      success: "User successfully invited",
+      success: "Gebruiker succesvol uitgenodigd",
     },
     cancel: "annuleer",
     inviteStatus: "Status",
-    sent: "Invite sent",
-    accepted: "Accepted",
+    sent: "Uitnodiging verstuurd",
+    accepted: "Geaccepteeerd",
     flash: {
-      confirm: "Successfully invited {{emails}}"
+      confirm: "{{emails}} succesvol uitgenodigd"
     }
   },
   editUsers: {
@@ -333,24 +333,24 @@ I18n.translations.nl = {
       header: "Gebruiker",
     },
     institution: {
-      admin: "Institution admin",
+      admin: "Instellings Admin",
       header: "Instelling",
       allRights: "Instellings Admin",
       noRights: "Geen rechten",
-      permissions: "Permissies op Institution niveau",
-      makeUserInstitutionAdmin: "Grant user {{name}} institution admin rights",
-      makeUserInstitutionAdminQuestion: "Are you sure you want to promote {{name}} to institution admin?",
-      removeUserInstitutionAdmin: "Remove user institution admin rights from {{name}}",
-      removeUserInstitutionAdminQuestion: "Are you sure you want to remove the institution admin from {{name}}?",
+      permissions: "Permissies op Instelling niveau",
+      makeUserInstitutionAdmin: "Ken gebruiker {{name}} instellings admin rechten toe",
+      makeUserInstitutionAdminQuestion: "Weet je het zeker dat je {{name}} instellings admin wilt maken?",
+      removeUserInstitutionAdmin: "Verwijder de instellings admin rechten van {{name}}",
+      removeUserInstitutionAdminQuestion: "Weet je het zeker dat je de instellings admin rechten van {{name}} wilt verwijderen?",
       flash: {
-        makeUserInstitutionAdmin: "{{name}} is granted institution admin rights",
-        removeUserInstitutionAdmin: "Institution admin rights have been removed from {{name}}",
-        invite: "Successfully removed invite.",
-        removed: "Successfully removed rights"
+        makeUserInstitutionAdmin: "{{name}} heeft de instellings admin rechten gekregen",
+        removeUserInstitutionAdmin: "De instellings admin rechten zijn verwijderd van {{name}}",
+        invite: "Uitnodiging is succesvol verwijderd.",
+        removed: "Rechten zijn succesvol verwijderd."
       }
     },
     faculty: {
-      admin: "Group admin",
+      admin: "Issuer Group admin",
       header: "Issuer Group",
       allRights: "Issuer Group Admin",
       permissions: "Permissies op Issuer Group niveau"
@@ -363,30 +363,31 @@ I18n.translations.nl = {
     },
     badgeclass: {
       header: "Badgeclass",
-      badgeclassOwner: "Eigenaar",
-      badgeclassEditor: "Bewerker",
+      issuedBy: "Issued by",
+      badgeclassOwner: "Admin",
+      badgeclassEditor: "Editor",
       badgeclassAwarder: "Awarder",
-      owner: "Eigenaar",
-      editor: "Bewerker",
+      owner: "Admin",
+      editor: "Editor",
       awarder: "Awarder",
-      switchToOwner: "Successfully changed user to badgeclass owner role.",
-      switchToEditor: "Successfully changed user to badgeclass editor role.",
-      switchToAwarder: "Successfully changed user to badgeclass awarder role.",
-      permissions: "Permissies op Badge Class niveau"
+      switchToOwner: "Permissie succesvol aangepast naar badgeclass Admin.",
+      switchToEditor: "Permissie succesvol aangepast naar badgeclass Editor.",
+      switchToAwarder: "Permissie succesvol aangepast naar badgeclass Awarder.",
+      permissions: "Permissies op badgeclass niveau"
     },
     permissions: {
       header: "Uw Permissies",
       headerUser: "Permissies voor",
       allRights: "Alle rechten",
-      institutionAllRights: "(because Institution Admin)",
-      issuerGroupAllRights: "(because Issuer Group Admin)",
-      issuerAllRights: "(because Issuer Admin)",
+      institutionAllRights: "(vanwege Institution Admin)",
+      issuerGroupAllRights: "(vanwege Issuer Group Admin)",
+      issuerAllRights: "(vanwege Issuer Admin)",
       addPermissions: "Voeg permissies toe",
       removePermissions: "Verwijder permissies",
       removeAdmin: "Weet je zeker dat je de instellings Admin wilt verwijderen?",
-      removeIssuerGroupAdmin: "Are you sure you want to remove this issuer group admin?",
-      removeIssuerAdmin: "Are you sure you want to remove this issuer admin?",
-      removeBadgeClassUser: "Are you sure you want to remove this role?",
+      removeIssuerGroupAdmin: "Weet je het zeker dat je de issuer group Admin wilt verwijderen?",
+      removeIssuerAdmin: "Weet je het zeker dat je de issuer Admin wilt verwijderen?",
+      removeBadgeClassUser: "Weet je het zeker dat je deze rol wilt verwijderen?",
       setInstitutionAdmin: "Maak gebruiker instellings Admin",
       removeInstitutionAdmin: "Verwijder instellings Admin",
       inviteNewUser: "Nodig nieuwe gebruiker uit"
@@ -451,21 +452,21 @@ I18n.translations.nl = {
       alignmentUrl: "URL",
       alignmentCode: "Code",
       alignmentDescription: "Omschrijving",
-      amount: "Aantaal",
+      amount: "Aantal",
       name: "Naam",
       description: "Beschrijving",
       criteria_text: "Wat is benodigd om deze edubadge te verdienen?",
       criteria_url: "Criteria URL",
       criteria_url_value: "Link naar de criteria:",
       directAward: "Direct award",
-      inviteEnrollements: "Invite people to enroll",
+      inviteEnrollements: "Nodig iemand uit om deze edubadge te verdienen",
       expiresAfter: "Verloopt na",
       expiresAfterNever: "Nooit",
       expiresAfterValue: "{{nbr}} weken",
       expireSettings: "Standaard verloop setting",
       language: "Language of instruction",
       learningOutcome: "Leeruitkomst",
-      studyLoad: "Study load",
+      studyLoad: "Studielast",
       ects: {
         creditPoints: "Studiepunten (ECTS)",
         hours: "Uren"
@@ -487,7 +488,7 @@ I18n.translations.nl = {
         earningCriteria: "Leer criteria",
         additionalSections: "Extra toevoegingen",
         educationalIdentifiers: "Onderwijsidentificatie",
-        studyLoad: "Study load",
+        studyLoad: "Studielast",
         alignment: "Alignment"
       },
       addButtons: {
@@ -520,9 +521,9 @@ I18n.translations.nl = {
       },
       issuedOn: "Uitgegeven op",
       issuedBy: "Uitgegeven door",
-      claimed: "Claimed",
-      expires: "Expires",
-      expiresNever: "Never",
+      claimed: "Geclaimed",
+      expires: "Verloopt op",
+      expiresNever: "Nooit",
       download: "Download",
       share: "Deel",
       status: "Status",
@@ -533,7 +534,7 @@ I18n.translations.nl = {
         rejected: "Geweigerd",
         revoked: "Ingetrokken",
         accepted: "Claimed",
-        unaccepted: "Pending"
+        unaccepted: "In afwachting"
       },
       confirmation: {
         revocationReason: "Reden voor intrekking (verplicht)",
@@ -571,8 +572,8 @@ I18n.translations.nl = {
     },
   },
   shareDialog: {
-    title: "Deel jer badge",
-    copyPublicUrl: "Als je de link naar de publieke pagina van deze badge wilt delen, kan je de link kopiëren",
+    title: "Deel je edubadge",
+    copyPublicUrl: "Als je de link naar de publieke pagina van deze edubadge wilt delen, kan je de link kopiëren",
     copy: "Kopieer de link"
   },
   invites: {
@@ -656,28 +657,28 @@ I18n.translations.nl = {
     Nl_Nl: "Nederlands"
   },
   publicBadge: {
-    verification: "Verification",
-    issuedTo: "This badge was issued to <strong>{{name}}</strong> on {{date}}",
-    expires: "It expires on {{date}}",
-    neverExpires: "It has no expiry date",
-    verify: "Verify",
+    verification: "Verificatie",
+    issuedTo: "Deze edubadge is uitgereikt aan <strong>{{name}}</strong> op {{date}}",
+    expires: "Het verloopt op {{date}}",
+    neverExpires: "Het heeft geen expiratie datum.",
+    verify: "Verifieer",
     validations: {
-      issuedOn: "Issued on {{val}}",
-      issuedBy: "Issued by {{val}}",
+      issuedOn: "Uitgereikt op {{val}}",
+      issuedBy: "Uitgereikt door {{val}}",
       issuedUsing: "Issued using {{val}}",
-      issuedTo: "Issued to <strong>{{val}}</strong>",
-      claimedOn: "Claimed on {{val}}",
-      verified: "<strong>Verified<strong> {{val}}"
+      issuedTo: "Uitgereikt aan <strong>{{val}}</strong>",
+      claimedOn: "Geaccepteerd op {{val}}",
+      verified: "<strong>Gevalideerd!<strong> {{val}}"
     }
   },
   monthNames: ["Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "October", "November", "December"],
   zeroState: {
     badgeClasses: "Er zijn geen badge-classes voor issuer {{name}}.",
     issuers: "Er zijn geen issuers voor {{name}}.",
-    faculties: "Er zijn geen faculties voor instelling {{name}}.",
+    faculties: "Er zijn geen Issuer Groups voor instelling {{name}}.",
     users: "Er zijn geen users voor instelling {{name}}.",
-    assertions: "Er zijn geen assertions voor badge {{name}}.",
-    enrollments: "Er zijn geen enrollments voor badge {{name}}.",
+    assertions: "Er zijn geen assertions voor edubadge {{name}}.",
+    enrollments: "Er zijn geen enrollments voor edubadge {{name}}.",
     permissions: "Er zijn geen permissies voor deze gebruiker {{entity}} niveau.",
     selfPermissions: "Deze gebruiker heeft geen permissies op {{entity}} niveau.",
     userPermissions: "Deze gebruiker heeft geen permissies op {{entity}} niveau."
@@ -699,40 +700,40 @@ I18n.translations.nl = {
   },
   placeholders: {
     institution: {
-      name: "e.g. University of Harderwijk",
-      brin: "Basic Registration Settings number",
-      gradingTable: "URL of the grading table",
-      description: "e.g. The University of Harderwijk was founded in 1977"
+      name: "Bijv. Universiteit van Harderwijk",
+      brin: "Basisregistratie Instellingen - BRIN",
+      gradingTable: "URL van de grading table",
+      description: "Bijv De Universiteit van Harderwijk is gesticht in 1977"
     },
     faculty: {
-      name: "e.g. History",
-      description: "e.g. all History related studies"
+      name: "Bijv. Geschiedenis",
+      description: "Bijv. Alle issuers van de faculteit Geschiedenis"
     },
     issuer: {
-      name: "e.g. Social Historic Studies",
-      description: "e.g. the study of social behaviour in the Middle Ages",
-      email: "e.g. john.doe@example.com",
-      url: "e.g. https://harderwijk.nl"
+      name: "Bijv. Social Historic Studies",
+      description: "Bijv. the study of social behaviour in the Middle Ages",
+      email: "Bijv. john.doe@example.com",
+      url: "Bijv. https://harderwijk.nl"
     },
     badgeClass: {
-      name: "e.g. Renaissance",
-      description: "e.g. Political infuence of the Church during the Renaissance",
-      learningOutcome: "e.g. will be able to read and demonstrate good comprehension of text in areas of the student’s interest or professional field.",
-      criteriaText: "e.g. online multiple choice exam",
-      criteriaUrl: "e.g. https://harderwijk.nl/renaissance/criteria",
-      studyLoad: "e.g. 120",
-      educationProgramIdentifier: "e.g. 12111990",
-      alignmentName: "e.g. Big Skill",
-      alignmentFramework: "e.g. Skill Matter",
+      name: "Bijv. Renaissance",
+      description: "Bijv. Political infuence of the Church during the Renaissance",
+      learningOutcome: "Bijv. will be able to read and demonstrate good comprehension of text in areas of the student’s interest or professional field.",
+      criteriaText: "Bijv. online multiple choice exam",
+      criteriaUrl: "Bijv. https://harderwijk.nl/renaissance/criteria",
+      studyLoad: "Bijv. 120",
+      educationProgramIdentifier: "Bijv. 12111990",
+      alignmentName: "Bijv. Big Skill",
+      alignmentFramework: "Bijv. Skill Matter",
       alignmentDescription: "A big skill, takes many hours to learn",
       alignmentUrl: "http://standards.net/CCELA-RL-6",
       alignmentCode: "CCSS.ELA-Literacy.RL.6.3"
     },
     permissions: {
-      notes: "e.g. why did you add permissions?"
+      notes: "Bijv. waarom heb je permissies gegeven?"
     },
     userManagement: {
-      email: "e.g. john.doe@example.com"
+      email: "Bijv. john.doe@example.com"
     }
   },
   eye: {

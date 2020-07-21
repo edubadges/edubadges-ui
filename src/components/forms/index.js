@@ -6,4 +6,5 @@ export { default as Select } from "./Select.svelte";
 export { default as TextInput } from "./Text.svelte";
 export { default as Modal } from "./Modal.svelte";
 export { default as AddPermissionsModal } from "./AddPermissionsModal.svelte";
+export { default as AddPermissionsBadgeClassesModal } from "./AddPermissionsBadgeClassesModal.svelte";
 export { default as MinimalisticSelect } from "./MinimalisticSelect.svelte";

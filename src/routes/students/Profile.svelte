@@ -130,7 +130,7 @@
   <div class="delete">
     <h3>{I18n.t("profile.deleteHeader")}</h3>
     <p class="account-info">{@html I18n.t("profile.deleteInfo1")}</p>
-    <p class="account-info">{@html I18n.t("profile.deleteInfo2")}. {@html I18n.t("profile.deleteInfo3")}</p>
+    <p class="account-info">{@html I18n.t("profile.deleteInfo2")} {@html I18n.t("profile.deleteInfo3")}</p>
     <p class="account-info">{@html I18n.t("profile.deleteInfo4")}</p>
     <Button secondary={true} action={deleteProfileAction(true)} text={I18n.t("profile.deleteAccount")}/>
   </div>

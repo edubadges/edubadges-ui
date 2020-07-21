@@ -51,7 +51,6 @@
         case "recent":
           return a.createdAt - b.createdAt;
         case "awarded":
-          console.log(a.badgeAssertions.length);
           return b.badgeAssertions.length - a.badgeAssertions.length;
       }
     });

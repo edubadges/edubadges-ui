@@ -70,7 +70,7 @@
         sortType: sortType.ALPHA
       },
       {
-        name: I18n.t("editUsers.issuer.header"),
+        name: I18n.t("editUsers.badgeclass.issuedBy"),
         attribute: "name",
         reverse: false,
         sortType: sortType.ALPHA
@@ -92,9 +92,9 @@
 </script>
 
 <UsersTable
-  {...table}
-  bind:search={entitySearch}
-  withCheckAll={false}
+    {...table}
+    bind:search={entitySearch}
+    withCheckAll={false}
 >
   {#if entity === entityType.INSTITUTION}
     {#if institutionStaffs.length === 0}
@@ -168,7 +168,9 @@
         </td>
         <td>
           <ListLink path={`/manage/issuer/${staff.badgeclass.issuer.entityId}/badgeclasses`}
-                    name={staff.badgeclass.issuer.name}/>
+              name={staff.badgeclass.issuer.name}/>
+          <br />
+          <span class="sub-text">{staff.badgeclass.issuer.faculty.name}</span>
         </td>
         {#if staff._staffType === staffType.BADGE_CLASS_STAFF}
           <td>

@@ -9,8 +9,8 @@ I18n.translations.en = {
   },
   header: {
     logout: "Logout",
-    profile: "Profile",
-    permissions: "Permissions",
+    profile: "My Profile",
+    permissions: "My Permissions",
     nav: {
       badgeclasses: "Badge Classes",
       manage: "Manage",
@@ -72,9 +72,9 @@ I18n.translations.en = {
     validatedByEduId: "Delivered by eduID",
     deleteHeader: "Deleting your edubadges backpack",
     deleteInfo1: "You can delete your backpack whenever you want.",
-    deleteInfo2: "Proceed with care, as you will loose all your edubadges.",
+    deleteInfo2: "Proceed with care, as you will lose all your edubadges.",
     deleteInfo3: "Please note that deleting your edubadges backpack does not mean you delete your eduID.",
-    deleteInfo4: "To fully complete the process of deleting you edubadges account you must close your browser after your accout has been removed.",
+    deleteInfo4: "To fully complete the process of deleting you edubadges account you must close your browser after your account has been removed.",
     submit: "Add",
     deleteEmail: "Delete this email address",
     deleteEmailConfirmation: "Are you sure you want to delete this email address?",
@@ -93,7 +93,7 @@ I18n.translations.en = {
     title: "Your edubadges",
   },
   notFound: {
-    main: "404 - Not Found",
+    main: "Edubadge Not Found",
     publicBadge: "The badge is either not public anymore or has been revoked.",
     issuer: "This issuer has been deleted."
   },
@@ -363,13 +363,14 @@ I18n.translations.en = {
     },
     badgeclass: {
       header: "Badgeclass",
-      badgeclassOwner: "Owner",
+      issuedBy: "Issued by",
+      badgeclassOwner: "Admin",
       badgeclassEditor: "Editor",
       badgeclassAwarder: "Awarder",
-      owner: "Owner",
+      owner: "Admin",
       editor: "Editor",
       awarder: "Awarder",
-      switchToOwner: "Successfully changed user to badgeclass owner role.",
+      switchToOwner: "Successfully changed user to badgeclass admin role.",
       switchToEditor: "Successfully changed user to badgeclass editor role.",
       switchToAwarder: "Successfully changed user to badgeclass awarder role.",
       permissions: "Permissions on edubadge Class level"
@@ -678,7 +679,7 @@ I18n.translations.en = {
     users: "There are no users for institution {{name}}.",
     assertions: "There are no assertions for edubadge {{name}}.",
     enrollments: "There are no enrollments for edubadge {{name}}.",
-    permissions: "There are no perissions for this user on the {{name}} level.",
+    permissions: "There are no permissions for this user on the {{name}} level.",
     selfPermissions: "There are no permissions for this user on the {{entity}} level.",
     userPermissions: "This user does not have any permissions for {{entity}} {{name}}."
   },
@@ -724,7 +725,7 @@ I18n.translations.en = {
       educationProgramIdentifier: "e.g. 12111990",
       alignmentName: "e.g. Big Skill",
       alignmentFramework: "e.g. Skill Matter",
-      alignmentDescription: "A big skill, takes many hours to learn",
+      alignmentDescription: "A big skill takes many hours to learn",
       alignmentUrl: "http://standards.net/CCELA-RL-6",
       alignmentCode: "CCSS.ELA-Literacy.RL.6.3"
     },

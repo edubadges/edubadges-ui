@@ -15,6 +15,8 @@
   import {permissionsRole} from "../../util/rolesToPermissions";
   import ListLink from "./ListLink.svelte";
   import {flatten} from "../../util/utils";
+  import {userAlreadyHasAdminPermissions} from "../../util/userPermissions";
+  import { addStaffType, staffType } from "../../util/staffTypes";
 
   export let userId;
 
@@ -24,10 +26,16 @@
   let institutionId;
   let issuerSearch;
 
+  let staffs = [];
+  let institutionStaffs = [];
+  let issuerGroupStaffs = [];
+  let issuerStaffs = [];
+
   let selection = [];
   let checkAllValue = false;
+  let disabledCheckAll;
 
-  let issuers = [];
+  let newPermissionOptions = [];
   let loaded;
   let isEmpty;
 
@@ -41,6 +49,9 @@
       issuers {
         name,
         entityId,
+        permissions {
+          mayAdministrateUsers
+        }
       }
     }
   },
@@ -96,10 +107,14 @@
       faculties = res.currentInstitution.faculties;
       user = res.user;
       currentUser = res.currentUser;
-      issuers = flatten(faculties.map(fac => fac.issuers));
+      institutionStaffs = res.user.institutionStaff ? addStaffType([res.user.institutionStaff], staffType.INSTITUTION_STAFF) : [];
+      issuerGroupStaffs = addStaffType(res.user.facultyStaffs, staffType.ISSUER_GROUP_STAFF);
+      issuerStaffs = addStaffType(res.user.issuerStaffs, staffType.ISSUER_STAFF);
+      let issuers = flatten(faculties.map(fac => fac.issuers));
+      newPermissionOptions = issuers.filter(issuer => !userAlreadyHasAdminPermissions(issuer, entityType.ISSUER, institutionStaffs, issuerGroupStaffs, issuerStaffs, []));
+      modalSelectedEntity = newPermissionOptions[0];
       isEmpty = user.issuerStaffs.length === 0 &&
-        user.facultyStaffs.length === 0 &&
-        (!user.institutionStaff || (user.institutionStaff && faculties.length === 0));
+      user.facultyStaffs.length === 0 && (!user.institutionStaff || (user.institutionStaff && faculties.length === 0));
       loaded = true;
     });
   };
@@ -133,7 +148,7 @@
   let addModalTitle;
   let selectEntity;
   let addModalAction;
-  let modalSelectedBadgeClass;
+  let modalSelectedEntity;
   let modalChosenRole;
   let modalNotes;
 
@@ -152,7 +167,7 @@
   const submitPermissions = () => {
     switch (modalChosenRole.value) {
       case permissionsRole.ADMIN:
-        makeUserIssuerAdmin(modalSelectedBadgeClass.entityId, userId, modalNotes).then(() => {
+        makeUserIssuerAdmin(modalSelectedEntity.entityId, userId, modalNotes).then(() => {
           reload();
           showAddModal = false;
         });
@@ -198,22 +213,39 @@
       'action': addPermissions,
       'text': I18n.t(['editUsers', 'permissions', 'addPermissions']),
       'allowed': (currentUser && currentUser.institutionStaff),
+      'disabled': newPermissionOptions.length === 0
     }
+  ];
+
+  const findFacultyByIssuerEntityId = issuerEntityId => {
+    const faculty = faculties.find(faculty => faculty.issuers.find(issuer => issuer.entityId === issuerEntityId));
+    return faculty || {};
+  };
+
+  $: staffs = [
+    ...institutionStaffs,
+    ...issuerGroupStaffs,
+    ...issuerStaffs
   ];
 
   function onCheckOne(val, entityId) {
     if (val) {
       selection = selection.concat(entityId);
+      table.checkAllValue = selection.length === staffs.filter(({_staffType}) => _staffType === staffType.ISSUER_STAFF).length;
     } else {
       selection = selection.filter(id => id !== entityId);
-      checkAllValue = false;
+      table.checkAllValue = false;
     }
   }
 
-  const findFacultyByIssuerEntityId = issuerEntityId => {
-    const faculty = faculties.find(faculty => faculty.issuers.find(issuer => issuer.entityId === issuerEntityId));
-    return faculty || {};
-  }
+  const onCheckAll = val => {
+    selection = val ? staffs.filter(({_staffType}) => {
+      return _staffType === staffType.ISSUER_STAFF
+    }).map(({entityId}) => entityId) : [];
+    table.checkAllValue = val;
+  };
+
+  $: disabledCheckAll = staffs.filter(({_staffType}) => _staffType === staffType.ISSUER_STAFF).length === 0;
 </script>
 
 <style>
@@ -232,11 +264,13 @@
 {#if loaded}
   <div class="container">
     <UsersTable
-      {...table}
-      isEmpty={isEmpty}
-      bind:search={issuerSearch}
-      withCheckAll={true}
-      bind:buttons={buttons}
+        {...table}
+        isEmpty={isEmpty}
+        bind:search={issuerSearch}
+        withCheckAll={true}
+        bind:buttons={buttons}
+        {onCheckAll}
+        {disabledCheckAll}
     >
       {#each user.issuerStaffs as issuerStaffMembership}
         <tr>
@@ -324,25 +358,23 @@
 
 {#if showRemoveModal}
   <Modal
-    submit={removeModalAction}
-    cancel={() => showRemoveModal = false}
-    question={removeModalQuestion}
+      submit={removeModalAction}
+      cancel={() => showRemoveModal = false}
+      question={removeModalQuestion}
       title={removeModalTitle}
-  >
-  </Modal>
+  />
 {/if}
 
 {#if showAddModal}
   <AddPermissionsModal
-    submit={addModalAction}
-    cancel={() => showAddModal = false}
-    selectEntity={selectEntity}
+      submit={addModalAction}
+      cancel={() => showAddModal = false}
+      selectEntity={selectEntity}
       permissionsRoles={permissionsRoles}
       title={addModalTitle}
-      targetOptions={issuers}
-      bind:target={modalSelectedBadgeClass}
+      targetOptions={newPermissionOptions}
+      bind:target={modalSelectedEntity}
       bind:chosenRole={modalChosenRole}
       bind:notes={modalNotes}
-  >
-  </AddPermissionsModal>
+  />
 {/if}
