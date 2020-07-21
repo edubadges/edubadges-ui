@@ -6,6 +6,8 @@
   import {currentPath} from "../../stores/currentPath";
   import chevronRightSmall from "../../icons/chevron-right-small.svg";
   import LinkEye from "./LinkEye.svelte";
+  import {userRole} from "../../stores/user";
+  import {role} from "../../util/role";
 
   export let faculty;
   export let issuer;
@@ -113,7 +115,7 @@
     <a use:link href={$currentPath}>{editCreatePart(edit, create)}</a>
   {/if}
 
-  {#if badgeclassName}
+  {#if  badgeclassName && $userRole === role.TEACHER}
     <LinkEye badgeclass={badgeclass}  isAdminView={true}/>
   {/if}
 </div>

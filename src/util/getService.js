@@ -1,7 +1,7 @@
 import { config } from "./config";
 import { role } from "./role";
 
-export const getService = (chosenRole) => {
+export const getService = chosenRole => {
   switch (chosenRole) {
     case role.STUDENT:
       return config.studentDomain;

@@ -17,7 +17,7 @@
   let accountCreationStep = 1;
   let showLoginCards = true;
 
-  const logIn = (chosenRole) => {
+  const logIn = chosenRole => {
     $userRole = chosenRole;
     const service = getService(chosenRole);
     requestLoginToken(service);

@@ -81,13 +81,14 @@
 <footer class="footer">
   <div class="help">
     <a href="/terms"
-       on:click|preventDefault|stopPropagation={showTerms(I18n.t("footer.termsTitle"),
-                $userRole === role.STUDENT ? I18n.t('terms.termsOfUseStudentRaw') : I18n.t('terms.termsOfUseTeacherRaw'))}>
-      {I18n.t("footer.termsTitle")}
+       on:click|preventDefault|stopPropagation={showTerms(I18n.t("terms.termsTitle"),
+                 I18n.t(`terms.${$userRole}.termsOfUseRaw`))}>
+      {I18n.t("terms.termsTitle")}
     </a>
     <a href="/privacy"
-       on:click|preventDefault|stopPropagation={showTerms(I18n.t("terms.privacyPolicyTitle"),I18n.t('terms.privacyPolicyRaw'))}>
-      {I18n.t("footer.privacyPolicyTitle")}
+       on:click|preventDefault|stopPropagation={showTerms(I18n.t("terms.privacyPolicyTitle"),
+        I18n.t(`terms.${$userRole}.privacyPolicyRaw`))}>
+      {I18n.t("terms.privacyPolicyTitle")}
     </a>
   </div>
 

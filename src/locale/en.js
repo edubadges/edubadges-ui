@@ -262,8 +262,6 @@ I18n.translations.en = {
     },
   },
   footer: {
-    termsTitle: "Terms of use",
-    privacyPolicyTitle: "Privacy Policy",
     poweredBy: "Proudly powered by"
   },
   modalTerms: {
@@ -595,38 +593,53 @@ I18n.translations.en = {
   acceptTerms: {
     welcome: "Hi {{name}}",
     acceptTerms: "Take notice of our terms",
-    renewTerms: "The eduBadges terms have changed. Take notice of our new terms",
+    renewTerms: "The eduBadges terms have changed. Take notice of our new terms.",
     teacher: {
-      termsInfo: "Het aanmaken van een backpack en het koppelen hiervan aan je eduID is noodzakelijk om " +
-        "om badges te kunnen ontvangen. Het backpack valt onder de verwerkingsverantwoordelijkheid van SURF",
+      termsInfo: "Creating a backpack and linking it to your eduID is necessary to " +
+        "to be able to receive badges. The backpack falls under the processing responsibility of SURF",
+      overviewTitle: "Overview",
+      overviewLinkPre: "You can here see ",
+      overviewLink: "the complete overview of processing and associated information.",
+      overviewLinkPost: "",
+      termsTitle: "Terms",
+      termsLinkPre: "By continuing you agree with ",
+      termsLink: "the terms of service,",
+      termsLinkPost: "",
+      privacyTitle: "Privacy",
+      privacyLinkPre: " You also understand the ",
+      privacyLink: "privacy policy.",
+      privacyLinkPost: ""
     },
     student: {
-      termsInfo: "Het aanmaken van een backpack en het koppelen hiervan aan je eduID is noodzakelijk om " +
-        "om badges te kunnen ontvangen. Het backpack valt onder de verwerkingsverantwoordelijkheid van SURF",
+      termsInfo: "Creating a backpack and linking it to your eduID is necessary to " +
+        "to be able to receive badges. The backpack falls under the processing responsibility of SURF",
+      overviewTitle: "Overview",
+      overviewLinkPre: "You can here see ",
+      overviewLink: "the complete overview of processing and associated information.",
+      overviewLinkPost: "",
+      termsTitle: "Terms",
+      termsLinkPre: "By continuing you agree with ",
+      termsLink: "the terms of service.",
+      termsLinkPost: "",
+      privacyTitle: "Privacy",
+      privacyLinkPre: " You also understand the ",
+      privacyLink: "privacy policy.",
+      privacyLinkPost: ""
     },
     termsBullets: {
       teacher:
         [
-          "SURF maakt een backpack voor je op basis van je eduID. Dit backkppack blijft bestaan totdat je dit backpack opheft.",
-          "SURF verwerkt hiervoor persoonsgegevens: je voornaam, achternaam, e-mailadres, eduID en eventuele persoonlijke teksten in badges.",
-          "Alleen jouw onderwijsinstelling en SURF hebben toegang tot deze persoonsgegevens."
+          "SURF makes a backpack for you based on your eduID. This backpack will remain until you cancel this backpack.",
+          "SURF processes personal data for this: your first name, last name, e-mail address, eduID and any personal texts in badges.",
+          "Only your educational institution and SURF have access to these personal data."
         ],
       student:
         [
-          "SURF maakt een backpack voor je op basis van je eduID. Dit backkppack blijft bestaan totdat je dit backpack opheft.",
-          "SURF verwerkt hiervoor persoonsgegevens: je voornaam, achternaam, e-mailadres, eduID en eventuele persoonlijke teksten in badges.",
-          "Alleen jouw onderwijsinstelling en SURF hebben toegang tot deze persoonsgegevens."
+          "SURF makes a backpack for you based on your eduID. This backpack will remain until you cancel this backpack.",
+          "SURF processes personal data for this: your first name, last name, e-mail address, eduID and any personal texts in badges.",
+          "Only your educational institution and SURF have access to these personal data."
         ]
-
     },
-    termsTitle: "Terms of service of edubadges",
-    termsPre: "Please read and accept the ",
-    termsOfUseLink: "terms of service of edubadges.",
-    badgeAwardTitle: "Badge awarding terms of edubadges",
-    badgeAwardTerms: "badge awarding terms",
-    badgeAwardTermsPost: " for institution(s)",
-    acceptTermsOfUse: "I accept the Terms of Service",
-    acceptBadgeAwardTerms: "I accept the Awarding Terms",
     accept: "Get it on!",
     noValidInstitution: "No valid institution",
     noValidInstitutionInfo: "The institution <strong>{{name}}</strong> connected to your eduID account is not participating in the eduBadges programme.<br/><br/>" +
@@ -727,9 +740,19 @@ I18n.translations.en = {
     adminView: "Admin view"
   },
   terms: {
-    badgeAwardTermsRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/termsofservice-create-account-institution-en.md",
-    termsOfUseStudentRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/termsofservice-create-account-student-en.md",
-    termsOfUseTeacherRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/termsofservice-create-account-employee-en.md",
-    privacyPolicyRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/edubadges-privacy-statement-en.md",
+    overviewTitle: "Overview all terms",
+    termsTitle: "Terms of use",
+    privacyPolicyTitle: "Privacy Policy",
+
+    student: {
+      overviewTermsRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/termsofservice-create-account-institution-en.md",
+      termsOfUseRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/termsofservice-create-account-student-en.md",
+      privacyPolicyRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/edubadges-privacy-statement-en.md",
+    },
+    teacher: {
+      overviewTermsRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/termsofservice-create-account-institution-en.md",
+      termsOfUseRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/termsofservice-create-account-employee-en.md",
+      privacyPolicyRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/edubadges-privacy-statement-en.md",
+    }
   }
 };

@@ -16,12 +16,6 @@
   import termsIcon from "../icons/voorwaarden-icon1.svg"
   import terms2Icon from "../icons/voorwaarden-icon2.svg"
 
-  let idToken;
-  let state;
-  let claims;
-  let provider;
-  let resign = false;
-  let role;
   let loaded = false;
   let showModalTerms = false;
   let termsUrl;
@@ -37,14 +31,6 @@
   let choosenSchacHome;
 
   onMount(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    idToken = urlParams.get("id_token");
-    state = urlParams.get("state");
-    provider = urlParams.get("provider");
-    resign = urlParams.get("resign") === "True";
-    role = urlParams.get("role");
-    claims = jwt_decode(idToken);
-
     schacHomeOrganisations = claims.eduperson_scoped_affiliation.map(aff => aff.substring(aff.indexOf("@") + 1));
     validateInstitutions(schacHomeOrganisations)
       .then(res => {

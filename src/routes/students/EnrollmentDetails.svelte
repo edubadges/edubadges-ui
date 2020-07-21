@@ -20,6 +20,7 @@ import I18n from "i18n-js";
       badgeClass {
         entityId,
         name,
+        description,
         image,
         criteriaText,
         issuer {
