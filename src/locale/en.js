@@ -93,7 +93,7 @@ I18n.translations.en = {
     title: "Your edubadges",
   },
   notFound: {
-    main: "404 - Not Found",
+    main: "Edubadge Not Found",
     publicBadge: "The badge is either not public anymore or has been revoked.",
     issuer: "This issuer has been deleted."
   },

@@ -93,7 +93,7 @@ I18n.translations.nl = {
     title: "Behaalde edubadges",
   },
   notFound: {
-    main: "404 - Niet gevonden",
+    main: "Edubadge niet gevonden",
     publicBadge: "Deze edubadge is niet meer publiek of is ingetrokken.",
     issuer: "Deze issuer is verwijderd."
   },
