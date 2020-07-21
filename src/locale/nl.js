@@ -26,7 +26,7 @@ I18n.translations.nl = {
     student: {
       title: "Backpack",
       subtitle: "Ontvang en deel edubadges",
-      noEduId: "Als je nog geen eduID hebt, dan helpen we je om er één aan te maken in minder dan 30 sseconden.",
+      noEduId: "Als je nog geen eduID hebt, dan helpen we je om er één aan te maken in minder dan 30 seconden.",
       action: "Login met eduID",
     },
     teacher: {
@@ -674,24 +674,24 @@ I18n.translations.nl = {
       description: "Bijv. Alle issuers van de faculteit Geschiedenis"
     },
     issuer: {
-      name: "Bijv. Social Historic Studies",
-      description: "Bijv. the study of social behaviour in the Middle Ages",
+      name: "Bijv. Economische en Sociale geschiedenis",
+      description: "Bijv. Economische en sociale geschiedenis houdt zich bezig met lange termijn ontwikkelingen in de wereldeconomie en samenlevingen, van de late Middeleeuwen tot nu.",
       email: "Bijv. john.doe@example.com",
       url: "Bijv. https://harderwijk.nl"
     },
     badgeClass: {
-      name: "Bijv. Renaissance",
-      description: "Bijv. Political infuence of the Church during the Renaissance",
-      learningOutcome: "Bijv. will be able to read and demonstrate good comprehension of text in areas of the student’s interest or professional field.",
-      criteriaText: "Bijv. online multiple choice exam",
-      criteriaUrl: "Bijv. https://harderwijk.nl/renaissance/criteria",
+      name: "Bijv. Geschiedenis van de middeleeuwen",
+      description: "Bijv. Een overzicht van de geschiedenis vanaf de late oudheid tot de vijftiende eeuw.",
+      learningOutcome: "Bijv. Je leest antieke bronnen, maar ook moderne teksten, en krijgt zo een overzicht van alle belangrijke ontwikkelingen.",
+      criteriaText: "Bijv. online multiple choice examen",
+      criteriaUrl: "Bijv. https://harderwijk.nl/geschiedenis/criteria",
       studyLoad: "Bijv. 120",
       educationProgramIdentifier: "Bijv. 12111990",
-      alignmentName: "Bijv. Big Skill",
-      alignmentFramework: "Bijv. Skill Matter",
-      alignmentDescription: "A big skill, takes many hours to learn",
-      alignmentUrl: "http://standards.net/CCELA-RL-6",
-      alignmentCode: "CCSS.ELA-Literacy.RL.6.3"
+      alignmentName: "Bijv. Geschiedenis",
+      alignmentFramework: "Bijv. ESCO",
+      alignmentDescription: "Bijv. De tak van wetenschap die aan mensen gerelateerde gebeurtenissen uit het verleden bestudeert, analyseert en beschrijft.",
+      alignmentUrl: "http://data.europa.eu/esco/skill/2b22f3b1-5de4-43f9-b6d1-b20f65871268",
+      alignmentCode: "2b22f3b1-5de4-43f9-b6d1-b20f65871268"
     },
     permissions: {
       notes: "Bijv. waarom heb je permissies gegeven?"
