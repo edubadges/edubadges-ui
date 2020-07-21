@@ -93,7 +93,7 @@ I18n.translations.en = {
     title: "Your edubadges",
   },
   notFound: {
-    main: "404 - Not Found",
+    main: "Edubadge Not Found",
     publicBadge: "The badge is either not public anymore or has been revoked.",
     issuer: "This issuer has been deleted."
   },
@@ -369,13 +369,13 @@ I18n.translations.en = {
     badgeclass: {
       header: "Badgeclass",
       issuedBy: "Issued by",
-      badgeclassOwner: "Owner",
+      badgeclassOwner: "Admin",
       badgeclassEditor: "Editor",
       badgeclassAwarder: "Awarder",
-      owner: "Owner",
+      owner: "Admin",
       editor: "Editor",
       awarder: "Awarder",
-      switchToOwner: "Successfully changed user to badgeclass owner role.",
+      switchToOwner: "Successfully changed user to badgeclass admin role.",
       switchToEditor: "Successfully changed user to badgeclass editor role.",
       switchToAwarder: "Successfully changed user to badgeclass awarder role.",
       permissions: "Permissions on edubadge Class level"
