@@ -363,7 +363,7 @@ I18n.translations.nl = {
     },
     badgeclass: {
       header: "Badgeclass",
-      issuedBy: "Issued by",
+      issuedBy: "Uitgegeven door",
       badgeclassOwner: "Admin",
       badgeclassEditor: "Editor",
       badgeclassAwarder: "Awarder",
@@ -445,6 +445,7 @@ I18n.translations.nl = {
       issuer: "Issuer",
       image: "Badge afbeelding",
       created: "Aangemaakt",
+      issuedBy: "Issued by",
       admin: "Admin",
       alignment: "Alignment",
       alignmentName: "Naam",
@@ -596,12 +597,13 @@ I18n.translations.nl = {
     acceptTerms: "Let op onze voorwaarden",
     renewTerms: "De eduBadges-voorwaarden zijn gewijzigd. Let op onze nieuwe voorwaarden.",
     teacher: {
+      accept: "Ik heb het gelezen",
       termsInfo: "Het aanmaken van een backpack en het koppelen hiervan aan je eduID is noodzakelijk om " +
         "om badges te kunnen ontvangen. Het backpack valt onder de verwerkingsverantwoordelijkheid van SURF",
-      overviewTitle: "Overzicht",
-      overviewLinkPre: "Je kunt hier ",
-      overviewLink: "het volledige overzicht van verwerkingen en bijbehorende informatie",
-      overviewLinkPost: " inzien",
+      serviceAgreementTitle: "Serviceovereenkomst",
+      serviceAgreementLinkPre: "Je kunt hier ",
+      serviceAgreementLink: "de volledige serviceovereenkomst",
+      serviceAgreementLinkPost: " inzien.",
       termsTitle: "Terms",
       termsLinkPre: "Door door te gaan, ga je akkoord met ",
       termsLink: "onze voorwaarden",
@@ -612,12 +614,13 @@ I18n.translations.nl = {
       privacyLinkPost: "."
     },
     student: {
+      accept: "Ik ga akkoord",
       termsInfo: "Het aanmaken van een backpack en het koppelen hiervan aan je eduID is noodzakelijk om " +
         "om badges te kunnen ontvangen. Het backpack valt onder de verwerkingsverantwoordelijkheid van SURF",
-      overviewTitle: "Overzicht",
-      overviewLinkPre: "Je kunt hier ",
-      overviewLink: "het volledige overzicht van verwerkingen en bijbehorende informatie",
-      overviewLinkPost: " inzien",
+      serviceAgreementTitle: "Serviceovereenkomst",
+      serviceAgreementLinkPre: "Je kunt hier ",
+      serviceAgreementLink: "de volledige serviceovereenkomst",
+      serviceAgreementLinkPost: " inzien.",
       termsTitle: "Terms",
       termsLinkPre: "Door door te gaan, ga je akkoord met ",
       termsLink: "onze voorwaarden",
@@ -641,11 +644,13 @@ I18n.translations.nl = {
           "Alleen jouw onderwijsinstelling en SURF hebben toegang tot deze persoonsgegevens."
         ]
     },
-    accept: "Get it on!",
     noValidInstitution: "No valid institution",
     noValidInstitutionInfo: "The institution <strong>{{name}}</strong> connected to your eduID account is not participating in the eduBadges programme.<br/><br/>" +
       "Please contact <a href='mailto:support@edubadges.nl'>support@edubadges.nl</a> for support or try linking an extra institution to your eduID account",
-    goToSurfConext: "Proceed to eduBadges",
+    noValidInstitutionInfoForEnrollment: "Institution {{name}} is not connected to your eduID account. " +
+      "To enroll for this badge you will need verify that you can identify yourself at institution <strong>{{name}}</strong>.<br/><br/>" +
+      "Please contact <a href='mailto:support@edubadges.nl'>support@edubadges.nl</a> for support or try linking institution {{name}} to your eduID account",
+    goToSurfConext: "Proceed to eduID",
     multipleValidInstitutions: "Multiple valid institutions",
     multipleValidInstitutionsInfo: "You have multiple institutions connected to your eduID account.<br/><br/>" +
       "Please choose with which institution you want to start using eduBadges."
@@ -740,19 +745,24 @@ I18n.translations.nl = {
     awardView: "Award view",
     adminView: "Admin view"
   },
+  studentEnroll: {
+    confirmation: {
+      title: "Aanvragen",
+      question: "Weet je zeker dat je de badge <strong>{{name}}</strong> wil aanvragen?"
+    }
+  },
   terms: {
     overviewTitle: "Overzicht alle terms",
     termsTitle: "Terms of use",
     privacyPolicyTitle: "Privacy Policy",
-
     student: {
-      overviewTermsRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/termsofservice-create-account-institution-nl.md",
-      termsOfUseRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/termsofservice-create-account-teacher-nl.md",
+      serviceAgreementRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/service-agreement-student-nl.md",
+      termsOfUseRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/edubadges-termsofservice-nl.md",
       privacyPolicyRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/edubadges-privacy-statement-nl.md",
     },
     teacher: {
-      overviewTermsRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/termsofservice-create-account-institution-nl.md",
-      termsOfUseRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/termsofservice-create-account-student-nl.md",
+      serviceAgreementRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/service-agreement-employee-nl.md",
+      termsOfUseRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/edubadges-termsofservice-nl.md",
       privacyPolicyRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/edubadges-privacy-statement-nl.md",
     }
   }

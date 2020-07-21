@@ -15,6 +15,7 @@
   import RadioButton from "../components/forms/RadioButton.svelte";
   import termsIcon from "../icons/voorwaarden-icon1.svg"
   import terms2Icon from "../icons/voorwaarden-icon2.svg"
+  import {schacHomeNames} from "../util/claims";
 
   let idToken;
   let state;
@@ -45,7 +46,7 @@
     role = urlParams.get("role");
     claims = jwt_decode(idToken);
 
-    schacHomeOrganisations = claims.eduperson_scoped_affiliation.map(aff => aff.substring(aff.indexOf("@") + 1));
+    schacHomeOrganisations = schacHomeNames(claims);
     validateInstitutions(schacHomeOrganisations)
       .then(res => {
         let validSchacHomeOrganisations = schacHomeOrganisations
@@ -53,12 +54,12 @@
         if (validSchacHomeOrganisations.length === 0) {
           noValidInstitution = true;
           loaded = true;
-        } else if (validSchacHomeOrganisations.length > 1) {
+        } else if (validSchacHomeOrganisations.length > 1 && false) {
           Promise.all(validSchacHomeOrganisations.map(orgName => institutionDetail(orgName)))
             .then(results => {
               allValidInstitutions = results;
               multipleValidInstitutions = true;
-              choosenSchacHome = allValidInstitutions[0].name;
+              choosenSchacHome = allValidInstitutions[0].identifier;
               loaded = true;
             });
         } else {
@@ -84,8 +85,7 @@
   const closeTerms = () => showModalTerms = false;
 
   const logInForceAuthn = () => {
-    const service = getService($userRole);
-    requestLoginToken(service, true);
+    window.location.href = "https://mijn.eduid.nl"
   };
 
   const refreshInstitution = () => {
@@ -131,8 +131,10 @@
     align-content: center;
     align-items: center;
     margin: 25px 0;
+
     p {
       margin-left: 25px;
+
       a {
         text-decoration: underline;
       }
@@ -171,14 +173,14 @@
     <div class="agree">
       {@html termsIcon}
       <p>
-        <span>{I18n.t(`acceptTerms.${$userRole}.overviewLinkPre`)}</span>
+        <span>{I18n.t(`acceptTerms.${$userRole}.serviceAgreementLinkPre`)}</span>
         <a href="/terms"
            on:click|preventDefault|stopPropagation={showTerms(
-                I18n.t(`acceptTerms.${$userRole}.overviewTitle`),
-                I18n.t(`terms.${$userRole}.overviewTermsRaw`))}>
-          {I18n.t(`acceptTerms.${$userRole}.overviewLink`)}
+                I18n.t(`acceptTerms.${$userRole}.serviceAgreementTitle`),
+                I18n.t(`terms.${$userRole}.serviceAgreementRaw`))}>
+          {I18n.t(`acceptTerms.${$userRole}.serviceAgreementLink`)}
         </a>
-        <span>{I18n.t(`acceptTerms.${$userRole}.overviewLinkPost`)}</span>
+        <span>{I18n.t(`acceptTerms.${$userRole}.serviceAgreementLinkPost`)}</span>
       </p>
     </div>
     <div class="agree">
@@ -203,7 +205,7 @@
       </p>
     </div>
     <div class="actions">
-      <Button text={I18n.t("acceptTerms.accept")} action={agree} full={true}/>
+      <Button text={I18n.t(`acceptTerms.${$userRole}.accept`)} action={agree} full={true}/>
     </div>
   {:else}
     <Spinner/>

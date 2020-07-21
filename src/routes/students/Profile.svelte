@@ -38,7 +38,7 @@
       profile = res[0];
       profile.eduid = res[1][0].eduid;
       profile.dateAdded = res[1][0].dateAdded;
-      profile.entitlements = res[1][0].entitlements;
+      profile.affiliations = res[1][0].affiliations;
       loaded = true;
     });
   });
