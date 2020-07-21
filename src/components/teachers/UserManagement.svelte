@@ -39,6 +39,8 @@
 
   let staffs = [];
   let selection = [];
+  let checkAllValue;
+  let disabledCheckAll;
 
   $: staffs = [
     ...institutionStaffs,
@@ -162,6 +164,18 @@
     withCheckAll: true,
   };
 
+  let staffSearch = '';
+  let staffSort = tableHeaders[3];
+
+  $: searchedStaffIds = searchMultiple(staffs, staffSearch, "entityId", "user.firstName", "email", "user.lastName", "user.email");
+
+  $: sortedFilteredStaffs = sort(
+    staffs.filter(el => searchedStaffIds.includes(el.entityId)),
+    staffSort.attribute,
+    staffSort.reverse,
+    staffSort.sortType
+  );
+
   const onCheckAll = val => {
     selection = val ? staffs.filter(({_staffType}) => {
       if (_staffType === staffType.USER_PROVISIONMENT) {
@@ -178,30 +192,41 @@
           return _staffType === staffType.BADGE_CLASS_STAFF;
       }
     }).map(({entityId, _staffType}) => ({entityId, _staffType})) : [];
-    table.checkAllValue = val;
+    checkAllValue = val;
   };
 
   const onCheckOne = (val, _entityId, _staffType) => {
     if (val) {
       selection = selection.concat({entityId: _entityId, _staffType});
-      table.checkAllValue = selection.length === staffs.length;
+      checkAllValue = selection.length === staffs.filter(({_staffType}) => {
+        if (_staffType === staffType.USER_PROVISIONMENT) {
+          return true;
+        }
+        switch (entity) {
+          case entityType.INSTITUTION:
+            return _staffType === staffType.INSTITUTION_STAFF;
+          case entityType.ISSUER_GROUP:
+            return _staffType === staffType.ISSUER_GROUP_STAFF;
+          case entityType.ISSUER:
+            return _staffType === staffType.ISSUER_STAFF;
+          case entityType.BADGE_CLASS:
+            return _staffType === staffType.BADGE_CLASS_STAFF;
+        }
+      }).length;
     } else {
       selection = selection.filter(({entityId}) => entityId !== _entityId);
-      table.checkAllValue = false;
+      checkAllValue = false;
     }
   };
 
-  let staffSearch = '';
-  let staffSort = tableHeaders[2];
-
-  $: searchedStaffIds = searchMultiple(staffs, staffSearch, "entityId", "user.firstName", "email", "user.lastName", "user.email");
-
-  $: sortedFilteredStaffs = sort(
-    staffs.filter(el => searchedStaffIds.includes(el.entityId)),
-    staffSort.attribute,
-    staffSort.reverse,
-    staffSort.sortType
-  )
+  $: disabledCheckAll = entity === entityType.INSTITUTION ? sortedFilteredStaffs.filter(({_staffType}) => _staffType === staffType.INSTITUTION_STAFF).length === 0 +
+      sortedFilteredStaffs.filter(({_staffType}) => _staffType === staffType.USER_PROVISIONMENT).length:
+    entity === entityType.ISSUER_GROUP ? sortedFilteredStaffs.filter(({_staffType}) => _staffType === staffType.ISSUER_GROUP_STAFF).length === 0 +
+      sortedFilteredStaffs.filter(({_staffType}) => _staffType === staffType.USER_PROVISIONMENT).length:
+    entity === entityType.ISSUER ? sortedFilteredStaffs.filter(({_staffType}) => _staffType === staffType.ISSUER_STAFF).length === 0 +
+      sortedFilteredStaffs.filter(({_staffType}) => _staffType === staffType.USER_PROVISIONMENT).length:
+    entity === entityType.BADGE_CLASS ? sortedFilteredStaffs.filter(({_staffType}) => _staffType === staffType.BADGE_CLASS_STAFF).length === 0 +
+      sortedFilteredStaffs.filter(({_staffType}) => _staffType === staffType.USER_PROVISIONMENT).length: '';
 </script>
 
 <style>
@@ -240,12 +265,14 @@
 
 <div class="container">
   <UsersTable
-    {...table}
-    isEmpty={staffs.length === 0}
-    {onCheckAll}
-    bind:buttons={buttons}
-    bind:search={staffSearch}
-    bind:sort={staffSort}
+      {...table}
+      isEmpty={staffs.length === 0}
+      {onCheckAll}
+      bind:buttons={buttons}
+      bind:search={staffSearch}
+      bind:sort={staffSort}
+      {checkAllValue}
+      {disabledCheckAll}
   >
     {#each sortedFilteredStaffs as {_staffType, user, entityId, email, createdAt, rejected, mayAdministrateUsers, mayUpdate, mayAward, data} (entityId)}
       <tr>

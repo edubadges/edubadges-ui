@@ -49,9 +49,9 @@ export const userTree = derived(
     }
 
     for(const faculty of institution.faculties) {
-      faculty.count = 0;
+      faculty.users = [];
       for (const issuer of faculty.issuers) {
-        issuer.count = 0;
+        issuer.users = [];
       }
     }
 
@@ -62,9 +62,9 @@ export const userTree = derived(
       tree.roles.find(el => el.role === 'Institution Admin').count++;
 
       for (const faculty of institution.faculties) {
-        faculty.count++;
+        faculty.users = [...faculty.users, user];
         for (const issuer of faculty.issuers) {
-          issuer.count++;
+          issuer.users = [...issuer.users, user];
         }
       }
     }
@@ -85,9 +85,9 @@ export const userTree = derived(
           tree.roles.find(el => el.role === 'Issuer Group Admin').count++;
         }
 
-        faculty.count++;
+        if (!faculty.users.some(_user => user.entityId === _user.entityId)) faculty.users = [...faculty.users, user];
         for (const issuer of faculty.issuers) {
-          issuer.count++;
+          if (!issuer.users.some(_user => user.entityId === _user.entityId)) issuer.users = issuer.users = [...issuer.users, user];
         }
       }
     }
@@ -108,9 +108,8 @@ export const userTree = derived(
             tree.users = [user, ...tree.users];
             tree.roles.find(el => el.role === 'Issuer Admin').count++;
           }
-
-          faculty.count++;
-          issuer.count++;
+          if (!faculty.users.some(_user => user.entityId === _user.entityId)) faculty.users = [...faculty.users, user];
+          if (!issuer.users.some(_user => user.entityId === _user.entityId)) issuer.users = issuer.users = [...issuer.users, user];
         }
       }
     }
@@ -146,8 +145,8 @@ export const userTree = derived(
                 tree.roles.find(el => el.role === 'Badgeclass Awarder').count++;
               }
             }
-            issuer.count++;
-            faculty.count++;
+            if (!faculty.users.some(_user => user.entityId === _user.entityId)) faculty.users = [...faculty.users, user];
+            if (!issuer.users.some(_user => user.entityId === _user.entityId)) issuer.users = issuer.users = [...issuer.users, user];
           }
         }
       }
@@ -171,7 +170,9 @@ export const userTree = derived(
 
     let issuers = [];
     for (const faculty of institution.faculties) {
+      faculty.count = faculty.users.length;
       for (const issuer of faculty.issuers) {
+        issuer.count = issuer.users.length;
         issuers = [issuer, ...issuers];
       }
     }
