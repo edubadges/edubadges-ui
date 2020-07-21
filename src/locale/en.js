@@ -40,7 +40,7 @@ I18n.translations.en = {
       byInviteOnly: "By invite only"
     },
     createEduId: {
-      welcome: "Welcome to your Backpack",
+      welcome: "Welcome to your edubadges Backpack",
       awarded: "We’ve awarded you with your first edubadge 😀",
       info: "You can now receive edubadges in your Backpack."
     },
