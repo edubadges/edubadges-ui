@@ -36,6 +36,7 @@
   let disabledCheckAll;
 
   let newPermissionOptions = [];
+  let removePermissionOptions = [];
   let loaded;
   let isEmpty;
 
@@ -102,6 +103,7 @@
  }`;
   const reload = () => {
     loaded = false;
+    checkAllValue = false;
     queryData(query).then(res => {
       institutionId = res.currentInstitution.entityId;
       faculties = res.currentInstitution.faculties;
@@ -110,8 +112,16 @@
       institutionStaffs = res.user.institutionStaff ? addStaffType([res.user.institutionStaff], staffType.INSTITUTION_STAFF) : [];
       issuerGroupStaffs = addStaffType(res.user.facultyStaffs, staffType.ISSUER_GROUP_STAFF);
       issuerStaffs = addStaffType(res.user.issuerStaffs, staffType.ISSUER_STAFF);
-      let issuers = flatten(faculties.map(fac => fac.issuers));
+      let issuers = [];
+      for (const faculty of faculties) {
+        for (const issuer of faculty.issuers) {
+          if (issuer.permissions.mayAdministrateUsers) {
+            issuers = [...issuers, issuer];
+          }
+        }
+      }
       newPermissionOptions = issuers.filter(issuer => !userAlreadyHasAdminPermissions(issuer, entityType.ISSUER, institutionStaffs, issuerGroupStaffs, issuerStaffs, []));
+      removePermissionOptions = issuers.filter(issuer => userAlreadyHasAdminPermissions(issuer, entityType.ISSUER, institutionStaffs, issuerGroupStaffs, issuerStaffs, []));
       modalSelectedEntity = newPermissionOptions[0];
       isEmpty = user.issuerStaffs.length === 0 &&
       user.facultyStaffs.length === 0 && (!user.institutionStaff || (user.institutionStaff && faculties.length === 0));
@@ -207,12 +217,12 @@
     {
       'action': removePermissions,
       'text': I18n.t(['editUsers', 'permissions', 'removePermissions']),
-      'allowed': (currentUser && currentUser.institutionStaff && selection.length > 0),
+      'allowed': removePermissionOptions.length > 0 && selection.length > 0,
     },
     {
       'action': addPermissions,
       'text': I18n.t(['editUsers', 'permissions', 'addPermissions']),
-      'allowed': (currentUser && currentUser.institutionStaff),
+      'allowed': faculties.some(faculty => faculty.issuers.some(issuer => issuer.permissions.mayAdministrateUsers)),
       'disabled': newPermissionOptions.length === 0
     }
   ];
@@ -231,10 +241,10 @@
   function onCheckOne(val, entityId) {
     if (val) {
       selection = selection.concat(entityId);
-      table.checkAllValue = selection.length === staffs.filter(({_staffType}) => _staffType === staffType.ISSUER_STAFF).length;
+      checkAllValue = selection.length === staffs.filter(({_staffType}) => _staffType === staffType.ISSUER_STAFF).length;
     } else {
       selection = selection.filter(id => id !== entityId);
-      table.checkAllValue = false;
+      checkAllValue = false;
     }
   }
 
@@ -242,7 +252,7 @@
     selection = val ? staffs.filter(({_staffType}) => {
       return _staffType === staffType.ISSUER_STAFF
     }).map(({entityId}) => entityId) : [];
-    table.checkAllValue = val;
+    checkAllValue = val;
   };
 
   $: disabledCheckAll = staffs.filter(({_staffType}) => _staffType === staffType.ISSUER_STAFF).length === 0;
@@ -271,15 +281,16 @@
         bind:buttons={buttons}
         {onCheckAll}
         {disabledCheckAll}
+        {checkAllValue}
     >
       {#each user.issuerStaffs as issuerStaffMembership}
         <tr>
           <td>
             <CheckBox
-              value={selection.includes(issuerStaffMembership.entityId)}
-              name={`select-${issuerStaffMembership.entityId}`}
-              disabled={false}
-              onChange={val => onCheckOne(val, issuerStaffMembership.entityId)}/>
+                value={selection.includes(issuerStaffMembership.entityId)}
+                name={`select-${issuerStaffMembership.entityId}`}
+                disabled={false}
+                onChange={val => onCheckOne(val, issuerStaffMembership.entityId)}/>
           </td>
           <td>
             <ListLink path={`/manage/issuer/${issuerStaffMembership.issuer.entityId}/badgeclasses`}
@@ -300,9 +311,9 @@
           <tr>
             <td>
               <CheckBox
-                value={selection.includes(facultyStaffMembership.entityId)}
-                name={`select-${facultyStaffMembership.entityId}`}
-                disabled={true}/>
+                  value={selection.includes(facultyStaffMembership.entityId)}
+                  name={`select-${facultyStaffMembership.entityId}`}
+                  disabled={true}/>
             </td>
             <td>
               <ListLink path={`/manage/issuer/${issuer.entityId}/badgeclasses`} name={issuer.name}/>

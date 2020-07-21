@@ -23,7 +23,7 @@
 
   let user;
   let currentUser;
-  let faculties;
+  let faculties = [];
   let issuerSearch;
 
   let staffs = [];
@@ -58,9 +58,7 @@
           name,
           entityId,
           permissions {
-            mayAdministrateUsers,
-            mayUpdate,
-            mayAward
+            mayAdministrateUsers
           }
         }
       }
@@ -180,7 +178,7 @@
         }
       }
       newPermissionOptions = badgeClasses.filter(badgeClass => !userAlreadyHasAdminPermissions(badgeClass, entityType.BADGE_CLASS, institutionStaffs, issuerGroupStaffs, issuerStaffs, badgeClassStaffs));
-      removePermissionOptions = badgeClasses.filter(badgeClass => userAlreadyHasAnyPermissions(badgeClass, entityType.BADGE_CLASS, institutionStaffs, issuerGroupStaffs, issuerStaffs, badgeClassStaffs))
+      removePermissionOptions = badgeClasses.filter(badgeClass => userAlreadyHasAnyPermissions(badgeClass, entityType.BADGE_CLASS, institutionStaffs, issuerGroupStaffs, issuerStaffs, badgeClassStaffs));
       isEmpty = user.badgeclassStaffs.length === 0 &&
         user.issuerStaffs.length === 0 &&
         user.facultyStaffs.length === 0 &&
@@ -265,12 +263,13 @@
     {
       'action': removePermissions,
       'text': I18n.t(['editUsers', 'permissions', 'removePermissions']),
-      'allowed': (removePermissionOptions.length > 0 && selection.length > 0),
+      'allowed': removePermissionOptions.length > 0 && selection.length > 0,
     },
     {
       'action': addPermissions,
       'text': I18n.t(['editUsers', 'permissions', 'addPermissions']),
-      'allowed': (newPermissionOptions.length > 0),
+      'allowed': faculties.some(faculty => faculty.issuers.some(issuer => issuer.badgeclasses.some(badgeClass => badgeClass.permissions.mayAdministrateUsers))),
+      'disabled': newPermissionOptions.length === 0
     }
   ];
 

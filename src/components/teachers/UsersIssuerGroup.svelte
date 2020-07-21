@@ -21,8 +21,10 @@
 
   let user;
   let currentUser;
-  let faculties;
+  let faculties = [];
   let newPermissionOptions = [];
+  let removePermissionOptions = [];
+
   let institutionId;
   let issuerGroupSearch;
 
@@ -44,6 +46,9 @@
     faculties {
       name,
       entityId,
+      permissions {
+        mayAdministrateUsers
+      },
       issuers {
         name,
         entityId,
@@ -88,12 +93,18 @@
 
   const reload = () => {
     loaded = false;
+    checkAllValue = false;
     queryData(query).then(res => {
       institutionId = res.currentInstitution.entityId;
-      faculties = res.currentInstitution.faculties;
+      for (const faculty of res.currentInstitution.faculties) {
+        if (faculty.permissions.mayAdministrateUsers) {
+          faculties = [...faculties, faculty];
+        }
+      }
       institutionStaffs = res.user.institutionStaff ? addStaffType([res.user.institutionStaff], staffType.INSTITUTION_STAFF) : [];
       issuerGroupStaffs = addStaffType(res.user.facultyStaffs, staffType.ISSUER_GROUP_STAFF);
       newPermissionOptions = faculties.filter(faculty => !userAlreadyHasAdminPermissions(faculty, entityType.ISSUER_GROUP, institutionStaffs, issuerGroupStaffs, [], []));
+      removePermissionOptions = faculties.filter(faculty => userAlreadyHasAdminPermissions(faculty, entityType.ISSUER_GROUP, institutionStaffs, issuerGroupStaffs, [], []));
       modalSelectedEntity = newPermissionOptions[0];
       user = res.user;
       currentUser = res.currentUser;
@@ -184,12 +195,12 @@
     {
       'action': removePermissions,
       'text': I18n.t(['editUsers', 'permissions', 'removePermissions']),
-      'allowed': (currentUser && currentUser.institutionStaff && selection.length > 0),
+      'allowed': (removePermissionOptions.length > 0 && selection.length > 0),
     },
     {
       'action': addPermissions,
       'text': I18n.t(['editUsers', 'permissions', 'addPermissions']),
-      'allowed': (currentUser && currentUser.institutionStaff),
+      'allowed': faculties.some(faculty => faculty.permissions.mayAdministrateUsers),
       'disabled': newPermissionOptions.length === 0
     }
   ];
@@ -202,10 +213,10 @@
   function onCheckOne(val, entityId) {
     if (val) {
       selection = selection.concat(entityId);
-      table.checkAllValue = selection.length === staffs.filter(({_staffType}) => _staffType === staffType.ISSUER_GROUP_STAFF).length;
+      checkAllValue = selection.length === staffs.filter(({_staffType}) => _staffType === staffType.ISSUER_GROUP_STAFF).length;
     } else {
       selection = selection.filter(id => id !== entityId);
-      table.checkAllValue = false;
+      checkAllValue = false;
     }
   }
 
@@ -213,7 +224,7 @@
     selection = val ? staffs.filter(({_staffType}) => {
       return _staffType === staffType.ISSUER_GROUP_STAFF
     }).map(({entityId}) => entityId) : [];
-    table.checkAllValue = val;
+    checkAllValue = val;
   };
 
   $: disabledCheckAll = staffs.filter(({_staffType}) => _staffType === staffType.ISSUER_GROUP_STAFF).length === 0;
@@ -241,6 +252,7 @@
         withCheckAll={true}
         bind:buttons={buttons}
         {onCheckAll}
+        {checkAllValue}
         {disabledCheckAll}
     >
       {#each staffs as staff}
