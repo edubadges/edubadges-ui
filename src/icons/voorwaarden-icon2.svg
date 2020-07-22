@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="56px" height="56px" viewBox="0 0 56 56" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>Group</title>
     <defs>
-        <circle id="path-1" cx="24" cy="24" r="24"></circle>
+        <circle id="privacy-path-1" cx="24" cy="24" r="24"></circle>
         <filter x="-14.6%" y="-10.4%" width="129.2%" height="129.2%" filterUnits="objectBoundingBox" id="filter-2">
             <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
             <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
@@ -13,8 +12,8 @@
         <g id="TOS-edubadges" transform="translate(-37.000000, -680.000000)">
             <g id="Group" transform="translate(41.000000, 682.000000)">
                 <g id="Oval">
-                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
-                    <use fill="#DFE3E8" fill-rule="evenodd" xlink:href="#path-1"></use>
+                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#privacy-path-1"></use>
+                    <use fill="#DFE3E8" fill-rule="evenodd" xlink:href="#privacy-path-1"></use>
                 </g>
                 <g id="shield-key" transform="translate(13.000000, 12.000000)" fill="#772583" fill-rule="nonzero">
                     <path d="M10.666651,24 C10.1983374,24 9.73815075,23.9160035 9.29929726,23.7500104 L8.24178225,23.3500271 C3.31179154,21.4831049 3.62689149e-05,16.7363027 3.62689149e-05,11.5375193 L3.62689149e-05,3.92383651 C-0.00500625608,3.04787301 0.516132264,2.24490646 1.32679218,1.87992167 C4.23216483,0.630973709 7.3000758,0 10.4512877,0 L10.673762,0.000999958335 L10.8627128,0 C14.0271309,0 17.1001212,0.630973709 19.9943194,1.87492188 C20.8161538,2.24490646 21.339324,3.04987292 21.3332815,3.9288363 L21.3332815,11.5375193 C21.3332815,16.7363027 18.0215104,21.4831049 13.0915197,23.3500271 L12.0340047,23.7500104 C11.5951512,23.9160035 11.1349645,24 10.666651,24 Z M10.463478,1.4999375 C7.51442323,1.4999375 4.64968516,2.08891296 1.9485013,3.24886463 C1.69148756,3.3648598 1.52183818,3.6288488 1.52385186,3.91883672 L1.52385186,11.5375193 C1.52385186,16.1203283 4.44346466,20.305154 8.78831739,21.9500854 L9.8458324,22.3500687 C10.1099572,22.4500646 10.3852565,22.5010625 10.666651,22.5010625 C10.9480454,22.5010625 11.2233447,22.4500646 11.4874695,22.3510687 L12.5449845,21.9510854 C16.8898373,20.304154 19.8094499,16.1203283 19.8094499,11.5375193 L19.8094499,3.92383651 C19.8114637,3.63084871 19.6397826,3.3648598 19.3726103,3.24386484 C16.681585,2.08691305 13.816847,1.4999375 10.8637287,1.4999375 L10.673762,1.50093746 L10.463478,1.4999375 Z" id="Shape"></path>

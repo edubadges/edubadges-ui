@@ -262,11 +262,6 @@ I18n.translations.nl = {
     },
   },
   footer: {
-    termsStudentRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/termsofservice-create-account-student-nl.md",
-    termsTeacherRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/termsofservice-create-account-employee-nl.md",
-    termsTitle: "Voorwaarden",
-    privacyPolicyRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/edubadges-privacy-statement-nl.md",
-    privacyPolicyTitle: "Privacy",
     poweredBy: "Trots aangeboden door"
   },
   modalTerms: {
@@ -368,7 +363,7 @@ I18n.translations.nl = {
     },
     badgeclass: {
       header: "Badgeclass",
-      issuedBy: "Issued by",
+      issuedBy: "Uitgegeven door",
       badgeclassOwner: "Admin",
       badgeclassEditor: "Editor",
       badgeclassAwarder: "Awarder",
@@ -450,6 +445,7 @@ I18n.translations.nl = {
       issuer: "Issuer",
       image: "Badge afbeelding",
       created: "Aangemaakt",
+      issuedBy: "Issued by",
       admin: "Admin",
       alignment: "Alignment",
       alignmentName: "Naam",
@@ -597,22 +593,79 @@ I18n.translations.nl = {
     copied: "Naar klembord gekopieerd"
   },
   acceptTerms: {
-    welcome: "Hi {{name}}",
-    acceptTerms: "Om door te gaan moet je deze voorwaarden accepteren",
-    renewTerms: "De voorwaarden van edubadges zijn gewijzigd. Om door te gaan moet je de nieuwe voorwaarden accepteren",
-    eduBadges: "Overeenkomst met edubadges",
-    termsTitle: "Servicevoorwaarden van edubadges",
-    termsPre: "Lees en accepteer de ",
-    termsOfUseLink: "Servicevoorwaarden van edubadges.",
-    termsOfUseStudentRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/termsofservice-create-account-employee-nl.md",
-    termsOfUseTeacherRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/termsofservice-create-account-employee-nl.md",
-    badgeAwardTitle: "Badge toekenning voorwaarden van edubadges",
-    badgeAwardTerms: "Badge toekennings voorwaarden",
-    badgeAwardTermsPost: " voor instelling (en)",
-    badgeAwardTermsRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/termsofservice-create-account-institution-nl.md",
-    acceptTermsOfUse: "Ik accepteer de servicevoorwaarden",
-    acceptBadgeAwardTerms: "Ik accepteer de toekenningsvoorwaarden",
-    accept: "Get it on!"
+    welcome: "Hoi {{name}}",
+    acceptTerms: "Let op onze voorwaarden",
+    renewTerms: "De eduBadges-voorwaarden zijn gewijzigd. Let op onze nieuwe voorwaarden.",
+    teacher: {
+      accept: "Ik heb het gelezen",
+      termsInfo: "Het aanmaken van een backpack en het koppelen hiervan aan je eduID is noodzakelijk om " +
+        "om badges te kunnen ontvangen. Het backpack valt onder de verwerkingsverantwoordelijkheid van SURF",
+      serviceAgreementTitle: "Serviceovereenkomst",
+      serviceAgreementLinkPre: "Je kunt hier ",
+      serviceAgreementLink: "de volledige serviceovereenkomst",
+      serviceAgreementLinkPost: " inzien.",
+      termsTitle: "Terms",
+      termsLinkPre: "Door door te gaan, ga je akkoord met ",
+      termsLink: "onze voorwaarden",
+      termsLinkPost: ".",
+      privacyTitle: "Privacy",
+      privacyLinkPre: " Je gaat ook akkoord met onze ",
+      privacyLink: "privacy policy",
+      privacyLinkPost: "."
+    },
+    student: {
+      accept: "Ik ga akkoord",
+      termsInfo: "Het aanmaken van een backpack en het koppelen hiervan aan je eduID is noodzakelijk om " +
+        "om badges te kunnen ontvangen. Het backpack valt onder de verwerkingsverantwoordelijkheid van SURF",
+      serviceAgreementTitle: "Serviceovereenkomst",
+      serviceAgreementLinkPre: "Je kunt hier ",
+      serviceAgreementLink: "de volledige serviceovereenkomst",
+      serviceAgreementLinkPost: " inzien.",
+      termsTitle: "Terms",
+      termsLinkPre: "Door door te gaan, ga je akkoord met ",
+      termsLink: "onze voorwaarden",
+      termsLinkPost: ".",
+      privacyTitle: "Privacy",
+      privacyLinkPre: " Je gaat ook akkoord met onze ",
+      privacyLink: "privacy policy",
+      privacyLinkPost: "."
+    },
+    termsBullets: {
+      teacher:
+        [
+          "SURF maakt een backpack voor je op basis van je eduID. Dit backpack blijft bestaan totdat je dit backpack opheft.",
+          "SURF verwerkt hiervoor persoonsgegevens: je voornaam, achternaam, e-mailadres, eduID en eventuele persoonlijke teksten in badges.",
+          "Alleen jouw onderwijsinstelling en SURF hebben toegang tot deze persoonsgegevens."
+        ],
+      student:
+        [
+          "SURF maakt een backpack voor je op basis van je eduID. Dit backpack blijft bestaan totdat je dit backpack opheft.",
+          "SURF verwerkt hiervoor persoonsgegevens: je voornaam, achternaam, e-mailadres, eduID en eventuele persoonlijke teksten in badges.",
+          "Alleen jouw onderwijsinstelling en SURF hebben toegang tot deze persoonsgegevens."
+        ]
+    },
+    noValidInstitution: "No valid institution",
+    noValidInstitutionInfo: "The institution <strong>{{name}}</strong> connected to your eduID account is not participating in the eduBadges programme.<br/><br/>" +
+      "Please contact <a href='mailto:support@edubadges.nl'>support@edubadges.nl</a> for support or try linking an extra institution to your eduID account",
+    noValidInstitutionInfoForEnrollment: "Institution {{name}} is not connected to your eduID account. " +
+      "To enroll for this badge you will need verify that you can identify yourself at institution <strong>{{name}}</strong>.<br/><br/>" +
+      "Please contact <a href='mailto:support@edubadges.nl'>support@edubadges.nl</a> for support or try linking institution {{name}} to your eduID account",
+    goToSurfConext: "Proceed to eduID",
+    multipleValidInstitutions: "Multiple valid institutions",
+    multipleValidInstitutionsInfo: "You have multiple institutions connected to your eduID account.<br/><br/>" +
+      "Please choose with which institution you want to start using eduBadges.",
+    badgeClassEnrollmentTerms: {
+      formalBadges: "Formal Badges - please take notice of our terms",
+      inFormalBadges: "Informal Badges - please take notice of our terms",
+      statementTitle: "Statement",
+      statementLinkPre: "You can read here ",
+      statementLink: "the complete Statement.",
+      statementLinkPost: "",
+      privacyTitle: "Privacy",
+      privacyLinkPre: " You also understand the ",
+      privacyLink: "privacy policy.",
+      privacyLinkPost: ""
+    },
   },
   language: {
     en_EN: "Engels",
@@ -703,5 +756,26 @@ I18n.translations.nl = {
   eye: {
     awardView: "Award view",
     adminView: "Admin view"
+  },
+  studentEnroll: {
+    confirmation: {
+      title: "Aanvragen",
+      question: "Weet je zeker dat je de badge <strong>{{name}}</strong> wil aanvragen?"
+    }
+  },
+  terms: {
+    overviewTitle: "Overzicht alle terms",
+    termsTitle: "Terms of use",
+    privacyPolicyTitle: "Privacy Policy",
+    student: {
+      serviceAgreementRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/service-agreement-student-nl.md",
+      termsOfUseRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/edubadges-termsofservice-nl.md",
+      privacyPolicyRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/edubadges-privacy-statement-nl.md",
+    },
+    teacher: {
+      serviceAgreementRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/service-agreement-employee-nl.md",
+      termsOfUseRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/edubadges-termsofservice-nl.md",
+      privacyPolicyRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/edubadges-privacy-statement-nl.md",
+    }
   }
 };
