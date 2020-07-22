@@ -137,19 +137,22 @@
       name: I18n.t("editUsers.issuer.header"),
       attribute: "name",
       reverse: false,
-      sortType: sortType.ALPHA
+      sortType: sortType.ALPHA,
+      width: "38%"
     },
     {
       name: I18n.t("editUsers.faculty.header"),
       attribute: "faculty.name",
       reverse: false,
-      sortType: sortType.ALPHA
+      sortType: sortType.ALPHA,
+      width: "38%"
     },
     {
       name: I18n.t("editUsers.role"),
       attribute: "roles",
       reverse: false,
-      sortType: sortType.COLLECTION
+      sortType: sortType.COLLECTION,
+      width: "24%"
     }
   ];
 
@@ -325,7 +328,7 @@
             <td>
               {I18n.t(['editUsers', 'permissions', 'allRights'])}
               <br/>
-              {I18n.t(['editUsers', 'permissions', 'issuerGroupAllRights'])}
+              <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'issuerGroupAllRights'])}</span>
             </td>
           </tr>
         {/each}

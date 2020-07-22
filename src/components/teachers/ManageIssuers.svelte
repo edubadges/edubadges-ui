@@ -21,19 +21,24 @@
       name: I18n.t("teacher.name"),
       attribute: "name",
       reverse: false,
-      sortType: sortType.ALPHA
+      sortType: sortType.ALPHA,
+      width: "50%"
     },
     {
       name: I18n.t("teacher.badgeclasses.title"),
       attribute: "badgeclasses",
       reverse: false,
-      sortType: sortType.COLLECTION
+      sortType: sortType.COLLECTION,
+      width: "15%",
+      center: true
     },
     {
       name: I18n.t("teacher.badgeclasses.badges"),
       attribute: "badgeAssertions",
       reverse: false,
-      sortType: sortType.ISSUER_BADGE_CLASS_ASSERTIONS
+      sortType: sortType.ISSUER_BADGE_CLASS_ASSERTIONS,
+      width: "35%",
+      right: true
     }
 
   ];
@@ -73,8 +78,8 @@
         <br/>
         <span class="sub-text">({issuer.faculty.name})</span>
       </td>
-      <td>{issuer.badgeclasses.length}</td>
-      <td>{badgesCount(issuer.badgeclasses)}</td>
+      <td class="center">{issuer.badgeclasses.length}</td>
+      <td class="right">{badgesCount(issuer.badgeclasses)}</td>
     </tr>
   {/each}
   {#if issuers.length === 0}

@@ -97,13 +97,15 @@
       name: I18n.t("teacher.nameEmail"),
       attribute: "firstName",
       reverse: false,
-      sortType: sortType.ALPHA
+      sortType: sortType.ALPHA,
+      width: "70%"
     },
     {
       name: I18n.t("teacher.roles.title"),
       attribute: "role",
       reverse: false,
-      sortType: sortType.ROLES
+      sortType: sortType.ROLES,
+      width: "30%"
     }
   ];
 

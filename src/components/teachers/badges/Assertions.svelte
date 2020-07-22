@@ -100,38 +100,49 @@ import filter from "../../../icons/filter-1.svg";
       name: I18n.t("models.badge.recipient"),
       attribute: "user.email",
       reverse: false,
-      sortType: sortType.ALPHA
+      sortType: sortType.ALPHA,
+      width: "40%"
     },
     {
       name: I18n.t("models.badge.awardType.name"),
       attribute: "award_type",
       reverse: false,
       icon: filter,
-      sortType: sortType.ALPHA
+      sortType: sortType.ALPHA,
+      width: "12%",
+      center: true
     },
     {
       name: I18n.t("models.badge.issuedOn"),
       attribute: "issuedOn",
       reverse: false,
-      sortType: sortType.DATE
+      sortType: sortType.DATE,
+      width: "12%",
+      center: true
     },
     {
       name: I18n.t("models.badge.status"),
       attribute: "acceptance",
       reverse: false,
-      sortType: sortType.ALPHA
+      sortType: sortType.ALPHA,
+      width: "12%",
+      center: true
     },
     {
       name: I18n.t("models.badge.claimed"),
       attribute: "updatedOn",
       reverse: false,
-      sortType: sortType.DATE
+      sortType: sortType.DATE,
+      width: "12%",
+      center: true
     },
     {
       name: I18n.t("models.badge.expires"),
       attribute: "expiresAt",
       reverse: false,
-      sortType: sortType.DATE
+      sortType: sortType.DATE,
+      width: "12%",
+      right: true
     }
   ];
 
@@ -157,10 +168,6 @@ import filter from "../../../icons/filter-1.svg";
 </script>
 
 <style lang="scss">
-
-  div.single-neutral-check {
-    width: 26px;
-  }
 
   div.recipient {
     display: flex;
@@ -245,16 +252,22 @@ import filter from "../../../icons/filter-1.svg";
           <span>{assertion.user.email}</span>
         </div>
       </td>
-      <td>
+      <td class="center">
         <!--  ToDo     -->
         {I18n.t("models.badge.awardType.enrolled")}
       </td>
-      <td>{moment(assertion.dateCreated).format('MMM D, YYYY')}</td>
-      <td class="assertion-status">
+      <td class="center">
+        {moment(assertion.dateCreated).format('MMM D, YYYY')}
+      </td>
+      <td class="assertion-status center">
         <span class={assertionStatusClass(assertion)}>{assertionStatus(assertion)}</span>
       </td>
-      <td>{assertion.updatedAt ? moment(assertion.updatedAt).format('MMM D, YYYY') : ""}</td>
-      <td>{assertion.expiresAt ? moment(assertion.expiresAt).format('MMM D, YYYY') : ""}</td>
+      <td class="center">
+        {assertion.updatedAt ? moment(assertion.updatedAt).format('MMM D, YYYY') : ""}
+      </td>
+      <td class="right">
+        {assertion.expiresAt ? moment(assertion.expiresAt).format('MMM D, YYYY') : ""}
+      </td>
     </tr>
   {/each}
   {#if assertions.length === 0}

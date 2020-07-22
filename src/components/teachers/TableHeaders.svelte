@@ -32,7 +32,10 @@
       on:click={() => !hide && setSort(th)}
       class:hide
       class:asc={sort.attribute === th.attribute && sort.reverse}
-        class:desc={sort.attribute === th.attribute && !sort.reverse}>
+      class:desc={sort.attribute === th.attribute && !sort.reverse}
+      class:center={th.center}
+      class:right={th.right}
+      width={th.width}>
     {th.name || ""}
     {#if th.icon}
       {@html th.icon}

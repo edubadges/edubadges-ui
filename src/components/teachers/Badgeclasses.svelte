@@ -15,25 +15,31 @@
       name: I18n.t("teacher.name"),
       attribute: "name",
       reverse: false,
-      sortType: sortType.ALPHA
+      sortType: sortType.ALPHA,
+      width: "45%"
     },
     {
       name: I18n.t("teacher.badgeclasses.created"),
       attribute: "created",
       reverse: false,
-      sortType: sortType.ALPHA
+      sortType: sortType.ALPHA,
+      width: "30%"
     },
     {
       name: I18n.t("teacher.badgeclasses.recipients"),
       attribute: "recipients",
       reverse: false,
-      sortType: sortType.ALPHA
+      sortType: sortType.ALPHA,
+      width: "10%",
+      center: true
     },
     {
       name: I18n.t("teacher.badgeclasses.studyLoad"),
       attribute: "studyLoad",
       reverse: false,
-      sortType: sortType.ALPHA
+      sortType: sortType.ALPHA,
+      width: "15%",
+      right: true
     }
   ];
 
@@ -69,8 +75,8 @@
       on:click={() => navigate(`/manage/badgeclass/${badgeclass.entityId}`)}>
       <td>{badgeclass.name}</td>
       <td>{moment(badgeclass.dateCreated).format('MMM D, YYYY')}</td>
-      <td>{badgeclass.badgeAssertions.length}</td>
-      <td>{badgeclass.studyLoad}</td>
+      <td class="center">{badgeclass.badgeAssertions.length}</td>
+      <td class="right">{badgeclass.studyLoad}</td>
     </tr>
   {/each}
   {#if badgeclasses.length === 0}
