@@ -219,14 +219,14 @@
     }
   };
 
-  $: disabledCheckAll = entity === entityType.INSTITUTION ? sortedFilteredStaffs.filter(({_staffType}) => _staffType === staffType.INSTITUTION_STAFF).length === 1 +
-      sortedFilteredStaffs.filter(({_staffType}) => _staffType === staffType.USER_PROVISIONMENT).length:
-    entity === entityType.ISSUER_GROUP ? sortedFilteredStaffs.filter(({_staffType}) => _staffType === staffType.ISSUER_GROUP_STAFF).length === 0 +
-      sortedFilteredStaffs.filter(({_staffType}) => _staffType === staffType.USER_PROVISIONMENT).length:
-    entity === entityType.ISSUER ? sortedFilteredStaffs.filter(({_staffType}) => _staffType === staffType.ISSUER_STAFF).length === 0 +
-      sortedFilteredStaffs.filter(({_staffType}) => _staffType === staffType.USER_PROVISIONMENT).length:
-    entity === entityType.BADGE_CLASS ? sortedFilteredStaffs.filter(({_staffType}) => _staffType === staffType.BADGE_CLASS_STAFF).length === 0 +
-      sortedFilteredStaffs.filter(({_staffType}) => _staffType === staffType.USER_PROVISIONMENT).length: '';
+  $: disabledCheckAll = entity === entityType.INSTITUTION ? sortedFilteredStaffs.filter(({_staffType}) => _staffType === staffType.INSTITUTION_STAFF).length +
+      sortedFilteredStaffs.filter(({_staffType}) => _staffType === staffType.USER_PROVISIONMENT).length === 1 :
+    entity === entityType.ISSUER_GROUP ? sortedFilteredStaffs.filter(({_staffType}) => _staffType === staffType.ISSUER_GROUP_STAFF).length +
+      sortedFilteredStaffs.filter(({_staffType}) => _staffType === staffType.USER_PROVISIONMENT).length === 0 :
+    entity === entityType.ISSUER ? sortedFilteredStaffs.filter(({_staffType}) => _staffType === staffType.ISSUER_STAFF).length +
+      sortedFilteredStaffs.filter(({_staffType}) => _staffType === staffType.USER_PROVISIONMENT).length === 0 :
+    entity === entityType.BADGE_CLASS ? sortedFilteredStaffs.filter(({_staffType}) => _staffType === staffType.BADGE_CLASS_STAFF).length +
+      sortedFilteredStaffs.filter(({_staffType}) => _staffType === staffType.USER_PROVISIONMENT).length === 0 : '';
 </script>
 
 <style>
