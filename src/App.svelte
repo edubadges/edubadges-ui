@@ -77,14 +77,12 @@
     background-color: white;
     box-shadow: 0 3px 0 2px #abb4bd;
     position: relative;
-  }
-
-  div.page.flex {
     display: flex;
   }
 
   div.page-container {
     height: auto;
+    width: 100%;
   }
 
   input::placeholder {
@@ -105,7 +103,7 @@
       <Header/>
     {/if}
 
-    <div class={`page ${visitorRole === role.STUDENT ? 'flex' : ''}`} >
+    <div class="page">
       <Router>
         <!-- Student -->
         <Route path="/backpack">

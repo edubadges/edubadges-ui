@@ -8,7 +8,7 @@
   import {Overview} from "../teachers/badgeclass";
   import Assertions from "../teachers/badges/Assertions.svelte";
   import Enrollments from "../teachers/badges/Enrollments.svelte";
-  import { chevronLeft} from "../../icons";
+  import {chevronLeft} from "../../icons";
   import {queryData} from "../../api/graphql";
   import {
     headerStaff,
@@ -120,6 +120,12 @@
 </script>
 
 <style lang="scss">
+  div.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
   div.nav {
     padding: var(--ver-padding-m) var(--hor-padding-m);
     min-height: 47px;
@@ -164,53 +170,56 @@
   }
 
 </style>
-{#if loaded}
-  <div class="nav">
-    <span class="svg-container">{@html chevronLeft}</span>
-    <span class="click" on:click={() => navigate("/")}>
+<div class="container">
+
+  {#if loaded}
+    <div class="nav">
+      <span class="svg-container">{@html chevronLeft}</span>
+      <span class="click" on:click={() => navigate("/")}>
       {I18n.t('teacher.breadcrumb.back')}
     </span>
-    <LinkEye badgeclass={badgeclass} isAdminView={false}/>
-  </div>
+      <LinkEye badgeclass={badgeclass} isAdminView={false}/>
+    </div>
 
-  <EntityHeader
-    object={badgeclass}
-    entity={entityType.BADGE_CLASS}
-    {tabs}
-    {headerItems}
-    mayUpdate={false}>
-    <!--  <div class="slots">-->
-    <!--    <Button href={`/invite-enrollements/${badgeclass.entityId}`} text={I18n.t("models.badgeclass.inviteEnrollements")}/>-->
-    <!--  </div>-->
-  </EntityHeader>
+    <EntityHeader
+      object={badgeclass}
+      entity={entityType.BADGE_CLASS}
+      {tabs}
+      {headerItems}
+      mayUpdate={false}>
+      <!--  <div class="slots">-->
+      <!--    <Button href={`/invite-enrollements/${badgeclass.entityId}`} text={I18n.t("models.badgeclass.inviteEnrollements")}/>-->
+      <!--  </div>-->
+    </EntityHeader>
 
-  <div>
-    <Router>
-      <Route path="/overview">
-        <Overview {badgeclass}>
-          <div class="public-link">
-            <div class="info">
-              <span>{@html info}</span>
-              <span>{I18n.t("invites.copyPublicUrl")}</span>
+    <div>
+      <Router>
+        <Route path="/overview">
+          <Overview {badgeclass}>
+            <div class="public-link">
+              <div class="info">
+                <span>{@html info}</span>
+                <span>{I18n.t("invites.copyPublicUrl")}</span>
+              </div>
+              <div class="options">
+                <input class="input-field full" disabled={true} value={publicUrl()}/>
+                <CopyToClipboardButton toCopy={publicUrl()} text={I18n.t("invites.copyUrl")}/>
+              </div>
             </div>
-            <div class="options">
-              <input class="input-field full" disabled={true} value={publicUrl()}/>
-              <CopyToClipboardButton toCopy={publicUrl()} text={I18n.t("invites.copyUrl")}/>
-            </div>
-          </div>
 
-        </Overview>
-      </Route>
+          </Overview>
+        </Route>
 
-      <Route path="/enrollments">
-        <Enrollments {entityId} bind:enrollments badgeclassName={badgeclass.name} refresh={refresh}/>
-      </Route>
+        <Route path="/enrollments">
+          <Enrollments {entityId} bind:enrollments badgeclassName={badgeclass.name} refresh={refresh}/>
+        </Route>
 
-      <Route path="/awarded">
-        <Assertions {issuer} {badgeclass} {assertions} refresh={refresh}/>
-      </Route>
-    </Router>
-  </div>
-{:else}
-  <Spinner/>
-{/if}
+        <Route path="/awarded">
+          <Assertions {issuer} {badgeclass} {assertions} refresh={refresh}/>
+        </Route>
+      </Router>
+    </div>
+  {:else}
+    <Spinner/>
+  {/if}
+</div>
