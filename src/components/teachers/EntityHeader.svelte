@@ -10,29 +10,14 @@
   import {entityType} from "../../util/entityTypes"
 
   export let entity;
-  export let entityId;
   export let object = {};
   export let mayUpdate;
 
   export let tabs;
   export let headerItems;
   export let visitorRole = role.TEACHER;
-  export let enrolled;
 
   let imageId = "";
-
-  const enrollStudent = () => {
-    requestBadge(entityId)
-      .then(() => {
-        enrolled = true;
-        flash.setValue(I18n.t('student.flash.enrolled', {name: object.name}));
-      })
-      .catch(err => {
-        err.then(details => {
-          flash.error(details);
-        })
-      });
-  };
 
 </script>
 
@@ -116,15 +101,6 @@
       <div class="list">
         <HeaderList {entity} {headerItems}/>
       </div>
-    </div>
-    <div class="slots">
-      {#if visitorRole === role.STUDENT && entity === entityType.BADGE_CLASS}
-        {#if !enrolled}
-          <Button secondary action={enrollStudent} text={I18n.t('student.enroll')} class="btn"/>
-        {:else}
-          <Button label="alreadyEnrolled" disabled={true} text={I18n.t('student.enrolled')}/>
-        {/if}
-      {/if}
     </div>
     {#if visitorRole === role.TEACHER && mayUpdate}
       <div class="actions">

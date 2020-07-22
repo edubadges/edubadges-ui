@@ -17,7 +17,7 @@
 
   const handle_keydown = e => {
     if (e.key === "Escape") {
-      cancel();
+      cancel && cancel();
     }
   };
 
@@ -37,7 +37,9 @@
       <slot/>
     </div>
     <div class="options" class:hideSubmit>
-      <Button secondary={true} action={cancel} text={cancelLabel} />
+      {#if cancel}
+        <Button secondary={true} action={cancel} text={cancelLabel}/>
+      {/if}
       {#if !hideSubmit}
         <Button warning={warning} action={submit} text={submitLabel} disabled={disabled}/>
       {/if}
@@ -76,6 +78,7 @@
   .modal-header.warning {
     background-color: var(--red-strong-dark);
     color: white;
+
     h3 {
       color: white;
     }

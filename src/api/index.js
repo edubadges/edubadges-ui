@@ -53,8 +53,8 @@ function validFetch(path, options = {}, method = "GET", useToken = true, showErr
 
 // External API
 // Token and Profile
-export function requestLoginToken(service) {
-  window.location.href = `${serverUrl}/account/sociallogin?provider=${service}`;
+export function requestLoginToken(service, forceAuthn = false) {
+  window.location.href = `${serverUrl}/account/sociallogin?provider=${service}&forceAuthn=${forceAuthn}`;
 }
 
 export function getProfile() {
@@ -105,6 +105,29 @@ export function getSocialAccounts() {
   const path = `${serverUrl}/v1/user/socialaccounts`;
   return validFetch(path);
 }
+// Institutions
+export function validateInstitutions(schacHomeOrganisations, invalid = false) {
+  return Promise.resolve( schacHomeOrganisations.map(org => ({schac_home_organisation: org, valid: !invalid})));
+}
+
+// Institutions
+export function institutionDetail(schacHomeOrganisation) {
+  return Promise.resolve( {
+    identifier: schacHomeOrganisation,
+    logo_url: "https://d1rkab7tlqy5f1.cloudfront.net/Admin/Julie/TUD.png",
+    name: `Name ${schacHomeOrganisation}`,
+    formal_edubadges_agreement_en_url: "https://raw.githubusercontent.com/edubadges/privacy/master/harvard-example.edu/formal-edubadges-agreement-en.md",
+    formal_edubadges_excerpt_en_url: "https://raw.githubusercontent.com/edubadges/privacy/master/harvard-example.edu/formal-edubadges-excerpt-en.md",
+    informal_edubadges_agreement_en_url: "https://raw.githubusercontent.com/edubadges/privacy/master/harvard-example.edu/informal-edubadges-agreement-en.md",
+    informal_edubadges_excerpt_en_url: "https://raw.githubusercontent.com/edubadges/privacy/master/harvard-example.edu/informal-edubadges-excerpt-en.md",
+    formal_edubadges_agreement_nl_url: "https://raw.githubusercontent.com/edubadges/privacy/master/harvard-example.edu/formal-edubadges-agreement-nl.md",
+    formal_edubadges_excerpt_nl_url: "https://raw.githubusercontent.com/edubadges/privacy/master/harvard-example.edu/formal-edubadges-excerpt-nl.md",
+    informal_edubadges_agreement_nl_url: "https://raw.githubusercontent.com/edubadges/privacy/master/harvard-example.edu/informal-edubadges-agreement-nl.md",
+    informal_edubadges_excerpt_nl_url: "https://raw.githubusercontent.com/edubadges/privacy/master/harvard-example.edu/informal-edubadges-excerpt-nl.md"
+  });
+
+}
+
 
 // Student badges
 export function requestBadge(id) {

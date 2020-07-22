@@ -1,0 +1,31 @@
+div.markdown-body h1, h2, h3, h4 {
+  margin: 15px 0 5px 0;
+}
+
+div.markdown-body table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 15px 0;
+}
+
+div.markdown-body thead {
+  color: var(--purple);
+  border-bottom: 3px solid var(--grey-3);
+  text-align: left;
+  padding: 5px;
+}
+
+div.markdown-body td {
+  padding: 7px 5px;
+}
+
+div.markdown-body tr:nth-child(even) {
+  background: var(--grey-1);
+}
+
+div.markdown-body ul, div.markdown-body ol {
+  margin: 15px 0 15px 25px;
+  list-style: circle;
+  line-height: 22px;
+}
+
