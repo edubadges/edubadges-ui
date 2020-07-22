@@ -1,13 +1,9 @@
-<script context="module">
-  const cache = {};
-</script>
-
 <script>
   import I18n from "i18n-js";
   import Button from "../Button.svelte";
   import {onMount} from "svelte";
-  import marked from "marked";
   import Spinner from "../Spinner.svelte";
+  import {fetchMarkdown} from "../../api/markdown";
 
   export let title;
   export let submit;
@@ -19,23 +15,11 @@
   let htmlTerms;
   let loaded = false;
 
-  const fetchOptions = {
-    method: "GET",
-    credentials: "same-origin"
-  };
-
   onMount(() => {
-    if (cache[url]) {
-      htmlTerms = cache[url];
+    fetchMarkdown(url).then(res => {
+      htmlTerms = res;
       loaded = true;
-    } else {
-      fetch(url, fetchOptions).then(res => res.text()).then(text => {
-        htmlTerms = marked(text);
-        htmlTerms = htmlTerms.replace(/<a href=/g, "<a target=\"_blank\" href=");
-        cache[url] = htmlTerms;
-        loaded = true;
-      });
-    }
+    });
   });
 
   const handleKeydown = e => {
@@ -47,43 +31,6 @@
 </script>
 
 <style lang="scss">
-  div.modal-terms-body :global(h1), div.modal-terms-body :global(h2),
-  div.modal-terms-body :global(h3), div.modal-terms-body :global(h4) {
-    margin: 15px 0 5px 0;
-  }
-
-  div.modal-terms-body :global(table) {
-    border-collapse: collapse;
-    width: 100%;
-    margin: 15px 0;
-  }
-
-  div.modal-terms-body :global(thead) {
-    color: var(--purple);
-    border-bottom: 3px solid var(--grey-3);
-    text-align: left;
-    padding: 5px;
-  }
-
-  div.modal-terms-body :global(td) {
-    padding: 5px;
-  }
-
-  div.modal-terms-body :global(tr:nth-child(even)) {
-    background: var(--grey-1);
-  }
-
-  div.modal-terms-body :global(ul) {
-    margin: 15px 0 15px 25px;
-    list-style: circle;
-    line-height: 22px;
-  }
-
-  div.modal-terms-body :global(ol) {
-    margin: 15px 0 15px 25px;
-    list-style: circle;
-    line-height: 22px;
-  }
 
   div.modal-terms {
     position: fixed;
@@ -139,7 +86,7 @@
       <div class="modal-header">
         <h3>{title}</h3>
       </div>
-      <div class="modal-terms-body">
+      <div class="modal-terms-body markdown-body">
         {@html htmlTerms}
       </div>
       <div class="actions">

@@ -26,6 +26,5 @@ function validFetch(query) {
   ).then(validateResponse)
 }
 
-export const queryData = (query) => {
-  return validFetch(`query ${query}`)
-};
+export const queryData = query => validFetch(`query ${query}`);
+

@@ -37,6 +37,7 @@
   let modalAction;
 
   let showAcceptTerms = false;
+  let termsAccepted = false;
   let noValidInstitution = false;
 
   const login = () => {
@@ -106,7 +107,6 @@
         loaded = true;
       });
     } else {
-
       getPublicBadgeClass(entityId).then(res => {
         badgeClass = res;
         publicBadgeInformation(badgeClass, res);
@@ -121,19 +121,25 @@
     if (schacHomes.indexOf(identifier) < 0) {
 
     }
-    return true;
+    return !termsAccepted && true;
   }
 
 
   const userHasAgreed = () => {
     showAcceptTerms = false;
+    termsAccepted = true;
     //TODO POST accepted to the server to create terms & agreement for this user / institution of the badge
     enrollStudent(false);
   }
 
+  const userDisagreed = () => {
+    showAcceptTerms = false;
+  }
+
   const enrollStudent = showConfirmation => {
     const identifier = badgeClass.issuer.faculty.institution.identifier;
-    if (schacHomes.indexOf(identifier) < 0) {
+    //TODO remove false
+    if (schacHomes.indexOf(identifier) < 0 && false) {
       noValidInstitution = true;
       return;
     }
@@ -147,13 +153,21 @@
       modalAction = () => enrollStudent(false);
       showModal = true;
     } else {
+      loaded = false;
       requestBadge(entityId)
         .then(() => {
-          studentEnrolled = true;
+          loaded = true;
+          queryData(query).then(res => {
+            const enrollment = res.enrollment;
+            studentEnrolled = true;
+            enrollmentId = enrollment.entityId;
+            requestedDate = enrollment.dateCreated;
           flash.setValue(I18n.t('student.flash.enrolled', {name: badgeClass.name}));
+          });
         })
         .catch(err => {
           err.then(details => {
+            loaded = true;
             flash.error(details);
           })
         });
@@ -166,31 +180,32 @@
 
 
 </script>
-{#if loaded && !showAcceptTerms}
+{#if loaded}
+  {#if !showAcceptTerms}
+    <div class="page-container">
+      <EntityHeader
+        entity={entityType.BADGE_CLASS}
+        object={badgeClass}
+        visitorRole={visitorRole}>
+        {#if visitorRole === role.GUEST}
+          <div class="slots">
+            <Button text={I18n.t("login.loginToEnrol")} action={login}/>
+          </div>
+        {:else if visitorRole === role.STUDENT}
+          <div class="slots">
+            {#if !studentEnrolled}
+            <Button secondary action={() => enrollStudent(true)} text={I18n.t('student.enroll')} class="btn"/>
+            {:else}
+              <Button label="alreadyEnrolled" disabled={true} text={I18n.t('student.enrolled')}/>
+            {/if}
+          </div>
+        {/if}
+      </EntityHeader>
 
-  <div class="page-container">
-    <EntityHeader
-      entity={entityType.BADGE_CLASS}
-      object={badgeClass}
-      visitorRole={visitorRole}>
-      {#if visitorRole === role.GUEST}
-        <div class="slots">
-          <Button text={I18n.t("login.loginToEnrol")} action={login}/>
-        </div>
-      {:else if visitorRole === role.STUDENT}
-        <div class="slots">
-          {#if !studentEnrolled}
-          <Button secondary action={() => enrollStudent(true)} text={I18n.t('student.enroll')} class="btn"/>
-          {:else}
-            <Button label="alreadyEnrolled" disabled={true} text={I18n.t('student.enrolled')}/>
-          {/if}
-        </div>
-      {/if}
-    </EntityHeader>
-
-    <Overview badgeclass={badgeClass} studentEnrolled={studentEnrolled} enrollmentId={enrollmentId}
-              requested={requestedDate} studentPath={I18n.t("student.enrollments")}/>
-  </div>
+      <Overview badgeclass={badgeClass} studentEnrolled={studentEnrolled} enrollmentId={enrollmentId}
+                requested={requestedDate} studentPath={I18n.t("student.enrollments")}/>
+    </div>
+  {/if}
 {:else}
   <Spinner/>
 {/if}
@@ -205,7 +220,7 @@
 
 {#if showAcceptTerms}
   <AcceptInstitutionTerms
-    institutionIdentifier={badgeClass.issuer.faculty.institution.identifier} userHasAgreed={userHasAgreed}/>
+    badgeClass={badgeClass} userHasAgreed={userHasAgreed} userDisagreed={userDisagreed}/>
 {/if}
 
 {#if noValidInstitution}

@@ -123,7 +123,7 @@ export function institutionDetail(schacHomeOrganisation) {
     formal_edubadges_agreement_nl_url: "https://raw.githubusercontent.com/edubadges/privacy/master/harvard-example.edu/formal-edubadges-agreement-nl.md",
     formal_edubadges_excerpt_nl_url: "https://raw.githubusercontent.com/edubadges/privacy/master/harvard-example.edu/formal-edubadges-excerpt-nl.md",
     informal_edubadges_agreement_nl_url: "https://raw.githubusercontent.com/edubadges/privacy/master/harvard-example.edu/informal-edubadges-agreement-nl.md",
-    informal_edubadges_excerpt_nl_url: "https://raw.githubusercontent.com/edubadges/privacy/master/harvard-example.edu/informal-edubadges-excerpt-en.md"
+    informal_edubadges_excerpt_nl_url: "https://raw.githubusercontent.com/edubadges/privacy/master/harvard-example.edu/informal-edubadges-excerpt-nl.md"
   });
 
 }

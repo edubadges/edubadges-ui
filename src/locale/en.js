@@ -647,13 +647,26 @@ I18n.translations.en = {
     noValidInstitution: "No valid institution",
     noValidInstitutionInfo: "The institution <strong>{{name}}</strong> connected to your eduID account is not participating in the eduBadges programme.<br/><br/>" +
       "Please contact <a href='mailto:support@edubadges.nl'>support@edubadges.nl</a> for support or try linking an extra institution to your eduID account",
-    noValidInstitutionInfoForEnrollment: "Institution {{name}} is not connected to your eduID account. " +
-      "To enroll for this badge you will need verify that you can identify yourself at institution <strong>{{name}}</strong>.<br/><br/>" +
-      "Please contact <a href='mailto:support@edubadges.nl'>support@edubadges.nl</a> for support or try linking institution {{name}} to your eduID account",
+    noValidInstitutionInfoForEnrollment: "Institution <strong>{{name}}</strong> is not connected to your eduID account. " +
+      "To enroll for this badge eduBadges requires verification that you can identify yourself at institution <strong>{{name}}</strong>.<br/><br/>" +
+      "Please contact <a href='mailto:support@edubadges.nl'>support@edubadges.nl</a> for support or try linking institution <strong>{{name}}</strong> to your eduID account",
     goToSurfConext: "Proceed to eduID",
     multipleValidInstitutions: "Multiple valid institutions",
     multipleValidInstitutionsInfo: "You have multiple institutions connected to your eduID account.<br/><br/>" +
-      "Please choose with which institution you want to start using eduBadges."
+      "Please choose with which institution you want to start using eduBadges.",
+    badgeClassEnrollmentTerms: {
+      formalBadges: "Formal Badges - please take notice of our terms",
+      inFormalBadges: "Informal Badges - please take notice of our terms",
+      statementTitle: "Statement",
+      statementLinkPre: "You can read here ",
+      statementLink: "the complete Statement.",
+      statementLinkPost: "",
+      privacyTitle: "Privacy",
+      privacyLinkPre: " You also understand the ",
+      privacyLink: "privacy policy.",
+      privacyLinkPost: ""
+    },
+
   },
   language: {
     en_EN: "English",

@@ -653,7 +653,19 @@ I18n.translations.nl = {
     goToSurfConext: "Proceed to eduID",
     multipleValidInstitutions: "Multiple valid institutions",
     multipleValidInstitutionsInfo: "You have multiple institutions connected to your eduID account.<br/><br/>" +
-      "Please choose with which institution you want to start using eduBadges."
+      "Please choose with which institution you want to start using eduBadges.",
+    badgeClassEnrollmentTerms: {
+      formalBadges: "Formal Badges - please take notice of our terms",
+      inFormalBadges: "Informal Badges - please take notice of our terms",
+      statementTitle: "Statement",
+      statementLinkPre: "You can read here ",
+      statementLink: "the complete Statement.",
+      statementLinkPost: "",
+      privacyTitle: "Privacy",
+      privacyLinkPre: " You also understand the ",
+      privacyLink: "privacy policy.",
+      privacyLinkPost: ""
+    },
   },
   language: {
     en_EN: "Engels",

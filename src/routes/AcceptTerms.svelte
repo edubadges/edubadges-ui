@@ -130,7 +130,10 @@
     display: flex;
     align-content: center;
     align-items: center;
-    margin: 25px 0;
+    margin: 12px 0;
+    padding: 12px;
+    background-color: var(--grey-1);
+    border-radius: 8px;
 
     p {
       margin-left: 25px;

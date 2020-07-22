@@ -1,273 +1,165 @@
 <script>
-import {onMount} from "svelte";
-import * as jwt_decode from "jwt-decode";
-import {config} from "../util/config";
-import info from "../icons/informational.svg";
-import {Button, Spinner} from "../components";
-import I18n from "i18n-js";
-import ToggleSwitch from "../components/ToggleSwitch.svelte";
-import ModalTerms from "../components/forms/FancyMarkdownModalTermsViewer.svelte";
-import {userRole} from "../stores/user";
-import {role as roleConstants} from "../util/role";
-import {institutionDetail, requestLoginToken, validateInstitutions} from "../api";
-import Modal from "../components/forms/Modal.svelte";
-import {getService} from "../util/getService";
-import RadioButton from "../components/forms/RadioButton.svelte";
-import termsIcon from "../icons/voorwaarden-icon1.svg"
-import terms2Icon from "../icons/voorwaarden-icon2.svg"
+  import {onMount} from "svelte";
+  import {Button, Spinner} from "../components";
+  import I18n from "i18n-js";
+  import ModalTerms from "../components/forms/FancyMarkdownModalTermsViewer.svelte";
+  import {institutionDetail} from "../api";
+  import termsIcon from "../icons/voorwaarden-icon1.svg";
+  import terms2Icon from "../icons/voorwaarden-icon2.svg";
+  import {fetchMarkdown} from "../api/markdown";
 
-export let institutionIdentifier;
-export let userHasAgreed;
+  export let userHasAgreed;
+  export let userDisagreed;
+  export let badgeClass;
+  export let institution;
 
-let loaded = false;
-let showModalTerms = false;
-let termsUrl;
-let termsTitle;
-let institution = {};
+  let loaded = false;
+  let showModalTerms = false;
+  let termsUrl;
+  let termsTitle;
 
-const fetchOptions = {
-  method: "GET",
-  credentials: "same-origin"
-};
+  let excerptMarkDown;
+  let statementRawUrl;
 
-onMount(() => {
-  institutionDetail(institutionIdentifier).then(res => {
-    institution = res;
-    //TODO - informal / formal badge and locale
-    //formal_edubadges_agreement_en_url
-    const url = ``
-    fetch(url, fetchOptions).then(res => res.text()).then(text => {
-      htmlTerms = marked(text);
-      htmlTerms = htmlTerms.replace(/<a href=/g, "<a target=\"_blank\" href=");
-      cache[url] = htmlTerms;
-      loaded = true;
-    });
+  onMount(() => {
+    institutionDetail(badgeClass.issuer.faculty.institution.identifier)
+      .then(res => {
+        institution = res;
+        statementRawUrl = institution[`${badgeClass.formal ? "formal" : "informal"}_edubadges_agreement_${I18n.locale}_url`];
 
-    loaded = true;
-  });
-});
+        const excerptRawUrl = institution[`${badgeClass.formal ? "formal" : "informal"}_edubadges_excerpt_${I18n.locale}_url`];
+        fetchMarkdown(excerptRawUrl).then(res => {
+          excerptMarkDown = res;
+          loaded = true;
 
-const showTerms = (title, url) => () => {
-  showModalTerms = true;
-  termsUrl = url;
-  termsTitle = title;
-};
+        });
+      })
 
-const closeTerms = () => showModalTerms = false;
+  })
 
-<
-/script>
+  const showTerms = (title, url) => () => {
+    showModalTerms = true;
+    termsUrl = url;
+    termsTitle = title;
+  };
 
-< style
-lang = "scss" >
-.page - container
-{
-  display: flex;
-  flex: 1;
-}
+  const closeTerms = () => showModalTerms = false;
 
-.content
-{
-  padding: 40
-  px;
-}
+</script>
 
-h3
-{
-  color: var (
-  --grey - 9
-)
-  ;
-  font - size
-:
-  22
-  px;
-  margin: 35
-  px
-  0
-  20
-  px
-  0;
-}
-
-p.terms
-{
-  margin: 25
-  px
-  0;
-}
-
-ul
-{
-  list - style
-:
-  circle;
-  margin - left
-:
-  30
-  px;
-}
-
-@media(max - width:
-820
-px
-)
-{
-.
-  content
-  {
-    width: 100 %;
+<style lang="scss">
+  .page-container {
+    display: flex;
+    flex: 1;
   }
-}
 
-div.agree
-{
-  display: flex;
-  align - content
-:
-  center;
-  align - items
-:
-  center;
-  margin: 25
-  px
-  0;
-
-  p
-  {
-    margin - left
-  :
-    25
-    px;
-
-    a
-    {
-      text - decoration
-    :
-      underline;
+  .content {
+    padding: 40px;
+    flex: 1;
+  }
+  div.header {
+    display: flex;
+    align-items: center;
+    img {
+      margin-left: auto;
     }
   }
-}
 
-div.actions
-{
-  margin - top
-:
-  20
-  px;
-  display: inline - block;
-  width: 100 %;
-}
-
-div.slots
-{
-  display: flex;
-  flex - direction
-:
-  column;
-
-  div.institution - chooser
-  {
-    padding: 0
-    0
-    20
-    px
-    15
-    px;
+  h3 {
+    color: var(--grey-9);
+    font-size: 22px;
+    margin: 35px 0 20px 0;
   }
-}
+
+  @media (max-width: 820px) {
+    .content {
+      width: 100%;
+    }
+  }
+
+  div.agree {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    margin: 12px 0;
+    padding: 12px;
+    background-color: var(--grey-1);
+    border-radius: 8px;
+
+    p {
+      margin-left: 25px;
+
+      a {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  div.actions {
+    margin-top: 20px;
+    display: flex;
+    width: 100%;
+    div.cancel {
+      margin-right: 25px;
+    }
+  }
 
 
-<
-/style>
+</style>
 
-< div
-class
-= "page-container" >
-  < p
-class="content" >
-{#if loaded}
-    < h1 >{I18n.t("acceptTerms.welcome", {name: claims.preferred_username})}< /h1>
-    < h3 >{resign ? I18n.t("acceptTerms.renewTerms"): I18n.t("acceptTerms.acceptTerms")}< /h3>
-    < p class
-  = "terms" >{I18n.translations[I18n.locale].acceptTerms[$userRole].termsInfo}< /p>
-    < ul >
-    {#each I18n.translations[I18n.locale].acceptTerms.termsBullets[$userRole] as bullet}
-      < li >{bullet}< /li>
-    {/each}
-    < /ul>
-    < div
-  class
-  = "agree" >
-    {@html termsIcon}
-    < p >
-    < span >{I18n.t(`acceptTerms.${$userRole}.overviewLinkPre`)}< /span>
-    < a
-  href = "/terms"
-  on:click | preventDefault | stopPropagation = {
-    showTerms(
-      I18n.t(`acceptTerms.${$userRole}.overviewTitle`),
-    I18n.t(`terms.${$userRole}.overviewTermsRaw`)
-  )
-  }>
-  {I18n.t(`acceptTerms.${$userRole}.overviewLink`)}
-  <
-  /a>
-  < span >{I18n.t(`acceptTerms.${$userRole}.overviewLinkPost`)}< /span>
-  < /p>
-  < /div>
-  < div
-  class
-  = "agree" >
-    {@html terms2Icon}
-    < p >
-    < span >{I18n.t(`acceptTerms.${$userRole}.termsLinkPre`)}< /span>
-    < a
-  href = "/terms"
-  on:click | preventDefault | stopPropagation = {
-    showTerms(
-      I18n.t(`acceptTerms.${$userRole}.termsTitle`),
-    I18n.t(`terms.${$userRole}.termsOfUseRaw`)
-  )
-  }>
-  {I18n.t(`acceptTerms.${$userRole}.termsLink`)}
-  <
-  /a>
-  < span >{I18n.t(`acceptTerms.${$userRole}.termsLinkPost`)}< /span>
-  < span >{I18n.t(`acceptTerms.${$userRole}.privacyLinkPre`)}< /span>
-  < a
-  href = "/terms"
-  on:click | preventDefault | stopPropagation = {
-    showTerms(
-      I18n.t(`acceptTerms.${$userRole}.privacyTitle`),
-    I18n.t(`terms.${$userRole}.privacyPolicyRaw`)
-  )
-  }>
-  {I18n.t(`acceptTerms.${$userRole}.privacyLink`)}
-  <
-  /a>
-  < span >{I18n.t(`acceptTerms.${$userRole}.privacyLinkPost`)}< /span>
-  < /p>
-  < /div>
-  < div
-  class
-  = "actions" >
-    < Button
-  text = {I18n.t("acceptTerms.accept")}
-  action = {userHasAgreed}
-  full = {true}/>
-  </div>
-{:else}
-  <Spinner/>
-{/if}
+<div class="page-container">
+  <p class="content">
+  {#if loaded}
+    <div class="header">
+    <h3>{badgeClass.informal ? I18n.t("acceptTerms.badgeClassEnrollmentTerms.inFormalBadges") :
+    I18n.t("acceptTerms.badgeClassEnrollmentTerms.formalBadges")}</h3>
+      <img width="100px" src={institution.logo_url} alt="Logo">
+      </div>
+    <div class="markdown-body">
+      {@html excerptMarkDown}
+    </div>
+    <div class="agree">
+      {@html termsIcon}
+      <p>
+        <span>{I18n.t(`acceptTerms.badgeClassEnrollmentTerms.statementLinkPre`)}</span>
+        <a href="/terms"
+           on:click|preventDefault|stopPropagation={showTerms(
+                I18n.t(`acceptTerms.badgeClassEnrollmentTerms.statementTitle`),
+                statementRawUrl)}>
+          {I18n.t(`acceptTerms.badgeClassEnrollmentTerms.statementLink`)}
+        </a>
+        <span>{I18n.t(`acceptTerms.badgeClassEnrollmentTerms.statementLinkPost`)}</span>
+      </p>
+    </div>
+    <div class="agree">
+      {@html terms2Icon}
+      <p>
+        <span>{I18n.t(`acceptTerms.badgeClassEnrollmentTerms.privacyLinkPre`)}</span>
+        <a href="/terms"
+           on:click|preventDefault|stopPropagation={showTerms(
+                I18n.t(`acceptTerms.badgeClassEnrollmentTerms.privacyTitle`),
+                I18n.t(`terms.student.privacyPolicyRaw`))}>
+          {I18n.t(`acceptTerms.badgeClassEnrollmentTerms.privacyLink`)}
+        </a>
+        <span>{I18n.t(`acceptTerms.badgeClassEnrollmentTerms.privacyLinkPost`)}</span>
+      </p>
+    </div>
+    <div class="actions">
+      <div class="cancel">
+        <Button secondary={true} text={I18n.t(`modal.cancel`)} action={userDisagreed} />
+      </div>
+      <Button text={I18n.t(`acceptTerms.student.accept`)} action={userHasAgreed} />
+    </div>
+  {:else}
+    <Spinner/>
+  {/if}
 </div>
 
 
 {#if showModalTerms}
-  <ModalTerms title = {termsTitle}
-  submit = {closeTerms}
-  cancel = {closeTerms}
-  url = {termsUrl} >
-    < /ModalTerms>
+  <ModalTerms title={termsTitle}
+              submit={closeTerms}
+              cancel={closeTerms}
+              url={termsUrl}>
+  </ModalTerms>
 {/if}
-
