@@ -123,7 +123,7 @@
           <td>
             {I18n.t(['editUsers', 'permissions', 'allRights'])}
             <br/>
-            {I18n.t(['editUsers', 'permissions', 'institutionAllRights'])}
+            <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'institutionAllRights'])}</span>
           </td>
         {/if}
       </tr>
@@ -146,13 +146,13 @@
           <td>
             {I18n.t(['editUsers', 'permissions', 'allRights'])}
             <br/>
-            {I18n.t(['editUsers', 'permissions', 'issuerGroupAllRights'])}
+            <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'issuerGroupAllRights'])}</span>
           </td>
         {:else if staff._staffType === staffType.INSTITUTION_STAFF}
           <td>
             {I18n.t(['editUsers', 'permissions', 'allRights'])}
             <br/>
-            {I18n.t(['editUsers', 'permissions', 'institutionAllRights'])}
+            <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'institutionAllRights'])}</span>
           </td>
         {/if}
       </tr>
@@ -183,19 +183,19 @@
           <td>
             {I18n.t(['editUsers', 'permissions', 'allRights'])}
             <br/>
-            {I18n.t(['editUsers', 'permissions', 'issuerAllRights'])}
+            <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'issuerAllRights'])}</span>
           </td>
         {:else if staff._staffType === staffType.ISSUER_GROUP_STAFF}
           <td>
             {I18n.t(['editUsers', 'permissions', 'allRights'])}
             <br/>
-            {I18n.t(['editUsers', 'permissions', 'issuerGroupAllRights'])}
+            <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'issuerGroupAllRights'])}</span>
           </td>
         {:else if staff._staffType === staffType.INSTITUTION_STAFF}
           <td>
             {I18n.t(['editUsers', 'permissions', 'allRights'])}
             <br/>
-            {I18n.t(['editUsers', 'permissions', 'institutionAllRights'])}
+            <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'institutionAllRights'])}</span>
           </td>
         {/if}
       </tr>

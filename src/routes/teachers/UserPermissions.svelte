@@ -70,29 +70,36 @@
 </script>
 
 <style>
+  div.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
   div {
     flex: 1;
   }
 </style>
+<div class="container">
+  {#if user}
+    <Breadcrumb user={user}/>
 
-{#if user}
-  <Breadcrumb user={user}/>
-
-  <PermissionsHeader
+    <PermissionsHeader
       {user}
       {tabs}
       {headerItems}
-  />
-{/if}
-
-<div>
-  {#if entity === 'institution'}
-    <UsersInstitution userId={userId} />
-  {:else if entity === 'issuerGroups'}
-    <UsersIssuerGroup userId={userId} />
-  {:else if entity === 'issuers'}
-    <UsersIssuer userId={userId} />
-  {:else if entity === 'badgeclasses'}
-    <UsersBadgeclass userId={userId} />
+    />
   {/if}
+
+  <div>
+    {#if entity === 'institution'}
+      <UsersInstitution userId={userId}/>
+    {:else if entity === 'issuerGroups'}
+      <UsersIssuerGroup userId={userId}/>
+    {:else if entity === 'issuers'}
+      <UsersIssuer userId={userId}/>
+    {:else if entity === 'badgeclasses'}
+      <UsersBadgeclass userId={userId}/>
+    {/if}
+  </div>
 </div>

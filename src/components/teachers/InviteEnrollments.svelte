@@ -15,6 +15,12 @@
 </script>
 
 <style lang="scss">
+  div.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
   div.nav {
     padding: var(--ver-padding-m) var(--hor-padding-m);
     min-height: 47px;
@@ -59,24 +65,25 @@
     }
   }
 </style>
-
-<div class="nav">
-  {@html chevronLeft}
-  <span class="click" on:click={() => window.history.back()}>
+<div class="container">
+  <div class="nav">
+    {@html chevronLeft}
+    <span class="click" on:click={() => window.history.back()}>
     {I18n.t('teacher.breadcrumb.back')}
   </span>
-</div>
+  </div>
 
-<div class="main-content-margin">
-  <h1>{I18n.t("invites.title")}</h1>
-  <div class="public-link">
-    <div class="info">
-      <span>{@html info}</span>
-      <span>{I18n.t("invites.copyPublicUrl")}</span>
-    </div>
-    <div class="options">
-      <input class="input-field full" disabled={true} value={publicUrl()}/>
-      <CopyToClipboardButton toCopy={publicUrl()} text={I18n.t("invites.copyUrl")}/>
+  <div class="main-content-margin">
+    <h1>{I18n.t("invites.title")}</h1>
+    <div class="public-link">
+      <div class="info">
+        <span>{@html info}</span>
+        <span>{I18n.t("invites.copyPublicUrl")}</span>
+      </div>
+      <div class="options">
+        <input class="input-field full" disabled={true} value={publicUrl()}/>
+        <CopyToClipboardButton toCopy={publicUrl()} text={I18n.t("invites.copyUrl")}/>
+      </div>
     </div>
   </div>
 </div>

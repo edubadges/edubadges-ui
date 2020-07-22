@@ -14,13 +14,16 @@
       name: I18n.t("teacher.name"),
       attribute: "name",
       reverse: false,
-      sortType: sortType.ALPHA
+      sortType: sortType.ALPHA,
+      width: "75%"
     },
     {
       name: I18n.t("teacher.issuers.title"),
       attribute: "issuers",
       reverse: false,
-      sortType: sortType.COLLECTION
+      sortType: sortType.COLLECTION,
+      width: "25%",
+      center: true
     }
   ];
 
@@ -54,7 +57,7 @@
       class="click"
       on:click={() => navigate(`/manage/faculty/${faculty.entityId}`)}>
       <td>{faculty.name}</td>
-      <td>{faculty.issuers.length}</td>
+      <td class="center">{faculty.issuers.length}</td>
     </tr>
   {/each}
   {#if faculties.length === 0}

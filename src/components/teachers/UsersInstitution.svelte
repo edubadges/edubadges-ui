@@ -104,13 +104,15 @@
       name: I18n.t("editUsers.institution.header"),
       attribute: "name",
       reverse: false,
-      sortType: sortType.ALPHA
+      sortType: sortType.ALPHA,
+      width: "65%"
     },
     {
       name: I18n.t("editUsers.role"),
       attribute: "roles",
       reverse: false,
-      sortType: sortType.COLLECTION
+      sortType: sortType.COLLECTION,
+      width: "35%"
     }
   ];
 

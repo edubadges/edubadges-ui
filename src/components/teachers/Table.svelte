@@ -81,7 +81,7 @@
     {#if !isEmpty}
       <tr>
         {#if withCheckAll}
-          <th>
+          <th class="checker">
             <CheckBox bind:value={checkAllValue} onChange={onCheckAll}/>
           </th>
         {/if}

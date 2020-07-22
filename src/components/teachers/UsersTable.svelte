@@ -52,10 +52,6 @@
       border-bottom: 3px solid var(--grey-3);
       text-align: left;
       cursor: pointer;
-
-      th.checker {
-        width: 35px;
-      }
     }
 
   }

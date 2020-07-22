@@ -14,6 +14,7 @@
   import {userName} from "../../../util/users";
   import Modal from "../../forms/Modal.svelte";
   import filter from "../../../icons/filter-1.svg";
+  import CenterMe from "../../forms/CenterMe.svelte";
 
   export let entityId;
   export let enrollments = [];
@@ -90,26 +91,33 @@
       name: I18n.t("models.enrollment.enrolled"),
       attribute: "user.email",
       reverse: false,
-      sortType: sortType.ALPHA
+      sortType: sortType.ALPHA,
+      width: "40%"
     },
     {
       name: I18n.t("models.enrollment.enrollmentType.name"),
       attribute: "award_type",
       reverse: false,
       icon: filter,
-      sortType: sortType.ALPHA
+      sortType: sortType.ALPHA,
+      width: "35%",
+      center: true
     },
     {
       name: I18n.t("models.enrollment.enrolledOn"),
       attribute: "dateCreated",
       reverse: false,
-      sortType: sortType.ALPHA
+      sortType: sortType.ALPHA,
+      width: "15%",
+      center: true
     },
     {
       name: I18n.t("models.enrollment.denied"),
       attribute: "denied",
       reverse: false,
-      sortType: sortType.BOOLEAN
+      sortType: sortType.BOOLEAN,
+      width: "10%",
+      center: true
     }
   ];
 
@@ -192,13 +200,17 @@
           <span>{enrollment.user.email}</span>
         </div>
       </td>
-      <td>
+      <td class="center">
         <!--  ToDo     -->
         {I18n.t("models.enrollment.enrollmentType.enrolled")}
       </td>
-      <td>{moment(enrollment.dateCreated).format('MMM D, YYYY')}</td>
-      <td>
-        <CheckBox value={enrollment.denied} disabled={true}/>
+      <td class="center">
+        {moment(enrollment.dateCreated).format('MMM D, YYYY')}
+      </td>
+      <td class="center">
+        <CenterMe>
+          <CheckBox value={enrollment.denied} disabled={true}/>
+        </CenterMe>
       </td>
     </tr>
   {/each}

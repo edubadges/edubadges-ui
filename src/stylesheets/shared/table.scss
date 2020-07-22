@@ -1,4 +1,58 @@
 table {
+
+  thead {
+
+    th.checker {
+      width: 35px;
+    }
+
+    tr {
+      th.center {
+        text-align: center;
+      }
+
+      th.right {
+        text-align: right;
+      }
+
+    }
+
+  }
+
+  tbody {
+    tr {
+      td.center {
+        text-align: center;
+      }
+
+      td.right {
+        text-align: right;
+      }
+
+      td.member-icon {
+        width: 36px;
+        text-align: center;
+        padding: 0 10px 0 5px;
+        div.member-icon {
+          width: 26px;
+        }
+      }
+
+      td.single-neutral-check {
+        width: 36px;
+        text-align: center;
+        padding: 0 10px 0 5px;
+        div.single-neutral-check {
+          width: 26px;
+        }
+      }
+
+
+    }
+
+  }
+
+
   th {
     text-transform: capitalize;
   }

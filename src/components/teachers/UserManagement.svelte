@@ -139,24 +139,28 @@
   ];
 
   const tableHeaders = [
-    {name: null, class: "member-icon"},
+    {name: null},
     {
       name: I18n.t(["teacher", "nameEmail"]),
       attribute: "name",
       reverse: false,
-      sortType: sortType.PERSONAL_DATA
+      sortType: sortType.PERSONAL_DATA,
+      width: "50%"
     },
     {
       name: I18n.t("editUsers.role"),
       attribute: "roles",
       reverse: false,
-      sortType: sortType.ROLES
+      sortType: sortType.ROLES,
+      width: "30%"
     },
     {
       name: I18n.t(["inviteUsers", "inviteStatus"]),
       attribute: "invitation",
       reverse: false,
-      sortType: sortType.INVITATION_STATUS
+      sortType: sortType.INVITATION_STATUS,
+      width: "20%",
+      center: true
     }
   ];
 
@@ -251,18 +255,6 @@
     height: 53px;
   }
 
-  div.member-icon {
-    width: 26px;
-  }
-
-  :global(th.member-icon) {
-    width: 26px;
-  }
-  :global(td.member-icon) {
-    width: 36px;
-    text-align: center;
-  }
-
 </style>
 
 <div class="container">
@@ -315,7 +307,7 @@
           {:else}
             <td>{I18n.t(['editUsers', entity, 'allRights'])}</td>
           {/if}
-          <td>
+          <td class="center">
             <InvitationStatusWidget date={createdAt}/>
           </td>
         {:else if _staffType === staffType.BADGE_CLASS_STAFF}
@@ -351,7 +343,7 @@
               />
             </div>
           </td>
-          <td>
+          <td class="center">
             <InvitationStatusWidget accepted={true}/>
           </td>
         {:else if _staffType === staffType.ISSUER_STAFF}
@@ -376,12 +368,12 @@
             {#if entity !== entityType.ISSUER}
               {I18n.t(['editUsers', 'permissions', 'allRights'])}
               <br/>
-              {I18n.t(['editUsers', 'permissions', 'issuerGroupAllRights'])}
+              <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'issuerGroupAllRights'])}</span>
             {:else}
               {I18n.t(['editUsers', 'faculty', 'allRights'])}
             {/if}
           </td>
-          <td>
+          <td class="center">
             <InvitationStatusWidget accepted={true}/>
           </td>
         {:else if _staffType === staffType.ISSUER_GROUP_STAFF}
@@ -406,12 +398,12 @@
             {#if entity !== entityType.ISSUER_GROUP}
               {I18n.t(['editUsers', 'permissions', 'allRights'])}
               <br/>
-              {I18n.t(['editUsers', 'permissions', 'issuerGroupAllRights'])}
+              <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'issuerGroupAllRights'])}</span>
             {:else}
               {I18n.t(['editUsers', 'faculty', 'allRights'])}
             {/if}
           </td>
-          <td>
+          <td class="center">
             <InvitationStatusWidget accepted={true}/>
           </td>
         {:else if _staffType === staffType.INSTITUTION_STAFF}
@@ -436,12 +428,12 @@
             {#if entity !== entityType.INSTITUTION}
               {I18n.t(['editUsers', 'permissions', 'allRights'])}
               <br/>
-              {I18n.t(['editUsers', 'permissions', 'institutionAllRights'])}
+              <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'institutionAllRights'])}</span>
             {:else}
               {I18n.t(['editUsers', 'institution', 'allRights'])}
             {/if}
           </td>
-          <td>
+          <td class="center">
             <InvitationStatusWidget accepted={true}/>
           </td>
         {/if}
