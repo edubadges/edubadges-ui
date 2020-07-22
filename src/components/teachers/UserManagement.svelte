@@ -219,7 +219,7 @@
     }
   };
 
-  $: disabledCheckAll = entity === entityType.INSTITUTION ? sortedFilteredStaffs.filter(({_staffType}) => _staffType === staffType.INSTITUTION_STAFF).length === 0 +
+  $: disabledCheckAll = entity === entityType.INSTITUTION ? sortedFilteredStaffs.filter(({_staffType}) => _staffType === staffType.INSTITUTION_STAFF).length === 1 +
       sortedFilteredStaffs.filter(({_staffType}) => _staffType === staffType.USER_PROVISIONMENT).length:
     entity === entityType.ISSUER_GROUP ? sortedFilteredStaffs.filter(({_staffType}) => _staffType === staffType.ISSUER_GROUP_STAFF).length === 0 +
       sortedFilteredStaffs.filter(({_staffType}) => _staffType === staffType.USER_PROVISIONMENT).length:

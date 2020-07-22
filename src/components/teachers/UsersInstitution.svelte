@@ -18,6 +18,7 @@
   let userNameDict;
   let currentUser;
   let institution;
+  let institutionStaff = [];
   let institutionSearch;
 
   let loaded = false;
@@ -30,7 +31,10 @@
   const query = `{
     currentInstitution {
       name,
-      entityId
+      entityId,
+      staff {
+        entityId
+      }
     },
     currentUser {
       institutionStaff {
@@ -52,6 +56,7 @@
     loaded = false;
     queryData(query).then(res => {
       institution = res.currentInstitution;
+      institutionStaff = institution.staff;
       user = res.user;
       currentUser = res.currentUser;
       userNameDict = {name: `${user.firstName} ${user.lastName}`};
@@ -128,11 +133,14 @@
   $: buttons = [
     {
       'action': toggleInstitutionAdmin,
-      'text': user && isInstitutionAdmin() ?
-        I18n.t(['editUsers', 'permissions', 'removeInstitutionAdmin']) :
-        I18n.t(['editUsers', 'permissions', 'setInstitutionAdmin']),
-      'allowed': (currentUser && currentUser.institutionStaff && currentUser.institutionStaff.mayAdministrateUsers),
-      'disabled': false
+      'text': I18n.t(['editUsers', 'permissions', 'setInstitutionAdmin']),
+      'allowed': (currentUser && currentUser.institutionStaff && currentUser.institutionStaff.mayAdministrateUsers && user && !isInstitutionAdmin()),
+    },
+    {
+      'action': toggleInstitutionAdmin,
+      'text': I18n.t(['editUsers', 'permissions', 'removeInstitutionAdmin']),
+      'allowed': (currentUser && currentUser.institutionStaff && currentUser.institutionStaff.mayAdministrateUsers && user && isInstitutionAdmin()),
+      'disabled': institutionStaff.length === 1
     }
   ];
 

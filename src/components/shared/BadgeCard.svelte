@@ -153,7 +153,6 @@
     {/if}
     <div class="header">
       {#if badge}
-
         <span>{moment(badge.issuedOn).format('MMM D, YYYY')}</span>
         <div class="shield">
           {#if badge.public}
