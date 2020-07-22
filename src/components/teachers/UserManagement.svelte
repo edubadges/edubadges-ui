@@ -121,6 +121,9 @@
   };
 
   $: oneInstitutionStaff = entity === entityType.INSTITUTION && institutionStaffs.length < 2;
+  $: lastUnselectedInstitutionStaff = entityId => {
+    return (staffs.filter(staff => staff._staffType === staffType.INSTITUTION_STAFF).length - selection.filter(selected => selected._staffType === staffType.INSTITUTION_STAFF).length < 2) &&
+      !selection.some(selected => selected.entityId === entityId)};
 
   $: buttons = [
     {
@@ -219,8 +222,7 @@
     }
   };
 
-  $: disabledCheckAll = entity === entityType.INSTITUTION ? sortedFilteredStaffs.filter(({_staffType}) => _staffType === staffType.INSTITUTION_STAFF).length +
-      sortedFilteredStaffs.filter(({_staffType}) => _staffType === staffType.USER_PROVISIONMENT).length === 1 :
+  $: disabledCheckAll = entity === entityType.INSTITUTION ? true :
     entity === entityType.ISSUER_GROUP ? sortedFilteredStaffs.filter(({_staffType}) => _staffType === staffType.ISSUER_GROUP_STAFF).length +
       sortedFilteredStaffs.filter(({_staffType}) => _staffType === staffType.USER_PROVISIONMENT).length === 0 :
     entity === entityType.ISSUER ? sortedFilteredStaffs.filter(({_staffType}) => _staffType === staffType.ISSUER_STAFF).length +
@@ -355,8 +357,8 @@
         {:else if _staffType === staffType.ISSUER_STAFF}
           <td>
             <CheckBox
-              value={selection.some(el => el.entityId === entityId)}
-              name={`select-${entityId}`}
+                value={selection.some(el => el.entityId === entityId)}
+                name={`select-${entityId}`}
                 disabled={entity !== entityType.ISSUER}
                 onChange={val => onCheckOne(val, entityId)}/>
           </td>
@@ -385,8 +387,8 @@
         {:else if _staffType === staffType.ISSUER_GROUP_STAFF}
           <td>
             <CheckBox
-              value={selection.some(el => el.entityId === entityId)}
-              name={`select-${entityId}`}
+                value={selection.some(el => el.entityId === entityId)}
+                name={`select-${entityId}`}
                 disabled={entity !== entityType.ISSUER_GROUP}
                 onChange={val => onCheckOne(val, entityId)}/>
           </td>
@@ -415,10 +417,10 @@
         {:else if _staffType === staffType.INSTITUTION_STAFF}
           <td>
             <CheckBox
-              value={selection.some(el => el.entityId === entityId)}
-              name={`select-${entityId}`}
-                disabled={entity !== entityType.INSTITUTION || oneInstitutionStaff}
-                onChange={val => onCheckOne(val, entityId)}/>
+                value={selection.some(el => el.entityId === entityId)}
+                name={`select-${entityId}`}
+                disabled={entity !== entityType.INSTITUTION || oneInstitutionStaff || lastUnselectedInstitutionStaff(entityId)}
+                onChange={val => onCheckOne(val, entityId, _staffType)}/>
           </td>
           <td class="member-icon">
             <div class="member-icon">
@@ -455,9 +457,9 @@
 
 {#if showRemoveModal}
   <Modal
-    submit={removeModalAction}
-    cancel={() => showRemoveModal = false}
-    question={removeModalQuestion}
+      submit={removeModalAction}
+      cancel={() => showRemoveModal = false}
+      question={removeModalQuestion}
       title={removeModalTitle}
-      />
+    />
 {/if}
