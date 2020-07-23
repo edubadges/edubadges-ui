@@ -149,20 +149,29 @@
     },
   ];
 </script>
+<style>
+  div.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+</style>
 {#if loaded}
-  <UserBreadcrumb isProfile={false} user={currentUser}/>
+  <div class="container">
+    <UserBreadcrumb isProfile={false} user={currentUser}/>
 
-  <PermissionsHeader
+    <PermissionsHeader
       {tabs}
-  />
+    />
 
-  <PermissionsManagement
+    <PermissionsManagement
       {entity}
       institutionStaffs={institutionStaffMemberships}
       issuerGroupStaffs={issuerGroupStaffMemberships}
       issuerStaffs={issuerStaffMemberships}
       badgeClassStaffs={badgeClassStaffMemberships}
-  />
+    />
+  </div>
 {:else}
   <Spinner/>
 {/if}

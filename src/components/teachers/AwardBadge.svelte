@@ -20,7 +20,7 @@
   };
 
   const award = (badgeId, emailAddresses) => {
-    // TODO
+    // Long term
   };
 
   function onSubmit() {

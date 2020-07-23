@@ -118,7 +118,6 @@
 
   const refreshBadgeDetails = () => {
     loaded = false;
-    //TODO read all extensions
     queryData(query).then(res => {
       badge = res.badgeInstance;
       showModal = false;
