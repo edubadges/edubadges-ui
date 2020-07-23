@@ -92,3 +92,21 @@ export const expandStaffsIssuer = (institutionStaff, issuerGroupStaffs, issuerSt
 
   return staffs;
 };
+
+export const expandStaffsIssuerGroup = (institutionStaff, issuerGroupStaffs) => {
+  let staffs = [];
+
+  if (institutionStaff.length > 0) {
+    for (const faculty of institutionStaff[0].institution.faculties){
+      staffs = [{issuerGroup: faculty, _staffType: staffType.INSTITUTION_STAFF, role: staffType.INSTITUTION_STAFF}, ...staffs];
+    }
+  }
+
+  if (issuerGroupStaffs.length > 0) {
+    for (const issuerGroupStaff of issuerGroupStaffs) {
+      staffs = [{issuerGroup: issuerGroupStaff.faculty, _staffType: staffType.ISSUER_GROUP_STAFF, role: staffType.ISSUER_GROUP_STAFF, staffId: issuerGroupStaff.entityId}, ...staffs];
+    }
+  }
+
+  return staffs;
+};

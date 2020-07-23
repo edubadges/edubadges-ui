@@ -4,7 +4,7 @@
   import {queryData} from "../../api/graphql";
   import {Button, CheckBox} from "../../components";
   import {UsersTable} from "../teachers";
-  import {sortType} from "../../util/sortData";
+  import {sort, sortType} from "../../util/sortData";
   import I18n from "i18n-js";
   import {
     makeUserIssuerGroupAdmin,
@@ -15,7 +15,7 @@
   import {permissionsRole} from "../../util/rolesToPermissions";
   import ListLink from "./ListLink.svelte";
   import {userAlreadyHasAdminPermissions} from "../../util/userPermissions";
-  import {addStaffType, staffType} from "../../util/staffTypes";
+  import { addStaffType, expandStaffsIssuerGroup, staffType } from "../../util/staffTypes";
 
   export let userId;
 
@@ -26,9 +26,12 @@
   let removePermissionOptions = [];
 
   let institutionId;
-  let issuerGroupSearch;
+  let issuerGroupSearch = '';
 
   let staffs = [];
+  let filteredStaffs = [];
+  let sortedFilteredStaffs = [];
+
   let institutionStaffs = [];
   let issuerGroupStaffs = [];
 
@@ -133,6 +136,8 @@
     }
   ];
 
+  let issuerGroupSort = tableHeaders[0];
+
   // Add permissions modal
   let showAddModal = false;
   let addModalTitle;
@@ -207,15 +212,14 @@
     }
   ];
 
-  $: staffs = [
-    ...institutionStaffs,
-    ...issuerGroupStaffs,
-  ];
+  $: staffs = expandStaffsIssuerGroup(institutionStaffs, issuerGroupStaffs);
+  $: filteredStaffs = staffs.filter(({issuerGroup}) => issuerGroup.name.toLowerCase().includes(issuerGroupSearch.toLowerCase()));
+  $: sortedFilteredStaffs = sort(filteredStaffs, issuerGroupSort.attribute, issuerGroupSort.reverse, issuerGroupSort.sortType);
 
   function onCheckOne(val, entityId) {
     if (val) {
       selection = selection.concat(entityId);
-      checkAllValue = selection.length === staffs.filter(({_staffType}) => _staffType === staffType.ISSUER_GROUP_STAFF).length;
+      checkAllValue = selection.length === filteredStaffs.filter(({_staffType}) => _staffType === staffType.ISSUER_GROUP_STAFF).length;
     } else {
       selection = selection.filter(id => id !== entityId);
       checkAllValue = false;
@@ -223,13 +227,13 @@
   }
 
   const onCheckAll = val => {
-    selection = val ? staffs.filter(({_staffType}) => {
+    selection = val ? filteredStaffs.filter(({_staffType}) => {
       return _staffType === staffType.ISSUER_GROUP_STAFF
     }).map(({entityId}) => entityId) : [];
     checkAllValue = val;
   };
 
-  $: disabledCheckAll = staffs.filter(({_staffType}) => _staffType === staffType.ISSUER_GROUP_STAFF).length === 0;
+  $: disabledCheckAll = filteredStaffs.filter(({_staffType}) => _staffType === staffType.ISSUER_GROUP_STAFF).length === 0;
 </script>
 
 <style>
@@ -257,38 +261,33 @@
         {checkAllValue}
         {disabledCheckAll}
     >
-      {#each staffs as staff}
-        {#if staff._staffType === staffType.ISSUER_GROUP_STAFF}
+      {#each sortedFilteredStaffs as {_staffType, issuerGroup, staffId}}
+        {#if _staffType === staffType.ISSUER_GROUP_STAFF}
           <tr>
             <td>
               <CheckBox
-                  value={selection.includes(staff.entityId)}
-                  name={`select-${staff.entityId}`}
+                  value={selection.includes(staffId)}
                   disabled={false}
-                  onChange={val => onCheckOne(val, staff.entityId)}/>
+                  onChange={val => onCheckOne(val, staffId)}/>
             </td>
-            <td><ListLink path={`/manage/faculty/${staff.faculty.entityId}/issuers`} name={staff.faculty.name}/></td>
+            <td><ListLink path={`/manage/faculty/${issuerGroup.entityId}/issuers`} name={issuerGroup.name}/></td>
             <td>
               {I18n.t(['editUsers', 'faculty', 'allRights'])}
             </td>
           </tr>
-        {:else if staff._staffType === staffType.INSTITUTION_STAFF}
-          {#each faculties as faculty}
-            <tr>
-              <td>
-                <CheckBox
-                    value={''}
-                    name={''}
-                    disabled={true}}/>
-              </td>
-              <td><ListLink path={`/manage/faculty/${faculty.entityId}/issuers`} name={faculty.name}/></td>
-              <td>
-                {I18n.t(['editUsers', 'permissions', 'allRights'])}
-                <br/>
-                <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'institutionAllRights'])}</span>
-              </td>
-            </tr>
-          {/each}
+        {:else if _staffType === staffType.INSTITUTION_STAFF}
+          <tr>
+            <td>
+              <CheckBox
+                  disabled={true}/>
+            </td>
+            <td><ListLink path={`/manage/faculty/${issuerGroup.entityId}/issuers`} name={issuerGroup.name}/></td>
+            <td>
+              {I18n.t(['editUsers', 'permissions', 'allRights'])}
+              <br/>
+              <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'institutionAllRights'])}</span>
+            </td>
+          </tr>
         {/if}
       {/each}
       {#if isEmpty}
@@ -309,8 +308,7 @@
       cancel={() => showRemoveModal = false}
       question={removeModalQuestion}
       title={removeModalTitle}
-  >
-  </Modal>
+  />
 {/if}
 
 {#if showAddModal}
@@ -324,6 +322,5 @@
       bind:target={modalSelectedEntity}
       bind:chosenRole={modalChosenRole}
       bind:notes={modalNotes}
-  >
-  </AddPermissionsModal>
+  />
 {/if}
