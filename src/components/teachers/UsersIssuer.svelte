@@ -4,7 +4,7 @@
   import {queryData} from "../../api/graphql";
   import {Button, CheckBox} from "../../components";
   import {UsersTable} from "../teachers";
-  import {sortType} from "../../util/sortData";
+  import {sort, sortType} from "../../util/sortData";
   import I18n from "i18n-js";
   import {
     makeUserIssuerAdmin,
@@ -16,7 +16,7 @@
   import ListLink from "./ListLink.svelte";
   import {flatten} from "../../util/utils";
   import {userAlreadyHasAdminPermissions} from "../../util/userPermissions";
-  import { addStaffType, staffType } from "../../util/staffTypes";
+  import { addStaffType, expandStaffsIssuer, staffType } from "../../util/staffTypes";
 
   export let userId;
 
@@ -24,9 +24,12 @@
   let currentUser;
   let faculties = [];
   let institutionId;
-  let issuerSearch;
+  let issuerSearch = '';
 
   let staffs = [];
+  let filteredStaffs = [];
+  let sortedFilteredStaffs = [];
+
   let institutionStaffs = [];
   let issuerGroupStaffs = [];
   let issuerStaffs = [];
@@ -156,6 +159,8 @@
     }
   ];
 
+  let issuerSort = tableHeaders[0];
+
   // Add permissions modal
   let showAddModal = false;
   let addModalTitle;
@@ -235,16 +240,14 @@
     return faculty || {};
   };
 
-  $: staffs = [
-    ...institutionStaffs,
-    ...issuerGroupStaffs,
-    ...issuerStaffs
-  ];
+  $: staffs = expandStaffsIssuer(institutionStaffs, issuerGroupStaffs, issuerStaffs);
+  $: filteredStaffs = staffs.filter(({issuer}) => issuer.name.toLowerCase().includes(issuerSearch.toLowerCase()));
+  $: sortedFilteredStaffs = sort(filteredStaffs, issuerSort.attribute, issuerSort.reverse, issuerSort.sortType);
 
   function onCheckOne(val, entityId) {
     if (val) {
       selection = selection.concat(entityId);
-      checkAllValue = selection.length === staffs.filter(({_staffType}) => _staffType === staffType.ISSUER_STAFF).length;
+      checkAllValue = selection.length === filteredStaffs.filter(({_staffType}) => _staffType === staffType.ISSUER_STAFF).length;
     } else {
       selection = selection.filter(id => id !== entityId);
       checkAllValue = false;
@@ -252,13 +255,13 @@
   }
 
   const onCheckAll = val => {
-    selection = val ? staffs.filter(({_staffType}) => {
+    selection = val ? filteredStaffs.filter(({_staffType}) => {
       return _staffType === staffType.ISSUER_STAFF
     }).map(({entityId}) => entityId) : [];
     checkAllValue = val;
   };
 
-  $: disabledCheckAll = staffs.filter(({_staffType}) => _staffType === staffType.ISSUER_STAFF).length === 0;
+  $: disabledCheckAll = filteredStaffs.filter(({_staffType}) => _staffType === staffType.ISSUER_STAFF).length === 0;
 </script>
 
 <style>
@@ -286,36 +289,32 @@
         {disabledCheckAll}
         {checkAllValue}
     >
-      {#each user.issuerStaffs as issuerStaffMembership}
-        <tr>
-          <td>
-            <CheckBox
-                value={selection.includes(issuerStaffMembership.entityId)}
-                name={`select-${issuerStaffMembership.entityId}`}
-                disabled={false}
-                onChange={val => onCheckOne(val, issuerStaffMembership.entityId)}/>
-          </td>
-          <td>
-            <ListLink path={`/manage/issuer/${issuerStaffMembership.issuer.entityId}/badgeclasses`}
-                      name={issuerStaffMembership.issuer.name}/>
-          </td>
-          <td>
-            <ListLink
-              path={`/manage/faculty/${findFacultyByIssuerEntityId(issuerStaffMembership.issuer.entityId).entityId}/issuers`}
-              name={findFacultyByIssuerEntityId(issuerStaffMembership.issuer.entityId).name}/>
-          </td>
-          <td>
-            {I18n.t(['editUsers', 'issuer', 'allRights'])}
-          </td>
-        </tr>
-      {/each}
-      {#each user.facultyStaffs as facultyStaffMembership}
-        {#each facultyStaffMembership.faculty.issuers as issuer}
+      {#each sortedFilteredStaffs as {_staffType, issuer, staffId}}
+        {#if _staffType === staffType.ISSUER_STAFF}
           <tr>
             <td>
               <CheckBox
-                  value={selection.includes(facultyStaffMembership.entityId)}
-                  name={`select-${facultyStaffMembership.entityId}`}
+                  value={selection.includes(staffId)}
+                  disabled={false}
+                  onChange={val => onCheckOne(val, staffId)}/>
+            </td>
+            <td>
+              <ListLink path={`/manage/issuer/${issuer.entityId}/badgeclasses`}
+                        name={issuer.name}/>
+            </td>
+            <td>
+              <ListLink
+                path={`/manage/faculty/${findFacultyByIssuerEntityId(issuer.entityId).entityId}/issuers`}
+                name={findFacultyByIssuerEntityId(issuer.entityId).name}/>
+            </td>
+            <td>
+              {I18n.t(['editUsers', 'issuer', 'allRights'])}
+            </td>
+          </tr>
+        {:else if _staffType === staffType.ISSUER_GROUP_STAFF}
+          <tr>
+            <td>
+              <CheckBox
                   disabled={true}/>
             </td>
             <td>
@@ -331,34 +330,29 @@
               <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'issuerGroupAllRights'])}</span>
             </td>
           </tr>
-        {/each}
+        {:else if _staffType === staffType.INSTITUTION_STAFF}
+          <tr>
+            <td>
+              <CheckBox
+                value={''}
+                name={''}
+                disabled={true}/>
+            </td>
+            <td>
+              <ListLink path={`/manage/issuer/${issuer.entityId}/badgeclasses`} name={issuer.name}/>
+            </td>
+            <td>
+              <ListLink path={`/manage/faculty/${findFacultyByIssuerEntityId(issuer.entityId).entityId}/issuers`}
+                        name={findFacultyByIssuerEntityId(issuer.entityId).name}/>
+            </td>
+            <td>
+              {I18n.t(['editUsers', 'permissions', 'allRights'])}
+              <br/>
+              <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'institutionAllRights'])}</span>
+            </td>
+          </tr>
+        {/if}
       {/each}
-      {#if user.institutionStaff}
-        {#each faculties as faculty}
-          {#each faculty.issuers as issuer}
-            <tr>
-              <td>
-                <CheckBox
-                  value={''}
-                  name={''}
-                  disabled={true}/>
-              </td>
-              <td>
-                <ListLink path={`/manage/issuer/${issuer.entityId}/badgeclasses`} name={issuer.name}/>
-              </td>
-              <td>
-                <ListLink path={`/manage/faculty/${findFacultyByIssuerEntityId(issuer.entityId).entityId}/issuers`}
-                          name={findFacultyByIssuerEntityId(issuer.entityId).name}/>
-              </td>
-              <td>
-                {I18n.t(['editUsers', 'permissions', 'allRights'])}
-                <br/>
-                <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'institutionAllRights'])}</span>
-              </td>
-            </tr>
-          {/each}
-        {/each}
-      {/if}
       {#if isEmpty}
         <tr>
           <td colspan="4">{I18n.t("zeroState.permissions",{name: I18n.t("userManagement.issuer_staff")})}</td>

@@ -392,7 +392,6 @@
             <td>
               <CheckBox
                   value={selection.includes(staffId)}
-                  name={`select-${badgeClass.entityId}`}
                   disabled={false}
                   onChange={val => onCheckOne(val, staffId)}/>
             </td>
@@ -447,7 +446,6 @@
           <tr>
             <td>
               <CheckBox
-                  value={selection.includes(badgeClass.entityId)}
                   name={`select-${badgeClass.entityId}`}
                   disabled={true}
               />
