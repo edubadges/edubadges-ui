@@ -425,7 +425,6 @@
           <tr>
             <td>
               <CheckBox
-                  name={`select-${badgeClass.entityId}`}
                   disabled={true}/>
             </td>
             <td>
@@ -446,7 +445,6 @@
           <tr>
             <td>
               <CheckBox
-                  name={`select-${badgeClass.entityId}`}
                   disabled={true}
               />
             </td>
@@ -468,7 +466,6 @@
           <tr>
             <td>
               <CheckBox
-                  name={`select-${badgeClass.entityId}`}
                   disabled={true}
               />
             </td>

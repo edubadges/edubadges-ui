@@ -129,7 +129,7 @@
     {
       'action': removePermissions,
       'text': I18n.t(['editUsers', 'permissions', 'removePermissions']),
-      'allowed': permissions && permissions.mayAdministrateUsers && selection.length > 0 && !oneInstitutionStaff,
+      'allowed': permissions && permissions.mayAdministrateUsers && selection.length > 0,
     },
     {
       'action': inviteNewUser,
