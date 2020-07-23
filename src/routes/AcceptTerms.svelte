@@ -45,8 +45,7 @@
     resign = urlParams.get("resign") === "True";
     role = urlParams.get("role");
     claims = jwt_decode(idToken);
-
-    schacHomeOrganisations = schacHomeNames(claims);
+    schacHomeOrganisations = $userRole === roleConstants.STUDENT ? schacHomeNames(claims) : [claims.schac_home_organization];
     validateInstitutions(schacHomeOrganisations)
       .then(res => {
         let validSchacHomeOrganisations = schacHomeOrganisations

@@ -62,6 +62,7 @@
   span.tip {
     margin: 0 25px 0 10px;
     font-weight: bold;
+    word-break: normal;
   }
 
 
