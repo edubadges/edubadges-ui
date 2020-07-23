@@ -158,7 +158,7 @@
               <br/>
               <span class="sub-text">{user.email}</span>
             </td>
-            <td>{user.role}</td>
+            <td>{I18n.t(['editUsers', 'roles', user.role])}</td>
           </tr>
         {/each}
         {#if users.length === 0}

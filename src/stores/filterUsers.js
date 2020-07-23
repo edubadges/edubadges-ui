@@ -1,4 +1,5 @@
 import { writable, derived } from "svelte/store";
+import {staffType} from "../util/staffTypes";
 
 export const institution = writable();
 export const users = writable([]);
@@ -33,13 +34,13 @@ export const userTree = derived(
       issuers: [],
       faculties: [],
       roles: [
-        {'role': 'Institution Admin', count: 0},
-        {'role': 'Issuer Group Admin', count: 0},
-        {'role': 'Issuer Admin', count: 0},
-        {'role': 'Badgeclass Owner', count: 0},
-        {'role': 'Badgeclass Editor', count: 0},
-        {'role': 'Badgeclass Awarder', count: 0},
-        {'role': 'Viewer', count: 0}
+        {'role': staffType.INSTITUTION_STAFF, count: 0},
+        {'role': staffType.ISSUER_GROUP_STAFF, count: 0},
+        {'role': staffType.ISSUER_STAFF, count: 0},
+        {'role': staffType.BADGE_CLASS_OWNER, count: 0},
+        {'role': staffType.BADGE_CLASS_EDITOR, count: 0},
+        {'role': staffType.BADGE_CLASS_AWARDER, count: 0},
+        {'role': staffType.VIEWER, count: 0}
       ],
       users: []
     };
@@ -56,10 +57,10 @@ export const userTree = derived(
     }
 
     for (const {user} of institution.staff) {
-      user.role = 'Institution Admin';
+      user.role = staffType.INSTITUTION_STAFF;
       tree.users = [user, ...tree.users];
 
-      tree.roles.find(el => el.role === 'Institution Admin').count++;
+      tree.roles.find(el => el.role === staffType.INSTITUTION_STAFF).count++;
 
       for (const faculty of institution.faculties) {
         faculty.users = [...faculty.users, user];
@@ -80,9 +81,9 @@ export const userTree = derived(
 
       for (const {user} of faculty.staff) {
         if (!tree.users.some(_user => _user.entityId === user.entityId)) {
-          user.role = 'Issuer Group Admin';
+          user.role = staffType.ISSUER_GROUP_STAFF;
           tree.users = [user, ...tree.users];
-          tree.roles.find(el => el.role === 'Issuer Group Admin').count++;
+          tree.roles.find(el => el.role === staffType.ISSUER_GROUP_STAFF).count++;
         }
 
         if (!faculty.users.some(_user => user.entityId === _user.entityId)) faculty.users = [...faculty.users, user];
@@ -104,9 +105,9 @@ export const userTree = derived(
 
         for (const {user} of issuer.staff) {
           if (!tree.users.some(_user => _user.entityId === user.entityId)) {
-            user.role = 'Issuer Admin';
+            user.role = staffType.ISSUER_STAFF;
             tree.users = [user, ...tree.users];
-            tree.roles.find(el => el.role === 'Issuer Admin').count++;
+            tree.roles.find(el => el.role === staffType.ISSUER_STAFF).count++;
           }
           if (!faculty.users.some(_user => user.entityId === _user.entityId)) faculty.users = [...faculty.users, user];
           if (!issuer.users.some(_user => user.entityId === _user.entityId)) issuer.users = issuer.users = [...issuer.users, user];
@@ -128,21 +129,21 @@ export const userTree = derived(
           for (const {user, mayAdministrateUsers, mayUpdate, mayAward} of badgeClass.staff) {
             if (mayAdministrateUsers) {
               if (!tree.users.some(_user => _user.entityId === user.entityId)) {
-                user.role = 'Badgeclass Owner';
+                user.role = staffType.BADGE_CLASS_OWNER;
                 tree.users = [user, ...tree.users];
-                tree.roles.find(el => el.role === 'Badgeclass Owner').count++;
+                tree.roles.find(el => el.role === staffType.BADGE_CLASS_OWNER).count++;
               }
             } else if (mayUpdate) {
               if (!tree.users.some(_user => _user.entityId === user.entityId)) {
-                user.role = 'Badgeclass Editor';
+                user.role = staffType.BADGE_CLASS_EDITOR;
                 tree.users = [user, ...tree.users];
-                tree.roles.find(el => el.role === 'Badgeclass Editor').count++;
+                tree.roles.find(el => el.role === staffType.BADGE_CLASS_EDITOR).count++;
               }
             } else if (mayAward) {
               if (!tree.users.some(_user => _user.entityId === user.entityId)) {
-                user.role = 'Badgeclass Awarder';
+                user.role = staffType.BADGE_CLASS_AWARDER;
                 tree.users = [user, ...tree.users];
-                tree.roles.find(el => el.role === 'Badgeclass Awarder').count++;
+                tree.roles.find(el => el.role === staffType.BADGE_CLASS_AWARDER).count++;
               }
             }
             if (!faculty.users.some(_user => user.entityId === _user.entityId)) faculty.users = [...faculty.users, user];
@@ -155,10 +156,10 @@ export const userTree = derived(
     if (!issuerIds.length > 0 && !facultyIds.length > 0) {
       for(const user of users) {
         if (!user.institutionStaff && user.facultyStaffs.length === 0 && user.issuerStaffs.length === 0 && user.badgeclassStaffs.length === 0) {
-          user.role = 'Viewer';
+          user.role = staffType.VIEWER;
           if (!tree.users.some(_user => _user.entityId === user.entityId)) {
             tree.users = [user, ...tree.users];
-            tree.roles.find(el => el.role === 'Viewer').count++;
+            tree.roles.find(el => el.role === staffType.VIEWER).count++;
           }
         }
       }
@@ -180,8 +181,8 @@ export const userTree = derived(
     tree.users = filterBySearch(tree.users, userSearch);
 
     return {
-      faculties: sort(institution.faculties, true).filter(fac => fac.count - tree.roles.find(el => el.role === 'Institution Admin').count),
-      issuers: sort(issuers, true).filter(iss => iss.count - tree.roles.find(el => el.role === 'Institution Admin').count),
+      faculties: sort(institution.faculties, true).filter(fac => fac.count - tree.roles.find(el => el.role === staffType.INSTITUTION_STAFF).count),
+      issuers: sort(issuers, true).filter(iss => iss.count - tree.roles.find(el => el.role === staffType.INSTITUTION_STAFF).count),
       roles: tree.roles,
       users: tree.users
     };

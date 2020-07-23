@@ -1,18 +1,20 @@
+import {staffType} from "./staffTypes";
+
 export const permissionRoleValue = role => {
   switch (role) {
-    case 'Institution Admin':
+    case staffType.INSTITUTION_STAFF:
       return 6;
-    case 'Issuer Group Admin':
+    case staffType.ISSUER_GROUP_STAFF:
       return 5;
-    case 'Issuer Admin':
+    case staffType.ISSUER_STAFF:
       return 4;
-    case 'Badgeclass Owner':
+    case staffType.BADGE_CLASS_OWNER:
       return 3;
-    case 'Badgeclass Editor':
+    case staffType.BADGE_CLASS_EDITOR:
       return 2;
-    case 'Badgeclass Awarder':
+    case staffType.BADGE_CLASS_AWARDER:
       return 1;
-    case 'Viewer':
+    case staffType.VIEWER:
       return 0;
     default:
       return -1;

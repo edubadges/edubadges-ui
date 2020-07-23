@@ -65,10 +65,8 @@
          on:change={e => onChange(e.target.checked)}
          disabled={disabled}>
   <span class="checkmarked" class:active={value} class:disabled={disabled}>
-    {#if value}
-      {#if !disabled}
-        {@html check}
-      {/if}
+    {#if value && !disabled}
+      {@html check}
     {/if}
   </span>
 </label>

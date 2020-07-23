@@ -332,6 +332,15 @@ I18n.translations.en = {
     user: {
       header: "User",
     },
+    roles: {
+      institution_staff: "Institution Admin",
+      issuer_group_staff: "Issuer Group Admin",
+      issuer_staff: "Issuer Admin",
+      badge_class_owner: "Badge Class Owner",
+      badge_class_editor: "Badge Class Editor",
+      badge_class_awarder: "Badge Class Awarder",
+      viewer: "Viewer",
+    },
     institution: {
       admin: "Institution admin",
       header: "Institution",

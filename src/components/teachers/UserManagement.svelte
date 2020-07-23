@@ -273,8 +273,8 @@
         {#if _staffType === staffType.USER_PROVISIONMENT}
           <td>
             <CheckBox
-              value={selection.some(el => el.entityId === entityId)}
-              name={`select-${entityId}`}
+                value={selection.some(el => el.entityId === entityId)}
+                name={`select-${entityId}`}
                 disabled={false}
                 onChange={val => onCheckOne(val, entityId, _staffType)}/>
           </td>
@@ -292,12 +292,12 @@
             <td>
               <div class="badgeclass-role-select">
                 <Select
-                  handleSelect={item => changeProvisionmentRole(item, entityId)}
-                  value={
-                  data.may_administrate_users ? targetOptions[0] :
-                  (data.may_update ? targetOptions[1] :
-                  (data.may_award ? targetOptions[2] : 'error'))
-                  }
+                    handleSelect={item => changeProvisionmentRole(item, entityId)}
+                    value={
+                      data.may_administrate_users ? targetOptions[0] :
+                      (data.may_update ? targetOptions[1] :
+                      (data.may_award ? targetOptions[2] : 'error'))
+                    }
                     items={targetOptions}
                     clearable={false}
                     optionIdentifier="name"
@@ -313,8 +313,8 @@
         {:else if _staffType === staffType.BADGE_CLASS_STAFF}
           <td>
             <CheckBox
-              value={selection.some(el => el.entityId === entityId)}
-              name={`select-${entityId}`}
+                value={selection.some(el => el.entityId === entityId)}
+                name={`select-${entityId}`}
                 disabled={false}
                 onChange={val => onCheckOne(val, entityId)}/>
           </td>
@@ -331,12 +331,12 @@
           <td>
             <div class="badgeclass-role-select">
               <Select
-                handleSelect={item => changeUserRole(item, entityId)}
-                value={
-                mayAdministrateUsers ? targetOptions[0] :
-                (mayUpdate ? targetOptions[1] :
-                (mayAward ? targetOptions[2] : 'error'))
-                }
+                  handleSelect={item => changeUserRole(item, entityId)}
+                  value={
+                    mayAdministrateUsers ? targetOptions[0] :
+                    (mayUpdate ? targetOptions[1] :
+                    (mayAward ? targetOptions[2] : 'error'))
+                  }
                   items={targetOptions}
                   clearable={false}
                   optionIdentifier="name"

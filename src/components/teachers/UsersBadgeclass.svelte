@@ -4,7 +4,7 @@
   import {queryData} from "../../api/graphql";
   import {Button, CheckBox} from "../../components";
   import {UsersTable} from "../teachers";
-  import {sortType} from "../../util/sortData";
+  import {sort, sortType} from "../../util/sortData";
   import I18n from "i18n-js";
   import {
     removeUserBadgeclassPermission,
@@ -16,7 +16,7 @@
   import Spinner from "../Spinner.svelte";
   import {permissionsRole} from "../../util/rolesToPermissions";
   import ListLink from "./ListLink.svelte";
-  import {addStaffType, staffType} from "../../util/staffTypes";
+  import {addStaffType, staffType, expandStaffsBadgeClass} from "../../util/staffTypes";
   import { userAlreadyHasAdminPermissions, userAlreadyHasAnyPermissions } from "../../util/userPermissions";
 
   export let userId;
@@ -24,9 +24,12 @@
   let user;
   let currentUser;
   let faculties = [];
-  let issuerSearch;
+  let badgeClassSearch = '';
 
   let staffs = [];
+  let filteredStaffs = [];
+  let sortedFilteredStaffs = [];
+
   let institutionStaffs = [];
   let issuerGroupStaffs = [];
   let issuerStaffs = [];
@@ -140,6 +143,11 @@
             entityId,
             issuer {
               name,
+              entityId
+              faculty {
+                name,
+                entityId
+              }
             }
           }
         }
@@ -151,7 +159,27 @@
       mayAdministrateUsers,
       institution {
         name,
-        entityId
+        entityId,
+        faculties {
+          name,
+          entityId
+          issuers {
+            name,
+            entityId,
+            badgeclasses {
+              name,
+              entityId,
+              issuer {
+                name,
+                entityId,
+                faculty {
+                  name,
+                  entityId,
+                }
+              },
+            }
+          }
+        }
       }
     }
   }
@@ -192,23 +220,23 @@
   const tableHeaders = [
     {
       name: I18n.t("editUsers.badgeclass.header"),
-      attribute: "name",
+      attribute: "badgeClass.name",
       reverse: false,
       sortType: sortType.ALPHA,
       width: "38%"
     },
     {
       name: I18n.t("editUsers.badgeclass.issuedBy"),
-      attribute: "name",
+      attribute: "badgeClass.issuer.name",
       reverse: false,
       sortType: sortType.ALPHA,
       width: "38%"
     },
     {
       name: I18n.t("editUsers.role"),
-      attribute: "roles",
+      attribute: "role",
       reverse: false,
-      sortType: sortType.COLLECTION,
+      sortType: sortType.ROLES,
       width: "24%"
     }
   ];
@@ -218,6 +246,8 @@
     title: `${I18n.t("editUsers.institutionPermissions", {instance: I18n.t("editUsers.badgeclass.header")})}`,
     tableHeaders: tableHeaders
   };
+
+  let badgeClassSort = tableHeaders[0];
 
   // Add permissions modal
   let showAddModal = false;
@@ -276,17 +306,14 @@
     }
   ];
 
-  $: staffs = [
-    ...institutionStaffs,
-    ...issuerGroupStaffs,
-    ...issuerStaffs,
-    ...badgeClassStaffs
-  ];
+  $: staffs = expandStaffsBadgeClass(institutionStaffs, issuerGroupStaffs, issuerStaffs, badgeClassStaffs);
+  $: filteredStaffs = staffs.filter(({badgeClass}) => badgeClass.name.toLowerCase().includes(badgeClassSearch.toLowerCase()));
+  $: sortedFilteredStaffs = sort(filteredStaffs, badgeClassSort.attribute, badgeClassSort.reverse, badgeClassSort.sortType);
 
   function onCheckOne(val, entityId) {
     if (val) {
       selection = selection.concat(entityId);
-      checkAllValue = selection.length === staffs.filter(({_staffType}) => _staffType === staffType.BADGE_CLASS_STAFF).length;
+      checkAllValue = selection.length === filteredStaffs.filter(({_staffType}) => _staffType === staffType.BADGE_CLASS_STAFF).length;
     } else {
       selection = selection.filter(id => id !== entityId);
       checkAllValue = false;
@@ -294,13 +321,13 @@
   }
 
   const onCheckAll = val => {
-    selection = val ? staffs.filter(({_staffType}) => {
+    selection = val ? filteredStaffs.filter(({_staffType}) => {
       return _staffType === staffType.BADGE_CLASS_STAFF
-    }).map(({entityId}) => entityId) : [];
+    }).map(({staffId}) => staffId) : [];
     checkAllValue = val;
   };
 
-  $: disabledCheckAll = staffs.filter(({_staffType}) => _staffType === staffType.BADGE_CLASS_STAFF).length === 0;
+  $: disabledCheckAll = filteredStaffs.filter(({_staffType}) => _staffType === staffType.BADGE_CLASS_STAFF).length === 0;
 
   const handlePermissionAdded = () => {
     reload();
@@ -326,7 +353,7 @@
         });
         break;
     }
-  }
+  };
 </script>
 
 <style>
@@ -351,41 +378,42 @@
     <UsersTable
         {...table}
         isEmpty={isEmpty}
-        bind:search={issuerSearch}
+        bind:search={badgeClassSearch}
+        bind:sort={badgeClassSort}
         withCheckAll={true}
         bind:checkAllValue={checkAllValue}
         bind:buttons={buttons}
         {onCheckAll}
         {disabledCheckAll}
     >
-      {#each staffs as staff}
-        {#if staff._staffType === staffType.BADGE_CLASS_STAFF}
+      {#each sortedFilteredStaffs as {_staffType, badgeClass, staffId, mayAdministrateUsers, mayUpdate, mayAward}}
+        {#if _staffType === staffType.BADGE_CLASS_STAFF}
           <tr>
             <td>
               <CheckBox
-                value={selection.includes(staff.entityId)}
-                name={`select-${staff.badgeclass.entityId}`}
-                disabled={false}
-                onChange={val => onCheckOne(val, staff.entityId)}/>
+                  value={selection.includes(staffId)}
+                  name={`select-${badgeClass.entityId}`}
+                  disabled={false}
+                  onChange={val => onCheckOne(val, staffId)}/>
             </td>
             <td>
-              <ListLink path={`/manage/badgeclass/${staff.badgeclass.entityId}/overview`}
-                        name={staff.badgeclass.name}/>
+              <ListLink path={`/manage/badgeclass/${badgeClass.entityId}/overview`}
+                  name={badgeClass.name}/>
             </td>
             <td>
-              <ListLink path={`/manage/issuer/${staff.badgeclass.issuer.entityId}/badgeclasses`}
-                        name={staff.badgeclass.issuer.name}/>
+              <ListLink path={`/manage/issuer/${badgeClass.issuer.entityId}/badgeclasses`}
+                  name={badgeClass.issuer.name}/>
               <br />
-              <span class="sub-text">{staff.badgeclass.issuer.faculty.name}</span>
+              <span class="sub-text">{badgeClass.issuer.faculty.name}</span>
             </td>
             <td>
               <div class="badgeclass-role-select">
                 <Select
-                    handleSelect={item => changeUserRole(item, staff.entityId)}
+                    handleSelect={item => changeUserRole(item, staffId)}
                     value={
-                      staff.mayAdministrateUsers ? permissionsRoles[0] :
-                      (staff.mayUpdate ? permissionsRoles[1] :
-                      (staff.mayAward ? permissionsRoles[2] : 'error'))
+                      mayAdministrateUsers ? permissionsRoles[0] :
+                      mayUpdate ? permissionsRoles[1] :
+                      mayAward ? permissionsRoles[2] : 'error'
                     }
                     items={permissionsRoles}
                     clearable={false}
@@ -394,86 +422,72 @@
               </div>
             </td>
           </tr>
-        {:else if staff._staffType === staffType.ISSUER_STAFF}
-          {#each staff.issuer.badgeclasses as badgeclass}
-            <tr>
-              <td>
-                <CheckBox
-                  value={selection.includes(badgeclass.entityId)}
-                  name={`select-${badgeclass.entityId}`}
+        {:else if _staffType === staffType.ISSUER_STAFF}
+          <tr>
+            <td>
+              <CheckBox
+                  name={`select-${badgeClass.entityId}`}
                   disabled={true}/>
-              </td>
-              <td>
-                <ListLink path={`/manage/badgeclass/${badgeclass.entityId}/overview`} name={badgeclass.name}/>
-              </td>
-              <td>
-                <ListLink path={`/manage/issuer/${staff.issuer.entityId}/badgeclasses`} name={staff.issuer.name}/>
-                <br />
-                <span class="sub-text">{badgeclass.issuer.faculty.name}</span>
-              </td>
+            </td>
+            <td>
+              <ListLink path={`/manage/badgeclass/${badgeClass.entityId}/overview`} name={badgeClass.name}/>
+            </td>
+            <td>
+              <ListLink path={`/manage/issuer/${badgeClass.issuer.entityId}/badgeclasses`} name={badgeClass.issuer.name}/>
+              <br />
+              <span class="sub-text">{badgeClass.issuer.faculty.name}</span>
+            </td>
             <td>
               {I18n.t(['editUsers', 'permissions', 'allRights'])}
               <br />
               <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'issuerAllRights'])}</span>
             </td>
-            </tr>
-          {/each}
-        {:else if staff._staffType === staffType.ISSUER_GROUP_STAFF}
-          {#each staff.faculty.issuers as issuer}
-            {#each issuer.badgeclasses as badgeclass}
-              <tr>
-                <td>
-                  <CheckBox
-                    value={selection.includes(badgeclass.entityId)}
-                    name={`select-${badgeclass.entityId}`}
-                    disabled={true}
-                  />
-                </td>
-                <td>
-                  <ListLink path={`/manage/badgeclass/${badgeclass.entityId}/overview`} name={badgeclass.name}/>
-                </td>
-                <td>
-                  <ListLink path={`/manage/issuer/${issuer.entityId}/badgeclasses`} name={issuer.name}/>
-                  <br />
-                  <span class="sub-text">{staff.faculty.name}</span>
-                </td>
-                <td>
-                  {I18n.t(['editUsers', 'permissions', 'allRights'])}
-                  <br />
-                  <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'issuerGroupAllRights'])}</span>
-                </td>
-              </tr>
-            {/each}
-          {/each}
-        {:else if staff._staffType === staffType.INSTITUTION_STAFF}
-          {#each faculties as faculty}
-            {#each faculty.issuers as issuer}
-              {#each issuer.badgeclasses as badgeclass}
-                <tr>
-                  <td>
-                    <CheckBox
-                      value={selection.includes(badgeclass.entityId)}
-                      name={`select-${badgeclass.entityId}`}
-                      disabled={true}
-                    />
-                  </td>
-                  <td>
-                    <ListLink path={`/manage/badgeclass/${badgeclass.entityId}/overview`} name={badgeclass.name}/>
-                  </td>
-                  <td>
-                    <ListLink path={`/manage/issuer/${issuer.entityId}/badgeclasses`} name={issuer.name}/>
-                    <br />
-                    <span class="sub-text">{faculty.name}</span>
-                  </td>
-                  <td>
-                    {I18n.t(['editUsers', 'permissions', 'allRights'])}
-                    <br/>
-                    <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'institutionAllRights'])}</span>
-                  </td>
-                </tr>
-              {/each}
-            {/each}
-          {/each}
+          </tr>
+        {:else if _staffType === staffType.ISSUER_GROUP_STAFF}
+          <tr>
+            <td>
+              <CheckBox
+                  value={selection.includes(badgeClass.entityId)}
+                  name={`select-${badgeClass.entityId}`}
+                  disabled={true}
+              />
+            </td>
+            <td>
+              <ListLink path={`/manage/badgeclass/${badgeClass.entityId}/overview`} name={badgeClass.name}/>
+            </td>
+            <td>
+              <ListLink path={`/manage/issuer/${badgeClass.issuer.entityId}/badgeclasses`} name={badgeClass.issuer.name}/>
+              <br />
+              <span class="sub-text">{badgeClass.issuer.faculty.name}</span>
+            </td>
+            <td>
+              {I18n.t(['editUsers', 'permissions', 'allRights'])}
+              <br />
+              <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'issuerGroupAllRights'])}</span>
+            </td>
+          </tr>
+        {:else if _staffType === staffType.INSTITUTION_STAFF}
+          <tr>
+            <td>
+              <CheckBox
+                  name={`select-${badgeClass.entityId}`}
+                  disabled={true}
+              />
+            </td>
+            <td>
+              <ListLink path={`/manage/badgeclass/${badgeClass.entityId}/overview`} name={badgeClass.name}/>
+            </td>
+            <td>
+              <ListLink path={`/manage/issuer/${badgeClass.issuer.entityId}/badgeclasses`} name={badgeClass.issuer.name}/>
+              <br />
+              <span class="sub-text">{badgeClass.issuer.faculty.name}</span>
+            </td>
+            <td>
+              {I18n.t(['editUsers', 'permissions', 'allRights'])}
+              <br/>
+              <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'institutionAllRights'])}</span>
+            </td>
+          </tr>
         {/if}
       {/each}
       {#if isEmpty}
@@ -488,11 +502,12 @@
 {/if}
 
 {#if showRemoveModal}
-  <Modal submit={removeModalAction}
+  <Modal
+      submit={removeModalAction}
       cancel={() => showRemoveModal = false}
       question={removeModalQuestion}
-      title={removeModalTitle}>
-  </Modal>
+      title={removeModalTitle}
+  />
 {/if}
 
 {#if showAddModal}
