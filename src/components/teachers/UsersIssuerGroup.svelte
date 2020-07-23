@@ -122,14 +122,14 @@
   const tableHeaders = [
     {
       name: I18n.t("editUsers.faculty.header"),
-      attribute: "name",
+      attribute: "issuerGroup.name",
       reverse: false,
       sortType: sortType.ALPHA,
       width: "75%"
     },
     {
       name: I18n.t("editUsers.role"),
-      attribute: "roles",
+      attribute: "role",
       reverse: false,
       sortType: sortType.COLLECTION,
       width: "25%"
@@ -229,7 +229,7 @@
   const onCheckAll = val => {
     selection = val ? filteredStaffs.filter(({_staffType}) => {
       return _staffType === staffType.ISSUER_GROUP_STAFF
-    }).map(({entityId}) => entityId) : [];
+    }).map(({staffId}) => staffId) : [];
     checkAllValue = val;
   };
 
@@ -255,6 +255,7 @@
         {...table}
         isEmpty={isEmpty}
         bind:search={issuerGroupSearch}
+        bind:sort={issuerGroupSort}
         withCheckAll={true}
         bind:buttons={buttons}
         {onCheckAll}
