@@ -88,7 +88,11 @@
       mayAdministrateUsers,
       institution {
         name,
-        entityId
+        entityId,
+        faculties {
+          name,
+          entityId
+        }
       }
     }
   }

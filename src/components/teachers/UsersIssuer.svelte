@@ -107,7 +107,17 @@
       mayAdministrateUsers,
       institution {
         name,
-        entityId
+        entityId,
+        faculties {
+          issuers {
+            name,
+            entityId,
+            faculty {
+              name,
+              entityId
+            }
+          }
+        }
       }
     }
   }
