@@ -113,7 +113,7 @@ I18n.translations.en = {
       back: "back",
     },
     name: "Name",
-    nameEmail: "Name/Email",
+    nameEmail: "Name/Email addess",
     badgeclasses: {
       title: "Badgeclasses",
       badges: "Edubadges",
@@ -124,7 +124,7 @@ I18n.translations.en = {
       studyLoad: "Study load",
       ects: "{{value}} ECTS",
       hours: "{{value}} hours",
-      canAward: "Badges you can award",
+      canAward: "Edubadges you can award",
       allBadges: "All edubadges"
     },
     issuers: {
@@ -192,7 +192,7 @@ I18n.translations.en = {
     tabs: {
       institution: "Institution",
       issuers: "Issuers",
-      faculties: "Groups",
+      faculties: "Issuer groups",
       badgeclasses: "Badgeclasses",
       badgeclassOverview: "Overview",
       userManagement: "User management",
@@ -321,7 +321,7 @@ I18n.translations.en = {
     },
     cancel: "Cancel",
     inviteStatus: "Status",
-    sent: "Invite sent",
+    sent: "Invite sent: ",
     accepted: "Accepted",
     flash: {
       confirm: "Successfully invited {{emails}}"
@@ -423,11 +423,11 @@ I18n.translations.en = {
     institution: {
       created: "Created",
       admin: "Admin",
-      brin: "BRIN code °",
-      description: "Description °",
-      grading_table: "Grading table °",
-      image: "Institution logo °",
-      name: "Institution name °",
+      brin: "BRIN code",
+      description: "Description",
+      grading_table: "Grading table",
+      image: "Institution logo",
+      name: "Institution name",
     },
     faculty: {
       created: "Created",
@@ -452,7 +452,7 @@ I18n.translations.en = {
     },
     badgeclass: {
       issuer: "Issuer",
-      image: "Badge image",
+      image: "Edubadge image",
       created: "Created",
       issuedBy: "Issued by",
       admin: "Admin",
@@ -727,10 +727,10 @@ I18n.translations.en = {
   },
   placeholders: {
     institution: {
-      name: "e.g. University of Harderwijk",
-      brin: "Basic Registration Settings number",
-      gradingTable: "URL of the grading table",
-      description: "e.g. The University of Harderwijk was founded in 1977"
+      name: "Required field: e.g. University of Harderwijk",
+      brin: "Required field: BRIN CODE",
+      gradingTable: "Required field: URL of the grading table",
+      description: "Required field: e.g. The University of Harderwijk was founded in 1977"
     },
     faculty: {
       name: "e.g. History",
