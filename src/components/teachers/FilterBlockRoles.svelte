@@ -90,7 +90,7 @@
         class:active={value.includes(item.role)}
         class:inactive={value.length && !value.includes(item.role)}>
       <input type="checkbox" bind:group={value} value={item.role} />
-      <div>{item.role} ({item.count})</div>
+      <div>{I18n.t(['editUsers', 'roles', item.role])} ({item.count})</div>
 
       {#if value.includes(item.role)}
         {@html closeIcon}

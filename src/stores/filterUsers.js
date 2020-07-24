@@ -132,12 +132,25 @@ export const userTree = derived(
                 user.role = staffType.BADGE_CLASS_OWNER;
                 tree.users = [user, ...tree.users];
                 tree.roles.find(el => el.role === staffType.BADGE_CLASS_OWNER).count++;
+              } else if (tree.users.find(_user => _user.entityId === user.entityId).role === staffType.BADGE_CLASS_EDITOR) {
+                tree.users.find(_user => _user.entityId === user.entityId).role = staffType.BADGE_CLASS_OWNER;
+                tree.roles.find(el => el.role === staffType.BADGE_CLASS_EDITOR).count--;
+                tree.roles.find(el => el.role === staffType.BADGE_CLASS_OWNER).count++;
+              } else if (tree.users.find(_user => _user.entityId === user.entityId).role === staffType.BADGE_CLASS_AWARDER) {
+                tree.users.find(_user => _user.entityId === user.entityId).role = staffType.BADGE_CLASS_OWNER;
+                tree.roles.find(el => el.role === staffType.BADGE_CLASS_AWARDER).count--;
+                tree.roles.find(el => el.role === staffType.BADGE_CLASS_OWNER).count++;
               }
             } else if (mayUpdate) {
               if (!tree.users.some(_user => _user.entityId === user.entityId)) {
                 user.role = staffType.BADGE_CLASS_EDITOR;
                 tree.users = [user, ...tree.users];
                 tree.roles.find(el => el.role === staffType.BADGE_CLASS_EDITOR).count++;
+              } else if (tree.users.find(_user => _user.entityId === user.entityId).role === staffType.BADGE_CLASS_AWARDER) {
+                tree.roles.find(el => el.role === staffType.BADGE_CLASS_AWARDER).count--;
+                tree.users.find(_user => _user.entityId === user.entityId).role = staffType.BADGE_CLASS_EDITOR;
+                tree.roles.find(el => el.role === staffType.BADGE_CLASS_EDITOR).count++;
+              } else {
               }
             } else if (mayAward) {
               if (!tree.users.some(_user => _user.entityId === user.entityId)) {
