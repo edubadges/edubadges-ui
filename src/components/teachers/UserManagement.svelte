@@ -34,8 +34,8 @@
   export let badgeClassStaffs = [];
   export let userProvisionments = [];
 
-  export let removeModalTitle;
-  export let removeModalQuestion;
+  let removeModalTitle = I18n.t(['editUsers', 'permissions', 'removePermissions']);
+  let removeModalQuestion = I18n.t(['editUsers', 'permissions', 'remove', entity]);
 
   let staffs = [];
   let selection = [];

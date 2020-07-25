@@ -392,11 +392,13 @@ I18n.translations.en = {
       issuerGroupAllRights: "(Because of status as issuer group admin)",
       issuerAllRights: "(Because of status as issuer admin)",
       addPermissions: "Add permissions",
+      remove: {
+        institution: "Are you sure you want to remove institution admin?",
+        faculty: "Are you sure you want to remove this issuer group admin?",
+        issuer: "Are you sure you want to remove this issuer admin?",
+        badgeclass: "Are you sure you want to remove this role?"
+      },
       removePermissions: "Remove permissions",
-      removeAdmin: "Are you sure you want to remove institution admin?",
-      removeIssuerGroupAdmin: "Are you sure you want to remove this issuer group admin?",
-      removeIssuerAdmin: "Are you sure you want to remove this issuer admin?",
-      removeBadgeClassUser: "Are you sure you want to remove this role?",
       setInstitutionAdmin: "Make user institution admin",
       removeInstitutionAdmin: "Remove user's role as institution admin",
       inviteNewUser: "Invite new user"

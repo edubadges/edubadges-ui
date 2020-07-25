@@ -4,6 +4,7 @@
   import {Table} from "../teachers";
   import {search} from "../../util/searchData";
   import {sort, sortType} from "../../util/sortData";
+  import { entityType } from "../../util/entityTypes";
 
   export let faculties = [];
   export let mayCreate;
@@ -28,7 +29,7 @@
   ];
 
   $: table = {
-    entity: "faculty",
+    entity: entityType.ISSUER_GROUP,
     title: `${I18n.t("teacher.faculties.title")} (${faculties.length})`,
     tableHeaders: tableHeaders
   };

@@ -148,6 +148,6 @@ import {
     />
   </Route>
   <Route path="/user-management">
-    <IssuerUserManagement entity="issuer" entityId={entityId}/>
+    <IssuerUserManagement entity={entityType.ISSUER} entityId={entityId}/>
   </Route>
 </Router>

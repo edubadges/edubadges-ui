@@ -95,23 +95,16 @@
 
 
   onMount(reload);
-
-  // Remove permissions modal
-  let removeModalTitle = I18n.t(['editUsers', 'permissions', 'removePermissions']);
-  let removeModalQuestion = I18n.t(['editUsers', 'permissions', 'removeBadgeClassUser']);
-
 </script>
 
 <UserManagement
-  {entity}
-  {entityId}
-  {permissions}
-  institutionStaffs={institutionStaffMembers}
-  issuerGroupStaffs={issuerGroupStaffMembers}
-  issuerStaffs={issuerStaffMembers}
-  badgeClassStaffs={badgeClassStaffMembers}
-  {userProvisionments}
-  {removeModalTitle}
-  {removeModalQuestion}
-  {reload}
+    {entity}
+    {entityId}
+    {permissions}
+    institutionStaffs={institutionStaffMembers}
+    issuerGroupStaffs={issuerGroupStaffMembers}
+    issuerStaffs={issuerStaffMembers}
+    badgeClassStaffs={badgeClassStaffMembers}
+    {userProvisionments}
+    {reload}
 />

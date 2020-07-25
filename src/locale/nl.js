@@ -392,11 +392,13 @@ I18n.translations.nl = {
       issuerGroupAllRights: "(vanwege Issuer Group Admin)",
       issuerAllRights: "(vanwege Issuer Admin)",
       addPermissions: "Voeg permissies toe",
+      remove: {
+        institution: "Are you sure you want to remove institution admin?",
+        faculty: "Are you sure you want to remove this issuer group admin?",
+        issuer: "Are you sure you want to remove this issuer admin?",
+        badgeclass: "Are you sure you want to remove this role?"
+      },
       removePermissions: "Verwijder permissies",
-      removeAdmin: "Weet je zeker dat je de instellings Admin wilt verwijderen?",
-      removeIssuerGroupAdmin: "Weet je het zeker dat je de issuer group Admin wilt verwijderen?",
-      removeIssuerAdmin: "Weet je het zeker dat je de issuer Admin wilt verwijderen?",
-      removeBadgeClassUser: "Weet je het zeker dat je deze rol wilt verwijderen?",
       setInstitutionAdmin: "Maak gebruiker instellings Admin",
       removeInstitutionAdmin: "Verwijder instellings Admin",
       inviteNewUser: "Nodig nieuwe gebruiker uit"

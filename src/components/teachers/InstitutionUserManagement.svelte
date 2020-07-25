@@ -49,11 +49,6 @@
   };
 
   onMount(reload);
-
-  // Remove permissions modal
-  let removeModalTitle = I18n.t(['editUsers', 'permissions', 'removePermissions']);
-  let removeModalQuestion = I18n.t(['editUsers', 'permissions', 'removeAdmin']);
-
 </script>
 
 <UserManagement
@@ -62,7 +57,5 @@
     {permissions}
     institutionStaffs={institutionStaffMembers}
     {userProvisionments}
-    {removeModalTitle}
-    {removeModalQuestion}
     {reload}
 />
