@@ -21,6 +21,9 @@
     const url = URL.createObjectURL(blob);
     return url;
   }
+
+  let imagePromise = fetchData();
+  $: if(imageUrl) imagePromise = fetchData();
 </script>
 
 <style>
@@ -30,7 +33,7 @@
 </style>
 
 {#if imageUrl}
-  {#await fetchData()}
+  {#await imagePromise}
     <span></span>
   {:then objectUrl}
     <img src={objectUrl} alt={alt}/>

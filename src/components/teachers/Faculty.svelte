@@ -92,28 +92,29 @@
 {#if loaded}
   <Breadcrumb {faculty}/>
   <EntityHeader
-    {tabs}
-    {headerItems}
-    object={faculty}
-    entity={entityType.ISSUER_GROUP}
-    entityId={entityId}
-    mayUpdate={mayUpdate}
+      {tabs}
+      {headerItems}
+      object={faculty}
+      entity={entityType.ISSUER_GROUP}
+      entityId={entityId}
+      mayUpdate={mayUpdate}
   />
 
   <Router>
     <Route path="/issuers">
       <Issuers
-        facultyEntityId={entityId}
-        {issuers}
-        mayCreate={mayCreate}
-        institutionName={faculty.name}/>
+          facultyEntityId={entityId}
+          {issuers}
+          mayCreate={mayCreate}
+          institutionName={faculty.name}
+      />
     </Route>
     <Route path="/user-management/invite-new-user">
       <InviteUser
-        permissionsRoles={permissionsRoles}
-        entityId={entityId}
-        disabledRole={true}
-        contentType={contentType}
+          permissionsRoles={permissionsRoles}
+          entityId={entityId}
+          disabledRole={true}
+          contentType={contentType}
       />
     </Route>
     <Route path="/user-management">

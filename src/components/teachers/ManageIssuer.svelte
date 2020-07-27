@@ -37,6 +37,9 @@ import {
       faculty {
         name,
         entityId,
+        institution {
+          image
+        }
       },
       badgeclasses {
         name,
@@ -64,6 +67,7 @@ import {
   onMount(() => {
     queryData(query).then(res => {
       issuer = res.issuer;
+      if(!issuer.image) issuer.image = issuer.faculty.institution.image;
       issuer.publicLink = `${config.serverUrl}/public/issuers/${entityId}`;
       faculty = issuer.faculty;
       badgeclasses = issuer.badgeclasses;
@@ -124,27 +128,27 @@ import {
 
 <Breadcrumb {faculty} {issuer}/>
 <EntityHeader
-  {tabs}
-  {headerItems}
-  object={issuer}
-  entity={entityType.ISSUER}
-  entityId={entityId}
-  mayUpdate={mayUpdate}
+    {tabs}
+    {headerItems}
+    object={issuer}
+    entity={entityType.ISSUER}
+    entityId={entityId}
+    mayUpdate={mayUpdate}
 />
 
 <Router>
   <Route path="/badgeclasses">
     <Badgeclasses
-      {badgeclasses}
-      mayCreate={mayCreate}
-      issuer={issuer}/>
+        {badgeclasses}
+        mayCreate={mayCreate}
+        issuer={issuer}/>
   </Route>
   <Route path="/user-management/invite-new-user">
     <InviteUser
-      permissionsRoles={permissionsRoles}
-      entityId={entityId}
-      disabledRole={true}
-      contentType={contentType}
+        permissionsRoles={permissionsRoles}
+        entityId={entityId}
+        disabledRole={true}
+        contentType={contentType}
     />
   </Route>
   <Route path="/user-management">

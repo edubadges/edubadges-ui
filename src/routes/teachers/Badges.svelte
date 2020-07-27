@@ -10,6 +10,9 @@
 
   const query = `{
     faculties {
+      institution {
+        image
+      },
       ${headerEntity},
       ${headerStaff},
       issuers {
@@ -60,6 +63,11 @@
 
   onMount(() => {
     queryData(query).then(res => {
+      for (const faculty of res.faculties) {
+        for (const issuer of faculty.issuers) {
+          if (!issuer.image) issuer.image = res.faculties[0].institution.image;
+        }
+      }
       $faculties = res.faculties;
       loaded = true;
     });

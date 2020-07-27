@@ -28,6 +28,7 @@
     }).catch(() => navigate("/404?issuer=true"));
   });
 </script>
+
 <style lang="scss">
   h3 {
     font-size: 18px;
@@ -53,9 +54,8 @@
   div.page-container {
     width: 100%;
   }
-
-
 </style>
+
 <div class="page-container">
   {#if loaded}
     <EntityHeader
@@ -96,5 +96,4 @@
   {:else}
     <Spinner/>
   {/if}
-
 </div>

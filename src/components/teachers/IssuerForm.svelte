@@ -45,14 +45,14 @@
             issuer={isCreate ? null : issuer} submit={onSubmit} create={isCreate} {processing}>
   <Field {entity} attribute="faculty" errors={errors.faculty}>
     <Select
-      bind:value={issuer.faculty}
-      disabled={!facultyChooseAllowed}
-      error={errors.faculty}
-      items={faculties}/>
+        bind:value={issuer.faculty}
+        disabled={!facultyChooseAllowed}
+        error={errors.faculty}
+        items={faculties}/>
   </Field>
 
   <Field {entity} attribute="image" errors={errors.image}>
-    <File bind:value={issuer.image} error={errors.image} removeAllowed={false}/>
+    <File bind:value={issuer.image} error={errors.image} removeAllowed={true}/>
   </Field>
 
   <Field {entity} attribute="name" errors={errors.name}>

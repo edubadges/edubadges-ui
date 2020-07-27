@@ -78,7 +78,7 @@
 <div class="header">
   {#if entity.image}
     <div class="image">
-      <RemoteImage imageUrl={entity.image} alt={`${entity.name} logo`}/>
+      <RemoteImage bind:imageUrl={entity.image} alt={`${entity.name} logo`}/>
     </div>
   {/if}
   <div class="content">
