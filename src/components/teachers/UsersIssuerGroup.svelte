@@ -196,7 +196,7 @@
   const removePermissions = () => {
     showRemoveModal = true;
     removeModalTitle = I18n.t(['editUsers', 'permissions', 'removePermissions']);
-    removeModalQuestion = I18n.t(['editUsers', 'permissions', 'removeIssuerGroupAdmin']);
+    removeModalQuestion = I18n.t(['editUsers', 'permissions', 'remove', entityType.ISSUER_GROUP]);
     removeModalAction = removeSelectedPermissions;
   };
 

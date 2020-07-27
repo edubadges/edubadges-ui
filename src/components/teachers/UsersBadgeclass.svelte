@@ -282,7 +282,7 @@
   const removePermissions = () => {
     showRemoveModal = true;
     removeModalTitle = I18n.t(['editUsers', 'permissions', 'removePermissions']);
-    removeModalQuestion = I18n.t(['editUsers', 'permissions', 'removeBadgeClassUser']);
+    removeModalQuestion = I18n.t(['editUsers', 'permissions', 'remove', entityType.BADGE_CLASS]);
     removeModalAction = removeSelectedPermissions;
   };
 

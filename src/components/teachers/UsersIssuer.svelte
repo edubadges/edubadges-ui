@@ -233,7 +233,7 @@
   const removePermissions = () => {
     showRemoveModal = true;
     removeModalTitle = I18n.t(['editUsers', 'permissions', 'removePermissions']);
-    removeModalQuestion = I18n.t(['editUsers', 'permissions', 'removeIssuerAdmin']);
+    removeModalQuestion = I18n.t(['editUsers', 'permissions', 'remove', entityType.ISSUER]);
     removeModalAction = removeSelectedPermissions;
   };
 
@@ -318,13 +318,15 @@
                   onChange={val => onCheckOne(val, staffId)}/>
             </td>
             <td>
-              <ListLink path={`/manage/issuer/${issuer.entityId}/badgeclasses`}
-                        name={issuer.name}/>
+              <ListLink
+                  path={`/manage/issuer/${issuer.entityId}/badgeclasses`}
+                  name={issuer.name}
+              />
             </td>
             <td>
               <ListLink
-                path={`/manage/faculty/${findFacultyByIssuerEntityId(issuer.entityId).entityId}/issuers`}
-                name={findFacultyByIssuerEntityId(issuer.entityId).name}/>
+                  path={`/manage/faculty/${findFacultyByIssuerEntityId(issuer.entityId).entityId}/issuers`}
+                  name={findFacultyByIssuerEntityId(issuer.entityId).name}/>
             </td>
             <td>
               {I18n.t(['editUsers', 'issuer', 'allRights'])}

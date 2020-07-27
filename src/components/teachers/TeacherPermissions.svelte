@@ -32,6 +32,10 @@
           badgeclasses {
             name,
             entityId
+          },
+          faculty {
+            name,
+            entityId
           }
         }
       }
@@ -85,7 +89,8 @@
             entityId,
           },
           faculty {
-            name
+            name,
+            entityId,
           }
         }
       }
@@ -165,11 +170,11 @@
     />
 
     <PermissionsManagement
-      {entity}
-      institutionStaffs={institutionStaffMemberships}
-      issuerGroupStaffs={issuerGroupStaffMemberships}
-      issuerStaffs={issuerStaffMemberships}
-      badgeClassStaffs={badgeClassStaffMemberships}
+        {entity}
+        institutionStaffs={institutionStaffMemberships}
+        issuerGroupStaffs={issuerGroupStaffMemberships}
+        issuerStaffs={issuerStaffMemberships}
+        badgeClassStaffs={badgeClassStaffMemberships}
     />
   </div>
 {:else}
