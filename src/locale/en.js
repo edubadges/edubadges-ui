@@ -12,7 +12,7 @@ I18n.translations.en = {
     profile: "My profile",
     permissions: "My permissions",
     nav: {
-      badgeclasses: "Badgeclasses",
+      badgeclasses: "Badge classes",
       manage: "Manage",
       users: "Users"
     },
@@ -99,7 +99,7 @@ I18n.translations.en = {
   },
   teacher: {
     sidebar: {
-      filterBadges: "Filter badgeclasses",
+      filterBadges: "Filter badge classes",
       filterUsers: "Filter users",
       filters: {
         faculties: "Issuer groups",
@@ -115,7 +115,7 @@ I18n.translations.en = {
     name: "Name",
     nameEmail: "Name/Email addess",
     badgeclasses: {
-      title: "Badgeclasses",
+      title: "Badge classes",
       badges: "Edubadges",
       noBadges: "(No edubadges issued yet)",
       badgesCount: "{{count}} edubadges issued",
@@ -193,7 +193,7 @@ I18n.translations.en = {
       institution: "Institution",
       issuers: "Issuers",
       faculties: "Issuer groups",
-      badgeclasses: "Badgeclasses",
+      badgeclasses: "Badge classes",
       badgeclassOverview: "Overview",
       userManagement: "User management",
       enrollments: "Requested",
@@ -205,7 +205,7 @@ I18n.translations.en = {
       institution: "Edit educational institution",
       faculty: "Edit issuer group",
       issuer: "Edit issuer",
-      badgeclass: "Edit badgeclass",
+      badgeclass: "Edit badge class",
       save: "Save changes",
       cancel: "Cancel",
     },
@@ -214,8 +214,8 @@ I18n.translations.en = {
       info: {
         institution: "Institutions can't be deleted in the issuer portal",
         faculty: "Issuer group contains issuers and can't be deleted",
-        issuer: "Issuer contains badgeclasses and can't be deleted",
-        badgeclass: "Edubadges belonging to this badgeclass have already been awarded. Therefore the badgeclass can’t be deleted."
+        issuer: "Issuer contains badge classes and can't be deleted",
+        badgeclass: "Edubadges belonging to this badge class have already been awarded. Therefore the badge class can’t be deleted."
       },
       flash: "Successfully deleted {{type}}",
       institution: {
@@ -234,16 +234,16 @@ I18n.translations.en = {
         question: "Do you really want to delete this issuer?"
       },
       badgeclass: {
-        name: "Badgeclass",
-        title: "Delete badgeclass",
-        question: "Do you really want to delete this badgeclass?"
+        name: "Badge class",
+        title: "Delete badge class",
+        question: "Do you really want to delete this badge class?"
       },
     },
     new: {
       create: "new",
       faculty: "Add new issuer group",
       issuer: "Add new issuer",
-      badgeclass: "Add new badgeclass",
+      badgeclass: "Add new badge class",
       save: "Save",
       cancel: "Cancel",
     },
@@ -283,9 +283,9 @@ I18n.translations.en = {
     205: "Request not found.",
     206: "Accepted requests for edubadges cannot be withdrawn.",
     207: "Users can only withdraw their own requests.",
-    208: "Missing badgeclass-id.",
+    208: "Missing badge class-id.",
     209: "Cannot request.",
-    210: "You do not have permission. Check your assigned role in the badgeclass related to this request.",
+    210: "You do not have permission. Check your assigned role in the badge class related to this request.",
     211: "Request has already been denied.",
     212: "Awarded requests can't be denied.",
     213: "Can’t award requested edubadge, it has already been awarded.",
@@ -336,9 +336,9 @@ I18n.translations.en = {
       institution_staff: "Institution Admin",
       issuer_group_staff: "Issuer group admin",
       issuer_staff: "Issuer Admin",
-      badge_class_owner: "Badgeclass owner",
-      badge_class_editor: "Badgeclass editor",
-      badge_class_awarder: "Badgeclass awarder",
+      badge_class_owner: "Badge class owner",
+      badge_class_editor: "Badge class editor",
+      badge_class_awarder: "Badge class awarder",
       viewer: "Viewer",
     },
     institution: {
@@ -371,7 +371,7 @@ I18n.translations.en = {
       permissions: "Permissions on issuer level"
     },
     badgeclass: {
-      header: "Badgeclass",
+      header: "Badge class",
       issuedBy: "Issued by",
       badgeclassOwner: "Admin",
       badgeclassEditor: "Editor",
@@ -379,10 +379,10 @@ I18n.translations.en = {
       owner: "Admin",
       editor: "Editor",
       awarder: "Awarder",
-      switchToOwner: "Successfully changed user to badgeclass admin role.",
-      switchToEditor: "Successfully changed user to badgeclass editor role.",
-      switchToAwarder: "Successfully changed user to badgeclass awarder role.",
-      permissions: "Permissions on badgeclass level"
+      switchToOwner: "Successfully changed user to badge class admin role.",
+      switchToEditor: "Successfully changed user to badge class editor role.",
+      switchToAwarder: "Successfully changed user to badge class awarder role.",
+      permissions: "Permissions on badge class level"
     },
     permissions: {
       header: "Your Permissions",
@@ -418,7 +418,7 @@ I18n.translations.en = {
       email: "email",
       role: 'Role',
       notes: 'Notes',
-      badgeclass: "Select a badgeclass",
+      badgeclass: "Select a badge class",
       issuerGroup: "Select an issuer group",
       issuer: "Select an issuer",
     },
@@ -702,7 +702,7 @@ I18n.translations.en = {
   },
   monthNames: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
   zeroState: {
-    badgeClasses: "There are no badgeclasses for issuer {{name}}.",
+    badgeClasses: "There are no badge classes for issuer {{name}}.",
     issuers: "There are no issuers for {{name}}.",
     faculties: "There are no faculties for institution {{name}}.",
     users: "There are no users for institution {{name}}.",
@@ -717,7 +717,7 @@ I18n.translations.en = {
     institution_staff: "institution staff",
     issuer_group_staff: "group staff",
     issuer_staff: "issuer staff",
-    badge_class_staff: "badgeclass staff",
+    badge_class_staff: "badge class staff",
     user_provisionment: "user invitations"
   },
   user: {
@@ -766,8 +766,8 @@ I18n.translations.en = {
     }
   },
   eye: {
-    awardView: "Award view",
-    adminView: "Admin view"
+    awardView: "Go to award view",
+    adminView: "Go to admin view"
   },
   studentEnroll: {
     confirmation: {
