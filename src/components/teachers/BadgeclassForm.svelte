@@ -107,7 +107,7 @@
     let newBadgeclass = {
       ...badgeclass,
       criteria_text: badgeclass.criteriaText,
-      criteria_url: badgeclass.criteriaUrl,
+      criteria_url: badgeclass.criteriaUrl.includes('http') ? badgeclass.criteriaUrl : 'https://' + badgeclass.criteriaUrl,
     };
     setExpirationPeriod(newBadgeclass);
 
