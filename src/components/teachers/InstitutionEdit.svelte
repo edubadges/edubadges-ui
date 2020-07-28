@@ -8,6 +8,7 @@
   import {entityType} from "../../util/entityTypes";
   import Spinner from "../Spinner.svelte";
   import I18n from "i18n-js";
+  import { toHttpOrHttps } from "../../util/Url";
 
   const entity = entityType.INSTITUTION;
   const query = `{
@@ -37,6 +38,7 @@
   function handleSubmit() {
     errors = {};
     processing = true;
+    institution.grading_table = toHttpOrHttps(institution.grading_table);
 
     editInstitution(institution.entityId, institution)
       .then(() => navigate(`/manage/institution`))

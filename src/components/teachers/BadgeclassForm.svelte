@@ -21,6 +21,7 @@
   import {addAlignment} from "../extensions/badges/alignment";
   import {trash} from '../../icons';
   import {entityType} from "../../util/entityTypes";
+  import {toHttpOrHttps} from "../../util/Url";
 
   export let entityId;
   export let badgeclass = {extensions: [], issuer: {}};
@@ -107,7 +108,7 @@
     let newBadgeclass = {
       ...badgeclass,
       criteria_text: badgeclass.criteriaText,
-      criteria_url: badgeclass.criteriaUrl.includes('http') ? badgeclass.criteriaUrl : 'https://' + badgeclass.criteriaUrl,
+      criteria_url: toHttpOrHttps(badgeclass.criteriaUrl),
     };
     setExpirationPeriod(newBadgeclass);
 

@@ -5,6 +5,7 @@
   import {createIssuer, editIssuer} from "../../api";
   import {entityType} from "../../util/entityTypes";
   import I18n from "i18n-js";
+  import { toHttpOrHttps } from "../../util/Url";
 
   export let entityId;
   export let issuer = {faculty: {}};
@@ -21,10 +22,13 @@
     errors = {};
     processing = true;
 
+    let parent = issuer.faculty;
     let newIssuer = issuer;
     if (issuer.faculty) {
       newIssuer.faculty = issuer.faculty.entityId;
     }
+
+    newIssuer.url = toHttpOrHttps(issuer.url);
 
     const args = isCreate ? [newIssuer] : [entityId, newIssuer];
     const apiCall = isCreate ? createIssuer : editIssuer;
@@ -35,6 +39,7 @@
         navigate(`/manage/issuer/${entityId}`)
       })
       .catch(err => err.then(({fields}) => {
+        issuer.faculty = parent;
         errors = fields.error_message;
         processing = false;
       }));
