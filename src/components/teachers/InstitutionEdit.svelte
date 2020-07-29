@@ -48,6 +48,7 @@
       }));
   }
 </script>
+
 {#if loaded}
   <EntityForm entityTypeName={entity} submit={handleSubmit} {processing}>
     <Field {entity} attribute="image" errors={errors.image}>
@@ -60,23 +61,25 @@
 
     <Field {entity} attribute="description" errors={errors.description}>
       <TextInput
-        bind:value={institution.description}
-        error={errors.description}
-        placeholder={I18n.t("placeholders.institution.description")}
-        size="100"
-        area/>
+          bind:value={institution.description}
+          error={errors.description}
+          placeholder={I18n.t("placeholders.institution.description")}
+          size="100"
+          area/>
     </Field>
 
     <Field {entity} attribute="brin" errors={errors.brin}>
-      <TextInput bind:value={institution.brin} error={errors.brin}
-                 placeholder={I18n.t("placeholders.institution.brin")}/>
+      <TextInput
+          bind:value={institution.brin}
+          error={errors.brin}
+          placeholder={I18n.t("placeholders.institution.brin")}/>
     </Field>
 
     <Field {entity} attribute="grading_table" errors={errors.grading_table}>
       <TextInput
-        bind:value={institution.grading_table}
-        placeholder={I18n.t("placeholders.institution.gradingTable")}
-        error={errors.grading_table}/>
+          bind:value={institution.grading_table}
+          placeholder={I18n.t("placeholders.institution.gradingTable")}
+          error={errors.grading_table}/>
     </Field>
 
   </EntityForm>

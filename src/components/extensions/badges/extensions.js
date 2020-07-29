@@ -107,4 +107,4 @@ export const publicBadgeInformation = (badgeClass, res) => {
   //When using graphQL the extensions field is an array - for compatibility we set an empty array as we already populated the badgeClass
   badgeClass.extensions = [];
   badgeClass.ignoreExtensions = true;
-}
+};

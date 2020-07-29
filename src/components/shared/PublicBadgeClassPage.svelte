@@ -184,9 +184,9 @@
   {#if !showAcceptTerms}
     <div class="page-container">
       <EntityHeader
-        entity={entityType.BADGE_CLASS}
-        object={badgeClass}
-        visitorRole={visitorRole}>
+          entity={entityType.BADGE_CLASS}
+          object={badgeClass}
+          visitorRole={visitorRole}>
         {#if visitorRole === role.GUEST}
           <div class="slots">
             <Button text={I18n.t("login.loginToEnrol")} action={login}/>
@@ -194,7 +194,7 @@
         {:else if visitorRole === role.STUDENT}
           <div class="slots">
             {#if !studentEnrolled}
-            <Button secondary action={() => enrollStudent(true)} text={I18n.t('student.enroll')} class="btn"/>
+              <Button secondary action={() => enrollStudent(true)} text={I18n.t('student.enroll')} class="btn"/>
             {:else}
               <Button label="alreadyEnrolled" disabled={true} text={I18n.t('student.enrolled')}/>
             {/if}
@@ -212,23 +212,23 @@
 
 {#if showModal}
   <Modal submit={modalAction}
-         cancel={() => showModal = false}
-         question={modalQuestion}
-           title={modalTitle}>
+      cancel={() => showModal = false}
+      question={modalQuestion}
+      title={modalTitle}>
   </Modal>
 {/if}
 
 {#if showAcceptTerms}
   <AcceptInstitutionTerms
-    badgeClass={badgeClass} userHasAgreed={userHasAgreed} userDisagreed={userDisagreed}/>
+      badgeClass={badgeClass} userHasAgreed={userHasAgreed} userDisagreed={userDisagreed}/>
 {/if}
 
 {#if noValidInstitution}
   <Modal submit={logInForceAuthn}
-         title={I18n.t("acceptTerms.noValidInstitution")}
-         question={I18n.t("acceptTerms.noValidInstitutionInfoForEnrollment", {name: badgeClass.issuer.faculty.institution.name})}
-         cancel={() => noValidInstitution = false}
-         submitLabel={I18n.t("acceptTerms.goToSurfConext")}>
+     title={I18n.t("acceptTerms.noValidInstitution")}
+     question={I18n.t("acceptTerms.noValidInstitutionInfoForEnrollment", {name: badgeClass.issuer.faculty.institution.name})}
+     cancel={() => noValidInstitution = false}
+     submitLabel={I18n.t("acceptTerms.goToSurfConext")}>
   </Modal>
 {/if}
 

@@ -164,11 +164,11 @@
 {#if loaded}
   <div class="container">
     <UsersTable
-      {...table}
-      isEmpty={false}
-      bind:search={institutionSearch}
-      withCheckAll={false}
-      bind:buttons={buttons}
+        {...table}
+        isEmpty={false}
+        bind:search={institutionSearch}
+        withCheckAll={false}
+        bind:buttons={buttons}
     >
       <tr>
         <td>
@@ -185,10 +185,10 @@
 {/if}
 
 {#if showModal}
-  <Modal submit={modalAction}
+  <Modal
+      submit={modalAction}
       warning={isInstitutionAdmin()}
       cancel={() => showModal = false}
       question={modalQuestion}
-      title={modalTitle}>
-  </Modal>
+      title={modalTitle} />
 {/if}

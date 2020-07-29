@@ -27,4 +27,3 @@ function validFetch(query) {
 }
 
 export const queryData = query => validFetch(`query ${query}`);
-
