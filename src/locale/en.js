@@ -113,7 +113,7 @@ I18n.translations.en = {
       back: "back",
     },
     name: "Name",
-    nameEmail: "Name/Email addess",
+    nameEmail: "Name/Email address",
     badgeclasses: {
       title: "Badge classes",
       badges: "Edubadges",
