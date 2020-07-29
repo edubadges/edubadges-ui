@@ -62,7 +62,7 @@
       userNameDict = {name: `${user.firstName} ${user.lastName}`};
       loaded = true;
     });
-  }
+  };
 
   onMount(refresh);
 
@@ -78,10 +78,10 @@
       makeUserInstitutionAdmin(institution.entityId, userId)
         .then(() => {
           refresh();
-          flash.setValue(I18n.t("editUsers.institution.flash.makeUserInstitutionAdmin", userNameDict));
+          flash.setValue(I18n.t("editUsers.flash.makeUserInstitutionAdmin", userNameDict));
         });
     }
-  }
+  };
 
   const doRemoveUserInstitutionAdmin = showConfirmation => () => {
     if (showConfirmation) {
@@ -94,10 +94,10 @@
       removeUserInstitutionAdmin(user.institutionStaff.entityId)
         .then(() => {
           refresh();
-          flash.setValue(I18n.t("editUsers.institution.flash.removeUserInstitutionAdmin", userNameDict));
+          flash.setValue(I18n.t("editUsers.flash.removeUserInstitutionAdmin", userNameDict));
         });
     }
-  }
+  };
 
   const tableHeaders = [
     {

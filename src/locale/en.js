@@ -341,6 +341,23 @@ I18n.translations.en = {
       badge_class_awarder: "Badge class awarder",
       viewer: "Viewer",
     },
+    flash: {
+      makeUserInstitutionAdmin: "{{name}} is granted institution admin rights",
+      removeUserInstitutionAdmin: "Institution admin rights have been removed from {{name}}",
+      makeUserIssuerGroupAdmin: "{{name}} is granted issuer group admin rights",
+      removeUserIssuerGroupAdmin: "Issuer group admin rights have been removed from {{name}}",
+      makeUserIssuerAdmin: "{{name}} is granted issuer admin rights",
+      removeUserIssuerAdmin: "Issuer admin rights have been removed from {{name}}",
+      makeUserBadgeClassAdmin: "{{name}} is granted badge class admin rights",
+      removeUserBadgeClassAdmin: "Badge class admin rights have been removed from {{name}}",
+      makeUserBadgeClassEditor: "{{name}} is granted badge class editor rights",
+      removeUserBadgeClassEditor: "Badge class editor rights have been removed from {{name}}",
+      makeUserBadgeClassAwarder: "{{name}} is granted badge class awarder rights",
+      removeUserBadgeClassAwarder: "Badge class awarder rights have been removed from {{name}}",
+      removeUserBadgeClassRole: "Badge class rights have been removed from {{name}}",
+      invite: "Successfully removed invite.",
+      removed: "Successfully removed rights"
+    },
     institution: {
       admin: "Institution admin",
       header: "Institution",
@@ -351,12 +368,6 @@ I18n.translations.en = {
       makeUserInstitutionAdminQuestion: "Are you sure you want to promote {{name}} to institution admin?",
       removeUserInstitutionAdmin: "Remove user institution admin rights from {{name}}",
       removeUserInstitutionAdminQuestion: "Are you sure you want to remove the institution admin rights from {{name}}?",
-      flash: {
-        makeUserInstitutionAdmin: "{{name}} is granted institution admin rights",
-        removeUserInstitutionAdmin: "Institution admin rights have been removed from {{name}}",
-        invite: "Successfully removed invite.",
-        removed: "Successfully removed rights"
-      }
     },
     faculty: {
       admin: "Issuer group admin",

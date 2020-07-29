@@ -16,11 +16,13 @@
   import ListLink from "./ListLink.svelte";
   import {userAlreadyHasAdminPermissions} from "../../util/userPermissions";
   import { addStaffType, expandStaffsIssuerGroup, staffType } from "../../util/staffTypes";
+  import {flash} from "../../stores/flash";
 
   export let userId;
 
   let user;
   let currentUser;
+  let userNameDict;
   let faculties = [];
   let newPermissionOptions = [];
   let removePermissionOptions = [];
@@ -114,6 +116,7 @@
       removePermissionOptions = faculties.filter(faculty => userAlreadyHasAdminPermissions(faculty, entityType.ISSUER_GROUP, institutionStaffs, issuerGroupStaffs, [], []));
       modalSelectedEntity = newPermissionOptions[0];
       user = res.user;
+      userNameDict = {name: `${user.firstName} ${user.lastName}`};
       currentUser = res.currentUser;
       isEmpty = user.facultyStaffs.length === 0 &&
         (!user.institutionStaff || (user.institutionStaff && faculties.length === 0));
@@ -169,6 +172,7 @@
         makeUserIssuerGroupAdmin(modalSelectedEntity.entityId, userId, modalNotes).then(() => {
           reload();
           showAddModal = false;
+          flash.setValue(I18n.t("editUsers.flash.makeUserIssuerGroupAdmin", userNameDict));
         });
         break;
       default:
@@ -181,6 +185,7 @@
       removeUserIssuerGroupAdmin(selected).then(() => {
         reload();
         showRemoveModal = false;
+        flash.setValue(I18n.t("editUsers.flash.removeUserIssuerGroupAdmin", userNameDict));
       })
     }
     selection.length = 0;

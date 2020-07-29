@@ -341,6 +341,23 @@ I18n.translations.nl = {
       badge_class_awarder: "Badge Class Awarder",
       viewer: "Viewer",
     },
+    flash: {
+      makeUserInstitutionAdmin: "{{name}} heeft de instellings admin rechten gekregen",
+      removeUserInstitutionAdmin: "De instellings admin rechten zijn verwijderd van {{name}}",
+      makeUserIssuerGroupAdmin: "{{name}} heeft de issuer group admin rechten gekregen",
+      removeUserIssuerGroupAdmin: "De issuer group admin rechten zijn verwijderd van {{name}}",
+      makeUserIssuerAdmin: "{{name}} heeft de issuer admin rechten gekregen",
+      removeUserIssuerAdmin: "De issuer admin rechten zijn verwijderd van {{name}}",
+      makeUserBadgeClassAdmin: "{{name}} heeft badge class admin rechten gekregen",
+      removeUserBadgeClassAdmin: "De badge class admin rechten zijn verwijderd van {{name}}",
+      makeUserBadgeClassEditor: "{{name}} heeft badge class editor rechten gekregen",
+      removeUserBadgeClassEditor:"De badge class editor rechten zijn verwijderd van {{name}}",
+      makeUserBadgeClassAwarder: "{{name}} heeft badge class awarder rechten gekregen",
+      removeUserBadgeClassAwarder:"De badge class awarder rechten zijn verwijderd van {{name}}",
+      removeUserBadgeClassRole:"De badge class rechten zijn verwijderd van {{name}}",
+      invite: "Uitnodiging is succesvol verwijderd.",
+      removed: "Rechten zijn succesvol verwijderd."
+    },
     institution: {
       admin: "Instellings Admin",
       header: "Instelling",
@@ -351,12 +368,6 @@ I18n.translations.nl = {
       makeUserInstitutionAdminQuestion: "Weet je het zeker dat je {{name}} instellings admin wilt maken?",
       removeUserInstitutionAdmin: "Verwijder de instellings admin rechten van {{name}}",
       removeUserInstitutionAdminQuestion: "Weet je het zeker dat je de instellings admin rechten van {{name}} wilt verwijderen?",
-      flash: {
-        makeUserInstitutionAdmin: "{{name}} heeft de instellings admin rechten gekregen",
-        removeUserInstitutionAdmin: "De instellings admin rechten zijn verwijderd van {{name}}",
-        invite: "Uitnodiging is succesvol verwijderd.",
-        removed: "Rechten zijn succesvol verwijderd."
-      }
     },
     faculty: {
       admin: "Issuer Group admin",

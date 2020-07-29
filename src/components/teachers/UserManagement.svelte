@@ -104,9 +104,9 @@
     for (const {entityId, _staffType} of selection) {
       selection = [];
       if (_staffType === staffType.USER_PROVISIONMENT) {
-        disinviteUser(entityId).then(() => reloadAndReset('editUsers.institution.flash.invite'));
+        disinviteUser(entityId).then(() => reloadAndReset('editUsers.flash.invite'));
       } else {
-        removeStaffMembership(entity, entityId).then(() => reloadAndReset('editUsers.institution.flash.removed'));
+        removeStaffMembership(entity, entityId).then(() => reloadAndReset('editUsers.flash.removed'));
       }
     }
   };

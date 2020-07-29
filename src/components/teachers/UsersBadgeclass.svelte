@@ -18,11 +18,13 @@
   import ListLink from "./ListLink.svelte";
   import {addStaffType, staffType, expandStaffsBadgeClass} from "../../util/staffTypes";
   import { userAlreadyHasAdminPermissions, userAlreadyHasAnyPermissions } from "../../util/userPermissions";
+  import {flash} from "../../stores/flash";
 
   export let userId;
 
   let user;
   let currentUser;
+  let userNameDict;
   let faculties = [];
   let badgeClassSearch = '';
 
@@ -190,6 +192,7 @@
     queryData(query).then(res => {
       faculties = res.currentInstitution.faculties;
       user = res.user;
+      userNameDict = {name: `${user.firstName} ${user.lastName}`};
       currentUser = res.currentUser;
       institutionStaffs = res.user.institutionStaff ? addStaffType([res.user.institutionStaff], staffType.INSTITUTION_STAFF) : [];
       issuerGroupStaffs = addStaffType(res.user.facultyStaffs, staffType.ISSUER_GROUP_STAFF);
@@ -269,6 +272,7 @@
       removeUserBadgeclassPermission(selected).then(() => {
         reload();
         showRemoveModal = false;
+        flash.setValue(I18n.t("editUsers.flash.removeUserBadgeClassRole", userNameDict));
       })
     }
     selection.length = 0;
@@ -339,17 +343,20 @@
     switch (role.value) {
       case permissionsRole.OWNER:
         changeUserToBadgeclassOwner(id).then(() => {
-          reload()
+          reload();
+          flash.setValue(I18n.t("editUsers.flash.makeUserBadgeClassAdmin", userNameDict));
         });
         break;
       case permissionsRole.EDITOR:
         changeUserToBadgeclassEditor(id).then(() => {
-          reload()
+          reload();
+          flash.setValue(I18n.t("editUsers.flash.makeUserBadgeClassEditor", userNameDict));
         });
         break;
       case permissionsRole.AWARDER:
         changeUserToBadgeclassAwarder(id).then(() => {
-          reload()
+          reload();
+          flash.setValue(I18n.t("editUsers.flash.makeUserBadgeClassAwarder", userNameDict));
         });
         break;
     }
@@ -507,6 +514,7 @@
 
 {#if showAddModal}
   <AddPermissionsBadgeClassesModal
+      bind:userNameDict={userNameDict}
       submit={addModalAction}
       bind:targetOptions={newPermissionOptions}
       cancel={() => showAddModal = false}

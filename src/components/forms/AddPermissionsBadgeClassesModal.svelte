@@ -14,12 +14,14 @@
       makeUserBadgeclassOwner
   } from "../../api";
   import { createEventDispatcher } from 'svelte';
+  import {flash} from "../../stores/flash";
 
   const dispatch = createEventDispatcher();
 
   export let cancel;
   export let title;
 
+  export let userNameDict;
   export let userId;
   export let targetOptions = [];
   export let badgeClassStaffs = [];
@@ -55,16 +57,19 @@
         case permissionsRole.OWNER:
           changeUserToBadgeclassOwner(alreadyHasPermissions.entityId).then(() => {
             dispatch('permissionAdded');
+            flash.setValue(I18n.t("editUsers.flash.makeUserBadgeClassAdmin", userNameDict));
           });
           break;
         case permissionsRole.EDITOR:
           changeUserToBadgeclassEditor(alreadyHasPermissions.entityId).then(() => {
             dispatch('permissionAdded');
+            flash.setValue(I18n.t("editUsers.flash.makeUserBadgeClassEditor", userNameDict));
           });
           break;
         case permissionsRole.AWARDER:
           changeUserToBadgeclassAwarder(alreadyHasPermissions.entityId).then(() => {
             dispatch('permissionAdded');
+            flash.setValue(I18n.t("editUsers.flash.makeUserBadgeClassAwarder", userNameDict));
           });
           break;
       }
@@ -73,16 +78,19 @@
         case permissionsRole.OWNER:
           makeUserBadgeclassOwner(chosenBadgeClass.entityId, userId, notes).then(() => {
             dispatch('permissionAdded');
+            flash.setValue(I18n.t("editUsers.flash.makeUserBadgeClassAdmin", userNameDict));
           });
           break;
         case permissionsRole.EDITOR:
           makeUserBadgeclassEditor(chosenBadgeClass.entityId, userId, notes).then(() => {
             dispatch('permissionAdded');
+            flash.setValue(I18n.t("editUsers.flash.makeUserBadgeClassEditor", userNameDict));
           });
           break;
         case permissionsRole.AWARDER:
           makeUserBadgeclassAwarder(chosenBadgeClass.entityId, userId, notes).then(() => {
             dispatch('permissionAdded');
+            flash.setValue(I18n.t("editUsers.flash.makeUserBadgeClassAwarder", userNameDict));
           });
           break;
         default:

@@ -17,11 +17,13 @@
   import {flatten} from "../../util/utils";
   import {userAlreadyHasAdminPermissions} from "../../util/userPermissions";
   import { addStaffType, expandStaffsIssuer, staffType } from "../../util/staffTypes";
+  import {flash} from "../../stores/flash";
 
   export let userId;
 
   let user;
   let currentUser;
+  let userNameDict;
   let faculties = [];
   let institutionId;
   let issuerSearch = '';
@@ -129,6 +131,7 @@
       institutionId = res.currentInstitution.entityId;
       faculties = res.currentInstitution.faculties;
       user = res.user;
+      userNameDict = {name: `${user.firstName} ${user.lastName}`};
       currentUser = res.currentUser;
       institutionStaffs = res.user.institutionStaff ? addStaffType([res.user.institutionStaff], staffType.INSTITUTION_STAFF) : [];
       issuerGroupStaffs = addStaffType(res.user.facultyStaffs, staffType.ISSUER_GROUP_STAFF);
@@ -206,6 +209,7 @@
         makeUserIssuerAdmin(modalSelectedEntity.entityId, userId, modalNotes).then(() => {
           reload();
           showAddModal = false;
+          flash.setValue(I18n.t("editUsers.flash.makeUserIssuerAdmin", userNameDict));
         });
         break;
       default:
@@ -218,6 +222,7 @@
       removeUserIssuerAdmin(selected).then(() => {
         reload();
         showRemoveModal = false;
+        flash.setValue(I18n.t("editUsers.flash.removeUserIssuerAdmin", userNameDict));
       })
     }
     selection.length = 0;
