@@ -32,7 +32,10 @@
         name,
         entityId,
         badgeclasses {
-          entityId
+          entityId,
+          badgeAssertions {
+            entityId
+          }
         },
         faculty {
           name
