@@ -708,7 +708,7 @@ I18n.translations.en = {
     users: "There are no users for institution {{name}}.",
     assertions: "There are awarded edubadge for {{name}}.",
     enrollments: "There are no requests for edubadge {{name}}.",
-    permissions: "There are no permissions for this user on the {{name}} level.",
+    permissions: "There are no permissions for this user on the {{entity}} level.",
     selfPermissions: "There are no permissions for this user on the {{entity}} level.",
     userPermissions: "This user does not have any permissions for {{entity}} {{name}}."
   },

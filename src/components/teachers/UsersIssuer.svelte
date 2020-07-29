@@ -376,7 +376,7 @@
       {/each}
       {#if isEmpty}
         <tr>
-          <td colspan="4">{I18n.t("zeroState.permissions",{name: I18n.t("userManagement.issuer_staff")})}</td>
+          <td colspan="4">{I18n.t("zeroState.permissions",{entity: I18n.t("userManagement.issuer_staff")})}</td>
         </tr>
       {/if}
     </UsersTable>

@@ -84,7 +84,7 @@
   {/each}
   {#if issuers.length === 0}
     <tr>
-      <td colspan="2">{I18n.t("zeroState.issuers",{name:institutionName})}</td>
+      <td colspan="2">{I18n.t("zeroState.issuers",{entity:institutionName})}</td>
     </tr>
   {/if}
 
