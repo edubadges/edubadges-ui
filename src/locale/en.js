@@ -289,7 +289,7 @@ I18n.translations.en = {
     211: "Request has already been denied.",
     212: "Awarded requests can't be denied.",
     213: "Can’t award requested edubadge, it has already been awarded.",
-    214: "Cannot change any value, assertions have already been issued within this entity.",
+    214: "Cannot change any value, edubadges have already been awarded within this entity.",
     500: 'Cannot remove the last staff member of this institution.',
     501: 'There may be only one invite per email address.',
     502: 'Cannot invite user for this entity: there is a conflicting staff membership.',
@@ -305,7 +305,7 @@ I18n.translations.en = {
     702: "Invalid share provider.",
     801: "Cannot change grading table URL, edubadges have already been issued.",
     802: "Cannot change BRIN code, edubadges have already been issued.",
-    902: "Must be a valid URL.",
+    902: "Must be a valid URL or picture format.",
     903: "This is a required attribute.",
     904: "No file was uploaded.",
     905: "Either criteria or criteria URL is required.",
@@ -458,7 +458,7 @@ I18n.translations.en = {
       created: "Created",
       issuedBy: "Issued by",
       admin: "Admin",
-      alignment: "Alignment",
+      alignment: "Related educational framework ",
       alignmentName: "Name",
       alignmentFramework: "Framework",
       alignmentUrl: "URL",
@@ -501,12 +501,12 @@ I18n.translations.en = {
         additionalSections: "Additional sections",
         educationalIdentifiers: "Educational identifiers",
         studyLoad: "Study load",
-        alignment: "Alignment"
+        alignment: "Related educational framework "
       },
       addButtons: {
         educationalIdentifiers: "Add educational identifier(s)",
         studyLoad: "Add study load",
-        alignment: "Add alignment",
+        alignment: "Add related educational framework",
       },
       info: {
         educationProgramIdentifier:
@@ -667,7 +667,7 @@ I18n.translations.en = {
       "Please choose with which institution you want to start using edubadges.",
     badgeClassEnrollmentTerms: {
       formalBadges: "Formal edubadges - please take notice of our terms",
-      inFormalBadges: "Informal edubadges - please take notice of our terms",
+      inFormalBadges: "Non-formal edubadges - please take notice of our terms",
       statementTitle: "Statement",
       statementLinkPre: "You can read here ",
       statementLink: "the complete statement.",
