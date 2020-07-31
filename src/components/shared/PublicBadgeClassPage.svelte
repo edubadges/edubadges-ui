@@ -74,7 +74,7 @@
           name,
           entityId,
           institution {
-            identifier,
+            entityId,
             name
           }
         }
@@ -91,7 +91,7 @@
         targetDescription
       }
     }
-  }`;
+  }`; // TODO: change badgeClass.issuer.faculty.institution.entityId back to identifier
 
   onMount(() => {
     if (visitorRole === role.STUDENT) {
@@ -231,4 +231,3 @@
      submitLabel={I18n.t("acceptTerms.goToSurfConext")}>
   </Modal>
 {/if}
-

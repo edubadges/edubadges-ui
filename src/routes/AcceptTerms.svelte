@@ -21,7 +21,7 @@
   let state;
   let claims;
   let provider;
-  let resign = false;
+  let reSign = false;
   let role;
   let loaded = false;
   let showModalTerms = false;
@@ -42,7 +42,7 @@
     idToken = urlParams.get("id_token");
     state = urlParams.get("state");
     provider = urlParams.get("provider");
-    resign = urlParams.get("resign") === "True";
+    reSign = urlParams.get("re_sign") === "True";
     role = urlParams.get("role");
     claims = jwt_decode(idToken);
     schacHomeOrganisations = $userRole === roleConstants.STUDENT ? schacHomeNames(claims) : [claims.schac_home_organization];
@@ -51,7 +51,7 @@
         let validSchacHomeOrganisations = schacHomeOrganisations
           .filter(orgName => res.find(validatedOrg => validatedOrg.schac_home_organisation === orgName && validatedOrg.valid));
         if (validSchacHomeOrganisations.length === 0) {
-          noValidInstitution = true;
+          noValidInstitution = false;
           loaded = true;
         } else if (validSchacHomeOrganisations.length > 1 && false) {
           Promise.all(validSchacHomeOrganisations.map(orgName => institutionDetail(orgName)))
@@ -165,7 +165,7 @@
   <p class="content">
   {#if loaded}
     <h1>{I18n.t("acceptTerms.welcome", {name: claims.preferred_username})}</h1>
-    <h3>{resign ? I18n.t("acceptTerms.renewTerms"): I18n.t("acceptTerms.acceptTerms")}</h3>
+    <h3>{reSign ? I18n.t("acceptTerms.renewTerms"): I18n.t("acceptTerms.acceptTerms")}</h3>
     <p class="terms">{I18n.translations[I18n.locale].acceptTerms[$userRole].termsInfo}</p>
     <ul>
       {#each I18n.translations[I18n.locale].acceptTerms.termsBullets[$userRole] as bullet}
