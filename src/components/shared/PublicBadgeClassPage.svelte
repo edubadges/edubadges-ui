@@ -130,7 +130,10 @@
         schacHomes = schacHomeNamesFromExtraData(res[2][0].affiliations);
         loaded = true;
 
-        termsAccepted = Boolean(userTerms.find(uTerm => uTerm.terms.entityId === badgeClass.terms.entityId)); // TODO and check version+agreed
+        const termsCandidate = userTerms.find(uTerm => uTerm.terms.entityId === badgeClass.terms.entityId);
+        termsAccepted = Boolean(termsCandidate &&
+            termsCandidate.agreedVersion === badgeClass.terms.version &&
+            termsCandidate.agreed);
       });
     } else {
       getPublicBadgeClass(entityId).then(res => {
