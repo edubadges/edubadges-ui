@@ -7,7 +7,7 @@
   export let badgeClass;
   export let enrollmentId;
 
-  const detailLink = () => navigate(`/enrollment/${enrollmentId}`);
+  const detailLink = () => {if (enrollmentId) navigate(`/enrollment/${enrollmentId}`);}
 
 </script>
 
@@ -16,6 +16,9 @@
     display: flex;
     flex-direction: column;
     background-color: var(--grey-2);
+  }
+
+  .pointer {
     cursor: pointer;
   }
 
@@ -77,7 +80,7 @@
 
 </style>
 
-<div class="card badge" on:click|preventDefault|stopPropagation={detailLink}>
+<div class="card badge {enrollmentId ? 'pointer': ''}" on:click|preventDefault|stopPropagation={detailLink}>
   <div class="header">
     <img src={badgeClass.image} alt=""/>
   </div>

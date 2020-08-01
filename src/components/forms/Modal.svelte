@@ -10,7 +10,7 @@
   export let hideSubmit = false;
 
   export let submitLabel = I18n.t("modal.confirm");
-  export let cancelLabel = I18n.t("modal.cancel")
+  export let cancelLabel = I18n.t("modal.cancel");
   export let disabled = false;
 
   let modal;

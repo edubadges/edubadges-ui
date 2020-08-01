@@ -3,13 +3,17 @@
   import I18n from "i18n-js";
   import {queryData} from "../../api/graphql";
   import {role} from "../../util/role";
-  import {getPublicBadgeClass, getSocialAccountsSafe, requestBadge, requestLoginToken} from "../../api";
-  import {isEmpty} from "lodash";
+  import {
+      acceptTermsForBadge,
+      getPublicBadgeClass,
+      getSocialAccountsSafe,
+      requestBadge,
+  } from "../../api";
   import {EntityHeader} from "../teachers";
   import {Overview} from "../teachers/badgeclass";
   import {Button, Spinner} from "../index";
   import {publicBadgeInformation} from "../extensions/badges/extensions";
-  import {userLoggedIn, redirectPath, userRole} from "../../stores/user";
+  import {redirectPath} from "../../stores/user";
   import {navigate} from "svelte-routing";
   import {entityType} from "../../util/entityTypes"
   import {schacHomeNames, schacHomeNamesFromExtraData} from "../../util/claims";
@@ -43,7 +47,7 @@
   const login = () => {
     $redirectPath = window.location.pathname;
     navigate("/login");
-  }
+  };
 
   const query = `{
     enrollment(badgeClassId: "${entityId}") {
@@ -59,6 +63,15 @@
   }`;
 
   const secureQuery = `{
+    currentUser {
+      termsAgreements {
+        terms {
+          entityId
+        },
+        agreed,
+        agreedVersion
+      }
+    },
     badgeClass(id: "${entityId}") {
       image,
       contentTypeId,
@@ -67,6 +80,15 @@
       criteriaUrl,
       criteriaText,
       expirationPeriod,
+      terms {
+        entityId,
+        termsType,
+        version,
+        termsUrl {
+          url,
+          language
+        }
+      },
       issuer {
         name,
         entityId,
@@ -74,8 +96,9 @@
           name,
           entityId,
           institution {
-            entityId,
-            name
+            identifier,
+            name,
+            image
           }
         }
       },
@@ -91,7 +114,7 @@
         targetDescription
       }
     }
-  }`; // TODO: change badgeClass.issuer.faculty.institution.entityId back to identifier
+  }`;
 
   onMount(() => {
     if (visitorRole === role.STUDENT) {
@@ -102,9 +125,12 @@
           enrollmentId = enrollment.entityId;
           requestedDate = enrollment.dateCreated;
         }
+        const userTerms = res[1].currentUser.termsAgreements;
         badgeClass = res[1].badgeClass;
         schacHomes = schacHomeNamesFromExtraData(res[2][0].affiliations);
         loaded = true;
+
+        termsAccepted = Boolean(userTerms.find(uTerm => uTerm.terms.entityId === badgeClass.terms.entityId)); // TODO and
       });
     } else {
       getPublicBadgeClass(entityId).then(res => {
@@ -115,35 +141,26 @@
     }
   });
 
-  const userNeedsToAcceptTerms = () => {
-    //TODO - we probably need to query the user and fetch all terms, see it there is an accepted one for this badgeclass
-    const identifier = badgeClass.issuer.faculty.institution.identifier;
-    if (schacHomes.indexOf(identifier) < 0) {
-
-    }
-    return !termsAccepted && true;
-  }
-
-
   const userHasAgreed = () => {
     showAcceptTerms = false;
     termsAccepted = true;
-    //TODO POST accepted to the server to create terms & agreement for this user / institution of the badge
-    enrollStudent(false);
-  }
+    acceptTermsForBadge(badgeClass.terms.entityId).then(() => {
+      enrollStudent(false);
+      showModal = false;
+    })
+  };
 
   const userDisagreed = () => {
     showAcceptTerms = false;
-  }
+  };
 
   const enrollStudent = showConfirmation => {
     const identifier = badgeClass.issuer.faculty.institution.identifier;
-    //TODO remove false
-    if (schacHomes.indexOf(identifier) < 0 && false) {
+    if (schacHomes.indexOf(identifier) < 0) {
       noValidInstitution = true;
       return;
     }
-    if (userNeedsToAcceptTerms()) {
+    if (!termsAccepted) {
       showAcceptTerms = true;
       return;
     }
@@ -158,6 +175,8 @@
         .then(() => {
           loaded = true;
           queryData(query).then(res => {
+            showModal = false;
+            showConfirmation = false;
             const enrollment = res.enrollment;
             studentEnrolled = true;
             enrollmentId = enrollment.entityId;
@@ -211,23 +230,25 @@
 {/if}
 
 {#if showModal}
-  <Modal submit={modalAction}
+  <Modal
+      submit={modalAction}
       cancel={() => showModal = false}
       question={modalQuestion}
-      title={modalTitle}>
-  </Modal>
+      title={modalTitle}/>
 {/if}
 
 {#if showAcceptTerms}
   <AcceptInstitutionTerms
-      badgeClass={badgeClass} userHasAgreed={userHasAgreed} userDisagreed={userDisagreed}/>
+      badgeClass={badgeClass}
+      userHasAgreed={userHasAgreed}
+      userDisagreed={userDisagreed}/>
 {/if}
 
 {#if noValidInstitution}
-  <Modal submit={logInForceAuthn}
-     title={I18n.t("acceptTerms.noValidInstitution")}
-     question={I18n.t("acceptTerms.noValidInstitutionInfoForEnrollment", {name: badgeClass.issuer.faculty.institution.name})}
-     cancel={() => noValidInstitution = false}
-     submitLabel={I18n.t("acceptTerms.goToSurfConext")}>
-  </Modal>
+  <Modal
+      submit={logInForceAuthn}
+      title={I18n.t("acceptTerms.noValidInstitution")}
+      question={I18n.t("acceptTerms.noValidInstitutionInfoForEnrollment", {name: badgeClass.issuer.faculty.institution.name})}
+      cancel={() => noValidInstitution = false}
+      submitLabel={I18n.t("acceptTerms.goToSurfConext")}/>
 {/if}

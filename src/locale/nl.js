@@ -669,6 +669,8 @@ I18n.translations.nl = {
     noValidInstitution: "No valid institution",
     noValidInstitutionInfo: "The institution <strong>{{name}}</strong> connected to your eduID account is not participating in the eduBadges programme.<br/><br/>" +
       "Please contact <a href='mailto:support@edubadges.nl'>support@edubadges.nl</a> for support or try linking an extra institution to your eduID account",
+    noValidInstitutionInfoNoInstitution: "You don't have any verified institutions linked to your account. <br/>" +
+        "You need a verified institution that is participating in the edubadges programme to use this service.",
     noValidInstitutionInfoForEnrollment: "Institution {{name}} is not connected to your eduID account. " +
       "To enroll for this badge you will need verify that you can identify yourself at institution <strong>{{name}}</strong>.<br/><br/>" +
       "Please contact <a href='mailto:support@edubadges.nl'>support@edubadges.nl</a> for support or try linking institution {{name}} to your eduID account",
@@ -680,8 +682,8 @@ I18n.translations.nl = {
       formalBadges: "Formal Badges - please take notice of our terms",
       inFormalBadges: "Informal Badges - please take notice of our terms",
       statementTitle: "Statement",
-      statementLinkPre: "You can read here ",
-      statementLink: "the complete Statement.",
+      statementLinkPre: "You can read ",
+      statementLink: "the complete Statement here.",
       statementLinkPost: "",
       privacyTitle: "Privacy",
       privacyLinkPre: " You also understand the ",

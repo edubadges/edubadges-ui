@@ -73,7 +73,7 @@ export const userAlreadyHasAdminPermissions = (entity, _entityType, institutionS
       const foundBadgeClassStaff = badgeClassStaffs.find(bCS => bCS.badgeclass.entityId === entity.entityId);
       const foundIssuerStaff = issuerStaffs.find(iS => iS.issuer.badgeclasses.find(badgeClass => badgeClass.entityId === entity.entityId));
       const foundIssuerGroupStaff = issuerGroupStaffs.find(iGS => iGS.faculty.issuers.find(issuer => issuer.badgeclasses.find(badgeClass => badgeClass.entityId === entity.entityId)));
-      return foundBadgeClassStaff && foundBadgeClassStaff.mayAdministrateUsers || foundIssuerStaff && foundIssuerStaff.mayAdministrateUsers || foundIssuerGroupStaff && foundIssuerGroupStaff.mayAdministrateUsers;
+      return (foundBadgeClassStaff && foundBadgeClassStaff.mayAdministrateUsers) || (foundIssuerStaff && foundIssuerStaff.mayAdministrateUsers) || (foundIssuerGroupStaff && foundIssuerGroupStaff.mayAdministrateUsers);
   }
 };
 
@@ -89,6 +89,6 @@ export const userAlreadyHasAnyPermissions = (entity, _entityType, institutionSta
       const foundBadgeClassStaff = badgeClassStaffs.find(bCS => bCS.badgeclass.entityId === entity.entityId);
       const foundIssuerStaff = issuerStaffs.find(iS => iS.issuer.badgeclasses.find(badgeClass => badgeClass.entityId === entity.entityId));
       const foundIssuerGroupStaff = issuerGroupStaffs.find(iGS => iGS.faculty.issuers.find(issuer => issuer.badgeclasses.find(badgeClass => badgeClass.entityId === entity.entityId)));
-      return foundBadgeClassStaff && foundBadgeClassStaff.mayAward || foundIssuerStaff && foundIssuerStaff.mayAdministrateUsers || foundIssuerGroupStaff && foundIssuerGroupStaff.mayAdministrateUsers;
+      return (foundBadgeClassStaff && foundBadgeClassStaff.mayAward) || (foundIssuerStaff && foundIssuerStaff.mayAdministrateUsers) || (foundIssuerGroupStaff && foundIssuerGroupStaff.mayAdministrateUsers);
   }
 };

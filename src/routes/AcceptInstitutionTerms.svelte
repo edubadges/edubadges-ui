@@ -3,15 +3,14 @@
   import {Button, Spinner} from "../components";
   import I18n from "i18n-js";
   import ModalTerms from "../components/forms/FancyMarkdownModalTermsViewer.svelte";
-  import {institutionDetail} from "../api";
   import termsIcon from "../icons/voorwaarden-icon1.svg";
   import terms2Icon from "../icons/voorwaarden-icon2.svg";
   import {fetchMarkdown} from "../api/markdown";
+  import Cookies from "js-cookie";
 
   export let userHasAgreed;
   export let userDisagreed;
   export let badgeClass;
-  export let institution;
 
   let loaded = false;
   let showModalTerms = false;
@@ -22,20 +21,12 @@
   let statementRawUrl;
 
   onMount(() => {
-    institutionDetail(badgeClass.issuer.faculty.institution.identifier)
-      .then(res => {
-        institution = res;
-        statementRawUrl = institution[`${badgeClass.formal ? "formal" : "informal"}_edubadges_agreement_${I18n.locale}_url`];
-
-        const excerptRawUrl = institution[`${badgeClass.formal ? "formal" : "informal"}_edubadges_excerpt_${I18n.locale}_url`];
-        fetchMarkdown(excerptRawUrl).then(res => {
-          excerptMarkDown = res;
-          loaded = true;
-
-        });
-      })
-
-  })
+    termsUrl = badgeClass.terms.termsUrl.find(({language}) => language.toLowerCase() === (Cookies.get("lang") ? Cookies.get("lang") : "en").toLowerCase()).url;
+    fetchMarkdown(termsUrl).then(res => {
+      excerptMarkDown = res;
+      loaded = true;
+    });
+  });
 
   const showTerms = (title, url) => () => {
     showModalTerms = true;
@@ -112,9 +103,9 @@
   {#if loaded}
     <div class="header">
     <h3>{badgeClass.informal ? I18n.t("acceptTerms.badgeClassEnrollmentTerms.inFormalBadges") :
-    I18n.t("acceptTerms.badgeClassEnrollmentTerms.formalBadges")}</h3>
-      <img width="100px" src={institution.logo_url} alt="Logo">
-      </div>
+      I18n.t("acceptTerms.badgeClassEnrollmentTerms.formalBadges")}</h3>
+      <img width="100px" src={badgeClass.issuer.faculty.institution.image} alt="Logo">
+    </div>
     <div class="markdown-body">
       {@html excerptMarkDown}
     </div>
@@ -125,7 +116,7 @@
         <a href="/terms"
            on:click|preventDefault|stopPropagation={showTerms(
                 I18n.t(`acceptTerms.badgeClassEnrollmentTerms.statementTitle`),
-                statementRawUrl)}>
+                termsUrl)}>
           {I18n.t(`acceptTerms.badgeClassEnrollmentTerms.statementLink`)}
         </a>
         <span>{I18n.t(`acceptTerms.badgeClassEnrollmentTerms.statementLinkPost`)}</span>

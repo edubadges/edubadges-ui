@@ -5,14 +5,13 @@
   import info from "../icons/informational.svg";
   import {Button, Spinner} from "../components";
   import I18n from "i18n-js";
+  import Cookies from "js-cookie";
   import ToggleSwitch from "../components/ToggleSwitch.svelte";
   import ModalTerms from "../components/forms/FancyMarkdownModalTermsViewer.svelte";
   import {userRole} from "../stores/user";
   import {role as roleConstants} from "../util/role";
-  import {institutionDetail, requestLoginToken, validateInstitutions} from "../api";
+  import {eduTermsDetail, validateInstitutions} from "../api";
   import Modal from "../components/forms/Modal.svelte";
-  import {getService} from "../util/getService";
-  import RadioButton from "../components/forms/RadioButton.svelte";
   import termsIcon from "../icons/voorwaarden-icon1.svg"
   import terms2Icon from "../icons/voorwaarden-icon2.svg"
   import {schacHomeNames} from "../util/claims";
@@ -28,9 +27,11 @@
   let termsUrl;
   let termsTitle;
 
+  let primaryTerms;
+  let secondaryTerms;
+
   let validInstitutions = [];
   let noValidInstitution = false;
-  let multipleValidInstitutions = false;
   let allValidInstitutions = [];
   let homeInstitution = {};
   let schacHomeOrganisations = [];
@@ -49,31 +50,23 @@
     validateInstitutions(schacHomeOrganisations)
       .then(res => {
         let validSchacHomeOrganisations = schacHomeOrganisations
-          .filter(orgName => res.find(validatedOrg => validatedOrg.schac_home_organisation === orgName && validatedOrg.valid));
+          .filter(orgName => res.find(validatedOrg => validatedOrg.schac_home === orgName && validatedOrg.valid));
         if (validSchacHomeOrganisations.length === 0) {
-          noValidInstitution = false;
+          noValidInstitution = true;
           loaded = true;
-        } else if (validSchacHomeOrganisations.length > 1 && false) {
-          Promise.all(validSchacHomeOrganisations.map(orgName => institutionDetail(orgName)))
-            .then(results => {
-              allValidInstitutions = results;
-              multipleValidInstitutions = true;
-              choosenSchacHome = allValidInstitutions[0].identifier;
-              loaded = true;
-            });
         } else {
-          institutionDetail(validSchacHomeOrganisations[0])
-            .then(res => {
-              homeInstitution = res;
-              loaded = true;
-            });
+          loaded = true;
+          eduTermsDetail($userRole).then(res => {
+            primaryTerms = res.find(({terms_type}) => terms_type === "terms_of_service").terms_urls.find(({language}) => language === (Cookies.get("lang") ? Cookies.get("lang") : "en")).url;
+            secondaryTerms = res.find(({terms_type}) => terms_type === ($userRole === roleConstants.STUDENT ? "service_agreement_student" : "service_agreement_employee")).terms_urls.find(({language}) => language === (Cookies.get("lang") ? Cookies.get("lang") : "en")).url;
+          })
         }
       });
   });
 
   const agree = () => {
     window.location.href = `${config.serverUrl}/account/${provider}/login/terms_accepted/${encodeURIComponent(state)}/${idToken}/`;
-  }
+  };
 
   const showTerms = (title, url) => () => {
     showModalTerms = true;
@@ -86,12 +79,6 @@
   const logInForceAuthn = () => {
     window.location.href = "https://mijn.eduid.nl"
   };
-
-  const refreshInstitution = () => {
-    homeInstitution = allValidInstitutions.filter(institution => institution.identifier === choosenSchacHome);
-    multipleValidInstitutions = false;
-  }
-
 </script>
 
 <style lang="scss">
@@ -148,67 +135,58 @@
     display: inline-block;
     width: 100%;
   }
-
-  div.slots {
-    display: flex;
-    flex-direction: column;
-
-    div.institution-chooser {
-      padding: 0 0 20px 15px;
-    }
-  }
-
-
 </style>
 
 <div class="page-container">
   <p class="content">
   {#if loaded}
-    <h1>{I18n.t("acceptTerms.welcome", {name: claims.preferred_username})}</h1>
-    <h3>{reSign ? I18n.t("acceptTerms.renewTerms"): I18n.t("acceptTerms.acceptTerms")}</h3>
-    <p class="terms">{I18n.translations[I18n.locale].acceptTerms[$userRole].termsInfo}</p>
-    <ul>
-      {#each I18n.translations[I18n.locale].acceptTerms.termsBullets[$userRole] as bullet}
-        <li>{bullet}</li>
-      {/each}
-    </ul>
-    <div class="agree">
-      {@html termsIcon}
-      <p>
-        <span>{I18n.t(`acceptTerms.${$userRole}.serviceAgreementLinkPre`)}</span>
-        <a href="/terms"
-           on:click|preventDefault|stopPropagation={showTerms(
-                I18n.t(`acceptTerms.${$userRole}.serviceAgreementTitle`),
-                I18n.t(`terms.${$userRole}.serviceAgreementRaw`))}>
-          {I18n.t(`acceptTerms.${$userRole}.serviceAgreementLink`)}
-        </a>
-        <span>{I18n.t(`acceptTerms.${$userRole}.serviceAgreementLinkPost`)}</span>
-      </p>
-    </div>
-    <div class="agree">
-      {@html terms2Icon}
-      <p>
-        <span>{I18n.t(`acceptTerms.${$userRole}.termsLinkPre`)}</span>
-        <a href="/terms"
-           on:click|preventDefault|stopPropagation={showTerms(
-                I18n.t(`acceptTerms.${$userRole}.termsTitle`),
-                I18n.t(`terms.${$userRole}.termsOfUseRaw`))}>
-          {I18n.t(`acceptTerms.${$userRole}.termsLink`)}
-        </a>
-        <span>{I18n.t(`acceptTerms.${$userRole}.termsLinkPost`)}</span>
-        <span>{I18n.t(`acceptTerms.${$userRole}.privacyLinkPre`)}</span>
-        <a href="/terms"
-           on:click|preventDefault|stopPropagation={showTerms(
-                I18n.t(`acceptTerms.${$userRole}.privacyTitle`),
-                I18n.t(`terms.${$userRole}.privacyPolicyRaw`))}>
-          {I18n.t(`acceptTerms.${$userRole}.privacyLink`)}
-        </a>
-        <span>{I18n.t(`acceptTerms.${$userRole}.privacyLinkPost`)}</span>
-      </p>
-    </div>
-    <div class="actions">
-      <Button text={I18n.t(`acceptTerms.${$userRole}.accept`)} action={agree} full={true}/>
-    </div>
+    {#if !noValidInstitution}
+      <h1>{I18n.t("acceptTerms.welcome", {name: claims.preferred_username})}</h1>
+      <h3>{reSign ? I18n.t("acceptTerms.renewTerms"): I18n.t("acceptTerms.acceptTerms")}</h3>
+      <p class="terms">{I18n.translations[I18n.locale].acceptTerms[$userRole].termsInfo}</p>
+      <ul>
+        {#each I18n.translations[I18n.locale].acceptTerms.termsBullets[$userRole] as bullet}
+          <li>{bullet}</li>
+        {/each}
+      </ul>
+      <div class="agree">
+        {@html termsIcon}
+        <p>
+          <span>{I18n.t(`acceptTerms.${$userRole}.serviceAgreementLinkPre`)}</span>
+          <a href="/terms"
+             on:click|preventDefault|stopPropagation={showTerms(
+                  I18n.t(`acceptTerms.${$userRole}.serviceAgreementTitle`),
+                  primaryTerms)}>
+            {I18n.t(`acceptTerms.${$userRole}.serviceAgreementLink`)}
+          </a>
+          <span>{I18n.t(`acceptTerms.${$userRole}.serviceAgreementLinkPost`)}</span>
+        </p>
+      </div>
+      <div class="agree">
+        {@html terms2Icon}
+        <p>
+          <span>{I18n.t(`acceptTerms.${$userRole}.termsLinkPre`)}</span>
+          <a href="/terms"
+             on:click|preventDefault|stopPropagation={showTerms(
+                  I18n.t(`acceptTerms.${$userRole}.termsTitle`),
+                  secondaryTerms)}>
+            {I18n.t(`acceptTerms.${$userRole}.termsLink`)}
+          </a>
+          <span>{I18n.t(`acceptTerms.${$userRole}.termsLinkPost`)}</span>
+          <span>{I18n.t(`acceptTerms.${$userRole}.privacyLinkPre`)}</span>
+          <a href="/terms"
+             on:click|preventDefault|stopPropagation={showTerms(
+                  I18n.t(`acceptTerms.${$userRole}.privacyTitle`),
+                  I18n.t(`terms.${$userRole}.privacyPolicyRaw`))}>
+            {I18n.t(`acceptTerms.${$userRole}.privacyLink`)}
+          </a>
+          <span>{I18n.t(`acceptTerms.${$userRole}.privacyLinkPost`)}</span>
+        </p>
+      </div>
+      <div class="actions">
+        <Button text={I18n.t(`acceptTerms.${$userRole}.accept`)} action={agree} full={true}/>
+      </div>
+    {/if}
   {:else}
     <Spinner/>
   {/if}
@@ -216,31 +194,17 @@
 
 
 {#if showModalTerms}
-  <ModalTerms title={termsTitle}
-              submit={closeTerms}
-              cancel={closeTerms}
-              url={termsUrl}>
-  </ModalTerms>
+  <ModalTerms
+      title={termsTitle}
+      submit={closeTerms}
+      cancel={closeTerms}
+      url={termsUrl}/>
 {/if}
 
 {#if noValidInstitution}
-  <Modal submit={logInForceAuthn}
-         title={I18n.t("acceptTerms.noValidInstitution")}
-         question={I18n.t("acceptTerms.noValidInstitutionInfo", {name: schacHomeOrganisations[0]})}
-         submitLabel={I18n.t("acceptTerms.goToSurfConext")}>
-  </Modal>
-{/if}
-
-{#if multipleValidInstitutions}
-  <Modal submit={refreshInstitution}
-         title={I18n.t("acceptTerms.multipleValidInstitutions")}
-         question={I18n.t("acceptTerms.multipleValidInstitutionsInfo")}>
-    <div class="slots">
-      {#each allValidInstitutions as institution}
-        <div class="institution-chooser">
-          <RadioButton bind:values={choosenSchacHome} label={institution.name} value={institution.identifier}/>
-        </div>
-      {/each}
-    </div>
-  </Modal>
+  <Modal
+      submit={logInForceAuthn}
+      title={I18n.t("acceptTerms.noValidInstitution")}
+      question={schacHomeOrganisations[0] ? I18n.t("acceptTerms.noValidInstitutionInfo", {name: schacHomeOrganisations[0]}) : I18n.t("acceptTerms.noValidInstitutionInfoNoInstitution")}
+      submitLabel={I18n.t("acceptTerms.goToSurfConext")}/>
 {/if}
