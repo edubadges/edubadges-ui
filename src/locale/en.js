@@ -3,7 +3,7 @@ import I18n from "i18n-js";
 I18n.translations.en = {
   routes: {
     backpack: "Backpack",
-    badge-requests: "Edubadge requests",
+    "badge-requests": "Edubadge requests",
     collections: "Collections",
     profile: "Profile",
   },
