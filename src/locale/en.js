@@ -290,16 +290,16 @@ I18n.translations.en = {
     212: "Awarded requests can't be denied.",
     213: "Can’t award requested edubadge, it has already been awarded.",
     214: "Cannot change any value, edubadges have already been awarded within this entity.",
-    500: 'Cannot remove the last staff member of this institution.',
-    501: 'There may be only one invite per email address.',
-    502: 'Cannot invite user for this entity: there is a conflicting staff membership.',
-    503: 'Cannot invite user for this entity: there is a conflicting invite.',
-    504: 'May not invite user from other institution.',
-    505: 'This invite is for a student.',
-    506: 'This invite is for a teacher.',
-    507: 'You do not have permission to invite user for this entity.',
-    508: 'You cannot edit an invitation that has been rejected.',
-    509: 'Not a vaild email address.',
+    500: "Cannot remove the last staff member of this institution.",
+    501: "There may be only one invite per email address.",
+    502: "Cannot invite user for this entity: there is a conflicting staff membership.",
+    503: "Cannot invite user for this entity: there is a conflicting invite.",
+    504: "May not invite user from other institution.",
+    505: "This invite is for a student.",
+    506: "This invite is for a teacher.",
+    507: "You do not have permission to invite user for this entity.",
+    508: "You cannot edit an invitation that has been rejected.",
+    509: "Not a vaild email address.",
     601: "You do not have permission. Check your assigned role in the Issuerportal.",
     701: "Unspecified share provider.",
     702: "Invalid share provider.",
@@ -727,11 +727,11 @@ I18n.translations.en = {
   },
   userManagement: {
     permissions: "Permissions for {{name}}",
-    institution_staff: "institution staff",
-    issuer_group_staff: "group staff",
-    issuer_staff: "issuer staff",
-    badge_class_staff: "badge class staff",
-    user_provisionment: "user invitations"
+    institution_staff: "Institution staff",
+    issuer_group_staff: "Issuer group staff",
+    issuer_staff: "Issuer staff",
+    badge_class_staff: "Badge class staff",
+    user_provisionment: "User invitations"
   },
   user: {
     home: "Home",
@@ -785,11 +785,11 @@ I18n.translations.en = {
   studentEnroll: {
     confirmation: {
       title: "Request",
-      question: "Are you sure you want to request edubadge <strong>{{name}}</strong>?"
+      question: "Are you sure you want to request this edubadge: <strong>{{name}}</strong>?"
     }
   },
   terms: {
-    overviewTitle: "Overview all terms",
+    overviewTitle: "Overview of all terms",
     termsTitle: "Terms of use",
     privacyPolicyTitle: "Privacy Policy",
     student: {

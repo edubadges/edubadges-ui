@@ -3,7 +3,7 @@ import I18n from "i18n-js";
 I18n.translations.nl = {
   routes: {
     backpack: "Backpack",
-    "badge-requests": "Aanvragen voor edubadges",
+    "badge-requests": "Aanvragen voor edubadges",
     collections: "Collecties",
     profile: "Profiel",
   },
@@ -52,7 +52,7 @@ I18n.translations.nl = {
     tip: "TIP",
     code: {
       "1": "Een onverwachte fout is opgetreden. Neem contact op met <a href='mailto:support@edubadges.nl'>support@edubadges.nl</a> voor ondersteuning.",
-      "2": "Toegang tot de edubadges Issuer Portal is alleen mogelijk met een geldige uitnodiging.  We kunnen je nu dus niets laten zien."
+      "2": "Toegang tot de edubadges issuer portaal is alleen mogelijk met een geldige uitnodiging.  We kunnen je nu dus niets laten zien."
     }
   },
   profile: {
@@ -99,8 +99,8 @@ I18n.translations.nl = {
   },
   teacher: {
     sidebar: {
-      filterBadges: "Filter Badge Classes",
-      filterUsers: "Filter Gebruikers",
+      filterBadges: "Filter badge classes",
+      filterUsers: "Filter gebruikers",
       filters: {
         faculties: "Issuer groepen",
         issuers: "Issuers",
@@ -115,7 +115,7 @@ I18n.translations.nl = {
     name: "Naam",
     nameEmail: "Naam/E-mailadres",
     badgeclasses: {
-      title: "Badge Classes",
+      title: "Badge classes",
       badges: "Badges",
       noBadges: "(Nog geen edubadges uitgegeven)",
       badgesCount: "{{count}} edubadges uitgegeven",
@@ -193,7 +193,7 @@ I18n.translations.nl = {
       institution: "Instituut",
       issuers: "Issuers",
       faculties: "Groepen",
-      badgeclasses: "Badgeclasses",
+      badgeclasses: "Badge classes",
       badgeclassOverview: "Overzicht",
       userManagement: "Gebruikers beheer",
       enrollments: "Ingeschreven",
@@ -205,7 +205,7 @@ I18n.translations.nl = {
       institution: "Wijzig onderwijsinstelling",
       faculty: "Wijzig issuer group",
       issuer: "Wijzig issuer",
-      badgeclass: "Wijzig badgeclass",
+      badgeclass: "Wijzig badge class",
       save: "Opslaan",
       cancel: "Annuleren",
     },
@@ -213,9 +213,9 @@ I18n.translations.nl = {
       delete: "verwijder",
       info: {
         institution: "Instellingen kunnen niet verwijderd worden in het issuer portaal.",
-        faculty: "Faculteit heeft issuers en kan niet verwijderd worden.",
-        issuer: "Issuer heeft badge classes en kan niet verwijderd worden.",
-        badgeclass: "Badge class heeft assertions en kan niet verwijderd worden."
+        faculty: "Faculteit bevat issuers en kan niet verwijderd worden.",
+        issuer: "Issuer bevat badge classes en kan niet verwijderd worden.",
+        badgeclass: "Er zijn voor deze badge class reeds edubadges uitgereikt. De badge class kan daarom niet verwijderd worden."
       },
       flash: "{{type}} is verwijderd",
       institution: {
@@ -235,29 +235,29 @@ I18n.translations.nl = {
       },
       badgeclass: {
         name: "Badge class",
-        title: "Verwijder badgeclass",
-        question: "Wil je deze badgeclass echt verwijderen?"
+        title: "Verwijder badge class",
+        question: "Wil je deze badge class echt verwijderen?"
       },
     },
     new: {
       create: "nieuw",
       faculty: "Nieuwe issuer groep maken",
       issuer: "Nieuwe issuer maken",
-      badgeclass: "Nieuwe badgeclass maken",
+      badgeclass: "Nieuwe badge class maken",
       save: "Opslaan",
       cancel: "Annuleren",
     },
     award: {
       title: "Ken edubadges direct toe",
       description:
-        "Vul het e-mailadres in van de persoon aan wie je de edubadge wilt toekennen. Je zult een bericht krijgen wanneer dit is geaccepteerd of afgewezen.",
+        "Vul het e-mailadres in van de persoon aan wie je de edubadge wilt toekennen. Je zult een bericht krijgen wanneer deze persoon de edubadge accepteert of afwijst.",
       submit: "Ken edubadge toe",
       addAnother: "+ Voeg toe",
       addBulk: "Voeg meerdere tegelijk toe",
     },
     bulkAward: {
       title: "Voeg meerdere ontvangers tegelijk toe",
-      description: "Copy & paste e-mailadressen in het onderstaande formulierveld",
+      description: "Kopieer & plak e-mailadressen in het onderstaande formulierveld",
       submit: "Voeg ontvangers toe",
     },
   },
@@ -270,47 +270,47 @@ I18n.translations.nl = {
     ok: "Sluit",
   },
   error: {
-    100: "Je hebt de benodige permissies niet",
-    101: "Kan e-mailadres niet registreren. Het e-mailadres is al in gebruik",
-    102: "Je hebt dit e-mailadres al toegevoegd. Je moet nog verifieren",
-    103: "Kan niet het primaire e-mailadres verwijderen",
-    104: "Kan niet het enige e-mailadres verwijderen",
-    105: "Verifieer het e-mailadres voordat je het e-mailadres primair maakt",
-    201: "Kan niet enrollen: je bent al enrolled",
-    202: "Kan niet enrollen: je hebt deze edubadge al",
-    203: "Kan niet enrollen: je hebt geen studentenaccount",
-    204: "Ongeldige enrollment-id",
-    205: "Enrollment niet gevonden",
-    206: "Awarded enrollments kunnen niet teruggetrokken worden",
-    207: "Gebruikers kunnen alleen eigen enrollments terugtrekken",
-    208: "Missende badgeclass-id",
-    209: "Kan niet enrollen",
-    210: "Geen toegang. Controleer je assigned role in de Badgeclass die hoort bij deze enrollment",
-    211: "Enrollment is al afgewezen",
-    212: "Awarded enrollments kunnen niet afgewezen worden",
-    213: "Kan voor deze enrollment geen edubadge uitgeven, dit is al gebeurd",
-    214: "Je kunt niets annpassen, edbadges zijn al uitgegeven binnen deze entiteit",
-    500: 'Kan niet de laatste permissie van de het instituut verwijderen',
-    501: 'Je kunt maar één uitnodiging hebben per emailadres',
-    502: 'Kan de gebruiker niet uitnodigen voor deze entiteit: er is een conflicterende permissie',
-    503: 'Kan de gebruiker niet uitnodigen voor deze entiteit: er is een conflicterende uitnodiging',
-    504: 'Kan niet een gebruiker van een andere instelling uitnodigen',
-    505: 'Deze uitnodiging is voor een student',
-    506: 'Deze uitnodiging is voor een docent',
-    507: 'Je hebt geen bevoegdheid om een gebruiker voor deze entiteit uit te nodigen',
-    508: 'Je kunt geen uitnodiging aanpassen die afgewezen is',
-    509: 'Geen geldig email-adres',
-    601: "Geen toegang. Check je assigned role in de Issuer",
-    701: "Ongespecifieerde share provider",
-    702: "Ongeldige share provider",
+    100: "Je hebt de benodige permissies niet.",
+    101: "Kan e-mailadres niet registreren. Het e-mailadres is al in gebruik.",
+    102: "Je hebt dit e-mailadres al toegevoegd. Je moet nog verifiëren.",
+    103: "Kan niet het primaire e-mailadres verwijderen.",
+    104: "Kan niet het enige e-mailadres verwijderen.",
+    105: "Verifieer het e-mailadres voordat je het e-mailadres primair maakt.",
+    201: "Kan edubadge niet aanvragen: je hebt aanvraag reeds gedaan. ",
+    202: "Kan edubadge niet aanvragen: je hebt deze edubadge al.",
+    203: "Kan edubadge niet aanvragen: je hebt geen studentenaccount.",
+    204: "Ongeldige aanvraag-id.",
+    205: "Aanvraag niet gevonden.",
+    206: "Toegekende aanvragen kunnen niet teruggetrokken worden.",
+    207: "Gebruikers kunnen alleen eigen aanvragen terugtrekken.",
+    208: "Ontbrekende badge class-id.",
+    209: "Kan niet aanvragen.",
+    210: "Geen toegang. Controleer je toegekende rol in de badge class die hoort bij deze aanvraag.",
+    211: "Aanvraag is al afgewezen.",
+    212: "Toegekende aanvragen kunnen niet afgewezen worden.",
+    213: "Kan voor deze aanvraag geen edubadge uitgeven, dit is al gebeurd.",
+    214: "Je kunt niets annpassen, er zijn al edubadges uitgegeven binnen deze entiteit.",
+    500: "Kan niet de laatste permissie van de instelling verwijderen.",
+    501: "Je kunt maar één uitnodiging hebben per emailadres.",
+    502: "Kan de gebruiker niet uitnodigen voor deze entiteit: er is een conflicterende permissie.",
+    503: "Kan de gebruiker niet uitnodigen voor deze entiteit: er is een conflicterende uitnodiging.",
+    504: "Kan niet een gebruiker van een andere instelling uitnodigen.",
+    505: "Deze uitnodiging is voor een student.",
+    506: "Deze uitnodiging is voor een docent.",
+    507: "Je hebt geen bevoegdheid om een gebruiker voor deze entiteit uit te nodigen.",
+    508: "Je kunt geen uitnodiging aanpassen die afgewezen is.",
+    509: "Geen geldig email-adres.",
+    601: "Geen toegang. Controleer je permissie in deze issuer.",
+    701: "Ongespecifieerde share provider.",
+    702: "Ongeldige share provider.",
     801: "Kan grading table URL niet aanpassen, er zijn al edubadges uitgegeven.",
     802: "Kan BRIN code niet aanpassen, er zijn al edubadges uitgegeven.",
     902: "Moet een geldige URL zijn.",
     903: "Dit veld is verplicht.",
     904: "Geen bestand gekozen.",
-    905: "Dan wel criteria of criteria URL zijn verplicht.",
-    unexpected: "Oops, er is iets totaal onverwachts en onverklaarbaars gebeurt.",
-    description: "Een onverwachte fout is opgetreden. Probeer het opnieuw of neem contact op met <a href='mailto:support@edubadges.nl'>support@edubadges.nl</a> voor ondersteuning",
+    905: "Invullen van criteria of van criteria URL is verplicht.",
+    unexpected: "Oeps, er is iets totaal onverwachts en onverklaarbaars gebeurd.",
+    description: "Een onverwachte fout is opgetreden. Probeer het opnieuw of neem contact op met <a href='mailto:support@edubadges.nl'>support@edubadges.nl</a> voor ondersteuning.",
     close: "Sluit"
   },
   inviteUsers: {
@@ -319,7 +319,7 @@ I18n.translations.nl = {
       description: "Vul het e-mailadres in van de personen die je wilt uitnodigen voor deze entiteit.",
       success: "Gebruiker succesvol uitgenodigd",
     },
-    cancel: "annuleer",
+    cancel: "Annuleer",
     inviteStatus: "Status",
     sent: "Uitnodiging verstuurd",
     accepted: "Geaccepteeerd",
@@ -333,17 +333,17 @@ I18n.translations.nl = {
       header: "Gebruiker",
     },
     roles: {
-      institution_staff: "Institution Admin",
-      issuer_group_staff: "Issuer Group Admin",
-      issuer_staff: "Issuer Admin",
-      badge_class_owner: "Badge Class Owner",
-      badge_class_editor: "Badge Class Editor",
-      badge_class_awarder: "Badge Class Awarder",
+      institution_staff: "Instellingsadmin",
+      issuer_group_staff: "Issuer group admin",
+      issuer_staff: "Issuer admin",
+      badge_class_owner: "Badge class admin",
+      badge_class_editor: "Badge class editor",
+      badge_class_awarder: "Badge class awarder",
       viewer: "Viewer",
     },
     flash: {
-      makeUserInstitutionAdmin: "{{name}} heeft de instellings admin rechten gekregen",
-      removeUserInstitutionAdmin: "De instellings admin rechten zijn verwijderd van {{name}}",
+      makeUserInstitutionAdmin: "{{name}} heeft de instellingsadmin-rechten gekregen",
+      removeUserInstitutionAdmin: "De instellingsadmin-rechten zijn verwijderd van {{name}}",
       makeUserIssuerGroupAdmin: "{{name}} heeft de issuer group admin rechten gekregen",
       removeUserIssuerGroupAdmin: "De issuer group admin rechten zijn verwijderd van {{name}}",
       makeUserIssuerAdmin: "{{name}} heeft de issuer admin rechten gekregen",
@@ -359,30 +359,30 @@ I18n.translations.nl = {
       removed: "Rechten zijn succesvol verwijderd."
     },
     institution: {
-      admin: "Instellings Admin",
+      admin: "Instellingsadmin",
       header: "Instelling",
-      allRights: "Instellings Admin",
+      allRights: "Instellingsadmin",
       noRights: "Geen rechten",
-      permissions: "Permissies op Instelling niveau",
-      makeUserInstitutionAdmin: "Ken gebruiker {{name}} instellings admin rechten toe",
-      makeUserInstitutionAdminQuestion: "Weet je het zeker dat je {{name}} instellings admin wilt maken?",
-      removeUserInstitutionAdmin: "Verwijder de instellings admin rechten van {{name}}",
-      removeUserInstitutionAdminQuestion: "Weet je het zeker dat je de instellings admin rechten van {{name}} wilt verwijderen?",
+      permissions: "Permissies op instelling niveau",
+      makeUserInstitutionAdmin: "Ken gebruiker {{name}} instellingsadmin-rechten toe",
+      makeUserInstitutionAdminQuestion: "Weet je het zeker dat je {{name}} instellingsadmin wilt maken?",
+      removeUserInstitutionAdmin: "Verwijder de instellingsadmin-rechten van {{name}}",
+      removeUserInstitutionAdminQuestion: "Weet je het zeker dat je de instellingsadmin=rechten van {{name}} wilt verwijderen?",
     },
     faculty: {
-      admin: "Issuer Group admin",
-      header: "Issuer Group",
-      allRights: "Issuer Group Admin",
-      permissions: "Permissies op Issuer Group niveau"
+      admin: "Issuer group admin",
+      header: "Issuer group",
+      allRights: "Issuer group admin",
+      permissions: "Permissies op issuer group niveau"
     },
     issuer: {
       admin: "Issuer admin",
       header: "Issuer",
-      allRights: "Issuer Admin",
-      permissions: "Permissies op Issuer niveau"
+      allRights: "Issuer admin",
+      permissions: "Permissies op issuer niveau"
     },
     badgeclass: {
-      header: "Badgeclass",
+      header: "Badge class",
       issuedBy: "Uitgegeven door",
       badgeclassOwner: "Admin",
       badgeclassEditor: "Editor",
@@ -390,33 +390,33 @@ I18n.translations.nl = {
       owner: "Admin",
       editor: "Editor",
       awarder: "Awarder",
-      switchToOwner: "Permissie succesvol aangepast naar badgeclass Admin.",
-      switchToEditor: "Permissie succesvol aangepast naar badgeclass Editor.",
-      switchToAwarder: "Permissie succesvol aangepast naar badgeclass Awarder.",
-      permissions: "Permissies op badgeclass niveau"
+      switchToOwner: "Permissie succesvol aangepast naar badge class admin.",
+      switchToEditor: "Permissie succesvol aangepast naar badge class editor.",
+      switchToAwarder: "Permissie succesvol aangepast naar badge class awarder.",
+      permissions: "Permissies op badge class niveau"
     },
     permissions: {
       header: "Uw Permissies",
       headerUser: "Permissies voor",
       allRights: "Alle rechten",
-      institutionAllRights: "(vanwege Institution Admin)",
-      issuerGroupAllRights: "(vanwege Issuer Group Admin)",
-      issuerAllRights: "(vanwege Issuer Admin)",
+      institutionAllRights: "(vanwege instellingsadmin)",
+      issuerGroupAllRights: "(vanwege issuer group admin)",
+      issuerAllRights: "(vanwege issuer admin)",
       addPermissions: "Voeg permissies toe",
       remove: {
-        institution: "Are you sure you want to remove institution admin?",
-        faculty: "Are you sure you want to remove this issuer group admin?",
-        issuer: "Are you sure you want to remove this issuer admin?",
-        badgeclass: "Are you sure you want to remove this role?"
+        institution: "Weet je zeker dat je de instellingsadmin-rechten wilt verwijderen?",
+        faculty: "Weet je zeker dat je de issuer group rechten wilt verwijderen?",
+        issuer: "Weet je zeker dat je de issuer-rechten wilt verwijderen?",
+        badgeclass: "Weet je zeker dat je deze rechten wilt verwijderen?"
       },
       removePermissions: "Verwijder permissies",
-      setInstitutionAdmin: "Maak gebruiker instellings Admin",
-      removeInstitutionAdmin: "Verwijder instellings Admin",
+      setInstitutionAdmin: "Maak gebruiker instellingsadmin",
+      removeInstitutionAdmin: "Verwijder instellingsadmin",
       inviteNewUser: "Nodig nieuwe gebruiker uit"
     },
     usersPermissions: "Gebruikers met permissies",
     modal: {
-      add: 'voeg toe'
+      add: 'Voeg toe'
     },
     role: "Rol",
   },
@@ -429,7 +429,7 @@ I18n.translations.nl = {
       email: "e-mailadres",
       role: 'Rol',
       notes: 'Commentaar',
-      badgeclass: "Selecteer een badgeclass",
+      badgeclass: "Selecteer een badge class",
       issuerGroup: "Selecteer een issuer group",
       issuer: "Selecteer een issuer",
     },
@@ -465,13 +465,13 @@ I18n.translations.nl = {
     },
     badgeclass: {
       issuer: "Issuer",
-      image: "Badge afbeelding",
+      image: "Edubadge afbeelding",
       created: "Aangemaakt",
-      issuedBy: "Issued by",
+      issuedBy: "Uitgegeven door",
       admin: "Admin",
-      alignment: "Alignment",
+      alignment: "Gerelateerd onderwijskundig raamwerk",
       alignmentName: "Naam",
-      alignmentFramework: "Framework",
+      alignmentFramework: "Raamwerk",
       alignmentUrl: "URL",
       alignmentCode: "Code",
       alignmentDescription: "Omschrijving",
@@ -481,13 +481,13 @@ I18n.translations.nl = {
       criteria_text: "Wat is benodigd om deze edubadge te verdienen?",
       criteria_url: "Criteria URL",
       criteria_url_value: "Link naar de criteria:",
-      directAward: "Direct award",
+      directAward: "Direct uitreiken",
       inviteEnrollements: "Nodig iemand uit om deze edubadge te verdienen",
       expiresAfter: "Verloopt na",
       expiresAfterNever: "Nooit",
       expiresAfterValue: "{{nbr}} weken",
       expireSettings: "Standaard verloop setting",
-      language: "Language of instruction",
+      language: "Taal van het onderwijs",
       learningOutcome: "Leeruitkomst",
       studyLoad: "Studielast",
       ects: {
@@ -507,7 +507,7 @@ I18n.translations.nl = {
         years: "Jaren",
       },
       headers: {
-        basicInformation: "Basis informatie",
+        basicInformation: "Basisinformatie",
         earningCriteria: "Leer criteria",
         additionalSections: "Extra toevoegingen",
         educationalIdentifiers: "Onderwijsidentificatie",
@@ -617,11 +617,11 @@ I18n.translations.nl = {
   acceptTerms: {
     welcome: "Hoi {{name}}",
     acceptTerms: "Let op onze voorwaarden",
-    renewTerms: "De eduBadges-voorwaarden zijn gewijzigd. Let op onze nieuwe voorwaarden.",
+    renewTerms: "De edubadge-voorwaarden zijn gewijzigd. Let op onze nieuwe voorwaarden.",
     teacher: {
       accept: "Ik heb het gelezen",
       termsInfo: "Het aanmaken van een backpack en het koppelen hiervan aan je eduID is noodzakelijk om " +
-        "om badges te kunnen ontvangen. Het backpack valt onder de verwerkingsverantwoordelijkheid van SURF",
+        "om edubadges te kunnen ontvangen. Het backpack valt onder de verwerkingsverantwoordelijkheid van SURF",
       serviceAgreementTitle: "Serviceovereenkomst",
       serviceAgreementLinkPre: "Je kunt hier ",
       serviceAgreementLink: "de volledige serviceovereenkomst",
@@ -638,7 +638,7 @@ I18n.translations.nl = {
     student: {
       accept: "Ik ga akkoord",
       termsInfo: "Het aanmaken van een backpack en het koppelen hiervan aan je eduID is noodzakelijk om " +
-        "om badges te kunnen ontvangen. Het backpack valt onder de verwerkingsverantwoordelijkheid van SURF",
+        "om edubadges te kunnen ontvangen. Het backpack valt onder de verwerkingsverantwoordelijkheid van SURF",
       serviceAgreementTitle: "Serviceovereenkomst",
       serviceAgreementLinkPre: "Je kunt hier ",
       serviceAgreementLink: "de volledige serviceovereenkomst",
@@ -656,31 +656,31 @@ I18n.translations.nl = {
       teacher:
         [
           "SURF maakt een backpack voor je op basis van je eduID. Dit backpack blijft bestaan totdat je dit backpack opheft.",
-          "SURF verwerkt hiervoor persoonsgegevens: je voornaam, achternaam, e-mailadres, eduID en eventuele persoonlijke teksten in badges.",
+          "SURF verwerkt hiervoor persoonsgegevens: je voornaam, achternaam, e-mailadres, eduID en eventuele persoonlijke teksten in edubadges.",
           "Alleen jouw onderwijsinstelling en SURF hebben toegang tot deze persoonsgegevens."
         ],
       student:
         [
           "SURF maakt een backpack voor je op basis van je eduID. Dit backpack blijft bestaan totdat je dit backpack opheft.",
-          "SURF verwerkt hiervoor persoonsgegevens: je voornaam, achternaam, e-mailadres, eduID en eventuele persoonlijke teksten in badges.",
+          "SURF verwerkt hiervoor persoonsgegevens: je voornaam, achternaam, e-mailadres, eduID en eventuele persoonlijke teksten in edubadges.",
           "Alleen jouw onderwijsinstelling en SURF hebben toegang tot deze persoonsgegevens."
         ]
     },
     noValidInstitution: "No valid institution",
-    noValidInstitutionInfo: "The institution <strong>{{name}}</strong> connected to your eduID account is not participating in the eduBadges programme.<br/><br/>" +
+    noValidInstitutionInfo: "The institution <strong>{{name}}</strong> connected to your eduID account is not participating in the edubadges programme.<br/><br/>" +
       "Please contact <a href='mailto:support@edubadges.nl'>support@edubadges.nl</a> for support or try linking an extra institution to your eduID account",
     noValidInstitutionInfoNoInstitution: "You don't have any verified institutions linked to your account. <br/>" +
         "You need a verified institution that is participating in the edubadges programme to use this service.",
     noValidInstitutionInfoForEnrollment: "Institution {{name}} is not connected to your eduID account. " +
-      "To enroll for this badge you will need verify that you can identify yourself at institution <strong>{{name}}</strong>.<br/><br/>" +
+      "To enroll for this edubadge you will need verify that you can identify yourself at institution <strong>{{name}}</strong>.<br/><br/>" +
       "Please contact <a href='mailto:support@edubadges.nl'>support@edubadges.nl</a> for support or try linking institution {{name}} to your eduID account",
     goToSurfConext: "Proceed to eduID",
     multipleValidInstitutions: "Multiple valid institutions",
     multipleValidInstitutionsInfo: "You have multiple institutions connected to your eduID account.<br/><br/>" +
-      "Please choose with which institution you want to start using eduBadges.",
+      "Please choose with which institution you want to start using edubadges.",
     badgeClassEnrollmentTerms: {
-      formalBadges: "Formal Badges - please take notice of our terms",
-      inFormalBadges: "Informal Badges - please take notice of our terms",
+      formalBadges: "Formal edubadges - please take notice of our terms",
+      inFormalBadges: "Informal edubadges - please take notice of our terms",
       statementTitle: "Statement",
       statementLinkPre: "You can read ",
       statementLink: "the complete Statement here.",
@@ -714,7 +714,7 @@ I18n.translations.nl = {
   },
   monthNames: ["Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "October", "November", "December"],
   zeroState: {
-    badgeClasses: "Er zijn geen badge-classes voor issuer {{name}}.",
+    badgeClasses: "Er zijn geen badge classes voor issuer {{name}}.",
     issuers: "Er zijn geen issuers voor {{name}}.",
     faculties: "Er zijn geen Issuer Groups voor instelling {{name}}.",
     users: "Er zijn geen users voor instelling {{name}}.",
@@ -784,7 +784,7 @@ I18n.translations.nl = {
   studentEnroll: {
     confirmation: {
       title: "Aanvragen",
-      question: "Weet je zeker dat je de badge <strong>{{name}}</strong> wil aanvragen?"
+      question: "Weet je zeker dat je de edubadge <strong>{{name}}</strong> wil aanvragen?"
     }
   },
   terms: {
