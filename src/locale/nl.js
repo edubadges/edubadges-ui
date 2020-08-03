@@ -3,14 +3,14 @@ import I18n from "i18n-js";
 I18n.translations.nl = {
   routes: {
     backpack: "Backpack",
-    "badge-requests": "Edubadge verzoeken",
+    "badge-requests": "Aanvragen voor edubadges",
     collections: "Collecties",
     profile: "Profiel",
   },
   header: {
     logout: "Logout",
-    profile: "Profiel",
-    permissions: "Permissies",
+    profile: "Mijn profiel",
+    permissions: "Mijn permissies",
     nav: {
       badgeclasses: "Badge classes",
       manage: "Beheer",
@@ -18,14 +18,14 @@ I18n.translations.nl = {
     },
   },
   login: {
-    title: "Leven lang ontwikkelen",
+    title: "Never stop learning",
     loginToEnrol: "Login om deze edubadge aan te vragen",
     destination: "Waar wil je heen?",
     description:
-      "Edubadges zijn digitale certificaten die aantonen dat de eigenaar bepaalde vaardigheden of kennis bezit. Edubadges kunnen worden uitgereikt voor zowel extracurriculaire activiteiten als geaccrediteerd onderwijs.",
+      "Edubadges zijn digitale certificaten die aantonen dat de eigenaar bepaalde vaardigheden of kennis bezit. Edubadges kunnen worden uitgereikt voor zowel geaccrediteerd onderwijs als extracurriculaire activiteiten.",
     student: {
       title: "Backpack",
-      subtitle: "Ontvang en deel edubadges",
+      subtitle: "Ontvang en verzamel edubadges",
       noEduId: "Als je nog geen eduID hebt, dan helpen we je om er één aan te maken in minder dan 30 seconden.",
       action: "Login met eduID",
     },
@@ -35,14 +35,14 @@ I18n.translations.nl = {
       action: "Login met SURFconext",
       accountCreation: {
         askAccount: "Nog <strong>geen</strong> toegang?",
-        startAccount: "Neem contact op met je instellingsbeheerder",
+        startAccount: "Neem contact op met je beheerder bij jouw instelling.",
       },
       byInviteOnly: "Alleen op uitnodiging"
     },
     createEduId: {
-      welcome: "Welkom bij je edubadges Backpack",
+      welcome: "Welkom bij je edubadges backpack",
       awarded: "We hebben je je eerste edubadge toegekend 😀",
-      info: "Je kunt nu edubadges in je Backpack ontvangen.",
+      info: "Je kunt nu edubadges in je backpack ontvangen.",
     },
   },
   searchPlaceholder: "Zoek...",
@@ -66,7 +66,7 @@ I18n.translations.nl = {
     memberSinceDate: "{{date}} om {{hours}}:{{minutes}}",
     makePrimaryConfirmation: "Weet je zeker dat je dit e-maiadres primair wilt maken?",
     addEmail: "Voeg e-mailadres toe",
-    addEmailInfo: "Je zult een e-mail ontvangen met een link om je e-mailadres te verifieren.",
+    addEmailInfo: "Je zult een e-mail ontvangen met een link om je e-mailadres te verifiëren.",
     unverified: "Niet geverifieerd",
     validatedByYourInstitution: "Geleverd door je instelling",
     validatedByEduId: "Geleverd door eduID",
@@ -121,10 +121,10 @@ I18n.translations.nl = {
       badgesCount: "{{count}} edubadges uitgegeven",
       created: "Datum gecreëerd",
       recipients: "Ontvangers",
-      studyLoad: "Studie belasting",
+      studyLoad: "Studielast",
       ects: "{{value}} ECTS",
       hours: "{{value}} uren",
-      canAward: "Edubadges die u kunt uitdelen",
+      canAward: "Edubadges die u kunt uitreiken",
       allBadges: "Alle edubadges"
     },
     issuers: {
@@ -134,7 +134,7 @@ I18n.translations.nl = {
       title: "Groepen",
     },
     badgeRevoked: {
-      revoke: "Verwijder edubadge",
+      revoke: "Trek edubadge in",
     },
     roles: {
       title: "Rollen (hoogste)"
@@ -148,9 +148,9 @@ I18n.translations.nl = {
     enrolled: "Aangevraagd",
     withdraw: "Aanvraag intrekken",
     flash: {
-      enrolled: "Successvol voor deze edubadge ingeschreven: {{name}}.",
+      enrolled: "Successvol een aanvraag gedaan voor deze edubadge: {{name}}.",
       published: "Deze edubadge is nu publiek gemaakt. Je kunt deze nu downloaden en delen met anderen.",
-      private: "Deze edubadge is nu prive gemaakt. Je kunt deze niet langer downloaden of delen met anderen.",
+      private: "Deze edubadge is nu privé gemaakt. Je kunt deze niet langer downloaden of delen met anderen.",
       deleted: "Deze edubadge is verwijderd. Je kunt deze niet langer downloaden of delen met anderen.",
       accepted: "Deze edubadge is geaccepteerd. Je kan deze nu downloaden of delen met anderen.",
       claimed: "Deze edubadge is succesvol aangevraagd."
@@ -165,7 +165,7 @@ I18n.translations.nl = {
     shareYourBadgeQuestion: "Jouw publieke edubadge URL is voor iedereen toegankelijk",
     badgeRevoked: "Deze edubadge is ingetrokken. Je ziet deze nog wel, maar deze edubadge kan je niet langer delen",
     privateBadge: "Prive edubadge",
-    publicPrivate: "Je edubadge staat op prive, alleen jij kan deze edubadge zien en downloaden.",
+    publicPrivate: "Je edubadge staat op privé, alleen jij kan deze edubadge zien en downloaden.",
     publicPrivatePublic: "Je edubadge staat niet op prive, iedereen met de publieke link kan deze edubadge zien en downloaden.",
     publicPrivateRejected: "Voordat je deze edubadge publiek kan maken, moet je deze edubadge eerst accepteren.",
     revoked: "Deze edubadge is ingetrokken door de uitgever",
@@ -202,8 +202,8 @@ I18n.translations.nl = {
     },
     edit: {
       edit: "wijzig",
-      institution: "Wijzig instituut",
-      faculty: "Wijzig groep",
+      institution: "Wijzig onderwijsinstelling",
+      faculty: "Wijzig issuer group",
       issuer: "Wijzig issuer",
       badgeclass: "Wijzig badgeclass",
       save: "Opslaan",
