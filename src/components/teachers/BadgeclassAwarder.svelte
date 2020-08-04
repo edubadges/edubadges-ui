@@ -35,7 +35,7 @@
   const publicUrl = () => {
     const currentUrl = window.location.origin;
     return `${currentUrl}/public/${entityId}`;
-  }
+  };
 
   const query = `{
     badgeClass(id: "${entityId}") {

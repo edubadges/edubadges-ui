@@ -28,6 +28,7 @@
   let badgeClass = {};
   let enrollmentId;
   let studentEnrolled;
+  let studentAwarded;
   let requestedDate;
   let schacHomes;
 
@@ -120,8 +121,9 @@
     if (visitorRole === role.STUDENT) {
       Promise.all([queryData(query), queryData(secureQuery), getSocialAccountsSafe()]).then(res => {
         const enrollment = res[0].enrollment;
-        if (enrollment && (!enrollment.badgeInstance || enrollment.badgeInstance.revoked)) {
-          studentEnrolled = true;
+        if (enrollment && (!enrollment.badgeInstance || !enrollment.badgeInstance.revoked)) {
+          studentAwarded = enrollment.badgeInstance && !enrollment.badgeInstance.revoked;
+          studentEnrolled = !enrollment.badgeInstance;
           enrollmentId = enrollment.entityId;
           requestedDate = enrollment.dateCreated;
         }
@@ -177,15 +179,9 @@
       requestBadge(entityId)
         .then(() => {
           loaded = true;
-          queryData(query).then(res => {
-            showModal = false;
-            showConfirmation = false;
-            const enrollment = res.enrollment;
-            studentEnrolled = true;
-            enrollmentId = enrollment.entityId;
-            requestedDate = enrollment.dateCreated;
+          reload();
+          showConfirmation = false;
           flash.setValue(I18n.t('student.flash.enrolled', {name: badgeClass.name}));
-          });
         })
         .catch(err => {
           err.then(details => {
@@ -196,12 +192,25 @@
     }
   };
 
+  const reload = () => {
+    queryData(query).then(res => {
+      showModal = false;
+      const enrollment = res.enrollment;
+      studentAwarded = enrollment && enrollment.badgeInstance && !enrollment.badgeInstance.revoked;
+      studentEnrolled = enrollment && !enrollment.badgeInstance;
+      if(studentEnrolled) {
+        enrollmentId = enrollment.entityId;
+        requestedDate = enrollment.dateCreated;
+      }
+    });
+  };
+
   const logInForceAuthn = () => {
     window.location.href = "https://mijn.eduid.nl"
   };
-
-
 </script>
+
+
 {#if loaded}
   {#if !showAcceptTerms}
     <div class="page-container">
@@ -215,7 +224,7 @@
           </div>
         {:else if visitorRole === role.STUDENT}
           <div class="slots">
-            {#if !studentEnrolled}
+            {#if !studentEnrolled && !studentAwarded}
               <Button secondary action={() => enrollStudent(true)} text={I18n.t('student.enroll')} class="btn"/>
             {:else}
               <Button label="alreadyEnrolled" disabled={true} text={I18n.t('student.enrolled')}/>
@@ -225,7 +234,8 @@
       </EntityHeader>
 
       <Overview badgeclass={badgeClass} studentEnrolled={studentEnrolled} enrollmentId={enrollmentId}
-                requested={requestedDate} studentPath={I18n.t("student.enrollments")}/>
+                requested={requestedDate} studentPath={I18n.t("student.enrollments")} publicPage={true}
+                on:enrollmentWithdrawn={reload}/>
     </div>
   {/if}
 {:else}

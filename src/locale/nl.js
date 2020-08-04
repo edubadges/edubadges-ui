@@ -153,7 +153,8 @@ I18n.translations.nl = {
       private: "Deze edubadge is nu privé gemaakt. Je kunt deze niet langer downloaden of delen met anderen.",
       deleted: "Deze edubadge is verwijderd. Je kunt deze niet langer downloaden of delen met anderen.",
       accepted: "Deze edubadge is geaccepteerd. Je kan deze nu downloaden of delen met anderen.",
-      claimed: "Deze edubadge is succesvol aangevraagd."
+      claimed: "Deze edubadge is succesvol aangevraagd.",
+      withdrawn: "Enrollment withdrawn."
     },
     enrollments: "Aangevraagde edubadges",
     badges: "Jouw edubadges",

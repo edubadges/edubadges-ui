@@ -7,9 +7,8 @@
   import {queryData} from "../../api/graphql";
   import EnrollmentBadge from "./EnrollmentBadge.svelte";
   import I18n from "i18n-js";
+  import {flash} from "../../stores/flash";
 
-  let form;
-  let provider;
   let requests = [];
   let error = false;
 
@@ -40,28 +39,11 @@
     });
   });
 
-  const makeRequest = event => {
-    const id = event.target.entityId.value;
-
-    requestBadge(id)
-      .then(() => {
-        queryData(query).then(res => {
-          requests = res.enrollments;
-        });
-        error = "";
-        form.reset();
-      })
-      .catch(err => {
-        err.then(res => {
-          error = I18n.t(["error", res.fields.error_code]);
-        });
-      });
-  };
-
   const withdrawRequest = id =>
     withdrawRequestBadge(id)
       .then(() => queryData(query).then(res => {
         requests = res.enrollments;
+        flash.setValue(I18n.t("student.flash.withdrawn"));
       }))
       .catch(err => {
         err.then(res => {

@@ -2,7 +2,7 @@
   import Button from "./Button.svelte";
   import I18n from "i18n-js";
   import copy from 'copy-to-clipboard';
-
+  import {flash} from "../stores/flash";
 
   export let text;
   export let secondary;
@@ -12,12 +12,14 @@
   export let toCopy;
   export let copied = false;
   export let actionAfterCopy;
+  export let doFlash = true;
 
 
   const copyToClipboard = toCopy => {
     copy(toCopy);
     copied = true;
     setTimeout(() => copied = false, 1500);
+    if (doFlash) flash.setValue(I18n.t("copyToClipboard.copied"));
     actionAfterCopy && actionAfterCopy();
   }
 

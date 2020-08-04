@@ -153,7 +153,8 @@ I18n.translations.en = {
       private: "This edubadge has been made private. You can no longer download or share this edubadge",
       deleted: "This edubadge has been rejected. You can no longer download or share this edubadge",
       accepted: "This edubadge has been accepted. You can now download or share this edubadge",
-      claimed: "Successfully claimed this edubadge."
+      claimed: "Successfully claimed this edubadge.",
+      withdrawn: "Enrollment withdrawn."
     },
     enrollments: "Requested edubadges",
     badges: "Your edubadges",

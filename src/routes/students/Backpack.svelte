@@ -26,9 +26,8 @@
   });
 
   $: showWelcome = loaded && !badges.some(badge => badge.acceptance !== "UNACCEPTED") && !$userHasClosedWelcome;
-
-
 </script>
+
 <style>
   h3 {
     font-size: 22px;
@@ -54,8 +53,8 @@
       grid-template-columns: 100%;
     }
   }
-
 </style>
+
 <div>
   <h3>{I18n.t('backpack.title')}</h3>
   {#if showWelcome}

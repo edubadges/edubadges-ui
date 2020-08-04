@@ -8,12 +8,17 @@
   import Modal from "../../forms/Modal.svelte";
   import BadgeClassDetails from "../../shared/BadgeClassDetails.svelte";
   import Button from "../../../components/Button.svelte";
+  import {flash} from "../../../stores/flash";
+  import { createEventDispatcher } from 'svelte';
+
+  const dispatch = createEventDispatcher();
 
   export let badgeclass;
   export let studentEnrolled;
   export let enrollmentId;
   export let requested;
   export let studentPath;
+  export let publicPage = false;
 
   //Modal
   let showModal = false;
@@ -29,7 +34,12 @@
       showModal = true;
     } else {
       withdrawRequestBadge(enrollmentId).then(() => {
-        navigate('/badge-requests');
+        dispatch('enrollmentWithdrawn');
+        if (!publicPage) {
+          navigate('/badge-requests');
+        } else {
+          flash.setValue(I18n.t('student.flash.withdrawn'));
+        }
       });
       showModal = false;
     }
@@ -81,9 +91,9 @@
 </div>
 
 {#if showModal}
-  <Modal submit={modalAction}
+  <Modal
+      submit={modalAction}
       cancel={() => showModal = false}
       question={modalQuestion}
-      title={modalTitle}>
-  </Modal>
+      title={modalTitle}/>
 {/if}
