@@ -48,10 +48,10 @@ I18n.translations.nl = {
   searchPlaceholder: "Zoek...",
   authError: {
     title: "Sorry, je hebt geen toegang",
-    adminEmail: "Indien je wilt kan je toegang tot deze dienst vragen aan je instellings admin <a href='mailto:{{email}}' style='color: black;text-decoration: underline'>via dit e-mailadres</a>",
+    adminEmail: "Indien je wilt kan je toegang tot deze dienst vragen aan je instellings admin via dit e-mailadres: {{email}}",
     tip: "TIP",
     code: {
-      "1": "Een onverwachte fout is opgetreden. Neem contact op met <a href='mailto:support@edubadges.nl'>support@edubadges.nl</a> voor ondersteuning.",
+      "1": "Een onverwachte fout is opgetreden. Neem contact op met support@edubadges.nl voor ondersteuning.",
       "2": "Toegang tot de edubadges issuer portaal is alleen mogelijk met een geldige uitnodiging.  We kunnen je nu dus niets laten zien."
     }
   },
@@ -310,7 +310,7 @@ I18n.translations.nl = {
     904: "Geen bestand gekozen.",
     905: "Invullen van criteria of van criteria URL is verplicht.",
     unexpected: "Oeps, er is iets totaal onverwachts en onverklaarbaars gebeurd.",
-    description: "Een onverwachte fout is opgetreden. Probeer het opnieuw of neem contact op met <a href='mailto:support@edubadges.nl'>support@edubadges.nl</a> voor ondersteuning.",
+    description: "Een onverwachte fout is opgetreden. Probeer het opnieuw of neem contact op met support@edubadges.nl voor ondersteuning.",
     close: "Sluit"
   },
   inviteUsers: {
@@ -668,12 +668,12 @@ I18n.translations.nl = {
     },
     noValidInstitution: "No valid institution",
     noValidInstitutionInfo: "The institution <strong>{{name}}</strong> connected to your eduID account is not participating in the edubadges programme.<br/><br/>" +
-      "Please contact <a href='mailto:support@edubadges.nl'>support@edubadges.nl</a> for support or try linking an extra institution to your eduID account",
+      "Please contact support@edubadges.nl for support or try linking an extra institution to your eduID account",
     noValidInstitutionInfoNoInstitution: "You don't have any verified institutions linked to your account. <br/>" +
         "You need a verified institution that is participating in the edubadges programme to use this service.",
     noValidInstitutionInfoForEnrollment: "Institution {{name}} is not connected to your eduID account. " +
       "To enroll for this edubadge you will need verify that you can identify yourself at institution <strong>{{name}}</strong>.<br/><br/>" +
-      "Please contact <a href='mailto:support@edubadges.nl'>support@edubadges.nl</a> for support or try linking institution {{name}} to your eduID account",
+      "Please contact support@edubadges.nl for support or try linking institution {{name}} to your eduID account",
     goToSurfConext: "Proceed to eduID",
     multipleValidInstitutions: "Multiple valid institutions",
     multipleValidInstitutionsInfo: "You have multiple institutions connected to your eduID account.<br/><br/>" +

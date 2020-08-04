@@ -23,7 +23,7 @@
       border-right: 1px solid var(--text-grey-light);
     }
 
-    a.is-link {
+    p, a.is-link {
       word-break: break-all;
     }
   }
@@ -44,7 +44,7 @@
         {:else}-{/if}
       {:else if type === 'email'}
         {#if value}
-          <a class="is-link" href="mailto:{value}" target="_blank">{value}</a>
+          <p>{value}</p>
         {:else}-{/if}
       {:else}{value}{/if}
     </span>

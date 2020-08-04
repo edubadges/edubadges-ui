@@ -71,7 +71,7 @@
       </p>
       <h3>{I18n.t('models.issuer.email')}</h3>
       <p class="info">
-        <a href={`mailto:${issuer.email}`} target="_blank">{issuer.email}</a>
+        {issuer.email}
       </p>
       <h3>{I18n.t('models.issuer.url')}</h3>
       <p class="info">
