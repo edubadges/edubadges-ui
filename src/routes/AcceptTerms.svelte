@@ -46,6 +46,7 @@
     reSign = urlParams.get("re_sign") === "True";
     role = urlParams.get("role");
     claims = jwt_decode(idToken);
+    $userRole = role;
     schacHomeOrganisations = $userRole === roleConstants.STUDENT ? schacHomeNames(claims) : [claims.schac_home_organization];
     validateInstitutions(schacHomeOrganisations)
       .then(res => {
