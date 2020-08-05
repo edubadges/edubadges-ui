@@ -20,10 +20,12 @@
   import Modal from "../forms/Modal.svelte";
   import {flash} from "../../stores/flash";
   import AcceptInstitutionTerms from "../../routes/AcceptInstitutionTerms.svelte";
-  import {getService} from "../../util/getService";
+  import {userRole, userLoggedIn} from "../../stores/user";
 
   export let entityId;
-  export let visitorRole;
+
+  let visitorRole;
+  $: visitorRole = $userLoggedIn ? $userRole : "guest";
 
   let badgeClass = {};
   let enrollmentId;
@@ -32,7 +34,6 @@
   let requestedDate;
   let schacHomes;
 
-  let isGuest = false;
   let loaded;
 
   //Modal
@@ -121,6 +122,7 @@
   }`;
 
   onMount(() => {
+    setTimeout(() => {visitorRole = $userLoggedIn ? $userRole : "guest";}, 1000); // TODO: try to remove this (ask Okke)
     if (visitorRole === role.STUDENT) {
       Promise.all([queryData(query), queryData(secureQuery), getSocialAccountsSafe()]).then(res => {
         const enrollment = res[0].enrollment;
@@ -212,7 +214,6 @@
     window.location.href = "https://mijn.eduid.nl"
   };
 </script>
-
 
 {#if loaded}
   {#if !showAcceptTerms}

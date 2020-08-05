@@ -47,7 +47,7 @@
         .catch(() => {
           $redirectPath = window.location.pathname;
           navigate("/login");
-          $userLoggedIn = false;
+          $userLoggedIn = "";
           $userName = "";
           loaded = true;
         });
@@ -57,7 +57,6 @@
   });
 
   $: visitorRole = $userLoggedIn ? $userRole : "guest";
-
 </script>
 
 <style global lang="scss">
@@ -88,8 +87,6 @@
   input::placeholder {
     color: var(--grey-7);
   }
-
-
 </style>
 
 <div class="app">
@@ -138,7 +135,7 @@
 
         <!-- Shared -->
         <Route path="/public/:entityId/" let:params>
-          <PublicBadgeClassPage visitorRole={visitorRole} entityId={params.entityId}/>
+          <PublicBadgeClassPage entityId={params.entityId}/>
         </Route>
         <Route path="/public/assertions/:entityId/" let:params>
           <PublicBadgePage entityId={params.entityId}/>

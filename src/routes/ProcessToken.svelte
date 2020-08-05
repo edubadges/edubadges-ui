@@ -25,7 +25,7 @@
       }
       navigate(redirectTo);
     } else {
-      $userLoggedIn = false;
+      $userLoggedIn = "";
       code = urlSearchParams.get("code") || "1";
       adminEmail = urlSearchParams.get("admin_email");
     }
