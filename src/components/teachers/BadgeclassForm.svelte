@@ -148,6 +148,9 @@
           ...extensionToJson([{name: ects.name, value: extensions[ects.name]}])
         }
       }
+      newBadgeclass.formal = true;
+    } else {
+      newBadgeclass.formal = false;
     }
     if (badgeclass.issuer) {
       newBadgeclass.issuer = badgeclass.issuer.entityId;
