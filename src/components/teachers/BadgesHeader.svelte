@@ -51,15 +51,26 @@
 
     display: flex;
 
-    .image {
-      height: 100px;
-      width: 100px;
+    .img-container {
+      flex-shrink: 0;
+      height: 120px;
+      width: 120px;
       background: white;
-      padding: 5px;
       margin-right: var(--hor-padding-m);
+      display: flex;
+      justify-content: space-around;
     }
 
-    .content {
+    .img-icon {
+      height: 100px;
+      width: 100px;
+      background-color: white;
+      align-self: center;
+      display: flex;
+      justify-content: space-around;
+    }
+
+      .content {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -77,8 +88,10 @@
 </h2>
 <div class="header">
   {#if entity.image}
-    <div class="image">
-      <RemoteImage bind:imageUrl={entity.image} alt={`${entity.name} logo`}/>
+    <div class="img-container">
+      <div class="img-icon">
+        <RemoteImage bind:imageUrl={entity.image} alt={`${entity.name} logo`}/>
+      </div>
     </div>
   {/if}
   <div class="content">
