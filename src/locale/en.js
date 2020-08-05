@@ -149,10 +149,10 @@ I18n.translations.en = {
     withdraw: "Withdraw request",
     flash: {
       enrolled: "Successfully requested edubadge {{name}}.",
-      published: "This edubadge has been made public. You now can download and share this edubadge",
-      private: "This edubadge has been made private. You can no longer download or share this edubadge",
+      published: "This edubadge has been made public. You can share this edubadge now",
+      private: "This edubadge has been made private. You can no longer share this edubadge",
       deleted: "This edubadge has been rejected. You can no longer download or share this edubadge",
-      accepted: "This edubadge has been accepted. You can now download or share this edubadge",
+      accepted: "This edubadge has been accepted. You can share this edubadge now",
       claimed: "Successfully claimed this edubadge.",
       withdrawn: "Enrollment withdrawn."
     },
@@ -164,7 +164,7 @@ I18n.translations.en = {
     copyUrl: "Copy URL",
     shareYourBadge: "Share your edubadge",
     shareYourBadgeQuestion: "Your public edubadge URL is accessible for everyone",
-    badgeRevoked: "This edubadge has been revoked. You can see the details, but this edubadge can no longer be shared or downloaded",
+    badgeRevoked: "This edubadge has been revoked. You can see the details, but this edubadge can no longer be shared",
     privateBadge: "Private edubadge",
     publicPrivate: "Your edubadge is set to private, only you can see it and download it.",
     publicPrivatePublic: "Your edubadge is not set to private, everyone with your sharelink will be able to see it.",

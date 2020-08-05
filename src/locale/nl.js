@@ -149,10 +149,10 @@ I18n.translations.nl = {
     withdraw: "Aanvraag intrekken",
     flash: {
       enrolled: "Successvol een aanvraag gedaan voor deze edubadge: {{name}}.",
-      published: "Deze edubadge is nu publiek gemaakt. Je kunt deze nu downloaden en delen met anderen.",
-      private: "Deze edubadge is nu privé gemaakt. Je kunt deze niet langer downloaden of delen met anderen.",
+      published: "Deze edubadge is nu publiek gemaakt. Je kunt deze nu delen met anderen.",
+      private: "Deze edubadge is nu privé gemaakt. Je kunt deze niet langer delen met anderen.",
       deleted: "Deze edubadge is verwijderd. Je kunt deze niet langer downloaden of delen met anderen.",
-      accepted: "Deze edubadge is geaccepteerd. Je kan deze nu downloaden of delen met anderen.",
+      accepted: "Deze edubadge is geaccepteerd. Je kan deze nu delen met anderen.",
       claimed: "Deze edubadge is succesvol aangevraagd.",
       withdrawn: "Enrollment withdrawn."
     },
