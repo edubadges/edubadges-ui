@@ -225,7 +225,7 @@ I18n.translations.en = {
         question: "Do you really want to delete this institution?"
       },
       faculty: {
-        name: "faculty",
+        name: "issuer group",
         title: "Delete issuer group",
         question: "Do you really want to delete this issuer group?"
       },
