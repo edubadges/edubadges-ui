@@ -638,6 +638,7 @@ I18n.translations.nl = {
     },
     student: {
       accept: "Ik ga akkoord",
+      read: "Ik heb dit gelezen",
       termsInfo: "Het aanmaken van een backpack en het koppelen hiervan aan je eduID is noodzakelijk om " +
         "om edubadges te kunnen ontvangen. Het backpack valt onder de verwerkingsverantwoordelijkheid van SURF",
       serviceAgreementTitle: "Serviceovereenkomst",

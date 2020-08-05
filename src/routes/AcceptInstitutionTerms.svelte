@@ -36,6 +36,27 @@
 
   const closeTerms = () => showModalTerms = false;
 
+  const setButtonText = badgeClass => {
+    if (badgeClass.formal) {
+      switch (badgeClass.issuer.faculty.institution.grondslagFormeel) {
+        case "UITVOERING_OVEREENKOMST":
+          return I18n.t(`acceptTerms.student.read`);
+        case "GERECHTVAARDIGD_BELANG":
+          return I18n.t(`acceptTerms.student.accept`);
+        case "WETTELIJKE_VERPLICHTING":
+          return I18n.t(`acceptTerms.student.read`);
+      }
+    } else {
+      switch (badgeClass.issuer.faculty.institution.grondslagInformeel) {
+        case "UITVOERING_OVEREENKOMST":
+          return I18n.t(`acceptTerms.student.read`);
+        case "GERECHTVAARDIGD_BELANG":
+          return I18n.t(`acceptTerms.student.accept`);
+        case "WETTELIJKE_VERPLICHTING":
+          return I18n.t(`acceptTerms.student.read`);
+      }
+    }
+  }
 </script>
 
 <style lang="scss">
@@ -94,8 +115,6 @@
       margin-right: 25px;
     }
   }
-
-
 </style>
 
 <div class="page-container">
@@ -139,7 +158,7 @@
       <div class="cancel">
         <Button secondary={true} text={I18n.t(`modal.cancel`)} action={userDisagreed} />
       </div>
-      <Button text={I18n.t(`acceptTerms.student.accept`)} action={userHasAgreed} />
+      <Button text={setButtonText(badgeClass)} action={userHasAgreed} />
     </div>
   {:else}
     <Spinner/>
@@ -148,9 +167,9 @@
 
 
 {#if showModalTerms}
-  <ModalTerms title={termsTitle}
-              submit={closeTerms}
-              cancel={closeTerms}
-              url={termsUrl}>
-  </ModalTerms>
+  <ModalTerms
+      title={termsTitle}
+      submit={closeTerms}
+      cancel={closeTerms}
+      url={termsUrl}/>
 {/if}

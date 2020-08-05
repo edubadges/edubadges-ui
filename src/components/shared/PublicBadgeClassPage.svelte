@@ -81,6 +81,7 @@
       criteriaUrl,
       criteriaText,
       expirationPeriod,
+      formal,
       terms {
         entityId,
         termsType,
@@ -99,7 +100,9 @@
           institution {
             identifier,
             name,
-            image
+            image,
+            grondslagFormeel,
+            grondslagInformeel
           }
         }
       },
