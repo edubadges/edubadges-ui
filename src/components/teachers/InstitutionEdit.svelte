@@ -56,7 +56,7 @@
     </Field>
 
     <Field {entity} attribute="name" errors={errors.name} disabled={true}>
-      <TextInput bind:value={institution.name} error={errors.name} disabled={true}  placeholder={I18n.t("placeholders.institution.name")}/>
+      <TextInput bind:value={institution.name} error={errors.name}  placeholder={I18n.t("placeholders.institution.name")}/>
     </Field>
 
     <Field {entity} attribute="description" errors={errors.description}>
