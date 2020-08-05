@@ -3,7 +3,7 @@ import I18n from "i18n-js";
 I18n.translations.nl = {
   routes: {
     backpack: "Backpack",
-    "badge-requests": "Aanvragen voor edubadges",
+    "badge-requests": "Aanvragen voor edubadges",
     collections: "Collecties",
     profile: "Profiel",
   },
