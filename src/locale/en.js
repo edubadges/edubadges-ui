@@ -669,13 +669,17 @@ I18n.translations.en = {
         ]
     },
     noValidInstitution: "No valid institution",
-    noValidInstitutionInfo: "The institution <strong>{{name}}</strong> connected to your eduID account is not participating in the edubadges programme.<br/><br/>" +
-      "Please contact support@edubadges.nl for support or try linking an extra institution to your eduID account",
+    noValidInstitutionInfo: {
+      student: "The institution <strong>{{name}}</strong> connected to your eduID account is not participating in the edubadges programme.<br/><br/>" +
+          "Please contact support@edubadges.nl for support or try linking an extra institution to your eduID account",
+      teacher: "The institution <strong>{{name}}</strong> connected to your Surf account is not participating in the edubadges programme.<br/><br/>" +
+          "Please contact support@edubadges.nl for support or try linking an extra institution to your eduID account"
+    },
     noValidInstitutionInfoNoInstitution: "You don't have any verified institutions linked to your account. <br/>" +
         "You need a verified institution that is participating in the edubadges programme to use this service.",
     noValidInstitutionInfoForEnrollment: "Institution <strong>{{name}}</strong> is not connected to your eduID account. " +
-      "To request this edubadge we require verification that you can identify yourself at institution <strong>{{name}}</strong>.<br/><br/>" +
-      "Please contact support@edubadges.nl for support or try linking institution <strong>{{name}}</strong> to your eduID account",
+        "To request this edubadge we require verification that you can identify yourself at institution <strong>{{name}}</strong>.<br/><br/>" +
+        "Please contact support@edubadges.nl for support or try linking institution <strong>{{name}}</strong> to your eduID account",
     goToSurfConext: "Proceed to eduID",
     multipleValidInstitutions: "Multiple valid institutions",
     multipleValidInstitutionsInfo: "You have multiple institutions connected to your eduID account.<br/><br/>" +

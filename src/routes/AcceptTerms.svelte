@@ -206,6 +206,6 @@
   <Modal
       submit={logInForceAuthn}
       title={I18n.t("acceptTerms.noValidInstitution")}
-      question={schacHomeOrganisations[0] ? I18n.t("acceptTerms.noValidInstitutionInfo", {name: schacHomeOrganisations[0]}) : I18n.t("acceptTerms.noValidInstitutionInfoNoInstitution")}
+      question={schacHomeOrganisations[0] ? role === roleConstants.STUDENT ? I18n.t("acceptTerms.noValidInstitutionInfo.student", {name: schacHomeOrganisations[0]}) : I18n.t("acceptTerms.noValidInstitutionInfo.teacher") : I18n.t("acceptTerms.noValidInstitutionInfoNoInstitution")}
       submitLabel={I18n.t("acceptTerms.goToSurfConext")}/>
 {/if}
