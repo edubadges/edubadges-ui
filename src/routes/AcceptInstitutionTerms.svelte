@@ -40,18 +40,18 @@
     if (badgeClass.formal) {
       switch (badgeClass.issuer.faculty.institution.grondslagFormeel) {
         case "UITVOERING_OVEREENKOMST":
-          return I18n.t(`acceptTerms.student.read`);
-        case "GERECHTVAARDIGD_BELANG":
           return I18n.t(`acceptTerms.student.accept`);
+        case "GERECHTVAARDIGD_BELANG":
+          return I18n.t(`acceptTerms.student.read`);
         case "WETTELIJKE_VERPLICHTING":
           return I18n.t(`acceptTerms.student.read`);
       }
     } else {
       switch (badgeClass.issuer.faculty.institution.grondslagInformeel) {
         case "UITVOERING_OVEREENKOMST":
-          return I18n.t(`acceptTerms.student.read`);
-        case "GERECHTVAARDIGD_BELANG":
           return I18n.t(`acceptTerms.student.accept`);
+        case "GERECHTVAARDIGD_BELANG":
+          return I18n.t(`acceptTerms.student.read`);
         case "WETTELIJKE_VERPLICHTING":
           return I18n.t(`acceptTerms.student.read`);
       }
