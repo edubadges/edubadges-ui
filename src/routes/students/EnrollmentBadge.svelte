@@ -30,6 +30,7 @@
   }
 
   .header img {
+    max-height: 200px;
     max-width: 200px;
     margin: 15px auto;
   }
