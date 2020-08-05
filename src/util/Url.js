@@ -1,5 +1,6 @@
 export const toHttpOrHttps = url => {
-  return isHttpOrHttps(url) ? url : "https://" + url;
+  if(url) return isHttpOrHttps(url) ? url : "https://" + url;
+  return url;
 };
 
 const isHttpOrHttps = url => {
