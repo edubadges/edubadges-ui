@@ -124,7 +124,7 @@
 
       <div class="badges">
         {#each sortedBadges as badge}
-          <BadgeCard badgeClass={badge}/>
+          <BadgeCard badgeClass={badge} withHeaderData={false}/>
         {/each}
       </div>
     </div>

@@ -9,6 +9,7 @@
   export let badge;
   export let badgeClass;
   export let standAlone = false;
+  export let withHeaderData;
 
   const detailLink = () => {
     if (!standAlone) {
@@ -35,12 +36,19 @@
     }
   }
 
+  .header-regular-height {
+    height: 230px;
+  }
+
+  .header-extra-height {
+    height: 280px;
+  }
+
   .header {
     display: flex;
     flex-direction: column;
     text-align: center;
     background-color: white;
-    height: 230px;
 
     .shield {
       position: absolute;
@@ -151,7 +159,7 @@
     {:else if badge && badge.acceptance === "REJECTED"}
       <span class="status-indicator rejected">{I18n.t("models.badge.statuses.rejected")}</span>
     {/if}
-    <div class="header">
+    <div class="header {withHeaderData ? 'header-extra-height' : 'header-regular-height'}">
       {#if badge}
         <span>{moment(badge.issuedOn).format('MMM D, YYYY')}</span>
         <div class="shield">
@@ -161,7 +169,6 @@
             {@html shieldLocked}
           {/if}
         </div>
-
       {/if}
       <img src={badgeClass.image} alt=""/>
     </div>

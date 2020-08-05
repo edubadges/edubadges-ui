@@ -423,7 +423,7 @@
         {:else if badge && badge.acceptance === "REJECTED"}
           <span class="status-indicator rejected">{I18n.t("models.badge.statuses.rejected")}</span>
         {/if}
-        <BadgeCard badgeClass={badge.badgeclass} standAlone={true}/>
+        <BadgeCard badgeClass={badge.badgeclass} standAlone={true} withHeaderData={false}/>
       </div>
       {#if badge.revoked}
         <p class="revoked">{ I18n.t("student.badgeRevoked")}</p>

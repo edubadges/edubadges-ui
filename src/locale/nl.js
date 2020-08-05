@@ -70,7 +70,7 @@ I18n.translations.nl = {
     unverified: "Niet geverifieerd",
     validatedByYourInstitution: "Geleverd door je instelling",
     validatedByEduId: "Geleverd door eduID",
-    deleteHeader: "Je edubadges backpack te verwijderen",
+    deleteHeader: "Je edubadges backpack verwijderen",
     deleteInfo1: "Je kunt je backpack verwijderen als je dat wilt.",
     deleteInfo2: "Wees je dan wel bewust dat je al je edubadges zult verliezen.",
     deleteInfo3: "Het verwijderen van je edubadges betekent overigens niet dat je eduID ook verwijderd wordt.",

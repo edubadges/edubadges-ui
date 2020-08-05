@@ -63,7 +63,7 @@
   {#if loaded}
     <div class="content">
       {#each badges as badge}
-        <BadgeCard badge={badge} badgeClass={badge.badgeclass}/>
+        <BadgeCard badge={badge} badgeClass={badge.badgeclass} withHeaderData={true}/>
       {/each}
     </div>
   {:else}

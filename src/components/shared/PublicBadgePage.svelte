@@ -97,7 +97,7 @@
     </div>
 
     <div class="badge-card-container">
-      <BadgeCard badgeClass={badge} standAlone={true}/>
+      <BadgeCard badgeClass={badge} standAlone={true} withHeaderData={false}/>
     </div>
     <div class="badge-validation">
       <BadgeValidation badge={badge} validatedName={validatedName}/>
