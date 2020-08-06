@@ -748,26 +748,26 @@ I18n.translations.en = {
   },
   placeholders: {
     institution: {
-      name: "Required field: e.g. University of Harderwijk",
-      brin: "Required field: BRIN CODE",
-      gradingTable: "Required field: URL of the grading table",
-      description: "Required field: e.g. The University of Harderwijk was founded in 1977"
+      name: "(Required field) e.g. University of Harderwijk",
+      brin: "(Required field) BRIN CODE",
+      gradingTable: "URL of the grading table",
+      description: "(Required field) e.g. The University of Harderwijk was founded in 1977"
     },
     faculty: {
-      name: "e.g. History",
-      description: "e.g. all History related studies"
+      name: "(Required field) e.g. History",
+      description: "(Required field) e.g. all History related studies"
     },
     issuer: {
-      name: "e.g. Social Historic Studies",
-      description: "e.g. the study of social behaviour in the Middle Ages",
-      email: "e.g. john.doe@example.com",
-      url: "e.g. https://www.universityofharderwijk.nl"
+      name: "(Required field) e.g. Social Historic Studies",
+      description: "(Required field) e.g. the study of social behaviour in the Middle Ages",
+      email: "(Required field) e.g. john.doe@example.com",
+      url: "(Required field) e.g. https://www.universityofharderwijk.nl"
     },
     badgeClass: {
-      name: "e.g. Renaissance",
-      description: "e.g. Political infuence of the Church during the Renaissance",
+      name: "(Required field) e.g. Renaissance",
+      description: "(Required field) e.g. Political infuence of the Church during the Renaissance",
       learningOutcome: "e.g. is able to read and demonstrate good comprehension of texts in subject area, also in professional field",
-      criteriaText: "e.g. online multiple choice exam",
+      criteriaText: "(Either criteria or criteria URL is required) e.g. online multiple choice exam",
       criteriaUrl: "e.g. https://www.universityofharderwijk.nl/renaissance/criteria",
       studyLoad: "e.g. 120",
       educationProgramIdentifier: "e.g. 12111990",
