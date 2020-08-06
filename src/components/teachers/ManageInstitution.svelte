@@ -81,14 +81,14 @@
 
   const tabs = [
     {
-      entity: "issuers",
-      href: "/manage/institution/issuers",
-      icon: issuerIcon
-    },
-    {
       entity: "faculties",
       href: "/manage/institution/groups",
       icon: facultyIcon
+    },
+    {
+      entity: "issuers",
+      href: "/manage/institution/issuers",
+      icon: issuerIcon
     },
     {
       entity: "userManagement",
@@ -97,7 +97,7 @@
     }
   ];
 
-  $: if (!subEntity) navigate(tabs[0].href, {replace: true});
+  $: if (!subEntity) navigate(tabs[1].href, {replace: true});
   $: mayCreate = permissions && permissions.mayCreate;
   $: mayUpdate = permissions && permissions.mayUpdate;
 
