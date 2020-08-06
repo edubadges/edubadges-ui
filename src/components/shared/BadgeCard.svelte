@@ -37,16 +37,15 @@
   }
 
   .header-regular-height {
-    height: 230px;
+    min-height: 230px;
   }
 
   .header-extra-height {
-    height: 280px;
+    min-height: 280px;
   }
 
   .header {
     display: flex;
-    flex-direction: column;
     text-align: center;
     background-color: white;
 
@@ -95,6 +94,7 @@
 
   .details img {
     max-width: 55px;
+    max-height: 66px;
     margin-right: 15px;
   }
 
