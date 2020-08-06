@@ -124,7 +124,7 @@ I18n.translations.nl = {
       studyLoad: "Studielast",
       ects: "{{value}} ECTS",
       hours: "{{value}} uren",
-      canAward: "Edubadges die u kunt uitreiken",
+      canAward: "Edubadges die je kunt uitreiken",
       allBadges: "Alle edubadges"
     },
     issuers: {
@@ -174,7 +174,7 @@ I18n.translations.nl = {
     confirmation: {
       publish: "Maak deze edubadge publiekelijk beschikbaar",
       private: "Maak deze edubadge prive",
-      publishConfirmation: "Weet je zeker dat u deze edubadge publiek wilt maken?<b/><br/>Als je deze edubadge publiek maakt, wordt je gevalideerde naam <strong>{{name}}</strong> weergegeven in het validatiegedeelte van de openbare badge-webpagina.",
+      publishConfirmation: "Weet je zeker dat je deze edubadge publiek wilt maken?<b/><br/>Als je deze edubadge publiek maakt, wordt je gevalideerde naam <strong>{{name}}</strong> weergegeven in het validatiegedeelte van de openbare badge-webpagina.",
       privateConfirmation: "Weet je het zeker dat je deze edubadge prive wilt maken",
       deleteBadgeConfirmation: "Weet je het zeker dat je deze edubadge wil weigeren?",
       acceptBadgeConfirmation: "Weet je het zeker dat je deze edubadge wil accepteren?",
@@ -587,7 +587,7 @@ I18n.translations.nl = {
         award: "Ken inschrijving toe",
         awardConfirmation: "Weet je zeker dat je deze inschrijving wilt toekennen?",
         deny: "Wijs inschrijving af",
-        denyConfirmation: "Weet u zeker dat u deze inschrijving wilt afwijzen?"
+        denyConfirmation: "Weet je zeker dat je deze inschrijving wilt afwijzen?"
       },
       flash: {
         denied: "De inschrijving(en) zijn afgewezen.",
@@ -602,7 +602,7 @@ I18n.translations.nl = {
   },
   invites: {
     title: "Nodig iemand uit om zich in te schrijven",
-    copyPublicUrl: "Als u de link naar de registratiepagina op uw intranet of ELO wilt plaatsen, kunt u de link kopiëren",
+    copyPublicUrl: "Als je de link naar de registratiepagina op uw intranet of ELO wilt plaatsen, kunt je de link kopiëren",
     copyUrl: "Kopieer URL"
   },
   file: {
@@ -639,19 +639,19 @@ I18n.translations.nl = {
     student: {
       accept: "Ik ga akkoord",
       read: "Ik heb dit gelezen",
-      termsInfo: "Het aanmaken van een backpack en het koppelen hiervan aan je eduID is noodzakelijk om " +
+      termsInfo: "Het aanmaken van een backpack en het koppelen hiervan aan je eduID is noodzakelijk " +
         "om edubadges te kunnen ontvangen. Het backpack valt onder de verwerkingsverantwoordelijkheid van SURF",
       serviceAgreementTitle: "Serviceovereenkomst",
       serviceAgreementLinkPre: "Je kunt hier ",
       serviceAgreementLink: "de volledige serviceovereenkomst",
       serviceAgreementLinkPost: " inzien.",
-      termsTitle: "Terms",
+      termsTitle: "Voorwaarden",
       termsLinkPre: "Door door te gaan, ga je akkoord met ",
       termsLink: "onze voorwaarden",
       termsLinkPost: ".",
       privacyTitle: "Privacy",
       privacyLinkPre: " Je gaat ook akkoord met onze ",
-      privacyLink: "privacy policy",
+      privacyLink: "privacyverklaring",
       privacyLinkPost: "."
     },
     termsBullets: {
@@ -668,7 +668,7 @@ I18n.translations.nl = {
           "Alleen jouw onderwijsinstelling en SURF hebben toegang tot deze persoonsgegevens."
         ]
     },
-    noValidInstitution: "No valid institution",
+    noValidInstitution: "Geen geldige instelling",
     noValidInstitutionInfo: {
       student: "The institution <strong>{{name}}</strong> connected to your eduID account is not participating in the edubadges programme.<br/><br/>" +
           "Please contact support@edubadges.nl for support or try linking an extra institution to your eduID account",
@@ -685,15 +685,15 @@ I18n.translations.nl = {
     multipleValidInstitutionsInfo: "You have multiple institutions connected to your eduID account.<br/><br/>" +
       "Please choose with which institution you want to start using edubadges.",
     badgeClassEnrollmentTerms: {
-      formalBadges: "Formal edubadges - please take notice of our terms",
-      inFormalBadges: "Informal edubadges - please take notice of our terms",
+      formalBadges: "Formele edubadges - please take notice of our terms",
+      inFormalBadges: "Non-formele edubadges - please take notice of our terms",
       statementTitle: "Statement",
       statementLinkPre: "You can read ",
       statementLink: "the complete Statement here.",
       statementLinkPost: "",
       privacyTitle: "Privacy",
       privacyLinkPre: " You also understand the ",
-      privacyLink: "privacy policy.",
+      privacyLink: "privacyverklaring.",
       privacyLinkPost: ""
     },
   },
@@ -747,24 +747,24 @@ I18n.translations.nl = {
   },
   placeholders: {
     institution: {
-      name: "Bijv. Universiteit van Harderwijk",
-      brin: "Basisregistratie Instellingen - BRIN",
+      name: "(Verplicht veld) Bijv. Universiteit van Harderwijk",
+      brin: "(Verplicht veld) Basisregistratie Instellingen - BRIN",
       gradingTable: "URL van de grading table",
-      description: "Bijv De Universiteit van Harderwijk is gesticht in 1977"
+      description: "(Verplicht veld) Bijv De Universiteit van Harderwijk is gesticht in 1977"
     },
     faculty: {
-      name: "Bijv. Geschiedenis",
-      description: "Bijv. Alle issuers van de faculteit Geschiedenis"
+      name: "(Verplicht veld) Bijv. Geschiedenis",
+      description: "(Verplicht veld) Bijv. Alle issuers van de faculteit Geschiedenis"
     },
     issuer: {
-      name: "Bijv. Economische en Sociale geschiedenis",
-      description: "Bijv. Economische en sociale geschiedenis houdt zich bezig met lange termijn ontwikkelingen in de wereldeconomie en samenlevingen, van de late Middeleeuwen tot nu.",
-      email: "Bijv. john.doe@example.com",
-      url: "Bijv. https://harderwijk.nl"
+      name: "(Verplicht veld) Bijv. Economische en Sociale geschiedenis",
+      description: "(Verplicht veld) Bijv. Economische en sociale geschiedenis houdt zich bezig met lange termijn ontwikkelingen in de wereldeconomie en samenlevingen, van de late Middeleeuwen tot nu.",
+      email: "(Verplicht veld) Bijv. john.doe@example.com",
+      url: "(Verplicht veld) Bijv. https://harderwijk.nl"
     },
     badgeClass: {
-      name: "Bijv. Geschiedenis van de middeleeuwen",
-      description: "Bijv. Een overzicht van de geschiedenis vanaf de late oudheid tot de vijftiende eeuw.",
+      name: "(Verplicht veld) Bijv. Geschiedenis van de middeleeuwen",
+      description: "(Verplicht veld) Bijv. Een overzicht van de geschiedenis vanaf de late oudheid tot de vijftiende eeuw.",
       learningOutcome: "Bijv. Je leest antieke bronnen, maar ook moderne teksten, en krijgt zo een overzicht van alle belangrijke ontwikkelingen.",
       criteriaText: "Bijv. online multiple choice examen",
       criteriaUrl: "Bijv. https://harderwijk.nl/geschiedenis/criteria",
@@ -784,8 +784,8 @@ I18n.translations.nl = {
     }
   },
   eye: {
-    awardView: "Award view",
-    adminView: "Admin view"
+    awardView: "Ga naar de Award view",
+    adminView: "Ga naar de Admin view"
   },
   studentEnroll: {
     confirmation: {
@@ -794,9 +794,9 @@ I18n.translations.nl = {
     }
   },
   terms: {
-    overviewTitle: "Overzicht alle terms",
-    termsTitle: "Terms of use",
-    privacyPolicyTitle: "Privacy Policy",
+    overviewTitle: "Overzicht van alle voorwaarden",
+    termsTitle: "Gebruiksvoorwaarden",
+    privacyPolicyTitle: "Privacyverklaring",
     student: {
       serviceAgreementRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/service-agreement-student-nl.md",
       termsOfUseRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/edubadges-termsofservice-nl.md",
