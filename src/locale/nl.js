@@ -74,7 +74,7 @@ I18n.translations.nl = {
     deleteInfo1: "Je kunt je backpack verwijderen als je dat wilt.",
     deleteInfo2: "Wees je dan wel bewust dat je al je edubadges zult verliezen.",
     deleteInfo3: "Het verwijderen van je edubadges betekent overigens niet dat je eduID ook verwijderd wordt.",
-    deleteInfo4: "Om het proces van het verwijderen van je eduBadges-account volledig te voltooien, moet je je browser sluiten nadat je account is verwijderd.",
+    deleteInfo4: "Om het proces van het verwijderen van je edubadges-account volledig te voltooien, moet je je browser sluiten nadat je account is verwijderd.",
     submit: "Voeg toe",
     deleteEmail: "Verwijder dit e-mailadres",
     deleteEmailConfirmation: "Weet je zeker dat je dit e-mailadres wilt verwijderen?",
