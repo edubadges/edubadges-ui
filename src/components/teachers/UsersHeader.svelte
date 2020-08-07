@@ -1,6 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import { queryData } from "../../api/graphql";
+  import I18n from "i18n-js";
 
   let institution = {};
 
@@ -23,5 +24,5 @@
 </style>
 
 <h2>
-  Users you can control in {institution.name}
+  {I18n.t('editUsers.headerControl')} {institution.name}
 </h2>
