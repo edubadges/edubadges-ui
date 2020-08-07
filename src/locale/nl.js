@@ -125,7 +125,9 @@ I18n.translations.nl = {
       ects: "{{value}} ECTS",
       hours: "{{value}} uren",
       canAward: "Edubadges die je kunt uitreiken",
-      allBadges: "Alle edubadges"
+      allBadges: "Alle edubadges",
+      mostRecent: "Most recent",
+      mostAwarded: "Most awarded",
     },
     issuers: {
       title: "Issuers",

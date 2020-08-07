@@ -7,8 +7,8 @@
   export let awardFilter = false;
 
   let targetOptions = [
-    {value: "recent", name: "Most recent"},
-    {value: "awarded", name: "Most awarded"},
+    {value: "recent", name: I18n.t("teacher.badgeclasses.mostRecent")},
+    {value: "awarded", name: I18n.t("teacher.badgeclasses.mostAwarded")},
   ];
   export let sorting = targetOptions[0];
 
