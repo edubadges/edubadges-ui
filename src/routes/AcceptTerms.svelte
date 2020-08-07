@@ -142,7 +142,7 @@
   <p class="content">
   {#if loaded}
     {#if !noValidInstitution}
-      <h1>{I18n.t("acceptTerms.welcome", {name: claims.preferred_username})}</h1>
+      <h1>{I18n.t("acceptTerms.welcome", {name: claims.given_name + claims.family_name})}</h1>
       <h3>{reSign ? I18n.t("acceptTerms.renewTerms"): I18n.t("acceptTerms.acceptTerms")}</h3>
       <p class="terms">{I18n.translations[I18n.locale].acceptTerms[$userRole].termsInfo}</p>
       <ul>
