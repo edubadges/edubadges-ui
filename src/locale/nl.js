@@ -154,7 +154,7 @@ I18n.translations.nl = {
       deleted: "Deze edubadge is verwijderd. Je kunt deze niet langer downloaden of delen met anderen.",
       accepted: "Deze edubadge is geaccepteerd. Je kan deze nu delen met anderen.",
       claimed: "Deze edubadge is succesvol aangevraagd.",
-      withdrawn: "Enrollment withdrawn."
+      withdrawn: "Aanvraag teruggetrokken."
     },
     enrollments: "Aangevraagde edubadges",
     badges: "Jouw edubadges",
@@ -197,7 +197,7 @@ I18n.translations.nl = {
       badgeclasses: "Badge classes",
       badgeclassOverview: "Overzicht",
       userManagement: "Gebruikers beheer",
-      enrollments: "Ingeschreven",
+      enrollments: "Aangevraagd",
       assertions: "Toegekend",
       profile: "Profiel"
     },
@@ -657,8 +657,8 @@ I18n.translations.nl = {
     termsBullets: {
       teacher:
         [
-          "SURF maakt een backpack voor je op basis van je eduID. Dit backpack blijft bestaan totdat je dit backpack opheft.",
-          "SURF verwerkt hiervoor persoonsgegevens: je voornaam, achternaam, e-mailadres, eduID en eventuele persoonlijke teksten in edubadges.",
+          "Er wordt nu een account aangemaakt in edubadges. Dit account blijft bestaan totdat je dit account opheft, of wanneer de instelling deze dienst niet meer afneemt.",
+          "SURF verwerkt hiervoor persoonsgegevens: je voornaam, achternaam, en e-mailadres.",
           "Alleen jouw onderwijsinstelling en SURF hebben toegang tot deze persoonsgegevens."
         ],
       student:
@@ -670,29 +670,29 @@ I18n.translations.nl = {
     },
     noValidInstitution: "Geen geldige instelling",
     noValidInstitutionInfo: {
-      student: "The institution <strong>{{name}}</strong> connected to your eduID account is not participating in the edubadges programme.<br/><br/>" +
-          "Please contact support@edubadges.nl for support or try linking an extra institution to your eduID account",
-      teacher: "The institution <strong>{{name}}</strong> connected to your Surf account is not participating in the edubadges programme.<br/><br/>" +
-          "Please contact support@edubadges.nl for support or try linking an extra institution to your eduID account"
+      student: "De onderwijsinstelling <strong>{{name}}</strong> wat gekoppeld is aan je eduID account, heeft de edubadges dienst niet afgenomen.<br/><br/>" +
+          "Neem contact op met support@edubadges.nl voor ondersteuning of probeer een andere onderwijsinstelling aan je eduID account te koppelen.",
+      teacher: "De onderwijsinstelling <strong>{{name}}</strong> waarmee je via SURFconext inlogged bent, heeft de edubadges dienst niet afgenomen.<br/><br/>" +
+          "Neem contact op met support@edubadges.nl voor ondersteuning of probeer via een andere onderwijsinstelling in te loggen."
     },
-    noValidInstitutionInfoNoInstitution: "You don't have any verified institutions linked to your account. <br/>" +
-        "You need a verified institution that is participating in the edubadges programme to use this service.",
-    noValidInstitutionInfoForEnrollment: "Institution {{name}} is not connected to your eduID account. " +
-      "To enroll for this edubadge you will need verify that you can identify yourself at institution <strong>{{name}}</strong>.<br/><br/>" +
-      "Please contact support@edubadges.nl for support or try linking institution {{name}} to your eduID account",
-    goToSurfConext: "Proceed to eduID",
-    multipleValidInstitutions: "Multiple valid institutions",
-    multipleValidInstitutionsInfo: "You have multiple institutions connected to your eduID account.<br/><br/>" +
-      "Please choose with which institution you want to start using edubadges.",
+    noValidInstitutionInfoNoInstitution: "Je hebt geen valide onderwijsinstelling gekoppeld aan je account. <br/>" +
+        "Om deze dienst te kunnen gebruiken moet je account gekoppeld zijn aan een onderwijsinstelling die de edubadges dienst afneemt.",
+    noValidInstitutionInfoForEnrollment: "Onderwijsinstelling {{name}} is niet gekoppeld aan je eduID account. " +
+      "Om deze edubadge aan te kunnen vragen zal je eduID account gekoppeld moeten zijn met de onderwijsinstelling: <strong>{{name}}</strong>.<br/><br/>" +
+      "Neem contact op met support@edubadges.nl voor ondersteuning of probeer je eduID account te koppelen met {{name}}.",
+    goToSurfConext: "Ga door naar eduID",
+    multipleValidInstitutions: "Meerdere valide onderwijsinstellingen",
+    multipleValidInstitutionsInfo: "Je hebt meerdere valide onderwijsinstellingen gekoppeld aan je eduID account.<br/><br/>" +
+      "Maak een keuze van welke onderwijsinstelling je edubadges wilt ontvangen.",
     badgeClassEnrollmentTerms: {
-      formalBadges: "Formele edubadges - please take notice of our terms",
-      inFormalBadges: "Non-formele edubadges - please take notice of our terms",
-      statementTitle: "Statement",
-      statementLinkPre: "You can read ",
-      statementLink: "the complete Statement here.",
-      statementLinkPost: "",
+      formalBadges: "Formele edubadges - Gelieve kennis te nemen van onze voorwaarden",
+      inFormalBadges: "Non-formele edubadges - Gelieve kennis te nemen van onze voorwaarden",
+      statementTitle: "Verklaring",
+      statementLinkPre: "Je kunt ",
+      statementLink: "de volledige verklaring hier ",
+      statementLinkPost: "lezen",
       privacyTitle: "Privacy",
-      privacyLinkPre: " You also understand the ",
+      privacyLinkPre: "Je gaat ook akkoord met de ",
       privacyLink: "privacyverklaring.",
       privacyLinkPost: ""
     },
@@ -712,7 +712,7 @@ I18n.translations.nl = {
     validations: {
       issuedOn: "Uitgereikt op {{val}}",
       issuedBy: "Uitgereikt door {{val}}",
-      issuedUsing: "Issued using {{val}}",
+      issuedUsing: "Gebruikt platform {{val}}",
       issuedTo: "Uitgereikt aan <strong>{{val}}</strong>",
       claimedOn: "Geaccepteerd op {{val}}",
       verified: "<strong>Gevalideerd!<strong> {{val}}"
@@ -724,8 +724,8 @@ I18n.translations.nl = {
     issuers: "Er zijn geen issuers voor {{name}}.",
     faculties: "Er zijn geen Issuer Groups voor instelling {{name}}.",
     users: "Er zijn geen users voor instelling {{name}}.",
-    assertions: "Er zijn geen assertions voor edubadge {{name}}.",
-    enrollments: "Er zijn geen enrollments voor edubadge {{name}}.",
+    assertions: "Er zijn geen uitreikingen voor edubadge {{name}}.",
+    enrollments: "Er zijn geen aanvragen voor edubadge {{name}}.",
     permissions: "Er zijn geen permissies voor deze gebruiker {{entity}} niveau.",
     selfPermissions: "Deze gebruiker heeft geen permissies op {{entity}} niveau.",
     userPermissions: "Deze gebruiker heeft geen permissies op {{entity}} niveau."
@@ -741,7 +741,7 @@ I18n.translations.nl = {
   user: {
     home: "Home",
     permissions: "Je permissies",
-    banner: "Hi {{firstName}} {{lastName}}",
+    banner: "Hallo {{firstName}} {{lastName}}",
     profile: "Profiel",
     loggedIn: "Je bent momenteel ingelogd met je instellings account, via SURFconext"
   },
