@@ -55,7 +55,7 @@
       <File bind:value={institution.image} error={errors.image} removeAllowed={false}/>
     </Field>
 
-    <Field {entity} attribute="name" errors={errors.name} disabled={true}>
+    <Field {entity} attribute="name" errors={errors.name}>
       <TextInput bind:value={institution.name} error={errors.name}  placeholder={I18n.t("placeholders.institution.name")}/>
     </Field>
 
@@ -72,7 +72,8 @@
       <TextInput
           bind:value={institution.brin}
           error={errors.brin}
-          placeholder={I18n.t("placeholders.institution.brin")}/>
+          placeholder={I18n.t("placeholders.institution.brin")}
+          disabled={true}/>
     </Field>
 
     <Field {entity} attribute="grading_table" errors={errors.grading_table}>
