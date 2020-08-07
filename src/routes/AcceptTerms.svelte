@@ -78,7 +78,7 @@
   const closeTerms = () => showModalTerms = false;
 
   const logInForceAuthn = () => {
-    window.location.href = "https://mijn.eduid.nl"
+    window.location.href = config.eduId
   };
 </script>
 

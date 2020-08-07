@@ -21,6 +21,7 @@
   import {flash} from "../../stores/flash";
   import AcceptInstitutionTerms from "../../routes/AcceptInstitutionTerms.svelte";
   import {userRole, userLoggedIn} from "../../stores/user";
+  import {config} from "../../util/config"
 
   export let entityId;
 
@@ -211,7 +212,7 @@
   };
 
   const logInForceAuthn = () => {
-    window.location.href = "https://mijn.eduid.nl"
+    window.location.href = config.eduId
   };
 </script>
 
