@@ -306,7 +306,7 @@ I18n.translations.nl = {
     702: "Ongeldige share provider.",
     801: "Kan grading table URL niet aanpassen, er zijn al edubadges uitgegeven.",
     802: "Kan BRIN code niet aanpassen, er zijn al edubadges uitgegeven.",
-    902: "Moet een geldige URL zijn.",
+    902: "Moet een geldige URL zijn of de afmetingen van het plaatje kloppen niet.",
     903: "Dit veld is verplicht.",
     904: "Geen bestand gekozen.",
     905: "Invullen van criteria of van criteria URL is verplicht.",
@@ -435,7 +435,7 @@ I18n.translations.nl = {
       issuer: "Selecteer een issuer",
     },
     institution: {
-      created: "Vanaf",
+      created: "Aangemaakt",
       admin: "Admin",
       brin: "BRIN code",
       description: "Beschrijving",
