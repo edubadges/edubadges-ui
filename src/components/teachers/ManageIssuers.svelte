@@ -62,12 +62,12 @@
 </script>
 
 <Table
-  {...table}
-  bind:search={issuerSearch}
-  bind:sort={issuerSort}
-  isEmpty={issuers.length === 0}
-  pathParameters={facultyEntityId ? [facultyEntityId] : []}
-  {mayCreate}>
+    {...table}
+    bind:search={issuerSearch}
+    bind:sort={issuerSort}
+    isEmpty={issuers.length === 0}
+    pathParameters={facultyEntityId ? [facultyEntityId] : []}
+    {mayCreate}>
   {#each sortedFilteredIssuers as issuer (issuer.entityId)}
     <tr
       class="click"
@@ -83,7 +83,7 @@
   {/each}
   {#if issuers.length === 0}
     <tr>
-      <td colspan="2">{I18n.t("zeroState.issuers",{entity:institutionName})}</td>
+      <td colspan="2">{I18n.t("zeroState.issuers", {name:institutionName})}</td>
     </tr>
   {/if}
 

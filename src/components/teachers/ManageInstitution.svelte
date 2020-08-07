@@ -34,6 +34,7 @@
     currentInstitution {
       ${headerEntity},
       ${headerStaff},
+      name,
       image,
       gradingTable,
       brin,
@@ -98,7 +99,8 @@
   ];
 
   $: if (!subEntity) navigate(tabs[1].href, {replace: true});
-  $: mayCreate = permissions && permissions.mayCreate;
+  $: mayCreateFaculty = permissions && permissions.mayCreate;
+  $: mayCreateIssuer = permissions && permissions.mayCreate && faculties.length > 0;
   $: mayUpdate = permissions && permissions.mayUpdate;
 
   $: headerItems = [
@@ -142,10 +144,10 @@
 
   <Router>
     <Route path="/issuers">
-      <Issuers {issuers} {mayCreate} institutionName={institution.name}/>
+      <Issuers {issuers} mayCreate={mayCreateIssuer} institutionName={institution.name}/>
     </Route>
     <Route path="/groups">
-      <Faculties {faculties} {mayCreate} institutionName={institution.name}/>
+      <Faculties {faculties} mayCreate={mayCreateFaculty} institutionName={institution.name}/>
     </Route>
     <Route path="/user-management/invite-new-user">
       <InviteUser
