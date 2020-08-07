@@ -23,5 +23,5 @@
 </style>
 
 <h2>
-  Users in {institution.name}
+  Users you can control in {institution.name}
 </h2>
