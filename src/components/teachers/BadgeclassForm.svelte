@@ -374,8 +374,7 @@
         attribute="educationProgramIdentifierLong"
         errors={errors.educationProgramIdentifierLong}>
         <TextInput
-          type="number"
-          max="999999999999999"
+          type="text"
           bind:value={extensions[educationProgramIdentifier.name]}
           placeholder={I18n.t("placeholders.badgeClass.educationProgramIdentifier")}
           error={errors.educationProgramIdentifierLong}/>
