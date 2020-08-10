@@ -91,7 +91,7 @@
 <div class="enrollment-detail">
   {#if !isEmpty(badgeClass)}
     <div class="bread-crumb">
-      <a use:link href={`/backpack`}>{I18n.t("student.enrollments")}</a>
+      <a use:link href={`/badge-requests`}>{I18n.t("student.enrollments")}</a>
       <span class="icon">{@html chevronRightSmall}</span>
       <span class="current">{badgeClass.name}</span>
     </div>
