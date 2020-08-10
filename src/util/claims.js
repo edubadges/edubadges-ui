@@ -1,4 +1,5 @@
 export const schacHomeNamesFromExtraData = affiliations => {
+  //TODO there can be subdomains
   return (affiliations || [])
     .map(aff => aff.substring(aff.indexOf("@") + 1));
 }
