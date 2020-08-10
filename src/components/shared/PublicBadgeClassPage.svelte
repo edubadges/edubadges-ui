@@ -123,7 +123,7 @@
   }`;
 
   onMount(() => {
-    setTimeout(() => {visitorRole = $userLoggedIn ? $userRole : "guest";}, 1000); // TODO: try to remove this (ask Okke)
+    // setTimeout(() => {visitorRole = $userLoggedIn ? $userRole : "guest";}, 1000); // TODO: try to remove this (ask Okke)
     if (visitorRole === role.STUDENT) {
       Promise.all([queryData(query), queryData(secureQuery), getSocialAccountsSafe()]).then(res => {
         const enrollment = res[0].enrollment;

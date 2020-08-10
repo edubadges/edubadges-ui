@@ -184,8 +184,6 @@
 </script>
 
 <style lang="scss">
-
-
   div.badge-detail-container {
     display: flex;
     flex-direction: column;
@@ -396,8 +394,8 @@
     padding: 0 0 44px 0;
     justify-content: center;
   }
-
 </style>
+
 <div class="badge-detail-container">
   {#if loaded}
     <div class="bread-crumb">

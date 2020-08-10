@@ -19,6 +19,7 @@
   export let requested;
   export let studentPath;
   export let publicPage = false;
+  export let showBreadCrumb = true;
 
   //Modal
   let showModal = false;
@@ -73,7 +74,9 @@
 
 <div class="overview">
   {#if studentEnrolled}
-    <Breadcrumb studentBadge={true} studentPath={studentPath} badgeclassName={badgeclass.name}/>
+    {#if showBreadCrumb}}
+      <Breadcrumb studentBadge={true} studentPath={studentPath} badgeclassName={badgeclass.name}/>
+    {/if}
     <div class="badge">
       <EnrollmentBadge badgeClass={badgeclass} />
     </div>
