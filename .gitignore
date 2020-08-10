@@ -13,3 +13,4 @@ bundle.*.js
 DEMO.txt
 NOTES.txt
 stats.json
+yarn-error.log
