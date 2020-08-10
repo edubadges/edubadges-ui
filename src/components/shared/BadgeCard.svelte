@@ -47,6 +47,7 @@
   .header {
     display: flex;
     text-align: center;
+    flex-direction: column;
     background-color: white;
 
     .shield {
