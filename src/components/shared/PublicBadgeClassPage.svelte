@@ -216,6 +216,12 @@
   };
 </script>
 
+<style>
+  .overview-container {
+    padding: 40px 140px;
+  }
+</style>
+
 {#if loaded}
   {#if !showAcceptTerms}
     <div class="page-container">
@@ -238,9 +244,11 @@
         {/if}
       </EntityHeader>
 
-      <Overview badgeclass={badgeClass} studentEnrolled={studentEnrolled} enrollmentId={enrollmentId}
-                requested={requestedDate} studentPath={I18n.t("student.enrollments")} publicPage={true}
-                on:enrollmentWithdrawn={reload}/>
+      <div class="overview-container">
+        <Overview badgeclass={badgeClass} studentEnrolled={studentEnrolled} enrollmentId={enrollmentId}
+                  requested={requestedDate} studentPath={I18n.t("student.enrollments")} publicPage={true}
+                  on:enrollmentWithdrawn={reload}/>
+      </div>
     </div>
   {/if}
 {:else}

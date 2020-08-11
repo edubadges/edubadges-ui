@@ -114,8 +114,14 @@
     {value: permissionsRole.AWARDER, name: I18n.t("editUsers.badgeclass.awarder")}
   ];
 </script>
-{#if loaded}
 
+<style>
+  .overview-container {
+    padding: 40px 140px;
+  }
+</style>
+
+{#if loaded}
   <Breadcrumb {faculty} {issuer} {badgeclass} badgeclassName={badgeclass.name}/>
 
   <EntityHeader
@@ -130,7 +136,9 @@
   <div class="main-content-margin">
     <Router>
       <Route path="/overview">
-        <Overview {badgeclass}/>
+        <div class="overview-container">
+          <Overview {badgeclass}/>
+        </div>
       </Route>
       <Route path="/user-management/invite-new-user">
         <InviteUser

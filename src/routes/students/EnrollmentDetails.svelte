@@ -60,6 +60,20 @@
     flex-direction: column;
   }
 
+  div.badge-header {
+    background-color: var(--purple-2);
+    color: var(--purple);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    height: 60px;
+
+    h1 {
+        font-size: 28px;
+    }
+  }
+
   div.bread-crumb {
     padding: var(--ver-padding-m) var(--hor-padding-m);
     min-height: 47px;
@@ -81,6 +95,10 @@
     }
   }
 
+  .overview-container {
+    padding: 20px 40px 10px 40px;
+  }
+
   @media (max-width: 1120px) {
     .enrollment-detail {
       padding: 40px 20px !important;
@@ -95,7 +113,12 @@
       <span class="icon">{@html chevronRightSmall}</span>
       <span class="current">{badgeClass.name}</span>
     </div>
-    <Overview badgeclass={badgeClass} requested={enrollment.dateCreated} enrollmentId={enrollment.entityId}
+    <div class="badge-header">
+      <h1>{badgeClass.name}</h1>
+    </div>
+    <div class="overview-container">
+      <Overview badgeclass={badgeClass} requested={enrollment.dateCreated} enrollmentId={enrollment.entityId}
               studentEnrolled={true} studentPath={I18n.t("student.enrollments")} showBreadCrumb={false}/>
+    </div>
   {/if}
 </div>

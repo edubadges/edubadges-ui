@@ -126,6 +126,10 @@
     width: 100%;
   }
 
+  .overview-container {
+    padding: 40px 140px;
+  }
+
   div.nav {
     padding: var(--ver-padding-m) var(--hor-padding-m);
     min-height: 47px;
@@ -195,19 +199,20 @@
     <div>
       <Router>
         <Route path="/overview">
-          <Overview {badgeclass}>
-            <div class="public-link">
-              <div class="info">
-                <span>{@html info}</span>
-                <span>{I18n.t("invites.copyPublicUrl")}</span>
+          <div class="overview-container">
+            <Overview {badgeclass}>
+              <div class="public-link">
+                <div class="info">
+                  <span>{@html info}</span>
+                  <span>{I18n.t("invites.copyPublicUrl")}</span>
+                </div>
+                <div class="options">
+                  <input class="input-field full" disabled={true} value={publicUrl()}/>
+                  <CopyToClipboardButton toCopy={publicUrl()} text={I18n.t("invites.copyUrl")}/>
+                </div>
               </div>
-              <div class="options">
-                <input class="input-field full" disabled={true} value={publicUrl()}/>
-                <CopyToClipboardButton toCopy={publicUrl()} text={I18n.t("invites.copyUrl")}/>
-              </div>
-            </div>
-
-          </Overview>
+            </Overview>
+          </div>
         </Route>
 
         <Route path="/enrollments">

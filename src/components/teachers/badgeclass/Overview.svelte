@@ -48,10 +48,6 @@
 </script>
 
 <style>
-  div.overview {
-    padding: 40px 140px;
-  }
-
   .info {
     margin-bottom: 40px;
   }
@@ -74,7 +70,7 @@
 
 <div class="overview">
   {#if studentEnrolled}
-    {#if showBreadCrumb}}
+    {#if showBreadCrumb}
       <Breadcrumb studentBadge={true} studentPath={studentPath} badgeclassName={badgeclass.name}/>
     {/if}
     <div class="badge">

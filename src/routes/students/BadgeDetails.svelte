@@ -180,7 +180,6 @@
         });
     }
   }
-
 </script>
 
 <style lang="scss">
