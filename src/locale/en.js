@@ -488,6 +488,7 @@ I18n.translations.en = {
       directAward: "Direct award",
       inviteEnrollements: "Invite people to request this edubadge",
       expiresAfter: "Expires after",
+      expiresAfterOption: "After",
       expiresAfterNever: "Never",
       expiresAfterValue: "{{nbr}} weeks",
       expireSettings: "Default expiration settings",

@@ -53,9 +53,9 @@
   </label>
   <div class="options">
 
-    <RadioButton bind:values={expireValueSet} label="Never" value={false} />
+    <RadioButton bind:values={expireValueSet} label={I18n.t('models.badgeclass.expiresAfterNever')} value={false} />
 
-    <RadioButton bind:values={expireValueSet} label="After" value={true} />
+    <RadioButton bind:values={expireValueSet} label={I18n.t('models.badgeclass.expiresAfterOption')} value={true} />
 
     <div class="expiration">
       <input

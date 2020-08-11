@@ -488,6 +488,7 @@ I18n.translations.nl = {
       directAward: "Direct uitreiken",
       inviteEnrollements: "Nodig iemand uit om deze edubadge te verdienen",
       expiresAfter: "Verloopt na",
+      expiresAfterOption: "Na",
       expiresAfterNever: "Nooit",
       expiresAfterValue: "{{nbr}} weken",
       expireSettings: "Standaard verloop setting",
