@@ -53,7 +53,10 @@
   }
 
   .badge {
-    margin-bottom: 15px;
+    display: flex;
+    max-width: 320px;
+    margin: 0 auto 40px auto;
+    position: relative;
   }
 
   .flex {
