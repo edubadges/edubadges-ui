@@ -1,7 +1,11 @@
 export const schacHomeNamesFromExtraData = affiliations => {
-  //TODO there can be subdomains
+
   return (affiliations || [])
-    .map(aff => aff.substring(aff.indexOf("@") + 1));
+    .map(aff => {
+      const domain = aff.substring(aff.indexOf("@") + 1)
+      const parts = domain.split(".")
+      return parts.slice(Math.max(parts.length - 2, 0)).join(".")
+    });
 }
 
 export const schacHomeNames = jwtClaims => {
