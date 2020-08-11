@@ -247,7 +247,7 @@
       <div class="overview-container">
         <Overview badgeclass={badgeClass} studentEnrolled={studentEnrolled} enrollmentId={enrollmentId}
                   requested={requestedDate} studentPath={I18n.t("student.enrollments")} publicPage={true}
-                  on:enrollmentWithdrawn={reload}/>
+                  on:enrollmentWithdrawn={reload} showBreadCrumb={false}/>
       </div>
     </div>
   {/if}
