@@ -30,6 +30,8 @@
 
     newIssuer.url = toHttpOrHttps(issuer.url);
 
+    if (newIssuer.image === '') newIssuer.image = null;
+
     const args = isCreate ? [newIssuer] : [entityId, newIssuer];
     const apiCall = isCreate ? createIssuer : editIssuer;
 
