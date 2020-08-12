@@ -5,6 +5,7 @@
   import {search} from "../../util/searchData";
   import {sort, sortType} from "../../util/sortData";
   import moment from "moment";
+  import {badgeclassIcon} from "../../icons";
 
   export let badgeclasses = [];
   export let mayCreate;
@@ -12,11 +13,15 @@
 
   const tableHeaders = [
     {
+      name: "",
+      width: "5%"
+    },
+    {
       name: I18n.t("teacher.name"),
       attribute: "name",
       reverse: false,
       sortType: sortType.ALPHA,
-      width: "45%"
+      width: "40%"
     },
     {
       name: I18n.t("teacher.badgeclasses.created"),
@@ -52,7 +57,7 @@
   let badgeclassSearch = "";
   $: searchedBadgeclassIds = search(badgeclasses, badgeclassSearch, "name");
 
-  let badgeclassSort = tableHeaders[0];
+  let badgeclassSort = tableHeaders[1];
 
   $: sortedFilteredBadgeclasses = sort(
     badgeclasses.filter(el => searchedBadgeclassIds.includes(el.entityId)),
@@ -61,6 +66,13 @@
     badgeclassSort.sortType
   );
 </script>
+
+<style>
+  .icon {
+    display: block;
+    height: 20px;
+  }
+</style>
 
 <Table
   {...table}
@@ -71,8 +83,11 @@
   {mayCreate}>
   {#each sortedFilteredBadgeclasses as badgeclass (badgeclass.entityId)}
     <tr
-      class="click"
-      on:click={() => navigate(`/manage/badgeclass/${badgeclass.entityId}`)}>
+        class="click"
+        on:click={() => navigate(`/manage/badgeclass/${badgeclass.entityId}`)}>
+      <td>
+        <span class="icon">{@html badgeclassIcon}</span>
+      </td>
       <td>{badgeclass.name}</td>
       <td>{moment(badgeclass.dateCreated).format('MMM D, YYYY')}</td>
       <td class="center">{badgeclass.badgeAssertions.length}</td>

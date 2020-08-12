@@ -28,17 +28,21 @@
 </style>
 
 {#each tableHeaders as th}
-  <th class="table-header"
-      on:click={() => !hide && setSort(th)}
-      class:hide
-      class:asc={sort.attribute === th.attribute && sort.reverse}
-      class:desc={sort.attribute === th.attribute && !sort.reverse}
-      class:center={th.center}
-      class:right={th.right}
-      width={th.width}>
-    {th.name || ""}
-    {#if th.icon}
-      {@html th.icon}
-    {/if}
-  </th>
+  {#if th.sortType}
+    <th class="table-header"
+        on:click={() => !hide && setSort(th)}
+        class:hide
+        class:asc={sort.attribute === th.attribute && sort.reverse}
+        class:desc={sort.attribute === th.attribute && !sort.reverse}
+        class:center={th.center}
+        class:right={th.right}
+        width={th.width}>
+      {th.name || ""}
+      {#if th.icon}
+        {@html th.icon}
+      {/if}
+    </th>
+  {:else}
+    <th class="table-header" width={th.width}></th>
+  {/if}
 {/each}

@@ -5,12 +5,17 @@
   import {search} from "../../util/searchData";
   import {sort, sortType} from "../../util/sortData";
   import { entityType } from "../../util/entityTypes";
+  import {facultyIcon} from "../../icons";
 
   export let faculties = [];
   export let mayCreate;
   export let institutionName;
 
   const tableHeaders = [
+    {
+      name: "",
+      width: "5%"
+    },
     {
       name: I18n.t("teacher.name"),
       attribute: "name",
@@ -37,7 +42,7 @@
   let facultySearch = "";
   $: searchedFacultyIds = search(faculties, facultySearch, "name");
 
-  let facultySort = tableHeaders[1];
+  let facultySort = tableHeaders[2];
 
   $: sortedFilteredFaculties = sort(
     faculties.filter(el => searchedFacultyIds.includes(el.entityId)),
@@ -47,6 +52,13 @@
   );
 </script>
 
+<style>
+  .icon {
+    display: block;
+    height: 20px;
+  }
+</style>
+
 <Table
   {...table}
   bind:search={facultySearch}
@@ -55,8 +67,11 @@
   {mayCreate}>
   {#each sortedFilteredFaculties as faculty (faculty.entityId)}
     <tr
-      class="click"
-      on:click={() => navigate(`/manage/faculty/${faculty.entityId}`)}>
+        class="click"
+        on:click={() => navigate(`/manage/faculty/${faculty.entityId}`)}>
+      <td>
+        <span class="icon">{@html facultyIcon}</span>
+      </td>
       <td>{faculty.name}</td>
       <td class="center">{faculty.issuers.length}</td>
     </tr>

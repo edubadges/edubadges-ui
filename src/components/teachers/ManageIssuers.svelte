@@ -5,6 +5,7 @@
   import {Table} from "../teachers";
   import {search} from "../../util/searchData";
   import {sort, sortType} from "../../util/sortData";
+  import {issuerIcon} from "../../icons";
 
   export let mayCreate;
   export let issuers = [];
@@ -18,11 +19,15 @@
 
   const tableHeaders = [
     {
+      name: "",
+      width: "5%"
+    },
+    {
       name: I18n.t("teacher.name"),
       attribute: "name",
       reverse: false,
       sortType: sortType.ALPHA,
-      width: "50%"
+      width: "45%"
     },
     {
       name: I18n.t("teacher.badgeclasses.title"),
@@ -51,7 +56,7 @@
   let issuerSearch = "";
   $: searchedIssuerIds = search(issuers, issuerSearch, "name");
 
-  let issuerSort = tableHeaders[1];
+  let issuerSort = tableHeaders[2];
 
   $: sortedFilteredIssuers = sort(
     issuers.filter(el => searchedIssuerIds.includes(el.entityId)),
@@ -60,6 +65,13 @@
     issuerSort.sortType
   );
 </script>
+
+<style>
+  .icon {
+    display: block;
+    height: 20px;
+  }
+</style>
 
 <Table
     {...table}
@@ -72,6 +84,11 @@
     <tr
       class="click"
       on:click={() => navigate(`/manage/issuer/${issuer.entityId}`)}>
+      <td>
+        <span class="icon">
+          {@html issuerIcon}
+        </span>
+      </td>
       <td>
         {issuer.name}
         <br/>

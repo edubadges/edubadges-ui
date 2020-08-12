@@ -99,13 +99,6 @@
     padding: 20px 40px 10px 40px;
   }
 
-  div.badge-card-container {
-    display: flex;
-    max-width: 320px;
-    margin: 0 auto 40px auto;
-    position: relative;
-  }
-
   @media (max-width: 1120px) {
     .enrollment-detail {
       padding: 40px 20px !important;
