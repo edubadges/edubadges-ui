@@ -5,6 +5,7 @@ export const faculties = writable([]);
 export const search = writable();
 export const facultyIds = writable([]);
 export const issuerIds = writable([]);
+export const awardFilter = writable(false);
 
 function filterBySearch(badgeclasses, search) {
   if (!search) {
@@ -39,8 +40,8 @@ export const selectedEntity = derived(
 );
 
 export const tree = derived(
-  [faculties, search, facultyIds, issuerIds],
-  ([faculties, search, facultyIds, issuerIds]) => {
+  [faculties, awardFilter, search, facultyIds, issuerIds],
+  ([faculties, awardFilter, search, facultyIds, issuerIds]) => {
     const tree = faculties.reduce(
       (acc, cur) => {
         // different faculty selected
@@ -60,7 +61,7 @@ export const tree = derived(
         let badgeClasses = [];
         const enrichedIssuers = issuers.map(
           ({ badgeclasses, entityId, name }) => {
-            const _badgeClasses = filterBySearch(badgeclasses, search);
+            const _badgeClasses = filterBySearch(badgeclasses, search).filter(badgeClass => !awardFilter || (awardFilter && badgeClass.permissions.mayAward));
             badgeClasses.push(_badgeClasses);
 
             const issuer = {

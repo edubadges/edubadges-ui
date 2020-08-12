@@ -4,7 +4,7 @@
   import {SideBarBadges, BadgesHeader, BadgeClassesToolBar} from "../../components/teachers";
   import {queryData} from "../../api/graphql";
   import {headerEntity, headerStaff} from "../../api/queries";
-  import {faculties, tree} from "../../stores/filterBadges";
+  import {faculties, awardFilter, tree} from "../../stores/filterBadges";
   import BadgeCard from "../../components/shared/BadgeCard.svelte";
   import Spinner from "../../components/Spinner.svelte";
 
@@ -43,7 +43,6 @@
   }`;
 
   let loaded;
-  let awardFilter = true;
   let sorting;
 
   const sortBadges = (badges, sorting) => {
@@ -59,7 +58,7 @@
     });
   };
 
-  $: sortedBadges = sortBadges($tree.badgeClasses.filter(el => !awardFilter || el.permissions.mayAward), sorting);
+  $: sortedBadges = sortBadges($tree.badgeClasses.filter(el => !$awardFilter || el.permissions.mayAward), sorting);
 
   onMount(() => {
     queryData(query).then(res => {
@@ -118,7 +117,6 @@
       <BadgesHeader/>
 
       <BadgeClassesToolBar
-          bind:awardFilter={awardFilter}
           bind:sorting={sorting}
       />
 

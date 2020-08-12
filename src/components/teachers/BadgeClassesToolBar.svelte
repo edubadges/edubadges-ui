@@ -1,10 +1,8 @@
 <script>
   import I18n from "i18n-js";
   import {Search} from "../../components";
-  import {search} from "../../stores/filterBadges";
+  import {search, awardFilter, facultyIds, issuerIds, tree} from "../../stores/filterBadges";
   import {Field, MinimalisticSelect} from "../forms";
-
-  export let awardFilter = false;
 
   let targetOptions = [
     {value: "recent", name: I18n.t("teacher.badgeclasses.mostRecent")},
@@ -13,9 +11,18 @@
   export let sorting = targetOptions[0];
 
   const setBadgeFilter = filter => {
-    awardFilter = filter;
+    $awardFilter = filter;
+    if($facultyIds[0]) {
+      if(!$tree.faculties.some(faculty => faculty.entityId === $facultyIds[0] && faculty.count > 0)) {
+        $facultyIds.length = 0;
+      }
+    }
+    if($issuerIds[0]) {
+      if(!$tree.issuers.some(issuer => issuer.entityId === $issuerIds[0] && issuer.count > 0)) {
+        $issuerIds.length = 0;
+      }
+    }
   }
-
 </script>
 
 <style lang="scss">
@@ -74,10 +81,10 @@
 
 <div class="buttons">
   <span>
-    <span class="badge-filter-button {awardFilter ? 'active' : 'inactive'}"
+    <span class="badge-filter-button {$awardFilter ? 'active' : 'inactive'}"
           on:click={() => setBadgeFilter(true)}>{I18n.t('teacher.badgeclasses.canAward')}</span>
     <span>|</span>
-    <span class="badge-filter-button {awardFilter ? 'inactive' : 'active'}"
+    <span class="badge-filter-button {$awardFilter ? 'inactive' : 'active'}"
           on:click={() => setBadgeFilter(false)}>{I18n.t('teacher.badgeclasses.allBadges')}</span>
   </span>
 
