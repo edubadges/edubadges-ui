@@ -20,6 +20,9 @@
       },
       badgeclasses {
         entityId,
+        badgeAssertions {
+          entityId
+        }
       },
       permissions {
         mayCreate

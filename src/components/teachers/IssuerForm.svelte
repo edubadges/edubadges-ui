@@ -5,10 +5,11 @@
   import {createIssuer, editIssuer} from "../../api";
   import {entityType} from "../../util/entityTypes";
   import I18n from "i18n-js";
-  import { toHttpOrHttps } from "../../util/Url";
+  import {toHttpOrHttps} from "../../util/Url";
+  import {onMount} from "svelte";
 
   export let entityId;
-  export let issuer = {faculty: {}};
+  export let issuer = {faculty: {}, badgeclasses: []};
   export let faculties = [];
   export let facultyChooseAllowed;
   export let mayDelete;
@@ -17,6 +18,11 @@
   let errors = {};
   let isCreate = !entityId;
   let processing = false;
+  let hasAssertions = false;
+
+  onMount(() => {
+    hasAssertions = (issuer.badgeclasses || []).some(badgeClass => (badgeClass.badgeAssertions || []).length > 0)
+  });
 
   function onSubmit() {
     errors = {};
@@ -52,10 +58,10 @@
             issuer={isCreate ? null : issuer} submit={onSubmit} create={isCreate} {processing}>
   <Field {entity} attribute="faculty" errors={errors.faculty}>
     <Select
-        bind:value={issuer.faculty}
-        disabled={!facultyChooseAllowed}
-        error={errors.faculty}
-        items={faculties}/>
+      bind:value={issuer.faculty}
+      disabled={!facultyChooseAllowed}
+      error={errors.faculty}
+      items={faculties}/>
   </Field>
 
   <Field {entity} attribute="image" errors={errors.image}>
@@ -63,11 +69,18 @@
   </Field>
 
   <Field {entity} attribute="name" errors={errors.name}>
-    <TextInput bind:value={issuer.name} error={errors.name}  placeholder={I18n.t("placeholders.issuer.name")}/>
+  <!--  TODO: Need to refactor the CSS to use disabled=true, now disabled although false renders as disabled  -->
+    {#if hasAssertions}
+      <TextInput bind:value={issuer.name} error={errors.name} placeholder={I18n.t("placeholders.issuer.name")}
+                 disabled={true}/>
+    {:else}
+      <TextInput bind:value={issuer.name} error={errors.name} placeholder={I18n.t("placeholders.issuer.name")}/>
+    {/if}
   </Field>
 
   <Field {entity} attribute="description" errors={errors.description}>
-    <TextInput bind:value={issuer.description} error={errors.description} area size="100" placeholder={I18n.t("placeholders.issuer.description")}/>
+    <TextInput bind:value={issuer.description} error={errors.description} area size="100"
+               placeholder={I18n.t("placeholders.issuer.description")}/>
   </Field>
 
   <Field {entity} attribute="url" errors={errors.url}>
