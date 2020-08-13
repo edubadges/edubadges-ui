@@ -12,14 +12,14 @@
 
   const setBadgeFilter = filter => {
     $awardFilter = filter;
-    if($facultyIds[0]) {
-      if(!$tree.faculties.some(faculty => faculty.entityId === $facultyIds[0] && faculty.count > 0)) {
-        $facultyIds.length = 0;
-      }
-    }
     if($issuerIds[0]) {
       if(!$tree.issuers.some(issuer => issuer.entityId === $issuerIds[0] && issuer.count > 0)) {
         $issuerIds.length = 0;
+      }
+    }
+    if($facultyIds[0]) {
+      if(!$tree.faculties.some(faculty => faculty.entityId === $facultyIds[0] && faculty.count > 0)) {
+        $facultyIds.length = 0;
       }
     }
   }
