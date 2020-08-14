@@ -26,6 +26,7 @@
   h2 {
     background: var(--purple-1);
     padding: var(--ver-padding-l) var(--hor-padding-l);
+    margin: 0;
   }
 
   .offset {
@@ -56,7 +57,6 @@
       }
     }
   }
-
 </style>
 
 <Breadcrumb

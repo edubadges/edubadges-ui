@@ -12,6 +12,7 @@
   import {entityType} from "../../util/entityTypes"
   import Spinner from "../Spinner.svelte";
   import {permissionsRole} from "../../util/rolesToPermissions";
+  import {overview, userManagementIcon} from "../../icons";
 
   export let entityId;
   export let tab;
@@ -80,11 +81,14 @@
   $: tabs = [
     {
       entity: "badgeclassOverview",
-      href: `/manage/badgeclass/${entityId}/overview`
+      href: `/manage/badgeclass/${entityId}/overview`,
+      icon: overview
+
     },
     {
       entity: "userManagement",
-      href: `/manage/badgeclass/${entityId}/user-management`
+      href: `/manage/badgeclass/${entityId}/user-management`,
+      icon: userManagementIcon
     }
   ];
 

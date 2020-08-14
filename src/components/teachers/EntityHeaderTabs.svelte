@@ -25,7 +25,7 @@
 
     border-top-style: solid;
     border-top-width: 2px;
-    font-weight: bold;
+    font-weight: var(--semi-bold);
     font-size: 18px;
 
     &.active {
