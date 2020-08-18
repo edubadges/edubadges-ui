@@ -17,7 +17,7 @@
   import {permissionsRole} from "../../util/rolesToPermissions";
   import ListLink from "./ListLink.svelte";
   import {addStaffType, staffType, expandStaffsBadgeClass} from "../../util/staffTypes";
-  import { userAlreadyHasAdminPermissions, userAlreadyHasAnyPermissions } from "../../util/userPermissions";
+  import { userHasAdminPermissions, userHasAnyPermissions } from "../../util/userPermissions";
   import {flash} from "../../stores/flash";
 
   export let userId;
@@ -76,7 +76,9 @@
     facultyStaffs {
       mayAdministrateUsers,
       faculty {
+        entityId,
         issuers {
+          entityId,
           badgeclasses {
             name,
             entityId
@@ -85,10 +87,16 @@
       }
     },
     issuerStaffs {
-      mayAdministrateUsers
+      mayAdministrateUsers,
+      issuer {
+        entityId
+      }
     },
     badgeclassStaffs {
-      mayAdministrateUsers
+      mayAdministrateUsers,
+      badgeclass {
+        entityId
+      }
     },
   },
   user(id: "${userId}") {
@@ -208,8 +216,8 @@
           }
         }
       }
-      newPermissionOptions = badgeClasses.filter(badgeClass => !userAlreadyHasAdminPermissions(badgeClass, entityType.BADGE_CLASS, institutionStaffs, issuerGroupStaffs, issuerStaffs, badgeClassStaffs));
-      removePermissionOptions = badgeClasses.filter(badgeClass => userAlreadyHasAnyPermissions(badgeClass, entityType.BADGE_CLASS, institutionStaffs, issuerGroupStaffs, issuerStaffs, badgeClassStaffs));
+      newPermissionOptions = badgeClasses.filter(badgeClass => !userHasAdminPermissions(badgeClass, entityType.BADGE_CLASS, institutionStaffs, issuerGroupStaffs, issuerStaffs, badgeClassStaffs));
+      removePermissionOptions = badgeClasses.filter(badgeClass => userHasAnyPermissions(badgeClass, entityType.BADGE_CLASS, institutionStaffs, issuerGroupStaffs, issuerStaffs, badgeClassStaffs));
       isEmpty = user.badgeclassStaffs.length === 0 &&
         user.issuerStaffs.length === 0 &&
         user.facultyStaffs.length === 0 &&
@@ -325,13 +333,26 @@
   }
 
   const onCheckAll = val => {
-    selection = val ? filteredStaffs.filter(({_staffType}) => {
-      return _staffType === staffType.BADGE_CLASS_STAFF
+    selection = val ? filteredStaffs.filter(({_staffType, badgeClass}) => {
+      return _staffType === staffType.BADGE_CLASS_STAFF && userHasAdminPermissions(
+        badgeClass, entityType.BADGE_CLASS,
+        currentUser.institutionStaff,
+        currentUser.facultyStaffs,
+        currentUser.issuerStaffs,
+        currentUser.badgeclassStaffs,
+      );
     }).map(({staffId}) => staffId) : [];
     checkAllValue = val;
   };
 
-  $: disabledCheckAll = filteredStaffs.filter(({_staffType}) => _staffType === staffType.BADGE_CLASS_STAFF).length === 0;
+  $: disabledCheckAll = filteredStaffs.filter(({_staffType, badgeClass}) =>
+      _staffType === staffType.BADGE_CLASS_STAFF && userHasAdminPermissions(
+        badgeClass, entityType.BADGE_CLASS,
+        currentUser.institutionStaff,
+        currentUser.facultyStaffs,
+        currentUser.issuerStaffs,
+        currentUser.badgeclassStaffs,
+      )).length === 0;
 
   const handlePermissionAdded = () => {
     reload();
@@ -399,7 +420,13 @@
             <td>
               <CheckBox
                   value={selection.includes(staffId)}
-                  disabled={false}
+                  disabled={!userHasAdminPermissions(
+                    badgeClass, entityType.BADGE_CLASS,
+                    currentUser.institutionStaff,
+                    currentUser.facultyStaffs,
+                    currentUser.issuerStaffs,
+                    currentUser.badgeclassStaffs,
+                  )}
                   onChange={val => onCheckOne(val, staffId)}/>
             </td>
             <td>
@@ -415,6 +442,13 @@
             <td>
               <div class="badgeclass-role-select">
                 <Select
+                    nonEditable={!userHasAdminPermissions(
+                      badgeClass, entityType.BADGE_CLASS,
+                      currentUser.institutionStaff,
+                      currentUser.facultyStaffs,
+                      currentUser.issuerStaffs,
+                      currentUser.badgeclassStaffs,
+                    )}
                     handleSelect={item => changeUserRole(item, staffId)}
                     value={
                       mayAdministrateUsers ? permissionsRoles[0] :

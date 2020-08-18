@@ -61,7 +61,7 @@ export const enrichUser = (institution, institutionStaffMemberships, issuerGroup
   }
 };
 
-export const userAlreadyHasAdminPermissions = (entity, _entityType, institutionStaffs, issuerGroupStaffs, issuerStaffs, badgeClassStaffs) => {
+export const userHasAdminPermissions = (entity, _entityType, institutionStaffs, issuerGroupStaffs, issuerStaffs, badgeClassStaffs) => {
   if (!isEmpty(institutionStaffs)) return true;
 
   switch (_entityType) {
@@ -77,7 +77,7 @@ export const userAlreadyHasAdminPermissions = (entity, _entityType, institutionS
   }
 };
 
-export const userAlreadyHasAnyPermissions = (entity, _entityType, institutionStaffs, issuerGroupStaffs, issuerStaffs, badgeClassStaffs) => {
+export const userHasAnyPermissions = (entity, _entityType, institutionStaffs, issuerGroupStaffs, issuerStaffs, badgeClassStaffs) => {
   if (!isEmpty(institutionStaffs)) return true;
 
   switch (_entityType) {

@@ -14,7 +14,7 @@
   import Spinner from "../Spinner.svelte";
   import {permissionsRole} from "../../util/rolesToPermissions";
   import ListLink from "./ListLink.svelte";
-  import {userAlreadyHasAdminPermissions} from "../../util/userPermissions";
+  import {userHasAdminPermissions} from "../../util/userPermissions";
   import { addStaffType, expandStaffsIssuerGroup, staffType } from "../../util/staffTypes";
   import {flash} from "../../stores/flash";
 
@@ -112,8 +112,8 @@
       }
       institutionStaffs = res.user.institutionStaff ? addStaffType([res.user.institutionStaff], staffType.INSTITUTION_STAFF) : [];
       issuerGroupStaffs = addStaffType(res.user.facultyStaffs, staffType.ISSUER_GROUP_STAFF);
-      newPermissionOptions = faculties.filter(faculty => !userAlreadyHasAdminPermissions(faculty, entityType.ISSUER_GROUP, institutionStaffs, issuerGroupStaffs, [], []));
-      removePermissionOptions = faculties.filter(faculty => userAlreadyHasAdminPermissions(faculty, entityType.ISSUER_GROUP, institutionStaffs, issuerGroupStaffs, [], []));
+      newPermissionOptions = faculties.filter(faculty => !userHasAdminPermissions(faculty, entityType.ISSUER_GROUP, institutionStaffs, issuerGroupStaffs, [], []));
+      removePermissionOptions = faculties.filter(faculty => userHasAdminPermissions(faculty, entityType.ISSUER_GROUP, institutionStaffs, issuerGroupStaffs, [], []));
       modalSelectedEntity = newPermissionOptions[0];
       user = res.user;
       userNameDict = {name: `${user.firstName} ${user.lastName}`};

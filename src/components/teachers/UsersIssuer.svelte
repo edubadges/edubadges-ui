@@ -15,7 +15,7 @@
   import {permissionsRole} from "../../util/rolesToPermissions";
   import ListLink from "./ListLink.svelte";
   import {flatten} from "../../util/utils";
-  import {userAlreadyHasAdminPermissions} from "../../util/userPermissions";
+  import {userHasAdminPermissions} from "../../util/userPermissions";
   import { addStaffType, expandStaffsIssuer, staffType } from "../../util/staffTypes";
   import {flash} from "../../stores/flash";
 
@@ -144,8 +144,8 @@
           }
         }
       }
-      newPermissionOptions = issuers.filter(issuer => !userAlreadyHasAdminPermissions(issuer, entityType.ISSUER, institutionStaffs, issuerGroupStaffs, issuerStaffs, []));
-      removePermissionOptions = issuers.filter(issuer => userAlreadyHasAdminPermissions(issuer, entityType.ISSUER, institutionStaffs, issuerGroupStaffs, issuerStaffs, []));
+      newPermissionOptions = issuers.filter(issuer => !userHasAdminPermissions(issuer, entityType.ISSUER, institutionStaffs, issuerGroupStaffs, issuerStaffs, []));
+      removePermissionOptions = issuers.filter(issuer => userHasAdminPermissions(issuer, entityType.ISSUER, institutionStaffs, issuerGroupStaffs, issuerStaffs, []));
       modalSelectedEntity = newPermissionOptions[0];
       isEmpty = user.issuerStaffs.length === 0 &&
       user.facultyStaffs.length === 0 && (!user.institutionStaff || (user.institutionStaff && faculties.length === 0));

@@ -226,13 +226,14 @@
     }
   };
 
-  $: disabledCheckAll = entity === entityType.INSTITUTION ? true :
-    entity === entityType.ISSUER_GROUP ? sortedFilteredStaffs.filter(({_staffType}) => _staffType === staffType.ISSUER_GROUP_STAFF).length +
+  $: disabledCheckAll = (!permissions || !permissions.mayAdministrateUsers) ||
+      (entity === entityType.INSTITUTION ? true :
+      entity === entityType.ISSUER_GROUP ? sortedFilteredStaffs.filter(({_staffType}) => _staffType === staffType.ISSUER_GROUP_STAFF).length +
       sortedFilteredStaffs.filter(({_staffType}) => _staffType === staffType.USER_PROVISIONMENT).length === 0 :
-    entity === entityType.ISSUER ? sortedFilteredStaffs.filter(({_staffType}) => _staffType === staffType.ISSUER_STAFF).length +
+      entity === entityType.ISSUER ? sortedFilteredStaffs.filter(({_staffType}) => _staffType === staffType.ISSUER_STAFF).length +
       sortedFilteredStaffs.filter(({_staffType}) => _staffType === staffType.USER_PROVISIONMENT).length === 0 :
-    entity === entityType.BADGE_CLASS ? sortedFilteredStaffs.filter(({_staffType}) => _staffType === staffType.BADGE_CLASS_STAFF).length +
-      sortedFilteredStaffs.filter(({_staffType}) => _staffType === staffType.USER_PROVISIONMENT).length === 0 : '';
+      entity === entityType.BADGE_CLASS ? sortedFilteredStaffs.filter(({_staffType}) => _staffType === staffType.BADGE_CLASS_STAFF).length +
+      sortedFilteredStaffs.filter(({_staffType}) => _staffType === staffType.USER_PROVISIONMENT).length === 0 : '');
 </script>
 
 <style>
@@ -266,7 +267,7 @@
       bind:search={staffSearch}
       bind:sort={staffSort}
       {checkAllValue}
-      {disabledCheckAll}
+      bind:disabledCheckAll={disabledCheckAll}
   >
     {#each sortedFilteredStaffs as {_staffType, user, entityId, email, createdAt, rejected, mayAdministrateUsers, mayUpdate, mayAward, data} (entityId)}
       <tr>
@@ -275,7 +276,7 @@
             <CheckBox
                 value={selection.some(el => el.entityId === entityId)}
                 name={`select-${entityId}`}
-                disabled={false}
+                disabled={!permissions || !permissions.mayAdministrateUsers}
                 onChange={val => onCheckOne(val, entityId, _staffType)}/>
           </td>
           <td class="member-icon">
@@ -292,6 +293,7 @@
             <td>
               <div class="badgeclass-role-select">
                 <Select
+                    nonEditable={!permissions || !permissions.mayAdministrateUsers}
                     handleSelect={item => changeProvisionmentRole(item, entityId)}
                     value={
                       data.may_administrate_users ? targetOptions[0] :
@@ -315,7 +317,7 @@
             <CheckBox
                 value={selection.some(el => el.entityId === entityId)}
                 name={`select-${entityId}`}
-                disabled={false}
+                disabled={!permissions || !permissions.mayAdministrateUsers}
                 onChange={val => onCheckOne(val, entityId)}/>
           </td>
           <td class="member-icon">
@@ -331,6 +333,7 @@
           <td>
             <div class="badgeclass-role-select">
               <Select
+                  nonEditable={!permissions || !permissions.mayAdministrateUsers}
                   handleSelect={item => changeUserRole(item, entityId)}
                   value={
                     mayAdministrateUsers ? targetOptions[0] :
