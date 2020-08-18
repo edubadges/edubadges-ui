@@ -83,7 +83,7 @@
     extensions = {
       [language.name]: extensionValue(badgeclass.extensions, language) || "en_EN",
       [ects.name]: extensionValue(badgeclass.extensions, ects) || 2.5,
-      [eqf.name]: extensionValue(badgeclass.extensions, eqf) || {name: "EQF 6", value: 6},
+      [eqf.name]: extensionValue(badgeclass.extensions, eqf) || {name: "EQF 6", value: 5},
       [learningOutcome.name]: extensionValue(badgeclass.extensions, learningOutcome) || "",
       [educationProgramIdentifier.name]: extensionValue(badgeclass.extensions, educationProgramIdentifier) || "",
       [studyLoad.name]: studyLoadValue || "",
