@@ -9,7 +9,7 @@
       getSocialAccountsSafe,
       requestBadge,
   } from "../../api";
-  import {EntityHeader} from "../teachers";
+  import {BadgeClassHeader} from "../teachers";
   import {Overview} from "../teachers/badgeclass";
   import {Button, Spinner} from "../index";
   import {publicBadgeInformation} from "../extensions/badges/extensions";
@@ -225,7 +225,7 @@
 {#if loaded}
   {#if !showAcceptTerms}
     <div class="page-container">
-      <EntityHeader
+      <BadgeClassHeader
           entity={entityType.BADGE_CLASS}
           object={badgeClass}
           visitorRole={visitorRole}>
@@ -242,7 +242,7 @@
             {/if}
           </div>
         {/if}
-      </EntityHeader>
+      </BadgeClassHeader>
 
       <div class="overview-container">
         <Overview badgeclass={badgeClass} studentEnrolled={studentEnrolled} enrollmentId={enrollmentId}

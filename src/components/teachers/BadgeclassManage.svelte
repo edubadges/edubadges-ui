@@ -1,7 +1,7 @@
 <script>
   import {onMount} from "svelte";
   import {Router, Route, navigate} from "svelte-routing";
-  import {EntityHeader, Breadcrumb, BadgeclassUserManagement, InviteUser} from "../teachers";
+  import {BadgeClassHeader, Breadcrumb, BadgeclassUserManagement, InviteUser} from "../teachers";
   import {Overview} from "./badgeclass";
   import {badgeclassIcon} from "../../icons";
   import {queryData} from "../../api/graphql";
@@ -128,7 +128,7 @@
 {#if loaded}
   <Breadcrumb {faculty} {issuer} {badgeclass} badgeclassName={badgeclass.name}/>
 
-  <EntityHeader
+  <BadgeClassHeader
     object={badgeclass}
     entity={entityType.BADGE_CLASS}
     entityId={entityId}

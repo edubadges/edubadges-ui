@@ -2,7 +2,7 @@
   import {onMount} from "svelte";
   import I18n from "i18n-js";
   import { getPublicIssuer} from "../../api";
-  import {EntityHeader} from "../teachers";
+  import {BadgeClassHeader} from "../teachers";
   import {Button, Spinner} from "../index";
   import {entityType} from "../../util/entityTypes"
 
@@ -58,12 +58,12 @@
 
 <div class="page-container">
   {#if loaded}
-    <EntityHeader
+    <BadgeClassHeader
       entity={entityType.ISSUER}
       object={issuer}
       visitorRole={visitorRole}
       entityId={entityId}>
-    </EntityHeader>
+    </BadgeClassHeader>
     <div class="issuer-detail">
       <h3>{I18n.t('models.issuer.description')}</h3>
       <p class="info">

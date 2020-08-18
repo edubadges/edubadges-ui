@@ -6,6 +6,7 @@ export { default as BadgeclassEdit } from "./BadgeclassEdit.svelte";
 export { default as Badgeclasses } from "./Badgeclasses.svelte";
 export { default as BadgeClassesToolBar } from "./BadgeClassesToolBar"
 export { default as BadgeclassForm } from "./BadgeclassForm.svelte";
+export { default as BadgeClassHeader } from "./BadgeClassHeader.svelte";
 export { default as BadgeclassManage } from "./BadgeclassManage.svelte";
 export { default as BadgeclassNew } from "./BadgeclassNew.svelte";
 export { default as BadgeclassUserManagement } from "./BadgeclassUserManagement.svelte";

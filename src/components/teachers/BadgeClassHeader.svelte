@@ -8,7 +8,6 @@
   import {onMount} from "svelte";
   import RemoteImage from "../RemoteImage.svelte";
   import {entityType} from "../../util/entityTypes"
-  import {institutionIcon, facultyIcon, issuerIcon} from "../../icons";
 
   export let entity;
   export let object = {};
@@ -27,28 +26,14 @@
     padding: var(--ver-padding-m) var(--hor-padding-m) 0;
     background: var(--purple-1);
 
-    .title {
-      display: flex;
-      margin-bottom: 20px;
-
-      .logo {
-        display: block;
-        max-height: 36px;
-        max-width: 36px;
-        margin-right: 20px;
-      }
-    }
-
-
     .content {
       display: flex;
-      margin-left: 55px;
       margin-bottom: var(--ver-padding-m);
 
       .img-container {
         flex-shrink: 0;
-        height: 100px;
-        width: 100px;
+        height: 120px;
+        width: 120px;
         background: white;
         margin-right: var(--hor-padding-m);
         display: flex;
@@ -56,8 +41,8 @@
       }
 
       .img-icon {
-        height: 90px;
-        width: 90px;
+        height: 100px;
+        width: 100px;
         background-color: white;
         align-self: center;
         display: flex;
@@ -97,14 +82,6 @@
 </style>
 
 <div class="entity">
-  <div class="title">
-    <span class="logo">{@html
-      entity === entityType.INSTITUTION ? institutionIcon :
-      entity === entityType.ISSUER_GROUP ? facultyIcon :
-      entity === entityType.ISSUER ? issuerIcon : ''
-    }</span>
-    <span><h2>{object.name}</h2></span>
-  </div>
   <div class="content">
     {#if object.image}
       <div class="img-container">
@@ -114,6 +91,7 @@
       </div>
     {/if}
     <div class="info">
+      <h2>{object.name}</h2>
       {#if entity !== entityType.BADGE_CLASS}
         <p>{object.description}</p>
       {/if}

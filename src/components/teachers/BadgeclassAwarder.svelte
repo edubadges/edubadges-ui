@@ -3,7 +3,7 @@
   import {Router, Route, navigate} from "svelte-routing";
   import I18n from "i18n-js";
   import info from "../../icons/informational.svg";
-  import {EntityHeader} from "../teachers";
+  import {BadgeClassHeader} from "../teachers";
   import Button from "../../components/Button.svelte";
   import {Overview} from "../teachers/badgeclass";
   import Assertions from "../teachers/badges/Assertions.svelte";
@@ -185,7 +185,7 @@
       <LinkEye badgeclass={badgeclass} isAdminView={false}/>
     </div>
 
-    <EntityHeader
+    <BadgeClassHeader
       object={badgeclass}
       entity={entityType.BADGE_CLASS}
       {tabs}
@@ -194,7 +194,7 @@
       <!--  <div class="slots">-->
       <!--    <Button href={`/invite-enrollements/${badgeclass.entityId}`} text={I18n.t("models.badgeclass.inviteEnrollements")}/>-->
       <!--  </div>-->
-    </EntityHeader>
+    </BadgeClassHeader>
 
     <div>
       <Router>
