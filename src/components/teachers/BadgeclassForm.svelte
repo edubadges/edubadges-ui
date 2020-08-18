@@ -165,6 +165,12 @@
       .catch(err => err.then(({fields}) => {
         processing = false;
         errors = fields.error_message;
+        if (errors.extensions) {
+          for (const ext of errors.extensions) {
+            const ext_name = ext.error_message.split(' ')[1].split(':')[1];
+            errors[ext_name] = [{'error_code': 906}];
+          }
+        }
         if (errors.alignments) {
           errors = {...errors, ...fields.error_message.alignments[0]}
         }
@@ -349,13 +355,16 @@
       </Field>
       <p></p>
       {#if ectsOrHoursSelection.value === 'creditPoints'}
-        <Field {entity} attribute="amount" errors={errors.ectsLong}>
+        <Field {entity} attribute="number" errors={errors.ectsLong}>
           <EctsCreditPoints bind:ectsValue={extensions[ects.name]}/>
         </Field>
       {:else}
-        <Field {entity} attribute="amount" errors={errors.studyLoad}>
-          <TextInput type="number" bind:value={extensions[studyLoad.name]}
-                     placeholder={I18n.t("placeholders.badgeClass.studyLoad")}/>
+        <Field {entity} attribute="number" errors={errors.StudyLoadExtension}>
+          <TextInput
+              type="number"
+              bind:value={extensions[studyLoad.name]}
+              error={errors.StudyLoadExtension}
+              placeholder={I18n.t("placeholders.badgeClass.studyLoad")}/>
         </Field>
       {/if}
     </div>

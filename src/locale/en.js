@@ -312,6 +312,7 @@ I18n.translations.en = {
     903: "This is a required attribute.",
     904: "No file was uploaded.",
     905: "Either criteria or criteria URL is required.",
+    906: "Add number for study load or remove the extension.",
     unexpected: "Unexpected error occurred.",
     description: "An unexpected error has occurred. Please try again later or contact support@edubadges.nl for support.",
     close: "Close"
@@ -479,7 +480,7 @@ I18n.translations.en = {
       alignmentUrl: "URL",
       alignmentCode: "Code",
       alignmentDescription: "Description",
-      amount: "Amount",
+      number: "Number",
       name: "Name",
       description: "Description",
       criteria_text: "What are the requirements to earn this edubadge?",

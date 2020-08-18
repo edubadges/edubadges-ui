@@ -312,6 +312,7 @@ I18n.translations.nl = {
     903: "Dit veld is verplicht.",
     904: "Geen bestand gekozen.",
     905: "Invullen van criteria of van criteria URL is verplicht.",
+    906: "Vul een getal in voor study load of verwijder de extensie.",
     unexpected: "Oeps, er is iets totaal onverwachts en onverklaarbaars gebeurd.",
     description: "Een onverwachte fout is opgetreden. Probeer het opnieuw of neem contact op met support@edubadges.nl voor ondersteuning.",
     close: "Sluit"
@@ -479,7 +480,7 @@ I18n.translations.nl = {
       alignmentUrl: "URL",
       alignmentCode: "Code",
       alignmentDescription: "Omschrijving",
-      amount: "Aantal",
+      number: "Aantal",
       name: "Naam",
       description: "Beschrijving",
       criteria_text: "Wat is benodigd om deze edubadge te verdienen?",
