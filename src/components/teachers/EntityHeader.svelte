@@ -42,7 +42,7 @@
 
     .content {
       display: flex;
-      margin-left: 55px;
+      margin-left: 56px;
       margin-bottom: var(--ver-padding-m);
 
       .img-container {
