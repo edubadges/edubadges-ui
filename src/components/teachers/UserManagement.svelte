@@ -50,6 +50,9 @@
     ...userProvisionments
   ];
 
+  let searchedStaffIds = [];
+  let sortedFilteredStaffs = [];
+
   // Remove permissions modal
   let showRemoveModal = false;
   let removeModalAction;
@@ -354,7 +357,7 @@
             <CheckBox
                 value={selection.some(el => el.entityId === entityId)}
                 name={`select-${entityId}`}
-                disabled={entity !== entityType.ISSUER}
+                disabled={entity !== entityType.ISSUER || !permissions || !permissions.mayAdministrateUsers}
                 onChange={val => onCheckOne(val, entityId)}/>
           </td>
           <td class="member-icon">
@@ -384,7 +387,7 @@
             <CheckBox
                 value={selection.some(el => el.entityId === entityId)}
                 name={`select-${entityId}`}
-                disabled={entity !== entityType.ISSUER_GROUP}
+                disabled={entity !== entityType.ISSUER_GROUP || !permissions || !permissions.mayAdministrateUsers}
                 onChange={val => onCheckOne(val, entityId)}/>
           </td>
           <td class="member-icon">
@@ -414,7 +417,7 @@
             <CheckBox
                 value={selection.some(el => el.entityId === entityId)}
                 name={`select-${entityId}`}
-                disabled={entity !== entityType.INSTITUTION || oneInstitutionStaff || lastUnselectedInstitutionStaff(entityId)}
+                disabled={entity !== entityType.INSTITUTION || oneInstitutionStaff || lastUnselectedInstitutionStaff(entityId) || !permissions || !permissions.mayAdministrateUsers}
                 onChange={val => onCheckOne(val, entityId, _staffType)}/>
           </td>
           <td class="member-icon">

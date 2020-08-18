@@ -65,13 +65,22 @@
       mayAdministrateUsers
     },
     facultyStaffs {
-      mayAdministrateUsers
+      mayAdministrateUsers,
+      faculty {
+        entityId
+      }
     },
     issuerStaffs {
-      mayAdministrateUsers
+      mayAdministrateUsers,
+      issuer {
+        entityId
+      }
     },
     badgeclassStaffs {
       mayAdministrateUsers
+      badgeclass {
+        entityId
+      }
     },
   },
   user(id: "${userId}") {
@@ -228,7 +237,14 @@
   function onCheckOne(val, entityId) {
     if (val) {
       selection = selection.concat(entityId);
-      checkAllValue = selection.length === filteredStaffs.filter(({_staffType}) => _staffType === staffType.ISSUER_GROUP_STAFF).length;
+      checkAllValue = selection.length === filteredStaffs.filter(({_staffType, issuerGroup}) =>
+        _staffType === staffType.ISSUER_GROUP_STAFF && userHasAdminPermissions(
+          issuerGroup, entityType.ISSUER_GROUP,
+          currentUser.institutionStaff,
+          currentUser.facultyStaffs,
+          currentUser.issuerStaffs,
+          currentUser.badgeclassStaffs
+      )).length;
     } else {
       selection = selection.filter(id => id !== entityId);
       checkAllValue = false;
@@ -236,13 +252,25 @@
   }
 
   const onCheckAll = val => {
-    selection = val ? filteredStaffs.filter(({_staffType}) => {
-      return _staffType === staffType.ISSUER_GROUP_STAFF
-    }).map(({staffId}) => staffId) : [];
+    selection = val ? filteredStaffs.filter(({_staffType, issuerGroup}) =>
+      _staffType === staffType.ISSUER_GROUP_STAFF && userHasAdminPermissions(
+        issuerGroup, entityType.ISSUER_GROUP,
+        currentUser.institutionStaff,
+        currentUser.facultyStaffs,
+        currentUser.issuerStaffs,
+        currentUser.badgeclassStaffs
+    )).map(({staffId}) => staffId) : [];
     checkAllValue = val;
   };
 
-  $: disabledCheckAll = filteredStaffs.filter(({_staffType}) => _staffType === staffType.ISSUER_GROUP_STAFF).length === 0;
+  $: disabledCheckAll = filteredStaffs.filter(({_staffType, issuerGroup}) =>
+    _staffType === staffType.ISSUER_GROUP_STAFF && userHasAdminPermissions(
+      issuerGroup, entityType.ISSUER_GROUP,
+      currentUser.institutionStaff,
+      currentUser.facultyStaffs,
+      currentUser.issuerStaffs,
+      currentUser.badgeclassStaffs
+    )).length === 0;
 </script>
 
 <style>
@@ -277,7 +305,13 @@
             <td>
               <CheckBox
                   value={selection.includes(staffId)}
-                  disabled={false}
+                  disabled={!userHasAdminPermissions(
+                    issuerGroup, entityType.ISSUER_GROUP,
+                    currentUser.institutionStaff,
+                    currentUser.facultyStaffs,
+                    currentUser.issuerStaffs,
+                    currentUser.badgeclassStaffs,
+                  )}
                   onChange={val => onCheckOne(val, staffId)}/>
             </td>
             <td><ListLink path={`/manage/faculty/${issuerGroup.entityId}/issuers`} name={issuerGroup.name}/></td>

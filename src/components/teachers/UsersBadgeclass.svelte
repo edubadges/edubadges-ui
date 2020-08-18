@@ -325,7 +325,14 @@
   function onCheckOne(val, entityId) {
     if (val) {
       selection = selection.concat(entityId);
-      checkAllValue = selection.length === filteredStaffs.filter(({_staffType}) => _staffType === staffType.BADGE_CLASS_STAFF).length;
+      checkAllValue = selection.length === filteredStaffs.filter(({_staffType, badgeClass}) =>
+        _staffType === staffType.BADGE_CLASS_STAFF && userHasAdminPermissions(
+          badgeClass, entityType.BADGE_CLASS,
+          currentUser.institutionStaff,
+          currentUser.facultyStaffs,
+          currentUser.issuerStaffs,
+          currentUser.badgeclassStaffs
+      )).length;
     } else {
       selection = selection.filter(id => id !== entityId);
       checkAllValue = false;
@@ -333,15 +340,14 @@
   }
 
   const onCheckAll = val => {
-    selection = val ? filteredStaffs.filter(({_staffType, badgeClass}) => {
-      return _staffType === staffType.BADGE_CLASS_STAFF && userHasAdminPermissions(
+    selection = val ? filteredStaffs.filter(({_staffType, badgeClass}) =>
+      _staffType === staffType.BADGE_CLASS_STAFF && userHasAdminPermissions(
         badgeClass, entityType.BADGE_CLASS,
         currentUser.institutionStaff,
         currentUser.facultyStaffs,
         currentUser.issuerStaffs,
-        currentUser.badgeclassStaffs,
-      );
-    }).map(({staffId}) => staffId) : [];
+        currentUser.badgeclassStaffs
+    )).map(({staffId}) => staffId) : [];
     checkAllValue = val;
   };
 
@@ -351,7 +357,7 @@
         currentUser.institutionStaff,
         currentUser.facultyStaffs,
         currentUser.issuerStaffs,
-        currentUser.badgeclassStaffs,
+        currentUser.badgeclassStaffs
       )).length === 0;
 
   const handlePermissionAdded = () => {
