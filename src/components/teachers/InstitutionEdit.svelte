@@ -40,6 +40,7 @@
     processing = true;
     institution.grading_table = toHttpOrHttps(institution.grading_table);
 
+    if (!institution.image) delete institution.image;
     editInstitution(institution.entityId, institution)
       .then(() => navigate(`/manage/institution`))
       .catch(err => err.then(({fields}) => {
