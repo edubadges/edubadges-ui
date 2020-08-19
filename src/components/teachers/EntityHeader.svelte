@@ -44,6 +44,7 @@
       display: flex;
       margin-left: 56px;
       margin-bottom: var(--ver-padding-m);
+      flex-wrap: wrap;
 
       .img-container {
         flex-shrink: 0;
@@ -68,6 +69,7 @@
         flex: 1;
         display: flex;
         flex-direction: column;
+        min-width: 600px;
       }
 
       .list {
