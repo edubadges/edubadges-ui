@@ -24,6 +24,7 @@
   };
 
   const toggleLoginCreateAccount = () => (showLoginCards = !showLoginCards);
+
 </script>
 
 <style>

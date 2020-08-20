@@ -684,7 +684,7 @@ I18n.translations.en = {
         "You need a verified institution that is participating in the edubadges programme to use this service.",
     noValidInstitutionInfoForEnrollment: "Institution <strong>{{name}}</strong> is not connected to your eduID account. " +
         "To request this edubadge we require verification that you can identify yourself at institution <strong>{{name}}</strong>.<br/><br/>" +
-        "Please contact support@edubadges.nl for support or try linking institution <strong>{{name}}</strong> to your eduID account",
+        "Please contact <a href='mailto:support@edubadges.nl'>support@edubadges.nl</a> for support or try linking institution <strong>{{name}}</strong> to your eduID account",
     goToSurfConext: "Proceed to eduID",
     multipleValidInstitutions: "Multiple valid institutions",
     multipleValidInstitutionsInfo: "You have multiple institutions connected to your eduID account.<br/><br/>" +
