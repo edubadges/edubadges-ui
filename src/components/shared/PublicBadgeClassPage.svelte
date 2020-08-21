@@ -4,24 +4,25 @@
   import {queryData} from "../../api/graphql";
   import {role} from "../../util/role";
   import {
-      acceptTermsForBadge,
-      getPublicBadgeClass,
-      getSocialAccountsSafe,
-      requestBadge,
+    acceptTermsForBadge,
+    getPublicBadgeClass,
+    getSocialAccountsSafe,
+    requestBadge, requestLoginToken,
   } from "../../api";
   import {BadgeClassHeader} from "../teachers";
   import {Overview} from "../teachers/badgeclass";
-  import {Button, Spinner} from "../index";
+  import Button from "../Button.svelte";
+  import Spinner from "../Spinner.svelte";
   import {publicBadgeInformation} from "../extensions/badges/extensions";
-  import {redirectPath} from "../../stores/user";
   import {navigate} from "svelte-routing";
   import {entityType} from "../../util/entityTypes"
   import {schacHomeNames, schacHomeNamesFromExtraData} from "../../util/claims";
   import Modal from "../forms/Modal.svelte";
   import {flash} from "../../stores/flash";
   import AcceptInstitutionTerms from "../../routes/AcceptInstitutionTerms.svelte";
-  import {userRole, userLoggedIn} from "../../stores/user";
+  import {userRole, userLoggedIn,     authToken, redirectPath} from "../../stores/user";
   import {config} from "../../util/config"
+  import {getService} from "../../util/getService";
 
   export let entityId;
 
@@ -210,10 +211,14 @@
       }
     });
   };
-
   const logInForceAuthn = () => {
+    $userLoggedIn = "";
+    $userRole = "";
+    $authToken = "";
+    $redirectPath = window.location.href;
     window.location.href = config.eduId
   };
+
 </script>
 
 <style>
