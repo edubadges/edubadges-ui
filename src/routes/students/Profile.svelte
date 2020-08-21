@@ -9,8 +9,8 @@
     getProfile,
     deleteProfile,
     getSocialAccountsSafe,
+    withdrawTermsForBadge,
   } from "../../api";
-
   import {
     userLoggedIn,
     userRole,
@@ -21,11 +21,14 @@
   import {Spinner} from "../../components";
   import Verified from "../../components/shared/Verified.svelte";
   import UserBreadcrumb from "../../components/teachers/UserBreadcrumb.svelte";
+  import {queryData} from "../../api/graphql";
+  import moment from "moment";
 
   export let isStudent = true;
 
   let profile;
   let loaded = false;
+  let instititions = [];
 
   //Modal
   let showModal = false;
@@ -33,16 +36,64 @@
   let modalQuestion;
   let modalAction;
 
+  const query = `{
+    currentUser {
+      termsAgreements {
+        entityId,
+        updatedAt,
+        terms {
+          entityId,
+          institution {
+            name,
+            entityId
+          },
+          termsType
+        },
+        agreed,
+        agreedVersion
+      }
+    }
+  }`;
+
   onMount(() => {
-    Promise.all([getProfile(), getSocialAccountsSafe()]).then(res => {
+    reload();
+  });
+
+  const reload = () => {
+    let promises = [getProfile(), getSocialAccountsSafe()];
+    if (isStudent) promises.push(queryData(query));
+    Promise.all(promises).then(res => {
       profile = res[0];
       profile.eduid = res[1][0].eduid;
       profile.dateAdded = res[1][0].dateAdded;
       profile.affiliations = res[1][0].affiliations;
+      if (isStudent) {
+        const termAgreements = res[2].currentUser.termsAgreements;
+        instititions = termAgreements.reduce((acc, cur) => {
+          if (cur.agreed && cur.terms.institution) {
+            const terms = cur.terms;
+            const institution = terms.institution;
+            const foundInstitution = acc.find(i => i.entityId === institution.entityId);
+            if(foundInstitution) {
+              foundInstitution.agreedTerms.push({entityId: cur.entityId, date: cur.updatedAt, type: terms.termsType, version: cur.agreedVersion});
+              return acc;
+            } else {
+              acc.push({entityId: institution.entityId, name: institution.name, agreedTerms: [{entityId: cur.entityId, type: terms.termsType, version: cur.agreedVersion}]});
+              return acc;
+            }
+          }
+          return acc;
+        }, []);
+      }
       loaded = true;
     });
-  });
+  };
 
+  const withdrawPermission = entityId => {
+    withdrawTermsForBadge(entityId).then(() => {
+      reload();
+    })
+  };
 
   const deleteProfileAction = showConfirmation => () => {
     if (showConfirmation) {
@@ -60,13 +111,12 @@
         navigate("/login?after_delete=true");
       });
     }
-  }
+  };
 
   const eduIdValue = () => {
     const eduId = profile.eduid;
     return "*****" + eduId.substr(eduId.indexOf("-") + 1, eduId.lastIndexOf("-")) + "*****";
   }
-
 </script>
 
 <style lang="scss">
@@ -90,9 +140,17 @@
     margin-bottom: 25px;
   }
 
+  .agreedTerm {
+    display: flex;
+    justify-content: space-between;
+  }
+
   div.delete {
     margin-top: 50px;
     padding-top: 15px;
+  }
+
+  div.border {
     border-top: 4px solid var(--grey-3);
   }
 
@@ -128,7 +186,36 @@
   </div>
 
   {#if isStudent}
-    <div class="delete">
+    <div class="border">
+      <h1>{I18n.t("profile.permissionsHeader")}</h1>
+      <p class="account-info">{@html I18n.t("profile.permissionsInfo")}</p>
+      <div>
+        {#each instititions as institution}
+          <div>
+            <h2>{institution.name}</h2>
+            {#if institution.agreedTerms.length === 0}
+              <p>asdf</p>
+            {/if}
+            {#each institution.agreedTerms as agreedTerm}
+              <div class="agreedTerm">
+                <div>
+                  <h4>{agreedTerm.type === "FORMAL_BADGE" ? I18n.t(['acceptTerms', 'student', 'formalBadges']) : I18n.t(['acceptTerms', 'student', 'informalBadges'])}</h4>
+                  <p>{agreedTerm.type === "FORMAL_BADGE" ? I18n.t(['acceptTerms', 'student', 'agreedOn']) : I18n.t(['acceptTerms', 'student', 'readOn'])}{moment(agreedTerm.date).format('MMM D, YYYY')}</p>
+                  <p>{I18n.t(['acceptTerms', 'student', 'version'])}{agreedTerm.version}</p>
+                </div>
+                {#if agreedTerm.type === "FORMAL_BADGE"}
+                  <div>
+                    <Button action={() => withdrawPermission(agreedTerm.entityId)} text={I18n.t(['acceptTerms', 'student', 'withdrawConsent'])} disabled={false} />
+                  </div>
+                {/if}
+              </div>
+            {/each}
+          </div>
+        {/each}
+      </div>
+    </div>
+
+    <div class="delete border">
       <h3>{I18n.t("profile.deleteHeader")}</h3>
       <p class="account-info">{@html I18n.t("profile.deleteInfo1")}</p>
       <p class="account-info">{@html I18n.t("profile.deleteInfo2")} {@html I18n.t("profile.deleteInfo3")}</p>

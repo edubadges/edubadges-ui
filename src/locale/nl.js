@@ -70,6 +70,8 @@ I18n.translations.nl = {
     unverified: "Niet geverifieerd",
     validatedByYourInstitution: "Geleverd door je instelling",
     validatedByEduId: "Geleverd door eduID",
+    permissionsHeader: "Jouw permissions TRANSLATE",
+    permissionsInfo: "Je kan je gegeven permissions intrekken.",
     deleteHeader: "Je edubadges backpack verwijderen",
     deleteInfo1: "Je kunt je backpack verwijderen als je dat wilt.",
     deleteInfo2: "Wees je dan wel bewust dat je al je edubadges zult verliezen.",
@@ -657,7 +659,13 @@ I18n.translations.nl = {
       privacyTitle: "Privacy",
       privacyLinkPre: " Je gaat ook akkoord met onze ",
       privacyLink: "privacyverklaring",
-      privacyLinkPost: "."
+      privacyLinkPost: ".",
+      formalBadges: "",
+      informalBadges: "",
+      version: "versie ",
+      agreedOn: "Akkoord op ",
+      readOn: "Gelezen op ",
+      withdrawConsent: "intrekken"
     },
     termsBullets: {
       teacher:

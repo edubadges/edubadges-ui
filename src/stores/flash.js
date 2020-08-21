@@ -1,4 +1,5 @@
 import {writable} from 'svelte/store';
+import I18n from "i18n-js";
 
 const msgLevel = {
   INFO: "info",
@@ -16,7 +17,7 @@ const createFlash = () => {
     }, 125),
     error: details => setTimeout(() => {
       const msg = details && details.fields ? details.fields.error_message : I18n.t("error.unexpected");
-      set({val: msg, level: level.ERROR});
+      set({val: msg, level: msgLevel.ERROR});
     }, 125)
   };
 };

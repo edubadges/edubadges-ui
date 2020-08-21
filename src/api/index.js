@@ -122,6 +122,11 @@ export function acceptTermsForBadge(terms_entity_id) {
   return validFetch(path, {body: JSON.stringify([{terms_entity_id, accepted: true}])}, "POST");
 }
 
+export function withdrawTermsForBadge(terms_agreement_entity_id) {
+  const path = `${serverUrl}/v1/user/terms/accept`;
+  return validFetch(path, {body: JSON.stringify({terms_agreement_entity_id: terms_agreement_entity_id})}, "DELETE");
+}
+
 // Student badges
 export function requestBadge(id) {
   const path = `${serverUrl}/lti_edu/enroll`;

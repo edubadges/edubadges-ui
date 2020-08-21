@@ -70,6 +70,8 @@ I18n.translations.en = {
     unverified: "unverified",
     validatedByYourInstitution: "Provided by your institution",
     validatedByEduId: "Provided by eduID",
+    permissionsHeader: "Your permissions",
+    permissionsInfo: "You can withdraw any permissions you have given.",
     deleteHeader: "Deleting your edubadges backpack",
     deleteInfo1: "You can delete your backpack whenever you want.",
     deleteInfo2: "Proceed with care, as you will lose all your edubadges.",
@@ -657,7 +659,13 @@ I18n.translations.en = {
       privacyTitle: "Privacy",
       privacyLinkPre: " You also understand the ",
       privacyLink: "privacy policy.",
-      privacyLinkPost: ""
+      privacyLinkPost: "",
+      formalBadges: "Formele badges",
+      informalBadges: "Informele badges",
+      version: "version ",
+      agreedOn: "Agreed on ",
+      readOn: "Read on ",
+      withdrawConsent: "Withdraw"
     },
     termsBullets: {
       teacher:
