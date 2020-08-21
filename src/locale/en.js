@@ -684,9 +684,9 @@ I18n.translations.en = {
     noValidInstitution: "No valid institution",
     noValidInstitutionInfo: {
       student: "The institution <strong>{{name}}</strong> connected to your eduID account is not participating in the edubadges programme.<br/><br/>" +
-          "Please contact support@edubadges.nl for support or try linking an extra institution to your eduID account",
+          "Please contact support@edubadges.nl for support or try linking an extra institution to your eduID account.",
       teacher: "The institution <strong>{{name}}</strong> connected to your Surf account is not participating in the edubadges programme.<br/><br/>" +
-          "Please contact support@edubadges.nl for support or try linking an extra institution to your eduID account"
+          "Please contact support@edubadges.nl for support or try logging in with a different institution."
     },
     noValidInstitutionInfoNoInstitution: "You don't have any verified institutions linked to your account. <br/>" +
         "You need a verified institution that is participating in the edubadges programme to use this service.",

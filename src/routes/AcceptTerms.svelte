@@ -207,19 +207,20 @@
 
 {#if showModalTerms}
   <ModalTerms
-    title={termsTitle}
-    submit={closeTerms}
-    cancel={closeTerms}
-    url={termsUrl}/>
+      title={termsTitle}
+      submit={closeTerms}
+      cancel={closeTerms}
+      url={termsUrl}/>
 {/if}
 
 {#if noValidInstitution}
   <Modal
-    submit={logInForceAuthn}
-    title={I18n.t("acceptTerms.noValidInstitution")}
-    question={schacHomeOrganisations[0] ? role === roleConstants.STUDENT ?
-      I18n.t("acceptTerms.noValidInstitutionInfo.student", {name: schacHomeOrganisations[0]}) :
-      I18n.t("acceptTerms.noValidInstitutionInfo.teacher", {name: schacHomeOrganisations[0]}) :
-      I18n.t("acceptTerms.noValidInstitutionInfoNoInstitution")}
-    submitLabel={I18n.t("acceptTerms.goToSurfConext")}/>
+      submit={logInForceAuthn}
+      title={I18n.t("acceptTerms.noValidInstitution")}
+      question={schacHomeOrganisations[0] ? role === roleConstants.STUDENT ?
+        I18n.t("acceptTerms.noValidInstitutionInfo.student", {name: schacHomeOrganisations[0]}) :
+        I18n.t("acceptTerms.noValidInstitutionInfo.teacher", {name: schacHomeOrganisations[0]}) :
+        I18n.t("acceptTerms.noValidInstitutionInfoNoInstitution")}
+      submitLabel={I18n.t("acceptTerms.goToSurfConext")}
+      hideSubmit={role === roleConstants.TEACHER}/>
 {/if}
