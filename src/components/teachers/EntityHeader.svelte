@@ -65,7 +65,24 @@
         justify-content: space-around;
       }
 
-      .info {
+      .icn-container {
+        flex-shrink: 0;
+        height: 100px;
+        width: 100px;
+        margin-right: var(--hor-padding-m);
+        display: flex;
+        justify-content: space-around;
+      }
+
+      .icn-icon {
+        height: 90px;
+        width: 90px;
+        align-self: center;
+        display: flex;
+        justify-content: space-around;
+      }
+
+        .info {
         flex: 1;
         display: flex;
         flex-direction: column;
@@ -112,6 +129,14 @@
       <div class="img-container">
         <div class="img-icon">
           <RemoteImage imageUrl={object.image} alt={`${object.name} logo`}/>
+        </div>
+      </div>
+    {:else if entity === entityType.ISSUER}
+      <div class="icn-container">
+        <div class="icn-icon">
+        <span class="icon">
+          {@html issuerIcon}
+        </span>
         </div>
       </div>
     {/if}

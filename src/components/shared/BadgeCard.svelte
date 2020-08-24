@@ -5,6 +5,7 @@
   import {navigate} from "svelte-routing";
   import shieldUnlocked from "../../icons/shield-unlock.svg";
   import shieldLocked from "../../icons/lock-shield.svg";
+  import {issuerIcon} from "../../icons";
 
   export let badge;
   export let badgeClass;
@@ -93,10 +94,26 @@
     position: relative;
   }
 
-  .details img {
+  .details .issuer-img {
     max-width: 55px;
     max-height: 66px;
     margin-right: 15px;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .image-center-v {
+    min-height: 230px;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+  }
+
+  .issuer-icon {
+    display: block;
+    height: 70%;
+    width: 70%;
+    align-self: center;
   }
 
   .details div.issued {
@@ -171,7 +188,9 @@
           {/if}
         </div>
       {/if}
-      <img src={badgeClass.image} alt=""/>
+      <div class="image-center-v">
+        <img src={badgeClass.image} alt=""/>
+      </div>
     </div>
     <div class="content">
       <div class="content-header">
@@ -179,7 +198,13 @@
       </div>
 
       <div class="details">
-        <img src={badgeClass.issuer.image} alt=""/>
+        <div class="issuer-img">
+          {#if badgeClass.issuer.image}
+            <img src={badgeClass.issuer.image} alt=""/>
+          {:else}
+            <span class="issuer-icon">{@html issuerIcon}</span>
+          {/if}
+        </div>
         <div class="issued">
           <span class="issued-by">{I18n.t("models.badge.issuedBy")}</span>
           <span class="issuer">{badgeClass.issuer.name}</span>

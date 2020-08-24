@@ -68,7 +68,6 @@ import {
   onMount(() => {
     queryData(query).then(res => {
       issuer = res.issuer;
-      if(!issuer.image) issuer.image = issuer.faculty.institution.image;
       issuer.publicLink = `${config.serverUrl}/public/issuers/${entityId}`;
       faculty = issuer.faculty;
       badgeclasses = issuer.badgeclasses;
