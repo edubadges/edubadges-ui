@@ -59,6 +59,7 @@
 			faculty {
 				name
 			},
+			image,
 			badgeclasses {
 				entityId,
 				badgeAssertions {

@@ -47,6 +47,7 @@
     }
   ];
 
+  let table;
   $: table = {
     entity: "issuer",
     title: `${I18n.t("teacher.issuers.title")} (${issuers.length})`,
@@ -54,10 +55,12 @@
   };
 
   let issuerSearch = "";
+  let searchedIssuerIds = [];
   $: searchedIssuerIds = search(issuers, issuerSearch, "name");
 
   let issuerSort = tableHeaders[2];
 
+  let sortedFilteredIssuers = [];
   $: sortedFilteredIssuers = sort(
     issuers.filter(el => searchedIssuerIds.includes(el.entityId)),
     issuerSort.attribute,
@@ -69,7 +72,31 @@
 <style>
   .icon {
     display: block;
-    height: 20px;
+    height: 30px;
+  }
+
+  .img-cell {
+    /*padding: 0;*/
+    /*margin: 0;*/
+  }
+
+  .img-container {
+    flex-shrink: 0;
+    height: 55px;
+    width: 55px;
+    background: white;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .img-icon {
+    height: 50px;
+    width: 50px;
+    background-color: white;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
   }
 </style>
 
@@ -85,9 +112,21 @@
       class="click"
       on:click={() => navigate(`/manage/issuer/${issuer.entityId}`)}>
       <td>
-        <span class="icon">
-          {@html issuerIcon}
-        </span>
+        {#if issuer.image}
+          <div class="img-container">
+            <div class="img-icon">
+              <img src={issuer.image} alt=""/>
+            </div>
+          </div>
+        {:else}
+          <div class="img-container">
+            <div class="img-icon">
+              <span class="icon">
+                {@html issuerIcon}
+              </span>
+            </div>
+          </div>
+        {/if}
       </td>
       <td>
         {issuer.name}

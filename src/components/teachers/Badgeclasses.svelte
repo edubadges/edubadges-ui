@@ -70,7 +70,31 @@
 <style>
   .icon {
     display: block;
-    height: 20px;
+    height: 30px;
+  }
+
+  .img-cell {
+    /*padding: 0;*/
+    /*margin: 0;*/
+  }
+
+  .img-container {
+    flex-shrink: 0;
+    height: 55px;
+    width: 55px;
+    background: white;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .img-icon {
+    height: 50px;
+    width: 50px;
+    background-color: white;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
   }
 </style>
 
@@ -85,8 +109,20 @@
     <tr
         class="click"
         on:click={() => navigate(`/manage/badgeclass/${badgeclass.entityId}`)}>
-      <td>
-        <span class="icon">{@html badgeclassIcon}</span>
+      <td class="img-cell">
+        {#if badgeclass.image}
+          <div class="img-container">
+            <div class="img-icon">
+              <img src={badgeclass.image} alt=""/>
+            </div>
+          </div>
+        {:else}
+          <div class="img-container">
+            <div class="img-icon">
+              <span class="icon">{@html badgeclassIcon}</span>
+            </div>
+          </div>
+        {/if}
       </td>
       <td>{badgeclass.name}</td>
       <td>{moment(badgeclass.dateCreated).format('MMM D, YYYY')}</td>

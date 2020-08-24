@@ -31,6 +31,7 @@
       issuers {
         name,
         entityId,
+        image,
         badgeclasses {
           entityId,
           badgeAssertions {

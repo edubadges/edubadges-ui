@@ -44,6 +44,7 @@ import {
       badgeclasses {
         name,
         entityId,
+        image,
         createdAt,
         badgeAssertions {
           entityId
