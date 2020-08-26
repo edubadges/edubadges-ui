@@ -21,21 +21,21 @@
       attribute: "name",
       reverse: false,
       sortType: sortType.ALPHA,
-      width: "40%"
+      width: "25%"
     },
     {
       name: I18n.t("teacher.badgeclasses.created"),
       attribute: "created",
       reverse: false,
       sortType: sortType.ALPHA,
-      width: "30%"
+      width: "10%"
     },
     {
       name: I18n.t("teacher.badgeclasses.recipients"),
       attribute: "recipients",
       reverse: false,
       sortType: sortType.ALPHA,
-      width: "10%",
+      width: "8%",
       center: true
     },
     {
@@ -43,9 +43,13 @@
       attribute: "studyLoad",
       reverse: false,
       sortType: sortType.ALPHA,
-      width: "15%",
+      width: "10%",
       right: true
-    }
+    },
+    {
+      name: "",
+      width: "37%"
+    },
   ];
 
   $: table = {
@@ -71,11 +75,6 @@
   .icon {
     display: block;
     height: 30px;
-  }
-
-  .img-cell {
-    /*padding: 0;*/
-    /*margin: 0;*/
   }
 
   .img-container {
@@ -109,7 +108,7 @@
     <tr
         class="click"
         on:click={() => navigate(`/manage/badgeclass/${badgeclass.entityId}`)}>
-      <td class="img-cell">
+      <td>
         {#if badgeclass.image}
           <div class="img-container">
             <div class="img-icon">
@@ -128,6 +127,7 @@
       <td>{moment(badgeclass.dateCreated).format('MMM D, YYYY')}</td>
       <td class="center">{badgeclass.badgeAssertions.length}</td>
       <td class="right">{badgeclass.studyLoad}</td>
+      <td></td>
     </tr>
   {/each}
   {#if badgeclasses.length === 0}

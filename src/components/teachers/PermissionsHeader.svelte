@@ -32,6 +32,7 @@
 
       .list {
         margin: var(--ver-padding-m) 0;
+        margin-left: 80px;
       }
     }
   }
@@ -39,6 +40,10 @@
   .svg-container {
     width: 30px;
     margin: 0 25px;
+    color: var(--purple-8);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
   }
 
 </style>

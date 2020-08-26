@@ -27,7 +27,7 @@
       attribute: "name",
       reverse: false,
       sortType: sortType.ALPHA,
-      width: "45%"
+      width: "25%"
     },
     {
       name: I18n.t("teacher.badgeclasses.title"),
@@ -42,8 +42,12 @@
       attribute: "badgeAssertions",
       reverse: false,
       sortType: sortType.ISSUER_BADGE_CLASS_ASSERTIONS,
-      width: "35%",
-      right: true
+      width: "15%",
+      right: false
+    },
+    {
+      name: "",
+      width: "40%"
     }
   ];
 
@@ -73,11 +77,6 @@
   .icon {
     display: block;
     height: 30px;
-  }
-
-  .img-cell {
-    /*padding: 0;*/
-    /*margin: 0;*/
   }
 
   .img-container {
@@ -134,12 +133,13 @@
         <span class="sub-text">({issuer.faculty.name})</span>
       </td>
       <td class="center">{issuer.badgeclasses.length}</td>
-      <td class="right">{badgesCount(issuer.badgeclasses)}</td>
+      <td class="">{badgesCount(issuer.badgeclasses)}</td>
+      <td></td>
     </tr>
   {/each}
   {#if issuers.length === 0}
     <tr>
-      <td colspan="2">{I18n.t("zeroState.issuers", {name:institutionName})}</td>
+      <td colspan="4">{I18n.t("zeroState.issuers", {name:institutionName})}</td>
     </tr>
   {/if}
 

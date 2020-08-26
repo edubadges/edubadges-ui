@@ -12,6 +12,10 @@
     display: flex;
   }
 
+  h5 {
+    height: 20px;
+  }
+
   span {
     padding-right: 15px;
 
@@ -25,6 +29,7 @@
 
     p, a.is-link {
       word-break: break-all;
+      height: 20px;
     }
   }
 </style>
@@ -35,9 +40,9 @@
       <h5>{I18n.t(['models', entity, attr])}</h5>
 
       {#if type === 'date'}
-        {moment(value).format('MMM D, YYYY')}
+        <p>{moment(value).format('MMM D, YYYY')}</p>
       {:else if type === 'adminNames'}
-        {formatAdminNames(value)}
+        <p>{formatAdminNames(value)}</p>
       {:else if type === 'link'}
         {#if value}
           <a class="is-link" href={value} target="_blank">visit website</a>

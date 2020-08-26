@@ -21,15 +21,19 @@
       attribute: "name",
       reverse: false,
       sortType: sortType.ALPHA,
-      width: "75%"
+      width: "25%"
     },
     {
       name: I18n.t("teacher.issuers.title"),
       attribute: "issuers",
       reverse: false,
       sortType: sortType.COLLECTION,
-      width: "25%",
+      width: "15%",
       center: true
+    },
+    {
+      name: "",
+      width: "55%"
     }
   ];
 
@@ -74,11 +78,12 @@
       </td>
       <td>{faculty.name}</td>
       <td class="center">{faculty.issuers.length}</td>
+      <td></td>
     </tr>
   {/each}
   {#if faculties.length === 0}
     <tr>
-      <td colspan="2">{I18n.t("zeroState.faculties",{name:institutionName})}</td>
+      <td colspan="3">{I18n.t("zeroState.faculties",{name:institutionName})}</td>
     </tr>
   {/if}
 

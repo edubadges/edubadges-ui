@@ -78,19 +78,19 @@
   <slot name="check-buttons"/>
   <table class="entity-table">
     <thead>
-    {#if !isEmpty}
-      <tr>
-        {#if withCheckAll}
-          <th class="checker">
-            <CheckBox bind:value={checkAllValue} onChange={onCheckAll}/>
-          </th>
-        {/if}
-        <TableHeaders {tableHeaders} {setSort} {sort}/>
-      </tr>
-    {/if}
+      {#if !isEmpty}
+        <tr>
+          {#if withCheckAll}
+            <th class="checker">
+              <CheckBox bind:value={checkAllValue} onChange={onCheckAll}/>
+            </th>
+          {/if}
+          <TableHeaders {tableHeaders} {setSort} {sort}/>
+        </tr>
+      {/if}
     </thead>
     <tbody>
-    <slot/>
+      <slot/>
     </tbody>
   </table>
 </div>

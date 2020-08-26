@@ -148,22 +148,26 @@
       attribute: "name",
       reverse: false,
       sortType: sortType.PERSONAL_DATA,
-      width: "50%"
+      width: "25%"
     },
     {
       name: I18n.t("editUsers.role"),
       attribute: "roles",
       reverse: false,
       sortType: sortType.ROLES,
-      width: "30%"
+      width: "20%"
     },
     {
       name: I18n.t(["inviteUsers", "inviteStatus"]),
       attribute: "invitation",
       reverse: false,
       sortType: sortType.INVITATION_STATUS,
-      width: "20%",
+      width: "10%",
       center: true
+    },
+    {
+      name: "",
+      width: "45%"
     }
   ];
 
@@ -443,11 +447,12 @@
             <InvitationStatusWidget accepted={true}/>
           </td>
         {/if}
+        <td></td>
       </tr>
     {/each}
     {#if staffs.length === 0}
       <tr>
-        <td colspan="4">{I18n.t("zeroState.badgeClasses",{name: I18n.t(`userManagement.${"institution_staff"}`)})}</td>
+        <td colspan="5">{I18n.t("zeroState.badgeClasses",{name: I18n.t(`userManagement.${"institution_staff"}`)})}</td>
       </tr>
     {/if}
   </UsersTable>

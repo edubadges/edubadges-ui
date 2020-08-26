@@ -105,14 +105,18 @@
       attribute: "name",
       reverse: false,
       sortType: sortType.ALPHA,
-      width: "65%"
+      width: "25%"
     },
     {
       name: I18n.t("editUsers.role"),
       attribute: "roles",
       reverse: false,
       sortType: sortType.COLLECTION,
-      width: "35%"
+      width: "20%"
+    },
+    {
+      name: "",
+      width: "55%"
     }
   ];
 

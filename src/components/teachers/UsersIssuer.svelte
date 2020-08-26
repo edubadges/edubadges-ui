@@ -171,21 +171,25 @@
       attribute: "issuer.name",
       reverse: false,
       sortType: sortType.ALPHA,
-      width: "38%"
+      width: "25%"
     },
     {
       name: I18n.t("editUsers.faculty.header"),
       attribute: "issuer.faculty.name",
       reverse: false,
       sortType: sortType.ALPHA,
-      width: "38%"
+      width: "25%"
     },
     {
       name: I18n.t("editUsers.role"),
       attribute: "role",
       reverse: false,
       sortType: sortType.COLLECTION,
-      width: "24%"
+      width: "20%"
+    },
+    {
+      name: "",
+      width: "30%"
     }
   ];
 
@@ -342,8 +346,8 @@
         {checkAllValue}
     >
       {#each sortedFilteredStaffs as {_staffType, issuer, staffId}}
-        {#if _staffType === staffType.ISSUER_STAFF}
-          <tr>
+        <tr>
+          {#if _staffType === staffType.ISSUER_STAFF}
             <td>
               <CheckBox
                   value={selection.includes(staffId)}
@@ -370,9 +374,7 @@
             <td>
               {I18n.t(['editUsers', 'issuer', 'allRights'])}
             </td>
-          </tr>
-        {:else if _staffType === staffType.ISSUER_GROUP_STAFF}
-          <tr>
+          {:else if _staffType === staffType.ISSUER_GROUP_STAFF}
             <td>
               <CheckBox
                   disabled={true}/>
@@ -389,9 +391,7 @@
               <br/>
               <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'issuerGroupAllRights'])}</span>
             </td>
-          </tr>
-        {:else if _staffType === staffType.INSTITUTION_STAFF}
-          <tr>
+          {:else if _staffType === staffType.INSTITUTION_STAFF}
             <td>
               <CheckBox
                 value={''}
@@ -410,8 +410,9 @@
               <br/>
               <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'institutionAllRights'])}</span>
             </td>
-          </tr>
-        {/if}
+          {/if}
+          <td></td>
+        </tr>
       {/each}
       {#if isEmpty}
         <tr>

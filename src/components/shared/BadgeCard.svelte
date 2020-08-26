@@ -94,12 +94,20 @@
     position: relative;
   }
 
+  .vert-center {
+    display: flex;
+    justify-content: space-around;
+    width: 66px;
+    height: 66px;
+  }
+
   .details .issuer-img {
-    max-width: 55px;
-    max-height: 66px;
+    width: 55px;
+    height: 55px;
     margin-right: 15px;
     display: flex;
     justify-content: space-around;
+    background-color: white;
   }
 
   .image-center-v {
@@ -198,12 +206,14 @@
       </div>
 
       <div class="details">
-        <div class="issuer-img">
-          {#if badgeClass.issuer.image}
-            <img src={badgeClass.issuer.image} alt=""/>
-          {:else}
-            <span class="issuer-icon">{@html issuerIcon}</span>
-          {/if}
+        <div class="vert-center">
+          <div class="issuer-img">
+            {#if badgeClass.issuer.image}
+              <img src={badgeClass.issuer.image} alt=""/>
+            {:else}
+              <span class="issuer-icon">{@html issuerIcon}</span>
+            {/if}
+          </div>
         </div>
         <div class="issued">
           <span class="issued-by">{I18n.t("models.badge.issuedBy")}</span>

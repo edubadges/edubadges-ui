@@ -39,6 +39,9 @@
       }
     }
 
+    .logo-colour {
+      color: var(--purple-8);
+    }
 
     .content {
       display: flex;
@@ -72,6 +75,7 @@
         margin-right: var(--hor-padding-m);
         display: flex;
         justify-content: space-around;
+        background-color: white;
       }
 
       .icn-icon {
@@ -80,6 +84,8 @@
         align-self: center;
         display: flex;
         justify-content: space-around;
+        background-color: white;
+        color: var(--grey-5);
       }
 
         .info {
@@ -117,7 +123,7 @@
 
 <div class="entity">
   <div class="title">
-    <span class="logo">{@html
+    <span class="logo logo-colour">{@html
       entity === entityType.INSTITUTION ? institutionIcon :
       entity === entityType.ISSUER_GROUP ? facultyIcon :
       entity === entityType.ISSUER ? issuerIcon : ''
