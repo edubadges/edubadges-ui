@@ -197,10 +197,10 @@
 
   h4 {
     color: var(--purple);
-    padding: var(--ver-padding-s);
-    margin-top: var(--ver-padding-l) 0;
-    padding-left: 0;
+    padding: var(--ver-padding-s) var(--ver-padding-m);
     font-size: 20px;
+    border-left: 3px solid var(--purple-2);
+    margin: var(--ver-padding-l) 0;
   }
 
   span.info {
@@ -232,12 +232,6 @@
     align-self: center;
     cursor: pointer;
   }
-
-  .header-line {
-    border-top: purple solid 1px;
-    margin-top: 0;
-    margin-bottom: 20px;
-  }
 </style>
 
 <EntityForm
@@ -254,7 +248,6 @@
   {processing}>
 
   <h4>{I18n.t("models.badgeclass.headers.basicInformation")}</h4>
-  <hr class="header-line">
 
   <div class="form">
 
@@ -316,7 +309,6 @@
   </div>
 
   <h4>{I18n.t('models.badgeclass.headers.earningCriteria')}</h4>
-  <hr class="header-line">
 
   <div class="form">
     <Field {entity} attribute="criteria_text" errors={errors.criteria_text}>
@@ -342,7 +334,6 @@
       <div class="deletable-title"><h4>{I18n.t('models.badgeclass.headers.studyLoad')}</h4></div>
       <button class="rm-icon-container" on:click={() => showStudyLoad = false}>{@html trash}</button>
     </div>
-    <hr class="header-line">
 
     <div class="form">
       <Field {entity} attribute="typeOfStudyLoad" errors={errors.type}>
@@ -375,7 +366,6 @@
       <div class="deletable-title"><h4>{I18n.t('models.badgeclass.headers.educationalIdentifiers')}</h4></div>
       <button class="rm-icon-container" on:click={() => showEducationalIdentifiers = false}>{@html trash}</button>
     </div>
-    <hr class="header-line">
 
     <div class="form">
       <Field
@@ -410,7 +400,6 @@
       <div class="deletable-title"><h4>{I18n.t('models.badgeclass.headers.alignment')}</h4></div>
       <button class="rm-icon-container" on:click={() => showAlignment = false}>{@html trash}</button>
     </div>
-    <hr class="header-line">
 
     <div class="form">
       <Field {entity} attribute="alignmentName" errors={errors.target_name}>
@@ -456,7 +445,6 @@
 
   {#if !(showStudyLoad && showEducationalIdentifiers && showAlignment)}
     <h4>{I18n.t('models.badgeclass.headers.additionalSections')}</h4>
-    <hr class="header-line">
 
     <div class="add-buttons">
       <span class="add-button">
