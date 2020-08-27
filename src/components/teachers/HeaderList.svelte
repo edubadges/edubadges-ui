@@ -45,13 +45,13 @@
         <p>{formatAdminNames(value)}</p>
       {:else if type === 'link'}
         {#if value}
-          <a class="is-link" href={value} target="_blank">visit website</a>
-        {:else}-{/if}
+          <p><a class="is-link" href={value} target="_blank">visit website</a></p>
+        {:else}<p>-</p>{/if}
       {:else if type === 'email'}
         {#if value}
           <p>{value}</p>
-        {:else}-{/if}
-      {:else}{value}{/if}
+        {:else}<p>-</p>{/if}
+      {:else}<p>{value}</p>{/if}
     </span>
   {/each}
 </div>
