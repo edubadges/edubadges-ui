@@ -72,6 +72,8 @@ I18n.translations.en = {
     validatedByEduId: "Provided by eduID",
     permissionsHeader: "Your permissions",
     permissionsInfo: "You can withdraw any permissions you have given.",
+    noPermissions: "You currently have not given consent to any institution.",
+    consentWithdrawn: "Permission withdrawn for institution {{institution}}",
     deleteHeader: "Deleting your edubadges backpack",
     deleteInfo1: "You can delete your backpack whenever you want.",
     deleteInfo2: "Proceed with care, as you will lose all your edubadges.",

@@ -72,6 +72,8 @@ I18n.translations.nl = {
     validatedByEduId: "Geleverd door eduID",
     permissionsHeader: "Jouw permissions TRANSLATE",
     permissionsInfo: "Je kan je gegeven permissions intrekken.",
+    noPermissions: "Er zijn op dit moment geen kennisinstellingen waar je permission aan hebt gegeven.",
+    consentWithdrawn: "Permission withdrawn for institution {{institution}}",
     deleteHeader: "Je edubadges backpack verwijderen",
     deleteInfo1: "Je kunt je backpack verwijderen als je dat wilt.",
     deleteInfo2: "Wees je dan wel bewust dat je al je edubadges zult verliezen.",

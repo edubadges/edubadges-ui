@@ -23,6 +23,7 @@
   import UserBreadcrumb from "../../components/teachers/UserBreadcrumb.svelte";
   import {queryData} from "../../api/graphql";
   import moment from "moment";
+  import {flash} from "../../stores/flash";
 
   export let isStudent = true;
 
@@ -89,9 +90,10 @@
     });
   };
 
-  const withdrawPermission = entityId => {
+  const withdrawPermission = (entityId, name) => {
     withdrawTermsForBadge(entityId).then(() => {
       reload();
+      flash.setValue(I18n.t("profile.consentWithdrawn", {institution: name}));
     })
   };
 
@@ -188,13 +190,16 @@
   {#if isStudent}
     <div class="border">
       <h1>{I18n.t("profile.permissionsHeader")}</h1>
-      <p class="account-info">{@html I18n.t("profile.permissionsInfo")}</p>
+      <p class="account-info">{I18n.t("profile.permissionsInfo")}</p>
       <div>
+        {#if instititions.length === 0}
+          <p>{I18n.t("profile.noPermissions")}</p>
+        {/if}
         {#each instititions as institution}
           <div>
             <h2>{institution.name}</h2>
             {#if institution.agreedTerms.length === 0}
-              <p>asdf</p>
+              <p>No permissions</p>
             {/if}
             {#each institution.agreedTerms as agreedTerm}
               <div class="agreedTerm">
@@ -205,7 +210,7 @@
                 </div>
                 {#if agreedTerm.type === "FORMAL_BADGE"}
                   <div>
-                    <Button action={() => withdrawPermission(agreedTerm.entityId)} text={I18n.t(['acceptTerms', 'student', 'withdrawConsent'])} disabled={false} />
+                    <Button action={() => withdrawPermission(agreedTerm.entityId, institution.name)} text={I18n.t(['acceptTerms', 'student', 'withdrawConsent'])} disabled={false} />
                   </div>
                 {/if}
               </div>
