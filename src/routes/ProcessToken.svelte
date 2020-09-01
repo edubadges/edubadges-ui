@@ -78,12 +78,12 @@
   <div class="content-auth-error-container">
     <div class="content-auth-error">
       <h1>{I18n.t("authError.title")}</h1>
-      <p>{@html I18n.t(`authError.code.${code}`)}</p>
+      <p>{I18n.t(`authError.code.${code}`)}</p>
       {#if adminEmail && code === "2"}
         <div class="info">
           <span>{@html tip}</span>
           <span class="tip">{I18n.t("authError.tip")}</span>
-          <span>{@html I18n.t("authError.adminEmail",{email:adminEmail})}</span>
+          <span>{I18n.t("authError.adminEmail",{email:adminEmail})}</span>
 
         </div>
       {/if}
