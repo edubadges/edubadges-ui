@@ -508,7 +508,7 @@ I18n.translations.nl = {
       typeOfStudyLoad: "Soort studielast",
       eqf: "NLQF niveau",
       educationProgramIdentifier: "ISAT",
-      educationProgramIdentifierLong: "Programme Identifier",
+      educationProgramIdentifierLong: "Onderwijsidentificatie",
       notSet: "Geen",
       expirationPeriods: {
         days: "Dagen",
@@ -522,7 +522,7 @@ I18n.translations.nl = {
         additionalSections: "Extra toevoegingen",
         educationalIdentifiers: "Onderwijsidentificatie",
         studyLoad: "Studielast",
-        alignment: "Alignment"
+        alignment: "Gerelateerd onderwijskundig raamwerk"
       },
       addButtons: {
         educationalIdentifiers: "Educatie identifier(s) toevoegen",
