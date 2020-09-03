@@ -13,12 +13,13 @@
   import {getService} from "../util/getService";
   import Button from "../components/Button.svelte";
   import Spinner from "../components/Spinner.svelte";
-
+  import DOMPurify from 'dompurify';
   import {
     userLoggedIn,
     userRole,
     authToken,
-    redirectPath
+    redirectPath,
+    showMainErrorDialog
   } from "../stores/user";
 
   let idToken;
@@ -52,7 +53,9 @@
     role = urlParams.get("role");
     claims = jwt_decode(idToken);
     $userRole = role;
-    schacHomeOrganisations = $userRole === roleConstants.STUDENT ? schacHomeNames(claims) : [claims.schac_home_organization];
+    const dirty = $userRole === roleConstants.STUDENT ? schacHomeNames(claims) : [claims.schac_home_organization];
+    schacHomeOrganisations = dirty.map(el => DOMPurify.sanitize(el));
+    if(!schacHomeOrganisations) schacHomeOrganisations = [];
     validateInstitutions(schacHomeOrganisations)
       .then(res => {
         let validSchacHomeOrganisations = schacHomeOrganisations
@@ -221,6 +224,7 @@
         I18n.t("acceptTerms.noValidInstitutionInfo.student", {name: schacHomeOrganisations[0]}) :
         I18n.t("acceptTerms.noValidInstitutionInfo.teacher", {name: schacHomeOrganisations[0]}) :
         I18n.t("acceptTerms.noValidInstitutionInfoNoInstitution")}
+      evaluateQuestion={true}
       submitLabel={I18n.t("acceptTerms.goToSurfConext")}
       hideSubmit={role === roleConstants.TEACHER}/>
 {/if}
