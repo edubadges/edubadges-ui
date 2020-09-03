@@ -4,7 +4,7 @@
   import {userRole} from "../stores/user";
   import {role} from "../util/role";
   import surf from "../img/logo-surf.svg";
-  import ModalTerms from "./forms/FancyMarkdownModalTermsViewer.svelte";
+  import {ModalTerms} from "./forms";
 
   let showModal = false;
   let termsUrl;
@@ -81,12 +81,12 @@
 <footer class="footer">
   <div class="help">
     <a href="/terms"
-       on:click|preventDefault|stopPropagation={showTerms(I18n.t("terms.termsTitle"),
-                 I18n.t(`terms.${$userRole}.termsOfUseRaw`))}>
+        on:click|preventDefault|stopPropagation={showTerms(I18n.t("terms.termsTitle"),
+        I18n.t(`terms.${$userRole}.termsOfUseRaw`))}>
       {I18n.t("terms.termsTitle")}
     </a>
     <a href="/privacy"
-       on:click|preventDefault|stopPropagation={showTerms(I18n.t("terms.privacyPolicyTitle"),
+        on:click|preventDefault|stopPropagation={showTerms(I18n.t("terms.privacyPolicyTitle"),
         I18n.t(`terms.${$userRole}.privacyPolicyRaw`))}>
       {I18n.t("terms.privacyPolicyTitle")}
     </a>
@@ -114,9 +114,9 @@
 </footer>
 
 {#if showModal}
-  <ModalTerms title={termsTitle}
-              submit={() => showModal = false}
-              cancel={() => showModal = false}
-                url={termsUrl}>
-  </ModalTerms>
+  <ModalTerms
+      title={termsTitle}
+      submit={() => showModal = false}
+      cancel={() => showModal = false}
+      url={termsUrl}/>
 {/if}

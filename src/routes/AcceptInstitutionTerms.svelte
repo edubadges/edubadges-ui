@@ -2,7 +2,7 @@
   import {onMount} from "svelte";
   import {Button, Spinner} from "../components";
   import I18n from "i18n-js";
-  import ModalTerms from "../components/forms/FancyMarkdownModalTermsViewer.svelte";
+  import {ModalTerms} from "../components/forms";
   import termsIcon from "../icons/voorwaarden-icon1.svg";
   import terms2Icon from "../icons/voorwaarden-icon2.svg";
   import {fetchMarkdown} from "../api/markdown";
@@ -21,7 +21,8 @@
   let statementRawUrl;
 
   onMount(() => {
-    termsUrl = badgeClass.terms.termsUrl.find(({language}) => language.toLowerCase() === (Cookies.get("lang") ? Cookies.get("lang") : "en").toLowerCase()).url;
+    const currentLanguage = Cookies.get("lang") ? Cookies.get("lang") : "en";
+    termsUrl = badgeClass.terms.termsUrl.find(({language}) => language.toLowerCase() === currentLanguage.toLowerCase()).url;
     fetchMarkdown(termsUrl).then(res => {
       excerptMarkDown = res;
       loaded = true;
