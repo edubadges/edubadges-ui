@@ -23,7 +23,7 @@
   import BadgeDetails from "./routes/students/BadgeDetails.svelte";
   import PublicBadgePage from "./components/shared/PublicBadgePage.svelte";
   import {config} from "./util/config";
-  import Modal from "./components/forms/Modal.svelte";
+  import {Modal} from "./components/forms";
   import PublicIssuerPage from "./components/shared/PublicIssuerPage.svelte";
 
   const homepage = {
@@ -165,8 +165,13 @@
 
     <Footer/>
     {#if $showMainErrorDialog}
-      <Modal cancel={() => $showMainErrorDialog = false} hideSubmit={true} warning={true} title={I18n.t("error.unexpected")}
-        question={I18n.t("error.description")} cancelLabel={I18n.t("error.close")}/>
+      <Modal
+          cancel={() => $showMainErrorDialog = false}
+          hideSubmit={true}
+          warning={true}
+          title={I18n.t("error.unexpected")}
+          question={I18n.t("error.description")}
+          cancelLabel={I18n.t("error.close")}/>
     {/if}
   {/if}
 </div>

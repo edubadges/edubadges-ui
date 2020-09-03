@@ -4,10 +4,9 @@
   import {config} from "../util/config";
   import I18n from "i18n-js";
   import Cookies from "js-cookie";
-  import ModalTerms from "../components/forms/FancyMarkdownModalTermsViewer.svelte";
   import {role as roleConstants} from "../util/role";
   import {eduTermsDetail, requestLoginToken, validateInstitutions} from "../api";
-  import Modal from "../components/forms/Modal.svelte";
+  import {Modal, ModalTerms} from "../components/forms";
   import termsIcon from "../icons/voorwaarden-icon1.svg"
   import terms2Icon from "../icons/voorwaarden-icon2.svg"
   import {schacHomeNames} from "../util/claims";
@@ -64,8 +63,10 @@
         } else {
           loaded = true;
           eduTermsDetail($userRole).then(res => {
-            primaryTerms = res.find(({terms_type}) => terms_type === "terms_of_service").terms_urls.find(({language}) => language === (Cookies.get("lang") ? Cookies.get("lang") : "en")).url;
-            secondaryTerms = res.find(({terms_type}) => terms_type === ($userRole === roleConstants.STUDENT ? "service_agreement_student" : "service_agreement_employee")).terms_urls.find(({language}) => language === (Cookies.get("lang") ? Cookies.get("lang") : "en")).url;
+            const currentLanguage = Cookies.get("lang") ? Cookies.get("lang") : "en";
+            const agreementToFind = $userRole === roleConstants.STUDENT ? "service_agreement_student" : "service_agreement_employee";
+            primaryTerms = res.find(({terms_type}) => terms_type === "terms_of_service").terms_urls.find(({language}) => language === currentLanguage).url;
+            secondaryTerms = res.find(({terms_type}) => terms_type === agreementToFind).terms_urls.find(({language}) => language === currentLanguage).url;
           })
         }
       });
@@ -90,7 +91,6 @@
     $redirectPath = window.location.href;
     window.location.href = config.eduId
   };
-
 </script>
 
 <style lang="scss">

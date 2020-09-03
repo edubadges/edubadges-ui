@@ -135,7 +135,7 @@
     <div class="login-element">
       <Card none={!showLoginCards}>
         <h2 class="bold">
-          {@html I18n.t('login.student.title')}
+          {I18n.t('login.student.title')}
         </h2>
         <h4>{I18n.t('login.student.subtitle')}</h4>
         <div class="svg-container">

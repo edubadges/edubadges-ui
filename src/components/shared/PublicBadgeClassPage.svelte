@@ -17,7 +17,7 @@
   import {navigate} from "svelte-routing";
   import {entityType} from "../../util/entityTypes"
   import {schacHomeNames, schacHomeNamesFromExtraData} from "../../util/claims";
-  import Modal from "../forms/Modal.svelte";
+  import {Modal} from "../forms";
   import {flash} from "../../stores/flash";
   import AcceptInstitutionTerms from "../../routes/AcceptInstitutionTerms.svelte";
   import {userRole, userLoggedIn,     authToken, redirectPath} from "../../stores/user";
@@ -265,6 +265,7 @@
       submit={modalAction}
       cancel={() => showModal = false}
       question={modalQuestion}
+      evaluateQuestion={true}
       title={modalTitle}/>
 {/if}
 
@@ -280,6 +281,7 @@
       submit={logInForceAuthn}
       title={I18n.t("acceptTerms.noValidInstitution")}
       question={I18n.t("acceptTerms.noValidInstitutionInfoForEnrollment", {name: badgeClass.issuer.faculty.institution.name})}
+      evaluateQuestion={true}
       cancel={() => noValidInstitution = false}
       submitLabel={I18n.t("acceptTerms.goToSurfConext")}/>
 {/if}

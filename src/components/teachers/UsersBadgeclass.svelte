@@ -547,8 +547,7 @@
       submit={removeModalAction}
       cancel={() => showRemoveModal = false}
       question={removeModalQuestion}
-      title={removeModalTitle}
-  />
+      title={removeModalTitle}/>
 {/if}
 
 {#if showAddModal}
@@ -560,6 +559,5 @@
       title={addModalTitle}
       {badgeClassStaffs}
       {userId}
-      on:permissionAdded={handlePermissionAdded}
-  />
+      on:permissionAdded={handlePermissionAdded}/>
 {/if}

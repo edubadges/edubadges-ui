@@ -4,7 +4,6 @@
   import {formatDate} from "../../util/utils";
   import {validateBadge} from "../../api";
   import {Button} from "../../components";
-  import Modal from "../../components/forms/Modal.svelte";
   import ValidationSpinners from "./ValidationSpinners.svelte";
 
   export let validatedName;

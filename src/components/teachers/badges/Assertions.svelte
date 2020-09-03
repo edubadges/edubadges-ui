@@ -11,7 +11,7 @@
   import singleNeutralCheck from "../../../icons/single-neutral-check.svg";
   import {userName} from "../../../util/users";
   import {search, searchMultiple} from "../../../util/searchData";
-  import Modal from "../../forms/Modal.svelte";
+  import {Modal} from "../../forms";
   import {flash} from "../../../stores/flash";
 import filter from "../../../icons/filter-1.svg";
 
@@ -279,11 +279,13 @@ import filter from "../../../icons/filter-1.svg";
 </Table>
 
 {#if showModal}
-  <Modal submit={modalAction}
-         cancel={cancel}
-         question={modalQuestion}
-         title={modalTitle}
-         disabled={revocationReason.length === 0}>
+  <Modal
+      submit={modalAction}
+      cancel={cancel}
+      question={modalQuestion}
+      evaluateQuestion={true}
+      title={modalTitle}
+      disabled={revocationReason.length === 0}>
     <div class="slots">
       <label for="revocation-reason">{I18n.t("models.badge.confirmation.revocationReason")}</label>
       <input id="revocation-reason" class="input-field" bind:value={revocationReason }/>

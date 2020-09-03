@@ -6,6 +6,7 @@
   export let cancel;
   export let title;
   export let question;
+  export let evaluateQuestion = false;
   export let warning = false;
   export let hideSubmit = false;
 
@@ -20,7 +21,6 @@
       cancel && cancel();
     }
   };
-
 </script>
 
 <svelte:window on:keydown={handle_keydown}/>
@@ -31,7 +31,11 @@
       <h3>{title}</h3>
     </div>
     <div class="modal-body">
-      <p>{@html question}</p>
+      {#if evaluateQuestion}
+        <p>{@html question}</p>
+      {:else}
+        <p>{question}</p>
+      {/if}
     </div>
     <div class="slots">
       <slot/>

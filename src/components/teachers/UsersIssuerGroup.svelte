@@ -355,8 +355,7 @@
       submit={removeModalAction}
       cancel={() => showRemoveModal = false}
       question={removeModalQuestion}
-      title={removeModalTitle}
-  />
+      title={removeModalTitle}/>
 {/if}
 
 {#if showAddModal}

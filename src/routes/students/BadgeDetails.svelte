@@ -14,7 +14,7 @@
   import BadgeCard from "../../components/shared/BadgeCard.svelte";
   import BadgeClassDetails from "../../components/shared/BadgeClassDetails.svelte";
   import moment from "moment";
-  import Modal from "../../components/forms/Modal.svelte";
+  import {Modal} from "../../components/forms";
   import DownloadButton from "../../components/DownloadButton.svelte";
   import {
     revokeAssertion,
@@ -492,15 +492,18 @@
 </div>
 
 {#if showModal}
-  <Modal submit={modalAction}
-         cancel={cancel}
-         question={modalQuestion}
-         title={modalTitle}/>
+  <Modal
+      submit={modalAction}
+      cancel={cancel}
+      question={modalQuestion}
+      evaluateQuestion={true}
+      title={modalTitle}/>
 {/if}
 
 {#if showShareDialog}
-  <ShareDialog copied={copiedLink}
-               cancel={cancelShareDialog}
-               publicUrl={publicUrl()}/>
+  <ShareDialog
+      copied={copiedLink}
+      cancel={cancelShareDialog}
+      publicUrl={publicUrl()}/>
 {/if}
 

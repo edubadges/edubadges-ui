@@ -2,7 +2,6 @@
   import I18n from "i18n-js";
   import {onMount} from "svelte";
   import {navigate} from "svelte-routing";
-  import Modal from '../../components/forms/Modal.svelte';
   import Button from "../../components/Button.svelte";
   import {formatCreateDate} from "../../util/utils";
   import {
@@ -17,7 +16,7 @@
     authToken,
     redirectPath
   } from "../../stores/user";
-  import {TextInput} from "../../components/forms";
+  import {Modal} from "../../components/forms";
   import {Spinner} from "../../components";
   import Verified from "../../components/shared/Verified.svelte";
   import UserBreadcrumb from "../../components/teachers/UserBreadcrumb.svelte";
@@ -233,10 +232,10 @@
 {/if}
 
 {#if showModal}
-  <Modal submit={modalAction}
-         warning={true}
-         cancel={() => showModal = false}
-         question={modalQuestion}
-           title={modalTitle}>
-  </Modal>
+  <Modal
+      submit={modalAction}
+      warning={true}
+      cancel={() => showModal = false}
+      question={modalQuestion}
+      title={modalTitle}/>
 {/if}

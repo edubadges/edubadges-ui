@@ -12,7 +12,7 @@
   import {searchMultiple} from "../../../util/searchData";
   import singleNeutralCheck from "../../../icons/single-neutral-check.svg";
   import {userName} from "../../../util/users";
-  import Modal from "../../forms/Modal.svelte";
+  import {Modal} from "../../forms";
   import filter from "../../../icons/filter-1.svg";
   import CenterMe from "../../forms/CenterMe.svelte";
 
@@ -222,9 +222,9 @@
 </Table>
 
 {#if showModal}
-  <Modal submit={modalAction}
-         cancel={() => showModal = false}
-         question={modalQuestion}
-           title={modalTitle}>
-  </Modal>
+  <Modal
+      submit={modalAction}
+      cancel={() => showModal = false}
+      question={modalQuestion}
+      title={modalTitle}/>
 {/if}

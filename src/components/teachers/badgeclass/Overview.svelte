@@ -5,7 +5,7 @@
   import Breadcrumb from "../Breadcrumb.svelte";
   import {withdrawRequestBadge} from "../../../api";
   import EnrollmentBadge from "../../../routes/students/EnrollmentBadge.svelte";
-  import Modal from "../../forms/Modal.svelte";
+  import {Modal} from "../../forms";
   import BadgeClassDetails from "../../shared/BadgeClassDetails.svelte";
   import Button from "../../../components/Button.svelte";
   import {flash} from "../../../stores/flash";

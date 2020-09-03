@@ -9,7 +9,7 @@
   import {makeUserInstitutionAdmin, removeUserInstitutionAdmin} from "../../api";
   import Spinner from "../Spinner.svelte";
   import {flash} from "../../stores/flash";
-  import Modal from "../forms/Modal.svelte";
+  import {Modal} from "../forms";
   import ListLink from "./ListLink.svelte";
 
   export let userId;
@@ -194,5 +194,5 @@
       warning={isInstitutionAdmin()}
       cancel={() => showModal = false}
       question={modalQuestion}
-      title={modalTitle} />
+      title={modalTitle}/>
 {/if}

@@ -4,7 +4,7 @@
   import {role} from "../../util/role";
   import {flash} from "../../stores/flash";
   import {entityType} from "../../util/entityTypes";
-  import Modal from "./Modal.svelte";
+  import {Modal} from ".";
   import {navigate} from "svelte-routing";
 
   export let entityTypeName;
@@ -46,8 +46,8 @@
 
 {#if showRemoveModal}
   <Modal
-    submit={removeModalAction}
-    cancel={cancel}
-    question={removeModalQuestion}
-    title={removeModalTitle}/>
+      submit={removeModalAction}
+      cancel={cancel}
+      question={removeModalQuestion}
+      title={removeModalTitle}/>
 {/if}
