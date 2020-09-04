@@ -76,7 +76,7 @@
   });
 
   const agree = () => {
-    window.location.href = `${config.serverUrl}/account/${provider}/login/terms_accepted/${encodeURIComponent(state)}/${idToken}/`;
+    window.location.href = `${config.serverUrl}/account/${encodeURIComponent(provider)}/login/terms_accepted/${encodeURIComponent(state)}/${idToken}/`;
   };
 
   const showTerms = (title, url) => () => {
