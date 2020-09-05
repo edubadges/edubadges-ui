@@ -40,9 +40,8 @@ export const studentBadgeInstances = `query {
     }
   }`;
 
-export function enrollmentsQuery(entityId) {
-  return `
-    badgeClass(id: "${entityId}") {
+export const enrollmentsQuery = `
+    badgeClass(id: $entityId) {
       pendingEnrollments {
         dateCreated,
         dateAwarded,
@@ -57,10 +56,9 @@ export function enrollmentsQuery(entityId) {
       }
     }
   `;
-}
-export function assertionsQuery(entityId) {
-  return `
-    badgeClass(id: "${entityId}") {
+
+export const assertionsQuery = `
+    badgeClass(id: $entityId) {
       badgeAssertions {
         entityId,
         createdAt,
@@ -78,4 +76,3 @@ export function assertionsQuery(entityId) {
       }
     }
   `;
-}
