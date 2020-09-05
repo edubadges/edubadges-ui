@@ -53,8 +53,8 @@
     navigate("/login");
   };
 
-  const query = `{
-    enrollment(badgeClassId: "${entityId}") {
+  const query = `query ($entityId: String){
+    enrollment(badgeClassId: $entityId) {
       entityId,
       dateCreated,
       dateConsentGiven,
@@ -66,7 +66,7 @@
     }
   }`;
 
-  const secureQuery = `{
+  const secureQuery = `query ($entityId: String){
     currentUser {
       termsAgreements {
         terms {
@@ -76,7 +76,7 @@
         agreedVersion
       }
     },
-    badgeClass(id: "${entityId}") {
+    badgeClass(id: $entityId) {
       image,
       contentTypeId,
       name,
@@ -126,7 +126,7 @@
   onMount(() => {
     // setTimeout(() => {visitorRole = $userLoggedIn ? $userRole : "guest";}, 1000); // TODO: try to remove this (ask Okke)
     if (visitorRole === role.STUDENT) {
-      Promise.all([queryData(query), queryData(secureQuery), getSocialAccountsSafe()]).then(res => {
+      Promise.all([queryData(query, {entityId}), queryData(secureQuery, {entityId}), getSocialAccountsSafe()]).then(res => {
         const enrollment = res[0].enrollment;
         if (enrollment && (!enrollment.badgeInstance || !enrollment.badgeInstance.revoked)) {
           studentAwarded = enrollment.badgeInstance && !enrollment.badgeInstance.revoked;
@@ -200,7 +200,7 @@
   };
 
   const reload = () => {
-    queryData(query).then(res => {
+    queryData(query, {entityId}).then(res => {
       showModal = false;
       const enrollment = res.enrollment;
       studentAwarded = enrollment && enrollment.badgeInstance && !enrollment.badgeInstance.revoked;

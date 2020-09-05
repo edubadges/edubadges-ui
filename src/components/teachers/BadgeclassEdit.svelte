@@ -10,8 +10,8 @@
 
   export let entityId;
 
-  const query = `{
-    badgeClass(id: "${entityId}") {
+  const query = `query ($entityId: String){
+    badgeClass(id: $entityId) {
       entityId,
       name,
       image,
@@ -62,7 +62,7 @@
   let loaded = false;
 
   onMount(() => {
-    queryData(query).then(res => {
+    queryData(query, {entityId}).then(res => {
       badgeclass = res.badgeClass;
       deduceExpirationPeriod(badgeclass);
 

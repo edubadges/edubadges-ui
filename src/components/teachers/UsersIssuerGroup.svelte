@@ -44,7 +44,7 @@
   let loaded;
   let isEmpty;
 
-  const query = `{
+  const query = `query ($userId: String){
   currentInstitution {
     name,
     entityId,
@@ -83,7 +83,7 @@
       }
     },
   },
-  user(id: "${userId}") {
+  user(id: $userId) {
     firstName,
     lastName,
     facultyStaffs {
@@ -112,7 +112,7 @@
   const reload = () => {
     loaded = false;
     checkAllValue = false;
-    queryData(query).then(res => {
+    queryData(query, {userId}).then(res => {
       institutionId = res.currentInstitution.entityId;
       for (const faculty of res.currentInstitution.faculties) {
         if (faculty.permissions.mayAdministrateUsers) {

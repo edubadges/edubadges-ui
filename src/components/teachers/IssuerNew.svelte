@@ -5,7 +5,7 @@
 
   export let facultyEntityId;
 
-  const query = `{
+  const query = `query {
     faculties {
       name,
       entityId

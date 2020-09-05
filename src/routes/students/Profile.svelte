@@ -36,7 +36,7 @@
   let modalQuestion;
   let modalAction;
 
-  const query = `{
+  const query = `query {
     currentUser {
       termsAgreements {
         entityId,

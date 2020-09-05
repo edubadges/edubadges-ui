@@ -207,7 +207,6 @@
     {/if}
 </div>
 
-
 {#if showModalTerms}
   <ModalTerms
       title={termsTitle}

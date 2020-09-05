@@ -5,7 +5,7 @@
 
   let institution = {};
 
-  const query = `{
+  const query = `query {
     currentInstitution {
       name,
     }

@@ -11,7 +11,7 @@ function validateResponse(res) {
   return res.ok ? res.json().then(({data}) => data) : badResponse(res);
 }
 
-function validFetch(query) {
+export const queryData = (query, variables) => {
   return fetch(
     `${config.serverUrl}/graphql`,
     {
@@ -21,9 +21,10 @@ function validFetch(query) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${get(authToken)}`,
       },
-      body: JSON.stringify({query})
+      body: JSON.stringify({
+        query,
+        variables
+      })
     }
-  ).then(validateResponse)
-}
-
-export const queryData = query => validFetch(`query ${query}`);
+  ).then(validateResponse);
+};

@@ -8,7 +8,7 @@
   import BadgeCard from "../../components/shared/BadgeCard.svelte";
   import Spinner from "../../components/Spinner.svelte";
 
-  const query = `{
+  const query = `query {
     faculties {
       institution {
         image

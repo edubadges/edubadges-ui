@@ -12,7 +12,7 @@
   let permissions;
   let contentType;
 
-  const query = `{
+  const query = `query {
     currentInstitution {
       contentTypeId,
       name,

@@ -49,7 +49,7 @@
   let loaded;
   let isEmpty;
 
-  const query = `{
+  const query = `query ($userId: String){
   currentInstitution {
     name,
     entityId,
@@ -99,7 +99,7 @@
       }
     },
   },
-  user(id: "${userId}") {
+  user(id: $userId) {
     firstName,
     lastName,
     badgeclassStaffs {
@@ -197,7 +197,7 @@
 
   const reload = () => {
     loaded = false;
-    queryData(query).then(res => {
+    queryData(query, {userId}).then(res => {
       faculties = res.currentInstitution.faculties;
       user = res.user;
       userNameDict = {name: `${user.firstName} ${user.lastName}`};

@@ -12,7 +12,7 @@
   let requests = [];
   let error = false;
 
-  const query = `{
+  const query = `query {
     enrollments {
       entityId,
       dateCreated,

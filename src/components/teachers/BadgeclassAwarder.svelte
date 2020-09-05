@@ -37,8 +37,8 @@
     return `${currentUrl}/public/${entityId}`;
   };
 
-  const query = `{
-    badgeClass(id: "${entityId}") {
+  const query = `query ($entityId: String){
+    badgeClass(id: $entityId) {
       ${headerEntity},
       ${headerStaff},
       image,
@@ -67,7 +67,7 @@
   let loaded;
 
   const refresh = () => {
-    queryData(query).then(res => {
+    queryData(query, {entityId}).then(res => {
       badgeclass = res.badgeClass;
       issuer = res.badgeClass.issuer;
       faculty = issuer.faculty;

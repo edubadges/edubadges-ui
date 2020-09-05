@@ -6,8 +6,8 @@
 
   export let entityId;
 
-  const query = `{
-    faculty(id: "${entityId}") {
+  const query = `query ($entityId: String){
+    faculty(id: $entityId) {
       entityId,
       name,
       description,
@@ -27,14 +27,14 @@
   let loaded = false;
 
   onMount(() => {
-    queryData(query).then(res => {
+    queryData(query, {entityId}).then(res => {
       faculty = res.faculty;
       permissions = res.faculty.permissions;
       loaded = true;
     })
   });
-
 </script>
+
 {#if loaded}
   <FacultyForm {faculty} {entityId} mayDelete={permissions && permissions.mayDelete && faculty.issuers.length === 0}/>
 {:else}

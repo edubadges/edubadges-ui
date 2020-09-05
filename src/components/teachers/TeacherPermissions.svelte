@@ -19,7 +19,7 @@
   let currentUser = {};
   let loaded = false;
 
-  const query = `{
+  const query = `query {
     currentInstitution {
       entityId,
       name,

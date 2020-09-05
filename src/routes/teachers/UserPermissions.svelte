@@ -17,8 +17,8 @@
 
   let user = {};
 
-  const query = `{
-    user(id: "${userId}") {
+  const query = `query ($userId: String){
+    user(id: $userId) {
       firstName,
       lastName,
       email
@@ -63,7 +63,7 @@
 
 
   onMount(() => {
-    queryData(query).then(res => {
+    queryData(query, {userId}).then(res => {
       user = res.user;
     });
   });

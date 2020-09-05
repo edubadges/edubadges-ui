@@ -10,7 +10,7 @@
   import {navigate} from "svelte-routing";
   import Spinner from "../../components/Spinner.svelte";
 
-  const query = `{
+  const query = `query {
     currentInstitution {
       name,
       entityId,

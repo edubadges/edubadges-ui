@@ -11,7 +11,7 @@
   let institution = {};
   $: entity = $selectedEntity || institution;
 
-  const query = `{
+  const query = `query {
     currentInstitution {
       image,
       ${headerEntity},

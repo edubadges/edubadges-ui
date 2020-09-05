@@ -26,8 +26,8 @@ import {
 
   let contentType;
 
-  const query = `{
-    issuer(id: "${entityId}") {
+  const query = `query ($entityId: String){
+    issuer(id: $entityId) {
       ${headerEntity},
       ${headerStaff},
       image,
@@ -66,7 +66,7 @@ import {
   }`;
 
   onMount(() => {
-    queryData(query).then(res => {
+    queryData(query, {entityId}).then(res => {
       issuer = res.issuer;
       issuer.publicLink = `${config.serverUrl}/public/issuers/${entityId}`;
       faculty = issuer.faculty;

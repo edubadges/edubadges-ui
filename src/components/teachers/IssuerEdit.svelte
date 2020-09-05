@@ -6,8 +6,8 @@
 
   export let entityId;
 
-  const query = `{
-    issuer(id: "${entityId}") {
+  const query = `query ($entityId: String){
+    issuer(id: $entityId) {
       name,
       entityId,
       description,

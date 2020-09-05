@@ -13,10 +13,10 @@ export const headerStaff = `
 			email,
 			entityId
 		}
-  	}
+  }
 `;
 
-export const studentBadgeInstances = `{
+export const studentBadgeInstances = `query {
     badgeInstances {
       entityId,
       image,

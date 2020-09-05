@@ -74,8 +74,8 @@
     return `${sanitizedName}_edubadge.png`;
   }
 
-  const query = `{
-    badgeInstance(id: "${entityId}") {
+  const query = `query ($entityId: String){
+    badgeInstance(id: $entityId) {
       image,
       entityId,
       issuedOn,
@@ -118,7 +118,7 @@
 
   const refreshBadgeDetails = () => {
     loaded = false;
-    queryData(query).then(res => {
+    queryData(query, {entityId}).then(res => {
       badge = res.badgeInstance;
       showModal = false;
       if (!badge.public && badge.acceptance === 'UNACCEPTED') {

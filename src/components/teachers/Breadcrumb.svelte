@@ -20,7 +20,7 @@
   export let studentPath;
   export let user;
 
-  const query = `{
+  const query = `query {
     currentInstitution {
       name
     },

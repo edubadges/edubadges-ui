@@ -7,7 +7,7 @@
 
   export let issuerEntityId;
 
-  const query = `{
+  const query = `query {
     issuers {
       name,
       entityId

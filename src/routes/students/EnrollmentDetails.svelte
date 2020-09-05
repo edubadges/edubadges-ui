@@ -11,8 +11,8 @@
   let enrollment;
   let badgeClass;
 
-  const query = `{
-    enrollment(id: "${enrollmentId}") {
+  const query = `query ($enrollmentId: String){
+    enrollment(id: $enrollmentId) {
       entityId,
       dateCreated,
       dateConsentGiven,
@@ -47,7 +47,7 @@
   }` ;
 
   onMount(() => {
-    queryData(query).then(res => {
+    queryData(query, {enrollmentId}).then(res => {
       enrollment = res.enrollment;
       badgeClass = enrollment.badgeClass;
     });

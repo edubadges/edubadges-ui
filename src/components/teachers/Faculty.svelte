@@ -20,8 +20,8 @@
   let contentType;
   let loaded;
 
-  const query = `{
-    faculty(id: "${entityId}") {
+  const query = `query ($entityId: String){
+    faculty(id: $entityId) {
       ${headerEntity},
       ${headerStaff},
       contentTypeId,
@@ -51,7 +51,7 @@
   }`;
 
   onMount(() => {
-    queryData(query).then(res => {
+    queryData(query, {entityId}).then(res => {
       faculty = res.faculty;
       issuers = res.faculty.issuers;
       permissions = res.faculty.permissions;

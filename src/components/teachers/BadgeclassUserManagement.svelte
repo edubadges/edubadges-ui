@@ -16,8 +16,8 @@
   let selection = [];
   let permissions;
 
-  const query = `{
-    badgeClass(id: "${entityId}") {
+  const query = `query ($entityId: String){
+    badgeClass(id: $entityId) {
       name,
       userprovisionments {
         email,
@@ -83,7 +83,7 @@
 	}`;
 
   const reload = () => {
-    queryData(query).then(res => {
+    queryData(query, {entityId}).then(res => {
       institutionStaffMembers = addStaffType(res.badgeClass.issuer.faculty.institution.staff, staffType.INSTITUTION_STAFF);
       issuerGroupStaffMembers = addStaffType(res.badgeClass.issuer.faculty.staff, staffType.ISSUER_GROUP_STAFF);
       issuerStaffMembers = addStaffType(res.badgeClass.issuer.staff, staffType.ISSUER_STAFF);

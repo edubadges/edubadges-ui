@@ -28,7 +28,7 @@
   let modalQuestion;
   let modalAction;
 
-  const query = `{
+  const query = `query ($userId: String){
     currentInstitution {
       name,
       entityId,
@@ -41,7 +41,7 @@
         mayAdministrateUsers
       }
     },
-    user(id: "${userId}") {
+    user(id: $userId) {
       firstName,
       lastName,
       institutionStaff {
@@ -54,7 +54,7 @@
 
   const refresh = () => {
     loaded = false;
-    queryData(query).then(res => {
+    queryData(query, {userId}).then(res => {
       institution = res.currentInstitution;
       institutionStaff = institution.staff;
       user = res.user;

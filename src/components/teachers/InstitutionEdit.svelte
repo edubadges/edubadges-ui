@@ -11,7 +11,7 @@
   import { toHttpOrHttps } from "../../util/Url";
 
   const entity = entityType.INSTITUTION;
-  const query = `{
+  const query = `query {
     currentInstitution {
       entityId,
       name,

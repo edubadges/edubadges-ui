@@ -15,8 +15,8 @@
   let selection = [];
   let permissions;
 
-  const query = `{
-    issuer(id: "${entityId}") {
+  const query = `query ($entityId: String){
+    issuer(id: $entityId) {
       name,
       userprovisionments {
         email,
@@ -66,7 +66,7 @@
   }`;
 
   const reload = () => {
-    queryData(query).then(res => {
+    queryData(query, {entityId}).then(res => {
       institutionStaffMembers = addStaffType(res.issuer.faculty.institution.staff, staffType.INSTITUTION_STAFF);
       issuerGroupStaffMembers = addStaffType(res.issuer.faculty.staff, staffType.ISSUER_GROUP_STAFF);
       issuerStaffMembers = addStaffType(res.issuer.staff, staffType.ISSUER_STAFF);

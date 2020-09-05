@@ -25,8 +25,8 @@
   let contentType;
   let loaded;
 
-  const query = `{
-    badgeClass(id: "${entityId}") {
+  const query = `query ($entityId: String){
+    badgeClass(id: $entityId) {
       ${headerEntity},
       ${headerStaff},
       image,
@@ -68,7 +68,7 @@
   }`;
 
   onMount(() => {
-    queryData(query).then(res => {
+    queryData(query, {entityId}).then(res => {
       badgeclass = res.badgeClass;
       issuer = res.badgeClass.issuer;
       faculty = issuer.faculty;

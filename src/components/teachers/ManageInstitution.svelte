@@ -30,7 +30,7 @@
 
   let contentType;
 
-  const query = `{
+  const query = `query {
     currentInstitution {
       ${headerEntity},
       ${headerStaff},
