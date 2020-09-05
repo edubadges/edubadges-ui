@@ -60,8 +60,8 @@
         targetDescription
       }
     },
-    ${enrollmentsQuery(entityId)},
-    ${assertionsQuery(entityId)},
+    ${enrollmentsQuery},
+    ${assertionsQuery},
   }`;
 
   let loaded;
