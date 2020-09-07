@@ -13,6 +13,14 @@ ul {
   list-style: none;
 }
 
+.markdown ol {
+  list-style: decimal;
+}
+
+.markdown ul {
+  list-style: disc;
+}
+
 img {
   align-self: center;
   max-height:100%;

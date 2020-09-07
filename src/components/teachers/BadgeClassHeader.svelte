@@ -94,9 +94,6 @@
     {/if}
     <div class="info">
       <h2>{object.name}</h2>
-      {#if entity !== entityType.BADGE_CLASS}
-        <p>{@html DOMPurify.sanitize(marked(object.description))}</p>
-      {/if}
       {#if object.publicLink}
         <p><a href={object.publicLink} target="_blank">{object.publicLink}</a></p>
       {/if}

@@ -85,7 +85,7 @@
 </div>
 <div class="badge-class-detail">
   <h3>{I18n.t('models.badgeclass.description')}</h3>
-  <p class="info">
+  <p class="info markdown">
     {@html DOMPurify.sanitize(marked(badgeclass.description))}
   </p>
   <h3>{I18n.t('models.badgeclass.language')}</h3>
@@ -94,11 +94,11 @@
 
   </p>
   <h3>{I18n.t('models.badgeclass.learningOutcome')}</h3>
-  <p class="info">
+  <p class="info markdown">
     {@html DOMPurify.sanitize(marked(fallBackValue(badgeclass.learningOutcome)))}
   </p>
   <h3>{I18n.t('models.badgeclass.criteria_text')}</h3>
-  <div class="info">
+  <div class="info markdown">
     {#if badgeclass.criteriaText}
       <p>{@html DOMPurify.sanitize(marked(badgeclass.criteriaText))}</p>
     {/if}
