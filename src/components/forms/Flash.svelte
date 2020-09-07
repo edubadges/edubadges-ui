@@ -1,7 +1,6 @@
 <script>
   import {flash, msgLevel} from "../../stores/flash";
   import closeIcon from "../../icons/close_smll.svg";
-
 </script>
 
 <style lang="scss">
@@ -49,8 +48,6 @@
     }
 
   }
-
-
 </style>
 
 <div class="flash" class:hide={!$flash.val} class:error={$flash.level == msgLevel.ERROR}>

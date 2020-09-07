@@ -186,6 +186,7 @@
   div.badge-detail-container {
     display: flex;
     flex-direction: column;
+    width: 100%;
   }
 
   div.badge-detail {

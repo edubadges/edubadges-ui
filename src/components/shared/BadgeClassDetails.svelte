@@ -11,6 +11,8 @@
   } from "../extensions/badges/extensions";
   import {fallBackValue} from "../../util/forms";
   import {onMount} from "svelte";
+  import DOMPurify from 'dompurify';
+  import marked from "marked";
 
   export let badgeclass;
 
@@ -84,7 +86,7 @@
 <div class="badge-class-detail">
   <h3>{I18n.t('models.badgeclass.description')}</h3>
   <p class="info">
-    {badgeclass.description}
+    {@html DOMPurify.sanitize(marked(badgeclass.description))}
   </p>
   <h3>{I18n.t('models.badgeclass.language')}</h3>
   <p class="info">
@@ -93,12 +95,12 @@
   </p>
   <h3>{I18n.t('models.badgeclass.learningOutcome')}</h3>
   <p class="info">
-    {fallBackValue(badgeclass.learningOutcome)}
+    {@html DOMPurify.sanitize(marked(fallBackValue(badgeclass.learningOutcome)))}
   </p>
   <h3>{I18n.t('models.badgeclass.criteria_text')}</h3>
   <div class="info">
     {#if badgeclass.criteriaText}
-      <p>{badgeclass.criteriaText}</p>
+      <p>{@html DOMPurify.sanitize(marked(badgeclass.criteriaText))}</p>
     {/if}
     {#if badgeclass.criteriaUrl}
       <p class="green">

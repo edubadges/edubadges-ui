@@ -8,6 +8,8 @@
   import {onMount} from "svelte";
   import RemoteImage from "../RemoteImage.svelte";
   import {entityType} from "../../util/entityTypes"
+  import DOMPurify from 'dompurify';
+  import marked from "marked";
 
   export let entity;
   export let object = {};
@@ -93,7 +95,7 @@
     <div class="info">
       <h2>{object.name}</h2>
       {#if entity !== entityType.BADGE_CLASS}
-        <p>{object.description}</p>
+        <p>{@html DOMPurify.sanitize(marked(object.description))}</p>
       {/if}
       {#if object.publicLink}
         <p><a href={object.publicLink} target="_blank">{object.publicLink}</a></p>

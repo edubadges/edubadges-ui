@@ -16,6 +16,7 @@
     display: flex;
     flex-direction: column;
     background-color: var(--grey-2);
+    width: 100%;
   }
 
   .pointer {

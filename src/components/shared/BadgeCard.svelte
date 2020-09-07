@@ -26,6 +26,7 @@
     flex-direction: column;
     background-color: var(--grey-2);
     position: relative;
+    width: 100%;
 
     &:not(.stand-alone) {
       cursor: pointer;
