@@ -25,7 +25,7 @@ export const extensionValue = (extensions, extension) => {
   }
   const ext = extensions.find(ext => ext.name === `extensions:${extension.name}`);
   if (ext) {
-    const json = JSON.parse(ext.originalJson.replace(/'/g, "\""));
+    const json = JSON.parse(ext.originalJson);
     return json[extension.value];
   }
   return null;
