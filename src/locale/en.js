@@ -22,11 +22,11 @@ I18n.translations.en = {
     loginToEnrol: "Login to request this edubadge",
     destination: "Where do you want to go?",
     description:
-      "Edubadges are digital certificates which show that the owner has certain skills or knowledge. Edubadges can be issued for both accredited education and extracurriculair activities.",
+      "Edubadges are digital certificates which show that the owner has acquired certain skills or knowledge. Edubadges can be issued for both accredited education and extracurriculair activities.",
     student: {
       title: "Backpack",
       subtitle: "Receive and collect edubadges",
-      noEduId: "If you don't have an eduID yet, we'll help you get one in less than 30 seconds",
+      noEduId: "If you don't have an eduID yet, we'll help you get one. This takes less than 30 seconds",
       action: "Enter with eduID",
     },
     teacher: {
@@ -41,7 +41,7 @@ I18n.translations.en = {
     },
     createEduId: {
       welcome: "Welcome to your edubadges backpack",
-      awarded: "We’ve awarded you with your first edubadge 😀",
+      awarded: "We’ve awarded you your first edubadge 😀",
       info: "You can now receive edubadges in your backpack."
     },
   },
@@ -51,8 +51,8 @@ I18n.translations.en = {
     adminEmail: "If you want, you can request access to this service by contacting your institution admin via email: {{email}}",
     tip: "TIP",
     code: {
-      "1": "An unexpected error has occurred. Please contact support@edubadges.nl for support",
-      "2": "The edubadges Issuer Portal is an invite-only service, so we can't show you anything now."
+      "1": "An unexpected error has occurred. Please contact support@edubadges.nl for support.",
+      "2": "The edubadges issuer portal is an invite-only service, so we can't show you anything now."
     }
   },
   profile: {
@@ -72,13 +72,13 @@ I18n.translations.en = {
     validatedByEduId: "Provided by eduID",
     permissionsHeader: "Your permissions",
     permissionsInfo: "You can withdraw any permissions you have given.",
-    noPermissions: "You currently have not given consent to any institution.",
+    noPermissions: "You currently have not given permissions to any institution.",
     consentWithdrawn: "Permission withdrawn for institution {{institution}}",
     deleteHeader: "Deleting your edubadges backpack",
     deleteInfo1: "You can delete your backpack whenever you want.",
-    deleteInfo2: "Proceed with care, as you will lose all your edubadges.",
+    deleteInfo2: "Proceed with care, as all your edubadges will become invalid.",
     deleteInfo3: "Please note that deleting your edubadges backpack does not mean you delete your eduID.",
-    deleteInfo4: "To fully complete the process of deleting you edubadges account you must close your browser after your account has been removed.",
+    deleteInfo4: "To fully complete the process of deleting your edubadges account you must close your browser after your account has been removed.",
     submit: "Add",
     deleteEmail: "Delete this email address",
     deleteEmailConfirmation: "Are you sure you want to delete this email address?",
@@ -98,7 +98,7 @@ I18n.translations.en = {
   },
   notFound: {
     main: "Edubadge not found",
-    publicBadge: "The edubadge is either not public anymore or has been revoked.",
+    publicBadge: "The edubadge is either not publicly visible anymore or has been revoked.",
     issuer: "This issuer has been deleted."
   },
   teacher: {
@@ -155,12 +155,12 @@ I18n.translations.en = {
     withdraw: "Withdraw request",
     flash: {
       enrolled: "Successfully requested edubadge {{name}}.",
-      published: "This edubadge has been made public. You can share this edubadge now",
+      published: "This edubadge has been made publicly visible. You can share this edubadge now",
       private: "This edubadge has been made private. You can no longer share this edubadge",
-      deleted: "This edubadge has been rejected. You can no longer download or share this edubadge",
+      deleted: "This edubadge has been removed. You can no longer download or share this edubadge",
       accepted: "This edubadge has been accepted. You can share this edubadge now",
       claimed: "Successfully claimed this edubadge.",
-      withdrawn: "Enrollment withdrawn."
+      withdrawn: "Request withdrawn."
     },
     enrollments: "Requested edubadges",
     badges: "Your edubadges",
@@ -178,9 +178,9 @@ I18n.translations.en = {
     revoked: "Thsi edubadge has been revoked",
     revokedWithReason: "This edubadge has been revoked by the issuer for the reason: '{{revocationReason}}'",
     confirmation: {
-      publish: "Make this edubadge public accessible",
+      publish: "Make this edubadge publicly visible",
       private: "Make this edubadge private",
-      publishConfirmation: "Are you sure you want to make this edubadge public?<br/><br/>If you make this edubadge public then your validated name <strong>{{name}}</strong> will be displayed in the validation section of the public edubadge webpage.",
+      publishConfirmation: "Are you sure you want to make this edubadge publicly visible?<br/><br/>If you make this edubadge public then your validated name <strong>{{name}}</strong> will be displayed in the validation section of the public edubadge webpage.",
       privateConfirmation: "Are you sure you want to make this edubadge private?",
       deleteBadgeConfirmation: "Are you sure you want to reject this edubadge?",
       acceptBadgeConfirmation: "Are you sure you want to accept this edubadge?",
@@ -277,13 +277,13 @@ I18n.translations.en = {
     ok: "Close",
   },
   error: {
-    100: "You don't have the necessary permissions.",
+    100: "You don't have the required permissions.",
     101: "Could not register email address. Address already in use.",
     102: "You have already added this address. Please verify it.",
     103: "Cannot remove primary email address.",
     104: "Cannot remove only email address.",
     105: "Unverified email address cannot be made primary email address.",
-    201: "May not request: already requested this edubadge.",
+    201: "May not request: you already requested this edubadge.",
     202: "May not request: you already have been awarded this edubadge.",
     203: "May not request: you don't have a student account.",
     204: "Invalid request-id.",
@@ -301,13 +301,13 @@ I18n.translations.en = {
     501: "There may be only one invite per email address.",
     502: "Cannot invite user for this entity: there is a conflicting staff membership.",
     503: "Cannot invite user for this entity: there is a conflicting invite.",
-    504: "May not invite user from other institution.",
+    504: "May not invite user from different institution.",
     505: "This invite is for a student.",
     506: "This invite is for a teacher.",
     507: "You do not have permission to invite user for this entity.",
     508: "You cannot edit an invitation that has been rejected.",
     509: "Not a vaild email address.",
-    601: "You do not have permission. Check your assigned role in the Issuerportal.",
+    601: "You do not have permission. Check your assigned role in the issuer portal.",
     701: "Unspecified share provider.",
     702: "Invalid share provider.",
     801: "Cannot change grading table URL, edubadges have already been issued.",
@@ -316,7 +316,7 @@ I18n.translations.en = {
     903: "This is a required attribute.",
     904: "No file was uploaded.",
     905: "Either criteria or criteria URL is required.",
-    906: "Add number for study load or remove the extension.",
+    906: "Enter the number of study load hours or remove the extension.",
     unexpected: "Unexpected error occurred.",
     description: "An unexpected error has occurred. Please try again later or contact support@edubadges.nl for support.",
     close: "Close"
@@ -340,7 +340,7 @@ I18n.translations.en = {
     user: {
       header: "User",
     },
-    headerControl: "Users you can control in",
+    headerControl: "Users for which you have admin rights",
     roles: {
       institution_staff: "Institution Admin",
       issuer_group_staff: "Issuer group admin",
@@ -399,9 +399,9 @@ I18n.translations.en = {
       owner: "Admin",
       editor: "Editor",
       awarder: "Awarder",
-      switchToOwner: "Successfully changed user to badge class admin role.",
-      switchToEditor: "Successfully changed user to badge class editor role.",
-      switchToAwarder: "Successfully changed user to badge class awarder role.",
+      switchToOwner: "Successfully changed user permissions to badge class admin role.",
+      switchToEditor: "Successfully changed user permissions to badge class editor role.",
+      switchToAwarder: "Successfully changed user permissions to badge class awarder role.",
       permissions: "Permissions on badge class level"
     },
     permissions: {
@@ -413,9 +413,9 @@ I18n.translations.en = {
       issuerAllRights: "(Because of status as issuer admin)",
       addPermissions: "Add permissions",
       remove: {
-        institution: "Are you sure you want to remove institution admin?",
-        faculty: "Are you sure you want to remove this issuer group admin?",
-        issuer: "Are you sure you want to remove this issuer admin?",
+        institution: "Are you sure you want to remove institution admin permission?",
+        faculty: "Are you sure you want to remove this issuer group admin permission?",
+        issuer: "Are you sure you want to remove this issuer admin permission?",
         badgeclass: "Are you sure you want to remove this role?"
       },
       removePermissions: "Remove permissions",
@@ -478,7 +478,7 @@ I18n.translations.en = {
       created: "Created",
       issuedBy: "Issued by",
       admin: "Admin",
-      alignment: "Related educational framework ",
+      alignment: "Related educational framework",
       alignmentName: "Name",
       alignmentFramework: "Framework",
       alignmentUrl: "URL",
@@ -488,8 +488,8 @@ I18n.translations.en = {
       name: "Name",
       description: "Description",
       criteria_text: "What are the requirements to earn this edubadge?",
-      criteria_url: "Or provide a criteria URL",
-      criteria_url_value: "Link to the earning criteria:",
+      criteria_url: "Or provide a URL to a webpage with the criteria or more information.",
+      criteria_url_value: "Link to the criteria for earning this edubadge:",
       directAward: "Direct award",
       inviteEnrollements: "Invite people to request this edubadge",
       expiresAfter: "Expires after",
@@ -518,7 +518,7 @@ I18n.translations.en = {
       },
       headers: {
         basicInformation: "Basic information",
-        earningCriteria: "Earning criteria",
+        earningCriteria: "Criteria for earning this edubadge",
         additionalSections: "Additional sections",
         educationalIdentifiers: "Educational identifiers",
         studyLoad: "Study load",
@@ -611,7 +611,7 @@ I18n.translations.en = {
   },
   invites: {
     title: "Invite people to request",
-    copyPublicUrl: "If you want to place the link to the registration page on your intranet or ELO, you can copy the link.",
+    copyPublicUrl: "If you want to place the link to the registration page on your intranet or electronic learning environment, you can copy the link.",
     copyUrl: "Copy the link"
   },
   file: {
@@ -626,18 +626,18 @@ I18n.translations.en = {
   },
   acceptTerms: {
     welcome: "Hi {{name}}",
-    acceptTerms: "Take notice of our terms",
-    renewTerms: "The eduBadges terms have changed. Take notice of our new terms.",
+    acceptTerms: "Please take notice of our terms",
+    renewTerms: "The edubadges terms have changed. Please take notice of our new terms.",
     teacher: {
-      accept: "I have read it",
+      accept: "I have read this information",
       termsInfo: "Creating a backpack and linking it to your eduID is necessary to " +
-        "to be able to receive badges. The backpack falls under the processing responsibility of SURF",
+        "to be able to receive edubadges. The backpack falls under the processing responsibility of SURF",
       serviceAgreementTitle: "Service Agreement",
-      serviceAgreementLinkPre: "You can here see ",
+      serviceAgreementLinkPre: "You can see here ",
       serviceAgreementLink: "the complete Service Agreement.",
       serviceAgreementLinkPost: "",
       termsTitle: "Terms",
-      termsLinkPre: "By continuing you agree with ",
+      termsLinkPre: "By proceeding you agree to ",
       termsLink: "the terms of service,",
       termsLinkPost: "",
       privacyTitle: "Privacy",
@@ -647,7 +647,7 @@ I18n.translations.en = {
     },
     student: {
       accept: "I agree",
-      read: "I have read this",
+      read: "I have read this information",
       termsInfo: "Creating a backpack and linking it to your eduID is necessary to " +
         "to be able to receive edubadges. The backpack falls under the processing responsibility of SURF.",
       serviceAgreementTitle: "Service Agreement",
@@ -655,15 +655,15 @@ I18n.translations.en = {
       serviceAgreementLink: "the complete Service Agreement.",
       serviceAgreementLinkPost: "",
       termsTitle: "Terms",
-      termsLinkPre: "By continuing you agree with ",
+      termsLinkPre: "By proceeding you agree to ",
       termsLink: "the terms of service.",
       termsLinkPost: "",
       privacyTitle: "Privacy",
       privacyLinkPre: " You also understand the ",
       privacyLink: "privacy policy.",
       privacyLinkPost: "",
-      formalBadges: "Formele badges",
-      informalBadges: "Informele badges",
+      formalBadges: "Formal edubadges",
+      informalBadges: "Non-formal edubadges",
       version: "version ",
       agreedOn: "Agreed on ",
       readOn: "Read on ",
@@ -672,28 +672,28 @@ I18n.translations.en = {
     termsBullets: {
       teacher:
         [
-          "SURF makes a backpack for you based on your eduID. This backpack will remain until you cancel this backpack.",
-          "SURF processes personal data for this: your first name, last name, e-mail address, eduID and any personal texts in edubadges.",
+          "SURF generates a backpack for you based on your eduID. This backpack will remain available until you delete your account or until your institution no longer makes use of edubadges.",
+          "SURF processes the following personal data for this: your first name, last name, e-mail address, eduID and any personal texts in edubadges.",
           "Only your educational institution and SURF have access to these personal data."
         ],
       student:
         [
-          "SURF makes a backpack for you based on your eduID. This backpack will remain until you cancel this backpack.",
-          "SURF processes personal data for this: your first name, last name, e-mail address, eduID and any personal texts in edubadges.",
+          "SURF generates a backpack for you based on your eduID. This backpack will remain available until you delete your edubadges account.",
+          "SURF processes the following personal data for this: your first name, last name, e-mail address, eduID and any personal texts in edubadges.",
           "Only your educational institution and SURF have access to these personal data."
         ]
     },
     noValidInstitution: "No valid institution",
     noValidInstitutionInfo: {
       student: "The institution <strong>{{name}}</strong> connected to your eduID account is not participating in the edubadges programme.<br/><br/>" +
-          "Please contact support@edubadges.nl for support or try linking an extra institution to your eduID account.",
-      teacher: "The institution <strong>{{name}}</strong> connected to your Surf account is not participating in the edubadges programme.<br/><br/>" +
+          "Please contact support@edubadges.nl for support or try linking a different institution to your eduID account.",
+      teacher: "The institution <strong>{{name}}</strong> connected to your SURF account is not participating in the edubadges programme.<br/><br/>" +
           "Please contact support@edubadges.nl for support or try logging in with a different institution."
     },
     noValidInstitutionInfoNoInstitution: "You don't have any verified institutions linked to your account. <br/>" +
         "You need a verified institution that is participating in the edubadges programme to use this service.",
     noValidInstitutionInfoForEnrollment: "Institution <strong>{{name}}</strong> is not connected to your eduID account. " +
-        "To request this edubadge we require verification that you can identify yourself at institution <strong>{{name}}</strong>.<br/><br/>" +
+        "To request this edubadge we require verification that you are able to identify yourself at institution <strong>{{name}}</strong>.<br/><br/>" +
         "Please contact <a href='mailto:support@edubadges.nl'>support@edubadges.nl</a> for support or try linking institution <strong>{{name}}</strong> to your eduID account",
     goToSurfConext: "Proceed to eduID",
     multipleValidInstitutions: "Multiple valid institutions",
@@ -740,7 +740,7 @@ I18n.translations.en = {
     issuers: "There are no issuers for {{name}}.",
     faculties: "There are no faculties for institution {{name}}.",
     users: "There are no users for institution {{name}}.",
-    assertions: "There are no awarded edubadge for {{name}}.",
+    assertions: "There are no awarded edubadges for {{name}}.",
     enrollments: "There are no requests for edubadge {{name}}.",
     permissions: "There are no permissions for this user on the {{entity}} level.",
     selfPermissions: "There are no permissions for this user on the {{entity}} level.",
@@ -764,7 +764,7 @@ I18n.translations.en = {
   placeholders: {
     institution: {
       name: "(Required field) e.g. University of Harderwijk",
-      brin: "(Required field) BRIN CODE",
+      brin: "(Required field) BRIN code",
       gradingTable: "URL of the grading table",
       description: "(Required field) e.g. The University of Harderwijk was founded in 1977"
     },
@@ -773,7 +773,7 @@ I18n.translations.en = {
       description: "(Required field) e.g. all History related studies"
     },
     issuer: {
-      name: "(Required field) e.g. Social Historic Studies",
+      name: "(Required field) e.g. Social History Studies",
       description: "(Required field) e.g. the study of social behaviour in the Middle Ages",
       email: "(Required field) e.g. john.doe@example.com",
       url: "(Required field) e.g. https://www.universityofharderwijk.nl"
@@ -781,16 +781,16 @@ I18n.translations.en = {
     badgeClass: {
       name: "(Required field) e.g. Renaissance",
       description: "(Required field) e.g. Political infuence of the Church during the Renaissance",
-      learningOutcome: "e.g. is able to read and demonstrate good comprehension of texts in subject area, also in professional field",
+      learningOutcome: "e.g. is able to read and interpret ancient sources as well as modern texts, and demonstrates a good overview of the important developments of this time period.",
       criteriaText: "(Either criteria or criteria URL is required) e.g. online multiple choice exam",
       criteriaUrl: "e.g. https://www.universityofharderwijk.nl/renaissance/criteria",
       studyLoad: "e.g. 120",
       educationProgramIdentifier: "e.g. 12111990",
-      alignmentName: "e.g. Big Skill",
-      alignmentFramework: "e.g. Skill Matter",
-      alignmentDescription: "A big skill takes many hours to learn",
-      alignmentUrl: "http://standards.net/CCELA-RL-6",
-      alignmentCode: "CCSS.ELA-Literacy.RL.6.3"
+      alignmentName: "e.g. history",
+      alignmentFramework: "e.g. ESCO",
+      alignmentDescription: "e.g. The discipline that studies, analyses and presents the events of the past related to humans.",
+      alignmentUrl: "http://data.europa.eu/esco/skill/2b22f3b1-5de4-43f9-b6d1-b20f65871268",
+      alignmentCode: "2b22f3b1-5de4-43f9-b6d1-b20f65871268"
     },
     permissions: {
       notes: "e.g. why did you add permissions?"
