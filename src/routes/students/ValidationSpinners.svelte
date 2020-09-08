@@ -6,6 +6,7 @@
   import checkP from "../../icons/check-purple.svg";
   import {onMount} from "svelte";
   import {validateBadge} from "../../api";
+  import DOMPurify from 'dompurify';
 
   export let close;
   export let badge = {issuer: {}};
@@ -148,7 +149,7 @@
           {:else}
             {@html checkP}
           {/if}
-          <span class="pre">{@html timeOuts[validation.key] ? validation.pre : validation.post}</span>
+          <span class="pre">{@html timeOuts[validation.key] ? validation.pre : DOMPurify.sanitize(validation.post)}</span>
         </section>
       {/each}
     </div>
