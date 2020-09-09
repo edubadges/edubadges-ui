@@ -11,6 +11,7 @@
   import {flash} from "../../stores/flash";
   import {Modal} from "../forms";
   import ListLink from "./ListLink.svelte";
+  import {institutionIcon} from "../../icons"
 
   export let userId;
 
@@ -32,6 +33,7 @@
     currentInstitution {
       name,
       entityId,
+      image,
       staff {
         entityId
       }
@@ -101,6 +103,10 @@
 
   const tableHeaders = [
     {
+      name: "5%",
+      width: ""
+    },
+    {
       name: I18n.t("editUsers.institution.header"),
       attribute: "name",
       reverse: false,
@@ -116,7 +122,7 @@
     },
     {
       name: "",
-      width: "55%"
+      width: "50%"
     }
   ];
 
@@ -153,15 +159,33 @@
 </script>
 
 <style>
-  div {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-  }
-
   .container {
     display: flex;
     flex-direction: column;
+  }
+
+  .icon {
+    display: block;
+    height: 30px;
+  }
+
+  .img-container {
+    flex-shrink: 0;
+    height: 55px;
+    width: 55px;
+    background: white;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .img-icon {
+    height: 50px;
+    width: 50px;
+    background-color: white;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
   }
 </style>
 
@@ -175,6 +199,21 @@
         bind:buttons={buttons}
     >
       <tr>
+        <td>
+          {#if institution.image}
+            <div class="img-container">
+              <div class="img-icon">
+                <img src={institution.image} alt=""/>
+              </div>
+            </div>
+          {:else}
+            <div class="img-container">
+              <div class="img-icon">
+                <span class="icon">{@html institutionIcon}</span>
+              </div>
+            </div>
+          {/if}
+        </td>
         <td>
           <ListLink path="/manage/institution/issuers" name={institution.name}/>
         </td>

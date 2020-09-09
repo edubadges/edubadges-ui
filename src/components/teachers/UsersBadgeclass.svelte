@@ -19,6 +19,7 @@
   import {addStaffType, staffType, expandStaffsBadgeClass} from "../../util/staffTypes";
   import { userHasAdminPermissions, userHasAnyPermissions } from "../../util/userPermissions";
   import {flash} from "../../stores/flash";
+  import {badgeclassIcon} from "../../icons";
 
   export let userId;
 
@@ -62,6 +63,7 @@
         badgeclasses {
           name,
           entityId,
+          image,
           permissions {
             mayAdministrateUsers
           }
@@ -107,6 +109,7 @@
       badgeclass {
         name,
         entityId,
+        image,
         issuer {
           name,
           entityId,
@@ -128,6 +131,7 @@
         badgeclasses {
           entityId,
           name,
+          image,
           issuer {
             name,
             entityId,
@@ -151,6 +155,7 @@
           badgeclasses {
             name,
             entityId,
+            image,
             issuer {
               name,
               entityId
@@ -179,6 +184,7 @@
             badgeclasses {
               name,
               entityId,
+              image,
               issuer {
                 name,
                 entityId,
@@ -230,6 +236,10 @@
 
   const tableHeaders = [
     {
+      name: "",
+      width: "5%",
+    },
+    {
       name: I18n.t("editUsers.badgeclass.header"),
       attribute: "badgeClass.name",
       reverse: false,
@@ -252,7 +262,7 @@
     },
     {
       name: "",
-      width: "30%"
+      width: "25%"
     }
   ];
 
@@ -395,12 +405,6 @@
 </script>
 
 <style>
-  div {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-  }
-
   .badgeclass-role-select {
     width: 170px;
   }
@@ -408,6 +412,30 @@
   .container {
     display: flex;
     flex-direction: column;
+  }
+
+  .icon {
+    display: block;
+    height: 30px;
+  }
+
+  .img-container {
+    flex-shrink: 0;
+    height: 55px;
+    width: 55px;
+    background: white;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .img-icon {
+    height: 50px;
+    width: 50px;
+    background-color: white;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
   }
 </style>
 
@@ -438,6 +466,21 @@
                     currentUser.badgeclassStaffs,
                   )}
                   onChange={val => onCheckOne(val, staffId)}/>
+            </td>
+            <td>
+              {#if badgeClass.image}
+                <div class="img-container">
+                  <div class="img-icon">
+                    <img src={badgeClass.image} alt=""/>
+                  </div>
+                </div>
+              {:else}
+                <div class="img-container">
+                  <div class="img-icon">
+                    <span class="icon">{@html badgeclassIcon}</span>
+                  </div>
+                </div>
+              {/if}
             </td>
             <td>
               <ListLink path={`/manage/badgeclass/${badgeClass.entityId}/overview`}
@@ -477,6 +520,21 @@
                   disabled={true}/>
             </td>
             <td>
+              {#if badgeClass.image}
+                <div class="img-container">
+                  <div class="img-icon">
+                    <img src={badgeClass.image} alt=""/>
+                  </div>
+                </div>
+              {:else}
+                <div class="img-container">
+                  <div class="img-icon">
+                    <span class="icon">{@html badgeclassIcon}</span>
+                  </div>
+                </div>
+              {/if}
+            </td>
+            <td>
               <ListLink path={`/manage/badgeclass/${badgeClass.entityId}/overview`} name={badgeClass.name}/>
             </td>
             <td>
@@ -496,6 +554,21 @@
               />
             </td>
             <td>
+              {#if badgeClass.image}
+                <div class="img-container">
+                  <div class="img-icon">
+                    <img src={badgeClass.image} alt=""/>
+                  </div>
+                </div>
+              {:else}
+                <div class="img-container">
+                  <div class="img-icon">
+                    <span class="icon">{@html badgeclassIcon}</span>
+                  </div>
+                </div>
+              {/if}
+            </td>
+            <td>
               <ListLink path={`/manage/badgeclass/${badgeClass.entityId}/overview`} name={badgeClass.name}/>
             </td>
             <td>
@@ -513,6 +586,21 @@
               <CheckBox
                   disabled={true}
               />
+            </td>
+            <td>
+              {#if badgeClass.image}
+                <div class="img-container">
+                  <div class="img-icon">
+                    <img src={badgeClass.image} alt=""/>
+                  </div>
+                </div>
+              {:else}
+                <div class="img-container">
+                  <div class="img-icon">
+                    <span class="icon">{@html badgeclassIcon}</span>
+                  </div>
+                </div>
+              {/if}
             </td>
             <td>
               <ListLink path={`/manage/badgeclass/${badgeClass.entityId}/overview`} name={badgeClass.name}/>

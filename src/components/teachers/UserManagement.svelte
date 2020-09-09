@@ -262,7 +262,6 @@
   tr {
     height: 53px;
   }
-
 </style>
 
 <div class="container">

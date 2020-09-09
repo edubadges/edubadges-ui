@@ -1,5 +1,4 @@
 <script>
-  import {get} from "svelte/store";
   import {authToken} from "../stores/user";
 
   export let imageUrl;
@@ -10,7 +9,6 @@
     const token = $authToken;
     const fetchOptions = {
       method: "GET",
-      redirect: "follow",
       headers: {}
     };
     if (token && useToken) {

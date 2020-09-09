@@ -17,6 +17,7 @@
   import {userHasAdminPermissions} from "../../util/userPermissions";
   import { addStaffType, expandStaffsIssuerGroup, staffType } from "../../util/staffTypes";
   import {flash} from "../../stores/flash";
+  import {facultyIcon} from "../../icons";
 
   export let userId;
 
@@ -137,6 +138,10 @@
 
   const tableHeaders = [
     {
+      name: "",
+      width: "5%"
+    },
+    {
       name: I18n.t("editUsers.faculty.header"),
       attribute: "issuerGroup.name",
       reverse: false,
@@ -152,7 +157,7 @@
     },
     {
       name: "",
-      width: "55%"
+      width: "50%"
     }
   ];
 
@@ -288,6 +293,11 @@
     display: flex;
     flex-direction: column;
   }
+
+  .icon {
+    display: block;
+    height: 20px;
+  }
 </style>
 
 {#if loaded}
@@ -317,6 +327,9 @@
                     currentUser.badgeclassStaffs,
                   )}
                   onChange={val => onCheckOne(val, staffId)}/>
+            </td>
+            <td>
+                <span class="icon">{@html facultyIcon}</span>
             </td>
             <td><ListLink path={`/manage/faculty/${issuerGroup.entityId}/issuers`} name={issuerGroup.name}/></td>
             <td>

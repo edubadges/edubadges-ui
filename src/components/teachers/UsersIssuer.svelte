@@ -18,6 +18,7 @@
   import {userHasAdminPermissions} from "../../util/userPermissions";
   import { addStaffType, expandStaffsIssuer, staffType } from "../../util/staffTypes";
   import {flash} from "../../stores/flash";
+  import {issuerIcon} from "../../icons";
 
   export let userId;
 
@@ -90,6 +91,7 @@
       issuer {
         name,
         entityId,
+        image,
         faculty {
           name,
           entityId
@@ -105,6 +107,7 @@
         issuers {
           name,
           entityId,
+          image,
           faculty {
             name,
             entityId
@@ -123,6 +126,7 @@
           issuers {
             name,
             entityId,
+            image,
             faculty {
               name,
               entityId
@@ -167,6 +171,10 @@
 
   const tableHeaders = [
     {
+      name: "",
+      width: "5%",
+    },
+    {
       name: I18n.t("editUsers.issuer.header"),
       attribute: "issuer.name",
       reverse: false,
@@ -189,7 +197,7 @@
     },
     {
       name: "",
-      width: "30%"
+      width: "25%"
     }
   ];
 
@@ -330,6 +338,30 @@
     display: flex;
     flex-direction: column;
   }
+
+  .icon {
+    display: block;
+    height: 30px;
+  }
+
+  .img-container {
+    flex-shrink: 0;
+    height: 55px;
+    width: 55px;
+    background: white;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .img-icon {
+    height: 50px;
+    width: 50px;
+    background-color: white;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
 </style>
 
 {#if loaded}
@@ -361,6 +393,21 @@
                   onChange={val => onCheckOne(val, staffId)}/>
             </td>
             <td>
+              {#if issuer.image}
+                <div class="img-container">
+                  <div class="img-icon">
+                    <img src={issuer.image} alt=""/>
+                  </div>
+                </div>
+              {:else}
+                <div class="img-container">
+                  <div class="img-icon">
+                    <span class="icon">{@html issuerIcon}</span>
+                  </div>
+                </div>
+              {/if}
+            </td>
+            <td>
               <ListLink
                   path={`/manage/issuer/${issuer.entityId}/badgeclasses`}
                   name={issuer.name}
@@ -380,6 +427,21 @@
                   disabled={true}/>
             </td>
             <td>
+              {#if issuer.image}
+                <div class="img-container">
+                  <div class="img-icon">
+                    <img src={issuer.image} alt=""/>
+                  </div>
+                </div>
+              {:else}
+                <div class="img-container">
+                  <div class="img-icon">
+                    <span class="icon">{@html issuerIcon}</span>
+                  </div>
+                </div>
+              {/if}
+            </td>
+            <td>
               <ListLink path={`/manage/issuer/${issuer.entityId}/badgeclasses`} name={issuer.name}/>
             </td>
             <td>
@@ -397,6 +459,21 @@
                 value={''}
                 name={''}
                 disabled={true}/>
+            </td>
+            <td>
+              {#if issuer.image}
+                <div class="img-container">
+                  <div class="img-icon">
+                    <img src={issuer.image} alt=""/>
+                  </div>
+                </div>
+              {:else}
+                <div class="img-container">
+                  <div class="img-icon">
+                    <span class="icon">{@html issuerIcon}</span>
+                  </div>
+                </div>
+              {/if}
             </td>
             <td>
               <ListLink path={`/manage/issuer/${issuer.entityId}/badgeclasses`} name={issuer.name}/>
