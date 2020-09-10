@@ -74,11 +74,11 @@ I18n.translations.nl = {
     permissionsInfo: "Je kan je gegeven permissies intrekken.",
     noPermissions: "Er zijn op dit moment geen kennisinstellingen waar je permissie aan hebt gegeven.",
     consentWithdrawn: "Permissie voor instelling {{institution}} ingetrokken.",
-    deleteHeader: "Je edubadges backpack verwijderen",
-    deleteInfo1: "Je kunt je backpack verwijderen als je dat wilt.",
-    deleteInfo2: "Wees je dan wel bewust dat al je edubadges ongeldig worden.",
-    deleteInfo3: "Het verwijderen van je edubadges-account betekent overigens niet dat je eduID ook verwijderd wordt.",
-    deleteInfo4: "Om het proces van het verwijderen van je edubadges-account te voltooien, moet je je browser sluiten nadat je account is verwijderd.",
+    deleteHeader: "Je edubadges edubadges account verwijderen",
+    deleteInfo1: "Je kunt je edubadges account verwijderen als je dat wilt.",
+    deleteInfo2: "Wees je dan wel bewust dat hierna al je edubadges niet meer gevalideerd kunnen worden.",
+    deleteInfo3: "Het verwijderen van je edubadges account betekent overigens niet dat je eduID ook verwijderd wordt.",
+    deleteInfo4: "Om het proces van het verwijderen van je edubadges account te voltooien, moet je je browser sluiten nadat je account is verwijderd.",
     submit: "Voeg toe",
     deleteEmail: "Verwijder dit e-mailadres",
     deleteEmailConfirmation: "Weet je zeker dat je dit e-mailadres wilt verwijderen?",
@@ -232,8 +232,8 @@ I18n.translations.nl = {
       },
       faculty: {
         name: "issuer group",
-        title: "Verwijder issuergroup",
-        question: "Wil je deze issuergroup echt verwijderen?"
+        title: "Verwijder issuer group",
+        question: "Wil je deze issuer group echt verwijderen?"
       },
       issuer: {
         name: "Issuer",
@@ -312,11 +312,11 @@ I18n.translations.nl = {
     702: "Ongeldige share provider.",
     801: "Kan grading table URL niet aanpassen, er zijn al edubadges uitgegeven.",
     802: "Kan BRIN code niet aanpassen, er zijn al edubadges uitgegeven.",
-    902: "Dit is geen geldige URL of de afmetingen van het plaatje kloppen niet.",
+    902: "Dit is geen geldige URL of het formaat van de afbeelding klopt niet.",
     903: "Dit veld is verplicht.",
     904: "Geen bestand gekozen.",
     905: "Invullen van criteria of van criteria URL is verplicht.",
-    906: "Vul een getal in voor studiebelastingsuren of verwijder de extensie.",
+    906: "Vul een getal in voor studiebelastingsuren of verwijder deze rubriek.",
     unexpected: "Oeps, er is iets totaal onverwachts en onverklaarbaars gebeurd.",
     description: "Een onverwachte fout is opgetreden. Probeer het opnieuw of neem contact op met support@edubadges.nl voor ondersteuning.",
     close: "Sluit"
@@ -487,11 +487,11 @@ I18n.translations.nl = {
       number: "Aantal",
       name: "Naam",
       description: "Beschrijving",
-      criteria_text: "Aan welke criteria moet je voldoen om deze edubadge te verdienen?",
-      criteria_url: "Criteria URL",
+      criteria_text: "Aan welke criteria moet je voldoen om in aanmerking te komen voor deze edubadge?",
+      criteria_url: "Of geef een link naar de criteria of meer informatie",
       criteria_url_value: "Link naar de criteria en meer informatie:",
       directAward: "Direct uitreiken",
-      inviteEnrollements: "Nodig iemand uit om deze edubadge te verdienen",
+      inviteEnrollements: "Nodig iemand uit om deze edubadge aan te vragen",
       expiresAfter: "Verloopt na",
       expiresAfterOption: "Na",
       expiresAfterNever: "Nooit",
@@ -518,7 +518,7 @@ I18n.translations.nl = {
       },
       headers: {
         basicInformation: "Basisinformatie",
-        earningCriteria: "Criteria om deze edubadge te verdienen",
+        earningCriteria: "Criteria om in aanmerking te komen voor deze edubadge",
         additionalSections: "Extra toevoegingen",
         educationalIdentifiers: "Opleidingscode",
         studyLoad: "Studielast",
@@ -579,17 +579,17 @@ I18n.translations.nl = {
       }
     },
     enrollment: {
-      title: "Ingeschreven personen",
-      enrolled: "Ingeschreven",
-      enrolledOn: "Ingeschreven op",
-      deleteEnrollment: "Verwijder inschrijving",
-      deleteEnrollmentConfirmation: "Weet je zeker dat je deze inschrijving wilt verwijderen?",
+      title: "Personen die een edubadge hebben aangevraagd",
+      enrolled: "Aangevraagd",
+      enrolledOn: "Aangevraagd op",
+      deleteEnrollment: "Verwijder aangevraag",
+      deleteEnrollmentConfirmation: "Weet je zeker dat je deze aangevraag wilt verwijderen?",
       award: "Ken toe",
       denied: "Geweigerd",
       deny: "Weiger verzoek",
       enrollmentType: {
-        name: "Type inschrijving",
-        enrolled: "Zelf ingeschreven",
+        name: "Type aangevraag",
+        enrolled: "Zelf aangevraagd",
         invited: "Uitgenodigd"
       },
       confirmation: {
@@ -678,7 +678,7 @@ I18n.translations.nl = {
         ],
       student:
         [
-          "SURF maakt een backpack voor je op basis van je eduID. Dit backpack blijft bestaan totdat je dit backpack opheft.",
+          "SURF maakt een backpack voor je op basis van je eduID. Dit backpack blijft bestaan totdat je je edubadges account opheft.",
           "SURF verwerkt hiervoor persoonsgegevens: je voornaam, achternaam, e-mailadres, eduID en eventuele persoonlijke teksten in edubadges.",
           "Alleen jouw onderwijsinstelling en SURF hebben toegang tot deze persoonsgegevens."
         ]
@@ -687,7 +687,7 @@ I18n.translations.nl = {
     noValidInstitutionInfo: {
       student: "De onderwijsinstelling <strong>{{name}}</strong> die gekoppeld is aan je eduID account, heeft de edubadges dienst niet afgenomen.<br/><br/>" +
           "Neem contact op met support@edubadges.nl voor ondersteuning of probeer een andere onderwijsinstelling aan je eduID account te koppelen.",
-      teacher: "De onderwijsinstelling <strong>{{name}}</strong> waarmee je via SURFconext ingelogd bent, neemt de edubadges dienst momenteel niet af.<br/><br/>" +
+      teacher: "De onderwijsinstelling <strong>{{name}}</strong> waarmee je via SURFconext ingelogd bent, gebruikt edubadges momenteel niet.<br/><br/>" +
           "Neem contact op met support@edubadges.nl voor ondersteuning of probeer via een andere onderwijsinstelling in te loggen."
     },
     noValidInstitutionInfoNoInstitution: "Je hebt geen geldige onderwijsinstelling gekoppeld aan je account. <br/>" +
@@ -751,7 +751,7 @@ I18n.translations.nl = {
     issuer_group_staff: "issuer group staff",
     issuer_staff: "issuer staff",
     badge_class_staff: "badge class staff",
-    user_provisionment: "user provisionment"
+    user_provisionment: "uitnodigingen gebruikers"
   },
   user: {
     home: "Home",

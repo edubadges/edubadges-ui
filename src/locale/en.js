@@ -74,10 +74,10 @@ I18n.translations.en = {
     permissionsInfo: "You can withdraw any permissions you have given.",
     noPermissions: "You currently have not given permissions to any institution.",
     consentWithdrawn: "Permission withdrawn for institution {{institution}}",
-    deleteHeader: "Deleting your edubadges backpack",
-    deleteInfo1: "You can delete your backpack whenever you want.",
-    deleteInfo2: "Proceed with care, as all your edubadges will become invalid.",
-    deleteInfo3: "Please note that deleting your edubadges backpack does not mean you delete your eduID.",
+    deleteHeader: "Deleting your edubadges account",
+    deleteInfo1: "You can delete your account whenever you want.",
+    deleteInfo2: "Proceed with care, as it would be no longer possible to validate all your edubadges.",
+    deleteInfo3: "Please note that deleting your edubadges account does not mean you delete your eduID.",
     deleteInfo4: "To fully complete the process of deleting your edubadges account you must close your browser after your account has been removed.",
     submit: "Add",
     deleteEmail: "Delete this email address",
@@ -316,7 +316,7 @@ I18n.translations.en = {
     903: "This is a required attribute.",
     904: "No file was uploaded.",
     905: "Either criteria or criteria URL is required.",
-    906: "Enter the number of study load hours or remove the extension.",
+    906: "Enter the number of study load hours or remove this section.",
     unexpected: "Unexpected error occurred.",
     description: "An unexpected error has occurred. Please try again later or contact support@edubadges.nl for support.",
     close: "Close"
@@ -487,11 +487,11 @@ I18n.translations.en = {
       number: "Number",
       name: "Name",
       description: "Description",
-      criteria_text: "What are the requirements to earn this edubadge?",
-      criteria_url: "Or provide a URL to a webpage with the criteria or more information.",
+      criteria_text: "What are the requirements to qualify for this edubadge?",
+      criteria_url: "Or provide a link to a webpage with the criteria or more information",
       criteria_url_value: "Link to the criteria for earning this edubadge:",
       directAward: "Direct award",
-      inviteEnrollements: "Invite people to request this edubadge",
+      inviteEnrollements: "Invite someone to request this edubadge",
       expiresAfter: "Expires after",
       expiresAfterOption: "After",
       expiresAfterNever: "Never",
@@ -518,7 +518,7 @@ I18n.translations.en = {
       },
       headers: {
         basicInformation: "Basic information",
-        earningCriteria: "Criteria for earning this edubadge",
+        earningCriteria: "Criteria for this edubadge",
         additionalSections: "Additional sections",
         educationalIdentifiers: "Educational identifiers",
         studyLoad: "Study load",
@@ -672,7 +672,7 @@ I18n.translations.en = {
     termsBullets: {
       teacher:
         [
-          "SURF generates a backpack for you based on your eduID. This backpack will remain available until you delete your account or until your institution no longer makes use of edubadges.",
+          "SURF generates a backpack for you based on your eduID. This account will remain available until you delete your account or until your institution no longer makes use of edubadges.",
           "SURF processes the following personal data for this: your first name, last name, e-mail address, eduID and any personal texts in edubadges.",
           "Only your educational institution and SURF have access to these personal data."
         ],
