@@ -23,9 +23,22 @@ div.markdown-body tr:nth-child(even) {
   background: var(--grey-1);
 }
 
-div.markdown-body ul, div.markdown-body ol {
+div.markdown-body ul, div.markdown-body ol, p.markdown ul, p.markdown ol {
   margin: 15px 0 15px 25px;
   list-style: circle;
   line-height: 22px;
 }
 
+p.markdown {
+  color: var(--black) !important;
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--black) !important;
+    font-family: "Source Sans Pro", sans-serif !important;
+  }
+  ul, ol {
+    color: var(--black) !important;
+  }
+  a {
+    color: var(--blue-link) !important;
+  }
+}

@@ -108,7 +108,7 @@
     <div class="badge-public-detail">
       <div class="issuer">
         <h3>{I18n.t("models.badgeclass.issuer")}</h3>
-        <span><a href={badge.issuer.id} target="_blank">{badge.issuer.name}</a></span>
+        <span><a href={badge.issuer.id} rel="noreferrer noopener" target="_blank">{badge.issuer.name}</a></span>
       </div>
       <BadgeClassDetails badgeclass={badge}/>
     </div>

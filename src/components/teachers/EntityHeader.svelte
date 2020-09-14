@@ -151,7 +151,7 @@
         <p>{object.description}</p>
       {/if}
       {#if object.publicLink}
-        <p><a href={object.publicLink} target="_blank">{object.publicLink}</a></p>
+        <p><a href={object.publicLink} rel="noreferrer noopener" target="_blank">{object.publicLink}</a></p>
       {/if}
       <div class="list">
         <HeaderList {entity} {headerItems}/>

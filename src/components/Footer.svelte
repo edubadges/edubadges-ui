@@ -109,7 +109,7 @@
 
   <div class="info">
     <span>{I18n.t('footer.poweredBy')}</span>
-    <a href={I18n.locale === 'en' ? "https://www.surf.nl/en" : "https://www.surf.nl"} target="_blank" referrerpolicy="no-referrer">
+    <a href={I18n.locale === 'en' ? "https://www.surf.nl/en" : "https://www.surf.nl"} target="_blank" rel="noreferrer noopener">
       {@html surf}
     </a>
   </div>

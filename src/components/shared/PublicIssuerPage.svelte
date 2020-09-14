@@ -75,12 +75,12 @@
       </p>
       <h3>{I18n.t('models.issuer.url')}</h3>
       <p class="info">
-        <a href={issuer.url} target="_blank">{issuer.url}</a>
+        <a href={issuer.url} rel="noreferrer noopener" target="_blank">{issuer.url}</a>
       </p>
       {#if issuer.gradingTableURL}
         <h3>{I18n.t('models.issuer.gradingTable')}</h3>
         <p class="info">
-          <a href={issuer.gradingTableURL} target="_blank">{issuer.gradingTableURL}</a>
+          <a href={issuer.gradingTableURL} rel="noreferrer noopener" target="_blank">{issuer.gradingTableURL}</a>
         </p>
       {/if}
       {#if issuer.institutionName}
