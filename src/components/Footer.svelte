@@ -82,12 +82,12 @@
   <div class="help">
     <a href="/terms"
         on:click|preventDefault|stopPropagation={showTerms(I18n.t("terms.termsTitle"),
-        I18n.t(`terms.${$userRole}.termsOfUseRaw`))}>
+        I18n.t(`terms.${$userRole || "student"}.termsOfUseRaw`))}>
       {I18n.t("terms.termsTitle")}
     </a>
     <a href="/privacy"
         on:click|preventDefault|stopPropagation={showTerms(I18n.t("terms.privacyPolicyTitle"),
-        I18n.t(`terms.${$userRole}.privacyPolicyRaw`))}>
+        I18n.t(`terms.${$userRole || "student"}.privacyPolicyRaw`))}>
       {I18n.t("terms.privacyPolicyTitle")}
     </a>
   </div>
@@ -109,7 +109,9 @@
 
   <div class="info">
     <span>{I18n.t('footer.poweredBy')}</span>
-    {@html surf}
+    <a href={I18n.locale === 'en' ? "https://www.surf.nl/en" : "https://www.surf.nl"} target="_blank" referrerpolicy="no-referrer">
+      {@html surf}
+    </a>
   </div>
 </footer>
 

@@ -342,6 +342,9 @@
               <CheckBox
                   disabled={true}/>
             </td>
+            <td>
+                <span class="icon">{@html facultyIcon}</span>
+            </td>
             <td><ListLink path={`/manage/faculty/${issuerGroup.entityId}/issuers`} name={issuerGroup.name}/></td>
             <td>
               {I18n.t(['editUsers', 'permissions', 'allRights'])}

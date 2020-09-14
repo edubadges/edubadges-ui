@@ -14,19 +14,19 @@ import nl from "../../../locale/nl";
 
 const extensions = [{
   name: "extensions:LanguageExtension",
-  originalJson: `{'@context': '${config.extensionsRootUrl}/extensions/LanguageExtension/context.json', 'type': ['Extension', 'extensions:LanguageExtension'], 'Language': 'nl_NL'}`
+  originalJson: `{"@context": "${config.extensionsRootUrl}/extensions/LanguageExtension/context.json", "type": ["Extension", "extensions:LanguageExtension"], "Language": "nl_NL"}`
 }, {
   name: "extensions:ECTSExtension",
-  originalJson: `{'@context': '${config.extensionsRootUrl}/extensions/ECTSExtension/context.json', 'type': ['Extension', 'extensions:ECTSExtension'], 'ECTS': 2.5}`
+  originalJson: `{"@context": "${config.extensionsRootUrl}/extensions/ECTSExtension/context.json", "type": ["Extension", "extensions:ECTSExtension"], "ECTS": 2.5}`
 }, {
   name: "extensions:EQFExtension",
-  originalJson: `{'@context': '${config.extensionsRootUrl}/extensions/EQFExtension/context.json', 'type': ['Extension', 'extensions:EQFExtension'], 'EQF': 7}`
+  originalJson: `{"@context": "${config.extensionsRootUrl}/extensions/EQFExtension/context.json", "type": ["Extension", "extensions:EQFExtension"], "EQF": 7}`
 }, {
   name: "extensions:LearningOutcomeExtension",
-  originalJson: `{'@context': '${config.extensionsRootUrl}/extensions/LearningOutcomeExtension/context.json', 'type': ['Extension', 'extensions:LearningOutcomeExtension'], 'LearningOutcome': 'Will appreciate the benefits of learning a foreign language.'}`
+  originalJson: `{"@context": "${config.extensionsRootUrl}/extensions/LearningOutcomeExtension/context.json", "type": ["Extension", "extensions:LearningOutcomeExtension"], "LearningOutcome": "Will appreciate the benefits of learning a foreign language."}`
 }, {
   name: "extensions:EducationProgramIdentifierExtension",
-  originalJson: `{'@context': '${config.extensionsRootUrl}/extensions/EducationProgramIdentifierExtension/context.json', 'type': ['Extension', 'extensions:EducationProgramIdentifierExtension'], 'EducationProgramIdentifier': 56823}`
+  originalJson: `{"@context": "${config.extensionsRootUrl}/extensions/EducationProgramIdentifierExtension/context.json", "type": ["Extension", "extensions:EducationProgramIdentifierExtension"], "EducationProgramIdentifier": 56823}`
 }];
 
 test("Extensions value", () => {

@@ -112,11 +112,6 @@ export function validateInstitutions(schacHomeOrganisations) {
   return validFetch(path, {body: JSON.stringify(schacHomeOrganisations)}, "POST", false);
 }
 
-export function eduTermsDetail(userType) {
-  const path = `${serverUrl}/v1/user/terms/${userType}`;
-  return validFetch(path, {}, "GET", false);
-}
-
 export function acceptTermsForBadge(terms_entity_id) {
   const path = `${serverUrl}/v1/user/terms/accept`;
   return validFetch(path, {body: JSON.stringify([{terms_entity_id, accepted: true}])}, "POST");

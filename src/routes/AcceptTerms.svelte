@@ -5,7 +5,7 @@
   import I18n from "i18n-js";
   import Cookies from "js-cookie";
   import {role as roleConstants} from "../util/role";
-  import {eduTermsDetail, requestLoginToken, validateInstitutions} from "../api";
+  import {requestLoginToken, validateInstitutions} from "../api";
   import {Modal, ModalTerms} from "../components/forms";
   import termsIcon from "../icons/voorwaarden-icon1.svg"
   import terms2Icon from "../icons/voorwaarden-icon2.svg"
@@ -32,9 +32,6 @@
   let showModalTerms = false;
   let termsUrl;
   let termsTitle;
-
-  let primaryTerms;
-  let secondaryTerms;
 
   let validInstitutions = [];
   let noValidInstitution = false;
@@ -65,12 +62,6 @@
           loaded = true;
         } else {
           loaded = true;
-          eduTermsDetail($userRole).then(res => {
-            const currentLanguage = Cookies.get("lang") ? Cookies.get("lang") : "en";
-            const agreementToFind = $userRole === roleConstants.STUDENT ? "service_agreement_student" : "service_agreement_employee";
-            primaryTerms = res.find(({terms_type}) => terms_type === "terms_of_service").terms_urls.find(({language}) => language === currentLanguage).url;
-            secondaryTerms = res.find(({terms_type}) => terms_type === agreementToFind).terms_urls.find(({language}) => language === currentLanguage).url;
-          })
         }
       });
   });
@@ -171,7 +162,7 @@
             <a href="/terms"
                on:click|preventDefault|stopPropagation={showTerms(
                   I18n.t(`acceptTerms.${$userRole}.serviceAgreementTitle`),
-                  primaryTerms)}>
+                  I18n.t(`terms.${$userRole}.serviceAgreementRaw`))}>
               {I18n.t(`acceptTerms.${$userRole}.serviceAgreementLink`)}
             </a>
             <span>{I18n.t(`acceptTerms.${$userRole}.serviceAgreementLinkPost`)}</span>
@@ -184,7 +175,7 @@
             <a href="/terms"
                on:click|preventDefault|stopPropagation={showTerms(
                   I18n.t(`acceptTerms.${$userRole}.termsTitle`),
-                  secondaryTerms)}>
+                  I18n.t(`terms.${$userRole}.termsOfUseRaw`))}>
               {I18n.t(`acceptTerms.${$userRole}.termsLink`)}
             </a>
             <span>{I18n.t(`acceptTerms.${$userRole}.termsLinkPost`)}</span>
