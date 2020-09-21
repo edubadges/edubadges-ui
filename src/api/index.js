@@ -141,6 +141,10 @@ export function withdrawRequestBadge(enrollmentID) {
   );
 }
 
+export function logoutCurrentUser() {
+  return validFetch(`${serverUrl}/v1/user/socialaccounts/logout`, {}, "POST");
+}
+
 // Teacher badges
 export function awardBadges(badgeId, enrollmentIds) {
   const path = `${serverUrl}/issuer/badgeclasses/award-enrollments/${badgeId}`;

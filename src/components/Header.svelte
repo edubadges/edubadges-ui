@@ -8,18 +8,23 @@
 
   import {
     userLoggedIn,
+    userName,
     userRole,
     authToken,
     redirectPath
   } from "../stores/user";
+  import {logoutCurrentUser} from "../api";
 
   const logoutUser = () => {
-    $userLoggedIn = "";
-    $userRole = "";
-    $authToken = "";
-    $redirectPath = "";
 
-    navigate("/login");
+    logoutCurrentUser().then(res => {
+      $userLoggedIn = "";
+      $userRole = "";
+      $userName = "";
+      $authToken = "";
+      $redirectPath = "";
+      navigate("/login");
+    });
   };
 
   let menuOpen = false;
