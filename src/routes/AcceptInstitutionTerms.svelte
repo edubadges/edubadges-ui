@@ -4,7 +4,6 @@
   import I18n from "i18n-js";
   import {ModalTerms} from "../components/forms";
   import termsIcon from "../icons/voorwaarden-icon1.svg";
-  import terms2Icon from "../icons/voorwaarden-icon2.svg";
   import {fetchMarkdown} from "../api/markdown";
   import Cookies from "js-cookie";
 
@@ -140,19 +139,6 @@
           {I18n.t(`acceptTerms.badgeClassEnrollmentTerms.statementLink`)}
         </a>
         <span>{I18n.t(`acceptTerms.badgeClassEnrollmentTerms.statementLinkPost`)}</span>
-      </p>
-    </div>
-    <div class="agree">
-      {@html terms2Icon}
-      <p>
-        <span>{I18n.t(`acceptTerms.badgeClassEnrollmentTerms.privacyLinkPre`)}</span>
-        <a href="/terms"
-           on:click|preventDefault|stopPropagation={showTerms(
-                I18n.t(`acceptTerms.badgeClassEnrollmentTerms.privacyTitle`),
-                I18n.t(`terms.student.privacyPolicyRaw`))}>
-          {I18n.t(`acceptTerms.badgeClassEnrollmentTerms.privacyLink`)}
-        </a>
-        <span>{I18n.t(`acceptTerms.badgeClassEnrollmentTerms.privacyLinkPost`)}</span>
       </p>
     </div>
     <div class="actions">
