@@ -24,6 +24,7 @@ export const studentBadgeInstances = `query {
       createdAt,
       public,
       revoked,
+      expiresAt,
       acceptance,
       badgeclass {
         name,

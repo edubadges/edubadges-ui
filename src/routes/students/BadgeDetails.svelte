@@ -420,11 +420,15 @@
           <span class="status-indicator revoked">{I18n.t("models.badge.statuses.revoked")}</span>
         {:else if badge && badge.acceptance === "REJECTED"}
           <span class="status-indicator rejected">{I18n.t("models.badge.statuses.rejected")}</span>
+        {:else if badge && badge.expiresAt && new Date(badge.expiresAt) < new Date()}
+          <span class="status-indicator expired">{I18n.t("models.badge.statuses.expired")}</span>
         {/if}
         <BadgeCard badgeClass={badge.badgeclass} standAlone={true} withHeaderData={false}/>
       </div>
       {#if badge.revoked}
         <p class="revoked">{ I18n.t("student.badgeRevoked")}</p>
+      {:else if badge && badge.expiresAt && new Date(badge.expiresAt) < new Date()}
+        <p class="revoked">{ I18n.t("student.badgeExpired")}</p>
       {:else}
         <div class="public-private">
           <div class="header">
@@ -466,7 +470,7 @@
         </div>
         <div class="expires">
           <h3>{I18n.t("models.badge.expires")}</h3>
-          <span>{badge.expires ? moment(badge.expires).format('MMM D, YYYY') : I18n.t("models.badge.expiresNever")}</span>
+          <span>{badge.expiresAt ? moment(badge.expiresAt).format('MMM D, YYYY') : I18n.t("models.badge.expiresNever")}</span>
         </div>
       </div>
       <div class="issued">
@@ -477,7 +481,7 @@
 
       <BadgeClassDetails badgeclass={badge.badgeclass}/>
     </div>
-    {#if !badge.revoked}
+    {#if !badge.revoked && (!badge.expiresAt && new Date(badge.expiresAt) < new Date())}
       <div class="delete">
         {#if badge && badge.acceptance === "ACCEPTED"}
         <Button action={() => rejectBadge(true)} secondary={true} text={I18n.t("student.deleteBadge")} />

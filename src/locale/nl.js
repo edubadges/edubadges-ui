@@ -171,6 +171,7 @@ I18n.translations.nl = {
     shareYourBadge: "Deel jouw edubadge",
     shareYourBadgeQuestion: "Jouw publieke edubadge URL is voor iedereen toegankelijk",
     badgeRevoked: "Deze edubadge is ingetrokken. Je ziet deze nog wel, maar deze edubadge kan je niet langer delen",
+    badgeExpired: "Deze edubadge is verlopen. Je ziet deze nog wel, maar deze edubadge kan je niet langer delen",
     privateBadge: "Privé edubadge",
     publicPrivate: "Je edubadge staat op privé, alleen jij kan deze edubadge zien en downloaden.",
     publicPrivatePublic: "Je edubadge staat niet op privé, iedereen met de publieke link kan deze edubadge zien en downloaden.",
@@ -566,6 +567,7 @@ I18n.translations.nl = {
         new: "Nieuw",
         rejected: "Geweigerd",
         revoked: "Ingetrokken",
+        expired: "Verlopen",
         accepted: "Geaccepteerd",
         unaccepted: "In afwachting"
       },

@@ -175,6 +175,12 @@
     max-width: 85px;
   }
 
+  span.status-indicator.expired {
+    background-color: var(--red-medium);
+    color: white;
+    max-width: 85px;
+  }
+
 </style>
 
 {#if badge || badgeClass}
@@ -185,6 +191,8 @@
       <span class="status-indicator new">{I18n.t("models.badge.statuses.new")}</span>
     {:else if badge && badge.acceptance === "REJECTED"}
       <span class="status-indicator rejected">{I18n.t("models.badge.statuses.rejected")}</span>
+    {:else if badge && badge.expiresAt && new Date(badge.expiresAt) < new Date()}
+      <span class="status-indicator expired">{I18n.t("models.badge.statuses.expired")}</span>
     {/if}
     <div class="header {withHeaderData ? 'header-extra-height' : 'header-regular-height'}">
       {#if badge}
