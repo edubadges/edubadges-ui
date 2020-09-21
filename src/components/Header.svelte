@@ -15,16 +15,18 @@
   } from "../stores/user";
   import {logoutCurrentUser} from "../api";
 
-  const logoutUser = () => {
-
-    logoutCurrentUser().then(res => {
+  const doLogOut = () => {
       $userLoggedIn = "";
       $userRole = "";
       $userName = "";
       $authToken = "";
       $redirectPath = "";
       navigate("/login");
-    });
+  }
+
+  const logoutUser = () => {
+    logoutCurrentUser()
+      .then(() => doLogOut()).catch(() => doLogOut());
   };
 
   let menuOpen = false;

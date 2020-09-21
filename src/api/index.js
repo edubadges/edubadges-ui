@@ -2,6 +2,7 @@ import {get} from "svelte/store";
 import {authToken, showMainErrorDialog} from "../stores/user";
 import {config} from "../util/config";
 import {entityType} from "../util/entityTypes";
+import {userTree} from "../stores/filterUsers";
 
 //Internal API
 const serverUrl = config.serverUrl;
@@ -142,7 +143,7 @@ export function withdrawRequestBadge(enrollmentID) {
 }
 
 export function logoutCurrentUser() {
-  return validFetch(`${serverUrl}/v1/user/socialaccounts/logout`, {}, "POST");
+  return validFetch(`${serverUrl}/v1/user/socialaccounts/logout`, {}, "POST",true, false);
 }
 
 // Teacher badges
