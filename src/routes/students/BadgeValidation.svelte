@@ -30,6 +30,10 @@
     display: flex;
     align-items: center;
 
+    p.expired {
+      color: var(--red-strong-dark);
+    }
+
     div.button-container {
       margin-left: auto;
     }
@@ -42,7 +46,11 @@
 
     <div class="info">
       <p>{@html I18n.t("publicBadge.issuedTo", {name: validatedName, date: formatDate(badge.issuedOn)})}</p>
-      <p>{badge.expires ? I18n.t("publicBadge.expires", {date: formatDate(badge.expires)}) : I18n.t("publicBadge.neverExpires")}</p>
+      {#if badge.expires && new Date(badge.expires) < new Date()}
+        <p class="expired">{I18n.t("publicBadge.hasExpired", {date: formatDate(badge.expires)})}</p>
+    {:else}
+        <p>{badge.expires ? I18n.t("publicBadge.expires", {date: formatDate(badge.expires)}) : I18n.t("publicBadge.neverExpires")}</p>
+      {/if}
     </div>
     <div class="button-container">
       <Button text={I18n.t("publicBadge.verify")} action={validate}/>

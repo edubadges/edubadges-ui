@@ -22,12 +22,15 @@
     {key: "issuedUsing", val: "eduBadges"},
     {key: "issuedTo", val: validatedName},
     {key: "claimedOn", val: formatDate(badge.updatedAt)},
+    {key: "expiresOn", val: badge.expires ? formatDate(badge.expires) : I18n.t("publicBadge.validations.never"),
+      invalid: badge.expires && new Date(badge.expires) < new Date()},
     {key: "verified", val: "", last: true}
   ].map(item => ({
     key: item.key,
     last: item.last,
     pre: I18n.t(`publicBadge.validations.${item.key}`, {val: "..."}),
     post: I18n.t(`publicBadge.validations.${item.key}`, {val: item.val}),
+    invalid: item.invalid
   }));
 
 
@@ -145,6 +148,8 @@
               <DotSpinner/>
             </div>
           {:else if validation.last && done && !validationResult.valid}
+            {@html closeIcon}
+          {:else if validation.invalid}
             {@html closeIcon}
           {:else}
             {@html checkP}

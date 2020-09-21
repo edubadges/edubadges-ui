@@ -725,6 +725,7 @@ I18n.translations.nl = {
     issuedTo: "Deze edubadge is uitgereikt aan <strong>{{name}}</strong> op {{date}}",
     expires: "Deze edubadge verloopt op {{date}}",
     neverExpires: "Deze edubadge heeft geen expiratie datum.",
+    hasExpired: "Deze edubadge is verlopen op {{date}}",
     verify: "Verifieer",
     validations: {
       issuedOn: "Uitgereikt op {{val}}",
@@ -732,6 +733,8 @@ I18n.translations.nl = {
       issuedUsing: "Gebruikt platform {{val}}",
       issuedTo: "Uitgereikt aan <strong>{{val}}</strong>",
       claimedOn: "Geaccepteerd op {{val}}",
+      expiresOn: "Verloopt op {{val}}",
+      never: "nooit",
       verified: "<strong>Gevalideerd!<strong> {{val}}"
     }
   },

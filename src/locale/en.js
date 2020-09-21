@@ -725,6 +725,7 @@ I18n.translations.en = {
     verification: "Verification",
     issuedTo: "This edubadge was issued to <strong>{{name}}</strong> on {{date}}",
     expires: "It expires on {{date}}",
+    hasExpired: "It has expired on {{date}}",
     neverExpires: "It has no expiry date",
     verify: "Verify",
     validations: {
@@ -733,6 +734,8 @@ I18n.translations.en = {
       issuedUsing: "Issued using {{val}}",
       issuedTo: "Issued to <strong>{{val}}</strong>",
       claimedOn: "Claimed on {{val}}",
+      expiresOn: "Expires on {{val}}",
+      never: "never",
       verified: "<strong>Verified<strong> {{val}}"
     }
   },
