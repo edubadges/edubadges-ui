@@ -133,6 +133,7 @@
       <p>
         <span>{I18n.t(`acceptTerms.badgeClassEnrollmentTerms.statementLinkPre`)}</span>
         <a href="/terms"
+           oncontextmenu="return false;"
            on:click|preventDefault|stopPropagation={showTerms(
                 I18n.t(`acceptTerms.badgeClassEnrollmentTerms.statementTitle`),
                 termsUrl)}>

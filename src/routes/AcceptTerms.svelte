@@ -160,6 +160,7 @@
           <p>
             <span>{I18n.t(`acceptTerms.${$userRole}.serviceAgreementLinkPre`)}</span>
             <a href="/terms"
+               oncontextmenu="return false;"
                on:click|preventDefault|stopPropagation={showTerms(
                   I18n.t(`acceptTerms.${$userRole}.serviceAgreementTitle`),
                   I18n.t(`terms.${$userRole}.serviceAgreementRaw`))}>
@@ -173,6 +174,7 @@
           <p>
             <span>{I18n.t(`acceptTerms.${$userRole}.termsLinkPre`)}</span>
             <a href="/terms"
+               oncontextmenu="return false;"
                on:click|preventDefault|stopPropagation={showTerms(
                   I18n.t(`acceptTerms.${$userRole}.termsTitle`),
                   I18n.t(`terms.${$userRole}.termsOfUseRaw`))}>
@@ -181,6 +183,7 @@
             <span>{I18n.t(`acceptTerms.${$userRole}.termsLinkPost`)}</span>
             <span>{I18n.t(`acceptTerms.${$userRole}.privacyLinkPre`)}</span>
             <a href="/terms"
+               oncontextmenu="return false;"
                on:click|preventDefault|stopPropagation={showTerms(
                   I18n.t(`acceptTerms.${$userRole}.privacyTitle`),
                   I18n.t(`terms.${$userRole}.privacyPolicyRaw`))}>
