@@ -36,6 +36,6 @@
   {:else if type === "text"}
     <input type="text" {placeholder} class="input-field" class:error bind:value {disabled}/>
   {:else}
-    <input type="number" {placeholder} max={max} class="input-field" class:error bind:value {disabled}/>
+    <input type="number" {placeholder} max={max} min="0" oninput="validity.valid||(value='');" class="input-field" class:error bind:value {disabled}/>
   {/if}
 </div>
