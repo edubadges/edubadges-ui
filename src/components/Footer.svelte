@@ -11,6 +11,7 @@
   let termsTitle;
 
   const changeLanguage = lang => () => {
+    lang = ["en", "nl"].indexOf(lang) > -1 ? lang : "en";
     const urlSearchParams = new URLSearchParams(window.location.search);
     urlSearchParams.set("lang", lang);
     Cookies.set("lang", lang, {expires: 365});

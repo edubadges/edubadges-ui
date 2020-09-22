@@ -8,15 +8,16 @@ import "./locale/nl";
 
 if (typeof window !== "undefined") {
     const urlSearchParams = new URLSearchParams(window.location.search);
-
+    let lang;
     if (urlSearchParams.has("lang")) {
-        I18n.locale = urlSearchParams.get("lang");
+        lang = urlSearchParams.get("lang");
     } else if (Cookies.get("lang")) {
-        I18n.locale = Cookies.get("lang");
+        lang = Cookies.get("lang");
     } else {
-        I18n.locale = navigator.language.toLowerCase().substring(0, 2);
+        lang = navigator.language.toLowerCase().substring(0, 2);
     }
-
+    lang = ["en", "nl"].indexOf(lang) > -1 ? lang : "en";
+    I18n.locale = lang;
 } else {
     I18n.locale = "en";
 }
