@@ -14,7 +14,7 @@
     lang = ["en", "nl"].indexOf(lang) > -1 ? lang : "en";
     const urlSearchParams = new URLSearchParams(window.location.search);
     urlSearchParams.set("lang", lang);
-    Cookies.set("lang", lang, {expires: 365});
+    Cookies.set("lang", lang, {expires: 365, secure: true });
     window.location.search = urlSearchParams.toString();
   };
 
