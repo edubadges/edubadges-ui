@@ -818,13 +818,13 @@ I18n.translations.nl = {
     termsTitle: "Gebruiksvoorwaarden",
     privacyPolicyTitle: "Privacyverklaring",
     student: {
-      serviceAgreementRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-excerpt-nl.md",
-      termsOfUseRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-agreement-nl.md",
+      serviceAgreementRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-agreement-nl.md",
+      termsOfUseRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-excerpt-nl.md",
       privacyPolicyRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-statement-nl.md",
     },
     teacher: {
-      serviceAgreementRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-excerpt-nl.md",
-      termsOfUseRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-agreement-nl.md",
+      serviceAgreementRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-agreement-nl.md",
+      termsOfUseRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-excerpt-nl.md",
       privacyPolicyRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-statement-nl.md",
     }
   }

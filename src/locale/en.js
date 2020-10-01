@@ -819,13 +819,13 @@ I18n.translations.en = {
     termsTitle: "Terms of use",
     privacyPolicyTitle: "Privacy Policy",
     student: {
-      serviceAgreementRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-excerpt-en.md",
-      termsOfUseRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-agreement-en.md",
+      serviceAgreementRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-agreement-en.md",
+      termsOfUseRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-excerpt-en.md",
       privacyPolicyRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-statement-en.md",
     },
     teacher: {
-      serviceAgreementRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-excerpt-en.md",
-      termsOfUseRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-agreement-en.md",
+      serviceAgreementRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-agreement-en.md",
+      termsOfUseRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-excerpt-en.md",
       privacyPolicyRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-statement-en.md",
     }
   }
