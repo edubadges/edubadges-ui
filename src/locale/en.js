@@ -819,14 +819,14 @@ I18n.translations.en = {
     termsTitle: "Terms of use",
     privacyPolicyTitle: "Privacy Policy",
     student: {
-      serviceAgreementRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/service-agreement-student-en.md",
-      termsOfUseRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/edubadges-termsofservice-en.md",
-      privacyPolicyRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/edubadges-privacy-statement-en.md",
+      serviceAgreementRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-excerpt-en.md",
+      termsOfUseRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-agreement-en.md",
+      privacyPolicyRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-statement-en.md",
     },
     teacher: {
-      serviceAgreementRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/service-agreement-employee-en.md",
-      termsOfUseRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/edubadges-termsofservice-en.md",
-      privacyPolicyRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/edubadges-privacy-statement-en.md",
+      serviceAgreementRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-excerpt-en.md",
+      termsOfUseRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-agreement-en.md",
+      privacyPolicyRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-statement-en.md",
     }
   }
 };
