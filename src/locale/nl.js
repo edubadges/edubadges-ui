@@ -637,7 +637,7 @@ I18n.translations.nl = {
       serviceAgreementLinkPre: "Je kunt hier ",
       serviceAgreementLink: "de volledige serviceovereenkomst",
       serviceAgreementLinkPost: " inzien.",
-      termsTitle: "Terms",
+      termsTitle: "Gebruiksvoorwaarden",
       termsLinkPre: "Door op -Ik ga akkoord- te klikken, ga je akkoord met ",
       termsLink: "de volledige Gebruiksvoorwaarden",
       termsLinkPost: ".",
