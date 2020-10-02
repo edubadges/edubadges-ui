@@ -631,7 +631,7 @@ I18n.translations.en = {
     acceptTerms: "Please take notice of our terms",
     renewTerms: "The edubadges terms have changed. Please take notice of our new terms.",
     teacher: {
-      accept: "I have read this information",
+      accept: "I agree",
       termsInfo: "Creating a backpack and linking it to your eduID is necessary to " +
         "to be able to receive edubadges. The backpack falls under the processing responsibility of SURF",
       serviceAgreementTitle: "Service Agreement",
