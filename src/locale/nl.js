@@ -632,20 +632,19 @@ I18n.translations.nl = {
     renewTerms: "De edubadge-voorwaarden zijn gewijzigd. Raadpleeg onze nieuwe voorwaarden.",
     teacher: {
       accept: "Ik heb het gelezen",
-      termsInfo: "Het aanmaken van een backpack en het koppelen hiervan aan je eduID is noodzakelijk om " +
-        "edubadges te kunnen ontvangen. Het backpack valt onder de verwerkingsverantwoordelijkheid van SURF.",
+      termsInfo: "Hieronder staan de belangrijkste punten over edubadges en jouw privacy. De volledige versie van de Gebruiksvoorwaarden tussen SURF en jou is onder deze tekst te vinden. Het aanmaken van het account en het koppelen van dit account aan eduID is noodzakelijk om edubadges te kunnen ontvangen. Het account valt onder de verwerkingsverantwoordelijkheid van SURF.",
       serviceAgreementTitle: "Serviceovereenkomst",
       serviceAgreementLinkPre: "Je kunt hier ",
       serviceAgreementLink: "de volledige serviceovereenkomst",
       serviceAgreementLinkPost: " inzien.",
       termsTitle: "Terms",
-      termsLinkPre: "Door door te gaan, ga je akkoord met ",
-      termsLink: "onze voorwaarden",
+      termsLinkPre: "Door op -Ik ga akkoord- te klikken, ga je akkoord met ",
+      termsLink: "de volledige Gebruiksvoorwaarden",
       termsLinkPost: ".",
       privacyTitle: "Privacy",
-      privacyLinkPre: " Je gaat ook akkoord met onze ",
-      privacyLink: "privacy policy",
-      privacyLinkPost: "."
+      privacyLinkPre: " Voor meer informatie kun je ook onze ",
+      privacyLink: "Privacyverklaring",
+      privacyLinkPost: "bekijken."
     },
     student: {
       accept: "Ik ga akkoord",
@@ -657,13 +656,13 @@ I18n.translations.nl = {
       serviceAgreementLink: "de volledige serviceovereenkomst",
       serviceAgreementLinkPost: " inzien.",
       termsTitle: "Voorwaarden",
-      termsLinkPre: "Door door te gaan, ga je akkoord met ",
-      termsLink: "onze voorwaarden",
+      termsLinkPre: "Door op -Ik ga akkoord- te klikken, ga je akkoord met ",
+      termsLink: "de volledige Gebruiksvoorwaarden",
       termsLinkPost: ".",
       privacyTitle: "Privacy",
-      privacyLinkPre: " Je gaat ook akkoord met onze ",
-      privacyLink: "privacyverklaring",
-      privacyLinkPost: ".",
+      privacyLinkPre: " Voor meer informatie kun je ook onze ",
+      privacyLink: "Privacyverklaring",
+      privacyLinkPost: "bekijken.",
       formalBadges: "",
       informalBadges: "",
       version: "versie ",
@@ -674,15 +673,15 @@ I18n.translations.nl = {
     termsBullets: {
       teacher:
         [
-          "Er wordt nu een account aangemaakt in edubadges. Dit account blijft bestaan totdat je dit account opheft, of totdat de instelling niet meer werkt met edubadges.",
-          "SURF verwerkt hiervoor persoonsgegevens: je voornaam, achternaam, en e-mailadres.",
-          "Alleen jouw onderwijsinstelling en SURF hebben toegang tot deze persoonsgegevens."
+          "SURF maakt een account voor je op basis van je eduID. Dit account blijft bestaan tot je dit account verwijdert.",
+          "SURF verwerkt hiervoor persoonsgegevens: voornaam, achternaam, e-mailadres, instellingsnaam en eduID",
+          "Met vragen over jouw account en/of privacy kun je ons bereiken via [support@edubadges.nl](mailto:support@edubadges.nl)."
         ],
       student:
         [
-          "SURF maakt een backpack voor je op basis van je eduID. Dit backpack blijft bestaan totdat je je edubadges account opheft.",
-          "SURF verwerkt hiervoor persoonsgegevens: je voornaam, achternaam, e-mailadres, eduID en eventuele persoonlijke teksten in edubadges.",
-          "Alleen jouw onderwijsinstelling en SURF hebben toegang tot deze persoonsgegevens."
+          "SURF maakt een account voor je op basis van je eduID. Dit account blijft bestaan tot je dit account verwijdert.",
+          "SURF verwerkt hiervoor persoonsgegevens: voornaam, achternaam, e-mailadres, instellingsnaam en eduID.",
+          "Met vragen over jouw account en/of privacy kun je ons bereiken via [support@edubadges.nl](mailto:support@edubadges.nl)."
         ]
     },
     noValidInstitution: "Geen geldige instelling",
@@ -819,12 +818,12 @@ I18n.translations.nl = {
     privacyPolicyTitle: "Privacyverklaring",
     student: {
       serviceAgreementRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-agreement-nl.md",
-      termsOfUseRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-excerpt-nl.md",
+      termsOfUseRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-terms-nl.md",
       privacyPolicyRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-statement-nl.md",
     },
     teacher: {
       serviceAgreementRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-agreement-nl.md",
-      termsOfUseRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-excerpt-nl.md",
+      termsOfUseRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-terms-nl.md",
       privacyPolicyRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-statement-nl.md",
     }
   }
