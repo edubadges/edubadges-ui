@@ -644,7 +644,7 @@ I18n.translations.en = {
       termsLinkPost: "",
       privacyTitle: "Privacy",
       privacyLinkPre: " You also understand the ",
-      privacyLink: "Privacy Policy.",
+      privacyLink: "Privacy Statement.",
       privacyLinkPost: ""
     },
     student: {
@@ -662,7 +662,7 @@ I18n.translations.en = {
       termsLinkPost: "",
       privacyTitle: "Privacy",
       privacyLinkPre: " You also understand the ",
-      privacyLink: "privacy policy.",
+      privacyLink: "privacy statement.",
       privacyLinkPost: "",
       formalBadges: "Formal edubadges",
       informalBadges: "Non-formal edubadges",
@@ -710,7 +710,7 @@ I18n.translations.en = {
       statementLinkPost: "",
       privacyTitle: "Privacy",
       privacyLinkPre: " You also understand the ",
-      privacyLink: "Privacy Policy.",
+      privacyLink: "Privacy Statement.",
       privacyLinkPost: ""
     },
 
@@ -817,7 +817,7 @@ I18n.translations.en = {
   terms: {
     overviewTitle: "Overview of all terms",
     termsTitle: "Terms of use",
-    privacyPolicyTitle: "Privacy Policy",
+    privacyPolicyTitle: "Privacy Statement",
     student: {
       serviceAgreementRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-agreement-en.md",
       termsOfUseRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-excerpt-en.md",
