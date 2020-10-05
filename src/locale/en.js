@@ -634,10 +634,6 @@ I18n.translations.en = {
       accept: "I agree",
       termsInfo: "Creating a backpack and linking it to your eduID is necessary to " +
         "to be able to receive edubadges. The backpack falls under the processing responsibility of SURF",
-      serviceAgreementTitle: "Service Agreement",
-      serviceAgreementLinkPre: "You can see here ",
-      serviceAgreementLink: "the complete Service Agreement.",
-      serviceAgreementLinkPost: "",
       termsTitle: "Terms",
       termsLinkPre: "By proceeding you agree to ",
       termsLink: "the terms of service,",
@@ -652,10 +648,6 @@ I18n.translations.en = {
       read: "I have read this information",
       termsInfo: "Creating a backpack and linking it to your eduID is necessary to " +
         "to be able to receive edubadges. The backpack falls under the processing responsibility of SURF.",
-      serviceAgreementTitle: "Service Agreement",
-      serviceAgreementLinkPre: "You can see here ",
-      serviceAgreementLink: "the complete Service Agreement.",
-      serviceAgreementLinkPost: "",
       termsTitle: "Terms",
       termsLinkPre: "By proceeding you agree to ",
       termsLink: "the terms of service.",

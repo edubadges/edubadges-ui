@@ -156,20 +156,6 @@
           {/each}
         </ul>
         <div class="agree">
-          {@html termsIcon}
-          <p>
-            <span>{I18n.t(`acceptTerms.${$userRole}.serviceAgreementLinkPre`)}</span>
-            <a href="/terms"
-               oncontextmenu="return false;"
-               on:click|preventDefault|stopPropagation={showTerms(
-                  I18n.t(`acceptTerms.${$userRole}.serviceAgreementTitle`),
-                  I18n.t(`terms.${$userRole}.serviceAgreementRaw`))}>
-              {I18n.t(`acceptTerms.${$userRole}.serviceAgreementLink`)}
-            </a>
-            <span>{I18n.t(`acceptTerms.${$userRole}.serviceAgreementLinkPost`)}</span>
-          </p>
-        </div>
-        <div class="agree">
           {@html terms2Icon}
           <p>
             <span>{I18n.t(`acceptTerms.${$userRole}.termsLinkPre`)}</span>
