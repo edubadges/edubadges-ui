@@ -20,7 +20,7 @@
     {key: "issuedOn", val: formatDate(badge.issuedOn)},
     {key: "issuedBy", val: badge.issuer.name},
     {key: "issuedUsing", val: "eduBadges"},
-    {key: "issuedTo", val: validatedName},
+    {key: "issuedTo", val: validatedName || I18n.t("publicBadge.validations.noValidatedName"), invalid: !validatedName},
     {key: "claimedOn", val: formatDate(badge.updatedAt)},
     {key: "expiresOn", val: badge.expires ? formatDate(badge.expires) : I18n.t("publicBadge.validations.never"),
       invalid: badge.expires && new Date(badge.expires) < new Date()},
@@ -147,7 +147,7 @@
             <div class="spinner-container">
               <DotSpinner/>
             </div>
-          {:else if validation.last && done && !validationResult.valid}
+          {:else if validation.last && done && (!validationResult.valid || !validatedName)}
             {@html closeIcon}
           {:else if validation.invalid}
             {@html closeIcon}

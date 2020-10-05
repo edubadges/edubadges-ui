@@ -20,7 +20,11 @@
   const logIn = chosenRole => {
     $userRole = chosenRole;
     const service = getService(chosenRole);
-    requestLoginToken(service);
+
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const validateName = urlSearchParams.get("validateName");
+
+    requestLoginToken(service, validateName === "true");
   };
 
   const toggleLoginCreateAccount = () => (showLoginCards = !showLoginCards);

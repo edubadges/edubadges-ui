@@ -361,10 +361,10 @@ I18n.translations.nl = {
       makeUserBadgeClassAdmin: "{{name}} heeft badge class admin rechten gekregen",
       removeUserBadgeClassAdmin: "De badge class admin rechten zijn verwijderd van {{name}}",
       makeUserBadgeClassEditor: "{{name}} heeft badge class editor rechten gekregen",
-      removeUserBadgeClassEditor:"De badge class editor rechten zijn verwijderd van {{name}}",
+      removeUserBadgeClassEditor: "De badge class editor rechten zijn verwijderd van {{name}}",
       makeUserBadgeClassAwarder: "{{name}} heeft badge class awarder rechten gekregen",
-      removeUserBadgeClassAwarder:"De badge class awarder rechten zijn verwijderd van {{name}}",
-      removeUserBadgeClassRole:"De badge class rechten zijn verwijderd van {{name}}",
+      removeUserBadgeClassAwarder: "De badge class awarder rechten zijn verwijderd van {{name}}",
+      removeUserBadgeClassRole: "De badge class rechten zijn verwijderd van {{name}}",
       invite: "Uitnodiging is succesvol verwijderd.",
       removed: "Rechten zijn succesvol verwijderd."
     },
@@ -688,12 +688,12 @@ I18n.translations.nl = {
     noValidInstitution: "Geen geldige instelling",
     noValidInstitutionInfo: {
       student: "De onderwijsinstelling <strong>{{name}}</strong> die gekoppeld is aan je eduID account, heeft de edubadges dienst niet afgenomen.<br/><br/>" +
-          "Neem contact op met support@edubadges.nl voor ondersteuning of probeer een andere onderwijsinstelling aan je eduID account te koppelen.",
+        "Neem contact op met support@edubadges.nl voor ondersteuning of probeer een andere onderwijsinstelling aan je eduID account te koppelen.",
       teacher: "De onderwijsinstelling <strong>{{name}}</strong> waarmee je via SURFconext ingelogd bent, gebruikt edubadges momenteel niet.<br/><br/>" +
-          "Neem contact op met support@edubadges.nl voor ondersteuning of probeer via een andere onderwijsinstelling in te loggen."
+        "Neem contact op met support@edubadges.nl voor ondersteuning of probeer via een andere onderwijsinstelling in te loggen."
     },
     noValidInstitutionInfoNoInstitution: "Je hebt geen geldige onderwijsinstelling gekoppeld aan je account. <br/>" +
-        "Om deze dienst te kunnen gebruiken moet je account gekoppeld zijn aan een onderwijsinstelling die de edubadges dienst afneemt.",
+      "Om deze dienst te kunnen gebruiken moet je account gekoppeld zijn aan een onderwijsinstelling die de edubadges dienst afneemt.",
     noValidInstitutionInfoForEnrollment: "Onderwijsinstelling {{name}} is niet gekoppeld aan je eduID account. " +
       "Om deze edubadge aan te kunnen vragen zal je eduID account gekoppeld moeten zijn met de onderwijsinstelling: <strong>{{name}}</strong>.<br/><br/>" +
       "Neem contact op met <a href='mailto:support@edubadges.nl'>support@edubadges.nl</a> voor ondersteuning of probeer je eduID account te koppelen met {{name}}.",
@@ -723,6 +723,7 @@ I18n.translations.nl = {
   publicBadge: {
     verification: "Verificatie",
     issuedTo: "Deze edubadge is uitgereikt aan <strong>{{name}}</strong> op {{date}}",
+    noValidatedName: "Deze edubadge is uitgereikt aan een gebruiker wiens naam <strong>niet</strong> is gevalideerd door een instelling op {{date}}",
     expires: "Deze edubadge verloopt op {{date}}",
     neverExpires: "Deze edubadge heeft geen expiratie datum.",
     hasExpired: "Deze edubadge is verlopen op {{date}}",
@@ -732,11 +733,18 @@ I18n.translations.nl = {
       issuedBy: "Uitgereikt door {{val}}",
       issuedUsing: "Gebruikt platform {{val}}",
       issuedTo: "Uitgereikt aan <strong>{{val}}</strong>",
+      noValidatedName: "ongevalideerde naam",
       claimedOn: "Geaccepteerd op {{val}}",
       expiresOn: "Verloopt op {{val}}",
       never: "nooit",
       verified: "<strong>Gevalideerd!<strong> {{val}}"
-    }
+    },
+    noValidatedNameModal: {
+      noLinkedInstitution: "Geen gekoppelde instelling",
+      question: "Je eduID account is niet gekoppeld aan een onderwijsinstelling. Dit is vereist om edubadges aan te vragen.<br><br>Druk op <span style='color: #540b6c'>koppel instelling</span> om doorgestuurd te worden naar eduID. Daarna wordt je terug gestuurd naar deze pagina.",
+      goToEduID: "Koppel institution"
+    },
+
   },
   monthNames: ["Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "Oktober", "November", "December"],
   zeroState: {

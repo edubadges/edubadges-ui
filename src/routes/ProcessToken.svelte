@@ -14,7 +14,9 @@
     const urlSearchParams = new URLSearchParams(window.location.search);
     authError = urlSearchParams.get("authError");
     const role = urlSearchParams.get("role");
-    if(role) $userRole = role;
+    if (role) {
+      $userRole = role;
+    }
 
     if (!authError) {
       $authToken = urlSearchParams.get("authToken");

@@ -20,7 +20,7 @@
   import {Modal} from "../forms";
   import {flash} from "../../stores/flash";
   import AcceptInstitutionTerms from "../../routes/AcceptInstitutionTerms.svelte";
-  import {userRole, userLoggedIn,     authToken, redirectPath} from "../../stores/user";
+  import {userRole, userLoggedIn, validatedUserName, authToken, redirectPath} from "../../stores/user";
   import {config} from "../../util/config"
   import {getService} from "../../util/getService";
 
@@ -46,12 +46,19 @@
 
   let showAcceptTerms = false;
   let termsAccepted = false;
+  let noValidatedName = false;
+  let showNoValidatedName = false;
   let noValidInstitution = false;
 
   const login = () => {
     $redirectPath = window.location.pathname;
-    navigate("/login");
+    navigate("/login?validateName=true");
   };
+
+  const goToEduId = () => {
+    const service = getService(role.STUDENT);
+    requestLoginToken(service, true);
+  }
 
   const query = `query ($entityId: String){
     enrollment(badgeClassId: $entityId) {
@@ -68,6 +75,7 @@
 
   const secureQuery = `query ($entityId: String){
     currentUser {
+      validatedName,
       termsAgreements {
         terms {
           entityId
@@ -124,8 +132,7 @@
   }`;
 
   onMount(() => {
-    // setTimeout(() => {visitorRole = $userLoggedIn ? $userRole : "guest";}, 1000); // TODO: try to remove this (ask Okke)
-    if (visitorRole === role.STUDENT) {
+      if (visitorRole === role.STUDENT) {
       Promise.all([queryData(query, {entityId}), queryData(secureQuery, {entityId}), getSocialAccountsSafe()]).then(res => {
         const enrollment = res[0].enrollment;
         if (enrollment && (!enrollment.badgeInstance || !enrollment.badgeInstance.revoked)) {
@@ -135,6 +142,7 @@
           requestedDate = enrollment.dateCreated;
         }
         const userTerms = res[1].currentUser.termsAgreements;
+        noValidatedName = !res[1].currentUser.validatedName
         badgeClass = res[1].badgeClass;
         schacHomes = schacHomeNamesFromExtraData(res[2][0].affiliations);
         loaded = true;
@@ -168,6 +176,10 @@
 
   const enrollStudent = showConfirmation => {
     const identifier = badgeClass.issuer.faculty.institution.identifier;
+    if (noValidatedName) {
+      showNoValidatedName = true;
+      return;
+    }
     if (schacHomes.indexOf(identifier) < 0) {
       noValidInstitution = true;
       return;
@@ -211,12 +223,14 @@
       }
     });
   };
+
   const logInForceAuthn = () => {
     $userLoggedIn = "";
     $userRole = "";
     $authToken = "";
+    $validatedUserName = "";
     $redirectPath = window.location.href;
-    window.location.href = config.eduId
+    window.location.href = config.eduId;
   };
 
 </script>
@@ -274,6 +288,16 @@
       badgeClass={badgeClass}
       userHasAgreed={userHasAgreed}
       userDisagreed={userDisagreed}/>
+{/if}
+
+{#if showNoValidatedName}
+  <Modal
+      submit={goToEduId}
+      title={I18n.t("publicBadge.noValidatedNameModal.noLinkedInstitution")}
+      question={I18n.t("publicBadge.noValidatedNameModal.question", {name: badgeClass.issuer.faculty.institution.name})}
+      evaluateQuestion={true}
+      cancel={() => showNoValidatedName = false}
+      submitLabel={I18n.t("publicBadge.noValidatedNameModal.goToEduID")}/>
 {/if}
 
 {#if noValidInstitution}

@@ -9,6 +9,9 @@ export const showMainErrorDialog = writable(false);
 export const userName = writable(
   localStorage.getItem("userName") || ""
 );
+export const validatedUserName = writable(
+  localStorage.getItem("validatedUserName") || ""
+);
 export const authToken = writable(localStorage.getItem("authToken") || "");
 export const userHasClosedWelcome = writable(
   localStorage.getItem("userHasClosedWelcome") || ""
@@ -18,6 +21,7 @@ redirectPath.subscribe((val) => localStorage.setItem("redirectPath", val));
 userRole.subscribe((val) => localStorage.setItem("userRole", val));
 userLoggedIn.subscribe((val) => localStorage.setItem("userLoggedIn", val));
 userName.subscribe((val) => localStorage.setItem("userName", val));
+validatedUserName.subscribe((val) => localStorage.setItem("validatedUserName", val));
 authToken.subscribe((val) => localStorage.setItem("authToken", val));
 userHasClosedWelcome.subscribe((val) =>
   localStorage.setItem("userHasClosedWelcome", val)
