@@ -590,7 +590,7 @@ I18n.translations.nl = {
       denied: "Geweigerd",
       deny: "Weiger verzoek",
       enrollmentType: {
-        name: "Type aangevraag",
+        name: "Type aanvraag",
         enrolled: "Zelf aangevraagd",
         invited: "Uitgenodigd"
       },
