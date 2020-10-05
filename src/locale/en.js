@@ -631,7 +631,7 @@ I18n.translations.en = {
     acceptTerms: "Please take notice of our terms",
     renewTerms: "The edubadges terms have changed. Please take notice of our new terms.",
     teacher: {
-      accept: "I have read this information",
+      accept: "I agree",
       termsInfo: "Creating a backpack and linking it to your eduID is necessary to " +
         "to be able to receive edubadges. The backpack falls under the processing responsibility of SURF",
       serviceAgreementTitle: "Service Agreement",
@@ -644,7 +644,7 @@ I18n.translations.en = {
       termsLinkPost: "",
       privacyTitle: "Privacy",
       privacyLinkPre: " You also understand the ",
-      privacyLink: "Privacy Policy.",
+      privacyLink: "Privacy Statement.",
       privacyLinkPost: ""
     },
     student: {
@@ -662,7 +662,7 @@ I18n.translations.en = {
       termsLinkPost: "",
       privacyTitle: "Privacy",
       privacyLinkPre: " You also understand the ",
-      privacyLink: "privacy policy.",
+      privacyLink: "privacy statement.",
       privacyLinkPost: "",
       formalBadges: "Formal edubadges",
       informalBadges: "Non-formal edubadges",
@@ -710,7 +710,7 @@ I18n.translations.en = {
       statementLinkPost: "",
       privacyTitle: "Privacy",
       privacyLinkPre: " You also understand the ",
-      privacyLink: "Privacy Policy.",
+      privacyLink: "Privacy Statement.",
       privacyLinkPost: ""
     },
 
@@ -824,16 +824,16 @@ I18n.translations.en = {
   terms: {
     overviewTitle: "Overview of all terms",
     termsTitle: "Terms of use",
-    privacyPolicyTitle: "Privacy Policy",
+    privacyPolicyTitle: "Privacy Statement",
     student: {
-      serviceAgreementRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/service-agreement-student-en.md",
-      termsOfUseRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/edubadges-termsofservice-en.md",
-      privacyPolicyRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/edubadges-privacy-statement-en.md",
+      serviceAgreementRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-agreement-en.md",
+      termsOfUseRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-terms-en.md",
+      privacyPolicyRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-statement-en.md",
     },
     teacher: {
-      serviceAgreementRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/service-agreement-employee-en.md",
-      termsOfUseRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/edubadges-termsofservice-en.md",
-      privacyPolicyRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/edubadges-privacy-statement-en.md",
+      serviceAgreementRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-agreement-en.md",
+      termsOfUseRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-terms-en.md",
+      privacyPolicyRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-statement-en.md",
     }
   }
 };
