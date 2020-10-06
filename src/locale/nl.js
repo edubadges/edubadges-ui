@@ -629,7 +629,7 @@ I18n.translations.nl = {
   },
   acceptTerms: {
     welcome: "Hoi {{name}}",
-    acceptTerms: "Bekijk onze voorwaarden",
+    acceptTerms: "Onze voorwaarden",
     renewTerms: "De edubadge-voorwaarden zijn gewijzigd. Raadpleeg onze nieuwe voorwaarden.",
     teacher: {
       accept: "Ik ga akkoord",
@@ -646,8 +646,8 @@ I18n.translations.nl = {
     student: {
       accept: "Ik ga akkoord",
       read: "Ik heb dit gelezen",
-      termsInfo: "Het aanmaken van een backpack en het koppelen hiervan aan je eduID is noodzakelijk " +
-        "om edubadges te kunnen ontvangen. Het backpack valt onder de verwerkingsverantwoordelijkheid van SURF",
+      termsInfo: "Het aanmaken van een backpack en het koppelen hiervan aan je eduID account is noodzakelijk " +
+        "om edubadges te kunnen ontvangen. Het backpack valt onder de verwerkingsverantwoordelijkheid van SURF.",
       termsTitle: "Voorwaarden",
       termsLinkPre: "Door op -Ik ga akkoord- te klikken, ga je akkoord met ",
       termsLink: "de volledige Gebruiksvoorwaarden",
@@ -666,15 +666,15 @@ I18n.translations.nl = {
     termsBullets: {
       teacher:
         [
-          "SURF maakt een account voor je op basis van je eduID. Dit account blijft bestaan tot je dit account verwijdert.",
-          "SURF verwerkt hiervoor persoonsgegevens: voornaam, achternaam, e-mailadres, instellingsnaam en eduID",
-          "Met vragen over jouw account en/of privacy kun je ons bereiken via [support@edubadges.nl](mailto:support@edubadges.nl)."
+          "SURF maakt een account voor je aan op basis van je eduID. Dit account blijft bestaan tot je dit account verwijdert.",
+          "SURF verwerkt hiervoor persoonsgegevens: voornaam, achternaam, e-mailadres, instellingsnaam en eduID.",
+          "Met vragen over jouw account en/of privacy kun je ons bereiken via support@edubadges.nl."
         ],
       student:
         [
           "SURF maakt een account voor je op basis van je eduID. Dit account blijft bestaan tot je dit account verwijdert.",
           "SURF verwerkt hiervoor persoonsgegevens: voornaam, achternaam, e-mailadres, instellingsnaam en eduID.",
-          "Met vragen over jouw account en/of privacy kun je ons bereiken via [support@edubadges.nl](mailto:support@edubadges.nl)."
+          "Met vragen over jouw account en/of privacy kun je ons bereiken via support@edubadges.nl."
         ]
     },
     noValidInstitution: "Geen geldige instelling",
