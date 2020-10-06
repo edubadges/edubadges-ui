@@ -716,6 +716,7 @@ I18n.translations.en = {
   publicBadge: {
     verification: "Verification",
     issuedTo: "This edubadge was issued to <strong>{{name}}</strong> on {{date}}",
+    noValidatedName: "This edubadge was issued to a user which name was <strong>not</strong> validated by an Institution on {{date}}",
     expires: "It expires on {{date}}",
     hasExpired: "It has expired on {{date}}",
     neverExpires: "It has no expiry date",
@@ -725,10 +726,16 @@ I18n.translations.en = {
       issuedBy: "Issued by {{val}}",
       issuedUsing: "Issued using {{val}}",
       issuedTo: "Issued to <strong>{{val}}</strong>",
+      noValidatedName: "unvalidated name",
       claimedOn: "Claimed on {{val}}",
       expiresOn: "Expires on {{val}}",
       never: "never",
       verified: "<strong>Verified<strong> {{val}}"
+    },
+    noValidatedNameModal: {
+      noLinkedInstitution: "No linked verfied institution",
+      question: "Your eduID account is not linked to any verfied institution. This is required to request edubadges.<br><br>Please press <span style='color: #540b6c'>Link institution</span> to be redirected to eduID. After that you will be redirected back to this page.",
+      goToEduID: "Link institution"
     }
   },
   monthNames: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],

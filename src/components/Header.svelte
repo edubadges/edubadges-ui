@@ -9,6 +9,7 @@
   import {
     userLoggedIn,
     userName,
+    validatedUserName,
     userRole,
     authToken,
     redirectPath
@@ -19,6 +20,7 @@
       $userLoggedIn = "";
       $userRole = "";
       $userName = "";
+      $validatedUserName = "";
       $authToken = "";
       $redirectPath = "";
       navigate("/login");

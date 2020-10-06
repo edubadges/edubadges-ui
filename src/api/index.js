@@ -54,8 +54,8 @@ function validFetch(path, options = {}, method = "GET", useToken = true, showErr
 
 // External API
 // Token and Profile
-export function requestLoginToken(service, forceAuthn = false) {
-  window.location.href = `${serverUrl}/account/sociallogin?provider=${service}&forceAuthn=${forceAuthn}`;
+export function requestLoginToken(service, validateName = false) {
+  window.location.href = `${serverUrl}/account/sociallogin?provider=${service}&validateName=${validateName}`;
 }
 
 export function getProfile() {

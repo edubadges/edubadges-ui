@@ -8,9 +8,11 @@
   import EnrollmentBadge from "./EnrollmentBadge.svelte";
   import I18n from "i18n-js";
   import {flash} from "../../stores/flash";
+  import Spinner from "../../components/Spinner.svelte";
 
   let requests = [];
   let error = false;
+  let loaded = false;
 
   const query = `query {
     enrollments {
@@ -36,6 +38,7 @@
   onMount(() => {
     queryData(query).then(res => {
       requests = res.enrollments.filter(el => !el.dateAwarded);
+      loaded = true;
     });
   });
 
@@ -82,14 +85,19 @@
 </style>
 
 <div>
-  <h3>{I18n.t("routes.badge-requests")}</h3>
+  {#if loaded}
+    <h3>{I18n.t("routes.badge-requests")}</h3>
 
-  {#if requests.length === 0}
-    {I18n.t("badgeRequests.none")}
+    {#if requests.length === 0}
+      {I18n.t("badgeRequests.none")}
+    {/if}
+    <div class="content">
+      {#each requests as request}
+        <EnrollmentBadge enrollmentId={request.entityId} badgeClass={request.badgeClass}/>
+      {/each}
+    </div>
+  {:else}
+    <Spinner/>
   {/if}
-  <div class="content">
-    {#each requests as request}
-      <EnrollmentBadge enrollmentId={request.entityId} badgeClass={request.badgeClass}/>
-    {/each}
-  </div>
+
 </div>

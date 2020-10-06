@@ -14,7 +14,7 @@
     TeacherProfile,
     TeacherPermissions
   } from "./components/teachers";
-  import {userRole, userLoggedIn, userName, redirectPath, showMainErrorDialog} from "./stores/user";
+  import {userRole, userLoggedIn, userName, redirectPath, showMainErrorDialog, validatedUserName} from "./stores/user";
   import {role} from "./util/role";
   import {getSocialAccount} from "./api";
   import PublicBadgeClassPage from "./components/shared/PublicBadgeClassPage.svelte"
@@ -49,6 +49,7 @@
           navigate("/login");
           $userLoggedIn = "";
           $userName = "";
+          $validatedUserName = "";
           loaded = true;
         });
     } else {

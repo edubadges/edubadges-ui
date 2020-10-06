@@ -5,7 +5,7 @@
   import I18n from "i18n-js";
   import Cookies from "js-cookie";
   import {role as roleConstants} from "../util/role";
-  import {requestLoginToken, validateInstitutions} from "../api";
+  import {validateInstitutions} from "../api";
   import {Modal, ModalTerms} from "../components/forms";
   import termsIcon from "../icons/voorwaarden-icon1.svg"
   import terms2Icon from "../icons/voorwaarden-icon2.svg"
@@ -52,18 +52,24 @@
     $userRole = role;
     const dirty = $userRole === roleConstants.STUDENT ? schacHomeNames(claims) : [claims.schac_home_organization];
     schacHomeOrganisations = dirty.map(el => DOMPurify.sanitize(el));
-    if(!schacHomeOrganisations) schacHomeOrganisations = [];
-    validateInstitutions(schacHomeOrganisations)
-      .then(res => {
-        let validSchacHomeOrganisations = schacHomeOrganisations
-          .filter(orgName => res.find(validatedOrg => validatedOrg.schac_home === orgName && validatedOrg.valid));
-        if (validSchacHomeOrganisations.length === 0) {
-          noValidInstitution = true;
-          loaded = true;
-        } else {
-          loaded = true;
-        }
-      });
+    if (!schacHomeOrganisations) {
+      schacHomeOrganisations = [];
+    }
+    if ($userRole === roleConstants.TEACHER) {
+      validateInstitutions(schacHomeOrganisations)
+        .then(res => {
+          let validSchacHomeOrganisations = schacHomeOrganisations
+            .filter(orgName => res.find(validatedOrg => validatedOrg.schac_home === orgName && validatedOrg.valid));
+          if (validSchacHomeOrganisations.length === 0) {
+            noValidInstitution = true;
+            loaded = true;
+          } else {
+            loaded = true;
+          }
+        });
+      } else {
+      loaded = true
+    }
   });
 
   const agree = () => {
