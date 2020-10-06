@@ -647,7 +647,7 @@ I18n.translations.en = {
     student: {
       accept: "I agree",
       read: "I have read this information",
-      termsInfo: "Creating a backpack and linking it to your eduID is necessary to " +
+      termsInfo: "Creating a backpack and linking it to your eduID account is necessary to " +
         "to be able to receive edubadges. The backpack falls under the processing responsibility of SURF.",
       termsTitle: "Terms",
       termsLinkPre: "By proceeding you agree to ",
