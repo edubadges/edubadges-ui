@@ -318,6 +318,7 @@ I18n.translations.nl = {
     904: "Geen bestand gekozen.",
     905: "Invullen van criteria of van criteria URL is verplicht.",
     906: "Vul een getal in voor studiebelastingsuren of verwijder deze rubriek.",
+    907: "Dit is een gereserveerde naam voor badgeclasses",
     unexpected: "Oeps, er is iets totaal onverwachts en onverklaarbaars gebeurd.",
     description: "Een onverwachte fout is opgetreden. Probeer het opnieuw of neem contact op met support@edubadges.nl voor ondersteuning.",
     close: "Sluit"

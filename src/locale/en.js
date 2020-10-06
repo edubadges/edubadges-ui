@@ -318,6 +318,7 @@ I18n.translations.en = {
     904: "No file was uploaded.",
     905: "Either criteria or criteria URL is required.",
     906: "Enter the number of study load hours or remove this section.",
+    907: "This is a reserved name for badgeclasses",
     unexpected: "Unexpected error occurred.",
     description: "An unexpected error has occurred. Please try again later or contact support@edubadges.nl for support.",
     close: "Close"

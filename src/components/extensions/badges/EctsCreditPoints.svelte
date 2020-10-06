@@ -4,11 +4,11 @@
   export let ectsValue;
 
   const decrement = () => {
-    ectsValue = Math.max(ectsValue - 0.5, 0.5);
+    ectsValue = Math.max((ectsValue || 0) - 0.5, 0.5);
   }
 
   const increment = () => {
-    ectsValue = Math.min(ectsValue + 0.5, 10);
+    ectsValue = Math.min((ectsValue || 0) + 0.5, 240);
   }
 
 </script>
@@ -46,11 +46,22 @@
     font-size: 14px;
   }
 
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
+
 </style>
 
 <div class="ects-points">
   <span class="control" on:click={decrement}>-</span>
-  <input class="value" bind:value={ectsValue}/>
+  <input type="number" max="240" min="0" oninput="validity.valid||(value='');" class="value" bind:value={ectsValue}/>
   <span class="control" on:click={increment}>+</span>
   <p class="info">{@html I18n.t("models.badgeclass.info.ects")}</p>
 

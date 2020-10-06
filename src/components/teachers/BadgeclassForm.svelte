@@ -35,7 +35,7 @@
   let loaded = false;
   let processing = false;
 
-  let showStudyLoad = true;
+  let showStudyLoad = false;
   let showEducationalIdentifiers = false;
   let showAlignment = false;
 
@@ -82,7 +82,7 @@
     const studyLoadValue = extensionValue(badgeclass.extensions, studyLoad);
     extensions = {
       [language.name]: extensionValue(badgeclass.extensions, language) || "en_EN",
-      [ects.name]: extensionValue(badgeclass.extensions, ects) || 2.5,
+      [ects.name]: extensionValue(badgeclass.extensions, ects) || (isCreate ? 2.5 : ""),
       [eqf.name]: extensionValue(badgeclass.extensions, eqf) || {name: "EQF 6", value: 5},
       [learningOutcome.name]: extensionValue(badgeclass.extensions, learningOutcome) || "",
       [educationProgramIdentifier.name]: extensionValue(badgeclass.extensions, educationProgramIdentifier) || "",
@@ -94,7 +94,7 @@
     if (extensions[educationProgramIdentifier.name]) {
       showEducationalIdentifiers = true;
     }
-    if (extensions[eqf.name] || extensions[studyLoad.name]) {
+    if (extensions[ects.name] || extensions[studyLoad.name] || isCreate) {
       showStudyLoad = true;
       ectsOrHoursSelection = studyLoadValue ? ectsOrHours[1] : ectsOrHours[0];
     }
@@ -457,7 +457,10 @@
       <span class="add-button">
         <AddButton
           text={I18n.t('models.badgeclass.addButtons.studyLoad')}
-          handleClick={() => showStudyLoad = true}
+          handleClick={() => {
+            extensions[ects.name] = 2.5;
+            showStudyLoad = true;
+          }}
           visibility={!showStudyLoad}
         />
       </span>
