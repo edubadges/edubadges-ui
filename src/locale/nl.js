@@ -633,10 +633,6 @@ I18n.translations.nl = {
     teacher: {
       accept: "Ik ga akkoord",
       termsInfo: "Hieronder staan de belangrijkste punten over edubadges en jouw privacy. De volledige versie van de Gebruiksvoorwaarden tussen SURF en jou is onder deze tekst te vinden. Het aanmaken van het account en het koppelen van dit account aan eduID is noodzakelijk om edubadges te kunnen ontvangen. Het account valt onder de verwerkingsverantwoordelijkheid van SURF.",
-      serviceAgreementTitle: "Serviceovereenkomst",
-      serviceAgreementLinkPre: "Je kunt hier ",
-      serviceAgreementLink: "de volledige serviceovereenkomst",
-      serviceAgreementLinkPost: " inzien.",
       termsTitle: "Gebruiksvoorwaarden",
       termsLinkPre: "Door op -Ik ga akkoord- te klikken, ga je akkoord met ",
       termsLink: "de volledige Gebruiksvoorwaarden",
@@ -651,10 +647,6 @@ I18n.translations.nl = {
       read: "Ik heb dit gelezen",
       termsInfo: "Het aanmaken van een backpack en het koppelen hiervan aan je eduID is noodzakelijk " +
         "om edubadges te kunnen ontvangen. Het backpack valt onder de verwerkingsverantwoordelijkheid van SURF",
-      serviceAgreementTitle: "Serviceovereenkomst",
-      serviceAgreementLinkPre: "Je kunt hier ",
-      serviceAgreementLink: "de volledige serviceovereenkomst",
-      serviceAgreementLinkPost: " inzien.",
       termsTitle: "Voorwaarden",
       termsLinkPre: "Door op -Ik ga akkoord- te klikken, ga je akkoord met ",
       termsLink: "de volledige Gebruiksvoorwaarden",
