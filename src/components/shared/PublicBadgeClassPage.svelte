@@ -56,6 +56,7 @@
   };
 
   const goToEduId = () => {
+    $redirectPath = window.location.pathname;
     const service = getService(role.STUDENT);
     requestLoginToken(service, true);
   }
@@ -229,7 +230,7 @@
     $userRole = "";
     $authToken = "";
     $validatedUserName = "";
-    $redirectPath = window.location.href;
+    $redirectPath = window.location.pathname;
     window.location.href = config.eduId;
   };
 

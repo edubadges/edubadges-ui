@@ -88,7 +88,7 @@
     $userLoggedIn = "";
     $userRole = "";
     $authToken = "";
-    $redirectPath = window.location.href;
+    $redirectPath = window.location.pathname;
     window.location.href = config.eduId
   };
 </script>
