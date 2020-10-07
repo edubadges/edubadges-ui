@@ -820,7 +820,7 @@ I18n.translations.en = {
   },
   terms: {
     overviewTitle: "Overview of all terms",
-    termsTitle: "Terms of use",
+    termsTitle: "Terms of Use",
     privacyPolicyTitle: "Privacy Statement",
     student: {
       serviceAgreementRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-agreement-en.md",
