@@ -657,7 +657,7 @@ I18n.translations.nl = {
       termsLinkPre: "Door op -Ik ga akkoord- te klikken, ga je akkoord met ",
       termsLink: "de volledige Gebruiksvoorwaarden",
       termsLinkPost: ".",
-      privacyTitle: "Privacy",
+      privacyTitle: "Privacyverklaring",
       privacyLinkPre: " Voor meer informatie kun je ook onze ",
       privacyLink: "Privacyverklaring",
       privacyLinkPost: "bekijken.",
