@@ -633,29 +633,33 @@ I18n.translations.en = {
     renewTerms: "The edubadges terms have changed. Please take notice of our new terms.",
     teacher: {
       accept: "I agree",
-      termsInfo: "Creating a backpack and linking it to your eduID is necessary to " +
-        "to be able to receive edubadges. The backpack falls under the processing responsibility of SURF",
+      termsInfo: "Below are the key points about edubadges and the protection of your personal data. " + 
+      "The full version of the Terms of Use between SURF and you can be found below this text. " + 
+      "You must create an account and link it to your eduID before you can receive edubadges. " + 
+      "The data controller for the purposes of your account is SURF.",
       termsTitle: "Terms",
-      termsLinkPre: "By proceeding you agree to ",
-      termsLink: "the terms of service,",
-      termsLinkPost: "",
+      termsLinkPre: "By clicking on -I agree-, you agree to ",
+      termsLink: "the Terms of Use",
+      termsLinkPost: "in their entirety.",
       privacyTitle: "Privacy",
-      privacyLinkPre: " You also understand the ",
+      privacyLinkPre: " For more information, see also our ",
       privacyLink: "Privacy Statement.",
       privacyLinkPost: ""
     },
     student: {
       accept: "I agree",
       read: "I have read this information",
-      termsInfo: "Creating a backpack and linking it to your eduID account is necessary to " +
-        "to be able to receive edubadges. The backpack falls under the processing responsibility of SURF.",
+      termsInfo: "Below are the key points about edubadges and the protection of your personal data. " + 
+      "The full version of the Terms of Use between SURF and you can be found below this text. " + 
+      "You must create an account and link it to your eduID before you can receive edubadges. " + 
+      "The data controller for the purposes of your account is SURF.",
       termsTitle: "Terms",
-      termsLinkPre: "By proceeding you agree to ",
-      termsLink: "the terms of service.",
-      termsLinkPost: "",
+      termsLinkPre: "By clicking on -I agree-, you agree to ",
+      termsLink: "the Terms of Use",
+      termsLinkPost: "in their entirety.",
       privacyTitle: "Privacy",
-      privacyLinkPre: " You also understand the ",
-      privacyLink: "privacy statement.",
+      privacyLinkPre: " For more information, see also our ",
+      privacyLink: "privacy Statement.",
       privacyLinkPost: "",
       formalBadges: "Formal edubadges",
       informalBadges: "Non-formal edubadges",
@@ -667,15 +671,15 @@ I18n.translations.en = {
     termsBullets: {
       teacher:
         [
-          "SURF generates a backpack for you based on your eduID. This account will remain available until you delete your account or until your institution no longer makes use of edubadges.",
-          "SURF processes the following personal data for this: your first name, last name, e-mail address, eduID and any personal texts in edubadges.",
-          "Only your educational institution and SURF have access to these personal data."
+          "SURF will create an account for you based on your eduID. This account will continue to exist until you delete it.",
+          "SURF processes the following personal data for this purpose: given names, surname, e-mail address, institution name and eduID.",
+          "If you have any questions about your account and/or privacy issues, please contact us at support@edubadges.nl."
         ],
       student:
         [
-          "SURF generates a backpack for you based on your eduID. This backpack will remain available until you delete your edubadges account.",
-          "SURF processes the following personal data for this: your first name, last name, e-mail address, eduID and any personal texts in edubadges.",
-          "Only your educational institution and SURF have access to these personal data."
+          "SURF will create an account for you based on your eduID. This account will continue to exist until you delete it.",
+          "SURF processes the following personal data for this purpose: given names, surname, e-mail address, institution name and eduID.",
+          "If you have any questions about your account and/or privacy issues, please contact us at support@edubadges.nl."
         ]
     },
     noValidInstitution: "No valid institution",

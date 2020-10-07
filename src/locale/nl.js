@@ -629,11 +629,14 @@ I18n.translations.nl = {
   },
   acceptTerms: {
     welcome: "Hoi {{name}}",
-    acceptTerms: "Onze voorwaarden",
+    acceptTerms: "Onze Gebruiksvoorwaarden",
     renewTerms: "De edubadge-voorwaarden zijn gewijzigd. Raadpleeg onze nieuwe voorwaarden.",
     teacher: {
       accept: "Ik ga akkoord",
-      termsInfo: "Hieronder staan de belangrijkste punten over edubadges en jouw privacy. De volledige versie van de Gebruiksvoorwaarden tussen SURF en jou is onder deze tekst te vinden. Het aanmaken van het account en het koppelen van dit account aan eduID is noodzakelijk om edubadges te kunnen ontvangen. Het account valt onder de verwerkingsverantwoordelijkheid van SURF.",
+      termsInfo: "Hieronder staan de belangrijkste punten over edubadges en jouw privacy. " + 
+      " De volledige versie van de Gebruiksvoorwaarden tussen SURF en jou is onder deze tekst te vinden. " + 
+      "Het aanmaken van het account en het koppelen van dit account aan eduID is noodzakelijk om edubadges " + 
+      "te kunnen ontvangen. Het account valt onder de verwerkingsverantwoordelijkheid van SURF.",
       termsTitle: "Gebruiksvoorwaarden",
       termsLinkPre: "Door op -Ik ga akkoord- te klikken, ga je akkoord met ",
       termsLink: "de volledige Gebruiksvoorwaarden",
@@ -646,9 +649,11 @@ I18n.translations.nl = {
     student: {
       accept: "Ik ga akkoord",
       read: "Ik heb dit gelezen",
-      termsInfo: "Het aanmaken van een backpack en het koppelen hiervan aan je eduID account is noodzakelijk " +
-        "om edubadges te kunnen ontvangen. Het backpack valt onder de verwerkingsverantwoordelijkheid van SURF.",
-      termsTitle: "Voorwaarden",
+      termsInfo: "Hieronder staan de belangrijkste punten over edubadges en jouw privacy. " + 
+      " De volledige versie van de Gebruiksvoorwaarden tussen SURF en jou is onder deze tekst te vinden. " + 
+      "Het aanmaken van het account en het koppelen van dit account aan eduID is noodzakelijk om edubadges " + 
+      "te kunnen ontvangen. Het account valt onder de verwerkingsverantwoordelijkheid van SURF.",
+      termsTitle: "Onze Gebruiksvoorwaarden",
       termsLinkPre: "Door op -Ik ga akkoord- te klikken, ga je akkoord met ",
       termsLink: "de volledige Gebruiksvoorwaarden",
       termsLinkPost: ".",
