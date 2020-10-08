@@ -739,7 +739,7 @@ I18n.translations.nl = {
     noValidatedNameModal: {
       noLinkedInstitution: "Geen gekoppelde instelling",
       question: "Je eduID account is niet gekoppeld aan een onderwijsinstelling. Dit is vereist om edubadges aan te vragen.<br><br>Druk op <span style='color: #540b6c'>koppel instelling</span> om doorgestuurd te worden naar eduID. Daarna wordt je terug gestuurd naar deze pagina.",
-      goToEduID: "Koppel institution"
+      goToEduID: "Koppel onderwijsinstelling"
     },
 
   },
