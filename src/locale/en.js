@@ -637,7 +637,7 @@ I18n.translations.en = {
       "The full version of the Terms of Use between SURF and you can be found below this text. " + 
       "You must create an account and link it to your eduID before you can receive edubadges. " + 
       "The data controller for the purposes of your account is SURF.",
-      termsTitle: "Terms",
+      termsTitle: "Terms of Use",
       termsLinkPre: "By clicking on -I agree-, you agree to ",
       termsLink: "the Terms of Use",
       termsLinkPost: "in their entirety.",
@@ -653,7 +653,7 @@ I18n.translations.en = {
       "The full version of the Terms of Use between SURF and you can be found below this text. " + 
       "You must create an account and link it to your eduID before you can receive edubadges. " + 
       "The data controller for the purposes of your account is SURF.",
-      termsTitle: "Terms",
+      termsTitle: "Terms of Use",
       termsLinkPre: "By clicking on -I agree-, you agree to ",
       termsLink: "the Terms of Use",
       termsLinkPost: "in their entirety.",
