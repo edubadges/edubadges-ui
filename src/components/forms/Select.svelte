@@ -40,7 +40,10 @@
 
   div :global(.selectContainer .indicator svg) {
     fill: white;
-    margin-top: 3px;
+    width: 32px;
+    height: 26px;
+    margin-top: 5px;
+    margin-left: 2px;
   }
 
   div :global(.selectContainer .listContainer .listItem .item.active) {

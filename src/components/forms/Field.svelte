@@ -10,9 +10,6 @@
 </script>
 
 <style>
-  div.field {
-    margin-bottom: var(--ver-padding-l);
-  }
 
   label {
     font-weight: bold;

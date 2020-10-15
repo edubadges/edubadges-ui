@@ -184,7 +184,7 @@
     grid-template-columns: 50% 50%;
     grid-row: auto;
     grid-column-gap: 40px;
-    grid-row-gap: 20px;
+    grid-row-gap: 16px;
     padding-right: 40px;
 
   }
