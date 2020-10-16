@@ -61,6 +61,26 @@
     width: 100%;
   }
 
+  span.status-indicator {
+    display: inline-block;
+    position: absolute;
+    border-radius: 14px;
+    box-shadow: 0 1px 0 1px var(--grey-4);
+    font-weight: bold;
+    font-size: 14px;
+    padding: 4px 8px;
+    text-align: center;
+    left: 40%;
+    top: 6px;
+    z-index: 99;
+  }
+
+  span.status-indicator.denied {
+    background-color: var(--red-medium);
+    max-width: 65px;
+    color: white;
+  }
+
   div.badge-header {
     background-color: var(--purple-2);
     color: var(--purple);
@@ -98,11 +118,16 @@
 
   .overview-container {
     padding: 20px 40px 10px 40px;
+    position: relative;
   }
 
   @media (max-width: 1120px) {
     .enrollment-detail {
       padding: 40px 20px !important;
+    }
+    span.status-indicator {
+      left: 40%;
+      top: 34px;
     }
   }
 </style>
@@ -118,6 +143,10 @@
       <h1>{badgeClass.name}</h1>
     </div>
     <div class="overview-container">
+     {#if enrollment.denied}
+       <span class="status-indicator denied">{I18n.t("models.enrollment.denied")}</span>
+      {/if}
+
       <Overview badgeclass={badgeClass} requested={enrollment.dateCreated} enrollmentId={enrollment.entityId}
               studentEnrolled={true} studentPath={I18n.t("student.enrollments")} showBreadCrumb={false}/>
     </div>

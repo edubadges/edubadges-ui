@@ -176,7 +176,7 @@ I18n.translations.en = {
     publicPrivate: "Your edubadge is set to private, only you can see it and download it.",
     publicPrivatePublic: "Your edubadge is not set to private, everyone with your sharelink will be able to see it.",
     publicPrivateRejected: "In order for you to make this edubadge public, you'll first have to accept this edubadge",
-    revoked: "Thsi edubadge has been revoked",
+    revoked: "This edubadge has been revoked",
     revokedWithReason: "This edubadge has been revoked by the issuer for the reason: '{{revocationReason}}'",
     confirmation: {
       publish: "Make this edubadge publicly visible",

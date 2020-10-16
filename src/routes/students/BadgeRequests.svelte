@@ -93,7 +93,7 @@
     {/if}
     <div class="content">
       {#each requests as request}
-        <EnrollmentBadge enrollmentId={request.entityId} badgeClass={request.badgeClass}/>
+        <EnrollmentBadge enrollmentId={request.entityId} badgeClass={request.badgeClass} denied={request.denied}/>
       {/each}
     </div>
   {:else}

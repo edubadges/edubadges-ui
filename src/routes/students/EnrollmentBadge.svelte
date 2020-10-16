@@ -6,6 +6,7 @@
 
   export let badgeClass;
   export let enrollmentId;
+  export let denied = false;
 
   const detailLink = () => {if (enrollmentId) navigate(`/enrollment/${enrollmentId}`);}
 
@@ -17,6 +18,7 @@
     flex-direction: column;
     background-color: var(--grey-2);
     width: 100%;
+    position: relative;
   }
 
   .pointer {
@@ -48,6 +50,25 @@
     margin-bottom: 15px;
     display: inline-block;
     line-height: 24px;
+  }
+
+  span.status-indicator {
+    display: inline-block;
+    position: absolute;
+    border-radius: 14px;
+    box-shadow: 0 1px 0 1px var(--grey-4);
+    font-weight: bold;
+    font-size: 14px;
+    padding: 4px 8px;
+    text-align: center;
+    left: 10px;
+    top: -14px
+  }
+
+  span.status-indicator.denied {
+    background-color: var(--red-medium);
+    max-width: 65px;
+    color: white;
   }
 
   .details {
@@ -83,6 +104,9 @@
 </style>
 
 <div class="card badge {enrollmentId ? 'pointer': ''}" on:click|preventDefault|stopPropagation={detailLink}>
+  {#if denied}
+    <span class="status-indicator denied">{I18n.t("models.enrollment.denied")}</span>
+  {/if}
   <div class="header">
     <img src={badgeClass.image} alt=""/>
   </div>
