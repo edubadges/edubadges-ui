@@ -23,10 +23,16 @@ div.markdown-body tr:nth-child(even) {
   background: var(--grey-1);
 }
 
-div.markdown-body ul, div.markdown-body ol, p.markdown ul, p.markdown ol {
+div.markdown-body ul, p.markdown ul {
   margin: 15px 0 15px 25px;
   list-style: circle;
   line-height: 22px;
+}
+
+div.markdown-body ol,  p.markdown ol {
+  margin: 15px 0 15px 25px;
+  line-height: 22px;
+  list-style-type: decimal;
 }
 
 p.markdown {
