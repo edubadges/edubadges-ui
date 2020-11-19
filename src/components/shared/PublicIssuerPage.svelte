@@ -5,12 +5,15 @@
   import {BadgeClassHeader} from "../teachers";
   import {Button, Spinner} from "../index";
   import {entityType} from "../../util/entityTypes"
+  import Cookies from "js-cookie";
 
   export let entityId;
   export let visitorRole;
 
   let issuer = {};
   let loaded;
+
+  const currentLanguage = Cookies.get("lang") ? Cookies.get("lang") : "en";
 
   onMount(() => {
     getPublicIssuer(entityId).then(res => {
@@ -67,7 +70,7 @@
     <div class="issuer-detail">
       <h3>{I18n.t('models.issuer.description')}</h3>
       <p class="info">
-        {issuer.description}
+        {currentLanguage === 'en' ? issuer.description_english : issuer.description_dutch}
       </p>
       <h3>{I18n.t('models.issuer.email')}</h3>
       <p class="info">

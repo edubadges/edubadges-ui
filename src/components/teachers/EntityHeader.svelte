@@ -9,6 +9,7 @@
   import RemoteImage from "../RemoteImage.svelte";
   import {entityType} from "../../util/entityTypes"
   import {institutionIcon, facultyIcon, issuerIcon} from "../../icons";
+  import Cookies from "js-cookie";
 
   export let entity;
   export let object = {};
@@ -20,6 +21,7 @@
 
   let imageId = "";
 
+  const currentLanguage = Cookies.get("lang") ? Cookies.get("lang") : "en";
 </script>
 
 <style lang="scss">
@@ -149,6 +151,7 @@
     <div class="info">
       {#if entity !== entityType.BADGE_CLASS}
         <p>{object.description}</p>
+<!--        <p>{currentLanguage === 'en' ? object.description_english : object.description_dutch}</p>-->
       {/if}
       {#if object.publicLink}
         <p><a href={object.publicLink} rel="noreferrer noopener" target="_blank">{object.publicLink}</a></p>

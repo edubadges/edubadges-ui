@@ -15,7 +15,8 @@
     currentInstitution {
       entityId,
       name,
-      description,
+      descriptionEnglish,
+      descriptionDutch
       image,
       brin,
       gradingTable
@@ -60,9 +61,18 @@
       <TextInput bind:value={institution.name} error={errors.name}  placeholder={I18n.t("placeholders.institution.name")}/>
     </Field>
 
-    <Field {entity} attribute="description" errors={errors.description}>
+    <Field {entity} attribute="description_english" errors={errors.description}>
       <TextInput
-          bind:value={institution.description}
+          bind:value={institution.description_english}
+          error={errors.description}
+          placeholder={I18n.t("placeholders.institution.description")}
+          size="100"
+          area/>
+    </Field>
+
+    <Field {entity} attribute="description_dutch" errors={errors.description}>
+      <TextInput
+          bind:value={institution.description_dutch}
           error={errors.description}
           placeholder={I18n.t("placeholders.institution.description")}
           size="100"
