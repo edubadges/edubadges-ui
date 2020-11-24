@@ -5,7 +5,6 @@
   import {BadgeClassHeader} from "../teachers";
   import {Button, Spinner} from "../index";
   import {entityType} from "../../util/entityTypes"
-  import Cookies from "js-cookie";
 
   export let entityId;
   export let visitorRole;
@@ -13,7 +12,7 @@
   let issuer = {};
   let loaded;
 
-  const currentLanguage = Cookies.get("lang") ? Cookies.get("lang") : "en";
+  const currentLanguage = I18n.locale;
 
   onMount(() => {
     getPublicIssuer(entityId).then(res => {

@@ -448,6 +448,7 @@ I18n.translations.en = {
       created: "Created",
       admin: "Admin",
       brin: "BRIN code",
+      description: "Description",
       description_english: "Description in English",
       description_dutch: "Description in Dutch",
       grading_table: "Grading table",
@@ -457,11 +458,13 @@ I18n.translations.en = {
     faculty: {
       created: "Created",
       admin: "Admin",
+      description: "Description",
       description_english: "Description in English",
       description_dutch: "Description in Dutch",
       name: "Issuer group name",
     },
     issuer: {
+      description: "Description",
       description_english: "Description in English",
       description_dutch: "Description in Dutch",
       email: "Contact email address",

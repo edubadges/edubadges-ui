@@ -5,7 +5,6 @@
   import {ModalTerms} from "../components/forms";
   import termsIcon from "../icons/voorwaarden-icon1.svg";
   import {fetchMarkdown} from "../api/markdown";
-  import Cookies from "js-cookie";
 
   export let userHasAgreed;
   export let userDisagreed;
@@ -20,7 +19,7 @@
   let statementRawUrl;
 
   onMount(() => {
-    const currentLanguage = Cookies.get("lang") ? Cookies.get("lang") : "en";
+    const currentLanguage = I18n.locale;
     termsUrl = badgeClass.terms.termsUrl.find(({language}) => language.toLowerCase() === currentLanguage.toLowerCase()).url;
     fetchMarkdown(termsUrl).then(res => {
       excerptMarkDown = res;

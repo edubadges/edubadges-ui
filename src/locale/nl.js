@@ -448,6 +448,7 @@ I18n.translations.nl = {
       created: "Aangemaakt",
       admin: "Admin",
       brin: "BRIN code",
+      description: "Beschrijving",
       description_english: "Beschrijving in het Engels",
       description_dutch: "Beschrijving in het Nederlands",
       grading_table: "Grading table",
@@ -457,11 +458,13 @@ I18n.translations.nl = {
     faculty: {
       created: "Aangemaakt",
       admin: "Admin",
+      description: "Beschrijving",
       description_english: "Beschrijving in het Engels",
       description_dutch: "Beschrijving in het Nederlands",
       name: "Naam",
     },
     issuer: {
+      description: "Beschrijving",
       description_english: "Beschrijving in het Engels",
       description_dutch: "Beschrijving in het Nederlands",
       email: "Contact e-mailadres",

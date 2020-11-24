@@ -3,7 +3,6 @@
   import * as jwt_decode from "jwt-decode";
   import {config} from "../util/config";
   import I18n from "i18n-js";
-  import Cookies from "js-cookie";
   import {role as roleConstants} from "../util/role";
   import {validateInstitutions} from "../api";
   import {Modal, ModalTerms} from "../components/forms";

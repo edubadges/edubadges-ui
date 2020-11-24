@@ -40,6 +40,8 @@
     errors = {};
     processing = true;
     institution.grading_table = toHttpOrHttps(institution.grading_table);
+    institution.description_english = institution.descriptionEnglish;
+    institution.description_dutch = institution.descriptionDutch;
 
     if (!institution.image) delete institution.image;
     editInstitution(institution.entityId, institution)
@@ -61,19 +63,19 @@
       <TextInput bind:value={institution.name} error={errors.name}  placeholder={I18n.t("placeholders.institution.name")}/>
     </Field>
 
-    <Field {entity} attribute="description_english" errors={errors.description}>
+    <Field {entity} attribute="description_english" errors={errors.description_english}>
       <TextInput
-          bind:value={institution.description_english}
-          error={errors.description}
+          bind:value={institution.descriptionEnglish}
+          error={errors.description_english}
           placeholder={I18n.t("placeholders.institution.description")}
           size="100"
           area/>
     </Field>
 
-    <Field {entity} attribute="description_dutch" errors={errors.description}>
+    <Field {entity} attribute="description_dutch" errors={errors.description_dutch}>
       <TextInput
-          bind:value={institution.description_dutch}
-          error={errors.description}
+          bind:value={institution.descriptionDutch}
+          error={errors.description_dutch}
           placeholder={I18n.t("placeholders.institution.description")}
           size="100"
           area/>

@@ -35,6 +35,8 @@
       value: entity
     }
   ];
+
+  const currentLanguage = I18n.locale;
 </script>
 
 <style lang="scss">
@@ -95,7 +97,7 @@
     </div>
   {/if}
   <div class="content">
-    <p>{entity.description}</p>
+    <p>{currentLanguage === 'en' ? entity.descriptionEnglish : entity.descriptionDutch}</p>
     <HeaderList {headerItems} entity="institution" />
   </div>
 </div>

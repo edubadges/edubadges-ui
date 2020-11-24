@@ -21,6 +21,9 @@
     processing = true;
     errors = {};
 
+    faculty.description_english = faculty.descriptionEnglish;
+    faculty.description_dutch = faculty.descriptionDutch;
+
     const args = isCreate ? [faculty] : [entityId, faculty];
     const apiCall = isCreate ? createFaculty : editFaculty;
 
@@ -44,12 +47,12 @@
     <TextInput bind:value={faculty.name} error={errors.name} placeholder={I18n.t("placeholders.faculty.name")}/>
   </Field>
 
-  <Field {entity} attribute="description_english" errors={errors.description}>
-    <TextInput bind:value={faculty.description_english} error={errors.description} area size="100"  placeholder={I18n.t("placeholders.faculty.description")}/>
+  <Field {entity} attribute="description_english" errors={errors.description_english}>
+    <TextInput bind:value={faculty.descriptionEnglish} error={errors.description_english} area size="100"  placeholder={I18n.t("placeholders.faculty.description")}/>
   </Field>
 
-  <Field {entity} attribute="description_dutch" errors={errors.description}>
-    <TextInput bind:value={faculty.description_dutch} error={errors.description} area size="100"  placeholder={I18n.t("placeholders.faculty.description")}/>
+  <Field {entity} attribute="description_dutch" errors={errors.description_dutch}>
+    <TextInput bind:value={faculty.descriptionDutch} error={errors.description_dutch} area size="100"  placeholder={I18n.t("placeholders.faculty.description")}/>
   </Field>
 
 </EntityForm>

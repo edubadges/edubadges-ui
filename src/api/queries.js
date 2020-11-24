@@ -1,7 +1,8 @@
 export const headerEntity = `
 	entityId,
 	name,
-	description,
+	descriptionEnglish,
+	descriptionDutch,
 	createdAt
 `;
 

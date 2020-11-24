@@ -38,6 +38,9 @@
 
     if (newIssuer.image === '') newIssuer.image = null;
 
+    newIssuer.description_english = issuer.descriptionEnglish;
+    newIssuer.description_dutch = issuer.descriptionDutch;
+
     const args = isCreate ? [newIssuer] : [entityId, newIssuer];
     const apiCall = isCreate ? createIssuer : editIssuer;
 
@@ -78,13 +81,13 @@
     {/if}
   </Field>
 
-  <Field {entity} attribute="description_english" errors={errors.description}>
-    <TextInput bind:value={issuer.description_english} error={errors.description} area size="100"
+  <Field {entity} attribute="description_english" errors={errors.description_english}>
+    <TextInput bind:value={issuer.descriptionEnglish} error={errors.description_english} area size="100"
                placeholder={I18n.t("placeholders.issuer.description")}/>
   </Field>
 
-  <Field {entity} attribute="description_dutch" errors={errors.description}>
-    <TextInput bind:value={issuer.description_dutch} error={errors.description} area size="100"
+  <Field {entity} attribute="description_dutch" errors={errors.description_dutch}>
+    <TextInput bind:value={issuer.descriptionDutch} error={errors.description_dutch} area size="100"
                placeholder={I18n.t("placeholders.issuer.description")}/>
   </Field>
 
