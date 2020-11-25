@@ -511,4 +511,3 @@
       cancel={cancelShareDialog}
       publicUrl={publicUrl()}/>
 {/if}
-

@@ -10,7 +10,8 @@
     issuer(id: $entityId) {
       name,
       entityId,
-      description,
+      descriptionEnglish,
+      descriptionDutch,
       image,
       url,
       email,
@@ -37,13 +38,14 @@
   let loaded = false;
 
   onMount(() => {
-    queryData(query).then(res => {
+    queryData(query, {entityId}).then(res => {
       issuer = res.issuer;
       permissions = res.issuer.permissions;
       loaded = true;
     })
   });
 </script>
+
 {#if loaded}
   <IssuerForm {issuer} {entityId} facultyChooseAllowed={false}
               mayDelete={permissions && permissions.mayDelete && issuer.badgeclasses.length === 0}/>

@@ -10,7 +10,8 @@
     faculty(id: $entityId) {
       entityId,
       name,
-      description,
+      descriptionEnglish,
+      descriptionDutch,
       issuers {
         entityId
       },

@@ -59,7 +59,7 @@
     $redirectPath = window.location.pathname;
     const service = getService(role.STUDENT);
     requestLoginToken(service, true);
-  }
+  };
 
   const query = `query ($entityId: String){
     enrollment(badgeClassId: $entityId) {
@@ -143,7 +143,7 @@
           requestedDate = enrollment.dateCreated;
         }
         const userTerms = res[1].currentUser.termsAgreements;
-        noValidatedName = !res[1].currentUser.validatedName
+        noValidatedName = !res[1].currentUser.validatedName;
         badgeClass = res[1].badgeClass;
         schacHomes = schacHomeNamesFromExtraData(res[2][0].affiliations);
         loaded = true;

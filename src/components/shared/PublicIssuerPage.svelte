@@ -12,6 +12,8 @@
   let issuer = {};
   let loaded;
 
+  const currentLanguage = I18n.locale;
+
   onMount(() => {
     getPublicIssuer(entityId).then(res => {
       issuer = res;
@@ -67,7 +69,7 @@
     <div class="issuer-detail">
       <h3>{I18n.t('models.issuer.description')}</h3>
       <p class="info">
-        {issuer.description}
+        {currentLanguage === 'en' ? issuer.description_english : issuer.description_dutch}
       </p>
       <h3>{I18n.t('models.issuer.email')}</h3>
       <p class="info">

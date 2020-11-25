@@ -27,7 +27,10 @@
 
   const query = `query ($entityId: String){
     badgeClass(id: $entityId) {
-      ${headerEntity},
+      entityId,
+      name,
+      description,
+      createdAt,
       ${headerStaff},
       image,
       contentTypeId,
