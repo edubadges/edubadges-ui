@@ -91,6 +91,7 @@
         description,
         entityId,
         criteriaUrl,
+        criteriaText,
         issuer {
           name,
           image,
@@ -484,7 +485,7 @@
     {#if !badge.revoked && (!badge.expiresAt && new Date(badge.expiresAt) < new Date())}
       <div class="delete">
         {#if badge && badge.acceptance === "ACCEPTED"}
-        <Button action={() => rejectBadge(true)} secondary={true} text={I18n.t("student.deleteBadge")} />
+          <Button action={() => rejectBadge(true)} secondary={true} text={I18n.t("student.deleteBadge")} />
         {:else}
           <Button action={() => acceptBadge(true)} secondary={true} text={I18n.t("student.acceptBadge")} />
         {/if}
