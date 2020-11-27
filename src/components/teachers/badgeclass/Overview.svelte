@@ -27,6 +27,8 @@
   let modalQuestion;
   let modalAction;
 
+  console.log("badgeclass", badgeclass); // TODO: rm
+
   const withdrawEnrollment = (showConfirmation, enrollmentId) => {
     if (showConfirmation) {
       modalTitle = I18n.t("models.enrollment.deleteEnrollment");

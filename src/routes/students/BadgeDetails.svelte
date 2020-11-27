@@ -97,7 +97,10 @@
           image,
           entityId,
           faculty {
-            name
+            name,
+            institution {
+              name
+            }
           }
         },
         extensions {

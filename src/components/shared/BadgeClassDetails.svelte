@@ -87,6 +87,8 @@
   <p class="info markdown">
     {@html DOMPurify.sanitize(marked(badgeclass.description))}
   </p>
+  <h3>{I18n.t("editUsers.badgeclass.issuedBy")}</h3>
+  <a href={badgeclass.issuer.id}><p class="info">{badgeclass.issuer.name}, {badgeclass.issuer.faculty.institution.name}</p></a>
   <h3>{I18n.t('models.badgeclass.language')}</h3>
   <p class="info">
     {I18n.t(`language.${badgeclass.language}`)}
