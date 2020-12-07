@@ -560,6 +560,7 @@ I18n.translations.nl = {
         enrolled: "Aangevraagd",
         directAward: "Direct toegekend"
       },
+      associatedInstitution: "Van instelling",
       issuedOn: "Uitgegeven op",
       issuedBy: "Uitgegeven door",
       claimed: "Geclaimd",

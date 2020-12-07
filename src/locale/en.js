@@ -560,6 +560,7 @@ I18n.translations.en = {
         enrolled: "Requested",
         directAward: "Direct award"
       },
+      associatedInstitution: "Associated institution",
       issuedOn: "Issued",
       issuedBy: "Issued by",
       claimed: "Claimed",

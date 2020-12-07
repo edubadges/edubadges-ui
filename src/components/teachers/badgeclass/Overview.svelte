@@ -20,14 +20,13 @@
   export let studentPath;
   export let publicPage = false;
   export let showBreadCrumb = true;
+  export let withInstitution = false;
 
   //Modal
   let showModal = false;
   let modalTitle;
   let modalQuestion;
   let modalAction;
-
-  console.log("badgeclass", badgeclass); // TODO: rm
 
   const withdrawEnrollment = (showConfirmation, enrollmentId) => {
     if (showConfirmation) {
@@ -89,7 +88,7 @@
       <Button text={I18n.t('student.withdraw')} action={() => withdrawEnrollment(true, enrollmentId)}/>
     </div>
   {/if}
-  <BadgeClassDetails badgeclass={badgeclass}>
+  <BadgeClassDetails badgeclass={badgeclass} withInstitution={withInstitution}>
     <slot/>
   </BadgeClassDetails>
 </div>

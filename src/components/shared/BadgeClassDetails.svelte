@@ -13,7 +13,9 @@
   import DOMPurify from 'dompurify';
   import marked from "marked";
   import {fallBackValue} from "../../util/forms";
+
   export let badgeclass;
+  export let withInstitution;
 
   onMount(() => {
     //The component is used by public pages where the data structure is different
@@ -68,6 +70,22 @@
     }
   }
 
+  div.issued {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 30px;
+
+      span.issuer {
+          font-size: 16px;
+      }
+
+      span.faculty {
+          font-size: 13px;
+          color: var(--grey-8);
+          margin-top: 5px;
+      }
+  }
+
   thead.purple {
     color: var(--purple);
   }
@@ -87,8 +105,19 @@
   <p class="info markdown">
     {@html DOMPurify.sanitize(marked(badgeclass.description))}
   </p>
-  <h3>{I18n.t("editUsers.badgeclass.issuedBy")}</h3>
-  <a href={badgeclass.issuer.id}><p class="info">{badgeclass.issuer.name}, {badgeclass.issuer.faculty.institution.name}</p></a>
+  {#if withInstitution}
+    <h3>{'models.badge.associatedInstitution'}</h3>
+    <a href="/public/institutions/{badgeclass.issuer.faculty.institution.entityId}"><p>{badgeclass.issuer.faculty.institution.name}</p></a>
+      <div class="issued">
+          <h3>{I18n.t("models.badge.issuedBy")}</h3>
+          {#if badgeclass.issuer.id}
+            <a href={badgeclass.issuer.id}><span class="issuer">{badgeclass.issuer.name}</span></a>
+          {:else}
+            <span class="issuer">{badgeclass.issuer.name}</span>
+          {/if}
+          <span class="faculty">({badgeclass.issuer.faculty.name})</span>
+      </div>
+  {/if}
   <h3>{I18n.t('models.badgeclass.language')}</h3>
   <p class="info">
     {I18n.t(`language.${badgeclass.language}`)}

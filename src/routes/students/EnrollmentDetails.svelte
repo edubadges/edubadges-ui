@@ -148,7 +148,8 @@
       {/if}
 
       <Overview badgeclass={badgeClass} requested={enrollment.dateCreated} enrollmentId={enrollment.entityId}
-              studentEnrolled={true} studentPath={I18n.t("student.enrollments")} showBreadCrumb={false}/>
+                studentEnrolled={true} studentPath={I18n.t("student.enrollments")} showBreadCrumb={false}
+                withInstitution={true}/>
     </div>
   {/if}
 </div>
