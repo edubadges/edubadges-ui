@@ -18,6 +18,7 @@
 
   const validations = [
     {key: "issuedOn", val: formatDate(badge.issuedOn)},
+    {key: "institution", val: badge.issuer.faculty.institution.name},
     {key: "issuedBy", val: badge.issuer.name},
     {key: "issuedUsing", val: "eduBadges"},
     {key: "issuedTo", val: validatedName || I18n.t("publicBadge.validations.noValidatedName"), invalid: !validatedName},
@@ -55,7 +56,6 @@
       close();
     }
   };
-
 </script>
 
 <style lang="scss">

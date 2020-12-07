@@ -10,7 +10,8 @@
     {
       path: "/",
       active: $currentPath && !$currentPath.includes("/manage") && !$currentPath.includes("/users")
-        && !$currentPath.includes("/profile") && !$currentPath.includes("/permissions"),
+        && !$currentPath.includes("/profile") && !$currentPath.includes("/permissions")
+        && !$currentPath.includes("/public"),
       name: "badgeclasses"
     },
     {

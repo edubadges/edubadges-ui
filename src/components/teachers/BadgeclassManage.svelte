@@ -43,6 +43,9 @@
         faculty {
           name,
           entityId,
+          institution {
+            name
+          }
         }
       },
       enrollments {

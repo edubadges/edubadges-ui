@@ -25,6 +25,7 @@
   import {config} from "./util/config";
   import {Modal} from "./components/forms";
   import PublicIssuerPage from "./components/shared/PublicIssuerPage.svelte";
+  import PublicInstitutionPage from "./components/shared/PublicInstitutionPage.svelte";
 
   const homepage = {
     guest: Login,
@@ -143,6 +144,9 @@
         </Route>
         <Route path="/public/assertions/:entityId/" let:params>
           <PublicBadgePage entityId={params.entityId}/>
+        </Route>
+        <Route path="/public/institutions/:entityId" let:params>
+          <PublicInstitutionPage entityId={params.entityId} />
         </Route>
         <Route path="/public/issuers/:entityId/" let:params>
           <PublicIssuerPage visitorRole={visitorRole} entityId={params.entityId}/>

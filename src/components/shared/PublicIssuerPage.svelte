@@ -5,6 +5,7 @@
   import {BadgeClassHeader} from "../teachers";
   import {Button, Spinner} from "../index";
   import {entityType} from "../../util/entityTypes"
+  import {navigate} from "svelte-routing";
 
   export let entityId;
   export let visitorRole;
@@ -87,7 +88,7 @@
       {/if}
       {#if issuer.institutionName}
         <h3>{I18n.t('models.issuer.institutionName')}</h3>
-        <p class="info">{issuer.institutionName}</p>
+        <a href="/public/institutions/{issuer.faculty.institution.entityId}"><p class="info">{issuer.institutionName}</p></a>
       {/if}
       {#if issuer.institutionIdentifier}
         <h3>{I18n.t('models.issuer.institutionIdentifier')}</h3>

@@ -33,11 +33,9 @@
         });
     }).catch(() => navigate("/404?public=true"));
   });
-
 </script>
 
 <style lang="scss">
-
   div.badge-public-detail-container {
     display: flex;
     flex-direction: column;
@@ -73,25 +71,14 @@
     margin: 10px auto 40px auto;
   }
 
-  h3 {
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 12px;
-  }
-
-  div.issuer {
-    margin-bottom: 12px;
-  }
-
   @media (max-width: 1120px) {
     .badge-public-detail {
       padding: 40px 20px !important;
     }
   }
-
 </style>
-{#if loaded}
 
+{#if loaded}
   <div class="badge-public-detail-container">
     <div class="badge-header">
       <h1>{badge.name}</h1>
@@ -106,11 +93,7 @@
       <BadgeValidation badge={badge} validatedName={validatedName}/>
     </div>
     <div class="badge-public-detail">
-      <div class="issuer">
-        <h3>{I18n.t("models.badgeclass.issuer")}</h3>
-        <span><a href={badge.issuer.id} rel="noreferrer noopener" target="_blank">{badge.issuer.name}</a></span>
-      </div>
-      <BadgeClassDetails badgeclass={badge}/>
+      <BadgeClassDetails badgeclass={badge} withInstitution={true}/>
     </div>
   </div>
 {:else}

@@ -274,13 +274,18 @@ export function deleteEntity(entityTypeName, entityId) {
 }
 
 // Public
+export function getPublicInstitution(entityId) {
+  const path= `${serverUrl}/public/institutions/${entityId}`;
+  return validFetch(path, {}, "GET", false);
+}
+
 export function getPublicBadgeClass(badgeId) {
   const path = `${serverUrl}/public/badges/${badgeId}?expand=issuer`;
   return validFetch(path, {}, "GET", false);
 }
 
 export function getPublicIssuer(entityId) {
-  const path = `${serverUrl}/public/issuers/${entityId}`;
+  const path = `${serverUrl}/public/issuers/${entityId}?expand=institution`;
   return validFetch(path, {}, "GET", false, false);
 }
 

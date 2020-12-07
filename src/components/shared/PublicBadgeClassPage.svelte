@@ -106,6 +106,7 @@
       issuer {
         name,
         entityId,
+        publicUrl,
         faculty {
           name,
           entityId,
@@ -145,6 +146,7 @@
         const userTerms = res[1].currentUser.termsAgreements;
         noValidatedName = !res[1].currentUser.validatedName;
         badgeClass = res[1].badgeClass;
+        badgeClass.issuer.id = badgeClass.issuer.publicUrl;
         schacHomes = schacHomeNamesFromExtraData(res[2][0].affiliations);
         loaded = true;
 
@@ -267,7 +269,7 @@
       <div class="overview-container">
         <Overview badgeclass={badgeClass} studentEnrolled={studentEnrolled} enrollmentId={enrollmentId}
                   requested={requestedDate} studentPath={I18n.t("student.enrollments")} publicPage={true}
-                  on:enrollmentWithdrawn={reload} showBreadCrumb={false}/>
+                  on:enrollmentWithdrawn={reload} showBreadCrumb={false} withInstitution={true}/>
       </div>
     </div>
   {/if}
