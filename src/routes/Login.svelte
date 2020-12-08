@@ -6,16 +6,24 @@
     CardSubtext,
     LoginButton
   } from "../components/guests";
-  import {userRole} from "../stores/user";
+  import {userRole, userLoggedIn} from "../stores/user";
   import {role} from "../util/role";
   import {getService} from "../util/getService";
   import {requestLoginToken} from "../api";
   import {navigateBack} from "../icons";
   import schoolbag from "../icons/school-bag.svg";
   import hand from "../icons/hand.svg";
+  import { onMount } from "svelte";
+  import { navigate } from "svelte-routing";
 
   let accountCreationStep = 1;
   let showLoginCards = true;
+
+  onMount(() => {
+    if($userRole && $userLoggedIn) {
+      navigate('/')
+    }
+  });
 
   const logIn = chosenRole => {
     $userRole = chosenRole;
