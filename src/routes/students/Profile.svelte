@@ -38,6 +38,7 @@
 
   const query = `query {
     currentUser {
+      validatedName,
       termsAgreements {
         entityId,
         updatedAt,
@@ -68,6 +69,7 @@
       profile.dateAdded = res[1][0].dateAdded;
       profile.affiliations = res[1][0].affiliations;
       if (isStudent) {
+        if(res[2].currentUser.validatedName) profile.validatedName = res[2].currentUser.validatedName;
         const termAgreements = res[2].currentUser.termsAgreements;
         instititions = termAgreements.reduce((acc, cur) => {
           if (cur.agreed && cur.terms.institution) {
@@ -121,7 +123,6 @@
 </script>
 
 <style lang="scss">
-
   h1 {
     font-size: 24px;
     margin-bottom: 40px;
@@ -167,6 +168,9 @@
       <div class="profile-section">
         <h3>{I18n.t("profile.name")}</h3>
         <Verified value={`${profile.first_name} ${profile.last_name}`}/>
+        {#if profile.validatedName}
+          <Verified value={`${profile.validatedName}`}/>
+        {/if}
       </div>
       <div class="profile-section">
         <h3>{I18n.t("profile.email")}</h3>
