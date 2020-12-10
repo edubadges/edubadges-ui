@@ -28,9 +28,9 @@
     }];
   };
 
-  const findErrors = email => {
-    const error = errors.find(error => error.email === email);
-    return error ? [error] : undefined;
+  const findErrors = (index, email) => {
+    const error = errors[index];
+    return error ? error.email === email ? [error] : undefined : undefined;
   }
 
   const deleteEmailField = index => {
@@ -46,15 +46,17 @@
     inviteUser(contentType, entityId, userProvisonments).then(res => {
       let hasFailures = res.some(el => el.status === "failure");
       if (hasFailures) {
-        errors = res
-          .filter(el => el.status === "failure")
-          .map(el => ({
-            email: el.email,
-            error_code: el.message.fields.error_code,
-            error_message: el.message.fields.error_message
-          }));
+        errors = res.map(el => {
+          if(el.status === "failure"){
+            return {
+              email: el.email,
+              error_code: el.message.fields.error_code,
+              error_message: el.message.fields.error_message
+            }
+          }
+        });
       }
-      newUsers = newUsers.filter(user => errors.find(error => error.email === user.email));
+      newUsers = newUsers.filter(user => errors.find(error => error ? error.email === user.email: undefined));
       const emails = res.filter(el => el.status === "success").map(el => el.email);
       if (emails.length > 0) {
         flash.setValue(I18n.t('inviteUsers.flash.confirm', {emails: emails.join(", ")}));
@@ -155,8 +157,8 @@
           <button class="rm-icon-container" on:click={() => deleteEmailField(i)}>{@html trash}</button>
         {/if}
         <div class={`user-invite-field ${i === 0 ? "first" : ""}`}>
-          <Field entity={'inviteUsers'} attribute="email" errors={findErrors(newUser.email)}>
-            <TextInput bind:value={newUser.email} error={findErrors(newUser.email)}
+          <Field entity={'inviteUsers'} attribute="email" errors={findErrors(i, newUser.email)}>
+            <TextInput bind:value={newUser.email} error={findErrors(i, newUser.email)}
                        placeholder={I18n.t("placeholders.userManagement.email")}/>
           </Field>
         </div>
