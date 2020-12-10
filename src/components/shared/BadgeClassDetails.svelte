@@ -106,7 +106,7 @@
     {@html DOMPurify.sanitize(marked(badgeclass.description))}
   </p>
   {#if withInstitution}
-    <h3>{'models.badge.associatedInstitution'}</h3>
+    <h3>{I18n.t('models.badge.associatedInstitution')}</h3>
     <a href="/public/institutions/{badgeclass.issuer.faculty.institution.entityId}"><p>{badgeclass.issuer.faculty.institution.name}</p></a>
       <div class="issued">
           <h3>{I18n.t("models.badge.issuedBy")}</h3>
