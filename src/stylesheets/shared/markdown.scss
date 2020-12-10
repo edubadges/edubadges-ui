@@ -48,3 +48,8 @@ p.markdown {
     color: var(--blue-link) !important;
   }
 }
+
+.markdown blockquote {
+  padding: 0 1em;
+  border-left: .25em solid lightgray;
+}
