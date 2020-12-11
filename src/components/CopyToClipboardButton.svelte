@@ -16,7 +16,7 @@
 
 
   const copyToClipboard = toCopy => {
-    copy(toCopy);
+    copy(toCopy, {format: "text/plain"});
     copied = true;
     setTimeout(() => copied = false, 1500);
     if (doFlash) flash.setValue(I18n.t("copyToClipboard.copied"));
