@@ -308,6 +308,7 @@ I18n.translations.nl = {
     507: "Je hebt geen bevoegdheid om een gebruiker voor deze entiteit uit te nodigen.",
     508: "Je kunt geen uitnodiging aanpassen die afgewezen is.",
     509: "Geen geldig e-mailadres.",
+    510: "Je hebt dit e-mailadres meerdere keren toegevoegd.",
     601: "Geen toegang. Controleer je permissie in deze issuer.",
     701: "Ongespecifieerde share provider.",
     702: "Ongeldige share provider.",

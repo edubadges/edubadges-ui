@@ -308,6 +308,7 @@ I18n.translations.en = {
     507: "You do not have permission to invite user for this entity.",
     508: "You cannot edit an invitation that has been rejected.",
     509: "Not a vaild email address.",
+    510: "You entered this email address multiple times.",
     601: "You do not have permission. Check your assigned role in the issuer portal.",
     701: "Unspecified share provider.",
     702: "Invalid share provider.",
