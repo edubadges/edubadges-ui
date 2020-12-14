@@ -58,6 +58,7 @@ I18n.translations.nl = {
   profile: {
     profile: "Profiel",
     name: "Naam",
+    validatedName: "Bevestigde naam",
     primary: "Primair e-mailadres",
     emails: "E-mailadressen",
     email: "E-mailadres",

@@ -58,6 +58,7 @@ I18n.translations.en = {
   profile: {
     profile: "Your account",
     name: "Name",
+    validatedName: "Validated name",
     primary: "Primary email address",
     emails: "Email addresses",
     email: "Email address",

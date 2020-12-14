@@ -169,6 +169,7 @@
         <h3>{I18n.t("profile.name")}</h3>
         <Verified value={`${profile.first_name} ${profile.last_name}`}/>
         {#if profile.validatedName}
+          <h3>{I18n.t("profile.validatedName")}</h3>
           <Verified value={`${profile.validatedName}`}/>
         {/if}
       </div>
