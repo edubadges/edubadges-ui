@@ -736,6 +736,7 @@ I18n.translations.nl = {
     hasExpired: "Deze edubadge is verlopen op {{date}}",
     verify: "Verifieer",
     validations: {
+      institution: "Van instelling {{val}}",
       issuedOn: "Uitgereikt op {{val}}",
       issuedBy: "Uitgereikt door {{val}}",
       issuedUsing: "Gebruikt platform {{val}}",

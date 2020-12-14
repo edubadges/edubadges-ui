@@ -737,6 +737,7 @@ I18n.translations.en = {
     neverExpires: "It has no expiry date",
     verify: "Verify",
     validations: {
+      institution: "From institution {{val}}",
       issuedOn: "Issued on {{val}}",
       issuedBy: "Issued by {{val}}",
       issuedUsing: "Issued using {{val}}",
