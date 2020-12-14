@@ -115,7 +115,8 @@
             name,
             image,
             grondslagFormeel,
-            grondslagInformeel
+            grondslagInformeel,
+            entityId
           }
         }
       },

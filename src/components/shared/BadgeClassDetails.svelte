@@ -108,15 +108,15 @@
   {#if withInstitution}
     <h3>{I18n.t('models.badge.associatedInstitution')}</h3>
     <a href="/public/institutions/{badgeclass.issuer.faculty.institution.entityId}"><p>{badgeclass.issuer.faculty.institution.name}</p></a>
-      <div class="issued">
-          <h3>{I18n.t("models.badge.issuedBy")}</h3>
-          {#if badgeclass.issuer.id}
-            <a href={badgeclass.issuer.id}><span class="issuer">{badgeclass.issuer.name}</span></a>
-          {:else}
-            <span class="issuer">{badgeclass.issuer.name}</span>
-          {/if}
-          <span class="faculty">({badgeclass.issuer.faculty.name})</span>
-      </div>
+    <div class="issued">
+        <h3>{I18n.t("models.badge.issuedBy")}</h3>
+        {#if badgeclass.issuer.id}
+          <a href={badgeclass.issuer.id}><span class="issuer">{badgeclass.issuer.name}</span></a>
+        {:else}
+          <span class="issuer">{badgeclass.issuer.name}</span>
+        {/if}
+        <span class="faculty">({badgeclass.issuer.faculty.name})</span>
+    </div>
   {/if}
   <h3>{I18n.t('models.badgeclass.language')}</h3>
   <p class="info">

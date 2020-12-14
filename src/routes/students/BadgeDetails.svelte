@@ -99,7 +99,8 @@
           faculty {
             name,
             institution {
-              name
+              name,
+              entityId
             }
           }
         },
