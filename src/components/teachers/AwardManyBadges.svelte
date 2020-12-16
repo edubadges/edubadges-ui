@@ -15,7 +15,6 @@
         .filter(word => word.length > 0)
         .map(el => {return {emailAddress: el}});
     $emailAddresses = [...$emailAddresses, ...newAddresses];
-    // Do not use this, but use navigate - window.history.back();
   };
 
   function onSubmit() {
