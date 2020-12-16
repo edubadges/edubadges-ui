@@ -28,7 +28,11 @@
           name,
           image,
           faculty {
-            name
+            name,
+            institution {
+              name,
+              entityId
+            }
           }
         },
         extensions {
