@@ -11,6 +11,10 @@
   export let entityId;
 
   const query = `query ($entityId: String){
+    currentInstitution {
+      grondslagFormeel,
+      grondslagInformeel,
+    },
     badgeClass(id: $entityId) {
       entityId,
       name,
@@ -59,6 +63,7 @@
   let badgeclass = {issuer: {faculty: {}}, extensions: []};
   let issuers = [];
   let permissions = {};
+  let currentInstitution;
   let loaded = false;
 
   onMount(() => {
@@ -68,12 +73,13 @@
 
       issuers = res.issuers;
       permissions = res.badgeClass.permissions;
+      currentInstitution = res.currentInstitution;
       loaded = true;
     });
   });
 </script>
 {#if loaded}
-  <BadgeclassForm {issuers} {badgeclass} {entityId}
+  <BadgeclassForm {issuers} {badgeclass} {entityId} institution={currentInstitution}
                   mayDelete={permissions && permissions.mayDelete && badgeclass.badgeAssertions.length === 0}/>
 {:else}
   <Spinner/>

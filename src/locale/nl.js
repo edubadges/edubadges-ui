@@ -299,6 +299,8 @@ I18n.translations.nl = {
     212: "Toegekende aanvragen kunnen niet afgewezen worden.",
     213: "Kan voor deze aanvraag geen edubadge uitgeven, dit is al gebeurd.",
     214: "Je kunt niets aanpassen, er zijn al edubadges uitgegeven binnen deze badge class.",
+    215: "Het is niet mogelijk een formele badgeclass aan te maken voor een instelling die geen grondslag heeft voor formele badges.",
+    216: "Het is niet mogelijk een informele badgeclass aan te maken voor een instelling die geen grondslag heeft voor informele badges.",
     500: "Kan niet de laatste permissie van de instelling verwijderen.",
     501: "Je kunt maar één uitnodiging hebben per emailadres.",
     502: "Kan de gebruiker niet uitnodigen voor deze entiteit: er is een conflicterende permissie.",

@@ -27,6 +27,7 @@
   export let badgeclass = {extensions: [], issuer: {}};
   export let issuers = [];
   export let mayDelete;
+  export let institution = {};
 
   const isCreate = !entityId;
   const entity = entityType.BADGE_CLASS;
@@ -78,6 +79,11 @@
 
   let extensions = {};
 
+  const addStudyLoad = () => {
+    extensions[ects.name] = 2.5;
+    showStudyLoad = true;
+  }
+
   $: if (badgeclass.extensions.length > 0 && !loaded) {
     const studyLoadValue = extensionValue(badgeclass.extensions, studyLoad);
     extensions = {
@@ -94,7 +100,7 @@
     if (extensions[educationProgramIdentifier.name]) {
       showEducationalIdentifiers = true;
     }
-    if (extensions[ects.name] || extensions[studyLoad.name] || isCreate) {
+    if (institution.grondslagFormeel !== null && (extensions[ects.name] || extensions[studyLoad.name] || isCreate)) {
       showStudyLoad = true;
       ectsOrHoursSelection = studyLoadValue ? ectsOrHours[1] : ectsOrHours[0];
     }
@@ -332,7 +338,9 @@
   {#if showStudyLoad}
     <div style="display: flex">
       <div class="deletable-title"><h4>{I18n.t('models.badgeclass.headers.studyLoad')}</h4></div>
-      <button class="rm-icon-container" on:click={() => showStudyLoad = false}>{@html trash}</button>
+      {#if institution.grondslagInformeel !== null}
+        <button class="rm-icon-container" on:click={() => showStudyLoad = false}>{@html trash}</button>
+      {/if}
     </div>
 
     <div class="form">
@@ -454,16 +462,15 @@
           visibility={!showEducationalIdentifiers}
         />
       </span>
+      {#if institution.grondslagFormeel !== null}
       <span class="add-button">
         <AddButton
           text={I18n.t('models.badgeclass.addButtons.studyLoad')}
-          handleClick={() => {
-            extensions[ects.name] = 2.5;
-            showStudyLoad = true;
-          }}
+          handleClick={() => addStudyLoad()}
           visibility={!showStudyLoad}
         />
       </span>
+      {/if}
       <span class="add-button">
         <AddButton
           text={I18n.t('models.badgeclass.addButtons.alignment')}

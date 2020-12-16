@@ -299,6 +299,8 @@ I18n.translations.en = {
     212: "Awarded requests can't be denied.",
     213: "Can’t award requested edubadge, it has already been awarded.",
     214: "Cannot change any value, edubadges have already been awarded within this entity.",
+    215: "Cannot create a formal badgeclass for an institution without the judicial basis for formal badges.",
+    216: "Cannot create an informal badgeclass for an institution without the judicial basis for informal badges.",
     500: "Cannot remove the last staff member of this institution.",
     501: "There may be only one invite per email address.",
     502: "Cannot invite user for this entity: there is a conflicting staff membership.",

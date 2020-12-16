@@ -8,6 +8,10 @@
   export let issuerEntityId;
 
   const query = `query {
+    currentInstitution {
+      grondslagFormeel,
+      grondslagInformeel,
+    },
     issuers {
       name,
       entityId
@@ -16,19 +20,22 @@
 
   let issuers = [];
   let badgeclass = deduceExpirationPeriod({extensions: [{}]});
+  let currentInstitution;
   let loaded = false;
 
   onMount(() => {
     queryData(query).then(res => {
       issuers = res.issuers;
       badgeclass.issuer = issuers.find(issuer => issuer.entityId === issuerEntityId);
+      currentInstitution = res.currentInstitution;
+      console.log(res.currentInstitution);
       loaded = true;
     })
   });
 
 </script>
 {#if loaded}
-  <BadgeclassForm {issuers} {badgeclass}/>
+  <BadgeclassForm {issuers} {badgeclass} institution={currentInstitution}/>
 {:else}
   <Spinner/>
 {/if}
