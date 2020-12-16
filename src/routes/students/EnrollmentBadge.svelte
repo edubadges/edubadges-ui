@@ -8,8 +8,14 @@
   export let enrollmentId;
   export let denied = false;
 
-  const detailLink = () => {if (enrollmentId) navigate(`/enrollment/${enrollmentId}`);}
+  const detailLink = () => {if (enrollmentId) navigate(`/enrollment/${enrollmentId}`);};
 
+  onMount(() => {
+    console.log(badgeClass);
+    badgeClass.studyLoadValue = badgeClass.studyLoad ?
+      I18n.t("teacher.badgeclasses.hours", {value: badgeClass.studyLoad}) : badgeClass.ects ?
+      I18n.t("teacher.badgeclasses.ects", {value: badgeClass.ects}) : null;
+  });
 </script>
 
 <style>
@@ -98,9 +104,24 @@
   .details span.faculty {
     font-size: 13px;
     color: var(--grey-8);
-
   }
 
+  .details div.study-load {
+    margin-left: auto;
+    align-self: end;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .details div.study-load span.study-load-label {
+    font-size: 16px;
+    color: var(--purple);
+    margin-bottom: 4px;
+  }
+
+  .details div.study-load span.study-load-value {
+    align-self: flex-end;
+  }
 </style>
 
 <div class="card badge {enrollmentId ? 'pointer': ''}" on:click|preventDefault|stopPropagation={detailLink}>
@@ -124,6 +145,12 @@
           <span class="faculty">({badgeClass.issuer.faculty.name})</span>
         {/if}
       </div>
+      {#if badgeClass.studyLoadValue}
+        <div class="study-load">
+          <span class="study-load-label">{I18n.t('models.badgeclass.studyLoad')}</span>
+          <span class="study-load-value">{badgeClass.studyLoadValue}</span>
+        </div>
+      {/if}
     </div>
   </div>
 </div>

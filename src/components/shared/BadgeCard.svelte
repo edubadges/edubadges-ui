@@ -160,6 +160,7 @@
     font-size: 16px;
     color: var(--purple);
     margin-bottom: 4px;
+    width: 72px;
   }
 
   .details div.study-load span.study-load-value {
@@ -260,5 +261,4 @@
       </div>
     </div>
   </div>
-
 {/if}

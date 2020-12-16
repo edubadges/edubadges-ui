@@ -7,6 +7,7 @@
   import {faculties, awardFilter, tree} from "../../stores/filterBadges";
   import BadgeCard from "../../components/shared/BadgeCard.svelte";
   import Spinner from "../../components/Spinner.svelte";
+  import { ects, extensionValue, studyLoad } from "../../components/extensions/badges/extensions";
 
   const query = `query {
     faculties {
@@ -23,7 +24,11 @@
           name,
           image,
           entityId,
-          createdAt
+          createdAt,
+          extensions {
+            name,
+            originalJson
+          },
           issuer {
             name,
             image,
@@ -65,6 +70,10 @@
       for (const faculty of res.faculties) {
         for (const issuer of faculty.issuers) {
           if (!issuer.image) issuer.image = res.faculties[0].institution.image;
+          for (const badgeClass of issuer.badgeclasses) {
+              badgeClass.studyLoad = extensionValue(badgeClass.extensions, studyLoad);
+              badgeClass.ects = extensionValue(badgeClass.extensions, ects);
+          }
         }
       }
       $faculties = res.faculties;

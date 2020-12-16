@@ -9,6 +9,7 @@
   import I18n from "i18n-js";
   import {flash} from "../../stores/flash";
   import Spinner from "../../components/Spinner.svelte";
+  import { ects, extensionValue, studyLoad } from "../../components/extensions/badges/extensions";
 
   let requests = [];
   let error = false;
@@ -24,6 +25,10 @@
         entityId,
         name,
         image,
+        extensions {
+          name,
+          originalJson
+        },
         issuer {
           name,
           image,
@@ -39,6 +44,11 @@
     queryData(query).then(res => {
       requests = res.enrollments.filter(el => !el.dateAwarded);
       loaded = true;
+
+      for(const request of requests) {
+        request.badgeClass.studyLoad = extensionValue(request.badgeClass.extensions, studyLoad);
+        request.badgeClass.ects = extensionValue(request.badgeClass.extensions, ects);
+      }
     });
   });
 
