@@ -31,6 +31,10 @@ export const studentBadgeInstances = `query {
         name,
         entityId,
         image,
+        extensions {
+          name,
+          originalJson
+        },
         issuer {
           name,
           image,

@@ -14,6 +14,7 @@
   import {studentBadgeInstances} from "../../api/queries";
   import BadgeCard from "../../components/shared/BadgeCard.svelte";
   import {sortCreatedAt} from "../../stores/filterBadges";
+  import { extensionValue, studyLoad, ects } from "../../components/extensions/badges/extensions";
 
   let loaded = false;
   let badges = [];
@@ -21,6 +22,10 @@
   onMount(() => {
     queryData(studentBadgeInstances).then(res => {
       badges = sortCreatedAt(res.badgeInstances);
+      for(const badge of badges) {
+        badge.badgeclass.studyLoad = extensionValue(badge.badgeclass.extensions, studyLoad);
+        badge.badgeclass.ects = extensionValue(badge.badgeclass.extensions, ects);
+      }
       loaded = true;
     });
   });
