@@ -100,7 +100,7 @@
     if (extensions[educationProgramIdentifier.name]) {
       showEducationalIdentifiers = true;
     }
-    if (extensions[ects.name] || extensions[studyLoad.name] || (institution.grondslagFormeel !== "NONE" && isCreate)) {
+    if (institution.grondslagFormeel !== null && (extensions[ects.name] || extensions[studyLoad.name] || isCreate)) {
       showStudyLoad = true;
       ectsOrHoursSelection = studyLoadValue ? ectsOrHours[1] : ectsOrHours[0];
     }
@@ -338,7 +338,7 @@
   {#if showStudyLoad}
     <div style="display: flex">
       <div class="deletable-title"><h4>{I18n.t('models.badgeclass.headers.studyLoad')}</h4></div>
-      {#if institution.grondslagInformeel !== "NONE"}
+      {#if institution.grondslagInformeel !== null}
         <button class="rm-icon-container" on:click={() => showStudyLoad = false}>{@html trash}</button>
       {/if}
     </div>
@@ -462,7 +462,7 @@
           visibility={!showEducationalIdentifiers}
         />
       </span>
-      {#if institution.grondslagFormeel !== "NONE"}
+      {#if institution.grondslagFormeel !== null}
       <span class="add-button">
         <AddButton
           text={I18n.t('models.badgeclass.addButtons.studyLoad')}
