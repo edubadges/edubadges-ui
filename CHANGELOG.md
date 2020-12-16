@@ -8,3 +8,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
  - Public institution page
  - Markdown support for descriptions
  - Students can view their validated name in their profile 
+ - Show more metadata on badge card
