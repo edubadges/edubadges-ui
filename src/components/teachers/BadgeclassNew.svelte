@@ -28,7 +28,6 @@
       issuers = res.issuers;
       badgeclass.issuer = issuers.find(issuer => issuer.entityId === issuerEntityId);
       currentInstitution = res.currentInstitution;
-      console.log(res.currentInstitution);
       loaded = true;
     })
   });
