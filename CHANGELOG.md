@@ -10,6 +10,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
  - Students can view their validated name in their profile.
  - Multi language support for the institution. issuer group and issuer metedata.
  - The study load metedata (in ECTS or hours) is now visible in the overview of the formal badgeclasses and edubadges.
- - When an institution does not awards formal edubadges, the fiels study load is not available.
+ - When an institution does not awards formal edubadges, the study load field is not available.
  - Several bugfixes.
 
