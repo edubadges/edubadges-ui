@@ -89,7 +89,7 @@
     extensions = {
       [language.name]: extensionValue(badgeclass.extensions, language) || "en_EN",
       [ects.name]: extensionValue(badgeclass.extensions, ects) || (isCreate ? 2.5 : ""),
-      [eqf.name]: extensionValue(badgeclass.extensions, eqf) || {name: "EQF 5", value: 5},
+      [eqf.name]: extensionValue(badgeclass.extensions, eqf) || {name: "NLQF 5", value: 5},
       [learningOutcome.name]: extensionValue(badgeclass.extensions, learningOutcome) || "",
       [educationProgramIdentifier.name]: extensionValue(badgeclass.extensions, educationProgramIdentifier) || "",
       [studyLoad.name]: studyLoadValue || "",
