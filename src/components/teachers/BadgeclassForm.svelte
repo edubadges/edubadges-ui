@@ -74,7 +74,7 @@
   let languageSelection = languages[0];
 
   const eqfItems = [...Array(8).keys()].map(i => {
-    return {name: `EQF ${i + 1}`, value: i}
+    return {name: `NLQF ${i + 1}`, value: i + 1}
   });
 
   let extensions = {};
@@ -95,7 +95,7 @@
       [studyLoad.name]: studyLoadValue || "",
     };
     if (extensions[eqf.name] && typeof extensions[eqf.name] === "number") {
-      extensions[eqf.name] = {name: `EQF ${extensions[eqf.name]}`, value: extensions[eqf.name]}
+      extensions[eqf.name] = {name: `NLQF ${extensions[eqf.name]}`, value: extensions[eqf.name]}
     }
     if (extensions[educationProgramIdentifier.name]) {
       showEducationalIdentifiers = true;
