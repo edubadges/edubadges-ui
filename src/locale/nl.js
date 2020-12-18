@@ -322,6 +322,7 @@ I18n.translations.nl = {
     904: "Geen bestand gekozen.",
     905: "Invullen van criteria of van criteria URL is verplicht.",
     906: "Vul een getal in voor studiebelastingsuren of verwijder deze rubriek.",
+    909: "Vul de opleidingscode of verwijder deze rubriek.",
     907: "Dit is een gereserveerde naam voor badgeclasses",
     908: "Kan een Issuer met deze naam niet aanmaken in deze Issuer group. Er bestaat er al een met dezelfde naam.",
     unexpected: "Oeps, er is iets totaal onverwachts en onverklaarbaars gebeurd.",

@@ -322,6 +322,7 @@ I18n.translations.en = {
     904: "No file was uploaded.",
     905: "Either criteria or criteria URL is required.",
     906: "Enter the number of study load hours or remove this section.",
+    909: "Enter the programme identifier or remove this section.",
     907: "This is a reserved name for badgeclasses",
     908: "Cannot create Issuer with this name in this issuer group. It already exists.",
     unexpected: "Unexpected error occurred.",
