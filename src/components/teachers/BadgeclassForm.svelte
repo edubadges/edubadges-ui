@@ -175,7 +175,7 @@
           for (const ext of errors.extensions) {
             const ext_name = ext.error_message.split(' ')[1].split(':')[1];
             if (ext_name === "StudyLoadExtension") errors[ext_name] = [{'error_code': 906}];
-            if (ext_name === "EducationProgramIdentifierExtension") errors[ext_name] = [{'error_code': 907}];
+            if (ext_name === "EducationProgramIdentifierExtension") errors[ext_name] = [{'error_code': 909}];
           }
         }
         if (errors.alignments) {
