@@ -39,6 +39,14 @@
       center: true
     },
     {
+      name: I18n.t("teacher.badgeclasses.enrollments"),
+      attribute: "recipients",
+      reverse: false,
+      sortType: sortType.ALPHA,
+      width: "8%",
+      center: true
+    },
+    {
       name: I18n.t("teacher.badgeclasses.studyLoad"),
       attribute: "studyLoad",
       reverse: false,
@@ -48,7 +56,7 @@
     },
     {
       name: "",
-      width: "37%"
+      width: "31%"
     },
   ];
 
@@ -126,6 +134,7 @@
       <td>{badgeclass.name}</td>
       <td>{moment(badgeclass.dateCreated).format('MMM D, YYYY')}</td>
       <td class="center">{badgeclass.badgeAssertions.length}</td>
+      <td class="center">{badgeclass.pendingEnrollments.length}</td>
       <td class="right">{badgeclass.studyLoad}</td>
       <td></td>
     </tr>

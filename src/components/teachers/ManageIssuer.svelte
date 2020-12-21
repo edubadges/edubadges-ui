@@ -52,6 +52,9 @@ import {
         enrollments {
           entityId
         },
+        pendingEnrollments {
+          entityId
+        },
         extensions {
          name,
          originalJson

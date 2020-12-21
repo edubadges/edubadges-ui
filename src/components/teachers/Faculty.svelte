@@ -36,6 +36,9 @@
           entityId,
           badgeAssertions {
             entityId
+          },
+          pendingEnrollments {
+            entityId
           }
         },
         faculty {

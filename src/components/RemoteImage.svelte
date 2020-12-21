@@ -14,7 +14,7 @@
     if (token && useToken) {
       fetchOptions.headers.Authorization = "Bearer " + token;
     }
-    const res = await fetch(imageUrl, fetchOptions);
+    const res = await fetch(imageUrl + "/", fetchOptions);
     const blob = await res.blob();
     const url = URL.createObjectURL(blob);
     return url;

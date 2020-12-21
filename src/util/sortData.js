@@ -1,5 +1,7 @@
 import { permissionRoleValue } from "./permissionRolesToValue";
 import { staffType } from "./staffTypes";
+import { attr } from "svelte/internal";
+import { getPendingEnrollmentsCount } from "./issuerGroupPendingEnrollments";
 
 export const sortType = {
   ALPHA: "alpha",
@@ -10,7 +12,8 @@ export const sortType = {
   ROLES: "roles",
   INVITATION_STATUS: "invitationStatus",
   PERSONAL_DATA: "personalData",
-  ISSUER_BADGE_CLASS_ASSERTIONS: "issuerBadgeClassSssertions"
+  ISSUER_BADGE_CLASS_ASSERTIONS: "issuerBadgeClassAssertions",
+  ISSUER_GROUP_ENROLLMENTS: "IssuerGroupEnrollments"
 };
 
 const defaultValue = (attr, howToSort) => {
@@ -26,6 +29,8 @@ const defaultValue = (attr, howToSort) => {
     case sortType.BOOLEAN:
       return attr || false;
     case sortType.ISSUER_BADGE_CLASS_ASSERTIONS:
+      return attr || 0;
+    case sortType.ISSUER_GROUP_ENROLLMENTS:
       return attr || 0;
     default:
       throw new Error(`Undefined sortType: ${howToSort}`);
@@ -70,7 +75,9 @@ export function sort(collection, attribute, reversed, howToSort = sortType.ALPHA
             .localeCompare(b._staffType === staffType.USER_PROVISIONMENT ? b.email : b.user.firstName + " " + b.user.lastName);
       case sortType.ISSUER_BADGE_CLASS_ASSERTIONS:
         return parseInt(b.badgeclasses.reduce((acc, badgeClass) => acc += (badgeClass.badgeAssertions || []).length, 0))
-          - parseInt(a.badgeclasses.reduce((acc, badgeClass) => acc += (badgeClass.badgeAssertions || []).length, 0))
+          - parseInt(a.badgeclasses.reduce((acc, badgeClass) => acc += (badgeClass.badgeAssertions || []).length, 0));
+      case sortType.ISSUER_GROUP_ENROLLMENTS:
+        return getPendingEnrollmentsCount(b) - getPendingEnrollmentsCount(a);
       default:
         throw new Error(`Unsupported sortType ${howToSort}`);
     }

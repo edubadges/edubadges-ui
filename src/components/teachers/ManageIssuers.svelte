@@ -17,6 +17,11 @@
     return count === 0 ? I18n.t("teacher.badgeclasses.noBadges") : I18n.t("teacher.badgeclasses.badgesCount", {count})
   };
 
+  const enrollmentsCount = badgeClasses => {
+    const count = badgeClasses.reduce((acc, badgeClass) => acc += (badgeClass.pendingEnrollments || []).length, 0);
+    return count === 0 ? I18n.t("teacher.badgeclasses.noRequestedBadges") : I18n.t("teacher.badgeclasses.requestedBadgesCount", {count})
+  };
+
   const tableHeaders = [
     {
       name: "",
@@ -46,8 +51,16 @@
       right: false
     },
     {
+      name: I18n.t("teacher.badgeclasses.requestedBadges"),
+      attribute: "badgeAssertions",
+      reverse: false,
+      sortType: sortType.ISSUER_BADGE_CLASS_ASSERTIONS,
+      width: "15%",
+      right: false
+    },
+    {
       name: "",
-      width: "40%"
+      width: "25%"
     }
   ];
 
@@ -134,6 +147,7 @@
       </td>
       <td class="center">{issuer.badgeclasses.length}</td>
       <td class="">{badgesCount(issuer.badgeclasses)}</td>
+      <td class="">{enrollmentsCount(issuer.badgeclasses)}</td>
       <td></td>
     </tr>
   {/each}
