@@ -133,8 +133,8 @@
       </td>
       <td>{badgeclass.name}</td>
       <td>{moment(badgeclass.dateCreated).format('MMM D, YYYY')}</td>
-      <td class="center">{badgeclass.badgeAssertions.length}</td>
-      <td class="center">{badgeclass.pendingEnrollments.length}</td>
+      <td class="center">{badgeclass.badgeAssertions.length === 0 ? "-" : badgeclass.badgeAssertions.length}</td>
+      <td class="center">{badgeclass.pendingEnrollments.length === 0 ? "-" : badgeclass.pendingEnrollments.length}</td>
       <td class="right">{badgeclass.studyLoad}</td>
       <td></td>
     </tr>

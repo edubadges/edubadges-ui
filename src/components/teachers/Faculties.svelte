@@ -13,7 +13,7 @@
   export let institutionName;
 
   const enrollmentsToText = count => {
-    return count === 0 ? I18n.t("teacher.badgeclasses.noRequestedBadges") : I18n.t("teacher.badgeclasses.requestedBadgesCount", {count})
+    return count === 0 ? "-" : count;
   };
 
   const tableHeaders = [
@@ -90,7 +90,7 @@
         <span class="icon">{@html facultyIcon}</span>
       </td>
       <td>{faculty.name}</td>
-      <td class="center">{faculty.issuers.length}</td>
+      <td class="center">{faculty.issuers.length === 0 ? "-" : faculty.issuers.length}</td>
       <td class="center">{enrollmentsToText(getPendingEnrollmentsCount(faculty))}</td>
       <td></td>
     </tr>
