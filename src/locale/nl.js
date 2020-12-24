@@ -121,7 +121,7 @@ I18n.translations.nl = {
     nameEmail: "Naam/E-mailadres",
     badgeclasses: {
       title: "Badge classes",
-      badges: "Badges",
+      badges: "Edubadges",
       noBadges: "(Nog geen edubadges uitgegeven)",
       badgesCount: "{{count}} Edubadges uitgegeven",
       requestedBadges: "Open aanvragen",
@@ -142,7 +142,7 @@ I18n.translations.nl = {
       title: "Issuers",
     },
     faculties: {
-      title: "Groepen",
+      title: "Issuer groepen",
     },
     badgeRevoked: {
       revoke: "Trek edubadge in",
@@ -205,7 +205,7 @@ I18n.translations.nl = {
     tabs: {
       institution: "Onderwijsinstelling",
       issuers: "Issuers",
-      faculties: "Groepen",
+      faculties: "Issuer groepen",
       badgeclasses: "Badge classes",
       badgeclassOverview: "Overzicht",
       userManagement: "Gebruikers beheer",
