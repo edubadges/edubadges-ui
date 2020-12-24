@@ -11,5 +11,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
  - Multi language support for the institution. issuer group and issuer metadata.
  - The study load metadata (in ECTS or hours) is now visible in the overview of the formal badgeclasses and edubadges.
  - When an institution does not awards formal edubadges, the study load field is not available.
+ - Added overview of requested edubadges in Manage screens.
  - Several bugfixes.
 
