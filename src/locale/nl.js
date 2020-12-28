@@ -136,7 +136,7 @@ I18n.translations.nl = {
       canAward: "Badge classes die je kunt uitreiken",
       allBadges: "Alle badge classes",
       mostRecent: "Meest recent",
-      mostAwarded: "Hoogste aantal toegekend’",
+      mostAwarded: "Hoogste aantal toegekend",
     },
     issuers: {
       title: "Issuers",
