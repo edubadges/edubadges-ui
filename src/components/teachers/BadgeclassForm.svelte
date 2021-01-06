@@ -72,6 +72,9 @@
     name: I18n.t("language.nl_NL")
   }];
   let languageSelection = languages[0];
+  if (!isCreate) {
+    languageSelection = languages.find(x => x.value === extensionValue(badgeclass.extensions, language));
+  }
 
   const eqfItems = [...Array(8).keys()].map(i => {
     return {name: `EQF ${i + 1}`, value: i}
