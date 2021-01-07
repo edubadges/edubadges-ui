@@ -5,17 +5,13 @@
   import {Table} from "../teachers";
   import {search} from "../../util/searchData";
   import {sort, sortType} from "../../util/sortData";
+  import {tableNumber} from "../../util/tableNumberToText";
   import {issuerIcon} from "../../icons";
 
   export let mayCreate;
   export let issuers = [];
   export let facultyEntityId;
   export let institutionName;
-
-  const badgesCount = badgeClasses => {
-    const count = badgeClasses.reduce((acc, badgeClass) => acc += (badgeClass.badgeAssertions || []).length, 0);
-    return count === 0 ? I18n.t("teacher.badgeclasses.noBadges") : I18n.t("teacher.badgeclasses.badgesCount", {count})
-  };
 
   const tableHeaders = [
     {
@@ -43,11 +39,19 @@
       reverse: false,
       sortType: sortType.ISSUER_BADGE_CLASS_ASSERTIONS,
       width: "15%",
-      right: false
+      center: true
+    },
+    {
+      name: I18n.t("teacher.badgeclasses.requestedBadges"),
+      attribute: "enrollments",
+      reverse: false,
+      sortType: sortType.ISSUER_BADGE_CLASS_ASSERTIONS,
+      width: "15%",
+      center: true
     },
     {
       name: "",
-      width: "40%"
+      width: "25%"
     }
   ];
 
@@ -97,6 +101,10 @@
     flex-direction: column;
     justify-content: space-around;
   }
+
+  .center {
+    text-align: center;
+  }
 </style>
 
 <Table
@@ -132,8 +140,9 @@
         <br/>
         <span class="sub-text">({issuer.faculty.name})</span>
       </td>
-      <td class="center">{issuer.badgeclasses.length}</td>
-      <td class="">{badgesCount(issuer.badgeclasses)}</td>
+      <td class="center">{issuer.badgeclasses.length === 0 ? "-" : issuer.badgeclasses.length}</td>
+      <td class="center">{tableNumber(issuer.badgeclasses, 'badgeAssertions')}</td>
+      <td class="center">{tableNumber(issuer.badgeclasses, 'pendingEnrollments')}</td>
       <td></td>
     </tr>
   {/each}

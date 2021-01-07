@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "copy-to-clipboard": "^3.3.1",
-    "dompurify": "2.0.15",
+    "dompurify": "2.0.17",
     "i18n-js": "^3.3.0",
     "isomorphic-fetch": "^2.2.1",
     "js-cookie": "^2.2.1",

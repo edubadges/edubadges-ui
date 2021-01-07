@@ -6,10 +6,15 @@
   import {sort, sortType} from "../../util/sortData";
   import { entityType } from "../../util/entityTypes";
   import {facultyIcon} from "../../icons";
+  import {getPendingEnrollmentsCount} from "../../util/issuerGroupPendingEnrollments";
 
   export let faculties = [];
   export let mayCreate;
   export let institutionName;
+
+  const enrollmentsToText = count => {
+    return count === 0 ? "-" : count;
+  };
 
   const tableHeaders = [
     {
@@ -32,8 +37,16 @@
       center: true
     },
     {
+      name: I18n.t("teacher.badgeclasses.requestedBadges"),
+      attribute: "requests",
+      reverse: false,
+      sortType: sortType.ISSUER_GROUP_ENROLLMENTS,
+      width: "15%",
+      center: true
+    },
+    {
       name: "",
-      width: "55%"
+      width: "40%"
     }
   ];
 
@@ -77,7 +90,8 @@
         <span class="icon">{@html facultyIcon}</span>
       </td>
       <td>{faculty.name}</td>
-      <td class="center">{faculty.issuers.length}</td>
+      <td class="center">{faculty.issuers.length === 0 ? "-" : faculty.issuers.length}</td>
+      <td class="center">{enrollmentsToText(getPendingEnrollmentsCount(faculty))}</td>
       <td></td>
     </tr>
   {/each}

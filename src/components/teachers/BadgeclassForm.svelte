@@ -77,7 +77,7 @@
   }
 
   const eqfItems = [...Array(8).keys()].map(i => {
-    return {name: `EQF ${i + 1}`, value: i}
+    return {name: `NLQF ${i + 1}`, value: i + 1}
   });
 
   let extensions = {};
@@ -92,13 +92,13 @@
     extensions = {
       [language.name]: extensionValue(badgeclass.extensions, language) || "en_EN",
       [ects.name]: extensionValue(badgeclass.extensions, ects) || (isCreate ? 2.5 : ""),
-      [eqf.name]: extensionValue(badgeclass.extensions, eqf) || {name: "EQF 6", value: 5},
+      [eqf.name]: extensionValue(badgeclass.extensions, eqf) || {name: "NLQF 5", value: 5},
       [learningOutcome.name]: extensionValue(badgeclass.extensions, learningOutcome) || "",
       [educationProgramIdentifier.name]: extensionValue(badgeclass.extensions, educationProgramIdentifier) || "",
       [studyLoad.name]: studyLoadValue || "",
     };
     if (extensions[eqf.name] && typeof extensions[eqf.name] === "number") {
-      extensions[eqf.name] = {name: `EQF ${extensions[eqf.name]}`, value: extensions[eqf.name]}
+      extensions[eqf.name] = {name: `NLQF ${extensions[eqf.name]}`, value: extensions[eqf.name]}
     }
     if (extensions[educationProgramIdentifier.name]) {
       showEducationalIdentifiers = true;
@@ -177,7 +177,8 @@
         if (errors.extensions) {
           for (const ext of errors.extensions) {
             const ext_name = ext.error_message.split(' ')[1].split(':')[1];
-            errors[ext_name] = [{'error_code': 906}];
+            if (ext_name === "StudyLoadExtension") errors[ext_name] = [{'error_code': 906}];
+            if (ext_name === "EducationProgramIdentifierExtension") errors[ext_name] = [{'error_code': 909}];
           }
         }
         if (errors.alignments) {
@@ -382,12 +383,12 @@
       <Field
         {entity}
         attribute="educationProgramIdentifierLong"
-        errors={errors.educationProgramIdentifierLong}>
+        errors={errors.EducationProgramIdentifierExtension}>
         <TextInput
           type="text"
           bind:value={extensions[educationProgramIdentifier.name]}
           placeholder={I18n.t("placeholders.badgeClass.educationProgramIdentifier")}
-          error={errors.educationProgramIdentifierLong}/>
+          error={errors.EducationProgramIdentifierExtension}/>
         <span class="info">
           {@html I18n.t('models.badgeclass.info.educationProgramIdentifier')}
         </span>

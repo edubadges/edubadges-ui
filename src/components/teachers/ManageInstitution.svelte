@@ -50,7 +50,13 @@
       name,
       entityId,
 			issuers {
-				entityId
+				entityId,
+				badgeclasses {
+				  entityId,
+				  pendingEnrollments {
+				    entityId
+				  }
+				}
       },
 		},
 		issuers {
@@ -63,6 +69,9 @@
 			badgeclasses {
 				entityId,
 				badgeAssertions {
+				  entityId
+				},
+				pendingEnrollments {
 				  entityId
 				}
       },

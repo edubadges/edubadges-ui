@@ -149,7 +149,7 @@
       <td>
         {fallBackValue(badgeclass.educationProgramIdentifier)}
       </td>
-      <td>{badgeclass.eqf ? `EQF ${badgeclass.eqf}` : fallBackValue(null)}</td>
+      <td>{badgeclass.eqf ? `NLQF ${badgeclass.eqf}` : fallBackValue(null)}</td>
     </tr>
     </tbody>
   </table>

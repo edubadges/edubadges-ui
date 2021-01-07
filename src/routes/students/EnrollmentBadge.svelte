@@ -11,7 +11,6 @@
   const detailLink = () => {if (enrollmentId) navigate(`/enrollment/${enrollmentId}`);};
 
   onMount(() => {
-    console.log(badgeClass);
     badgeClass.studyLoadValue = badgeClass.studyLoad ?
       I18n.t("teacher.badgeclasses.hours", {value: badgeClass.studyLoad}) : badgeClass.ects ?
       I18n.t("teacher.badgeclasses.ects", {value: badgeClass.ects}) : null;
