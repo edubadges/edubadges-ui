@@ -89,10 +89,12 @@
 
     <Button
       label="file"
+      disabled={disabled}
       text={I18n.t('file.upload')} />
     {#if removeAllowed}
       <Button
         secondary
+        disabled={disabled}
         action={_ => setFile()}
         text={I18n.t('file.remove')} />
     {/if}

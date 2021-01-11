@@ -265,6 +265,7 @@
     <Field {entity} attribute="image" errors={errors.image}>
       <File
         bind:value={badgeclass.image}
+        disabled={!mayEdit}
         error={errors.image}
         removeAllowed={false}/>
     </Field>
