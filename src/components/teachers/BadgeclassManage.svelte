@@ -24,6 +24,7 @@
 
   let contentType;
   let loaded;
+  let mayUpdateBadgeclass;
 
   const query = `query ($entityId: String){
     badgeClass(id: $entityId) {
@@ -81,6 +82,8 @@
       contentType = res.badgeClass.contentTypeId;
       permissions = res.badgeClass.permissions;
       loaded = true;
+      let hasUnrevokedAssertions = badgeclass.badgeAssertions.filter(function(badgeclass){return badgeclass.revoked == false}).length > 0;
+      mayUpdateBadgeclass = badgeclass.permissions && badgeclass.permissions.mayUpdate && hasUnrevokedAssertions==false;
     });
   });
 
@@ -133,14 +136,13 @@
 
 {#if loaded}
   <Breadcrumb {faculty} {issuer} {badgeclass} badgeclassName={badgeclass.name}/>
-
   <BadgeClassHeader
     object={badgeclass}
     entity={entityType.BADGE_CLASS}
     entityId={entityId}
     {tabs}
     {headerItems}
-    mayUpdate={badgeclass.permissions && badgeclass.permissions.mayUpdate && badgeclass.badgeAssertions.length === 0}
+    mayUpdate={mayUpdateBadgeclass}
   />
 
   <div class="main-content-margin">

@@ -27,6 +27,7 @@
   export let badgeclass = {extensions: [], issuer: {}};
   export let issuers = [];
   export let mayDelete;
+  export let mayEdit;
   export let institution = {};
 
   const isCreate = !entityId;
@@ -276,7 +277,7 @@
       bind:period={badgeclass.expirationPeriod}/>
 
     <Field {entity} attribute="name" errors={errors.name}>
-      <TextInput bind:value={badgeclass.name} error={errors.name} placeholder={I18n.t("placeholders.badgeClass.name")}/>
+      <TextInput bind:value={badgeclass.name} disabled={!mayEdit} error={errors.name} placeholder={I18n.t("placeholders.badgeClass.name")}/>
     </Field>
 
     <Field {entity} attribute="language" errors={errors.language}>

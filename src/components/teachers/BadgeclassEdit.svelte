@@ -65,6 +65,8 @@
   let permissions = {};
   let currentInstitution;
   let loaded = false;
+  let mayDelete = false;
+  let mayEdit = false;
 
   onMount(() => {
     queryData(query, {entityId}).then(res => {
@@ -75,12 +77,15 @@
       permissions = res.badgeClass.permissions;
       currentInstitution = res.currentInstitution;
       loaded = true;
+      let hasUnrevokedAssertions = badgeclass.badgeAssertions.filter(function(badgeclass){return badgeclass.revoked == false}).length > 0;
+      mayDelete = permissions && permissions.mayDelete && hasUnrevokedAssertions == false
+      mayEdit = permissions && permissions.mayDelete && badgeclass.badgeAssertions.length === 0
     });
   });
 </script>
 {#if loaded}
   <BadgeclassForm {issuers} {badgeclass} {entityId} institution={currentInstitution}
-                  mayDelete={permissions && permissions.mayDelete && badgeclass.badgeAssertions.length === 0}/>
+                  mayDelete={mayDelete} mayEdit={mayEdit}/>
 {:else}
   <Spinner/>
 {/if}
