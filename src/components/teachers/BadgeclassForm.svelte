@@ -243,6 +243,11 @@
     align-self: center;
     cursor: pointer;
   }
+
+  .disabled {
+    cursor: not-allowed !important;
+    color: var(--grey-7);
+  }
 </style>
 
 <EntityForm
@@ -350,7 +355,11 @@
     <div style="display: flex">
       <div class="deletable-title"><h4>{I18n.t('models.badgeclass.headers.studyLoad')}</h4></div>
       {#if institution.grondslagInformeel !== null}
-        <button class="rm-icon-container" on:click={() => showStudyLoad = false}>{@html trash}</button>
+          {#if mayEdit}
+            <button class="rm-icon-container" on:click={() => showStudyLoad = false}>{@html trash}</button>
+          {:else}
+            <button class="rm-icon-container disabled" >{@html trash}</button>
+          {/if}
       {/if}
     </div>
 
@@ -388,7 +397,11 @@
   {#if showEducationalIdentifiers}
     <div style="display: flex">
       <div class="deletable-title"><h4>{I18n.t('models.badgeclass.headers.educationalIdentifiers')}</h4></div>
-      <button class="rm-icon-container" on:click={() => showEducationalIdentifiers = false}>{@html trash}</button>
+      {#if mayEdit}
+        <button class="rm-icon-container" on:click={() => showEducationalIdentifiers = false}>{@html trash}</button>
+      {:else}
+        <button class="rm-icon-container disabled" >{@html trash}</button>
+      {/if}
     </div>
 
     <div class="form">
@@ -399,6 +412,7 @@
         <TextInput
           type="text"
           bind:value={extensions[educationProgramIdentifier.name]}
+          disabled={!mayEdit}
           placeholder={I18n.t("placeholders.badgeClass.educationProgramIdentifier")}
           error={errors.EducationProgramIdentifierExtension}/>
         <span class="info">
@@ -410,6 +424,7 @@
         <Select
           bind:value={extensions[eqf.name]}
           items={eqfItems}
+          disabled={!mayEdit}
           optionIdentifier="value"
           clearable={false}/>
         <span class="info">
@@ -422,13 +437,16 @@
   {#if showAlignment}
     <div style="display: flex">
       <div class="deletable-title"><h4>{I18n.t('models.badgeclass.headers.alignment')}</h4></div>
-      <button class="rm-icon-container" on:click={() => showAlignment = false}>{@html trash}</button>
+      {#if mayEdit}
+        <button class="rm-icon-container" on:click={() => showAlignment = false}>{@html trash}</button>
+      {/if}
     </div>
 
     <div class="form">
       <Field {entity} attribute="alignmentName" errors={errors.target_name}>
         <TextInput
           bind:value={alignment.target_name}
+          disabled={!mayEdit}
           error={errors.target_name}
           placeholder={I18n.t("placeholders.badgeClass.alignmentName")}
         />
@@ -436,6 +454,7 @@
       <Field {entity} attribute="alignmentFramework" errors={errors.target_framework}>
         <TextInput
           bind:value={alignment.target_framework}
+          disabled={!mayEdit}
           error={errors.target_framework}
           placeholder={I18n.t("placeholders.badgeClass.alignmentFramework")}
         />
@@ -443,6 +462,7 @@
       <Field {entity} attribute="alignmentUrl" errors={errors.target_url}>
         <TextInput
           bind:value={alignment.target_url}
+          disabled={!mayEdit}
           error={errors.target_url}
           placeholder={I18n.t("placeholders.badgeClass.alignmentUrl")}
         />
@@ -450,6 +470,7 @@
       <Field {entity} attribute="alignmentCode" errors{errors.target_code}>
         <TextInput
           bind:value={alignment.target_code}
+          disabled={!mayEdit}
           error={errors.target_code}
           placeholder={I18n.t("placeholders.badgeClass.alignmentCode")}
         />
@@ -458,6 +479,7 @@
         <TextInput
           bind:value={alignment.target_description}
           error={errors.target_description}
+          disabled={!mayEdit}
           area
           size="100"
           placeholder={I18n.t("placeholders.badgeClass.alignmentDescription")}
@@ -476,6 +498,7 @@
           text={I18n.t('models.badgeclass.addButtons.educationalIdentifiers')}
           handleClick={() => showEducationalIdentifiers = true}
           visibility={!showEducationalIdentifiers}
+          disabled={!mayEdit}
         />
       </span>
       {#if institution.grondslagFormeel !== null}
@@ -484,6 +507,7 @@
           text={I18n.t('models.badgeclass.addButtons.studyLoad')}
           handleClick={() => addStudyLoad()}
           visibility={!showStudyLoad}
+          disabled={!mayEdit}
         />
       </span>
       {/if}
@@ -492,6 +516,7 @@
           text={I18n.t('models.badgeclass.addButtons.alignment')}
           handleClick={() => showAlignment = true}
           visibility={!showAlignment}
+          disabled={!mayEdit}
         />
       </span>
     </div>

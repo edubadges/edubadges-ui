@@ -2,6 +2,7 @@
   export let text;
   export let handleClick;
   export let visibility;
+  export let disabled = false;
 </script>
 
 <style>
@@ -18,6 +19,16 @@
     margin-left: 5px;
     margin-right: 5px;
   }
+
+  .disabled {
+    cursor: not-allowed !important;
+    color: var(--grey-7);
+  }
+
 </style>
 
-<button class="add {visibility ? '' : 'invisible'}" on:click={handleClick}>+ {text}</button>
+{#if disabled}
+  <button class="add disabled {visibility ? '' : 'invisible'}" on:click={handleClick}>+ {text}</button>
+{:else}
+  <button class="add {visibility ? '' : 'invisible'}" on:click={handleClick}>+ {text}</button>
+{/if}
