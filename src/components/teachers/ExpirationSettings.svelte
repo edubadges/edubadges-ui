@@ -46,16 +46,16 @@
   }
 </style>
 
-<div class="expiration-settings" {disabled}>
+<div class="expiration-settings">
 
   <label for="expiration-settings">
     {I18n.t('models.badgeclass.expireSettings')}
   </label>
   <div class="options">
 
-    <RadioButton bind:values={expireValueSet} label={I18n.t('models.badgeclass.expiresAfterNever')} value={false} />
+    <RadioButton bind:values={expireValueSet} readOnly={disabled} label={I18n.t('models.badgeclass.expiresAfterNever')} value={false} />
 
-    <RadioButton bind:values={expireValueSet} label={I18n.t('models.badgeclass.expiresAfterOption')} value={true} />
+    <RadioButton bind:values={expireValueSet} readOnly={disabled} label={I18n.t('models.badgeclass.expiresAfterOption')} value={true} />
 
     <div class="expiration">
       <input
@@ -63,14 +63,14 @@
         type="number"
         min="1"
         bind:value={number}
-        disabled={!expireValueSet} />
+        disabled={!expireValueSet || disabled} />
 
       <Select
         bind:value={period}
         items={expirationPeriods()}
         optionIdentifier="key"
         clearable={false}
-        disabled={!expireValueSet} />
+        disabled={!expireValueSet || disabled} />
     </div>
   </div>
 </div>

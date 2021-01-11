@@ -271,7 +271,7 @@
 
     <ExpirationSettings
       bind:expireValueSet={badgeclass.expireValueSet}
-      disabled={false}
+      disabled={!mayEdit}
       className=""
       bind:number={badgeclass.expirationDuration}
       bind:period={badgeclass.expirationPeriod}/>

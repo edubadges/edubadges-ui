@@ -66,9 +66,20 @@
     word-break: normal;
   }
 
+  /* ReadOnly */
+  label[readOnly="true"] {
+     cursor: not-allowed !important;
+  }
+  label[readOnly="true"] .checkmark {
+      border: 1px solid var(--grey-7);
+  }
+  label[readOnly="true"] .checkmark:after {
+      background: var(--grey-7)
+  }
+
 </style>
 
-<label class="container">
+<label class="container" {readOnly}>
   <input type="radio" bind:group={values} value={value} disabled={readOnly}/>
   <span class="checkmark"></span>
   <span class="label">{label}</span>
