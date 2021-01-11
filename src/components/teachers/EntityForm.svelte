@@ -10,6 +10,7 @@
   export let badgeclass;
   export let badgeclassName = "";
   export let mayDelete;
+  export let mayEdit = true;
 
   export let create;
   export let entityTypeName;
@@ -77,13 +78,13 @@
       <div class="button-container">
         <Button
           secondary
-          disabled={processing || deleting}
+          disabled={processing || deleting || !mayEdit}
           action={() => window.history.back()}
           text={I18n.t(['manage', create ? 'new' : 'edit', 'cancel'])} />
       </div>
       <div class="button-container">
         <Button
-          disabled={processing || deleting}
+          disabled={processing || deleting || !mayEdit}
           action={submit}
           text={I18n.t(['manage', create ? 'new' : 'edit', 'save'])}/>
       </div>

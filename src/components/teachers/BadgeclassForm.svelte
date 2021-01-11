@@ -254,6 +254,7 @@
   entityTypeName={entity}
   parentId={badgeclass.issuer.entityId}
   {mayDelete}
+  {mayEdit}
   entityId={entityId}
   issuer={isCreate ? null : badgeclass.issuer}
   faculty={isCreate ? null : badgeclass.issuer.faculty}
