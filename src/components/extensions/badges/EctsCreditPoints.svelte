@@ -2,6 +2,7 @@
   import I18n from "i18n-js";
 
   export let ectsValue;
+  export let disabled = false;
 
   const decrement = () => {
     ectsValue = Math.max((ectsValue || 0) - 0.5, 0.5);
@@ -57,9 +58,23 @@
     -moz-appearance: textfield;
   }
 
+  /* Disabled */
+
+  div[disabled="true"] {
+    cursor: not-allowed !important;
+  }
+  div[disabled="true"] input{
+    background-color: var(--grey-2);
+  }
+  
+  div[disabled="true"] span{
+    background-color: var(--grey-2);
+  }
+
+
 </style>
 
-<div class="ects-points">
+<div class="ects-points" {disabled}>
   <span class="control" on:click={decrement}>-</span>
   <input type="number" max="240" min="0" oninput="validity.valid||(value='');" class="value" bind:value={ectsValue}/>
   <span class="control" on:click={increment}>+</span>

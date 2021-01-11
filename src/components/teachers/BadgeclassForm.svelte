@@ -359,6 +359,7 @@
         <Select
           bind:value={ectsOrHoursSelection}
           items={ectsOrHours}
+          disabled={!mayEdit}
           optionIdentifier="value"
           clearable={false}
         />
@@ -366,7 +367,10 @@
       <p></p>
       {#if ectsOrHoursSelection.value === 'creditPoints'}
         <Field {entity} attribute="number" errors={errors.ectsLong}>
-          <EctsCreditPoints bind:ectsValue={extensions[ects.name]}/>
+          <EctsCreditPoints 
+            bind:ectsValue={extensions[ects.name]}
+            disabled={!mayEdit} 
+          />
         </Field>
       {:else}
         <Field {entity} attribute="number" errors={errors.StudyLoadExtension}>
@@ -374,6 +378,7 @@
               type="number"
               bind:value={extensions[studyLoad.name]}
               error={errors.StudyLoadExtension}
+              disabled={!mayEdit}
               placeholder={I18n.t("placeholders.badgeClass.studyLoad")}/>
         </Field>
       {/if}
