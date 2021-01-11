@@ -262,10 +262,10 @@ export function deleteEntity(entityTypeName, entityId) {
       path = `${serverUrl}/institution/faculties/edit/${entityId}`;
       break;
     case entityType.ISSUER:
-      path = `${serverUrl}/issuer/edit/${entityId}`;
+      path = `${serverUrl}/issuer/delete/${entityId}`;
       break;
     case entityType.BADGE_CLASS:
-      path = `${serverUrl}/issuer/badgeclasses/edit/${entityId}`;
+      path = `${serverUrl}/issuer/badgeclasses/delete/${entityId}`;
       break;
     default:
       throw new Error(`Unsupported delete ${entityTypeName}`)
