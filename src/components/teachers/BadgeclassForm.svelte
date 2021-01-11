@@ -285,6 +285,7 @@
       <Select
         bind:value={languageSelection}
         items={languages}
+        disabled={!mayEdit}
         optionIdentifier="value"
         clearable={false}/>
     </Field>
@@ -293,6 +294,7 @@
       <TextInput
         bind:value={badgeclass.description}
         error={errors.description}
+        disabled={!mayEdit}
         area
         placeholder={I18n.t("placeholders.badgeClass.description")}
         size="100"
@@ -302,6 +304,7 @@
     <Field {entity} attribute="learningOutcome" errors={errors.learningOutcome}>
       <TextInput
         bind:value={extensions[learningOutcome.name]}
+        disabled={!mayEdit}
         error={errors.learningOutcome}
         area
         placeholder={I18n.t("placeholders.badgeClass.learningOutcome")}
@@ -327,6 +330,7 @@
       <TextInput
         area
         bind:value={badgeclass.criteriaText}
+        disabled={!mayEdit}
         placeholder={I18n.t("placeholders.badgeClass.criteriaText")}
         error={errors.criteria_text}
         size="150"
@@ -336,6 +340,7 @@
     <Field {entity} attribute="criteria_url" errors={errors.criteria_url}>
       <TextInput
         bind:value={badgeclass.criteriaUrl}
+        disabled={!mayEdit}
         placeholder={I18n.t("placeholders.badgeClass.criteriaUrl")}
         error={errors.criteria_url}/>
     </Field>

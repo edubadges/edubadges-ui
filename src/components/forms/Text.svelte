@@ -12,13 +12,14 @@
 </script>
 
 <style>
+
   /* Disabled */
-  div[disabled] * {
+  div[disabled="true"] * {
     color: var(--color-text-light-grey);
   }
 
-  div[disabled] input,
-  div[disabled] textarea {
+  div[disabled="true"] input,
+  div[disabled="true"] textarea {
     cursor: not-allowed;
     background-color: var(--grey-2) ;
     color: var(--grey-10);
