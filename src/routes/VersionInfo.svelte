@@ -13,7 +13,7 @@
   let branchServer = "";
 
   onMount(() => {
-    fetch(`${serverUrl}/static/git.info`).then(res => {
+    fetch(`${serverUrl}/static/extensions/git.info`).then(res => {
       res.text().then(txt => {
         const lines = txt.match(/[^\r\n]+/g);
         versionServer = lines[0];
