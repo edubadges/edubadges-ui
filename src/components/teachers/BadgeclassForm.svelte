@@ -27,7 +27,7 @@
   export let badgeclass = {extensions: [], issuer: {}};
   export let issuers = [];
   export let mayDelete;
-  export let mayEdit;
+  export let mayEdit = true;
   export let institution = {};
 
   const isCreate = !entityId;
