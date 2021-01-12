@@ -172,27 +172,27 @@
       <div class="profile-section">
         {#if !profile.validatedName}
           <h3>{I18n.t("profile.name")}</h3>
-          <Verified value={`${profile.first_name} ${profile.last_name}`}/>
+          <Verified value={`${profile.first_name} ${profile.last_name}`} fromEduID={true} showVerified={false}/>
         {/if}
         {#if profile.validatedName}
           <h3>{I18n.t("profile.validatedName")}</h3>
-          <Verified value={`${profile.validatedName}`}/>
+          <Verified value={`${profile.validatedName}`} fromEduID={false} showVerified={true}/>
         {/if}
       </div>
       <div class="profile-section">
         <h3>{I18n.t("profile.email")}</h3>
-        <Verified value={profile.email} fromEduID={isStudent}/>
+        <Verified value={profile.email} fromEduID={isStudent} showVerified={false}/>
       </div>
       {#if profile.eduid}
         <div class="profile-section">
           <h3>{I18n.t("profile.eduid")}</h3>
-          <Verified value={eduIdValue()} fromEduID={true}/>
+          <Verified value={eduIdValue()} fromEduID={true} showVerified={false}/>
         </div>
       {/if}
       <div class="profile-section">
         <h3>{I18n.t("profile.memberSince")}</h3>
         <Verified value={I18n.t("profile.memberSinceDate", formatCreateDate(profile.dateAdded))}
-                  showVerified={false}/>
+                  fromEduID={true} showVerified={false}/>
       </div>
     {/if}
   </div>
