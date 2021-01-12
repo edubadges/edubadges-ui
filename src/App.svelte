@@ -26,6 +26,7 @@
   import {Modal} from "./components/forms";
   import PublicIssuerPage from "./components/shared/PublicIssuerPage.svelte";
   import PublicInstitutionPage from "./components/shared/PublicInstitutionPage.svelte";
+  import VersionInfo from "./routes/VersionInfo.svelte";
 
   const homepage = {
     guest: Login,
@@ -38,7 +39,7 @@
   onMount(() => {
     //if we are heading to /auth/login/ then we proceed
     const path = window.location.pathname;
-    if (path.indexOf("public") === -1 && path !== "/auth/login/" && path.indexOf("signup") === -1) {
+    if (path.indexOf("public") === -1 && path !== "/auth/login/" && path.indexOf("signup") === -1 && path.indexOf("version/info") === -1) {
       getSocialAccount()
         .then(res => {
           loaded = true;
@@ -104,6 +105,10 @@
 
     <div class="page">
       <Router>
+        <Route path="/version/info">
+          <VersionInfo />
+        </Route>
+
         <!-- Student -->
         <Route path="/backpack">
           <Student bookmark="backpack"/>
