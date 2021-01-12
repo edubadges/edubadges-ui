@@ -2,7 +2,6 @@
   import I18n from "i18n-js";
   import Cookies from "js-cookie";
   import {userRole} from "../stores/user";
-  import {role} from "../util/role";
   import surf from "../img/logo-surf.svg";
   import {ModalTerms} from "./forms";
 
@@ -14,7 +13,7 @@
     lang = ["en", "nl"].indexOf(lang) > -1 ? lang : "en";
     const urlSearchParams = new URLSearchParams(window.location.search);
     urlSearchParams.set("lang", lang);
-    Cookies.set("lang", lang, {expires: 365, secure: true });
+    Cookies.set("lang", lang, {expires: 365, secure: true});
     window.location.search = urlSearchParams.toString();
   };
 
@@ -42,6 +41,11 @@
   }
 
   .info {
+    display: flex;
+    align-content: center;
+  }
+
+  .info .inner {
     text-align: right;
     display: flex;
     flex-direction: row;
@@ -51,6 +55,10 @@
   .info span {
     display: inline-block;
     margin-right: 5px;
+  }
+
+  .info a.about {
+    margin-top: -17px;
   }
 
   @media (max-width: 510px) {
@@ -82,12 +90,12 @@
 <footer class="footer">
   <div class="help">
     <a href="/terms"
-        on:click|preventDefault|stopPropagation={showTerms(I18n.t("terms.termsTitle"),
+       on:click|preventDefault|stopPropagation={showTerms(I18n.t("terms.termsTitle"),
         I18n.t(`terms.${$userRole || "student"}.termsOfUseRaw`))}>
       {I18n.t("terms.termsTitle")}
     </a>
     <a href="/privacy"
-        on:click|preventDefault|stopPropagation={showTerms(I18n.t("terms.privacyPolicyTitle"),
+       on:click|preventDefault|stopPropagation={showTerms(I18n.t("terms.privacyPolicyTitle"),
         I18n.t(`terms.${$userRole || "student"}.privacyPolicyRaw`))}>
       {I18n.t("terms.privacyPolicyTitle")}
     </a>
@@ -109,17 +117,24 @@
   </div>
 
   <div class="info">
-    <span>{I18n.t('footer.poweredBy')}</span>
-    <a href={I18n.locale === 'en' ? "https://www.surf.nl/en" : "https://www.surf.nl"} target="_blank" rel="noreferrer noopener">
-      {@html surf}
-    </a>
+    <div class="inner">
+      <span>{I18n.t('footer.poweredBy')}</span>
+      <a href={I18n.locale === 'en' ? "https://www.surf.nl/en" : "https://www.surf.nl"} target="_blank"
+         rel="noreferrer noopener">
+        {@html surf}
+      </a>
+    </div>
+    <div class="inner">
+      <a class="about" href={I18n.t("footer.aboutLink")} target="_blank"
+         rel="noreferrer noopener">{I18n.t("footer.about")}</a>
+    </div>
   </div>
 </footer>
 
 {#if showModal}
   <ModalTerms
-      title={termsTitle}
-      submit={() => showModal = false}
-      cancel={() => showModal = false}
-      url={termsUrl}/>
+    title={termsTitle}
+    submit={() => showModal = false}
+    cancel={() => showModal = false}
+    url={termsUrl}/>
 {/if}

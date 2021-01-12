@@ -275,7 +275,9 @@ I18n.translations.en = {
     },
   },
   footer: {
-    poweredBy: "Proudly powered by"
+    poweredBy: "Proudly powered by",
+    about: "About edubadges",
+    aboutLink: "https://wiki.surfnet.nl/display/Edubadges/edubadges+in+English"
   },
   modalTerms: {
     agree: "Agree",
