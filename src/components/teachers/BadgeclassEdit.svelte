@@ -77,7 +77,9 @@
       permissions = res.badgeClass.permissions;
       currentInstitution = res.currentInstitution;
       loaded = true;
-      let hasUnrevokedAssertions = badgeclass.badgeAssertions.filter(function(badgeclass){return badgeclass.revoked == false}).length > 0;
+      let hasUnrevokedAssertions = badgeclass.badgeAssertions.filter(function(assertion){
+        return assertion.revoked == false
+        }).length > 0;
       mayDelete = permissions && permissions.mayDelete && hasUnrevokedAssertions == false
       mayEdit = permissions && permissions.mayDelete && badgeclass.badgeAssertions.length === 0
     });
