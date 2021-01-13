@@ -227,7 +227,7 @@ I18n.translations.en = {
       info: {
         institution: "Institutions can't be deleted in the issuer portal",
         faculty: "Issuer group contains issuers and can't be deleted",
-        issuer: "Issuer contains badge classes and can't be deleted",
+        issuer: "Issuer contains badges that haven't been revoked. Therefore the issuer can't be deleted.",
         badgeclass: "Edubadges belonging to this badge class have already been awarded. Therefore the badge class can’t be deleted."
       },
       flash: "Successfully deleted {{type}}",

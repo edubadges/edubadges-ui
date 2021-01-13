@@ -81,7 +81,7 @@
         return assertion.revoked == false
         }).length > 0;
       mayDelete = permissions && permissions.mayDelete && hasUnrevokedAssertions == false
-      mayEdit = permissions && permissions.mayDelete && badgeclass.badgeAssertions.length === 0
+      mayEdit = permissions && permissions.mayEdit && badgeclass.badgeAssertions.length === 0
     });
   });
 </script>

@@ -227,7 +227,7 @@ I18n.translations.nl = {
       info: {
         institution: "Instellingen kunnen niet verwijderd worden in het issuer portaal.",
         faculty: "Issuer group bevat issuers en kan niet verwijderd worden.",
-        issuer: "Issuer bevat badge classes en kan niet verwijderd worden.",
+        issuer: "Issuer bevat badges die niet ingetrokken zijn. De issuer kan daarom niet verwijderd worden.",
         badgeclass: "Er zijn voor deze badge class reeds edubadges uitgereikt. De badge class kan daarom niet verwijderd worden."
       },
       flash: "{{type}} is verwijderd",
