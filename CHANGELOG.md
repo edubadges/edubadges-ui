@@ -5,6 +5,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [2.1.1] - 2021-01-
+ - Can now archive Issuers and Badgeclasses when all assertions have been revoked
 
 ## [2.1.0] - 2020-12-28
  - URL to the public institution page is added to the awarded edubadge.
