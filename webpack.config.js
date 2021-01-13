@@ -4,6 +4,9 @@ const path = require("path");
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const webpack = require("webpack")
 
+const GitRevisionPlugin = require('git-revision-webpack-plugin');
+const gitRevisionPlugin = new GitRevisionPlugin({lightweightTags: true});
+
 const mode = process.env.NODE_ENV || "development";
 const prod = mode === "production";
 
@@ -67,6 +70,11 @@ module.exports = {
   plugins: [
     new MiniCssExtractPlugin({
       filename: "[name].[hash].css",
+    }),
+    new webpack.DefinePlugin({
+      'VERSION': JSON.stringify(gitRevisionPlugin.version()),
+      'COMMITHASH': JSON.stringify(gitRevisionPlugin.commithash()),
+      'BRANCH': JSON.stringify(gitRevisionPlugin.branch()),
     }),
     // load only `moment/locale/en.js` and `moment/locale/nl.js`
     new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en|nl/),

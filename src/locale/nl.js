@@ -275,7 +275,9 @@ I18n.translations.nl = {
     },
   },
   footer: {
-    poweredBy: "Trots aangeboden door"
+    poweredBy: "Trots aangeboden door",
+    about: "Over edubadges",
+    aboutLink: "https://wiki.surfnet.nl/display/Edubadges/edubadges"
   },
   modalTerms: {
     agree: "Akkoord",

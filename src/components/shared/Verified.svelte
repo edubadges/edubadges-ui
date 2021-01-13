@@ -3,7 +3,7 @@
   import I18n from "i18n-js";
 
   export let value;
-  export let showVerified = false;  // we don't show verifications right now
+  export let showVerified = true;  // we don't show verifications right now
   export let fromEduID = false;
 
 </script>
@@ -16,7 +16,7 @@
     div.marker {
       border-radius: 4px;
       padding: 4px 8px;
-      background-color: #145186;
+      background-color: var(--purple);
       color: whitesmoke;
       margin-left: auto;
       display: flex;
@@ -34,7 +34,7 @@
 </style>
 <div class="verified">
   <span>{value}</span>
-  {#if showVerified}
+  {#if showVerified && !fromEduID}
     <div class="marker">
       {@html check} <span>{fromEduID ? I18n.t("profile.validatedByEduId") : I18n.t("profile.validatedByYourInstitution")}</span>
     </div>

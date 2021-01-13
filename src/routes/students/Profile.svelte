@@ -4,22 +4,11 @@
   import {navigate} from "svelte-routing";
   import Button from "../../components/Button.svelte";
   import {formatCreateDate} from "../../util/utils";
-  import {
-    getProfile,
-    deleteProfile,
-    getSocialAccountsSafe,
-    withdrawTermsForBadge,
-  } from "../../api";
-  import {
-    userLoggedIn,
-    userRole,
-    authToken,
-    redirectPath
-  } from "../../stores/user";
+  import {deleteProfile, getProfile, getSocialAccountsSafe, withdrawTermsForBadge,} from "../../api";
+  import {authToken, redirectPath, userLoggedIn, userRole} from "../../stores/user";
   import {Modal} from "../../components/forms";
   import {Spinner} from "../../components";
   import Verified from "../../components/shared/Verified.svelte";
-  import UserBreadcrumb from "../../components/teachers/UserBreadcrumb.svelte";
   import {queryData} from "../../api/graphql";
   import moment from "moment";
   import {flash} from "../../stores/flash";
@@ -69,18 +58,29 @@
       profile.dateAdded = res[1][0].dateAdded;
       profile.affiliations = res[1][0].affiliations;
       if (isStudent) {
-        if(res[2].currentUser.validatedName) profile.validatedName = res[2].currentUser.validatedName;
+        if (res[2].currentUser.validatedName) {
+          profile.validatedName = res[2].currentUser.validatedName;
+        }
         const termAgreements = res[2].currentUser.termsAgreements;
         instititions = termAgreements.reduce((acc, cur) => {
           if (cur.agreed && cur.terms.institution) {
             const terms = cur.terms;
             const institution = terms.institution;
             const foundInstitution = acc.find(i => i.entityId === institution.entityId);
-            if(foundInstitution) {
-              foundInstitution.agreedTerms.push({entityId: cur.entityId, date: cur.updatedAt, type: terms.termsType, version: cur.agreedVersion});
+            if (foundInstitution) {
+              foundInstitution.agreedTerms.push({
+                entityId: cur.entityId,
+                date: cur.updatedAt,
+                type: terms.termsType,
+                version: cur.agreedVersion
+              });
               return acc;
             } else {
-              acc.push({entityId: institution.entityId, name: institution.name, agreedTerms: [{entityId: cur.entityId, type: terms.termsType, version: cur.agreedVersion}]});
+              acc.push({
+                entityId: institution.entityId,
+                name: institution.name,
+                agreedTerms: [{entityId: cur.entityId, type: terms.termsType, version: cur.agreedVersion}]
+              });
               return acc;
             }
           }
@@ -126,6 +126,10 @@
   h1 {
     font-size: 24px;
     margin-bottom: 40px;
+
+    &.with-border {
+      margin-top: 15px;
+    }
   }
 
   div.profile-section {
@@ -166,34 +170,36 @@
     {#if profile}
       <div class="profile"></div>
       <div class="profile-section">
-        <h3>{I18n.t("profile.name")}</h3>
-        <Verified value={`${profile.first_name} ${profile.last_name}`}/>
+        {#if !profile.validatedName}
+          <h3>{I18n.t("profile.name")}</h3>
+          <Verified value={`${profile.first_name} ${profile.last_name}`} fromEduID={true} showVerified={false}/>
+        {/if}
         {#if profile.validatedName}
           <h3>{I18n.t("profile.validatedName")}</h3>
-          <Verified value={`${profile.validatedName}`}/>
+          <Verified value={`${profile.validatedName}`} fromEduID={false} showVerified={true}/>
         {/if}
       </div>
       <div class="profile-section">
         <h3>{I18n.t("profile.email")}</h3>
-        <Verified value={profile.email} fromEduID={isStudent}/>
+        <Verified value={profile.email} fromEduID={isStudent} showVerified={false}/>
       </div>
       {#if profile.eduid}
         <div class="profile-section">
           <h3>{I18n.t("profile.eduid")}</h3>
-          <Verified value={eduIdValue()} fromEduID={true}/>
+          <Verified value={eduIdValue()} fromEduID={true} showVerified={false}/>
         </div>
       {/if}
       <div class="profile-section">
         <h3>{I18n.t("profile.memberSince")}</h3>
         <Verified value={I18n.t("profile.memberSinceDate", formatCreateDate(profile.dateAdded))}
-                  showVerified={false}/>
+                  fromEduID={true} showVerified={false}/>
       </div>
     {/if}
   </div>
 
   {#if isStudent}
     <div class="border">
-      <h1>{I18n.t("profile.permissionsHeader")}</h1>
+      <h1 class="with-border">{I18n.t("profile.permissionsHeader")}</h1>
       <p class="account-info">{I18n.t("profile.permissionsInfo")}</p>
       <div>
         {#if instititions.length === 0}
@@ -214,7 +220,8 @@
                 </div>
                 {#if agreedTerm.type === "FORMAL_BADGE"}
                   <div>
-                    <Button action={() => withdrawPermission(agreedTerm.entityId, institution.name)} text={I18n.t(['acceptTerms', 'student', 'withdrawConsent'])} disabled={false} />
+                    <Button action={() => withdrawPermission(agreedTerm.entityId, institution.name)}
+                            text={I18n.t(['acceptTerms', 'student', 'withdrawConsent'])} disabled={false}/>
                   </div>
                 {/if}
               </div>
@@ -238,9 +245,9 @@
 
 {#if showModal}
   <Modal
-      submit={modalAction}
-      warning={true}
-      cancel={() => showModal = false}
-      question={modalQuestion}
-      title={modalTitle}/>
+    submit={modalAction}
+    warning={true}
+    cancel={() => showModal = false}
+    question={modalQuestion}
+    title={modalTitle}/>
 {/if}

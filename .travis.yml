@@ -9,7 +9,7 @@ cache:
 
 before_install:
 - pip install --user codecov
-- nvm install 10.13
+- nvm install v10.14.2
 - npm install -g yarn
 
 install:
