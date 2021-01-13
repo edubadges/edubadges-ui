@@ -34,7 +34,7 @@
 
 </script>
 {#if loaded}
-  <BadgeclassForm {issuers} {badgeclass} institution={currentInstitution}/>
+  <BadgeclassForm {issuers} {badgeclass} institution={currentInstitution} mayEdit={true}/>
 {:else}
   <Spinner/>
 {/if}
