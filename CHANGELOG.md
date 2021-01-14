@@ -5,9 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [2.1.1] - 2021-01-18
- - About link in the footer
- - Git version page at /version/info  
- - Can now archive Issuers and Badgeclasses when all assertions have been revoked
+ - About link in the footer.
+ - Git version page at /version/info
+ - Changed validated name status in user profile.
+ - Can now archive Issuers and Badgeclasses when all assertions have been revoked.
+ - Added name check when creating a new badgeclass. If name already excists in issuer it will raise an error.
+ - Bugfix for language of instruction in badgeclass metadata: will keep its state now.
 
 ## [2.1.0] - 2020-12-28
  - URL to the public institution page is added to the awarded edubadge.
