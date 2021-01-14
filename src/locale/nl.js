@@ -331,6 +331,7 @@ I18n.translations.nl = {
     909: "Vul de opleidingscode of verwijder deze rubriek.",
     907: "Dit is een gereserveerde naam voor badgeclasses",
     908: "Kan een Issuer met deze naam niet aanmaken in deze Issuer group. Er bestaat er al een met dezelfde naam.",
+    909: "Kan een Badgeclass met deze naam niet aanmaken in deze Issuer. Er bestaat er al een met dezelfde naam.",
     unexpected: "Oeps, er is iets totaal onverwachts en onverklaarbaars gebeurd.",
     description: "Een onverwachte fout is opgetreden. Probeer het opnieuw of neem contact op met support@edubadges.nl voor ondersteuning.",
     close: "Sluit"

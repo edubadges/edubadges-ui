@@ -331,6 +331,7 @@ I18n.translations.en = {
     909: "Enter the programme identifier or remove this section.",
     907: "This is a reserved name for badgeclasses",
     908: "Cannot create Issuer with this name in this issuer group. It already exists.",
+    909: "Cannot create Badgeclass with this name in this Issuer. It already exists.",
     unexpected: "Unexpected error occurred.",
     description: "An unexpected error has occurred. Please try again later or contact support@edubadges.nl for support.",
     close: "Close"
