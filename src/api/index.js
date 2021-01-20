@@ -259,7 +259,7 @@ export function deleteEntity(entityTypeName, entityId) {
   let path;
   switch (entityTypeName) {
     case entityType.ISSUER_GROUP:
-      path = `${serverUrl}/institution/faculties/edit/${entityId}`;
+      path = `${serverUrl}/institution/faculties/delete/${entityId}`;
       break;
     case entityType.ISSUER:
       path = `${serverUrl}/issuer/delete/${entityId}`;

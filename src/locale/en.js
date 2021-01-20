@@ -226,7 +226,7 @@ I18n.translations.en = {
       delete: "Delete",
       info: {
         institution: "Institutions can't be deleted in the issuer portal",
-        faculty: "Issuer group contains issuers and can't be deleted",
+        faculty: "Issuer group contains badges that haven't been revoked and can't be deleted",
         issuer: "Issuer contains badges that haven't been revoked. Therefore the issuer can't be deleted.",
         badgeclass: "Edubadges belonging to this badge class have already been awarded. Therefore the badge class can’t be deleted."
       },
@@ -239,12 +239,12 @@ I18n.translations.en = {
       faculty: {
         name: "issuer group",
         title: "Delete issuer group",
-        question: "Do you really want to delete this issuer group?"
+        question: "Do you really want to delete this issuer group? All issuers and badge classes within will also be deleted."
       },
       issuer: {
         name: "issuer",
         title: "Delete issuer",
-        question: "Do you really want to delete this issuer?"
+        question: "Do you really want to delete this issuer? All the badge classes within will also be deleted."
       },
       badgeclass: {
         name: "Badge class",

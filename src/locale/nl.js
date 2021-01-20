@@ -226,7 +226,7 @@ I18n.translations.nl = {
       delete: "verwijder",
       info: {
         institution: "Instellingen kunnen niet verwijderd worden in het issuer portaal.",
-        faculty: "Issuer group bevat issuers en kan niet verwijderd worden.",
+        faculty: "Issuer group bevat badges die niet ingetrokken zijn en kan niet verwijderd worden.",
         issuer: "Issuer bevat badges die niet ingetrokken zijn. De issuer kan daarom niet verwijderd worden.",
         badgeclass: "Er zijn voor deze badge class reeds edubadges uitgereikt. De badge class kan daarom niet verwijderd worden."
       },
@@ -239,12 +239,12 @@ I18n.translations.nl = {
       faculty: {
         name: "issuer group",
         title: "Verwijder issuer group",
-        question: "Wil je deze issuer group echt verwijderen?"
+        question: "Wil je deze issuer group echt verwijderen? Alle issuers en badge classes worden dan ook verwijderd."
       },
       issuer: {
         name: "Issuer",
         title: "Verwijder issuer",
-        question: "Wil je deze issuer echt verwijderen?"
+        question: "Wil je deze issuer echt verwijderen? Alle badge classes worden ook verwijderd."
       },
       badgeclass: {
         name: "Badge class",
