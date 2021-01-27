@@ -10,6 +10,7 @@
   export let badgeclass;
   export let badgeclassName = "";
   export let mayDelete;
+  export let hasUnrevokedAssertions;
   export let mayEdit = true;
 
   export let create;
@@ -92,11 +93,13 @@
         <div class="button-container delete">
           <Button
             warning={true}
-            disabled={!mayDelete || processing || deleting}
+            disabled={!mayDelete || processing || deleting || hasUnrevokedAssertions}
             action={() => showRemoveModal = true}
             text={I18n.t("manage.delete.delete")}/>
-          {#if !mayDelete}
-            <span class="may-not-delete">{I18n.t(`manage.delete.info.${entityTypeName}`)}</span>
+          {#if mayDelete && hasUnrevokedAssertions}
+            <span class="may-not-delete">{I18n.t(`manage.delete.info.assertionsBlock.${entityTypeName}`)}</span>
+          {:else if !mayDelete}
+            <span class="may-not-delete">{I18n.t(`manage.delete.info.noPermission.${entityTypeName}`)}</span>
           {/if}
         </div>
       {/if}
@@ -104,7 +107,7 @@
   </div>
 </div>
 
-{#if mayDelete}
+{#if mayDelete && hasUnrevokedAssertions == false}
   <RemovalConfirmation {entityTypeName} entityId={entityId} parentId={parentId} {showRemoveModal}
                        cancel={() => showRemoveModal=false} deleting={v => deleting = v}/>
 {/if}

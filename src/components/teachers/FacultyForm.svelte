@@ -9,6 +9,7 @@
   export let entityId;
   export let faculty = {};
   export let mayDelete;
+  export let hasUnrevokedAssertions;
 
   const entity = entityType.ISSUER_GROUP;
 
@@ -41,7 +42,7 @@
 </script>
 
 <EntityForm faculty={ {...faculty, entityId} } submit={onSubmit} create={isCreate} {processing}
-            {mayDelete} entityTypeName={entity} entityId={entityId}>
+            {mayDelete} entityTypeName={entity} entityId={entityId} {hasUnrevokedAssertions}>
 
   <Field {entity} attribute="name" errors={errors.name}>
     <TextInput bind:value={faculty.name} error={errors.name} placeholder={I18n.t("placeholders.faculty.name")}/>

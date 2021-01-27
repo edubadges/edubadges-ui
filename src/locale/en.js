@@ -225,10 +225,17 @@ I18n.translations.en = {
     delete: {
       delete: "Delete",
       info: {
-        institution: "Institutions can't be deleted in the issuer portal",
-        faculty: "Issuer group contains badges that haven't been revoked and can't be deleted",
-        issuer: "Issuer contains badges that haven't been revoked. Therefore the issuer can't be deleted.",
-        badgeclass: "Edubadges belonging to this badge class have already been awarded. Therefore the badge class can’t be deleted."
+        assertionsBlock: {
+          faculty: "Issuer group contains badges that haven't been revoked and can't be deleted",
+          issuer: "Issuer contains badges that haven't been revoked. Therefore the issuer can't be deleted.",
+          badgeclass: "Edubadges belonging to this badge class have already been awarded. Therefore the badge class can’t be deleted."
+        },
+        noPermission: {
+          institution: "Institutions can't be deleted in the issuer portal",
+          faculty: "You don't have permission to delete this issuer group.",
+          issuer: "You don't have permission to delete this issuer.",
+          badgeclass: "You don't have permission to delete this badge class."
+        }
       },
       flash: "Successfully deleted {{type}}",
       institution: {

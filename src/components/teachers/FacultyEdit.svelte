@@ -32,14 +32,13 @@
         faculty = res.faculty;
         permissions = res.faculty.permissions;
         loaded = true;
-        mayDelete = permissions && permissions.mayDelete && res.faculty.hasUnrevokedAssertions == false;
+        mayDelete = permissions && permissions.mayDelete;
       })
-      
   });
 </script>
 
 {#if loaded}
-  <FacultyForm {faculty} {entityId} mayDelete={mayDelete}/>
+  <FacultyForm {faculty} {entityId} mayDelete={mayDelete} hasUnrevokedAssertions={faculty.hasUnrevokedAssertions}/>
 {:else}
   <Spinner/>
 {/if}

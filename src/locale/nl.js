@@ -225,10 +225,17 @@ I18n.translations.nl = {
     delete: {
       delete: "verwijder",
       info: {
-        institution: "Instellingen kunnen niet verwijderd worden in het issuer portaal.",
-        faculty: "Issuer group bevat badges die niet ingetrokken zijn en kan niet verwijderd worden.",
-        issuer: "Issuer bevat badges die niet ingetrokken zijn. De issuer kan daarom niet verwijderd worden.",
-        badgeclass: "Er zijn voor deze badge class reeds edubadges uitgereikt. De badge class kan daarom niet verwijderd worden."
+        assertionsBlock :{
+          faculty: "Issuer group bevat badges die niet ingetrokken zijn en kan niet verwijderd worden.",
+          issuer: "Issuer bevat badges die niet ingetrokken zijn. De issuer kan daarom niet verwijderd worden.",
+          badgeclass: "Er zijn voor deze badge class reeds edubadges uitgereikt. De badge class kan daarom niet verwijderd worden."
+        },
+        noPermission: {
+          institution: "Instellingen kunnen niet verwijderd worden in het issuer portaal.",
+          faculty: "Je hebt geen bevoegdheid om deze issuer group te verwijderen.",
+          issuer: "Je hebt geen bevoegdheid om deze issuer te verwijderen.",
+          badgeclass: "Je hebt geen bevoegdheid om deze badge class te verwijderen."
+        }
       },
       flash: "{{type}} is verwijderd",
       institution: {

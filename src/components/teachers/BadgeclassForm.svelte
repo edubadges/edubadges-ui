@@ -28,6 +28,7 @@
   export let issuers = [];
   export let mayDelete;
   export let mayEdit;
+  export let hasUnrevokedAssertions;
   export let institution = {};
 
   const isCreate = !entityId;
@@ -255,6 +256,7 @@
   parentId={badgeclass.issuer.entityId}
   {mayDelete}
   {mayEdit}
+  {hasUnrevokedAssertions}
   entityId={entityId}
   issuer={isCreate ? null : badgeclass.issuer}
   faculty={isCreate ? null : badgeclass.issuer.faculty}
