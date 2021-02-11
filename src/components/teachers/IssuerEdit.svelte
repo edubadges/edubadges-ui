@@ -37,7 +37,7 @@
   let issuer = {};
   let permissions = {};
   let loaded = false;
-  let hasUnrevokedAssertions = false;
+  let hasUnrevokedAssertions;
   let mayDelete = false;
 
   onMount(() => {
@@ -45,12 +45,12 @@
       issuer = res.issuer;
       permissions = res.issuer.permissions;
 
-      let hasUnrevokedAssertions = issuer.badgeclasses.some(function (badgeclass) {
+      hasUnrevokedAssertions = issuer.badgeclasses.some(function (badgeclass) {
         return badgeclass.badgeAssertions.filter(function(assertion){
           return assertion.revoked == false
           }).length > 0
       });
-      mayDelete = permissions && permissions.mayDelete && hasUnrevokedAssertions == false;
+      mayDelete = permissions && permissions.mayDelete;
       loaded = true;
     })
   });
@@ -58,7 +58,7 @@
 
 {#if loaded}
   <IssuerForm {issuer} {entityId} facultyChooseAllowed={false}
-              mayDelete={mayDelete}/>
+              mayDelete={mayDelete} hasUnrevokedAssertions={hasUnrevokedAssertions}/>
 {:else}
   <Spinner/>
 {/if}

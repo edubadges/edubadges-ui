@@ -56,6 +56,7 @@
     text-align: center;
     flex-direction: column;
     background-color: white;
+    border-radius:14px;
 
     .shield {
       position: absolute;

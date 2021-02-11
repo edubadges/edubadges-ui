@@ -225,10 +225,17 @@ I18n.translations.en = {
     delete: {
       delete: "Delete",
       info: {
-        institution: "Institutions can't be deleted in the issuer portal",
-        faculty: "Issuer group contains issuers and can't be deleted",
-        issuer: "Issuer contains badges that haven't been revoked. Therefore the issuer can't be deleted.",
-        badgeclass: "Edubadges belonging to this badge class have already been awarded. Therefore the badge class can’t be deleted."
+        assertionsBlock: {
+          faculty: "Issuer group contains badges that haven't been revoked and can't be deleted",
+          issuer: "Issuer contains badges that haven't been revoked. Therefore the issuer can't be deleted.",
+          badgeclass: "Edubadges belonging to this badge class have already been awarded. Therefore the badge class can’t be deleted."
+        },
+        noPermission: {
+          institution: "Institutions can't be deleted in the issuer portal",
+          faculty: "You don't have permission to delete this issuer group.",
+          issuer: "You don't have permission to delete this issuer.",
+          badgeclass: "You don't have permission to delete this badge class."
+        }
       },
       flash: "Successfully deleted {{type}}",
       institution: {
@@ -239,12 +246,12 @@ I18n.translations.en = {
       faculty: {
         name: "issuer group",
         title: "Delete issuer group",
-        question: "Do you really want to delete this issuer group?"
+        question: "Do you really want to delete this issuer group? All issuers and badge classes within will also be deleted."
       },
       issuer: {
         name: "issuer",
         title: "Delete issuer",
-        question: "Do you really want to delete this issuer?"
+        question: "Do you really want to delete this issuer? All the badge classes within will also be deleted."
       },
       badgeclass: {
         name: "Badge class",
@@ -332,6 +339,7 @@ I18n.translations.en = {
     907: "This is a reserved name for badgeclasses",
     908: "Cannot create Issuer with this name in this issuer group. It already exists.",
     909: "Cannot create Badgeclass with this name in this Issuer. It already exists.",
+    910: "Either url or narrative is required.",
     unexpected: "Unexpected error occurred.",
     description: "An unexpected error has occurred. Please try again later or contact support@edubadges.nl for support.",
     close: "Close"

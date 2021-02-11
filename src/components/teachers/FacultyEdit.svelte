@@ -12,9 +12,7 @@
       name,
       descriptionEnglish,
       descriptionDutch,
-      issuers {
-        entityId
-      },
+      hasUnrevokedAssertions,
       permissions {
         mayCreate
         mayUpdate,
@@ -26,18 +24,21 @@
   let faculty = {};
   let permissions = {};
   let loaded = false;
+  let mayDelete = false;
 
   onMount(() => {
+    
     queryData(query, {entityId}).then(res => {
-      faculty = res.faculty;
-      permissions = res.faculty.permissions;
-      loaded = true;
-    })
+        faculty = res.faculty;
+        permissions = res.faculty.permissions;
+        loaded = true;
+        mayDelete = permissions && permissions.mayDelete;
+      })
   });
 </script>
 
 {#if loaded}
-  <FacultyForm {faculty} {entityId} mayDelete={permissions && permissions.mayDelete && faculty.issuers.length === 0}/>
+  <FacultyForm {faculty} {entityId} mayDelete={mayDelete} hasUnrevokedAssertions={faculty.hasUnrevokedAssertions}/>
 {:else}
   <Spinner/>
 {/if}

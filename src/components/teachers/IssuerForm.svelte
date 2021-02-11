@@ -13,6 +13,7 @@
   export let faculties = [];
   export let facultyChooseAllowed;
   export let mayDelete;
+  export let hasUnrevokedAssertions;
 
   const entity = entityType.ISSUER;
   let errors = {};
@@ -57,7 +58,7 @@
   }
 </script>
 
-<EntityForm entityTypeName={entity} faculty={isCreate ? null : issuer.faculty} {mayDelete} {entityId}
+<EntityForm entityTypeName={entity} faculty={isCreate ? null : issuer.faculty} {mayDelete} {entityId} {hasUnrevokedAssertions}
             issuer={isCreate ? null : issuer} submit={onSubmit} create={isCreate} {processing}>
   <Field {entity} attribute="faculty" errors={errors.faculty}>
     <Select

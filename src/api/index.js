@@ -59,32 +59,32 @@ export function requestLoginToken(service, validateName = false) {
 }
 
 export function getProfile() {
-  const path = `${serverUrl}/v1/user/profile`;
+  const path = `${serverUrl}/user/profile`;
   return validFetch(path);
 }
 
 export function deleteProfile() {
-  const path = `${serverUrl}/v1/user/profile`;
+  const path = `${serverUrl}/user/profile`;
   return validFetch(path, {}, "DELETE");
 }
 
 export function getSocialAccountsSafe() {
-  const path = `${serverUrl}/v1/user/socialaccounts`;
+  const path = `${serverUrl}/user/socialaccounts`;
   return validFetch(path);
 }
 
 export function getSocialAccount() {
-  const path = `${serverUrl}/v1/user/socialaccounts`;
+  const path = `${serverUrl}/user/socialaccounts`;
   return validFetchNoErrorDialog(path);
 }
 
 export function getEmails() {
-  const path = `${serverUrl}/v1/user/emails`;
+  const path = `${serverUrl}/user/emails`;
   return validFetch(path);
 }
 
 export function addEmail(newEmail) {
-  const path = `${serverUrl}/v1/user/emails`;
+  const path = `${serverUrl}/user/emails`;
   return validFetchNoErrorDialog(
     path,
     {body: JSON.stringify({email: newEmail})},
@@ -93,17 +93,17 @@ export function addEmail(newEmail) {
 }
 
 export function setPrimaryEmail(emailId) {
-  const path = `${serverUrl}/v1/user/emails/${emailId}`;
+  const path = `${serverUrl}/user/emails/${emailId}`;
   return validFetchNoErrorDialog(path, {body: JSON.stringify({primary: true})}, "PUT");
 }
 
 export function deleteEmail(emailId) {
-  const path = `${serverUrl}/v1/user/emails/${emailId}`;
+  const path = `${serverUrl}/user/emails/${emailId}`;
   return validFetchNoErrorDialog(path, {}, "DELETE");
 }
 
 export function getSocialAccounts() {
-  const path = `${serverUrl}/v1/user/socialaccounts`;
+  const path = `${serverUrl}/user/socialaccounts`;
   return validFetch(path);
 }
 
@@ -114,12 +114,12 @@ export function validateInstitutions(schacHomeOrganisations) {
 }
 
 export function acceptTermsForBadge(terms_entity_id) {
-  const path = `${serverUrl}/v1/user/terms/accept`;
+  const path = `${serverUrl}/user/terms/accept`;
   return validFetch(path, {body: JSON.stringify([{terms_entity_id, accepted: true}])}, "POST");
 }
 
 export function withdrawTermsForBadge(terms_agreement_entity_id) {
-  const path = `${serverUrl}/v1/user/terms/accept`;
+  const path = `${serverUrl}/user/terms/accept`;
   return validFetch(path, {body: JSON.stringify({terms_agreement_entity_id: terms_agreement_entity_id})}, "DELETE");
 }
 
@@ -143,7 +143,7 @@ export function withdrawRequestBadge(enrollmentID) {
 }
 
 export function logoutCurrentUser() {
-  return validFetch(`${serverUrl}/v1/user/socialaccounts/logout`, {}, "POST",true, false);
+  return validFetch(`${serverUrl}/user/socialaccounts/logout`, {}, "POST",true, false);
 }
 
 // Teacher badges
@@ -180,7 +180,7 @@ export function revokeAssertion(issuerEntityId, badgeEntityId, assertionEntityId
 }
 
 export function deleteAssertion(assertionEntityId) {
-  const path = `${serverUrl}/v1/earner/badges/${assertionEntityId}`;
+  const path = `${serverUrl}/earner/badges/${assertionEntityId}`;
   return validFetch(
     path,
     {body: JSON.stringify({})},
@@ -189,7 +189,7 @@ export function deleteAssertion(assertionEntityId) {
 }
 
 export function publicAssertion(assertionEntityId, isPublic) {
-  const path = `${serverUrl}/v1/earner/badges/${assertionEntityId}`;
+  const path = `${serverUrl}/earner/badges/${assertionEntityId}`;
   return validFetch(
     path,
     {body: JSON.stringify({"public": isPublic})},
@@ -198,7 +198,7 @@ export function publicAssertion(assertionEntityId, isPublic) {
 }
 
 export function acceptAssertion(assertionEntityId) {
-  const path = `${serverUrl}/v1/earner/badges/${assertionEntityId}`;
+  const path = `${serverUrl}/earner/badges/${assertionEntityId}`;
   return validFetch(
     path,
     {body: JSON.stringify({"acceptance": "Accepted"})},
@@ -207,7 +207,7 @@ export function acceptAssertion(assertionEntityId) {
 }
 
 export function claimAssertion(assertionEntityId) {
-  const path = `${serverUrl}/v1/earner/badges/${assertionEntityId}`;
+  const path = `${serverUrl}/earner/badges/${assertionEntityId}`;
   return validFetch(
     path,
     {body: JSON.stringify({"public": false, "acceptance": "Accepted"})},
@@ -259,7 +259,7 @@ export function deleteEntity(entityTypeName, entityId) {
   let path;
   switch (entityTypeName) {
     case entityType.ISSUER_GROUP:
-      path = `${serverUrl}/institution/faculties/edit/${entityId}`;
+      path = `${serverUrl}/institution/faculties/delete/${entityId}`;
       break;
     case entityType.ISSUER:
       path = `${serverUrl}/issuer/delete/${entityId}`;
@@ -486,7 +486,7 @@ export function changeUserToBadgeclassAwarder(badgeclassMembershipId) {
 }
 
 export function changeProvisionmentToBadgeclassOwner(provisionmentId) {
-  const path = `${serverUrl}/v1/user/provision/edit/${provisionmentId}`;
+  const path = `${serverUrl}/user/provision/edit/${provisionmentId}`;
   const payload = {
     data: {
       "may_create": 1,
@@ -502,7 +502,7 @@ export function changeProvisionmentToBadgeclassOwner(provisionmentId) {
 }
 
 export function changeProvisionmentToBadgeclassEditor(provisionmentId) {
-  const path = `${serverUrl}/v1/user/provision/edit/${provisionmentId}`;
+  const path = `${serverUrl}/user/provision/edit/${provisionmentId}`;
   const payload = {
     data: {
       "may_create": 1,
@@ -518,7 +518,7 @@ export function changeProvisionmentToBadgeclassEditor(provisionmentId) {
 }
 
 export function changeProvisionmentToBadgeclassAwarder(provisionmentId) {
-  const path = `${serverUrl}/v1/user/provision/edit/${provisionmentId}`;
+  const path = `${serverUrl}/user/provision/edit/${provisionmentId}`;
   const payload = {
     data: {
       "may_create": 0,
@@ -534,7 +534,7 @@ export function changeProvisionmentToBadgeclassAwarder(provisionmentId) {
 }
 
 export function inviteUser(entityType, entityId, userProvisonments) {
-  const path = `${serverUrl}/v1/user/provision/create`;
+  const path = `${serverUrl}/user/provision/create`;
   const payload = userProvisonments.map(({userEmail, permissions}) => {
     return {
       'content_type': entityType,
@@ -549,6 +549,6 @@ export function inviteUser(entityType, entityId, userProvisonments) {
 }
 
 export function disinviteUser(provisionmentId) {
-  const path = `${serverUrl}/v1/user/provision/edit/${provisionmentId}`;
+  const path = `${serverUrl}/user/provision/edit/${provisionmentId}`;
   return validFetch(path, {}, "DELETE");
 }

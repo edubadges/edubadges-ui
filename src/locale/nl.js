@@ -225,10 +225,17 @@ I18n.translations.nl = {
     delete: {
       delete: "verwijder",
       info: {
-        institution: "Instellingen kunnen niet verwijderd worden in het issuer portaal.",
-        faculty: "Issuer group bevat issuers en kan niet verwijderd worden.",
-        issuer: "Issuer bevat badges die niet ingetrokken zijn. De issuer kan daarom niet verwijderd worden.",
-        badgeclass: "Er zijn voor deze badge class reeds edubadges uitgereikt. De badge class kan daarom niet verwijderd worden."
+        assertionsBlock :{
+          faculty: "Issuer group bevat badges die niet ingetrokken zijn en kan niet verwijderd worden.",
+          issuer: "Issuer bevat badges die niet ingetrokken zijn. De issuer kan daarom niet verwijderd worden.",
+          badgeclass: "Er zijn voor deze badge class reeds edubadges uitgereikt. De badge class kan daarom niet verwijderd worden."
+        },
+        noPermission: {
+          institution: "Instellingen kunnen niet verwijderd worden in het issuer portaal.",
+          faculty: "Je hebt geen bevoegdheid om deze issuer group te verwijderen.",
+          issuer: "Je hebt geen bevoegdheid om deze issuer te verwijderen.",
+          badgeclass: "Je hebt geen bevoegdheid om deze badge class te verwijderen."
+        }
       },
       flash: "{{type}} is verwijderd",
       institution: {
@@ -239,12 +246,12 @@ I18n.translations.nl = {
       faculty: {
         name: "issuer group",
         title: "Verwijder issuer group",
-        question: "Wil je deze issuer group echt verwijderen?"
+        question: "Wil je deze issuer group echt verwijderen? Alle issuers en badge classes worden dan ook verwijderd."
       },
       issuer: {
         name: "Issuer",
         title: "Verwijder issuer",
-        question: "Wil je deze issuer echt verwijderen?"
+        question: "Wil je deze issuer echt verwijderen? Alle badge classes worden ook verwijderd."
       },
       badgeclass: {
         name: "Badge class",
@@ -332,6 +339,7 @@ I18n.translations.nl = {
     907: "Dit is een gereserveerde naam voor badgeclasses",
     908: "Kan een Issuer met deze naam niet aanmaken in deze Issuer group. Er bestaat er al een met dezelfde naam.",
     909: "Kan een Badgeclass met deze naam niet aanmaken in deze Issuer. Er bestaat er al een met dezelfde naam.",
+    910: "Invullen van narratief of van URL is verplicht.",
     unexpected: "Oeps, er is iets totaal onverwachts en onverklaarbaars gebeurd.",
     description: "Een onverwachte fout is opgetreden. Probeer het opnieuw of neem contact op met support@edubadges.nl voor ondersteuning.",
     close: "Sluit"
