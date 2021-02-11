@@ -469,7 +469,7 @@ I18n.translations.en = {
       created: "Created",
       admin: "Admin",
       brin: "BRIN code",
-      description: "Description",
+      description: "About this institution",
       description_english: "Description in English",
       description_dutch: "Description in Dutch",
       grading_table: "Grading table",
@@ -479,13 +479,13 @@ I18n.translations.en = {
     faculty: {
       created: "Created",
       admin: "Admin",
-      description: "Description",
+      description: "About this issuer group",
       description_english: "Description in English",
       description_dutch: "Description in Dutch",
       name: "Issuer group name",
     },
     issuer: {
-      description: "Description",
+      description: "About this issuer",
       description_english: "Description in English",
       description_dutch: "Description in Dutch",
       email: "Contact email address",
@@ -538,7 +538,7 @@ I18n.translations.en = {
       eqf: "NLQF level",
       educationProgramIdentifier: "ISAT",
       educationProgramIdentifierLong: "Programme Identifier",
-      notSet: "None",
+      notSet: "-",
       expirationPeriods: {
         days: "Days",
         weeks: "Weeks",
@@ -676,7 +676,7 @@ I18n.translations.en = {
     },
     student: {
       accept: "I agree",
-      read: "I have read this information",
+      read: "I have read this",
       termsInfo: "Below are the key points about edubadges and the protection of your personal data. " + 
       "The full version of the Terms of Use between SURF and you can be found below this text. " + 
       "You must create an account and link it to your eduID before you can receive edubadges. " + 
