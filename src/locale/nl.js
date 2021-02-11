@@ -469,7 +469,7 @@ I18n.translations.nl = {
       created: "Aangemaakt",
       admin: "Admin",
       brin: "BRIN code",
-      description: "Beschrijving",
+      description: "Over deze instelling",
       description_english: "Beschrijving in het Engels",
       description_dutch: "Beschrijving in het Nederlands",
       grading_table: "Grading table",
@@ -479,13 +479,13 @@ I18n.translations.nl = {
     faculty: {
       created: "Aangemaakt",
       admin: "Admin",
-      description: "Beschrijving",
+      description: "Over deze issuer groep",
       description_english: "Beschrijving in het Engels",
       description_dutch: "Beschrijving in het Nederlands",
       name: "Naam",
     },
     issuer: {
-      description: "Beschrijving",
+      description: "Over deze issuer",
       description_english: "Beschrijving in het Engels",
       description_dutch: "Beschrijving in het Nederlands",
       email: "Contact e-mailadres",
@@ -538,7 +538,7 @@ I18n.translations.nl = {
       eqf: "NLQF niveau",
       educationProgramIdentifier: "ISAT",
       educationProgramIdentifierLong: "Opleidingscode",
-      notSet: "Geen",
+      notSet: "-",
       expirationPeriods: {
         days: "Dagen",
         weeks: "Weken",
