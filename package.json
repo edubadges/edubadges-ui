@@ -50,8 +50,7 @@
     "marked": "^1.1.0",
     "moment": "^2.24.0",
     "svelte-routing": "^1.4.2",
-    "svelte-select": "^3.10.0",
-    "sveltejs-tippy": "^3.0.0"
+    "svelte-select": "^3.10.0"
   },
   "performance": {
     "hints": true
