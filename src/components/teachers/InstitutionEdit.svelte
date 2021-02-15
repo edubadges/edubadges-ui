@@ -55,15 +55,15 @@
 
 {#if loaded}
   <EntityForm entityTypeName={entity} submit={handleSubmit} {processing}>
-    <Field {entity} attribute="image" errors={errors.image}>
+    <Field {entity} attribute="image" errors={errors.image} tipKey="institutionImage">
       <File bind:value={institution.image} error={errors.image} removeAllowed={false}/>
     </Field>
 
-    <Field {entity} attribute="name" errors={errors.name}>
+    <Field {entity} attribute="name" errors={errors.name} tipKey="institutionName">
       <TextInput bind:value={institution.name} error={errors.name}  placeholder={I18n.t("placeholders.institution.name")}/>
     </Field>
 
-    <Field {entity} attribute="description_english" errors={errors.description_english}>
+    <Field {entity} attribute="description_english" errors={errors.description_english} tipKey="institutionDescriptionEn">
       <TextInput
           bind:value={institution.descriptionEnglish}
           error={errors.description_english}
@@ -72,7 +72,7 @@
           area/>
     </Field>
 
-    <Field {entity} attribute="description_dutch" errors={errors.description_dutch}>
+    <Field {entity} attribute="description_dutch" errors={errors.description_dutch} tipKey="institutionDescriptionNl">
       <TextInput
           bind:value={institution.descriptionDutch}
           error={errors.description_dutch}
@@ -81,7 +81,7 @@
           area/>
     </Field>
 
-    <Field {entity} attribute="brin" errors={errors.brin}>
+    <Field {entity} attribute="brin" errors={errors.brin} tipKey="institutionBrin">
       <TextInput
           bind:value={institution.brin}
           error={errors.brin}
@@ -89,7 +89,7 @@
           disabled={true}/>
     </Field>
 
-    <Field {entity} attribute="grading_table" errors={errors.grading_table}>
+    <Field {entity} attribute="grading_table" errors={errors.grading_table}  tipKey="institutionGradingTable">
       <TextInput
           bind:value={institution.grading_table}
           placeholder={I18n.t("placeholders.institution.gradingTable")}

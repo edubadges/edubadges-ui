@@ -225,7 +225,7 @@ I18n.translations.nl = {
     delete: {
       delete: "verwijder",
       info: {
-        assertionsBlock :{
+        assertionsBlock: {
           faculty: "Issuer group bevat badges die niet ingetrokken zijn en kan niet verwijderd worden.",
           issuer: "Issuer bevat badges die niet ingetrokken zijn. De issuer kan daarom niet verwijderd worden.",
           badgeclass: "Er zijn voor deze badge class reeds edubadges uitgereikt. De badge class kan daarom niet verwijderd worden."
@@ -338,8 +338,8 @@ I18n.translations.nl = {
     909: "Vul de opleidingscode of verwijder deze rubriek.",
     907: "Dit is een gereserveerde naam voor badgeclasses",
     908: "Kan een Issuer met deze naam niet aanmaken in deze Issuer group. Er bestaat er al een met dezelfde naam.",
-    909: "Kan een Badgeclass met deze naam niet aanmaken in deze Issuer. Er bestaat er al een met dezelfde naam.",
     910: "Invullen van narratief of van URL is verplicht.",
+    911: "Kan een Badgeclass met deze naam niet aanmaken in deze Issuer. Er bestaat er al een met dezelfde naam.",
     unexpected: "Oeps, er is iets totaal onverwachts en onverklaarbaars gebeurd.",
     description: "Een onverwachte fout is opgetreden. Probeer het opnieuw of neem contact op met support@edubadges.nl voor ondersteuning.",
     close: "Sluit"
@@ -661,10 +661,10 @@ I18n.translations.nl = {
     renewTerms: "De edubadge-voorwaarden zijn gewijzigd. Raadpleeg onze nieuwe voorwaarden.",
     teacher: {
       accept: "Ik ga akkoord",
-      termsInfo: "Hieronder staan de belangrijkste punten over edubadges en jouw privacy. " + 
-      " De volledige versie van de Gebruiksvoorwaarden tussen SURF en jou is onder deze tekst te vinden. " + 
-      "Het aanmaken van het account en het koppelen van dit account aan eduID is noodzakelijk om edubadges " + 
-      "te kunnen ontvangen. Het account valt onder de verwerkingsverantwoordelijkheid van SURF.",
+      termsInfo: "Hieronder staan de belangrijkste punten over edubadges en jouw privacy. " +
+        " De volledige versie van de Gebruiksvoorwaarden tussen SURF en jou is onder deze tekst te vinden. " +
+        "Het aanmaken van het account en het koppelen van dit account aan eduID is noodzakelijk om edubadges " +
+        "te kunnen ontvangen. Het account valt onder de verwerkingsverantwoordelijkheid van SURF.",
       termsTitle: "Gebruiksvoorwaarden",
       termsLinkPre: "Door op -Ik ga akkoord- te klikken, ga je akkoord met ",
       termsLink: "de volledige Gebruiksvoorwaarden",
@@ -677,10 +677,10 @@ I18n.translations.nl = {
     student: {
       accept: "Ik ga akkoord",
       read: "Ik heb dit gelezen",
-      termsInfo: "Hieronder staan de belangrijkste punten over edubadges en jouw privacy. " + 
-      " De volledige versie van de Gebruiksvoorwaarden tussen SURF en jou is onder deze tekst te vinden. " + 
-      "Het aanmaken van het account en het koppelen van dit account aan eduID is noodzakelijk om edubadges " + 
-      "te kunnen ontvangen. Het account valt onder de verwerkingsverantwoordelijkheid van SURF.",
+      termsInfo: "Hieronder staan de belangrijkste punten over edubadges en jouw privacy. " +
+        " De volledige versie van de Gebruiksvoorwaarden tussen SURF en jou is onder deze tekst te vinden. " +
+        "Het aanmaken van het account en het koppelen van dit account aan eduID is noodzakelijk om edubadges " +
+        "te kunnen ontvangen. Het account valt onder de verwerkingsverantwoordelijkheid van SURF.",
       termsTitle: "Onze Gebruiksvoorwaarden",
       termsLinkPre: "Door op -Ik ga akkoord- te klikken, ga je akkoord met ",
       termsLink: "de volledige Gebruiksvoorwaarden",
@@ -861,5 +861,45 @@ I18n.translations.nl = {
       termsOfUseRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-terms-nl.md",
       privacyPolicyRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-statement-nl.md",
     }
+  },
+  tooltips: {
+    // If you don't want a tooltip to be displayed, just comment out (or delete) the line (like this line;-)
+    badgeClassImage: "badgeClassImage",
+    badgeClassExpireSettings: "After this period badges will expiry and will be no longer valid. " +
+      "See the <a target=\"_blank\" href=\"https://wiki.surfnet.nl/display/Edubadges/Edubadges+Example+BadgeClass\">wiki</a> for more explanation.",
+    badgeClassName: "badgeClassName",
+    badgeClassDescription: "badgeClassDescription",
+    badgeClassLanguageOfInstruction: "badgeClassLanguageOfInstruction",
+    badgeClassLearningOutcome: "badgeClassLearningOutcome",
+    badgeClassLearningIssuer: "badgeClassLearningIssuer",
+    badgeClassCriteriaRequirements: "badgeClassCriteriaRequirements",
+    badgeClassCriteriaUrl: "badgeClassCriteriaUrl",
+    badgeClassTypeOfStudeLoad: "badgeClassTypeOfStudeLoad",
+    badgeClassStudyLoadNumber: "badgeClassStudyLoadNumber",
+    badgeClassStudyLoadEcts: "badgeClassStudyLoadEcts",
+    badgeClassProgrammeIdentifier: "badgeClassProgrammeIdentifier",
+    badgeClassNLQFLevel: "badgeClassNLQFLevel",
+    badgeClassRelatedFrameworkName: "badgeClassRelatedFrameworkName",
+    badgeClassRelatedFrameworkFramework: "badgeClassRelatedFrameworkFramework",
+    badgeClassRelatedFrameworkURL: "badgeClassRelatedFrameworkURL",
+    badgeClassRelatedFrameworkCode: "badgeClassRelatedFrameworkCode",
+    badgeClassRelatedFrameworkDescription: "badgeClassRelatedFrameworkDescription",
+    facultyName: "facultyName",
+    facultyDescriptionEn: "facultyDescriptionEn",
+    facultyDescriptionNl: "facultyDescriptionNl",
+    issuerFaculty: "issuerFaculty",
+    issuerImage: "issuerImage",
+    issuerName: "issuerName",
+    issuerDescriptionEn: "issuerDescriptionEn",
+    issuerDescriptionNl: "issuerDescriptionNl",
+    issuerURL: "issuerURL",
+    issuerEmail: "issuerEmail",
+    institutionImage: "institutionImage",
+    institutionName: "institutionName",
+    institutionDescriptionEn: "institutionDescriptionEn",
+    institutionDescriptionNl: "institutionDescriptionNl",
+    institutionBrin: "institutionBrin",
+    institutionGradingTable: "institutionGradingTable",
   }
+
 };

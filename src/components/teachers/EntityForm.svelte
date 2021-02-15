@@ -37,6 +37,7 @@
 
   div.actions {
     display: flex;
+    margin-top: 25px;
 
     .button-container {
       &:not(:last-child) {

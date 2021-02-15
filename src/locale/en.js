@@ -338,8 +338,8 @@ I18n.translations.en = {
     909: "Enter the programme identifier or remove this section.",
     907: "This is a reserved name for badgeclasses",
     908: "Cannot create Issuer with this name in this issuer group. It already exists.",
-    909: "Cannot create Badgeclass with this name in this Issuer. It already exists.",
     910: "Either url or narrative is required.",
+    911: "Cannot create Badgeclass with this name in this Issuer. It already exists.",
     unexpected: "Unexpected error occurred.",
     description: "An unexpected error has occurred. Please try again later or contact support@edubadges.nl for support.",
     close: "Close"
@@ -661,10 +661,10 @@ I18n.translations.en = {
     renewTerms: "The edubadges terms have changed. Please take notice of our new terms.",
     teacher: {
       accept: "I agree",
-      termsInfo: "Below are the key points about edubadges and the protection of your personal data. " + 
-      "The full version of the Terms of Use between SURF and you can be found below this text. " + 
-      "You must create an account and link it to your eduID before you can receive edubadges. " + 
-      "The data controller for the purposes of your account is SURF.",
+      termsInfo: "Below are the key points about edubadges and the protection of your personal data. " +
+        "The full version of the Terms of Use between SURF and you can be found below this text. " +
+        "You must create an account and link it to your eduID before you can receive edubadges. " +
+        "The data controller for the purposes of your account is SURF.",
       termsTitle: "Terms of Use",
       termsLinkPre: "By clicking on -I agree-, you agree to ",
       termsLink: "the Terms of Use",
@@ -677,10 +677,10 @@ I18n.translations.en = {
     student: {
       accept: "I agree",
       read: "I have read this",
-      termsInfo: "Below are the key points about edubadges and the protection of your personal data. " + 
-      "The full version of the Terms of Use between SURF and you can be found below this text. " + 
-      "You must create an account and link it to your eduID before you can receive edubadges. " + 
-      "The data controller for the purposes of your account is SURF.",
+      termsInfo: "Below are the key points about edubadges and the protection of your personal data. " +
+        "The full version of the Terms of Use between SURF and you can be found below this text. " +
+        "You must create an account and link it to your eduID before you can receive edubadges. " +
+        "The data controller for the purposes of your account is SURF.",
       termsTitle: "Terms of Use",
       termsLinkPre: "By clicking on -I agree-, you agree to ",
       termsLink: "the Terms of Use",
@@ -713,15 +713,15 @@ I18n.translations.en = {
     noValidInstitution: "No valid institution",
     noValidInstitutionInfo: {
       student: "The institution <strong>{{name}}</strong> connected to your eduID account is not participating in the edubadges programme.<br/><br/>" +
-          "Please contact support@edubadges.nl for support or try linking a different institution to your eduID account.",
+        "Please contact support@edubadges.nl for support or try linking a different institution to your eduID account.",
       teacher: "The institution <strong>{{name}}</strong> connected to your SURF account is not participating in the edubadges programme.<br/><br/>" +
-          "Please contact support@edubadges.nl for support or try logging in with a different institution."
+        "Please contact support@edubadges.nl for support or try logging in with a different institution."
     },
     noValidInstitutionInfoNoInstitution: "You don't have any verified institutions linked to your account. <br/>" +
-        "You need a verified institution that is participating in the edubadges programme to use this service.",
+      "You need a verified institution that is participating in the edubadges programme to use this service.",
     noValidInstitutionInfoForEnrollment: "Institution <strong>{{name}}</strong> is not connected to your eduID account. " +
-        "To request this edubadge we require verification that you are able to identify yourself at institution <strong>{{name}}</strong>.<br/><br/>" +
-        "Please contact <a href='mailto:support@edubadges.nl'>support@edubadges.nl</a> for support or try linking institution <strong>{{name}}</strong> to your eduID account",
+      "To request this edubadge we require verification that you are able to identify yourself at institution <strong>{{name}}</strong>.<br/><br/>" +
+      "Please contact <a href='mailto:support@edubadges.nl'>support@edubadges.nl</a> for support or try linking institution <strong>{{name}}</strong> to your eduID account",
     goToSurfConext: "Proceed to eduID",
     multipleValidInstitutions: "Multiple valid institutions",
     multipleValidInstitutionsInfo: "You have multiple institutions connected to your eduID account.<br/><br/>" +
@@ -861,5 +861,44 @@ I18n.translations.en = {
       termsOfUseRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-terms-en.md",
       privacyPolicyRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-statement-en.md",
     }
+  },
+  tooltips: {
+    // If you don't want a tooltip to be displayed, just comment out (or delete) the line (like this line;-)
+    badgeClassImage: "badgeClassImage",
+    badgeClassExpireSettings: "After this period badges will expiry and will be no longer valid. " +
+      "See the <a target=\"_blank\" href=\"https://wiki.surfnet.nl/display/Edubadges/Edubadges+Example+BadgeClass\">wiki</a> for more explanation.",
+    badgeClassName: "badgeClassName",
+    badgeClassDescription: "badgeClassDescription",
+    badgeClassLanguageOfInstruction: "badgeClassLanguageOfInstruction",
+    badgeClassLearningOutcome: "badgeClassLearningOutcome",
+    badgeClassLearningIssuer: "badgeClassLearningIssuer",
+    badgeClassCriteriaRequirements: "badgeClassCriteriaRequirements",
+    badgeClassCriteriaUrl: "badgeClassCriteriaUrl",
+    badgeClassTypeOfStudeLoad: "badgeClassTypeOfStudeLoad",
+    badgeClassStudyLoadNumber: "badgeClassStudyLoadNumber",
+    badgeClassStudyLoadEcts: "badgeClassStudyLoadEcts",
+    badgeClassProgrammeIdentifier: "badgeClassProgrammeIdentifier",
+    badgeClassNLQFLevel: "badgeClassNLQFLevel",
+    badgeClassRelatedFrameworkName: "badgeClassRelatedFrameworkName",
+    badgeClassRelatedFrameworkFramework: "badgeClassRelatedFrameworkFramework",
+    badgeClassRelatedFrameworkURL: "badgeClassRelatedFrameworkURL",
+    badgeClassRelatedFrameworkCode: "badgeClassRelatedFrameworkCode",
+    badgeClassRelatedFrameworkDescription: "badgeClassRelatedFrameworkDescription",
+    facultyName: "facultyName",
+    facultyDescriptionEn: "facultyDescriptionEn",
+    facultyDescriptionNl: "facultyDescriptionNl",
+    issuerFaculty: "issuerFaculty",
+    issuerImage: "issuerImage",
+    issuerName: "issuerName",
+    issuerDescriptionEn: "issuerDescriptionEn",
+    issuerDescriptionNl: "issuerDescriptionNl",
+    issuerURL: "issuerURL",
+    issuerEmail: "issuerEmail",
+    institutionImage: "institutionImage",
+    institutionName: "institutionName",
+    institutionDescriptionEn: "institutionDescriptionEn",
+    institutionDescriptionNl: "institutionDescriptionNl",
+    institutionBrin: "institutionBrin",
+    institutionGradingTable: "institutionGradingTable",
   }
 };

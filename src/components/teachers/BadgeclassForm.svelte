@@ -270,7 +270,7 @@
 
   <div class="form">
 
-    <Field {entity} attribute="image" errors={errors.image}>
+    <Field {entity} attribute="image" errors={errors.image} tipKey="badgeClassImage">
       <File
         bind:value={badgeclass.image}
         disabled={!mayEdit}
@@ -285,11 +285,11 @@
       bind:number={badgeclass.expirationDuration}
       bind:period={badgeclass.expirationPeriod}/>
 
-    <Field {entity} attribute="name" errors={errors.name}>
+    <Field {entity} attribute="name" errors={errors.name} tipKey="badgeClassName">
       <TextInput bind:value={badgeclass.name} disabled={!mayEdit} error={errors.name} placeholder={I18n.t("placeholders.badgeClass.name")}/>
     </Field>
 
-    <Field {entity} attribute="language" errors={errors.language}>
+    <Field {entity} attribute="language" errors={errors.language} tipKey="badgeClassLanguageOfInstruction">
       <Select
         bind:value={languageSelection}
         items={languages}
@@ -298,7 +298,7 @@
         clearable={false}/>
     </Field>
 
-    <Field {entity} attribute="description" errors={errors.description}>
+    <Field {entity} attribute="description" errors={errors.description} tipKey="badgeClassDescription">
       <TextInput
         bind:value={badgeclass.description}
         error={errors.description}
@@ -309,7 +309,7 @@
       />
     </Field>
 
-    <Field {entity} attribute="learningOutcome" errors={errors.learningOutcome}>
+    <Field {entity} attribute="learningOutcome" errors={errors.learningOutcome} tipKey="badgeClassLearningOutcome">
       <TextInput
         bind:value={extensions[learningOutcome.name]}
         disabled={!mayEdit}
@@ -320,7 +320,7 @@
       />
     </Field>
 
-    <Field {entity} attribute="issuer" errors={errors.issuer}>
+    <Field {entity} attribute="issuer" errors={errors.issuer} tipKey="badgeClassLearningIssuer">
       <Select
         bind:value={badgeclass.issuer}
         error={errors.issuer}
@@ -334,7 +334,7 @@
   <h4>{I18n.t('models.badgeclass.headers.earningCriteria')}</h4>
 
   <div class="form">
-    <Field {entity} attribute="criteria_text" errors={errors.criteria_text}>
+    <Field {entity} attribute="criteria_text" errors={errors.criteria_text} tipKey="badgeClassCriteriaRequirements">
       <TextInput
         area
         bind:value={badgeclass.criteriaText}
@@ -345,7 +345,7 @@
       />
     </Field>
 
-    <Field {entity} attribute="criteria_url" errors={errors.criteria_url}>
+    <Field {entity} attribute="criteria_url" errors={errors.criteria_url} tipKey="badgeClassCriteriaUrl">
       <TextInput
         bind:value={badgeclass.criteriaUrl}
         disabled={!mayEdit}
@@ -367,7 +367,7 @@
     </div>
 
     <div class="form">
-      <Field {entity} attribute="typeOfStudyLoad" errors={errors.type}>
+      <Field {entity} attribute="typeOfStudyLoad" errors={errors.type} tipKey="badgeClassTypeOfStudeLoad">
         <Select
           bind:value={ectsOrHoursSelection}
           items={ectsOrHours}
@@ -378,14 +378,14 @@
       </Field>
       <p></p>
       {#if ectsOrHoursSelection.value === 'creditPoints'}
-        <Field {entity} attribute="number" errors={errors.ectsLong}>
+        <Field {entity} attribute="number" errors={errors.ectsLong} tipKey="badgeClassStudyLoadEcts">
           <EctsCreditPoints 
             bind:ectsValue={extensions[ects.name]}
             disabled={!mayEdit} 
           />
         </Field>
       {:else}
-        <Field {entity} attribute="number" errors={errors.StudyLoadExtension}>
+        <Field {entity} attribute="number" errors={errors.StudyLoadExtension} tipKey="badgeClassStudyLoadNumber">
           <TextInput
               type="number"
               bind:value={extensions[studyLoad.name]}
@@ -411,7 +411,8 @@
       <Field
         {entity}
         attribute="educationProgramIdentifierLong"
-        errors={errors.EducationProgramIdentifierExtension}>
+        errors={errors.EducationProgramIdentifierExtension}
+        tipKey="badgeClassProgrammeIdentifier">
         <TextInput
           type="text"
           bind:value={extensions[educationProgramIdentifier.name]}
@@ -423,7 +424,7 @@
         </span>
       </Field>
 
-      <Field {entity} attribute="eqf" errors={errors.eqf}>
+      <Field {entity} attribute="eqf" errors={errors.eqf} tipKey="badgeClassNLQFLevel">
         <Select
           bind:value={extensions[eqf.name]}
           items={eqfItems}
@@ -446,7 +447,7 @@
     </div>
 
     <div class="form">
-      <Field {entity} attribute="alignmentName" errors={errors.target_name}>
+      <Field {entity} attribute="alignmentName" errors={errors.target_name} tipKey="badgeClassRelatedFrameworkName">
         <TextInput
           bind:value={alignment.target_name}
           disabled={!mayEdit}
@@ -454,7 +455,7 @@
           placeholder={I18n.t("placeholders.badgeClass.alignmentName")}
         />
       </Field>
-      <Field {entity} attribute="alignmentFramework" errors={errors.target_framework}>
+      <Field {entity} attribute="alignmentFramework" errors={errors.target_framework} tipKey="badgeClassRelatedFrameworkFramework">
         <TextInput
           bind:value={alignment.target_framework}
           disabled={!mayEdit}
@@ -462,7 +463,7 @@
           placeholder={I18n.t("placeholders.badgeClass.alignmentFramework")}
         />
       </Field>
-      <Field {entity} attribute="alignmentUrl" errors={errors.target_url}>
+      <Field {entity} attribute="alignmentUrl" errors={errors.target_url} tipKey="badgeClassRelatedFrameworkURL">
         <TextInput
           bind:value={alignment.target_url}
           disabled={!mayEdit}
@@ -470,7 +471,7 @@
           placeholder={I18n.t("placeholders.badgeClass.alignmentUrl")}
         />
       </Field>
-      <Field {entity} attribute="alignmentCode" errors{errors.target_code}>
+      <Field {entity} attribute="alignmentCode" errors{errors.target_code} tipKey="badgeClassRelatedFrameworkCode">
         <TextInput
           bind:value={alignment.target_code}
           disabled={!mayEdit}
@@ -478,7 +479,7 @@
           placeholder={I18n.t("placeholders.badgeClass.alignmentCode")}
         />
       </Field>
-      <Field {entity} attribute="alignmentDescription" errors={errors.target_description}>
+      <Field {entity} attribute="alignmentDescription" errors={errors.target_description} tipKey="badgeClassRelatedFrameworkDescription">
         <TextInput
           bind:value={alignment.target_description}
           error={errors.target_description}

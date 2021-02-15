@@ -1,19 +1,17 @@
 <script>
   import I18n from "i18n-js";
-  import { Select } from "../forms";
-  import { warningIcon } from "../../icons";
+  import {Select} from "../forms";
+  import {warningIcon} from "../../icons";
+  import Tooltip from "../Tooltip.svelte";
 
   export let entity;
   export let attribute;
   export let disabled;
   export let errors;
+  export let tipKey;
 </script>
 
 <style>
-
-  label {
-    font-weight: bold;
-  }
 
   div.input {
     margin: 8px 0;
@@ -38,7 +36,7 @@
 </style>
 
 <div class="field" {disabled} error={errors}>
-  <label for={attribute}>{I18n.t(['models', entity, attribute])}</label>
+  <Tooltip label={I18n.t(['models', entity, attribute])} tipKey={tipKey}/>
 
   <div class="input">
     <slot />

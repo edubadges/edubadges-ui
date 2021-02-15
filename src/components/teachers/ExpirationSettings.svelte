@@ -1,9 +1,10 @@
 <script>
   import I18n from "i18n-js";
-  import { expirationPeriods } from "../extensions/badges/expiration_period";
+  import {expirationPeriods} from "../extensions/badges/expiration_period";
 
   import RadioButton from "../forms/RadioButton.svelte";
   import Select from "../forms/Select.svelte";
+  import Tooltip from "../Tooltip.svelte";
 
   export let expireValueSet = false;
   export let disabled = false;
@@ -12,12 +13,6 @@
 </script>
 
 <style>
-  label {
-    font-weight: bold;
-    display: block;
-    margin-bottom: 25px;
-  }
-
   .options {
     display: flex;
     align-items: center;
@@ -48,14 +43,17 @@
 
 <div class="expiration-settings">
 
-  <label for="expiration-settings">
-    {I18n.t('models.badgeclass.expireSettings')}
-  </label>
+  <Tooltip label={I18n.t("models.badgeclass.expireSettings")}
+           marginBottom={true}
+           tipKey="badgeClassExpireSettings"/>
+
   <div class="options">
 
-    <RadioButton bind:values={expireValueSet} readOnly={disabled} label={I18n.t('models.badgeclass.expiresAfterNever')} value={false} />
+    <RadioButton bind:values={expireValueSet} readOnly={disabled} label={I18n.t('models.badgeclass.expiresAfterNever')}
+                 value={false}/>
 
-    <RadioButton bind:values={expireValueSet} readOnly={disabled} label={I18n.t('models.badgeclass.expiresAfterOption')} value={true} />
+    <RadioButton bind:values={expireValueSet} readOnly={disabled} label={I18n.t('models.badgeclass.expiresAfterOption')}
+                 value={true}/>
 
     <div class="expiration">
       <input
@@ -63,14 +61,14 @@
         type="number"
         min="1"
         bind:value={number}
-        disabled={!expireValueSet || disabled} />
+        disabled={!expireValueSet || disabled}/>
 
       <Select
         bind:value={period}
         items={expirationPeriods()}
         optionIdentifier="key"
         clearable={false}
-        disabled={!expireValueSet || disabled} />
+        disabled={!expireValueSet || disabled}/>
     </div>
   </div>
 </div>

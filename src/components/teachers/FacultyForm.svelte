@@ -44,15 +44,15 @@
 <EntityForm faculty={ {...faculty, entityId} } submit={onSubmit} create={isCreate} {processing}
             {mayDelete} entityTypeName={entity} entityId={entityId} {hasUnrevokedAssertions}>
 
-  <Field {entity} attribute="name" errors={errors.name}>
+  <Field {entity} attribute="name" errors={errors.name} tipKey="facultyName">
     <TextInput bind:value={faculty.name} error={errors.name} placeholder={I18n.t("placeholders.faculty.name")}/>
   </Field>
 
-  <Field {entity} attribute="description_english" errors={errors.description_english}>
+  <Field {entity} attribute="description_english" errors={errors.description_english} tipKey="facultyDescriptionEn">
     <TextInput bind:value={faculty.descriptionEnglish} error={errors.description_english} area size="100"  placeholder={I18n.t("placeholders.faculty.description")}/>
   </Field>
 
-  <Field {entity} attribute="description_dutch" errors={errors.description_dutch}>
+  <Field {entity} attribute="description_dutch" errors={errors.description_dutch} tipKey="facultyDescriptionNl">
     <TextInput bind:value={faculty.descriptionDutch} error={errors.description_dutch} area size="100"  placeholder={I18n.t("placeholders.faculty.description")}/>
   </Field>
 

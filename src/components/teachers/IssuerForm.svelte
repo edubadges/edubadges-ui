@@ -60,7 +60,7 @@
 
 <EntityForm entityTypeName={entity} faculty={isCreate ? null : issuer.faculty} {mayDelete} {entityId} {hasUnrevokedAssertions}
             issuer={isCreate ? null : issuer} submit={onSubmit} create={isCreate} {processing}>
-  <Field {entity} attribute="faculty" errors={errors.faculty}>
+  <Field {entity} attribute="faculty" errors={errors.faculty} tipKey="issuerFaculty">
     <Select
         bind:value={issuer.faculty}
         disabled={!facultyChooseAllowed}
@@ -68,11 +68,11 @@
         items={faculties}/>
   </Field>
 
-  <Field {entity} attribute="image" errors={errors.image}>
+  <Field {entity} attribute="image" errors={errors.image} tipKey="issuerImage">
     <File bind:value={issuer.image} error={errors.image} removeAllowed={true}/>
   </Field>
 
-  <Field {entity} attribute="name" errors={errors.name}>
+  <Field {entity} attribute="name" errors={errors.name} tipKey="issuerName">
   <!--  TODO: Need to refactor the CSS to use disabled=true, now disabled although false renders as disabled  -->
     {#if hasAssertions}
       <TextInput bind:value={issuer.name} error={errors.name} placeholder={I18n.t("placeholders.issuer.name")}
@@ -82,21 +82,21 @@
     {/if}
   </Field>
 
-  <Field {entity} attribute="description_english" errors={errors.description_english}>
+  <Field {entity} attribute="description_english" errors={errors.description_english} tipKey="issuerDescriptionEn">
     <TextInput bind:value={issuer.descriptionEnglish} error={errors.description_english} area size="100"
                placeholder={I18n.t("placeholders.issuer.description")}/>
   </Field>
 
-  <Field {entity} attribute="description_dutch" errors={errors.description_dutch}>
+  <Field {entity} attribute="description_dutch" errors={errors.description_dutch} tipKey="issuerDescriptionNl">
     <TextInput bind:value={issuer.descriptionDutch} error={errors.description_dutch} area size="100"
                placeholder={I18n.t("placeholders.issuer.description")}/>
   </Field>
 
-  <Field {entity} attribute="url" errors={errors.url}>
+  <Field {entity} attribute="url" errors={errors.url} tipKey="issuerURL">
     <TextInput bind:value={issuer.url} error={errors.url} placeholder={I18n.t("placeholders.issuer.url")}/>
   </Field>
 
-  <Field {entity} attribute="email" errors={errors.email}>
+  <Field {entity} attribute="email" errors={errors.email} tipKey="issuerEmail">
     <TextInput bind:value={issuer.email} error={errors.email} placeholder={I18n.t("placeholders.issuer.email")}/>
   </Field>
 </EntityForm>
