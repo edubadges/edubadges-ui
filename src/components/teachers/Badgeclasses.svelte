@@ -21,29 +21,29 @@
       attribute: "name",
       reverse: false,
       sortType: sortType.ALPHA,
-      width: "25%"
+      width: "20%"
     },
     {
       name: I18n.t("teacher.badgeclasses.created"),
-      attribute: "created",
+      attribute: "createdAt",
       reverse: false,
-      sortType: sortType.ALPHA,
+      sortType: sortType.DATE,
       width: "10%"
     },
     {
       name: I18n.t("teacher.badgeclasses.recipients"),
-      attribute: "recipients",
+      attribute: "enrollments",
       reverse: false,
-      sortType: sortType.ALPHA,
-      width: "8%",
+      sortType: sortType.COLLECTION,
+      width: "10%",
       center: true
     },
     {
       name: I18n.t("teacher.badgeclasses.enrollments"),
-      attribute: "recipients",
+      attribute: "pendingEnrollments",
       reverse: false,
-      sortType: sortType.ALPHA,
-      width: "8%",
+      sortType: sortType.COLLECTION,
+      width: "12%",
       center: true
     },
     {
@@ -51,7 +51,7 @@
       attribute: "studyLoad",
       reverse: false,
       sortType: sortType.ALPHA,
-      width: "10%",
+      width: "9%",
       right: true
     },
     {

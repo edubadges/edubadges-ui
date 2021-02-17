@@ -54,17 +54,19 @@ export function sort(collection, attribute, reversed, howToSort = sortType.ALPHA
   }
 
   const col = collection.sort((a, b) => {
+    let valA = getNestedValue(a, attribute, howToSort);
+    let valB = getNestedValue(b, attribute, howToSort);
     switch (howToSort) {
       case sortType.ALPHA:
-        return getNestedValue(a, attribute, howToSort).localeCompare(getNestedValue(b, attribute, howToSort));
+        return valA.localeCompare(valB);
       case sortType.DATE:
-        return new Date(getNestedValue(a, attribute, howToSort)) - new Date(getNestedValue(b, attribute, howToSort));
+        return new Date(valA) - new Date(valB);
       case sortType.BOOLEAN:
-        return getNestedValue(a, attribute, howToSort).toString().localeCompare(getNestedValue(b, attribute, howToSort).toString());
+        return valA.toString().localeCompare(valB.toString());
       case sortType.NUMERIC:
-        return parseInt(getNestedValue(b, attribute, howToSort), 10) - parseInt(getNestedValue(a, attribute, howToSort), 10);
+        return parseInt(valB, 10) - parseInt(valA, 10);
       case sortType.COLLECTION:
-        return getNestedValue(b, attribute, howToSort).length - getNestedValue(a, attribute, howToSort).length;
+        return valB.length - valA.length;
       case sortType.ROLES:
         return permissionRoleValue(b[attribute]) - permissionRoleValue(a[attribute]);
       case sortType.INVITATION_STATUS:
