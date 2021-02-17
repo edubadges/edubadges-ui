@@ -12,6 +12,7 @@
 
   $: showExpand = !value.length && collection.length > maxLength && collection.filter(item => item.count > 0) > maxLength;
   $: items = expanded ? collection : collection.slice(0, maxLength);
+
 </script>
 
 <style lang="scss">

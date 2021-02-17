@@ -69,7 +69,9 @@
     queryData(query).then(res => {
       for (const faculty of res.faculties) {
         for (const issuer of faculty.issuers) {
-          if (!issuer.image) issuer.image = res.faculties[0].institution.image;
+          if (!issuer.image) {
+            issuer.image = res.faculties[0].institution.image;
+          }
           for (const badgeClass of issuer.badgeclasses) {
               badgeClass.studyLoad = extensionValue(badgeClass.extensions, studyLoad);
               badgeClass.ects = extensionValue(badgeClass.extensions, ects);

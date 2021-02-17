@@ -1,26 +1,21 @@
 <script>
   import {onMount} from "svelte";
-  import {Router, Route, navigate} from "svelte-routing";
+  import {link, navigate, Route, Router} from "svelte-routing";
   import I18n from "i18n-js";
   import info from "../../icons/informational.svg";
   import {BadgeClassHeader} from "../teachers";
-  import Button from "../../components/Button.svelte";
+  import chevronRightSmall from "../../icons/chevron-right-small.svg";
   import {Overview} from "../teachers/badgeclass";
   import Assertions from "../teachers/badges/Assertions.svelte";
   import Enrollments from "../teachers/badges/Enrollments.svelte";
-  import {chevronLeft} from "../../icons";
   import {queryData} from "../../api/graphql";
-  import {
-    headerStaff,
-    headerEntity,
-    enrollmentsQuery,
-    assertionsQuery
-  } from "../../api/queries";
+  import {assertionsQuery, enrollmentsQuery, headerStaff} from "../../api/queries";
   import {expirationPeriod} from "../../util/entityHeader";
   import CopyToClipboardButton from "../CopyToClipboardButton.svelte";
   import {entityType} from "../../util/entityTypes"
   import Spinner from "../Spinner.svelte";
   import LinkEye from "./LinkEye.svelte";
+  import {facultyIds, issuerIds} from "../../stores/filterBadges";
 
   export let entityId;
   export let subEntity;
@@ -51,7 +46,13 @@
       issuer {
         name,
         entityId,
-        faculty { name, entityId }
+        faculty {
+          name,
+          entityId,
+           institution {
+            name
+          }
+        }
       },
       permissions { mayUpdate },
       extensions { name, originalJson },
@@ -83,6 +84,11 @@
 
   onMount(() => refresh());
 
+  const navigateWithFilter = includeIssuer => () => {
+    $facultyIds = [badgeclass.issuer.faculty.entityId]
+    $issuerIds = includeIssuer ? [badgeclass.issuer.entityId] : [];
+    navigate("/");
+  }
 
   $: tabs = [
     {
@@ -133,18 +139,29 @@
     padding: 40px 140px;
   }
 
-  div.nav {
+  div.bread-crumb {
     padding: var(--ver-padding-m) var(--hor-padding-m);
     min-height: 47px;
     display: flex;
     align-items: center;
+    font-size: 14px;
 
-    span {
-      font-weight: bold;
+    a {
+      color: var(--text-color-grey);
     }
 
-    :global(.svg-container svg) {
-      height: 16px;
+    a:last-of-type {
+      font-weight: var(--semi-bold);
+    }
+
+    a:not(:last-of-type) {
+      color: var(--text-grey-dark)
+    }
+
+    span.crumb {
+      height: 14px;
+      width: 14px;
+      margin: auto 4px;
     }
 
   }
@@ -180,11 +197,21 @@
 <div class="container">
 
   {#if loaded}
-    <div class="nav">
-      <span class="svg-container">{@html chevronLeft}</span>
-      <span class="click" on:click={() => navigate("/")}>
-      {I18n.t('teacher.breadcrumb.back')}
-    </span>
+    <div class="bread-crumb">
+      <a use:link href={`/`}>
+        {badgeclass.issuer.faculty.institution.name}
+      </a>
+      <span class="crumb">{@html chevronRightSmall}</span>
+      <a on:click|preventDefault|stopPropagation={navigateWithFilter(false)} href={`/`}>
+        {badgeclass.issuer.faculty.name}
+      </a>
+      <span class="crumb">{@html chevronRightSmall}</span>
+      <a on:click|preventDefault|stopPropagation={navigateWithFilter(true)} href={`/`}>
+        {badgeclass.issuer.name}
+      </a>
+      <span class="crumb">{@html chevronRightSmall}</span>
+      <a on:click|preventDefault|stopPropagation={() => false}
+         href={window.location.href}>{badgeclass.name}</a>
       <LinkEye badgeclass={badgeclass} isAdminView={false}/>
     </div>
 
