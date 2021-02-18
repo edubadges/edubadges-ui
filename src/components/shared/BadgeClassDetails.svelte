@@ -176,7 +176,9 @@
     {/if}
     {#if badgeclass.alignments[0].targetDescription}
       <h4>{I18n.t('models.badgeclass.alignmentDescription')}</h4>
-      <p class="sub-info">{badgeclass.alignments[0].targetDescription}</p>
+      <p class="sub-info markdown">
+        {@html DOMPurify.sanitize(marked(badgeclass.alignments[0].targetDescription))}
+      </p>
     {/if}
   {/if}
 </div>

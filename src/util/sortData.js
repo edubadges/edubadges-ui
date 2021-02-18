@@ -13,6 +13,7 @@ export const sortType = {
   INVITATION_STATUS: "invitationStatus",
   PERSONAL_DATA: "personalData",
   ISSUER_BADGE_CLASS_ASSERTIONS: "issuerBadgeClassAssertions",
+  ISSUER_BADGE_CLASS_ENROLLMENTS: "issuerBadgeClassEnrollments",
   ISSUER_GROUP_ENROLLMENTS: "IssuerGroupEnrollments"
 };
 
@@ -22,14 +23,20 @@ const defaultValue = (attr, howToSort) => {
       return attr || "";
     case sortType.DATE:
       return attr || null;
+    case sortType.BOOLEAN:
+      return attr || false;
     case sortType.NUMERIC:
       return attr || 0;
     case sortType.COLLECTION:
       return attr || [];
-    case sortType.BOOLEAN:
-      return attr || false;
-    case sortType.ISSUER_BADGE_CLASS_ASSERTIONS:
+    case sortType.ROLES:
+      return attr || [];
+    case sortType.INVITATION_STATUS:
       return attr || 0;
+    case sortType.PERSONAL_DATA:
+      return attr || "";
+    case sortType.ISSUER_BADGE_CLASS_ASSERTIONS:
+    case sortType.ISSUER_BADGE_CLASS_ENROLLMENTS:
     case sortType.ISSUER_GROUP_ENROLLMENTS:
       return attr || 0;
     default:
@@ -76,11 +83,17 @@ export function sort(collection, attribute, reversed, howToSort = sortType.ALPHA
         return (a._staffType === staffType.USER_PROVISIONMENT ? a.email : a.user.firstName + " " + a.user.lastName)
             .localeCompare(b._staffType === staffType.USER_PROVISIONMENT ? b.email : b.user.firstName + " " + b.user.lastName);
       case sortType.ISSUER_BADGE_CLASS_ASSERTIONS:
-        return parseInt(b.badgeclasses.reduce((acc, badgeClass) => acc += (badgeClass.badgeAssertions || []).length, 0))
-          - parseInt(a.badgeclasses.reduce((acc, badgeClass) => acc += (badgeClass.badgeAssertions || []).length, 0));
+        const nbrA = parseInt(b.badgeclasses.reduce((acc, badgeClass) => acc += (badgeClass.badgeAssertions || []).length, 0));
+        const nbrB = parseInt(a.badgeclasses.reduce((acc, badgeClass) => acc += (badgeClass.badgeAssertions || []).length, 0));
+        return nbrA - nbrB;
+      case sortType.ISSUER_BADGE_CLASS_ENROLLMENTS:
+        const nbrEnrollmentA = parseInt(b.badgeclasses.reduce((acc, badgeClass) => acc += (badgeClass.pendingEnrollments || []).length, 0));
+        const nbrEnrollmentB = parseInt(a.badgeclasses.reduce((acc, badgeClass) => acc += (badgeClass.pendingEnrollments || []).length, 0));
+        return nbrEnrollmentA - nbrEnrollmentB;
       case sortType.ISSUER_GROUP_ENROLLMENTS:
         return getPendingEnrollmentsCount(b) - getPendingEnrollmentsCount(a);
       default:
+        debugger;
         throw new Error(`Unsupported sortType ${howToSort}`);
     }
   });

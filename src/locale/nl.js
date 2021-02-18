@@ -527,6 +527,7 @@ I18n.translations.nl = {
       expiresAfterValue: "{{nbr}} weken",
       expireSettings: "Standaard verloop setting",
       language: "Taal van het onderwijs",
+      isPrivate: "Private",
       learningOutcome: "Leeruitkomst",
       studyLoad: "Studielast",
       ects: {
@@ -643,6 +644,7 @@ I18n.translations.nl = {
   invites: {
     title: "Nodig iemand uit om zich in te schrijven",
     copyPublicUrl: "Als je de link naar de registratiepagina op je intranet of elektronische leeromgeving wilt plaatsen, kunt je de link kopiëren",
+    copyPublicUrlDisabled: "Deze badge class is privé en daarom is de publieke link niet beschikbaar.",
     copyUrl: "Kopieer URL"
   },
   file: {
@@ -872,6 +874,7 @@ I18n.translations.nl = {
     badgeClassLanguageOfInstruction: "badgeClassLanguageOfInstruction",
     badgeClassLearningOutcome: "badgeClassLearningOutcome",
     badgeClassLearningIssuer: "badgeClassLearningIssuer",
+    badgeClassIsPrivate: "Indien aangevinkt zal deze badge-klasse niet in de catalogus verschijnen. Houd er rekening mee dat privébadge-klassen geen assertions kunnen hebben.",
     badgeClassCriteriaRequirements: "badgeClassCriteriaRequirements",
     badgeClassCriteriaUrl: "badgeClassCriteriaUrl",
     badgeClassTypeOfStudeLoad: "badgeClassTypeOfStudeLoad",

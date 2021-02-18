@@ -6,6 +6,7 @@
   export let onChange = () => {};
   export let disabled = false;
   export let label;
+  export let inForm = false;
 
 
 </script>
@@ -21,6 +22,10 @@
 
     &.disabled {
       cursor: not-allowed;
+    }
+
+    &.in-form {
+      margin-top: 15px;
     }
   }
 
@@ -57,7 +62,7 @@
 
 
 </style>
-<label class="checkboxed" class:disabled={disabled}>
+<label class="checkboxed" class:disabled={disabled} class:in-form={inForm}>
   {#if label}
     <span>{label}</span>
   {/if}

@@ -45,7 +45,7 @@
       name: I18n.t("teacher.badgeclasses.requestedBadges"),
       attribute: "enrollments",
       reverse: false,
-      sortType: sortType.ISSUER_BADGE_CLASS_ASSERTIONS,
+      sortType: sortType.ISSUER_BADGE_CLASS_ENROLLMENTS,
       width: "15%",
       center: true
     },

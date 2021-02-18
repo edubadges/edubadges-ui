@@ -3,6 +3,7 @@
   import {link, navigate, Route, Router} from "svelte-routing";
   import I18n from "i18n-js";
   import info from "../../icons/informational.svg";
+  import warning from "../../icons/warning.svg";
   import {BadgeClassHeader} from "../teachers";
   import chevronRightSmall from "../../icons/chevron-right-small.svg";
   import {Overview} from "../teachers/badgeclass";
@@ -41,6 +42,7 @@
       ${headerStaff},
       image,
       criteriaUrl,
+      isPrivate,
       criteriaText,
       expirationPeriod,
       issuer {
@@ -171,6 +173,11 @@
     margin-bottom: 25px;
     padding: 25px;
     border-radius: 8px;
+
+    &.private {
+      background-color: var(--red-light);
+      //color: var(--purple)
+    }
   }
 
   div.info {
@@ -181,6 +188,12 @@
     span:first-child {
       margin-right: 15px;
       max-width: 100%;
+    }
+
+    :global(span.warning svg) {
+      width: 28px;
+      height: auto;
+      fill: var(--red-dark);
     }
 
   }
@@ -231,15 +244,22 @@
         <Route path="/overview">
           <div class="overview-container">
             <Overview {badgeclass}>
-              <div class="public-link">
-                <div class="info">
-                  <span>{@html info}</span>
-                  <span>{I18n.t("invites.copyPublicUrl")}</span>
-                </div>
-                <div class="options">
-                  <input class="input-field full" disabled={true} value={publicUrl()}/>
-                  <CopyToClipboardButton toCopy={publicUrl()} text={I18n.t("invites.copyUrl")}/>
-                </div>
+              <div class="public-link" class:private={badgeclass.isPrivate}>
+                {#if badgeclass.isPrivate}
+                  <div class="info">
+                    <span class="warning">{@html warning}</span>
+                    <span>{I18n.t("invites.copyPublicUrlDisabled")}</span>
+                  </div>
+                {:else}
+                  <div class="info">
+                    <span>{@html info}</span>
+                    <span>{I18n.t("invites.copyPublicUrl")}</span>
+                  </div>
+                  <div class="options">
+                    <input class="input-field full" disabled={true} value={publicUrl()}/>
+                    <CopyToClipboardButton toCopy={publicUrl()} text={I18n.t("invites.copyUrl")}/>
+                  </div>
+                {/if}
               </div>
             </Overview>
           </div>

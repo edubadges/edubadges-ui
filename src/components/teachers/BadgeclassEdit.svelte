@@ -24,6 +24,7 @@
       criteriaUrl,
       criteriaText,
       expirationPeriod,
+      isPrivate,
       alignments {
         targetName,
         targetUrl,
@@ -73,14 +74,11 @@
     queryData(query, {entityId}).then(res => {
       badgeclass = res.badgeClass;
       deduceExpirationPeriod(badgeclass);
-
       issuers = res.issuers;
       permissions = res.badgeClass.permissions;
       currentInstitution = res.currentInstitution;
       loaded = true;
-      hasUnrevokedAssertions = badgeclass.badgeAssertions.filter(function(assertion){
-        return assertion.revoked == false
-        }).length > 0;
+      hasUnrevokedAssertions = badgeclass.badgeAssertions.some(assertion => !assertion.revoked);
       mayDelete = permissions && permissions.mayDelete
       mayEdit = permissions && permissions.mayUpdate && badgeclass.badgeAssertions.length === 0
     });

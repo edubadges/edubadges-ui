@@ -527,6 +527,7 @@ I18n.translations.en = {
       expiresAfterValue: "{{nbr}} weeks",
       expireSettings: "Default expiration settings",
       language: "Language of instruction",
+      isPrivate: "Private",
       learningOutcome: "Learning outcome",
       studyLoad: "Study load",
       ects: {
@@ -643,6 +644,7 @@ I18n.translations.en = {
   invites: {
     title: "Invite people to request",
     copyPublicUrl: "If you want to place the link to the registration page on your intranet or electronic learning environment, you can copy the link.",
+    copyPublicUrlDisabled: "This badge class is private and therefore the public link is disabled.",
     copyUrl: "Copy the link"
   },
   file: {
@@ -872,6 +874,7 @@ I18n.translations.en = {
     badgeClassLanguageOfInstruction: "badgeClassLanguageOfInstruction",
     badgeClassLearningOutcome: "badgeClassLearningOutcome",
     badgeClassLearningIssuer: "badgeClassLearningIssuer",
+    badgeClassIsPrivate: "When checked this badge class will not appear in the catalogue. Note that private badge classes can not have assertions.",
     badgeClassCriteriaRequirements: "badgeClassCriteriaRequirements",
     badgeClassCriteriaUrl: "badgeClassCriteriaUrl",
     badgeClassTypeOfStudeLoad: "badgeClassTypeOfStudeLoad",

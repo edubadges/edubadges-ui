@@ -22,6 +22,7 @@
   import {trash} from '../../icons';
   import {entityType} from "../../util/entityTypes";
   import {toHttpOrHttps} from "../../util/Url";
+  import {CheckBox} from "../index";
 
   export let entityId;
   export let badgeclass = {extensions: [], issuer: {}};
@@ -119,6 +120,7 @@
     let newBadgeclass = {
       ...badgeclass,
       criteria_text: badgeclass.criteriaText,
+      is_private: badgeclass.isPrivate,
       criteria_url: toHttpOrHttps(badgeclass.criteriaUrl),
     };
     setExpirationPeriod(newBadgeclass);
@@ -168,7 +170,6 @@
     }
     const args = isCreate ? [newBadgeclass] : [entityId, newBadgeclass];
     const apiCall = isCreate ? createBadgeclass : editBadgeclass;
-
     apiCall(...args)
       .then(res => {
         navigate(`/manage/badgeclass/${res.entity_id}`)
@@ -327,6 +328,14 @@
         disabled={true}
         clearable={false}
         items={issuers}/>
+    </Field>
+
+    <Field {entity} attribute="isPrivate" tipKey="badgeClassIsPrivate">
+      <CheckBox
+        value={badgeclass.isPrivate || false}
+        inForm={true}
+        disabled={hasUnrevokedAssertions}
+        onChange={val => badgeclass.isPrivate = val}/>
     </Field>
 
   </div>
