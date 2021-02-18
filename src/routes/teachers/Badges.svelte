@@ -1,13 +1,13 @@
 <script>
   import {onMount} from "svelte";
-  import {navigate} from "svelte-routing";
-  import {SideBarBadges, BadgesHeader, BadgeClassesToolBar} from "../../components/teachers";
+  import {BadgeClassesToolBar, BadgesHeader, SideBarBadges} from "../../components/teachers";
   import {queryData} from "../../api/graphql";
   import {headerEntity, headerStaff} from "../../api/queries";
-  import {faculties, awardFilter, tree} from "../../stores/filterBadges";
+  import {awardFilter, faculties, tree} from "../../stores/filterBadges";
   import BadgeCard from "../../components/shared/BadgeCard.svelte";
   import Spinner from "../../components/Spinner.svelte";
-  import { ects, extensionValue, studyLoad } from "../../components/extensions/badges/extensions";
+  import {ects, eqf, extensionValue, studyLoad} from "../../components/extensions/badges/extensions";
+  import BadgeListItem from "../../components/shared/BadgeListItem.svelte";
 
   const query = `query {
     faculties {
@@ -33,7 +33,10 @@
             name,
             image,
             faculty {
-              name
+              name,
+              institution {
+                name
+              }
             }
           },
           permissions {
@@ -49,9 +52,12 @@
 
   let loaded;
   let sorting;
+  let view = "cards";
 
   const sortBadges = (badges, sorting) => {
-    if (!sorting) return badges;
+    if (!sorting) {
+      return badges;
+    }
 
     return badges.sort((a, b) => {
       switch (sorting.value) {
@@ -73,8 +79,9 @@
             issuer.image = res.faculties[0].institution.image;
           }
           for (const badgeClass of issuer.badgeclasses) {
-              badgeClass.studyLoad = extensionValue(badgeClass.extensions, studyLoad);
-              badgeClass.ects = extensionValue(badgeClass.extensions, ects);
+            badgeClass.studyLoad = extensionValue(badgeClass.extensions, studyLoad);
+            badgeClass.ects = extensionValue(badgeClass.extensions, ects);
+            badgeClass.eqf = extensionValue(badgeClass.extensions, eqf);
           }
         }
       }
@@ -97,12 +104,20 @@
   div.badges {
     --badge-margin-right: 20px;
 
-    display: grid;
-    grid-template-columns: 31% 31% 31%;
-    grid-row: auto;
-    grid-column-gap: 25px;
-    grid-row-gap: 25px;
-    margin-right: calc(var(--badge-margin-right) * -1);
+    &.cards {
+      display: grid;
+      grid-template-columns: 31% 31% 31%;
+      grid-row: auto;
+      grid-column-gap: 25px;
+      grid-row-gap: 25px;
+      margin-right: calc(var(--badge-margin-right) * -1);
+    }
+
+    &.list {
+      display: flex;
+      flex-direction: column;
+    }
+
   }
 
   @media (max-width: 1120px) {
@@ -127,13 +142,15 @@
     <div class="content">
       <BadgesHeader/>
 
-      <BadgeClassesToolBar
-          bind:sorting={sorting}
-      />
+      <BadgeClassesToolBar bind:sorting={sorting} bind:view={view}/>
 
-      <div class="badges">
+      <div class={`badges ${view === "list" ? "list" : "cards"}`}>
         {#each sortedBadges as badge}
-          <BadgeCard badgeClass={badge} withHeaderData={false}/>
+          {#if view === "list"}
+            <BadgeListItem badgeClass={badge}/>
+          {:else}
+            <BadgeCard badgeClass={badge} withHeaderData={false}/>
+          {/if}
         {/each}
       </div>
     </div>

@@ -39,7 +39,10 @@ export const studentBadgeInstances = `query {
           name,
           image,
           faculty {
-            name
+            name,
+            institution {
+              name
+            }
           }
         }
       }

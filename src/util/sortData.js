@@ -93,7 +93,6 @@ export function sort(collection, attribute, reversed, howToSort = sortType.ALPHA
       case sortType.ISSUER_GROUP_ENROLLMENTS:
         return getPendingEnrollmentsCount(b) - getPendingEnrollmentsCount(a);
       default:
-        debugger;
         throw new Error(`Unsupported sortType ${howToSort}`);
     }
   });

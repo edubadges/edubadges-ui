@@ -10,7 +10,7 @@
     position: relative;
     width: 100%;
     min-width: 100px;
-    max-width: 250px;
+    max-width: 400px;
     height: 42px;
     min-height: 30px;
 

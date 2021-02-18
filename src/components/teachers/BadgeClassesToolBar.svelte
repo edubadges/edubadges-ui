@@ -1,40 +1,41 @@
 <script>
   import I18n from "i18n-js";
   import {Search} from "../../components";
-  import {search, awardFilter, facultyIds, issuerIds, tree} from "../../stores/filterBadges";
-  import {Field, MinimalisticSelect} from "../forms";
+  import {awardFilter, facultyIds, issuerIds, search, tree} from "../../stores/filterBadges";
+  import {MinimalisticSelect} from "../forms";
+  import ViewSelector from "../shared/ViewSelector.svelte";
 
   let targetOptions = [
     {value: "recent", name: I18n.t("teacher.badgeclasses.mostRecent")},
     {value: "awarded", name: I18n.t("teacher.badgeclasses.mostAwarded")},
   ];
+
   export let sorting = targetOptions[0];
+  export let view;
 
   const setBadgeFilter = filter => {
     $awardFilter = filter;
-    if($issuerIds[0]) {
-      if(!$tree.issuers.some(issuer => issuer.entityId === $issuerIds[0] && issuer.count > 0)) {
+    if ($issuerIds[0]) {
+      if (!$tree.issuers.some(issuer => issuer.entityId === $issuerIds[0] && issuer.count > 0)) {
         $issuerIds.length = 0;
       }
     }
-    if($facultyIds[0]) {
-      if(!$tree.faculties.some(faculty => faculty.entityId === $facultyIds[0] && faculty.count > 0)) {
+    if ($facultyIds[0]) {
+      if (!$tree.faculties.some(faculty => faculty.entityId === $facultyIds[0] && faculty.count > 0)) {
         $facultyIds.length = 0;
       }
     }
   }
+
 </script>
 
 <style lang="scss">
-  div {
-    margin-top: 22px;
-    margin-bottom: 22px;
-  }
 
   .buttons {
     font-size: 24px;
     display: flex;
     align-items: center;
+    margin-top: 15px;
   }
 
   .badge-filter-button {
@@ -44,11 +45,14 @@
     font-size: 20px;
     padding: 0;
     margin: 0 10px 0 0;
+
     &:last-child {
       margin: 0 0 0 10px;
     }
+
     color: var(--text-grey-dark);
     cursor: pointer;
+
     &.active {
       cursor: default;
     }
@@ -63,18 +67,27 @@
   }
 
   .search {
-    width: 250px;
+    width: 400px;
     margin-left: auto;
   }
 
-  .sort {
+  .sort-options {
     display: flex;
     align-items: center;
-    label.title {
-      display: inline-block;
-      margin-right: 18px;
-      font-weight: bold;
+    width: 100%;
+    margin: 15px 0 20px 0;
+
+    .sort {
+      display: flex;
+      align-items: center;
+
+      label.title {
+        display: inline-block;
+        margin-right: 18px;
+        font-weight: bold;
+      }
     }
+
   }
 
 </style>
@@ -93,14 +106,16 @@
   </span>
 </div>
 
+<div class="sort-options">
+  <div class="sort">
+    <label class="title">{I18n.t("models.badgeclass.sorting")}</label>
+    <MinimalisticSelect
+      bind:value={sorting}
+      items={targetOptions}
+      clearable={false}
+      optionIdentifier="name"/>
+  </div>
 
-<div class="sort">
-  <label class="title">{I18n.t("models.badgeclass.sorting")}</label>
-  <MinimalisticSelect
-    bind:value={sorting}
-    items={targetOptions}
-    clearable={false}
-    optionIdentifier="name"
-  />
+  <ViewSelector bind:view={view}/>
 
 </div>
