@@ -7,7 +7,7 @@
   import BadgeCard from "../../components/shared/BadgeCard.svelte";
   import Spinner from "../../components/Spinner.svelte";
   import {ects, eqf, extensionValue, studyLoad} from "../../components/extensions/badges/extensions";
-  import BadgeListItem from "../../components/shared/BadgeListItem.svelte";
+  import BadgeListView from "../../components/shared/BadgeListView.svelte";
 
   const query = `query {
     faculties {
@@ -52,7 +52,7 @@
 
   let loaded;
   let sorting;
-  let view = "cards";
+  let view = "list";
 
   const sortBadges = (badges, sorting) => {
     if (!sorting) {
@@ -145,13 +145,13 @@
       <BadgeClassesToolBar bind:sorting={sorting} bind:view={view}/>
 
       <div class={`badges ${view === "list" ? "list" : "cards"}`}>
-        {#each sortedBadges as badge}
-          {#if view === "list"}
-            <BadgeListItem badgeClass={badge}/>
-          {:else}
+        {#if view === "list"}
+          <BadgeListView badges={sortedBadges} isBadgesClass={true}/>
+        {:else}
+          {#each sortedBadges as badge}
             <BadgeCard badgeClass={badge} withHeaderData={false}/>
-          {/if}
-        {/each}
+          {/each}
+        {/if}
       </div>
     </div>
   {:else}

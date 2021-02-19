@@ -903,6 +903,10 @@ I18n.translations.nl = {
     institutionDescriptionNl: "institutionDescriptionNl",
     institutionBrin: "institutionBrin",
     institutionGradingTable: "institutionGradingTable",
+  },
+  badgeOverview : {
+    faculty: "Faculteit",
+    issuer: "Vakgroup",
   }
 
 };

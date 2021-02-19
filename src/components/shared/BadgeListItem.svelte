@@ -20,14 +20,10 @@
 </script>
 
 <style lang="scss">
-  .badge {
-    display: flex;
-    flex-direction: row;
+  tr.badge {
     position: relative;
-    width: 100%;
-    padding: 20px 25px 15px 15px;
     cursor: pointer;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     border-top: 1px solid var(--grey-4);
 
     &:first-child {
@@ -37,52 +33,69 @@
     &:last-child {
       border-top: 1px solid var(--grey-4);
     }
-  }
 
-  img {
-    border-radius: 8px;
-
-    &.badge-class-img {
-      max-height: 95px;
-      max-width: 95px;
-
+    td {
+      padding: 15px 0;
     }
 
-    &.issuer-img {
-      width: 35px;
-      height: 35px;
-      margin-right: 190px;
-      margin-left: auto;
+    td.badge-status {
+          position: relative;
+          width: 115px;
     }
-  }
 
-  section.meta-data, section.institution {
-    display: flex;
-    flex-direction: column;
-    margin-left: 25px;
+    td.badge-class-img {
+      width: 95px;
 
-    span {
-      margin-bottom: 8px;
-      display: inline-block;
-
-      &.name {
-        font-size: 18px;
-        font-weight: bold;
+      img {
+        border-radius: 8px;
+        height: 72px;
+        width: auto;
       }
+    }
 
+    td.issuer {
+      width: 40px;
+
+      img {
+        border-radius: 8px;
+        width: 35px;
+        height: 35px;
+
+      }
+    }
+
+    td.meta-data, td.institution {
+      display: flex;
+      flex-direction: column;
+      margin-left: 25px;
+
+      span {
+        margin-bottom: 8px;
+        display: inline-block;
+
+        &.name {
+          font-size: 18px;
+          font-weight: bold;
+        }
+
+      }
     }
   }
-
 
 </style>
 
 {#if badge || badgeClass}
-  <div class="badge" on:click|preventDefault|stopPropagation={detailLink}>
-
-    <StatusIndicator badge={badge}/>
-    <BadgeShield badge={badge}/>
-    <img class="badge-class-img" src={badgeClass.image} alt=""/>
-    <section class="meta-data">
+  <tr class="badge" on:click|preventDefault|stopPropagation={detailLink}>
+    <td class="badge-class-img">
+      <img src={badgeClass.image} alt=""/>
+    </td>
+    {#if badge}
+      <td class="badge-status">
+        <StatusIndicator badge={badge}/>
+        <BadgeShield badge={badge}/>
+      </td>
+    {/if}
+    <td class="meta-data">
       <span class="name">{badgeClass.name}</span>
       {#if badgeClass.studyLoadValue}
         <div class="study-load">
@@ -99,18 +112,19 @@
       {#if badge}
         <span class="issued">{moment(badge.issuedOn).format('MMM D, YYYY')}</span>
       {/if}
-    </section>
-    {#if badgeClass.issuer.image}
-      <img class="issuer-img" src={badgeClass.issuer.image} alt=""/>
-    {:else}
-      <span class="issuer-icon">{@html issuerIcon}</span>
-    {/if}
-
-    <section class="institution">
+    </td>
+    <td class="issuer">
+      {#if badgeClass.issuer.image}
+        <img class="issuer-img" src={badgeClass.issuer.image} alt=""/>
+      {:else}
+        <span class="issuer-icon">{@html issuerIcon}</span>
+      {/if}
+    </td>
+    <td class="institution">
       <span class="name">{badgeClass.issuer.faculty.institution.name}</span>
       <span class="issuer">{badgeClass.issuer.name}</span>
-      <span class="faculty">({badgeClass.issuer.faculty.name})</span>
-    </section>
-  </div>
+      <span class="faculty">{badgeClass.issuer.faculty.name}</span>
+    </td>
+  </tr>
 
 {/if}

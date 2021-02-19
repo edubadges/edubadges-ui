@@ -903,5 +903,10 @@ I18n.translations.en = {
     institutionDescriptionNl: "institutionDescriptionNl",
     institutionBrin: "institutionBrin",
     institutionGradingTable: "institutionGradingTable",
+  },
+  badgeOverview : {
+    faculty: "Faculty",
+    issuer: "Issuer",
   }
+
 };

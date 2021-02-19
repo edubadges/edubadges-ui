@@ -10,7 +10,7 @@
   import {sortCreatedAt} from "../../stores/filterBadges";
   import {ects, eqf, extensionValue, studyLoad} from "../../components/extensions/badges/extensions";
   import ViewSelector from "../../components/shared/ViewSelector.svelte";
-  import BadgeListItem from "../../components/shared/BadgeListItem.svelte";
+  import BadgeListView from "../../components/shared/BadgeListView.svelte";
 
   let loaded = false;
   let badges = [];
@@ -81,13 +81,13 @@
   {/if}
   {#if loaded}
     <div class={`content ${view === "list" ? "list" : "cards"}`}>
-      {#each badges as badge}
-        {#if view === "list"}
-          <BadgeListItem badge={badge} badgeClass={badge.badgeclass}/>
-        {:else}
+      {#if view === "list"}
+        <BadgeListView badges={badges}/>
+      {:else}
+        {#each badges as badge}
           <BadgeCard badge={badge} badgeClass={badge.badgeclass} withHeaderData={true}/>
-        {/if}
-      {/each}
+        {/each}
+      {/if}
     </div>
   {:else}
     <Spinner/>

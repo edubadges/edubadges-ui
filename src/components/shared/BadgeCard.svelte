@@ -61,16 +61,6 @@
     background-color: white;
     border-radius: 14px;
 
-    .shield {
-      position: absolute;
-      right: 8px;
-      top: 8px;
-
-      :global(svg) {
-        width: 28px;
-        height: 28px;
-      }
-    }
   }
 
   .header span {
