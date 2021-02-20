@@ -14,7 +14,7 @@
 
   let loaded = false;
   let badges = [];
-  let view = "list";
+  let view = "cards";
 
   onMount(() => {
     queryData(studentBadgeInstances).then(res => {

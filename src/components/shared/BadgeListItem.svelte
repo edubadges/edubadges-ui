@@ -26,12 +26,12 @@
     margin-bottom: 15px;
     border-top: 1px solid var(--grey-4);
 
-    &:first-child {
-      border-top: 2px solid var(--purple);
+    &:last-child {
+      border-bottom: 1px solid var(--grey-4);
     }
 
-    &:last-child {
-      border-top: 1px solid var(--grey-4);
+    &:first-child {
+      border-top: 2px solid var(--purple);
     }
 
     td {
@@ -39,8 +39,12 @@
     }
 
     td.badge-status {
-          position: relative;
-          width: 115px;
+      width: 115px;
+      text-align: center;
+    }
+
+    :global(td.badge-status div.shield) {
+      margin-top: 10px;
     }
 
     td.badge-class-img {
@@ -89,12 +93,6 @@
     <td class="badge-class-img">
       <img src={badgeClass.image} alt=""/>
     </td>
-    {#if badge}
-      <td class="badge-status">
-        <StatusIndicator badge={badge}/>
-        <BadgeShield badge={badge}/>
-      </td>
-    {/if}
     <td class="meta-data">
       <span class="name">{badgeClass.name}</span>
       {#if badgeClass.studyLoadValue}
@@ -125,6 +123,13 @@
       <span class="issuer">{badgeClass.issuer.name}</span>
       <span class="faculty">{badgeClass.issuer.faculty.name}</span>
     </td>
+    {#if badge}
+      <td class="badge-status">
+        <StatusIndicator badge={badge} cardView={false}/>
+        <BadgeShield badge={badge} cardView={false}/>
+      </td>
+    {/if}
+
   </tr>
 
 {/if}

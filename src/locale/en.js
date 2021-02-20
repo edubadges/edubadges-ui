@@ -906,7 +906,7 @@ I18n.translations.en = {
   },
   badgeOverview : {
     faculty: "Faculty",
-    issuer: "Issuer",
+    issuer: "Issuer"
   }
 
 };
