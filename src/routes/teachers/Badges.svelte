@@ -52,7 +52,7 @@
 
   let loaded;
   let sorting;
-  let view = "list";
+  let view = "cards";
 
   const sortBadges = (badges, sorting) => {
     if (!sorting) {
