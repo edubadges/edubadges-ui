@@ -33,6 +33,7 @@ I18n.translations.nl = {
       title: "<strong style='font-size: 38px'>B</strong>rowse",
       subtitle: "Meer dan 13000 eduBadges zijn gemaakt door de instellingen.",
       info: "",
+      beta: "Beta",
       action: "Open catalogus",
     },
     teacher: {

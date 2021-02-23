@@ -34,7 +34,7 @@
 
 </script>
 
-<style>
+<style lang="scss">
   h1 {
     color: var(--black);
     font-size: 48px;
@@ -124,8 +124,13 @@
     z-index: 9;
     left: 50%;
     transform: translate(-50%, -50%);
-    box-shadow: 2px 3px 4px 0px rgba(0, 0, 0, 0.67);
+    box-shadow: 2px 3px 4px 0 rgba(0, 0, 0, 0.67);
     font-size: 16px;
+
+    &.beta {
+      background-color: var(--yellow-medium);
+    transform: translate(-50%, -180%);
+    }
   }
 </style>
 
@@ -163,6 +168,10 @@
 
     <div class="login-element">
       <Card none={!showLoginCards}>
+        <div class="invite-only beta">
+          <p>{I18n.t("login.catalog.beta")}</p>
+        </div>
+
         <h2>
           {@html I18n.t('login.catalog.title')}
         </h2>

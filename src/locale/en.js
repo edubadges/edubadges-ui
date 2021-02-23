@@ -33,6 +33,7 @@ I18n.translations.en = {
       title: "<strong style='font-size: 38px'>B</strong>rowse",
       subtitle: "Over 13000 eduBadges have been created by the institutions",
       info: "",
+      beta: "Beta",
       action: "Open catalog",
     },
     teacher: {
