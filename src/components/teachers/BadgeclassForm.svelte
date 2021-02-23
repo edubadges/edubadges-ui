@@ -330,13 +330,14 @@
         items={issuers}/>
     </Field>
 
-    <Field {entity} attribute="isPrivate" tipKey="badgeClassIsPrivate">
-      <CheckBox
-        value={badgeclass.isPrivate || false}
-        inForm={true}
-        disabled={hasUnrevokedAssertions}
-        onChange={val => badgeclass.isPrivate = val}/>
-    </Field>
+<!--    Commented out: will be activated when the catalog is finished -->
+<!--    <Field {entity} attribute="isPrivate" tipKey="badgeClassIsPrivate">-->
+<!--      <CheckBox-->
+<!--        value={badgeclass.isPrivate || false}-->
+<!--        inForm={true}-->
+<!--        disabled={hasUnrevokedAssertions}-->
+<!--        onChange={val => badgeclass.isPrivate = val}/>-->
+<!--    </Field>-->
 
   </div>
 
