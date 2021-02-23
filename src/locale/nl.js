@@ -340,6 +340,8 @@ I18n.translations.nl = {
     908: "Kan een Issuer met deze naam niet aanmaken in deze Issuer group. Er bestaat er al een met dezelfde naam.",
     910: "Invullen van narratief of van URL is verplicht.",
     911: "Kan een Badgeclass met deze naam niet aanmaken in deze Issuer. Er bestaat er al een met dezelfde naam.",
+    912: "Invullen van een Nederlandse of Engelse naam is verplicht.",
+    913: "Invullen van een Nederlandse of Engelse beschrijving is verplicht.",
     unexpected: "Oeps, er is iets totaal onverwachts en onverklaarbaars gebeurd.",
     description: "Een onverwachte fout is opgetreden. Probeer het opnieuw of neem contact op met support@edubadges.nl voor ondersteuning.",
     close: "Sluit"

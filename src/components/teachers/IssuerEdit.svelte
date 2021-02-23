@@ -9,10 +9,13 @@
   const query = `query ($entityId: String){
     issuer(id: $entityId) {
       name,
+      nameDutch,
+      nameEnglish,
       entityId,
       descriptionEnglish,
       descriptionDutch,
-      image,
+      imageEnglish,
+      imageDutch,
       url,
       email,
       faculty {

@@ -7,6 +7,7 @@
   import I18n from "i18n-js";
   import {toHttpOrHttps} from "../../util/Url";
   import {onMount} from "svelte";
+  import MultiLanguageField from "../forms/MultiLanguageField.svelte";
 
   export let entityId;
   export let issuer = {faculty: {}, badgeclasses: []};
@@ -37,14 +38,18 @@
 
     newIssuer.url = toHttpOrHttps(issuer.url);
 
-    if (newIssuer.image === '') newIssuer.image = null;
+    if (newIssuer.image_english === '') newIssuer.imageEnglish = null;
+    if (newIssuer.image_dutch === '') newIssuer.imageDutch = null;
 
     newIssuer.description_english = issuer.descriptionEnglish;
     newIssuer.description_dutch = issuer.descriptionDutch;
+    newIssuer.image_english = issuer.imageEnglish;
+    newIssuer.image_dutch = issuer.imageDutch;
+    newIssuer.name_english = issuer.nameEnglish;
+    newIssuer.name_dutch = issuer.nameDutch;
 
     const args = isCreate ? [newIssuer] : [entityId, newIssuer];
     const apiCall = isCreate ? createIssuer : editIssuer;
-
     apiCall(...args)
       .then(res => {
         entityId = createIssuer ? res.entity_id : entityId;
@@ -68,29 +73,59 @@
         items={faculties}/>
   </Field>
 
-  <Field {entity} attribute="image" errors={errors.image} tipKey="issuerImage">
-    <File bind:value={issuer.image} error={errors.image} removeAllowed={true}/>
-  </Field>
+<MultiLanguageField>
+  <div slot='en'> 
+    <Field {entity} attribute="image_english" errors={errors.image_english} tipKey="issuerImageEn">
+      <File bind:value={issuer.imageEnglish} error={errors.image_english} removeAllowed={true}/>
+    </Field>
+  </div>
+  <div slot='nl'> 
+    <Field {entity} attribute="image_dutch" errors={errors.image_dutch} tipKey="issuerImageNl">
+      <File bind:value={issuer.imageDutch} error={errors.image_dutch} removeAllowed={true}/>
+    </Field>
+  </div>
+</MultiLanguageField>
 
-  <Field {entity} attribute="name" errors={errors.name} tipKey="issuerName">
-  <!--  TODO: Need to refactor the CSS to use disabled=true, now disabled although false renders as disabled  -->
-    {#if hasAssertions}
-      <TextInput bind:value={issuer.name} error={errors.name} placeholder={I18n.t("placeholders.issuer.name")}
-                 disabled={true}/>
-    {:else}
-      <TextInput bind:value={issuer.name} error={errors.name} placeholder={I18n.t("placeholders.issuer.name")}/>
-    {/if}
-  </Field>
+<MultiLanguageField>
+  <div slot='en'>
+    <Field {entity} attribute="name_english" errors={errors.name_english} tipKey="issuerNameEn">
+      <!--  TODO: Need to refactor the CSS to use disabled=true, now disabled although false renders as disabled  -->
+      {#if hasAssertions}
+        <TextInput bind:value={issuer.nameEnglish} error={errors.name_english} placeholder={I18n.t("placeholders.issuer.name")}
+                  disabled={true}/>
+      {:else}
+        <TextInput bind:value={issuer.nameEnglish} error={errors.name_english} placeholder={I18n.t("placeholders.issuer.name")}/>
+      {/if}
+    </Field>
+  </div>
+  <div slot='nl'>
+    <Field {entity} attribute="name_dutch" errors={errors.name_dutch} tipKey="issuerNameNl">
+      <!--  TODO: Need to refactor the CSS to use disabled=true, now disabled although false renders as disabled  -->
+      {#if hasAssertions}
+        <TextInput bind:value={issuer.nameDutch} error={errors.name_dutch} placeholder={I18n.t("placeholders.issuer.name")}
+                  disabled={true}/>
+      {:else}
+        <TextInput bind:value={issuer.nameDutch} error={errors.name_dutch} placeholder={I18n.t("placeholders.issuer.name")}/>
+      {/if}
+    </Field>
+  </div>
+</MultiLanguageField>
 
-  <Field {entity} attribute="description_english" errors={errors.description_english} tipKey="issuerDescriptionEn">
-    <TextInput bind:value={issuer.descriptionEnglish} error={errors.description_english} area size="100"
-               placeholder={I18n.t("placeholders.issuer.description")}/>
-  </Field>
+  <MultiLanguageField>
+    <div slot='nl'>
+      <Field {entity}  attribute="description_dutch" errors={errors.description_dutch} tipKey="issuerDescriptionNl">
+        <TextInput bind:value={issuer.descriptionDutch} error={errors.description_dutch} area size="100"
+                  placeholder={I18n.t("placeholders.issuer.description")}/>
+      </Field>
+    </div>
 
-  <Field {entity} attribute="description_dutch" errors={errors.description_dutch} tipKey="issuerDescriptionNl">
-    <TextInput bind:value={issuer.descriptionDutch} error={errors.description_dutch} area size="100"
-               placeholder={I18n.t("placeholders.issuer.description")}/>
-  </Field>
+    <div slot='en'>
+      <Field {entity} attribute="description_english" errors={errors.description_english} tipKey="issuerDescriptionEn">
+        <TextInput bind:value={issuer.descriptionEnglish} error={errors.description_english} area size="100"
+                  placeholder={I18n.t("placeholders.issuer.description")}/>
+      </Field>
+    </div>
+  </MultiLanguageField>
 
   <Field {entity} attribute="url" errors={errors.url} tipKey="issuerURL">
     <TextInput bind:value={issuer.url} error={errors.url} placeholder={I18n.t("placeholders.issuer.url")}/>
