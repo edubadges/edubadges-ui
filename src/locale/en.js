@@ -20,22 +20,27 @@ I18n.translations.en = {
   login: {
     title: "Never stop learning",
     loginToEnrol: "Login to request this edubadge",
-    destination: "Where do you want to go?",
+    destination: "What would you like to do?",
     description:
       "Edubadges are digital certificates which show that the owner has acquired certain skills or knowledge. Edubadges can be issued for both accredited education and extracurriculair activities.",
     student: {
-      title: "Backpack",
-      subtitle: "Receive and collect edubadges",
-      noEduId: "If you don't have an eduID yet, we'll help you get one. This takes less than 30 seconds",
-      action: "Enter with eduID",
+      title: "<strong style='font-size: 38px'>C</strong>ollect",
+      subtitle: "A backpack is the pace to receive and collect edubadges.",
+      noEduId: "An eduID is needed to create and use your backpack. Creating an eduID takes less than 30 seconds",
+      action: "Open your backpack",
+    },
+    catalog: {
+      title: "<strong style='font-size: 38px'>B</strong>rowse",
+      subtitle: "Over 13000 eduBadges have been created by the institutions",
+      info: "",
+      action: "Open catalog",
     },
     teacher: {
-      title: "Issuer portal",
-      subtitle: "Award edubadges",
-      action: "Enter with SURFconext",
+      title: "<strong style='font-size: 38px'>A</strong>ward",
+      subtitle: "Award your students with edubadges, the micro credentials of the future.",
+      action: "Open the issuer portal",
       accountCreation: {
-        askAccount: "<strong>Don't</strong> have access?",
-        startAccount: "Contact your institution admin",
+        askAccount: "The issuer portal is by invite only. If you want to enter, but don't have access, please contact your institution admin.",
       },
       byInviteOnly: "By invite only"
     },

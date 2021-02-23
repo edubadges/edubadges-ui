@@ -1,26 +1,21 @@
 <script>
   import I18n from "i18n-js";
-  import {Button} from "../components";
-  import {
-    Card,
-    CardSubtext,
-    LoginButton
-  } from "../components/guests";
-  import {userRole, userLoggedIn} from "../stores/user";
+  import {Card, CardSubtext, LoginButton} from "../components/guests";
+  import {userLoggedIn, userRole} from "../stores/user";
   import {role} from "../util/role";
   import {getService} from "../util/getService";
   import {requestLoginToken} from "../api";
-  import {navigateBack} from "../icons";
   import schoolbag from "../icons/school-bag.svg";
   import hand from "../icons/hand.svg";
-  import { onMount } from "svelte";
-  import { navigate } from "svelte-routing";
+  import catalog from "../icons/catalog.svg";
+  import {onMount} from "svelte";
+  import {navigate} from "svelte-routing";
 
   let accountCreationStep = 1;
   let showLoginCards = true;
 
   onMount(() => {
-    if($userRole && $userLoggedIn) {
+    if ($userRole && $userLoggedIn) {
       navigate('/')
     }
   });
@@ -53,9 +48,9 @@
 
   h4 {
     font-weight: 300;
-    font-size: 22px;
+    font-size: 18px;
     color: var(--black);
-    margin-top: 5px;
+    margin: 10px 0;
   }
 
   div.login-info {
@@ -145,45 +140,62 @@
 
   <div class="login-cards">
     <div class="login-element">
-      <Card none={!showLoginCards}>
-        <h2 class="bold">
-          {I18n.t('login.student.title')}
-        </h2>
-        <h4>{I18n.t('login.student.subtitle')}</h4>
-        <div class="svg-container">
-          {@html schoolbag}
-        </div>
-        <div class="login">
-          <LoginButton
-            label={I18n.t('login.student.action')}
-            onClick={() => logIn(role.STUDENT)}/>
-          <CardSubtext small={true} lineOne={I18n.t('login.student.noEduId')}/>
-
-        </div>
-      </Card>
-
-    </div>
-
-    <div class="login-element">
       <div class="invite-only">
         <p>{I18n.t("login.teacher.byInviteOnly")}</p>
       </div>
       <Card outOfFocus={!showLoginCards}>
-        <h2 class="bold">
+        <h2>
           {@html I18n.t('login.teacher.title')}
         </h2>
-        <h4>{I18n.t('login.teacher.subtitle')}</h4>
         <div class="svg-container">
           {@html hand}
         </div>
+        <h4>{I18n.t('login.teacher.subtitle')}</h4>
         <LoginButton
           label={I18n.t('login.teacher.action')}
           onClick={() => logIn(role.TEACHER)}/>
-        <CardSubtext
-          hidden={!showLoginCards}
-          lineOne={I18n.t('login.teacher.accountCreation.askAccount')}
-          lineTwo={I18n.t('login.teacher.accountCreation.startAccount')}/>
       </Card>
+      <CardSubtext
+        hidden={!showLoginCards}
+        lineOne={I18n.t('login.teacher.accountCreation.askAccount')}/>
+
+    </div>
+
+    <div class="login-element">
+      <Card none={!showLoginCards}>
+        <h2>
+          {@html I18n.t('login.catalog.title')}
+        </h2>
+        <div class="svg-container">
+          {@html catalog}
+        </div>
+        <h4>{I18n.t('login.catalog.subtitle')}</h4>
+        <div class="login">
+          <LoginButton
+            label={I18n.t('login.catalog.action')}
+            onClick={() => navigate("/catalog")}/>
+        </div>
+      </Card>
+      <CardSubtext small={true} lineOne={I18n.t('login.catalog.info')}/>
+
+    </div>
+    <div class="login-element">
+      <Card none={!showLoginCards}>
+        <h2>
+          {@html I18n.t('login.student.title')}
+        </h2>
+        <div class="svg-container">
+          {@html schoolbag}
+        </div>
+        <h4>{I18n.t('login.student.subtitle')}</h4>
+        <div class="login">
+          <LoginButton
+            label={I18n.t('login.student.action')}
+            onClick={() => logIn(role.STUDENT)}/>
+
+        </div>
+      </Card>
+      <CardSubtext small={true} lineOne={I18n.t('login.student.noEduId')}/>
 
     </div>
   </div>

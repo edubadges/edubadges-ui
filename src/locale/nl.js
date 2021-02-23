@@ -20,22 +20,27 @@ I18n.translations.nl = {
   login: {
     title: "Never stop learning",
     loginToEnrol: "Login om deze edubadge aan te vragen",
-    destination: "Waar wil je heen?",
+    destination: "Wat zou je willen doen?",
     description:
       "Edubadges zijn digitale certificaten die aantonen dat de eigenaar bepaalde vaardigheden of kennis heeft verworven. Edubadges kunnen worden uitgereikt voor zowel geaccrediteerd onderwijs als extracurriculaire activiteiten.",
     student: {
-      title: "Backpack",
-      subtitle: "Ontvang en verzamel edubadges",
-      noEduId: "Als je nog geen eduID hebt, dan helpen we je om er één aan te maken. Dit duurt minder dan 30 seconden.",
-      action: "Login met eduID",
+      title: "<strong style='font-size: 38px'>C</strong>ollect",
+      subtitle: "De backpack is de plek om  edubadges te ontvangen en verzamelen",
+      noEduId: "Een eduID is nodig om je backpack aan te maken en te gebruuken. Het maken van een eduID duurt minder dan 30 seconden.",
+      action: "Open je backpack",
+    },
+    catalog: {
+      title: "<strong style='font-size: 38px'>B</strong>rowse",
+      subtitle: "Meer dan 13000 eduBadges zijn gemaakt door de instellingen.",
+      info: "",
+      action: "Open catalogus",
     },
     teacher: {
-      title: "Issuer portaal ",
-      subtitle: "Ken edubadges toe",
-      action: "Login met SURFconext",
+      title: "<strong style='font-size: 38px'>A</strong>ward",
+      subtitle: "Ken edubadges toe aan je studenten, de micro credentials van de toekomst.",
+      action: "Open het issuer portaal",
       accountCreation: {
-        askAccount: "Nog <strong>geen</strong> toegang?",
-        startAccount: "Neem contact op met je beheerder bij jouw instelling.",
+        askAccount: "De issuer portaal is alleen beschikbaar op uitnodiging. Als je binnen wilt komen, maar nog geen toegang hebt, neem dan contact op met je beheerder bij jouw instelling.",
       },
       byInviteOnly: "Alleen op uitnodiging"
     },
