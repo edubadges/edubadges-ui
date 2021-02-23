@@ -16,7 +16,8 @@
       descriptionDutch,
       imageEnglish,
       imageDutch,
-      url,
+      urlEnglish,
+      urlDutch,
       email,
       faculty {
         name,

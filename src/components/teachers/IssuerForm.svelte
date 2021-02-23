@@ -36,8 +36,6 @@
       newIssuer.faculty = issuer.faculty.entityId;
     }
 
-    newIssuer.url = toHttpOrHttps(issuer.url);
-
     if (newIssuer.image_english === '') newIssuer.imageEnglish = null;
     if (newIssuer.image_dutch === '') newIssuer.imageDutch = null;
 
@@ -47,6 +45,8 @@
     newIssuer.image_dutch = issuer.imageDutch;
     newIssuer.name_english = issuer.nameEnglish;
     newIssuer.name_dutch = issuer.nameDutch;
+    newIssuer.url_english = toHttpOrHttps(issuer.urlEnglish);
+    newIssuer.url_dutch = toHttpOrHttps(issuer.urlDutch);
 
     const args = isCreate ? [newIssuer] : [entityId, newIssuer];
     const apiCall = isCreate ? createIssuer : editIssuer;
@@ -111,25 +111,34 @@
   </div>
 </MultiLanguageField>
 
-  <MultiLanguageField>
-    <div slot='nl'>
-      <Field {entity}  attribute="description_dutch" errors={errors.description_dutch} tipKey="issuerDescriptionNl">
-        <TextInput bind:value={issuer.descriptionDutch} error={errors.description_dutch} area size="100"
-                  placeholder={I18n.t("placeholders.issuer.description")}/>
-      </Field>
-    </div>
+<MultiLanguageField>
+  <div slot='nl'>
+    <Field {entity}  attribute="description_dutch" errors={errors.description_dutch} tipKey="issuerDescriptionNl">
+      <TextInput bind:value={issuer.descriptionDutch} error={errors.description_dutch} area size="100"
+                placeholder={I18n.t("placeholders.issuer.description")}/>
+    </Field>
+  </div>
 
-    <div slot='en'>
-      <Field {entity} attribute="description_english" errors={errors.description_english} tipKey="issuerDescriptionEn">
-        <TextInput bind:value={issuer.descriptionEnglish} error={errors.description_english} area size="100"
-                  placeholder={I18n.t("placeholders.issuer.description")}/>
-      </Field>
-    </div>
-  </MultiLanguageField>
+  <div slot='en'>
+    <Field {entity} attribute="description_english" errors={errors.description_english} tipKey="issuerDescriptionEn">
+      <TextInput bind:value={issuer.descriptionEnglish} error={errors.description_english} area size="100"
+                placeholder={I18n.t("placeholders.issuer.description")}/>
+    </Field>
+  </div>
+</MultiLanguageField>
 
-  <Field {entity} attribute="url" errors={errors.url} tipKey="issuerURL">
-    <TextInput bind:value={issuer.url} error={errors.url} placeholder={I18n.t("placeholders.issuer.url")}/>
-  </Field>
+<MultiLanguageField>
+  <div slot='en'>
+    <Field {entity} attribute="url_english" errors={errors.url_english} tipKey="issuerURLEn">
+      <TextInput bind:value={issuer.urlEnglish} error={errors.url_english} placeholder={I18n.t("placeholders.issuer.url")}/>
+    </Field>
+  </div>
+  <div slot='nl'>
+    <Field {entity} attribute="url_dutch" errors={errors.url_dutch} tipKey="issuerURLNl">
+      <TextInput bind:value={issuer.urlDutch} error={errors.url_dutch} placeholder={I18n.t("placeholders.issuer.url")}/>
+    </Field>
+  </div>
+</MultiLanguageField>
 
   <Field {entity} attribute="email" errors={errors.email} tipKey="issuerEmail">
     <TextInput bind:value={issuer.email} error={errors.email} placeholder={I18n.t("placeholders.issuer.email")}/>
