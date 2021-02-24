@@ -343,6 +343,9 @@ I18n.translations.nl = {
     912: "Invullen van een Nederlandse of Engelse naam is verplicht.",
     913: "Invullen van een Nederlandse of Engelse beschrijving is verplicht.",
     914: "Kan een Issuer met deze Nederlandse naam niet aanmaken in deze Issuer group. Er bestaat er al een met dezelfde Nederlandse naam.",
+    915: "Invullen van een Nederlandse of Engelse url is verplicht.",
+    916: "Kan een Issuer Groep met deze Nederlandse naam niet aanmaken in deze instelling. Er bestaat er al een met dezelfde Nederlandse naam.",
+    917: "Kan een Issuer Groep met deze Engelse naam niet aanmaken in deze instelling. Er bestaat er al een met dezelfde Nederlandse naam.",
     unexpected: "Oeps, er is iets totaal onverwachts en onverklaarbaars gebeurd.",
     description: "Een onverwachte fout is opgetreden. Probeer het opnieuw of neem contact op met support@edubadges.nl voor ondersteuning.",
     close: "Sluit"
@@ -486,6 +489,8 @@ I18n.translations.nl = {
       description_english: "Beschrijving in het Engels",
       description_dutch: "Beschrijving in het Nederlands",
       name: "Naam",
+      name_english: "Naam in het Engels",
+      name_dutch: "Naam in het Nederlands",
     },
     issuer: {
       description: "Over deze issuer",
