@@ -6,11 +6,10 @@
   export let value;
   export let title = "";
 
-  let showExpand = false;
   let expanded = false;
   let maxLength = 5;
 
-  $: showExpand = !value.length && collection.length > maxLength && collection.filter(item => item.count > 0) > maxLength;
+  $: showExpand = value.length === 0 && collection.length > maxLength && collection.filter(item => item.count > 0).length > maxLength;
   $: items = expanded ? collection : collection.slice(0, maxLength);
 
 </script>
