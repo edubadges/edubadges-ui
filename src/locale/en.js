@@ -31,7 +31,7 @@ I18n.translations.en = {
     },
     catalog: {
       title: "<strong style='font-size: 38px'>B</strong>rowse",
-      subtitle: "Over 13000 eduBadges have been created by the institutions",
+      subtitle: "At this moment {{badgeInstancesCount}} eduBadges have been awarded by the institutions.",
       info: "",
       beta: "Beta",
       action: "Open catalog",
@@ -115,6 +115,10 @@ I18n.translations.en = {
       filters: {
         faculties: "Issuer groups",
         issuers: "Issuers",
+        educations: "Educational level",
+        institutions: "Institution",
+        studyLoads: "Studyload",
+        eqfs: "NLQF level",
         roles: "Roles (highest)",
         show_all: "Show all",
         show_less: "Show less",
@@ -913,6 +917,26 @@ I18n.translations.en = {
   badgeOverview : {
     faculty: "Faculty",
     issuer: "Issuer"
+  },
+  catalog: {
+    education: {
+      WO: "WO",
+      HBO: "HBO",
+      MBO: "MBP",
+      NONE: "Unspecified"
+    },
+    studyLoad: {
+        NO_STUDYLOAD: "No studyload",
+        ECTS_0_5: "0-5 ECTS (WO/HBO)",
+        ECTS_6_10: "6-10 ECTS (WO/HBO)",
+        ECTS_10_MORE: "> 10 ECTS (WO/HBO)",
+        HOURS_0_60: "0-60 hours (WO/HBO)",
+        HOURS_61_120: "61-120 hours (WO/HBO)",
+        HOURS_120_MORE: "> 120 hours (WO/HBO)"
+    },
+    eqf: {
+      eqfNone: "No NLQF level",
+      eqf: "NLQF level {{level}}",
+    }
   }
-
 };

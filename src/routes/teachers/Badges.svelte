@@ -3,7 +3,7 @@
   import {BadgeClassesToolBar, BadgesHeader, SideBarBadges} from "../../components/teachers";
   import {queryData} from "../../api/graphql";
   import {headerEntity, headerStaff} from "../../api/queries";
-  import {awardFilter, faculties, tree} from "../../stores/filterBadges";
+  import {awardFilter, faculties, tree, sortTarget} from "../../stores/filterBadges";
   import BadgeCard from "../../components/shared/BadgeCard.svelte";
   import Spinner from "../../components/Spinner.svelte";
   import {ects, eqf, extensionValue, studyLoad} from "../../components/extensions/badges/extensions";
@@ -51,25 +51,7 @@
   }`;
 
   let loaded;
-  let sorting;
   let view = "cards";
-
-  const sortBadges = (badges, sorting) => {
-    if (!sorting) {
-      return badges;
-    }
-
-    return badges.sort((a, b) => {
-      switch (sorting.value) {
-        case "recent":
-          return a.createdAt - b.createdAt;
-        case "awarded":
-          return b.badgeAssertions.length - a.badgeAssertions.length;
-      }
-    });
-  };
-
-  $: sortedBadges = sortBadges($tree.badgeClasses.filter(el => !$awardFilter || el.permissions.mayAward), sorting);
 
   onMount(() => {
     queryData(query).then(res => {
@@ -89,6 +71,7 @@
       loaded = true;
     });
   });
+
 </script>
 
 <style lang="scss">
@@ -142,13 +125,13 @@
     <div class="content">
       <BadgesHeader/>
 
-      <BadgeClassesToolBar bind:sorting={sorting} bind:view={view}/>
+      <BadgeClassesToolBar bind:sorting={$sortTarget} bind:view={view}/>
 
       <div class={`badges ${view === "list" ? "list" : "cards"}`}>
         {#if view === "list"}
-          <BadgeListView badges={sortedBadges} isBadgesClass={true}/>
+          <BadgeListView badges={$tree.badgeClasses} isBadgesClass={true}/>
         {:else}
-          {#each sortedBadges as badge}
+          {#each $tree.badgeClasses as badge}
             <BadgeCard badgeClass={badge} withHeaderData={false}/>
           {/each}
         {/if}

@@ -1,17 +1,20 @@
 <script>
   import {onMount} from "svelte";
-  import {BadgeClassesToolBar, BadgesHeader, SideBarBadges} from "../../components/teachers";
   import {queryData} from "../../api/graphql";
-  import {awardFilter, faculties, tree} from "../../stores/filterBadges";
+  import {badgeClasses, tree, sortTarget} from "../../stores/filterCatalog";
   import BadgeCard from "../../components/shared/BadgeCard.svelte";
   import Spinner from "../../components/Spinner.svelte";
   import {ects, eqf, extensionValue, studyLoad} from "../../components/extensions/badges/extensions";
   import BadgeListView from "../../components/shared/BadgeListView.svelte";
+  import SideBarCatelog from "../../components/catalog/SideBarCatelog.svelte";
+  import CatalogToolBar from "../../components/catalog/CatalogToolBar.svelte";
+  import {assignFilterTypes} from "../../util/catalogFilters";
 
   const query = `query {
     publicInstitutions {
       name,
       image,
+      institutionType,
       entityId,
       publicFaculties {
         name,
@@ -24,7 +27,7 @@
             name,
             image,
             entityId,
-            assertionsCount
+            assertionsCount,
             createdAt,
             extensions {
               name,
@@ -36,36 +39,42 @@
     }
 }`;
 
-  let loaded;
-  let sorting;
+  let loaded = false;
   let view = "cards";
 
-  let institutions = [];
   let a = [];
-
-  const sortBadges = (badges, sorting) => {
-    if (!sorting) {
-      return badges;
-    }
-
-    return badges.sort((a, b) => {
-      switch (sorting.value) {
-        case "recent":
-          return a.createdAt - b.createdAt;
-        case "awarded":
-          return b.assertionsCount - a.assertionsCount;
-      }
-    });
-  };
-
-  $: sortedBadges = sortBadges($tree.badgeClasses.filter(el => !$awardFilter || el.permissions.mayAward), sorting);
 
   onMount(() => {
     queryData(query).then(res => {
-      institutions = res;
+      const institutions = res.publicInstitutions;
+      const results = institutions.reduce((acc, institution) => {
+        institution.count = 0;
+        institution.publicFaculties.forEach(faculty => {
+          faculty.publicIssuers.forEach(issuer => {
+            issuer.image = issuer.image || institution.image;
+            issuer.publicBadgeclasses.forEach(badgeClass => {
+              //catalog query is different then others, so we need to set the references
+              badgeClass.issuer = issuer;
+              badgeClass.issuer.faculty = faculty;
+              badgeClass.issuer.faculty.institution = institution;
+              ++institution.count;
+              badgeClass.institution = institution;
+              //used in the filtering
+              badgeClass.studyLoad = extensionValue(badgeClass.extensions, studyLoad);
+              badgeClass.ects = extensionValue(badgeClass.extensions, ects);
+              badgeClass.eqf = extensionValue(badgeClass.extensions, eqf);
+              assignFilterTypes(badgeClass);
+              acc.push(badgeClass);
+            })
+          })
+        });
+        return acc;
+      }, []);
+      $badgeClasses = results;
       loaded = true;
     });
   });
+
 </script>
 
 <style lang="scss">
@@ -114,16 +123,16 @@
 
 <div class="page-container">
   {#if loaded}
-    <SideBarBadges/>
+    <SideBarCatelog/>
 
     <div class="content">
-      <BadgeClassesToolBar bind:sorting={sorting} bind:view={view}/>
+      <CatalogToolBar bind:sorting={$sortTarget} bind:view={view}/>
 
       <div class={`badges ${view === "list" ? "list" : "cards"}`}>
         {#if view === "list"}
-          <BadgeListView badges={sortedBadges} isBadgesClass={true}/>
+          <BadgeListView badges={$tree.badgeClasses} isBadgesClass={true}/>
         {:else}
-          {#each sortedBadges as badge}
+          {#each $tree.badgeClasses as badge}
             <BadgeCard badgeClass={badge} withHeaderData={false}/>
           {/each}
         {/if}

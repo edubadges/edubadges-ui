@@ -31,7 +31,7 @@ I18n.translations.nl = {
     },
     catalog: {
       title: "<strong style='font-size: 38px'>B</strong>rowse",
-      subtitle: "Meer dan 13000 eduBadges zijn gemaakt door de instellingen.",
+      subtitle: "Momenteel zijn er {{badgeInstancesCount}} eduBadges uitgegeven door de instellingen.",
       info: "",
       beta: "Beta",
       action: "Open catalogus",
@@ -115,6 +115,10 @@ I18n.translations.nl = {
       filters: {
         faculties: "Issuer groepen",
         issuers: "Issuers",
+        educations: "Educatie niveau level",
+        institutions: "Instelling",
+        studyLoads: "Studyload",
+        eqfs: "NLQF niveau",
         roles: "Rollen (hoogste)",
         show_all: "Toon meer",
         show_less: "Toon minder",

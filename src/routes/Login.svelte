@@ -10,13 +10,19 @@
   import catalog from "../icons/catalog.svg";
   import {onMount} from "svelte";
   import {navigate} from "svelte-routing";
+  import {queryData} from "../api/graphql";
 
   let accountCreationStep = 1;
   let showLoginCards = true;
+  let badgeInstancesCount = "?";
 
   onMount(() => {
     if ($userRole && $userLoggedIn) {
       navigate('/')
+    } else {
+      queryData("query {badgeInstancesCount}").then(res => {
+        badgeInstancesCount = res.badgeInstancesCount;
+      });
     }
   });
 
@@ -129,7 +135,7 @@
 
     &.beta {
       background-color: var(--yellow-medium);
-    transform: translate(-50%, -180%);
+      transform: translate(-50%, -180%);
     }
   }
 </style>
@@ -178,7 +184,7 @@
         <div class="svg-container">
           {@html catalog}
         </div>
-        <h4>{I18n.t('login.catalog.subtitle')}</h4>
+        <h4>{I18n.t('login.catalog.subtitle', {badgeInstancesCount})}</h4>
         <div class="login">
           <LoginButton
             label={I18n.t('login.catalog.action')}

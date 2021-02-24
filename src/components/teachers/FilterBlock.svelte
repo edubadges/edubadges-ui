@@ -5,11 +5,12 @@
   export let collection;
   export let value;
   export let title = "";
+  export let maxLength = 5;
+  export let objectIdentifier = "entityId";
 
   let expanded = false;
-  let maxLength = 5;
 
-  $: showExpand = value.length === 0 && collection.length > maxLength && collection.filter(item => item.count > 0).length > maxLength;
+  $: showExpand = !value.length && collection.length > maxLength && collection.filter(item => item.count > 0).length > maxLength;
   $: items = expanded ? collection : collection.slice(0, maxLength);
 
 </script>
@@ -84,20 +85,20 @@
 <div class="filter-block">
   <h3>{I18n.t(`teacher.sidebar.filters.${title}`)}</h3>
 
-  {#each items.filter(item => item.count > 0) as item (item.entityId)}
+  {#each items.filter(item => item.count > 0) as item}
     <label
       class="link"
-      class:active={value.includes(item.entityId)}
-      class:inactive={value.length && !value.includes(item.entityId)}>
-      <input type="checkbox" bind:group={value} value={item.entityId} />
+      class:active={value.includes(item[objectIdentifier])}
+      class:inactive={value.length && !value.includes(item[objectIdentifier])}>
+      <input type="checkbox" bind:group={value} value={item[objectIdentifier]} />
       <div>
         {item.name}
-        {#if !value.includes(item.entityId)}
+        {#if !value.includes(item[objectIdentifier])}
           ({item.count})
         {/if}
       </div>
 
-      {#if value.includes(item.entityId)}
+      {#if value.includes(item[objectIdentifier])}
         {@html closeIcon}
       {/if}
     </label>

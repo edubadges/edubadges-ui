@@ -1,14 +1,16 @@
 import { writable, derived } from "svelte/store";
+import I18n from "i18n-js";
 
+export const sortTarget = writable();
 export const faculties = writable([]);
 
-export const search = writable();
+export const search = writable("");
 export const facultyIds = writable([]);
 export const issuerIds = writable([]);
 export const awardFilter = writable(false);
 
-function filterBySearch(badgeclasses, search) {
-  if (!search) {
+export const filterBySearch = (badgeclasses, search) => {
+  if (!search || search.trim().length === 0) {
     return badgeclasses;
   }
 
@@ -17,12 +19,12 @@ function filterBySearch(badgeclasses, search) {
   );
 }
 
-function sort(collection, count = false) {
-  return collection.sort((a, b) => count ? b.count - a.count || a.name.localeCompare(b.name) : a.name.localeCompare(b.name));
-}
+export const sort = (collection, count = false) => !collection ? [] : collection.sort((a, b) => count ? b.count - a.count || a.name.localeCompare(b.name) : a.name.localeCompare(b.name));
 
-export const sortCreatedAt = collection => {
-  return collection.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+export const sortCreatedAt = collection => !collection ? [] : collection.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+export const sortBadgeAssertions = collection => {
+  return !collection ? [] : collection.sort((a, b) => b.assertionsCount !== undefined ? b.assertionsCount = a.assertionsCount : b.badgeAssertions.length - a.badgeAssertions.length)
 }
 
 export const selectedEntity = derived(
@@ -40,23 +42,13 @@ export const selectedEntity = derived(
 );
 
 export const tree = derived(
-  [faculties, awardFilter, search, facultyIds, issuerIds],
-  ([faculties, awardFilter, search, facultyIds, issuerIds]) => {
+  [faculties, awardFilter, search, issuerIds, sortTarget],
+  ([faculties, awardFilter, search, issuerIds, sortTarget]) => {
     const tree = faculties.reduce(
       (acc, cur) => {
-        // different faculty selected
-        if (facultyIds.length && !facultyIds.includes(cur.entityId)) {
-          return acc;
-        }
-
         let issuers = cur.issuers.filter(
           ({ entityId }) => !issuerIds.length || issuerIds.includes(entityId)
         );
-
-        // faculty is not the parent of issuer selected
-        if (issuerIds.length && !issuers.length) {
-          return acc;
-        }
 
         let badgeClasses = [];
         const enrichedIssuers = issuers.map(
@@ -89,11 +81,11 @@ export const tree = derived(
       },
       { faculties: [], issuers: [], badgeClasses: [] }
     );
-
+    const sortedBadgeClasses = (sortTarget && sortTarget.value === "recent") ? sortCreatedAt(tree.badgeClasses) : sortBadgeAssertions(tree.badgeClasses);
     return {
       faculties: sort(tree.faculties, true),
       issuers: sort(tree.issuers, true),
-      badgeClasses: sortCreatedAt(tree.badgeClasses),
+      badgeClasses: sortedBadgeClasses,
     };
   },
   { faculties: [], issuers: [], badgeClasses: [] }

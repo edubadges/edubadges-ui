@@ -3,8 +3,6 @@
   import moment from "moment";
   import I18n from "i18n-js";
   import {navigate} from "svelte-routing";
-  import shieldUnlocked from "../../icons/shield-unlock.svg";
-  import shieldLocked from "../../icons/lock-shield.svg";
   import {issuerIcon} from "../../icons";
   import StatusIndicator from "./StatusIndicator.svelte";
   import BadgeShield from "./BadgeShield.svelte";

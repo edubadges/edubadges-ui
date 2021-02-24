@@ -1,7 +1,13 @@
 <script>
   import I18n from "i18n-js";
-  import { FilterBlock } from "../../components/teachers";
-
+  import {FilterBlock} from "../../components/teachers";
+  import {
+    educationalLevelSelected,
+    eqfLevelSelected,
+    institutionSelected,
+    studyLoadSelected,
+    tree
+  } from "../../stores/filterCatalog";
 </script>
 
 <style lang="scss">
@@ -34,15 +40,38 @@
 
   <div>
     <FilterBlock
-      bind:value={$facultyIds}
-      collection={$tree.faculties}
-      title="faculties" />
+      bind:value={$educationalLevelSelected}
+      collection={$tree.educationLevels}
+      objectIdentifier="value"
+      title="educations"/>
   </div>
 
   <div>
     <FilterBlock
-      bind:value={$issuerIds}
-      collection={$tree.issuers}
-      title="issuers" />
+      bind:value={$institutionSelected}
+      collection={$tree.institutions}
+      maxLength={10}
+      title="institutions"/>
   </div>
+
+
+  <div>
+    <FilterBlock
+      bind:value={$studyLoadSelected}
+      collection={$tree.studyLoads}
+      objectIdentifier="value"
+      maxLength={100}
+      title="studyLoads"/>
+  </div>
+
+  <div>
+    <FilterBlock
+      bind:value={$eqfLevelSelected}
+      collection={$tree.eqfLevels}
+      objectIdentifier="value"
+      maxLength={100}
+      title="eqfs"/>
+  </div>
+
+
 </div>
