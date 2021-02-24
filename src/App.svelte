@@ -27,6 +27,8 @@
   import PublicIssuerPage from "./components/shared/PublicIssuerPage.svelte";
   import PublicInstitutionPage from "./components/shared/PublicInstitutionPage.svelte";
   import VersionInfo from "./routes/VersionInfo.svelte";
+  import Catalog from "./routes/catalog/Catalog.svelte";
+
 
   const homepage = {
     guest: Login,
@@ -48,7 +50,11 @@
         })
         .catch(() => {
           $redirectPath = window.location.pathname;
-          navigate("/login");
+          if (path.indexOf("catalog") === -1) {
+            navigate("/login");
+          } else {
+            navigate("/catalog");
+          }
           $userLoggedIn = "";
           $userName = "";
           $validatedUserName = "";
@@ -169,6 +175,7 @@
         <Route path="/" component={homepage[visitorRole]}/>
         <Route path="/login" component={Login}/>
         <Route path="/auth/login/*" component={ProcessToken}/>
+        <Route path="/catalog" component={Catalog}/>
         <Route component={NotFound}/>
 
         <!-- Expose current path through store -->
