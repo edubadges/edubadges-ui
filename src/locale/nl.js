@@ -867,9 +867,8 @@ I18n.translations.nl = {
   tooltips: {
     // If you don't want a tooltip to be displayed, just comment out (or delete) the line (like this line;-)
     //badgeClassImage: "badgeClassImage",
-    badgeClassExpireSettings: "Geef hier aan of en hoelang de edubadge geldig is. Na deze datum zal een edubadge niet meer geldig zijn. " +
-      "See the <a target=\"_blank\" href=\"https://wiki.surfnet.nl/display/Edubadges/Edubadges+Example+BadgeClass\">wiki</a> for more explanation.",
-    badgeClassName: "Vermijdt afkortingen, zorg voor herkenbare naam ook voor externen",
+    badgeClassExpireSettings: "Geef hier aan of en hoelang de edubadge geldig is. Na deze datum zal een edubadge niet meer geldig zijn.", 
+    badgeClassName: "Vermijdt afkortingen, zorg voor herkenbare naam ook voor externen.",
     //badgeClassDescription: "",
     badgeClassLanguageOfInstruction: "De voertaal die gebruikt is bij het behalen van deze edubadge. ",
     badgeClassLearningOutcome: "Beschrijf de leeruitkomst of het leerdoel. Vastgelegd in de Onderwijs- en examenregeling. Sluit mogelijk aan op de Tuning-methodiek.",
@@ -887,12 +886,12 @@ I18n.translations.nl = {
     //badgeClassRelatedFrameworkURL: "badgeClassRelatedFrameworkURL",
     //badgeClassRelatedFrameworkCode: "badgeClassRelatedFrameworkCode",
     //badgeClassRelatedFrameworkDescription: "badgeClassRelatedFrameworkDescription",
-    facultyName: "Vermijdt afkortingen, zorg voor herkenbare naam ook voor externen",
+    facultyName: "Vermijdt afkortingen, zorg voor herkenbare naam ook voor externen.",
     //facultyDescriptionEn: "facultyDescriptionEn",
     //facultyDescriptionNl: "facultyDescriptionNl",
     //issuerFaculty: "issuerFaculty",
     //issuerImage: "issuerImage",
-    issuerName: "Vermijdt afkortingen, zorg voor herkenbare naam ook voor externen",
+    issuerName: "Vermijdt afkortingen, zorg voor herkenbare naam ook voor externen.",
     //issuerDescriptionEn: "issuerDescriptionEn",
     //issuerDescriptionNl: "issuerDescriptionNl",
     issuerURL: "Gebruik hier een URL die niet zal veranderen. (persistent URL).",
