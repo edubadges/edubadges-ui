@@ -922,6 +922,7 @@ I18n.translations.nl = {
     issuer: "Vakgroup",
   },
   catalog: {
+    name: "Catalogus",
     education: {
       WO: "WO",
       HBO: "HBO",
