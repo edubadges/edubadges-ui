@@ -10,6 +10,7 @@
   export let entity;
   export let object = {};
   export let mayUpdate;
+  export let hasDescription = false;
 
   export let tabs;
   export let headerItems;
@@ -111,6 +112,9 @@
     {/if}
     <div class="info">
       <h2>{object.name}</h2>
+      {#if hasDescription}
+        <h4>{object.description}</h4>
+      {/if}
       {#if entity === entityType.BADGE_CLASS && object.issuer && object.issuer.faculty && object.issuer.faculty.institution}
         <div class="badge-class-sub-info">
           {#if object.issuer.image}
@@ -129,7 +133,8 @@
                 <span class="issuer">{object.issuer.name}</span>
               {/if}
               <span>{I18n.t("models.badgeclass.of")}</span>
-              <a href="/public/institutions/{object.issuer.faculty.institution.entityId}" use:link>{object.issuer.faculty.institution.name}</a>
+              <a href="/public/institutions/{object.issuer.faculty.institution.entityId}"
+                 use:link>{object.issuer.faculty.institution.name}</a>
             </span>
           </div>
 

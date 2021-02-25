@@ -20,6 +20,8 @@
   const query = `query ($entityId: String){
     publicInstitution(id: $entityId) {
       name,
+      descriptionEnglish,
+      descriptionDutch,
       image,
       institutionType,
       entityId,
@@ -39,6 +41,7 @@
   onMount(() => {
     queryData(query, {entityId}).then(res => {
       institution = res.publicInstitution;
+      institution.description = currentLanguage === "en" ? institution.descriptionEnglish : institution.descriptionDutch;
       issuers = institution.publicFaculties.reduce((acc, fac) => {
         fac.publicIssuers.forEach(iss => iss.faculty = fac);
         return acc.concat(fac.publicIssuers);
@@ -63,6 +66,7 @@
       entity={entityType.INSTITUTION}
       object={institution}
       visitorRole={visitorRole}
+      hasDescription={true}
       entityId={entityId}>
     </BadgeClassHeader>
 
