@@ -12,17 +12,24 @@
 </script>
 
 <style lang="scss">
+  .catalog-toolbar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+  }
 
   .search {
-    width: 400px;
-    margin-left: auto;
+    width: 460px;
+  }
+
+  .view-selector {
+    margin-right: 25px;
   }
 
   .sort-options {
     display: flex;
     align-items: center;
-    width: 100%;
-    margin: 15px 0 20px 0;
+    margin-left: auto;
 
     .sort {
       display: flex;
@@ -38,25 +45,26 @@
   }
 
 </style>
-
-<div class="search">
+<div class="catalog-toolbar">
+  <div class="search">
   <span class="search">
-    <Search bind:value={$search}/>
+    <Search bind:value={$search} limitWidth={false}/>
   </span>
-</div>
-
-<ViewSelector bind:view={view}/>
-
-<div class="sort-options">
-  <div class="sort">
-    <label class="title">{I18n.t("models.badgeclass.sorting")}</label>
-    <MinimalisticSelect
-      bind:value={sorting}
-      items={sortTargetOptions()}
-      clearable={false}
-      optionIdentifier="name"/>
+  </div>
+  <div class="sort-options">
+    <div class="sort">
+      <label class="title">{I18n.t("models.badgeclass.sorting")}</label>
+      <MinimalisticSelect
+        bind:value={sorting}
+        items={sortTargetOptions()}
+        clearable={false}
+        optionIdentifier="name"/>
+    </div>
+  <div class="view-selector">
+    <ViewSelector bind:view={view}/>
   </div>
 
 
+  </div>
 
 </div>

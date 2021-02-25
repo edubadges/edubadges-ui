@@ -3,6 +3,7 @@
 
   export let badges = [];
   export let isBadgesClass = false;
+  export let isPublic = false;
 
 </script>
 
@@ -18,7 +19,7 @@
   <tbody>
   {#each badges as badge}
     {#if isBadgesClass}
-      <BadgeListItem badgeClass={badge}/>
+      <BadgeListItem badgeClass={badge} isPublic={isPublic}/>
     {:else}
       <BadgeListItem badge={badge} badgeClass={badge.badgeclass}/>
     {/if}

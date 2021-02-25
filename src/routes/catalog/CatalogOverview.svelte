@@ -9,7 +9,6 @@
   import SideBarCatelog from "../../components/catalog/SideBarCatelog.svelte";
   import CatalogToolBar from "../../components/catalog/CatalogToolBar.svelte";
   import {assignFilterTypes} from "../../util/catalogFilters";
-  import {Router, Route, navigate} from "svelte-routing";
 
   const query = `query {
     publicInstitutions {
@@ -124,9 +123,6 @@
 
 <div class="page-container">
   {#if loaded}
-    <Router>
-
-    </Router>
     <SideBarCatelog/>
 
     <div class="content">

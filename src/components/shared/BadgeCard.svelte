@@ -10,10 +10,13 @@
   export let badge;
   export let badgeClass;
   export let standAlone = false;
+  export let isPublic = false;
   export let withHeaderData;
 
   const detailLink = () => {
-    if (!standAlone) {
+    if (isPublic) {
+      navigate(`/public/${badgeClass.entityId}`);
+    } else if (!standAlone) {
       navigate(badge ? `/details/${badge.entityId}` : `/badgeclass/${badgeClass.entityId}`);
     }
   }
