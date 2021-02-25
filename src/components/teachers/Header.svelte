@@ -9,7 +9,7 @@
   $: tabs = [
     {
       path: "/",
-      active: $currentPath && !$currentPath.includes("/manage") && !$currentPath.includes("/users")
+      active: $currentPath && !$currentPath.includes("/manage") && !$currentPath.includes("/users") && !$currentPath.includes("/catalog")
         && !$currentPath.includes("/profile") && !$currentPath.includes("/permissions")
         && !$currentPath.includes("/public"),
       name: "badgeclasses"
@@ -23,7 +23,13 @@
       path: "/users",
       active: $currentPath && $currentPath.includes("/users"),
       name: "users"
-    }
+    },
+    {
+      path: "/catalog",
+      active: $currentPath && $currentPath.includes("/catalog"),
+      name: "catalog"
+    },
+
   ];
 </script>
 

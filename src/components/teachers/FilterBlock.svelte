@@ -2,8 +2,8 @@
   import I18n from "i18n-js";
   import { chevronUp, chevronDown, closeIcon } from "../../icons";
 
-  export let collection;
-  export let value;
+  export let collection = [];
+  export let value = [];
   export let title = "";
   export let maxLength = 5;
   export let objectIdentifier = "entityId";

@@ -14,12 +14,15 @@ I18n.translations.en = {
     nav: {
       badgeclasses: "Badge classes",
       manage: "Manage",
-      users: "Users"
+      users: "Users",
+      catalog: "Catalog"
+
     },
   },
   login: {
     title: "Never stop learning",
     loginToEnrol: "Login to request this edubadge",
+    loginToEnrolInfo: "<strong>Attention!</strong> You can only request this badge if you are registered by <strong>{{name}}</strong>.",
     destination: "What would you like to do?",
     description:
       "Edubadges are digital certificates which show that the owner has acquired certain skills or knowledge. Edubadges can be issued for both accredited education and extracurriculair activities.",
@@ -516,6 +519,7 @@ I18n.translations.en = {
       image: "Edubadge image",
       created: "Created",
       issuedBy: "Issued by",
+      of: "of",
       admin: "Admin",
       alignment: "Related educational framework",
       alignmentName: "Name",
@@ -526,6 +530,7 @@ I18n.translations.en = {
       number: "Number",
       name: "Name",
       description: "Description",
+      about: "About this badge",
       criteria_text: "What are the requirements to qualify for this edubadge?",
       criteria_url: "Or provide a link to a webpage with the criteria or more information",
       criteria_url_value: "Link to the criteria for earning this edubadge:",
@@ -918,6 +923,7 @@ I18n.translations.en = {
     issuer: "Issuer"
   },
   catalog: {
+    name: "Catalog",
     education: {
       WO: "WO",
       HBO: "HBO",

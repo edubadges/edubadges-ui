@@ -93,7 +93,7 @@
       <BadgeValidation badge={badge} validatedName={validatedName}/>
     </div>
     <div class="badge-public-detail">
-      <BadgeClassDetails badgeclass={badge} withInstitution={true}/>
+      <BadgeClassDetails badgeclass={badge}/>
     </div>
   </div>
 {:else}

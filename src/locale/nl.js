@@ -14,12 +14,14 @@ I18n.translations.nl = {
     nav: {
       badgeclasses: "Badge classes",
       manage: "Beheer",
-      users: "Gebruikers"
+      users: "Gebruikers",
+      catalog: "Catalogus"
     },
   },
   login: {
     title: "Never stop learning",
     loginToEnrol: "Login om deze edubadge aan te vragen",
+    loginToEnrolInfo: "<strong>Let op!</strong> Je kan deze badge alleen aanvragen als je staat ingeschreven bij <strong>{{name}}</strong>.",
     destination: "Wat zou je willen doen?",
     description:
       "Edubadges zijn digitale certificaten die aantonen dat de eigenaar bepaalde vaardigheden of kennis heeft verworven. Edubadges kunnen worden uitgereikt voor zowel geaccrediteerd onderwijs als extracurriculaire activiteiten.",
@@ -516,6 +518,7 @@ I18n.translations.nl = {
       image: "Edubadge afbeelding",
       created: "Aangemaakt",
       issuedBy: "Uitgegeven door",
+      of: "van",
       admin: "Admin",
       alignment: "Gerelateerd onderwijskundig raamwerk",
       alignmentName: "Naam",
@@ -526,6 +529,7 @@ I18n.translations.nl = {
       number: "Aantal",
       name: "Naam",
       description: "Beschrijving",
+      about: "Over deze badge",
       criteria_text: "Aan welke criteria moet je voldoen om in aanmerking te komen voor deze edubadge?",
       criteria_url: "Of geef een link naar de criteria of meer informatie",
       criteria_url_value: "Link naar de criteria en meer informatie:",
@@ -916,6 +920,27 @@ I18n.translations.nl = {
   badgeOverview : {
     faculty: "Faculteit",
     issuer: "Vakgroup",
+  },
+  catalog: {
+    education: {
+      WO: "WO",
+      HBO: "HBO",
+      MBO: "MBP",
+      NONE: "Unspecified"
+    },
+    studyLoad: {
+        NO_STUDYLOAD: "Geen studyload",
+        ECTS_0_5: "0-5 ECTS (WO/HBO)",
+        ECTS_6_10: "6-10 ECTS (WO/HBO)",
+        ECTS_10_MORE: "> 10 ECTS (WO/HBO)",
+        HOURS_0_60: "0-60 hours (WO/HBO)",
+        HOURS_61_120: "61-120 hours (WO/HBO)",
+        HOURS_120_MORE: "> 120 hours (WO/HBO)"
+    },
+    eqf: {
+      eqfNone: "Geen NLQF level",
+      eqf: "NLQF niveau {{level}}",
+    }
   }
 
 };

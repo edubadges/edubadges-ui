@@ -5,7 +5,6 @@
   import {Student, ProcessToken, NotFound, Login} from "./routes";
   import AcceptTerms from "./routes/AcceptTerms.svelte";
   import {Badges, Manage, Users, UserPermissions} from "./routes/teachers";
-  import Test from "./routes/Test.svelte";
   import {Header, Footer, SubscribeToPath, Spinner} from "./components";
   import {
     Header as TeacherHeader,
@@ -167,9 +166,6 @@
             <Student bookmark="profile"/>
           {/if}
         </Route>
-        {#if config.local}
-          <Route path="/public/test" component={Test}/>
-        {/if}
         <Route path="/" component={homepage[visitorRole]}/>
         <Route path="/login" component={Login}/>
         <Route path="/auth/login/*" component={ProcessToken}/>

@@ -20,7 +20,6 @@
   export let studentPath;
   export let publicPage = false;
   export let showBreadCrumb = true;
-  export let withInstitution = false;
 
   //Modal
   let showModal = false;
@@ -88,7 +87,7 @@
       <Button text={I18n.t('student.withdraw')} action={() => withdrawEnrollment(true, enrollmentId)}/>
     </div>
   {/if}
-  <BadgeClassDetails badgeclass={badgeclass} withInstitution={withInstitution}>
+  <BadgeClassDetails badgeclass={badgeclass}>
     <slot/>
   </BadgeClassDetails>
 </div>

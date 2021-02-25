@@ -52,6 +52,7 @@
           name,
           entityId,
            institution {
+            entityId,
             name
           }
         }

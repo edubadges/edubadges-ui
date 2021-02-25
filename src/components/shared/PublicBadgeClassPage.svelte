@@ -3,6 +3,7 @@
   import I18n from "i18n-js";
   import {queryData} from "../../api/graphql";
   import {role} from "../../util/role";
+  import {link, navigate} from "svelte-routing";
   import {
     acceptTermsForBadge,
     getPublicBadgeClass,
@@ -15,7 +16,6 @@
   import Button from "../Button.svelte";
   import Spinner from "../Spinner.svelte";
   import {publicBadgeInformation} from "../extensions/badges/extensions";
-  import {navigate} from "svelte-routing";
   import {entityType} from "../../util/entityTypes"
   import {schacHomeNamesFromExtraData} from "../../util/claims";
   import {Modal} from "../forms";
@@ -24,6 +24,7 @@
   import {authToken, redirectPath, userLoggedIn, userRole, validatedUserName} from "../../stores/user";
   import {config} from "../../util/config"
   import {getService} from "../../util/getService";
+  import PublicBreadcrumb from "./PublicBreadcrumb.svelte";
 
   export let entityId;
 
@@ -162,6 +163,9 @@
       getPublicBadgeClass(entityId).then(res => {
         badgeClass = res;
         publicBadgeInformation(badgeClass, res);
+        //need to ensure the links work
+        badgeClass.entityId = badgeClass.id.substring(badgeClass.id.lastIndexOf("/")+1);
+        badgeClass.issuer.entityId = badgeClass.issuer.id.substring(badgeClass.issuer.id.lastIndexOf("/")+1);
         loaded = true;
       }).catch(() => {
         navigate("/404");
@@ -243,22 +247,37 @@
 
 </script>
 
-<style>
+<style lang="scss">
   .overview-container {
     padding: 40px 140px;
+
+  }
+
+  div.enrol {
+    display: flex;
+    flex-direction: column;
+
+    span.attention {
+      display: inline-block;
+      margin-top: 15px;
+      font-size: 15px;
+      max-width: 275px;
+    }
   }
 </style>
 
 {#if loaded}
   {#if !showAcceptTerms}
     <div class="page-container">
+      <PublicBreadcrumb badgeClass={badgeClass}/>
       <BadgeClassHeader
         entity={entityType.BADGE_CLASS}
         object={badgeClass}
         visitorRole={visitorRole}>
         {#if visitorRole === role.GUEST}
-          <div class="slots">
+          <div class="slots enrol">
             <Button text={I18n.t("login.loginToEnrol")} action={login}/>
+            <span class="attention">{@html I18n.t("login.loginToEnrolInfo", {name: badgeClass.issuer.faculty.institution.name})}</span>
           </div>
         {:else if visitorRole === role.STUDENT}
           <div class="slots">
@@ -274,7 +293,7 @@
       <div class="overview-container">
         <Overview badgeclass={badgeClass} studentEnrolled={studentEnrolled} enrollmentId={enrollmentId}
                   requested={requestedDate} studentPath={I18n.t("student.enrollments")} publicPage={true}
-                  on:enrollmentWithdrawn={reload} showBreadCrumb={false} withInstitution={true}/>
+                  on:enrollmentWithdrawn={reload} showBreadCrumb={false}/>
       </div>
     </div>
   {/if}

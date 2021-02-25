@@ -9,7 +9,7 @@
   import SideBarCatelog from "../../components/catalog/SideBarCatelog.svelte";
   import CatalogToolBar from "../../components/catalog/CatalogToolBar.svelte";
   import {assignFilterTypes} from "../../util/catalogFilters";
-  import {Router, Route, navigate} from "svelte-routing";
+  import {Router} from "svelte-routing";
 
   const query = `query {
     publicInstitutions {
@@ -46,6 +46,11 @@
   let a = [];
 
   onMount(() => {
+    const alreadyLoaded = $badgeClasses.length > 0;
+    if (alreadyLoaded) {
+      loaded = true;
+      return;
+    }
     queryData(query).then(res => {
       const institutions = res.publicInstitutions;
       const results = institutions.reduce((acc, institution) => {

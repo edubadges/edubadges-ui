@@ -461,7 +461,7 @@
         </div>
       </div>
 
-      <BadgeClassDetails badgeclass={badge.badgeclass} withInstitution={true}/>
+      <BadgeClassDetails badgeclass={badge.badgeclass}/>
     </div>
     {#if !badge.revoked && (!badge.expiresAt && new Date(badge.expiresAt) < new Date())}
       <div class="delete">

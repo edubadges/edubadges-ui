@@ -13,9 +13,10 @@
   import DOMPurify from 'dompurify';
   import marked from "marked";
   import {fallBackValue} from "../../util/forms";
+  import languageIcon from "../../icons/messages-bubble-square-text.svg";
+  import schoolTrophyIcon from "../../icons/school-book-trophy.svg";
 
   export let badgeclass;
-  export let withInstitution;
 
   onMount(() => {
     //The component is used by public pages where the data structure is different
@@ -34,6 +35,42 @@
 </script>
 
 <style lang="scss">
+
+  section.study-load :global(svg) {
+    width: 22px;
+    height: 22px;
+  }
+
+  div.badge-class-detail-container {
+    display: flex;
+
+    .right-side-nav {
+      margin-left: auto;
+
+      section.study-load {
+        display: flex;
+        padding-bottom: 20px;
+
+        &:last-child {
+          border-top: 1px solid var(--grey-4);
+          padding-top: 20px;
+        }
+
+        div {
+          display: flex;
+          flex-direction: column;
+
+          h3, span {
+            margin: 0 0 10px 0;
+          }
+
+          margin-left: 25px;
+        }
+      }
+
+    }
+  }
+
   h3 {
     font-size: 18px;
     font-weight: 600;
@@ -55,41 +92,12 @@
     margin-bottom: 12px;
     word-break: break-all;
   }
+  section.alignments {
+    border-top: 1px solid var(--grey-4);
+    margin-top: 10px;
+    padding-top: 10px;
 
-  table.extensions {
-    width: 100%;
-    margin: 40px 0;
-    border-top: 1px solid var(--text-grey-dark);
-    border-bottom: 1px solid var(--text-grey-dark);
-    padding: 15px 0;
-
-    th, td {
-      text-align: left;
-      width: 33%;
-
-    }
   }
-
-  div.issued {
-      display: flex;
-      flex-direction: column;
-      margin-bottom: 30px;
-
-      span.issuer {
-          font-size: 16px;
-      }
-
-      span.faculty {
-          font-size: 13px;
-          color: var(--grey-8);
-          margin-top: 5px;
-      }
-  }
-
-  thead.purple {
-    color: var(--purple);
-  }
-
   @media (max-width: 1120px) {
     .badge-class-detail {
       padding: 30px 0 !important;
@@ -100,85 +108,82 @@
 <div class="slots">
   <slot/>
 </div>
-<div class="badge-class-detail">
-  <h3>{I18n.t('models.badgeclass.description')}</h3>
-  <p class="info markdown">
-    {@html DOMPurify.sanitize(marked(badgeclass.description))}
-  </p>
-  {#if withInstitution}
-    <h3>{I18n.t('models.badge.associatedInstitution')}</h3>
-    <a href="/public/institutions/{badgeclass.issuer.faculty.institution.entityId}"><p>{badgeclass.issuer.faculty.institution.name}</p></a>
-    <div class="issued">
-        <h3>{I18n.t("models.badge.issuedBy")}</h3>
-        {#if badgeclass.issuer.id}
-          <a href={badgeclass.issuer.id}><span class="issuer">{badgeclass.issuer.name}</span></a>
-        {:else}
-          <span class="issuer">{badgeclass.issuer.name}</span>
-        {/if}
-        <span class="faculty">({badgeclass.issuer.faculty.name})</span>
-    </div>
-  {/if}
-  <h3>{I18n.t('models.badgeclass.language')}</h3>
-  <p class="info">
-    {I18n.t(`language.${badgeclass.language}`)}
-  </p>
-  <h3>{I18n.t('models.badgeclass.learningOutcome')}</h3>
-  <p class="info markdown">
-    {@html DOMPurify.sanitize(marked(fallBackValue(badgeclass.learningOutcome)))}
-  </p>
-  <h3>{I18n.t('models.badgeclass.criteria_text')}</h3>
-  {#if badgeclass.criteriaText}
-    <p class="info markdown">{@html DOMPurify.sanitize(marked(badgeclass.criteriaText))}</p>
-  {/if}
-  {#if badgeclass.criteriaUrl}
-    <p class="green">
-      <a href={badgeclass.criteriaUrl} target="_blank" rel="noreferrer noopener">
-        {badgeclass.criteriaUrl}
-      </a>
+<div class="badge-class-detail-container">
+  <div class="badge-class-detail">
+    <h3>{I18n.t('models.badgeclass.about')}</h3>
+    <p class="info markdown">
+      {@html DOMPurify.sanitize(marked(badgeclass.description))}
     </p>
-  {/if}
-  <table class="extensions">
-    <thead class="purple">
-    <th>{I18n.t("teacher.badgeclasses.studyLoad")}</th>
-    <th>{I18n.t('models.badgeclass.educationProgramIdentifier')}</th>
-    <th>{I18n.t('models.badgeclass.eqf')}</th>
-    </thead>
-    <tbody>
-    <tr>
-      <td>{fallBackValue(badgeclass.studyLoadValue)}</td>
-      <td>
-        {fallBackValue(badgeclass.educationProgramIdentifier)}
-      </td>
-      <td>{badgeclass.eqf ? `NLQF ${badgeclass.eqf}` : fallBackValue(null)}</td>
-    </tr>
-    </tbody>
-  </table>
-  {#if badgeclass.alignments && badgeclass.alignments.length > 0}
-    {#if badgeclass.alignments[0].targetName}
-      <h3>{I18n.t('models.badgeclass.alignment')}</h3>
-      <h4>{I18n.t('models.badgeclass.alignmentName')}</h4>
-      <p class="sub-info">{badgeclass.alignments[0].targetName}</p>
+    <h3>{I18n.t('models.badgeclass.learningOutcome')}</h3>
+    <p class="info markdown">
+      {@html DOMPurify.sanitize(marked(fallBackValue(badgeclass.learningOutcome)))}
+    </p>
+    <h3>{I18n.t('models.badgeclass.criteria_text')}</h3>
+    {#if badgeclass.criteriaText}
+      <p class="info markdown">{@html DOMPurify.sanitize(marked(badgeclass.criteriaText))}</p>
     {/if}
-    {#if badgeclass.alignments[0].targetCode}
-      <h4>{I18n.t('models.badgeclass.alignmentCode')}</h4>
-      <p class="sub-info">{badgeclass.alignments[0].targetCode}</p>
-    {/if}
-    {#if badgeclass.alignments[0].targetFramework}
-      <h4>{I18n.t('models.badgeclass.alignmentFramework')}</h4>
-      <p class="sub-info">{badgeclass.alignments[0].targetFramework}</p>
-    {/if}
-    {#if badgeclass.alignments[0].targetUrl}
-      <h4>{I18n.t('models.badgeclass.alignmentUrl')}</h4>
-      <p class="sub-info">
-        <a href="{badgeclass.alignments[0].targetUrl}" rel="noreferrer noopener"
-           target="_blank">{badgeclass.alignments[0].targetUrl}</a>
+    {#if badgeclass.criteriaUrl}
+      <p class="green">
+        <a href={badgeclass.criteriaUrl} target="_blank" rel="noreferrer noopener">
+          {badgeclass.criteriaUrl}
+        </a>
       </p>
     {/if}
-    {#if badgeclass.alignments[0].targetDescription}
-      <h4>{I18n.t('models.badgeclass.alignmentDescription')}</h4>
-      <p class="sub-info markdown">
-        {@html DOMPurify.sanitize(marked(badgeclass.alignments[0].targetDescription))}
-      </p>
+    {#if badgeclass.alignments && badgeclass.alignments.length > 0}
+      <section class="alignments">
+        {#each badgeclass.alignments as alignment}
+          {#if alignment.targetName}
+            <h3>{I18n.t('models.badgeclass.alignment')}</h3>
+            <h4>{I18n.t('models.badgeclass.alignmentName')}</h4>
+            <p class="sub-info">{alignment.targetName}</p>
+          {/if}
+          {#if alignment.targetCode}
+            <h4>{I18n.t('models.badgeclass.alignmentCode')}</h4>
+            <p class="sub-info">{alignment.targetCode}</p>
+          {/if}
+          {#if alignment.targetFramework}
+            <h4>{I18n.t('models.badgeclass.alignmentFramework')}</h4>
+            <p class="sub-info">{alignment.targetFramework}</p>
+          {/if}
+          {#if alignment.targetUrl}
+            <h4>{I18n.t('models.badgeclass.alignmentUrl')}</h4>
+            <p class="sub-info">
+              <a href="{alignment.targetUrl}" rel="noreferrer noopener"
+                 target="_blank">{alignment.targetUrl}</a>
+            </p>
+          {/if}
+          {#if alignment.targetDescription}
+            <h4>{I18n.t('models.badgeclass.alignmentDescription')}</h4>
+            <p class="sub-info markdown">
+              {@html DOMPurify.sanitize(marked(alignment.targetDescription))}
+            </p>
+          {/if}
+        {/each}
+      </section>
+
     {/if}
-  {/if}
+  </div>
+  <div class="right-side-nav">
+    <section class="study-load">
+      {@html languageIcon}
+      <div>
+        <h3>{I18n.t('models.badgeclass.language')}</h3>
+        <span>
+        {I18n.t(`language.${badgeclass.language}`)}
+      </span>
+      </div>
+    </section>
+    <section class="study-load">
+      {@html schoolTrophyIcon}
+      <div>
+        <h3>{I18n.t("teacher.badgeclasses.studyLoad")}</h3>
+        {#if badgeclass.studyLoadValue}
+          <span>{fallBackValue(badgeclass.studyLoadValue)}</span>
+        {/if}
+        {#if badgeclass.eqf}
+          <span>{`NLQF ${badgeclass.eqf}`}</span>
+        {/if}
+      </div>
+    </section>
+  </div>
 </div>
