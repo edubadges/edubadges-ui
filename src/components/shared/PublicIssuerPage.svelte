@@ -1,11 +1,12 @@
 <script>
   import {onMount} from "svelte";
   import I18n from "i18n-js";
-  import { getPublicIssuer} from "../../api";
+  import {getPublicIssuer} from "../../api";
   import {BadgeClassHeader} from "../teachers";
-  import {Button, Spinner} from "../index";
+  import {Spinner} from "../index";
   import {entityType} from "../../util/entityTypes"
   import {navigate} from "svelte-routing";
+  import {queryData} from "../../api/graphql";
 
   export let entityId;
   export let visitorRole;
@@ -15,21 +16,49 @@
 
   const currentLanguage = I18n.locale;
 
+  const query = `query ($entityId: String){
+    publicIssuer(id: $entityId) {
+      name,
+      descriptionEnglish,
+      descriptionDutch,
+      image,
+      entityId,
+      faculty {
+        name,
+        institution {
+          name,
+          entityId
+        }
+      },
+      publicBadgeclasses {
+        name,
+        image,
+        entityId,
+        assertionsCount,
+        createdAt,
+        extensions {
+          name,
+          originalJson
+        }
+      }
+    }
+  }`
+
   onMount(() => {
-    getPublicIssuer(entityId).then(res => {
-      issuer = res;
-      if (res['extensions:InstitutionIdentifierExtension']) {
-        issuer.institutionIdentifier = res['extensions:InstitutionIdentifierExtension']['InstitutionIdentifier'];
-      }
-      if (res['extensions:GradingTableExtension']) {
-        issuer.gradingTableURL = res['extensions:GradingTableExtension']['GradingTableURL'];
-      }
-      if (res['extensions:InstitutionNameExtension']) {
-        issuer.institutionName = res['extensions:InstitutionNameExtension']['InstitutionName'];
-      }
+    queryData(query, {entityId}).then(res => {
+      debugger;
+      issuer = res.publicIssuer;
+      issuer.description = currentLanguage === "en" ? issuer.descriptionEnglish : issuer.descriptionDutch;
+      issuer.publicBadgeclasses.forEach(badgeClass => {
+        badgeClass.issuer = issuer;
+        badgeClass.issuer.faculty = issuer.faculty;
+        badgeClass.issuer.faculty.institution = issuer.faculty.institution;
+        //TODO parse extensions for both badgeClass as issuer
+      });
       loaded = true;
-    }).catch(() => navigate("/404?issuer=true"));
+    });
   });
+
 </script>
 
 <style lang="scss">
@@ -88,7 +117,8 @@
       {/if}
       {#if issuer.institutionName}
         <h3>{I18n.t('models.issuer.institutionName')}</h3>
-        <a href="/public/institutions/{issuer.faculty.institution.entityId}"><p class="info">{issuer.institutionName}</p></a>
+        <a href="/public/institutions/{issuer.faculty.institution.entityId}"><p
+          class="info">{issuer.institutionName}</p></a>
       {/if}
       {#if issuer.institutionIdentifier}
         <h3>{I18n.t('models.issuer.institutionIdentifier')}</h3>
