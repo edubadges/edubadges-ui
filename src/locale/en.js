@@ -346,6 +346,9 @@ I18n.translations.en = {
     915: "Either an English or Dutch url is required.",
     916: "Cannot create Issuer Group with this Dutch name in this institution. It already exists.",
     917: "Cannot create Issuer Group with this English name in this institution. It already exists.",
+    918: "Either an English or Dutch image is required.",
+    919: "Cannot create Institution with this Dutch name. It already exists.",
+    920: "Cannot create Institution with this English name. It already exists.",
     unexpected: "Unexpected error occurred.",
     description: "An unexpected error has occurred. Please try again later or contact support@edubadges.nl for support.",
     close: "Close"
@@ -479,8 +482,10 @@ I18n.translations.en = {
       description_english: "Description in English",
       description_dutch: "Description in Dutch",
       grading_table: "Grading table",
-      image: "Institution logo",
-      name: "Institution name",
+      image_english: "Institution logo English",
+      image_dutch: "Institution logo Dutch",
+      name_english: "Institution name in English",
+      name_dutch: "Institution name in Dutch",
     },
     faculty: {
       created: "Created",
