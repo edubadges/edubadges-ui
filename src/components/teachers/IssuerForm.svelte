@@ -73,7 +73,7 @@
         items={faculties}/>
   </Field>
 
-<MultiLanguageField>
+<MultiLanguageField errorEnglish={errors.image_english} errorDutch={errors.image_dutch}>
   <div slot='en'> 
     <Field {entity} attribute="image_english" errors={errors.image_english} tipKey="issuerImageEn">
       <File bind:value={issuer.imageEnglish} error={errors.image_english} removeAllowed={true}/>
@@ -86,7 +86,7 @@
   </div>
 </MultiLanguageField>
 
-<MultiLanguageField>
+<MultiLanguageField> errorEnglish={errors.name_english} errorDutch={errors.name_dutch}
   <div slot='en'>
     <Field {entity} attribute="name_english" errors={errors.name_english} tipKey="issuerNameEn">
       <!--  TODO: Need to refactor the CSS to use disabled=true, now disabled although false renders as disabled  -->
@@ -111,7 +111,7 @@
   </div>
 </MultiLanguageField>
 
-<MultiLanguageField>
+<MultiLanguageField errorEnglish={errors.description_english} errorDutch={errors.description_dutch}>
   <div slot='nl'>
     <Field {entity}  attribute="description_dutch" errors={errors.description_dutch} tipKey="issuerDescriptionNl">
       <TextInput bind:value={issuer.descriptionDutch} error={errors.description_dutch} area size="100"
@@ -127,7 +127,7 @@
   </div>
 </MultiLanguageField>
 
-<MultiLanguageField>
+<MultiLanguageField errorEnglish={errors.url_english} errorDutch={errors.url_dutch}>
   <div slot='en'>
     <Field {entity} attribute="url_english" errors={errors.url_english} tipKey="issuerURLEn">
       <TextInput bind:value={issuer.urlEnglish} error={errors.url_english} placeholder={I18n.t("placeholders.issuer.url")}/>

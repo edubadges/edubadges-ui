@@ -1,15 +1,19 @@
 <script>
   import { Tabs, TabList, TabPanel, Tab } from '../tabs/tabs.js';
+
+  export let errorEnglish;
+  export let errorDutch;
+
 </script>
 
 
 <Tabs>
 	<TabList>
-		<Tab>English</Tab>
-		<Tab>Dutch</Tab>
+		<Tab error={errorEnglish}>English</Tab>
+		<Tab error={errorDutch}>Dutch</Tab>
 	</TabList>
 
-	<TabPanel>
+	<TabPanel >
 		<slot name='en'></slot>
 	</TabPanel>
 

@@ -2,6 +2,8 @@
 	import { getContext } from 'svelte';
 	import { TABS } from './Tabs.svelte';
 
+	export let error;
+
 	const tab = {};
 	const { registerTab, selectTab, selectedTab } = getContext(TABS);
 
@@ -23,8 +25,20 @@
 		border-bottom: 2px solid purple;
 		color: #333;
 	}
-</style>
 
+	.error {
+		color: red;
+	}
+	
+</style>
+{#if error}
+<button class:selected="{$selectedTab === tab}" on:click="{() => selectTab(tab)}">
+	<div class="error">
+		<slot></slot>
+	</div>
+</button>
+{:else}
 <button class:selected="{$selectedTab === tab}" on:click="{() => selectTab(tab)}">
 	<slot></slot>
 </button>
+{/if}

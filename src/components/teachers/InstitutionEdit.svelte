@@ -63,7 +63,7 @@
 
 {#if loaded}
   <EntityForm entityTypeName={entity} submit={handleSubmit} {processing}>
-    <MultiLanguageField>
+    <MultiLanguageField errorEnglish={errors.image_english} errorDutch={errors.image_dutch}>
       <div slot='en'>
         <Field {entity} attribute="image_english" errors={errors.image_english} tipKey="institutionImageEn">
           <File bind:value={institution.imageEnglish} error={errors.image_english} removeAllowed={false}/>
@@ -75,7 +75,7 @@
         </Field>
       </div>
     </MultiLanguageField>
-    <MultiLanguageField>
+    <MultiLanguageField errorEnglish={errors.name_english} errorDutch={errors.name_dutch}>
       <div slot='en'>
         <Field {entity} attribute="name_english" errors={errors.name_english} tipKey="institutionNameEn">
           <TextInput bind:value={institution.nameEnglish} error={errors.name_english}  placeholder={I18n.t("placeholders.institution.name")}/>
@@ -87,7 +87,7 @@
         </Field>
       </div>
     </MultiLanguageField>
-    <MultiLanguageField>
+    <MultiLanguageField errorEnglish={errors.description_english} errorDutch={errors.description_dutch}>
       <div slot='en'>
         <Field {entity} attribute="description_english" errors={errors.description_english} tipKey="institutionDescriptionEn">
           <TextInput

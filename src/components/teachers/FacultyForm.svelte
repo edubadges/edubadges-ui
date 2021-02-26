@@ -47,7 +47,7 @@
 <EntityForm faculty={ {...faculty, entityId} } submit={onSubmit} create={isCreate} {processing}
             {mayDelete} entityTypeName={entity} entityId={entityId} {hasUnrevokedAssertions}>
 
-<MultiLanguageField>
+<MultiLanguageField errorEnglish={errors.name_english} errorDutch={errors.name_dutch}>
   <div slot='en'>
     <Field {entity} attribute="name_english" errors={errors.name_english} tipKey="facultyNameEn">
       <TextInput bind:value={faculty.nameEnglish} error={errors.name_english} placeholder={I18n.t("placeholders.faculty.name")}/>
@@ -59,7 +59,7 @@
     </Field>
   </div>
 </MultiLanguageField>
-<MultiLanguageField>
+<MultiLanguageField errorEnglish={errors.description_english} errorDutch={errors.description_dutch}>
   <div slot='en'>
     <Field {entity} attribute="description_english" errors={errors.description_english} tipKey="facultyDescriptionEn">
       <TextInput bind:value={faculty.descriptionEnglish} error={errors.description_english} area size="100"  placeholder={I18n.t("placeholders.faculty.description")}/>
