@@ -79,6 +79,14 @@
         margin: var(--ver-padding-m) 0;
       }
     }
+
+    @media (max-width: 1120px) {
+      .content {
+        flex-direction: column;
+      }
+    }
+
+
   }
 
   .actions {

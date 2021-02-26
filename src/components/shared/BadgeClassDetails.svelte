@@ -46,6 +46,8 @@
 
     .right-side-nav {
       margin-left: auto;
+      min-width: 30%;
+      padding-left: 25px;
 
       section.study-load {
         display: flex;
@@ -69,7 +71,22 @@
       }
 
     }
+
   }
+
+  @media (max-width: 1120px) {
+    div.badge-class-detail-container {
+      flex-direction: column;
+
+      .right-side-nav {
+        margin-left: 0;
+        margin-top: 20px;
+        padding-left: 0;
+      }
+    }
+
+  }
+
 
   h3 {
     font-size: 18px;
@@ -92,12 +109,14 @@
     margin-bottom: 12px;
     word-break: break-all;
   }
+
   section.alignments {
     border-top: 1px solid var(--grey-4);
     margin-top: 10px;
     padding-top: 10px;
 
   }
+
   @media (max-width: 1120px) {
     .badge-class-detail {
       padding: 30px 0 !important;
@@ -173,17 +192,19 @@
       </span>
       </div>
     </section>
-    <section class="study-load">
-      {@html schoolTrophyIcon}
-      <div>
-        <h3>{I18n.t("teacher.badgeclasses.studyLoad")}</h3>
-        {#if badgeclass.studyLoadValue}
-          <span>{fallBackValue(badgeclass.studyLoadValue)}</span>
-        {/if}
-        {#if badgeclass.eqf}
-          <span>{`NLQF ${badgeclass.eqf}`}</span>
-        {/if}
-      </div>
-    </section>
+    {#if badgeclass.studyLoadValue || badgeclass.eqf}
+      <section class="study-load">
+        {@html schoolTrophyIcon}
+        <div>
+          <h3>{I18n.t("teacher.badgeclasses.studyLoad")}</h3>
+          {#if badgeclass.studyLoadValue}
+            <span>{fallBackValue(badgeclass.studyLoadValue)}</span>
+          {/if}
+          {#if badgeclass.eqf}
+            <span>{`NLQF ${badgeclass.eqf}`}</span>
+          {/if}
+        </div>
+      </section>
+    {/if}
   </div>
 </div>

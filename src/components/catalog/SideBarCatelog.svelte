@@ -31,6 +31,13 @@
       }
     }
   }
+
+  @media (max-width: 1120px) {
+    div.sidebar {
+      display: none;
+    }
+  }
+
 </style>
 
 <div class="sidebar">

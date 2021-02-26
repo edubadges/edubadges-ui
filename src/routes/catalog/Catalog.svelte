@@ -113,13 +113,13 @@
   }
 
   @media (max-width: 1120px) {
-    div.badges {
+    div.badges.cards {
       grid-template-columns: 48% 48%;
     }
   }
 
   @media (max-width: 820px) {
-    div.badges {
+    div.badges.cards {
       grid-template-columns: 97%;
     }
   }

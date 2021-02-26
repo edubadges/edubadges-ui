@@ -3,7 +3,7 @@
   import I18n from "i18n-js";
   import {queryData} from "../../api/graphql";
   import {role} from "../../util/role";
-  import {link, navigate} from "svelte-routing";
+  import {navigate} from "svelte-routing";
   import {
     acceptTermsForBadge,
     getPublicBadgeClass,
@@ -164,8 +164,8 @@
         badgeClass = res;
         publicBadgeInformation(badgeClass, res);
         //need to ensure the links work
-        badgeClass.entityId = badgeClass.id.substring(badgeClass.id.lastIndexOf("/")+1);
-        badgeClass.issuer.entityId = badgeClass.issuer.id.substring(badgeClass.issuer.id.lastIndexOf("/")+1);
+        badgeClass.entityId = badgeClass.id.substring(badgeClass.id.lastIndexOf("/") + 1);
+        badgeClass.issuer.entityId = badgeClass.issuer.id.substring(badgeClass.issuer.id.lastIndexOf("/") + 1);
         loaded = true;
       }).catch(() => {
         navigate("/404");
@@ -250,7 +250,12 @@
 <style lang="scss">
   .overview-container {
     padding: 40px 140px;
+  }
 
+  @media (max-width: 1120px) {
+    .overview-container {
+      padding: 20px;
+    }
   }
 
   div.enrol {
@@ -277,7 +282,8 @@
         {#if visitorRole === role.GUEST}
           <div class="slots enrol">
             <Button text={I18n.t("login.loginToEnrol")} action={login}/>
-            <span class="attention">{@html I18n.t("login.loginToEnrolInfo", {name: badgeClass.issuer.faculty.institution.name})}</span>
+            <span
+              class="attention">{@html I18n.t("login.loginToEnrolInfo", {name: badgeClass.issuer.faculty.institution.name})}</span>
           </div>
         {:else if visitorRole === role.STUDENT}
           <div class="slots">

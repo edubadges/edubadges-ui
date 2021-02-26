@@ -46,7 +46,7 @@
 
   @media (max-width: 1120px) {
     .issuer-detail {
-      padding: 30px 0 !important;
+      padding: 20px !important;
     }
   }
 

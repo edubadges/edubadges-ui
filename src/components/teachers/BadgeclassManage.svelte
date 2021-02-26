@@ -133,6 +133,13 @@
   .overview-container {
     padding: 40px 140px;
   }
+
+    @media (max-width: 1120px) {
+    .overview-container {
+      padding: 20px;
+    }
+  }
+
 </style>
 
 {#if loaded}

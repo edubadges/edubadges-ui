@@ -44,6 +44,19 @@
 
   }
 
+  @media (max-width: 1120px) {
+    .catalog-toolbar {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .sort-options {
+      margin-left: 0;
+      margin-top: 15px;
+    }
+  }
+
+
 </style>
 <div class="catalog-toolbar">
   <div class="search">
@@ -60,9 +73,9 @@
         clearable={false}
         optionIdentifier="name"/>
     </div>
-  <div class="view-selector">
-    <ViewSelector bind:view={view}/>
-  </div>
+    <div class="view-selector">
+      <ViewSelector bind:view={view}/>
+    </div>
 
 
   </div>

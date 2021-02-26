@@ -142,6 +142,13 @@
     padding: 40px 140px;
   }
 
+  @media (max-width: 1120px) {
+    .overview-container {
+      padding: 20px;
+    }
+  }
+
+
   div.bread-crumb {
     padding: var(--ver-padding-m) var(--hor-padding-m);
     min-height: 47px;
