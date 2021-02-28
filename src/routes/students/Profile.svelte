@@ -116,14 +116,8 @@
     }
   };
 
-  const eduIdValue = () => {
-    const eduId = profile.eduid;
-    if (eduId.indexOf("-") > -1) {
-      return "*****" + eduId.substr(eduId.indexOf("-") + 1, eduId.lastIndexOf("-")) + "*****";
-    }
-    //sub format e.g. 0e882a02889802ae772173df8fdc8d8a8359702a
-    return "****" + eduId.substr(5, eduId.length - 10) + "*****"
-  }
+  const eduIdValue = () => profile.eduid;
+
 </script>
 
 <style lang="scss">

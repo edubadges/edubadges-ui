@@ -123,6 +123,7 @@
       {#if hasDescription}
         <h4>{object.description}</h4>
       {/if}
+      <slot name="institution"/>
       {#if entity === entityType.BADGE_CLASS && object.issuer && object.issuer.faculty && object.issuer.faculty.institution}
         <div class="badge-class-sub-info">
           {#if object.issuer.image}

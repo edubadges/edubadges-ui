@@ -942,6 +942,12 @@ I18n.translations.en = {
     eqf: {
       eqfNone: "No NLQF level",
       eqf: "NLQF level {{level}}",
+    },
+    issuer: {
+      contact: "Contact the issuer",
+      website: "Visit issuer website",
+      gradingTable: "View the grading table",
+      institution: "<span>Part of <a href=\"{{link}}\" target=\"_blank\">{{name}}</a></span>"
     }
   }
 };

@@ -1,11 +1,9 @@
 <script>
-  import {onMount} from "svelte";
   import {navigate} from "svelte-routing";
   import I18n from "i18n-js";
   import {Table} from "../teachers";
   import {search} from "../../util/searchData";
   import {sort, sortType} from "../../util/sortData";
-  import {tableNumber} from "../../util/tableNumberToText";
   import {issuerIcon} from "../../icons";
 
   export let issuers = [];
@@ -90,11 +88,11 @@
 </style>
 
 <Table
-    {...table}
-    bind:search={issuerSearch}
-    bind:sort={issuerSort}
-    isEmpty={issuers.length === 0}
-    pathParameters={[]}>
+  {...table}
+  bind:search={issuerSearch}
+  bind:sort={issuerSort}
+  isEmpty={issuers.length === 0}
+  pathParameters={[]}>
   {#each sortedFilteredIssuers as issuer (issuer.entityId)}
     <tr
       class="click"
@@ -127,7 +125,7 @@
   {/each}
   {#if issuers.length === 0}
     <tr>
-      <td colspan="4">{I18n.t("zeroState.issuers", {name:institution.name})}</td>
+      <td colspan="4">{I18n.t("zeroState.issuers", {name: institution.name})}</td>
     </tr>
   {/if}
 

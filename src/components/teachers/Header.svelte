@@ -26,7 +26,7 @@
     },
     {
       path: "/catalog",
-      active: $currentPath && $currentPath.includes("/catalog"),
+      active: $currentPath && ($currentPath.includes("/catalog") || $currentPath.includes("/public")),
       name: "catalog"
     },
 
