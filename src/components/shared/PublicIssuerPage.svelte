@@ -202,7 +202,7 @@
         {#if issuer.faculty.institution.gradingTable}
           <div>
             {@html trophyIcon}
-            <a href={issuer.faculty.institution.gradingTable}>{I18n.t("catalog.issuer.gradingTable")}</a>
+            <a href={issuer.faculty.institution.gradingTable} target="_blank">{I18n.t("catalog.issuer.gradingTable")}</a>
           </div>
         {/if}
       </section>
