@@ -2,7 +2,7 @@
   import {onMount} from "svelte";
   import I18n from "i18n-js";
   import {BadgeClassHeader} from "../teachers";
-  import {Spinner} from "../index";
+  import {Search, Spinner} from "../index";
   import {entityType} from "../../util/entityTypes"
   import {queryData} from "../../api/graphql";
   import mailIcon from "../../icons/mail-white.svg";
@@ -17,8 +17,9 @@
   export let entityId;
   export let visitorRole;
 
-  let issuer = {faculty: {institution: {}}};
+  let issuer = {publicBadgeclasses: [],faculty: {institution: {}}};
   let view = "cards";
+  let search = "";
   let loaded;
 
   const currentLanguage = I18n.locale;
@@ -71,6 +72,8 @@
     });
   });
 
+  $: badgeClasses = search.trim().length === 0 ? issuer.publicBadgeclasses : issuer.publicBadgeclasses.filter(bc => bc.name.toLowerCase().indexOf(search.toLowerCase()) > -1);
+
 </script>
 
 <style lang="scss">
@@ -119,12 +122,22 @@
 
     div.view-selector {
       display: flex;
-      padding: 10px ;
+      align-content: center;
+      @media (max-width: 1120px) {
+        flex-direction: column;
+      }
+
+      div.search {
+        margin: 4px 25px 0 auto;
+        width: 360px;
+      }
+
+      margin-left: 20px;
+      padding: 10px;
     }
 
     div.badges {
       padding: 0 20px 30px 20px;
-      --badge-margin-right: 20px;
       flex: 1;
 
       &.cards {
@@ -195,18 +208,22 @@
       </section>
     </BadgeClassHeader>
     <div class="content">
-    <div class="view-selector">
-      <ViewSelector bind:view={view}/>
-    </div>
-    <div class={`badges ${view === "list" ? "list" : "cards"}`}>
-      {#if view === "list"}
-        <BadgeListView badges={issuer.publicBadgeclasses} isBadgesClass={true} isPublic={true}/>
-      {:else}
-        {#each issuer.publicBadgeclasses as badge}
-          <BadgeCard isPublic={true} badgeClass={badge} withHeaderData={false}/>
-        {/each}
-      {/if}
-    </div>
+      <div class="view-selector">
+        <h3>{I18n.t("teacher.badgeclasses.title")} ({issuer.publicBadgeclasses.length})</h3>
+        <div class="search">
+          <Search bind:value={search}/>
+        </div>
+        <ViewSelector bind:view={view} noForceLeft={true}/>
+      </div>
+      <div class={`badges ${view === "list" ? "list" : "cards"}`}>
+        {#if view === "list"}
+          <BadgeListView badges={badgeClasses} isBadgesClass={true} isPublic={true}/>
+        {:else}
+          {#each badgeClasses as badge}
+            <BadgeCard isPublic={true} badgeClass={badge} withHeaderData={false}/>
+          {/each}
+        {/if}
+      </div>
     </div>
 
   {:else}

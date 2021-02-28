@@ -1,20 +1,20 @@
   <script>
-  import { Router, Route, navigate } from "svelte-routing";
-  import {
-    BadgeclassManage,
-    BadgeclassEdit,
-    BadgeclassNew,
-    Faculty,
-    FacultyEdit,
-    FacultyNew,
-    Institution,
-    InstitutionEdit,
-    Issuer,
-    IssuerEdit,
-    IssuerNew,
-    AwardBadge,
-    AwardManyBadges
-  } from "../../components/teachers";
+    import { Router, Route, navigate } from "svelte-routing";
+    import {
+      BadgeclassManage,
+      BadgeclassEdit,
+      BadgeclassNew,
+      Faculty,
+      FacultyEdit,
+      FacultyNew,
+      Institution,
+      InstitutionEdit,
+      Issuer,
+      IssuerEdit,
+      IssuerNew,
+      AwardBadge,
+      AwardManyBadges
+    } from "../../components/teachers";
 
   export let mainEntity;
 
