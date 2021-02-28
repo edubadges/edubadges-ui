@@ -927,7 +927,7 @@ I18n.translations.en = {
     education: {
       WO: "WO",
       HBO: "HBO",
-      MBO: "MBP",
+      MBO: "MBO",
       NONE: "Unspecified"
     },
     studyLoad: {

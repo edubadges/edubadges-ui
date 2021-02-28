@@ -941,7 +941,14 @@ I18n.translations.nl = {
     eqf: {
       eqfNone: "Geen NLQF level",
       eqf: "NLQF niveau {{level}}",
+    },
+    issuer: {
+      contact: "Contact de issuer",
+      website: "Bezoek issuer website",
+      gradingTable: "Bekijk de grading tabel",
+      institution: "<span>Onderdeel van <a href=\"{{link}}\" target=\"_blank\">{{name}}</a></span>"
     }
+
   }
 
 };
