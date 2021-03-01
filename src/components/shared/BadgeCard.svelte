@@ -3,17 +3,20 @@
   import moment from "moment";
   import I18n from "i18n-js";
   import {navigate} from "svelte-routing";
-  import shieldUnlocked from "../../icons/shield-unlock.svg";
-  import shieldLocked from "../../icons/lock-shield.svg";
   import {issuerIcon} from "../../icons";
+  import StatusIndicator from "./StatusIndicator.svelte";
+  import BadgeShield from "./BadgeShield.svelte";
 
   export let badge;
   export let badgeClass;
   export let standAlone = false;
+  export let isPublic = false;
   export let withHeaderData;
 
   const detailLink = () => {
-    if (!standAlone) {
+    if (isPublic) {
+      navigate(`/public/${badgeClass.entityId}`);
+    } else if (!standAlone) {
       navigate(badge ? `/details/${badge.entityId}` : `/badgeclass/${badgeClass.entityId}`);
     }
   }
@@ -21,7 +24,8 @@
   onMount(() => {
     badgeClass.studyLoadValue = badgeClass.studyLoad ?
       I18n.t("teacher.badgeclasses.hours", {value: badgeClass.studyLoad}) : badgeClass.ects ?
-      I18n.t("teacher.badgeclasses.ects", {value: badgeClass.ects}) : null;
+        I18n.t("teacher.badgeclasses.ects", {value: badgeClass.ects}) : null;
+
   });
 </script>
 
@@ -56,18 +60,8 @@
     text-align: center;
     flex-direction: column;
     background-color: white;
-    border-radius:14px;
+    border-radius: 14px;
 
-    .shield {
-      position: absolute;
-      right: 8px;
-      top: 8px;
-
-      :global(svg) {
-        width: 28px;
-        height: 28px;
-      }
-    }
   }
 
   .header span {
@@ -168,64 +162,17 @@
     align-self: flex-end;
   }
 
-  span.status-indicator {
-    display: inline-block;
-    position: absolute;
-    border-radius: 14px;
-    box-shadow: 0 1px 0 1px var(--grey-4);
-    font-weight: bold;
-    font-size: 14px;
-    padding: 4px 8px;
-    text-align: center;
-    left: 10px;
-    top: -14px
-  }
-
-  span.status-indicator.new {
-    background-color: var(--green-light);
-    max-width: 55px;
-  }
-
-  span.status-indicator.rejected {
-    background-color: var(--red-dark);
-    color: white;
-    max-width: 85px;
-  }
-
-  span.status-indicator.revoked {
-    background-color: var(--red-strong-dark);
-    color: white;
-    max-width: 85px;
-  }
-
-  span.status-indicator.expired {
-    background-color: var(--red-medium);
-    color: white;
-    max-width: 85px;
-  }
 </style>
 
 {#if badge || badgeClass}
   <div class="card badge" class:stand-alone={standAlone} on:click|preventDefault|stopPropagation={detailLink}>
-    {#if badge && badge.revoked}
-      <span class="status-indicator revoked">{I18n.t("models.badge.statuses.revoked")}</span>
-    {:else if badge && badge.acceptance === "UNACCEPTED"}
-      <span class="status-indicator new">{I18n.t("models.badge.statuses.new")}</span>
-    {:else if badge && badge.acceptance === "REJECTED"}
-      <span class="status-indicator rejected">{I18n.t("models.badge.statuses.rejected")}</span>
-    {:else if badge && badge.expiresAt && new Date(badge.expiresAt) < new Date()}
-      <span class="status-indicator expired">{I18n.t("models.badge.statuses.expired")}</span>
-    {/if}
+
+    <StatusIndicator badge={badge}/>
+
     <div class="header {withHeaderData ? 'header-extra-height' : 'header-regular-height'}">
       {#if badge}
         <span>{moment(badge.issuedOn).format('MMM D, YYYY')}</span>
-        <div class="shield">
-          {#if badge.public}
-            {@html shieldUnlocked}
-          {:else}
-            {@html shieldLocked}
-          {/if}
-        </div>
+        <BadgeShield badge={badge}/>
       {/if}
       <div class="image-center-v">
         <img src={badgeClass.image} alt=""/>

@@ -3,6 +3,7 @@
   import I18n from "i18n-js";
 
   export let value;
+  export let limitWidth = true;
 </script>
 
 <style lang="scss">
@@ -10,9 +11,13 @@
     position: relative;
     width: 100%;
     min-width: 100px;
-    max-width: 250px;
     height: 42px;
     min-height: 30px;
+
+    &.limit-width {
+      max-width: 400px;
+
+    }
 
     input {
       position: absolute;
@@ -37,7 +42,7 @@
   }
 </style>
 
-<div>
+<div class:limit-width={limitWidth}>
   <input bind:value class="input-field" placeholder={I18n.t("searchPlaceholder")}/>
   {@html search}
 </div>

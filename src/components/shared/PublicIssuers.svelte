@@ -1,17 +1,13 @@
 <script>
-  import {onMount} from "svelte";
   import {navigate} from "svelte-routing";
   import I18n from "i18n-js";
   import {Table} from "../teachers";
   import {search} from "../../util/searchData";
   import {sort, sortType} from "../../util/sortData";
-  import {tableNumber} from "../../util/tableNumberToText";
   import {issuerIcon} from "../../icons";
 
-  export let mayCreate;
   export let issuers = [];
-  export let facultyEntityId;
-  export let institutionName;
+  export let institution = {};
 
   const tableHeaders = [
     {
@@ -23,35 +19,19 @@
       attribute: "name",
       reverse: false,
       sortType: sortType.ALPHA,
-      width: "25%"
+      width: "40%"
     },
     {
       name: I18n.t("teacher.badgeclasses.title"),
-      attribute: "badgeclasses",
+      attribute: "badgeclassesCount",
       reverse: false,
-      sortType: sortType.COLLECTION,
-      width: "15%",
-      center: true
-    },
-    {
-      name: I18n.t("teacher.badgeclasses.badges"),
-      attribute: "badgeAssertions",
-      reverse: false,
-      sortType: sortType.ISSUER_BADGE_CLASS_ASSERTIONS,
-      width: "15%",
-      center: true
-    },
-    {
-      name: I18n.t("teacher.badgeclasses.requestedBadges"),
-      attribute: "enrollments",
-      reverse: false,
-      sortType: sortType.ISSUER_BADGE_CLASS_ENROLLMENTS,
+      sortType: sortType.NUMERIC,
       width: "15%",
       center: true
     },
     {
       name: "",
-      width: "25%"
+      width: "40%"
     }
   ];
 
@@ -108,16 +88,15 @@
 </style>
 
 <Table
-    {...table}
-    bind:search={issuerSearch}
-    bind:sort={issuerSort}
-    isEmpty={issuers.length === 0}
-    pathParameters={facultyEntityId ? [facultyEntityId] : []}
-    {mayCreate}>
+  {...table}
+  bind:search={issuerSearch}
+  bind:sort={issuerSort}
+  isEmpty={issuers.length === 0}
+  pathParameters={[]}>
   {#each sortedFilteredIssuers as issuer (issuer.entityId)}
     <tr
       class="click"
-      on:click={() => navigate(`/manage/issuer/${issuer.entityId}`)}>
+      on:click={() => navigate(`/public/issuers/${issuer.entityId}`)}>
       <td>
         {#if issuer.image}
           <div class="img-container">
@@ -140,15 +119,13 @@
         <br/>
         <span class="sub-text">({issuer.faculty.name})</span>
       </td>
-      <td class="center">{issuer.badgeclasses.length === 0 ? "-" : issuer.badgeclasses.length}</td>
-      <td class="center">{tableNumber(issuer.badgeclasses, 'badgeAssertions')}</td>
-      <td class="center">{tableNumber(issuer.badgeclasses, 'pendingEnrollments')}</td>
+      <td class="center">{issuer.badgeclassesCount === 0 ? "-" : issuer.badgeclassesCount}</td>
       <td></td>
     </tr>
   {/each}
   {#if issuers.length === 0}
     <tr>
-      <td colspan="4">{I18n.t("zeroState.issuers", {name:institutionName})}</td>
+      <td colspan="4">{I18n.t("zeroState.issuers", {name: institution.name})}</td>
     </tr>
   {/if}
 

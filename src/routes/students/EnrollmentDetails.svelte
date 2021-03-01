@@ -1,7 +1,7 @@
 <script>
-  import { onMount } from "svelte";
-  import { queryData } from "../../api/graphql";
-  import { isEmpty } from "lodash";
+  import {onMount} from "svelte";
+  import {queryData} from "../../api/graphql";
+  import {isEmpty} from "lodash";
   import {Overview} from "../../components/teachers/badgeclass/";
   import I18n from "i18n-js";
   import chevronRightSmall from "../../icons/chevron-right-small.svg";
@@ -48,7 +48,7 @@
         }
       }
     }
-  }` ;
+  }`;
 
   onMount(() => {
     queryData(query, {enrollmentId}).then(res => {
@@ -95,7 +95,7 @@
     height: 60px;
 
     h1 {
-        font-size: 28px;
+      font-size: 28px;
     }
   }
 
@@ -126,6 +126,10 @@
   }
 
   @media (max-width: 1120px) {
+    .overview-container {
+      padding: 20px;
+    }
+
     .enrollment-detail {
       padding: 40px 20px !important;
     }
@@ -147,13 +151,12 @@
       <h1>{badgeClass.name}</h1>
     </div>
     <div class="overview-container">
-     {#if enrollment.denied}
-       <span class="status-indicator denied">{I18n.t("models.enrollment.denied")}</span>
+      {#if enrollment.denied}
+        <span class="status-indicator denied">{I18n.t("models.enrollment.denied")}</span>
       {/if}
 
       <Overview badgeclass={badgeClass} requested={enrollment.dateCreated} enrollmentId={enrollment.entityId}
-                studentEnrolled={true} studentPath={I18n.t("student.enrollments")} showBreadCrumb={false}
-                withInstitution={true}/>
+                studentEnrolled={true} studentPath={I18n.t("student.enrollments")} showBreadCrumb={false}/>
     </div>
   {/if}
 </div>

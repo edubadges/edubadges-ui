@@ -32,6 +32,7 @@
       name,
       description,
       createdAt,
+      isPrivate,
       ${headerStaff},
       image,
       contentTypeId,
@@ -82,8 +83,8 @@
       contentType = res.badgeClass.contentTypeId;
       permissions = res.badgeClass.permissions;
       loaded = true;
-      let hasUnrevokedAssertions = badgeclass.badgeAssertions.filter(function(badgeclass){return badgeclass.revoked == false}).length > 0;
-      mayUpdateBadgeclass = badgeclass.permissions && badgeclass.permissions.mayUpdate && hasUnrevokedAssertions==false;
+      const hasUnrevokedAssertions = badgeclass.badgeAssertions.some(badgeClass => !badgeClass.revoked);
+      mayUpdateBadgeclass = badgeclass.permissions && badgeclass.permissions.mayUpdate && !hasUnrevokedAssertions;
     });
   });
 
@@ -132,6 +133,13 @@
   .overview-container {
     padding: 40px 140px;
   }
+
+    @media (max-width: 1120px) {
+    .overview-container {
+      padding: 20px;
+    }
+  }
+
 </style>
 
 {#if loaded}

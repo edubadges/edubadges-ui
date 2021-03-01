@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <defs>
+        <style>.ani{fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.5px;}</style>
+    </defs>
+    <circle class="ani" cx="17.25" cy="17.25" r="6"/>
+    <line class="ani" x1="17.25" y1="20.25" x2="17.25" y2="17.25"/>
+    <path class="ani" d="M17.25,14.311a.375.375,0,1,0,.375.375.375.375,0,0,0-.375-.375"/>
+    <path class="ani" d="M10.5,23.151A11.251,11.251,0,1,1,23.15,10.5"/>
+    <path class="ani" d="M9.289,22.921C7.768,20.689,6.75,16.633,6.75,12S7.768,3.312,9.289,1.079"/>
+    <line class="ani" x1="0.775" y1="11.25" x2="10.5" y2="11.25"/>
+    <line class="ani" x1="2.999" y1="5.25" x2="21" y2="5.25"/>
+    <line class="ani" x1="2.048" y1="17.25" x2="7.214" y2="17.25"/>
+    <path class="ani" d="M14.711,1.079A17.025,17.025,0,0,1,17.02,8.255"/>
+</svg>

@@ -9,14 +9,16 @@
   div {
     text-align: left;
     width: 100%;
-    margin: 35px auto 0;
+    margin: 0 auto;
+    min-height: 85px;
     padding-top: 30px;
-    max-width: 300px;
-    border-top: 1px solid var(--grey-5);
+    max-width: 395px;
   }
 
   p {
     margin-top: 2px;
+    font-size: 16px;
+    line-height: 18px;
 
     &.small {
       font-size: 16px;

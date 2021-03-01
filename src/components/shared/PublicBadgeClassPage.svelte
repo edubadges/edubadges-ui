@@ -3,26 +3,28 @@
   import I18n from "i18n-js";
   import {queryData} from "../../api/graphql";
   import {role} from "../../util/role";
+  import {navigate} from "svelte-routing";
   import {
     acceptTermsForBadge,
     getPublicBadgeClass,
     getSocialAccountsSafe,
-    requestBadge, requestLoginToken,
+    requestBadge,
+    requestLoginToken,
   } from "../../api";
   import {BadgeClassHeader} from "../teachers";
   import {Overview} from "../teachers/badgeclass";
   import Button from "../Button.svelte";
   import Spinner from "../Spinner.svelte";
   import {publicBadgeInformation} from "../extensions/badges/extensions";
-  import {navigate} from "svelte-routing";
   import {entityType} from "../../util/entityTypes"
-  import {schacHomeNames, schacHomeNamesFromExtraData} from "../../util/claims";
+  import {schacHomeNamesFromExtraData} from "../../util/claims";
   import {Modal} from "../forms";
   import {flash} from "../../stores/flash";
   import AcceptInstitutionTerms from "../../routes/AcceptInstitutionTerms.svelte";
-  import {userRole, userLoggedIn, validatedUserName, authToken, redirectPath} from "../../stores/user";
+  import {authToken, redirectPath, userLoggedIn, userRole, validatedUserName} from "../../stores/user";
   import {config} from "../../util/config"
   import {getService} from "../../util/getService";
+  import PublicBreadcrumb from "./PublicBreadcrumb.svelte";
 
   export let entityId;
 
@@ -93,6 +95,7 @@
       criteriaUrl,
       criteriaText,
       expirationPeriod,
+      isPrivate,
       formal,
       terms {
         entityId,
@@ -135,7 +138,7 @@
   }`;
 
   onMount(() => {
-      if (visitorRole === role.STUDENT) {
+    if (visitorRole === role.STUDENT) {
       Promise.all([queryData(query, {entityId}), queryData(secureQuery, {entityId}), getSocialAccountsSafe()]).then(res => {
         const enrollment = res[0].enrollment;
         if (enrollment && (!enrollment.badgeInstance || !enrollment.badgeInstance.revoked)) {
@@ -153,15 +156,20 @@
 
         const termsCandidate = userTerms.find(uTerm => uTerm.terms.entityId === badgeClass.terms.entityId);
         termsAccepted = Boolean(termsCandidate &&
-            termsCandidate.agreedVersion === badgeClass.terms.version &&
-            termsCandidate.agreed);
+          termsCandidate.agreedVersion === badgeClass.terms.version &&
+          termsCandidate.agreed);
       });
     } else {
       getPublicBadgeClass(entityId).then(res => {
         badgeClass = res;
         publicBadgeInformation(badgeClass, res);
+        //need to ensure the links work
+        badgeClass.entityId = badgeClass.id.substring(badgeClass.id.lastIndexOf("/") + 1);
+        badgeClass.issuer.entityId = badgeClass.issuer.id.substring(badgeClass.issuer.id.lastIndexOf("/") + 1);
         loaded = true;
-      })
+      }).catch(() => {
+        navigate("/404");
+      });
     }
   });
 
@@ -221,7 +229,7 @@
       const enrollment = res.enrollment;
       studentAwarded = enrollment && enrollment.badgeInstance && !enrollment.badgeInstance.revoked;
       studentEnrolled = enrollment && !enrollment.badgeInstance;
-      if(studentEnrolled) {
+      if (studentEnrolled) {
         enrollmentId = enrollment.entityId;
         requestedDate = enrollment.dateCreated;
       }
@@ -239,22 +247,43 @@
 
 </script>
 
-<style>
+<style lang="scss">
   .overview-container {
     padding: 40px 140px;
+  }
+
+  @media (max-width: 1120px) {
+    .overview-container {
+      padding: 20px;
+    }
+  }
+
+  div.enrol {
+    display: flex;
+    flex-direction: column;
+
+    span.attention {
+      display: inline-block;
+      margin-top: 15px;
+      font-size: 15px;
+      max-width: 275px;
+    }
   }
 </style>
 
 {#if loaded}
   {#if !showAcceptTerms}
     <div class="page-container">
+      <PublicBreadcrumb badgeClass={badgeClass}/>
       <BadgeClassHeader
-          entity={entityType.BADGE_CLASS}
-          object={badgeClass}
-          visitorRole={visitorRole}>
+        entity={entityType.BADGE_CLASS}
+        object={badgeClass}
+        visitorRole={visitorRole}>
         {#if visitorRole === role.GUEST}
-          <div class="slots">
+          <div class="slots enrol">
             <Button text={I18n.t("login.loginToEnrol")} action={login}/>
+            <span
+              class="attention">{@html I18n.t("login.loginToEnrolInfo", {name: badgeClass.issuer.faculty.institution.name})}</span>
           </div>
         {:else if visitorRole === role.STUDENT}
           <div class="slots">
@@ -270,7 +299,7 @@
       <div class="overview-container">
         <Overview badgeclass={badgeClass} studentEnrolled={studentEnrolled} enrollmentId={enrollmentId}
                   requested={requestedDate} studentPath={I18n.t("student.enrollments")} publicPage={true}
-                  on:enrollmentWithdrawn={reload} showBreadCrumb={false} withInstitution={true}/>
+                  on:enrollmentWithdrawn={reload} showBreadCrumb={false}/>
       </div>
     </div>
   {/if}
@@ -280,36 +309,36 @@
 
 {#if showModal}
   <Modal
-      submit={modalAction}
-      cancel={() => showModal = false}
-      question={modalQuestion}
-      evaluateQuestion={true}
-      title={modalTitle}/>
+    submit={modalAction}
+    cancel={() => showModal = false}
+    question={modalQuestion}
+    evaluateQuestion={true}
+    title={modalTitle}/>
 {/if}
 
 {#if showAcceptTerms}
   <AcceptInstitutionTerms
-      badgeClass={badgeClass}
-      userHasAgreed={userHasAgreed}
-      userDisagreed={userDisagreed}/>
+    badgeClass={badgeClass}
+    userHasAgreed={userHasAgreed}
+    userDisagreed={userDisagreed}/>
 {/if}
 
 {#if showNoValidatedName}
   <Modal
-      submit={goToEduId}
-      title={I18n.t("publicBadge.noValidatedNameModal.noLinkedInstitution")}
-      question={I18n.t("publicBadge.noValidatedNameModal.question", {name: badgeClass.issuer.faculty.institution.name})}
-      evaluateQuestion={true}
-      cancel={() => showNoValidatedName = false}
-      submitLabel={I18n.t("publicBadge.noValidatedNameModal.goToEduID")}/>
+    submit={goToEduId}
+    title={I18n.t("publicBadge.noValidatedNameModal.noLinkedInstitution")}
+    question={I18n.t("publicBadge.noValidatedNameModal.question", {name: badgeClass.issuer.faculty.institution.name})}
+    evaluateQuestion={true}
+    cancel={() => showNoValidatedName = false}
+    submitLabel={I18n.t("publicBadge.noValidatedNameModal.goToEduID")}/>
 {/if}
 
 {#if noValidInstitution}
   <Modal
-      submit={logInForceAuthn}
-      title={I18n.t("acceptTerms.noValidInstitution")}
-      question={I18n.t("acceptTerms.noValidInstitutionInfoForEnrollment", {name: badgeClass.issuer.faculty.institution.name})}
-      evaluateQuestion={true}
-      cancel={() => noValidInstitution = false}
-      submitLabel={I18n.t("acceptTerms.goToSurfConext")}/>
+    submit={logInForceAuthn}
+    title={I18n.t("acceptTerms.noValidInstitution")}
+    question={I18n.t("acceptTerms.noValidInstitutionInfoForEnrollment", {name: badgeClass.issuer.faculty.institution.name})}
+    evaluateQuestion={true}
+    cancel={() => noValidInstitution = false}
+    submitLabel={I18n.t("acceptTerms.goToSurfConext")}/>
 {/if}

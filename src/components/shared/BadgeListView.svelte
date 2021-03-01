@@ -1,0 +1,30 @@
+<script>
+  import BadgeListItem from "./BadgeListItem.svelte";
+
+  export let badges = [];
+  export let isBadgesClass = false;
+  export let isPublic = false;
+
+</script>
+
+<style lang="scss">
+  table.badges {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+  }
+</style>
+<table class="badges">
+  <thead/>
+  <tbody>
+  {#each badges as badge}
+    {#if isBadgesClass}
+      <BadgeListItem badgeClass={badge} isPublic={isPublic}/>
+    {:else}
+      <BadgeListItem badge={badge} badgeClass={badge.badgeclass}/>
+    {/if}
+
+  {/each}
+  </tbody>
+</table>
+

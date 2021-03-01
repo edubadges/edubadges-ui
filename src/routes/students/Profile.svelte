@@ -116,10 +116,8 @@
     }
   };
 
-  const eduIdValue = () => {
-    const eduId = profile.eduid;
-    return "*****" + eduId.substr(eduId.indexOf("-") + 1, eduId.lastIndexOf("-")) + "*****";
-  }
+  const eduIdValue = () => profile.eduid;
+
 </script>
 
 <style lang="scss">

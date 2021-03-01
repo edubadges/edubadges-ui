@@ -1,13 +1,13 @@
 <script>
   import {onMount} from "svelte";
-  import {navigate} from "svelte-routing";
-  import {SideBarBadges, BadgesHeader, BadgeClassesToolBar} from "../../components/teachers";
+  import {BadgeClassesToolBar, BadgesHeader, SideBarBadges} from "../../components/teachers";
   import {queryData} from "../../api/graphql";
   import {headerEntity, headerStaff} from "../../api/queries";
-  import {faculties, awardFilter, tree} from "../../stores/filterBadges";
+  import {awardFilter, faculties, tree, sortTarget} from "../../stores/filterBadges";
   import BadgeCard from "../../components/shared/BadgeCard.svelte";
   import Spinner from "../../components/Spinner.svelte";
-  import { ects, extensionValue, studyLoad } from "../../components/extensions/badges/extensions";
+  import {ects, eqf, extensionValue, studyLoad} from "../../components/extensions/badges/extensions";
+  import BadgeListView from "../../components/shared/BadgeListView.svelte";
 
   const query = `query {
     faculties {
@@ -33,7 +33,10 @@
             name,
             image,
             faculty {
-              name
+              name,
+              institution {
+                name
+              }
             }
           },
           permissions {
@@ -48,31 +51,19 @@
   }`;
 
   let loaded;
-  let sorting;
-
-  const sortBadges = (badges, sorting) => {
-    if (!sorting) return badges;
-
-    return badges.sort((a, b) => {
-      switch (sorting.value) {
-        case "recent":
-          return a.createdAt - b.createdAt;
-        case "awarded":
-          return b.badgeAssertions.length - a.badgeAssertions.length;
-      }
-    });
-  };
-
-  $: sortedBadges = sortBadges($tree.badgeClasses.filter(el => !$awardFilter || el.permissions.mayAward), sorting);
+  let view = "cards";
 
   onMount(() => {
     queryData(query).then(res => {
       for (const faculty of res.faculties) {
         for (const issuer of faculty.issuers) {
-          if (!issuer.image) issuer.image = res.faculties[0].institution.image;
+          if (!issuer.image) {
+            issuer.image = res.faculties[0].institution.image;
+          }
           for (const badgeClass of issuer.badgeclasses) {
-              badgeClass.studyLoad = extensionValue(badgeClass.extensions, studyLoad);
-              badgeClass.ects = extensionValue(badgeClass.extensions, ects);
+            badgeClass.studyLoad = extensionValue(badgeClass.extensions, studyLoad);
+            badgeClass.ects = extensionValue(badgeClass.extensions, ects);
+            badgeClass.eqf = extensionValue(badgeClass.extensions, eqf);
           }
         }
       }
@@ -80,6 +71,7 @@
       loaded = true;
     });
   });
+
 </script>
 
 <style lang="scss">
@@ -95,12 +87,20 @@
   div.badges {
     --badge-margin-right: 20px;
 
-    display: grid;
-    grid-template-columns: 31% 31% 31%;
-    grid-row: auto;
-    grid-column-gap: 25px;
-    grid-row-gap: 25px;
-    margin-right: calc(var(--badge-margin-right) * -1);
+    &.cards {
+      display: grid;
+      grid-template-columns: 31% 31% 31%;
+      grid-row: auto;
+      grid-column-gap: 25px;
+      grid-row-gap: 25px;
+      margin-right: calc(var(--badge-margin-right) * -1);
+    }
+
+    &.list {
+      display: flex;
+      flex-direction: column;
+    }
+
   }
 
   @media (max-width: 1120px) {
@@ -125,14 +125,16 @@
     <div class="content">
       <BadgesHeader/>
 
-      <BadgeClassesToolBar
-          bind:sorting={sorting}
-      />
+      <BadgeClassesToolBar bind:sorting={$sortTarget} bind:view={view}/>
 
-      <div class="badges">
-        {#each sortedBadges as badge}
-          <BadgeCard badgeClass={badge} withHeaderData={false}/>
-        {/each}
+      <div class={`badges ${view === "list" ? "list" : "cards"}`}>
+        {#if view === "list"}
+          <BadgeListView badges={$tree.badgeClasses} isBadgesClass={true}/>
+        {:else}
+          {#each $tree.badgeClasses as badge}
+            <BadgeCard badgeClass={badge} withHeaderData={false}/>
+          {/each}
+        {/if}
       </div>
     </div>
   {:else}
