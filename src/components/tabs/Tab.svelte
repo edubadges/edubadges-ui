@@ -1,44 +1,47 @@
 <script>
-	import { getContext } from 'svelte';
-	import { TABS } from './Tabs.svelte';
 
-	export let error;
+  export let error;
+  export let active;
+  export let switchTab;
 
-	const tab = {};
-	const { registerTab, selectTab, selectedTab } = getContext(TABS);
-
-	registerTab(tab);
 </script>
 
-<style>
-	button {
-		background: none;
-		border: none;
-		border-bottom: 2px solid white;
-		border-radius: 0;
-		margin: 0;
-		color: #ccc;
-		float: right;
-	}
-	
-	.selected {
-		border-bottom: 2px solid purple;
-		color: #333;
-	}
+<style lang="scss">
+  span.tab-choice {
+    background: none;
+    border: none;
+    border-bottom: 2px solid white;
+    border-radius: 0;
+    color: var(--grey-7);
+    margin: 0;
+    cursor: pointer;
 
-	.error {
-		color: red;
-	}
-	
+    &:first-child {
+      margin-left: auto;
+    }
+
+    &:not(:last-child) {
+      margin-right: 15px;
+    }
+
+    &.selected {
+      border-bottom: 2px solid purple;
+      color: var(--black);
+      cursor: default;
+    }
+
+    &.error {
+      color: var(--red-dark);
+      border-bottom: 2px solid var(--red-dark);
+
+      &:not(.selected) {
+        border-bottom: none;
+      }
+    }
+  }
+
+
 </style>
-{#if error}
-<button class:selected="{$selectedTab === tab}" on:click="{() => selectTab(tab)}">
-	<div class="error">
-		<slot></slot>
-	</div>
-</button>
-{:else}
-<button class:selected="{$selectedTab === tab}" on:click="{() => selectTab(tab)}">
-	<slot></slot>
-</button>
-{/if}
+<span class="tab-choice" class:error={error} class:selected={active} on:click="{switchTab}">
+		<slot/>
+</span>

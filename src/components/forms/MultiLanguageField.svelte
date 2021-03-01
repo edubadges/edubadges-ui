@@ -1,25 +1,37 @@
 <script>
-  import { Tabs, TabList, TabPanel, Tab } from '../tabs/tabs.js';
+  import TabList from '../tabs/TabList.svelte';
+  import Tab from '../tabs/Tab.svelte';
+  import I18n from "i18n-js";
+  import {onMount} from "svelte";
 
   export let errorEnglish;
   export let errorDutch;
+  export let initialTab = "en";
+  let activeTab;
+
+  onMount(() => activeTab = initialTab);
+
+  const switchTab = () => {
+    activeTab = (activeTab === "en" ? "nl" : "en");
+  }
 
 </script>
 
 
-<Tabs>
-	<TabList>
-		<Tab error={errorEnglish}>English</Tab>
-		<Tab error={errorDutch}>Dutch</Tab>
-	</TabList>
+<TabList>
+  <Tab error={errorEnglish} active={activeTab === "en"} switchTab={switchTab}>
+    {I18n.t("language.en_EN")}
+  </Tab>
+  <Tab error={errorDutch} active={activeTab === "nl"} switchTab={switchTab}>
+    {I18n.t("language.nl_NL")}
+  </Tab>
+</TabList>
 
-	<TabPanel >
-		<slot name='en'></slot>
-	</TabPanel>
+{#if activeTab === "en"}
+  <slot name="en"/>
+{/if}
 
-	<TabPanel>
-		<slot name='nl'></slot>
-	</TabPanel>
-
-</Tabs>
+{#if activeTab === "nl"}
+  <slot name="nl"/>
+{/if}
 
