@@ -40,7 +40,6 @@
     }
   }
 
-
 </style>
 <span class="tab-choice" class:error={error} class:selected={active} on:click="{switchTab}">
 		<slot/>

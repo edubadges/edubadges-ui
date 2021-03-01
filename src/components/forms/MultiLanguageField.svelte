@@ -11,9 +11,7 @@
 
   onMount(() => activeTab = initialTab);
 
-  const switchTab = () => {
-    activeTab = (activeTab === "en" ? "nl" : "en");
-  }
+  const switchTab = () => activeTab = (activeTab === "en" ? "nl" : "en");
 
 </script>
 

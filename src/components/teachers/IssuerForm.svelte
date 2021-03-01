@@ -112,17 +112,17 @@
   </div>
 </MultiLanguageField>
 
-<MultiLanguageField errorEnglish={errors.description_english} errorDutch={errors.description_dutch}>
-  <div slot="nl">
-    <Field {entity}  attribute="description_dutch" errors={errors.description_dutch} tipKey="issuerDescriptionNl">
-      <TextInput bind:value={issuer.descriptionDutch} error={errors.description_dutch} area size="100"
-                placeholder={I18n.t("placeholders.issuer.description")}/>
-    </Field>
-  </div>
-
+<MultiLanguageField errorEnglish={errors.description_english} errorDutch={errors.description_dutch}
+                    initialTab={issuer.descriptionEnglish && !issuer.descriptionDutch ? "en" : "nl"}>
   <div slot="en">
     <Field {entity} attribute="description_english" errors={errors.description_english} tipKey="issuerDescriptionEn">
       <TextInput bind:value={issuer.descriptionEnglish} error={errors.description_english} area size="100"
+                placeholder={I18n.t("placeholders.issuer.description")}/>
+    </Field>
+  </div>
+  <div slot="nl">
+    <Field {entity}  attribute="description_dutch" errors={errors.description_dutch} tipKey="issuerDescriptionNl">
+      <TextInput bind:value={issuer.descriptionDutch} error={errors.description_dutch} area size="100"
                 placeholder={I18n.t("placeholders.issuer.description")}/>
     </Field>
   </div>
