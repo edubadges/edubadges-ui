@@ -12,7 +12,7 @@
     border: none;
     border-bottom: 2px solid white;
     border-radius: 0;
-    color: var(--grey-7);
+    color: var(--green-medium);
     margin: 0;
     cursor: pointer;
 
@@ -25,7 +25,7 @@
     }
 
     &.selected {
-      border-bottom: 2px solid purple;
+      border-bottom: 1px solid purple;
       color: var(--black);
       cursor: default;
     }
