@@ -1,5 +1,4 @@
 <script>
-  import TabList from '../tabs/TabList.svelte';
   import Tab from '../tabs/Tab.svelte';
   import I18n from "i18n-js";
   import {onMount} from "svelte";
@@ -15,15 +14,24 @@
 
 </script>
 
+<style>
+  .tab-list {
+    max-width: 460px;
+    display: flex;
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px solid var(--grey-3)
+  }
+</style>
 
-<TabList>
+<div class="tab-list">
   <Tab error={errorEnglish} active={activeTab === "en"} switchTab={switchTab}>
     {I18n.t("language.en_EN")}
   </Tab>
   <Tab error={errorDutch} active={activeTab === "nl"} switchTab={switchTab}>
     {I18n.t("language.nl_NL")}
   </Tab>
-</TabList>
+</div>
 
 {#if activeTab === "en"}
   <slot name="en"/>
