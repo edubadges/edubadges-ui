@@ -905,7 +905,7 @@ I18n.translations.en = {
     badgeClassLanguageOfInstruction: "The language used in obtaining this edubadge.",
     badgeClassLearningOutcome: "Describe the learning outcome or learning goal. Recorded in the Teaching and Examination Regulations. Possibly in line with the Tuning methodology.",
     //badgeClassLearningIssuer: "badgeClassLearningIssuer",
-    //badgeClassIsPrivate: "badgeClassIsPrivate",
+    badgeClassIsPrivate: "If checked, this badge class will not appear in the catalog. Note that private badge classes cannot have assertions.",
     //badgeClassCriteriaRequirements: "badgeClassCriteriaRequirements",
     //badgeClassCriteriaUrl: "badgeClassCriteriaUrl",
     //badgeClassTypeOfStudeLoad: "badgeClassTypeOfStudeLoad",

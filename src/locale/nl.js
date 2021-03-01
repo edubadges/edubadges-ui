@@ -904,7 +904,7 @@ I18n.translations.nl = {
     badgeClassLanguageOfInstruction: "De voertaal die gebruikt is bij het behalen van deze edubadge. ",
     badgeClassLearningOutcome: "Beschrijf de leeruitkomst of het leerdoel. Vastgelegd in de Onderwijs- en examenregeling. Sluit mogelijk aan op de Tuning-methodiek.",
     //badgeClassLearningIssuer: "badgeClassLearningIssuer",
-    //badgeClassIsPrivate: "Indien aangevinkt zal deze badge-klasse niet in de catalogus verschijnen. Houd er rekening mee dat privébadge-klassen geen assertions kunnen hebben.",
+    badgeClassIsPrivate: "Indien aangevinkt zal deze badge-klasse niet in de catalogus verschijnen. Houd er rekening mee dat privébadge-klassen geen assertions kunnen hebben.",
     //badgeClassCriteriaRequirements: "badgeClassCriteriaRequirements",
     //badgeClassCriteriaUrl: "badgeClassCriteriaUrl",
     //badgeClassTypeOfStudeLoad: "badgeClassTypeOfStudeLoad",
