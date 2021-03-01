@@ -10,6 +10,8 @@
     faculty(id: $entityId) {
       entityId,
       name,
+      nameEnglish,
+      nameDutch,
       descriptionEnglish,
       descriptionDutch,
       hasUnrevokedAssertions,

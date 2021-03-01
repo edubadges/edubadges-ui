@@ -9,11 +9,15 @@
   const query = `query ($entityId: String){
     issuer(id: $entityId) {
       name,
+      nameDutch,
+      nameEnglish,
       entityId,
       descriptionEnglish,
       descriptionDutch,
-      image,
-      url,
+      imageEnglish,
+      imageDutch,
+      urlEnglish,
+      urlDutch,
       email,
       faculty {
         name,
@@ -45,11 +49,8 @@
       issuer = res.issuer;
       permissions = res.issuer.permissions;
 
-      hasUnrevokedAssertions = issuer.badgeclasses.some(function (badgeclass) {
-        return badgeclass.badgeAssertions.filter(function(assertion){
-          return assertion.revoked == false
-          }).length > 0
-      });
+      hasUnrevokedAssertions = issuer.badgeclasses
+        .some(badgeclass => badgeclass.badgeAssertions.some(assertion => !assertion.revoked));
       mayDelete = permissions && permissions.mayDelete;
       loaded = true;
     })

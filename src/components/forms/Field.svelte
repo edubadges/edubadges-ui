@@ -9,6 +9,7 @@
   export let disabled;
   export let errors;
   export let tipKey;
+
 </script>
 
 <style>
@@ -26,6 +27,7 @@
   div.error {
     display: flex;
     color: var(--red-dark);
+    margin-bottom: 10px;
   }
 
   div.error :global(svg.icon-warning) {
@@ -35,7 +37,7 @@
   }
 </style>
 
-<div class="field" {disabled} error={errors}>
+<div class="field" {disabled}>
   <Tooltip label={I18n.t(['models', entity, attribute])} tipKey={tipKey}/>
 
   <div class="input">
