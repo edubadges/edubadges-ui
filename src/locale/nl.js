@@ -661,9 +661,8 @@ I18n.translations.nl = {
         awardConfirmation: "Weet je zeker dat je deze inschrijving wilt toekennen?",
         deny: "Wijs inschrijving af",
         denyConfirmation: "Weet je zeker dat je deze inschrijving wilt afwijzen?",
-        awardButton: "Toekennen"
       },
-      awardButton: "Ken toe",
+      awardButton: "Toekennen",
       addEvidence: "+ Voeg bewijs toe",
       removeEvidence: "- Verwijder bewijs",
       evidence: "Optionele beschrijvende metadata over het bewijs met betrekking tot de uitgifte van de toegekende Badge.",
