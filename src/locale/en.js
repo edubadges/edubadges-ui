@@ -362,6 +362,7 @@ I18n.translations.en = {
     918: "Either an English or Dutch image is required.",
     919: "Cannot create Institution with this Dutch name. It already exists.",
     920: "Cannot create Institution with this English name. It already exists.",
+    921: "Invalid URL",
     unexpected: "Unexpected error occurred.",
     description: "An unexpected error has occurred. Please try again later or contact support@edubadges.nl for support.",
     close: "Close"
@@ -660,8 +661,16 @@ I18n.translations.en = {
         award: "Award request",
         awardConfirmation: "Are you sure you want to award this request?",
         deny: "Deny request",
-        denyConfirmation: "Are you sure you want to deny this request?"
+        denyConfirmation: "Are you sure you want to deny this request?",
       },
+      awardButton: "Award",
+      addEvidence: "+ Add evidence",
+      removeEvidence: "- Remove evidence",
+      evidence: "Optional descriptive metadata about evidence related to the issuance of an Assertion.",
+      evidenceNarrative: "Narrative",
+      evidenceURL: "URL",
+      evidenceDescription: "Description",
+      evidenceName: "Name",
       flash: {
         denied: "The request(s) have been denied.",
         awarded: "The request(s) have been awarded."
@@ -869,6 +878,12 @@ I18n.translations.en = {
     },
     userManagement: {
       email: "e.g. john.doe@example.com"
+    },
+    enrollment: {
+      evidenceNarrative: "e.g. badge class description",
+      evidenceURL: "e.g. https://university.psychology",
+      evidenceName: "e.g. Introduction Pysychology",
+      evidenceDescription: "e.g. Long description of the assertion"
     }
   },
   eye: {
@@ -934,6 +949,11 @@ I18n.translations.en = {
     //institutionDescriptionNl: "institutionDescriptionNl",
     //institutionBrin: "institutionBrin",
     institutionGradingTable: "Use a URL that will not change. (Persistent URL).",
+    enrollmentEvidenceNarrative: "A narrative that describes the evidence and process of achievement that led to an Assertion.",
+    enrollmentEvidenceURL: "The URI of a webpage presenting evidence of achievement.",
+    enrollmentEvidenceName: "A descriptive title of the evidence.",
+    enrollmentEvidenceDescription: "A longer description of the evidence.",
+
   },
   badgeOverview : {
     faculty: "Faculty",
@@ -966,5 +986,5 @@ I18n.translations.en = {
       gradingTable: "View the grading table",
       institution: "<span>Part of <a href=\"{{link}}\" target=\"_blank\">{{name}}</a></span>"
     }
-  }
+  },
 };

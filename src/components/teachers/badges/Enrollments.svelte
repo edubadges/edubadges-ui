@@ -12,6 +12,7 @@
   import {Modal} from "../../forms";
   import filter from "../../../icons/filter-1.svg";
   import CenterMe from "../../forms/CenterMe.svelte";
+  import AwardBadgeModal from "./AwardBadgeModal.svelte";
 
   export let entityId;
   export let enrollments = [];
@@ -22,11 +23,20 @@
   let selection = [];
   let checkAllValue = false;
 
+  let narrative = "";
+  let url = "";
+  let name = "";
+  let description = "";
+  let useEvidence = false;
+
   //Modal
   let showModal = false;
   let modalTitle;
   let modalQuestion;
   let modalAction;
+
+  //AwardModal
+  let showAwardModal = false;
 
   const refreshEnrollments = () => {
     selection = [];
@@ -35,13 +45,13 @@
 
   const award = showConfirmation => {
     if (showConfirmation) {
-      modalTitle = I18n.t("models.enrollment.confirmation.award");
-      modalQuestion = I18n.t("models.enrollment.confirmation.awardConfirmation");
-      modalAction = () => award(false);
-      showModal = true;
+      showAwardModal = true;
     } else {
-      showModal = false;
-      awardBadges(entityId, selection).then(() => {
+      showAwardModal = false;
+      if (narrative.trim() || url.trim()) {
+
+      }
+      awardBadges(entityId, selection, useEvidence, narrative, url, name, description).then(() => {
         refreshEnrollments();
         flash.setValue(I18n.t("models.enrollment.flash.awarded"))
       });
@@ -64,13 +74,12 @@
     }
   }
 
-
-  function onCheckAll(val) {
+  const onCheckAll = val => {
     selection = val ? enrollments.map(({entityId}) => entityId) : [];
     table.checkAllValue = val;
   }
 
-  function onCheckOne(val, entityId) {
+  const onCheckOne = (val, entityId) => {
     if (val) {
       selection = selection.concat(entityId);
       table.checkAllValue = selection.length === enrollments.length;
@@ -224,4 +233,15 @@
     cancel={() => showModal = false}
     question={modalQuestion}
     title={modalTitle}/>
+{/if}
+
+{#if showAwardModal}
+  <AwardBadgeModal
+    bind:narrative={narrative}
+    bind:url={url}
+    bind:useEvidence={useEvidence}
+    bind:name={name}
+    bind:description={description}
+    submit={() => award(false)}
+    cancel={() => showAwardModal = false}/>
 {/if}

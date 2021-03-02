@@ -361,6 +361,7 @@ I18n.translations.nl = {
     918: "Invullen van een Nederlands of Engels logo is verplicht.",
     919: "Kan een instelling met deze Nederlandse naam niet aanmaken. Er bestaat er al een met dezelfde Nederlandse naam.",
     920: "Kan een instelling met deze Engelse naam niet aanmaken. Er bestaat er al een met dezelfde Engelse naam.",
+    921: "Ongeldige URL",
     unexpected: "Oeps, er is iets totaal onverwachts en onverklaarbaars gebeurd.",
     description: "Een onverwachte fout is opgetreden. Probeer het opnieuw of neem contact op met support@edubadges.nl voor ondersteuning.",
     close: "Sluit"
@@ -659,8 +660,17 @@ I18n.translations.nl = {
         award: "Ken inschrijving toe",
         awardConfirmation: "Weet je zeker dat je deze inschrijving wilt toekennen?",
         deny: "Wijs inschrijving af",
-        denyConfirmation: "Weet je zeker dat je deze inschrijving wilt afwijzen?"
+        denyConfirmation: "Weet je zeker dat je deze inschrijving wilt afwijzen?",
+        awardButton: "Toekennen"
       },
+      awardButton: "Ken toe",
+      addEvidence: "+ Voeg bewijs toe",
+      removeEvidence: "- Verwijder bewijs",
+      evidence: "Optionele beschrijvende metadata over het bewijs met betrekking tot de uitgifte van de toegekende Badge.",
+      evidenceNarrative: "Narrative",
+      evidenceURL: "URL",
+      evidenceDescription: "Beschrijving",
+      evidenceName: "Naam",
       flash: {
         denied: "De inschrijving(en) zijn afgewezen.",
         awarded: "De inschrijving(en) zijn toegekend."
@@ -868,6 +878,12 @@ I18n.translations.nl = {
     },
     userManagement: {
       email: "Bijv. john.doe@example.com"
+    },
+    enrollment: {
+      evidenceNarrative: "e.g. badge class omschrijving",
+      evidenceURL: "e.g. https://university.psychology",
+      evidenceName: "e.g. Introductie Pysychology",
+      evidenceDescription: "e.g. Lange omschrijving van de assertion"
     }
   },
   eye: {
@@ -933,6 +949,10 @@ I18n.translations.nl = {
     //institutionDescriptionNl: "institutionDescriptionNl",
     //institutionBrin: "institutionBrin",
     institutionGradingTable: "Gebruik hier een URL die niet zal veranderen. (persistent URL).",
+    enrollmentEvidenceNarrative: "Een verhaal dat het bewijs en het proces van prestatie beschrijft dat tot een bewering heeft geleid.",
+    enrollmentEvidenceURL: "De URL van een webpagina met bewijs van prestatie.",
+    enrollmentEvidenceName: "Een beschrijvende titel van het bewijs.",
+    enrollmentEvidenceDescription: "Een langere beschrijving van het bewijs.",
   },
   badgeOverview : {
     faculty: "Faculteit",
