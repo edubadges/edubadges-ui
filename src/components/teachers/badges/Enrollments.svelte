@@ -1,7 +1,4 @@
 <script>
-  import {onMount} from "svelte";
-  import {queryData} from "../../../api/graphql";
-  import {enrollmentsQuery} from "../../../api/queries";
   import I18n from "i18n-js";
   import moment from "moment";
   import {Table} from "../../teachers";
@@ -176,8 +173,8 @@
   <div class="action-buttons" slot="check-buttons">
     <Button small action={() => award(true)}
             text={I18n.t('models.enrollment.award')} disabled={selection.length === 0}/>
-      <Button small action={() => deny(true)}
-              text={I18n.t('models.enrollment.deny')} disabled={selection.length === 0} secondary={true}/>
+    <Button small action={() => deny(true)}
+            text={I18n.t('models.enrollment.deny')} disabled={selection.length === 0} secondary={true}/>
   </div>
 
   {#each sortedFilteredEnrollments as enrollment}
@@ -216,15 +213,15 @@
   {/each}
   {#if enrollments.length === 0}
     <tr>
-      <td colspan="6">{I18n.t("zeroState.enrollments",{name:badgeclassName})}</td>
+      <td colspan="6">{I18n.t("zeroState.enrollments", {name: badgeclassName})}</td>
     </tr>
   {/if}
 </Table>
 
 {#if showModal}
   <Modal
-      submit={modalAction}
-      cancel={() => showModal = false}
-      question={modalQuestion}
-      title={modalTitle}/>
+    submit={modalAction}
+    cancel={() => showModal = false}
+    question={modalQuestion}
+    title={modalTitle}/>
 {/if}

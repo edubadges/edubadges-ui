@@ -1,19 +1,16 @@
 <script>
   import I18n from "i18n-js";
-  import {onMount} from "svelte";
-  import {queryData} from "../../../api/graphql";
-  import {assertionsQuery} from "../../../api/queries";
   import moment from "moment";
   import {Table} from "../../teachers";
   import {sort, sortType} from "../../../util/sortData";
   import {Button, CheckBox} from "../../../components";
-  import {awardBadges, revokeAssertion} from "../../../api";
+  import {revokeAssertion} from "../../../api";
   import singleNeutralCheck from "../../../icons/single-neutral-check.svg";
   import {userName} from "../../../util/users";
-  import {search, searchMultiple} from "../../../util/searchData";
+  import {searchMultiple} from "../../../util/searchData";
   import {Modal} from "../../forms";
   import {flash} from "../../../stores/flash";
-import filter from "../../../icons/filter-1.svg";
+  import filter from "../../../icons/filter-1.svg";
 
   export let assertions = [];
   export let issuer;
@@ -272,7 +269,7 @@ import filter from "../../../icons/filter-1.svg";
   {/each}
   {#if assertions.length === 0}
     <tr>
-      <td colspan="8">{I18n.t("zeroState.assertions",{name:badgeclass.name})}</td>
+      <td colspan="8">{I18n.t("zeroState.assertions", {name: badgeclass.name})}</td>
     </tr>
   {/if}
 
@@ -280,12 +277,12 @@ import filter from "../../../icons/filter-1.svg";
 
 {#if showModal}
   <Modal
-      submit={modalAction}
-      cancel={cancel}
-      question={modalQuestion}
-      evaluateQuestion={true}
-      title={modalTitle}
-      disabled={revocationReason.length === 0}>
+    submit={modalAction}
+    cancel={cancel}
+    question={modalQuestion}
+    evaluateQuestion={true}
+    title={modalTitle}
+    disabled={revocationReason.length === 0}>
     <div class="slots">
       <label for="revocation-reason">{I18n.t("models.badge.confirmation.revocationReason")}</label>
       <input id="revocation-reason" class="input-field" bind:value={revocationReason }/>
