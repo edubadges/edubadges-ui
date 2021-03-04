@@ -7,7 +7,6 @@
   import shieldLocked from "../../icons/lock-shield.svg";
   import {link} from "svelte-routing";
   import {queryData} from "../../api/graphql";
-  import {isEmpty} from "lodash";
   import chevronRightSmall from "../../icons/chevron-right-small.svg";
   import Button from "../../components/Button.svelte";
   import Spinner from "../../components/Spinner.svelte";
@@ -16,20 +15,12 @@
   import moment from "moment";
   import {Modal} from "../../components/forms";
   import DownloadButton from "../../components/DownloadButton.svelte";
-  import {
-    revokeAssertion,
-    publicAssertion,
-    deleteAssertion,
-    validateBadge,
-    claimAssertion,
-    acceptAssertion, validateName
-  } from "../../api";
+  import {acceptAssertion, claimAssertion, deleteAssertion, publicAssertion} from "../../api";
   import {flash} from "../../stores/flash";
-  import CopyToClipboardButton from "../../components/CopyToClipboardButton.svelte";
-  import BadgeValidation from "./BadgeValidation.svelte";
   import ToggleSwitch from "../../components/ToggleSwitch.svelte";
-  import copy from 'copy-to-clipboard';
   import ShareDialog from "./ShareDialog.svelte";
+  import BadgeInstanceEvidence from "../../components/shared/BadgeInstanceEvidence.svelte";
+  import CheckBox from "../../components/CheckBox.svelte";
 
   export let entityId;
 
@@ -43,6 +34,8 @@
   let modalAction;
   let showShareFeedback = false;
   let showShareDialog = false;
+  let includeEvidence = true;
+  let makePublicAction = false;
 
 
   const cancel = () => {
@@ -85,6 +78,12 @@
       expiresAt,
       revoked,
       revocationReason,
+      evidences {
+        evidenceUrl,
+        narrative,
+        name,
+        description
+      },
       badgeclass {
         name,
         image,
@@ -171,14 +170,16 @@
 
 
   const makePublic = (showConfirmation, isPublic) => {
+    makePublicAction = isPublic;
     if (showConfirmation) {
       modalTitle = isPublic ? I18n.t("student.confirmation.publish") : I18n.t("student.confirmation.private");
       modalQuestion = isPublic ? I18n.t("student.confirmation.publishConfirmation", {name: $userName}) : I18n.t("student.confirmation.privateConfirmation");
       modalAction = () => makePublic(false, isPublic);
       showModal = true;
+
     } else {
       showModal = false;
-      publicAssertion(badge.entityId, isPublic)
+      publicAssertion(badge.entityId, isPublic, includeEvidence)
         .then(() => {
           flash.setValue(isPublic ? I18n.t("student.flash.published") : I18n.t("student.flash.private"));
           refreshBadgeDetails();
@@ -462,13 +463,15 @@
       </div>
 
       <BadgeClassDetails badgeclass={badge.badgeclass}/>
+
+      <BadgeInstanceEvidence evidences={badge.evidences} isPrivate={true}/>
     </div>
     {#if !badge.revoked && (!badge.expiresAt && new Date(badge.expiresAt) < new Date())}
       <div class="delete">
         {#if badge && badge.acceptance === "ACCEPTED"}
-          <Button action={() => rejectBadge(true)} secondary={true} text={I18n.t("student.deleteBadge")} />
+          <Button action={() => rejectBadge(true)} secondary={true} text={I18n.t("student.deleteBadge")}/>
         {:else}
-          <Button action={() => acceptBadge(true)} secondary={true} text={I18n.t("student.acceptBadge")} />
+          <Button action={() => acceptBadge(true)} secondary={true} text={I18n.t("student.acceptBadge")}/>
         {/if}
       </div>
     {/if}
@@ -480,16 +483,23 @@
 
 {#if showModal}
   <Modal
-      submit={modalAction}
-      cancel={cancel}
-      question={modalQuestion}
-      evaluateQuestion={true}
-      title={modalTitle}/>
+    submit={modalAction}
+    cancel={cancel}
+    question={modalQuestion}
+    evaluateQuestion={true}
+    title={modalTitle}>
+    {#if makePublicAction && (badge.evidences || []).length > 0}
+      <div class="evidence-question">
+        <CheckBox value={includeEvidence} label={I18n.t("student.confirmation.publishEvidenceConfirmation")}
+                  onChange={e => includeEvidence = !includeEvidence} inForm={true} adjustTop={true}/>
+      </div>
+    {/if}
+  </Modal>
 {/if}
 
 {#if showShareDialog}
   <ShareDialog
-      copied={copiedLink}
-      cancel={cancelShareDialog}
-      publicUrl={publicUrl()}/>
+    copied={copiedLink}
+    cancel={cancelShareDialog}
+    publicUrl={publicUrl()}/>
 {/if}

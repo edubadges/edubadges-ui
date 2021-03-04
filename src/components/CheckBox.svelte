@@ -7,6 +7,7 @@
   export let disabled = false;
   export let label;
   export let inForm = false;
+  export let adjustTop = false;
 
 
 </script>
@@ -46,6 +47,9 @@
     border: 1px solid var(--purple);
     border-radius: 2px;
 
+    &.adjust-top {
+      top: 5px;
+    }
     &:hover {
       background-color: #ebebeb;
     }
@@ -69,7 +73,7 @@
   <input type="checkbox" checked={value}
          on:change={e => onChange(e.target.checked)}
          disabled={disabled}>
-  <span class="checkmarked" class:active={value} class:disabled={disabled}>
+  <span class="checkmarked" class:adjust-top={adjustTop} class:active={value} class:disabled={disabled}>
     {#if value && !disabled}
       {@html check}
     {/if}

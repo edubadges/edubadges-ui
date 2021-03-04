@@ -102,7 +102,9 @@
     }
   ];
 
-  $: if (!tab) navigate(tabs[0].href, {replace: true});
+  $: if (!tab) {
+    navigate(tabs[0].href, {replace: true});
+  }
   $: mayUpdate = permissions && permissions.mayUpdate;
   $: headerItems = [
     {

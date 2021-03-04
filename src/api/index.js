@@ -194,11 +194,11 @@ export function deleteAssertion(assertionEntityId) {
   );
 }
 
-export function publicAssertion(assertionEntityId, isPublic) {
+export function publicAssertion(assertionEntityId, isPublic, includeEvidence) {
   const path = `${serverUrl}/earner/badges/${assertionEntityId}`;
   return validFetch(
     path,
-    {body: JSON.stringify({"public": isPublic})},
+    {body: JSON.stringify({"public": isPublic, "include_evidence": includeEvidence})},
     "PUT"
   );
 }

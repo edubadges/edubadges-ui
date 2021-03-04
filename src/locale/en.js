@@ -200,6 +200,7 @@ I18n.translations.en = {
       publish: "Make this edubadge publicly visible",
       private: "Make this edubadge private",
       publishConfirmation: "Are you sure you want to make this edubadge publicly visible?<br/><br/>If you make this edubadge public then your validated name <strong>{{name}}</strong> will be displayed in the validation section of the public edubadge webpage.",
+      publishEvidenceConfirmation: "Do you want to include the evidence in the publicly available information?",
       privateConfirmation: "Are you sure you want to make this edubadge private?",
       deleteBadgeConfirmation: "Are you sure you want to reject this edubadge?",
       acceptBadgeConfirmation: "Are you sure you want to accept this edubadge?",
@@ -222,8 +223,8 @@ I18n.translations.en = {
       badgeclasses: "Badge classes",
       badgeclassOverview: "Overview",
       userManagement: "User management",
-      enrollments: "Requested",
-      assertions: "Awarded",
+      enrollments: "Requested ",
+      assertions: "Awarded ",
       profile: "Profile"
     },
     edit: {
@@ -667,6 +668,7 @@ I18n.translations.en = {
       addEvidence: "+ Add evidence",
       removeEvidence: "- Remove evidence",
       evidence: "Optional descriptive metadata about evidence related to the issuance of an Assertion.",
+      evidenceHeader: "Metadata about the evidence related for this Badge",
       evidenceNarrative: "Narrative",
       evidenceURL: "URL",
       evidenceDescription: "Description",
