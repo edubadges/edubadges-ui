@@ -47,6 +47,9 @@
   
   onMount(() => {
     let reformattedAlignments = []
+    if (!badgeclass.alignments) {
+      badgeclass.alignments = []
+    }
     for (let alignment of badgeclass.alignments) {
       let reformat = {
         target_name: alignment.targetName,
