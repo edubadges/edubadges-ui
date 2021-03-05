@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [2.1.3] - 
 - Adds multilanguage fields for Institution, Issuer Group & Issuer
+- Can now add multiple Related Educational Frameworks to a badgeclass
 
 ## [2.1.2] - 2021-02-11
  - Can now archive Issuer Groups when all assertions have been revoked.
