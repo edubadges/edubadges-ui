@@ -575,7 +575,6 @@ I18n.translations.nl = {
       educationProgramIdentifierLong: "Opleidingscode",
       notSet: "-",
       expirationPeriods: {
-      expirationPeriods: {
         days: "Dagen",
         weeks: "Weken",
         months: "Maanden",
@@ -989,7 +988,5 @@ I18n.translations.nl = {
       gradingTable: "Bekijk de grading tabel",
       institution: "<span>Onderdeel van <a href=\"{{link}}\" target=\"_blank\">{{name}}</a></span>"
     }
-
   }
-
 };

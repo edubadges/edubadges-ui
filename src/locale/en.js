@@ -16,7 +16,6 @@ I18n.translations.en = {
       manage: "Manage",
       users: "Users",
       catalog: "Catalog"
-
     },
   },
   login: {
