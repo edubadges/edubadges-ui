@@ -50,7 +50,10 @@
         border-color: var(--grey-5);
       }
     }
-
+    span.count {
+      display: inline-block;
+      margin-left: 5px;
+    }
     :global(svg) {
       width: 20px;
       margin-right: 8px;
@@ -73,7 +76,9 @@
           <span class="icon">{@html icon}</span>
         {/if}
         <span class="title">{I18n.t(['manage', 'tabs', entity])}</span>
-        {#if !isNaN(count)}({count}){/if}
+        {#if !isNaN(count)}
+          <span class="count">{`(${count})`}</span>
+        {/if}
       </div>
     </Link>
 

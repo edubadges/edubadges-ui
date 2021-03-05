@@ -1,7 +1,4 @@
 <script>
-  import {onMount} from "svelte";
-  import {queryData} from "../../../api/graphql";
-  import {enrollmentsQuery} from "../../../api/queries";
   import I18n from "i18n-js";
   import moment from "moment";
   import {Table} from "../../teachers";
@@ -15,6 +12,7 @@
   import {Modal} from "../../forms";
   import filter from "../../../icons/filter-1.svg";
   import CenterMe from "../../forms/CenterMe.svelte";
+  import AwardBadgeModal from "./AwardBadgeModal.svelte";
 
   export let entityId;
   export let enrollments = [];
@@ -25,11 +23,20 @@
   let selection = [];
   let checkAllValue = false;
 
+  let narrative = "";
+  let url = "";
+  let name = "";
+  let description = "";
+  let useEvidence = false;
+
   //Modal
   let showModal = false;
   let modalTitle;
   let modalQuestion;
   let modalAction;
+
+  //AwardModal
+  let showAwardModal = false;
 
   const refreshEnrollments = () => {
     selection = [];
@@ -38,13 +45,13 @@
 
   const award = showConfirmation => {
     if (showConfirmation) {
-      modalTitle = I18n.t("models.enrollment.confirmation.award");
-      modalQuestion = I18n.t("models.enrollment.confirmation.awardConfirmation");
-      modalAction = () => award(false);
-      showModal = true;
+      showAwardModal = true;
     } else {
-      showModal = false;
-      awardBadges(entityId, selection).then(() => {
+      showAwardModal = false;
+      if (narrative.trim() || url.trim()) {
+
+      }
+      awardBadges(entityId, selection, useEvidence, narrative, url, name, description).then(() => {
         refreshEnrollments();
         flash.setValue(I18n.t("models.enrollment.flash.awarded"))
       });
@@ -67,13 +74,12 @@
     }
   }
 
-
-  function onCheckAll(val) {
+  const onCheckAll = val => {
     selection = val ? enrollments.map(({entityId}) => entityId) : [];
     table.checkAllValue = val;
   }
 
-  function onCheckOne(val, entityId) {
+  const onCheckOne = (val, entityId) => {
     if (val) {
       selection = selection.concat(entityId);
       table.checkAllValue = selection.length === enrollments.length;
@@ -176,8 +182,8 @@
   <div class="action-buttons" slot="check-buttons">
     <Button small action={() => award(true)}
             text={I18n.t('models.enrollment.award')} disabled={selection.length === 0}/>
-      <Button small action={() => deny(true)}
-              text={I18n.t('models.enrollment.deny')} disabled={selection.length === 0} secondary={true}/>
+    <Button small action={() => deny(true)}
+            text={I18n.t('models.enrollment.deny')} disabled={selection.length === 0} secondary={true}/>
   </div>
 
   {#each sortedFilteredEnrollments as enrollment}
@@ -216,15 +222,26 @@
   {/each}
   {#if enrollments.length === 0}
     <tr>
-      <td colspan="6">{I18n.t("zeroState.enrollments",{name:badgeclassName})}</td>
+      <td colspan="6">{I18n.t("zeroState.enrollments", {name: badgeclassName})}</td>
     </tr>
   {/if}
 </Table>
 
 {#if showModal}
   <Modal
-      submit={modalAction}
-      cancel={() => showModal = false}
-      question={modalQuestion}
-      title={modalTitle}/>
+    submit={modalAction}
+    cancel={() => showModal = false}
+    question={modalQuestion}
+    title={modalTitle}/>
+{/if}
+
+{#if showAwardModal}
+  <AwardBadgeModal
+    bind:narrative={narrative}
+    bind:url={url}
+    bind:useEvidence={useEvidence}
+    bind:name={name}
+    bind:description={description}
+    submit={() => award(false)}
+    cancel={() => showAwardModal = false}/>
 {/if}

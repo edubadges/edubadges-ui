@@ -200,6 +200,7 @@ I18n.translations.nl = {
       private: "Maak deze edubadge privé",
       publishConfirmation: "Weet je zeker dat je deze edubadge publiek zichtbaar wilt maken?<b/><br/>Als je deze edubadge publiek maakt, wordt je gevalideerde naam <strong>{{name}}</strong> weergegeven in het validatiegedeelte van de openbare badge-webpagina.",
       privateConfirmation: "Weet je het zeker dat je deze edubadge privé wilt maken",
+      publishEvidenceConfirmation: "Wil je het bewijs sectie ook toevoegen aan de publiek beschikbare informatie?",
       deleteBadgeConfirmation: "Weet je het zeker dat je deze edubadge wilt weigeren?",
       acceptBadgeConfirmation: "Weet je het zeker dat je deze edubadge wilt accepteren?",
     },
@@ -361,7 +362,8 @@ I18n.translations.nl = {
     918: "Invullen van een Nederlands of Engels logo is verplicht.",
     919: "Kan een instelling met deze Nederlandse naam niet aanmaken. Er bestaat er al een met dezelfde Nederlandse naam.",
     920: "Kan een instelling met deze Engelse naam niet aanmaken. Er bestaat er al een met dezelfde Engelse naam.",
-    921: "Te veel Gerelateerd onderwijskundig raamwerk objecten. De maximum is 8.",
+    921: "Ongeldige URL",
+    922: "Te veel Gerelateerd onderwijskundig raamwerk objecten. De maximum is 8.",
     unexpected: "Oeps, er is iets totaal onverwachts en onverklaarbaars gebeurd.",
     description: "Een onverwachte fout is opgetreden. Probeer het opnieuw of neem contact op met support@edubadges.nl voor ondersteuning.",
     close: "Sluit"
@@ -573,6 +575,7 @@ I18n.translations.nl = {
       educationProgramIdentifierLong: "Opleidingscode",
       notSet: "-",
       expirationPeriods: {
+      expirationPeriods: {
         days: "Dagen",
         weeks: "Weken",
         months: "Maanden",
@@ -652,6 +655,8 @@ I18n.translations.nl = {
       award: "Ken toe",
       denied: "Geweigerd",
       deny: "Weiger verzoek",
+      addEvidence: "+ Voeg bewijs toe",
+      removeEvidence: "- Verwijder bewijs",
       enrollmentType: {
         name: "Type aanvraag",
         enrolled: "Zelf aangevraagd",
@@ -661,8 +666,15 @@ I18n.translations.nl = {
         award: "Ken inschrijving toe",
         awardConfirmation: "Weet je zeker dat je deze inschrijving wilt toekennen?",
         deny: "Wijs inschrijving af",
-        denyConfirmation: "Weet je zeker dat je deze inschrijving wilt afwijzen?"
+        denyConfirmation: "Weet je zeker dat je deze inschrijving wilt afwijzen?",
       },
+      awardButton: "Toekennen",
+      evidence: "Optionele beschrijvende metadata over het bewijs met betrekking tot de uitgifte van de toegekende Badge.",
+      evidenceHeader: "Metadata over het bewijs gerelateerd aan deze Badge",
+      evidenceNarrative: "Narrative",
+      evidenceURL: "URL",
+      evidenceDescription: "Beschrijving",
+      evidenceName: "Naam",
       flash: {
         denied: "De inschrijving(en) zijn afgewezen.",
         awarded: "De inschrijving(en) zijn toegekend."
@@ -870,6 +882,12 @@ I18n.translations.nl = {
     },
     userManagement: {
       email: "Bijv. john.doe@example.com"
+    },
+    enrollment: {
+      evidenceNarrative: "e.g. badge class omschrijving",
+      evidenceURL: "e.g. https://university.psychology",
+      evidenceName: "e.g. Introductie Pysychology",
+      evidenceDescription: "e.g. Lange omschrijving van de assertion"
     }
   },
   eye: {
@@ -935,6 +953,10 @@ I18n.translations.nl = {
     //institutionDescriptionNl: "institutionDescriptionNl",
     //institutionBrin: "institutionBrin",
     institutionGradingTable: "Gebruik hier een URL die niet zal veranderen. (persistent URL).",
+    enrollmentEvidenceNarrative: "Een verhaal dat het bewijs en het proces van prestatie beschrijft dat tot een bewering heeft geleid.",
+    enrollmentEvidenceURL: "De URL van een webpagina met bewijs van prestatie.",
+    enrollmentEvidenceName: "Een beschrijvende titel van het bewijs.",
+    enrollmentEvidenceDescription: "Een langere beschrijving van het bewijs.",
   },
   badgeOverview : {
     faculty: "Faculteit",
