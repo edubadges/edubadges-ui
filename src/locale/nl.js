@@ -361,6 +361,7 @@ I18n.translations.nl = {
     918: "Invullen van een Nederlands of Engels logo is verplicht.",
     919: "Kan een instelling met deze Nederlandse naam niet aanmaken. Er bestaat er al een met dezelfde Nederlandse naam.",
     920: "Kan een instelling met deze Engelse naam niet aanmaken. Er bestaat er al een met dezelfde Engelse naam.",
+    921: "Te veel Gerelateerd onderwijskundig raamwerk objecten. De maximum is 8.",
     unexpected: "Oeps, er is iets totaal onverwachts en onverklaarbaars gebeurd.",
     description: "Een onverwachte fout is opgetreden. Probeer het opnieuw of neem contact op met support@edubadges.nl voor ondersteuning.",
     close: "Sluit"
@@ -589,6 +590,7 @@ I18n.translations.nl = {
         educationalIdentifiers: "Opleidingscode(s) toevoegen",
         studyLoad: "Studielast toevoegen",
         alignment: "Gerelateerd onderwijskundig raamwerk toevoegen",
+        alignmentAddition: "Nog een gerelateerd onderwijskundig raamwerk toevoegen",
       },
       info: {
         educationProgramIdentifier:

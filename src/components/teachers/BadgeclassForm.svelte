@@ -1,5 +1,6 @@
 <script>
   import I18n from "i18n-js";
+  import {onMount} from "svelte";
   import {navigate} from "svelte-routing";
   import {EntityForm} from "../teachers";
   import {Field, Select, File, TextInput, AddButton} from "../forms";
@@ -18,14 +19,14 @@
   } from "../extensions/badges/extensions";
   import EctsCreditPoints from "../extensions/badges/EctsCreditPoints.svelte";
   import {setExpirationPeriod} from "../extensions/badges/expiration_period";
-  import {addAlignment} from "../extensions/badges/alignment";
+  import {addAlignments} from "../extensions/badges/alignment";
   import {trash} from '../../icons';
   import {entityType} from "../../util/entityTypes";
   import {toHttpOrHttps} from "../../util/Url";
   import {CheckBox} from "../index";
 
   export let entityId;
-  export let badgeclass = {extensions: [], issuer: {}};
+  export let badgeclass = {extensions: [], issuer: {}, alignments: []};
   export let issuers = [];
   export let mayDelete;
   export let mayEdit;
@@ -42,23 +43,24 @@
   let showStudyLoad = false;
   let showEducationalIdentifiers = false;
   let showAlignment = false;
-
-  let alignment = {
-    target_name: "",
-    target_url: "",
-    target_description: "",
-    target_framework: "",
-    target_code: ""
-  };
+  let showAddAlignmentButton = true;
+  
+  onMount(() => {
+    let reformattedAlignments = []
+    for (let alignment of badgeclass.alignments) {
+      let reformat = {
+        target_name: alignment.targetName,
+        target_url: alignment.targetUrl,
+        target_description: alignment.targetDescription,
+        target_framework: alignment.targetFramework,
+        target_code: alignment.targetCode
+     }
+    reformattedAlignments.push(reformat)
+    }
+    badgeclass.alignments = reformattedAlignments
+  })
 
   if (!isEmpty(badgeclass.alignments)) {
-    alignment = {
-      target_name: badgeclass.alignments[0].targetName,
-      target_url: badgeclass.alignments[0].targetUrl,
-      target_description: badgeclass.alignments[0].targetDescription,
-      target_framework: badgeclass.alignments[0].targetFramework,
-      target_code: badgeclass.alignments[0].targetCode
-    };
     showAlignment = true;
   }
 
@@ -90,6 +92,42 @@
     showStudyLoad = true;
   }
 
+  function addEmptyAlignment() {
+    showAlignment = true
+    badgeclass.alignments.push({
+      target_name: "",
+      target_url: "",
+      target_description: "",
+      target_framework: "",
+      target_code: ""
+    })
+    if (badgeclass.alignments.length > 7) {
+        showAddAlignmentButton = false
+    }
+    if (Object.keys(errors).length > 0) {
+      if (errors.alignments) {
+        errors.alignments.push({})
+      }
+    }
+    badgeclass.alignments = badgeclass.alignments
+    badgeclass = badgeclass
+  }
+
+
+  const removeAlignment = (i) => {
+    badgeclass.alignments.splice(i, 1)
+    if (Object.keys(errors).length > 0) {
+      errors.alignments.splice(i, 1)
+      errors = errors
+    }
+    if (!badgeclass.alignments || badgeclass.alignments.length == 0) {
+      showAlignment = false
+    } else if (badgeclass.alignments.length < 8){
+      showAddAlignmentButton = true
+    }
+    badgeclass.alignments = badgeclass.alignments
+  }
+
   $: if (badgeclass.extensions.length > 0 && !loaded) {
     const studyLoadValue = extensionValue(badgeclass.extensions, studyLoad);
     extensions = {
@@ -116,7 +154,6 @@
   function onSubmit() {
     errors = {};
     processing = true;
-
     let newBadgeclass = {
       ...badgeclass,
       criteria_text: badgeclass.criteriaText,
@@ -125,10 +162,13 @@
     };
     setExpirationPeriod(newBadgeclass);
 
-    if (showAlignment) {
-      addAlignment(newBadgeclass, alignment);
-    } else {
+    if (!showAlignment) {
       newBadgeclass.alignments = [];
+    }
+    if (newBadgeclass.alignments) {
+      for (let alignment of newBadgeclass.alignments) {
+        alignment.target_url = toHttpOrHttps(alignment.target_url)
+      }
     }
     newBadgeclass.extensions = extensionToJson([
       {name: language.name, value: languageSelection.value}
@@ -183,9 +223,6 @@
             if (ext_name === "StudyLoadExtension") errors[ext_name] = [{'error_code': 906}];
             if (ext_name === "EducationProgramIdentifierExtension") errors[ext_name] = [{'error_code': 909}];
           }
-        }
-        if (errors.alignments) {
-          errors = {...errors, ...fields.error_message.alignments[0]}
         }
       }));
   }
@@ -455,51 +492,65 @@
       {/if}
     </div>
 
-    <div class="form">
-      <Field {entity} attribute="alignmentName" errors={errors.target_name} tipKey="badgeClassRelatedFrameworkName">
-        <TextInput
-          bind:value={alignment.target_name}
+    {#each badgeclass.alignments as alignment, i}
+      {#if mayEdit}
+        <div>
+          <button style="float:right;" class="rm-icon-container" on:click={() => removeAlignment(i) }>{@html trash}</button>
+        </div>
+      {/if}
+      <div class="form">
+        <Field {entity} attribute="alignmentName" errors={errors.alignments? errors.alignments[i].target_name: [] } tipKey="badgeClassRelatedFrameworkName">
+          <TextInput
+            bind:value={alignment.target_name}
+            disabled={!mayEdit}
+            error={errors.target_name}
+            placeholder={I18n.t("placeholders.badgeClass.alignmentName")}
+          />
+        </Field>
+        <Field {entity} attribute="alignmentFramework" errors={errors.alignments? errors.alignments[i].target_framework: [] } tipKey="badgeClassRelatedFrameworkFramework">
+          <TextInput
+            bind:value={alignment.target_framework}
+            disabled={!mayEdit}
+            error={errors.target_framework}
+            placeholder={I18n.t("placeholders.badgeClass.alignmentFramework")}
+          />
+        </Field>
+        <Field {entity} attribute="alignmentUrl" errors={errors.alignments? errors.alignments[i].target_url: []} tipKey="badgeClassRelatedFrameworkURL">
+          <TextInput
+            bind:value={alignment.target_url}
+            disabled={!mayEdit}
+            error={errors.target_url}
+            placeholder={I18n.t("placeholders.badgeClass.alignmentUrl")}
+          />
+        </Field>
+        <Field {entity} attribute="alignmentCode" errors={errors.alignments? errors.alignments[i].target_code: []} tipKey="badgeClassRelatedFrameworkCode">
+          <TextInput
+            bind:value={alignment.target_code}
+            disabled={!mayEdit}
+            error={errors.target_code}
+            placeholder={I18n.t("placeholders.badgeClass.alignmentCode")}
+          />
+        </Field>
+        <Field {entity} attribute="alignmentDescription" errors={errors.alignments? errors.alignments[i].target_description: []} tipKey="badgeClassRelatedFrameworkDescription">
+          <TextInput
+            bind:value={alignment.target_description}
+            error={errors.target_description}
+            disabled={!mayEdit}
+            area
+            size="100"
+            placeholder={I18n.t("placeholders.badgeClass.alignmentDescription")}
+          />
+        </Field>
+      </div>
+    {/each}
+      <span class="add-button">
+        <AddButton
+          text={I18n.t('models.badgeclass.addButtons.alignmentAddition')}
+          handleClick={() => addEmptyAlignment()}
+          visibility={showAddAlignmentButton}
           disabled={!mayEdit}
-          error={errors.target_name}
-          placeholder={I18n.t("placeholders.badgeClass.alignmentName")}
         />
-      </Field>
-      <Field {entity} attribute="alignmentFramework" errors={errors.target_framework} tipKey="badgeClassRelatedFrameworkFramework">
-        <TextInput
-          bind:value={alignment.target_framework}
-          disabled={!mayEdit}
-          error={errors.target_framework}
-          placeholder={I18n.t("placeholders.badgeClass.alignmentFramework")}
-        />
-      </Field>
-      <Field {entity} attribute="alignmentUrl" errors={errors.target_url} tipKey="badgeClassRelatedFrameworkURL">
-        <TextInput
-          bind:value={alignment.target_url}
-          disabled={!mayEdit}
-          error={errors.target_url}
-          placeholder={I18n.t("placeholders.badgeClass.alignmentUrl")}
-        />
-      </Field>
-      <Field {entity} attribute="alignmentCode" errors{errors.target_code} tipKey="badgeClassRelatedFrameworkCode">
-        <TextInput
-          bind:value={alignment.target_code}
-          disabled={!mayEdit}
-          error={errors.target_code}
-          placeholder={I18n.t("placeholders.badgeClass.alignmentCode")}
-        />
-      </Field>
-      <Field {entity} attribute="alignmentDescription" errors={errors.target_description} tipKey="badgeClassRelatedFrameworkDescription">
-        <TextInput
-          bind:value={alignment.target_description}
-          error={errors.target_description}
-          disabled={!mayEdit}
-          area
-          size="100"
-          placeholder={I18n.t("placeholders.badgeClass.alignmentDescription")}
-        />
-      </Field>
-    </div>
-
+      </span>
   {/if}
 
   {#if !(showStudyLoad && showEducationalIdentifiers && showAlignment)}
@@ -527,7 +578,7 @@
       <span class="add-button">
         <AddButton
           text={I18n.t('models.badgeclass.addButtons.alignment')}
-          handleClick={() => showAlignment = true}
+          handleClick={() => addEmptyAlignment()}
           visibility={!showAlignment}
           disabled={!mayEdit}
         />

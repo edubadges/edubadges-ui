@@ -362,6 +362,7 @@ I18n.translations.en = {
     918: "Either an English or Dutch image is required.",
     919: "Cannot create Institution with this Dutch name. It already exists.",
     920: "Cannot create Institution with this English name. It already exists.",
+    921: "Too many Related Educational Framework objects. The maximum is 8.",
     unexpected: "Unexpected error occurred.",
     description: "An unexpected error has occurred. Please try again later or contact support@edubadges.nl for support.",
     close: "Close"
@@ -590,6 +591,7 @@ I18n.translations.en = {
         educationalIdentifiers: "Add educational identifier(s)",
         studyLoad: "Add study load",
         alignment: "Add related educational framework",
+        alignmentAddition: "Add another related educational framework",
       },
       info: {
         educationProgramIdentifier:
