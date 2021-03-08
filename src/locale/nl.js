@@ -33,10 +33,10 @@ I18n.translations.nl = {
     },
     catalog: {
       title: "<strong style='font-size: 38px'>B</strong>rowse",
-      subtitle: "Momenteel zijn er {{badgeInstancesCount}} eduBadges uitgegeven door de instellingen.",
-      info: "",
+      subtitle: "Momenteel zijn er {{badgeInstancesCount}} edubadges uitgegeven door de instellingen.",
+      info: "De catalogus toont alle badgeclasses van alle instellingen die edubadges gebruiken.",
       beta: "Beta",
-      action: "Open catalogus",
+      action: "Open de catalogus",
     },
     teacher: {
       title: "<strong style='font-size: 38px'>A</strong>ward",

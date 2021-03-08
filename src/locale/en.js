@@ -33,10 +33,10 @@ I18n.translations.en = {
     },
     catalog: {
       title: "<strong style='font-size: 38px'>B</strong>rowse",
-      subtitle: "At this moment {{badgeInstancesCount}} eduBadges have been awarded by the institutions.",
-      info: "",
+      subtitle: "At this moment {{badgeInstancesCount}} edubadges have been awarded by the institutions.",
+      info: "The catalog shows all the badgeclasses of all institutions using edubadges.",
       beta: "Beta",
-      action: "Open catalog",
+      action: "Open the catalog",
     },
     teacher: {
       title: "<strong style='font-size: 38px'>A</strong>ward",
