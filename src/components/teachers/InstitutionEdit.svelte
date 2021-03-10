@@ -16,6 +16,7 @@
     currentInstitution {
       entityId,
       name,
+      defaultLanguage,
       nameEnglish,
       nameDutch,
       descriptionEnglish,
@@ -31,6 +32,8 @@
   let errors = {};
   let loaded = false;
   let processing = false;
+  let englishValueError = false;
+  let dutchValueError = false
 
   onMount(() => {
     queryData(query).then(({currentInstitution}) => {
@@ -57,41 +60,33 @@
       .catch(err => err.then(({fields}) => {
         errors = fields.error_message;
         processing = false;
+
+        if (errors.image_english || errors.name_english || errors.description_english) {
+          englishValueError = true;
+        } else {
+          englishValueError = false;
+        }
+        if (errors.image_dutch || errors.name_dutch || errors.description_dutch) {
+          dutchValueError = true;
+        } else {
+          dutchValueError = false;
+        }
+
       }));
   }
 </script>
 
 {#if loaded}
   <EntityForm entityTypeName={entity} submit={handleSubmit} {processing}>
-    <MultiLanguageField errorEnglish={errors.image_english} errorDutch={errors.image_dutch}
-                        initialTab={institution.imageEnglish && !institution.imageDutch ? "en" : "nl"}>
+    <MultiLanguageField errorEnglish={englishValueError} errorDutch={dutchValueError}
+                        initialTab={institution.defaultLanguage == 'en-US'? "en" : "nl"}>
       <div slot='en'>
         <Field {entity} attribute="image_english" errors={errors.image_english} tipKey="institutionImageEn">
           <File bind:value={institution.imageEnglish} error={errors.image_english} removeAllowed={false}/>
         </Field>
-      </div>
-      <div slot='nl'>
-        <Field {entity} attribute="image_dutch" errors={errors.image_dutch} tipKey="institutionImageNl">
-          <File bind:value={institution.imageDutch} error={errors.image_dutch} removeAllowed={false}/>
-        </Field>
-      </div>
-    </MultiLanguageField>
-    <MultiLanguageField errorEnglish={errors.name_english} errorDutch={errors.name_dutch}
-                        initialTab={institution.nameEnglish && !institution.nameDutch ? "en" : "nl"}>
-      <div slot='en'>
         <Field {entity} attribute="name_english" errors={errors.name_english} tipKey="institutionNameEn">
           <TextInput bind:value={institution.nameEnglish} error={errors.name_english}  placeholder={I18n.t("placeholders.institution.name")}/>
         </Field>
-      </div>
-      <div slot='nl'>
-        <Field {entity} attribute="name_dutch" errors={errors.name_dutch} tipKey="institutionNameNl">
-          <TextInput bind:value={institution.nameDutch} error={errors.name}  placeholder={I18n.t("placeholders.institution.name")}/>
-        </Field>
-      </div>
-    </MultiLanguageField>
-    <MultiLanguageField errorEnglish={errors.description_english} errorDutch={errors.description_dutch}
-                        initialTab={institution.descriptionEnglish && !institution.descriptionDutch ? "en" : "nl"}>
-      <div slot='en'>
         <Field {entity} attribute="description_english" errors={errors.description_english} tipKey="institutionDescriptionEn">
           <TextInput
               bind:value={institution.descriptionEnglish}
@@ -102,6 +97,12 @@
         </Field>
       </div>
       <div slot='nl'>
+        <Field {entity} attribute="image_dutch" errors={errors.image_dutch} tipKey="institutionImageNl">
+          <File bind:value={institution.imageDutch} error={errors.image_dutch} removeAllowed={false}/>
+        </Field>
+        <Field {entity} attribute="name_dutch" errors={errors.name_dutch} tipKey="institutionNameNl">
+          <TextInput bind:value={institution.nameDutch} error={errors.name}  placeholder={I18n.t("placeholders.institution.name")}/>
+        </Field>
         <Field {entity} attribute="description_dutch" errors={errors.description_dutch} tipKey="institutionDescriptionNl">
           <TextInput
               bind:value={institution.descriptionDutch}
@@ -111,21 +112,26 @@
               area/>
         </Field>
       </div>
+      <div slot='after'>
+        <Field {entity} attribute="brin" errors={errors.brin} tipKey="institutionBrin">
+          <TextInput
+              bind:value={institution.brin}
+              error={errors.brin}
+              placeholder={I18n.t("placeholders.institution.brin")}
+              disabled={true}/>
+        </Field>
+      
+        <Field {entity} attribute="grading_table" errors={errors.grading_table}  tipKey="institutionGradingTable">
+          <TextInput
+              bind:value={institution.grading_table}
+              placeholder={I18n.t("placeholders.institution.gradingTable")}
+              error={errors.grading_table}/>
+        </Field>
+      </div>
     </MultiLanguageField>
-    <Field {entity} attribute="brin" errors={errors.brin} tipKey="institutionBrin">
-      <TextInput
-          bind:value={institution.brin}
-          error={errors.brin}
-          placeholder={I18n.t("placeholders.institution.brin")}
-          disabled={true}/>
-    </Field>
-    <Field {entity} attribute="grading_table" errors={errors.grading_table}  tipKey="institutionGradingTable">
-      <TextInput
-          bind:value={institution.grading_table}
-          placeholder={I18n.t("placeholders.institution.gradingTable")}
-          error={errors.grading_table}/>
-    </Field>
+
   </EntityForm>
+
 {:else}
   <Spinner/>
 {/if}

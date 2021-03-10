@@ -1,5 +1,28 @@
 <script>
+  import {onMount} from "svelte";
+  import {queryData} from "../../api/graphql";
   import { FacultyForm } from "../teachers";
-</script>
+  import Spinner from "../Spinner.svelte";
 
-<FacultyForm />
+ const query = `query {
+    currentInstitution {
+      defaultLanguage
+    },
+  }`;
+
+  let currentInstitution;
+  let loaded = false;
+
+  onMount(() => {
+    queryData(query).then(res => {
+        currentInstitution = res.currentInstitution;
+        loaded = true;
+      })
+  });
+
+</script>
+{#if loaded}
+  <FacultyForm defaultLanguage={currentInstitution.defaultLanguage}/>
+{:else}
+  <Spinner/>
+{/if}

@@ -12,6 +12,7 @@
       nameDutch,
       nameEnglish,
       entityId,
+      defaultLanguage,
       descriptionEnglish,
       descriptionDutch,
       imageEnglish,
@@ -58,7 +59,7 @@
 </script>
 
 {#if loaded}
-  <IssuerForm {issuer} {entityId} facultyChooseAllowed={false}
+  <IssuerForm {issuer} {entityId} facultyChooseAllowed={false} defaultLanguage={issuer.defaultLanguage}
               mayDelete={mayDelete} hasUnrevokedAssertions={hasUnrevokedAssertions}/>
 {:else}
   <Spinner/>

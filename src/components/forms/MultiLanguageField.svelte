@@ -33,6 +33,8 @@
   </Tab>
 </div>
 
+<slot name="before"/>
+
 {#if activeTab === "en"}
   <slot name="en"/>
 {/if}
@@ -40,4 +42,6 @@
 {#if activeTab === "nl"}
   <slot name="nl"/>
 {/if}
+
+<slot name="after"/>
 

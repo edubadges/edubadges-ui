@@ -11,6 +11,7 @@
   export let faculty = {};
   export let mayDelete;
   export let hasUnrevokedAssertions;
+  export let defaultLanguage;
 
   const entity = entityType.ISSUER_GROUP;
 
@@ -18,6 +19,8 @@
   let isCreate = !entityId;
   let showRemoveModal = false;
   let processing = false;
+  let englishValueError = false;
+  let dutchValueError = false
 
   function onSubmit() {
     processing = true;
@@ -38,6 +41,16 @@
       })
       .catch(err => err.then(({fields}) => {
         errors = fields.error_message;
+        if (errors.name_english || errors.description_english) {
+          englishValueError = true;
+        } else {
+          englishValueError = false;
+        }
+        if (errors.name_dutch || errors.description_dutch) {
+          dutchValueError = true;
+        } else {
+          dutchValueError = false;
+        }
         processing = false;
 
       }));
@@ -46,34 +59,25 @@
 
 <EntityForm faculty={ {...faculty, entityId} } submit={onSubmit} create={isCreate} {processing}
             {mayDelete} entityTypeName={entity} entityId={entityId} {hasUnrevokedAssertions}>
-
-<MultiLanguageField errorEnglish={errors.name_english} errorDutch={errors.name_dutch}
-                    initialTab={faculty.nameEnglish && !faculty.nameDutch ? "en" : "nl"}>
-  <div slot='en'>
-    <Field {entity} attribute="name_english" errors={errors.name_english} tipKey="facultyNameEn">
-      <TextInput bind:value={faculty.nameEnglish} error={errors.name_english} placeholder={I18n.t("placeholders.faculty.name")}/>
-    </Field>
-  </div>
-  <div slot='nl'>
-    <Field {entity} attribute="name_dutch" errors={errors.name_dutch} tipKey="facultyNameNl">
-      <TextInput bind:value={faculty.nameDutch} error={errors.name_dutch} placeholder={I18n.t("placeholders.faculty.name")}/>
-    </Field>
-  </div>
-</MultiLanguageField>
-<MultiLanguageField errorEnglish={errors.description_english} errorDutch={errors.description_dutch}
-                    initialTab={faculty.descriptionEnglish && !faculty.descriptionDutch ? "en" : "nl"}>
-  <div slot='en'>
-    <Field {entity} attribute="description_english" errors={errors.description_english} tipKey="facultyDescriptionEn">
-      <TextInput bind:value={faculty.descriptionEnglish} error={errors.description_english} area size="100"  placeholder={I18n.t("placeholders.faculty.description")}/>
-    </Field>
-  </div>
-  <div slot='nl'>
-    <Field {entity} attribute="description_dutch" errors={errors.description_dutch} tipKey="facultyDescriptionNl">
-      <TextInput bind:value={faculty.descriptionDutch} error={errors.description_dutch} area size="100"  placeholder={I18n.t("placeholders.faculty.description")}/>
-    </Field>
-  </div>
-</MultiLanguageField>
-
-
+  <MultiLanguageField errorEnglish={englishValueError} 
+                      errorDutch={dutchValueError}
+                      initialTab={defaultLanguage == 'en-US'? "en" : "nl"}>
+    <div slot='en'>
+      <Field {entity} attribute="name_english" errors={errors.name_english} tipKey="facultyNameEn">
+        <TextInput bind:value={faculty.nameEnglish} error={errors.name_english} placeholder={I18n.t("placeholders.faculty.name")}/>
+      </Field>
+      <Field {entity} attribute="description_english" errors={errors.description_english} tipKey="facultyDescriptionEn">
+        <TextInput bind:value={faculty.descriptionEnglish} error={errors.description_english} area size="100"  placeholder={I18n.t("placeholders.faculty.description")}/>
+      </Field>
+    </div>
+    <div slot='nl'>
+      <Field {entity} attribute="name_dutch" errors={errors.name_dutch} tipKey="facultyNameNl">
+        <TextInput bind:value={faculty.nameDutch} error={errors.name_dutch} placeholder={I18n.t("placeholders.faculty.name")}/>
+      </Field>
+      <Field {entity} attribute="description_dutch" errors={errors.description_dutch} tipKey="facultyDescriptionNl">
+        <TextInput bind:value={faculty.descriptionDutch} error={errors.description_dutch} area size="100"  placeholder={I18n.t("placeholders.faculty.description")}/>
+      </Field>
+    </div>
+  </MultiLanguageField>
 </EntityForm>
 
