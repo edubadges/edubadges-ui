@@ -442,7 +442,7 @@
       </Field>
       <p></p>
       {#if isInstitutionMBO}
-        <Field {entity} attribute="number" errors={errors.StudyLoadExtension} tipKey="badgeClassStudyLoadNumber">
+        <Field {entity} attribute="hours" errors={errors.StudyLoadExtension} tipKey="badgeClassStudyLoadNumber">
           <TextInput
             type="number"
             bind:value={extensions[studyLoad.name]}

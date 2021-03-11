@@ -551,6 +551,7 @@ I18n.translations.nl = {
       alignmentCode: "Code",
       alignmentDescription: "Omschrijving",
       number: "Aantal",
+      hours: "Uren",
       name: "Naam",
       description: "Beschrijving",
       about: "Over deze badge",

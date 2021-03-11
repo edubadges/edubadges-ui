@@ -551,6 +551,7 @@ I18n.translations.en = {
       alignmentCode: "Code",
       alignmentDescription: "Description",
       number: "Number",
+      hours: "Hours",
       name: "Name",
       description: "Description",
       about: "About this badge",
