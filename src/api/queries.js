@@ -1,6 +1,14 @@
 export const headerEntity = `
 	entityId,
 	name,
+	description,
+	createdAt
+`;
+
+export const headerEntityMultiLanguage = `
+	entityId,
+	nameDutch,
+	nameEnglish,
 	descriptionEnglish,
 	descriptionDutch,
 	createdAt

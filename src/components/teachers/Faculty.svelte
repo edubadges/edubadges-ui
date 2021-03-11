@@ -5,7 +5,7 @@
   import {Breadcrumb, EntityHeader, Issuers, FacultyUserManagement, InviteUser} from "../teachers";
   import {issuerIcon, userManagementIcon} from "../../icons";
   import {queryData} from "../../api/graphql";
-  import {headerStaff, headerEntity} from "../../api/queries";
+  import {headerStaff, headerEntityMultiLanguage} from "../../api/queries";
   import {entityType} from "../../util/entityTypes"
   import Spinner from "../Spinner.svelte";
   import {permissionsRole} from "../../util/rolesToPermissions";
@@ -22,14 +22,16 @@
 
   const query = `query ($entityId: String){
     faculty(id: $entityId) {
-      ${headerEntity},
+      ${headerEntityMultiLanguage},
       ${headerStaff},
       contentTypeId,
       institution {
-        name
+        nameEnglish,
+        nameDutch
       },
       issuers {
-        name,
+        nameEnglish,
+        nameDutch
         entityId,
         image,
         badgeclasses {
@@ -42,7 +44,8 @@
           }
         },
         faculty {
-          name
+          nameEnglish,
+          nameDutch
         }
       },
       permissions {

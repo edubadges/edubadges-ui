@@ -13,7 +13,7 @@
   } from "../teachers";
   import {issuerIcon, facultyIcon, userManagementIcon} from "../../icons";
   import {queryData} from "../../api/graphql";
-  import {headerStaff, headerEntity} from "../../api/queries";
+  import {headerStaff, headerEntityMultiLanguage} from "../../api/queries";
   import {Spinner} from "../index";
   import {InstitutionUserManagement} from "../teachers/";
   import {entityType} from "../../util/entityTypes"
@@ -32,10 +32,10 @@
 
   const query = `query {
     currentInstitution {
-      ${headerEntity},
+      ${headerEntityMultiLanguage},
       ${headerStaff},
-      name,
-      image,
+      imageEnglish,
+      imageDutch,
       gradingTable,
       brin,
       entityId,

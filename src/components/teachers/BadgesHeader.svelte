@@ -3,8 +3,7 @@
   import I18n from "i18n-js";
   import {HeaderList} from "../teachers";
   import {queryData} from "../../api/graphql";
-  import {headerEntity, headerStaff} from "../../api/queries";
-  import {expirationPeriod, formatAdminNames} from "../../util/entityHeader";
+  import {headerEntityMultiLanguage, headerStaff} from "../../api/queries";
   import {selectedEntity} from "../../stores/filterBadges";
   import RemoteImage from "../RemoteImage.svelte";
 
@@ -13,8 +12,9 @@
 
   const query = `query {
     currentInstitution {
-      image,
-      ${headerEntity},
+      imageEnglish,
+      imageDutch,
+      ${headerEntityMultiLanguage},
       ${headerStaff},
     }
   }`;
@@ -72,7 +72,7 @@
       justify-content: space-around;
     }
 
-      .content {
+    .content {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -97,6 +97,6 @@
   {/if}
   <div class="content">
     <p>{currentLanguage === 'en' ? entity.descriptionEnglish : entity.descriptionDutch}</p>
-    <HeaderList {headerItems} entity="institution" />
+    <HeaderList {headerItems} entity="institution"/>
   </div>
 </div>

@@ -1,18 +1,16 @@
 <script>
   import {onMount} from "svelte";
-  import {Router, Route, navigate} from "svelte-routing";
-  import {BadgeClassHeader, Breadcrumb, BadgeclassUserManagement, InviteUser} from "../teachers";
+  import {navigate, Route, Router} from "svelte-routing";
+  import {BadgeClassHeader, BadgeclassUserManagement, Breadcrumb, InviteUser} from "../teachers";
   import {Overview} from "./badgeclass";
-  import {badgeclassIcon} from "../../icons";
+  import {overview, userManagementIcon} from "../../icons";
   import {queryData} from "../../api/graphql";
-  import {headerStaff, headerEntity} from "../../api/queries";
-  import {expirationValueToPeriod} from "../extensions/badges/expiration_period";
+  import {headerStaff} from "../../api/queries";
   import I18n from "i18n-js";
   import {expirationPeriod} from "../../util/entityHeader";
   import {entityType} from "../../util/entityTypes"
   import Spinner from "../Spinner.svelte";
   import {permissionsRole} from "../../util/rolesToPermissions";
-  import {overview, userManagementIcon} from "../../icons";
 
   export let entityId;
   export let tab;
@@ -136,7 +134,7 @@
     padding: 40px 140px;
   }
 
-    @media (max-width: 1120px) {
+  @media (max-width: 1120px) {
     .overview-container {
       padding: 20px;
     }
