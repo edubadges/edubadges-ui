@@ -3,7 +3,7 @@
   import {onMount} from "svelte";
   import {navigate} from "svelte-routing";
   import {EntityForm} from "../teachers";
-  import {Field, Select, File, TextInput, AddButton} from "../forms";
+  import {AddButton, Field, File, Select, TextInput} from "../forms";
   import {createBadgeclass, editBadgeclass} from "../../api";
   import ExpirationSettings from "./ExpirationSettings.svelte";
   import {isEmpty} from "lodash";
@@ -19,7 +19,6 @@
   } from "../extensions/badges/extensions";
   import EctsCreditPoints from "../extensions/badges/EctsCreditPoints.svelte";
   import {setExpirationPeriod} from "../extensions/badges/expiration_period";
-  import {addAlignments} from "../extensions/badges/alignment";
   import {trash} from '../../icons';
   import {entityType} from "../../util/entityTypes";
   import {toHttpOrHttps} from "../../util/Url";
@@ -41,10 +40,11 @@
   let processing = false;
 
   let showStudyLoad = false;
+  let isInstitutionMBO = false;
   let showEducationalIdentifiers = false;
   let showAlignment = false;
   let showAddAlignmentButton = true;
-  
+
   onMount(() => {
     let reformattedAlignments = []
     if (!badgeclass.alignments) {
@@ -57,11 +57,12 @@
         target_description: alignment.targetDescription,
         target_framework: alignment.targetFramework,
         target_code: alignment.targetCode
-     }
-    reformattedAlignments.push(reformat)
+      }
+      reformattedAlignments.push(reformat)
     }
-    badgeclass.alignments = reformattedAlignments
-  })
+    badgeclass.alignments = reformattedAlignments;
+    isInstitutionMBO = institution.institutionType === "MBO";
+  });
 
   if (!isEmpty(badgeclass.alignments)) {
     showAlignment = true;
@@ -72,6 +73,11 @@
     {name: I18n.t(['models', 'badgeclass', 'ects', 'hours']), value: 'hours'},
   ];
   let ectsOrHoursSelection = ectsOrHours[0];
+
+  let sbu = [
+    {name: I18n.t(['models', 'badgeclass', 'sbu']), value: 'hours'}
+  ];
+  let sbuSelection = sbu[0];
 
   let errors = {};
 
@@ -105,7 +111,7 @@
       target_code: ""
     })
     if (badgeclass.alignments.length > 7) {
-        showAddAlignmentButton = false
+      showAddAlignmentButton = false
     }
     if (Object.keys(errors).length > 0) {
       if (errors.alignments) {
@@ -125,7 +131,7 @@
     }
     if (!badgeclass.alignments || badgeclass.alignments.length == 0) {
       showAlignment = false
-    } else if (badgeclass.alignments.length < 8){
+    } else if (badgeclass.alignments.length < 8) {
       showAddAlignmentButton = true
     }
     badgeclass.alignments = badgeclass.alignments
@@ -193,7 +199,7 @@
       newBadgeclass.extensions = {...newBadgeclass.extensions, ...educationalIdentifiers};
     }
     if (showStudyLoad) {
-      if (ectsOrHoursSelection.value === "hours") {
+      if (ectsOrHoursSelection.value === "hours" || isInstitutionMBO) {
         newBadgeclass.extensions = {
           ...newBadgeclass.extensions,
           ...extensionToJson([{name: studyLoad.name, value: parseInt(extensions[studyLoad.name])}])
@@ -327,7 +333,8 @@
       bind:period={badgeclass.expirationPeriod}/>
 
     <Field {entity} attribute="name" errors={errors.name} tipKey="badgeClassName">
-      <TextInput bind:value={badgeclass.name} disabled={!mayEdit} error={errors.name} placeholder={I18n.t("placeholders.badgeClass.name")}/>
+      <TextInput bind:value={badgeclass.name} disabled={!mayEdit} error={errors.name}
+                 placeholder={I18n.t("placeholders.badgeClass.name")}/>
     </Field>
 
     <Field {entity} attribute="language" errors={errors.language} tipKey="badgeClassLanguageOfInstruction">
@@ -407,40 +414,57 @@
     <div style="display: flex">
       <div class="deletable-title"><h4>{I18n.t('models.badgeclass.headers.studyLoad')}</h4></div>
       {#if institution.grondslagInformeel !== null}
-          {#if mayEdit}
-            <button class="rm-icon-container" on:click={() => showStudyLoad = false}>{@html trash}</button>
-          {:else}
-            <button class="rm-icon-container disabled" >{@html trash}</button>
-          {/if}
+        {#if mayEdit}
+          <button class="rm-icon-container" on:click={() => showStudyLoad = false}>{@html trash}</button>
+        {:else}
+          <button class="rm-icon-container disabled">{@html trash}</button>
+        {/if}
       {/if}
     </div>
 
     <div class="form">
-      <Field {entity} attribute="typeOfStudyLoad" errors={errors.type} tipKey="badgeClassTypeOfStudeLoad">
-        <Select
-          bind:value={ectsOrHoursSelection}
-          items={ectsOrHours}
-          disabled={!mayEdit}
-          optionIdentifier="value"
-          clearable={false}
-        />
+      <Field {entity} attribute="typeOfStudyLoad" errors={errors.type} tipKey="badgeClassTypeOfStudyLoad">
+        {#if isInstitutionMBO}
+          <Select
+            bind:value={sbuSelection}
+            items={sbu}
+            disabled={!mayEdit}
+            optionIdentifier="value"
+            clearable={false}/>
+        {:else}
+          <Select
+            bind:value={ectsOrHoursSelection}
+            items={ectsOrHours}
+            disabled={!mayEdit}
+            optionIdentifier="value"
+            clearable={false}/>
+        {/if}
       </Field>
       <p></p>
-      {#if ectsOrHoursSelection.value === 'creditPoints'}
+      {#if isInstitutionMBO}
+        <Field {entity} attribute="number" errors={errors.StudyLoadExtension} tipKey="badgeClassStudyLoadNumber">
+          <TextInput
+            type="number"
+            bind:value={extensions[studyLoad.name]}
+            error={errors.StudyLoadExtension}
+            disabled={!mayEdit}
+            placeholder={I18n.t("placeholders.badgeClass.studyLoad")}/>
+        </Field>
+      {:else if ectsOrHoursSelection.value === 'creditPoints'}
         <Field {entity} attribute="number" errors={errors.ectsLong} tipKey="badgeClassStudyLoadEcts">
-          <EctsCreditPoints 
+          <EctsCreditPoints
             bind:ectsValue={extensions[ects.name]}
-            disabled={!mayEdit} 
+            disabled={!mayEdit}
           />
         </Field>
       {:else}
         <Field {entity} attribute="number" errors={errors.StudyLoadExtension} tipKey="badgeClassStudyLoadNumber">
           <TextInput
-              type="number"
-              bind:value={extensions[studyLoad.name]}
-              error={errors.StudyLoadExtension}
-              disabled={!mayEdit}
-              placeholder={I18n.t("placeholders.badgeClass.studyLoad")}/>
+            type="number"
+            bind:value={extensions[studyLoad.name]}
+            error={errors.StudyLoadExtension}
+            disabled={!mayEdit}
+            placeholder={I18n.t("placeholders.badgeClass.studyLoad")}/>
         </Field>
       {/if}
     </div>
@@ -452,7 +476,7 @@
       {#if mayEdit}
         <button class="rm-icon-container" on:click={() => showEducationalIdentifiers = false}>{@html trash}</button>
       {:else}
-        <button class="rm-icon-container disabled" >{@html trash}</button>
+        <button class="rm-icon-container disabled">{@html trash}</button>
       {/if}
     </div>
 
@@ -498,11 +522,13 @@
     {#each badgeclass.alignments as alignment, i}
       {#if mayEdit}
         <div>
-          <button style="float:right;" class="rm-icon-container" on:click={() => removeAlignment(i) }>{@html trash}</button>
+          <button style="float:right;" class="rm-icon-container"
+                  on:click={() => removeAlignment(i) }>{@html trash}</button>
         </div>
       {/if}
       <div class="form">
-        <Field {entity} attribute="alignmentName" errors={errors.alignments? errors.alignments[i].target_name: [] } tipKey="badgeClassRelatedFrameworkName">
+        <Field {entity} attribute="alignmentName" errors={errors.alignments? errors.alignments[i].target_name: [] }
+               tipKey="badgeClassRelatedFrameworkName">
           <TextInput
             bind:value={alignment.target_name}
             disabled={!mayEdit}
@@ -510,7 +536,9 @@
             placeholder={I18n.t("placeholders.badgeClass.alignmentName")}
           />
         </Field>
-        <Field {entity} attribute="alignmentFramework" errors={errors.alignments? errors.alignments[i].target_framework: [] } tipKey="badgeClassRelatedFrameworkFramework">
+        <Field {entity} attribute="alignmentFramework"
+               errors={errors.alignments? errors.alignments[i].target_framework: [] }
+               tipKey="badgeClassRelatedFrameworkFramework">
           <TextInput
             bind:value={alignment.target_framework}
             disabled={!mayEdit}
@@ -518,7 +546,8 @@
             placeholder={I18n.t("placeholders.badgeClass.alignmentFramework")}
           />
         </Field>
-        <Field {entity} attribute="alignmentUrl" errors={errors.alignments? errors.alignments[i].target_url: []} tipKey="badgeClassRelatedFrameworkURL">
+        <Field {entity} attribute="alignmentUrl" errors={errors.alignments? errors.alignments[i].target_url: []}
+               tipKey="badgeClassRelatedFrameworkURL">
           <TextInput
             bind:value={alignment.target_url}
             disabled={!mayEdit}
@@ -526,7 +555,8 @@
             placeholder={I18n.t("placeholders.badgeClass.alignmentUrl")}
           />
         </Field>
-        <Field {entity} attribute="alignmentCode" errors={errors.alignments? errors.alignments[i].target_code: []} tipKey="badgeClassRelatedFrameworkCode">
+        <Field {entity} attribute="alignmentCode" errors={errors.alignments? errors.alignments[i].target_code: []}
+               tipKey="badgeClassRelatedFrameworkCode">
           <TextInput
             bind:value={alignment.target_code}
             disabled={!mayEdit}
@@ -534,7 +564,9 @@
             placeholder={I18n.t("placeholders.badgeClass.alignmentCode")}
           />
         </Field>
-        <Field {entity} attribute="alignmentDescription" errors={errors.alignments? errors.alignments[i].target_description: []} tipKey="badgeClassRelatedFrameworkDescription">
+        <Field {entity} attribute="alignmentDescription"
+               errors={errors.alignments? errors.alignments[i].target_description: []}
+               tipKey="badgeClassRelatedFrameworkDescription">
           <TextInput
             bind:value={alignment.target_description}
             error={errors.target_description}
@@ -546,7 +578,7 @@
         </Field>
       </div>
     {/each}
-      <span class="add-button">
+    <span class="add-button">
         <AddButton
           text={I18n.t('models.badgeclass.addButtons.alignmentAddition')}
           handleClick={() => addEmptyAlignment()}

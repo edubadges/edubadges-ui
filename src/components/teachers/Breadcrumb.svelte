@@ -88,12 +88,12 @@
     <a use:link href="/manage/institution">{institutionName}</a>
   {/if}
 
-  {#if faculty}
+  {#if faculty && faculty.name}
     <span class="crumb">{@html chevronRightSmall}</span>
     <a use:link href={`/manage/faculty/${faculty.entityId}`}>{faculty.name}</a>
   {/if}
 
-  {#if issuer}
+  {#if issuer && issuer.name}
     <span class="crumb">{@html chevronRightSmall}</span>
     <a use:link href={`/manage/issuer/${issuer.entityId}`}>{issuer.name}</a>
   {/if}

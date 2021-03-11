@@ -572,6 +572,7 @@ I18n.translations.en = {
         creditPoints: "Credit points (according to ECTS)",
         hours: "Hours"
       },
+      sbu: "Studie Belasting Uren",
       ectsLong: "European Credit Transfer and Accumulation System",
       typeOfStudyLoad: "Type of study load",
       eqf: "NLQF level",
@@ -930,8 +931,9 @@ I18n.translations.en = {
     badgeClassIsPrivate: "If checked, this badgeclass will not appear in the catalog. Note that you cannot award edubadges from a private badgeclass.",
     //badgeClassCriteriaRequirements: "badgeClassCriteriaRequirements",
     //badgeClassCriteriaUrl: "badgeClassCriteriaUrl",
-    //badgeClassTypeOfStudeLoad: "badgeClassTypeOfStudeLoad",
+    //badgeClassTypeOfStudyLoad: "badgeClassTypeOfStudyLoad",
     //badgeClassStudyLoadNumber: "badgeClassStudyLoadNumber",
+    //badgeClassSBUNumber: "badgeClassSBULoadNumber",
     //badgeClassStudyLoadEcts: "badgeClassStudyLoadEcts",
     //badgeClassProgrammeIdentifier: "badgeClassProgrammeIdentifier",
     //badgeClassNLQFLevel: "badgeClassNLQFLevel",

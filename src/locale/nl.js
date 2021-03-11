@@ -572,6 +572,7 @@ I18n.translations.nl = {
         creditPoints: "Studiepunten (ECTS)",
         hours: "Uren"
       },
+      sbu: "Study Belasting Hours",
       ectsLong: "European Credit Transfer and Accumulation System",
       typeOfStudyLoad: "Soort studielast",
       eqf: "NLQF niveau",
@@ -930,8 +931,9 @@ I18n.translations.nl = {
     badgeClassIsPrivate: "Indien aangevinkt zal deze badge-klasse niet in de catalogus verschijnen. Houd er rekening mee dat er van privébadge-klassen geen edubadges kunnen worden uitgegeven.",
     //badgeClassCriteriaRequirements: "badgeClassCriteriaRequirements",
     //badgeClassCriteriaUrl: "badgeClassCriteriaUrl",
-    //badgeClassTypeOfStudeLoad: "badgeClassTypeOfStudeLoad",
+    //badgeClassTypeOfStudyLoad: "badgeClassTypeOfStudyLoad",
     //badgeClassStudyLoadNumber: "badgeClassStudyLoadNumber",
+    //badgeClassSBUNumber: "badgeClassSBULoadNumber",
     //badgeClassStudyLoadEcts: "badgeClassStudyLoadEcts",
     //badgeClassProgrammeIdentifier: "badgeClassProgrammeIdentifier",
     //badgeClassNLQFLevel: "badgeClassNLQFLevel",
