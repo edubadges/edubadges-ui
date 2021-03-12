@@ -4,10 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [3.0.0] - 
-- Added public catalog
-- Adds multilanguage fields for Institution, Issuer Group & Issuer
-- Can now add multiple Related Educational Frameworks to a badgeclass
+## [3.0.0] - 2021-03-15
+- Added public catalog for an overview of all badge classes in edubadges.
+- Adds multilanguage fields for Institution, Issuer Group & Issuer.
+- Can now add multiple (max 8) Related Educational Frameworks to a badge class.
+- Can now add narrative / evidence metadata when awarding an edubadge.
+- MBO institutions can now select SBU instead of ECTS for study-load.
+- Grading-table field is not a required field for MBO institutions.
+- A badge class can be set private if you don't want it to be viewable in the badge class catalog.
+- Backpack: The eduID is exposed completely.
+- Backpack: Option to make the narrative/evidence metadata public or not.
 
 ## [2.1.3] - 2021-03-01
 - Added listview in overview of badgeclasses.
