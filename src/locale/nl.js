@@ -14,28 +14,36 @@ I18n.translations.nl = {
     nav: {
       badgeclasses: "Badge classes",
       manage: "Beheer",
-      users: "Gebruikers"
+      users: "Gebruikers",
+      catalog: "Catalogus"
     },
   },
   login: {
     title: "Never stop learning",
     loginToEnrol: "Login om deze edubadge aan te vragen",
-    destination: "Waar wil je heen?",
+    loginToEnrolInfo: "<strong>Let op!</strong> Je kan deze badge alleen aanvragen als je staat ingeschreven bij <strong>{{name}}</strong>.",
+    destination: "Wat zou je willen doen?",
     description:
       "Edubadges zijn digitale certificaten die aantonen dat de eigenaar bepaalde vaardigheden of kennis heeft verworven. Edubadges kunnen worden uitgereikt voor zowel geaccrediteerd onderwijs als extracurriculaire activiteiten.",
     student: {
-      title: "Backpack",
-      subtitle: "Ontvang en verzamel edubadges",
-      noEduId: "Als je nog geen eduID hebt, dan helpen we je om er één aan te maken. Dit duurt minder dan 30 seconden.",
-      action: "Login met eduID",
+      title: "<strong style='font-size: 38px'>C</strong>ollect",
+      subtitle: "De backpack is de plek om  edubadges te ontvangen en verzamelen",
+      noEduId: "Een eduID is nodig om je backpack aan te maken en te gebruuken. Het maken van een eduID duurt minder dan 30 seconden.",
+      action: "Open je backpack",
+    },
+    catalog: {
+      title: "<strong style='font-size: 38px'>B</strong>rowse",
+      subtitle: "Momenteel zijn er {{badgeInstancesCount}} edubadges uitgegeven door de instellingen.",
+      info: "De catalogus toont alle badge classes van alle instellingen die edubadges gebruiken.",
+      beta: "Beta",
+      action: "Open de catalogus",
     },
     teacher: {
-      title: "Issuer portaal ",
-      subtitle: "Ken edubadges toe",
-      action: "Login met SURFconext",
+      title: "<strong style='font-size: 38px'>A</strong>ward",
+      subtitle: "Ken edubadges toe aan je studenten, de micro credentials van de toekomst.",
+      action: "Open het issuer portaal",
       accountCreation: {
-        askAccount: "Nog <strong>geen</strong> toegang?",
-        startAccount: "Neem contact op met je beheerder bij jouw instelling.",
+        askAccount: "De issuer portaal is alleen beschikbaar op uitnodiging. Als je binnen wilt komen, maar nog geen toegang hebt, neem dan contact op met je beheerder bij jouw instelling.",
       },
       byInviteOnly: "Alleen op uitnodiging"
     },
@@ -109,6 +117,10 @@ I18n.translations.nl = {
       filters: {
         faculties: "Issuer groepen",
         issuers: "Issuers",
+        educations: "Educatie niveau level",
+        institutions: "Instelling",
+        studyLoads: "Studyload",
+        eqfs: "NLQF niveau",
         roles: "Rollen (hoogste)",
         show_all: "Toon meer",
         show_less: "Toon minder",
@@ -188,6 +200,7 @@ I18n.translations.nl = {
       private: "Maak deze edubadge privé",
       publishConfirmation: "Weet je zeker dat je deze edubadge publiek zichtbaar wilt maken?<b/><br/>Als je deze edubadge publiek maakt, wordt je gevalideerde naam <strong>{{name}}</strong> weergegeven in het validatiegedeelte van de openbare badge-webpagina.",
       privateConfirmation: "Weet je het zeker dat je deze edubadge privé wilt maken",
+      publishEvidenceConfirmation: "Wil je het bewijs sectie ook toevoegen aan de publiek beschikbare informatie?",
       deleteBadgeConfirmation: "Weet je het zeker dat je deze edubadge wilt weigeren?",
       acceptBadgeConfirmation: "Weet je het zeker dat je deze edubadge wilt accepteren?",
     },
@@ -312,8 +325,8 @@ I18n.translations.nl = {
     212: "Toegekende aanvragen kunnen niet afgewezen worden.",
     213: "Kan voor deze aanvraag geen edubadge uitgeven, dit is al gebeurd.",
     214: "Je kunt niets aanpassen, er zijn al edubadges uitgegeven binnen deze badge class.",
-    215: "Het is niet mogelijk een formele badgeclass aan te maken voor een instelling die geen grondslag heeft voor formele badges.",
-    216: "Het is niet mogelijk een informele badgeclass aan te maken voor een instelling die geen grondslag heeft voor informele badges.",
+    215: "Het is niet mogelijk een formele badge class aan te maken voor een instelling die geen grondslag heeft voor formele badges.",
+    216: "Het is niet mogelijk een informele badge class aan te maken voor een instelling die geen grondslag heeft voor informele badges.",
     500: "Kan niet de laatste permissie van de instelling verwijderen.",
     501: "Je kunt maar één uitnodiging hebben per emailadres.",
     502: "Kan de gebruiker niet uitnodigen voor deze entiteit: er is een conflicterende permissie.",
@@ -335,11 +348,26 @@ I18n.translations.nl = {
     904: "Geen bestand gekozen.",
     905: "Invullen van criteria of van criteria URL is verplicht.",
     906: "Vul een getal in voor studiebelastingsuren of verwijder deze rubriek.",
+    907: "Dit is een gereserveerde naam voor badge classes",
+    908: "Kan een Issuer met deze Engelse naam niet aanmaken in deze Issuer group. Er bestaat er al een met dezelfde Engelse naam.",
     909: "Vul de opleidingscode of verwijder deze rubriek.",
-    907: "Dit is een gereserveerde naam voor badgeclasses",
-    908: "Kan een Issuer met deze naam niet aanmaken in deze Issuer group. Er bestaat er al een met dezelfde naam.",
     910: "Invullen van narratief of van URL is verplicht.",
-    911: "Kan een Badgeclass met deze naam niet aanmaken in deze Issuer. Er bestaat er al een met dezelfde naam.",
+    911: "Kan een badge class met deze naam niet aanmaken in deze Issuer. Er bestaat er al een met dezelfde naam.",
+    912: "Invullen van een Nederlandse naam is verplicht.",
+    913: "Invullen van een Nederlandse beschrijving is verplicht.",
+    914: "Kan een Issuer met deze Nederlandse naam niet aanmaken in deze Issuer group. Er bestaat er al een met dezelfde Nederlandse naam.",
+    915: "Invullen van een Nederlandse url is verplicht.",
+    916: "Kan een Issuer Groep met deze Nederlandse naam niet aanmaken in deze instelling. Er bestaat er al een met dezelfde Nederlandse naam.",
+    917: "Kan een Issuer Groep met deze Engelse naam niet aanmaken in deze instelling. Er bestaat er al een met dezelfde Engelse naam.",
+    918: "Invullen van een Nederlands logo is verplicht.",
+    919: "Kan een instelling met deze Nederlandse naam niet aanmaken. Er bestaat er al een met dezelfde Nederlandse naam.",
+    920: "Kan een instelling met deze Engelse naam niet aanmaken. Er bestaat er al een met dezelfde Engelse naam.",
+    921: "Ongeldige URL",
+    922: "Te veel Gerelateerd onderwijskundig raamwerk objecten. De maximum is 8.",
+    923: "Invullen van een Engelse url is verplicht.",
+    924: "Invullen van een Engelse naam is verplicht.",
+    925: "Invullen van een Engelse beschrijving is verplicht.",
+    926: "Invullen van een Engels logo is verplicht.",
     unexpected: "Oeps, er is iets totaal onverwachts en onverklaarbaars gebeurd.",
     description: "Een onverwachte fout is opgetreden. Probeer het opnieuw of neem contact op met support@edubadges.nl voor ondersteuning.",
     close: "Sluit"
@@ -473,8 +501,10 @@ I18n.translations.nl = {
       description_english: "Beschrijving in het Engels",
       description_dutch: "Beschrijving in het Nederlands",
       grading_table: "Grading table",
-      image: "Logo",
-      name: "Naam",
+      image_english: "Logo in het Engels",
+      image_dutch: "Logo in het Nederlands",
+      name_english: "Naam in het Engels",
+      name_dutch: "Naam in het Nederlands",
     },
     faculty: {
       created: "Aangemaakt",
@@ -483,6 +513,8 @@ I18n.translations.nl = {
       description_english: "Beschrijving in het Engels",
       description_dutch: "Beschrijving in het Nederlands",
       name: "Naam",
+      name_english: "Naam in het Engels",
+      name_dutch: "Naam in het Nederlands",
     },
     issuer: {
       description: "Over deze issuer",
@@ -492,10 +524,14 @@ I18n.translations.nl = {
       created: "Aangemaakt",
       admin: "Admin",
       email_header: "Contact",
+      image_dutch: "Issuer Logo Nederlands",
+      image_english: "Issuer Logo Engels",
+      name_dutch: "Naam in het Nederlands",
+      name_english: "Naam in het Engels",
       url_header: "Website",
-      image: "Logo",
-      name: "Naam",
       url: "Website URL",
+      url_dutch: "Website URL voor de Nederlandse taal",
+      url_english: "Website URL voor de Engelse taal",
       faculty: "Groep",
       gradingTable: "Instelling grading table URL",
       institutionName: "Instelling naam",
@@ -506,6 +542,7 @@ I18n.translations.nl = {
       image: "Edubadge afbeelding",
       created: "Aangemaakt",
       issuedBy: "Uitgegeven door",
+      of: "van",
       admin: "Admin",
       alignment: "Gerelateerd onderwijskundig raamwerk",
       alignmentName: "Naam",
@@ -514,8 +551,10 @@ I18n.translations.nl = {
       alignmentCode: "Code",
       alignmentDescription: "Omschrijving",
       number: "Aantal",
+      hours: "Uren",
       name: "Naam",
       description: "Beschrijving",
+      about: "Over deze badge",
       criteria_text: "Aan welke criteria moet je voldoen om in aanmerking te komen voor deze edubadge?",
       criteria_url: "Of geef een link naar de criteria of meer informatie",
       criteria_url_value: "Link naar de criteria en meer informatie:",
@@ -527,13 +566,14 @@ I18n.translations.nl = {
       expiresAfterValue: "{{nbr}} weken",
       expireSettings: "Standaard verloop setting",
       language: "Taal van het onderwijs",
-      isPrivate: "Private",
+      isPrivate: "Privé badge class",
       learningOutcome: "Leeruitkomst",
       studyLoad: "Studielast",
       ects: {
         creditPoints: "Studiepunten (ECTS)",
         hours: "Uren"
       },
+      sbu: "Study Belasting Hours",
       ectsLong: "European Credit Transfer and Accumulation System",
       typeOfStudyLoad: "Soort studielast",
       eqf: "NLQF niveau",
@@ -558,6 +598,7 @@ I18n.translations.nl = {
         educationalIdentifiers: "Opleidingscode(s) toevoegen",
         studyLoad: "Studielast toevoegen",
         alignment: "Gerelateerd onderwijskundig raamwerk toevoegen",
+        alignmentAddition: "Nog een gerelateerd onderwijskundig raamwerk toevoegen",
       },
       info: {
         educationProgramIdentifier:
@@ -619,6 +660,8 @@ I18n.translations.nl = {
       award: "Ken toe",
       denied: "Geweigerd",
       deny: "Weiger verzoek",
+      addEvidence: "+ Voeg bewijs toe",
+      removeEvidence: "- Verwijder bewijs",
       enrollmentType: {
         name: "Type aanvraag",
         enrolled: "Zelf aangevraagd",
@@ -628,8 +671,15 @@ I18n.translations.nl = {
         award: "Ken inschrijving toe",
         awardConfirmation: "Weet je zeker dat je deze inschrijving wilt toekennen?",
         deny: "Wijs inschrijving af",
-        denyConfirmation: "Weet je zeker dat je deze inschrijving wilt afwijzen?"
+        denyConfirmation: "Weet je zeker dat je deze inschrijving wilt afwijzen?",
       },
+      awardButton: "Toekennen",
+      evidence: "Optionele beschrijvende metadata over het bewijs met betrekking tot de uitgifte van de toegekende edubadge.",
+      evidenceHeader: "Metadata over het bewijs gerelateerd aan deze edubadge",
+      evidenceNarrative: "Narrative",
+      evidenceURL: "URL",
+      evidenceDescription: "Beschrijving",
+      evidenceName: "Naam",
       flash: {
         denied: "De inschrijving(en) zijn afgewezen.",
         awarded: "De inschrijving(en) zijn toegekend."
@@ -837,6 +887,12 @@ I18n.translations.nl = {
     },
     userManagement: {
       email: "Bijv. john.doe@example.com"
+    },
+    enrollment: {
+      evidenceNarrative: "e.g. badge class omschrijving",
+      evidenceURL: "e.g. https://university.psychology",
+      evidenceName: "e.g. Introductie Pysychology",
+      evidenceDescription: "e.g. Lange omschrijving van de assertion"
     }
   },
   eye: {
@@ -873,11 +929,12 @@ I18n.translations.nl = {
     badgeClassLanguageOfInstruction: "De voertaal die gebruikt is bij het behalen van deze edubadge. ",
     badgeClassLearningOutcome: "Beschrijf de leeruitkomst of het leerdoel. Vastgelegd in de Onderwijs- en examenregeling. Sluit mogelijk aan op de Tuning-methodiek.",
     //badgeClassLearningIssuer: "badgeClassLearningIssuer",
-    //badgeClassIsPrivate: "Indien aangevinkt zal deze badge-klasse niet in de catalogus verschijnen. Houd er rekening mee dat privébadge-klassen geen assertions kunnen hebben.",
+    badgeClassIsPrivate: "Indien aangevinkt zal deze badge-klasse niet in de catalogus verschijnen. Houd er rekening mee dat er van privébadge-klassen geen edubadges kunnen worden uitgegeven.",
     //badgeClassCriteriaRequirements: "badgeClassCriteriaRequirements",
     //badgeClassCriteriaUrl: "badgeClassCriteriaUrl",
-    //badgeClassTypeOfStudeLoad: "badgeClassTypeOfStudeLoad",
+    //badgeClassTypeOfStudyLoad: "badgeClassTypeOfStudyLoad",
     //badgeClassStudyLoadNumber: "badgeClassStudyLoadNumber",
+    //badgeClassSBUNumber: "badgeClassSBULoadNumber",
     //badgeClassStudyLoadEcts: "badgeClassStudyLoadEcts",
     //badgeClassProgrammeIdentifier: "badgeClassProgrammeIdentifier",
     //badgeClassNLQFLevel: "badgeClassNLQFLevel",
@@ -902,10 +959,41 @@ I18n.translations.nl = {
     //institutionDescriptionNl: "institutionDescriptionNl",
     //institutionBrin: "institutionBrin",
     institutionGradingTable: "Gebruik hier een URL die niet zal veranderen. (persistent URL).",
+    enrollmentEvidenceNarrative: "Een verhaal dat het bewijs en het proces van prestatie beschrijft dat tot een bewering heeft geleid.",
+    enrollmentEvidenceURL: "De URL van een webpagina met bewijs van prestatie.",
+    enrollmentEvidenceName: "Een beschrijvende titel van het bewijs.",
+    enrollmentEvidenceDescription: "Een langere beschrijving van het bewijs.",
   },
   badgeOverview : {
     faculty: "Faculteit",
     issuer: "Vakgroup",
+  },
+  catalog: {
+    name: "Catalogus",
+    education: {
+      WO: "WO",
+      HBO: "HBO",
+      MBO: "MBP",
+      NONE: "Unspecified"
+    },
+    studyLoad: {
+        NO_STUDYLOAD: "Geen studyload",
+        ECTS_0_5: "0-5 ECTS (WO/HBO)",
+        ECTS_6_10: "6-10 ECTS (WO/HBO)",
+        ECTS_10_MORE: "> 10 ECTS (WO/HBO)",
+        HOURS_0_60: "0-60 hours (WO/HBO)",
+        HOURS_61_120: "61-120 hours (WO/HBO)",
+        HOURS_120_MORE: "> 120 hours (WO/HBO)"
+    },
+    eqf: {
+      eqfNone: "Geen NLQF level",
+      eqf: "NLQF niveau {{level}}",
+    },
+    issuer: {
+      contact: "Contact de issuer",
+      website: "Bezoek issuer website",
+      gradingTable: "Bekijk de grading tabel",
+      institution: "<span>Onderdeel van <a href=\"{{link}}\" target=\"_blank\">{{name}}</a></span>"
+    }
   }
-
 };

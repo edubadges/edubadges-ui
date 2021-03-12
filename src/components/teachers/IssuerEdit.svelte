@@ -9,11 +9,16 @@
   const query = `query ($entityId: String){
     issuer(id: $entityId) {
       name,
+      nameDutch,
+      nameEnglish,
       entityId,
+      defaultLanguage,
       descriptionEnglish,
       descriptionDutch,
-      image,
-      url,
+      imageEnglish,
+      imageDutch,
+      urlEnglish,
+      urlDutch,
       email,
       faculty {
         name,
@@ -45,11 +50,8 @@
       issuer = res.issuer;
       permissions = res.issuer.permissions;
 
-      hasUnrevokedAssertions = issuer.badgeclasses.some(function (badgeclass) {
-        return badgeclass.badgeAssertions.filter(function(assertion){
-          return assertion.revoked == false
-          }).length > 0
-      });
+      hasUnrevokedAssertions = issuer.badgeclasses
+        .some(badgeclass => badgeclass.badgeAssertions.some(assertion => !assertion.revoked));
       mayDelete = permissions && permissions.mayDelete;
       loaded = true;
     })
@@ -57,7 +59,7 @@
 </script>
 
 {#if loaded}
-  <IssuerForm {issuer} {entityId} facultyChooseAllowed={false}
+  <IssuerForm {issuer} {entityId} facultyChooseAllowed={false} defaultLanguage={issuer.defaultLanguage}
               mayDelete={mayDelete} hasUnrevokedAssertions={hasUnrevokedAssertions}/>
 {:else}
   <Spinner/>

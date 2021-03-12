@@ -1,8 +1,3 @@
-export const toHttpOrHttps = url => {
-  if(url) return isHttpOrHttps(url) ? url : "https://" + url;
-  return url;
-};
+export const toHttpOrHttps = url => url ? (isHttpOrHttps(url) ? url : "https://" + url) : url;
 
-const isHttpOrHttps = url => {
-  return url.substr(0, 7) === "http://" || url.substr(0, 8) === "https://"
-};
+const isHttpOrHttps = url => url && (url.startsWith("http://") || url.startsWith("https://"));

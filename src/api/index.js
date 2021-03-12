@@ -2,7 +2,6 @@ import {get} from "svelte/store";
 import {authToken, showMainErrorDialog} from "../stores/user";
 import {config} from "../util/config";
 import {entityType} from "../util/entityTypes";
-import {userTree} from "../stores/filterUsers";
 
 //Internal API
 const serverUrl = config.serverUrl;
@@ -143,25 +142,32 @@ export function withdrawRequestBadge(enrollmentID) {
 }
 
 export function logoutCurrentUser() {
-  return validFetch(`${serverUrl}/user/socialaccounts/logout`, {}, "POST",true, false);
+  return validFetch(`${serverUrl}/user/socialaccounts/logout`, {}, "POST", true, false);
 }
 
 // Teacher badges
-export function awardBadges(badgeId, enrollmentIds) {
+export function awardBadges(badgeId, enrollmentIds, useEvidence, narrative, url, name, description) {
   const path = `${serverUrl}/issuer/badgeclasses/award-enrollments/${badgeId}`;
-  return validFetch(
-    path,
-    {
-      body: JSON.stringify({
-        "issue_signed": false,
-        "create_notification": true,
-        "enrollments": enrollmentIds.map(el => {
-          return {"enrollment_entity_id": el}
-        })
-      })
-    },
-    "POST"
-  )
+  const body = {
+    "issue_signed": false,
+    "create_notification": true,
+    "enrollments": enrollmentIds.map(el => {
+      const res = {"enrollment_entity_id": el};
+      if (useEvidence) {
+        res.evidence_items = [{
+          "evidence_url": url,
+          "narrative": narrative,
+          "name": name,
+          "description": description
+        }];
+        if (narrative) {
+          res.narrative = narrative;
+        }
+      }
+      return res;
+    })
+  };
+  return validFetch(path, {body: JSON.stringify(body)}, "POST");
 }
 
 export function denyBadge(enrollmentEntityId) {
@@ -188,11 +194,11 @@ export function deleteAssertion(assertionEntityId) {
   );
 }
 
-export function publicAssertion(assertionEntityId, isPublic) {
+export function publicAssertion(assertionEntityId, isPublic, includeEvidence) {
   const path = `${serverUrl}/earner/badges/${assertionEntityId}`;
   return validFetch(
     path,
-    {body: JSON.stringify({"public": isPublic})},
+    {body: JSON.stringify({"public": isPublic, "include_evidence": includeEvidence})},
     "PUT"
   );
 }
@@ -275,7 +281,7 @@ export function deleteEntity(entityTypeName, entityId) {
 
 // Public
 export function getPublicInstitution(entityId) {
-  const path= `${serverUrl}/public/institutions/${entityId}`;
+  const path = `${serverUrl}/public/institutions/${entityId}`;
   return validFetch(path, {}, "GET", false);
 }
 

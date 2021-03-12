@@ -1,6 +1,5 @@
 import { permissionRoleValue } from "./permissionRolesToValue";
 import { staffType } from "./staffTypes";
-import { attr } from "svelte/internal";
 import { getPendingEnrollmentsCount } from "./issuerGroupPendingEnrollments";
 
 export const sortType = {

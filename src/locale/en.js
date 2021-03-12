@@ -14,28 +14,36 @@ I18n.translations.en = {
     nav: {
       badgeclasses: "Badge classes",
       manage: "Manage",
-      users: "Users"
+      users: "Users",
+      catalog: "Catalog"
     },
   },
   login: {
     title: "Never stop learning",
     loginToEnrol: "Login to request this edubadge",
-    destination: "Where do you want to go?",
+    loginToEnrolInfo: "<strong>Attention!</strong> You can only request this badge if you are registered by <strong>{{name}}</strong>.",
+    destination: "What would you like to do?",
     description:
       "Edubadges are digital certificates which show that the owner has acquired certain skills or knowledge. Edubadges can be issued for both accredited education and extracurriculair activities.",
     student: {
-      title: "Backpack",
-      subtitle: "Receive and collect edubadges",
-      noEduId: "If you don't have an eduID yet, we'll help you get one. This takes less than 30 seconds",
-      action: "Enter with eduID",
+      title: "<strong style='font-size: 38px'>C</strong>ollect",
+      subtitle: "A backpack is the pace to receive and collect edubadges.",
+      noEduId: "An eduID is needed to create and use your backpack. Creating an eduID takes less than 30 seconds",
+      action: "Open your backpack",
+    },
+    catalog: {
+      title: "<strong style='font-size: 38px'>B</strong>rowse",
+      subtitle: "At this moment {{badgeInstancesCount}} edubadges have been awarded by the institutions.",
+      info: "The catalog shows all the badgeclasses of all institutions using edubadges.",
+      beta: "Beta",
+      action: "Open the catalog",
     },
     teacher: {
-      title: "Issuer portal",
-      subtitle: "Award edubadges",
-      action: "Enter with SURFconext",
+      title: "<strong style='font-size: 38px'>A</strong>ward",
+      subtitle: "Award your students with edubadges, the micro credentials of the future.",
+      action: "Open the issuer portal",
       accountCreation: {
-        askAccount: "<strong>Don't</strong> have access?",
-        startAccount: "Contact your institution admin",
+        askAccount: "The issuer portal is by invite only. If you want to enter, but don't have access, please contact your institution admin.",
       },
       byInviteOnly: "By invite only"
     },
@@ -109,6 +117,10 @@ I18n.translations.en = {
       filters: {
         faculties: "Issuer groups",
         issuers: "Issuers",
+        educations: "Educational level",
+        institutions: "Institution",
+        studyLoads: "Studyload",
+        eqfs: "NLQF level",
         roles: "Roles (highest)",
         show_all: "Show all",
         show_less: "Show less",
@@ -187,6 +199,7 @@ I18n.translations.en = {
       publish: "Make this edubadge publicly visible",
       private: "Make this edubadge private",
       publishConfirmation: "Are you sure you want to make this edubadge publicly visible?<br/><br/>If you make this edubadge public then your validated name <strong>{{name}}</strong> will be displayed in the validation section of the public edubadge webpage.",
+      publishEvidenceConfirmation: "Do you want to include the evidence in the publicly available information?",
       privateConfirmation: "Are you sure you want to make this edubadge private?",
       deleteBadgeConfirmation: "Are you sure you want to reject this edubadge?",
       acceptBadgeConfirmation: "Are you sure you want to accept this edubadge?",
@@ -209,8 +222,8 @@ I18n.translations.en = {
       badgeclasses: "Badge classes",
       badgeclassOverview: "Overview",
       userManagement: "User management",
-      enrollments: "Requested",
-      assertions: "Awarded",
+      enrollments: "Requested ",
+      assertions: "Awarded ",
       profile: "Profile"
     },
     edit: {
@@ -335,11 +348,26 @@ I18n.translations.en = {
     904: "No file was uploaded.",
     905: "Either criteria or criteria URL is required.",
     906: "Enter the number of study load hours or remove this section.",
-    909: "Enter the programme identifier or remove this section.",
     907: "This is a reserved name for badgeclasses",
-    908: "Cannot create Issuer with this name in this issuer group. It already exists.",
+    908: "Cannot create Issuer with this English name in this issuer group. It already exists.",
+    909: "Enter the programme identifier or remove this section.",
     910: "Either url or narrative is required.",
     911: "Cannot create Badgeclass with this name in this Issuer. It already exists.",
+    912: "A Dutch name is required.",
+    913: "A Dutch description is required.",
+    914: "Cannot create Issuer with this Dutch name in this issuer group. It already exists.",
+    915: "A Dutch url is required.",
+    916: "Cannot create Issuer Group with this Dutch name in this institution. It already exists.",
+    917: "Cannot create Issuer Group with this English name in this institution. It already exists.",
+    918: "A Dutch image is required.",
+    919: "Cannot create Institution with this Dutch name. It already exists.",
+    920: "Cannot create Institution with this English name. It already exists.",
+    921: "Invalid URL",
+    922: "Too many Related Educational Framework objects. The maximum is 8.",
+    923: "An English url is required.",
+    924: "An English name is required.",
+    925: "An English description is required.",
+    926: "An English image is required.",
     unexpected: "Unexpected error occurred.",
     description: "An unexpected error has occurred. Please try again later or contact support@edubadges.nl for support.",
     close: "Close"
@@ -473,8 +501,10 @@ I18n.translations.en = {
       description_english: "Description in English",
       description_dutch: "Description in Dutch",
       grading_table: "Grading table",
-      image: "Institution logo",
-      name: "Institution name",
+      image_english: "Institution logo English",
+      image_dutch: "Institution logo Dutch",
+      name_english: "Institution name in English",
+      name_dutch: "Institution name in Dutch",
     },
     faculty: {
       created: "Created",
@@ -483,6 +513,8 @@ I18n.translations.en = {
       description_english: "Description in English",
       description_dutch: "Description in Dutch",
       name: "Issuer group name",
+      name_english: "Issuer group English name",
+      name_dutch: "Issuer group Dutch name",
     },
     issuer: {
       description: "About this issuer",
@@ -492,10 +524,14 @@ I18n.translations.en = {
       created: "Created",
       admin: "Admin",
       email_header: "Contact",
+      image_dutch: "Issuer Logo Dutch",
+      image_english: "Issuer Logo English",
+      name_dutch: "Name in Dutch",
+      name_english: "Name in English",
       url_header: "Website",
-      image: "Issuer Logo",
-      name: "Name",
       url: "Website URL",
+      url_dutch: "Website URL for Dutch language",
+      url_english: "Website URL for English language",
       faculty: "Issuer group",
       gradingTable: "Institution grading table URL",
       institutionName: "Institution name",
@@ -506,6 +542,7 @@ I18n.translations.en = {
       image: "Edubadge image",
       created: "Created",
       issuedBy: "Issued by",
+      of: "of",
       admin: "Admin",
       alignment: "Related educational framework",
       alignmentName: "Name",
@@ -514,8 +551,10 @@ I18n.translations.en = {
       alignmentCode: "Code",
       alignmentDescription: "Description",
       number: "Number",
+      hours: "Hours",
       name: "Name",
       description: "Description",
+      about: "About this badge",
       criteria_text: "What are the requirements to qualify for this edubadge?",
       criteria_url: "Or provide a link to a webpage with the criteria or more information",
       criteria_url_value: "Link to the criteria for earning this edubadge:",
@@ -527,13 +566,14 @@ I18n.translations.en = {
       expiresAfterValue: "{{nbr}} weeks",
       expireSettings: "Default expiration settings",
       language: "Language of instruction",
-      isPrivate: "Private",
+      isPrivate: "Private badgeclass",
       learningOutcome: "Learning outcome",
       studyLoad: "Study load",
       ects: {
         creditPoints: "Credit points (according to ECTS)",
         hours: "Hours"
       },
+      sbu: "Studie Belasting Uren",
       ectsLong: "European Credit Transfer and Accumulation System",
       typeOfStudyLoad: "Type of study load",
       eqf: "NLQF level",
@@ -558,6 +598,7 @@ I18n.translations.en = {
         educationalIdentifiers: "Add educational identifier(s)",
         studyLoad: "Add study load",
         alignment: "Add related educational framework",
+        alignmentAddition: "Add another related educational framework",
       },
       info: {
         educationProgramIdentifier:
@@ -628,8 +669,17 @@ I18n.translations.en = {
         award: "Award request",
         awardConfirmation: "Are you sure you want to award this request?",
         deny: "Deny request",
-        denyConfirmation: "Are you sure you want to deny this request?"
+        denyConfirmation: "Are you sure you want to deny this request?",
       },
+      awardButton: "Award",
+      addEvidence: "+ Add evidence",
+      removeEvidence: "- Remove evidence",
+      evidence: "Optional descriptive metadata about evidence related to the issuance of an edubadge.",
+      evidenceHeader: "Metadata about the evidence related for this edubadge",
+      evidenceNarrative: "Narrative",
+      evidenceURL: "URL",
+      evidenceDescription: "Description",
+      evidenceName: "Name",
       flash: {
         denied: "The request(s) have been denied.",
         awarded: "The request(s) have been awarded."
@@ -837,6 +887,12 @@ I18n.translations.en = {
     },
     userManagement: {
       email: "e.g. john.doe@example.com"
+    },
+    enrollment: {
+      evidenceNarrative: "e.g. badge class description",
+      evidenceURL: "e.g. https://university.psychology",
+      evidenceName: "e.g. Introduction Pysychology",
+      evidenceDescription: "e.g. Long description of the assertion"
     }
   },
   eye: {
@@ -873,11 +929,12 @@ I18n.translations.en = {
     badgeClassLanguageOfInstruction: "The language used in obtaining this edubadge.",
     badgeClassLearningOutcome: "Describe the learning outcome or learning goal. Recorded in the Teaching and Examination Regulations. Possibly in line with the Tuning methodology.",
     //badgeClassLearningIssuer: "badgeClassLearningIssuer",
-    //badgeClassIsPrivate: "badgeClassIsPrivate",
+    badgeClassIsPrivate: "If checked, this badgeclass will not appear in the catalog. Note that you cannot award edubadges from a private badgeclass.",
     //badgeClassCriteriaRequirements: "badgeClassCriteriaRequirements",
     //badgeClassCriteriaUrl: "badgeClassCriteriaUrl",
-    //badgeClassTypeOfStudeLoad: "badgeClassTypeOfStudeLoad",
+    //badgeClassTypeOfStudyLoad: "badgeClassTypeOfStudyLoad",
     //badgeClassStudyLoadNumber: "badgeClassStudyLoadNumber",
+    //badgeClassSBUNumber: "badgeClassSBULoadNumber",
     //badgeClassStudyLoadEcts: "badgeClassStudyLoadEcts",
     //badgeClassProgrammeIdentifier: "badgeClassProgrammeIdentifier",
     //badgeClassNLQFLevel: "badgeClassNLQFLevel",
@@ -902,10 +959,42 @@ I18n.translations.en = {
     //institutionDescriptionNl: "institutionDescriptionNl",
     //institutionBrin: "institutionBrin",
     institutionGradingTable: "Use a URL that will not change. (Persistent URL).",
+    enrollmentEvidenceNarrative: "A narrative that describes the evidence and process of achievement that led to an Assertion.",
+    enrollmentEvidenceURL: "The URI of a webpage presenting evidence of achievement.",
+    enrollmentEvidenceName: "A descriptive title of the evidence.",
+    enrollmentEvidenceDescription: "A longer description of the evidence.",
+
   },
   badgeOverview : {
     faculty: "Faculty",
     issuer: "Issuer"
-  }
-
+  },
+  catalog: {
+    name: "Catalog",
+    education: {
+      WO: "WO",
+      HBO: "HBO",
+      MBO: "MBO",
+      NONE: "Unspecified"
+    },
+    studyLoad: {
+        NO_STUDYLOAD: "No studyload",
+        ECTS_0_5: "0-5 ECTS (WO/HBO)",
+        ECTS_6_10: "6-10 ECTS (WO/HBO)",
+        ECTS_10_MORE: "> 10 ECTS (WO/HBO)",
+        HOURS_0_60: "0-60 hours (WO/HBO)",
+        HOURS_61_120: "61-120 hours (WO/HBO)",
+        HOURS_120_MORE: "> 120 hours (WO/HBO)"
+    },
+    eqf: {
+      eqfNone: "No NLQF level",
+      eqf: "NLQF level {{level}}",
+    },
+    issuer: {
+      contact: "Contact the issuer",
+      website: "Visit issuer website",
+      gradingTable: "View the grading table",
+      institution: "<span>Part of <a href=\"{{link}}\" target=\"_blank\">{{name}}</a></span>"
+    }
+  },
 };

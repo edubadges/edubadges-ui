@@ -10,9 +10,12 @@
     faculty(id: $entityId) {
       entityId,
       name,
+      nameEnglish,
+      nameDutch,
       descriptionEnglish,
       descriptionDutch,
       hasUnrevokedAssertions,
+      defaultLanguage,
       permissions {
         mayCreate
         mayUpdate,
@@ -31,14 +34,14 @@
     queryData(query, {entityId}).then(res => {
         faculty = res.faculty;
         permissions = res.faculty.permissions;
-        loaded = true;
         mayDelete = permissions && permissions.mayDelete;
+        loaded = true;
       })
   });
 </script>
 
 {#if loaded}
-  <FacultyForm {faculty} {entityId} mayDelete={mayDelete} hasUnrevokedAssertions={faculty.hasUnrevokedAssertions}/>
+  <FacultyForm {faculty} {entityId} defaultLanguage={faculty.defaultLanguage} mayDelete={mayDelete} hasUnrevokedAssertions={faculty.hasUnrevokedAssertions}/>
 {:else}
   <Spinner/>
 {/if}

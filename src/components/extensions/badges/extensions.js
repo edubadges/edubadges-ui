@@ -1,5 +1,4 @@
 import { config } from "../../../util/config";
-import I18n from "i18n-js";
 
 export const language = {name: "LanguageExtension", value: "Language"};
 

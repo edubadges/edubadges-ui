@@ -1,19 +1,18 @@
 <script>
   import I18n from "i18n-js";
   import Button from "../Button.svelte";
-  import { Field, Select, TextInput } from ".";
-  import { onMount } from "svelte";
+  import {Field, Select, TextInput} from ".";
+  import {createEventDispatcher} from "svelte";
   import {entityType} from "../../util/entityTypes";
-  import { permissionsRole } from "../../util/rolesToPermissions";
+  import {permissionsRole} from "../../util/rolesToPermissions";
   import {
-      changeUserToBadgeclassAwarder,
-      changeUserToBadgeclassEditor,
-      changeUserToBadgeclassOwner,
-      makeUserBadgeclassAwarder,
-      makeUserBadgeclassEditor,
-      makeUserBadgeclassOwner
+    changeUserToBadgeclassAwarder,
+    changeUserToBadgeclassEditor,
+    changeUserToBadgeclassOwner,
+    makeUserBadgeclassAwarder,
+    makeUserBadgeclassEditor,
+    makeUserBadgeclassOwner
   } from "../../api";
-  import { createEventDispatcher } from 'svelte';
   import {flash} from "../../stores/flash";
 
   const dispatch = createEventDispatcher();
@@ -34,13 +33,22 @@
     roles = [];
     let permissions = badgeClassStaffs.find(bCF => bCF.badgeclass.entityId === selectedBadgeClass.entityId);
     if (!permissions || !permissions.mayAdministrateUsers) {
-      roles = [...roles, {name: I18n.t(['editUsers', 'badgeclass', permissionsRole.OWNER]), value: permissionsRole.OWNER}]
+      roles = [...roles, {
+        name: I18n.t(['editUsers', 'badgeclass', permissionsRole.OWNER]),
+        value: permissionsRole.OWNER
+      }]
     }
     if (!permissions || !permissions.mayUpdate) {
-      roles = [...roles, {name: I18n.t(['editUsers', 'badgeclass', permissionsRole.EDITOR]), value: permissionsRole.EDITOR}]
+      roles = [...roles, {
+        name: I18n.t(['editUsers', 'badgeclass', permissionsRole.EDITOR]),
+        value: permissionsRole.EDITOR
+      }]
     }
     if (!permissions || !permissions.mayAward) {
-      roles = [...roles, {name: I18n.t(['editUsers', 'badgeclass', permissionsRole.AWARDER]), value: permissionsRole.AWARDER}]
+      roles = [...roles, {
+        name: I18n.t(['editUsers', 'badgeclass', permissionsRole.AWARDER]),
+        value: permissionsRole.AWARDER
+      }]
     }
     chosenRole = roles[roles.length - 1];
   };
@@ -120,20 +128,20 @@
     <div class="modal-body">
       <Field entity={'editUsers'} attribute={entityType.BADGE_CLASS}>
         <Select
-            bind:value={chosenBadgeClass}
-            items={targetOptions}
-            handleSelect={setRolesForBadgeClass}
-            clearable={false}
-            optionIdentifier="name"
+          bind:value={chosenBadgeClass}
+          items={targetOptions}
+          handleSelect={setRolesForBadgeClass}
+          clearable={false}
+          optionIdentifier="name"
         />
       </Field>
       <Field entity={'editUsers'} attribute={'role'}>
         <Select
-            disabled={false}
-            bind:value={chosenRole}
-            bind:items={roles}
-            clearable={false}
-            optionIdentifier="name"
+          disabled={false}
+          bind:value={chosenRole}
+          bind:items={roles}
+          clearable={false}
+          optionIdentifier="name"
         />
       </Field>
       <Field entity={'editUsers'} attribute={'notes'}>

@@ -5,7 +5,6 @@
   import {Student, ProcessToken, NotFound, Login} from "./routes";
   import AcceptTerms from "./routes/AcceptTerms.svelte";
   import {Badges, Manage, Users, UserPermissions} from "./routes/teachers";
-  import Test from "./routes/Test.svelte";
   import {Header, Footer, SubscribeToPath, Spinner} from "./components";
   import {
     Header as TeacherHeader,
@@ -27,6 +26,8 @@
   import PublicIssuerPage from "./components/shared/PublicIssuerPage.svelte";
   import PublicInstitutionPage from "./components/shared/PublicInstitutionPage.svelte";
   import VersionInfo from "./routes/VersionInfo.svelte";
+  import Catalog from "./routes/catalog/Catalog.svelte";
+
 
   const homepage = {
     guest: Login,
@@ -48,7 +49,11 @@
         })
         .catch(() => {
           $redirectPath = window.location.pathname;
-          navigate("/login");
+          if (path.indexOf("catalog") === -1) {
+            navigate("/login");
+          } else {
+            navigate("/catalog");
+          }
           $userLoggedIn = "";
           $userName = "";
           $validatedUserName = "";
@@ -132,9 +137,7 @@
         <Route path="/users" component={Users}/>
         <Route path="/users/:userId/:entity" component={UserPermissions}/>
         <Route path="/manage/*mainEntity" component={Manage}/>
-        <Route
-          path="/badgeclass/:entityId/*subEntity"
-          component={BadgeclassAwarder}/>
+        <Route path="/badgeclass/:entityId/*subEntity" component={BadgeclassAwarder}/>
         <Route path="/invite-enrollements/:entityId/" let:params>
           <InviteEnrollments entityId={params.entityId}/>
         </Route>
@@ -163,12 +166,10 @@
             <Student bookmark="profile"/>
           {/if}
         </Route>
-        {#if config.local}
-          <Route path="/public/test" component={Test}/>
-        {/if}
         <Route path="/" component={homepage[visitorRole]}/>
         <Route path="/login" component={Login}/>
         <Route path="/auth/login/*" component={ProcessToken}/>
+        <Route path="/catalog" component={Catalog}/>
         <Route component={NotFound}/>
 
         <!-- Expose current path through store -->

@@ -102,7 +102,9 @@
     }
   ];
 
-  $: if (!tab) navigate(tabs[0].href, {replace: true});
+  $: if (!tab) {
+    navigate(tabs[0].href, {replace: true});
+  }
   $: mayUpdate = permissions && permissions.mayUpdate;
   $: headerItems = [
     {
@@ -133,6 +135,13 @@
   .overview-container {
     padding: 40px 140px;
   }
+
+    @media (max-width: 1120px) {
+    .overview-container {
+      padding: 20px;
+    }
+  }
+
 </style>
 
 {#if loaded}

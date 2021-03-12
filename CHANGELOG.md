@@ -4,11 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [3.0.0] - 
+- Added public catalog
+- Adds multilanguage fields for Institution, Issuer Group & Issuer
+- Can now add multiple Related Educational Frameworks to a badgeclass
+
 ## [2.1.3] - 2021-03-01
- - Added listview
- - Added breadcrumbs
- - Added tooltips
- - Several bugfixes
+- Added listview in overview of badgeclasses.
+- Added breadcrumbs on top of several pages.
+- Added tooltips in add badgeclass metedata screen.
 
 ## [2.1.2] - 2021-02-11
  - Can now archive Issuer Groups when all assertions have been revoked.

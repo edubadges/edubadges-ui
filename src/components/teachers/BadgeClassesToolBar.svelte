@@ -4,13 +4,9 @@
   import {awardFilter, facultyIds, issuerIds, search, tree} from "../../stores/filterBadges";
   import {MinimalisticSelect} from "../forms";
   import ViewSelector from "../shared/ViewSelector.svelte";
+  import {sortTargetOptions} from "../../util/catalogFilters";
 
-  let targetOptions = [
-    {value: "recent", name: I18n.t("teacher.badgeclasses.mostRecent")},
-    {value: "awarded", name: I18n.t("teacher.badgeclasses.mostAwarded")},
-  ];
-
-  export let sorting = targetOptions[0];
+  export let sorting;
   export let view;
 
   const setBadgeFilter = filter => {
@@ -111,7 +107,7 @@
     <label class="title">{I18n.t("models.badgeclass.sorting")}</label>
     <MinimalisticSelect
       bind:value={sorting}
-      items={targetOptions}
+      items={sortTargetOptions()}
       clearable={false}
       optionIdentifier="name"/>
   </div>

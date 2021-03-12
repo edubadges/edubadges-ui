@@ -11,6 +11,7 @@
     currentInstitution {
       grondslagFormeel,
       grondslagInformeel,
+      institutionType
     },
     issuers {
       name,

@@ -86,7 +86,6 @@
 
 <h2>
   {I18n.t('teacher.badgeclasses.title')}
-  {#if entity} in {entity.name}{/if}
 </h2>
 <div class="header">
   {#if entity.image}

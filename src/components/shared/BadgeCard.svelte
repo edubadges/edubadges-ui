@@ -3,8 +3,6 @@
   import moment from "moment";
   import I18n from "i18n-js";
   import {navigate} from "svelte-routing";
-  import shieldUnlocked from "../../icons/shield-unlock.svg";
-  import shieldLocked from "../../icons/lock-shield.svg";
   import {issuerIcon} from "../../icons";
   import StatusIndicator from "./StatusIndicator.svelte";
   import BadgeShield from "./BadgeShield.svelte";
@@ -12,10 +10,13 @@
   export let badge;
   export let badgeClass;
   export let standAlone = false;
+  export let isPublic = false;
   export let withHeaderData;
 
   const detailLink = () => {
-    if (!standAlone) {
+    if (isPublic) {
+      navigate(`/public/${badgeClass.entityId}`);
+    } else if (!standAlone) {
       navigate(badge ? `/details/${badge.entityId}` : `/badgeclass/${badgeClass.entityId}`);
     }
   }

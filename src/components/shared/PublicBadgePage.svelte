@@ -1,17 +1,18 @@
 <script>
-  import I18n from "i18n-js";
   import {onMount} from "svelte";
   import {navigate} from "svelte-routing";
   import Spinner from "../../components/Spinner.svelte";
   import BadgeCard from "../../components/shared/BadgeCard.svelte";
   import BadgeClassDetails from "../../components/shared/BadgeClassDetails.svelte";
-  import {getPublicBadge,  validateName} from "../../api";
+  import {getPublicBadge, validateName} from "../../api";
   import {publicBadgeInformation} from "../extensions/badges/extensions";
   import BadgeValidation from "../../routes/students/BadgeValidation.svelte";
+  import BadgeInstanceEvidence from "./BadgeInstanceEvidence.svelte";
 
   export let entityId;
 
   let badge = {};
+  let evidences = [];
 
   let validation = {};
   let validatedName;
@@ -20,6 +21,7 @@
   onMount(() => {
     getPublicBadge(entityId).then(res => {
       badge = res.badge;
+      evidences = res.evidence;
       badge.issuedOn = res.issuedOn;
       badge.expires = res.expires;
       badge.updatedAt = res.updatedAt;
@@ -93,8 +95,9 @@
       <BadgeValidation badge={badge} validatedName={validatedName}/>
     </div>
     <div class="badge-public-detail">
-      <BadgeClassDetails badgeclass={badge} withInstitution={true}/>
+      <BadgeClassDetails badgeclass={badge}/>
     </div>
+    <BadgeInstanceEvidence evidences={evidences}/>
   </div>
 {:else}
   <Spinner/>

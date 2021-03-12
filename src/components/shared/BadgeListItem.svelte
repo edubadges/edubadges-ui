@@ -9,8 +9,15 @@
 
   export let badge;
   export let badgeClass;
+  export let isPublic = false;
 
-  const detailLink = () => navigate(badge ? `/details/${badge.entityId}` : `/badgeclass/${badgeClass.entityId}`);
+  const detailLink = () => {
+    if (isPublic) {
+      navigate(`/public/${badgeClass.entityId}`)
+    } else {
+      navigate(badge ? `/details/${badge.entityId}` : `/badgeclass/${badgeClass.entityId}`);
+    }
+  }
 
   onMount(() => {
     badgeClass.studyLoadValue = badgeClass.studyLoad ?
