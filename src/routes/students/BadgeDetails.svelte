@@ -437,7 +437,7 @@
           <div class="button-container">
             <DownloadButton text={I18n.t("models.badge.download")} secondary={true}
                             filename={downloadFileName(badge)}
-                            disabled={badge && badge.acceptance === "REJECTED"}
+                            disabled={badge && (badge.acceptance === "REJECTED" || !badge.public)}
                             url={badge.image}/>
           </div>
           <div class="button-container">
