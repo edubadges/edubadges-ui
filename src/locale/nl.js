@@ -973,7 +973,7 @@ I18n.translations.nl = {
     education: {
       WO: "WO",
       HBO: "HBO",
-      MBO: "MBP",
+      MBO: "MBO",
       NONE: "Unspecified"
     },
     studyLoad: {
