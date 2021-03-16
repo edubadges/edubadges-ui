@@ -35,7 +35,7 @@ I18n.translations.nl = {
       title: "<strong style='font-size: 38px'>B</strong>rowse",
       subtitle: "Momenteel zijn er {{badgeInstancesCount}} edubadges uitgegeven door de instellingen.",
       info: "De catalogus toont alle badge classes van alle instellingen die edubadges gebruiken.",
-      beta: "Beta",
+      beta: "{{badgeClassesCount}} Badge Classes",
       action: "Open de catalogus",
     },
     teacher: {

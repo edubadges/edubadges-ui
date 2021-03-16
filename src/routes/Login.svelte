@@ -15,13 +15,15 @@
   let accountCreationStep = 1;
   let showLoginCards = true;
   let badgeInstancesCount = "?";
+  let badgeClassesCount = "?";
 
   onMount(() => {
     if ($userRole && $userLoggedIn) {
       navigate('/')
     } else {
-      queryData("query {badgeInstancesCount}").then(res => {
+      queryData("query {badgeInstancesCount, badgeClassesCount}").then(res => {
         badgeInstancesCount = res.badgeInstancesCount;
+        badgeClassesCount = res.badgeClassesCount;
       });
     }
   });
@@ -175,7 +177,7 @@
     <div class="login-element">
       <Card none={!showLoginCards}>
         <div class="invite-only beta">
-          <p>{I18n.t("login.catalog.beta")}</p>
+          <p>{I18n.t("login.catalog.beta", {badgeClassesCount})}</p>
         </div>
 
         <h2>
