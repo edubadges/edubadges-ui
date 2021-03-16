@@ -3,15 +3,15 @@
   import {IssuerForm} from "../teachers";
   import {queryData} from "../../api/graphql";
   import Spinner from "../Spinner.svelte";
+  import {translateProperties} from "../../util/utils";
 
   export let entityId;
 
   const query = `query ($entityId: String){
     issuer(id: $entityId) {
-      name,
+      entityId,
       nameDutch,
       nameEnglish,
-      entityId,
       defaultLanguage,
       descriptionEnglish,
       descriptionDutch,
@@ -21,7 +21,8 @@
       urlDutch,
       email,
       faculty {
-        name,
+        nameDutch,
+        nameEnglish,
         entityId
       },
       badgeclasses {
@@ -48,6 +49,8 @@
   onMount(() => {
     queryData(query, {entityId}).then(res => {
       issuer = res.issuer;
+      translateProperties(res.issuer.faculty);
+
       permissions = res.issuer.permissions;
 
       hasUnrevokedAssertions = issuer.badgeclasses

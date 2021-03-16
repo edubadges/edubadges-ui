@@ -1,18 +1,19 @@
 <script>
   import {SideBarUsers, UsersHeader} from "../../components/teachers/";
-  import {institution, users, userTree, userSearch} from "../../stores/filterUsers";
+  import {institution, users, userSearch, userTree} from "../../stores/filterUsers";
   import {onMount} from "svelte";
   import {queryData} from "../../api/graphql";
   import I18n from "i18n-js";
   import {Table} from "../../components/teachers";
-  import {search} from "../../util/searchData";
   import {sort, sortType} from "../../util/sortData";
   import {navigate} from "svelte-routing";
   import Spinner from "../../components/Spinner.svelte";
+  import {translateProperties} from "../../util/utils";
 
   const query = `query {
     currentInstitution {
-      name,
+      nameDutch,
+      nameEnglish,
       entityId,
       staff {
         user {
@@ -23,7 +24,8 @@
         }
       },
       faculties {
-        name,
+        nameDutch,
+        nameEnglish,
         entityId,
         staff {
           user {
@@ -35,7 +37,8 @@
         },
         issuers {
           entityId,
-          name,
+          nameDutch,
+          nameEnglish,
           staff {
             user {
               firstName,
@@ -86,7 +89,15 @@
 
   onMount(() => {
     queryData(query).then(res => {
-      $institution = res.currentInstitution;
+      const inst = res.currentInstitution;
+
+      translateProperties(inst);
+      inst.faculties.forEach(faculty => {
+        translateProperties(faculty);
+        faculty.issuers.forEach(issuer => translateProperties(issuer));
+      })
+
+      $institution = inst;
       $users = res.users;
       loaded = true;
     });
@@ -163,7 +174,7 @@
         {/each}
         {#if users.length === 0}
           <tr>
-            <td colspan="2">{I18n.t("zeroState.users",{name:institution.name})}</td>
+            <td colspan="2">{I18n.t("zeroState.users", {name: institution.name})}</td>
           </tr>
         {/if}
       </Table>

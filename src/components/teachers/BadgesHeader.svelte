@@ -6,6 +6,7 @@
   import {headerEntityMultiLanguage, headerStaff} from "../../api/queries";
   import {selectedEntity} from "../../stores/filterBadges";
   import RemoteImage from "../RemoteImage.svelte";
+  import {translateProperties} from "../../util/utils";
 
   let institution = {};
   $: entity = $selectedEntity || institution;
@@ -20,7 +21,10 @@
   }`;
 
   onMount(() => {
-    queryData(query).then(res => (institution = res.currentInstitution));
+    queryData(query).then(res => {
+      institution = res.currentInstitution;
+      translateProperties(institution);
+    })
   });
 
   $: headerItems = [
@@ -96,7 +100,7 @@
     </div>
   {/if}
   <div class="content">
-    <p>{currentLanguage === 'en' ? entity.descriptionEnglish : entity.descriptionDutch}</p>
+    <p>{entity.description}</p>
     <HeaderList {headerItems} entity="institution"/>
   </div>
 </div>

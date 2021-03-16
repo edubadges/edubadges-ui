@@ -2,21 +2,18 @@
   import {entityType} from "../../util/entityTypes";
   import {onMount} from "svelte";
   import {queryData} from "../../api/graphql";
-  import {Button, CheckBox} from "../../components";
+  import {CheckBox} from "../../components";
   import {UsersTable} from "../teachers";
   import {sort, sortType} from "../../util/sortData";
   import I18n from "i18n-js";
-  import {
-    makeUserIssuerAdmin,
-    removeUserIssuerAdmin
-  } from "../../api";
+  import {makeUserIssuerAdmin, removeUserIssuerAdmin} from "../../api";
   import {AddPermissionsModal, Modal} from "../forms";
   import Spinner from "../Spinner.svelte";
   import {permissionsRole} from "../../util/rolesToPermissions";
   import ListLink from "./ListLink.svelte";
-  import {flatten} from "../../util/utils";
+  import {translateProperties} from "../../util/utils";
   import {userHasAdminPermissions} from "../../util/userPermissions";
-  import { addStaffType, expandStaffsIssuer, staffType } from "../../util/staffTypes";
+  import {addStaffType, expandStaffsIssuer, staffType} from "../../util/staffTypes";
   import {flash} from "../../stores/flash";
   import {issuerIcon} from "../../icons";
 
@@ -48,13 +45,16 @@
 
   const query = `query ($userId: String){
   currentInstitution {
-    name,
+    nameDutch,
+    nameEnglish,
     entityId,
     faculties {
-      name,
+      nameDutch,
+      nameEnglish,
       entityId,
       issuers {
-        name,
+        nameDutch,
+        nameEnglish,
         entityId,
         permissions {
           mayAdministrateUsers
@@ -89,11 +89,14 @@
     issuerStaffs {
       entityId,
       issuer {
-        name,
+        nameDutch,
+        nameEnglish,
         entityId,
-        image,
+        imageDutch,
+        imageEnglish,
         faculty {
-          name,
+          nameDutch,
+          nameEnglish,
           entityId
         }
       },
@@ -102,14 +105,18 @@
     facultyStaffs {
       entityId,
       faculty {
-        name,
+        nameDutch,
+        nameEnglish,
         entityId,
         issuers {
-          name,
+          nameDutch,
+          nameEnglish,
           entityId,
-          image,
+          imageDutch,
+          imageEnglish,
           faculty {
-            name,
+            nameDutch,
+            nameEnglish,
             entityId
           }
         }
@@ -120,15 +127,19 @@
       entityId,
       mayAdministrateUsers,
       institution {
-        name,
+        nameDutch,
+        nameEnglish,
         entityId,
         faculties {
           issuers {
-            name,
+            nameDutch,
+            nameEnglish,
             entityId,
-            image,
+            imageDutch,
+            imageEnglish,
             faculty {
-              name,
+              nameDutch,
+              nameEnglish,
               entityId
             }
           }
@@ -141,9 +152,37 @@
     loaded = false;
     checkAllValue = false;
     queryData(query, {userId}).then(res => {
-      institutionId = res.currentInstitution.entityId;
-      faculties = res.currentInstitution.faculties;
+      const institution = res.currentInstitution;
+      faculties = institution.faculties;
       user = res.user;
+
+      translateProperties(institution);
+      faculties.forEach(faculty => {
+        translateProperties(faculty);
+        faculty.issuers.forEach(issuer => translateProperties(issuer))
+      });
+      user.issuerStaffs.forEach(staff => {
+        translateProperties(staff.issuer);
+        translateProperties(staff.issuer.faculty);
+      });
+      user.facultyStaffs.forEach(staff => {
+        translateProperties(staff.faculty);
+        staff.faculty.issuers.forEach(issuer => {
+          translateProperties(issuer);
+          translateProperties(issuer.faculty);
+        })
+      });
+      const userInstitution = user.institutionStaff.institution;
+      translateProperties(userInstitution);
+      userInstitution.faculties.forEach(faculty => {
+        translateProperties(faculty);
+        faculty.issuers.forEach(issuer => {
+          translateProperties(issuer);
+          translateProperties(issuer.faculty);
+        })
+      });
+
+      institutionId = institution.entityId;
       userNameDict = {name: `${user.firstName} ${user.lastName}`};
       currentUser = res.currentUser;
       institutionStaffs = res.user.institutionStaff ? addStaffType([res.user.institutionStaff], staffType.INSTITUTION_STAFF) : [];
@@ -161,7 +200,7 @@
       removePermissionOptions = issuers.filter(issuer => userHasAdminPermissions(issuer, entityType.ISSUER, institutionStaffs, issuerGroupStaffs, issuerStaffs, []));
       modalSelectedEntity = newPermissionOptions[0];
       isEmpty = user.issuerStaffs.length === 0 &&
-      user.facultyStaffs.length === 0 && (!user.institutionStaff || (user.institutionStaff && faculties.length === 0));
+        user.facultyStaffs.length === 0 && (!user.institutionStaff || (user.institutionStaff && faculties.length === 0));
       loaded = true;
     });
   };
@@ -293,12 +332,12 @@
       selection = selection.concat(entityId);
       checkAllValue = selection.length === filteredStaffs.filter(({_staffType, issuer}) =>
         _staffType === staffType.ISSUER_STAFF && userHasAdminPermissions(
-          issuer, entityType.ISSUER,
-          currentUser.institutionStaff,
-          currentUser.facultyStaffs,
-          currentUser.issuerStaffs,
-          currentUser.badgeclassStaffs
-      )).length;
+        issuer, entityType.ISSUER,
+        currentUser.institutionStaff,
+        currentUser.facultyStaffs,
+        currentUser.issuerStaffs,
+        currentUser.badgeclassStaffs
+        )).length;
     } else {
       selection = selection.filter(id => id !== entityId);
       checkAllValue = false;
@@ -308,23 +347,23 @@
   const onCheckAll = val => {
     selection = val ? filteredStaffs.filter(({_staffType, issuer}) =>
       _staffType === staffType.ISSUER_STAFF && userHasAdminPermissions(
-        issuer, entityType.ISSUER,
-        currentUser.institutionStaff,
-        currentUser.facultyStaffs,
-        currentUser.issuerStaffs,
-        currentUser.badgeclassStaffs
-    )).map(({staffId}) => staffId) : [];
-    checkAllValue = val;
-  };
-
-  $: disabledCheckAll = filteredStaffs.filter(({_staffType, issuer}) =>
-    _staffType === staffType.ISSUER_STAFF && userHasAdminPermissions(
       issuer, entityType.ISSUER,
       currentUser.institutionStaff,
       currentUser.facultyStaffs,
       currentUser.issuerStaffs,
       currentUser.badgeclassStaffs
-  )).length === 0;
+      )).map(({staffId}) => staffId) : [];
+    checkAllValue = val;
+  };
+
+  $: disabledCheckAll = filteredStaffs.filter(({_staffType, issuer}) =>
+    _staffType === staffType.ISSUER_STAFF && userHasAdminPermissions(
+    issuer, entityType.ISSUER,
+    currentUser.institutionStaff,
+    currentUser.facultyStaffs,
+    currentUser.issuerStaffs,
+    currentUser.badgeclassStaffs
+    )).length === 0;
 </script>
 
 <style>
@@ -367,30 +406,30 @@
 {#if loaded}
   <div class="container">
     <UsersTable
-        {...table}
-        isEmpty={isEmpty}
-        bind:search={issuerSearch}
-        bind:sort={issuerSort}
-        withCheckAll={true}
-        bind:buttons={buttons}
-        {onCheckAll}
-        {disabledCheckAll}
-        {checkAllValue}
+      {...table}
+      isEmpty={isEmpty}
+      bind:search={issuerSearch}
+      bind:sort={issuerSort}
+      withCheckAll={true}
+      bind:buttons={buttons}
+      {onCheckAll}
+      {disabledCheckAll}
+      {checkAllValue}
     >
       {#each sortedFilteredStaffs as {_staffType, issuer, staffId}}
         <tr>
           {#if _staffType === staffType.ISSUER_STAFF}
             <td>
               <CheckBox
-                  value={selection.includes(staffId)}
-                  disabled={!userHasAdminPermissions(
+                value={selection.includes(staffId)}
+                disabled={!userHasAdminPermissions(
                     issuer, entityType.ISSUER,
                     currentUser.institutionStaff,
                     currentUser.facultyStaffs,
                     currentUser.issuerStaffs,
                     currentUser.badgeclassStaffs,
                   )}
-                  onChange={val => onCheckOne(val, staffId)}/>
+                onChange={val => onCheckOne(val, staffId)}/>
             </td>
             <td>
               {#if issuer.image}
@@ -409,14 +448,14 @@
             </td>
             <td>
               <ListLink
-                  path={`/manage/issuer/${issuer.entityId}/badgeclasses`}
-                  name={issuer.name}
+                path={`/manage/issuer/${issuer.entityId}/badgeclasses`}
+                name={issuer.name}
               />
             </td>
             <td>
               <ListLink
-                  path={`/manage/faculty/${findFacultyByIssuerEntityId(issuer.entityId).entityId}/issuers`}
-                  name={findFacultyByIssuerEntityId(issuer.entityId).name}/>
+                path={`/manage/faculty/${findFacultyByIssuerEntityId(issuer.entityId).entityId}/issuers`}
+                name={findFacultyByIssuerEntityId(issuer.entityId).name}/>
             </td>
             <td>
               {I18n.t(['editUsers', 'issuer', 'allRights'])}
@@ -424,7 +463,7 @@
           {:else if _staffType === staffType.ISSUER_GROUP_STAFF}
             <td>
               <CheckBox
-                  disabled={true}/>
+                disabled={true}/>
             </td>
             <td>
               {#if issuer.image}
@@ -493,7 +532,7 @@
       {/each}
       {#if isEmpty}
         <tr>
-          <td colspan="4">{I18n.t("zeroState.permissions",{entity: I18n.t("userManagement.issuer_staff")})}</td>
+          <td colspan="4">{I18n.t("zeroState.permissions", {entity: I18n.t("userManagement.issuer_staff")})}</td>
         </tr>
       {/if}
     </UsersTable>
@@ -504,23 +543,23 @@
 
 {#if showRemoveModal}
   <Modal
-      submit={removeModalAction}
-      cancel={() => showRemoveModal = false}
-      question={removeModalQuestion}
-      title={removeModalTitle}
+    submit={removeModalAction}
+    cancel={() => showRemoveModal = false}
+    question={removeModalQuestion}
+    title={removeModalTitle}
   />
 {/if}
 
 {#if showAddModal}
   <AddPermissionsModal
-      submit={addModalAction}
-      cancel={() => showAddModal = false}
-      selectEntity={selectEntity}
-      permissionsRoles={permissionsRoles}
-      title={addModalTitle}
-      targetOptions={newPermissionOptions}
-      bind:target={modalSelectedEntity}
-      bind:chosenRole={modalChosenRole}
-      bind:notes={modalNotes}
+    submit={addModalAction}
+    cancel={() => showAddModal = false}
+    selectEntity={selectEntity}
+    permissionsRoles={permissionsRoles}
+    title={addModalTitle}
+    targetOptions={newPermissionOptions}
+    bind:target={modalSelectedEntity}
+    bind:chosenRole={modalChosenRole}
+    bind:notes={modalNotes}
   />
 {/if}

@@ -25,3 +25,12 @@ export const formatCreateDate = iso => {
 };
 
 export const flatten = arr => arr.reduce((acc, cur) => acc.concat(Array.isArray(cur) ? flatten(cur) : cur), []);
+
+export const translateProperties = obj => {
+  const isEnglish = I18n.locale === "en";
+  ["name", "description", "image"].forEach(attr => {
+    if (obj[`${attr}English`] || obj[`${attr}Dutch`]) {
+      obj[attr] = isEnglish ? (obj[`${attr}English`] || obj[`${attr}Dutch`]) : (obj[`${attr}Dutch`] || obj[`${attr}English`]);
+    }
+  });
+}

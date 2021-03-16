@@ -8,6 +8,7 @@
   import LinkEye from "./LinkEye.svelte";
   import {userRole} from "../../stores/user";
   import {role} from "../../util/role";
+  import {translateProperties} from "../../util/utils";
 
   export let faculty;
   export let issuer;
@@ -22,7 +23,8 @@
 
   const query = `query {
     currentInstitution {
-      name
+      nameEnglish,
+      nameDutch,
     },
   }`;
 
@@ -40,9 +42,9 @@
     if (studentBadge) {
       return;
     }
-    queryData(query)
-      .then(({currentInstitution: {name}}) => {
-        institutionName = name;
+    queryData(query).then(res => {
+        translateProperties(res);
+        institutionName = res.name;
       })
       .catch(() => navigate("/notFound"));
   });

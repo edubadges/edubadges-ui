@@ -13,6 +13,7 @@
   import BadgeCard from "./BadgeCard.svelte";
   import BadgeListView from "./BadgeListView.svelte";
   import ViewSelector from "./ViewSelector.svelte";
+  import {translateProperties} from "../../util/utils";
 
   export let entityId;
   export let visitorRole;
@@ -25,18 +26,22 @@
   const currentLanguage = I18n.locale;
   const query = `query ($entityId: String){
     publicIssuer(id: $entityId) {
-      name,
+      nameEnglish,
+      nameDutch,
       descriptionEnglish,
       descriptionDutch,
+      imageEnglish,
+      imageDutch,
       url,
       email,
-      image,
       entityId,
       createdAt,
       faculty {
-        name,
+        nameEnglish,
+        nameDutch,
         institution {
-          name,
+          nameEnglish,
+          nameDutch,
           entityId,
           brin,
           gradingTable
@@ -59,7 +64,11 @@
   onMount(() => {
     queryData(query, {entityId}).then(res => {
       issuer = res.publicIssuer;
-      issuer.description = currentLanguage === "en" ? issuer.descriptionEnglish : issuer.descriptionDutch;
+
+      translateProperties(issuer);
+      translateProperties(issuer.faculty);
+      translateProperties(issuer.faculty.institution);
+
       issuer.publicBadgeclasses.forEach(badgeClass => {
         badgeClass.issuer = issuer;
         badgeClass.institution = issuer.faculty.institution;

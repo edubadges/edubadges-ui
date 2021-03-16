@@ -3,12 +3,14 @@
   import {queryData} from "../../api/graphql";
   import {IssuerForm} from "../teachers";
   import Spinner from "../Spinner.svelte";
+  import {translateProperties} from "../../util/utils";
 
   export let facultyEntityId;
 
   const query = `query {
     faculties {
-      name,
+      nameDutch,
+      nameEnglish,
       entityId,
       defaultLanguage
     },
@@ -21,6 +23,7 @@
   onMount(() => {
     queryData(query).then(res => {
       faculties = res.faculties;
+      faculties.forEach(faculty => translateProperties(faculty));
       if (facultyEntityId) {
         issuer.faculty = faculties.find(faculty => faculty.entityId === facultyEntityId);
       } else {

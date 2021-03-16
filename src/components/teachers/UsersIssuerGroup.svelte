@@ -2,22 +2,20 @@
   import {entityType} from "../../util/entityTypes";
   import {onMount} from "svelte";
   import {queryData} from "../../api/graphql";
-  import {Button, CheckBox} from "../../components";
+  import {CheckBox} from "../../components";
   import {UsersTable} from "../teachers";
   import {sort, sortType} from "../../util/sortData";
   import I18n from "i18n-js";
-  import {
-    makeUserIssuerGroupAdmin,
-    removeUserIssuerGroupAdmin
-  } from "../../api";
+  import {makeUserIssuerGroupAdmin, removeUserIssuerGroupAdmin} from "../../api";
   import {AddPermissionsModal, Modal} from "../forms";
   import Spinner from "../Spinner.svelte";
   import {permissionsRole} from "../../util/rolesToPermissions";
   import ListLink from "./ListLink.svelte";
   import {userHasAdminPermissions} from "../../util/userPermissions";
-  import { addStaffType, expandStaffsIssuerGroup, staffType } from "../../util/staffTypes";
+  import {addStaffType, expandStaffsIssuerGroup, staffType} from "../../util/staffTypes";
   import {flash} from "../../stores/flash";
   import {facultyIcon} from "../../icons";
+  import {translateProperties} from "../../util/utils";
 
   export let userId;
 
@@ -47,16 +45,19 @@
 
   const query = `query ($userId: String){
   currentInstitution {
-    name,
+    nameDutch,
+    nameEnglish,
     entityId,
     faculties {
-      name,
+      nameDutch,
+      nameEnglish,
       entityId,
       permissions {
         mayAdministrateUsers
       },
       issuers {
-        name,
+        nameDutch,
+        nameEnglish,
         entityId,
       }
     }
@@ -90,7 +91,8 @@
     facultyStaffs {
       entityId,
       faculty {
-        name,
+        nameDutch,
+        nameEnglish,
         entityId
       },
       mayAdministrateUsers
@@ -99,10 +101,12 @@
       entityId,
       mayAdministrateUsers,
       institution {
-        name,
+        nameDutch,
+        nameEnglish,
         entityId,
         faculties {
-          name,
+          nameDutch,
+          nameEnglish,
           entityId
         }
       }
@@ -114,8 +118,23 @@
     loaded = false;
     checkAllValue = false;
     queryData(query, {userId}).then(res => {
-      institutionId = res.currentInstitution.entityId;
-      for (const faculty of res.currentInstitution.faculties) {
+      const institution = res.currentInstitution;
+      user = res.user;
+
+      translateProperties(institution);
+      institution.faculties.forEach(faculty => {
+        translateProperties(faculty);
+        faculty.issuers.forEach(issuer => translateProperties(issuer));
+      });
+      user.facultyStaffs.forEach(staff => {
+        translateProperties(staff.faculty);
+      });
+      const userInstitution = user.institutionStaff.institution;
+      translateProperties(userInstitution);
+      userInstitution.faculties.forEach(faculty => translateProperties(faculty));
+
+      institutionId = institution.entityId;
+      for (const faculty of institution.faculties) {
         if (faculty.permissions.mayAdministrateUsers) {
           faculties = [...faculties, faculty];
         }
@@ -125,7 +144,7 @@
       newPermissionOptions = faculties.filter(faculty => !userHasAdminPermissions(faculty, entityType.ISSUER_GROUP, institutionStaffs, issuerGroupStaffs, [], []));
       removePermissionOptions = faculties.filter(faculty => userHasAdminPermissions(faculty, entityType.ISSUER_GROUP, institutionStaffs, issuerGroupStaffs, [], []));
       modalSelectedEntity = newPermissionOptions[0];
-      user = res.user;
+
       userNameDict = {name: `${user.firstName} ${user.lastName}`};
       currentUser = res.currentUser;
       isEmpty = user.facultyStaffs.length === 0 &&

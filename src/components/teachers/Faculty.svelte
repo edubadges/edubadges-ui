@@ -9,6 +9,7 @@
   import {entityType} from "../../util/entityTypes"
   import Spinner from "../Spinner.svelte";
   import {permissionsRole} from "../../util/rolesToPermissions";
+  import {translateProperties} from "../../util/utils";
 
   export let entityId;
   export let subEntity;
@@ -30,10 +31,11 @@
         nameDutch
       },
       issuers {
+        entityId,
         nameEnglish,
         nameDutch
-        entityId,
-        image,
+        imageEnglish,
+        imageDutch,
         badgeclasses {
           entityId,
           badgeAssertions {
@@ -59,6 +61,14 @@
   onMount(() => {
     queryData(query, {entityId}).then(res => {
       faculty = res.faculty;
+
+      translateProperties(res.faculty);
+      translateProperties(res.faculty.institution);
+      res.faculty.issuers.forEach(iss => {
+        translateProperties(iss);
+        translateProperties(iss.faculty);
+      });
+
       issuers = res.faculty.issuers;
       permissions = res.faculty.permissions;
       contentType = res.faculty.contentTypeId;

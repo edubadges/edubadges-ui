@@ -19,7 +19,9 @@ export const filterBySearch = (badgeclasses, search) => {
   );
 }
 
-export const sort = (collection, count = false) => !collection ? [] : collection.sort((a, b) => count ? b.count - a.count || a.name.localeCompare(b.name) : a.name.localeCompare(b.name));
+export const sort = (collection, count = false) => {
+  return !collection ? [] : collection.sort((a, b) => count ? b.count - a.count || a.name.localeCompare(b.name) : a.name.localeCompare(b.name));
+}
 
 export const sortCreatedAt = collection => !collection ? [] : collection.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 

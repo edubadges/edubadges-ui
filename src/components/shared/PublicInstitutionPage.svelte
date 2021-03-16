@@ -7,6 +7,7 @@
   import Spinner from "../Spinner.svelte";
   import {queryData} from "../../api/graphql";
   import PublicIssuers from "./PublicIssuers.svelte";
+  import {translateProperties} from "../../util/utils";
 
   export let entityId;
   export let visitorRole;
@@ -19,19 +20,24 @@
 
   const query = `query ($entityId: String){
     publicInstitution(id: $entityId) {
-      name,
+      nameEnglish,
+      nameDutch,
       descriptionEnglish,
       descriptionDutch,
-      image,
+      imageEnglish,
+      imageDutch,
       institutionType,
       entityId,
       publicFaculties {
-        name,
+        nameEnglish,
+        nameDutch,
         entityId,
         publicIssuers {
-          name,
+          nameEnglish,
+          nameDutch,
           entityId,
-          image,
+          imageEnglish,
+          imageDutch,
           badgeclassesCount,
         }
       }
@@ -41,7 +47,11 @@
   onMount(() => {
     queryData(query, {entityId}).then(res => {
       institution = res.publicInstitution;
-      institution.description = currentLanguage === "en" ? institution.descriptionEnglish : institution.descriptionDutch;
+      translateProperties(institution);
+      institution.publicFaculties.forEach(faculty => {
+        translateProperties(faculty);
+        faculty.publicIssuers.forEach(issuer => translateProperties(issuer));
+      })
       issuers = institution.publicFaculties.reduce((acc, fac) => {
         fac.publicIssuers.forEach(iss => iss.faculty = fac);
         return acc.concat(fac.publicIssuers);

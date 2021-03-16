@@ -10,20 +10,26 @@
   import CatalogToolBar from "../../components/catalog/CatalogToolBar.svelte";
   import {assignFilterTypes} from "../../util/catalogFilters";
   import {Router} from "svelte-routing";
+  import {translateProperties} from "../../util/utils";
 
   const query = `query {
     publicInstitutions {
-      name,
-      image,
+      nameEnglish,
+      nameDutch,
+      imageEnglish,
+      imageDutch,
       institutionType,
       entityId,
       publicFaculties {
-        name,
+        nameEnglish,
+        nameDutch
         entityId,
         publicIssuers {
-          name,
+          nameEnglish,
+          nameDutch,
           entityId,
-          image,
+          imageEnglish,
+          imageDutch,
           publicBadgeclasses {
             name,
             image,
@@ -55,9 +61,11 @@
       const institutions = res.publicInstitutions;
       const results = institutions.reduce((acc, institution) => {
         institution.count = 0;
+        translateProperties(institution);
         institution.publicFaculties.forEach(faculty => {
+          translateProperties(faculty);
           faculty.publicIssuers.forEach(issuer => {
-            issuer.image = issuer.image || institution.image;
+            translateProperties(issuer);
             issuer.publicBadgeclasses.forEach(badgeClass => {
               //catalog query is different then others, so we need to set the references
               badgeClass.issuer = issuer;

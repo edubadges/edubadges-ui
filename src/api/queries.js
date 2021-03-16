@@ -44,12 +44,16 @@ export const studentBadgeInstances = `query {
           originalJson
         },
         issuer {
-          name,
-          image,
+          nameDutch,
+          nameEnglish,
+          imageDutch,
+          imageEnglish,
           faculty {
-            name,
+            nameDutch,
+            nameEnglish,
             institution {
-              name
+              nameDutch,
+              nameEnglish,
             }
           }
         }

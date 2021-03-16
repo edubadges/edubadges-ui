@@ -15,7 +15,6 @@
   const query = `query {
     currentInstitution {
       entityId,
-      name,
       defaultLanguage,
       nameEnglish,
       nameDutch,
@@ -54,7 +53,9 @@
     institution.image_english = institution.imageEnglish;
     institution.image_dutch = institution.imageDutch;
 
-    if (!institution.image) delete institution.image;
+    if (!institution.image) {
+      delete institution.image;
+    }
     editInstitution(institution.entityId, institution)
       .then(() => navigate(`/manage/institution`))
       .catch(err => err.then(({fields}) => {

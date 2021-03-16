@@ -4,6 +4,7 @@
   import {BadgeclassForm} from "../teachers";
   import {deduceExpirationPeriod} from "../extensions/badges/expiration_period";
   import Spinner from "../Spinner.svelte";
+  import {translateProperties} from "../../util/utils";
 
   export let issuerEntityId;
 
@@ -14,7 +15,8 @@
       institutionType
     },
     issuers {
-      name,
+      nameEnglish,
+      nameDutch,
       entityId
     },
   }`;
@@ -27,6 +29,7 @@
   onMount(() => {
     queryData(query).then(res => {
       issuers = res.issuers;
+      issuers.forEach(issuer => translateProperties(issuer));
       badgeclass.issuer = issuers.find(issuer => issuer.entityId === issuerEntityId);
       currentInstitution = res.currentInstitution;
       loaded = true;

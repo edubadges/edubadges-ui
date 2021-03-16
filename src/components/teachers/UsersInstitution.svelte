@@ -12,6 +12,7 @@
   import {Modal} from "../forms";
   import ListLink from "./ListLink.svelte";
   import {institutionIcon} from "../../icons"
+  import {translateProperties} from "../../util/utils";
 
   export let userId;
 
@@ -31,7 +32,8 @@
 
   const query = `query ($userId: String){
     currentInstitution {
-      name,
+      nameDutch,
+      nameEnglish,
       entityId,
       image,
       staff {
@@ -58,6 +60,7 @@
     loaded = false;
     queryData(query, {userId}).then(res => {
       institution = res.currentInstitution;
+      translateProperties(institution);
       institutionStaff = institution.staff;
       user = res.user;
       currentUser = res.currentUser;

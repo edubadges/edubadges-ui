@@ -7,6 +7,7 @@
     expirationPeriods
   } from "../extensions/badges/expiration_period";
   import Spinner from "../Spinner.svelte";
+  import {translateProperties} from "../../util/utils";
 
   export let entityId;
 
@@ -33,10 +34,12 @@
         targetDescription
       },
       issuer {
-        name,
+        nameEnglish,
+        nameDutch,
         entityId,
         faculty {
-          name,
+          nameEnglish,
+          nameDutch,
           entityId,
         }
       },
@@ -56,7 +59,8 @@
       }
     },
     issuers {
-      name,
+      nameEnglish,
+      nameDutch,
       entityId
     },
   }`;
@@ -73,8 +77,15 @@
   onMount(() => {
     queryData(query, {entityId}).then(res => {
       badgeclass = res.badgeClass;
+
+      translateProperties(badgeclass.issuer);
+      translateProperties(badgeclass.issuer.faculty);
+
       deduceExpirationPeriod(badgeclass);
+
       issuers = res.issuers;
+      issuers.forEach(iss => translateProperties(iss));
+
       permissions = res.badgeClass.permissions;
       currentInstitution = res.currentInstitution;
       loaded = true;

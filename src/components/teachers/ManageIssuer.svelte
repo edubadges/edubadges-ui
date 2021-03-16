@@ -1,20 +1,17 @@
 <script>
   import I18n from "i18n-js";
   import {onMount} from "svelte";
-  import {Router, Route, navigate} from "svelte-routing";
-  import {Breadcrumb, EntityHeader, Badgeclasses, IssuerUserManagement, InviteUser} from "../teachers";
+  import {navigate, Route, Router} from "svelte-routing";
+  import {Badgeclasses, Breadcrumb, EntityHeader, InviteUser, IssuerUserManagement} from "../teachers";
   import {badgeclassIcon, userManagementIcon} from "../../icons";
   import {queryData} from "../../api/graphql";
-  import {headerStaff, headerEntity} from "../../api/queries";
+  import {headerEntityMultiLanguage, headerStaff} from "../../api/queries";
   import {entityType} from "../../util/entityTypes";
   import {config} from "../../util/config";
 
 
-import {
-    ects,
-    extensionValue,
-    studyLoad
-  } from "../extensions/badges/extensions";
+  import {ects, extensionValue, studyLoad} from "../extensions/badges/extensions";
+  import {translateProperties} from "../../util/utils";
 
   export let entityId;
   export let subEntity;
@@ -28,17 +25,20 @@ import {
 
   const query = `query ($entityId: String){
     issuer(id: $entityId) {
-      ${headerEntity},
+      ${headerEntityMultiLanguage},
       ${headerStaff},
-      image,
+      imageDutch,
+      imageEnglish,
       email,
       url,
       contentTypeId,
       faculty {
-        name,
+        nameDutch,
+        nameEnglish,
         entityId,
         institution {
-          image
+          imageDutch,
+          imageEnglish,
         }
       },
       badgeclasses {
@@ -71,6 +71,11 @@ import {
   onMount(() => {
     queryData(query, {entityId}).then(res => {
       issuer = res.issuer;
+
+      translateProperties(issuer);
+      translateProperties(issuer.faculty);
+      translateProperties(issuer.faculty.institution);
+
       issuer.publicLink = `${config.serverUrl}/public/issuers/${entityId}`;
       faculty = issuer.faculty;
       badgeclasses = issuer.badgeclasses;
@@ -125,33 +130,33 @@ import {
     },
   ];
 
-  const permissionsRoles = [{value:"admin", name: I18n.t("editUsers.issuer.admin")}];
+  const permissionsRoles = [{value: "admin", name: I18n.t("editUsers.issuer.admin")}];
 
 </script>
 
 <Breadcrumb {faculty} {issuer}/>
 <EntityHeader
-    {tabs}
-    {headerItems}
-    object={issuer}
-    entity={entityType.ISSUER}
-    entityId={entityId}
-    mayUpdate={mayUpdate}
+  {tabs}
+  {headerItems}
+  object={issuer}
+  entity={entityType.ISSUER}
+  entityId={entityId}
+  mayUpdate={mayUpdate}
 />
 
 <Router>
   <Route path="/badgeclasses">
     <Badgeclasses
-        {badgeclasses}
-        mayCreate={mayCreate}
-        issuer={issuer}/>
+      {badgeclasses}
+      mayCreate={mayCreate}
+      issuer={issuer}/>
   </Route>
   <Route path="/user-management/invite-new-user">
     <InviteUser
-        permissionsRoles={permissionsRoles}
-        entityId={entityId}
-        disabledRole={true}
-        contentType={contentType}
+      permissionsRoles={permissionsRoles}
+      entityId={entityId}
+      disabledRole={true}
+      contentType={contentType}
     />
   </Route>
   <Route path="/user-management">

@@ -21,6 +21,7 @@
   import ShareDialog from "./ShareDialog.svelte";
   import BadgeInstanceEvidence from "../../components/shared/BadgeInstanceEvidence.svelte";
   import CheckBox from "../../components/CheckBox.svelte";
+  import {translateProperties} from "../../util/utils";
 
   export let entityId;
 
@@ -92,13 +93,17 @@
         criteriaUrl,
         criteriaText,
         issuer {
-          name,
-          image,
+          nameDutch,
+          nameEnglish,
+          imageDutch,
+          imageEnglish,
           entityId,
           faculty {
-            name,
+            nameDutch,
+            nameEnglish,
             institution {
-              name,
+              nameDutch,
+              nameEnglish,
               entityId
             }
           }
@@ -124,6 +129,11 @@
     loaded = false;
     queryData(query, {entityId}).then(res => {
       badge = res.badgeInstance;
+      const issuer = badge.badgeclass.issuer;
+      translateProperties(issuer);
+      translateProperties(issuer.faculty);
+      translateProperties(issuer.faculty.institution);
+
       showModal = false;
       if (!badge.public && badge.acceptance === 'UNACCEPTED') {
         claimAssertion(badge.entityId);

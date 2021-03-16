@@ -8,6 +8,7 @@
   import {issuerIcon, facultyIcon, badgeclassIcon, userManagementIcon, institutionIcon} from "../../icons";
   import UserBreadcrumb from "./UserBreadcrumb.svelte";
   import Spinner from "../Spinner.svelte";
+  import {translateProperties} from "../../util/utils";
 
   export let entity;
 
@@ -22,19 +23,23 @@
   const query = `query {
     currentInstitution {
       entityId,
-      name,
+      nameDutch,
+      nameEnglish,
       faculties {
-        name,
+        nameDutch,
+        nameEnglish,
         entityId,
         issuers {
-          name,
+          nameDutch,
+          nameEnglish,
           entityId,
           badgeclasses {
             name,
             entityId
           },
           faculty {
-            name,
+            nameDutch,
+            nameEnglish,
             entityId
           }
         }
@@ -48,13 +53,16 @@
       institutionStaff {
         entityId,
         institution {
-          name,
+          nameDutch,
+          nameEnglish,
           entityId,
           faculties {
-            name,
+            nameDutch,
+            nameEnglish,
             entityId,
             issuers {
-              name,
+              nameDutch,
+              nameEnglish,
               entityId,
               badgeclasses {
                 name,
@@ -67,10 +75,12 @@
       facultyStaffs {
         entityId,
         faculty {
-          name,
+          nameDutch,
+          nameEnglish,
           entityId,
           issuers {
-            name,
+            nameDutch,
+            nameEnglish,
             entityId,
             badgeclasses {
               name,
@@ -82,14 +92,16 @@
       issuerStaffs {
         entityId,
         issuer {
-          name,
+          nameDutch,
+          nameEnglish,
           entityId,
           badgeclasses {
             name,
             entityId,
           },
           faculty {
-            name,
+            nameDutch,
+            nameEnglish,
             entityId,
           }
         }
@@ -103,10 +115,12 @@
           entityId,
           name,
           issuer {
-            name,
+            nameDutch,
+            nameEnglish,
             entityId,
             faculty {
-              name
+              nameDutch,
+              nameEnglish,
             }
           }
         }
@@ -117,6 +131,34 @@
   onMount(() => {
     queryData(query).then(res => {
       institution = res.currentInstitution;
+
+      translateProperties(institution);
+      institution.faculties.forEach(faculty => {
+        translateProperties(faculty);
+        faculty.issuers.forEach(issuer => {
+          translateProperties(issuer);
+          translateProperties(issuer.faculty);
+        });
+      });
+      const nestedInstitution = currentUser.institutionStaff.institution;
+      translateProperties(nestedInstitution);
+      nestedInstitution.faculties.forEach(faculty => {
+        translateProperties(faculty);
+        faculty.issuers.forEach(issuer => translateProperties(issuer));
+      });
+      currentUser.facultyStaffs.forEach(staff => {
+        translateProperties(staff.faculty);
+        staff.faculty.issuers.forEach(issuer => translateProperties(issuer));
+      });
+      currentUser.issuerStaffs.forEach(staff => {
+        translateProperties(staff.issuer);
+        translateProperties(staff.issuer.faculty);
+      });
+      currentUser.badgeclassStaffs.forEach(staff => {
+        translateProperties(staff.badgeclass.issuer);
+        translateProperties(staff.badgeclass.issuer.faculty);
+      });
+
       if (res.currentUser.institutionStaff) {
         institutionStaffMemberships = addStaffType([res.currentUser.institutionStaff], staffType.INSTITUTION_STAFF);
       } else {

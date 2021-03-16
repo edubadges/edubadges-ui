@@ -25,6 +25,7 @@
   import {config} from "../../util/config"
   import {getService} from "../../util/getService";
   import PublicBreadcrumb from "./PublicBreadcrumb.svelte";
+  import {translateProperties} from "../../util/utils";
 
   export let entityId;
 
@@ -107,16 +108,20 @@
         }
       },
       issuer {
-        name,
+        nameDutch,
+        nameEnglish,
         entityId,
         publicUrl,
         faculty {
-          name,
+          nameDutch,
+          nameEnglish,
           entityId,
           institution {
             identifier,
-            name,
-            image,
+            nameDutch,
+            nameEnglish,
+            imageDutch,
+            imageEnglish,
             grondslagFormeel,
             grondslagInformeel,
             entityId
@@ -150,6 +155,11 @@
         const userTerms = res[1].currentUser.termsAgreements;
         noValidatedName = !res[1].currentUser.validatedName;
         badgeClass = res[1].badgeClass;
+
+        translateProperties(badgeClass.issuer);
+        translateProperties(badgeClass.issuer.faculty);
+        translateProperties(badgeClass.issuer.faculty.institution);
+
         badgeClass.issuer.id = badgeClass.issuer.publicUrl;
         schacHomes = schacHomeNamesFromExtraData(res[2][0].affiliations);
         loaded = true;

@@ -17,6 +17,7 @@
   import Spinner from "../Spinner.svelte";
   import LinkEye from "./LinkEye.svelte";
   import {facultyIds, issuerIds} from "../../stores/filterBadges";
+  import {translateProperties} from "../../util/utils";
 
   export let entityId;
   export let subEntity;
@@ -46,14 +47,17 @@
       criteriaText,
       expirationPeriod,
       issuer {
-        name,
+        nameEnglish,
+        nameDutch,
         entityId,
         faculty {
-          name,
+          nameEnglish,
+          nameDutch,
           entityId,
-           institution {
+          institution {
             entityId,
-            name
+            nameEnglish,
+            nameDutch,
           }
         }
       },
@@ -76,6 +80,12 @@
   const refresh = () => {
     queryData(query, {entityId}).then(res => {
       badgeclass = res.badgeClass;
+
+      translateProperties(badgeclass);
+      translateProperties(badgeclass.issuer);
+      translateProperties(badgeclass.issuer.faculty);
+      translateProperties(badgeclass.issuer.faculty.institution);
+
       issuer = res.badgeClass.issuer;
       faculty = issuer.faculty;
 

@@ -2,23 +2,26 @@
   import {onMount} from "svelte";
   import {BadgeClassesToolBar, BadgesHeader, SideBarBadges} from "../../components/teachers";
   import {queryData} from "../../api/graphql";
-  import {headerEntity, headerStaff} from "../../api/queries";
-  import {awardFilter, faculties, tree, sortTarget} from "../../stores/filterBadges";
+  import {headerEntity, headerEntityMultiLanguage, headerStaff} from "../../api/queries";
+  import {faculties, sortTarget, tree} from "../../stores/filterBadges";
   import BadgeCard from "../../components/shared/BadgeCard.svelte";
   import Spinner from "../../components/Spinner.svelte";
   import {ects, eqf, extensionValue, studyLoad} from "../../components/extensions/badges/extensions";
   import BadgeListView from "../../components/shared/BadgeListView.svelte";
+  import {translateProperties} from "../../util/utils";
 
   const query = `query {
     faculties {
       institution {
-        image
+        imageDutch,
+        imageEnglish
       },
-      ${headerEntity},
+      ${headerEntityMultiLanguage},
       ${headerStaff},
       issuers {
-        ${headerEntity},
-        image,
+        ${headerEntityMultiLanguage},
+        imageDutch,
+        imageEnglish
         ${headerStaff},
         badgeclasses {
           name,
@@ -30,12 +33,16 @@
             originalJson
           },
           issuer {
-            name,
-            image,
+            nameDutch,
+            nameEnglish,
+            imageDutch,
+            imageEnglish
             faculty {
-              name,
+            	nameDutch,
+	            nameEnglish,
               institution {
-                name
+                nameDutch,
+                nameEnglish,
               }
             }
           },
@@ -55,6 +62,18 @@
 
   onMount(() => {
     queryData(query).then(res => {
+      res.faculties.forEach(faculty => {
+        translateProperties(faculty);
+        translateProperties(faculty.institution);
+        faculty.issuers.forEach(issuer => {
+          translateProperties(issuer);
+          issuer.badgeclasses.forEach(badgeClass => {
+            translateProperties(badgeClass.issuer);
+            translateProperties(badgeClass.issuer.faculty);
+            translateProperties(badgeClass.issuer.faculty.institution);
+          })
+        });
+      })
       for (const faculty of res.faculties) {
         for (const issuer of faculty.issuers) {
           if (!issuer.image) {

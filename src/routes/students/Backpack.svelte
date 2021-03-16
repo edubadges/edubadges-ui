@@ -11,6 +11,7 @@
   import {ects, eqf, extensionValue, studyLoad} from "../../components/extensions/badges/extensions";
   import ViewSelector from "../../components/shared/ViewSelector.svelte";
   import BadgeListView from "../../components/shared/BadgeListView.svelte";
+  import {translateProperties} from "../../util/utils";
 
   let loaded = false;
   let badges = [];
@@ -18,7 +19,14 @@
 
   onMount(() => {
     queryData(studentBadgeInstances).then(res => {
-      badges = sortCreatedAt(res.badgeInstances);
+      const badgeInstances = res.badgeInstances;
+      badgeInstances.forEach(badgeInstance => {
+        const issuer = badgeInstance.badgeclass.issuer;
+        translateProperties(issuer);
+        translateProperties(issuer.faculty);
+        translateProperties(issuer.faculty.institution);
+      });
+      badges = sortCreatedAt(badgeInstances);
       for (const badge of badges) {
         badge.badgeclass.studyLoad = extensionValue(badge.badgeclass.extensions, studyLoad);
         badge.badgeclass.ects = extensionValue(badge.badgeclass.extensions, ects);

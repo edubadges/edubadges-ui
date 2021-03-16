@@ -18,6 +18,7 @@
   import {InstitutionUserManagement} from "../teachers/";
   import {entityType} from "../../util/entityTypes"
   import {permissionsRole} from "../../util/rolesToPermissions";
+  import {translateProperties} from "../../util/utils";
 
   let entityId;
   export let subEntity;
@@ -47,7 +48,8 @@
       }
 		},
 		faculties {
-      name,
+      nameDutch,
+      nameEnglish,
       entityId,
 			issuers {
 				entityId,
@@ -60,12 +62,15 @@
       },
 		},
 		issuers {
-      name,
+      nameDutch,
+      nameEnglish,
       entityId,
 			faculty {
-				name
+        nameDutch,
+        nameEnglish,
 			},
-			image,
+			imageEnglish,
+			imageDutch,
 			badgeclasses {
 				entityId,
 				badgeAssertions {
@@ -84,6 +89,14 @@
       institution = res.currentInstitution;
       faculties = res.faculties;
       issuers = res.issuers;
+
+      translateProperties(res.currentInstitution);
+      faculties.forEach(faculty => translateProperties(faculty));
+      issuers.forEach(issuer => {
+        translateProperties(issuer);
+        translateProperties(issuer.faculty);
+      })
+
       loaded = true;
       entityId = res.currentInstitution.entityId;
       contentType = res.currentInstitution.contentTypeId;

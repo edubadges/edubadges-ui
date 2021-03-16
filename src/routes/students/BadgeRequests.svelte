@@ -1,15 +1,13 @@
 <script>
   import {onMount} from "svelte";
-  import {
-    requestBadge,
-    withdrawRequestBadge
-  } from "../../api";
+  import {withdrawRequestBadge} from "../../api";
   import {queryData} from "../../api/graphql";
   import EnrollmentBadge from "./EnrollmentBadge.svelte";
   import I18n from "i18n-js";
   import {flash} from "../../stores/flash";
   import Spinner from "../../components/Spinner.svelte";
-  import { ects, extensionValue, studyLoad } from "../../components/extensions/badges/extensions";
+  import {ects, extensionValue, studyLoad} from "../../components/extensions/badges/extensions";
+  import {translateProperties} from "../../util/utils";
 
   let requests = [];
   let error = false;
@@ -30,10 +28,13 @@
           originalJson
         },
         issuer {
-          name,
-          image,
+          nameDutch,
+          nameEnglish,
+          imageDutch,
+          imageEnglish,
           faculty {
-            name
+            nameDutch,
+            nameEnglish,
           }
         }
       },
@@ -42,10 +43,16 @@
 
   onMount(() => {
     queryData(query).then(res => {
-      requests = res.enrollments.filter(el => !el.dateAwarded);
+      const enrollments = res.enrollments;
+      enrollments.forEach(enrollment => {
+        const issuer = enrollment.badgeClass.issuer;
+        translateProperties(issuer);
+        translateProperties(issuer.faculty);
+      });
+      requests = enrollments.filter(el => !el.dateAwarded);
       loaded = true;
 
-      for(const request of requests) {
+      for (const request of requests) {
         request.badgeClass.studyLoad = extensionValue(request.badgeClass.extensions, studyLoad);
         request.badgeClass.ects = extensionValue(request.badgeClass.extensions, ects);
       }
@@ -55,7 +62,14 @@
   const withdrawRequest = id =>
     withdrawRequestBadge(id)
       .then(() => queryData(query).then(res => {
-        requests = res.enrollments;
+        const enrollments = res.enrollments;
+        enrollments.forEach(enrollment => {
+          const issuer = enrollment.badgeClass.issuer;
+          translateProperties(issuer);
+          translateProperties(issuer.faculty);
+        });
+
+        requests = enrollments;
         flash.setValue(I18n.t("student.flash.withdrawn"));
       }))
       .catch(err => {

@@ -4,6 +4,7 @@
   import I18n from "i18n-js";
   import {UserManagement} from "../teachers";
   import {staffType, addStaffType} from "../../util/staffTypes";
+  import {translateProperties} from "../../util/utils";
 
   export let entity;
 
@@ -15,7 +16,8 @@
   const query = `query {
     currentInstitution {
       contentTypeId,
-      name,
+      nameEnglish,
+      nameDutch,
       userprovisionments {
         email,
         createdAt,
@@ -25,7 +27,6 @@
       permissions {
         mayAdministrateUsers
       },
-      name,
       staff {
         entityId,
         mayAdministrateUsers,
@@ -41,6 +42,8 @@
 
   const reload = () => {
     queryData(query).then(res => {
+      translateProperties(res.currentInstitution);
+
       institutionStaffMembers = addStaffType(res.currentInstitution.staff, staffType.INSTITUTION_STAFF);
       userProvisionments = addStaffType(res.currentInstitution.userprovisionments, staffType.USER_PROVISIONMENT);
       permissions = res.currentInstitution.permissions;

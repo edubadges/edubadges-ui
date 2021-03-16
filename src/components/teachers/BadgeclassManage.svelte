@@ -11,6 +11,7 @@
   import {entityType} from "../../util/entityTypes"
   import Spinner from "../Spinner.svelte";
   import {permissionsRole} from "../../util/rolesToPermissions";
+  import {translateProperties} from "../../util/utils";
 
   export let entityId;
   export let tab;
@@ -38,13 +39,16 @@
       criteriaText,
       expirationPeriod,
       issuer {
-        name,
+        nameEnglish,
+        nameDutch,
         entityId,
         faculty {
-          name,
+          nameEnglish,
+          nameDutch,
           entityId,
           institution {
-            name
+            nameEnglish,
+            nameDutch,
           }
         }
       },
@@ -76,6 +80,11 @@
   onMount(() => {
     queryData(query, {entityId}).then(res => {
       badgeclass = res.badgeClass;
+
+      translateProperties(badgeclass.issuer);
+      translateProperties(badgeclass.issuer.faculty);
+      translateProperties(badgeclass.issuer.faculty.institution);
+
       issuer = res.badgeClass.issuer;
       faculty = issuer.faculty;
       contentType = res.badgeClass.contentTypeId;

@@ -3,7 +3,7 @@
   import {onMount} from "svelte";
   import {navigate} from "svelte-routing";
   import Button from "../../components/Button.svelte";
-  import {formatCreateDate} from "../../util/utils";
+  import {formatCreateDate, translateProperties} from "../../util/utils";
   import {deleteProfile, getProfile, getSocialAccountsSafe, withdrawTermsForBadge,} from "../../api";
   import {authToken, redirectPath, userLoggedIn, userRole} from "../../stores/user";
   import {Modal} from "../../components/forms";
@@ -34,7 +34,8 @@
         terms {
           entityId,
           institution {
-            name,
+            nameDutch,
+            nameEnglish,
             entityId
           },
           termsType
@@ -51,17 +52,23 @@
 
   const reload = () => {
     let promises = [getProfile(), getSocialAccountsSafe()];
-    if (isStudent) promises.push(queryData(query));
+    if (isStudent) {
+      promises.push(queryData(query));
+    }
     Promise.all(promises).then(res => {
       profile = res[0];
       profile.eduid = res[1][0].eduid;
       profile.dateAdded = res[1][0].dateAdded;
       profile.affiliations = res[1][0].affiliations;
       if (isStudent) {
-        if (res[2].currentUser.validatedName) {
-          profile.validatedName = res[2].currentUser.validatedName;
+        const currentUser = res[2].currentUser;
+        if (currentUser.validatedName) {
+          profile.validatedName = currentUser.validatedName;
         }
-        const termAgreements = res[2].currentUser.termsAgreements;
+        const termAgreements = currentUser.termsAgreements;
+        termAgreements.forEach(termAgreement => {
+          translateProperties(termAgreement.terms.institution);
+        });
         instititions = termAgreements.reduce((acc, cur) => {
           if (cur.agreed && cur.terms.institution) {
             const terms = cur.terms;

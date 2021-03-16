@@ -6,6 +6,7 @@
   import I18n from "i18n-js";
   import chevronRightSmall from "../../icons/chevron-right-small.svg";
   import {link} from "svelte-routing";
+  import {translateProperties} from "../../util/utils";
 
   export let enrollmentId;
   let enrollment;
@@ -25,12 +26,16 @@
         image,
         criteriaText,
         issuer {
-          name,
-          image,
+          nameDutch,
+          nameEnglish,
+          imageDutch,
+          imageEnglish,
           faculty {
-            name,
+            nameDutch,
+            nameEnglish,
             institution {
-              name,
+              nameDutch,
+              nameEnglish,
               entityId
             }
           }
@@ -54,6 +59,11 @@
     queryData(query, {enrollmentId}).then(res => {
       enrollment = res.enrollment;
       badgeClass = enrollment.badgeClass;
+
+      const issuer = badgeClass.issuer;
+      translateProperties(issuer);
+      translateProperties(issuer.faculty);
+      translateProperties(issuer.faculty.institution);
     });
   });
 </script>

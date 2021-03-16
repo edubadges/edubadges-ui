@@ -4,6 +4,7 @@
   import I18n from "i18n-js";
   import {UserManagement} from "../teachers";
   import {staffType, addStaffType} from "../../util/staffTypes";
+  import {translateProperties} from "../../util/utils";
 
   export let entity;
   export let entityId;
@@ -38,7 +39,8 @@
         }
       },
       issuer {
-        name,
+        nameEnglish,
+        nameDutch,
         staff {
           entityId,
           mayAdministrateUsers,
@@ -50,7 +52,8 @@
           }
         },
         faculty {
-          name,
+          nameEnglish,
+          nameDutch,
           staff {
             entityId,
             mayAdministrateUsers,
@@ -62,7 +65,8 @@
             }
           },
           institution {
-            name,
+            nameEnglish,
+            nameDutch,
             staff {
               entityId,
               mayAdministrateUsers,
@@ -84,6 +88,10 @@
 
   const reload = () => {
     queryData(query, {entityId}).then(res => {
+      translateProperties(badgeclass.issuer);
+      translateProperties(badgeclass.issuer.faculty);
+      translateProperties(badgeclass.issuer.faculty.institution);
+
       institutionStaffMembers = addStaffType(res.badgeClass.issuer.faculty.institution.staff, staffType.INSTITUTION_STAFF);
       issuerGroupStaffMembers = addStaffType(res.badgeClass.issuer.faculty.staff, staffType.ISSUER_GROUP_STAFF);
       issuerStaffMembers = addStaffType(res.badgeClass.issuer.staff, staffType.ISSUER_STAFF);
