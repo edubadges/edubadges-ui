@@ -974,7 +974,7 @@ I18n.translations.nl = {
       WO: "WO",
       HBO: "HBO",
       MBO: "MBO",
-      NONE: "Unspecified"
+      NONE: "SURF"
     },
     studyLoad: {
         NO_STUDYLOAD: "Geen studyload",

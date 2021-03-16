@@ -1,7 +1,7 @@
 <script>
   import {onMount} from "svelte";
   import {queryData} from "../../api/graphql";
-  import {badgeClasses, tree, sortTarget} from "../../stores/filterCatalog";
+  import {badgeClasses, sortTarget, tree} from "../../stores/filterCatalog";
   import BadgeCard from "../../components/shared/BadgeCard.svelte";
   import Spinner from "../../components/Spinner.svelte";
   import {ects, eqf, extensionValue, studyLoad} from "../../components/extensions/badges/extensions";
@@ -59,31 +59,33 @@
     }
     queryData(query).then(res => {
       const institutions = res.publicInstitutions;
-      const results = institutions.reduce((acc, institution) => {
-        institution.count = 0;
-        translateProperties(institution);
-        institution.publicFaculties.forEach(faculty => {
-          translateProperties(faculty);
-          faculty.publicIssuers.forEach(issuer => {
-            translateProperties(issuer);
-            issuer.publicBadgeclasses.forEach(badgeClass => {
-              //catalog query is different then others, so we need to set the references
-              badgeClass.issuer = issuer;
-              badgeClass.issuer.faculty = faculty;
-              badgeClass.issuer.faculty.institution = institution;
-              ++institution.count;
-              badgeClass.institution = institution;
-              //used in the filtering
-              badgeClass.studyLoad = extensionValue(badgeClass.extensions, studyLoad);
-              badgeClass.ects = extensionValue(badgeClass.extensions, ects);
-              badgeClass.eqf = extensionValue(badgeClass.extensions, eqf);
-              assignFilterTypes(badgeClass);
-              acc.push(badgeClass);
+      const results = institutions
+        .filter(institution => institution.institutionType)
+        .reduce((acc, institution) => {
+          institution.count = 0;
+          translateProperties(institution);
+          institution.publicFaculties.forEach(faculty => {
+            translateProperties(faculty);
+            faculty.publicIssuers.forEach(issuer => {
+              translateProperties(issuer);
+              issuer.publicBadgeclasses.forEach(badgeClass => {
+                //catalog query is different then others, so we need to set the references
+                badgeClass.issuer = issuer;
+                badgeClass.issuer.faculty = faculty;
+                badgeClass.issuer.faculty.institution = institution;
+                ++institution.count;
+                badgeClass.institution = institution;
+                //used in the filtering
+                badgeClass.studyLoad = extensionValue(badgeClass.extensions, studyLoad);
+                badgeClass.ects = extensionValue(badgeClass.extensions, ects);
+                badgeClass.eqf = extensionValue(badgeClass.extensions, eqf);
+                assignFilterTypes(badgeClass);
+                acc.push(badgeClass);
+              })
             })
-          })
-        });
-        return acc;
-      }, []);
+          });
+          return acc;
+        }, []);
       $badgeClasses = results;
       loaded = true;
     });
