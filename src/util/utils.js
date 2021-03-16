@@ -26,11 +26,15 @@ export const formatCreateDate = iso => {
 
 export const flatten = arr => arr.reduce((acc, cur) => acc.concat(Array.isArray(cur) ? flatten(cur) : cur), []);
 
+//The properties from graphene are different then the properties from the public endpoints
 export const translateProperties = obj => {
   const isEnglish = I18n.locale === "en";
-  ["name", "description", "image"].forEach(attr => {
+  ["name", "description", "image", "url"].forEach(attr => {
     if (obj[`${attr}English`] || obj[`${attr}Dutch`]) {
       obj[attr] = isEnglish ? (obj[`${attr}English`] || obj[`${attr}Dutch`]) : (obj[`${attr}Dutch`] || obj[`${attr}English`]);
+    }
+    if (obj[`${attr}_english`] || obj[`${attr}_dutch`]) {
+      obj[attr] = isEnglish ? (obj[`${attr}_english`] || obj[`${attr}_dutch`]) : (obj[`${attr}_dutch`] || obj[`${attr}_english`]);
     }
   });
 }

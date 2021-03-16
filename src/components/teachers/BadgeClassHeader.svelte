@@ -70,6 +70,8 @@
 
           span.top {
             font-weight: bold;
+            display: inline-block;
+            margin-bottom: 5px;
           }
 
         }

@@ -30,7 +30,8 @@
       imageDutch,
       imageEnglish,
       email,
-      url,
+      urlDutch,
+      urlEnglish,
       contentTypeId,
       faculty {
         nameDutch,

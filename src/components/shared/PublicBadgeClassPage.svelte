@@ -172,6 +172,11 @@
     } else {
       getPublicBadgeClass(entityId).then(res => {
         badgeClass = res;
+
+        translateProperties(badgeClass.issuer);
+        translateProperties(badgeClass.issuer.faculty);
+        translateProperties(badgeClass.issuer.faculty.institution);
+
         publicBadgeInformation(badgeClass, res);
         //need to ensure the links work
         badgeClass.entityId = badgeClass.id.substring(badgeClass.id.lastIndexOf("/") + 1);
