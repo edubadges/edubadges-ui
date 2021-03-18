@@ -67,7 +67,9 @@
         }
         const termAgreements = currentUser.termsAgreements;
         termAgreements.forEach(termAgreement => {
-          translateProperties(termAgreement.terms.institution);
+          if (termAgreement.terms.institution) {
+            translateProperties(termAgreement.terms.institution);
+          }
         });
         instititions = termAgreements.reduce((acc, cur) => {
           if (cur.agreed && cur.terms.institution) {
