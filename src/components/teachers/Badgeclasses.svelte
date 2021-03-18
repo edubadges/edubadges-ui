@@ -133,8 +133,8 @@
       </td>
       <td>{badgeclass.name}</td>
       <td>{moment(badgeclass.createdAt).format('MMM D, YYYY')}</td>
-      <td class="center">{badgeclass.badgeAssertions.length === 0 ? "-" : badgeclass.badgeAssertions.length}</td>
-      <td class="center">{badgeclass.pendingEnrollments.length === 0 ? "-" : badgeclass.pendingEnrollments.length}</td>
+      <td class="center">{badgeclass.assertionCount === 0 ? "-" : badgeclass.assertionCount}</td>
+      <td class="center">{badgeclass.pendingEnrollmentCount === 0 ? "-" : badgeclass.pendingEnrollmentCount}</td>
       <td class="right">{badgeclass.studyLoad}</td>
       <td></td>
     </tr>

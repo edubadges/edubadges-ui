@@ -51,15 +51,8 @@
       nameDutch,
       nameEnglish,
       entityId,
-			issuers {
-				entityId,
-				badgeclasses {
-				  entityId,
-				  pendingEnrollments {
-				    entityId
-				  }
-				}
-      },
+      issuerCount,
+      pendingEnrollmentCount
 		},
 		issuers {
       nameDutch,
@@ -71,15 +64,9 @@
 			},
 			imageEnglish,
 			imageDutch,
-			badgeclasses {
-				entityId,
-				badgeAssertions {
-				  entityId
-				},
-				pendingEnrollments {
-				  entityId
-				}
-      },
+      badgeclassCount,
+      assertionCount,
+      pendingEnrollmentCount,
 		}
   }`;
 

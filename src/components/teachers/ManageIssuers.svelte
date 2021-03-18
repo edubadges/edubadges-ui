@@ -140,9 +140,9 @@
         <br/>
         <span class="sub-text">({issuer.faculty.name})</span>
       </td>
-      <td class="center">{issuer.badgeclasses.length === 0 ? "-" : issuer.badgeclasses.length}</td>
-      <td class="center">{tableNumber(issuer.badgeclasses, 'badgeAssertions')}</td>
-      <td class="center">{tableNumber(issuer.badgeclasses, 'pendingEnrollments')}</td>
+      <td class="center">{issuer.badgeclassCount === 0 ? "-" : issuer.badgeclassCount}</td>
+      <td class="center">{issuer.assertionCount === 0 ? "-" : issuer.assertionCount}</td>
+      <td class="center">{issuer.pendingEnrollmentCount === 0 ? "-" : issuer.pendingEnrollmentCount}</td>
       <td></td>
     </tr>
   {/each}

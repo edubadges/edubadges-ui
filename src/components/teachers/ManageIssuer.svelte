@@ -47,15 +47,11 @@
         entityId,
         image,
         createdAt,
-        badgeAssertions {
-          entityId
-        },
+        assertionCount,
         enrollments {
           entityId
         },
-        pendingEnrollments {
-          entityId
-        },
+        pendingEnrollmentCount,
         extensions {
          name,
          originalJson
