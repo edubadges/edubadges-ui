@@ -5,7 +5,6 @@
   import {Table} from "../teachers";
   import {search} from "../../util/searchData";
   import {sort, sortType} from "../../util/sortData";
-  import {tableNumber} from "../../util/tableNumberToText";
   import {issuerIcon} from "../../icons";
 
   export let mayCreate;
