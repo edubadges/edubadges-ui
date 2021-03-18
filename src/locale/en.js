@@ -21,7 +21,7 @@ I18n.translations.en = {
   login: {
     title: "Never stop learning",
     loginToEnrol: "Login to request this edubadge",
-    loginToEnrolInfo: "<strong>Attention!</strong> You can only request this badge if you are registered by <strong>{{name}}</strong>.",
+    loginToEnrolInfo: "<strong>Attention!</strong> You can only request this badge if you are registered at <strong>{{name}}</strong>.",
     destination: "What would you like to do?",
     description:
       "Edubadges are digital certificates which show that the owner has acquired certain skills or knowledge. Edubadges can be issued for both accredited education and extracurriculair activities.",
