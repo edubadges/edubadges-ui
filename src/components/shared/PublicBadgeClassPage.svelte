@@ -165,9 +165,7 @@
         loaded = true;
 
         const termsCandidate = userTerms.find(uTerm => uTerm.terms.entityId === badgeClass.terms.entityId);
-        termsAccepted = Boolean(termsCandidate &&
-          termsCandidate.agreedVersion === badgeClass.terms.version &&
-          termsCandidate.agreed);
+        termsAccepted = termsCandidate && termsCandidate.agreedVersion === badgeClass.terms.version && termsCandidate.agreed;
       });
     } else {
       getPublicBadgeClass(entityId).then(res => {
