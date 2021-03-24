@@ -26,25 +26,25 @@
     },
     {
       name: I18n.t("teacher.badgeclasses.title"),
-      attribute: "badgeclasses",
+      attribute: "badgeclassCount",
       reverse: false,
-      sortType: sortType.COLLECTION,
+      sortType: sortType.NUMERIC,
       width: "15%",
       center: true
     },
     {
       name: I18n.t("teacher.badgeclasses.badges"),
-      attribute: "badgeAssertions",
+      attribute: "assertionCount",
       reverse: false,
-      sortType: sortType.ISSUER_BADGE_CLASS_ASSERTIONS,
+      sortType: sortType.NUMERIC,
       width: "15%",
       center: true
     },
     {
       name: I18n.t("teacher.badgeclasses.requestedBadges"),
-      attribute: "enrollments",
+      attribute: "pendingEnrollmentCount",
       reverse: false,
-      sortType: sortType.ISSUER_BADGE_CLASS_ENROLLMENTS,
+      sortType: sortType.NUMERIC,
       width: "15%",
       center: true
     },

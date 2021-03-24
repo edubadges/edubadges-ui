@@ -36,15 +36,9 @@
         nameDutch
         imageEnglish,
         imageDutch,
-        badgeclasses {
-          entityId,
-          badgeAssertions {
-            entityId
-          },
-          pendingEnrollments {
-            entityId
-          }
-        },
+        pendingEnrollmentCount,
+        badgeclassCount,
+        assertionCount,
         faculty {
           nameEnglish,
           nameDutch

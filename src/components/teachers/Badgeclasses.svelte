@@ -32,17 +32,17 @@
     },
     {
       name: I18n.t("teacher.badgeclasses.recipients"),
-      attribute: "enrollments",
+      attribute: "assertionCount",
       reverse: false,
-      sortType: sortType.COLLECTION,
+      sortType: sortType.NUMERIC,
       width: "10%",
       center: true
     },
     {
       name: I18n.t("teacher.badgeclasses.enrollments"),
-      attribute: "pendingEnrollments",
+      attribute: "pendingEnrollmentCount",
       reverse: false,
-      sortType: sortType.COLLECTION,
+      sortType: sortType.NUMERIC,
       width: "12%",
       center: true
     },

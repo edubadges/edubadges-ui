@@ -48,9 +48,6 @@
         image,
         createdAt,
         assertionCount,
-        enrollments {
-          entityId
-        },
         pendingEnrollmentCount,
         extensions {
          name,
