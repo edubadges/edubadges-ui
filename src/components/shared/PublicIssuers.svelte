@@ -23,7 +23,7 @@
     },
     {
       name: I18n.t("teacher.badgeclasses.title"),
-      attribute: "badgeclassesCount",
+      attribute: "badgeclassCount",
       reverse: false,
       sortType: sortType.NUMERIC,
       width: "15%",
@@ -119,7 +119,7 @@
         <br/>
         <span class="sub-text">({issuer.faculty.name})</span>
       </td>
-      <td class="center">{issuer.badgeclassesCount === 0 ? "-" : issuer.badgeclassesCount}</td>
+      <td class="center">{issuer.badgeclassCount === 0 ? "-" : issuer.badgeclassCount}</td>
       <td></td>
     </tr>
   {/each}

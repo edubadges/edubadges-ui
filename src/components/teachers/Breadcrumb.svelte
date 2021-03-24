@@ -43,9 +43,9 @@
       return;
     }
     queryData(query).then(res => {
-        translateProperties(res);
-        institutionName = res.name;
-      })
+      translateProperties(res.currentInstitution);
+      institutionName = res.currentInstitution.name;
+    })
       .catch(() => navigate("/notFound"));
   });
 </script>
@@ -68,7 +68,7 @@
   }
 
   a:not(:last-of-type) {
-    color: var(--text-grey-dark)
+    color: var(--text-grey-dark);
   }
 
   span.crumb {
@@ -117,7 +117,7 @@
     <a use:link href={$currentPath}>{editCreatePart(edit, create)}</a>
   {/if}
 
-  {#if  badgeclassName && $userRole === role.TEACHER}
-    <LinkEye badgeclass={badgeclass}  isAdminView={true}/>
+  {#if badgeclassName && $userRole === role.TEACHER}
+    <LinkEye badgeclass={badgeclass} isAdminView={true}/>
   {/if}
 </div>

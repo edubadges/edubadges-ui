@@ -74,6 +74,10 @@
     }
   }
 
+  :global(.body span.info a) {
+    text-decoration: underline;
+  }
+
   div.footer {
     width: 100%;
     text-align: center;

@@ -122,7 +122,8 @@
     }
 
     a {
-      color: var(--text-color-grey);
+      color: var(--text-grey-dark);
+      text-decoration: underline;
     }
 
     span.current {

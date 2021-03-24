@@ -9,7 +9,7 @@
   import BadgeClassDetails from "../../shared/BadgeClassDetails.svelte";
   import Button from "../../../components/Button.svelte";
   import {flash} from "../../../stores/flash";
-  import { createEventDispatcher } from 'svelte';
+  import {createEventDispatcher} from 'svelte';
 
   const dispatch = createEventDispatcher();
 
@@ -47,9 +47,21 @@
   }
 </script>
 
-<style>
-  .info {
+<style lang="scss">
+  .badge-sub-header {
     margin-bottom: 40px;
+    display: flex;
+
+    div.requested {
+      flex-grow: 1;
+    }
+
+    div.withdraw {
+      padding-left: 25px;
+      margin-left: auto;
+      min-width: 30%;
+    }
+
   }
 
   .badge {
@@ -57,11 +69,6 @@
     max-width: 320px;
     margin: 0 auto 40px auto;
     position: relative;
-  }
-
-  .flex {
-    display: flex;
-    justify-content: space-between;
   }
 
   @media (max-width: 1120px) {
@@ -77,14 +84,16 @@
       <Breadcrumb studentBadge={true} studentPath={studentPath} badgeclassName={badgeclass.name}/>
     {/if}
     <div class="badge">
-      <EnrollmentBadge badgeClass={badgeclass} />
+      <EnrollmentBadge badgeClass={badgeclass}/>
     </div>
-    <div class="flex info">
-      <div>
+    <div class="badge-sub-header">
+      <div class="requested">
         <h3>{I18n.t('models.badge.requested')}</h3>
         <p>{moment(requested).format('MMM D, YYYY')}</p>
       </div>
-      <Button text={I18n.t('student.withdraw')} action={() => withdrawEnrollment(true, enrollmentId)}/>
+      <div class="withdraw">
+        <Button text={I18n.t('student.withdraw')} action={() => withdrawEnrollment(true, enrollmentId)}/>
+      </div>
     </div>
   {/if}
   <BadgeClassDetails badgeclass={badgeclass}>
@@ -94,8 +103,8 @@
 
 {#if showModal}
   <Modal
-      submit={modalAction}
-      cancel={() => showModal = false}
-      question={modalQuestion}
-      title={modalTitle}/>
+    submit={modalAction}
+    cancel={() => showModal = false}
+    question={modalQuestion}
+    title={modalTitle}/>
 {/if}

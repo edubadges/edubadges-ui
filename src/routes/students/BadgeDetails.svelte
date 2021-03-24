@@ -261,7 +261,8 @@
     }
 
     a {
-      color: var(--text-color-grey);
+      color: var(--text-grey-dark);
+      text-decoration: underline;
     }
 
     span.current {
@@ -345,8 +346,13 @@
     width: 100%;
     align-content: space-between;
 
-    div {
+    div.issued-on {
       flex-grow: 1;
+    }
+    div.expires {
+      margin-left: auto;
+      padding-left: 25px;
+      min-width: 30%;
     }
 
     margin-bottom: 40px;

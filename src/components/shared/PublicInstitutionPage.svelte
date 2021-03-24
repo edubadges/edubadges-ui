@@ -38,7 +38,7 @@
           entityId,
           imageEnglish,
           imageDutch,
-          badgeclassesCount,
+          badgeclassCount,
         }
       }
     }

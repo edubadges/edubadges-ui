@@ -140,6 +140,7 @@
           translateProperties(issuer.faculty);
         });
       });
+      currentUser = res.currentUser;
       const nestedInstitution = currentUser.institutionStaff.institution;
       translateProperties(nestedInstitution);
       nestedInstitution.faculties.forEach(faculty => {

@@ -123,14 +123,14 @@
 
   }
 
-  a.icon {
+  a.icon-button {
     display: flex;
     align-items: center;
     text-align: center;
     justify-content: center;
   }
 
-  :global(span.icon svg) {
+  :global(span.icon-button svg) {
     width: 24px;
     margin-right: 8px;
   }
@@ -147,10 +147,10 @@
     {disabled}
     class:small
     class:warning
-    class:icon={icon}
+    class:icon-button={icon}
     class:secondary>
     {#if icon}
-      <span class="icon">{@html icon}</span>
+      <span class="icon-button">{@html icon}</span>
     {/if}
     {text}
   </a>

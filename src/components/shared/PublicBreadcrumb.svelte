@@ -35,7 +35,11 @@
   }
 
   a:not(:last-of-type), span.path:not(:last-of-type) {
-    color: var(--text-grey-dark)
+    color: var(--text-grey-dark);
+  }
+
+  a:not(:last-of-type) {
+    text-decoration: underline;
   }
 
   span.crumb {
