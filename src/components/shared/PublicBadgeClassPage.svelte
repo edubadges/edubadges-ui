@@ -279,6 +279,7 @@
       display: inline-block;
       margin-top: 15px;
       font-size: 15px;
+      line-height: 20px;
       max-width: 275px;
     }
   }

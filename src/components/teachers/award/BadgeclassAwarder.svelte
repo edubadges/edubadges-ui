@@ -2,22 +2,25 @@
   import {onMount} from "svelte";
   import {link, navigate, Route, Router} from "svelte-routing";
   import I18n from "i18n-js";
-  import info from "../../icons/informational.svg";
-  import warning from "../../icons/warning.svg";
-  import {BadgeClassHeader} from "../teachers";
-  import chevronRightSmall from "../../icons/chevron-right-small.svg";
-  import {Overview} from "../teachers/badgeclass";
-  import Assertions from "../teachers/badges/Assertions.svelte";
-  import Enrollments from "../teachers/badges/Enrollments.svelte";
-  import {queryData} from "../../api/graphql";
-  import {assertionsQuery, enrollmentsQuery, headerStaff} from "../../api/queries";
-  import {expirationPeriod} from "../../util/entityHeader";
-  import CopyToClipboardButton from "../CopyToClipboardButton.svelte";
-  import {entityType} from "../../util/entityTypes"
-  import Spinner from "../Spinner.svelte";
-  import LinkEye from "./LinkEye.svelte";
-  import {facultyIds, issuerIds} from "../../stores/filterBadges";
-  import {translateProperties} from "../../util/utils";
+  import info from "../../../icons/informational.svg";
+  import warning from "../../../icons/warning.svg";
+  import {BadgeClassHeader} from "../index";
+  import chevronRightSmall from "../../../icons/chevron-right-small.svg";
+  import {Overview} from "../badgeclass";
+  import Assertions from "../badges/Assertions.svelte";
+  import Enrollments from "../badges/Enrollments.svelte";
+  import {queryData} from "../../../api/graphql";
+  import {assertionsQuery, enrollmentsQuery, headerStaff} from "../../../api/queries";
+  import {expirationPeriod} from "../../../util/entityHeader";
+  import CopyToClipboardButton from "../../CopyToClipboardButton.svelte";
+  import {entityType} from "../../../util/entityTypes"
+  import Spinner from "../../Spinner.svelte";
+  import LinkEye from "../LinkEye.svelte";
+  import {facultyIds, issuerIds} from "../../../stores/filterBadges";
+  import {translateProperties} from "../../../util/utils";
+  import Button from "../../Button.svelte";
+  import InviteDialog from "./InviteDialog.svelte";
+  import BadgeAwardOptions from "./BadgeAwardOptions.svelte";
 
   export let entityId;
   export let subEntity;
@@ -58,6 +61,7 @@
             entityId,
             nameEnglish,
             nameDutch,
+            directAwardingEnabled
           }
         }
       },
@@ -186,44 +190,6 @@
 
   }
 
-  div.public-link {
-    background-color: var(--blue-light);
-    margin-bottom: 25px;
-    padding: 25px;
-    border-radius: 8px;
-
-    &.private {
-      background-color: var(--red-light);
-      //color: var(--purple)
-    }
-  }
-
-  div.info {
-    display: flex;
-    align-items: center;
-    margin-bottom: 25px;
-
-    span:first-child {
-      margin-right: 15px;
-      max-width: 100%;
-    }
-
-    :global(span.warning svg) {
-      width: 28px;
-      height: auto;
-      fill: var(--red-dark);
-    }
-
-  }
-
-  div.options {
-    display: flex;
-
-    input {
-      margin-right: 25px;
-    }
-  }
-
 </style>
 <div class="container">
 
@@ -252,34 +218,16 @@
       {tabs}
       {headerItems}
       mayUpdate={false}>
-      <!--  <div class="slots">-->
-      <!--    <Button href={`/invite-enrollements/${badgeclass.entityId}`} text={I18n.t("models.badgeclass.inviteEnrollements")}/>-->
-      <!--  </div>-->
+      <div class="slots">
+        <BadgeAwardOptions badgeclass={badgeclass}/>
+      </div>
     </BadgeClassHeader>
 
     <div>
       <Router>
         <Route path="/overview">
           <div class="overview-container">
-            <Overview {badgeclass}>
-              <div class="public-link" class:private={badgeclass.isPrivate}>
-                {#if badgeclass.isPrivate}
-                  <div class="info">
-                    <span class="warning">{@html warning}</span>
-                    <span>{I18n.t("invites.copyPublicUrlDisabled")}</span>
-                  </div>
-                {:else}
-                  <div class="info">
-                    <span>{@html info}</span>
-                    <span>{I18n.t("invites.copyPublicUrl")}</span>
-                  </div>
-                  <div class="options">
-                    <input class="input-field full" disabled={true} value={publicUrl()}/>
-                    <CopyToClipboardButton toCopy={publicUrl()} text={I18n.t("invites.copyUrl")}/>
-                  </div>
-                {/if}
-              </div>
-            </Overview>
+            <Overview {badgeclass}/>
           </div>
         </Route>
 

@@ -558,8 +558,6 @@ I18n.translations.nl = {
       criteria_text: "Aan welke criteria moet je voldoen om in aanmerking te komen voor deze edubadge?",
       criteria_url: "Of geef een link naar de criteria of meer informatie",
       criteria_url_value: "Link naar de criteria en meer informatie:",
-      directAward: "Direct uitreiken",
-      inviteEnrollements: "Nodig iemand uit om deze edubadge aan te vragen",
       expiresAfter: "Verloopt na",
       expiresAfterOption: "Na",
       expiresAfterNever: "Nooit",
@@ -923,7 +921,7 @@ I18n.translations.nl = {
   tooltips: {
     // If you don't want a tooltip to be displayed, just comment out (or delete) the line (like this line;-)
     //badgeClassImage: "badgeClassImage",
-    badgeClassExpireSettings: "Geef hier aan of en hoelang de edubadge geldig is. Na deze datum zal een edubadge niet meer geldig zijn.", 
+    badgeClassExpireSettings: "Geef hier aan of en hoelang de edubadge geldig is. Na deze datum zal een edubadge niet meer geldig zijn.",
     badgeClassName: "Vermijdt afkortingen, zorg voor herkenbare naam ook voor externen.",
     //badgeClassDescription: "",
     badgeClassLanguageOfInstruction: "De voertaal die gebruikt is bij het behalen van deze edubadge. ",
@@ -964,7 +962,7 @@ I18n.translations.nl = {
     enrollmentEvidenceName: "Een beschrijvende titel van het bewijs.",
     enrollmentEvidenceDescription: "Een langere beschrijving van het bewijs.",
   },
-  badgeOverview : {
+  badgeOverview: {
     faculty: "Faculteit",
     issuer: "Vakgroup",
   },
@@ -977,13 +975,13 @@ I18n.translations.nl = {
       NONE: "SURF"
     },
     studyLoad: {
-        NO_STUDYLOAD: "Geen studyload",
-        ECTS_0_5: "0-5 ECTS (WO/HBO)",
-        ECTS_6_10: "6-10 ECTS (WO/HBO)",
-        ECTS_10_MORE: "> 10 ECTS (WO/HBO)",
-        HOURS_0_60: "0-60 hours (WO/HBO)",
-        HOURS_61_120: "61-120 hours (WO/HBO)",
-        HOURS_120_MORE: "> 120 hours (WO/HBO)"
+      NO_STUDYLOAD: "Geen studyload",
+      ECTS_0_5: "0-5 ECTS (WO/HBO)",
+      ECTS_6_10: "6-10 ECTS (WO/HBO)",
+      ECTS_10_MORE: "> 10 ECTS (WO/HBO)",
+      HOURS_0_60: "0-60 hours (WO/HBO)",
+      HOURS_61_120: "61-120 hours (WO/HBO)",
+      HOURS_120_MORE: "> 120 hours (WO/HBO)"
     },
     eqf: {
       eqfNone: "Geen NLQF level",
@@ -995,5 +993,12 @@ I18n.translations.nl = {
       gradingTable: "Bekijk de grading tabel",
       institution: "<span>Onderdeel van <a href=\"{{link}}\" target=\"_blank\">{{name}}</a></span>"
     }
+  },
+  badgeAwardOptions: {
+    directAward: "Uitreiken badge",
+    bulkAward: "Bulk uitreiking uit csv",
+    or: "-of-",
+    inviteEnrollements: "Nodig gebruikers uit om in te schrijven",
   }
+
 };

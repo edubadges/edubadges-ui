@@ -1,7 +1,7 @@
 <script>
   import I18n from "i18n-js";
   import Button from "../../Button.svelte";
-  import {Field, TextInput} from "../../../components/forms/index";
+  import {Field, TextInput} from "../../forms";
   import {validUrl} from "../../../util/forms";
 
   export let submit;

@@ -12,7 +12,7 @@
   import {Modal} from "../../forms";
   import filter from "../../../icons/filter-1.svg";
   import CenterMe from "../../forms/CenterMe.svelte";
-  import AwardBadgeModal from "./AwardBadgeModal.svelte";
+  import AwardBadgeModal from "../award/AwardBadgeModal.svelte";
 
   export let entityId;
   export let enrollments = [];

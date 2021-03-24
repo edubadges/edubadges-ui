@@ -1,9 +1,9 @@
 <script>
   import { navigate, link } from "svelte-routing";
-  import { AwardBadgeForm } from "../teachers";
-  import { Field, File, TextInput } from "../forms";
+  import { AwardBadgeForm } from "../index";
+  import { Field, File, TextInput } from "../../forms";
   import I18n from "i18n-js";
-  import { emailAddresses } from "../../stores/badgeAwardEmails";
+  import { emailAddresses } from "../../../stores/badgeAwardEmails";
   import { onMount } from "svelte";
 
   export let entityId;

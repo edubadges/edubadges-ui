@@ -558,8 +558,6 @@ I18n.translations.en = {
       criteria_text: "What are the requirements to qualify for this edubadge?",
       criteria_url: "Or provide a link to a webpage with the criteria or more information",
       criteria_url_value: "Link to the criteria for earning this edubadge:",
-      directAward: "Direct award",
-      inviteEnrollements: "Invite someone to request this edubadge",
       expiresAfter: "Expires after",
       expiresAfterOption: "After",
       expiresAfterNever: "Never",
@@ -685,6 +683,12 @@ I18n.translations.en = {
         awarded: "The request(s) have been awarded."
       }
     },
+  },
+  inviteDialog: {
+    title: "Invite people to enroll",
+    publicBadgePage: "People can enroll for this eduBadge from the <a href=\"{{publicBadgePage}}\" target=\"_blank\">public badgepage</a>.",
+    intranet: "You can place this link to the public badgepage on your intranet or ELO, or share it via email.",
+    copy: "Copy the link"
   },
   shareDialog: {
     title: "Share your edubadge",
@@ -965,7 +969,7 @@ I18n.translations.en = {
     enrollmentEvidenceDescription: "A longer description of the evidence.",
 
   },
-  badgeOverview : {
+  badgeOverview: {
     faculty: "Faculty",
     issuer: "Issuer"
   },
@@ -978,13 +982,13 @@ I18n.translations.en = {
       NONE: "SURF"
     },
     studyLoad: {
-        NO_STUDYLOAD: "No studyload",
-        ECTS_0_5: "0-5 ECTS (WO/HBO)",
-        ECTS_6_10: "6-10 ECTS (WO/HBO)",
-        ECTS_10_MORE: "> 10 ECTS (WO/HBO)",
-        HOURS_0_60: "0-60 hours (WO/HBO)",
-        HOURS_61_120: "61-120 hours (WO/HBO)",
-        HOURS_120_MORE: "> 120 hours (WO/HBO)"
+      NO_STUDYLOAD: "No studyload",
+      ECTS_0_5: "0-5 ECTS (WO/HBO)",
+      ECTS_6_10: "6-10 ECTS (WO/HBO)",
+      ECTS_10_MORE: "> 10 ECTS (WO/HBO)",
+      HOURS_0_60: "0-60 hours (WO/HBO)",
+      HOURS_61_120: "61-120 hours (WO/HBO)",
+      HOURS_120_MORE: "> 120 hours (WO/HBO)"
     },
     eqf: {
       eqfNone: "No NLQF level",
@@ -997,4 +1001,10 @@ I18n.translations.en = {
       institution: "<span>Part of <a href=\"{{link}}\" target=\"_blank\">{{name}}</a></span>"
     }
   },
+  badgeAwardOptions: {
+    directAward: "Award badge",
+    bulkAward: "Bulk award from csv",
+    or: "-or-",
+    inviteEnrollements: "Invite people to enroll",
+  }
 };

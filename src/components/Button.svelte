@@ -11,6 +11,7 @@
   export let small;
   export let full;
   export let fill;
+  export let icon;
 </script>
 
 <style lang="scss">
@@ -122,6 +123,18 @@
 
   }
 
+  a.icon {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+  }
+
+  :global(span.icon svg) {
+    width: 24px;
+    margin-right: 8px;
+  }
+
 </style>
 
 {#if label}
@@ -134,7 +147,11 @@
     {disabled}
     class:small
     class:warning
+    class:icon={icon}
     class:secondary>
+    {#if icon}
+      <span class="icon">{@html icon}</span>
+    {/if}
     {text}
   </a>
 {:else if href}

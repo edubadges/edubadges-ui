@@ -3,6 +3,7 @@
   import I18n from "i18n-js";
   import copy from 'copy-to-clipboard';
   import {flash} from "../stores/flash";
+  import copyIcon from "../icons/copy-svgrepo-com.svg";
 
   export let text;
   export let secondary;
@@ -13,13 +14,15 @@
   export let copied = false;
   export let actionAfterCopy;
   export let doFlash = true;
-
+  export let displayIcon = false;
 
   const copyToClipboard = toCopy => {
     copy(toCopy, {format: "text/plain"});
     copied = true;
-    setTimeout(() => copied = false, 1500);
-    if (doFlash) flash.setValue(I18n.t("copyToClipboard.copied"));
+    setTimeout(() => copied = false, 850);
+    if (doFlash) {
+      flash.setValue(I18n.t("copyToClipboard.copied"));
+    }
     actionAfterCopy && actionAfterCopy();
   }
 
@@ -45,7 +48,7 @@
     }
 
     &.copied {
-      animation: pulse 1.2s;
+      animation: pulse 0.8s;
       animation-iteration-count: 1;
       position: relative;
       border-radius: 5px;
@@ -55,7 +58,7 @@
           box-shadow: 0 0 0 0 white;
         }
         55% {
-          box-shadow: 0 0 4px 4px var(--purple-4);
+          box-shadow: 0 0 3px 3px var(--purple-4);
         }
         100% {
           box-shadow: 0 0 0 0 white;
@@ -68,7 +71,10 @@
 </style>
 <div class="copy-to-clipboard-container" class:full>
   <div class="copy-to-clipboard" class:copied class:full>
-    <Button {secondary} {text} {disabled} {small} fill={full} action={() => copyToClipboard(toCopy)}/>
+    <Button {secondary} {text} {disabled} {small}
+            fill={full}
+            icon={displayIcon ? copyIcon : null}
+            action={() => copyToClipboard(toCopy)}/>
   </div>
 </div>
 
