@@ -124,7 +124,9 @@
     }
   ];
 
-  $: if (!subEntity) navigate(tabs[0].href, {replace: true});
+  $: if (!subEntity) {
+    navigate(tabs[0].href, {replace: true});
+  }
 
   $: headerItems = [
     {

@@ -108,7 +108,9 @@
     }
   ];
 
-  $: if (!subEntity) navigate(tabs[1].href, {replace: true});
+  $: if (!subEntity) {
+    navigate(tabs[1].href, {replace: true});
+  }
   $: mayCreateFaculty = permissions && permissions.mayCreate;
   $: mayCreateIssuer = permissions && permissions.mayCreate && faculties.length > 0;
   $: mayUpdate = permissions && permissions.mayUpdate;

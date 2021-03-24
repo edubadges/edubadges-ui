@@ -698,7 +698,7 @@ I18n.translations.en = {
   invites: {
     title: "Invite people to request",
     copyPublicUrl: "If you want to place the link to the registration page on your intranet or electronic learning environment, you can copy the link.",
-    copyPublicUrlDisabled: "This badge class is private and therefore the public link is disabled.",
+    copyPublicUrlDisabled: "This badge class is private and can not be awarded.",
     copyUrl: "Copy the link"
   },
   file: {

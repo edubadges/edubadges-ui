@@ -1,6 +1,5 @@
-import { permissionRoleValue } from "./permissionRolesToValue";
-import { staffType } from "./staffTypes";
-import { getPendingEnrollmentsCount } from "./issuerGroupPendingEnrollments";
+import {permissionRoleValue} from "./permissionRolesToValue";
+import {staffType} from "./staffTypes";
 
 export const sortType = {
   ALPHA: "alpha",
@@ -13,7 +12,6 @@ export const sortType = {
   PERSONAL_DATA: "personalData",
   ISSUER_BADGE_CLASS_ASSERTIONS: "issuerBadgeClassAssertions",
   ISSUER_BADGE_CLASS_ENROLLMENTS: "issuerBadgeClassEnrollments",
-  ISSUER_GROUP_ENROLLMENTS: "IssuerGroupEnrollments"
 };
 
 const defaultValue = (attr, howToSort) => {
@@ -36,7 +34,6 @@ const defaultValue = (attr, howToSort) => {
       return attr || "";
     case sortType.ISSUER_BADGE_CLASS_ASSERTIONS:
     case sortType.ISSUER_BADGE_CLASS_ENROLLMENTS:
-    case sortType.ISSUER_GROUP_ENROLLMENTS:
       return attr || 0;
     default:
       throw new Error(`Undefined sortType: ${howToSort}`);
@@ -77,10 +74,10 @@ export function sort(collection, attribute, reversed, howToSort = sortType.ALPHA
         return permissionRoleValue(b[attribute]) - permissionRoleValue(a[attribute]);
       case sortType.INVITATION_STATUS:
         return (b._staffType === staffType.USER_PROVISIONMENT ? Date.parse(b.createdAt) : 0) -
-            (a._staffType === staffType.USER_PROVISIONMENT ? Date.parse(a.createdAt) : 0);
+          (a._staffType === staffType.USER_PROVISIONMENT ? Date.parse(a.createdAt) : 0);
       case sortType.PERSONAL_DATA:
         return (a._staffType === staffType.USER_PROVISIONMENT ? a.email : a.user.firstName + " " + a.user.lastName)
-            .localeCompare(b._staffType === staffType.USER_PROVISIONMENT ? b.email : b.user.firstName + " " + b.user.lastName);
+          .localeCompare(b._staffType === staffType.USER_PROVISIONMENT ? b.email : b.user.firstName + " " + b.user.lastName);
       case sortType.ISSUER_BADGE_CLASS_ASSERTIONS:
         const nbrA = parseInt(b.badgeclasses.reduce((acc, badgeClass) => acc += (badgeClass.badgeAssertions || []).length, 0));
         const nbrB = parseInt(a.badgeclasses.reduce((acc, badgeClass) => acc += (badgeClass.badgeAssertions || []).length, 0));
@@ -89,8 +86,6 @@ export function sort(collection, attribute, reversed, howToSort = sortType.ALPHA
         const nbrEnrollmentA = parseInt(b.badgeclasses.reduce((acc, badgeClass) => acc += (badgeClass.pendingEnrollments || []).length, 0));
         const nbrEnrollmentB = parseInt(a.badgeclasses.reduce((acc, badgeClass) => acc += (badgeClass.pendingEnrollments || []).length, 0));
         return nbrEnrollmentA - nbrEnrollmentB;
-      case sortType.ISSUER_GROUP_ENROLLMENTS:
-        return getPendingEnrollmentsCount(b) - getPendingEnrollmentsCount(a);
       default:
         throw new Error(`Unsupported sortType ${howToSort}`);
     }

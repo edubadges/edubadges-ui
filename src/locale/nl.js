@@ -684,6 +684,12 @@ I18n.translations.nl = {
       }
     },
   },
+  inviteDialog: {
+    title: "Nodig iemand uit om zichj in te schrijven",
+    publicBadgePage: "Studenten kunnen zich inschrijven voor deze badge op de <a href=\"{{publicBadgePage}}\" target=\"_blank\">publieke badgepagina</a>.",
+    intranet: "Als je de link naar de registratiepagina op je intranet of elektronische leeromgeving wilt plaatsen, kunt je de link kopiëren.",
+    copy: "Kopieer de link"
+  },
   shareDialog: {
     title: "Deel je edubadge",
     copyPublicUrl: "Als je de link naar de publieke pagina van deze edubadge wilt delen, kan je de link kopiëren",
@@ -692,7 +698,7 @@ I18n.translations.nl = {
   invites: {
     title: "Nodig iemand uit om zich in te schrijven",
     copyPublicUrl: "Als je de link naar de registratiepagina op je intranet of elektronische leeromgeving wilt plaatsen, kunt je de link kopiëren",
-    copyPublicUrlDisabled: "Deze badge class is privé en daarom is de publieke link niet beschikbaar.",
+    copyPublicUrlDisabled: "Deze badge class is privé en kan niet worden uitgereikt",
     copyUrl: "Kopieer URL"
   },
   file: {

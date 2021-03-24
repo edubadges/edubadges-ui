@@ -6,6 +6,7 @@
   import {sort, sortType} from "../../util/sortData";
   import { entityType } from "../../util/entityTypes";
   import {facultyIcon} from "../../icons";
+  import {onMount} from "svelte";
 
   export let faculties = [];
   export let mayCreate;
@@ -25,17 +26,17 @@
     },
     {
       name: I18n.t("teacher.issuers.title"),
-      attribute: "issuers",
+      attribute: "issuerCount",
       reverse: false,
-      sortType: sortType.COLLECTION,
+      sortType: sortType.NUMERIC,
       width: "15%",
       center: true
     },
     {
       name: I18n.t("teacher.badgeclasses.requestedBadges"),
-      attribute: "requests",
+      attribute: "pendingEnrollmentCount",
       reverse: false,
-      sortType: sortType.ISSUER_GROUP_ENROLLMENTS,
+      sortType: sortType.NUMERIC,
       width: "15%",
       center: true
     },

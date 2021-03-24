@@ -4,15 +4,18 @@
   import InviteDialog from "./InviteDialog.svelte";
   import Button from "../../Button.svelte";
   import {onMount} from "svelte";
+  import warning from "../../../icons/warning.svg";
 
   export let badgeclass = {};
 
   let showInviteDialog = false;
   let showShareFeedback = false;
   let directAwardingEnabled = false;
+  let privateBadgeclass = false;
 
   onMount(() => {
     directAwardingEnabled = badgeclass.issuer.faculty.institution.directAwardingEnabled;
+    privateBadgeclass = badgeclass.isPrivate;
   });
 
   const publicUrl = () => {
@@ -34,7 +37,7 @@
     position: relative;
 
     flex-direction: column;
-    margin-right: 250px;
+    margin-right: 275px;
 
     @media (max-width: 1480px) {
       margin-right: 50px;
@@ -46,6 +49,27 @@
       a {
         font-weight: bold;
         text-decoration: underline;
+      }
+    }
+
+    div.info {
+      display: flex;
+      align-items: center;
+      max-width: 180px;
+
+      span {
+        line-height: 20px;
+
+        &:first-child {
+          margin-right: 15px;
+          max-width: 100%;
+        }
+      }
+
+      :global(span.warning svg) {
+        width: 28px;
+        height: auto;
+        fill: var(--red-dark);
       }
     }
 
@@ -81,22 +105,29 @@
   }
 </style>
 <div class="badge-award-options">
-  {#if directAwardingEnabled}
-    <Button href={`/direct-award/${badgeclass.entityId}`} text={I18n.t("badgeAwardOptions.directAward")}/>
-    <span class="award-link">{I18n.t("badgeAwardOptions.or")}
-      <a use:link
-         href={`/bulk-award?badgeclass=${badgeclass.entityid}`}>{I18n.t("badgeAwardOptions.bulkAward")}</a></span>
-    <span class="award-link">{I18n.t("badgeAwardOptions.or")}
-      <a on:click|preventDefault|stopPropagation={() => showInviteDialog = true}
-         href="/">{I18n.t("badgeAwardOptions.inviteEnrollements")}</a>
-    </span>
-  {:else}
-    <Button action={() => showInviteDialog = true} text={I18n.t("badgeAwardOptions.inviteEnrollements")}/>
-  {/if}
-  {#if showShareFeedback}
-    <div class="tooltip" class:direct-awarding-enabled={directAwardingEnabled}>
-      {I18n.t("copyToClipboard.copied")}
+  {#if privateBadgeclass}
+    <div class="info">
+      <span class="warning">{@html warning}</span>
+      <span>{I18n.t("invites.copyPublicUrlDisabled")}</span>
     </div>
+  {:else}
+    {#if directAwardingEnabled}
+      <Button href={`/direct-award/${badgeclass.entityId}`} text={I18n.t("badgeAwardOptions.directAward")}/>
+      <span class="award-link">{I18n.t("badgeAwardOptions.or")}
+        <a use:link
+           href={`/bulk-award?badgeclass=${badgeclass.entityid}`}>{I18n.t("badgeAwardOptions.bulkAward")}</a></span>
+      <span class="award-link">{I18n.t("badgeAwardOptions.or")}
+        <a on:click|preventDefault|stopPropagation={() => showInviteDialog = true}
+           href="/">{I18n.t("badgeAwardOptions.inviteEnrollements")}</a>
+    </span>
+    {:else}
+      <Button action={() => showInviteDialog = true} text={I18n.t("badgeAwardOptions.inviteEnrollements")}/>
+    {/if}
+    {#if showShareFeedback}
+      <div class="tooltip" class:direct-awarding-enabled={directAwardingEnabled}>
+        {I18n.t("copyToClipboard.copied")}
+      </div>
+    {/if}
   {/if}
 
 
