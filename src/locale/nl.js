@@ -368,6 +368,8 @@ I18n.translations.nl = {
     924: "Invullen van een Engelse naam is verplicht.",
     925: "Invullen van een Engelse beschrijving is verplicht.",
     926: "Invullen van een Engels logo is verplicht.",
+    927: "Email is niet valide",
+    928: "EPPN is verplicht",
     unexpected: "Oeps, er is iets totaal onverwachts en onverklaarbaars gebeurd.",
     description: "Een onverwachte fout is opgetreden. Probeer het opnieuw of neem contact op met support@edubadges.nl voor ondersteuning.",
     close: "Sluit"
@@ -683,6 +685,10 @@ I18n.translations.nl = {
         awarded: "De inschrijving(en) zijn toegekend."
       }
     },
+    badgeAward: {
+      email: "E-mail",
+      eppn: "Student nummer (EPPN)",
+    }
   },
   inviteDialog: {
     title: "Nodig iemand uit om zichj in te schrijven",
@@ -1005,6 +1011,19 @@ I18n.translations.nl = {
     bulkAward: "Bulk uitreiking uit csv",
     or: "-of-",
     inviteEnrollements: "Nodig gebruikers uit om in te schrijven",
+  },
+  badgeAward: {
+    directAward: {
+      title: "Direct badges uitreiken",
+      subtitle: "Je verzoek is verzonden en je krijgt een melding wanneer het is geaccepteerd of geweigerd",
+      waringEnrollments: "Er zijn {{count}} aanmeldingen voor deze badge. ",
+      toToEnrollments: "Controleer ze misschien eerst?",
+      addAnother: "+ Toevoegen",
+      cancel: "Annuleer",
+      award: "Verzenden",
+      flash: {
+        created: "Directe onderscheidingen zijn verzonden"
+      }
+    }
   }
-
 };

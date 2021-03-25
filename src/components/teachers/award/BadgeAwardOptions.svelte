@@ -112,10 +112,12 @@
     </div>
   {:else}
     {#if directAwardingEnabled}
-      <Button href={`/direct-award/${badgeclass.entityId}`} text={I18n.t("badgeAwardOptions.directAward")}/>
+      <Button href={`/badgeclass/${badgeclass.entityId}/direct-award`} text={I18n.t("badgeAwardOptions.directAward")}/>
       <span class="award-link">{I18n.t("badgeAwardOptions.or")}
-        <a use:link
-           href={`/bulk-award?badgeclass=${badgeclass.entityid}`}>{I18n.t("badgeAwardOptions.bulkAward")}</a></span>
+        <a use:link href={`/badgeclass/${badgeclass.entityId}/bulk-award`}>
+          {I18n.t("badgeAwardOptions.bulkAward")}
+        </a>
+      </span>
       <span class="award-link">{I18n.t("badgeAwardOptions.or")}
         <a on:click|preventDefault|stopPropagation={() => showInviteDialog = true}
            href="/">{I18n.t("badgeAwardOptions.inviteEnrollements")}</a>

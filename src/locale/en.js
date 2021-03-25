@@ -368,6 +368,8 @@ I18n.translations.en = {
     924: "An English name is required.",
     925: "An English description is required.",
     926: "An English image is required.",
+    927: "Email is invalid",
+    928: "EPPN is required",
     unexpected: "Unexpected error occurred.",
     description: "An unexpected error has occurred. Please try again later or contact support@edubadges.nl for support.",
     close: "Close"
@@ -683,6 +685,10 @@ I18n.translations.en = {
         awarded: "The request(s) have been awarded."
       }
     },
+    badgeAward: {
+      email: "Email address",
+      eppn: "Student number (EPPN)",
+    }
   },
   inviteDialog: {
     title: "Invite people to enroll",
@@ -967,7 +973,6 @@ I18n.translations.en = {
     enrollmentEvidenceURL: "The URI of a webpage presenting evidence of achievement.",
     enrollmentEvidenceName: "A descriptive title of the evidence.",
     enrollmentEvidenceDescription: "A longer description of the evidence.",
-
   },
   badgeOverview: {
     faculty: "Faculty",
@@ -1006,5 +1011,19 @@ I18n.translations.en = {
     bulkAward: "Bulk award from csv",
     or: "-or-",
     inviteEnrollements: "Invite people to enroll",
+  },
+  badgeAward: {
+    directAward: {
+      title: "Award badges directly",
+      subtitle: "Your request will be sent, and you'll be notified when it's accepted or denied",
+      waringEnrollments: "There are {{count}} enrollments for this badge. ",
+      toToEnrollments: "Maybe check them first?",
+      addAnother: "+ Add another",
+      cancel: "Cancel",
+      award: "Award",
+      flash: {
+        created: "Direct awards are sent"
+      }
+    }
   }
 };

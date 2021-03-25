@@ -1,8 +1,7 @@
 <script>
   import I18n from "i18n-js";
-  import {Select} from "../forms";
-  import {warningIcon} from "../../icons";
   import Tooltip from "../Tooltip.svelte";
+  import Error from "./Error.svelte";
 
   export let entity;
   export let attribute;
@@ -24,34 +23,18 @@
     color: var(--text-grey-light);
   }
 
-  div.error {
-    display: flex;
-    color: var(--red-dark);
-    margin-bottom: 10px;
-  }
-
-  div.error :global(svg.icon-warning) {
-    height: 1rem;
-    margin-right: 10px;
-    fill: var(--red-dark);
-  }
 </style>
 
 <div class="field" {disabled}>
   <Tooltip label={I18n.t(['models', entity, attribute])} tipKey={tipKey}/>
 
   <div class="input">
-    <slot />
+    <slot/>
   </div>
 
   {#if errors}
-    {#each errors as { error_code, error_message }}
-      <div class="error">
-        {@html warningIcon}
-        <span>
-          {I18n.t(['error', error_code], { defaultValue: error_message })}
-        </span>
-      </div>
+    {#each errors as {error_code, error_message}}
+      <Error {error_code} {error_message}/>
     {/each}
   {/if}
 </div>

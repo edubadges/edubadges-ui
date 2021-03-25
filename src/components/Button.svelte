@@ -12,6 +12,7 @@
   export let full;
   export let fill;
   export let icon;
+  export let marginRight;
 </script>
 
 <style lang="scss">
@@ -135,6 +136,10 @@
     margin-right: 8px;
   }
 
+  a.margin-right {
+    margin-right: 15px;
+  }
+
 </style>
 
 {#if label}
@@ -146,6 +151,7 @@
     on:click|preventDefault={() => disabled ? false : action()}
     {disabled}
     class:small
+    class:margin-right={marginRight}
     class:warning
     class:icon-button={icon}
     class:secondary>

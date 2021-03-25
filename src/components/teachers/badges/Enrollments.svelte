@@ -53,7 +53,7 @@
       }
       awardBadges(entityId, selection, useEvidence, narrative, url, name, description).then(() => {
         refreshEnrollments();
-        flash.setValue(I18n.t("models.enrollment.flash.awarded"))
+        flash.setValue(I18n.t("models.enrollment.flash.awarded"));
       });
     }
   }

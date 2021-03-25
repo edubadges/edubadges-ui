@@ -558,3 +558,13 @@ export function disinviteUser(provisionmentId) {
   const path = `${serverUrl}/user/provision/edit/${provisionmentId}`;
   return validFetch(path, {}, "DELETE");
 }
+
+export function createDirectAwards(directAwards, badgeclass) {
+  const path = `${serverUrl}/directaward/create`;
+  const payload = directAwards.map(da => ({
+    recipient_email: da.email,
+    eppn: da.eppn,
+    badgeclass: badgeclass.entityId
+  }));
+  return validFetch(path, {body: JSON.stringify(payload)}, "POST");
+}

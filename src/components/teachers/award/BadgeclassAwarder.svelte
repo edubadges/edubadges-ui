@@ -1,9 +1,7 @@
 <script>
+  import I18n from "i18n-js";
   import {onMount} from "svelte";
   import {link, navigate, Route, Router} from "svelte-routing";
-  import I18n from "i18n-js";
-  import info from "../../../icons/informational.svg";
-  import warning from "../../../icons/warning.svg";
   import {BadgeClassHeader} from "../index";
   import chevronRightSmall from "../../../icons/chevron-right-small.svg";
   import {Overview} from "../badgeclass";
@@ -12,15 +10,14 @@
   import {queryData} from "../../../api/graphql";
   import {assertionsQuery, enrollmentsQuery, headerStaff} from "../../../api/queries";
   import {expirationPeriod} from "../../../util/entityHeader";
-  import CopyToClipboardButton from "../../CopyToClipboardButton.svelte";
   import {entityType} from "../../../util/entityTypes"
   import Spinner from "../../Spinner.svelte";
   import LinkEye from "../LinkEye.svelte";
   import {facultyIds, issuerIds} from "../../../stores/filterBadges";
   import {translateProperties} from "../../../util/utils";
-  import Button from "../../Button.svelte";
-  import InviteDialog from "./InviteDialog.svelte";
   import BadgeAwardOptions from "./BadgeAwardOptions.svelte";
+  import {currentPath} from "../../../stores/currentPath";
+  import AwardBadge from "./AwardBadge.svelte";
 
   export let entityId;
   export let subEntity;
@@ -81,7 +78,7 @@
 
   let loaded;
 
-  const refresh = () => {
+  const refresh = callback => {
     queryData(query, {entityId}).then(res => {
       badgeclass = res.badgeClass;
 
@@ -96,6 +93,7 @@
       enrollments = res.badgeClass.pendingEnrollments;
       assertions = res.badgeClass.badgeAssertions;
       loaded = true;
+      callback && callback();
     });
   }
 
@@ -181,7 +179,8 @@
     }
 
     a:not(:last-of-type) {
-      color: var(--text-grey-dark)
+      color: var(--text-grey-dark);
+      text-decoration: underline;
     }
 
     span.crumb {
@@ -211,37 +210,59 @@
       <span class="crumb">{@html chevronRightSmall}</span>
       <a on:click|preventDefault|stopPropagation={() => false}
          href={window.location.href}>{badgeclass.name}</a>
+      {#if $currentPath.endsWith("direct-award")}
+        <span class="crumb">{@html chevronRightSmall}</span>
+        <span>{I18n.t("badgeAwardOptions.directAward")}</span>
+      {/if}
+      {#if $currentPath.endsWith("bulk-award")}
+        <span class="crumb">{@html chevronRightSmall}</span>
+        <span>{I18n.t("badgeAwardOptions.bulkAward")}</span>
+      {/if}
       <LinkEye badgeclass={badgeclass} isAdminView={false}/>
     </div>
 
-    <BadgeClassHeader
-      object={badgeclass}
-      entity={entityType.BADGE_CLASS}
-      {tabs}
-      {headerItems}
-      mayUpdate={false}>
-      <div class="slots">
-        <BadgeAwardOptions badgeclass={badgeclass}/>
-      </div>
-    </BadgeClassHeader>
-
     <div>
       <Router>
-        <Route path="/overview">
-          <div class="overview-container">
-            <Overview {badgeclass}/>
-          </div>
+        <Route path="/direct-award">
+          <AwardBadge badgeclass={badgeclass} enrollments={enrollments} refresh={refresh}/>
         </Route>
 
-        <Route path="/enrollments">
-          <Enrollments {entityId} bind:enrollments badgeclassName={badgeclass.name} refresh={refresh}/>
-        </Route>
-
-        <Route path="/awarded">
-          <Assertions {issuer} {badgeclass} {assertions} refresh={refresh}/>
+        <Route path="/bulk-award">
+          <span>BULK AWARD - TODO</span>
         </Route>
       </Router>
     </div>
+
+    {#if !$currentPath.endsWith("bulk-award") && !$currentPath.endsWith("direct-award")}
+      <BadgeClassHeader
+        object={badgeclass}
+        entity={entityType.BADGE_CLASS}
+        {tabs}
+        {headerItems}
+        mayUpdate={false}>
+        <div class="slots">
+          <BadgeAwardOptions badgeclass={badgeclass}/>
+        </div>
+      </BadgeClassHeader>
+
+      <div>
+        <Router>
+          <Route path="/overview">
+            <div class="overview-container">
+              <Overview {badgeclass}/>
+            </div>
+          </Route>
+
+          <Route path="/enrollments">
+            <Enrollments {entityId} bind:enrollments badgeclassName={badgeclass.name} refresh={refresh}/>
+          </Route>
+
+          <Route path="/awarded">
+            <Assertions {issuer} {badgeclass} {assertions} refresh={refresh}/>
+          </Route>
+        </Router>
+      </div>
+    {/if}
   {:else}
     <Spinner/>
   {/if}

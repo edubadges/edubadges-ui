@@ -1,60 +1,160 @@
 <script>
-  import { navigate, link } from "svelte-routing";
-  import { AwardBadgeForm } from "../index";
-  import { Field, File, TextInput } from "../../forms";
+  import {Field, TextInput} from "../../forms";
   import I18n from "i18n-js";
-  import { emailAddresses } from "../../../stores/badgeAwardEmails";
-  import { onMount } from "svelte";
+  import Button from "../../Button.svelte";
+  import Warning from "../../forms/Warning.svelte";
+  import {link, navigate} from "svelte-routing";
+  import trash from "../../../icons/trash.svg";
+  import {validEmail} from "../../../util/forms";
+  import Error from "../../forms/Error.svelte";
+  import {createDirectAwards} from "../../../api";
+  import {flash} from "../../../stores/flash";
 
-  export let entityId;
+  export let badgeclass;
+  export let enrollments;
+  export let refresh;
 
-  const entity = "badge";
   let errors = {};
+  let directAwards = [{email: "", eppn: ""}]
 
-  onMount(() => {
-    console.log('emailAddresses', $emailAddresses);
-  });
-
-  const addEmailField = () => {
-    $emailAddresses = [...$emailAddresses, {'emailAddress': ''}];
-  };
-
-  const award = (badgeId, emailAddresses) => {
-    // Long term
-  };
-
-  function onSubmit() {
-    errors = {};
-
-    award(entityId, $emailAddresses.map(el => el.emailAddress));
+  const addDirectAward = () => {
+    directAwards = [...directAwards, {email: "", eppn: ""}];
   }
+
+  const removeDirectAward = index => () => {
+    const newDirectAwards = directAwards.filter((item, i) => i !== index);
+    invariant(newDirectAwards);
+  }
+
+  const init = e => e.focus()
+
+  const emailOnBlur = i => e => errors = {...errors, [`email_${i}`]: !validEmail(e.target.value)}
+
+  const eppnOnBlur = i => e => errors = {...errors, [`eppn_${i}`]: e.target.value.trim().length === 0}
+
+  const doAward = () => {
+    createDirectAwards(directAwards, badgeclass)
+      .then(() => {
+        refresh();
+        navigate(`/badgeclass/${badgeclass.entityId}/awarded`);
+        flash.setValue(I18n.t("badgeAward.directAward.flash.created"));
+      });
+  };
+
+  //Need to rebuild the errors as in-between values might be removed
+  const invariant = newDirectAwards => {
+    errors = newDirectAwards.reduce((acc, da, i) => {
+      acc[`eppn_${i}`] = da.eppn.trim().length === 0;
+      acc[`email_${i}`] = !validEmail(da.email);
+      return acc;
+    }, {});
+    directAwards = newDirectAwards;
+  }
+
+  $: maySubmit = Object.values(errors).some(val => val);
+
 </script>
 
-<style>
-  .add-email {
-    color: green;
-    border: none;
-    background-color: inherit;
-    font-size: 16px;
-    padding: 0;
-    margin-left: 5px;
-    margin-right: 5px;
+<style lang="scss">
+  div.award-badge {
+
+    h2 {
+      background: var(--purple-1);
+      padding: var(--ver-padding-l) var(--hor-padding-l);
+    }
+
+    p.sub-title {
+      margin-bottom: 20px;
+    }
+
+    div.warning-container {
+      margin: 10px 0 20px 0;
+    }
+
+    .grouped {
+      display: grid;
+      grid-template-columns: 50% 50%;
+      grid-row: auto;
+      grid-column-gap: 40px;
+      grid-row-gap: 16px;
+      padding-right: 40px;
+    }
+
+    div.add-email {
+      margin: 15px 5px 30px 0;
+    }
+
+    div.deletable-row {
+      position: relative;
+    }
+
+    .rm-icon-container {
+      color: purple;
+      border: none;
+      background-color: white;
+      position: absolute;
+      height: 30px;
+      width: 30px;
+      margin: 0 0 5px 0;
+      align-self: center;
+      cursor: pointer;
+      right: 160px;
+      top: 38px;
+    }
+
+    div.actions {
+      display: flex;
+
+    }
+
   }
 </style>
-
-<AwardBadgeForm bulkAward={false} submit={onSubmit}>
-
-  {#each $emailAddresses as emailField}
-    <Field {entity} attribute="emailAddress" errors={errors.name}>
-      <TextInput bind:value={emailField.emailAddress} error={errors.name} />
-    </Field>
-  {/each}
-
-  <div>
-    <button class="add-email" on:click={() => addEmailField()}>{I18n.t(['manage', 'award', 'addAnother'])}</button>
-      or
-<!--    <a class="add-email" href="/bulkAward" on:click|preventDefault|stopPropagation={() => navigate("bulkAward")} >{I18n.t(['manage', 'award', 'addBulk'])}</a>-->
-    <a class="add-email" href="bulkAward" use:link>{I18n.t(['manage', 'award', 'addBulk'])}</a>
+<div class="award-badge">
+  <h2>{I18n.t("badgeAward.directAward.title")}</h2>
+  <div class="main-content-margin">
+    <p class="sub-title">{I18n.t("badgeAward.directAward.subtitle")}</p>
+    {#if enrollments.length > 0}
+      <div class="warning-container">
+        <Warning msg={I18n.t("badgeAward.directAward.waringEnrollments", {count: enrollments.length})}>
+          <a use:link
+             href={`/badgeclass/${badgeclass.entityId}/enrollments`}>{I18n.t("badgeAward.directAward.toToEnrollments")}</a>
+        </Warning>
+      </div>
+    {/if}
+    <div class="grouped">
+      {#each directAwards as da, i}
+        <Field entity="badgeAward" attribute="email">
+          <TextInput bind:value={da.email} error={errors[`email_${i}`]} {init} onBlur={emailOnBlur(i)}/>
+          {#if errors[`email_${i}`]}
+            <Error standAlone={true} error_code={927}/>
+          {/if}
+        </Field>
+        <div class="deletable-row">
+          <Field entity="badgeAward" attribute="eppn">
+            <TextInput bind:value={da.eppn} error={errors[`eppn_${i}`]} onBlur={eppnOnBlur(i)}/>
+            {#if errors[`eppn_${i}`]}
+              <Error standAlone={true} error_code={928}/>
+            {/if}
+          </Field>
+          {#if i !== 0}
+            <button class="rm-icon-container" on:click={removeDirectAward(i)}>{@html trash}</button>
+          {/if}
+        </div>
+      {/each}
+    </div>
+    <div class="add-email">
+      <a on:click|preventDefault|stopPropagation={addDirectAward}
+         href="/add">{I18n.t("badgeAward.directAward.addAnother")}</a>
+    </div>
+    <div class="actions">
+      <Button action={() => history.back()} text={I18n.t("badgeAward.directAward.cancel")} secondary={true}
+              marginRight={true}/>
+      <Button action={doAward} text={I18n.t("badgeAward.directAward.award")} disabled={maySubmit}/>
+    </div>
   </div>
+</div>
 
-</AwardBadgeForm>
+
+
+
+

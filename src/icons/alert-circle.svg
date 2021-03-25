@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <defs>
+        <style>
+            .alert-circle-a,.alert-circle-b,.alert-circle-c{stroke:#ffffff;;stroke-width:1.5px;}
+            .alert-circle-a,.alert-circle-b{stroke-linecap:round;}
+            .alert-circle-a{stroke-linejoin:round;}
+            .alert-circle-b,.alert-circle-c{stroke-miterlimit:10;z-index:99}
+            .alert-circle-c{fill:#FF9D0B }
+        </style>
+    </defs>
+    <title>alert-circle</title>
+    <circle class="alert-circle-c" cx="12" cy="12" r="11.25"/>
+    <path class="alert-circle-a" d="M12,16.5a.375.375,0,1,0,.375.375A.375.375,0,0,0,12,16.5h0"/>
+    <line class="alert-circle-b" x1="12" y1="13.5" x2="12" y2="5.25"/>
+</svg>
