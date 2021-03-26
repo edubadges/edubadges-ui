@@ -18,6 +18,7 @@
   import BadgeAwardOptions from "./BadgeAwardOptions.svelte";
   import {currentPath} from "../../../stores/currentPath";
   import AwardBadge from "./AwardBadge.svelte";
+  import BulkAwardBadge from "./BulkAwardBadge.svelte";
 
   export let entityId;
   export let subEntity;
@@ -228,7 +229,7 @@
         </Route>
 
         <Route path="/bulk-award">
-          <span>BULK AWARD - TODO</span>
+          <BulkAwardBadge badgeclass={badgeclass} enrollments={enrollments} refresh={refresh}/>
         </Route>
       </Router>
     </div>

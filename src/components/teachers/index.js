@@ -1,6 +1,4 @@
 export { default as AwardBadge } from "./award/AwardBadge.svelte";
-export { default as AwardBadgeForm } from "./award/AwardBadgeForm.svelte";
-export { default as AwardManyBadges } from "./award/AwardManyBadges.svelte";
 export { default as BadgeclassAwarder } from "./award/BadgeclassAwarder.svelte";
 export { default as BadgeclassEdit } from "./BadgeclassEdit.svelte";
 export { default as Badgeclasses } from "./Badgeclasses.svelte";

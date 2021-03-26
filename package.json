@@ -49,6 +49,7 @@
     "jwt-decode": "^2.2.0",
     "marked": "^1.1.0",
     "moment": "^2.24.0",
+    "svelte-file-dropzone": "^0.0.15",
     "svelte-routing": "^1.4.2",
     "svelte-select": "^3.10.0"
   },

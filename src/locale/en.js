@@ -1024,6 +1024,16 @@ I18n.translations.en = {
       flash: {
         created: "Direct awards are sent"
       }
+    },
+    bulkAward: {
+      title: "Bulk award from CSV",
+      subtitle: "This file needs to fit the exact format of eduBadges. If you are not sure, please download our "+
+        "<a href=\"{{sample}}\" download=\"sample_direct_award.csv\">Sample CSV Awardfile</a> first.",
+      browse: "Browse",
+      award: "Upload your Awardfile",
+      flash: {
+        created: "Bulk awards are sent"
+      }
     }
   }
 };
