@@ -71,6 +71,11 @@
         targetCode,
         targetFramework,
         targetDescription
+      },
+      directAwards {
+        entityId,
+        eppn,
+        recipientEmail
       }
     },
     ${enrollmentsQuery},
