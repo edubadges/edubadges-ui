@@ -1024,6 +1024,19 @@ I18n.translations.nl = {
       flash: {
         created: "Directe onderscheidingen zijn verzonden"
       }
+    },
+    bulkAward: {
+      title: "Bulk award vanuit CSV",
+      subtitle: "Dit bestand moet in het exacte formaat van eduBadges passen. Als je het niet zeker weet, download dan eerst onze"+
+        "<a href=\"{{sample}}\" download=\"sample_direct_award.csv\">Voorbeeld CSV Awardfile</a>.",
+      or: "- or -",
+      browse: "Browse",
+      award: "Upload je Awardfile",
+      wrong: "De volgende entries zijn niet geldig en worden verwijderd uit de upload:",
+      good: "Parsed {{count}} entries voor de upload",
+      flash: {
+        created: "Bulk awards zijn verzonden"
+      }
     }
   }
 };

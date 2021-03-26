@@ -12,6 +12,10 @@
     background-color: var(--orange-warning);
     border-radius: 4px;
 
+    @media (max-width: 996px) {
+      max-width: 100%;
+    }
+
     span {
       line-height: 20px;
     }

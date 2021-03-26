@@ -1029,8 +1029,11 @@ I18n.translations.en = {
       title: "Bulk award from CSV",
       subtitle: "This file needs to fit the exact format of eduBadges. If you are not sure, please download our "+
         "<a href=\"{{sample}}\" download=\"sample_direct_award.csv\">Sample CSV Awardfile</a> first.",
+      or: "- or -",
       browse: "Browse",
       award: "Upload your Awardfile",
+      wrong: "The following entries are not valid and are removed from the upload:",
+      good: "Parsed {{count}} entries for upload",
       flash: {
         created: "Bulk awards are sent"
       }
