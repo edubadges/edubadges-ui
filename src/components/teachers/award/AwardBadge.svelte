@@ -28,7 +28,8 @@
 
   const init = e => e.focus()
 
-  const emailOnBlur = i => e => errors = {...errors, [`email_${i}`]: !validEmail(e.target.value)}
+  const emailOnBlur = i => e =>
+    setTimeout(() => errors = {...errors, [`email_${i}`]: !validEmail(e.target.value)}, 50);
 
   const eppnOnBlur = i => e => errors = {...errors, [`eppn_${i}`]: e.target.value.trim().length === 0}
 
