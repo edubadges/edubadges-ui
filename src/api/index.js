@@ -568,3 +568,9 @@ export function createDirectAwards(directAwards, badgeclass) {
   }));
   return validFetch(path, {body: JSON.stringify(payload)}, "POST");
 }
+
+export function acceptRejectDirectAward(directAward, accept) {
+  const path = `${serverUrl}/directaward/accept/${directAward.entityId}`;
+  const payload = {"accept": accept};
+  return validFetch(path, {body: JSON.stringify(payload)}, "POST");
+}

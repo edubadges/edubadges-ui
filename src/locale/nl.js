@@ -620,8 +620,8 @@ I18n.translations.nl = {
       awarded: "Toegekende edubadges",
       awardType: {
         name: "Type aanvraag",
-        enrolled: "Aangevraagd",
-        directAward: "Direct toegekend"
+        REQUESTED: "Aangevraagd",
+        DIRECT_AWARD: "Direct toegekend"
       },
       associatedInstitution: "Van instelling",
       issuedOn: "Uitgegeven op",
@@ -640,7 +640,9 @@ I18n.translations.nl = {
         revoked: "Ingetrokken",
         expired: "Verlopen",
         accepted: "Geaccepteerd",
-        unaccepted: "In afwachting"
+        unaccepted: "In afwachting",
+        pending: "In afwachting",
+        unclaimed: "Unclaimed"
       },
       confirmation: {
         revocationReason: "Reden voor intrekking (verplicht)",
@@ -688,6 +690,16 @@ I18n.translations.nl = {
     badgeAward: {
       email: "E-mail",
       eppn: "Student nummer (EPPN)",
+      reject: "Weigeren",
+      claim: "Claim en voeg toe aan badges",
+      confirmation: {
+        claim: "Nadat deze badge is geclaimd, wordt deze toegevoegd aan je badgepack en kan je de badge openbaar maken en delen.",
+        reject: "Weet u absoluut zeker dat u deze badge wilt afwijzen? Deze badge wordt na afwijzing verwijderd en deze actie kan niet ongedaan worden gemaakt."
+      },
+      flash: {
+        claim: "Successfully claimed badge",
+        reject: "Badge is rejected",
+      }
     }
   },
   inviteDialog: {
@@ -830,6 +842,7 @@ I18n.translations.nl = {
     noValidatedNameModal: {
       noLinkedInstitution: "Geen gekoppelde instelling",
       question: "Je eduID account is niet gekoppeld aan een onderwijsinstelling. Dit is vereist om edubadges aan te vragen.<br><br>Druk op <span style='color: #540b6c'>koppel instelling</span> om doorgestuurd te worden naar eduID. Daarna wordt je terug gestuurd naar deze pagina.",
+      directAwards: "Je eduID account is niet gekoppeld aan een onderwijsinstelling. Dit is vereist om direct awards te claimen.<br><br>Druk op <span style='color: #540b6c'>koppel instelling</span> om doorgestuurd te worden naar eduID. Daarna wordt je terug gestuurd naar deze pagina.",
       goToEduID: "Koppel onderwijsinstelling"
     },
 

@@ -14,7 +14,9 @@
   export let withHeaderData;
 
   const detailLink = () => {
-    if (isPublic) {
+    if (badge.isDirectAward) {
+      navigate(`/direct-award/${badge.entityId}`);
+    } else if (isPublic) {
       navigate(`/public/${badgeClass.entityId}`);
     } else if (!standAlone) {
       navigate(badge ? `/details/${badge.entityId}` : `/badgeclass/${badgeClass.entityId}`);

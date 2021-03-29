@@ -28,6 +28,12 @@
     max-width: 55px;
   }
 
+  span.status-indicator.unclaimed {
+    background-color: var(--green-dark);
+    color: white;
+    max-width: 155px;
+  }
+
   span.status-indicator.rejected {
     background-color: var(--red-dark);
     color: white;
@@ -48,7 +54,9 @@
 
 </style>
 {#if badge}
-  {#if badge.revoked}
+  {#if badge.isDirectAward}
+    <span class="status-indicator unclaimed" class:card-view={cardView}>{I18n.t("models.badge.statuses.unclaimed")}</span>
+  {:else if badge.revoked}
     <span class="status-indicator revoked" class:card-view={cardView}>{I18n.t("models.badge.statuses.revoked")}</span>
   {:else if badge.acceptance === "UNACCEPTED"}
     <span class="status-indicator new"  class:card-view={cardView}>{I18n.t("models.badge.statuses.new")}</span>

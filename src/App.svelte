@@ -27,6 +27,7 @@
   import PublicInstitutionPage from "./components/shared/PublicInstitutionPage.svelte";
   import VersionInfo from "./routes/VersionInfo.svelte";
   import Catalog from "./routes/catalog/Catalog.svelte";
+  import DirectAward from "./routes/students/DirectAward.svelte";
 
 
   const homepage = {
@@ -48,7 +49,7 @@
           $userName = `${res[0].firstName} ${res[0].lastName}`;
         })
         .catch(() => {
-          $redirectPath = window.location.pathname;
+          $redirectPath = path;
           if (path.indexOf("catalog") === -1) {
             navigate("/login");
           } else {
@@ -122,8 +123,8 @@
         <Route path="/badge-requests">
           <Student bookmark="badge-requests"/>
         </Route>
-        <Route path="/collections">
-          <Student bookmark="collections"/>
+        <Route path="/direct-awards">
+          <Student bookmark="backpack"/>
         </Route>
         <Route path="/enrollment/:enrollmentId/" let:params>
           <EnrollmentDetails enrollmentId={params.enrollmentId}/>
@@ -131,6 +132,10 @@
         <Route path="/details/:entityId/" let:params>
           <BadgeDetails entityId={params.entityId}/>
         </Route>
+        <Route path="/direct-award/:entityId/" let:params>
+          <DirectAward entityId={params.entityId}/>
+        </Route>
+
         <Route path="/signup" component={AcceptTerms}/>
 
         <!-- Teacher -->

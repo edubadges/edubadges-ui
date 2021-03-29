@@ -58,6 +58,33 @@ export const studentBadgeInstances = `query {
           }
         }
       }
+    },
+    directAwards {
+      entityId,
+      createdAt,
+      badgeclass {
+        name,
+        entityId,
+        image,
+        extensions {
+          name,
+          originalJson
+        },
+        issuer {
+          nameDutch,
+          nameEnglish,
+          imageDutch,
+          imageEnglish,
+          faculty {
+            nameDutch,
+            nameEnglish,
+            institution {
+              nameDutch,
+              nameEnglish,
+            }
+          }
+        }
+      }
     }
   }`;
 
@@ -87,6 +114,7 @@ export const assertionsQuery = `
         revoked,
         acceptance,
         expiresAt,
+        awardType,
         issuedOn,
         user {
           entityId,

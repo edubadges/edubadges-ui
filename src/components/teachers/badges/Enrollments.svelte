@@ -202,7 +202,7 @@
       </td>
       <td>
         <div class="recipient">
-          <span>{userName(enrollment.user)}</span>
+          <span>{userName(enrollment)}</span>
           <span>{enrollment.user.email}</span>
         </div>
       </td>

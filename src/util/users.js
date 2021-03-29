@@ -1,1 +1,6 @@
-export const userName = user => `${user.firstName || ""} ${user.lastName || ""}`.trim() || "-";
+export const userName = obj => {
+  if (obj.user) {
+    return `${obj.user.firstName || ""} ${obj.user.lastName || ""}`.trim() || "-";
+  }
+  return "-";
+}

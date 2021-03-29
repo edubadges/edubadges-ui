@@ -12,8 +12,10 @@
   export let isPublic = false;
 
   const detailLink = () => {
-    if (isPublic) {
-      navigate(`/public/${badgeClass.entityId}`)
+    if (badge.isDirectAward) {
+      navigate(`/direct-award/${badge.entityId}`);
+    } else if (isPublic) {
+      navigate(`/public/${badgeClass.entityId}`);
     } else {
       navigate(badge ? `/details/${badge.entityId}` : `/badgeclass/${badgeClass.entityId}`);
     }

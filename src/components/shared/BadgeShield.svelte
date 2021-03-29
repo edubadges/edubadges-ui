@@ -23,9 +23,9 @@
 </style>
 {#if badge}
   <div class="shield" class:card-view={cardView}>
-    {#if badge.public}
+    {#if badge.public && !badge.isDirectAward}
       {@html shieldUnlocked}
-    {:else}
+    {:else if !badge.isDirectAward}
       {@html shieldLocked}
     {/if}
   </div>

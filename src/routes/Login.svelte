@@ -1,7 +1,7 @@
 <script>
   import I18n from "i18n-js";
   import {Card, CardSubtext, LoginButton} from "../components/guests";
-  import {userLoggedIn, userRole} from "../stores/user";
+  import {userLoggedIn, userRole, redirectPath} from "../stores/user";
   import {role} from "../util/role";
   import {getService} from "../util/getService";
   import {requestLoginToken} from "../api";
@@ -30,12 +30,12 @@
 
   const logIn = chosenRole => {
     $userRole = chosenRole;
+    const path = $redirectPath;
     const service = getService(chosenRole);
 
     const urlSearchParams = new URLSearchParams(window.location.search);
     const validateName = urlSearchParams.get("validateName");
-
-    requestLoginToken(service, validateName === "true");
+    requestLoginToken(service, validateName === "true" || path.indexOf("direct-awards") > -1);
   };
 
   const toggleLoginCreateAccount = () => (showLoginCards = !showLoginCards);

@@ -11,8 +11,10 @@
   import {Modal} from "../../forms";
   import {flash} from "../../../stores/flash";
   import filter from "../../../icons/filter-1.svg";
+  import {onMount} from "svelte";
 
   export let assertions = [];
+  export let directAwards = [];
   export let issuer;
   export let badgeclass;
   export let refresh;
@@ -26,6 +28,8 @@
   let modalTitle;
   let modalQuestion;
   let modalAction;
+
+  onMount(() => assertions = assertions.concat(directAwards));
 
   const cancel = () => {
     showModal = false;
@@ -51,9 +55,6 @@
   const refreshEnrollments = () => {
     selection = [];
     revocationReason = "";
-    // queryData(`{ ${assertionsQuery(badgeclass.entityId)} }`).then(res => {
-    //   assertions = res.badgeClass.badgeAssertions;
-    // });
     refresh();
   };
 
@@ -76,6 +77,9 @@
   }
 
   const assertionStatus = assertion => {
+    if (assertion.isDirectAward) {
+      return I18n.t("models.badge.statuses.pending");
+    }
     if (assertion.revoked) {
       return I18n.t("models.badge.statuses.revoked");
     }
@@ -83,6 +87,9 @@
   }
 
   const assertionStatusClass = assertion => {
+    if (assertion.isDirectAward) {
+      return "pending"
+    }
     if (assertion.revoked) {
       return "revoked";
     }
@@ -153,7 +160,7 @@
   let assertionSearch = "";
   $: searchedAssertionIds = searchMultiple(assertions, assertionSearch, "entityId", "user.firstName", "user.lastName", "user.email");
 
-  let assertionsSort = tableHeaders[1];
+  let assertionsSort = tableHeaders[2];
 
   $: sortedFilteredAssertions = sort(
     assertions.filter(el => searchedAssertionIds.includes(el.entityId)),
@@ -204,7 +211,7 @@
       color: white;
     }
 
-    &.unaccepted {
+    &.unaccepted, &.pending {
       background-color: var(--grey-3);
     }
 
@@ -245,16 +252,15 @@
       </td>
       <td>
         <div class="recipient">
-          <span>{userName(assertion.user)}</span>
-          <span>{assertion.user.email}</span>
+          <span>{userName(assertion)}</span>
+          <span>{assertion.isDirectAward ? assertion.recipientEmail : assertion.user.email}</span>
         </div>
       </td>
       <td class="center">
-        <!--  ToDo     -->
-        {I18n.t("models.badge.awardType.enrolled")}
+        {I18n.t(`models.badge.awardType.${assertion.isDirectAward ? "DIRECT_AWARD" : assertion.awardType}`)}
       </td>
       <td class="center">
-        {moment(assertion.dateCreated).format('MMM D, YYYY')}
+        {moment(assertion.isDirectAward ? assertion.createdAt : assertion.dateCreated).format('MMM D, YYYY')}
       </td>
       <td class="assertion-status center">
         <span class={assertionStatusClass(assertion)}>{assertionStatus(assertion)}</span>
@@ -267,7 +273,7 @@
       </td>
     </tr>
   {/each}
-  {#if assertions.length === 0}
+  {#if assertions.length === 0 && directAwards.length === 0}
     <tr>
       <td colspan="8">{I18n.t("zeroState.assertions", {name: badgeclass.name})}</td>
     </tr>

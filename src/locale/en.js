@@ -620,8 +620,8 @@ I18n.translations.en = {
       awarded: "Awarded edubadges",
       awardType: {
         name: "Award type",
-        enrolled: "Requested",
-        directAward: "Direct award"
+        REQUESTED: "Requested",
+        DIRECT_AWARD: "Direct award"
       },
       associatedInstitution: "Associated institution",
       issuedOn: "Issued",
@@ -640,7 +640,9 @@ I18n.translations.en = {
         revoked: "Revoked",
         expired: "Expired",
         accepted: "Claimed",
-        unaccepted: "Pending"
+        unaccepted: "Pending",
+        pending: "Pending",
+        unclaimed: "Unclaimed"
       },
       confirmation: {
         revocationReason: "Reason for revocation (required)",
@@ -688,6 +690,16 @@ I18n.translations.en = {
     badgeAward: {
       email: "Email address",
       eppn: "Student number (EPPN)",
+      reject: "Reject",
+      claim: "Claim & Add to badges",
+      confirmation: {
+        claim: "After this badge is claimed, it will be added to your badgepack and you can make the badge public and share it.",
+        reject: "Are you absolutely sure you want to reject this badge? This badge will be deleted after rejection and this action cannot be undone."
+      },
+      flash: {
+        claim: "Successfully claimed badge",
+        reject: "Badge is rejected",
+      }
     }
   },
   inviteDialog: {
@@ -831,6 +843,7 @@ I18n.translations.en = {
     noValidatedNameModal: {
       noLinkedInstitution: "No linked verfied institution",
       question: "Your eduID account is not linked to any verfied institution. This is required to request edubadges.<br><br>Please press <span style='color: #540b6c'>Link institution</span> to be redirected to eduID. After that you will be redirected back to this page.",
+      directAwards: "Your eduID account is not linked to any verfied institution. This is required to claim your direct awards.<br><br>Please press <span style='color: #540b6c'>Link institution</span> to be redirected to eduID. After that you will be redirected back to this page.",
       goToEduID: "Link institution"
     }
   },

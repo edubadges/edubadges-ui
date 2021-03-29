@@ -29,6 +29,7 @@
 
   let enrollments = [];
   let assertions = [];
+  let directAwards = [];
 
   const publicUrl = () => {
     const currentUrl = window.location.origin;
@@ -75,7 +76,9 @@
       directAwards {
         entityId,
         eppn,
-        recipientEmail
+        recipientEmail,
+        createdAt,
+        updatedAt
       }
     },
     ${enrollmentsQuery},
@@ -97,7 +100,13 @@
       faculty = issuer.faculty;
 
       enrollments = res.badgeClass.pendingEnrollments;
+
+      res.badgeClass.badgeAssertions.forEach(ba => ba.isDirectAward = false);
       assertions = res.badgeClass.badgeAssertions;
+
+      res.badgeClass.directAwards.forEach(da => da.isDirectAward = true);
+      directAwards = res.badgeClass.directAwards;
+
       loaded = true;
       callback && callback();
     });
@@ -123,7 +132,7 @@
     },
     {
       entity: "assertions",
-      count: assertions.length,
+      count: assertions.length + directAwards.length,
       href: `/badgeclass/${entityId}/awarded`
     }
   ];
@@ -264,7 +273,7 @@
           </Route>
 
           <Route path="/awarded">
-            <Assertions {issuer} {badgeclass} {assertions} refresh={refresh}/>
+            <Assertions {issuer} {badgeclass} {assertions} {directAwards} refresh={refresh}/>
           </Route>
         </Router>
       </div>
