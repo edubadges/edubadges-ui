@@ -12,7 +12,7 @@
   export let isPublic = false;
 
   const detailLink = () => {
-    if (badge.isDirectAward) {
+    if (badge && badge.isDirectAward) {
       navigate(`/direct-award/${badge.entityId}`);
     } else if (isPublic) {
       navigate(`/public/${badgeClass.entityId}`);
