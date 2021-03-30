@@ -30,6 +30,7 @@
   let enrollments = [];
   let assertions = [];
   let directAwards = [];
+  let loaded;
 
   const publicUrl = () => {
     const currentUrl = window.location.origin;
@@ -84,8 +85,6 @@
     ${enrollmentsQuery},
     ${assertionsQuery},
   }`;
-
-  let loaded;
 
   const refresh = callback => {
     queryData(query, {entityId}).then(res => {
