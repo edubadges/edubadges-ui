@@ -12,12 +12,20 @@
   import {Modal} from "../../components/forms";
   import {translateProperties} from "../../util/utils";
   import Button from "../../components/Button.svelte";
-  import {acceptRejectDirectAward} from "../../api";
+  import {acceptRejectDirectAward, acceptTermsForBadge} from "../../api";
   import {flash} from "../../stores/flash";
+  import {authToken, redirectPath, userLoggedIn, userRole, validatedUserName} from "../../stores/user";
+  import {config} from "../../util/config";
+  import AcceptInstitutionTerms from "../AcceptInstitutionTerms.svelte";
 
   export let entityId;
 
   let directAward = {};
+  let currentUser = {};
+
+  let showAcceptTerms = false;
+  let termsAccepted = false;
+  let noValidInstitution = false;
 
   //Modal
   let showModal = false;
@@ -32,6 +40,17 @@
   }
 
   const query = `query ($entityId: String) {
+    currentUser {
+      validatedName,
+      schacHomes,
+      termsAgreements {
+        terms {
+          entityId
+        },
+        agreed,
+        agreedVersion
+      }
+    },
     directAward(id: $entityId) {
       entityId,
       createdAt,
@@ -40,6 +59,16 @@
         description,
         entityId,
         image,
+        formal,
+        terms {
+          entityId,
+          termsType,
+          version,
+          termsUrl {
+            url,
+            language
+          }
+        },
         extensions {
           name,
           originalJson
@@ -55,6 +84,12 @@
             institution {
               nameDutch,
               nameEnglish,
+              identifier,
+              imageDutch,
+              imageEnglish,
+              grondslagFormeel,
+              grondslagInformeel,
+              entityId
             }
           }
         }
@@ -65,7 +100,13 @@
   onMount(() => {
     queryData(query, {entityId}).then(res => {
       directAward = res.directAward;
+      currentUser = res.currentUser;
       const issuer = directAward.badgeclass.issuer;
+
+      const userTerms = currentUser.termsAgreements;
+      const termsCandidate = userTerms.find(uTerm => uTerm.terms.entityId === directAward.badgeclass.terms.entityId);
+      termsAccepted = termsCandidate && termsCandidate.agreedVersion === directAward.badgeclass.terms.version && termsCandidate.agreed;
+
       translateProperties(issuer);
       translateProperties(issuer.faculty);
       translateProperties(issuer.faculty.institution);
@@ -74,6 +115,10 @@
       loaded = true;
     });
   });
+
+  const userDisagreed = () => {
+    showAcceptTerms = false;
+  };
 
   const rejectDirectAward = showConfirmation => {
     if (showConfirmation) {
@@ -92,6 +137,16 @@
   }
 
   const claimDirectAward = showConfirmation => {
+    const identifier = directAward.badgeclass.issuer.faculty.institution.identifier;
+    const schacHomes = currentUser.schacHomes;
+    if (schacHomes.indexOf(identifier) < 0) {
+      noValidInstitution = true;
+      return;
+    }
+    if (!termsAccepted) {
+      showAcceptTerms = true;
+      return;
+    }
     if (showConfirmation) {
       modalTitle = I18n.t("models.badgeAward.claim");
       modalQuestion = I18n.t("models.badgeAward.confirmation.claim");
@@ -100,12 +155,31 @@
       showModal = true;
     } else {
       showModal = false;
-      acceptRejectDirectAward(directAward, true).then(() => {
+      acceptRejectDirectAward(directAward, true).then(res => {
         flash.setValue(I18n.t("models.badgeAward.flash.claim"));
-        navigate("/backpack");
+        navigate(`/details/${res.entity_id}`);
       });
     }
   }
+
+  const userHasAgreed = () => {
+    showAcceptTerms = false;
+    acceptTermsForBadge(directAward.badgeclass.terms.entityId).then(() => {
+      termsAccepted = true;
+      claimDirectAward(true);
+    });
+  };
+
+
+  const logInForceAuthn = () => {
+    $userLoggedIn = "";
+    $userRole = "";
+    $authToken = "";
+    $validatedUserName = "";
+    $redirectPath = window.location.pathname;
+    window.location.href = config.eduId;
+  };
+
 
 </script>
 
@@ -239,43 +313,61 @@
 
 </style>
 
-<div class="badge-detail-container">
-  {#if loaded}
-    <div class="bread-crumb">
-      <a use:link href={`/backpack`}>{I18n.t("student.badges")}</a>
-      <span class="icon">{@html chevronRightSmall}</span>
-      <span class="current">{directAward.badgeclass.name}</span>
-    </div>
-    <div class="badge-header">
-      <h1>{directAward.badgeclass.name}</h1>
-    </div>
-    <div class="badge-detail">
-      <div class="badge-card-container">
-        <span class="status-indicator unclaimed">{I18n.t("models.badge.statuses.unclaimed")}</span>
-        <BadgeCard badgeClass={directAward.badgeclass} standAlone={true} withHeaderData={false}/>
+{#if loaded}
+  {#if !showAcceptTerms}
+    <div class="badge-detail-container">
+      <div class="bread-crumb">
+        <a use:link href={`/backpack`}>{I18n.t("student.badges")}</a>
+        <span class="icon">{@html chevronRightSmall}</span>
+        <span class="current">{directAward.badgeclass.name}</span>
       </div>
-      <div class="actions">
-        <div class="button-container">
-          <Button text={I18n.t("models.badgeAward.reject")} action={() => rejectDirectAward(true)} secondary={true}
-                  marginRight={true}/>
-          <Button text={I18n.t("models.badgeAward.claim")} action={() => claimDirectAward(true)}/>
+      <div class="badge-header">
+        <h1>{directAward.badgeclass.name}</h1>
+      </div>
+      <div class="badge-detail">
+        <div class="badge-card-container">
+          <span class="status-indicator unclaimed">{I18n.t("models.badge.statuses.unclaimed")}</span>
+          <BadgeCard badgeClass={directAward.badgeclass} standAlone={true} withHeaderData={false}/>
         </div>
-      </div>
-      <div class="dates">
-        <div class="issued-on">
-          <h3>{I18n.t("models.badge.issuedOn")}</h3>
-          <span>{moment(directAward.createAt).format('MMM D, YYYY')}</span>
+        <div class="actions">
+          <div class="button-container">
+            <Button text={I18n.t("models.badgeAward.reject")} action={() => rejectDirectAward(true)} secondary={true}
+                    marginRight={true}/>
+            <Button text={I18n.t("models.badgeAward.claim")} action={() => claimDirectAward(true)}/>
+          </div>
         </div>
+        <div class="dates">
+          <div class="issued-on">
+            <h3>{I18n.t("models.badge.issuedOn")}</h3>
+            <span>{moment(directAward.createAt).format('MMM D, YYYY')}</span>
+          </div>
+        </div>
+
+        <BadgeClassDetails badgeclass={directAward.badgeclass}/>
+
       </div>
-
-      <BadgeClassDetails badgeclass={directAward.badgeclass}/>
-
     </div>
-  {:else}
-    <Spinner/>
   {/if}
+{:else}
+  <Spinner/>
+{/if}
 
-</div>
+{#if noValidInstitution}
+  <Modal
+    submit={logInForceAuthn}
+    title={I18n.t("acceptTerms.noValidInstitution")}
+    question={I18n.t("acceptTerms.noValidInstitutionInfoForEnrollment", {name: directAward.badgeclass.issuer.faculty.institution.name})}
+    evaluateQuestion={true}
+    cancel={() => noValidInstitution = false}
+    submitLabel={I18n.t("acceptTerms.goToSurfConext")}/>
+{/if}
+
+{#if showAcceptTerms}
+  <AcceptInstitutionTerms
+    badgeClass={directAward.badgeclass}
+    userHasAgreed={userHasAgreed}
+    userDisagreed={userDisagreed}/>
+{/if}
 
 {#if showModal}
   <Modal

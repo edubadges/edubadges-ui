@@ -5,7 +5,8 @@ I18n.translations.nl = {
     backpack: "Backpack",
     "badge-requests": "Aanvragen voor edubadges",
     collections: "Collecties",
-    profile: "Profiel",
+    archived: "Archief",
+    profile: "Account",
   },
   header: {
     logout: "Logout",

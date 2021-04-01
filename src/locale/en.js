@@ -5,7 +5,8 @@ I18n.translations.en = {
     backpack: "Backpack",
     "badge-requests": "Edubadge requests",
     collections: "Collections",
-    profile: "Profile",
+    archived: "Archive",
+    profile: "Account",
   },
   header: {
     logout: "Logout",
