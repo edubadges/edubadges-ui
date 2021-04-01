@@ -4,20 +4,13 @@
   import {queryData} from "../../api/graphql";
   import {role} from "../../util/role";
   import {navigate} from "svelte-routing";
-  import {
-    acceptTermsForBadge,
-    getPublicBadgeClass,
-    getSocialAccountsSafe,
-    requestBadge,
-    requestLoginToken,
-  } from "../../api";
+  import {acceptTermsForBadge, getPublicBadgeClass, requestBadge, requestLoginToken,} from "../../api";
   import {BadgeClassHeader} from "../teachers";
   import {Overview} from "../teachers/badgeclass";
   import Button from "../Button.svelte";
   import Spinner from "../Spinner.svelte";
   import {publicBadgeInformation} from "../extensions/badges/extensions";
   import {entityType} from "../../util/entityTypes"
-  import {schacHomeNamesFromExtraData} from "../../util/claims";
   import {Modal} from "../forms";
   import {flash} from "../../stores/flash";
   import AcceptInstitutionTerms from "../../routes/AcceptInstitutionTerms.svelte";
@@ -80,6 +73,7 @@
   const secureQuery = `query ($entityId: String){
     currentUser {
       validatedName,
+      schacHomes,
       termsAgreements {
         terms {
           entityId
@@ -144,7 +138,7 @@
 
   onMount(() => {
     if (visitorRole === role.STUDENT) {
-      Promise.all([queryData(query, {entityId}), queryData(secureQuery, {entityId}), getSocialAccountsSafe()]).then(res => {
+      Promise.all([queryData(query, {entityId}), queryData(secureQuery, {entityId})]).then(res => {
         debugger;
         const enrollment = res[0].enrollment;
         if (enrollment && (!enrollment.badgeInstance || !enrollment.badgeInstance.revoked)) {
@@ -162,7 +156,7 @@
         translateProperties(badgeClass.issuer.faculty.institution);
 
         badgeClass.issuer.id = badgeClass.issuer.publicUrl;
-        schacHomes = schacHomeNamesFromExtraData(res[2][0].affiliations);
+        schacHomes = res[1].currentUser.schacHomes;
         loaded = true;
 
         const termsCandidate = userTerms.find(uTerm => uTerm.terms.entityId === badgeClass.terms.entityId);

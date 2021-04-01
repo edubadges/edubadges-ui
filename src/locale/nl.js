@@ -106,6 +106,9 @@ I18n.translations.nl = {
   backpack: {
     title: "Behaalde edubadges",
   },
+  archived: {
+    title: "Je gearchiveerde edubadges",
+  },
   notFound: {
     main: "Edubadge niet gevonden",
     publicBadge: "Deze edubadge is niet meer publiek zichtbaar of is ingetrokken.",

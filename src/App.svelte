@@ -119,9 +119,11 @@
         <Route path="/backpack">
           <Student bookmark="backpack"/>
         </Route>
-
         <Route path="/badge-requests">
           <Student bookmark="badge-requests"/>
+        </Route>
+        <Route path="/archived">
+          <Student bookmark="archived"/>
         </Route>
         <Route path="/direct-awards">
           <Student bookmark="backpack"/>

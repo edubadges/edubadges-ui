@@ -88,6 +88,42 @@ export const studentBadgeInstances = `query {
     }
   }`;
 
+export const revokedStudentBadgeInstances = `query {
+    revokedBadgeInstances {
+      entityId,
+      image,
+      issuedOn,
+      createdAt,
+      public,
+      revoked,
+      expiresAt,
+      acceptance,
+      badgeclass {
+        name,
+        entityId,
+        image,
+        extensions {
+          name,
+          originalJson
+        },
+        issuer {
+          nameDutch,
+          nameEnglish,
+          imageDutch,
+          imageEnglish,
+          faculty {
+            nameDutch,
+            nameEnglish,
+            institution {
+              nameDutch,
+              nameEnglish,
+            }
+          }
+        }
+      }
+    }
+  }`;
+
 export const enrollmentsQuery = `
     badgeClass(id: $entityId) {
       pendingEnrollments {

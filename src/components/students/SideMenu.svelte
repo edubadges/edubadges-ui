@@ -59,6 +59,12 @@
   :global(.side-menu svg.menu-link) {
     margin-right: 5px;
   }
+
+  :global(.side-menu span.side-menu-icon svg) {
+    margin-right: 5px;
+    height: 30px;
+    width: auto;
+  }
 </style>
 
 <div class="side-menu">
@@ -72,7 +78,7 @@
         use:link
         class="menu-item"
         class:active={path === currentPage.path}>
-        {@html icon}
+        <span class="side-menu-icon">{@html icon}</span>
         <span>{I18n.t(`routes.${path}`)}</span>
       </a>
     {/each}

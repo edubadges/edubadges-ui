@@ -6,20 +6,11 @@
   import {role as roleConstants} from "../util/role";
   import {validateInstitutions} from "../api";
   import {Modal, ModalTerms} from "../components/forms";
-  import termsIcon from "../icons/voorwaarden-icon1.svg"
   import terms2Icon from "../icons/voorwaarden-icon2.svg"
-  import {schacHomeNames} from "../util/claims";
-  import {getService} from "../util/getService";
   import Button from "../components/Button.svelte";
   import Spinner from "../components/Spinner.svelte";
   import DOMPurify from 'dompurify';
-  import {
-    userLoggedIn,
-    userRole,
-    authToken,
-    redirectPath,
-    showMainErrorDialog
-  } from "../stores/user";
+  import {authToken, redirectPath, userLoggedIn, userRole} from "../stores/user";
 
   let idToken;
   let state;
@@ -49,8 +40,7 @@
     role = urlParams.get("role");
     claims = jwt_decode(idToken);
     $userRole = role;
-    const dirty = $userRole === roleConstants.STUDENT ? schacHomeNames(claims) : [claims.schac_home_organization];
-    schacHomeOrganisations = dirty.map(el => DOMPurify.sanitize(el));
+    schacHomeOrganisations = $userRole === roleConstants.STUDENT ? [] : [DOMPurify.sanitize(claims.schac_home_organization)];
     if (!schacHomeOrganisations) {
       schacHomeOrganisations = [];
     }
@@ -66,7 +56,7 @@
             loaded = true;
           }
         });
-      } else {
+    } else {
       loaded = true
     }
   });
@@ -194,21 +184,20 @@
 
 {#if showModalTerms}
   <ModalTerms
-      title={termsTitle}
-      submit={closeTerms}
-      cancel={closeTerms}
-      url={termsUrl}/>
+    title={termsTitle}
+    submit={closeTerms}
+    cancel={closeTerms}
+    url={termsUrl}/>
 {/if}
 
 {#if noValidInstitution}
   <Modal
-      submit={logInForceAuthn}
-      title={I18n.t("acceptTerms.noValidInstitution")}
-      question={schacHomeOrganisations[0] ? role === roleConstants.STUDENT ?
-        I18n.t("acceptTerms.noValidInstitutionInfo.student", {name: schacHomeOrganisations[0]}) :
-        I18n.t("acceptTerms.noValidInstitutionInfo.teacher", {name: schacHomeOrganisations[0]}) :
-        I18n.t("acceptTerms.noValidInstitutionInfoNoInstitution")}
-      evaluateQuestion={true}
-      submitLabel={I18n.t("acceptTerms.goToSurfConext")}
-      hideSubmit={role === roleConstants.TEACHER}/>
+    submit={logInForceAuthn}
+    title={I18n.t("acceptTerms.noValidInstitution")}
+    question={schacHomeOrganisations[0] ?
+        I18n.t("acceptTerms.noValidInstitutionInfoNoInstitution") :
+        I18n.t("acceptTerms.noValidInstitutionInfo.teacher", {name: schacHomeOrganisations[0]})}
+    evaluateQuestion={true}
+    submitLabel={I18n.t("acceptTerms.goToSurfConext")}
+    hideSubmit={true}/>
 {/if}

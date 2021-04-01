@@ -4,14 +4,16 @@
   import security from "../icons/security.svg";
   import data_activity from "../icons/data_activity.svg";
   import personal_info from "../icons/personal_info.svg";
+  import archived_svg from "../icons/archive-svgrepo-com.svg";
 
-  import {Backpack, BadgeRequests, Profile} from "./students";
+  import {Backpack, BadgeRequests, Profile, Archived} from "./students";
 
   export let bookmark;
 
   const pages = [
     {path: "backpack", icon: data_activity, component: Backpack},
     {path: "badge-requests", icon: security, component: BadgeRequests},
+    {path: "archived", icon: archived_svg, component: Archived},
     {path: "profile", icon: personal_info, component: Profile}
   ];
 

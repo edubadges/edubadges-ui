@@ -106,6 +106,9 @@ I18n.translations.en = {
   backpack: {
     title: "Your edubadges",
   },
+  archived: {
+    title: "Your archived edubadges",
+  },
   notFound: {
     main: "Edubadge not found",
     publicBadge: "The edubadge is either not publicly visible anymore or has been revoked.",

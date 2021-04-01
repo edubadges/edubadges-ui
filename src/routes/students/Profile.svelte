@@ -28,6 +28,7 @@
   const query = `query {
     currentUser {
       validatedName,
+      schacHomes,
       termsAgreements {
         entityId,
         updatedAt,
@@ -59,7 +60,6 @@
       profile = res[0];
       profile.eduid = res[1][0].eduid;
       profile.dateAdded = res[1][0].dateAdded;
-      profile.affiliations = res[1][0].affiliations;
       if (isStudent) {
         const currentUser = res[2].currentUser;
         if (currentUser.validatedName) {
