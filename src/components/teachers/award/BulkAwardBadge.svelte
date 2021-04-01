@@ -15,9 +15,15 @@
   export let badgeclass;
   export let enrollments;
   export let refresh;
+  export let existingDirectAwardsEppns;
 
   let directAwards = [];
   let errorAwards = [];
+  let duplicateAwards = [];
+  let alreadyEppnDirectAwards = [];
+
+  const alreadyInList = (newDirectAwards, email, eppn) =>
+    newDirectAwards.some(da => da.email === email || da.eppn === eppn);
 
   const handleFilesSelect = e => {
     const files = e.detail.acceptedFiles;
@@ -28,21 +34,35 @@
         const rows = data.split("\n");
         const newDirectAwards = [];
         const newErrorAwards = [];
+        const newDuplicateAwards = [];
+        const newAlreadyEppnDirectAwards = [];
         rows.forEach(row => {
           const cells = row.split(/[, \t]/);
-          if (cells.length >= 2 && validEmail(cells[0]) && cells[1].trim().length > 0) {
-            newDirectAwards.push({email: cells[0], eppn: cells[1]});
+          const cellString = cells.join(" ").trim();
+          if (cells.length < 2 && cellString.length > 0) {
+            newErrorAwards.push(cellString);
           } else {
-            //ignore empty line at the end
-            const str = cells.join(" ").trim();
-            if (str.length > 0) {
-              newErrorAwards.push(cells.join(" "));
+            const email = cells[0];
+            const eppn = cells[1];
+            if (existingDirectAwardsEppns.includes(eppn)) {
+              newAlreadyEppnDirectAwards.push(eppn);
+            } else if (alreadyInList(newDirectAwards, email, eppn)) {
+              newDuplicateAwards.push(cellString)
+            } else if (validEmail(email) && eppn.trim().length > 0) {
+              newDirectAwards.push({email: email, eppn: eppn});
+            } else {
+              //ignore empty line at the end
+              if (cellString.length > 0) {
+                newErrorAwards.push(cellString);
+              }
             }
           }
 
         });
         directAwards = newDirectAwards;
         errorAwards = newErrorAwards;
+        duplicateAwards = newDuplicateAwards;
+        alreadyEppnDirectAwards = newAlreadyEppnDirectAwards;
       };
       reader.readAsText(files[0])
     }
@@ -166,6 +186,24 @@
       <Error standAlone={true} error_message={I18n.t("badgeAward.bulkAward.wrong")}/>
       <ul class="error">
         {#each errorAwards as err}
+          <li>{err}</li>
+        {/each}
+      </ul>
+    {/if}
+    {#if alreadyEppnDirectAwards.length > 0}
+      <Error standAlone={true} error_message={I18n.t("badgeAward.bulkAward.eppnExisting")}/>
+      <ul class="error">
+        {#each alreadyEppnDirectAwards as err}
+          <li>{err}</li>
+        {/each}
+      </ul>
+    {/if}
+
+
+    {#if duplicateAwards.length > 0}
+      <Error standAlone={true} error_message={I18n.t("badgeAward.bulkAward.duplicate")}/>
+      <ul class="error">
+        {#each duplicateAwards as err}
           <li>{err}</li>
         {/each}
       </ul>

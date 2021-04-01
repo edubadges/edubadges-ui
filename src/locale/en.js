@@ -225,6 +225,7 @@ I18n.translations.en = {
       userManagement: "User management",
       enrollments: "Requested ",
       assertions: "Awarded ",
+      directAwardBundle: "Award bundles ",
       profile: "Profile"
     },
     edit: {
@@ -701,6 +702,14 @@ I18n.translations.en = {
         claim: "Successfully claimed badge",
         reject: "Badge is rejected",
       }
+    },
+    directAwardBundle: {
+      title: "Award bundles",
+      directAwardCount: "Pending",
+      assertionCount: "Claimed",
+      initialTotal: "Total",
+      rateClaim: "Claim rate",
+      createdAt: "Created",
     }
   },
   inviteDialog: {
@@ -858,7 +867,8 @@ I18n.translations.en = {
     enrollments: "There are no requests for edubadge {{name}}.",
     permissions: "There are no permissions for this user on the {{entity}} level.",
     selfPermissions: "There are no permissions for this user on the {{entity}} level.",
-    userPermissions: "This user does not have any permissions for {{entity}} {{name}}."
+    userPermissions: "This user does not have any permissions for {{entity}} {{name}}.",
+    directAwardBundles: "There are not direct award bundles for edubadge {{name}}"
   },
   userManagement: {
     permissions: "Permissions for {{name}}",
@@ -1047,6 +1057,8 @@ I18n.translations.en = {
       browse: "Browse",
       award: "Upload your Awardfile",
       wrong: "The following entries are not valid and are removed from the upload:",
+      duplicate: "The following entries are duplicated and are removed from the upload:",
+      eppnExisting: "The following EPPN's already exists on direct awards and are removed from the upload:",
       good: "Parsed {{count}} entries for upload",
       flash: {
         created: "Bulk awards are sent"

@@ -225,6 +225,7 @@ I18n.translations.nl = {
       userManagement: "Gebruikers beheer",
       enrollments: "Aangevraagd",
       assertions: "Toegekend",
+      directAwardBundle: "Award bundles ",
       profile: "Profiel"
     },
     edit: {
@@ -701,7 +702,15 @@ I18n.translations.nl = {
         claim: "Successfully claimed badge",
         reject: "Badge is rejected",
       }
-    }
+    },
+    directAwardBundle: {
+      title: "Direct award bundles",
+      directAwardCount: "Pending",
+      assertionCount: "Claimed",
+      initialTotal: "Total",
+      rateClaim: "Claim rate",
+      createdAt: "Aangemaakt",
+    },
   },
   inviteDialog: {
     title: "Nodig iemand uit om zichj in te schrijven",
@@ -858,7 +867,8 @@ I18n.translations.nl = {
     enrollments: "Er zijn geen aanvragen voor edubadge {{name}}.",
     permissions: "Er zijn geen permissies voor deze gebruiker {{entity}} niveau.",
     selfPermissions: "Deze gebruiker heeft geen permissies op {{entity}} niveau.",
-    userPermissions: "Deze gebruiker heeft geen permissies op {{entity}} niveau."
+    userPermissions: "Deze gebruiker heeft geen permissies op {{entity}} niveau.",
+    directAwardBundles: "Er zijn geen direct award bundles voor edubadge {{name}}"
   },
   userManagement: {
     permissions: "Permissies voor {{name}}",
@@ -1041,12 +1051,14 @@ I18n.translations.nl = {
     },
     bulkAward: {
       title: "Bulk award vanuit CSV",
-      subtitle: "Dit bestand moet in het exacte formaat van eduBadges passen. Als je het niet zeker weet, download dan eerst onze"+
+      subtitle: "Dit bestand moet in het exacte formaat van eduBadges passen. Als je het niet zeker weet, download dan eerst onze" +
         "<a href=\"{{sample}}\" download=\"sample_direct_award.csv\">Voorbeeld CSV Awardfile</a>.",
       or: "- or -",
       browse: "Browse",
       award: "Upload je Awardfile",
       wrong: "De volgende entries zijn niet geldig en worden verwijderd uit de upload:",
+      duplicate: "De volgende entries zijn duplicaten en worden verwijderd uit de upload:",
+      eppnExisting: "De volgende EPPN's bestaan reeds voor direct awards en worden verwijderd uit de upload:",
       good: "Parsed {{count}} entries voor de upload",
       flash: {
         created: "Bulk awards zijn verzonden"

@@ -19,6 +19,7 @@
   import {currentPath} from "../../../stores/currentPath";
   import AwardBadge from "./AwardBadge.svelte";
   import BulkAwardBadge from "./BulkAwardBadge.svelte";
+  import DirectAwardBundles from "./DirectAwardBundles.svelte";
 
   export let entityId;
   export let subEntity;
@@ -30,6 +31,7 @@
   let enrollments = [];
   let assertions = [];
   let directAwards = [];
+  let directAwardBundles = [];
   let loaded;
 
   const publicUrl = () => {
@@ -80,6 +82,12 @@
         recipientEmail,
         createdAt,
         updatedAt
+      },
+      directAwardBundles {
+        createdAt,
+        assertionCount,
+        directAwardCount,
+        initialTotal
       }
     },
     ${enrollmentsQuery},
@@ -103,7 +111,7 @@
 
       res.badgeClass.badgeAssertions.forEach(ba => ba.isDirectAward = false);
       assertions = res.badgeClass.badgeAssertions;
-
+      directAwardBundles = res.badgeClass.directAwardBundles;
       res.badgeClass.directAwards.forEach(da => da.isDirectAward = true);
       directAwards = res.badgeClass.directAwards;
       loaded = true;
@@ -133,6 +141,11 @@
       entity: "assertions",
       count: assertions.length + directAwards.length,
       href: `/badgeclass/${entityId}/awarded`
+    },
+    {
+      entity: "directAwardBundle",
+      count: directAwardBundles.length,
+      href: `/badgeclass/${entityId}/direct-awards-bundles`
     }
   ];
 
@@ -242,7 +255,7 @@
         </Route>
 
         <Route path="/bulk-award">
-          <BulkAwardBadge badgeclass={badgeclass} enrollments={enrollments} refresh={refresh}/>
+          <BulkAwardBadge badgeclass={badgeclass} existingDirectAwardsEppns={directAwards.map(da => da.eppn)} enrollments={enrollments} refresh={refresh}/>
         </Route>
       </Router>
     </div>
@@ -272,7 +285,11 @@
           </Route>
 
           <Route path="/awarded">
-            <Assertions {issuer} {badgeclass} {assertions} directAwards={directAwards} refresh={refresh}/>
+            <Assertions {issuer} {badgeclass} {assertions} {directAwards} refresh={refresh}/>
+          </Route>
+
+          <Route path="/direct-awards-bundles">
+            <DirectAwardBundles badgeclassName={badgeclass.name} {directAwardBundles}/>
           </Route>
         </Router>
       </div>
