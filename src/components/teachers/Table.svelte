@@ -1,7 +1,6 @@
 <script>
   import I18n from "i18n-js";
-  import {link} from "svelte-routing";
-  import {Search, Button, CheckBox} from "../../components";
+  import {Button, CheckBox, Search} from "../../components";
   import {TableHeaders} from "../teachers";
   import {sortType} from "../../util/sortData";
 
@@ -21,6 +20,7 @@
   export let checkAllValue;
   export let onCheckAll;
   export let isEmpty;
+  export let hideSearch;
 
   const setSort = tableHeader => {
     if (sort.attribute === tableHeader.attribute) {
@@ -68,7 +68,9 @@
 <div class="container main-content-margin">
   <div class="header">
     <h3>{title}</h3>
-    <Search bind:value={search}/>
+    {#if !hideSearch}
+      <Search bind:value={search}/>
+    {/if}
     {#if mayCreate}
       <Button
         href={`/manage/${entity}/new/${pathParameters.join("/")}`}
@@ -78,19 +80,19 @@
   <slot name="check-buttons"/>
   <table class="entity-table">
     <thead>
-      {#if !isEmpty}
-        <tr>
-          {#if withCheckAll}
-            <th class="checker">
-              <CheckBox bind:value={checkAllValue} onChange={onCheckAll}/>
-            </th>
-          {/if}
-          <TableHeaders {tableHeaders} {setSort} {sort}/>
-        </tr>
-      {/if}
+    {#if !isEmpty}
+      <tr>
+        {#if withCheckAll}
+          <th class="checker">
+            <CheckBox bind:value={checkAllValue} onChange={onCheckAll}/>
+          </th>
+        {/if}
+        <TableHeaders {tableHeaders} {setSort} {sort}/>
+      </tr>
+    {/if}
     </thead>
     <tbody>
-      <slot/>
+    <slot/>
     </tbody>
   </table>
 </div>

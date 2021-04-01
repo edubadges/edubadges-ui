@@ -2,7 +2,7 @@
   export let pages;
   export let currentPage;
 
-  import { link } from "svelte-routing";
+  import {link} from "svelte-routing";
   import I18n from "i18n-js";
   import chevron_left from "../../icons/chevron-left.svg";
   import chevron_right from "../../icons/chevron-right.svg";
@@ -10,7 +10,7 @@
   let displayMenu = false;
 </script>
 
-<style>
+<style lang="scss">
   .side-menu {
     display: flex;
     flex-direction: column;
@@ -64,6 +64,12 @@
     margin-right: 5px;
     height: 30px;
     width: auto;
+
+    &.archived-svg {
+      height: 25px;
+      margin-right: 10px;
+    }
+
   }
 </style>
 
@@ -72,7 +78,7 @@
     {@html displayMenu ? chevron_left : chevron_right}
   </button>
   <div class:hide-menu-items={!displayMenu}>
-    {#each pages as { path, icon }}
+    {#each pages as {path, icon}}
       <a
         href={path}
         use:link

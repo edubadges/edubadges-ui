@@ -84,6 +84,7 @@
 <Table
   {...table}
   bind:sort={directAwardBundleSort}
+  hideSearch={true}
   isEmpty={directAwardBundles.length === 0}>
   {#each sortedDirectAwardBundles as dab}
     <tr>

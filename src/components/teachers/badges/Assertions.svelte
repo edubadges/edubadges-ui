@@ -47,12 +47,12 @@
       const promises = selection.map(entityID => revokeAssertion(issuer.entityId, badgeclass.entityId, entityID, revocationReason));
       Promise.all(promises).then(() => {
         flash.setValue(I18n.t("models.badge.flash.revoked"));
-        refreshEnrollments();
+        refreshAssertions();
       });
     }
   }
 
-  const refreshEnrollments = () => {
+  const refreshAssertions = () => {
     selection = [];
     revocationReason = "";
     refresh();
