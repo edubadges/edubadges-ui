@@ -87,6 +87,7 @@
   }`;
 
   const refresh = callback => {
+    loaded = false;
     queryData(query, {entityId}).then(res => {
       badgeclass = res.badgeClass;
 
@@ -105,7 +106,6 @@
 
       res.badgeClass.directAwards.forEach(da => da.isDirectAward = true);
       directAwards = res.badgeClass.directAwards;
-
       loaded = true;
       callback && callback();
     });
@@ -272,7 +272,7 @@
           </Route>
 
           <Route path="/awarded">
-            <Assertions {issuer} {badgeclass} {assertions} {directAwards} refresh={refresh}/>
+            <Assertions {issuer} {badgeclass} {assertions} directAwards={directAwards} refresh={refresh}/>
           </Route>
         </Router>
       </div>

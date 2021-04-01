@@ -34,10 +34,9 @@
   const eppnOnBlur = i => e => errors = {...errors, [`eppn_${i}`]: e.target.value.trim().length === 0}
 
   const doAward = () => {
-    createDirectAwards(directAwards, badgeclass)
+    createDirectAwards(directAwards, badgeclass, false)
       .then(() => {
-        refresh();
-        navigate(`/badgeclass/${badgeclass.entityId}/awarded`);
+        refresh(() => setTimeout(() => navigate(`/badgeclass/${badgeclass.entityId}/awarded`), 75));
         flash.setValue(I18n.t("badgeAward.directAward.flash.created"));
       });
   };

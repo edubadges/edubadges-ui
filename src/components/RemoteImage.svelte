@@ -16,12 +16,13 @@
     }
     const res = await fetch(imageUrl, fetchOptions);
     const blob = await res.blob();
-    const url = URL.createObjectURL(blob);
-    return url;
+    return URL.createObjectURL(blob);
   }
 
   let imagePromise = fetchData();
-  $: if(imageUrl) imagePromise = fetchData();
+  $: if (imageUrl) {
+    imagePromise = fetchData();
+  }
 </script>
 
 <style>

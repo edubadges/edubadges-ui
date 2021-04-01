@@ -128,16 +128,20 @@
   const refreshBadgeDetails = () => {
     loaded = false;
     queryData(query, {entityId}).then(res => {
-      badge = res.badgeInstance;
-      const issuer = badge.badgeclass.issuer;
+      const theBadge = res.badgeInstance;
+      if (!theBadge.public && theBadge.acceptance === 'UNACCEPTED') {
+        claimAssertion(theBadge.entityId);
+        theBadge.acceptance = "ACCEPTED";
+      }
+
+      const issuer = theBadge.badgeclass.issuer;
       translateProperties(issuer);
       translateProperties(issuer.faculty);
       translateProperties(issuer.faculty.institution);
 
+      badge = theBadge;
+
       showModal = false;
-      if (!badge.public && badge.acceptance === 'UNACCEPTED') {
-        claimAssertion(badge.entityId);
-      }
       loaded = true;
     });
   }
@@ -349,6 +353,7 @@
     div.issued-on {
       flex-grow: 1;
     }
+
     div.expires {
       margin-left: auto;
       padding-left: 25px;

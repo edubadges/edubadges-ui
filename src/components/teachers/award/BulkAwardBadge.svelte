@@ -49,7 +49,7 @@
   }
 
   const doAward = () => {
-    createDirectAwards(directAwards, badgeclass)
+    createDirectAwards(directAwards, badgeclass, true)
       .then(() => {
         refresh();
         navigate(`/badgeclass/${badgeclass.entityId}/awarded`);
