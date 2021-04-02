@@ -139,7 +139,6 @@
   onMount(() => {
     if (visitorRole === role.STUDENT) {
       Promise.all([queryData(query, {entityId}), queryData(secureQuery, {entityId})]).then(res => {
-        debugger;
         const enrollment = res[0].enrollment;
         if (enrollment && (!enrollment.badgeInstance || !enrollment.badgeInstance.revoked)) {
           studentAwarded = enrollment.badgeInstance && !enrollment.badgeInstance.revoked;

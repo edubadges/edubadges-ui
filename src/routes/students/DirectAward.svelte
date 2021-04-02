@@ -54,6 +54,7 @@
     directAward(id: $entityId) {
       entityId,
       createdAt,
+      status,
       badgeclass {
         name,
         description,

@@ -58,11 +58,9 @@
       if (selectedDirectAwards.length > 0) {
         promises.push(revokeDirectAwards(selectedDirectAwards, revocationReason));
       }
-          debugger;
       if (promises.length > 0) {
         Promise.all(promises).then(() => {
           flash.setValue(I18n.t("models.badge.flash.revoked"));
-          debugger;
           refreshAssertions();
         });
       }

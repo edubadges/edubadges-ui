@@ -13,6 +13,7 @@
   import {authToken, redirectPath, userLoggedIn, userRole} from "../stores/user";
 
   let idToken;
+  let accessToken;
   let state;
   let claims;
   let provider;
@@ -34,6 +35,7 @@
   onMount(() => {
     const urlParams = new URLSearchParams(window.location.search);
     idToken = urlParams.get("id_token");
+    accessToken = urlParams.get("access_token");
     state = urlParams.get("state");
     provider = urlParams.get("provider");
     reSign = urlParams.get("re_sign") === "True";
@@ -62,7 +64,7 @@
   });
 
   const agree = () => {
-    window.location.href = `${config.serverUrl}/account/${encodeURIComponent(provider)}/login/terms_accepted/${encodeURIComponent(state)}/${idToken}/`;
+    window.location.href = `${config.serverUrl}/account/${encodeURIComponent(provider)}/login/terms_accepted/${encodeURIComponent(state)}/${idToken}/${accessToken}`;
   };
 
   const showTerms = (title, url) => () => {
