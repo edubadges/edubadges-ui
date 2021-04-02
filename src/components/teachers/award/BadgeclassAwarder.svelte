@@ -256,7 +256,12 @@
         </Route>
 
         <Route path="/bulk-award">
-          <BulkAwardBadge badgeclass={badgeclass} existingDirectAwardsEppns={directAwards.map(da => da.eppn)} enrollments={enrollments} refresh={refresh}/>
+          <BulkAwardBadge badgeclass={badgeclass}
+                          existingDirectAwardsEppns={directAwards
+                            .filter(da => da.status.toLowerCase() === "unaccepted")
+                            .map(da => da.eppn)}
+                          enrollments={enrollments}
+                          refresh={refresh}/>
         </Route>
       </Router>
     </div>
