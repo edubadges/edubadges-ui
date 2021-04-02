@@ -4,7 +4,7 @@
   import {Table} from "../../teachers";
   import {sort, sortType} from "../../../util/sortData";
   import {Button, CheckBox} from "../../../components";
-  import {revokeAssertion} from "../../../api";
+  import {revokeAssertions, revokeDirectAwards} from "../../../api";
   import singleNeutralCheck from "../../../icons/single-neutral-check.svg";
   import {userName} from "../../../util/users";
   import {searchMultiple} from "../../../util/searchData";
@@ -15,7 +15,6 @@
 
   export let assertions = [];
   export let directAwards = [];
-  export let issuer;
   export let badgeclass;
   export let refresh;
 
@@ -44,11 +43,29 @@
       showModal = true;
     } else {
       showModal = false;
-      const promises = selection.map(entityID => revokeAssertion(issuer.entityId, badgeclass.entityId, entityID, revocationReason));
-      Promise.all(promises).then(() => {
-        flash.setValue(I18n.t("models.badge.flash.revoked"));
-        refreshAssertions();
-      });
+      const selectedAssertions = assertions
+        .filter(assertion => selection.includes(assertion.entityId) && !assertion.isDirectAward)
+        .map(assertion => assertion.entityId);
+
+      const selectedDirectAwards = assertions
+        .filter(assertion => selection.includes(assertion.entityId) && assertion.isDirectAward)
+        .map(assertion => assertion.entityId);
+
+      const promises = [];
+      if (selectedAssertions.length > 0) {
+        promises.push(revokeAssertions(selectedAssertions, revocationReason));
+      }
+      if (selectedDirectAwards.length > 0) {
+        promises.push(revokeDirectAwards(selectedDirectAwards, revocationReason));
+      }
+          debugger;
+      if (promises.length > 0) {
+        Promise.all(promises).then(() => {
+          flash.setValue(I18n.t("models.badge.flash.revoked"));
+          debugger;
+          refreshAssertions();
+        });
+      }
     }
   }
 
@@ -60,7 +77,7 @@
 
   const onCheckAll = val => {
     selection = val ? assertions
-        .filter(assertion => !assertion.revoked)
+        .filter(assertion => !isRevoked(assertion))
         .map(assertion => assertion.entityId)
       : [];
     table.checkAllValue = val;
@@ -69,31 +86,30 @@
   const onCheckOne = (val, entityId) => {
     if (val) {
       selection = selection.concat(entityId);
-      table.checkAllValue = selection.length === assertions.filter(assertion => !assertion.revoked).length;
+      table.checkAllValue = selection.length === assertions
+        .filter(assertion => !isRevoked(assertion)).length;
     } else {
       selection = selection.filter(id => id !== entityId);
       table.checkAllValue = false;
     }
   }
 
+  const isRevoked = assertion => {
+    return (assertion.isDirectAward && assertion.status.toLowerCase() === "revoked") || (!assertion.isDirectAward && assertion.revoked);
+  }
+
   const assertionStatus = assertion => {
-    if (assertion.isDirectAward) {
-      return I18n.t("models.badge.statuses.pending");
-    }
-    if (assertion.revoked) {
+    if (!assertion.isDirectAward && assertion.revoked) {
       return I18n.t("models.badge.statuses.revoked");
     }
-    return I18n.t(`models.badge.statuses.${assertion.acceptance.toLowerCase()}`);
+    return I18n.t(`models.badge.statuses.${assertion.isDirectAward ? assertion.status.toLowerCase() : assertion.acceptance.toLowerCase()}`);
   }
 
   const assertionStatusClass = assertion => {
-    if (assertion.isDirectAward) {
-      return "pending"
+    if (!assertion.isDirectAward && assertion.revoked) {
+      return "revoked"
     }
-    if (assertion.revoked) {
-      return "revoked";
-    }
-    return assertion.acceptance.toLowerCase();
+    return assertion.isDirectAward ? assertion.status.toLowerCase() : assertion.acceptance.toLowerCase();
   }
 
   const tableHeaders = [
@@ -243,7 +259,7 @@
         <CheckBox
           value={selection.includes(assertion.entityId)}
           name={`select-${assertion.entityId}`}
-          disabled={assertion.revoked}
+          disabled={isRevoked(assertion)}
           onChange={val => onCheckOne(val, assertion.entityId)}/>
       </td>
       <td class="single-neutral-check">

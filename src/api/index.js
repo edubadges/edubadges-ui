@@ -11,6 +11,7 @@ function validateResponse(res, method, showErrorDialog) {
     //Stupid backend API returns 200 but no content
     return Promise.resolve({});
   }
+
   if (res.ok && res.status !== 204) {
     return res.json();
   }
@@ -176,12 +177,23 @@ export function denyBadge(enrollmentEntityId) {
 
 }
 
-export function revokeAssertion(issuerEntityId, badgeEntityId, assertionEntityId, revocationReason) {
-  const path = `${serverUrl}/issuer/issuers/${issuerEntityId}/badges/${badgeEntityId}/assertions/${assertionEntityId}`;
+export function revokeAssertions(assertionEntityIds, revocationReason) {
+  const path = `${serverUrl}/issuer/revoke-assertions`;
+  const assertions = assertionEntityIds.map(entityId => ({entity_id: entityId}));
   return validFetch(
     path,
-    {body: JSON.stringify({revocation_reason: revocationReason})},
-    "DELETE"
+    {body: JSON.stringify({revocation_reason: revocationReason, assertions: assertions})},
+    "POST"
+  );
+}
+
+export function revokeDirectAwards(directAwardEntityIds, revocationReason) {
+  const path = `${serverUrl}/directaward/revoke-direct-awards`;
+  const directAwards = directAwardEntityIds.map(entityId => ({entity_id: entityId}));
+  return validFetch(
+    path,
+    {body: JSON.stringify({revocation_reason: revocationReason, direct_awards: directAwards})},
+    "POST"
   );
 }
 

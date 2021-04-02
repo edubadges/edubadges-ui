@@ -79,6 +79,7 @@
       directAwards {
         entityId,
         eppn,
+        status,
         recipientEmail,
         createdAt,
         updatedAt
@@ -285,7 +286,7 @@
           </Route>
 
           <Route path="/awarded">
-            <Assertions {issuer} {badgeclass} {assertions} {directAwards} refresh={refresh}/>
+            <Assertions {badgeclass} {assertions} {directAwards} refresh={refresh}/>
           </Route>
 
           <Route path="/direct-awards-bundles">

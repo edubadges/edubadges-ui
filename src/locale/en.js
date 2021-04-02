@@ -647,7 +647,7 @@ I18n.translations.en = {
         accepted: "Claimed",
         unaccepted: "Pending",
         pending: "Pending",
-        unclaimed: "Unclaimed"
+        unclaimed: "Unclaimed",
       },
       confirmation: {
         revocationReason: "Reason for revocation (required)",
