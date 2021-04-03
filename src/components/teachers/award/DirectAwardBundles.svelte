@@ -33,6 +33,13 @@
       width: "15%"
     },
     {
+      name: I18n.t("models.directAwardBundle.directAwardRejectedCount"),
+      attribute: "directAwardRejectedCount",
+      reverse: false,
+      sortType: sortType.NUMERIC,
+      width: "15%"
+    },
+    {
       name: I18n.t("models.directAwardBundle.assertionCount"),
       attribute: "assertionCount",
       reverse: false,
@@ -68,7 +75,7 @@
     tableHeaders: tableHeaders
   };
 
-  let directAwardBundleSort = tableHeaders[1];
+  let directAwardBundleSort = tableHeaders[0];
 
   $: sortedDirectAwardBundles = sort(
     directAwardBundles,
@@ -90,6 +97,9 @@
     <tr>
       <td>
         {dab.directAwardCount}
+      </td>
+      <td>
+        {dab.directAwardRejectedCount}
       </td>
       <td>
         {dab.assertionCount}

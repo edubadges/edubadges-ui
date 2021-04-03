@@ -188,6 +188,15 @@
 
 <style lang="scss">
 
+  div.assertions {
+    display: flex;
+
+    div.filters {
+      min-width: 220px;
+    }
+
+  }
+
   div.recipient {
     display: flex;
     flex-direction: column;
@@ -238,64 +247,69 @@
 
 
 </style>
+<div class="assertions">
 
-<Table
-  {...table}
-  bind:search={assertionSearch}
-  bind:sort={assertionsSort}
-  withCheckAll={true}
-  isEmpty={assertions.length === 0}
-  bind:checkAllValue>
-  <div class="action-buttons" slot="check-buttons">
-    <Button small disabled={selection.length === 0} action={() => revoke(true)}
-            text={I18n.t('teacher.badgeRevoked.revoke')}/>
+  <div class="filters">
+    <span>TODO filters with refresh onlly if needed</span>
   </div>
 
-  {#each sortedFilteredAssertions as assertion}
-    <tr>
-      <td>
-        <CheckBox
-          value={selection.includes(assertion.entityId)}
-          name={`select-${assertion.entityId}`}
-          disabled={isRevoked(assertion)}
-          onChange={val => onCheckOne(val, assertion.entityId)}/>
-      </td>
-      <td class="single-neutral-check">
-        <div class="single-neutral-check">
-          {@html singleNeutralCheck}
-        </div>
-      </td>
-      <td>
-        <div class="recipient">
-          <span>{userName(assertion)}</span>
-          <span>{assertion.isDirectAward ? assertion.recipientEmail : assertion.user.email}</span>
-        </div>
-      </td>
-      <td class="center">
-        {I18n.t(`models.badge.awardType.${assertion.isDirectAward ? "DIRECT_AWARD" : assertion.awardType}`)}
-      </td>
-      <td class="center">
-        {moment(assertion.isDirectAward ? assertion.createdAt : assertion.dateCreated).format('MMM D, YYYY')}
-      </td>
-      <td class="assertion-status center">
-        <span class={assertionStatusClass(assertion)}>{assertionStatus(assertion)}</span>
-      </td>
-      <td class="center">
-        {assertion.updatedAt ? moment(assertion.updatedAt).format('MMM D, YYYY') : ""}
-      </td>
-      <td class="right">
-        {assertion.expiresAt ? moment(assertion.expiresAt).format('MMM D, YYYY') : ""}
-      </td>
-    </tr>
-  {/each}
-  {#if assertions.length === 0 && directAwards.length === 0}
-    <tr>
-      <td colspan="8">{I18n.t("zeroState.assertions", {name: badgeclass.name})}</td>
-    </tr>
-  {/if}
+  <Table
+    {...table}
+    bind:search={assertionSearch}
+    bind:sort={assertionsSort}
+    withCheckAll={true}
+    isEmpty={assertions.length === 0}
+    bind:checkAllValue>
+    <div class="action-buttons" slot="check-buttons">
+      <Button small disabled={selection.length === 0} action={() => revoke(true)}
+              text={I18n.t('teacher.badgeRevoked.revoke')}/>
+    </div>
 
-</Table>
+    {#each sortedFilteredAssertions as assertion}
+      <tr>
+        <td>
+          <CheckBox
+            value={selection.includes(assertion.entityId)}
+            name={`select-${assertion.entityId}`}
+            disabled={isRevoked(assertion)}
+            onChange={val => onCheckOne(val, assertion.entityId)}/>
+        </td>
+        <td class="single-neutral-check">
+          <div class="single-neutral-check">
+            {@html singleNeutralCheck}
+          </div>
+        </td>
+        <td>
+          <div class="recipient">
+            <span>{userName(assertion)}</span>
+            <span>{assertion.isDirectAward ? assertion.recipientEmail : assertion.user.email}</span>
+          </div>
+        </td>
+        <td class="center">
+          {I18n.t(`models.badge.awardType.${assertion.isDirectAward ? "DIRECT_AWARD" : assertion.awardType}`)}
+        </td>
+        <td class="center">
+          {moment(assertion.isDirectAward ? assertion.createdAt : assertion.dateCreated).format('MMM D, YYYY')}
+        </td>
+        <td class="assertion-status center">
+          <span class={assertionStatusClass(assertion)}>{assertionStatus(assertion)}</span>
+        </td>
+        <td class="center">
+          {assertion.updatedAt ? moment(assertion.updatedAt).format('MMM D, YYYY') : ""}
+        </td>
+        <td class="right">
+          {assertion.expiresAt ? moment(assertion.expiresAt).format('MMM D, YYYY') : ""}
+        </td>
+      </tr>
+    {/each}
+    {#if assertions.length === 0 && directAwards.length === 0}
+      <tr>
+        <td colspan="8">{I18n.t("zeroState.assertions", {name: badgeclass.name})}</td>
+      </tr>
+    {/if}
 
+  </Table>
+</div>
 {#if showModal}
   <Modal
     submit={modalAction}

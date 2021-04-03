@@ -39,8 +39,8 @@
     return `${currentUrl}/public/${entityId}`;
   };
 
-  const query = `query ($entityId: String){
-    badgeClass(id: $entityId) {
+  const query = `query ($entityId: String, $days: Int){
+    badgeClass(id: $entityId, days: $days) {
       entityId,
       name,
       description,
@@ -88,16 +88,17 @@
         createdAt,
         assertionCount,
         directAwardCount,
+        directAwardRejectedCount,
         initialTotal
-      }
-    },
-    ${enrollmentsQuery},
-    ${assertionsQuery},
+      },
+      ${enrollmentsQuery},
+      ${assertionsQuery}
+    }
   }`;
 
   const refresh = callback => {
     loaded = false;
-    queryData(query, {entityId}).then(res => {
+    queryData(query, {entityId, days: 90}).then(res => {
       badgeclass = res.badgeClass;
 
       translateProperties(badgeclass);

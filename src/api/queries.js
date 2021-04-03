@@ -125,7 +125,6 @@ export const revokedStudentBadgeInstances = `query {
   }`;
 
 export const enrollmentsQuery = `
-    badgeClass(id: $entityId) {
       pendingEnrollments {
         dateCreated,
         dateAwarded,
@@ -138,11 +137,9 @@ export const enrollmentsQuery = `
           email
         }
       }
-    }
   `;
 
 export const assertionsQuery = `
-    badgeClass(id: $entityId) {
       badgeAssertions {
         entityId,
         createdAt,
@@ -159,5 +156,4 @@ export const assertionsQuery = `
           email
         }
       }
-    }
   `;

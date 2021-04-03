@@ -32,6 +32,11 @@
 </script>
 
 <style lang="scss">
+
+  div.container {
+    width: 100%;
+  }
+
   div.header {
     display: flex;
     justify-content: space-between;

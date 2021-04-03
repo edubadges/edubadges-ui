@@ -709,6 +709,7 @@ I18n.translations.nl = {
     directAwardBundle: {
       title: "Direct award bundles",
       directAwardCount: "Pending",
+      directAwardRejectedCount: "Geweigerd",
       assertionCount: "Claimed",
       initialTotal: "Total",
       rateClaim: "Claim rate",
