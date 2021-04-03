@@ -1059,10 +1059,12 @@ I18n.translations.nl = {
       or: "- or -",
       browse: "Browse",
       award: "Upload je Awardfile",
-      wrong: "De volgende entries zijn niet geldig en worden verwijderd uit de upload:",
-      duplicate: "De volgende entries zijn duplicaten en worden verwijderd uit de upload:",
-      eppnExisting: "De volgende EPPN's bestaan reeds voor direct awards en worden verwijderd uit de upload:",
-      good: "Parsed {{count}} entries voor de upload",
+      wrong: "De upload bevat ongeldige entries die uit de upload zijn verwijderd.",
+      duplicate: "De upload bevat dubbele entries die uit de upload zijn verwijderd.",
+      eppnExisting: "De upload bevat EPPN's met bestaande niet-geaccepteerde direct awards die uit de upload zijn verwijderd.",
+      good: "Parsed {{count}} entries voor de upload.",
+      view: "View",
+      hide: "Verbergen",
       flash: {
         created: "Bulk awards zijn verzonden"
       }

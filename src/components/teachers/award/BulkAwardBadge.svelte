@@ -8,9 +8,9 @@
   import {flash} from "../../../stores/flash";
   import Dropzone from "svelte-file-dropzone";
   import upload from "../../../icons/cloud-upload.svg";
-  import check from "../../../icons/check-green.svg";
   import Warning from "../../forms/Warning.svelte";
-  import Error from "../../forms/Error.svelte";
+  import DotSpinner from "../../DotSpinner.svelte";
+  import BulkAwardResult from "./BulkAwardResult.svelte";
 
   export let badgeclass;
   export let enrollments;
@@ -21,63 +21,70 @@
   let errorAwards = [];
   let duplicateAwards = [];
   let alreadyEppnDirectAwards = [];
+  let processing = false;
 
   const alreadyInList = (newDirectAwards, email, eppn) =>
     newDirectAwards.some(da => da.email === email || da.eppn === eppn);
 
   const handleFilesSelect = e => {
-    const files = e.detail.acceptedFiles;
-    if (files && files.length > 0) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const data = reader.result;
-        const rows = data.split("\n");
-        const newDirectAwards = [];
-        const newErrorAwards = [];
-        const newDuplicateAwards = [];
-        const newAlreadyEppnDirectAwards = [];
-        rows.forEach(row => {
-          const cells = row.split(/[, \t]/);
-          const cellString = cells.join(" ").trim();
-          if (cells.length < 2 && cellString.length > 0) {
-            newErrorAwards.push(cellString);
-          } else {
-            const email = cells[0];
-            const eppn = cells[1];
-            if (existingDirectAwardsEppns.includes(eppn)) {
-              newAlreadyEppnDirectAwards.push(eppn);
-            } else if (alreadyInList(newDirectAwards, email, eppn)) {
-              newDuplicateAwards.push(cellString)
-            } else if (validEmail(email) && eppn.trim().length > 0) {
-              newDirectAwards.push({email: email, eppn: eppn});
+    processing = true;
+    setTimeout(() => {
+      const files = e.detail.acceptedFiles;
+      if (files && files.length > 0) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const data = reader.result;
+          const rows = data.split("\n");
+          const newDirectAwards = [];
+          const newErrorAwards = [];
+          const newDuplicateAwards = [];
+          const newAlreadyEppnDirectAwards = [];
+          rows.forEach(row => {
+            const cells = row.split(/[, \t]/);
+            const cellString = cells.join(" - ").trim();
+            if (cells.length < 2 && cellString.length > 0) {
+              newErrorAwards.push(cellString);
             } else {
-              //ignore empty line at the end
-              if (cellString.length > 0) {
-                newErrorAwards.push(cellString);
+              const email = cells[0];
+              const eppn = cells[1];
+              if (existingDirectAwardsEppns.includes(eppn)) {
+                newAlreadyEppnDirectAwards.push(eppn);
+              } else if (alreadyInList(newDirectAwards, email, eppn)) {
+                newDuplicateAwards.push(cellString)
+              } else if (validEmail(email) && eppn.trim().length > 0) {
+                newDirectAwards.push({email: email, eppn: eppn});
+              } else {
+                //ignore empty line at the end
+                if (cellString.length > 0) {
+                  newErrorAwards.push(cellString);
+                }
               }
             }
-          }
 
-        });
-        directAwards = newDirectAwards;
-        errorAwards = newErrorAwards;
-        duplicateAwards = newDuplicateAwards;
-        alreadyEppnDirectAwards = newAlreadyEppnDirectAwards;
-      };
-      reader.readAsText(files[0])
-    }
+          });
+          directAwards = newDirectAwards;
+          errorAwards = newErrorAwards;
+          duplicateAwards = newDuplicateAwards;
+          alreadyEppnDirectAwards = newAlreadyEppnDirectAwards;
+          processing = false;
+        };
+        reader.readAsText(files[0])
+      }
+    }, 150);
   }
 
   const doAward = () => {
+    processing = true;
     createDirectAwards(directAwards, badgeclass, true)
       .then(() => {
         refresh();
         navigate(`/badgeclass/${badgeclass.entityId}/awarded`);
         flash.setValue(I18n.t("badgeAward.bulkAward.flash.created"));
+        processing = false;
       });
   };
 
-  $: maySubmit = directAwards.length > 0;
+  $: maySubmit = directAwards.length > 0 && !processing;
 
 </script>
 
@@ -135,25 +142,6 @@
       }
     }
 
-    ul.error {
-      margin-left: 30px;
-      color: var(--red-dark);
-    }
-
-    div.good {
-      display: flex;
-      align-items: center;
-      margin: 10px 0;
-
-      :global(svg) {
-        width: 24px;
-      }
-
-      span {
-        margin-left: 10px;
-      }
-    }
-
     div.actions {
       display: flex;
       margin-top: 25px;
@@ -175,51 +163,29 @@
         </Warning>
       </div>
     {/if}
-    <Dropzone on:drop={handleFilesSelect} multiple={false} accept=".csv">
-      <div class="dropzone-slot">
-        <span class="cloud-upload-svg">{@html upload}</span>
-        <span class="cloud-upload-or">{I18n.t("badgeAward.bulkAward.or")}</span>
-        <span class="cloud-upload-link">{I18n.t("badgeAward.bulkAward.browse")}</span>
-      </div>
-    </Dropzone>
-    {#if errorAwards.length > 0}
-      <Error standAlone={true} error_message={I18n.t("badgeAward.bulkAward.wrong")}/>
-      <ul class="error">
-        {#each errorAwards as err}
-          <li>{err}</li>
-        {/each}
-      </ul>
+    {#if processing}
+      <DotSpinner/>
+    {:else}
+      <Dropzone on:drop={handleFilesSelect} multiple={false} accept=".csv">
+        <div class="dropzone-slot">
+          <span class="cloud-upload-svg">{@html upload}</span>
+          <span class="cloud-upload-or">{I18n.t("badgeAward.bulkAward.or")}</span>
+          <span class="cloud-upload-link">{I18n.t("badgeAward.bulkAward.browse")}</span>
+        </div>
+      </Dropzone>
     {/if}
-    {#if alreadyEppnDirectAwards.length > 0}
-      <Error standAlone={true} error_message={I18n.t("badgeAward.bulkAward.eppnExisting")}/>
-      <ul class="error">
-        {#each alreadyEppnDirectAwards as err}
-          <li>{err}</li>
-        {/each}
-      </ul>
-    {/if}
+    <BulkAwardResult warning={true} localeName="wrong" results={errorAwards}/>
+    <BulkAwardResult warning={true} localeName="eppnExisting" results={alreadyEppnDirectAwards}/>
+    <BulkAwardResult warning={true} localeName="duplicate" results={duplicateAwards}/>
+    <BulkAwardResult warning={false} localeName="good" results={directAwards.map(da => `${da.email} - ${da.eppn} `)}/>
 
-
-    {#if duplicateAwards.length > 0}
-      <Error standAlone={true} error_message={I18n.t("badgeAward.bulkAward.duplicate")}/>
-      <ul class="error">
-        {#each duplicateAwards as err}
-          <li>{err}</li>
-        {/each}
-      </ul>
-    {/if}
-    {#if directAwards.length > 0}
-      <div class="good">
-        {@html check}
-        <span>{I18n.t("badgeAward.bulkAward.good", {count: directAwards.length})}</span>
-      </div>
-    {/if}
     <div class="actions">
       <Button action={() => history.back()} text={I18n.t("badgeAward.directAward.cancel")} secondary={true}
               marginRight={true}/>
       <Button action={doAward} text={I18n.t("badgeAward.bulkAward.award")} disabled={!maySubmit}/>
     </div>
   </div>
+
 </div>
 
 

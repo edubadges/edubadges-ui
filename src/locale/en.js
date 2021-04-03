@@ -1059,10 +1059,12 @@ I18n.translations.en = {
       or: "- or -",
       browse: "Browse",
       award: "Upload your Awardfile",
-      wrong: "The following entries are not valid and are removed from the upload:",
-      duplicate: "The following entries are duplicated and are removed from the upload:",
-      eppnExisting: "The following EPPN's already exists on direct awards and are removed from the upload:",
-      good: "Parsed {{count}} entries for upload",
+      wrong: "Your upload contains {{count}} invalid entries which are removed from the upload.",
+      duplicate: "Your upload contains {{count}} duplicate entries which are removed from the upload.",
+      eppnExisting: "Your upload contains {{count}} EPPN's with outstanding unaccepted direct awards which are removed from the upload.",
+      good: "Parsed {{count}} entries for upload.",
+      view: "View",
+      hide: "Hide",
       flash: {
         created: "Bulk awards are sent"
       }
