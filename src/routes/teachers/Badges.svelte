@@ -9,6 +9,7 @@
   import {ects, eqf, extensionValue, studyLoad} from "../../components/extensions/badges/extensions";
   import BadgeListView from "../../components/shared/BadgeListView.svelte";
   import {translateProperties} from "../../util/utils";
+  import {sortTargetOptions} from "../../util/catalogFilters";
 
   const query = `query {
     faculties {
@@ -49,9 +50,7 @@
           permissions {
             mayAward
           },
-          badgeAssertions {
-            entityId
-          }
+          assertionsCount
         }
       },
     }
@@ -87,6 +86,7 @@
         }
       }
       $faculties = res.faculties;
+      $sortTarget = sortTargetOptions()[0];
       loaded = true;
     });
   });

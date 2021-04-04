@@ -8,7 +8,13 @@
   import Assertions from "../badges/Assertions.svelte";
   import Enrollments from "../badges/Enrollments.svelte";
   import {queryData} from "../../../api/graphql";
-  import {assertionsQuery, enrollmentsQuery, headerStaff} from "../../../api/queries";
+  import {
+    assertionsQuery,
+    directAwardBundleQuery,
+    directAwardsQuery,
+    enrollmentsQuery,
+    headerStaff
+  } from "../../../api/queries";
   import {expirationPeriod} from "../../../util/entityHeader";
   import {entityType} from "../../../util/entityTypes"
   import Spinner from "../../Spinner.svelte";
@@ -76,27 +82,42 @@
         targetFramework,
         targetDescription
       },
-      directAwards {
-        entityId,
-        eppn,
-        status,
-        recipientEmail,
-        createdAt,
-        updatedAt
-      },
-      directAwardBundles {
-        createdAt,
-        assertionCount,
-        directAwardCount,
-        directAwardRejectedCount,
-        initialTotal
-      },
+      ${directAwardBundleQuery},
+      ${directAwardsQuery},
       ${enrollmentsQuery},
       ${assertionsQuery}
     }
   }`;
 
+  const refreshQuery = `query ($entityId: String, $days: Int){
+    badgeClass(id: $entityId, days: $days) {
+      ${directAwardBundleQuery},
+      ${directAwardsQuery},
+      ${enrollmentsQuery},
+      ${assertionsQuery}
+    }
+  }`;
+
+  const refreshAwardsAndEnrolments = (res, callback) => {
+    enrollments = res.badgeClass.pendingEnrollments;
+    res.badgeClass.badgeAssertions.forEach(ba => ba.isDirectAward = false);
+    assertions = res.badgeClass.badgeAssertions;
+    directAwardBundles = res.badgeClass.directAwardBundles;
+    res.badgeClass.directAwards.forEach(da => da.isDirectAward = true);
+    directAwards = res.badgeClass.directAwards;
+    loaded = true;
+    callback && callback();
+  }
+
+
   const refresh = callback => {
+    loaded = false;
+    queryData(refreshQuery, {entityId, days: 90}).then(res => {
+      refreshAwardsAndEnrolments(res, callback);
+    });
+  }
+
+  onMount(() => {
     loaded = false;
     queryData(query, {entityId, days: 90}).then(res => {
       badgeclass = res.badgeClass;
@@ -109,19 +130,10 @@
       issuer = res.badgeClass.issuer;
       faculty = issuer.faculty;
 
-      enrollments = res.badgeClass.pendingEnrollments;
-
-      res.badgeClass.badgeAssertions.forEach(ba => ba.isDirectAward = false);
-      assertions = res.badgeClass.badgeAssertions;
-      directAwardBundles = res.badgeClass.directAwardBundles;
-      res.badgeClass.directAwards.forEach(da => da.isDirectAward = true);
-      directAwards = res.badgeClass.directAwards;
-      loaded = true;
-      callback && callback();
+      refreshAwardsAndEnrolments(res);
     });
-  }
 
-  onMount(() => refresh());
+  });
 
   const navigateWithFilter = includeIssuer => () => {
     $facultyIds = [badgeclass.issuer.faculty.entityId]

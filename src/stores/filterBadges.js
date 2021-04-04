@@ -1,5 +1,5 @@
-import { writable, derived } from "svelte/store";
-import I18n from "i18n-js";
+import {derived, writable} from "svelte/store";
+import {sortTargetOptions} from "../util/catalogFilters";
 
 export const sortTarget = writable();
 export const faculties = writable([]);
@@ -14,7 +14,7 @@ export const filterBySearch = (badgeclasses, search) => {
     return badgeclasses;
   }
 
-  return badgeclasses.filter(({ name }) =>
+  return badgeclasses.filter(({name}) =>
     name.toLowerCase().includes(search.toLowerCase())
   );
 }
@@ -26,7 +26,7 @@ export const sort = (collection, count = false) => {
 export const sortCreatedAt = collection => !collection ? [] : collection.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
 export const sortBadgeAssertions = collection => {
-  return !collection ? [] : collection.sort((a, b) => b.assertionsCount !== undefined ? b.assertionsCount = a.assertionsCount : b.badgeAssertions.length - a.badgeAssertions.length)
+  return !collection ? [] : collection.sort((a, b) => b.assertionsCount !== undefined ? b.assertionsCount - a.assertionsCount : b.badgeAssertions.length - a.badgeAssertions.length)
 }
 
 export const selectedEntity = derived(
@@ -49,12 +49,12 @@ export const tree = derived(
     const tree = faculties.reduce(
       (acc, cur) => {
         let issuers = cur.issuers.filter(
-          ({ entityId }) => !issuerIds.length || issuerIds.includes(entityId)
+          ({entityId}) => !issuerIds.length || issuerIds.includes(entityId)
         );
 
         let badgeClasses = [];
         const enrichedIssuers = issuers.map(
-          ({ badgeclasses, entityId, name }) => {
+          ({badgeclasses, entityId, name}) => {
             const _badgeClasses = filterBySearch(badgeclasses, search).filter(badgeClass => !awardFilter || (awardFilter && badgeClass.permissions.mayAward));
             badgeClasses.push(_badgeClasses);
 
@@ -81,7 +81,7 @@ export const tree = derived(
 
         return acc;
       },
-      { faculties: [], issuers: [], badgeClasses: [] }
+      {faculties: [], issuers: [], badgeClasses: []}
     );
     const sortedBadgeClasses = (sortTarget && sortTarget.value === "recent") ? sortCreatedAt(tree.badgeClasses) : sortBadgeAssertions(tree.badgeClasses);
     return {
@@ -90,5 +90,5 @@ export const tree = derived(
       badgeClasses: sortedBadgeClasses,
     };
   },
-  { faculties: [], issuers: [], badgeClasses: [] }
+  {faculties: [], issuers: [], badgeClasses: []}
 );
