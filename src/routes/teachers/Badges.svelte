@@ -33,20 +33,6 @@
             name,
             originalJson
           },
-          issuer {
-            nameDutch,
-            nameEnglish,
-            imageDutch,
-            imageEnglish
-            faculty {
-            	nameDutch,
-	            nameEnglish,
-              institution {
-                nameDutch,
-                nameEnglish,
-              }
-            }
-          },
           permissions {
             mayAward
           },
@@ -65,26 +51,23 @@
         translateProperties(faculty);
         translateProperties(faculty.institution);
         faculty.issuers.forEach(issuer => {
+          issuer.faculty = faculty;
+          if (!issuer.image) {
+            issuer.image = faculty.institution.image;
+          }
           translateProperties(issuer);
           issuer.badgeclasses.forEach(badgeClass => {
+            badgeClass.issuer = issuer;
             translateProperties(badgeClass.issuer);
             translateProperties(badgeClass.issuer.faculty);
             translateProperties(badgeClass.issuer.faculty.institution);
-          })
-        });
-      })
-      for (const faculty of res.faculties) {
-        for (const issuer of faculty.issuers) {
-          if (!issuer.image) {
-            issuer.image = res.faculties[0].institution.image;
-          }
-          for (const badgeClass of issuer.badgeclasses) {
+
             badgeClass.studyLoad = extensionValue(badgeClass.extensions, studyLoad);
             badgeClass.ects = extensionValue(badgeClass.extensions, ects);
             badgeClass.eqf = extensionValue(badgeClass.extensions, eqf);
-          }
-        }
-      }
+          })
+        });
+      })
       $faculties = res.faculties;
       $sortTarget = sortTargetOptions()[0];
       loaded = true;
