@@ -11,10 +11,10 @@
   import {Modal} from "../../forms";
   import {flash} from "../../../stores/flash";
   import filter from "../../../icons/filter-1.svg";
-  import {onMount} from "svelte";
+  import SideBarAssertions from "../award/SideBarAssertions.svelte";
+  import {awardTypes, issuedTypes, statusTypes} from "../../../stores/filterAssertions";
 
   export let assertions = [];
-  export let directAwards = [];
   export let badgeclass;
   export let refresh;
 
@@ -22,13 +22,98 @@
   let checkAllValue = false;
   let revocationReason = "";
 
+  //Side bar filtering
+  let issuedSelected = [issuedTypes.LAST_30_DAYS];
+  let awardTypeSelected = [];
+  let statusSelected = [];
+
+  let issuedOptions = [];
+  let awardTypeOptions = [];
+  let statusOptions = [];
+
+  let filteredAssertions = [];
+
   //Modal
   let showModal = false;
   let modalTitle;
   let modalQuestion;
   let modalAction;
 
-  onMount(() => assertions = assertions.concat(directAwards));
+
+  $: filteredAssertions = assertions;
+
+  $: invariant(issuedSelected, awardTypeSelected, statusSelected);
+
+  const invariant = (issuedSelected, awardTypeSelected, statusSelected) => {
+    filteredAssertions = filterAssertion(issuedSelected, awardTypeSelected, statusSelected);
+    const options = filteredAssertions.reduce((acc, assertion) => {
+        const item = acc.find(v => v.value === assertion.issued);
+        if (item) {
+          ++item.count;
+        }
+        return acc;
+      },
+      Object.keys(issuedTypes)
+        .filter(issuedType => issuedType !== "ALL")
+        .map(issuedType => ({
+          name: I18n.t(`assertions.issued.${issuedType}`),
+          value: issuedTypes[issuedType],
+          count: 0
+        })))
+      .concat({
+        name: I18n.t(`assertions.issued.ALL`),
+        value: issuedTypes.ALL,
+        count: assertions.length
+      });
+    [[issuedTypes.LAST_60_DAYS, issuedTypes.LAST_30_DAYS], [issuedTypes.LAST_90_DAYS, issuedTypes.LAST_60_DAYS]]
+      .forEach(arr => {
+        const days = options.find(item => item.value === arr[0]);
+        const toAdd = options.find(option => option.value === arr[1]);
+        days.count += toAdd.count
+      });
+
+    issuedOptions = options;
+    awardTypeOptions = filteredAssertions.reduce((acc, assertion) => {
+        const item = acc.find(v => v.value === (assertion.isDirectAward ? awardTypes.DIRECT_AWARD : awardTypes.REQUESTED));
+        ++item.count;
+        return acc;
+      },
+      Object.keys(awardTypes).map(type => ({
+        name: I18n.t(`assertions.awardType.${type}`),
+        value: awardTypes[type],
+        count: 0
+      })));
+    statusOptions = filteredAssertions.reduce((acc, assertion) => {
+        const item = acc.find(v => v.value === assertion.status);
+        ++item.count;
+        return acc;
+      },
+      Object.keys(statusTypes).map(type => ({
+        name: I18n.t(`assertions.status.${type}`),
+        value: statusTypes[type],
+        count: 0
+      })));
+
+  }
+
+
+  const filterAssertion = (issuedSelected, awardTypeSelected, statusSelected) => {
+    return assertions.filter(assertion => {
+      let issued = true;
+      let awardType = true;
+      let status = true;
+      if (issuedSelected && issuedSelected.length > 0) {
+        issued = assertion.issued <= issuedSelected[0];
+      }
+      if (awardTypeSelected && awardTypeSelected.length > 0) {
+        awardType = awardTypeSelected[0] === awardTypes.DIRECT_AWARD ? assertion.isDirectAward : !assertion.isDirectAward;
+      }
+      if (statusSelected && statusSelected.length > 0) {
+        status = assertion.status === statusSelected[0];
+      }
+      return issued && awardType && status;
+    });
+  };
 
   const cancel = () => {
     showModal = false;
@@ -43,11 +128,11 @@
       showModal = true;
     } else {
       showModal = false;
-      const selectedAssertions = assertions
+      const selectedAssertions = filteredAssertions
         .filter(assertion => selection.includes(assertion.entityId) && !assertion.isDirectAward)
         .map(assertion => assertion.entityId);
 
-      const selectedDirectAwards = assertions
+      const selectedDirectAwards = filteredAssertions
         .filter(assertion => selection.includes(assertion.entityId) && assertion.isDirectAward)
         .map(assertion => assertion.entityId);
 
@@ -74,7 +159,7 @@
   };
 
   const onCheckAll = val => {
-    selection = val ? assertions
+    selection = val ? filteredAssertions
         .filter(assertion => !isRevoked(assertion))
         .map(assertion => assertion.entityId)
       : [];
@@ -84,7 +169,7 @@
   const onCheckOne = (val, entityId) => {
     if (val) {
       selection = selection.concat(entityId);
-      table.checkAllValue = selection.length === assertions
+      table.checkAllValue = selection.length === filteredAssertions
         .filter(assertion => !isRevoked(assertion)).length;
     } else {
       selection = selection.filter(id => id !== entityId);
@@ -172,13 +257,13 @@
   };
 
   let assertionSearch = "";
-  $: searchedAssertionIds = searchMultiple(assertions, assertionSearch, "entityId", "user.firstName", "user.lastName",
+  $: searchedAssertionIds = searchMultiple(filteredAssertions, assertionSearch, "entityId", "user.firstName", "user.lastName",
     "user.email", "eppn", "recipientEmail");
 
   let assertionsSort = tableHeaders[2];
 
   $: sortedFilteredAssertions = sort(
-    assertions.filter(el => searchedAssertionIds.includes(el.entityId)),
+    filteredAssertions.filter(el => searchedAssertionIds.includes(el.entityId)),
     assertionsSort.attribute,
     assertionsSort.reverse,
     assertionsSort.sortType
@@ -190,10 +275,6 @@
 
   div.assertions {
     display: flex;
-
-    div.filters {
-      min-width: 220px;
-    }
 
   }
 
@@ -250,7 +331,14 @@
 <div class="assertions">
 
   <div class="filters">
-    <span>TODO filters with refresh onlly if needed</span>
+    <SideBarAssertions
+      assertions={filteredAssertions}
+      bind:issuedSelected={issuedSelected}
+      bind:awardTypeSelected={awardTypeSelected}
+      bind:statusSelected={ statusSelected }
+      { issuedOptions}
+      { awardTypeOptions}
+      {statusOptions }/>
   </div>
 
   <Table
@@ -258,7 +346,7 @@
     bind:search={assertionSearch}
     bind:sort={assertionsSort}
     withCheckAll={true}
-    isEmpty={assertions.length === 0}
+    isEmpty={filteredAssertions.length === 0}
     bind:checkAllValue>
     <div class="action-buttons" slot="check-buttons">
       <Button small disabled={selection.length === 0} action={() => revoke(true)}
@@ -302,7 +390,7 @@
         </td>
       </tr>
     {/each}
-    {#if assertions.length === 0 && directAwards.length === 0}
+    {#if filteredAssertions.length === 0}
       <tr>
         <td colspan="8">{I18n.t("zeroState.assertions", {name: badgeclass.name})}</td>
       </tr>

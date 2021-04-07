@@ -1,6 +1,6 @@
 <script>
   import I18n from "i18n-js";
-  import { chevronUp, chevronDown, closeIcon } from "../../icons";
+  import {chevronDown, chevronUp, closeIcon} from "../../icons";
 
   export let collection = [];
   export let value = [];
@@ -10,7 +10,7 @@
 
   let expanded = false;
 
-  $: showExpand = !value.length && collection.length > maxLength && collection.filter(item => item.count > 0).length > maxLength;
+  $: showExpand = (!value || !value.length) && collection.length > maxLength && collection.filter(item => item.count > 0).length > maxLength;
   $: items = expanded ? collection : collection.slice(0, maxLength);
 
 </script>
@@ -84,18 +84,16 @@
 
 <div class="filter-block">
   <h3>{I18n.t(`teacher.sidebar.filters.${title}`)}</h3>
-
-  {#each items.filter(item => item.count > 0) as item}
+  {#each items.filter(item => item && item.count > 0) as item}
     <label
       class="link"
-      class:active={value.includes(item[objectIdentifier])}
-      class:inactive={value.length && !value.includes(item[objectIdentifier])}>
-      <input type="checkbox" bind:group={value} value={item[objectIdentifier]} />
+      class:active={value && value.includes(item[objectIdentifier])}
+      class:inactive={value && value.length && !value.includes(item[objectIdentifier])}>
+      <input type="checkbox"
+             bind:group={value}
+             value={item[objectIdentifier]}/>
       <div>
-        {item.name}
-        {#if !value.includes(item[objectIdentifier])}
-          ({item.count})
-        {/if}
+        {`${item.name} (${item.count})`}
       </div>
 
       {#if value.includes(item[objectIdentifier])}
@@ -103,10 +101,9 @@
       {/if}
     </label>
   {/each}
-
   {#if showExpand}
     <label class="expand click">
-      <input type="checkbox" bind:checked={expanded} />
+      <input type="checkbox" bind:checked={expanded}/>
       {expanded ? I18n.t(`teacher.sidebar.filters.show_less`) : I18n.t(`teacher.sidebar.filters.show_all`)}
       {@html expanded ? chevronUp : chevronDown}
     </label>

@@ -1,5 +1,4 @@
 import {derived, writable} from "svelte/store";
-import {sortTargetOptions} from "../util/catalogFilters";
 
 export const sortTarget = writable();
 export const faculties = writable([]);

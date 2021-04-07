@@ -26,6 +26,7 @@
   import AwardBadge from "./AwardBadge.svelte";
   import BulkAwardBadge from "./BulkAwardBadge.svelte";
   import DirectAwardBundles from "./DirectAwardBundles.svelte";
+  import {issuedTypes} from "../../../stores/filterAssertions";
 
   export let entityId;
   export let subEntity;
@@ -36,7 +37,6 @@
 
   let enrollments = [];
   let assertions = [];
-  let directAwards = [];
   let directAwardBundles = [];
   let loaded;
 
@@ -98,13 +98,42 @@
     }
   }`;
 
+  const issuedOn = award => {
+    const createdAt = new Date(award.createdAt);
+    const today = new Date().getTime();
+    const day = 1000 * 60 * 60 * 24;
+    const minus30 = new Date(today - (day * 30));
+    const minus60 = new Date(today - (day * 60));
+    const minus90 = new Date(today - (day * 90));
+    if (createdAt > minus30) {
+      award.issued = issuedTypes.LAST_30_DAYS;
+    } else if (createdAt > minus60) {
+      award.issued = issuedTypes.LAST_60_DAYS;
+    } else if (createdAt > minus90) {
+      award.issued = issuedTypes.LAST_90_DAYS;
+    } else {
+      award.issued = issuedTypes.ALL;
+    }
+  }
+
   const refreshAwardsAndEnrolments = (res, callback) => {
     enrollments = res.badgeClass.pendingEnrollments;
-    res.badgeClass.badgeAssertions.forEach(ba => ba.isDirectAward = false);
-    assertions = res.badgeClass.badgeAssertions;
     directAwardBundles = res.badgeClass.directAwardBundles;
-    res.badgeClass.directAwards.forEach(da => da.isDirectAward = true);
-    directAwards = res.badgeClass.directAwards;
+
+    const badgeAssertions = res.badgeClass.badgeAssertions;
+    badgeAssertions.forEach(ba => {
+      ba.isDirectAward = false;
+      ba.status = ba.revoked ? "REVOKED" : ba.acceptance;
+      issuedOn(ba);
+    });
+    const directAwards = res.badgeClass.directAwards;
+    res.badgeClass.directAwards.forEach(da => {
+      da.isDirectAward = true;
+      issuedOn(da);
+    });
+
+    assertions = badgeAssertions.concat(directAwards);
+
     loaded = true;
     callback && callback();
   }
@@ -153,7 +182,7 @@
     },
     {
       entity: "assertions",
-      count: assertions.length + directAwards.length,
+      count: assertions.length,
       href: `/badgeclass/${entityId}/awarded`
     },
     {
@@ -270,8 +299,8 @@
 
         <Route path="/bulk-award">
           <BulkAwardBadge badgeclass={badgeclass}
-                          existingDirectAwardsEppns={directAwards
-                            .filter(da => da.status.toLowerCase() === "unaccepted")
+                          existingDirectAwardsEppns={assertions
+                            .filter(da => da.isDirectAward && da.status.toLowerCase() === "unaccepted")
                             .map(da => da.eppn)}
                           enrollments={enrollments}
                           refresh={refresh}/>
@@ -304,7 +333,7 @@
           </Route>
 
           <Route path="/awarded">
-            <Assertions {badgeclass} {assertions} {directAwards} refresh={refresh}/>
+            <Assertions {badgeclass} assertions={assertions} refresh={refresh}/>
           </Route>
 
           <Route path="/direct-awards-bundles">

@@ -117,6 +117,7 @@ I18n.translations.en = {
   teacher: {
     sidebar: {
       filterBadges: "Filter badge classes",
+      filterAwards: "Filter awards",
       filterUsers: "Filter users",
       filters: {
         faculties: "Issuer groups",
@@ -126,6 +127,9 @@ I18n.translations.en = {
         studyLoads: "Studyload",
         eqfs: "NLQF level",
         roles: "Roles (highest)",
+        issued: "Issued",
+        awardType: "Award type",
+        status: "Status",
         show_all: "Show all",
         show_less: "Show less",
       },
@@ -1055,7 +1059,7 @@ I18n.translations.en = {
     },
     bulkAward: {
       title: "Bulk award from CSV",
-      subtitle: "This file needs to fit the exact format of eduBadges. If you are not sure, please download our "+
+      subtitle: "This file needs to fit the exact format of eduBadges. If you are not sure, please download our " +
         "<a href=\"{{sample}}\" download=\"sample_direct_award.csv\">Sample CSV Awardfile</a> first.",
       or: "- or -",
       browse: "Browse",
@@ -1069,6 +1073,24 @@ I18n.translations.en = {
       flash: {
         created: "Bulk awards are sent"
       }
+    }
+  },
+  assertions: {
+    issued: {
+      LAST_30_DAYS: "Last 30 days",
+      LAST_60_DAYS: "Last 60 days",
+      LAST_90_DAYS: "Last 90 days",
+      ALL: "All",
+    },
+    awardType: {
+      DIRECT_AWARD: "Direct award",
+      REQUESTED: "Enrolled / requested",
+    },
+    status: {
+      PENDING: "Pending",
+      CLAIMED: "Claimed",
+      REVOKED: "Revoked",
+      REJECTED: "Rejected"
     }
   }
 };
