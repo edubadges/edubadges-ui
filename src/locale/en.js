@@ -671,6 +671,8 @@ I18n.translations.en = {
       award: "Award",
       denied: "Denied",
       deny: "Deny request",
+      addEvidence: "+ Add evidence",
+      removeEvidence: "- Remove evidence",
       enrollmentType: {
         name: "Request type",
         enrolled: "Self requested",
@@ -683,8 +685,6 @@ I18n.translations.en = {
         denyConfirmation: "Are you sure you want to deny this request?",
       },
       awardButton: "Award",
-      addEvidence: "+ Add evidence",
-      removeEvidence: "- Remove evidence",
       evidence: "Optional descriptive metadata about evidence related to the issuance of an edubadge.",
       evidenceHeader: "Metadata about the evidence related for this edubadge",
       evidenceNarrative: "Narrative",
@@ -830,7 +830,6 @@ I18n.translations.en = {
       privacyLink: "Privacy Statement.",
       privacyLinkPost: ""
     },
-
   },
   language: {
     en_EN: "English",

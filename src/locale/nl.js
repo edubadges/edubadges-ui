@@ -117,6 +117,7 @@ I18n.translations.nl = {
   teacher: {
     sidebar: {
       filterBadges: "Filter badge classes",
+      filterAwards: "Filter awards",
       filterUsers: "Filter gebruikers",
       filters: {
         faculties: "Issuer groepen",
@@ -126,6 +127,9 @@ I18n.translations.nl = {
         studyLoads: "Studyload",
         eqfs: "NLQF niveau",
         roles: "Rollen (hoogste)",
+        issued: "Issued",
+        awardType: "Award type",
+        status: "Status",
         show_all: "Toon meer",
         show_less: "Toon minder",
       },
@@ -859,7 +863,6 @@ I18n.translations.nl = {
       directAwards: "Je eduID account is niet gekoppeld aan een onderwijsinstelling. Dit is vereist om direct awards te claimen.<br><br>Druk op <span style='color: #540b6c'>koppel instelling</span> om doorgestuurd te worden naar eduID. Daarna wordt je terug gestuurd naar deze pagina.",
       goToEduID: "Koppel onderwijsinstelling"
     },
-
   },
   monthNames: ["Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "Oktober", "November", "December"],
   zeroState: {
@@ -1069,6 +1072,24 @@ I18n.translations.nl = {
       flash: {
         created: "Bulk awards zijn verzonden"
       }
+    }
+  },
+  assertions: {
+    issued: {
+      LAST_30_DAYS: "Laaatste 30 dagen",
+      LAST_60_DAYS: "Laaatste 60 dagen",
+      LAST_90_DAYS: "Laaatste 90 dagen",
+      ALL: "Allemaal",
+    },
+    awardType: {
+      DIRECT_AWARD: "Direct award",
+      REQUESTED: "Enrolled / requested",
+    },
+    status: {
+      PENDING: "Pending",
+      CLAIMED: "Claimed",
+      REVOKED: "Revoked",
+      REJECTED: "Rejected"
     }
   }
 };
