@@ -220,7 +220,8 @@ I18n.translations.nl = {
     }
   },
   badgeRequests: {
-    none: "Je hebt geen openstaande edubadge aanvragen op dit moment. "
+    none: "Je hebt geen openstaande edubadge aanvragen op dit moment.",
+    noneArchived: "Je hebt nog geen gearchiveerde edubadges."
   },
   manage: {
     tabs: {
@@ -379,6 +380,9 @@ I18n.translations.nl = {
     926: "Invullen van een Engels logo is verplicht.",
     927: "Email is niet valide",
     928: "EPPN is verplicht",
+    929: "Email is een duplicaat",
+    930: "EPPN is een duplicaat",
+    931: "Er is al een nog niet geaccepteerde direct award voor deze EPPN",
     unexpected: "Oeps, er is iets totaal onverwachts en onverklaarbaars gebeurd.",
     description: "Een onverwachte fout is opgetreden. Probeer het opnieuw of neem contact op met support@edubadges.nl voor ondersteuning.",
     close: "Sluit"
@@ -1052,6 +1056,7 @@ I18n.translations.nl = {
       addAnother: "+ Toevoegen",
       cancel: "Annuleer",
       award: "Verzenden",
+      processing: "Processing {{count}} direct awards. Even geduld...",
       flash: {
         created: "Directe onderscheidingen zijn verzonden"
       }

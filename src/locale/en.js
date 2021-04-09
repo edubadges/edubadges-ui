@@ -220,7 +220,8 @@ I18n.translations.en = {
     }
   },
   badgeRequests: {
-    none: "You have no outstanding edubadge requests. "
+    none: "You have no outstanding edubadge requests.",
+    noneArchived: "You have no archived edubadges."
   },
   manage: {
     tabs: {
@@ -379,6 +380,9 @@ I18n.translations.en = {
     926: "An English image is required.",
     927: "Email is invalid",
     928: "EPPN is required",
+    929: "Email is duplicated",
+    930: "EPPN is duplicated",
+    931: "There is already an unaccepted direct award for this EPPN",
     unexpected: "Unexpected error occurred.",
     description: "An unexpected error has occurred. Please try again later or contact support@edubadges.nl for support.",
     close: "Close"
@@ -1052,6 +1056,7 @@ I18n.translations.en = {
       addAnother: "+ Add another",
       cancel: "Cancel",
       award: "Award",
+      processing: "Processing {{count}} direct awards. Be patient...",
       flash: {
         created: "Direct awards are sent"
       }

@@ -10,7 +10,6 @@
   import ViewSelector from "../../components/shared/ViewSelector.svelte";
   import BadgeListView from "../../components/shared/BadgeListView.svelte";
   import {translateProperties} from "../../util/utils";
-  import {entityId} from "../../components/teachers/award/BadgeclassAwarder.svelte";
 
   let loaded = false;
   let badges = [];
@@ -80,18 +79,24 @@
 <div>
   <div class="header">
     <h3>{I18n.t('archived.title')}</h3>
-    <ViewSelector bind:view={view}/>
+    {#if badges.length > 0}
+      <ViewSelector bind:view={view}/>
+    {/if}
   </div>
   {#if loaded}
-    <div class={`content ${view === "list" ? "list" : "cards"}`}>
-      {#if view === "list"}
-        <BadgeListView badges={badges}/>
-      {:else}
-        {#each badges as badge}
-          <BadgeCard badge={badge} badgeClass={badge.badgeclass} withHeaderData={true}/>
-        {/each}
-      {/if}
-    </div>
+    {#if badges.length === 0}
+      <p>{I18n.t("badgeRequests.noneArchived")}</p>
+    {:else}
+      <div class={`content ${view === "list" ? "list" : "cards"}`}>
+        {#if view === "list"}
+          <BadgeListView badges={badges}/>
+        {:else}
+          {#each badges as badge}
+            <BadgeCard badge={badge} badgeClass={badge.badgeclass} withHeaderData={true}/>
+          {/each}
+        {/if}
+      </div>
+    {/if}
   {:else}
     <Spinner/>
   {/if}

@@ -13,8 +13,12 @@
   export let badgeclass;
   export let enrollments;
   export let refresh;
+  export let existingDirectAwardsEppns;
 
   let errors = {};
+  let errorsDuplications = {};
+  let errorsAlreadyAwarded = {};
+
   let directAwards = [{email: "", eppn: ""}]
 
   const addDirectAward = () => {
@@ -28,10 +32,27 @@
 
   const init = e => e.focus();
 
-  const emailOnBlur = i => e =>
-    setTimeout(() => errors = {...errors, [`email_${i}`]: !validEmail(e.target.value)}, 150);
+  const emailOnBlur = i => e => {
+    const val = e.target.value;
+    setTimeout(() => errors = {...errors, [`email_${i}`]: !validEmail(val)}, 150);
+    errorsDuplications = {
+      ...errorsDuplications,
+      [`email_${i}`]: directAwards.filter(da => da.email === val).length > 1 && val.trim().length > 0
+    }
+  }
 
-  const eppnOnBlur = i => e => errors = {...errors, [`eppn_${i}`]: e.target.value.trim().length === 0}
+  const eppnOnBlur = i => e => {
+    const val = e.target.value;
+    errors = {...errors, [`eppn_${i}`]: val.trim().length === 0}
+    errorsDuplications = {
+      ...errorsDuplications,
+      [`eppn_${i}`]: directAwards.filter(da => da.eppn === val).length > 1  && val.trim().length > 0
+    }
+    errorsAlreadyAwarded = {
+      ...errorsAlreadyAwarded,
+      [`eppn_${i}`]: existingDirectAwardsEppns.some(eppn => eppn === val)
+    }
+  }
 
   const doAward = () => {
     createDirectAwards(directAwards, badgeclass, false)
@@ -48,10 +69,20 @@
       acc[`email_${i}`] = !validEmail(da.email);
       return acc;
     }, {});
+    errorsAlreadyAwarded = newDirectAwards.reduce((acc, da, i) => {
+      acc[`eppn_${i}`] = existingDirectAwardsEppns.some(eppn => eppn === da.eppn);
+      return acc;
+    }, {});
+    errorsDuplications = newDirectAwards.reduce((acc, da, i) => {
+      acc[`eppn_${i}`] = newDirectAwards.filter(other => other.eppn === da.eppn).length > 1
+      acc[`email_${i}`] = newDirectAwards.filter(other => other.email === da.email).length > 1
+      return acc;
+    }, {});
     directAwards = newDirectAwards;
   }
 
-  $: maySubmit = Object.values(errors).some(val => val);
+  $: disableSubmit = Object.values(errors).some(val => val) || Object.values(errorsDuplications).some(val => val) ||
+    Object.values(errorsAlreadyAwarded).some(val => val);
 
 </script>
 
@@ -128,12 +159,21 @@
           {#if errors[`email_${i}`]}
             <Error standAlone={true} error_code={927}/>
           {/if}
+          {#if errorsDuplications[`email_${i}`]}
+            <Error standAlone={true} error_code={929}/>
+          {/if}
         </Field>
         <div class="deletable-row">
           <Field entity="badgeAward" attribute="eppn">
             <TextInput bind:value={da.eppn} error={errors[`eppn_${i}`]} onBlur={eppnOnBlur(i)}/>
             {#if errors[`eppn_${i}`]}
               <Error standAlone={true} error_code={928}/>
+            {/if}
+            {#if errorsDuplications[`eppn_${i}`]}
+              <Error standAlone={true} error_code={930}/>
+            {/if}
+            {#if errorsAlreadyAwarded[`eppn_${i}`]}
+              <Error standAlone={true} error_code={931}/>
             {/if}
           </Field>
           {#if i !== 0}
@@ -149,7 +189,7 @@
     <div class="actions">
       <Button action={() => history.back()} text={I18n.t("badgeAward.directAward.cancel")} secondary={true}
               marginRight={true}/>
-      <Button action={doAward} text={I18n.t("badgeAward.directAward.award")} disabled={maySubmit}/>
+      <Button action={doAward} text={I18n.t("badgeAward.directAward.award")} disabled={disableSubmit}/>
     </div>
   </div>
 </div>

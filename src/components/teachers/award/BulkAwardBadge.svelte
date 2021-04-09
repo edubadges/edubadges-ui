@@ -22,6 +22,7 @@
   let duplicateAwards = [];
   let alreadyEppnDirectAwards = [];
   let processing = false;
+  let serverProcessing = false;
 
   const alreadyInList = (newDirectAwards, email, eppn) =>
     newDirectAwards.some(da => da.email === email || da.eppn === eppn);
@@ -74,17 +75,17 @@
   }
 
   const doAward = () => {
-    processing = true;
+    serverProcessing = true;
     createDirectAwards(directAwards, badgeclass, true)
       .then(() => {
         refresh();
         navigate(`/badgeclass/${badgeclass.entityId}/awarded`);
         flash.setValue(I18n.t("badgeAward.bulkAward.flash.created"));
-        processing = false;
+        serverProcessing = false;
       });
   };
 
-  $: maySubmit = directAwards.length > 0 && !processing;
+  $: maySubmit = directAwards.length > 0 && !processing && !serverProcessing;
 
 </script>
 
@@ -115,6 +116,16 @@
         border-color: var(--purple-5) !important;
       }
 
+    }
+
+    div.server-processing {
+      display: flex;
+      align-items: center;
+      margin: 45px 0;
+      span {
+        font-weight: bold;
+        margin-left: 15px;
+      }
     }
 
     div.dropzone-slot {
@@ -165,6 +176,11 @@
     {/if}
     {#if processing}
       <DotSpinner/>
+    {:else if serverProcessing}
+      <div class="server-processing">
+        <DotSpinner/>
+        <span>{I18n.t("badgeAward.directAward.processing", {count: directAwards.length})}</span>
+      </div>
     {:else}
       <Dropzone on:drop={handleFilesSelect} multiple={false} accept=".csv">
         <div class="dropzone-slot">

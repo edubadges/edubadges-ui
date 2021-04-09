@@ -294,7 +294,12 @@
     <div>
       <Router>
         <Route path="/direct-award">
-          <AwardBadge badgeclass={badgeclass} enrollments={enrollments} refresh={refresh}/>
+          <AwardBadge badgeclass={badgeclass}
+                      existingDirectAwardsEppns={assertions
+                            .filter(da => da.isDirectAward && da.status.toLowerCase() === "unaccepted")
+                            .map(da => da.eppn)}
+                      enrollments={enrollments}
+                      refresh={refresh}/>
         </Route>
 
         <Route path="/bulk-award">
