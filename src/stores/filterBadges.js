@@ -43,9 +43,11 @@ export const selectedEntity = derived(
 );
 
 export const tree = derived(
-  [faculties, awardFilter, search, issuerIds, sortTarget],
-  ([faculties, awardFilter, search, issuerIds, sortTarget]) => {
-    const tree = faculties.reduce(
+  [faculties, awardFilter, search, facultyIds, issuerIds, sortTarget],
+  ([faculties, awardFilter, search, facultyIds, issuerIds, sortTarget]) => {
+    const tree = faculties.filter(
+      ({entityId}) => !facultyIds.length || facultyIds.includes(entityId)
+    ).reduce(
       (acc, cur) => {
         let issuers = cur.issuers.filter(
           ({entityId}) => !issuerIds.length || issuerIds.includes(entityId)

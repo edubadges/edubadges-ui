@@ -92,10 +92,7 @@
       class:inactive={value.length && !value.includes(item[objectIdentifier])}>
       <input type="checkbox" bind:group={value} value={item[objectIdentifier]} />
       <div>
-        {item.name}
-        {#if !value.includes(item[objectIdentifier])}
-          ({item.count})
-        {/if}
+        {`${item.name} (${item.count})`}
       </div>
 
       {#if value.includes(item[objectIdentifier])}

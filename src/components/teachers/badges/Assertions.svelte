@@ -346,6 +346,7 @@
     bind:search={assertionSearch}
     bind:sort={assertionsSort}
     withCheckAll={true}
+    full={true}
     isEmpty={filteredAssertions.length === 0}
     bind:checkAllValue>
     <div class="action-buttons" slot="check-buttons">

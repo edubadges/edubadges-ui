@@ -21,6 +21,7 @@
   export let onCheckAll;
   export let isEmpty;
   export let hideSearch;
+  export let full = false;
 
   const setSort = tableHeader => {
     if (sort.attribute === tableHeader.attribute) {
@@ -33,7 +34,7 @@
 
 <style lang="scss">
 
-  div.container {
+  div.container.full {
     width: 100%;
   }
 
@@ -70,7 +71,7 @@
 
 </style>
 
-<div class="container main-content-margin">
+<div class="container main-content-margin" class:full={full}>
   <div class="header">
     <h3>{title}</h3>
     {#if !hideSearch}

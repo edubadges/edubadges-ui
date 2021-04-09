@@ -265,6 +265,18 @@
     }
   }
 
+  div.slots {
+    margin-right: 174px;
+
+    &.student {
+      margin-right: 315px;
+    }
+
+    @media (max-width: 1490px) {
+      margin-right: 0!important;
+    }
+  }
+
   div.enrol {
     display: flex;
     flex-direction: column;
@@ -294,7 +306,7 @@
               class="attention">{@html I18n.t("login.loginToEnrolInfo", {name: badgeClass.issuer.faculty.institution.name})}</span>
           </div>
         {:else if visitorRole === role.STUDENT}
-          <div class="slots">
+          <div class="slots student">
             {#if !studentEnrolled && !studentAwarded}
               <Button secondary action={() => enrollStudent(true)} text={I18n.t('student.enroll')} class="btn"/>
             {:else}

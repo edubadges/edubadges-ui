@@ -13,17 +13,17 @@
 
   const query = `query {
     faculties {
+      ${headerEntityMultiLanguage},
+      ${headerStaff},
       institution {
         imageDutch,
         imageEnglish
       },
-      ${headerEntityMultiLanguage},
-      ${headerStaff},
       issuers {
         ${headerEntityMultiLanguage},
+        ${headerStaff},
         imageDutch,
         imageEnglish
-        ${headerStaff},
         badgeclasses {
           name,
           image,
