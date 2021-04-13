@@ -127,7 +127,7 @@ I18n.translations.nl = {
         studyLoads: "Studyload",
         eqfs: "NLQF niveau",
         roles: "Rollen (hoogste)",
-        issued: "Issued",
+        issued: "Uitgegeven",
         awardType: "Award type",
         status: "Status",
         show_all: "Toon meer",
@@ -725,8 +725,8 @@ I18n.translations.nl = {
     },
   },
   inviteDialog: {
-    title: "Nodig iemand uit om zichj in te schrijven",
-    publicBadgePage: "Studenten kunnen zich inschrijven voor deze badge op de <a href=\"{{publicBadgePage}}\" target=\"_blank\">publieke badgepagina</a>.",
+    title: "Nodig iemand uit om zich in te schrijven",
+    publicBadgePage: "Studenten kunnen zich inschrijven voor deze edubadge op de <a href=\"{{publicBadgePage}}\" target=\"_blank\">publieke badge class pagina</a>.",
     intranet: "Als je de link naar de registratiepagina op je intranet of elektronische leeromgeving wilt plaatsen, kunt je de link kopiëren.",
     copy: "Kopieer de link"
   },
