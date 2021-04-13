@@ -968,7 +968,7 @@ I18n.translations.en = {
   tooltips: {
     // If you don't want a tooltip to be displayed, just comment out (or delete) the line (like this line;-)
     //badgeClassImage: "badgeClassImage",
-    badgeClassExpireSettings: "After this period badges will expiry and will be no longer valid.",
+    badgeClassExpireSettings: "After this period edubadges will expiry and will be no longer valid.",
     badgeClassName: "Avoid abbreviations, make sure the name is recognisable for others.",
     //badgeClassDescription: "",
     badgeClassLanguageOfInstruction: "The language used in obtaining this edubadge.",
@@ -1042,7 +1042,7 @@ I18n.translations.en = {
     }
   },
   badgeAwardOptions: {
-    directAward: "Award badge",
+    directAward: "Award edubadge",
     bulkAward: "Bulk award from csv",
     or: "-or-",
     inviteEnrollements: "Invite people to enroll",
@@ -1056,21 +1056,21 @@ I18n.translations.en = {
       addAnother: "+ Add another",
       cancel: "Cancel",
       award: "Award",
-      processing: "Processing {{count}} direct awards. Be patient...",
+      processing: "Processing {{count}} direct awards. Please be patient...",
       flash: {
         created: "Direct awards are sent"
       }
     },
     bulkAward: {
       title: "Bulk award from CSV",
-      subtitle: "This file needs to fit the exact format of eduBadges. If you are not sure, please download our " +
+      subtitle: "This file needs to fit the exact format of edubadges. If you are not sure, please download our " +
         "<a href=\"{{sample}}\" download=\"sample_direct_award.csv\">Sample CSV Awardfile</a> first.",
       or: "- or -",
       browse: "Browse",
       award: "Upload your Awardfile",
       wrong: "Your upload contains {{count}} invalid entries which are removed from the upload.",
       duplicate: "Your upload contains {{count}} duplicate entries which are removed from the upload.",
-      eppnExisting: "Your upload contains {{count}} EPPN's with outstanding unaccepted direct awards which are removed from the upload.",
+      eppnExisting: "Your upload contains {{count}} EPPN's (StudentID'd) with outstanding unaccepted direct awards which are removed from the upload.",
       good: "Parsed {{count}} entries for upload.",
       view: "View",
       hide: "Hide",

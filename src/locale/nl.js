@@ -586,7 +586,7 @@ I18n.translations.nl = {
         creditPoints: "Studiepunten (ECTS)",
         hours: "Uren"
       },
-      sbu: "Study Belasting Hours",
+      sbu: "Study Belasting Uren",
       ectsLong: "European Credit Transfer and Accumulation System",
       typeOfStudyLoad: "Soort studielast",
       eqf: "NLQF niveau",
@@ -711,7 +711,7 @@ I18n.translations.nl = {
       },
       flash: {
         claim: "Successfully claimed badge",
-        reject: "Badge is rejected",
+        reject: "Edubadge is rejected",
       }
     },
     directAwardBundle: {
@@ -1026,9 +1026,9 @@ I18n.translations.nl = {
       ECTS_0_5: "0-5 ECTS (WO/HBO)",
       ECTS_6_10: "6-10 ECTS (WO/HBO)",
       ECTS_10_MORE: "> 10 ECTS (WO/HBO)",
-      HOURS_0_60: "0-60 hours (WO/HBO)",
-      HOURS_61_120: "61-120 hours (WO/HBO)",
-      HOURS_120_MORE: "> 120 hours (WO/HBO)"
+      HOURS_0_60: "0-60 uren (WO/HBO)",
+      HOURS_61_120: "61-120 uren (WO/HBO)",
+      HOURS_120_MORE: "> 120 uren (WO/HBO)"
     },
     eqf: {
       eqfNone: "Geen NLQF level",
@@ -1050,29 +1050,29 @@ I18n.translations.nl = {
   badgeAward: {
     directAward: {
       title: "Direct badges uitreiken",
-      subtitle: "Je verzoek is verzonden en je krijgt een melding wanneer het is geaccepteerd of geweigerd",
+      subtitle: "Je verzoek is verzonden en je krijgt een melding wanneer het is geaccepteerd of geweigerd.",
       waringEnrollments: "Er zijn {{count}} aanmeldingen voor deze badge. ",
       toToEnrollments: "Controleer ze misschien eerst?",
       addAnother: "+ Toevoegen",
       cancel: "Annuleer",
       award: "Verzenden",
-      processing: "Processing {{count}} direct awards. Even geduld...",
+      processing: "Bezig om {{count}} direct awards te verwerken. Even geduld...",
       flash: {
         created: "Directe onderscheidingen zijn verzonden"
       }
     },
     bulkAward: {
       title: "Bulk award vanuit CSV",
-      subtitle: "Dit bestand moet in het exacte formaat van eduBadges passen. Als je het niet zeker weet, download dan eerst onze" +
+      subtitle: "Dit bestand moet in het exacte formaat van edubadges passen. Als je het niet zeker weet, download dan eerst onze" +
         "<a href=\"{{sample}}\" download=\"sample_direct_award.csv\">Voorbeeld CSV Awardfile</a>.",
-      or: "- or -",
+      or: "- of -",
       browse: "Browse",
       award: "Upload je Awardfile",
       wrong: "De upload bevat ongeldige entries die uit de upload zijn verwijderd.",
       duplicate: "De upload bevat dubbele entries die uit de upload zijn verwijderd.",
-      eppnExisting: "De upload bevat EPPN's met bestaande niet-geaccepteerde direct awards die uit de upload zijn verwijderd.",
-      good: "Parsed {{count}} entries voor de upload.",
-      view: "View",
+      eppnExisting: "De upload bevat EPPN's (student-ID's) met bestaande niet-geaccepteerde direct awards die uit de upload zijn verwijderd.",
+      good: "Verwerkte entries voor de upload: {{count}} ",
+      view: "Bekijk",
       hide: "Verbergen",
       flash: {
         created: "Bulk awards zijn verzonden"
@@ -1081,9 +1081,9 @@ I18n.translations.nl = {
   },
   assertions: {
     issued: {
-      LAST_30_DAYS: "Laaatste 30 dagen",
-      LAST_60_DAYS: "Laaatste 60 dagen",
-      LAST_90_DAYS: "Laaatste 90 dagen",
+      LAST_30_DAYS: "Laatste 30 dagen",
+      LAST_60_DAYS: "Laatste 60 dagen",
+      LAST_90_DAYS: "Laatste 90 dagen",
       ALL: "Allemaal",
     },
     awardType: {
