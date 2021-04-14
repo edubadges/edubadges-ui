@@ -8,6 +8,7 @@
   import {toHttpOrHttps} from "../../util/Url";
   import {onMount} from "svelte";
   import MultiLanguageField from "../forms/MultiLanguageField.svelte";
+  import {isEmpty} from "lodash";
 
   export let entityId;
   export let issuer = {faculty: {}, badgeclasses: []};
@@ -23,10 +24,15 @@
   let processing = false;
   let hasAssertions = false;
   let englishValueError = false;
-  let dutchValueError = false
+  let dutchValueError = false;
+
+  let hasDutchName = true;
+  let hasEnglishName = true;
 
   onMount(() => {
-    hasAssertions = (issuer.badgeclasses || []).some(badgeClass => (badgeClass.badgeAssertions || []).length > 0)
+    hasAssertions = (issuer.badgeclasses || []).some(badgeClass => (badgeClass.badgeAssertions || []).length > 0);
+    hasDutchName = !isEmpty(issuer.nameDutch);
+    hasEnglishName = !isEmpty(issuer.nameEnglish);
   });
 
   function onSubmit() {
@@ -63,15 +69,15 @@
         errors = fields.error_message;
         processing = false;
         if (errors.image_english || errors.name_english ||
-        errors.description_english || errors.url_english) {
-            englishValueError = true;
+          errors.description_english || errors.url_english) {
+          englishValueError = true;
         } else {
           englishValueError = false;
         }
-        if (errors.image_dutch || errors.name_dutch || 
-        errors.description_dutch || errors.url_dutch) {
-            dutchValueError = true;
-         } else {
+        if (errors.image_dutch || errors.name_dutch ||
+          errors.description_dutch || errors.url_dutch) {
+          dutchValueError = true;
+        } else {
           dutchValueError = false;
         }
       }));
@@ -102,7 +108,7 @@
       <Field {entity} attribute="name_english" errors={errors.name_english} tipKey="issuerNameEn">
         <TextInput bind:value={issuer.nameEnglish} error={errors.name_english}
                    placeholder={I18n.t("placeholders.issuer.name")}
-                   disabled={hasAssertions}/>
+                   disabled={hasAssertions && hasEnglishName}/>
       </Field>
       <Field {entity} attribute="description_english" errors={errors.description_english} tipKey="issuerDescriptionEn">
         <TextInput bind:value={issuer.descriptionEnglish} error={errors.description_english} area size="100"
@@ -111,19 +117,19 @@
       <Field {entity} attribute="url_english" errors={errors.url_english} tipKey="issuerURLEn">
         <TextInput bind:value={issuer.urlEnglish} error={errors.url_english}
                    placeholder={I18n.t("placeholders.issuer.url")}/>
-      </Field>  
+      </Field>
     </div>
 
-    <div slot="nl">    
+    <div slot="nl">
       <Field {entity} attribute="image_dutch" errors={errors.image_dutch} tipKey="issuerImageNl">
         <File bind:value={issuer.imageDutch} error={errors.image_dutch} removeAllowed={true}/>
       </Field>
 
-     <Field {entity} attribute="name_dutch" errors={errors.name_dutch} tipKey="issuerNameNl">
-      <TextInput bind:value={issuer.nameDutch} error={errors.name_dutch}
-                  placeholder={I18n.t("placeholders.issuer.name")}
-                  disabled={hasAssertions}/>
-    </Field>
+      <Field {entity} attribute="name_dutch" errors={errors.name_dutch} tipKey="issuerNameNl">
+        <TextInput bind:value={issuer.nameDutch} error={errors.name_dutch}
+                   placeholder={I18n.t("placeholders.issuer.name")}
+                   disabled={hasAssertions  && hasDutchName}/>
+      </Field>
       <Field {entity} attribute="description_dutch" errors={errors.description_dutch} tipKey="issuerDescriptionNl">
         <TextInput bind:value={issuer.descriptionDutch} error={errors.description_dutch} area size="100"
                    placeholder={I18n.t("placeholders.issuer.description")}/>
@@ -132,7 +138,7 @@
         <TextInput bind:value={issuer.urlDutch} error={errors.url_dutch}
                    placeholder={I18n.t("placeholders.issuer.url")}/>
       </Field>
-    </div>  
+    </div>
     <div slot='after'>
       <Field {entity} attribute="email" errors={errors.email} tipKey="issuerEmail">
         <TextInput bind:value={issuer.email} error={errors.email} placeholder={I18n.t("placeholders.issuer.email")}/>

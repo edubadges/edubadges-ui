@@ -10,7 +10,11 @@
 
   onMount(() => activeTab = initialTab);
 
-  const switchTab = () => activeTab = (activeTab === "en" ? "nl" : "en");
+  const switchTab = newTab => {
+    if (newTab !== activeTab) {
+      activeTab = newTab;
+    }
+  }
 
 </script>
 
@@ -25,10 +29,10 @@
 </style>
 
 <div class="tab-list">
-  <Tab error={errorEnglish} active={activeTab === "en"} switchTab={switchTab}>
+  <Tab error={errorEnglish} active={activeTab === "en"} switchTab={() => switchTab("en")}>
     {I18n.t("language.en_EN")}
   </Tab>
-  <Tab error={errorDutch} active={activeTab === "nl"} switchTab={switchTab}>
+  <Tab error={errorDutch} active={activeTab === "nl"} switchTab={() => switchTab("nl")}>
     {I18n.t("language.nl_NL")}
   </Tab>
 </div>

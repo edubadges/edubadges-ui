@@ -33,7 +33,7 @@
 
   let issuer;
   let faculty;
-  let badgeclass = {extensions: [], issuer: {}};
+  let badgeclass = {extensions: [], issuer: {faculty: {institution: {}}}};
 
   let enrollments = [];
   let assertions = [];
@@ -190,7 +190,8 @@
       count: directAwardBundles.length,
       href: `/badgeclass/${entityId}/direct-awards-bundles`
     }
-  ];
+  ].filter(tab => tab.entity !== "directAwardBundle" || (badgeclass.issuer.faculty.institution.directAwardingEnabled
+      && directAwardBundles.length));
 
   $: if (!subEntity) {
     navigate(tabs[0].href, {replace: true});
