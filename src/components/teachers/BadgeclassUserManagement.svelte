@@ -88,9 +88,9 @@
 
   const reload = () => {
     queryData(query, {entityId}).then(res => {
-      translateProperties(badgeclass.issuer);
-      translateProperties(badgeclass.issuer.faculty);
-      translateProperties(badgeclass.issuer.faculty.institution);
+      translateProperties(res.badgeClass.issuer);
+      translateProperties(res.badgeClass.issuer.faculty);
+      translateProperties(res.badgeClass.issuer.faculty.institution);
 
       institutionStaffMembers = addStaffType(res.badgeClass.issuer.faculty.institution.staff, staffType.INSTITUTION_STAFF);
       issuerGroupStaffMembers = addStaffType(res.badgeClass.issuer.faculty.staff, staffType.ISSUER_GROUP_STAFF);
