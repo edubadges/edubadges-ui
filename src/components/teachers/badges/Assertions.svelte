@@ -23,7 +23,7 @@
   let revocationReason = "";
 
   //Side bar filtering
-  let issuedSelected = [issuedTypes.LAST_30_DAYS];
+  let issuedSelected = [];//[issuedTypes.LAST_30_DAYS];
   let awardTypeSelected = [];
   let statusSelected = [];
 
