@@ -172,16 +172,19 @@
           translateProperties(issuer.faculty);
         })
       });
-      const userInstitution = user.institutionStaff.institution;
-      translateProperties(userInstitution);
-      userInstitution.faculties.forEach(faculty => {
-        translateProperties(faculty);
-        faculty.issuers.forEach(issuer => {
-          translateProperties(issuer);
-          translateProperties(issuer.faculty);
-        })
-      });
-
+      if (user.institutionStaff) {
+        const userInstitution = user.institutionStaff.institution;
+        translateProperties(userInstitution);
+        if (userInstitution) {
+          userInstitution.faculties.forEach(faculty => {
+            translateProperties(faculty);
+            faculty.issuers.forEach(issuer => {
+              translateProperties(issuer);
+              translateProperties(issuer.faculty);
+            })
+          });
+        }
+      }
       institutionId = institution.entityId;
       userNameDict = {name: `${user.firstName} ${user.lastName}`};
       currentUser = res.currentUser;

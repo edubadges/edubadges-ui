@@ -6,7 +6,7 @@
   import {UsersTable} from "../teachers";
   import {sort, sortType} from "../../util/sortData";
   import I18n from "i18n-js";
-  import {makeUserIssuerGroupAdmin, removeUserIssuerGroupAdmin} from "../../api";
+  import {makeUserIssuerGroupAdmin, makeUserIssuerGroupAwarder, removeUserIssuerGroupAdmin} from "../../api";
   import {AddPermissionsModal, Modal} from "../forms";
   import Spinner from "../Spinner.svelte";
   import {permissionsRole} from "../../util/rolesToPermissions";
@@ -129,18 +129,21 @@
       user.facultyStaffs.forEach(staff => {
         translateProperties(staff.faculty);
       });
-      const userInstitution = user.institutionStaff.institution;
-      translateProperties(userInstitution);
-      userInstitution.faculties.forEach(faculty => translateProperties(faculty));
-
+      if (user.institutionStaff) {
+        const userInstitution = user.institutionStaff.institution;
+        translateProperties(userInstitution);
+        if (userInstitution) {
+          userInstitution.faculties.forEach(faculty => translateProperties(faculty));
+        }
+      }
       institutionId = institution.entityId;
       for (const faculty of institution.faculties) {
         if (faculty.permissions.mayAdministrateUsers) {
           faculties = [...faculties, faculty];
         }
       }
-      institutionStaffs = res.user.institutionStaff ? addStaffType([res.user.institutionStaff], staffType.INSTITUTION_STAFF) : [];
-      issuerGroupStaffs = addStaffType(res.user.facultyStaffs, staffType.ISSUER_GROUP_STAFF);
+      institutionStaffs = user.institutionStaff ? addStaffType([res.user.institutionStaff], staffType.INSTITUTION_STAFF) : [];
+      issuerGroupStaffs = addStaffType(user.facultyStaffs, staffType.ISSUER_GROUP_STAFF);
       newPermissionOptions = faculties.filter(faculty => !userHasAdminPermissions(faculty, entityType.ISSUER_GROUP, institutionStaffs, issuerGroupStaffs, [], []));
       removePermissionOptions = faculties.filter(faculty => userHasAdminPermissions(faculty, entityType.ISSUER_GROUP, institutionStaffs, issuerGroupStaffs, [], []));
       modalSelectedEntity = newPermissionOptions[0];
@@ -212,6 +215,13 @@
           flash.setValue(I18n.t("editUsers.flash.makeUserIssuerGroupAdmin", userNameDict));
         });
         break;
+      case permissionsRole.AWARDER:
+        makeUserIssuerGroupAwarder(modalSelectedEntity.entityId, userId, modalNotes).then(() => {
+          reload();
+          showAddModal = false;
+          flash.setValue(I18n.t("editUsers.flash.makeUserIssuerGroupAdmin", userNameDict));
+        });
+        break;
       default:
         throw new Error(`Invalid role ${modalChosenRole.value}`)
     }
@@ -242,7 +252,11 @@
     removeModalAction = removeSelectedPermissions;
   };
 
-  const permissionsRoles = [{value: permissionsRole.ADMIN, name: I18n.t("editUsers.faculty.admin")}];
+  const permissionsRoles = [
+    {value: permissionsRole.ADMIN, name: I18n.t("editUsers.faculty.admin")}
+    //TODO
+    //{value: permissionsRole.AWARDER, name: I18n.t("editUsers.faculty.awarder")}
+  ];
 
   $: buttons = [
     {
@@ -364,7 +378,9 @@
             <td>
                 <span class="icon">{@html facultyIcon}</span>
             </td>
-            <td><ListLink path={`/manage/faculty/${issuerGroup.entityId}/issuers`} name={issuerGroup.name}/></td>
+            <td>
+              <ListLink path={`/manage/faculty/${issuerGroup.entityId}/issuers`} name={issuerGroup.name}/>
+            </td>
             <td>
               {I18n.t(['editUsers', 'permissions', 'allRights'])}
               <br/>

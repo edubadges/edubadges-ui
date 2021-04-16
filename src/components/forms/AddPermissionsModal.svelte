@@ -56,7 +56,7 @@
     </div>
     <div class="options">
       <Button secondary={true} action={cancel} text={I18n.t("modal.cancel")}/>
-      <Button action={submit} text={I18n.t(['editUsers', 'modal', 'add'])} disabled={disabled}/>
+      <Button action={submit} text={I18n.t("editUsers.modal.add")} disabled={disabled}/>
     </div>
   </div>
 </div>

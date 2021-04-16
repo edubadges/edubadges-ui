@@ -420,6 +420,7 @@ I18n.translations.en = {
       makeUserInstitutionAdmin: "{{name}} has been granted institution admin rights",
       removeUserInstitutionAdmin: "Institution admin rights have been removed from {{name}}",
       makeUserIssuerGroupAdmin: "{{name}} has been granted issuer group admin rights",
+      makeUserIssuerGroupAwarder: "{{name}} has been granted issuer group awarder rights",
       removeUserIssuerGroupAdmin: "Issuer group admin rights have been removed from {{name}}",
       makeUserIssuerAdmin: "{{name}} has been granted issuer admin rights",
       removeUserIssuerAdmin: "Issuer admin rights have been removed from {{name}}",
@@ -446,6 +447,7 @@ I18n.translations.en = {
     },
     faculty: {
       admin: "Issuer group admin",
+      awarder: "Issuer group awarder",
       header: "Issuer group",
       allRights: "Issuer group admin",
       permissions: "Permissions on issuer group level"

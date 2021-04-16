@@ -28,6 +28,9 @@ export const flatten = arr => arr.reduce((acc, cur) => acc.concat(Array.isArray(
 
 //The properties from graphene are different then the properties from the public endpoints
 export const translateProperties = obj => {
+  if (!obj) {
+    return;
+  }
   const isEnglish = I18n.locale === "en";
   ["name", "description", "image", "url"].forEach(attr => {
     if (obj[`${attr}English`] || obj[`${attr}Dutch`]) {

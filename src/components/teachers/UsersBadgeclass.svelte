@@ -242,18 +242,22 @@
           translateProperties(badgeClass.issuer.faculty);
         });
       });
-      const userInstitution = user.institutionStaff.institution;
-      translateProperties(userInstitution);
-      userInstitution.faculties.forEach(faculty => {
-        translateProperties(faculty);
-        faculty.issuers.forEach(issuer => {
-          translateProperties(issuer);
-          issuer.badgeclasses.forEach(badgeClass => {
-            translateProperties(badgeClass.issuer);
-            translateProperties(badgeClass.issuer.faculty);
-          })
-        });
-      });
+      if (user.institutionStaff) {
+        const userInstitution = user.institutionStaff.institution;
+        translateProperties(userInstitution);
+        if (userInstitution) {
+          userInstitution.faculties.forEach(faculty => {
+            translateProperties(faculty);
+            faculty.issuers.forEach(issuer => {
+              translateProperties(issuer);
+              issuer.badgeclasses.forEach(badgeClass => {
+                translateProperties(badgeClass.issuer);
+                translateProperties(badgeClass.issuer.faculty);
+              })
+            });
+          });
+        }
+      }
 
       userNameDict = {name: `${user.firstName} ${user.lastName}`};
       currentUser = res.currentUser;

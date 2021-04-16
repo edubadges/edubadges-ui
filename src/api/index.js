@@ -378,6 +378,51 @@ export function makeUserIssuerGroupAdmin(facultyId, userId, notes) {
   return validFetch(path, {body: JSON.stringify(payload)}, "POST");
 }
 
+export function makeUserIssuerGroupAwarder(facultyId, userId, notes) {
+  const path = `${serverUrl}/staff-membership/faculty/${facultyId}/create`;
+  const payload = {
+    "may_create": 0,
+    "may_read": 1,
+    "may_update": 0,
+    "may_delete": 0,
+    "may_sign": 1,
+    "may_award": 1,
+    "may_administrate_users": 0,
+    "user": userId,
+    "faculty": facultyId,
+    "notes": notes
+  };
+  return validFetch(path, {body: JSON.stringify(payload)}, "POST");
+}
+
+export function changeUserIssuerGroupToAdmin(facultyMembershipId) {
+  const path = `${serverUrl}/staff-membership/faculty/change/${facultyMembershipId}`;
+  const payload = {
+    "may_create": 1,
+    "may_read": 1,
+    "may_update": 1,
+    "may_delete": 1,
+    "may_sign": 1,
+    "may_award": 1,
+    "may_administrate_users": 1,
+  };
+  return validFetch(path, {body: JSON.stringify(payload)}, "POST");
+}
+
+export function changeUserIssuerGroupToAwarder(facultyMembershipId) {
+  const path = `${serverUrl}/staff-membership/faculty/change/${facultyMembershipId}`;
+  const payload = {
+    "may_create": 0,
+    "may_read": 1,
+    "may_update": 0,
+    "may_delete": 0,
+    "may_sign": 1,
+    "may_award": 1,
+    "may_administrate_users": 0,
+  };
+  return validFetch(path, {body: JSON.stringify(payload)}, "POST");
+}
+
 export function removeUserIssuerGroupAdmin(facultyMembershipId) {
   const path = `${serverUrl}/staff-membership/faculty/change/${facultyMembershipId}`;
   return validFetch(path, {}, "DELETE");
