@@ -85,7 +85,7 @@ module.exports = {
     }),
     prod ? new BundleAnalyzerPlugin({
       analyzerMode: "disabled",
-      generateStatsFile: true,
+      generateStatsFile: false,
       openAnalyzer: false
     }) : false
   ].filter(Boolean),
