@@ -6,6 +6,7 @@
   export let label = "";
   export let tipKey = "";
   export let marginBottom = false;
+  export let marginTop = false;
 
   const translations = I18n.translations[I18n.locale];
   const exists = !isEmpty(translations.tooltips[tipKey]);
@@ -20,6 +21,10 @@
     &.marginBottom {
       display: block;
       margin-bottom: 25px;
+    }
+    &.marginTop {
+      display: block;
+      margin-top: 15px;
     }
   }
 
@@ -95,7 +100,7 @@
 
 </style>
 
-<label class:marginBottom>
+<label class:marginBottom class:marginTop>
   {label}
   {#if exists}
     <div class="tooltip-wrapper">

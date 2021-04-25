@@ -12,6 +12,7 @@ I18n.translations.nl = {
     logout: "Logout",
     profile: "Mijn profiel",
     permissions: "Mijn permissies",
+    demo: "Demo omgeving",
     nav: {
       badgeclasses: "Badge classes",
       manage: "Beheer",
@@ -1010,6 +1011,7 @@ I18n.translations.nl = {
     enrollmentEvidenceURL: "De URL van een webpagina met bewijs van prestatie.",
     enrollmentEvidenceName: "Een beschrijvende titel van het bewijs.",
     enrollmentEvidenceDescription: "Een langere beschrijving van het bewijs.",
+    demoEnvironment: "Alle data wordt elke maand verwijderd"
   },
   badgeOverview: {
     faculty: "Faculteit",

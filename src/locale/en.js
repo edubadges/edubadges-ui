@@ -12,6 +12,7 @@ I18n.translations.en = {
     logout: "Logout",
     profile: "My profile",
     permissions: "My permissions",
+    demo: "Demo environment",
     nav: {
       badgeclasses: "Badge classes",
       manage: "Manage",
@@ -1010,6 +1011,7 @@ I18n.translations.en = {
     enrollmentEvidenceURL: "The URI of a webpage presenting evidence of achievement.",
     enrollmentEvidenceName: "A descriptive title of the evidence.",
     enrollmentEvidenceDescription: "A longer description of the evidence.",
+    demoEnvironment: "All data is deleted every month"
   },
   badgeOverview: {
     faculty: "Faculty",

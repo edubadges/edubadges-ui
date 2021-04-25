@@ -1,29 +1,24 @@
 <script>
   import I18n from "i18n-js";
-  import {navigate, link} from "svelte-routing";
+  import {link, navigate} from "svelte-routing";
   import {clickOutside} from "../util/clickOutside.js";
   import logo from "../img/logo.svg";
-  import {chevronUp, chevronDown} from "../icons";
+  import {chevronDown, chevronUp} from "../icons";
   import {role} from "../util/role";
+  import {config} from "../util/config";
 
-  import {
-    userLoggedIn,
-    userName,
-    validatedUserName,
-    userRole,
-    authToken,
-    redirectPath
-  } from "../stores/user";
+  import {authToken, redirectPath, userLoggedIn, userName, userRole, validatedUserName} from "../stores/user";
   import {logoutCurrentUser} from "../api";
+  import Tooltip from "./Tooltip.svelte";
 
   const doLogOut = () => {
-      $userLoggedIn = "";
-      $userRole = "";
-      $userName = "";
-      $validatedUserName = "";
-      $authToken = "";
-      $redirectPath = "";
-      navigate("/login");
+    $userLoggedIn = "";
+    $userRole = "";
+    $userName = "";
+    $validatedUserName = "";
+    $authToken = "";
+    $redirectPath = "";
+    navigate("/login");
   }
 
   const logoutUser = () => {
@@ -42,6 +37,12 @@
     padding-top: var(--ver-padding-header);
     padding-bottom: var(--ver-padding-header);
     padding-right: var(--hor-padding-s);
+
+    span.demo {
+      padding: 0 var(--hor-padding-s);
+      color: var(--red-dark);
+      font-weight: bold;
+    }
   }
 
   .slot-container {
@@ -52,6 +53,12 @@
   a {
     margin-left: var(--hor-padding-s);
     width: calc(var(--width-side-bar) - var(--hor-padding-s));
+
+    &.demo {
+      width: 150px;
+      padding-right: 5px;
+    }
+
   }
 
   a :global(svg.edubadges-logo) {
@@ -98,9 +105,14 @@
 </style>
 
 <header>
-  <a href="/" use:link>
+  <a href="/" use:link class:demo={config.isDemoEnvironment}>
     {@html logo}
   </a>
+  {#if config.isDemoEnvironment}
+    <span class="demo">
+      <Tooltip label={I18n.t("header.demo")} marginTop={true} tipKey="demoEnvironment"/>
+    </span>
+  {/if}
 
   <div class="slot-container">
     <slot/>
