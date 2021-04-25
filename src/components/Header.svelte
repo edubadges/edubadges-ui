@@ -6,10 +6,10 @@
   import {chevronDown, chevronUp} from "../icons";
   import {role} from "../util/role";
   import {config} from "../util/config";
-
+  import question from "../icons/question.svg";
   import {authToken, redirectPath, userLoggedIn, userName, userRole, validatedUserName} from "../stores/user";
   import {logoutCurrentUser} from "../api";
-  import Tooltip from "./Tooltip.svelte";
+  import Modal from "./forms/Modal.svelte";
 
   const doLogOut = () => {
     $userLoggedIn = "";
@@ -27,6 +27,7 @@
   };
 
   let menuOpen = false;
+  let showModal = false;
 </script>
 
 <style lang="scss">
@@ -40,10 +41,19 @@
 
     span.demo {
       padding: 0 var(--hor-padding-s);
-      color: var(--red-dark);
+      color: var(--blue-link);
+      display: inline-block;
       font-weight: bold;
+      cursor: pointer;
+      text-decoration: underline;
     }
   }
+
+  :global(span.demo svg circle, span.demo svg path  ) {
+    color: var(--blue-link);
+    fill: var(--blue-link);
+  }
+
 
   .slot-container {
     margin-left: 24px;
@@ -109,8 +119,8 @@
     {@html logo}
   </a>
   {#if config.isDemoEnvironment}
-    <span class="demo">
-      <Tooltip label={I18n.t("header.demo")} marginTop={true} tipKey="demoEnvironment"/>
+    <span class="demo" on:click={() => showModal = true}>
+      {I18n.t("header.demo")}{@html question}
     </span>
   {/if}
 
@@ -136,3 +146,11 @@
     </div>
   {/if}
 </header>
+{#if showModal}
+  <Modal
+    submit={() => showModal = false}
+    question={I18n.t("header.demo")}
+    title={I18n.t("header.demo")}>
+    <span>{@html I18n.t("demo.info")}</span>
+  </Modal>
+{/if}

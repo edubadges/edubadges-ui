@@ -1100,5 +1100,11 @@ I18n.translations.nl = {
       REVOKED: "Revoked",
       REJECTED: "Rejected"
     }
+  },
+  demo: {
+    info: "Dit is de demo-omgeving van eduBadges. <br/> <br/> Alle gegevens worden gewist na elke nieuwe" +
+      "implementatie. <br/>" +
+      "Heeft u vragen over de demo-omgeving neem dan contact met ons op" +
+      "op <a href='mailto:support@edubadges.nl'> support@edubadges.nl </a>"
   }
 };

@@ -1100,5 +1100,11 @@ I18n.translations.en = {
       REVOKED: "Revoked",
       REJECTED: "Rejected"
     }
+  },
+  demo: {
+    info: "This is the demo environment of eduBadges.<br/><br/>All of the data is cleared after each new " +
+      "deployment.<br/><br/>" +
+      "If you have any question about the demo environment please contact us" +
+      " at <a href='mailto:support@edubadges.nl'>support@edubadges.nl</a> "
   }
 };
