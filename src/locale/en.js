@@ -2,7 +2,7 @@ import I18n from "i18n-js";
 
 I18n.translations.en = {
   routes: {
-    backpack: "Backpack",
+    backpack: "My backpack",
     "badge-requests": "Edubadge requests",
     collections: "Collections",
     archived: "Archive",
@@ -678,8 +678,8 @@ I18n.translations.en = {
       award: "Award",
       denied: "Denied",
       deny: "Deny request",
-      addEvidence: "+ Add evidence",
-      removeEvidence: "- Remove evidence",
+      addEvidence: "+ Add narrative and/or evidence",
+      removeEvidence: "- Remove narrative and/or evidence",
       enrollmentType: {
         name: "Request type",
         enrolled: "Self requested",
@@ -937,10 +937,10 @@ I18n.translations.en = {
       email: "e.g. john.doe@example.com"
     },
     enrollment: {
-      evidenceNarrative: "e.g. badge class description",
-      evidenceURL: "e.g. https://university.psychology",
-      evidenceName: "e.g. Introduction Pysychology",
-      evidenceDescription: "e.g. Long description of the assertion"
+      evidenceNarrative: "e.g. a personal note that you would add to this edubadge",
+      evidenceURL: "e.g. https://university-example.org/persistent-url-to-evidence.",
+      evidenceName: "e.g. Thesis Introduction Pysychology",
+      evidenceDescription: "e.g. a description of the evidence you can add to this edubadge"
     }
   },
   eye: {
@@ -1102,7 +1102,7 @@ I18n.translations.en = {
     }
   },
   demo: {
-    info: "This is the demo environment of eduBadges.<br/><br/>All of the data is cleared after each new " +
+    info: "This is the demo environment of edubadges.<br/><br/>All of the data is cleared each month and after each new " +
       "deployment.<br/><br/>" +
       "If you have any question about the demo environment please contact us" +
       " at <a href='mailto:support@edubadges.nl'>support@edubadges.nl</a> "

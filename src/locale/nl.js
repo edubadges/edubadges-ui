@@ -2,7 +2,7 @@ import I18n from "i18n-js";
 
 I18n.translations.nl = {
   routes: {
-    backpack: "Backpack",
+    backpack: "Mijn backpack",
     "badge-requests": "Aanvragen voor edubadges",
     collections: "Collecties",
     archived: "Archief",
@@ -678,8 +678,8 @@ I18n.translations.nl = {
       award: "Ken toe",
       denied: "Geweigerd",
       deny: "Weiger verzoek",
-      addEvidence: "+ Voeg bewijs toe",
-      removeEvidence: "- Verwijder bewijs",
+      addEvidence: "+ Voeg persoonlijke boodschap en/of bewijs toe",
+      removeEvidence: "- Verwijder persoonlijke boodschap en/of bewijs",
       enrollmentType: {
         name: "Type aanvraag",
         enrolled: "Zelf aangevraagd",
@@ -937,10 +937,10 @@ I18n.translations.nl = {
       email: "Bijv. john.doe@example.com"
     },
     enrollment: {
-      evidenceNarrative: "e.g. badge class omschrijving",
-      evidenceURL: "e.g. https://university.psychology",
-      evidenceName: "e.g. Introductie Pysychology",
-      evidenceDescription: "e.g. Lange omschrijving van de assertion"
+      evidenceNarrative: "bijv. een persoonlijke boodschap wat aan deze edubadge toegevoegd kan worden",
+      evidenceURL: "bijv. https://university-example.org/persistent-url-to-evidence",
+      evidenceName: "e.g. Scriptie Introductie Pysychology",
+      evidenceDescription: "e.g. omschrijving van het bewijs wat aan deze edubadge is toegevoegd"
     }
   },
   eye: {
@@ -1092,17 +1092,17 @@ I18n.translations.nl = {
     },
     awardType: {
       DIRECT_AWARD: "Direct award",
-      REQUESTED: "Enrolled / requested",
+      REQUESTED: "Aangevraagd",
     },
     status: {
-      PENDING: "Pending",
-      CLAIMED: "Claimed",
-      REVOKED: "Revoked",
-      REJECTED: "Rejected"
+      PENDING: "In afwachting",
+      CLAIMED: "Geclaimd",
+      REVOKED: "Ingetrokken",
+      REJECTED: "Geweigerd"
     }
   },
   demo: {
-    info: "Dit is de demo-omgeving van eduBadges. <br/> <br/> Alle gegevens worden gewist na elke nieuwe" +
+    info: "Dit is de demo-omgeving van edubadges. <br/> <br/> Alle gegevens worden maandelijks gewist en na elke nieuwe" +
       "implementatie. <br/>" +
       "Heeft u vragen over de demo-omgeving neem dan contact met ons op" +
       "op <a href='mailto:support@edubadges.nl'> support@edubadges.nl </a>"
