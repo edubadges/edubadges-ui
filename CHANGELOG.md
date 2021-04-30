@@ -4,6 +4,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [3.1.0] - 2021-05-03
+- Updated ssri.
+- Added public catalog for an overview of all badge classes in edubadges.\
+- Show demo modal info.
+- Add demo watermark for images in demo env.
+- Fixed the issue that language settings metadata institution, issuergroup or issuer doesn't always show the chosen UI language setting.
+- Narrative and evidence can be added seperately when awarding edubadges.
+- The badgeclass awarded view has filtering options.
+- Performance optimalization.
+- Filter out institutions in the catalog without an institutionType.
+- Fixed a multilanguage issue when changing metadata of an issuer.
+- Added bilangual (EN/NL) metadata options (name, logo) on institution, issuergroup and issuer.
+- Fixed issuergroup filtering option.
+- Fixed the sorting and searching of faculties.
+- Added search option in overview awarded edubadges.
+- Updated some styling misplacements.
+- Updated the maintenance page to include the catalog icon.
+- Private edubadges cannot be downloaded anymore; you can only download public edubadges.
+- Fixed layout on mobiles.
+- Removed the 'Accept this edubadge' button when you already accepted that edubadge.
+- Beta label now shows total count of public badge classes.
+- Educational level in the filter options hides the unspecified.
+- Fixed typo MBP in NL interface. Changed to MBO.
+
 ## [3.0.0] - 2021-03-15
 - Added public catalog for an overview of all badge classes in edubadges.
 - Adds multilanguage fields for Institution, Issuer Group & Issuer.
