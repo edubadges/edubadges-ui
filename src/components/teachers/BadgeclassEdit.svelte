@@ -90,8 +90,8 @@
       currentInstitution = res.currentInstitution;
       loaded = true;
       hasUnrevokedAssertions = badgeclass.badgeAssertions.some(assertion => !assertion.revoked);
-      mayDelete = permissions && permissions.mayDelete
-      mayEdit = permissions && permissions.mayUpdate && badgeclass.badgeAssertions.length === 0
+      mayDelete = permissions && permissions.mayDelete;
+      mayEdit = permissions && permissions.mayUpdate && !hasUnrevokedAssertions;
     });
   });
 </script>
