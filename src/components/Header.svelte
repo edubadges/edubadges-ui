@@ -41,17 +41,18 @@
 
     span.demo {
       padding: 0 var(--hor-padding-s);
-      color: var(--blue-link);
+      color: var(--red-dark);
       display: inline-block;
       font-weight: bold;
+      font-size: 20px;
       cursor: pointer;
       text-decoration: underline;
     }
   }
 
   :global(span.demo svg circle, span.demo svg path  ) {
-    color: var(--blue-link);
-    fill: var(--blue-link);
+    color: var(--red-dark);
+    fill: var(--red-dark);
   }
 
 

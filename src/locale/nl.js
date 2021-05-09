@@ -23,7 +23,9 @@ I18n.translations.nl = {
   login: {
     title: "Never stop learning",
     loginToEnrol: "Login om deze edubadge aan te vragen",
-    loginToEnrolInfo: "<strong>Let op!</strong> Je kan deze badge alleen aanvragen als je staat ingeschreven bij <strong>{{name}}</strong>.",
+    loginToEnrolInfo: "<strong>Let op!</strong> Je kan deze badge alleen aanvragen als je staat ingeschreven bij één van deze instellingen: <strong>{{name}}</strong>.",
+    loginToEnrolInfoOne: "<strong>Let op!</strong> Je kan deze badge alleen aanvragen als je staat ingeschreven bij <strong>{{name}}</strong>.",
+    loginToEnrolInfoAll: "<strong>Let op!</strong> Je kan deze badge alleen aanvragen als je instelling is aangesloten op eduBadges.",
     destination: "Wat zou je willen doen?",
     description:
       "Edubadges zijn digitale certificaten die aantonen dat de eigenaar bepaalde vaardigheden of kennis heeft verworven. Edubadges kunnen worden uitgereikt voor zowel geaccrediteerd onderwijs als extracurriculaire activiteiten.",

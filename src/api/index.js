@@ -298,7 +298,7 @@ export function getPublicInstitution(entityId) {
 }
 
 export function getPublicBadgeClass(badgeId) {
-  const path = `${serverUrl}/public/badges/${badgeId}?expand=issuer`;
+  const path = `${serverUrl}/public/badges/${badgeId}?expand=issuer&expand=awards`;
   return validFetch(path, {}, "GET", false, false);
 }
 

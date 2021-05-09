@@ -26,6 +26,8 @@
   $: visitorRole = $userLoggedIn ? $userRole : "guest";
 
   let badgeClass = {};
+  let allowedInstitutions = [];
+  let allowedInstitutionsAttention = "";
   let enrollmentId;
   let studentEnrolled;
   let studentAwarded;
@@ -112,6 +114,8 @@
           entityId,
           institution {
             identifier,
+            awardAllowedInstitutions,
+            awardAllowAllInstitutions,
             nameDutch,
             nameEnglish,
             imageDutch,
@@ -149,7 +153,6 @@
         const userTerms = res[1].currentUser.termsAgreements;
         noValidatedName = !res[1].currentUser.validatedName;
         badgeClass = res[1].badgeClass;
-
         translateProperties(badgeClass.issuer);
         translateProperties(badgeClass.issuer.faculty);
         translateProperties(badgeClass.issuer.faculty.institution);
@@ -168,6 +171,11 @@
         translateProperties(badgeClass.issuer);
         translateProperties(badgeClass.issuer.faculty);
         translateProperties(badgeClass.issuer.faculty.institution);
+
+        const institution = badgeClass.issuer.faculty.institution;
+        const allowedNames = [institution.name].concat(institution.award_allowed_institutions);
+        allowedInstitutions = allowedNames.join(", ");
+        allowedInstitutionsAttention = institution.award_allow_all_institutions ? "All" : allowedNames.length === 1 ? "One" : "";
 
         publicBadgeInformation(badgeClass, res);
         //need to ensure the links work
@@ -194,12 +202,15 @@
   };
 
   const enrollStudent = showConfirmation => {
-    const identifier = badgeClass.issuer.faculty.institution.identifier;
+    const institution = badgeClass.issuer.faculty.institution;
+    const identifiers = [institution.identifier].concat(institution.awardAllowedInstitutions);
+    const allowedInstitution = identifiers.some(identifier => schacHomes.includes(identifier));
+
     if (noValidatedName) {
       showNoValidatedName = true;
       return;
     }
-    if (schacHomes.indexOf(identifier) < 0) {
+    if (!allowedInstitution) {
       noValidInstitution = true;
       return;
     }
@@ -303,7 +314,10 @@
           <div class="slots enrol">
             <Button text={I18n.t("login.loginToEnrol")} action={login}/>
             <span
-              class="attention">{@html I18n.t("login.loginToEnrolInfo", {name: badgeClass.issuer.faculty.institution.name})}</span>
+              class="attention">
+              {@html I18n.t(`login.loginToEnrolInfo${allowedInstitutionsAttention}`,
+                {name: allowedInstitutions})}
+            </span>
           </div>
         {:else if visitorRole === role.STUDENT}
           <div class="slots student">
