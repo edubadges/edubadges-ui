@@ -372,6 +372,9 @@
           <div class="recipient">
             <span>{userName(assertion)}</span>
             <span>{assertion.isDirectAward ? assertion.recipientEmail : assertion.user.email}</span>
+            {#if assertion.isDirectAward}
+              <span>{assertion.eppn} <em>(eppn)</em></span>
+            {/if}
           </div>
         </td>
         <td class="center">
