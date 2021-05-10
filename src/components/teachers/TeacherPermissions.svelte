@@ -1,11 +1,11 @@
 <script>
   import {onMount} from "svelte";
   import {queryData} from "../../api/graphql";
-  import {Breadcrumb, PermissionsHeader, PermissionsManagement} from "./index";
+  import {PermissionsHeader, PermissionsManagement} from "./index";
   import {entityType} from "../../util/entityTypes"
   import {addStaffType, staffType} from "../../util/staffTypes";
   import {enrichUser} from "../../util/userPermissions";
-  import {issuerIcon, facultyIcon, badgeclassIcon, userManagementIcon, institutionIcon} from "../../icons";
+  import {badgeclassIcon, facultyIcon, institutionIcon, issuerIcon} from "../../icons";
   import UserBreadcrumb from "./UserBreadcrumb.svelte";
   import Spinner from "../Spinner.svelte";
   import {translateProperties} from "../../util/utils";
@@ -141,12 +141,15 @@
         });
       });
       currentUser = res.currentUser;
-      const nestedInstitution = currentUser.institutionStaff.institution;
-      translateProperties(nestedInstitution);
-      nestedInstitution.faculties.forEach(faculty => {
-        translateProperties(faculty);
-        faculty.issuers.forEach(issuer => translateProperties(issuer));
-      });
+      const institutionStaff = currentUser.institutionStaff;
+      if (institutionStaff) {
+        const nestedInstitution = institutionStaff.institution;
+        translateProperties(nestedInstitution);
+        nestedInstitution.faculties.forEach(faculty => {
+          translateProperties(faculty);
+          faculty.issuers.forEach(issuer => translateProperties(issuer));
+        });
+      }
       currentUser.facultyStaffs.forEach(staff => {
         translateProperties(staff.faculty);
         staff.faculty.issuers.forEach(issuer => translateProperties(issuer));
@@ -160,7 +163,7 @@
         translateProperties(staff.badgeclass.issuer.faculty);
       });
 
-      if (res.currentUser.institutionStaff) {
+      if (institutionStaff) {
         institutionStaffMemberships = addStaffType([res.currentUser.institutionStaff], staffType.INSTITUTION_STAFF);
       } else {
         institutionStaffMemberships = [];
@@ -198,11 +201,11 @@
   ];
 </script>
 <style>
-  div.container {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
+    div.container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
 </style>
 {#if loaded}
   <div class="container">
@@ -213,11 +216,11 @@
     />
 
     <PermissionsManagement
-        {entity}
-        institutionStaffs={institutionStaffMemberships}
-        issuerGroupStaffs={issuerGroupStaffMemberships}
-        issuerStaffs={issuerStaffMemberships}
-        badgeClassStaffs={badgeClassStaffMemberships}
+      {entity}
+      institutionStaffs={institutionStaffMemberships}
+      issuerGroupStaffs={issuerGroupStaffMemberships}
+      issuerStaffs={issuerStaffMemberships}
+      badgeClassStaffs={badgeClassStaffMemberships}
     />
   </div>
 {:else}
