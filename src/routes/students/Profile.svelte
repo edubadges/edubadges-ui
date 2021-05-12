@@ -24,6 +24,7 @@
   let modalTitle;
   let modalQuestion;
   let modalAction;
+  let currentUser;
 
   const query = `query {
     currentUser {
@@ -61,7 +62,7 @@
       profile.eduid = res[1][0].eduid;
       profile.dateAdded = res[1][0].dateAdded;
       if (isStudent) {
-        const currentUser = res[2].currentUser;
+        currentUser = res[2].currentUser;
         if (currentUser.validatedName) {
           profile.validatedName = currentUser.validatedName;
         }
@@ -100,11 +101,19 @@
     });
   };
 
-  const withdrawPermission = (entityId, name) => {
-    withdrawTermsForBadge(entityId).then(() => {
-      reload();
-      flash.setValue(I18n.t("profile.consentWithdrawn", {institution: name}));
-    })
+  const withdrawPermission = (showConfirmation, entityId, name) => {
+    if (showConfirmation) {
+      showModal = true;
+      modalTitle = I18n.t("profile.withdrawPermission");
+      modalQuestion = I18n.t("profile.withdrawPermissionConfirmation");
+      modalAction = () => withdrawPermission(false, entityId, name);
+    } else {
+      showModal = false;
+      withdrawTermsForBadge(entityId).then(() => {
+        reload();
+        flash.setValue(I18n.t("profile.consentWithdrawn", {institution: name}));
+      })
+    }
   };
 
   const deleteProfileAction = showConfirmation => () => {
@@ -190,6 +199,12 @@
         <h3>{I18n.t("profile.email")}</h3>
         <Verified value={profile.email} fromEduID={isStudent} showVerified={false}/>
       </div>
+      {#if currentUser.schacHomes && currentUser.schacHomes.length > 0}
+        <div class="profile-section">
+          <h3>{I18n.t("profile.university")}</h3>
+          <Verified value={currentUser.schacHomes.join(", ")} fromEduID={false} showVerified={false}/>
+        </div>
+      {/if}
       {#if profile.eduid}
         <div class="profile-section">
           <h3>{I18n.t("profile.eduid")}</h3>
@@ -227,7 +242,7 @@
                 </div>
                 {#if agreedTerm.type === "FORMAL_BADGE"}
                   <div>
-                    <Button action={() => withdrawPermission(agreedTerm.entityId, institution.name)}
+                    <Button action={() => withdrawPermission(true, agreedTerm.entityId, institution.name)}
                             text={I18n.t(['acceptTerms', 'student', 'withdrawConsent'])} disabled={false}/>
                   </div>
                 {/if}

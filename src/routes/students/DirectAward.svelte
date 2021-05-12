@@ -85,6 +85,8 @@
             institution {
               nameDutch,
               nameEnglish,
+              awardAllowedInstitutions,
+              awardAllowAllInstitutions,
               identifier,
               imageDutch,
               imageEnglish,
@@ -138,9 +140,12 @@
   }
 
   const claimDirectAward = showConfirmation => {
-    const identifier = directAward.badgeclass.issuer.faculty.institution.identifier;
     const schacHomes = currentUser.schacHomes;
-    if (schacHomes.indexOf(identifier) < 0) {
+    const institution = directAward.badgeclass.issuer.faculty.institution
+    const identifiers = [institution.identifier].concat(institution.awardAllowedInstitutions);
+    const allowedInstitution = identifiers.some(identifier => schacHomes.includes(identifier)) || institution.awardAllowAllInstitutions;
+
+    if (!allowedInstitution) {
       noValidInstitution = true;
       return;
     }

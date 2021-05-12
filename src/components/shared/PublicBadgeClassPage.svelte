@@ -48,12 +48,8 @@
   let showNoValidatedName = false;
   let noValidInstitution = false;
 
-  const login = () => {
-    $redirectPath = window.location.pathname;
-    navigate("/login?validateName=true");
-  };
-
   const goToEduId = () => {
+    $userRole = role.STUDENT;
     $redirectPath = window.location.pathname;
     const service = getService(role.STUDENT);
     requestLoginToken(service, true);
@@ -204,7 +200,7 @@
   const enrollStudent = showConfirmation => {
     const institution = badgeClass.issuer.faculty.institution;
     const identifiers = [institution.identifier].concat(institution.awardAllowedInstitutions);
-    const allowedInstitution = identifiers.some(identifier => schacHomes.includes(identifier));
+    const allowedInstitution = identifiers.some(identifier => schacHomes.includes(identifier)) || institution.awardAllowAllInstitutions;
 
     if (noValidatedName) {
       showNoValidatedName = true;
@@ -228,9 +224,9 @@
       requestBadge(entityId)
         .then(() => {
           loaded = true;
-          reload();
           showConfirmation = false;
           flash.setValue(I18n.t('student.flash.enrolled', {name: badgeClass.name}));
+          navigate("/badge-requests");
         })
         .catch(err => {
           err.then(details => {
@@ -312,7 +308,7 @@
         visitorRole={visitorRole}>
         {#if visitorRole === role.GUEST}
           <div class="slots enrol">
-            <Button text={I18n.t("login.loginToEnrol")} action={login}/>
+            <Button text={I18n.t("login.loginToEnrol")} action={goToEduId}/>
             <span
               class="attention">
               {@html I18n.t(`login.loginToEnrolInfo${allowedInstitutionsAttention}`,

@@ -72,6 +72,7 @@ I18n.translations.en = {
     name: "Name",
     validatedName: "Validated name",
     primary: "Primary email address",
+    university: "Institution",
     emails: "Email addresses",
     email: "Email address",
     makePrimary: "Make primary",
@@ -101,6 +102,8 @@ I18n.translations.en = {
     accountInfo: "If you remove your account all your edubadges will become invalid.",
     deleteAccount: "Delete your backpack",
     deleteAccountConfirmation: "Are you sure you want to delete your backpack?",
+    withdrawPermission: "Withdraw your statements",
+    withdrawPermissionConfirmation: "Are you sure you want to withdraw your statement of agreement?",
   },
   modal: {
     cancel: "Cancel",

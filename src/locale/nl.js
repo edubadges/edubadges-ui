@@ -72,6 +72,7 @@ I18n.translations.nl = {
     name: "Naam",
     validatedName: "Bevestigde naam",
     primary: "Primair e-mailadres",
+    university: "Instelling",
     emails: "E-mailadressen",
     email: "E-mailadres",
     makePrimary: "Maak primair",
@@ -101,6 +102,8 @@ I18n.translations.nl = {
     accountInfo: "Als je je account verwijdert zullen al je edubadges ongeldig worden.",
     deleteAccount: "Verwijder mijn backpack",
     deleteAccountConfirmation: "Weet je zeker dat je je backpack wilt verwijderen?",
+    withdrawPermission: "Mijn akkoordverklaring intrekken",
+    withdrawPermissionConfirmation: "Weet je zeker dat je je akkoordverklaring wil intrekken?",
   },
   modal: {
     cancel: "Annuleer",
