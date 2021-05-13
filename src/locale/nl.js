@@ -614,7 +614,8 @@ I18n.translations.nl = {
         additionalSections: "Extra toevoegingen",
         educationalIdentifiers: "Opleidingscode",
         studyLoad: "Studielast",
-        alignment: "Gerelateerd onderwijskundig raamwerk"
+        alignment: "Gerelateerd onderwijskundig raamwerk",
+        allowedInstituions: "Toegestaande instellingen"
       },
       addButtons: {
         educationalIdentifiers: "Opleidingscode(s) toevoegen",
@@ -911,7 +912,8 @@ I18n.translations.nl = {
       name: "(Verplicht veld) Bijv. Universiteit van Harderwijk",
       brin: "(Verplicht veld) Basisregistratie Instellingen - BRIN",
       gradingTable: "URL van de grading table",
-      description: "(Verplicht veld) Bijv. De Universiteit van Harderwijk is gesticht in 1977."
+      description: "(Verplicht veld) Bijv. De Universiteit van Harderwijk is gesticht in 1977.",
+      allowedInstitutions: "Selecteer 1 of meer instellingen..."
     },
     faculty: {
       name: "(Verplicht veld) Bijv. Geschiedenis",
@@ -1014,7 +1016,8 @@ I18n.translations.nl = {
     //institutionDescriptionNl: "institutionDescriptionNl",
     //institutionBrin: "institutionBrin",
     institutionGradingTable: "Gebruik hier een URL die niet zal veranderen. (persistent URL).",
-    institutionAwardAllowedInstitutionse: "Select other institution from which<br/>students potentially may be awarded eduBadges",
+    institutionAwardAllowedInstitutions: "Selecteer andere instellingen waarvan de studenten<br/>ook mogelijk eduBadges van mogen krijgen",
+    badgeclassAwardAllowedInstitutions: "Selecteer andere instellingen waarvan de studenten<br/>deze badge kunnen verdienen",
     enrollmentEvidenceNarrative: "Een verhaal dat het bewijs en het proces van prestatie beschrijft dat tot een bewering heeft geleid.",
     enrollmentEvidenceURL: "De URL van een webpagina met bewijs van prestatie.",
     enrollmentEvidenceName: "Een beschrijvende titel van het bewijs.",

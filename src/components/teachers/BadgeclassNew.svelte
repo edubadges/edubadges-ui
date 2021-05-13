@@ -9,10 +9,19 @@
   export let issuerEntityId;
 
   const query = `query {
+    publicInstitutions {
+      id,
+      identifier,
+      nameEnglish,
+      nameDutch
+    },
     currentInstitution {
       grondslagFormeel,
       grondslagInformeel,
-      institutionType
+      institutionType,
+      identifier,
+      awardAllowedInstitutions,
+      awardAllowAllInstitutions
     },
     issuers {
       nameEnglish,
@@ -22,8 +31,10 @@
   }`;
 
   let issuers = [];
-  let badgeclass = deduceExpirationPeriod({extensions: [{}]});
+  let badgeclass = deduceExpirationPeriod({awardAllowedInstitutions:[], extensions: [{}]});
   let currentInstitution;
+  let publicInstitutions;
+
   let loaded = false;
 
   onMount(() => {
@@ -32,13 +43,14 @@
       issuers.forEach(issuer => translateProperties(issuer));
       badgeclass.issuer = issuers.find(issuer => issuer.entityId === issuerEntityId);
       currentInstitution = res.currentInstitution;
+      publicInstitutions = res.publicInstitutions;
       loaded = true;
     })
   });
 
 </script>
 {#if loaded}
-  <BadgeclassForm {issuers} {badgeclass} institution={currentInstitution} mayEdit={true}/>
+  <BadgeclassForm {issuers} {badgeclass} institution={currentInstitution} {publicInstitutions} mayEdit={true}/>
 {:else}
   <Spinner/>
 {/if}

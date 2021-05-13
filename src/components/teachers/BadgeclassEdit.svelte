@@ -35,6 +35,7 @@
       criteriaText,
       expirationPeriod,
       isPrivate,
+      awardAllowedInstitutions,
       alignments {
         targetName,
         targetUrl,

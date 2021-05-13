@@ -614,7 +614,8 @@ I18n.translations.en = {
         additionalSections: "Additional sections",
         educationalIdentifiers: "Educational identifiers",
         studyLoad: "Study load",
-        alignment: "Related educational framework "
+        alignment: "Related educational framework ",
+        allowedInstituions: "Allowed institutions"
       },
       addButtons: {
         educationalIdentifiers: "Add educational identifier(s)",
@@ -911,7 +912,8 @@ I18n.translations.en = {
       name: "(Required field) e.g. University of Harderwijk",
       brin: "(Required field) BRIN code",
       gradingTable: "URL of the grading table",
-      description: "(Required field) e.g. The University of Harderwijk was founded in 1977"
+      description: "(Required field) e.g. The University of Harderwijk was founded in 1977",
+      allowedInstitutions: "Select one or more institutions..."
     },
     faculty: {
       name: "(Required field) e.g. History",
@@ -1014,7 +1016,8 @@ I18n.translations.en = {
     //institutionDescriptionNl: "institutionDescriptionNl",
     //institutionBrin: "institutionBrin",
     institutionGradingTable: "Use a URL that will not change. (Persistent URL).",
-    institutionAwardAllowedInstitutionse: "Select other institutions from which<br/>students potentially may be awarded eduBadges",
+    institutionAwardAllowedInstitutions: "Select other institutions from which<br/>students potentially may be awarded eduBadges",
+    badgeclassAwardAllowedInstitutions: "Select other institutions from which<br/>students may be awarded this badges",
     enrollmentEvidenceNarrative: "A narrative that describes the evidence and process of achievement that led to an Assertion.",
     enrollmentEvidenceURL: "The URI of a webpage presenting evidence of achievement.",
     enrollmentEvidenceName: "A descriptive title of the evidence.",

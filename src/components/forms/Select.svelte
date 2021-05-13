@@ -32,6 +32,11 @@
     padding: 0 0 0 16px !important;
   }
 
+  div :global(.selectContainer.multiSelect input) {
+    padding: 0 0 0 16px !important;
+    font-size: 16px;
+  }
+
   div :global(.selectContainer.focused) {
     outline: var(--outline-fallback);
     box-shadow: var(--field-outline-shadow);
@@ -63,6 +68,10 @@
 
   div :global(.selectContainer .listContainer .listItem .item.active) {
     background-color: var(--purple);
+  }
+
+  div :global(.selectContainer .multiSelectItem) {
+    margin: 5px 8px;
   }
 
   div :global(.selectContainer .multiSelectItem:hover) {

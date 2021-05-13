@@ -156,7 +156,7 @@
       </div>
     </MultiLanguageField>
     <Field {entity} attribute="award_allowed_institutions" errors={errors.award_allowed_institutions}
-           tipKey="institutionAwardAllowedInstitutionse">
+           tipKey="institutionAwardAllowedInstitutions">
       <Select
         bind:value={publicInstitutionsChosen}
         items={publicInstitutions}
@@ -165,7 +165,7 @@
         showIndicator={false}
         showChevron={true}
         clearable={true}
-        placeholder="     Select.."
+        placeholder={I18n.t("placeholders.institution.allowedInstitutions")}
         optionIdentifier="id"
       />
     </Field>

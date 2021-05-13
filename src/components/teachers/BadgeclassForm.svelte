@@ -50,30 +50,28 @@
   let showAddAlignmentButton = true;
 
   onMount(() => {
-    let reformattedAlignments = []
     if (!badgeclass.alignments) {
       badgeclass.alignments = []
     }
-    publicInstitutions = publicInstitutions.filter(ins => ins.identifier !== institution.identifier);
-    publicInstitutions.forEach(ins => translateProperties(ins));
-    if (institution.awardAllowAllInstitutions) {
-      publicInstitutionsChosen = [...publicInstitutions];
+    const allowForInstitutions = institution.awardAllowAllInstitutions || institution.awardAllowedInstitutions.length > 0;
+    if (allowForInstitutions) {
+      publicInstitutions = institution.awardAllowAllInstitutions ?
+        publicInstitutions.filter(ins => ins.identifier !== institution.identifier) :
+        publicInstitutions.filter(ins => institution.awardAllowedInstitutions.includes(ins.identifier));
     } else {
-      publicInstitutionsChosen = institution.awardAllowedInstitutions.length > 0 ?
-        publicInstitutions.filter(ins => institution.awardAllowedInstitutions.includes(ins.identifier)) : null;
+      publicInstitutions = [];
     }
+    publicInstitutions.forEach(ins => translateProperties(ins));
+    publicInstitutionsChosen = publicInstitutions.length === 0 ? null :
+      publicInstitutions.filter(ins => badgeclass.awardAllowedInstitutions.includes(ins.identifier))
 
-    for (let alignment of badgeclass.alignments) {
-      let reformat = {
+    badgeclass.alignments = badgeclass.alignments.map(alignment => ({
         target_name: alignment.targetName,
         target_url: alignment.targetUrl,
         target_description: alignment.targetDescription,
         target_framework: alignment.targetFramework,
         target_code: alignment.targetCode
-      }
-      reformattedAlignments.push(reformat)
-    }
-    badgeclass.alignments = reformattedAlignments;
+    }))
     isInstitutionMBO = institution.institutionType === "MBO";
   });
 
@@ -230,6 +228,8 @@
     if (badgeclass.issuer) {
       newBadgeclass.issuer = badgeclass.issuer.entityId;
     }
+    newBadgeclass.award_allowed_institutions = (!newBadgeclass.formal && publicInstitutionsChosen) ? publicInstitutionsChosen.map(ins => ins.id) : [];
+
     const args = isCreate ? [newBadgeclass] : [entityId, newBadgeclass];
     const apiCall = isCreate ? createBadgeclass : editBadgeclass;
     apiCall(...args)
@@ -423,20 +423,25 @@
     </Field>
   </div>
 
-  <Field {entity} attribute="award_allowed_institutions" errors={errors.award_allowed_institutions}
-         tipKey="institutionAwardAllowedInstitutionse">
-    <Select
-      bind:value={publicInstitutionsChosen}
-      items={publicInstitutions}
-      isMulti={true}
-      customIndicator={indicator}
-      showIndicator={false}
-      showChevron={true}
-      clearable={true}
-      placeholder="     Select.."
-      optionIdentifier="id"
-    />
-  </Field>
+  {#if publicInstitutions.length > 0 && !showStudyLoad}
+
+    <h4>{I18n.t('models.badgeclass.headers.allowedInstituions')}</h4>
+
+    <Field {entity} attribute="award_allowed_institutions" errors={errors.award_allowed_institutions}
+           tipKey="badgeclassAwardAllowedInstitutions">
+      <Select
+        bind:value={publicInstitutionsChosen}
+        items={publicInstitutions}
+        isMulti={true}
+        customIndicator={indicator}
+        showIndicator={false}
+        showChevron={true}
+        clearable={true}
+        placeholder={I18n.t("placeholders.institution.allowedInstitutions")}
+        optionIdentifier="id"
+      />
+    </Field>
+  {/if}
 
   {#if showStudyLoad}
     <div style="display: flex">
