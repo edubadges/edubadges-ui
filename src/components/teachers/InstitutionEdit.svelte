@@ -2,19 +2,29 @@
   import {onMount} from "svelte";
   import {navigate} from "svelte-routing";
   import {EntityForm} from "../teachers";
+  import indicator from "../../icons/chevron-down-large.svg";
   import {Field, File, TextInput} from "../forms";
   import {queryData} from "../../api/graphql";
   import {editInstitution} from "../../api";
   import {entityType} from "../../util/entityTypes";
   import Spinner from "../Spinner.svelte";
   import I18n from "i18n-js";
-  import { toHttpOrHttps } from "../../util/Url";
+  import {toHttpOrHttps} from "../../util/Url";
   import MultiLanguageField from "../forms/MultiLanguageField.svelte";
+  import Select from "../forms/Select.svelte";
+  import {translateProperties} from "../../util/utils";
 
   const entity = entityType.INSTITUTION;
   const query = `query {
+    publicInstitutions {
+      id,
+      identifier,
+      nameEnglish,
+      nameDutch
+    },
     currentInstitution {
       entityId,
+      identifier,
       defaultLanguage,
       nameEnglish,
       nameDutch,
@@ -23,11 +33,15 @@
       imageEnglish,
       imageDutch,
       brin,
-      gradingTable
+      gradingTable,
+      awardAllowedInstitutions,
+      awardAllowAllInstitutions
     },
   }`;
 
   let institution = {};
+  let publicInstitutions = [];
+  let publicInstitutionsChosen = null;
   let errors = {};
   let loaded = false;
   let processing = false;
@@ -35,9 +49,16 @@
   let dutchValueError = false
 
   onMount(() => {
-    queryData(query).then(({currentInstitution}) => {
-      const {gradingTable, ...rest} = currentInstitution;
-      institution = {grading_table: gradingTable, ...rest};
+    queryData(query).then(res => {
+      institution = res.currentInstitution;
+      publicInstitutions = res.publicInstitutions.filter(ins => ins.identifier !== institution.identifier);
+      publicInstitutions.forEach(ins => translateProperties(ins));
+      if (institution.awardAllowAllInstitutions) {
+        publicInstitutionsChosen = [...publicInstitutions];
+      } else {
+        publicInstitutionsChosen =  institution.awardAllowedInstitutions.length > 0 ?
+            publicInstitutions.filter(ins => institution.awardAllowedInstitutions.includes(ins.identifier)) : null;
+      }
       loaded = true;
     });
   });
@@ -45,14 +66,14 @@
   function handleSubmit() {
     errors = {};
     processing = true;
-    institution.grading_table = toHttpOrHttps(institution.grading_table);
+    institution.grading_table = toHttpOrHttps(institution.gradingTable);
     institution.description_english = institution.descriptionEnglish;
     institution.description_dutch = institution.descriptionDutch;
     institution.name_english = institution.nameEnglish;
     institution.name_dutch = institution.nameDutch;
     institution.image_english = institution.imageEnglish;
     institution.image_dutch = institution.imageDutch;
-
+    institution.award_allowed_institutions = publicInstitutionsChosen ? publicInstitutionsChosen.map(ins => ins.id) : [];
     if (!institution.image) {
       delete institution.image;
     }
@@ -86,15 +107,17 @@
           <File bind:value={institution.imageEnglish} error={errors.image_english} removeAllowed={false}/>
         </Field>
         <Field {entity} attribute="name_english" errors={errors.name_english} tipKey="institutionNameEn">
-          <TextInput bind:value={institution.nameEnglish} error={errors.name_english}  placeholder={I18n.t("placeholders.institution.name")}/>
+          <TextInput bind:value={institution.nameEnglish} error={errors.name_english}
+                     placeholder={I18n.t("placeholders.institution.name")}/>
         </Field>
-        <Field {entity} attribute="description_english" errors={errors.description_english} tipKey="institutionDescriptionEn">
+        <Field {entity} attribute="description_english" errors={errors.description_english}
+               tipKey="institutionDescriptionEn">
           <TextInput
-              bind:value={institution.descriptionEnglish}
-              error={errors.description_english}
-              placeholder={I18n.t("placeholders.institution.description")}
-              size="100"
-              area/>
+            bind:value={institution.descriptionEnglish}
+            error={errors.description_english}
+            placeholder={I18n.t("placeholders.institution.description")}
+            size="100"
+            area/>
         </Field>
       </div>
       <div slot='nl'>
@@ -102,34 +125,50 @@
           <File bind:value={institution.imageDutch} error={errors.image_dutch} removeAllowed={false}/>
         </Field>
         <Field {entity} attribute="name_dutch" errors={errors.name_dutch} tipKey="institutionNameNl">
-          <TextInput bind:value={institution.nameDutch} error={errors.name}  placeholder={I18n.t("placeholders.institution.name")}/>
+          <TextInput bind:value={institution.nameDutch} error={errors.name}
+                     placeholder={I18n.t("placeholders.institution.name")}/>
         </Field>
-        <Field {entity} attribute="description_dutch" errors={errors.description_dutch} tipKey="institutionDescriptionNl">
+        <Field {entity} attribute="description_dutch" errors={errors.description_dutch}
+               tipKey="institutionDescriptionNl">
           <TextInput
-              bind:value={institution.descriptionDutch}
-              error={errors.description_dutch}
-              placeholder={I18n.t("placeholders.institution.description")}
-              size="100"
-              area/>
+            bind:value={institution.descriptionDutch}
+            error={errors.description_dutch}
+            placeholder={I18n.t("placeholders.institution.description")}
+            size="100"
+            area/>
         </Field>
       </div>
       <div slot='after'>
         <Field {entity} attribute="brin" errors={errors.brin} tipKey="institutionBrin">
           <TextInput
-              bind:value={institution.brin}
-              error={errors.brin}
-              placeholder={I18n.t("placeholders.institution.brin")}
-              disabled={true}/>
+            bind:value={institution.brin}
+            error={errors.brin}
+            placeholder={I18n.t("placeholders.institution.brin")}
+            disabled={true}/>
         </Field>
-      
-        <Field {entity} attribute="grading_table" errors={errors.grading_table}  tipKey="institutionGradingTable">
+
+        <Field {entity} attribute="grading_table" errors={errors.grading_table} tipKey="institutionGradingTable">
           <TextInput
-              bind:value={institution.grading_table}
-              placeholder={I18n.t("placeholders.institution.gradingTable")}
-              error={errors.grading_table}/>
+            bind:value={institution.gradingTable}
+            placeholder={I18n.t("placeholders.institution.gradingTable")}
+            error={errors.grading_table}/>
         </Field>
       </div>
     </MultiLanguageField>
+    <Field {entity} attribute="award_allowed_institutions" errors={errors.award_allowed_institutions}
+           tipKey="institutionAwardAllowedInstitutionse">
+      <Select
+        bind:value={publicInstitutionsChosen}
+        items={publicInstitutions}
+        isMulti={true}
+        customIndicator={indicator}
+        showIndicator={false}
+        showChevron={true}
+        clearable={true}
+        placeholder="     Select.."
+        optionIdentifier="id"
+      />
+    </Field>
 
   </EntityForm>
 

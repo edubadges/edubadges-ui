@@ -528,6 +528,7 @@ I18n.translations.nl = {
       image_dutch: "Logo in het Nederlands",
       name_english: "Naam in het Engels",
       name_dutch: "Naam in het Nederlands",
+      award_allowed_institutions: "Toegestaande eduBadge instellingen",
     },
     faculty: {
       created: "Aangemaakt",
@@ -630,7 +631,8 @@ I18n.translations.nl = {
           "Alleen hele en halve punten. <br/>Een minimum van 0,5 punt is vereist.",
       },
       publicUrl: "Publieke URL",
-      sorting: "Sorteer:"
+      sorting: "Sorteer:",
+      award_allowed_institutions: "Toegestaande eduBadge instellingen",
     },
     badge: {
       emailAddress: "E-mailadres",
@@ -1012,6 +1014,7 @@ I18n.translations.nl = {
     //institutionDescriptionNl: "institutionDescriptionNl",
     //institutionBrin: "institutionBrin",
     institutionGradingTable: "Gebruik hier een URL die niet zal veranderen. (persistent URL).",
+    institutionAwardAllowedInstitutionse: "Select other institution from which<br/>students potentially may be awarded eduBadges",
     enrollmentEvidenceNarrative: "Een verhaal dat het bewijs en het proces van prestatie beschrijft dat tot een bewering heeft geleid.",
     enrollmentEvidenceURL: "De URL van een webpagina met bewijs van prestatie.",
     enrollmentEvidenceName: "Een beschrijvende titel van het bewijs.",

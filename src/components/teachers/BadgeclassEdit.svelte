@@ -12,9 +12,18 @@
   export let entityId;
 
   const query = `query ($entityId: String){
+    publicInstitutions {
+      id,
+      identifier,
+      nameEnglish,
+      nameDutch
+    },
     currentInstitution {
       grondslagFormeel,
       grondslagInformeel,
+      identifier,
+      awardAllowedInstitutions,
+      awardAllowAllInstitutions
     },
     badgeClass(id: $entityId) {
       entityId,
@@ -69,6 +78,7 @@
   let issuers = [];
   let permissions = {};
   let currentInstitution;
+  let publicInstitutions;
   let loaded = false;
   let mayDelete = false;
   let mayEdit = false;
@@ -86,6 +96,7 @@
       issuers = res.issuers;
       issuers.forEach(iss => translateProperties(iss));
 
+      publicInstitutions = res.publicInstitutions;
       permissions = res.badgeClass.permissions;
       currentInstitution = res.currentInstitution;
       loaded = true;
@@ -97,6 +108,7 @@
 </script>
 {#if loaded}
   <BadgeclassForm {issuers} {badgeclass} {entityId} institution={currentInstitution}
+                  {publicInstitutions}
                   mayDelete={mayDelete} mayEdit={mayEdit} hasUnrevokedAssertions={hasUnrevokedAssertions}/>
 {:else}
   <Spinner/>

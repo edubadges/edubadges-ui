@@ -9,7 +9,12 @@
   export let disabled = false;
   export let nonEditable = false;
   export let clearable = true;
+  export let isMulti = false;
   export let error;
+  export let showChevron = true;
+  export let showIndicator = true;
+  export let placeholder = "";
+  export let customIndicator = null;
 
   export let optionIdentifier = "entityId";
 
@@ -19,6 +24,11 @@
 
 <style lang="scss">
   div :global(.selectContainer) {
+    padding: 0 0 0 0 !important;
+  }
+
+
+  div :global(.selectContainer .selectedItem) {
     padding: 0 0 0 16px !important;
   }
 
@@ -32,6 +42,7 @@
     margin-left: auto;
     height: 100%;
     width: 36px;
+    max-width: 36px;
     right: 0;
     top: 0;
     background-color: var(--purple);
@@ -46,7 +57,15 @@
     margin-left: 2px;
   }
 
+  div :global(.selectContainer .indicator svg.chevron-down-large) {
+    height: 32px;
+  }
+
   div :global(.selectContainer .listContainer .listItem .item.active) {
+    background-color: var(--purple);
+  }
+
+  div :global(.selectContainer .multiSelectItem:hover) {
     background-color: var(--purple);
   }
 
@@ -78,17 +97,18 @@
 {:else}
   <div class="select-field" {error} {disabled}>
     <Select
-        on:select={() => handleSelect(value)}
-        {items}
-        bind:selectedValue={value}
-        {optionIdentifier}
-        getOptionLabel={({ name }) => name}
-        getSelectionLabel={({ name }) => name}
-        placeholder={''}
-        showChevron={true}
-        showIndicator={true}
-        isDisabled={disabled}
-        indicatorSvg={indicator}
-        isClearable={clearable} />
+      on:select={() => handleSelect(value)}
+      {items}
+      bind:selectedValue={value}
+      {optionIdentifier}
+      getOptionLabel={({ name }) => name}
+      getSelectionLabel={({ name }) => name}
+      placeholder={placeholder}
+      showChevron={showChevron}
+      showIndicator={showIndicator}
+      isMulti={isMulti}
+      isDisabled={disabled}
+      indicatorSvg={customIndicator || indicator}
+      isClearable={clearable}/>
   </div>
 {/if}

@@ -528,6 +528,7 @@ I18n.translations.en = {
       image_dutch: "Institution logo Dutch",
       name_english: "Institution name in English",
       name_dutch: "Institution name in Dutch",
+      award_allowed_institutions: "Award allowed institutions",
     },
     faculty: {
       created: "Created",
@@ -630,7 +631,8 @@ I18n.translations.en = {
           "Whole and half points only. <br/>A minimum of 0.5 points is required.",
       },
       publicUrl: "Public URL",
-      sorting: "Sorting:"
+      sorting: "Sorting:",
+      award_allowed_institutions: "Award allowed institutions",
     },
     badge: {
       emailAddress: "Email address",
@@ -1012,6 +1014,7 @@ I18n.translations.en = {
     //institutionDescriptionNl: "institutionDescriptionNl",
     //institutionBrin: "institutionBrin",
     institutionGradingTable: "Use a URL that will not change. (Persistent URL).",
+    institutionAwardAllowedInstitutionse: "Select other institutions from which<br/>students potentially may be awarded eduBadges",
     enrollmentEvidenceNarrative: "A narrative that describes the evidence and process of achievement that led to an Assertion.",
     enrollmentEvidenceURL: "The URI of a webpage presenting evidence of achievement.",
     enrollmentEvidenceName: "A descriptive title of the evidence.",

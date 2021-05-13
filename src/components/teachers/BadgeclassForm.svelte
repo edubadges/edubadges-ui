@@ -6,6 +6,7 @@
   import {AddButton, Field, File, Select, TextInput} from "../forms";
   import {createBadgeclass, editBadgeclass} from "../../api";
   import ExpirationSettings from "./ExpirationSettings.svelte";
+  import indicator from "../../icons/chevron-down-large.svg";
   import {isEmpty} from "lodash";
   import {
     ects,
@@ -23,6 +24,7 @@
   import {entityType} from "../../util/entityTypes";
   import {toHttpOrHttps} from "../../util/Url";
   import {CheckBox} from "../index";
+  import {translateProperties} from "../../util/utils";
 
   export let entityId;
   export let badgeclass = {extensions: [], issuer: {}, alignments: []};
@@ -31,6 +33,7 @@
   export let mayEdit;
   export let hasUnrevokedAssertions;
   export let institution = {};
+  export let publicInstitutions = [];
 
   const isCreate = !entityId;
   const entity = entityType.BADGE_CLASS;
@@ -38,6 +41,7 @@
   let expireValueSet = false;
   let loaded = false;
   let processing = false;
+  let publicInstitutionsChosen = null;
 
   let showStudyLoad = false;
   let isInstitutionMBO = false;
@@ -50,6 +54,15 @@
     if (!badgeclass.alignments) {
       badgeclass.alignments = []
     }
+    publicInstitutions = publicInstitutions.filter(ins => ins.identifier !== institution.identifier);
+    publicInstitutions.forEach(ins => translateProperties(ins));
+    if (institution.awardAllowAllInstitutions) {
+      publicInstitutionsChosen = [...publicInstitutions];
+    } else {
+      publicInstitutionsChosen = institution.awardAllowedInstitutions.length > 0 ?
+        publicInstitutions.filter(ins => institution.awardAllowedInstitutions.includes(ins.identifier)) : null;
+    }
+
     for (let alignment of badgeclass.alignments) {
       let reformat = {
         target_name: alignment.targetName,
@@ -409,6 +422,21 @@
         error={errors.criteria_url}/>
     </Field>
   </div>
+
+  <Field {entity} attribute="award_allowed_institutions" errors={errors.award_allowed_institutions}
+         tipKey="institutionAwardAllowedInstitutionse">
+    <Select
+      bind:value={publicInstitutionsChosen}
+      items={publicInstitutions}
+      isMulti={true}
+      customIndicator={indicator}
+      showIndicator={false}
+      showChevron={true}
+      clearable={true}
+      placeholder="     Select.."
+      optionIdentifier="id"
+    />
+  </Field>
 
   {#if showStudyLoad}
     <div style="display: flex">
