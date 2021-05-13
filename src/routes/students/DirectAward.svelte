@@ -59,6 +59,7 @@
         name,
         description,
         entityId,
+        awardAllowedInstitutions,
         image,
         formal,
         terms {
@@ -85,8 +86,6 @@
             institution {
               nameDutch,
               nameEnglish,
-              awardAllowedInstitutions,
-              awardAllowAllInstitutions,
               identifier,
               imageDutch,
               imageEnglish,
@@ -142,8 +141,8 @@
   const claimDirectAward = showConfirmation => {
     const schacHomes = currentUser.schacHomes;
     const institution = directAward.badgeclass.issuer.faculty.institution
-    const identifiers = [institution.identifier].concat(institution.awardAllowedInstitutions);
-    const allowedInstitution = identifiers.some(identifier => schacHomes.includes(identifier)) || institution.awardAllowAllInstitutions;
+    const identifiers = [institution.identifier].concat(directAward.badgeclass.awardAllowedInstitutions);
+    const allowedInstitution = identifiers.some(identifier => schacHomes.includes(identifier));
 
     if (!allowedInstitution) {
       noValidInstitution = true;

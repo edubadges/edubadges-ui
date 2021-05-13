@@ -83,6 +83,7 @@
     badgeClass(id: $entityId) {
       image,
       contentTypeId,
+      awardAllowedInstitutions,
       name,
       description,
       criteriaUrl,
@@ -110,8 +111,6 @@
           entityId,
           institution {
             identifier,
-            awardAllowedInstitutions,
-            awardAllowAllInstitutions,
             nameDutch,
             nameEnglish,
             imageDutch,
@@ -169,9 +168,9 @@
         translateProperties(badgeClass.issuer.faculty.institution);
 
         const institution = badgeClass.issuer.faculty.institution;
-        const allowedNames = [institution.name].concat(institution.award_allowed_institutions);
+        const allowedNames = [institution.name].concat(badgeClass.award_allowed_institutions);
         allowedInstitutions = allowedNames.join(", ");
-        allowedInstitutionsAttention = institution.award_allow_all_institutions ? "All" : allowedNames.length === 1 ? "One" : "";
+        allowedInstitutionsAttention = allowedNames.length === 1 ? "One" : "";
 
         publicBadgeInformation(badgeClass, res);
         //need to ensure the links work
@@ -199,8 +198,8 @@
 
   const enrollStudent = showConfirmation => {
     const institution = badgeClass.issuer.faculty.institution;
-    const identifiers = [institution.identifier].concat(institution.awardAllowedInstitutions);
-    const allowedInstitution = identifiers.some(identifier => schacHomes.includes(identifier)) || institution.awardAllowAllInstitutions;
+    const identifiers = [institution.identifier].concat(badgeClass.awardAllowedInstitutions);
+    const allowedInstitution = identifiers.some(identifier => schacHomes.includes(identifier));
 
     if (noValidatedName) {
       showNoValidatedName = true;
