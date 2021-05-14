@@ -17,7 +17,8 @@
 
   let profile;
   let loaded = false;
-  let instititions = [];
+  let institutions = [];
+  let homeInstitutions = [];
 
   //Modal
   let showModal = false;
@@ -45,7 +46,13 @@
         agreed,
         agreedVersion
       }
-    }
+    },
+    publicInstitutions {
+      identifier,
+      nameEnglish,
+      nameDutch
+    },
+
   }`;
 
   onMount(() => {
@@ -66,13 +73,20 @@
         if (currentUser.validatedName) {
           profile.validatedName = currentUser.validatedName;
         }
+        res[2].publicInstitutions.forEach(institution => {
+          translateProperties(institution);  
+        });
+        homeInstitutions = res[2].publicInstitutions
+          .filter(institution => currentUser.schacHomes.includes(institution.identifier))
+          .map(institution => institution.name);
+
         const termAgreements = currentUser.termsAgreements;
         termAgreements.forEach(termAgreement => {
           if (termAgreement.terms.institution) {
             translateProperties(termAgreement.terms.institution);
           }
         });
-        instititions = termAgreements.reduce((acc, cur) => {
+        institutions = termAgreements.reduce((acc, cur) => {
           if (cur.agreed && cur.terms.institution) {
             const terms = cur.terms;
             const institution = terms.institution;
@@ -199,10 +213,10 @@
         <h3>{I18n.t("profile.email")}</h3>
         <Verified value={profile.email} fromEduID={isStudent} showVerified={false}/>
       </div>
-      {#if isStudent && currentUser.schacHomes && currentUser.schacHomes.length > 0}
+      {#if isStudent && homeInstitutions.length > 0}
         <div class="profile-section">
           <h3>{I18n.t("profile.university")}</h3>
-          <Verified value={currentUser.schacHomes.join(", ")} fromEduID={false} showVerified={false}/>
+          <Verified value={homeInstitutions.join(", ")} fromEduID={false} showVerified={false}/>
         </div>
       {/if}
       {#if profile.eduid}
@@ -224,10 +238,10 @@
       <h1 class="with-border">{I18n.t("profile.permissionsHeader")}</h1>
       <p class="account-info">{I18n.t("profile.permissionsInfo")}</p>
       <div>
-        {#if instititions.length === 0}
+        {#if institutions.length === 0}
           <p>{I18n.t("profile.noPermissions")}</p>
         {/if}
-        {#each instititions as institution}
+        {#each institutions as institution}
           <div>
             <h2>{institution.name}</h2>
             {#if institution.agreedTerms.length === 0}
