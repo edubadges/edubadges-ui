@@ -168,7 +168,11 @@
         translateProperties(badgeClass.issuer.faculty.institution);
 
         const institution = badgeClass.issuer.faculty.institution;
-        const allowedNames = [institution.name].concat(badgeClass.award_allowed_institutions);
+        let allowedNames = [institution.name]
+        if (!badgeClass.formal) {
+          allowedNames = allowedNames.concat(badgeClass.award_allowed_institutions);
+        }
+
         allowedInstitutions = allowedNames.join(", ");
         allowedInstitutionsAttention = allowedNames.length === 1 ? "One" : "";
 
@@ -198,7 +202,11 @@
 
   const enrollStudent = showConfirmation => {
     const institution = badgeClass.issuer.faculty.institution;
-    const identifiers = [institution.identifier].concat(badgeClass.awardAllowedInstitutions);
+    let identifiers = [institution.identifier]
+    if (!badgeClass.formal) {
+      identifiers = identifiers.concat(badgeClass.awardAllowedInstitutions);
+    }
+
     const allowedInstitution = identifiers.some(identifier => schacHomes.includes(identifier));
 
     if (noValidatedName) {

@@ -103,7 +103,7 @@ I18n.translations.nl = {
     deleteAccount: "Verwijder mijn backpack",
     deleteAccountConfirmation: "Weet je zeker dat je je backpack wilt verwijderen?",
     withdrawPermission: "Mijn akkoordverklaring intrekken",
-    withdrawPermissionConfirmation: "Weet je zeker dat je je akkoordverklaring wil intrekken?",
+    withdrawPermissionConfirmation: "Weet je zeker dat je je akkoordverklaring wil intrekken voor {{name}}?",
   },
   modal: {
     cancel: "Annuleer",

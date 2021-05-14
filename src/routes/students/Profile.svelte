@@ -105,7 +105,7 @@
     if (showConfirmation) {
       showModal = true;
       modalTitle = I18n.t("profile.withdrawPermission");
-      modalQuestion = I18n.t("profile.withdrawPermissionConfirmation");
+      modalQuestion = I18n.t("profile.withdrawPermissionConfirmation", {name: name});
       modalAction = () => withdrawPermission(false, entityId, name);
     } else {
       showModal = false;
@@ -199,7 +199,7 @@
         <h3>{I18n.t("profile.email")}</h3>
         <Verified value={profile.email} fromEduID={isStudent} showVerified={false}/>
       </div>
-      {#if currentUser.schacHomes && currentUser.schacHomes.length > 0}
+      {#if isStudent && currentUser.schacHomes && currentUser.schacHomes.length > 0}
         <div class="profile-section">
           <h3>{I18n.t("profile.university")}</h3>
           <Verified value={currentUser.schacHomes.join(", ")} fromEduID={false} showVerified={false}/>
@@ -240,12 +240,10 @@
                   <p>{agreedTerm.type === "FORMAL_BADGE" ? I18n.t(['acceptTerms', 'student', 'agreedOn']) : I18n.t(['acceptTerms', 'student', 'readOn'])}{moment(agreedTerm.date).format('MMM D, YYYY')}</p>
                   <p>{I18n.t(['acceptTerms', 'student', 'version'])}{agreedTerm.version}</p>
                 </div>
-                {#if agreedTerm.type === "FORMAL_BADGE"}
                   <div>
                     <Button action={() => withdrawPermission(true, agreedTerm.entityId, institution.name)}
                             text={I18n.t(['acceptTerms', 'student', 'withdrawConsent'])} disabled={false}/>
                   </div>
-                {/if}
               </div>
             {/each}
           </div>

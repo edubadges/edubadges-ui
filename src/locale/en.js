@@ -103,7 +103,7 @@ I18n.translations.en = {
     deleteAccount: "Delete your backpack",
     deleteAccountConfirmation: "Are you sure you want to delete your backpack?",
     withdrawPermission: "Withdraw your statements",
-    withdrawPermissionConfirmation: "Are you sure you want to withdraw your statement of agreement?",
+    withdrawPermissionConfirmation: "Are you sure you want to withdraw your statement of agreement for {{name}}?",
   },
   modal: {
     cancel: "Cancel",
