@@ -647,6 +647,7 @@ I18n.translations.nl = {
         REQUESTED: "Aangevraagd",
         DIRECT_AWARD: "Direct toegekend"
       },
+      claimDirectAward: "Bekijk de details om de badge te claimen",
       associatedInstitution: "Van instelling",
       issuedOn: "Uitgegeven op",
       issuedBy: "Uitgegeven door",

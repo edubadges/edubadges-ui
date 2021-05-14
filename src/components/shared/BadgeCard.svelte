@@ -118,6 +118,30 @@
     display: flex;
     justify-content: space-around;
     flex-direction: column;
+    position: relative;
+
+    &.direct-award img {
+      opacity: 0.5;
+    }
+
+    span.direct-award-action {
+      position: absolute;
+      left: 0;
+      right: 0;
+      margin: auto;
+      color: white;
+      cursor: pointer;
+      background: var(--purple);
+      padding: 15px;
+      max-width: 90%;
+      border-radius: var(--card-border-radius);
+      line-height: 26px;
+
+      &:hover {
+        background-color: var(--purple-8);
+        color: var(--purple-1);
+      }
+    }
   }
 
   .issuer-icon {
@@ -176,8 +200,13 @@
         <span>{moment(badge.issuedOn).format('MMM D, YYYY')}</span>
         <BadgeShield badge={badge}/>
       {/if}
-      <div class="image-center-v">
+      <div class="image-center-v" class:direct-award={badge && badge.isDirectAward}>
         <img src={badgeClass.image} alt=""/>
+        {#if badge && badge.isDirectAward}
+          <span class="direct-award-action">
+            {I18n.t("models.badge.claimDirectAward")}
+          </span>
+        {/if}
       </div>
     </div>
     <div class="content">

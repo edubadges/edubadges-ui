@@ -647,6 +647,7 @@ I18n.translations.en = {
         REQUESTED: "Requested",
         DIRECT_AWARD: "Direct award"
       },
+      claimDirectAward: "View details to claim badge",
       associatedInstitution: "Associated institution",
       issuedOn: "Issued",
       issuedBy: "Issued by",

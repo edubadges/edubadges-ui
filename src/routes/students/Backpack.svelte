@@ -27,26 +27,21 @@
     requestLoginToken(getService(role.STUDENT), true);
   };
 
+  const secureQuery = `query {
+    currentUser {
+      validatedName,
+    },
+  }`;
 
   onMount(() => {
-    const path = window.location.pathname;
-    const secureQuery = `query {
-      currentUser {
-        validatedName,
-      },
-    }`;
-    const promises = [queryData(studentBadgeInstances)];
-    const directAwardRequested = path.indexOf("direct-awards") > -1;
-    if (directAwardRequested) {
-      promises.push(queryData(secureQuery));
-    }
+    const promises = [queryData(studentBadgeInstances), queryData(secureQuery)];
 
     Promise.all(promises).then(all => {
-      if (directAwardRequested && !all[1].currentUser.validatedName) {
+      const res = all[0];
+      const directAwards = res.directAwards || [];
+      if (directAwards.length > 0 && !all[1].currentUser.validatedName) {
         showStepupDialog = true;
       }
-      const res = all[0];
-      const directAwards = res.directAwards;
       directAwards.forEach(da => da.isDirectAward = true);
 
       const badgeInstances = directAwards.concat(sortCreatedAt(res.badgeInstances));
