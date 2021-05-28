@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [4.0.0] - 2021-05-31
+- Updated several dependencies.
+- Do not fail on no terms.
+- Call for action for badges unclaimed.
+- Show institution names on profile student.
+- Non-formal badges can be awarded cross-institution.
+- Badgeclass drives allowed institution.
+- Added allowed institutions to badge class.
+- Allow awarding and approval of badges of other institutions.
+- Added eppn to assertions overview.
+- Bugfix for no edit allowed.
+- Bugfix for wrong permissioin commit.
+- Added the Direct Award option to issue edubadges directly to students.
+- Added an option to bulk upload direct awarded edubadges.
+- Show institution names on profile student.
+
 ## [3.1.0] - 2021-05-03
 - Updated ssri.
 - Added public catalog for an overview of all badge classes in edubadges.\
