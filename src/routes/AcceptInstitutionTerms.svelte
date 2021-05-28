@@ -131,8 +131,8 @@
   <p class="content">
     {#if loaded}
       <div class="header">
-        <h3>{badgeClass.informal ? I18n.t("acceptTerms.badgeClassEnrollmentTerms.inFormalBadges") :
-            I18n.t("acceptTerms.badgeClassEnrollmentTerms.formalBadges")}</h3>
+        <h3>{badgeClass.formal ? I18n.t("acceptTerms.badgeClassEnrollmentTerms.formalBadges") :
+            I18n.t("acceptTerms.badgeClassEnrollmentTerms.inFormalBadges")}</h3>
         <img width="100px" src={badgeClass.issuer.faculty.institution.image} alt="Logo">
       </div>
       <div class="markdown-body">
