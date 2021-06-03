@@ -23,9 +23,9 @@ I18n.translations.en = {
   login: {
     title: "Never stop learning",
     loginToEnrol: "Login to request this edubadge",
-    loginToEnrolInfo: "<strong>Attention!</strong> You can only request this badge if you are registered at one of these institutions: <strong>{{name}}</strong>.",
-    loginToEnrolInfoOne: "<strong>Attention!</strong> You can only request this badge if you are registered at <strong>{{name}}</strong>.",
-    loginToEnrolInfoAll: "<strong>Attention!</strong> You can only request this badge if your institution is registered with eduBadges.",
+    loginToEnrolInfo: "<strong>Attention!</strong> You can only request this edubadge if you are registered at one of these institutions: <strong>{{name}}</strong>.",
+    loginToEnrolInfoOne: "<strong>Attention!</strong> You can only request this edubadge if you are registered at <strong>{{name}}</strong>.",
+    loginToEnrolInfoAll: "<strong>Attention!</strong> You can only request this edubadge if your institution is registered with edubadges.",
     destination: "What would you like to do?",
     description:
       "Edubadges are digital certificates which show that the owner has acquired certain skills or knowledge. Edubadges can be issued for both accredited education and extracurriculair activities.",
@@ -647,7 +647,7 @@ I18n.translations.en = {
         REQUESTED: "Requested",
         DIRECT_AWARD: "Direct award"
       },
-      claimDirectAward: "View details to claim badge",
+      claimDirectAward: "View details to claim this edubadge",
       associatedInstitution: "Associated institution",
       issuedOn: "Issued",
       issuedBy: "Issued by",
@@ -716,14 +716,14 @@ I18n.translations.en = {
       email: "Email address",
       eppn: "Student number (EPPN)",
       reject: "Reject",
-      claim: "Claim & Add to badges",
+      claim: "Claim & Add to your backpack",
       confirmation: {
-        claim: "After this badge is claimed, it will be added to your badgepack and you can make the badge public and share it.",
-        reject: "Are you absolutely sure you want to reject this badge? This badge will be deleted after rejection and this action cannot be undone."
+        claim: "After this edubadge is claimed, it will be added to your backpack and you can make the edubadge public and share it.",
+        reject: "Are you absolutely sure you want to reject this edubadge? This edubadge will be deleted after rejection and this action cannot be undone."
       },
       flash: {
-        claim: "Successfully claimed badge",
-        reject: "Badge is rejected",
+        claim: "Successfully claimed edubadge",
+        reject: "Edubadge is rejected",
       }
     },
     directAwardBundle: {
@@ -738,7 +738,7 @@ I18n.translations.en = {
   },
   inviteDialog: {
     title: "Invite people to enroll",
-    publicBadgePage: "People can enroll for this eduBadge from the <a href=\"{{publicBadgePage}}\" target=\"_blank\">public badgepage</a>.",
+    publicBadgePage: "People can enroll for this edubadge from the <a href=\"{{publicBadgePage}}\" target=\"_blank\">public badgepage</a>.",
     intranet: "You can place this link to the public badgepage on your intranet or ELO, or share it via email.",
     copy: "Copy the link"
   },
@@ -1017,13 +1017,13 @@ I18n.translations.en = {
     //institutionDescriptionNl: "institutionDescriptionNl",
     //institutionBrin: "institutionBrin",
     institutionGradingTable: "Use a URL that will not change. (Persistent URL).",
-    institutionAwardAllowedInstitutions: "Select other institutions from which<br/>students potentially may be awarded eduBadges",
-    badgeclassAwardAllowedInstitutions: "Select other institutions from which<br/>students may be awarded this badges",
-    enrollmentEvidenceNarrative: "A narrative that describes the evidence and process of achievement that led to an Assertion.",
-    enrollmentEvidenceURL: "The URI of a webpage presenting evidence of achievement.",
-    enrollmentEvidenceName: "A descriptive title of the evidence.",
-    enrollmentEvidenceDescription: "A longer description of the evidence.",
-    demoEnvironment: "All data is deleted every month"
+    institutionAwardAllowedInstitutions: "Select other institutions from which<br/>students potentially may be awarded edubadges.",
+    badgeclassAwardAllowedInstitutions: "Select other institutions from which<br/>students may be awarded this edubadge.",
+    enrollmentEvidenceNarrative: "A personal narrative that can be added to this awarded edubadge.",
+    enrollmentEvidenceURL: "The URI of a webpage presenting the evidence of this achievement.",
+    enrollmentEvidenceName: "A descriptive title of the evidence of this achievement.",
+    enrollmentEvidenceDescription: "A longer description of the evidence of this achievement.",
+    demoEnvironment: "All data is deleted every month."
   },
   badgeOverview: {
     faculty: "Faculty",
@@ -1058,7 +1058,7 @@ I18n.translations.en = {
     }
   },
   badgeAwardOptions: {
-    directAward: "Award edubadge",
+    directAward: "Award edubadge(s)",
     bulkAward: "Bulk award from csv",
     or: "-or-",
     inviteEnrollements: "Invite people to enroll",

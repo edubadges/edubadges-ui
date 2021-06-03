@@ -23,9 +23,9 @@ I18n.translations.nl = {
   login: {
     title: "Never stop learning",
     loginToEnrol: "Login om deze edubadge aan te vragen",
-    loginToEnrolInfo: "<strong>Let op!</strong> Je kan deze badge alleen aanvragen als je staat ingeschreven bij één van deze instellingen: <strong>{{name}}</strong>.",
-    loginToEnrolInfoOne: "<strong>Let op!</strong> Je kan deze badge alleen aanvragen als je staat ingeschreven bij <strong>{{name}}</strong>.",
-    loginToEnrolInfoAll: "<strong>Let op!</strong> Je kan deze badge alleen aanvragen als je instelling is aangesloten op eduBadges.",
+    loginToEnrolInfo: "<strong>Let op!</strong> Je kan deze edubadge alleen aanvragen als je staat ingeschreven bij één van deze instellingen: <strong>{{name}}</strong>.",
+    loginToEnrolInfoOne: "<strong>Let op!</strong> Je kan deze edubadge alleen aanvragen als je staat ingeschreven bij <strong>{{name}}</strong>.",
+    loginToEnrolInfoAll: "<strong>Let op!</strong> Je kan deze edubadge alleen aanvragen als je instelling is aangesloten op edubadges.",
     destination: "Wat zou je willen doen?",
     description:
       "Edubadges zijn digitale certificaten die aantonen dat de eigenaar bepaalde vaardigheden of kennis heeft verworven. Edubadges kunnen worden uitgereikt voor zowel geaccrediteerd onderwijs als extracurriculaire activiteiten.",
@@ -528,7 +528,7 @@ I18n.translations.nl = {
       image_dutch: "Logo in het Nederlands",
       name_english: "Naam in het Engels",
       name_dutch: "Naam in het Nederlands",
-      award_allowed_institutions: "Toegestaande eduBadge instellingen",
+      award_allowed_institutions: "Toegestaande edubadge instellingen",
     },
     faculty: {
       created: "Aangemaakt",
@@ -633,7 +633,7 @@ I18n.translations.nl = {
       },
       publicUrl: "Publieke URL",
       sorting: "Sorteer:",
-      award_allowed_institutions: "Toegestaande eduBadge instellingen",
+      award_allowed_institutions: "Toegestaande edubadge instellingen",
     },
     badge: {
       emailAddress: "E-mailadres",
@@ -647,7 +647,7 @@ I18n.translations.nl = {
         REQUESTED: "Aangevraagd",
         DIRECT_AWARD: "Direct toegekend"
       },
-      claimDirectAward: "Bekijk de details om de badge te claimen",
+      claimDirectAward: "Bekijk de details om deze edubadge te claimen",
       associatedInstitution: "Van instelling",
       issuedOn: "Uitgegeven op",
       issuedBy: "Uitgegeven door",
@@ -682,8 +682,8 @@ I18n.translations.nl = {
       title: "Personen die een edubadge hebben aangevraagd",
       enrolled: "Aangevraagd",
       enrolledOn: "Aangevraagd op",
-      deleteEnrollment: "Verwijder aangevraag",
-      deleteEnrollmentConfirmation: "Weet je zeker dat je deze aangevraag wilt verwijderen?",
+      deleteEnrollment: "Verwijder aanvraag",
+      deleteEnrollmentConfirmation: "Weet je zeker dat je deze aanvraag wilt verwijderen?",
       award: "Ken toe",
       denied: "Geweigerd",
       deny: "Weiger verzoek",
@@ -701,9 +701,9 @@ I18n.translations.nl = {
         denyConfirmation: "Weet je zeker dat je deze inschrijving wilt afwijzen?",
       },
       awardButton: "Toekennen",
-      evidence: "Optionele beschrijvende metadata over het bewijs met betrekking tot de uitgifte van de toegekende edubadge.",
+      evidence: "Optionele beschrijvende metadata over het bewijs met betrekking tot de uitgifte van de edubadge.",
       evidenceHeader: "Metadata over het bewijs gerelateerd aan deze edubadge",
-      evidenceNarrative: "Narrative",
+      evidenceNarrative: "Commentaar",
       evidenceURL: "URL",
       evidenceDescription: "Beschrijving",
       evidenceName: "Naam",
@@ -716,14 +716,14 @@ I18n.translations.nl = {
       email: "E-mail",
       eppn: "Student nummer (EPPN)",
       reject: "Weigeren",
-      claim: "Claim en voeg toe aan badges",
+      claim: "Claim en voeg toe aan je backpack",
       confirmation: {
-        claim: "Nadat deze badge is geclaimd, wordt deze toegevoegd aan je badgepack en kan je de badge openbaar maken en delen.",
-        reject: "Weet u absoluut zeker dat u deze badge wilt afwijzen? Deze badge wordt na afwijzing verwijderd en deze actie kan niet ongedaan worden gemaakt."
+        claim: "Nadat deze edubadge is geclaimd, wordt deze toegevoegd aan je backpack en kan je de edubadge openbaar maken en delen.",
+        reject: "Weet u absoluut zeker dat u deze edubadge wilt afwijzen? Deze edubadge wordt na afwijzing verwijderd en deze actie kan niet ongedaan worden gemaakt."
       },
       flash: {
-        claim: "Successfully claimed badge",
-        reject: "Edubadge is rejected",
+        claim: "Edubadge is succesvol geclaimed",
+        reject: "Edubadge is afgewezen",
       }
     },
     directAwardBundle: {
@@ -731,7 +731,7 @@ I18n.translations.nl = {
       directAwardCount: "Pending",
       directAwardRejectedCount: "Geweigerd",
       assertionCount: "Claimed",
-      initialTotal: "Total",
+      initialTotal: "Totaal",
       rateClaim: "Claim rate",
       createdAt: "Aangemaakt",
     },
@@ -1016,14 +1016,14 @@ I18n.translations.nl = {
     //institutionDescriptionEn: "institutionDescriptionEn",
     //institutionDescriptionNl: "institutionDescriptionNl",
     //institutionBrin: "institutionBrin",
-    institutionGradingTable: "Gebruik hier een URL die niet zal veranderen. (persistent URL).",
-    institutionAwardAllowedInstitutions: "Selecteer andere instellingen waarvan de studenten<br/>ook mogelijk eduBadges van mogen krijgen",
-    badgeclassAwardAllowedInstitutions: "Selecteer andere instellingen waarvan de studenten<br/>deze badge kunnen verdienen",
-    enrollmentEvidenceNarrative: "Een verhaal dat het bewijs en het proces van prestatie beschrijft dat tot een bewering heeft geleid.",
-    enrollmentEvidenceURL: "De URL van een webpagina met bewijs van prestatie.",
-    enrollmentEvidenceName: "Een beschrijvende titel van het bewijs.",
-    enrollmentEvidenceDescription: "Een langere beschrijving van het bewijs.",
-    demoEnvironment: "Alle data wordt elke maand verwijderd"
+    institutionGradingTable: "Gebruik hier een URL die niet zal veranderen. (Persistent URL).",
+    institutionAwardAllowedInstitutions: "Selecteer andere instellingen waarvan de studenten<br/>ook edubadges kunnen verdienen.",
+    badgeclassAwardAllowedInstitutions: "Selecteer andere instellingen waarvan de studenten<br/>ook deze edubadge kunnen verdienen.",
+    enrollmentEvidenceNarrative: "Een persoonlijke toelichting dat kan worden toegevoegd aan deze toegekende edubadge.",
+    enrollmentEvidenceURL: "De URL van een webpagina met bewijs van de geleverde prestatie.",
+    enrollmentEvidenceName: "Een beschrijvende titel van het bewijs van de geleverde prestatie..",
+    enrollmentEvidenceDescription: "Een langere beschrijving van het bewijs van de geleverde prestatie..",
+    demoEnvironment: "Alle data wordt iedere maand verwijderd."
   },
   badgeOverview: {
     faculty: "Faculteit",
@@ -1058,28 +1058,28 @@ I18n.translations.nl = {
     }
   },
   badgeAwardOptions: {
-    directAward: "Uitreiken badge",
+    directAward: "Reik edubadge(s) uit",
     bulkAward: "Bulk uitreiking uit csv",
     or: "-of-",
     inviteEnrollements: "Nodig gebruikers uit om in te schrijven",
   },
   badgeAward: {
     directAward: {
-      title: "Direct badges uitreiken",
+      title: "Direct edubadges uitreiken",
       subtitle: "Je verzoek is verzonden en je krijgt een melding wanneer het is geaccepteerd of geweigerd.",
-      waringEnrollments: "Er zijn {{count}} aanmeldingen voor deze badge. ",
+      waringEnrollments: "Er zijn {{count}} aanmeldingen voor deze edubadge. ",
       toToEnrollments: "Controleer ze misschien eerst?",
       addAnother: "+ Toevoegen",
       cancel: "Annuleer",
       award: "Verzenden",
       processing: "Bezig om {{count}} direct awards te verwerken. Even geduld...",
       flash: {
-        created: "Directe onderscheidingen zijn verzonden"
+        created: "Direct awards zijn verzonden"
       }
     },
     bulkAward: {
       title: "Bulk award vanuit CSV",
-      subtitle: "Dit bestand moet in het exacte formaat van edubadges passen. Als je het niet zeker weet, download dan eerst onze" +
+      subtitle: "Dit bestand moet in het exacte formaat van edubadges passen. Als je het niet zeker weet, download dan eerst onze " +
         "<a href=\"{{sample}}\" download=\"sample_direct_award.csv\">Voorbeeld CSV Awardfile</a>.",
       or: "- of -",
       browse: "Browse",
@@ -1115,8 +1115,8 @@ I18n.translations.nl = {
   },
   demo: {
     info: "Dit is de demo-omgeving van edubadges. <br/> <br/> Alle gegevens worden maandelijks gewist en na elke nieuwe" +
-      "implementatie. <br/>" +
-      "Heeft u vragen over de demo-omgeving neem dan contact met ons op" +
-      "op <a href='mailto:support@edubadges.nl'> support@edubadges.nl </a>"
+      "uitrol. <br/>" +
+      "Heeft u vragen over de demo-omgeving neem dan contact met ons op " +
+      "via <a href='mailto:support@edubadges.nl'> support@edubadges.nl </a>"
   }
 };
