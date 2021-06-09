@@ -99,7 +99,7 @@
   }`;
 
   const issuedOn = award => {
-    const createdAt = new Date(award.createdAt);
+    const createdAt = new Date(award.issuedOn);
     const today = new Date().getTime();
     const day = 1000 * 60 * 60 * 24;
     const minus30 = new Date(today - (day * 30));
