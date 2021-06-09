@@ -48,9 +48,6 @@
       showAwardModal = true;
     } else {
       showAwardModal = false;
-      if (narrative.trim() || url.trim()) {
-
-      }
       awardBadges(entityId, selection, useEvidence, narrative, url, name, description).then(() => {
         refreshEnrollments();
         flash.setValue(I18n.t("models.enrollment.flash.awarded"));

@@ -1,88 +1,78 @@
 <script>
-  import I18n from "i18n-js";
-  import moment from "moment";
-  import {Table} from "../../teachers";
-  import {sort, sortType} from "../../../util/sortData";
-  import {Button, CheckBox} from "../../../components";
-  import {awardBadges, denyBadge} from "../../../api";
-  import {flash} from "../../../stores/flash";
-  import {searchMultiple} from "../../../util/searchData";
-  import singleNeutralCheck from "../../../icons/single-neutral-check.svg";
-  import {userName} from "../../../util/users";
-  import {Modal} from "../../forms";
-  import filter from "../../../icons/filter-1.svg";
-  import CenterMe from "../../forms/CenterMe.svelte";
-  import AwardBadgeModal from "../award/AwardBadgeModal.svelte";
-  import {onMount} from "svelte";
+    import I18n from "i18n-js";
+    import moment from "moment";
+    import {Table} from "../../teachers";
+    import {sort, sortType} from "../../../util/sortData";
+    import {onMount} from "svelte";
 
-  export let directAwardBundles = [];
-  export let badgeclassName;
+    export let directAwardBundles = [];
+    export let badgeclassName;
 
-  onMount(()=> {
-    directAwardBundles.forEach(dab => {
-      dab.rateClaim = `${Math.round(dab.assertionCount / dab.initialTotal * 100)}%`;
-    });
-  })
+    onMount(() => {
+        directAwardBundles.forEach(dab => {
+            dab.rateClaim = `${Math.round(dab.assertionCount / dab.initialTotal * 100)}%`;
+        });
+    })
 
-  const tableHeaders = [
-    {
-      name: I18n.t("models.directAwardBundle.directAwardCount"),
-      attribute: "directAwardCount",
-      reverse: false,
-      sortType: sortType.NUMERIC,
-      width: "15%"
-    },
-    {
-      name: I18n.t("models.directAwardBundle.directAwardRejectedCount"),
-      attribute: "directAwardRejectedCount",
-      reverse: false,
-      sortType: sortType.NUMERIC,
-      width: "15%"
-    },
-    {
-      name: I18n.t("models.directAwardBundle.assertionCount"),
-      attribute: "assertionCount",
-      reverse: false,
-      sortType: sortType.NUMERIC,
-      width: "15%"
-    },
-    {
-      name: I18n.t("models.directAwardBundle.initialTotal"),
-      attribute: "initialTotal",
-      reverse: false,
-      sortType: sortType.NUMERIC,
-      width: "15%"
-    },
-    {
-      name: I18n.t("models.directAwardBundle.rateClaim"),
-      attribute: "rateClaim",
-      reverse: false,
-      sortType: sortType.NUMERIC,
-      width: "15%"
-    },
-    {
-      name: I18n.t("models.directAwardBundle.createdAt"),
-      attribute: "createdAt",
-      reverse: false,
-      sortType: sortType.DATE,
-      width: "15%"
-    }
-  ];
+    const tableHeaders = [
+        {
+            name: I18n.t("models.directAwardBundle.directAwardCount"),
+            attribute: "directAwardCount",
+            reverse: false,
+            sortType: sortType.NUMERIC,
+            width: "15%"
+        },
+        {
+            name: I18n.t("models.directAwardBundle.directAwardRejectedCount"),
+            attribute: "directAwardRejectedCount",
+            reverse: false,
+            sortType: sortType.NUMERIC,
+            width: "15%"
+        },
+        {
+            name: I18n.t("models.directAwardBundle.assertionCount"),
+            attribute: "assertionCount",
+            reverse: false,
+            sortType: sortType.NUMERIC,
+            width: "15%"
+        },
+        {
+            name: I18n.t("models.directAwardBundle.initialTotal"),
+            attribute: "initialTotal",
+            reverse: false,
+            sortType: sortType.NUMERIC,
+            width: "15%"
+        },
+        {
+            name: I18n.t("models.directAwardBundle.rateClaim"),
+            attribute: "rateClaim",
+            reverse: false,
+            sortType: sortType.NUMERIC,
+            width: "15%"
+        },
+        {
+            name: I18n.t("models.directAwardBundle.createdAt"),
+            attribute: "createdAt",
+            reverse: false,
+            sortType: sortType.DATE,
+            width: "15%"
+        }
+    ];
 
-  $: table = {
-    entity: "directAwardBundle",
-    title: `${I18n.t("models.directAwardBundle.title")}`,
-    tableHeaders: tableHeaders
-  };
+    $: table = {
+        entity: "directAwardBundle",
+        title: `${I18n.t("models.directAwardBundle.title")}`,
+        tableHeaders: tableHeaders
+    };
 
-  let directAwardBundleSort = tableHeaders[0];
+    let directAwardBundleSort = tableHeaders[0];
 
-  $: sortedDirectAwardBundles = sort(
-    directAwardBundles,
-    directAwardBundleSort.attribute,
-    directAwardBundleSort.reverse,
-    directAwardBundleSort.sortType
-  );
+    $: sortedDirectAwardBundles = sort(
+        directAwardBundles,
+        directAwardBundleSort.attribute,
+        directAwardBundleSort.reverse,
+        directAwardBundleSort.sortType
+    );
 </script>
 
 <style lang="scss">
