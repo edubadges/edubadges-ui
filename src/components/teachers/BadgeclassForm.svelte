@@ -178,6 +178,8 @@
       ...badgeclass,
       criteria_text: badgeclass.criteriaText,
       is_private: badgeclass.isPrivate,
+      evidence_required: badgeclass.evidenceRequired,
+      narrative_required: badgeclass.narrativeRequired,
       criteria_url: toHttpOrHttps(badgeclass.criteriaUrl),
     };
     setExpirationPeriod(newBadgeclass);
@@ -390,14 +392,30 @@
         items={issuers}/>
     </Field>
 
-    <Field {entity} attribute="isPrivate" tipKey="badgeClassIsPrivate">
-      <CheckBox
-        value={badgeclass.isPrivate || false}
-        inForm={true}
-        disabled={hasUnrevokedAssertions}
-        onChange={val => badgeclass.isPrivate = val}/>
+    <Field {entity} attribute="extraOptions">
+        <CheckBox
+          value={badgeclass.isPrivate || false}
+          inForm={true}
+          adjustTop={true}
+          label={I18n.t(['models', entity, 'isPrivate'])}
+          tipKey="badgeClassIsPrivate"
+          disabled={hasUnrevokedAssertions}
+          onChange={val => badgeclass.isPrivate = val}/>
+        <CheckBox
+          value={badgeclass.evidenceRequired || false}
+          inForm={true}
+          adjustTop={true}
+          label={I18n.t(['models', entity, 'evidenceRequired'])}
+          tipKey="badgeClassEvidenceRequired"
+          onChange={val => badgeclass.evidenceRequired = val}/>
+        <CheckBox
+          value={badgeclass.narrativeRequired || false}
+          inForm={true}
+          adjustTop={true}
+          label={I18n.t(['models', entity, 'narrativeRequired'])}
+          tipKey="badgeClassNarrativeRequired"
+          onChange={val => badgeclass.narrativeRequired = val}/>
     </Field>
-
   </div>
 
   <h4>{I18n.t('models.badgeclass.headers.earningCriteria')}</h4>

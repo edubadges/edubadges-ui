@@ -101,7 +101,9 @@
 </style>
 
 <label class:marginBottom class:marginTop>
-  {label}
+  {#if label}
+    {label}
+  {/if}
   {#if exists}
     <div class="tooltip-wrapper">
     <span class="tooltip-slot">

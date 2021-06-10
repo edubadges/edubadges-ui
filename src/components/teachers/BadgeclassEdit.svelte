@@ -35,6 +35,8 @@
       criteriaText,
       expirationPeriod,
       isPrivate,
+      narrativeRequired,
+      evidenceRequired
       awardAllowedInstitutions,
       alignments {
         targetName,

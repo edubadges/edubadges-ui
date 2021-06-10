@@ -1,11 +1,12 @@
 <script>
   import check from "../icons/check16.svg";
-  import checkDisabled from "../icons/check-disabled.svg";
+  import Tooltip from "./Tooltip.svelte";
 
   export let value;
   export let onChange = () => {};
   export let disabled = false;
   export let label;
+  export let tipKey;
   export let inForm = false;
   export let adjustTop = false;
 
@@ -69,6 +70,9 @@
 <label class="checkboxed" class:disabled={disabled} class:in-form={inForm}>
   {#if label}
     <span>{label}</span>
+    {#if tipKey}
+      <Tooltip tipKey={tipKey}/>
+    {/if}
   {/if}
   <input type="checkbox" checked={value}
          on:change={e => onChange(e.target.checked)}
