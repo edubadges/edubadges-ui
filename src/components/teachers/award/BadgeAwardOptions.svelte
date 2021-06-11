@@ -1,33 +1,31 @@
 <script>
-  import I18n from "i18n-js";
-  import {link} from "svelte-routing";
-  import InviteDialog from "./InviteDialog.svelte";
-  import Button from "../../Button.svelte";
-  import {onMount} from "svelte";
-  import warning from "../../../icons/warning.svg";
+    import I18n from "i18n-js";
+    import {link} from "svelte-routing";
+    import InviteDialog from "./InviteDialog.svelte";
+    import Button from "../../Button.svelte";
+    import {onMount} from "svelte";
+    import warning from "../../../icons/warning.svg";
 
-  export let badgeclass = {};
+    export let badgeclass = {};
 
-  let showInviteDialog = false;
-  let showShareFeedback = false;
-  let directAwardingEnabled = false;
-  let privateBadgeclass = false;
+    let showInviteDialog = false;
+    let showShareFeedback = false;
+    let directAwardingEnabled = false;
 
-  onMount(() => {
-    directAwardingEnabled = badgeclass.issuer.faculty.institution.directAwardingEnabled;
-    privateBadgeclass = badgeclass.isPrivate;
-  });
+    onMount(() => {
+        directAwardingEnabled = badgeclass.issuer.faculty.institution.directAwardingEnabled;
+    });
 
-  const publicUrl = () => {
-    const loc = window.location;
-    return loc.protocol + "//" + location.hostname + (location.port ? ":" + location.port : "") + "/public/" + badgeclass.entityId;
-  }
+    const publicUrl = () => {
+        const loc = window.location;
+        return loc.protocol + "//" + location.hostname + (location.port ? ":" + location.port : "") + "/public/" + badgeclass.entityId;
+    }
 
-  const copiedLink = () => {
-    showInviteDialog = false;
-    showShareFeedback = true;
-    setTimeout(() => showShareFeedback = false, 1750)
-  }
+    const copiedLink = () => {
+        showInviteDialog = false;
+        showShareFeedback = true;
+        setTimeout(() => showShareFeedback = false, 1750)
+    }
 
 
 </script>
@@ -105,13 +103,13 @@
   }
 </style>
 <div class="badge-award-options">
-  {#if privateBadgeclass}
+  {#if badgeclass.isPrivate}
     <div class="info">
       <span class="warning">{@html warning}</span>
       <span>{I18n.t("invites.copyPublicUrlDisabled")}</span>
     </div>
   {:else}
-    {#if directAwardingEnabled}
+    {#if directAwardingEnabled && !badgeclass.evidenceRequired && !badgeclass.narrativeRequired}
       <Button href={`/badgeclass/${badgeclass.entityId}/direct-award`} text={I18n.t("badgeAwardOptions.directAward")}/>
       <span class="award-link">{I18n.t("badgeAwardOptions.or")}
         <a use:link href={`/badgeclass/${badgeclass.entityId}/bulk-award`}>
