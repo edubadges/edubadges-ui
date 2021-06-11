@@ -18,7 +18,7 @@
   export let enrollments = [];
   export let refresh;
 
-  export let badgeclassName;
+  export let badgeClass;
 
   let selection = [];
   let checkAllValue = false;
@@ -219,7 +219,7 @@
   {/each}
   {#if enrollments.length === 0}
     <tr>
-      <td colspan="6">{I18n.t("zeroState.enrollments", {name: badgeclassName})}</td>
+      <td colspan="6">{I18n.t("zeroState.enrollments", {name: badgeClass.name})}</td>
     </tr>
   {/if}
 </Table>
@@ -239,6 +239,7 @@
     bind:useEvidence={useEvidence}
     bind:name={name}
     bind:description={description}
+    badgeClass={badgeClass}
     submit={() => award(false)}
     cancel={() => showAwardModal = false}/>
 {/if}

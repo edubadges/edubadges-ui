@@ -1,47 +1,69 @@
 <script>
-  import I18n from "i18n-js";
-  import Button from "../../Button.svelte";
-  import {Field, TextInput} from "../../forms";
-  import {validUrl} from "../../../util/forms";
+    import I18n from "i18n-js";
+    import Button from "../../Button.svelte";
+    import {Field, TextInput} from "../../forms";
+    import {validUrl} from "../../../util/forms";
+    import {onMount} from "svelte";
 
-  export let submit;
-  export let cancel;
+    export let submit;
+    export let cancel;
 
-  export let narrative;
-  export let url;
-  export let name;
-  export let description;
-  export let useEvidence;
+    export let narrative;
+    export let url;
+    export let name;
+    export let description;
+    export let useEvidence;
+    export let badgeClass = {};
 
-  let errors = {};
+    let errors = {};
+    let narrativeOrEvidenceRequired = false;
 
-  const doSubmit = () => {
-    if (useEvidence && url && url.trim().length > 0 && !validUrl(url)) {
-      errors = {url: [{error_code: 921}]};
-    } else if (useEvidence && !url.trim() && !narrative.trim()) {
-      errors = {narrative: [{error_code: 910}], url: [{error_code: 910}]};
-    } else {
-      errors = {};
-      submit();
+    onMount(() => {
+        narrativeOrEvidenceRequired = badgeClass.narrativeRequired || badgeClass.evidenceRequired;
+        useEvidence = narrativeOrEvidenceRequired;
+    });
+
+    const doSubmit = () => {
+        errors = {};
+        if (narrativeOrEvidenceRequired) {
+            if (url && url.trim().length > 0 && !validUrl(url)) {
+                errors = {url: [{error_code: 921}]};
+            }
+            if (badgeClass.narrativeRequired && !narrative.trim()) {
+                errors.narrative = [{error_code: 932}];
+            }
+            if (badgeClass.evidenceRequired && !url) {
+                errors.url = [{error_code: 933}];
+            }
+            if (Object.keys(errors).length === 0) {
+                submit();
+            }
+        } else if (useEvidence && url && url.trim().length > 0 && !validUrl(url)) {
+            errors = {url: [{error_code: 921}]};
+        } else if (useEvidence && !url.trim() && !narrative.trim()) {
+            errors = {narrative: [{error_code: 910}], url: [{error_code: 910}]};
+        } else {
+            errors = {};
+            submit();
+        }
     }
-  }
 
-  const swapUseEvidence = () => {
-    errors = {};
-    if (useEvidence) {
-      narrative = "";
-      url = "";
-      name = "";
-      description = "";
+    const swapUseEvidence = () => {
+        errors = {};
+        if (useEvidence) {
+            narrative = "";
+            url = "";
+            name = "";
+            description = "";
+        }
+        useEvidence = !useEvidence;
     }
-    useEvidence = !useEvidence;
-  }
 
-  const handleKeydown = e => {
-    if (e.key === "Escape") {
-      cancel();
-    }
-  };
+    const handleKeydown = e => {
+        if (e.key === "Escape") {
+            cancel();
+        }
+    };
 
 </script>
 
@@ -108,10 +130,16 @@
     <div class="modal-body">
       <p class="title">{I18n.t("models.enrollment.confirmation.awardConfirmation")}</p>
       {#if useEvidence}
-        <a href="/remove-evidence"
-           on:click|preventDefault={swapUseEvidence}>{I18n.t("models.enrollment.removeEvidence")}</a>
+        {#if !narrativeOrEvidenceRequired}
+          <a href="/remove-evidence"
+             on:click|preventDefault={swapUseEvidence}>{I18n.t("models.enrollment.removeEvidence")}</a>
+        {/if}
         <div class="evidence">
-          <p>{I18n.t("models.enrollment.evidence")}</p>
+          {#if narrativeOrEvidenceRequired}
+            <p>{I18n.t("models.enrollment.evidenceRequired")}</p>
+          {:else}
+            <p>{I18n.t("models.enrollment.evidence")}</p>
+          {/if}
           <Field entity={'enrollment'} errors={errors.narrative} attribute={'evidenceNarrative'}
                  tipKey="enrollmentEvidenceNarrative">
             <TextInput bind:value={narrative} area={true} error={errors.narrative}

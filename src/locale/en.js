@@ -389,6 +389,8 @@ I18n.translations.en = {
     929: "Email is duplicated",
     930: "EPPN is duplicated",
     931: "There is already an unaccepted direct award for this EPPN",
+    932: "This badgeclass requires a narrative for awarding",
+    933: "This badgeclass requires evidence for awarding",
     unexpected: "Unexpected error occurred.",
     description: "An unexpected error has occurred. Please try again later or contact support@edubadges.nl for support.",
     close: "Close"
@@ -705,6 +707,7 @@ I18n.translations.en = {
       },
       awardButton: "Award",
       evidence: "Optional descriptive metadata about evidence related to the issuance of an edubadge.",
+      evidenceRequired: "Required descriptive metadata about evidence related to the issuance of an edubadge.",
       evidenceHeader: "Metadata about the evidence related for this edubadge",
       evidenceNarrative: "Narrative",
       evidenceURL: "URL",

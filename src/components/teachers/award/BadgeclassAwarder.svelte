@@ -55,6 +55,8 @@
       image,
       criteriaUrl,
       isPrivate,
+      narrativeRequired,
+      evidenceRequired,
       criteriaText,
       expirationPeriod,
       issuer {
@@ -335,7 +337,7 @@
           </Route>
 
           <Route path="/enrollments">
-            <Enrollments {entityId} bind:enrollments badgeclassName={badgeclass.name} refresh={refresh}/>
+            <Enrollments {entityId} bind:enrollments badgeClass={badgeclass} refresh={refresh}/>
           </Route>
 
           <Route path="/awarded">

@@ -389,6 +389,8 @@ I18n.translations.nl = {
     929: "Email is een duplicaat",
     930: "EPPN is een duplicaat",
     931: "Er is al een nog niet geaccepteerde direct award voor deze EPPN",
+    932: "Een narratief is verplicht voor het awarden van deze badge",
+    933: "Een URL is verplicht voor het awarden van deze badge",
     unexpected: "Oeps, er is iets totaal onverwachts en onverklaarbaars gebeurd.",
     description: "Een onverwachte fout is opgetreden. Probeer het opnieuw of neem contact op met support@edubadges.nl voor ondersteuning.",
     close: "Sluit"
@@ -705,6 +707,7 @@ I18n.translations.nl = {
       },
       awardButton: "Toekennen",
       evidence: "Optionele beschrijvende metadata over het bewijs met betrekking tot de uitgifte van de edubadge.",
+      evidenceRequired: "Verplichte beschrijvende metadata over het bewijs met betrekking tot de uitgifte van de edubadge.",
       evidenceHeader: "Metadata over het bewijs gerelateerd aan deze edubadge",
       evidenceNarrative: "Commentaar",
       evidenceURL: "URL",
