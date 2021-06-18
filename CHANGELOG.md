@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [4.1.0] - 2021-06-21
+- Fixed date direct awarded in badgeclass award view.
+- Disable direct awards if evidence or narraive is required.
+- Added narative and evidence required option to the badgeclass.
+- Fixed date issued on assertions.
+- Updated dependencies.
+- Updated the locales.
+
 ## [4.0.0] - 2021-05-31
 - Fixed wrong header on terms non-formal badges.
 - Updated several dependencies.
