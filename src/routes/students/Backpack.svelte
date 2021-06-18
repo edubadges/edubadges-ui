@@ -44,7 +44,7 @@
       }
       directAwards.forEach(da => da.isDirectAward = true);
 
-      const badgeInstances = directAwards.concat(sortCreatedAt(res.badgeInstances));
+      const badgeInstances = sortCreatedAt(directAwards.concat(res.badgeInstances));
       badgeInstances.forEach(badgeInstance => {
         const issuer = badgeInstance.badgeclass.issuer;
         translateProperties(issuer);

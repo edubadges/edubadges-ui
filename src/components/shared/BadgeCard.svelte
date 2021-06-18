@@ -27,7 +27,6 @@
     badgeClass.studyLoadValue = badgeClass.studyLoad ?
       I18n.t("teacher.badgeclasses.hours", {value: badgeClass.studyLoad}) : badgeClass.ects ?
         I18n.t("teacher.badgeclasses.ects", {value: badgeClass.ects}) : null;
-
   });
 </script>
 
@@ -197,7 +196,7 @@
 
     <div class="header {withHeaderData ? 'header-extra-height' : 'header-regular-height'}">
       {#if badge}
-        <span>{moment(badge.issuedOn).format('MMM D, YYYY')}</span>
+        <span>{badge.isDirectAward ? moment(badge.createdAt).format('MMM D, YYYY') : moment(badge.issuedOn).format('MMM D, YYYY')}</span>
         <BadgeShield badge={badge}/>
       {/if}
       <div class="image-center-v" class:direct-award={badge && badge.isDirectAward}>

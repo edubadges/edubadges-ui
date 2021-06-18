@@ -387,7 +387,7 @@
           <span class={assertionStatusClass(assertion)}>{assertionStatus(assertion)}</span>
         </td>
         <td class="center">
-          {assertion.updatedAt ? moment(assertion.updatedAt).format('MMM D, YYYY') : ""}
+          {assertion.updatedAt && !assertion.isDirectAward ? moment(assertion.updatedAt).format('MMM D, YYYY') : ""}
         </td>
         <td class="right">
           {assertion.expiresAt ? moment(assertion.expiresAt).format('MMM D, YYYY') : ""}
