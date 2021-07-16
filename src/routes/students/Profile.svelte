@@ -103,7 +103,7 @@
               acc.push({
                 entityId: institution.entityId,
                 name: institution.name,
-                agreedTerms: [{entityId: cur.entityId, type: terms.termsType, version: cur.agreedVersion}]
+                agreedTerms: [{entityId: cur.entityId, date: cur.updatedAt, type: terms.termsType, version: cur.agreedVersion}]
               });
               return acc;
             }
