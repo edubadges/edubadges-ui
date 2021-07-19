@@ -239,7 +239,7 @@ I18n.translations.en = {
       userManagement: "User management",
       enrollments: "Requested ",
       assertions: "Awarded ",
-      directAwardBundle: "Award bundles ",
+      directAwardBundle: "Direct Award status",
       profile: "Profile"
     },
     edit: {
@@ -733,7 +733,7 @@ I18n.translations.en = {
       }
     },
     directAwardBundle: {
-      title: "Award bundles",
+      title: "Direct Award status",
       directAwardCount: "Pending",
       directAwardRejectedCount: "Rejected",
       assertionCount: "Claimed",
@@ -897,7 +897,7 @@ I18n.translations.en = {
     permissions: "There are no permissions for this user on the {{entity}} level.",
     selfPermissions: "There are no permissions for this user on the {{entity}} level.",
     userPermissions: "This user does not have any permissions for {{entity}} {{name}}.",
-    directAwardBundles: "There are not direct award bundles for edubadge {{name}}"
+    directAwardBundles: "There is no direct award status for edubadge {{name}}"
   },
   userManagement: {
     permissions: "Permissions for {{name}}",

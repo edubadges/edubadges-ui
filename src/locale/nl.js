@@ -239,7 +239,7 @@ I18n.translations.nl = {
       userManagement: "Gebruikers beheer",
       enrollments: "Aangevraagd",
       assertions: "Toegekend",
-      directAwardBundle: "Award bundles ",
+      directAwardBundle: "Direct Award status",
       profile: "Profiel"
     },
     edit: {
@@ -733,7 +733,7 @@ I18n.translations.nl = {
       }
     },
     directAwardBundle: {
-      title: "Direct award bundles",
+      title: "Direct Award status",
       directAwardCount: "Pending",
       directAwardRejectedCount: "Geweigerd",
       assertionCount: "Claimed",
@@ -897,7 +897,7 @@ I18n.translations.nl = {
     permissions: "Er zijn geen permissies voor deze gebruiker {{entity}} niveau.",
     selfPermissions: "Deze gebruiker heeft geen permissies op {{entity}} niveau.",
     userPermissions: "Deze gebruiker heeft geen permissies op {{entity}} niveau.",
-    directAwardBundles: "Er zijn geen direct award bundles voor edubadge {{name}}"
+    directAwardBundles: "Er is geen direct award status voor edubadge {{name}}"
   },
   userManagement: {
     permissions: "Permissies voor {{name}}",
