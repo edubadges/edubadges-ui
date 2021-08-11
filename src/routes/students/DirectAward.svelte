@@ -59,6 +59,8 @@
         name,
         description,
         entityId,
+        criteriaText,
+        criteriaUrl,
         awardAllowedInstitutions,
         image,
         formal,
@@ -143,8 +145,8 @@
     const institution = directAward.badgeclass.issuer.faculty.institution
     const identifiers = [institution.identifier].concat(directAward.badgeclass.awardAllowedInstitutions);
     const allowedInstitution = identifiers.some(identifier => schacHomes.includes(identifier));
-
-    if (!allowedInstitution) {
+    const allowClaim = currentUser.validatedName && !directAward.badgeclass.formal;
+    if (!allowedInstitution && !allowClaim) {
       noValidInstitution = true;
       return;
     }
