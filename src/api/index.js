@@ -627,7 +627,7 @@ export function createDirectAwards(directAwards, badgeclass, bulkAward) {
       eppn: da.eppn
     }))
   }
-  return validFetch(path, {body: JSON.stringify(payload)}, "POST");
+  return validFetch(path, {body: JSON.stringify(payload)}, "POST", true, false);
 }
 
 export function acceptRejectDirectAward(directAward, accept) {

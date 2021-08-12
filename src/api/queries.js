@@ -158,23 +158,21 @@ export const assertionsQuery = `
       }
   `;
 
-export const directAwardsQuery = `
-      directAwards {
-        entityId,
-        eppn,
-        status,
-        recipientEmail,
-        createdAt,
-        updatedAt
-      }
-   `;
-
 export const directAwardBundleQuery = `
       directAwardBundles {
         createdAt,
+        entityId,
         assertionCount,
         directAwardCount,
         directAwardRejectedCount,
-        initialTotal
+        initialTotal,
+        directAwards {
+            entityId,
+            eppn,
+            status,
+            recipientEmail,
+            createdAt,
+            updatedAt
+          }
       }
    `;

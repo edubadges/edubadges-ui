@@ -11,7 +11,6 @@
   import {
     assertionsQuery,
     directAwardBundleQuery,
-    directAwardsQuery,
     enrollmentsQuery,
     headerStaff
   } from "../../../api/queries";
@@ -27,6 +26,7 @@
   import BulkAwardBadge from "./BulkAwardBadge.svelte";
   import DirectAwardBundles from "./DirectAwardBundles.svelte";
   import {issuedTypes} from "../../../stores/filterAssertions";
+  import BulkAwardDetails from "./BulkAwardDetails.svelte";
 
   export let entityId;
   export let subEntity;
@@ -85,7 +85,6 @@
         targetDescription
       },
       ${directAwardBundleQuery},
-      ${directAwardsQuery},
       ${enrollmentsQuery},
       ${assertionsQuery}
     }
@@ -94,7 +93,6 @@
   const refreshQuery = `query ($entityId: String, $days: Int){
     badgeClass(id: $entityId, days: $days) {
       ${directAwardBundleQuery},
-      ${directAwardsQuery},
       ${enrollmentsQuery},
       ${assertionsQuery}
     }
@@ -128,12 +126,13 @@
       ba.status = ba.revoked ? "REVOKED" : ba.acceptance;
       issuedOn(ba);
     });
-    const directAwards = res.badgeClass.directAwards;
-    res.badgeClass.directAwards.forEach(da => {
+    const directAwards = res.badgeClass.directAwardBundles.map(dab => dab.directAwards).flat();
+    directAwards.forEach(da => {
       da.isDirectAward = true;
       issuedOn(da);
     });
 
+    res.badgeClass.directAwards = directAwards;
     assertions = badgeAssertions.concat(directAwards);
 
     loaded = true;
@@ -281,8 +280,9 @@
         {badgeclass.issuer.name}
       </a>
       <span class="crumb">{@html chevronRightSmall}</span>
-      <a on:click|preventDefault|stopPropagation={() => false}
-         href={window.location.href}>{badgeclass.name}</a>
+      <a use:link href={`/badgeclass/${badgeclass.entityId}`}>
+        {badgeclass.name}
+      </a>
       {#if $currentPath.endsWith("direct-award")}
         <span class="crumb">{@html chevronRightSmall}</span>
         <span>{I18n.t("badgeAwardOptions.directAward")}</span>
@@ -290,6 +290,10 @@
       {#if $currentPath.endsWith("bulk-award")}
         <span class="crumb">{@html chevronRightSmall}</span>
         <span>{I18n.t("badgeAwardOptions.bulkAward")}</span>
+      {/if}
+      {#if $currentPath.indexOf("award-details") > 0}
+        <span class="crumb">{@html chevronRightSmall}</span>
+        <span>{I18n.t("badgeAward.bulkAward.details.breadCrumb")}</span>
       {/if}
       <LinkEye badgeclass={badgeclass} isAdminView={false}/>
     </div>
@@ -313,10 +317,13 @@
                           enrollments={enrollments}
                           refresh={refresh}/>
         </Route>
+        <Route path="/award-details/:entityId" let:params>
+          <BulkAwardDetails badgeclass={badgeclass} directAwardBundle={directAwardBundles.find(dab => dab.entityId === params.entityId)} />
+        </Route>
       </Router>
     </div>
 
-    {#if !$currentPath.endsWith("bulk-award") && !$currentPath.endsWith("direct-award")}
+    {#if !$currentPath.endsWith("bulk-award") && !$currentPath.endsWith("direct-award") && $currentPath.indexOf("award-details") === -1}
       <BadgeClassHeader
         object={badgeclass}
         entity={entityType.BADGE_CLASS}
@@ -345,7 +352,7 @@
           </Route>
 
           <Route path="/direct-awards-bundles">
-            <DirectAwardBundles badgeclassName={badgeclass.name} {directAwardBundles}/>
+            <DirectAwardBundles badgeClass={badgeclass} {directAwardBundles}/>
           </Route>
         </Router>
       </div>

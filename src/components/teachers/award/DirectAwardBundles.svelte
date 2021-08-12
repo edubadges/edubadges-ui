@@ -4,9 +4,10 @@
     import {Table} from "../../teachers";
     import {sort, sortType} from "../../../util/sortData";
     import {onMount} from "svelte";
+    import {navigate} from "svelte-routing";
 
     export let directAwardBundles = [];
-    export let badgeclassName;
+    export let badgeClass;
 
     onMount(() => {
         directAwardBundles.forEach(dab => {
@@ -15,6 +16,13 @@
     })
 
     const tableHeaders = [
+                {
+            name: I18n.t("models.directAwardBundle.createdAt"),
+            attribute: "createdAt",
+            reverse: false,
+            sortType: sortType.DATE,
+            width: "15%"
+        },
         {
             name: I18n.t("models.directAwardBundle.directAwardCount"),
             attribute: "directAwardCount",
@@ -49,13 +57,6 @@
             reverse: false,
             sortType: sortType.NUMERIC,
             width: "15%"
-        },
-        {
-            name: I18n.t("models.directAwardBundle.createdAt"),
-            attribute: "createdAt",
-            reverse: false,
-            sortType: sortType.DATE,
-            width: "15%"
         }
     ];
 
@@ -84,7 +85,11 @@
   hideSearch={true}
   isEmpty={directAwardBundles.length === 0}>
   {#each sortedDirectAwardBundles as dab}
-    <tr>
+     <tr class="click"
+        on:click={() => navigate(`/badgeclass/${badgeClass.entityId}/award-details/${dab.entityId}`)}>
+      <td>
+        {moment(dab.createdAt).format('MMM D, YYYY')}
+      </td>
       <td>
         {dab.directAwardCount}
       </td>
@@ -100,14 +105,11 @@
       <td>
         {dab.rateClaim}
       </td>
-      <td>
-        {moment(dab.createdAt).format('MMM D, YYYY')}
-      </td>
     </tr>
   {/each}
   {#if directAwardBundles.length === 0}
     <tr>
-      <td colspan="6">{I18n.t("zeroState.directAwardBundles", {name: badgeclassName})}</td>
+      <td colspan="6">{I18n.t("zeroState.directAwardBundles", {name: badgeClass.name})}</td>
     </tr>
   {/if}
 </Table>

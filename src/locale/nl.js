@@ -239,7 +239,7 @@ I18n.translations.nl = {
       userManagement: "Gebruikers beheer",
       enrollments: "Aangevraagd",
       assertions: "Toegekend",
-      directAwardBundle: "Direct Award status",
+      directAwardBundle: "Award status",
       profile: "Profiel"
     },
     edit: {
@@ -733,7 +733,7 @@ I18n.translations.nl = {
       }
     },
     directAwardBundle: {
-      title: "Direct Award status",
+      title: "Direct Award statussen",
       directAwardCount: "Pending",
       directAwardRejectedCount: "Geweigerd",
       assertionCount: "Claimed",

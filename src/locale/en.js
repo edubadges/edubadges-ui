@@ -239,7 +239,7 @@ I18n.translations.en = {
       userManagement: "User management",
       enrollments: "Requested ",
       assertions: "Awarded ",
-      directAwardBundle: "Direct Award status",
+      directAwardBundle: "Award status",
       profile: "Profile"
     },
     edit: {
@@ -733,7 +733,7 @@ I18n.translations.en = {
       }
     },
     directAwardBundle: {
-      title: "Direct Award status",
+      title: "Direct Award statuses",
       directAwardCount: "Pending",
       directAwardRejectedCount: "Rejected",
       assertionCount: "Claimed",
@@ -1100,6 +1100,14 @@ I18n.translations.en = {
       hide: "Hide",
       flash: {
         created: "Bulk awards are sent"
+      },
+      details: {
+        breadCrumb: "Direct award details",
+        header: "Direct award bundle",
+        title: "Award status (issued {{issued})",
+        email: "Email",
+        studentId: "Student ID",
+        status: "Status"
       }
     }
   },

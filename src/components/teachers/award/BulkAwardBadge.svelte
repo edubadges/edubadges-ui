@@ -82,7 +82,12 @@
         navigate(`/badgeclass/${badgeclass.entityId}/awarded`);
         flash.setValue(I18n.t("badgeAward.bulkAward.flash.created"));
         serverProcessing = false;
-      });
+      }).catch(() => {
+        refresh();
+        navigate(`/badgeclass/${badgeclass.entityId}/awarded`);
+        flash.setValue(I18n.t("badgeAward.bulkAward.flash.created"));
+        serverProcessing = false;
+    });
   };
 
   $: maySubmit = directAwards.length > 0 && !processing && !serverProcessing;

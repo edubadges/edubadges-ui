@@ -13,6 +13,7 @@
   import filter from "../../../icons/filter-1.svg";
   import SideBarAssertions from "../award/SideBarAssertions.svelte";
   import {awardTypes, issuedTypes, statusTypes} from "../../../stores/filterAssertions";
+  import {assertionStatus, assertionStatusClass, isRevoked} from "../../../util/assertions";
 
   export let assertions = [];
   export let badgeclass;
@@ -175,24 +176,6 @@
       selection = selection.filter(id => id !== entityId);
       table.checkAllValue = false;
     }
-  }
-
-  const isRevoked = assertion => {
-    return (assertion.isDirectAward && assertion.status.toLowerCase() === "revoked") || (!assertion.isDirectAward && assertion.revoked);
-  }
-
-  const assertionStatus = assertion => {
-    if (!assertion.isDirectAward && assertion.revoked) {
-      return I18n.t("models.badge.statuses.revoked");
-    }
-    return I18n.t(`models.badge.statuses.${assertion.isDirectAward ? assertion.status.toLowerCase() : assertion.acceptance.toLowerCase()}`);
-  }
-
-  const assertionStatusClass = assertion => {
-    if (!assertion.isDirectAward && assertion.revoked) {
-      return "revoked"
-    }
-    return assertion.isDirectAward ? assertion.status.toLowerCase() : assertion.acceptance.toLowerCase();
   }
 
   const tableHeaders = [
