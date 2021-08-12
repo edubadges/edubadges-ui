@@ -134,6 +134,10 @@
     badgeclass = badgeclass
   }
 
+  const removeAllAlignment = () => {
+      badgeclass.alignments = [];
+      showAlignment = false
+  }
 
   const removeAlignment = (i) => {
     badgeclass.alignments.splice(i, 1)
@@ -567,12 +571,12 @@
     <div style="display: flex">
       <div class="deletable-title"><h4>{I18n.t('models.badgeclass.headers.alignment')}</h4></div>
       {#if mayEdit}
-        <button class="rm-icon-container" on:click={() => showAlignment = false}>{@html trash}</button>
+        <button class="rm-icon-container" on:click={() => removeAllAlignment()}>{@html trash}</button>
       {/if}
     </div>
 
     {#each badgeclass.alignments as alignment, i}
-      {#if mayEdit}
+      {#if mayEdit && badgeclass.alignments.length > 1}
         <div>
           <button style="float:right;" class="rm-icon-container"
                   on:click={() => removeAlignment(i) }>{@html trash}</button>
