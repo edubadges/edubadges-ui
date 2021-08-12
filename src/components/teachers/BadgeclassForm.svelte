@@ -41,7 +41,7 @@
   let expireValueSet = false;
   let loaded = false;
   let processing = false;
-  let publicInstitutionsChosen = null;
+  let publicInstitutionsChosen = undefined;
 
   let showStudyLoad = false;
   let isInstitutionMBO = false;
@@ -62,8 +62,9 @@
       publicInstitutions = [];
     }
     publicInstitutions.forEach(ins => translateProperties(ins));
-    publicInstitutionsChosen = publicInstitutions.length === 0 ? null :
-      publicInstitutions.filter(ins => badgeclass.awardAllowedInstitutions.includes(ins.identifier))
+    if (publicInstitutions.length > 0 && badgeclass.awardAllowedInstitutions.length > 0) {
+      publicInstitutionsChosen = publicInstitutions.filter(ins => badgeclass.awardAllowedInstitutions.includes(ins.identifier))
+    }
 
     badgeclass.alignments = badgeclass.alignments.map(alignment => ({
         target_name: alignment.targetName,
