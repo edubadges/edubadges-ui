@@ -157,6 +157,7 @@ I18n.translations.nl = {
       recipients: "Ontvangers",
       enrollments: "Open aanvragen",
       studyLoad: "Studielast",
+      educationProgramIdentifier: "Opleidingscode",
       ects: "{{value}} ECTS",
       hours: "{{value}} uren",
       canAward: "Badge classes die je kunt uitreiken",
@@ -571,6 +572,7 @@ I18n.translations.nl = {
       of: "van",
       admin: "Admin",
       alignment: "Gerelateerd onderwijskundig raamwerk",
+      alignmentMultiple: "Gerelateerde onderwijskundige raamwerken",
       alignmentName: "Naam",
       alignmentFramework: "Raamwerk",
       alignmentUrl: "URL",
@@ -1100,6 +1102,14 @@ I18n.translations.nl = {
       hide: "Verbergen",
       flash: {
         created: "Bulk awards zijn verzonden"
+      },
+      details: {
+        breadCrumb: "Direct award details",
+        header: "Direct award bundle",
+        title: "Award status (issued {{issued})",
+        email: "Email",
+        studentId: "Student ID",
+        status: "Status"
       }
     }
   },

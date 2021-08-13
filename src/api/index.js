@@ -29,6 +29,11 @@ function validFetchNoErrorDialog(path, options = {}, method = "GET", useToken = 
   return validFetch(path, options, method, useToken, false)
 }
 
+function badgeClassToJson(badgeclass) {
+  return JSON.stringify(badgeclass).replace(/[\x00-\x09\x0B-\x0C\x0E-\x1F\x7F-\x9F]/g, '');
+      //.replace(/^[\x20-\x7E]/g, '');
+}
+
 function validFetch(path, options = {}, method = "GET", useToken = true, showErrorDialog = true) {
   const fetchOptions = {
     ...options,
@@ -264,12 +269,12 @@ export function createIssuer(issuer) {
 // Badgeclass
 export function editBadgeclass(entityId, badgeclass) {
   const path = `${serverUrl}/issuer/badgeclasses/edit/${entityId}`;
-  return validFetchNoErrorDialog(path, {body: JSON.stringify(badgeclass)}, "PUT");
+  return validFetchNoErrorDialog(path, {body: badgeClassToJson(badgeclass)}, "PUT");
 }
 
 export function createBadgeclass(badgeclass) {
   const path = `${serverUrl}/issuer/badgeclasses/create`;
-  return validFetchNoErrorDialog(path, {body: JSON.stringify(badgeclass)}, "POST");
+  return validFetchNoErrorDialog(path, {body: badgeClassToJson(badgeclass)}, "POST");
 }
 
 // Entities
