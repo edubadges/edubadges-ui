@@ -325,8 +325,8 @@
   {mayEdit}
   {hasUnrevokedAssertions}
   entityId={entityId}
-  issuer={isCreate ? null : badgeclass.issuer}
-  faculty={isCreate ? null : badgeclass.issuer.faculty}
+  issuer={badgeclass.issuer}
+  faculty={badgeclass.issuer.faculty}
   badgeclass={isCreate ? null : badgeclass}
   badgeclassName={isCreate ? null : badgeclass.name}
   submit={onSubmit}

@@ -69,16 +69,10 @@
         mayDelete
 
       }
-    },
-    issuers {
-      nameEnglish,
-      nameDutch,
-      entityId
-    },
+    }
   }`;
 
   let badgeclass = {issuer: {faculty: {}}, extensions: []};
-  let issuers = [];
   let permissions = {};
   let currentInstitution;
   let publicInstitutions;
@@ -96,9 +90,6 @@
 
       deduceExpirationPeriod(badgeclass);
 
-      issuers = res.issuers;
-      issuers.forEach(iss => translateProperties(iss));
-
       publicInstitutions = res.publicInstitutions;
       permissions = res.badgeClass.permissions;
       currentInstitution = res.currentInstitution;
@@ -110,7 +101,7 @@
   });
 </script>
 {#if loaded}
-  <BadgeclassForm {issuers} {badgeclass} {entityId} institution={currentInstitution}
+  <BadgeclassForm issuers={[badgeclass.issuer]} {badgeclass} {entityId} institution={currentInstitution}
                   {publicInstitutions}
                   mayDelete={mayDelete} mayEdit={mayEdit} hasUnrevokedAssertions={hasUnrevokedAssertions}/>
 {:else}

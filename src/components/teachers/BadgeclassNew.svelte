@@ -5,10 +5,11 @@
   import {deduceExpirationPeriod} from "../extensions/badges/expiration_period";
   import Spinner from "../Spinner.svelte";
   import {translateProperties} from "../../util/utils";
+  import {entityId} from "./IssuerEdit.svelte";
 
   export let issuerEntityId;
 
-  const query = `query {
+  const query = `query ($entityId: String) {
     publicInstitutions {
       id,
       identifier,
@@ -23,14 +24,19 @@
       awardAllowedInstitutions,
       awardAllowAllInstitutions
     },
-    issuers {
+    issuer(id: $entityId) {
       nameEnglish,
       nameDutch,
-      entityId
+      entityId,
+      faculty {
+        nameEnglish,
+        nameDutch,
+        entityId,
+      }
     },
   }`;
 
-  let issuers = [];
+  let issuer = {};
   let badgeclass = deduceExpirationPeriod({awardAllowedInstitutions:[], extensions: [{}]});
   let currentInstitution;
   let publicInstitutions;
@@ -38,10 +44,11 @@
   let loaded = false;
 
   onMount(() => {
-    queryData(query).then(res => {
-      issuers = res.issuers;
-      issuers.forEach(issuer => translateProperties(issuer));
-      badgeclass.issuer = issuers.find(issuer => issuer.entityId === issuerEntityId);
+    queryData(query, {entityId: issuerEntityId}).then(res => {
+      issuer = res.issuer;
+      translateProperties(issuer)
+      translateProperties(issuer.faculty)
+      badgeclass.issuer = issuer;
       currentInstitution = res.currentInstitution;
       publicInstitutions = res.publicInstitutions;
       loaded = true;
@@ -50,7 +57,7 @@
 
 </script>
 {#if loaded}
-  <BadgeclassForm {issuers} {badgeclass} institution={currentInstitution} {publicInstitutions} mayEdit={true}/>
+  <BadgeclassForm issuers={[issuer]} {badgeclass} institution={currentInstitution} {publicInstitutions} mayEdit={true}/>
 {:else}
   <Spinner/>
 {/if}
