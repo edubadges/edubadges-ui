@@ -692,6 +692,8 @@ I18n.translations.nl = {
       deleteEnrollment: "Verwijder aanvraag",
       deleteEnrollmentConfirmation: "Weet je zeker dat je deze aanvraag wilt verwijderen?",
       award: "Ken toe",
+      status: "Status",
+      open: "Open",
       denied: "Geweigerd",
       deny: "Weiger verzoek",
       addEvidence: "+ Voeg persoonlijke boodschap en/of bewijs toe",

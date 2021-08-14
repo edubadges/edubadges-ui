@@ -31,7 +31,7 @@ I18n.translations.en = {
       "Edubadges are digital certificates which show that the owner has acquired certain skills or knowledge. Edubadges can be issued for both accredited education and extracurriculair activities.",
     student: {
       title: "<strong style='font-size: 38px'>C</strong>ollect",
-      subtitle: "A backpack is the pace to receive and collect edubadges.",
+      subtitle: "A backpack is the place to receive and collect edubadges.",
       noEduId: "An eduID is needed to create and use your backpack. Creating an eduID takes less than 30 seconds",
       action: "Open your backpack",
     },
@@ -692,6 +692,8 @@ I18n.translations.en = {
       deleteEnrollment: "Delete request",
       deleteEnrollmentConfirmation: "Are you sure you want to withdraw this request?",
       award: "Award",
+      status: "Status",
+      open: "Open",
       denied: "Denied",
       deny: "Deny request",
       addEvidence: "+ Add narrative and/or evidence",

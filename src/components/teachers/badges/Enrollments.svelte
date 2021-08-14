@@ -13,6 +13,7 @@
   import filter from "../../../icons/filter-1.svg";
   import CenterMe from "../../forms/CenterMe.svelte";
   import AwardBadgeModal from "../award/AwardBadgeModal.svelte";
+  import {onMount} from "svelte";
 
   export let entityId;
   export let enrollments = [];
@@ -72,7 +73,7 @@
   }
 
   const onCheckAll = val => {
-    selection = val ? enrollments.map(({entityId}) => entityId) : [];
+    selection = val ? enrollments.filter(enrollment => !enrollment.denied).map(({entityId}) => entityId) : [];
     table.checkAllValue = val;
   }
 
@@ -103,7 +104,7 @@
       reverse: false,
       icon: filter,
       sortType: sortType.ALPHA,
-      width: "35%",
+      width: "30%",
       center: true
     },
     {
@@ -115,11 +116,11 @@
       center: true
     },
     {
-      name: I18n.t("models.enrollment.denied"),
+      name: I18n.t("models.enrollment.status"),
       attribute: "denied",
       reverse: false,
-      sortType: sortType.BOOLEAN,
-      width: "10%",
+      sortType: sortType.ALPHA,
+      width: "15%",
       center: true
     }
   ];
@@ -175,6 +176,7 @@
   bind:sort={enrollmentSort}
   isEmpty={enrollments.length === 0}
   withCheckAll={true}
+  onCheckAllDisabled={enrollments.filter(enrollment => !enrollment.denied).length === 0}
   bind:checkAllValue>
   <div class="action-buttons" slot="check-buttons">
     <Button small action={() => award(true)}
@@ -211,9 +213,7 @@
         {moment(enrollment.dateCreated).format('MMM D, YYYY')}
       </td>
       <td class="center">
-        <CenterMe>
-          <CheckBox value={enrollment.denied} disabled={true}/>
-        </CenterMe>
+          <span>{enrollment.denied ? I18n.t("models.enrollment.denied") : I18n.t("models.enrollment.open")}</span>
       </td>
     </tr>
   {/each}

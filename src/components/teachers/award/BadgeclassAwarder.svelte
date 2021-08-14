@@ -119,7 +119,6 @@
   const refreshAwardsAndEnrolments = (res, callback) => {
     enrollments = res.badgeClass.pendingEnrollments;
     directAwardBundles = res.badgeClass.directAwardBundles;
-
     const badgeAssertions = res.badgeClass.badgeAssertions;
     badgeAssertions.forEach(ba => {
       ba.isDirectAward = false;

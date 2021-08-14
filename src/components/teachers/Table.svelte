@@ -19,6 +19,7 @@
   export let withCheckAll;
   export let checkAllValue;
   export let onCheckAll;
+  export let onCheckAllDisabled = false;
   export let isEmpty;
   export let hideSearch;
   export let full = false;
@@ -90,7 +91,7 @@
       <tr>
         {#if withCheckAll}
           <th class="checker">
-            <CheckBox bind:value={checkAllValue} onChange={onCheckAll}/>
+            <CheckBox bind:value={checkAllValue} onChange={onCheckAll} disabled={onCheckAllDisabled}/>
           </th>
         {/if}
         <TableHeaders {tableHeaders} {setSort} {sort}/>
