@@ -280,7 +280,7 @@
         {badgeclass.issuer.name}
       </a>
       <span class="crumb">{@html chevronRightSmall}</span>
-      <a use:link href={`/badgeclass/${badgeclass.entityId}`}>
+      <a use:link href={`/badgeclass/${badgeclass.entityId}${$currentPath.indexOf("award-details") > 0 ? "/direct-awards-bundles" : ""}`}>
         {badgeclass.name}
       </a>
       {#if $currentPath.endsWith("direct-award")}

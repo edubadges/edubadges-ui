@@ -1,5 +1,7 @@
 <script>
     import I18n from "i18n-js";
+    import moment from "moment";
+
     import {
         ects,
         educationProgramIdentifier,
@@ -18,6 +20,7 @@
     import calendarIcon from "../../icons/calendar-1.svg";
 
     export let badgeclass;
+    export let badge;
 
     onMount(() => {
         //The component is used by public pages where the data structure is different
@@ -60,6 +63,10 @@
 
         &:not(:last-child) {
           border-bottom: 1px solid var(--grey-4);
+        }
+
+        div.no-icon {
+          padding-left: 22px;
         }
 
         div {
@@ -119,6 +126,11 @@
     padding-top: 10px;
   }
 
+  h2.black-header {
+    margin-bottom: 25px;
+  }
+
+
   section.alignment {
     margin-top: 25px;
     padding: 15px;
@@ -131,21 +143,21 @@
       margin: 0;
     }
 
-    h2.black-header {
-      margin-bottom: 25px;
-    }
-
     table.alignment {
       width: 100%;
       margin-bottom: 15px;
+
       th {
         text-align: left;
+
         &.alignmentCode {
           width: 35%;
         }
+
         &.alignmentFramework {
           width: 25%;
         }
+
         &.alignmentUrl {
           width: 40%;
         }
@@ -241,6 +253,20 @@
     {/if}
   </div>
   <div class="right-side-nav">
+    {#if badge}
+      <section class="study-load">
+        <div class="no-icon">
+          <h3>{I18n.t("models.badge.issuedOn")}</h3>
+          <span>{moment(badge.issuedOn).format('MMM D, YYYY')}</span>
+        </div>
+      </section>
+      <section class="study-load">
+        <div class="no-icon">
+          <h3>{I18n.t("models.badge.expires")}</h3>
+          <span>{badge.expiresAt ? moment(badge.expiresAt).format('MMM D, YYYY') : I18n.t("models.badge.expiresNever")}</span>
+        </div>
+      </section>
+    {/if}
     <section class="study-load">
       {@html languageIcon}
       <div>

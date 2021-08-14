@@ -1,74 +1,73 @@
 <script>
-  import I18n from "i18n-js";
-  import {userName} from "../../stores/user";
+    import I18n from "i18n-js";
+    import {userName} from "../../stores/user";
 
-  import {onMount} from "svelte";
-  import shieldUnlocked from "../../icons/shield-unlock.svg";
-  import shieldLocked from "../../icons/lock-shield.svg";
-  import {link} from "svelte-routing";
-  import {queryData} from "../../api/graphql";
-  import chevronRightSmall from "../../icons/chevron-right-small.svg";
-  import Button from "../../components/Button.svelte";
-  import Spinner from "../../components/Spinner.svelte";
-  import BadgeCard from "../../components/shared/BadgeCard.svelte";
-  import BadgeClassDetails from "../../components/shared/BadgeClassDetails.svelte";
-  import moment from "moment";
-  import {Modal} from "../../components/forms";
-  import DownloadButton from "../../components/DownloadButton.svelte";
-  import {acceptAssertion, claimAssertion, deleteAssertion, publicAssertion} from "../../api";
-  import {flash} from "../../stores/flash";
-  import ToggleSwitch from "../../components/ToggleSwitch.svelte";
-  import ShareDialog from "./ShareDialog.svelte";
-  import BadgeInstanceEvidence from "../../components/shared/BadgeInstanceEvidence.svelte";
-  import CheckBox from "../../components/CheckBox.svelte";
-  import {translateProperties} from "../../util/utils";
+    import {onMount} from "svelte";
+    import shieldUnlocked from "../../icons/shield-unlock.svg";
+    import shieldLocked from "../../icons/lock-shield.svg";
+    import {link} from "svelte-routing";
+    import {queryData} from "../../api/graphql";
+    import chevronRightSmall from "../../icons/chevron-right-small.svg";
+    import Button from "../../components/Button.svelte";
+    import Spinner from "../../components/Spinner.svelte";
+    import BadgeCard from "../../components/shared/BadgeCard.svelte";
+    import BadgeClassDetails from "../../components/shared/BadgeClassDetails.svelte";
+    import {Modal} from "../../components/forms";
+    import DownloadButton from "../../components/DownloadButton.svelte";
+    import {acceptAssertion, claimAssertion, deleteAssertion, publicAssertion} from "../../api";
+    import {flash} from "../../stores/flash";
+    import ToggleSwitch from "../../components/ToggleSwitch.svelte";
+    import ShareDialog from "./ShareDialog.svelte";
+    import BadgeInstanceEvidence from "../../components/shared/BadgeInstanceEvidence.svelte";
+    import CheckBox from "../../components/CheckBox.svelte";
+    import {translateProperties} from "../../util/utils";
 
-  export let entityId;
+    export let entityId;
 
-  let badge = {};
-  // let validation = {valid: false, messages: [], unloaded: true};
+    let badge = {};
+    // let validation = {valid: false, messages: [], unloaded: true};
 
-  //Modal
-  let showModal = false;
-  let modalTitle;
-  let modalQuestion;
-  let modalAction;
-  let showShareFeedback = false;
-  let showShareDialog = false;
-  let includeEvidence = true;
-  let makePublicAction = false;
+    //Modal
+    let showModal = false;
+    let modalTitle;
+    let modalQuestion;
+    let modalAction;
+    let showShareFeedback = false;
+    let showShareDialog = false;
+    let includeEvidence = true;
+    let makePublicAction = false;
 
 
-  const cancel = () => {
-    showModal = false;
-  }
+    const cancel = () => {
+        showModal = false;
+    }
 
-  const cancelShareDialog = () => {
-    showShareDialog = false;
-  }
+    const cancelShareDialog = () => {
+        showShareDialog = false;
+    }
 
-  const copiedLink = () => {
-    showShareDialog = false;
-    showShareFeedback = true;
-    setTimeout(() => showShareFeedback = false, 2500)
+    const copiedLink = () => {
+        showShareDialog = false;
+        showShareFeedback = true;
+        setTimeout(() => showShareFeedback = false, 2500)
 
-  }
+    }
 
-  const publicUrl = () => {
-    const currentUrl = window.location.href;
-    return currentUrl.replace("/details/", "/public/assertions/");
-  }
+    const publicUrl = () => {
+        const currentUrl = window.location.href;
+        return currentUrl.replace("/details/", "/public/assertions/");
+    }
 
-  const copyToClipboard = () => {
-    showShareDialog = true;
-  }
+    const copyToClipboard = () => {
+        showShareDialog = true;
+    }
 
-  const downloadFileName = badge => {
-    const sanitizedName = badge.badgeclass.name.replace(/ /g, "_").toLowerCase();
-    return `${sanitizedName}_edubadge.png`;
-  }
+    const downloadFileName = badge => {
+        const sanitizedName = badge.badgeclass.name.replace(/ /g, "_").toLowerCase();
+        return `${sanitizedName}_edubadge.png`;
+    }
 
-  const query = `query ($entityId: String){
+    const query = `query ($entityId: String){
     badgeInstance(id: $entityId) {
       image,
       entityId,
@@ -123,83 +122,83 @@
     }
   }`;
 
-  let loaded;
+    let loaded;
 
-  const refreshBadgeDetails = () => {
-    loaded = false;
-    queryData(query, {entityId}).then(res => {
-      const theBadge = res.badgeInstance;
-      if (!theBadge.public && theBadge.acceptance === 'UNACCEPTED') {
-        claimAssertion(theBadge.entityId);
-        theBadge.acceptance = "ACCEPTED";
-      }
+    const refreshBadgeDetails = () => {
+        loaded = false;
+        queryData(query, {entityId}).then(res => {
+            const theBadge = res.badgeInstance;
+            if (!theBadge.public && theBadge.acceptance === 'UNACCEPTED') {
+                claimAssertion(theBadge.entityId);
+                theBadge.acceptance = "ACCEPTED";
+            }
 
-      const issuer = theBadge.badgeclass.issuer;
-      translateProperties(issuer);
-      translateProperties(issuer.faculty);
-      translateProperties(issuer.faculty.institution);
+            const issuer = theBadge.badgeclass.issuer;
+            translateProperties(issuer);
+            translateProperties(issuer.faculty);
+            translateProperties(issuer.faculty.institution);
 
-      badge = theBadge;
+            badge = theBadge;
 
-      showModal = false;
-      loaded = true;
+            showModal = false;
+            loaded = true;
+        });
+    }
+
+    onMount(() => {
+        refreshBadgeDetails();
     });
-  }
 
-  onMount(() => {
-    refreshBadgeDetails();
-  });
-
-  const rejectBadge = showConfirmation => {
-    if (showConfirmation) {
-      modalTitle = I18n.t("student.deleteBadge");
-      modalQuestion = I18n.t("student.confirmation.deleteBadgeConfirmation");
-      modalAction = () => rejectBadge(false);
-      showModal = true;
-    } else {
-      showModal = false;
-      deleteAssertion(badge.entityId)
-        .then(() => {
-          flash.setValue(I18n.t("student.flash.deleted"));
-          refreshBadgeDetails();
-        });
+    const rejectBadge = showConfirmation => {
+        if (showConfirmation) {
+            modalTitle = I18n.t("student.deleteBadge");
+            modalQuestion = I18n.t("student.confirmation.deleteBadgeConfirmation");
+            modalAction = () => rejectBadge(false);
+            showModal = true;
+        } else {
+            showModal = false;
+            deleteAssertion(badge.entityId)
+                .then(() => {
+                    flash.setValue(I18n.t("student.flash.deleted"));
+                    refreshBadgeDetails();
+                });
+        }
     }
-  }
 
-  const acceptBadge = showConfirmation => {
-    if (showConfirmation) {
-      modalTitle = I18n.t("student.acceptBadge");
-      modalQuestion = I18n.t("student.confirmation.acceptBadgeConfirmation");
-      modalAction = () => acceptBadge(false);
-      showModal = true;
-    } else {
-      showModal = false;
-      acceptAssertion(badge.entityId)
-        .then(() => {
-          flash.setValue(I18n.t("student.flash.accepted"));
-          refreshBadgeDetails();
-        });
+    const acceptBadge = showConfirmation => {
+        if (showConfirmation) {
+            modalTitle = I18n.t("student.acceptBadge");
+            modalQuestion = I18n.t("student.confirmation.acceptBadgeConfirmation");
+            modalAction = () => acceptBadge(false);
+            showModal = true;
+        } else {
+            showModal = false;
+            acceptAssertion(badge.entityId)
+                .then(() => {
+                    flash.setValue(I18n.t("student.flash.accepted"));
+                    refreshBadgeDetails();
+                });
+        }
     }
-  }
 
 
-  const makePublic = (showConfirmation, isPublic) => {
-    makePublicAction = isPublic;
-    if (showConfirmation) {
-      modalTitle = isPublic ? I18n.t("student.confirmation.publish") : I18n.t("student.confirmation.private");
-      modalQuestion = isPublic ? I18n.t("student.confirmation.publishConfirmation", {name: $userName}) : I18n.t("student.confirmation.privateConfirmation");
-      modalAction = () => makePublic(false, isPublic);
-      showModal = true;
+    const makePublic = (showConfirmation, isPublic) => {
+        makePublicAction = isPublic;
+        if (showConfirmation) {
+            modalTitle = isPublic ? I18n.t("student.confirmation.publish") : I18n.t("student.confirmation.private");
+            modalQuestion = isPublic ? I18n.t("student.confirmation.publishConfirmation", {name: $userName}) : I18n.t("student.confirmation.privateConfirmation");
+            modalAction = () => makePublic(false, isPublic);
+            showModal = true;
 
-    } else {
-      showModal = false;
-      publicAssertion(badge.entityId, isPublic, includeEvidence)
-        .then(() => {
-          flash.setValue(isPublic ? I18n.t("student.flash.published") : I18n.t("student.flash.private"));
-          refreshBadgeDetails();
-        });
+        } else {
+            showModal = false;
+            publicAssertion(badge.entityId, isPublic, includeEvidence)
+                .then(() => {
+                    flash.setValue(isPublic ? I18n.t("student.flash.published") : I18n.t("student.flash.private"));
+                    refreshBadgeDetails();
+                });
+        }
     }
-  }
 </script>
 
 <style lang="scss">
@@ -345,24 +344,6 @@
     margin-bottom: 12px;
   }
 
-  div.dates {
-    display: flex;
-    width: 100%;
-    align-content: space-between;
-
-    div.issued-on {
-      flex-grow: 1;
-    }
-
-    div.expires {
-      margin-left: auto;
-      padding-left: 25px;
-      min-width: 30%;
-    }
-
-    margin-bottom: 40px;
-  }
-
   div.public-private {
     background-color: var(--grey-3);
     border-radius: 8px;
@@ -472,18 +453,7 @@
           </div>
         </div>
       {/if}
-      <div class="dates">
-        <div class="issued-on">
-          <h3>{I18n.t("models.badge.issuedOn")}</h3>
-          <span>{moment(badge.issuedOn).format('MMM D, YYYY')}</span>
-        </div>
-        <div class="expires">
-          <h3>{I18n.t("models.badge.expires")}</h3>
-          <span>{badge.expiresAt ? moment(badge.expiresAt).format('MMM D, YYYY') : I18n.t("models.badge.expiresNever")}</span>
-        </div>
-      </div>
-
-      <BadgeClassDetails badgeclass={badge.badgeclass}/>
+      <BadgeClassDetails badgeclass={badge.badgeclass} badge={badge}/>
 
       <BadgeInstanceEvidence evidences={badge.evidences} isPrivate={true}/>
     </div>
