@@ -1,35 +1,36 @@
 <script>
-  import {onMount} from "svelte";
-  import moment from "moment";
-  import I18n from "i18n-js";
-  import {navigate} from "svelte-routing";
-  import {issuerIcon} from "../../icons";
-  import StatusIndicator from "./StatusIndicator.svelte";
-  import BadgeShield from "./BadgeShield.svelte";
+    import {onMount} from "svelte";
+    import moment from "moment";
+    import I18n from "i18n-js";
+    import {navigate} from "svelte-routing";
+    import {issuerIcon} from "../../icons";
+    import StatusIndicator from "./StatusIndicator.svelte";
+    import BadgeShield from "./BadgeShield.svelte";
 
-  export let badge;
-  export let badgeClass;
-  export let standAlone = false;
-  export let isPublic = false;
-  export let withHeaderData;
+    export let badge;
+    export let badgeClass;
+    export let standAlone = false;
+    export let isPublic = false;
+    export let withHeaderData;
+    export let withPendingEnrollments = false;
 
-  const detailLink = () => {
-    if (badge && badge.isDirectAward) {
-      navigate(`/direct-award/${badge.entityId}`);
-    } else if (isPublic) {
-      navigate(`/public/${badgeClass.entityId}`);
-    } else if (!standAlone) {
-      navigate(badge ? `/details/${badge.entityId}` : `/badgeclass/${badgeClass.entityId}`);
+    const detailLink = () => {
+        if (badge && badge.isDirectAward) {
+            navigate(`/direct-award/${badge.entityId}`);
+        } else if (isPublic) {
+            navigate(`/public/${badgeClass.entityId}`);
+        } else if (!standAlone) {
+            navigate(badge ? `/details/${badge.entityId}` : `/badgeclass/${badgeClass.entityId}`);
+        }
     }
-  }
 
-  onMount(() => {
-    badgeClass.studyLoadValue = badgeClass.studyLoad ?
-      I18n.t("teacher.badgeclasses.hours", {value: badgeClass.studyLoad}) : badgeClass.ects ?
-        I18n.t("teacher.badgeclasses.ects", {value: badgeClass.ects}) : null;
-    badgeClass.timeInvestmentValue = badgeClass.timeInvestment ?
-      I18n.t("teacher.badgeclasses.hours", {value: badgeClass.timeInvestment}) : null;
-  });
+    onMount(() => {
+        badgeClass.studyLoadValue = badgeClass.studyLoad ?
+            I18n.t("teacher.badgeclasses.hours", {value: badgeClass.studyLoad}) : badgeClass.ects ?
+                I18n.t("teacher.badgeclasses.ects", {value: badgeClass.ects}) : null;
+        badgeClass.timeInvestmentValue = badgeClass.timeInvestment ?
+            I18n.t("teacher.badgeclasses.hours", {value: badgeClass.timeInvestment}) : null;
+    });
 </script>
 
 <style lang="scss">
@@ -195,7 +196,12 @@
 {#if badge || badgeClass}
   <div class="card badge" class:stand-alone={standAlone} on:click|preventDefault|stopPropagation={detailLink}>
 
-    <StatusIndicator badge={badge}/>
+    {#if withPendingEnrollments}
+      <StatusIndicator badge={badge} badgeClass={badgeClass}/>
+    {:else }
+      <StatusIndicator badge={badge}/>
+    {/if}
+
 
     <div class="header {withHeaderData ? 'header-extra-height' : 'header-regular-height'}">
       {#if badge}

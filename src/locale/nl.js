@@ -678,7 +678,8 @@ I18n.translations.nl = {
         accepted: "Geaccepteerd",
         unaccepted: "In afwachting",
         pending: "In afwachting",
-        unclaimed: "Unclaimed"
+        unclaimed: "Unclaimed",
+        pendingEnrollmentCount: "{{count}} aangevraagd"
       },
       confirmation: {
         revocationReason: "Reden voor intrekking (verplicht)",

@@ -17,7 +17,9 @@
       ${headerStaff},
       institution {
         imageDutch,
-        imageEnglish
+        imageEnglish,
+        nameDutch,
+        nameEnglish
       },
       issuers {
         ${headerEntityMultiLanguage},
@@ -36,7 +38,8 @@
           permissions {
             mayAward
           },
-          assertionsCount
+          assertionsCount,
+          pendingEnrollmentCount,
         }
       },
     }
@@ -135,7 +138,7 @@
           <BadgeListView badges={$tree.badgeClasses} isBadgesClass={true}/>
         {:else}
           {#each $tree.badgeClasses as badge}
-            <BadgeCard badgeClass={badge} withHeaderData={false}/>
+            <BadgeCard withPendingEnrollments={true} badgeClass={badge} withHeaderData={false}/>
           {/each}
         {/if}
       </div>

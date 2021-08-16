@@ -2,6 +2,7 @@
   import I18n from "i18n-js";
 
   export let badge;
+  export let badgeClass;
   export let cardView = true;
 
 </script>
@@ -40,6 +41,12 @@
     max-width: 85px;
   }
 
+  span.status-indicator.pending-enrollments {
+    background-color: var(--green-dark);
+    color: white;
+    max-width: 145px;
+  }
+
   span.status-indicator.revoked {
     background-color: var(--red-strong-dark);
     color: white;
@@ -66,3 +73,9 @@
     <span class="status-indicator expired" class:card-view={cardView}>{I18n.t("models.badge.statuses.expired")}</span>
   {/if}
 {/if}
+{#if badgeClass && badgeClass.pendingEnrollmentCount > 0}
+    <span class="status-indicator pending-enrollments" class:card-view={cardView}>
+      {I18n.t("models.badge.statuses.pendingEnrollmentCount", {count: badgeClass.pendingEnrollmentCount})}
+    </span>
+{/if}
+

@@ -679,6 +679,7 @@ I18n.translations.en = {
         unaccepted: "Pending",
         pending: "Pending",
         unclaimed: "Unclaimed",
+        pendingEnrollmentCount: "{{count}} requested"
       },
       confirmation: {
         revocationReason: "Reason for revocation (required)",

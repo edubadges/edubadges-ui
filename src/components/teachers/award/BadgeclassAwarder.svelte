@@ -117,7 +117,7 @@
   }
 
   const refreshAwardsAndEnrolments = (res, callback) => {
-    enrollments = res.badgeClass.pendingEnrollments;
+    enrollments = res.badgeClass.pendingEnrollmentsIncludingDenied;
     directAwardBundles = res.badgeClass.directAwardBundles;
     const badgeAssertions = res.badgeClass.badgeAssertions;
     badgeAssertions.forEach(ba => {
