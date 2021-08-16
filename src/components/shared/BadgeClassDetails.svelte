@@ -146,30 +146,36 @@
       margin: 0;
     }
 
-    table.alignment {
+    .alignment-container {
+      display: flex;
       width: 100%;
-      margin-bottom: 15px;
+      justify-content: space-between;
+      margin-bottom: 20px;
 
-      th {
-        text-align: left;
-
-        &.alignmentCode {
-          width: 35%;
-        }
-
-        &.alignmentFramework {
-          width: 25%;
-        }
-
-        &.alignmentUrl {
-          width: 40%;
-        }
+      h4 {
+        margin: 10px 0 0 0;
       }
 
-      td {
-        width: 33%;
+      div.vertical {
+        background-color: var(--grey-3);
+        max-width: 1px;
       }
     }
+
+    .alignment-item {
+      &.alignmentCode {
+        width: 25%;
+      }
+
+      &.alignmentFramework {
+        width: 20%;
+      }
+
+      &.alignmentUrl {
+        width: 45%;
+      }
+    }
+
   }
 
   @media (max-width: 1120px) {
@@ -210,40 +216,24 @@
         {#each badgeclass.alignments as alignment}
           <section class="alignment">
             <h4 class="black-header">{alignment.targetName}</h4>
-            <table class="alignment">
-              <thead>
-              <tr>
-                <th class="alignmentCode">
-                  <h4>{I18n.t('models.badgeclass.alignmentCode')}</h4>
-                </th>
-                <th class="alignmentFramework">
-                  <h4>{I18n.t('models.badgeclass.alignmentFramework')}</h4>
-                </th>
-                <th class="alignmentUrl">
-                  <h4>{I18n.t('models.badgeclass.alignmentUrl')}</h4>
-                </th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr>
-                <td>
-                  {#if alignment.targetCode}
-                    {alignment.targetCode}
-                  {/if}
-                </td>
-                <td>
-                  {#if alignment.targetFramework}
-                    {alignment.targetFramework}
-                  {/if}
-                </td>
-                <td>
-                  {#if alignment.targetUrl}
-                    <a href="{alignment.targetUrl}" target="_blank">{alignment.targetUrl}</a>
-                  {/if}
-                </td>
-              </tr>
-              </tbody>
-            </table>
+            <div class="alignment-container">
+              <div class="alignment-item alignmentCode">
+                <h4>{I18n.t('models.badgeclass.alignmentCode')}</h4>
+                {alignment.targetCode}
+              </div>
+              <div class="vertical">&nbsp;</div>
+              <div class="alignment-item alignmentFramework">
+                <h4>{I18n.t('models.badgeclass.alignmentFramework')}</h4>
+                {alignment.targetFramework}
+              </div>
+              <div class="vertical">&nbsp;</div>
+              <div class="alignment-item alignmentUrl">
+                <h4>{I18n.t('models.badgeclass.alignmentUrl')}</h4>
+                {#if alignment.targetUrl}
+                  <a href="{alignment.targetUrl}" target="_blank">{alignment.targetUrl}</a>
+                {/if}
+              </div>
+            </div>
             {#if alignment.targetDescription}
               <p class="sub-info markdown">
                 {@html DOMPurify.sanitize(marked(alignment.targetDescription))}
