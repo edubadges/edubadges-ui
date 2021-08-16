@@ -157,6 +157,7 @@ I18n.translations.nl = {
       recipients: "Ontvangers",
       enrollments: "Open aanvragen",
       studyLoad: "Studielast",
+      timeInvestment: "Tijdinvestering",
       educationProgramIdentifier: "Opleidingscode",
       ects: "{{value}} ECTS",
       hours: "{{value}} uren",
@@ -598,6 +599,7 @@ I18n.translations.nl = {
       narrativeRequired: "Narrative verplicht",
       learningOutcome: "Leeruitkomst",
       studyLoad: "Studielast",
+      timeInvestment: "Tijdinvestering",
       ects: {
         creditPoints: "Studiepunten (ECTS)",
         hours: "Uren"
@@ -621,12 +623,14 @@ I18n.translations.nl = {
         additionalSections: "Extra toevoegingen",
         educationalIdentifiers: "Opleidingscode",
         studyLoad: "Studielast",
+        timeInvestment: "Tijd investering",
         alignment: "Gerelateerd onderwijskundig raamwerk",
         allowedInstituions: "Toegestaande instellingen"
       },
       addButtons: {
         educationalIdentifiers: "Opleidingscode(s) toevoegen",
         studyLoad: "Studielast toevoegen",
+        timeInvestment: "Tijdinvestering toevoegen",
         alignment: "Gerelateerd onderwijskundig raamwerk toevoegen",
         alignmentAddition: "Nog een gerelateerd onderwijskundig raamwerk toevoegen",
       },
@@ -943,6 +947,7 @@ I18n.translations.nl = {
       criteriaText: "Bijv. online multiple choice tentamen",
       criteriaUrl: "Bijv. https://universiteitvanharderwijk.nl/geschiedenis/criteria",
       studyLoad: "Bijv. 120",
+      timeInvestment: "Bijv. 260",
       educationProgramIdentifier: "Bijv. 12111990",
       alignmentName: "Bijv. Geschiedenis",
       alignmentFramework: "Bijv. ESCO",
@@ -1004,6 +1009,7 @@ I18n.translations.nl = {
     //badgeClassCriteriaUrl: "badgeClassCriteriaUrl",
     //badgeClassTypeOfStudyLoad: "badgeClassTypeOfStudyLoad",
     //badgeClassStudyLoadNumber: "badgeClassStudyLoadNumber",
+    //badgeClassTimeInvestmentNumber: "badgeClassTimeInvestmentNumber",
     //badgeClassSBUNumber: "badgeClassSBULoadNumber",
     //badgeClassStudyLoadEcts: "badgeClassStudyLoadEcts",
     //badgeClassProgrammeIdentifier: "badgeClassProgrammeIdentifier",

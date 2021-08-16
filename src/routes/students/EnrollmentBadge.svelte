@@ -14,6 +14,9 @@
     badgeClass.studyLoadValue = badgeClass.studyLoad ?
       I18n.t("teacher.badgeclasses.hours", {value: badgeClass.studyLoad}) : badgeClass.ects ?
       I18n.t("teacher.badgeclasses.ects", {value: badgeClass.ects}) : null;
+    badgeClass.timeInvestmentValue = badgeClass.timeInvestment ?
+      I18n.t("teacher.badgeclasses.hours", {value: badgeClass.timeInvestment}) : null;
+
   });
 </script>
 
@@ -146,6 +149,12 @@
         <div class="study-load">
           <span class="study-load-label">{I18n.t('models.badgeclass.studyLoad')}</span>
           <span class="study-load-value">{badgeClass.studyLoadValue}</span>
+        </div>
+      {/if}
+      {#if badgeClass.timeInvestmentValue}
+        <div class="study-load">
+          <span class="study-load-label">{I18n.t('models.badgeclass.timeInvestment')}</span>
+          <span class="study-load-value">{badgeClass.timeInvestmentValue}</span>
         </div>
       {/if}
     </div>

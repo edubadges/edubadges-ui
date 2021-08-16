@@ -157,6 +157,7 @@ I18n.translations.en = {
       enrollments: "Open requests",
       recipients: "Recipients",
       studyLoad: "Study load",
+      timeInvestment: "Time investment",
       educationProgramIdentifier: "Education identifier",
       ects: "{{value}} ECTS",
       hours: "{{value}} hours",
@@ -598,6 +599,7 @@ I18n.translations.en = {
       narrativeRequired: "Narrative required",
       learningOutcome: "Learning outcome",
       studyLoad: "Study load",
+      timeInvestment: "Time investment",
       ects: {
         creditPoints: "Credit points (according to ECTS)",
         hours: "Hours"
@@ -621,12 +623,14 @@ I18n.translations.en = {
         additionalSections: "Additional sections",
         educationalIdentifiers: "Educational identifiers",
         studyLoad: "Study load",
+        timeInvestment: "Time investment",
         alignment: "Related educational framework ",
         allowedInstituions: "Allowed institutions"
       },
       addButtons: {
         educationalIdentifiers: "Add educational identifier(s)",
         studyLoad: "Add study load",
+        timeInvestment: "Add time investment",
         alignment: "Add related educational framework",
         alignmentAddition: "Add another related educational framework",
       },
@@ -901,7 +905,8 @@ I18n.translations.en = {
     permissions: "There are no permissions for this user on the {{entity}} level.",
     selfPermissions: "There are no permissions for this user on the {{entity}} level.",
     userPermissions: "This user does not have any permissions for {{entity}} {{name}}.",
-    directAwardBundles: "There is no direct award status for edubadge {{name}}"
+    directAwardBundles: "There is no direct award status for edubadge {{name}}",
+    directAwards: "All direct awards have been claimed, there are no more outstanding direct awards for this bundle."
   },
   userManagement: {
     permissions: "Permissions for {{name}}",
@@ -943,6 +948,7 @@ I18n.translations.en = {
       criteriaText: "(Either criteria or criteria URL is required) e.g. online multiple choice exam",
       criteriaUrl: "e.g. https://www.universityofharderwijk.nl/renaissance/criteria",
       studyLoad: "e.g. 120",
+      timeInvestment: "e.g. 260",
       educationProgramIdentifier: "e.g. 12111990",
       alignmentName: "e.g. history",
       alignmentFramework: "e.g. ESCO",
@@ -1004,6 +1010,7 @@ I18n.translations.en = {
     //badgeClassCriteriaUrl: "badgeClassCriteriaUrl",
     //badgeClassTypeOfStudyLoad: "badgeClassTypeOfStudyLoad",
     //badgeClassStudyLoadNumber: "badgeClassStudyLoadNumber",
+    //badgeClassTimeInvestmentNumber: "badgeClassTimeInvestmentNumber",
     //badgeClassSBUNumber: "badgeClassSBULoadNumber",
     //badgeClassStudyLoadEcts: "badgeClassStudyLoadEcts",
     //badgeClassProgrammeIdentifier: "badgeClassProgrammeIdentifier",

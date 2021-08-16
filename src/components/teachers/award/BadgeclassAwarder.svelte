@@ -317,7 +317,7 @@
                           refresh={refresh}/>
         </Route>
         <Route path="/award-details/:entityId" let:params>
-          <BulkAwardDetails badgeclass={badgeclass} directAwardBundle={directAwardBundles.find(dab => dab.entityId === params.entityId)} />
+          <BulkAwardDetails directAwardBundle={directAwardBundles.find(dab => dab.entityId === params.entityId)} />
         </Route>
       </Router>
     </div>

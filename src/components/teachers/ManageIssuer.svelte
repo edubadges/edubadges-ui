@@ -10,7 +10,7 @@
   import {config} from "../../util/config";
 
 
-  import {ects, extensionValue, studyLoad} from "../extensions/badges/extensions";
+  import {ects, extensionValue, studyLoad, timeInvestment} from "../extensions/badges/extensions";
   import {translateProperties} from "../../util/utils";
 
   export let entityId;
@@ -76,8 +76,10 @@
       badgeclasses.forEach(badgeClass => {
         const studyLoadValue = extensionValue(badgeClass.extensions, studyLoad);
         const ectsValue = extensionValue(badgeClass.extensions, ects);
+        const timeInvestmentValue = extensionValue(badgeClass.extensions, timeInvestment);
         badgeClass.studyLoad = studyLoadValue ? I18n.t("teacher.badgeclasses.hours", {value: studyLoadValue}) : ectsValue ?
           I18n.t("teacher.badgeclasses.ects", {value: ectsValue}) : "-";
+        badgeClass.timeInvestment = timeInvestmentValue ? I18n.t("teacher.badgeclasses.hours", {value: timeInvestmentValue}) : "-";
       });
       permissions = res.issuer.permissions;
       contentType = res.issuer.contentTypeId;

@@ -28,14 +28,14 @@
       attribute: "createdAt",
       reverse: false,
       sortType: sortType.DATE,
-      width: "10%"
+      width: "8%"
     },
     {
       name: I18n.t("teacher.badgeclasses.recipients"),
       attribute: "assertionCount",
       reverse: false,
       sortType: sortType.NUMERIC,
-      width: "10%",
+      width: "6%",
       center: true
     },
     {
@@ -43,7 +43,7 @@
       attribute: "pendingEnrollmentCount",
       reverse: false,
       sortType: sortType.NUMERIC,
-      width: "12%",
+      width: "8%",
       center: true
     },
     {
@@ -52,6 +52,14 @@
       reverse: false,
       sortType: sortType.ALPHA,
       width: "9%",
+      right: true
+    },
+    {
+      name: I18n.t("teacher.badgeclasses.timeInvestment"),
+      attribute: "timeInvestment",
+      reverse: false,
+      sortType: sortType.ALPHA,
+      width: "12%",
       right: true
     },
     {
@@ -136,6 +144,7 @@
       <td class="center">{badgeclass.assertionCount === 0 ? "-" : badgeclass.assertionCount}</td>
       <td class="center">{badgeclass.pendingEnrollmentCount === 0 ? "-" : badgeclass.pendingEnrollmentCount}</td>
       <td class="right">{badgeclass.studyLoad}</td>
+      <td class="right">{badgeclass.timeInvestment}</td>
       <td></td>
     </tr>
   {/each}

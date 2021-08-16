@@ -9,7 +9,8 @@
         extensionValue,
         language,
         learningOutcome,
-        studyLoad
+        studyLoad,
+        timeInvestment
     } from "../extensions/badges/extensions";
     import {onMount} from "svelte";
     import DOMPurify from 'dompurify';
@@ -29,11 +30,13 @@
             badgeclass.learningOutcome = extensionValue(badgeclass.extensions, learningOutcome);
             badgeclass.eqf = extensionValue(badgeclass.extensions, eqf);
             badgeclass.studyLoad = extensionValue(badgeclass.extensions, studyLoad);
+            badgeclass.timeInvestment = extensionValue(badgeclass.extensions, timeInvestment);
             badgeclass.ects = extensionValue(badgeclass.extensions, ects);
             badgeclass.language = extensionValue(badgeclass.extensions, language);
         }
         badgeclass.studyLoadValue = badgeclass.studyLoad ? I18n.t("teacher.badgeclasses.hours", {value: badgeclass.studyLoad}) : badgeclass.ects ?
             I18n.t("teacher.badgeclasses.ects", {value: badgeclass.ects}) : null;
+        badgeclass.timeInvestmentValue = badgeclass.timeInvestment ? I18n.t("teacher.badgeclasses.hours", {value: badgeclass.timeInvestment}) : null;
     });
 
 </script>
@@ -281,9 +284,16 @@
         {@html schoolTrophyIcon}
         <div>
           <h3>{I18n.t("teacher.badgeclasses.studyLoad")}</h3>
-          {#if badgeclass.studyLoadValue}
-            <span>{fallBackValue(badgeclass.studyLoadValue)}</span>
-          {/if}
+          <span>{fallBackValue(badgeclass.studyLoadValue)}</span>
+        </div>
+      </section>
+    {/if}
+    {#if badgeclass.timeInvestmentValue}
+      <section class="study-load">
+        {@html schoolTrophyIcon}
+        <div>
+          <h3>{I18n.t("teacher.badgeclasses.timeInvestment")}</h3>
+          <span>{fallBackValue(badgeclass.timeInvestmentValue)}</span>
         </div>
       </section>
     {/if}

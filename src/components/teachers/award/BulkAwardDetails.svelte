@@ -8,7 +8,6 @@
     import {assertionStatus, assertionStatusClass} from "../../../util/assertions";
     import moment from "moment";
 
-    export let badgeclass;
     export let directAwardBundle;
 
     let filteredAssertions = [];
@@ -100,7 +99,7 @@
     {/each}
     {#if filteredAssertions.length === 0}
       <tr>
-        <td colspan="8">{I18n.t("zeroState.assertions", {name: badgeclass.name})}</td>
+        <td colspan="8">{I18n.t("zeroState.directAwards")}</td>
       </tr>
     {/if}
 

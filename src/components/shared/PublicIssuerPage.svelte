@@ -9,7 +9,7 @@
   import globeIcon from "../../icons/network-information.svg";
   import trophyIcon from "../../icons/school-book-trophy.svg";
   import PublicBreadcrumb from "./PublicBreadcrumb.svelte";
-  import {ects, eqf, extensionValue, studyLoad} from "../extensions/badges/extensions";
+  import {ects, eqf, extensionValue, studyLoad, timeInvestment} from "../extensions/badges/extensions";
   import BadgeCard from "./BadgeCard.svelte";
   import BadgeListView from "./BadgeListView.svelte";
   import ViewSelector from "./ViewSelector.svelte";
@@ -77,6 +77,7 @@
         badgeClass.studyLoad = extensionValue(badgeClass.extensions, studyLoad);
         badgeClass.ects = extensionValue(badgeClass.extensions, ects);
         badgeClass.eqf = extensionValue(badgeClass.extensions, eqf);
+        badgeClass.timeInvestment = extensionValue(badgeClass.extensions, timeInvestment);
       });
       loaded = true;
     });

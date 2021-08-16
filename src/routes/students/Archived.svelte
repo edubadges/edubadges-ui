@@ -6,7 +6,7 @@
   import {revokedStudentBadgeInstances} from "../../api/queries";
   import BadgeCard from "../../components/shared/BadgeCard.svelte";
   import {sortCreatedAt} from "../../stores/filterBadges";
-  import {ects, eqf, extensionValue, studyLoad} from "../../components/extensions/badges/extensions";
+  import {ects, eqf, extensionValue, studyLoad, timeInvestment} from "../../components/extensions/badges/extensions";
   import ViewSelector from "../../components/shared/ViewSelector.svelte";
   import BadgeListView from "../../components/shared/BadgeListView.svelte";
   import {translateProperties} from "../../util/utils";
@@ -26,6 +26,7 @@
 
       badgeInstances.forEach(badge => {
         badge.badgeclass.studyLoad = extensionValue(badge.badgeclass.extensions, studyLoad);
+        badge.badgeclass.timeInvestment = extensionValue(badge.badgeclass.extensions, timeInvestment);
         badge.badgeclass.ects = extensionValue(badge.badgeclass.extensions, ects);
         badge.badgeclass.eqf = extensionValue(badge.badgeclass.extensions, eqf);
       });

@@ -8,6 +8,8 @@ export const studyLoad = {name: "StudyLoadExtension", value: "StudyLoad"};
 
 export const eqf = {name: "EQFExtension", value: "EQF"};
 
+export const timeInvestment = {name: "TimeInvestmentExtension", value: "TimeInvestment"};
+
 export const learningOutcome = {
   name: "LearningOutcomeExtension",
   value: "LearningOutcome",
@@ -36,7 +38,8 @@ const extensionNameValueDict = [
   eqf,
   learningOutcome,
   educationProgramIdentifier,
-  studyLoad
+  studyLoad,
+  timeInvestment,
 ].reduce((acc, extension) => {
   acc[extension.name] = extension.value;
   return acc;
@@ -93,6 +96,9 @@ export const publicBadgeInformation = (badgeClass, res) => {
   }
   if (res['extensions:StudyLoadExtension']) {
     badgeClass.studyLoad = res['extensions:StudyLoadExtension']['StudyLoad'];
+  }
+  if (res['extensions:TimeInvestmentExtension']) {
+    badgeClass.timeInvestment = res['extensions:TimeInvestmentExtension']['TimeInvestment'];
   }
   if (res['extensions:EQFExtension']) {
     badgeClass.eqf = res['extensions:EQFExtension']['EQF'];

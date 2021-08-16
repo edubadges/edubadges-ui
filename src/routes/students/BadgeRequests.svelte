@@ -6,7 +6,7 @@
   import I18n from "i18n-js";
   import {flash} from "../../stores/flash";
   import Spinner from "../../components/Spinner.svelte";
-  import {ects, extensionValue, studyLoad} from "../../components/extensions/badges/extensions";
+  import {ects, eqf, extensionValue, studyLoad, timeInvestment} from "../../components/extensions/badges/extensions";
   import {translateProperties} from "../../util/utils";
 
   let requests = [];
@@ -53,8 +53,10 @@
       loaded = true;
 
       for (const request of requests) {
-        request.badgeClass.studyLoad = extensionValue(request.badgeClass.extensions, studyLoad);
-        request.badgeClass.ects = extensionValue(request.badgeClass.extensions, ects);
+        request.badgeclass.studyLoad = extensionValue(request.badgeclass.extensions, studyLoad);
+        request.badgeclass.timeInvestment = extensionValue(request.badgeclass.extensions, timeInvestment);
+        request.badgeclass.ects = extensionValue(request.badgeclass.extensions, ects);
+        request.badgeclass.eqf = extensionValue(request.badgeclass.extensions, eqf);
       }
     });
   });

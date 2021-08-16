@@ -6,7 +6,7 @@
   import {faculties, sortTarget, tree} from "../../stores/filterBadges";
   import BadgeCard from "../../components/shared/BadgeCard.svelte";
   import Spinner from "../../components/Spinner.svelte";
-  import {ects, eqf, extensionValue, studyLoad} from "../../components/extensions/badges/extensions";
+  import {ects, eqf, extensionValue, studyLoad, timeInvestment} from "../../components/extensions/badges/extensions";
   import BadgeListView from "../../components/shared/BadgeListView.svelte";
   import {translateProperties} from "../../util/utils";
   import {sortTargetOptions} from "../../util/catalogFilters";
@@ -65,6 +65,7 @@
             badgeClass.studyLoad = extensionValue(badgeClass.extensions, studyLoad);
             badgeClass.ects = extensionValue(badgeClass.extensions, ects);
             badgeClass.eqf = extensionValue(badgeClass.extensions, eqf);
+            badgeClass.timeInvestment = extensionValue(badgeClass.extensions, timeInvestment);
           })
         });
       })

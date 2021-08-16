@@ -1,264 +1,301 @@
 <script>
-  import I18n from "i18n-js";
-  import {onMount} from "svelte";
-  import {navigate} from "svelte-routing";
-  import {EntityForm} from "../teachers";
-  import {AddButton, Field, File, Select, TextInput} from "../forms";
-  import {createBadgeclass, editBadgeclass} from "../../api";
-  import ExpirationSettings from "./ExpirationSettings.svelte";
-  import indicator from "../../icons/chevron-down-large.svg";
-  import {isEmpty} from "lodash";
-  import {
-    ects,
-    educationProgramIdentifier,
-    eqf,
-    extensionToJson,
-    extensionValue,
-    language,
-    learningOutcome,
-    studyLoad,
-  } from "../extensions/badges/extensions";
-  import EctsCreditPoints from "../extensions/badges/EctsCreditPoints.svelte";
-  import {setExpirationPeriod} from "../extensions/badges/expiration_period";
-  import {trash} from '../../icons';
-  import {entityType} from "../../util/entityTypes";
-  import {toHttpOrHttps} from "../../util/Url";
-  import {CheckBox} from "../index";
-  import {translateProperties} from "../../util/utils";
+    import I18n from "i18n-js";
+    import {onMount} from "svelte";
+    import {navigate} from "svelte-routing";
+    import {EntityForm} from "../teachers";
+    import {AddButton, Field, File, Select, TextInput} from "../forms";
+    import {createBadgeclass, editBadgeclass} from "../../api";
+    import ExpirationSettings from "./ExpirationSettings.svelte";
+    import indicator from "../../icons/chevron-down-large.svg";
+    import {isEmpty} from "lodash";
+    import {
+        ects,
+        educationProgramIdentifier,
+        eqf,
+        extensionToJson,
+        extensionValue,
+        language,
+        learningOutcome,
+        studyLoad,
+        timeInvestment,
+    } from "../extensions/badges/extensions";
+    import EctsCreditPoints from "../extensions/badges/EctsCreditPoints.svelte";
+    import {setExpirationPeriod} from "../extensions/badges/expiration_period";
+    import {trash} from '../../icons';
+    import {entityType} from "../../util/entityTypes";
+    import {toHttpOrHttps} from "../../util/Url";
+    import {CheckBox} from "../index";
+    import {translateProperties} from "../../util/utils";
 
-  export let entityId;
-  export let badgeclass = {extensions: [], issuer: {}, alignments: []};
-  export let issuers = [];
-  export let mayDelete;
-  export let mayEdit;
-  export let hasUnrevokedAssertions;
-  export let institution = {};
-  export let publicInstitutions = [];
+    export let entityId;
+    export let badgeclass = {extensions: [], issuer: {}, alignments: []};
+    export let issuers = [];
+    export let mayDelete;
+    export let mayEdit;
+    export let hasUnrevokedAssertions;
+    export let institution = {};
+    export let publicInstitutions = [];
 
-  const isCreate = !entityId;
-  const entity = entityType.BADGE_CLASS;
+    const isCreate = !entityId;
+    const entity = entityType.BADGE_CLASS;
 
-  let expireValueSet = false;
-  let loaded = false;
-  let processing = false;
-  let publicInstitutionsChosen = undefined;
+    let expireValueSet = false;
+    let loaded = false;
+    let processing = false;
+    let publicInstitutionsChosen = undefined;
 
-  let showStudyLoad = false;
-  let isInstitutionMBO = false;
-  let showEducationalIdentifiers = false;
-  let showAlignment = false;
-  let showAddAlignmentButton = true;
+    let showStudyLoad = false;
+    let showTimeInvestment = false;
+    let isInstitutionMBO = false;
+    let showEducationalIdentifiers = false;
+    let showAlignment = false;
+    let showAddAlignmentButton = true;
+    let initialToggle = true;
 
-  onMount(() => {
-    if (!badgeclass.alignments) {
-      badgeclass.alignments = []
-    }
-    const allowForInstitutions = institution.awardAllowAllInstitutions || institution.awardAllowedInstitutions.length > 0;
-    if (allowForInstitutions) {
-      publicInstitutions = institution.awardAllowAllInstitutions ?
-        publicInstitutions.filter(ins => ins.identifier !== institution.identifier) :
-        publicInstitutions.filter(ins => institution.awardAllowedInstitutions.includes(ins.identifier));
-    } else {
-      publicInstitutions = [];
-    }
-    publicInstitutions.forEach(ins => translateProperties(ins));
-    if (publicInstitutions.length > 0 && badgeclass.awardAllowedInstitutions.length > 0) {
-      publicInstitutionsChosen = publicInstitutions.filter(ins => badgeclass.awardAllowedInstitutions.includes(ins.identifier))
-    }
-
-    badgeclass.alignments = badgeclass.alignments.map(alignment => ({
-        target_name: alignment.targetName,
-        target_url: alignment.targetUrl,
-        target_description: alignment.targetDescription,
-        target_framework: alignment.targetFramework,
-        target_code: alignment.targetCode
-    }))
-    isInstitutionMBO = institution.institutionType === "MBO";
-  });
-
-  if (!isEmpty(badgeclass.alignments)) {
-    showAlignment = true;
-  }
-
-  let ectsOrHours = [
-    {name: I18n.t(['models', 'badgeclass', 'ects', 'creditPoints']), value: 'creditPoints'},
-    {name: I18n.t(['models', 'badgeclass', 'ects', 'hours']), value: 'hours'},
-  ];
-  let ectsOrHoursSelection = ectsOrHours[0];
-
-  let sbu = [
-    {name: I18n.t(['models', 'badgeclass', 'sbu']), value: 'hours'}
-  ];
-  let sbuSelection = sbu[0];
-
-  let errors = {};
-
-  const languages = [{value: "en_EN", name: I18n.t("language.en_EN")}, {
-    value: "nl_NL",
-    name: I18n.t("language.nl_NL")
-  }];
-  let languageSelection = languages[0];
-  if (!isCreate) {
-    languageSelection = languages.find(x => x.value === extensionValue(badgeclass.extensions, language));
-  }
-
-  const eqfItems = [...Array(8).keys()].map(i => {
-    return {name: `NLQF ${i + 1}`, value: i + 1}
-  });
-
-  let extensions = {};
-
-  const addStudyLoad = () => {
-    extensions[ects.name] = 2.5;
-    showStudyLoad = true;
-  }
-
-  function addEmptyAlignment() {
-    showAlignment = true
-    badgeclass.alignments.push({
-      target_name: "",
-      target_url: "",
-      target_description: "",
-      target_framework: "",
-      target_code: ""
-    })
-    if (badgeclass.alignments.length > 7) {
-      showAddAlignmentButton = false
-    }
-    if (Object.keys(errors).length > 0) {
-      if (errors.alignments) {
-        errors.alignments.push({})
-      }
-    }
-    badgeclass.alignments = badgeclass.alignments
-    badgeclass = badgeclass
-  }
-
-  const removeAllAlignment = () => {
-      badgeclass.alignments = [];
-      showAlignment = false
-  }
-
-  const removeAlignment = (i) => {
-    badgeclass.alignments.splice(i, 1)
-    if (Object.keys(errors).length > 0) {
-      errors.alignments.splice(i, 1)
-      errors = errors
-    }
-    if (!badgeclass.alignments || badgeclass.alignments.length == 0) {
-      showAlignment = false
-    } else if (badgeclass.alignments.length < 8) {
-      showAddAlignmentButton = true
-    }
-    badgeclass.alignments = badgeclass.alignments
-  }
-
-  $: if (badgeclass.extensions.length > 0 && !loaded) {
-    const studyLoadValue = extensionValue(badgeclass.extensions, studyLoad);
-    extensions = {
-      [language.name]: extensionValue(badgeclass.extensions, language) || "en_EN",
-      [ects.name]: extensionValue(badgeclass.extensions, ects) || (isCreate ? 2.5 : ""),
-      [eqf.name]: extensionValue(badgeclass.extensions, eqf) || {name: "NLQF 5", value: 5},
-      [learningOutcome.name]: extensionValue(badgeclass.extensions, learningOutcome) || "",
-      [educationProgramIdentifier.name]: extensionValue(badgeclass.extensions, educationProgramIdentifier) || "",
-      [studyLoad.name]: studyLoadValue || "",
-    };
-    if (extensions[eqf.name] && typeof extensions[eqf.name] === "number") {
-      extensions[eqf.name] = {name: `NLQF ${extensions[eqf.name]}`, value: extensions[eqf.name]}
-    }
-    if (extensions[educationProgramIdentifier.name]) {
-      showEducationalIdentifiers = true;
-    }
-    if (institution.grondslagFormeel !== null && (extensions[ects.name] || extensions[studyLoad.name] || isCreate)) {
-      showStudyLoad = true;
-      ectsOrHoursSelection = studyLoadValue ? ectsOrHours[1] : ectsOrHours[0];
-    }
-    loaded = true;
-  }
-
-  function onSubmit() {
-    errors = {};
-    processing = true;
-    let newBadgeclass = {
-      ...badgeclass,
-      criteria_text: badgeclass.criteriaText,
-      is_private: badgeclass.isPrivate,
-      evidence_required: badgeclass.evidenceRequired,
-      narrative_required: badgeclass.narrativeRequired,
-      criteria_url: toHttpOrHttps(badgeclass.criteriaUrl),
-    };
-    setExpirationPeriod(newBadgeclass);
-
-    if (!showAlignment) {
-      newBadgeclass.alignments = [];
-    }
-    if (newBadgeclass.alignments) {
-      for (let alignment of newBadgeclass.alignments) {
-        alignment.target_url = toHttpOrHttps(alignment.target_url)
-      }
-    }
-    newBadgeclass.extensions = extensionToJson([
-      {name: language.name, value: languageSelection.value}
-    ]);
-    const learningOutcomeValue = extensions[learningOutcome.name];
-    if (learningOutcomeValue) {
-      const learningOutcomeExt = extensionToJson([
-        {name: learningOutcome.name, value: learningOutcomeValue}
-      ]);
-      newBadgeclass.extensions = {...newBadgeclass.extensions, ...learningOutcomeExt}
-    }
-    if (showEducationalIdentifiers) {
-      const educationalIdentifiers = extensionToJson([
-        {name: eqf.name, value: extensions[eqf.name].value},
-        {
-          name: educationProgramIdentifier.name,
-          value: parseInt(extensions[educationProgramIdentifier.name], 10)
-        }]);
-      newBadgeclass.extensions = {...newBadgeclass.extensions, ...educationalIdentifiers};
-    }
-    if (showStudyLoad) {
-      if (ectsOrHoursSelection.value === "hours" || isInstitutionMBO) {
-        newBadgeclass.extensions = {
-          ...newBadgeclass.extensions,
-          ...extensionToJson([{name: studyLoad.name, value: parseInt(extensions[studyLoad.name])}])
+    onMount(() => {
+        if (!badgeclass.alignments) {
+            badgeclass.alignments = []
         }
-      } else {
-        newBadgeclass.extensions = {
-          ...newBadgeclass.extensions,
-          ...extensionToJson([{name: ects.name, value: extensions[ects.name]}])
+        const allowForInstitutions = institution.awardAllowAllInstitutions || institution.awardAllowedInstitutions.length > 0;
+        if (allowForInstitutions) {
+            publicInstitutions = institution.awardAllowAllInstitutions ?
+                publicInstitutions.filter(ins => ins.identifier !== institution.identifier) :
+                publicInstitutions.filter(ins => institution.awardAllowedInstitutions.includes(ins.identifier));
+        } else {
+            publicInstitutions = [];
         }
-      }
-      newBadgeclass.formal = true;
-    } else {
-      newBadgeclass.formal = false;
-    }
-    if (badgeclass.issuer) {
-      newBadgeclass.issuer = badgeclass.issuer.entityId;
-    }
-    newBadgeclass.award_allowed_institutions = (!newBadgeclass.formal && publicInstitutionsChosen) ? publicInstitutionsChosen.map(ins => ins.id) : [];
+        publicInstitutions.forEach(ins => translateProperties(ins));
+        if (publicInstitutions.length > 0 && badgeclass.awardAllowedInstitutions.length > 0) {
+            publicInstitutionsChosen = publicInstitutions.filter(ins => badgeclass.awardAllowedInstitutions.includes(ins.identifier))
+        }
 
-    const args = isCreate ? [newBadgeclass] : [entityId, newBadgeclass];
-    const apiCall = isCreate ? createBadgeclass : editBadgeclass;
-    apiCall(...args)
-      .then(res => {
-        navigate(`/manage/badgeclass/${res.entity_id}`)
-      })
-      .catch(err => err.then(({fields}) => {
-        processing = false;
-        errors = fields.error_message;
-        if (errors.extensions) {
-          for (const ext of errors.extensions) {
-            const ext_name = ext.error_message.split(' ')[1].split(':')[1];
-            if (ext_name === "StudyLoadExtension") {
-                errors[ext_name] = [{'error_code': 906}];
+        badgeclass.alignments = badgeclass.alignments.map(alignment => ({
+            target_name: alignment.targetName,
+            target_url: alignment.targetUrl,
+            target_description: alignment.targetDescription,
+            target_framework: alignment.targetFramework,
+            target_code: alignment.targetCode
+        }))
+        isInstitutionMBO = institution.institutionType === "MBO";
+    });
+
+    if (!isEmpty(badgeclass.alignments)) {
+        showAlignment = true;
+    }
+
+    let ectsOrHours = [
+        {name: I18n.t(['models', 'badgeclass', 'ects', 'creditPoints']), value: 'creditPoints'},
+        {name: I18n.t(['models', 'badgeclass', 'ects', 'hours']), value: 'hours'},
+    ];
+    let ectsOrHoursSelection = ectsOrHours[0];
+
+    let sbu = [
+        {name: I18n.t(['models', 'badgeclass', 'sbu']), value: 'hours'}
+    ];
+    let sbuSelection = sbu[0];
+
+    let errors = {};
+
+    const languages = [{value: "en_EN", name: I18n.t("language.en_EN")}, {
+        value: "nl_NL",
+        name: I18n.t("language.nl_NL")
+    }];
+    let languageSelection = languages[0];
+    if (!isCreate) {
+        languageSelection = languages.find(x => x.value === extensionValue(badgeclass.extensions, language));
+    }
+
+    const eqfItems = [...Array(8).keys()].map(i => {
+        return {name: `NLQF ${i + 1}`, value: i + 1}
+    });
+
+    let extensions = {};
+
+    const addStudyLoad = () => {
+        extensions[ects.name] = 2.5;
+        showStudyLoad = true;
+        extensions[timeInvestment.name] = 0;
+        showTimeInvestment = false;
+    }
+
+    const removeStudyLoad = () => {
+        showStudyLoad = false;
+        if (initialToggle) {
+          addTimeInvestment();
+          initialToggle = false;
+        }
+    }
+
+    const addTimeInvestment = () => {
+        extensions[timeInvestment.name] = 0;
+        showTimeInvestment = true;
+        showStudyLoad = false;
+    }
+
+    const removeTimeInvestment = () => {
+        extensions[timeInvestment.name] = 0;
+        showTimeInvestment = false;
+    }
+
+    function addEmptyAlignment() {
+        showAlignment = true
+        badgeclass.alignments.push({
+            target_name: "",
+            target_url: "",
+            target_description: "",
+            target_framework: "",
+            target_code: ""
+        })
+        if (badgeclass.alignments.length > 7) {
+            showAddAlignmentButton = false
+        }
+        if (Object.keys(errors).length > 0) {
+            if (errors.alignments) {
+                errors.alignments.push({})
             }
-            if (ext_name === "EducationProgramIdentifierExtension") {
-                errors[ext_name] = [{'error_code': 909}];
-            }
-          }
         }
-      }));
-  }
+        badgeclass.alignments = badgeclass.alignments
+        badgeclass = badgeclass
+    }
+
+    const removeAllAlignment = () => {
+        badgeclass.alignments = [];
+        showAlignment = false
+    }
+
+    const removeAlignment = (i) => {
+        badgeclass.alignments.splice(i, 1)
+        if (Object.keys(errors).length > 0) {
+            errors.alignments.splice(i, 1)
+            errors = errors
+        }
+        if (!badgeclass.alignments || badgeclass.alignments.length == 0) {
+            showAlignment = false
+        } else if (badgeclass.alignments.length < 8) {
+            showAddAlignmentButton = true
+        }
+        badgeclass.alignments = badgeclass.alignments
+    }
+
+    $: if (badgeclass.extensions.length > 0 && !loaded) {
+        const studyLoadValue = extensionValue(badgeclass.extensions, studyLoad);
+        extensions = {
+            [language.name]: extensionValue(badgeclass.extensions, language) || "en_EN",
+            [ects.name]: extensionValue(badgeclass.extensions, ects) || (isCreate ? 2.5 : ""),
+            [eqf.name]: extensionValue(badgeclass.extensions, eqf) || {name: "NLQF 5", value: 5},
+            [learningOutcome.name]: extensionValue(badgeclass.extensions, learningOutcome) || "",
+            [educationProgramIdentifier.name]: extensionValue(badgeclass.extensions, educationProgramIdentifier) || "",
+            [studyLoad.name]: studyLoadValue || "",
+        };
+        if (extensions[eqf.name] && typeof extensions[eqf.name] === "number") {
+            extensions[eqf.name] = {name: `NLQF ${extensions[eqf.name]}`, value: extensions[eqf.name]}
+        }
+        if (extensions[educationProgramIdentifier.name]) {
+            showEducationalIdentifiers = true;
+        }
+        if (institution.grondslagFormeel !== null && (extensions[ects.name] || extensions[studyLoad.name] || isCreate)) {
+            showStudyLoad = true;
+            ectsOrHoursSelection = studyLoadValue ? ectsOrHours[1] : ectsOrHours[0];
+        }
+        if (!showStudyLoad) {
+            const timeInvestmentValue = extensionValue(badgeclass.extensions, timeInvestment) || 0;
+            if (isCreate || timeInvestmentValue) {
+                extensions[timeInvestment.name] = timeInvestmentValue;
+                showTimeInvestment = true;
+            }
+        }
+        loaded = true;
+    }
+
+    function onSubmit() {
+        errors = {};
+        processing = true;
+        let newBadgeclass = {
+            ...badgeclass,
+            criteria_text: badgeclass.criteriaText,
+            is_private: badgeclass.isPrivate,
+            evidence_required: badgeclass.evidenceRequired,
+            narrative_required: badgeclass.narrativeRequired,
+            criteria_url: toHttpOrHttps(badgeclass.criteriaUrl),
+        };
+        setExpirationPeriod(newBadgeclass);
+
+        if (!showAlignment) {
+            newBadgeclass.alignments = [];
+        }
+        if (newBadgeclass.alignments) {
+            for (let alignment of newBadgeclass.alignments) {
+                alignment.target_url = toHttpOrHttps(alignment.target_url)
+            }
+        }
+        newBadgeclass.extensions = extensionToJson([
+            {name: language.name, value: languageSelection.value}
+        ]);
+        const learningOutcomeValue = extensions[learningOutcome.name];
+        if (learningOutcomeValue) {
+            const learningOutcomeExt = extensionToJson([
+                {name: learningOutcome.name, value: learningOutcomeValue}
+            ]);
+            newBadgeclass.extensions = {...newBadgeclass.extensions, ...learningOutcomeExt}
+        }
+        if (showEducationalIdentifiers) {
+            const educationalIdentifiers = extensionToJson([
+                {name: eqf.name, value: extensions[eqf.name].value},
+                {
+                    name: educationProgramIdentifier.name,
+                    value: parseInt(extensions[educationProgramIdentifier.name], 10)
+                }]);
+            newBadgeclass.extensions = {...newBadgeclass.extensions, ...educationalIdentifiers};
+        }
+        if (showStudyLoad) {
+            if (ectsOrHoursSelection.value === "hours" || isInstitutionMBO) {
+                newBadgeclass.extensions = {
+                    ...newBadgeclass.extensions,
+                    ...extensionToJson([{name: studyLoad.name, value: parseInt(extensions[studyLoad.name])}])
+                }
+            } else {
+                newBadgeclass.extensions = {
+                    ...newBadgeclass.extensions,
+                    ...extensionToJson([{name: ects.name, value: extensions[ects.name]}])
+                }
+            }
+            newBadgeclass.formal = true;
+        } else {
+            newBadgeclass.formal = false;
+            if (showTimeInvestment && extensions[timeInvestment.name]) {
+                newBadgeclass.extensions = {
+                    ...newBadgeclass.extensions,
+                    ...extensionToJson([{name: timeInvestment.name, value: parseInt(extensions[timeInvestment.name])}])
+                }
+            }
+        }
+        if (badgeclass.issuer) {
+            newBadgeclass.issuer = badgeclass.issuer.entityId;
+        }
+        newBadgeclass.award_allowed_institutions = (!newBadgeclass.formal && publicInstitutionsChosen) ? publicInstitutionsChosen.map(ins => ins.id) : [];
+
+        const args = isCreate ? [newBadgeclass] : [entityId, newBadgeclass];
+        const apiCall = isCreate ? createBadgeclass : editBadgeclass;
+        apiCall(...args)
+            .then(res => {
+                navigate(`/manage/badgeclass/${res.entity_id}`)
+            })
+            .catch(err => err.then(({fields}) => {
+                processing = false;
+                errors = fields.error_message;
+                if (errors.extensions) {
+                    for (const ext of errors.extensions) {
+                        const ext_name = ext.error_message.split(' ')[1].split(':')[1];
+                        if (ext_name === "StudyLoadExtension") {
+                            errors[ext_name] = [{'error_code': 906}];
+                        }
+                        if (ext_name === "EducationProgramIdentifierExtension") {
+                            errors[ext_name] = [{'error_code': 909}];
+                        }
+                    }
+                }
+            }));
+    }
 </script>
 
 <style lang="scss">
@@ -402,28 +439,28 @@
     </Field>
 
     <Field {entity} attribute="extraOptions">
-        <CheckBox
-          value={badgeclass.isPrivate || false}
-          inForm={true}
-          adjustTop={true}
-          label={I18n.t(['models', entity, 'isPrivate'])}
-          tipKey="badgeClassIsPrivate"
-          disabled={hasUnrevokedAssertions}
-          onChange={val => badgeclass.isPrivate = val}/>
-        <CheckBox
-          value={badgeclass.evidenceRequired || false}
-          inForm={true}
-          adjustTop={true}
-          label={I18n.t(['models', entity, 'evidenceRequired'])}
-          tipKey="badgeClassEvidenceRequired"
-          onChange={val => badgeclass.evidenceRequired = val}/>
-        <CheckBox
-          value={badgeclass.narrativeRequired || false}
-          inForm={true}
-          adjustTop={true}
-          label={I18n.t(['models', entity, 'narrativeRequired'])}
-          tipKey="badgeClassNarrativeRequired"
-          onChange={val => badgeclass.narrativeRequired = val}/>
+      <CheckBox
+        value={badgeclass.isPrivate || false}
+        inForm={true}
+        adjustTop={true}
+        label={I18n.t(['models', entity, 'isPrivate'])}
+        tipKey="badgeClassIsPrivate"
+        disabled={hasUnrevokedAssertions}
+        onChange={val => badgeclass.isPrivate = val}/>
+      <CheckBox
+        value={badgeclass.evidenceRequired || false}
+        inForm={true}
+        adjustTop={true}
+        label={I18n.t(['models', entity, 'evidenceRequired'])}
+        tipKey="badgeClassEvidenceRequired"
+        onChange={val => badgeclass.evidenceRequired = val}/>
+      <CheckBox
+        value={badgeclass.narrativeRequired || false}
+        inForm={true}
+        adjustTop={true}
+        label={I18n.t(['models', entity, 'narrativeRequired'])}
+        tipKey="badgeClassNarrativeRequired"
+        onChange={val => badgeclass.narrativeRequired = val}/>
     </Field>
   </div>
 
@@ -475,7 +512,7 @@
       <div class="deletable-title"><h4>{I18n.t('models.badgeclass.headers.studyLoad')}</h4></div>
       {#if institution.grondslagInformeel !== null}
         {#if mayEdit}
-          <button class="rm-icon-container" on:click={() => showStudyLoad = false}>{@html trash}</button>
+          <button class="rm-icon-container" on:click={removeStudyLoad}>{@html trash}</button>
         {:else}
           <button class="rm-icon-container disabled">{@html trash}</button>
         {/if}
@@ -527,6 +564,28 @@
             placeholder={I18n.t("placeholders.badgeClass.studyLoad")}/>
         </Field>
       {/if}
+    </div>
+  {/if}
+
+  {#if showTimeInvestment}
+    <div style="display: flex">
+      <div class="deletable-title"><h4>{I18n.t('models.badgeclass.headers.timeInvestment')}</h4></div>
+        {#if mayEdit}
+          <button class="rm-icon-container" on:click={removeTimeInvestment}>{@html trash}</button>
+        {:else}
+          <button class="rm-icon-container disabled">{@html trash}</button>
+        {/if}
+    </div>
+
+    <div class="form">
+        <Field {entity} attribute="number" errors={errors.TimeInvestmentExtension} tipKey="badgeClassTimeInvestmentNumber">
+          <TextInput
+            type="number"
+            bind:value={extensions[timeInvestment.name]}
+            error={errors.TimeInvestmentExtension}
+            disabled={!mayEdit}
+            placeholder={I18n.t("placeholders.badgeClass.timeInvestment")}/>
+        </Field>
     </div>
   {/if}
 
@@ -661,14 +720,24 @@
         />
       </span>
       {#if institution.grondslagFormeel !== null}
-      <span class="add-button">
-        <AddButton
-          text={I18n.t('models.badgeclass.addButtons.studyLoad')}
-          handleClick={() => addStudyLoad()}
-          visibility={!showStudyLoad}
-          disabled={!mayEdit}
-        />
-      </span>
+        <span class="add-button">
+          <AddButton
+            text={I18n.t('models.badgeclass.addButtons.studyLoad')}
+            handleClick={addStudyLoad}
+            visibility={!showStudyLoad}
+            disabled={!mayEdit}
+          />
+        </span>
+      {/if}
+      {#if !showTimeInvestment}
+        <span class="add-button">
+          <AddButton
+            text={I18n.t('models.badgeclass.addButtons.timeInvestment')}
+            handleClick={addTimeInvestment}
+            visibility={!showTimeInvestment}
+            disabled={!mayEdit}
+          />
+        </span>
       {/if}
       <span class="add-button">
         <AddButton
