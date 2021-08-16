@@ -905,7 +905,8 @@ I18n.translations.nl = {
     permissions: "Er zijn geen permissies voor deze gebruiker {{entity}} niveau.",
     selfPermissions: "Deze gebruiker heeft geen permissies op {{entity}} niveau.",
     userPermissions: "Deze gebruiker heeft geen permissies op {{entity}} niveau.",
-    directAwardBundles: "Er is geen direct award status voor edubadge {{name}}"
+    directAwardBundles: "Er is geen direct award status voor edubadge {{name}}",
+    directAwards: "Alle direct awards zijn geclaimed. Er zijn geen uitstaande direct awards meer voor deze bundel."
   },
   userManagement: {
     permissions: "Permissies voor {{name}}",

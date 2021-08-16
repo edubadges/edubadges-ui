@@ -906,7 +906,7 @@ I18n.translations.en = {
     selfPermissions: "There are no permissions for this user on the {{entity}} level.",
     userPermissions: "This user does not have any permissions for {{entity}} {{name}}.",
     directAwardBundles: "There is no direct award status for edubadge {{name}}",
-    directAwards: "All direct awards have been claimed, there are no more outstanding direct awards for this bundle."
+    directAwards: "All direct awards have been claimed. There are no more outstanding direct awards for this bundle."
   },
   userManagement: {
     permissions: "Permissions for {{name}}",
