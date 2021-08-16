@@ -177,7 +177,7 @@
     },
     {
       entity: "enrollments",
-      count: enrollments.length,
+      count: enrollments.filter(enrollment => !enrollment.denied).length,
       href: `/badgeclass/${entityId}/enrollments`
     },
     {

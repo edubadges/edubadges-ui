@@ -1,14 +1,16 @@
 <script>
-  import check from "../icons/check16.svg";
-  import Tooltip from "./Tooltip.svelte";
+    import check from "../icons/check16.svg";
+    import Tooltip from "./Tooltip.svelte";
 
-  export let value;
-  export let onChange = () => {};
-  export let disabled = false;
-  export let label;
-  export let tipKey;
-  export let inForm = false;
-  export let adjustTop = false;
+    export let value;
+    export let onChange = () => {
+    };
+    export let disabled = false;
+    export let label;
+    export let tipKey;
+    export let inForm = false;
+    export let adjustTop = false;
+    export let adjustTopFlex = false;
 
 
 </script>
@@ -51,6 +53,11 @@
     &.adjust-top {
       top: 5px;
     }
+
+    &.adjust-top-flex {
+      top: -1px;
+    }
+
     &:hover {
       background-color: #ebebeb;
     }
@@ -77,7 +84,8 @@
   <input type="checkbox" checked={value}
          on:change={e => onChange(e.target.checked)}
          disabled={disabled}>
-  <span class="checkmarked" class:adjust-top={adjustTop} class:active={value} class:disabled={disabled}>
+  <span class="checkmarked" class:adjust-top={adjustTop} class:adjust-top-flex={adjustTopFlex} class:active={value}
+        class:disabled={disabled}>
     {#if value && !disabled}
       {@html check}
     {/if}

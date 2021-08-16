@@ -1,148 +1,158 @@
 <script>
-  import I18n from "i18n-js";
-  import moment from "moment";
-  import {Table} from "../../teachers";
-  import {sort, sortType} from "../../../util/sortData";
-  import {Button, CheckBox} from "../../../components";
-  import {awardBadges, denyBadge} from "../../../api";
-  import {flash} from "../../../stores/flash";
-  import {searchMultiple} from "../../../util/searchData";
-  import singleNeutralCheck from "../../../icons/single-neutral-check.svg";
-  import {userName} from "../../../util/users";
-  import {Modal} from "../../forms";
-  import filter from "../../../icons/filter-1.svg";
-  import CenterMe from "../../forms/CenterMe.svelte";
-  import AwardBadgeModal from "../award/AwardBadgeModal.svelte";
-  import {onMount} from "svelte";
+    import I18n from "i18n-js";
+    import moment from "moment";
+    import {Table} from "../../teachers";
+    import {sort, sortType} from "../../../util/sortData";
+    import {Button, CheckBox} from "../../../components";
+    import {awardBadges, denyBadge} from "../../../api";
+    import {flash} from "../../../stores/flash";
+    import {searchMultiple} from "../../../util/searchData";
+    import singleNeutralCheck from "../../../icons/single-neutral-check.svg";
+    import {userName} from "../../../util/users";
+    import {Modal} from "../../forms";
+    import filter from "../../../icons/filter-1.svg";
+    import AwardBadgeModal from "../award/AwardBadgeModal.svelte";
+    import {onMount} from "svelte";
 
-  export let entityId;
-  export let enrollments = [];
-  export let refresh;
+    export let entityId;
+    export let enrollments = [];
+    export let refresh;
 
-  export let badgeClass;
+    export let badgeClass;
 
-  let selection = [];
-  let checkAllValue = false;
+    let selection = [];
+    let filteredEnrollments = [];
+    let checkAllValue = false;
+    let displayDenied = false;
+    let narrative = "";
+    let url = "";
+    let name = "";
+    let description = "";
+    let useEvidence = false;
 
-  let narrative = "";
-  let url = "";
-  let name = "";
-  let description = "";
-  let useEvidence = false;
+    //Modal
+    let showModal = false;
+    let modalTitle;
+    let modalQuestion;
+    let modalAction;
 
-  //Modal
-  let showModal = false;
-  let modalTitle;
-  let modalQuestion;
-  let modalAction;
+    //AwardModal
+    let showAwardModal = false;
 
-  //AwardModal
-  let showAwardModal = false;
 
-  const refreshEnrollments = () => {
-    selection = [];
-    refresh();
-  };
+    onMount(() => {
+        filteredEnrollments = enrollments.filter(enrollment => !enrollment.denied);
+    })
 
-  const award = showConfirmation => {
-    if (showConfirmation) {
-      showAwardModal = true;
-    } else {
-      showAwardModal = false;
-      awardBadges(entityId, selection, useEvidence, narrative, url, name, description).then(() => {
-        refreshEnrollments();
-        flash.setValue(I18n.t("models.enrollment.flash.awarded"));
-      });
+    const displayDeniedChanged = val => {
+        filteredEnrollments = val ? [...enrollments] : enrollments.filter(enrollment => !enrollment.denied)
+        displayDenied = val;
     }
-  }
 
-  const deny = showConfirmation => {
-    if (showConfirmation) {
-      modalTitle = I18n.t("models.enrollment.confirmation.deny");
-      modalQuestion = I18n.t("models.enrollment.confirmation.denyConfirmation");
-      modalAction = () => deny(false);
-      showModal = true;
-    } else {
-      showModal = false;
-      Promise.all(selection.map(entityID => denyBadge(entityID)))
-        .then(() => {
-          refreshEnrollments();
-          flash.setValue(I18n.t("models.enrollment.flash.denied"))
-        });
+    const refreshEnrollments = () => {
+        selection = [];
+        refresh();
+    };
+
+    const award = showConfirmation => {
+        if (showConfirmation) {
+            showAwardModal = true;
+        } else {
+            showAwardModal = false;
+            awardBadges(entityId, selection, useEvidence, narrative, url, name, description).then(() => {
+                refreshEnrollments();
+                flash.setValue(I18n.t("models.enrollment.flash.awarded"));
+            });
+        }
     }
-  }
 
-  const onCheckAll = val => {
-    selection = val ? enrollments.filter(enrollment => !enrollment.denied).map(({entityId}) => entityId) : [];
-    table.checkAllValue = val;
-  }
-
-  const onCheckOne = (val, entityId) => {
-    if (val) {
-      selection = selection.concat(entityId);
-      table.checkAllValue = selection.length === enrollments.length;
-    } else {
-      selection = selection.filter(id => id !== entityId);
-      table.checkAllValue = false;
+    const deny = showConfirmation => {
+        if (showConfirmation) {
+            modalTitle = I18n.t("models.enrollment.confirmation.deny");
+            modalQuestion = I18n.t("models.enrollment.confirmation.denyConfirmation");
+            modalAction = () => deny(false);
+            showModal = true;
+        } else {
+            showModal = false;
+            Promise.all(selection.map(entityID => denyBadge(entityID)))
+                .then(() => {
+                    refreshEnrollments();
+                    flash.setValue(I18n.t("models.enrollment.flash.denied"))
+                });
+        }
     }
-  }
 
-  const tableHeaders = [
-    {
-      name: null,
-    },
-    {
-      name: I18n.t("models.enrollment.enrolled"),
-      attribute: "user.email",
-      reverse: false,
-      sortType: sortType.ALPHA,
-      width: "40%"
-    },
-    {
-      name: I18n.t("models.enrollment.enrollmentType.name"),
-      attribute: "award_type",
-      reverse: false,
-      icon: filter,
-      sortType: sortType.ALPHA,
-      width: "30%",
-      center: true
-    },
-    {
-      name: I18n.t("models.enrollment.enrolledOn"),
-      attribute: "dateCreated",
-      reverse: false,
-      sortType: sortType.ALPHA,
-      width: "15%",
-      center: true
-    },
-    {
-      name: I18n.t("models.enrollment.status"),
-      attribute: "denied",
-      reverse: false,
-      sortType: sortType.ALPHA,
-      width: "15%",
-      center: true
+    const onCheckAll = val => {
+        selection = val ? enrollments.filter(enrollment => !enrollment.denied).map(({entityId}) => entityId) : [];
+        table.checkAllValue = val;
     }
-  ];
 
-  $: table = {
-    entity: "badgeclass",
-    title: `${I18n.t("models.enrollment.title")}`,
-    tableHeaders: tableHeaders,
-    onCheckAll
-  };
+    const onCheckOne = (val, entityId) => {
+        if (val) {
+            selection = selection.concat(entityId);
+            table.checkAllValue = selection.length === enrollments.length;
+        } else {
+            selection = selection.filter(id => id !== entityId);
+            table.checkAllValue = false;
+        }
+    }
 
-  let enrollmentSearch = "";
-  $: searchedEnrollmentsIds = searchMultiple(enrollments, enrollmentSearch, "entityId", "user.firstName", "user.lastName", "user.email");
+    const tableHeaders = [
+        {
+            name: null,
+        },
+        {
+            name: I18n.t("models.enrollment.enrolled"),
+            attribute: "user.email",
+            reverse: false,
+            sortType: sortType.ALPHA,
+            width: "40%"
+        },
+        {
+            name: I18n.t("models.enrollment.enrollmentType.name"),
+            attribute: "award_type",
+            reverse: false,
+            icon: filter,
+            sortType: sortType.ALPHA,
+            width: "30%",
+            center: true
+        },
+        {
+            name: I18n.t("models.enrollment.enrolledOn"),
+            attribute: "dateCreated",
+            reverse: false,
+            sortType: sortType.ALPHA,
+            width: "15%",
+            center: true
+        },
+        {
+            name: I18n.t("models.enrollment.status"),
+            attribute: "denied",
+            reverse: false,
+            sortType: sortType.ALPHA,
+            width: "15%",
+            center: true
+        }
+    ];
 
-  let enrollmentSort = tableHeaders[1];
+    $: table = {
+        entity: "badgeclass",
+        title: `${I18n.t("models.enrollment.title")}`,
+        tableHeaders: tableHeaders,
+        onCheckAll
+    };
 
-  $: sortedFilteredEnrollments = sort(
-    enrollments.filter(el => searchedEnrollmentsIds.includes(el.entityId)),
-    enrollmentSort.attribute,
-    enrollmentSort.reverse,
-    enrollmentSort.sortType
-  );
+    let enrollmentSearch = "";
+    $: searchedEnrollmentsIds = searchMultiple(filteredEnrollments, enrollmentSearch, "entityId", "user.firstName", "user.lastName", "user.email");
+
+    let enrollmentSort = tableHeaders[1];
+
+    $: sortedFilteredEnrollments = sort(
+        filteredEnrollments.filter(el => searchedEnrollmentsIds.includes(el.entityId)),
+        enrollmentSort.attribute,
+        enrollmentSort.reverse,
+        enrollmentSort.sortType
+    );
 </script>
 
 <style lang="scss">
@@ -168,6 +178,11 @@
     }
   }
 
+  div.checkbox-container {
+    margin-left: 80px;
+    margin-top: 8px;
+  }
+
 </style>
 
 <Table
@@ -179,10 +194,15 @@
   onCheckAllDisabled={enrollments.filter(enrollment => !enrollment.denied).length === 0}
   bind:checkAllValue>
   <div class="action-buttons" slot="check-buttons">
-    <Button small action={() => award(true)}
+    <Button small action={() => award(true)} marginRight={true}
             text={I18n.t('models.enrollment.award')} disabled={selection.length === 0}/>
     <Button small action={() => deny(true)}
             text={I18n.t('models.enrollment.deny')} disabled={selection.length === 0} secondary={true}/>
+    <div class="checkbox-container">
+      <CheckBox adjustTopFlex={true} label={I18n.t('models.enrollment.showDenied')} bind:value={displayDenied}
+                onChange={displayDeniedChanged}/>
+    </div>
+
   </div>
 
   {#each sortedFilteredEnrollments as enrollment}
@@ -213,7 +233,7 @@
         {moment(enrollment.dateCreated).format('MMM D, YYYY')}
       </td>
       <td class="center">
-          <span>{enrollment.denied ? I18n.t("models.enrollment.denied") : I18n.t("models.enrollment.open")}</span>
+        <span>{enrollment.denied ? I18n.t("models.enrollment.denied") : I18n.t("models.enrollment.open")}</span>
       </td>
     </tr>
   {/each}

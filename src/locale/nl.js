@@ -714,6 +714,7 @@ I18n.translations.nl = {
         denyConfirmation: "Weet je zeker dat je deze inschrijving wilt afwijzen?",
       },
       awardButton: "Toekennen",
+      showDenied: "Toon afgewezen inschrijvingen",
       evidence: "Optionele beschrijvende metadata over het bewijs met betrekking tot de uitgifte van de edubadge.",
       evidenceRequired: "Verplichte beschrijvende metadata over het bewijs met betrekking tot de uitgifte van de edubadge.",
       evidenceHeader: "Metadata over het bewijs gerelateerd aan deze edubadge",

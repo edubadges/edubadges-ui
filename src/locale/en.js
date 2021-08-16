@@ -714,6 +714,7 @@ I18n.translations.en = {
         denyConfirmation: "Are you sure you want to deny this request?",
       },
       awardButton: "Award",
+      showDenied: "Show denied enrollments",
       evidence: "Optional descriptive metadata about evidence related to the issuance of an edubadge.",
       evidenceRequired: "Required descriptive metadata about evidence related to the issuance of an edubadge.",
       evidenceHeader: "Metadata about the evidence related for this edubadge",
