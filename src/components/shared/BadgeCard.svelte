@@ -183,6 +183,7 @@
     color: var(--purple);
     margin-bottom: 4px;
     width: 72px;
+    word-break: keep-all;
   }
 
   .details div.study-load span.study-load-value {

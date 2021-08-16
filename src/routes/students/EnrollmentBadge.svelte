@@ -117,6 +117,7 @@
     font-size: 16px;
     color: var(--purple);
     margin-bottom: 4px;
+    word-break: keep-all;
   }
 
   .details div.study-load span.study-load-value {
