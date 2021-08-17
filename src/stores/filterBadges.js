@@ -28,6 +28,10 @@ export const sortBadgeAssertions = collection => {
   return !collection ? [] : collection.sort((a, b) => b.assertionsCount !== undefined ? b.assertionsCount - a.assertionsCount : b.badgeAssertions.length - a.badgeAssertions.length)
 }
 
+export const sortBadgePendingEnrollments = collection => {
+  return !collection ? [] : collection.sort((a, b) => b.pendingEnrollmentCount - a.pendingEnrollmentCount)
+}
+
 export const selectedEntity = derived(
   [faculties, facultyIds, issuerIds],
   ([faculties, facultyIds, issuerIds]) => {
@@ -84,7 +88,16 @@ export const tree = derived(
       },
       {faculties: [], issuers: [], badgeClasses: []}
     );
-    const sortedBadgeClasses = (sortTarget && sortTarget.value === "recent") ? sortCreatedAt(tree.badgeClasses) : sortBadgeAssertions(tree.badgeClasses);
+    let sortedBadgeClasses = tree.badgeClasses;
+    if (sortTarget) {
+        if (sortTarget.value === "recent") {
+            sortedBadgeClasses =  sortCreatedAt(tree.badgeClasses);
+        } else if (sortTarget.value === "awarded") {
+            sortedBadgeClasses =  sortBadgeAssertions(tree.badgeClasses);
+        } else {
+            sortedBadgeClasses =  sortBadgePendingEnrollments(tree.badgeClasses);
+        }
+    }
     return {
       faculties: sort(tree.faculties, true),
       issuers: sort(tree.issuers, true),

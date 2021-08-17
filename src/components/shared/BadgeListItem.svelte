@@ -141,10 +141,12 @@
       <span class="issuer">{badgeClass.issuer.name}</span>
       <span class="faculty">{badgeClass.issuer.faculty.name}</span>
     </td>
-    {#if badge}
+    {#if badge || badgeClass}
       <td class="badge-status">
-        <StatusIndicator badge={badge} cardView={false}/>
-        <BadgeShield badge={badge} cardView={false}/>
+        <StatusIndicator badge={badge} badgeClass={badgeClass} cardView={false}/>
+        {#if badge}
+          <BadgeShield badge={badge} cardView={false}/>
+        {/if}
       </td>
     {/if}
 

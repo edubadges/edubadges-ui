@@ -165,6 +165,7 @@ I18n.translations.en = {
       allBadges: "All badge classes",
       mostRecent: "Most recent",
       mostAwarded: "Most awarded",
+      mostRequested: "Most requested"
     },
     issuers: {
       title: "Issuers",
@@ -679,7 +680,7 @@ I18n.translations.en = {
         unaccepted: "Pending",
         pending: "Pending",
         unclaimed: "Unclaimed",
-        pendingEnrollmentCount: "{{count}} requested"
+        pendingEnrollmentCount: "{{count}} open requests"
       },
       confirmation: {
         revocationReason: "Reason for revocation (required)",

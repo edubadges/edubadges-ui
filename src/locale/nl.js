@@ -165,6 +165,7 @@ I18n.translations.nl = {
       allBadges: "Alle badge classes",
       mostRecent: "Meest recent",
       mostAwarded: "Hoogste aantal toegekend",
+      mostRequested: "Meest aangevraagd"
     },
     issuers: {
       title: "Issuers",
@@ -679,7 +680,7 @@ I18n.translations.nl = {
         unaccepted: "In afwachting",
         pending: "In afwachting",
         unclaimed: "Unclaimed",
-        pendingEnrollmentCount: "{{count}} aangevraagd"
+        pendingEnrollmentCount: "{{count}} open aanvragen"
       },
       confirmation: {
         revocationReason: "Reden voor intrekking (verplicht)",
