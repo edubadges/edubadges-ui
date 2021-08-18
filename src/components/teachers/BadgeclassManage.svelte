@@ -72,7 +72,8 @@
         targetDescription
       },
       permissions {
-        mayUpdate
+        mayUpdate,
+        mayAward
       }
     }
   }`;

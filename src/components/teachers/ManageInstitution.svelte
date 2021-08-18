@@ -19,6 +19,7 @@
   import {entityType} from "../../util/entityTypes"
   import {permissionsRole} from "../../util/rolesToPermissions";
   import {translateProperties} from "../../util/utils";
+  import Button from "../Button.svelte";
 
   let entityId;
   export let subEntity;
@@ -151,8 +152,12 @@
     {headerItems}
     object={institution}
     entity={entityType.INSTITUTION}
-    mayUpdate={mayUpdate}
-  />
+    mayUpdate={mayUpdate}>
+    <div class="button-container" slot="additional-actions">
+		  <Button fill={true} secondary href="edit" text={I18n.t("models.institution.requestedBadges")}/>
+	  </div>
+
+  </EntityHeader>
 
   <Router>
     <Route path="/issuers">

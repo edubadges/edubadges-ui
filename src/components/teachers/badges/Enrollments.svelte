@@ -191,7 +191,7 @@
   bind:sort={enrollmentSort}
   isEmpty={enrollments.length === 0}
   withCheckAll={true}
-  onCheckAllDisabled={enrollments.filter(enrollment => !enrollment.denied).length === 0}
+  checkAllDisabled={enrollments.filter(enrollment => !enrollment.denied).length === 0 || !badgeClass.permissions.mayAward}
   bind:checkAllValue>
   <div class="action-buttons" slot="check-buttons">
     <Button small action={() => award(true)} marginRight={true}
@@ -211,7 +211,7 @@
         <CheckBox
           value={selection.includes(enrollment.entityId)}
           name={`select-${enrollment.entityId}`}
-          disabled={enrollment.denied}
+          disabled={enrollment.denied || !badgeClass.permissions.mayAward}
           onChange={val => onCheckOne(val, enrollment.entityId)}/>
       </td>
       <td class="single-neutral-check">

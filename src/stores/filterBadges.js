@@ -6,7 +6,7 @@ export const faculties = writable([]);
 export const search = writable("");
 export const facultyIds = writable([]);
 export const issuerIds = writable([]);
-export const awardFilter = writable(false);
+export const awardFilter = writable(true);
 
 export const filterBySearch = (badgeclasses, search) => {
   if (!search || search.trim().length === 0) {

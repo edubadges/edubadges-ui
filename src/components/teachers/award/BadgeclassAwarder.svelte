@@ -75,7 +75,7 @@
           }
         }
       },
-      permissions { mayUpdate },
+      permissions { mayUpdate, mayAward },
       extensions { name, originalJson },
       alignments {
         targetName,
@@ -150,7 +150,6 @@
     loaded = false;
     queryData(query, {entityId, days: 90}).then(res => {
       badgeclass = res.badgeClass;
-
       translateProperties(badgeclass);
       translateProperties(badgeclass.issuer);
       translateProperties(badgeclass.issuer.faculty);
@@ -330,7 +329,9 @@
         {headerItems}
         mayUpdate={false}>
         <div class="slots">
-          <BadgeAwardOptions badgeclass={badgeclass}/>
+          {#if badgeclass.permissions.mayAward}
+            <BadgeAwardOptions badgeclass={badgeclass}/>
+          {/if}
         </div>
       </BadgeClassHeader>
 

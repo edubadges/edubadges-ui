@@ -537,6 +537,7 @@ I18n.translations.en = {
       name_english: "Institution name in English",
       name_dutch: "Institution name in Dutch",
       award_allowed_institutions: "Award allowed institutions",
+      requestedBadges: "Requested badges"
     },
     faculty: {
       created: "Created",

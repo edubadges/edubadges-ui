@@ -329,6 +329,7 @@
     bind:search={assertionSearch}
     bind:sort={assertionsSort}
     withCheckAll={true}
+    checkAllDisabled={!badgeclass.permissions.mayAward}
     full={true}
     isEmpty={filteredAssertions.length === 0}
     bind:checkAllValue>
@@ -343,7 +344,7 @@
           <CheckBox
             value={selection.includes(assertion.entityId)}
             name={`select-${assertion.entityId}`}
-            disabled={isRevoked(assertion)}
+            disabled={isRevoked(assertion) || !badgeclass.permissions.mayAward}
             onChange={val => onCheckOne(val, assertion.entityId)}/>
         </td>
         <td class="single-neutral-check">

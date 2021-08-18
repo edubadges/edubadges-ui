@@ -50,7 +50,7 @@
 
   onMount(() => {
     queryData(query).then(res => {
-      res.faculties.forEach(faculty => {
+        res.faculties.forEach(faculty => {
         translateProperties(faculty);
         translateProperties(faculty.institution);
         faculty.issuers.forEach(issuer => {
@@ -69,7 +69,7 @@
             badgeClass.ects = extensionValue(badgeClass.extensions, ects);
             badgeClass.eqf = extensionValue(badgeClass.extensions, eqf);
             badgeClass.timeInvestment = extensionValue(badgeClass.extensions, timeInvestment);
-          })
+          });
         });
       })
       $faculties = res.faculties;
