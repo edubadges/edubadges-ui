@@ -394,6 +394,9 @@ I18n.translations.en = {
     931: "There is already an unaccepted direct award for this EPPN",
     932: "This badgeclass requires a narrative for awarding",
     933: "This badgeclass requires evidence for awarding",
+    934: "The programme identifier is required when Credit points are specified.",
+    935: "Enter the time investment or remove this section.",
+
     unexpected: "Unexpected error occurred.",
     description: "An unexpected error has occurred. Please try again later or contact support@edubadges.nl for support.",
     close: "Close"
@@ -1012,10 +1015,10 @@ I18n.translations.en = {
     //badgeClassCriteriaRequirements: "badgeClassCriteriaRequirements",
     //badgeClassCriteriaUrl: "badgeClassCriteriaUrl",
     //badgeClassTypeOfStudyLoad: "badgeClassTypeOfStudyLoad",
-    //badgeClassStudyLoadNumber: "badgeClassStudyLoadNumber",
-    //badgeClassTimeInvestmentNumber: "badgeClassTimeInvestmentNumber",
+    badgeClassStudyLoadNumber: "Study Tax Hours (SBU in Hours)",
+    badgeClassTimeInvestmentNumber: "How many hours have to be invested to earn this informal edubadge.",
     //badgeClassSBUNumber: "badgeClassSBULoadNumber",
-    //badgeClassStudyLoadEcts: "badgeClassStudyLoadEcts",
+    badgeClassStudyLoadEcts: "The European Credit Transfer System (ECTS) is a points system used by universities and agreed by governments, that makes international education more easily comparable across borders.",
     //badgeClassProgrammeIdentifier: "badgeClassProgrammeIdentifier",
     //badgeClassNLQFLevel: "badgeClassNLQFLevel",
     //badgeClassRelatedFrameworkName: "badgeClassRelatedFrameworkName",

@@ -394,6 +394,9 @@ I18n.translations.nl = {
     931: "Er is al een nog niet geaccepteerde direct award voor deze EPPN",
     932: "Een narratief is verplicht voor het awarden van deze badge",
     933: "Een URL is verplicht voor het awarden van deze badge",
+    934: "De opleidingscode is verplicht als er studiepunten zijn opgegeven.",
+    935: "Vul de tijdinvestering of verwijder deze rubriek.",
+
     unexpected: "Oeps, er is iets totaal onverwachts en onverklaarbaars gebeurd.",
     description: "Een onverwachte fout is opgetreden. Probeer het opnieuw of neem contact op met support@edubadges.nl voor ondersteuning.",
     close: "Sluit"
@@ -1012,10 +1015,10 @@ I18n.translations.nl = {
     //badgeClassCriteriaRequirements: "badgeClassCriteriaRequirements",
     //badgeClassCriteriaUrl: "badgeClassCriteriaUrl",
     //badgeClassTypeOfStudyLoad: "badgeClassTypeOfStudyLoad",
-    //badgeClassStudyLoadNumber: "badgeClassStudyLoadNumber",
-    //badgeClassTimeInvestmentNumber: "badgeClassTimeInvestmentNumber",
+    badgeClassStudyLoadNumber: "Studie Belastings Uren (SBU in uren)",
+    badgeClassTimeInvestmentNumber: "Hoeveel uren geïnvesteerd moeten worden om deze informele edubadge te kunnen verdienen.",
     //badgeClassSBUNumber: "badgeClassSBULoadNumber",
-    //badgeClassStudyLoadEcts: "badgeClassStudyLoadEcts",
+    badgeClassStudyLoadEcts: "Het European Credit Transfer System (ECTS) is een puntensysteem dat wordt gebruikt door universiteiten en is goedgekeurd door overheden, waardoor internationaal onderwijs beter vergelijkbaar is over de grenzen heen.",
     //badgeClassProgrammeIdentifier: "badgeClassProgrammeIdentifier",
     //badgeClassNLQFLevel: "badgeClassNLQFLevel",
     //badgeClassRelatedFrameworkName: "badgeClassRelatedFrameworkName",

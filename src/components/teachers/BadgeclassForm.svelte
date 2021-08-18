@@ -83,17 +83,6 @@
         showAlignment = true;
     }
 
-    let ectsOrHours = [
-        {name: I18n.t(['models', 'badgeclass', 'ects', 'creditPoints']), value: 'creditPoints'},
-        {name: I18n.t(['models', 'badgeclass', 'ects', 'hours']), value: 'hours'},
-    ];
-    let ectsOrHoursSelection = ectsOrHours[0];
-
-    let sbu = [
-        {name: I18n.t(['models', 'badgeclass', 'sbu']), value: 'hours'}
-    ];
-    let sbuSelection = sbu[0];
-
     let errors = {};
 
     const languages = [{value: "en_EN", name: I18n.t("language.en_EN")}, {
@@ -116,24 +105,26 @@
         showStudyLoad = true;
         extensions[timeInvestment.name] = 0;
         showTimeInvestment = false;
+        if (!isInstitutionMBO) {
+            showEducationalIdentifiers = true;
+        }
     }
 
     const removeStudyLoad = () => {
         showStudyLoad = false;
         if (initialToggle) {
-          addTimeInvestment();
-          initialToggle = false;
+            addTimeInvestment();
+            initialToggle = false;
         }
     }
 
     const addTimeInvestment = () => {
-        extensions[timeInvestment.name] = 0;
         showTimeInvestment = true;
         showStudyLoad = false;
     }
 
     const removeTimeInvestment = () => {
-        extensions[timeInvestment.name] = 0;
+        extensions[timeInvestment.name] = null;
         showTimeInvestment = false;
     }
 
@@ -179,9 +170,10 @@
 
     $: if (badgeclass.extensions.length > 0 && !loaded) {
         const studyLoadValue = extensionValue(badgeclass.extensions, studyLoad);
+        let ectsValue = extensionValue(badgeclass.extensions, ects);
         extensions = {
             [language.name]: extensionValue(badgeclass.extensions, language) || "en_EN",
-            [ects.name]: extensionValue(badgeclass.extensions, ects) || (isCreate ? 2.5 : ""),
+            [ects.name]: ectsValue || (isCreate ? 2.5 : ""),
             [eqf.name]: extensionValue(badgeclass.extensions, eqf) || {name: "NLQF 5", value: 5},
             [learningOutcome.name]: extensionValue(badgeclass.extensions, learningOutcome) || "",
             [educationProgramIdentifier.name]: extensionValue(badgeclass.extensions, educationProgramIdentifier) || "",
@@ -195,7 +187,9 @@
         }
         if (institution.grondslagFormeel !== null && (extensions[ects.name] || extensions[studyLoad.name] || isCreate)) {
             showStudyLoad = true;
-            ectsOrHoursSelection = studyLoadValue ? ectsOrHours[1] : ectsOrHours[0];
+        }
+        if (ectsValue || (showStudyLoad && !isInstitutionMBO)) {
+            showEducationalIdentifiers = true;
         }
         if (!showStudyLoad) {
             const timeInvestmentValue = extensionValue(badgeclass.extensions, timeInvestment) || 0;
@@ -248,7 +242,7 @@
             newBadgeclass.extensions = {...newBadgeclass.extensions, ...educationalIdentifiers};
         }
         if (showStudyLoad) {
-            if (ectsOrHoursSelection.value === "hours" || isInstitutionMBO) {
+            if (isInstitutionMBO) {
                 newBadgeclass.extensions = {
                     ...newBadgeclass.extensions,
                     ...extensionToJson([{name: studyLoad.name, value: parseInt(extensions[studyLoad.name])}])
@@ -262,7 +256,7 @@
             newBadgeclass.formal = true;
         } else {
             newBadgeclass.formal = false;
-            if (showTimeInvestment && extensions[timeInvestment.name]) {
+            if (showTimeInvestment) {
                 newBadgeclass.extensions = {
                     ...newBadgeclass.extensions,
                     ...extensionToJson([{name: timeInvestment.name, value: parseInt(extensions[timeInvestment.name])}])
@@ -289,8 +283,15 @@
                         if (ext_name === "StudyLoadExtension") {
                             errors[ext_name] = [{'error_code': 906}];
                         }
+                        if (ext_name === "TimeInvestmentExtension") {
+                            errors[ext_name] = [{'error_code': 935}];
+                        }
                         if (ext_name === "EducationProgramIdentifierExtension") {
-                            errors[ext_name] = [{'error_code': 909}];
+                            if (showStudyLoad && !isInstitutionMBO && !extensions[educationProgramIdentifier.name]) {
+                                errors[ext_name] = [{'error_code': 934}];
+                            } else {
+                                errors[ext_name] = [{'error_code': 909}];
+                            }
                         }
                     }
                 }
@@ -520,24 +521,6 @@
     </div>
 
     <div class="form">
-      <Field {entity} attribute="typeOfStudyLoad" errors={errors.type} tipKey="badgeClassTypeOfStudyLoad">
-        {#if isInstitutionMBO}
-          <Select
-            bind:value={sbuSelection}
-            items={sbu}
-            disabled={!mayEdit}
-            optionIdentifier="value"
-            clearable={false}/>
-        {:else}
-          <Select
-            bind:value={ectsOrHoursSelection}
-            items={ectsOrHours}
-            disabled={!mayEdit}
-            optionIdentifier="value"
-            clearable={false}/>
-        {/if}
-      </Field>
-      <p></p>
       {#if isInstitutionMBO}
         <Field {entity} attribute="hours" errors={errors.StudyLoadExtension} tipKey="badgeClassStudyLoadNumber">
           <TextInput
@@ -547,21 +530,12 @@
             disabled={!mayEdit}
             placeholder={I18n.t("placeholders.badgeClass.studyLoad")}/>
         </Field>
-      {:else if ectsOrHoursSelection.value === 'creditPoints'}
-        <Field {entity} attribute="number" errors={errors.ectsLong} tipKey="badgeClassStudyLoadEcts">
+      {:else}
+        <Field {entity} attribute="ects.creditPoints" errors={errors.ectsLong} tipKey="badgeClassStudyLoadEcts">
           <EctsCreditPoints
             bind:ectsValue={extensions[ects.name]}
             disabled={!mayEdit}
           />
-        </Field>
-      {:else}
-        <Field {entity} attribute="number" errors={errors.StudyLoadExtension} tipKey="badgeClassStudyLoadNumber">
-          <TextInput
-            type="number"
-            bind:value={extensions[studyLoad.name]}
-            error={errors.StudyLoadExtension}
-            disabled={!mayEdit}
-            placeholder={I18n.t("placeholders.badgeClass.studyLoad")}/>
         </Field>
       {/if}
     </div>
@@ -570,29 +544,29 @@
   {#if showTimeInvestment}
     <div style="display: flex">
       <div class="deletable-title"><h4>{I18n.t('models.badgeclass.headers.timeInvestment')}</h4></div>
-        {#if mayEdit}
-          <button class="rm-icon-container" on:click={removeTimeInvestment}>{@html trash}</button>
-        {:else}
-          <button class="rm-icon-container disabled">{@html trash}</button>
-        {/if}
+      {#if mayEdit}
+        <button class="rm-icon-container" on:click={removeTimeInvestment}>{@html trash}</button>
+      {:else}
+        <button class="rm-icon-container disabled">{@html trash}</button>
+      {/if}
     </div>
 
     <div class="form">
-        <Field {entity} attribute="number" errors={errors.TimeInvestmentExtension} tipKey="badgeClassTimeInvestmentNumber">
-          <TextInput
-            type="number"
-            bind:value={extensions[timeInvestment.name]}
-            error={errors.TimeInvestmentExtension}
-            disabled={!mayEdit}
-            placeholder={I18n.t("placeholders.badgeClass.timeInvestment")}/>
-        </Field>
+      <Field {entity} attribute="hours" errors={errors.TimeInvestmentExtension} tipKey="badgeClassTimeInvestmentNumber">
+        <TextInput
+          type="number"
+          bind:value={extensions[timeInvestment.name]}
+          error={errors.TimeInvestmentExtension}
+          disabled={!mayEdit}
+          placeholder={I18n.t("placeholders.badgeClass.timeInvestment")}/>
+      </Field>
     </div>
   {/if}
 
   {#if showEducationalIdentifiers}
     <div style="display: flex">
       <div class="deletable-title"><h4>{I18n.t('models.badgeclass.headers.educationalIdentifiers')}</h4></div>
-      {#if mayEdit}
+      {#if mayEdit && (!showStudyLoad || isInstitutionMBO)}
         <button class="rm-icon-container" on:click={() => showEducationalIdentifiers = false}>{@html trash}</button>
       {:else}
         <button class="rm-icon-container disabled">{@html trash}</button>

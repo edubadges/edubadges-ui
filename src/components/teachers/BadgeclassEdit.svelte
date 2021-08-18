@@ -21,6 +21,7 @@
     currentInstitution {
       grondslagFormeel,
       grondslagInformeel,
+      institutionType,
       identifier,
       awardAllowedInstitutions,
       awardAllowAllInstitutions
