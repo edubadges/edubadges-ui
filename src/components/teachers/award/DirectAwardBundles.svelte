@@ -16,7 +16,7 @@
     })
 
     const tableHeaders = [
-                {
+        {
             name: I18n.t("models.directAwardBundle.createdAt"),
             attribute: "createdAt",
             reverse: false,
@@ -33,6 +33,13 @@
         {
             name: I18n.t("models.directAwardBundle.directAwardRejectedCount"),
             attribute: "directAwardRejectedCount",
+            reverse: false,
+            sortType: sortType.NUMERIC,
+            width: "15%"
+        },
+        {
+            name: I18n.t("models.directAwardBundle.directAwardRevokedCount"),
+            attribute: "directAwardRevokedCount",
             reverse: false,
             sortType: sortType.NUMERIC,
             width: "15%"
@@ -85,7 +92,7 @@
   hideSearch={true}
   isEmpty={directAwardBundles.length === 0}>
   {#each sortedDirectAwardBundles as dab}
-     <tr class="click"
+    <tr class="click"
         on:click={() => navigate(`/badgeclass/${badgeClass.entityId}/award-details/${dab.entityId}`)}>
       <td>
         {moment(dab.createdAt).format('MMM D, YYYY')}
@@ -95,6 +102,9 @@
       </td>
       <td>
         {dab.directAwardRejectedCount}
+      </td>
+      <td>
+        {dab.directAwardRevokedCount}
       </td>
       <td>
         {dab.assertionCount}

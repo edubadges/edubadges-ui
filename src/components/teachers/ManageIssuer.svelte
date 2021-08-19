@@ -12,6 +12,7 @@
 
   import {ects, extensionValue, studyLoad, timeInvestment} from "../extensions/badges/extensions";
   import {translateProperties} from "../../util/utils";
+  import {permissionsRole} from "../../util/rolesToPermissions";
 
   export let entityId;
   export let subEntity;
@@ -128,6 +129,11 @@
 
   const permissionsRoles = [{value: "admin", name: I18n.t("editUsers.issuer.admin")}];
 
+  // const permissionsRoles = [
+  // {value: permissionsRole.ADMIN, name: I18n.t("editUsers.issuer.admin")},
+  // {value: permissionsRole.AWARDER, name: I18n.t("editUsers.issuer.awarder")}
+  // ];
+
 </script>
 
 <Breadcrumb {faculty} {issuer}/>
@@ -150,8 +156,9 @@
   <Route path="/user-management/invite-new-user">
     <InviteUser
       permissionsRoles={permissionsRoles}
+      defaultValue={0}
       entityId={entityId}
-      disabledRole={true}
+      disabledRole={false}
       contentType={contentType}
     />
   </Route>

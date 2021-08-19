@@ -468,6 +468,7 @@ I18n.translations.en = {
     },
     issuer: {
       admin: "Issuer admin",
+      awarder: "Issuer awarder",
       header: "Issuer",
       allRights: "Issuer admin",
       permissions: "Permissions on issuer level"
@@ -751,6 +752,7 @@ I18n.translations.en = {
       title: "Direct Award statuses",
       directAwardCount: "Pending",
       directAwardRejectedCount: "Rejected",
+      directAwardRevokedCount: "Revoked",
       assertionCount: "Claimed",
       initialTotal: "Total",
       rateClaim: "Claim rate",

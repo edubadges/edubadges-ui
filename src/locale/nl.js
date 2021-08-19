@@ -468,6 +468,7 @@ I18n.translations.nl = {
     },
     issuer: {
       admin: "Issuer admin",
+      awarder: "Issuer awarder",
       header: "Issuer",
       allRights: "Issuer admin",
       permissions: "Permissies op issuer niveau"
@@ -751,6 +752,7 @@ I18n.translations.nl = {
       title: "Direct Award statussen",
       directAwardCount: "Pending",
       directAwardRejectedCount: "Geweigerd",
+      directAwardRevokedCount: "Revoked",
       assertionCount: "Claimed",
       initialTotal: "Totaal",
       rateClaim: "Claim rate",

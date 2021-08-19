@@ -148,7 +148,7 @@
       attribute: "name",
       reverse: false,
       sortType: sortType.PERSONAL_DATA,
-      width: "25%"
+      width: "35%"
     },
     {
       name: I18n.t("editUsers.role"),
@@ -162,12 +162,12 @@
       attribute: "invitation",
       reverse: false,
       sortType: sortType.INVITATION_STATUS,
-      width: "10%",
+      width: "20%",
       center: true
     },
     {
       name: "",
-      width: "45%"
+      width: "25%"
     }
   ];
 
