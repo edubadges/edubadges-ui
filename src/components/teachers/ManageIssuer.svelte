@@ -158,7 +158,7 @@
       permissionsRoles={permissionsRoles}
       defaultValue={0}
       entityId={entityId}
-      disabledRole={false}
+      disabledRole={true}
       contentType={contentType}
     />
   </Route>

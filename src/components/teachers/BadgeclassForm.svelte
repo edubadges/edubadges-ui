@@ -76,7 +76,6 @@
             target_framework: alignment.targetFramework,
             target_code: alignment.targetCode
         }))
-        isInstitutionMBO = institution.institutionType === "MBO";
     });
 
     if (!isEmpty(badgeclass.alignments)) {
@@ -169,6 +168,7 @@
     }
 
     $: if (badgeclass.extensions.length > 0 && !loaded) {
+        isInstitutionMBO = institution.institutionType === "MBO";
         const studyLoadValue = extensionValue(badgeclass.extensions, studyLoad);
         let ectsValue = extensionValue(badgeclass.extensions, ects);
         extensions = {
@@ -182,14 +182,15 @@
         if (extensions[eqf.name] && typeof extensions[eqf.name] === "number") {
             extensions[eqf.name] = {name: `NLQF ${extensions[eqf.name]}`, value: extensions[eqf.name]}
         }
+
         if (extensions[educationProgramIdentifier.name]) {
-            showEducationalIdentifiers = true;
+          showEducationalIdentifiers = true;
         }
-        if (institution.grondslagFormeel !== null && (extensions[ects.name] || extensions[studyLoad.name] || isCreate)) {
+        if (institution.grondslagFormeel !== null && (ectsValue || extensions[studyLoad.name] || isCreate)) {
             showStudyLoad = true;
-        }
-        if (ectsValue || (showStudyLoad && !isInstitutionMBO)) {
-            showEducationalIdentifiers = true;
+            if (!isInstitutionMBO) {
+                showEducationalIdentifiers = true;
+            }
         }
         if (!showStudyLoad) {
             const timeInvestmentValue = extensionValue(badgeclass.extensions, timeInvestment) || 0;
