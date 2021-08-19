@@ -153,9 +153,9 @@
     object={institution}
     entity={entityType.INSTITUTION}
     mayUpdate={mayUpdate}>
-    <div class="button-container" slot="additional-actions">
-		  <Button fill={true} secondary href="edit" text={I18n.t("models.institution.requestedBadges")}/>
-	  </div>
+<!--    <div class="button-container" slot="additional-actions">-->
+<!--		  <Button fill={true} secondary href="edit" text={I18n.t("models.institution.requestedBadges")}/>-->
+<!--	  </div>-->
 
   </EntityHeader>
 
