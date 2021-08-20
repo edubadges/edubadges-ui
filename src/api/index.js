@@ -640,3 +640,8 @@ export function acceptRejectDirectAward(directAward, accept) {
   const payload = {"accept": accept};
   return validFetch(path, {body: JSON.stringify(payload)}, "POST");
 }
+
+export function sendFeedback(message) {
+  const path = `${serverUrl}/user/feedback`;
+  return validFetch(path, {body: JSON.stringify({message})}, "POST");
+}

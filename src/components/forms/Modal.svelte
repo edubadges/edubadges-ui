@@ -1,26 +1,26 @@
 <script>
-  import I18n from "i18n-js";
-  import Button from "../Button.svelte";
+    import I18n from "i18n-js";
+    import Button from "../Button.svelte";
 
-  export let submit;
-  export let cancel;
-  export let title;
-  export let question;
-  export let evaluateQuestion = false;
-  export let warning = false;
-  export let hideSubmit = false;
+    export let submit;
+    export let cancel;
+    export let title;
+    export let question;
+    export let evaluateQuestion = false;
+    export let warning = false;
+    export let hideSubmit = false;
 
-  export let submitLabel = I18n.t("modal.confirm");
-  export let cancelLabel = I18n.t("modal.cancel");
-  export let disabled = false;
+    export let submitLabel = I18n.t("modal.confirm");
+    export let cancelLabel = I18n.t("modal.cancel");
+    export let disabled = false;
 
-  let modal;
+    let modal;
 
-  const handle_keydown = e => {
-    if (e.key === "Escape") {
-      cancel && cancel();
-    }
-  };
+    const handle_keydown = e => {
+        if (e.key === "Escape") {
+            cancel && cancel();
+        }
+    };
 </script>
 
 <svelte:window on:keydown={handle_keydown}/>
@@ -30,13 +30,15 @@
     <div class="modal-header" class:warning>
       <h3>{title}</h3>
     </div>
-    <div class="modal-body">
-      {#if evaluateQuestion}
-        <p>{@html question}</p>
-      {:else}
-        <p>{question}</p>
-      {/if}
-    </div>
+    {#if question}
+      <div class="modal-body">
+        {#if evaluateQuestion}
+          <p>{@html question}</p>
+        {:else}
+          <p>{question}</p>
+        {/if}
+      </div>
+    {/if}
     <div class="slots">
       <slot/>
     </div>

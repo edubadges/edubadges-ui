@@ -14,6 +14,7 @@
     export let description;
     export let useEvidence;
     export let badgeClass = {};
+    export let narrativeAllowed = true;
 
     let errors = {};
     let narrativeOrEvidenceRequired = false;
@@ -131,7 +132,7 @@
       <p class="title">{I18n.t("models.enrollment.confirmation.awardConfirmation")}</p>
       {#if useEvidence}
         {#if !narrativeOrEvidenceRequired}
-          <a href="/remove-evidence"
+          <a href="/remove-evidence" disabled={!narrativeAllowed}
              on:click|preventDefault={swapUseEvidence}>{I18n.t("models.enrollment.removeEvidence")}</a>
         {/if}
         <div class="evidence">
@@ -157,7 +158,7 @@
                        placeholder={I18n.t("placeholders.enrollment.evidenceDescription")} size="100"/>
           </Field>
         </div>
-      {:else}
+      {:else if narrativeAllowed}
         <a href="/add-evidence"
            on:click|preventDefault={swapUseEvidence}>{I18n.t("models.enrollment.addEvidence")}</a>
       {/if}

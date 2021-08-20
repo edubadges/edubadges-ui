@@ -201,10 +201,14 @@
             text={I18n.t('models.enrollment.award')} disabled={selection.length === 0}/>
     <Button small action={() => deny(true)}
             text={I18n.t('models.enrollment.deny')} disabled={selection.length === 0} secondary={true}/>
-    <div class="checkbox-container">
-      <CheckBox adjustTopFlex={true} label={I18n.t('models.enrollment.showDenied')} bind:value={displayDenied}
-                onChange={displayDeniedChanged}/>
-    </div>
+    {#if enrollments.filter(enrollment => enrollment.denied).length > 0}
+      <div class="checkbox-container">
+        <CheckBox adjustTopFlex={true}
+                  label={I18n.t('models.enrollment.showDenied', {count: enrollments.filter(enrollment => enrollment.denied).length})}
+                  bind:value={displayDenied}
+                  onChange={displayDeniedChanged}/>
+      </div>
+    {/if}
 
   </div>
 
@@ -264,5 +268,6 @@
     bind:description={description}
     badgeClass={badgeClass}
     submit={() => award(false)}
+    narrativeAllowed={selection.length === 1}
     cancel={() => showAwardModal = false}/>
 {/if}

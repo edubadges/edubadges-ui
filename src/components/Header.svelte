@@ -1,33 +1,36 @@
 <script>
-  import I18n from "i18n-js";
-  import {link, navigate} from "svelte-routing";
-  import {clickOutside} from "../util/clickOutside.js";
-  import logo from "../img/logo.svg";
-  import {chevronDown, chevronUp} from "../icons";
-  import {role} from "../util/role";
-  import {config} from "../util/config";
-  import question from "../icons/question.svg";
-  import {authToken, redirectPath, userLoggedIn, userName, userRole, validatedUserName} from "../stores/user";
-  import {logoutCurrentUser} from "../api";
-  import Modal from "./forms/Modal.svelte";
+    import I18n from "i18n-js";
+    import {link, navigate} from "svelte-routing";
+    import {clickOutside} from "../util/clickOutside.js";
+    import logo from "../img/logo.svg";
+    import {chevronDown, chevronUp} from "../icons";
+    import {role} from "../util/role";
+    import {config} from "../util/config";
+    import question from "../icons/question.svg";
+    import {authToken, redirectPath, userLoggedIn, userName, userRole, validatedUserName} from "../stores/user";
+    import {logoutCurrentUser} from "../api";
+    import Modal from "./forms/Modal.svelte";
+    import Feedback from "./shared/Feedback.svelte";
 
-  const doLogOut = () => {
-    $userLoggedIn = "";
-    $userRole = "";
-    $userName = "";
-    $validatedUserName = "";
-    $authToken = "";
-    $redirectPath = "";
-    navigate("/login");
-  }
+    const doLogOut = () => {
+        $userLoggedIn = "";
+        $userRole = "";
+        $userName = "";
+        $validatedUserName = "";
+        $authToken = "";
+        $redirectPath = "";
+        navigate("/login");
+    }
 
-  const logoutUser = () => {
-    logoutCurrentUser()
-      .then(() => doLogOut()).catch(() => doLogOut());
-  };
+    const logoutUser = () => {
+        logoutCurrentUser()
+            .then(() => doLogOut()).catch(() => doLogOut());
+    };
 
-  let menuOpen = false;
-  let showModal = false;
+    let menuOpen = false;
+    let showModal = false;
+    let showFeedback = false;
+
 </script>
 
 <style lang="scss">
@@ -142,6 +145,7 @@
           <div class="profile-menu"
                on:click={() => navigate("/permissions/institution")}>{I18n.t('header.permissions')}</div>
         {/if}
+        <div class="profile-menu" on:click={() => showFeedback = true}>{I18n.t('header.feedback')}</div>
         <div class="profile-menu" on:click={logoutUser}>{I18n.t('header.logout')}</div>
       </div>
     </div>
@@ -154,4 +158,8 @@
     title={I18n.t("header.demo")}>
     <span>{@html I18n.t("demo.info")}</span>
   </Modal>
+{/if}
+
+{#if showFeedback}
+  <Feedback close={() => showFeedback = false}/>
 {/if}
