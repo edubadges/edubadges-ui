@@ -364,13 +364,12 @@
               <div class="badgeclass-role-select">
                 <Select
                   nonEditable={!permissions || !permissions.mayAdministrateUsers}
-                  handleSelect={item => changeBadgeClassProvisionmentRole(item, entityId)}
+                  handleSelect={item => changeIssuerProvisionmentRole(item, entityId)}
                   value={
-                      data.may_administrate_users ? targetOptionsBadgeClass[0] :
-                      (data.may_update ? targetOptionsBadgeClass[1] :
-                      (data.may_award ? targetOptionsBadgeClass[2] : 'error'))
+                      data.may_administrate_users ? targetOptionsIssuer[0] :
+                      (data.may_award ? targetOptionsIssuer[1] : 'error')
                     }
-                  items={targetOptionsBadgeClass}
+                  items={targetOptionsIssuer}
                   clearable={false}
                   optionIdentifier="name"
                 />

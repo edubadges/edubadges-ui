@@ -23,11 +23,13 @@
       userprovisionments {
         email,
         createdAt,
-        entityId
+        entityId,
+        data
       },
       staff {
         entityId,
         mayAdministrateUsers,
+        mayAward,
         user {
           firstName,
           lastName,
