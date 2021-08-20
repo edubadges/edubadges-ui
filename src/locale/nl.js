@@ -715,6 +715,10 @@ I18n.translations.nl = {
                 name: "Type aanvraag",
                 enrolled: "Zelf aangevraagd",
                 invited: "Uitgenodigd",
+                evidenceNarrativeRequired: "Verplichte attributen",
+                none: "Geen",
+                narrative: "Persoonlijke boodschap",
+                evidence: "Bewijs",
                 badgeClass: "Badge class"
             },
             confirmation: {

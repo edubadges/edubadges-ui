@@ -715,6 +715,10 @@ I18n.translations.en = {
                 name: "Request type",
                 enrolled: "Self requested",
                 invited: "Invited",
+                evidenceNarrativeRequired: "Required attributes",
+                none: "None",
+                narrative: "Narrative",
+                evidence: "Evidence",
                 badgeClass: "Badge class"
             },
             confirmation: {

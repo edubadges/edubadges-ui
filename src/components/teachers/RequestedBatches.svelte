@@ -14,7 +14,6 @@
     import filter from "../../icons/filter-1.svg";
     import AwardBadgeModal from "./award/AwardBadgeModal.svelte";
     import {onMount} from "svelte";
-    import {enrollmentsQuery} from "../../api/queries";
     import {queryData} from "../../api/graphql";
     import Spinner from "../Spinner.svelte";
 
@@ -68,6 +67,7 @@
             res.badgeClassesToAward.forEach(badgeClass => {
                 badgeClass.pendingEnrollments.forEach(enrollment => {
                         enrollment.badgeClass = badgeClass;
+                        enrollment.evidenceNarrativeRequired = badgeClass.evidenceRequired || badgeClass.narrativeRequired;
                         allEnrollments.push(enrollment);
                     }
                 )
@@ -135,14 +135,20 @@
             attribute: "user.email",
             reverse: false,
             sortType: sortType.ALPHA,
-            width: "40%"
+            width: "30%"
         },
         {
             name: I18n.t("models.enrollment.enrollmentType.badgeClass"),
             attribute: "badgeClass.name",
             reverse: false,
             sortType: sortType.ALPHA,
-            width: "25%"
+            width: "20%"
+        },
+        {
+            name: I18n.t("models.enrollment.enrollmentType.evidenceNarrativeRequired"),
+            attribute: "evidenceNarrativeRequired",
+            reverse: false,
+            width: "20%"
         },
         {
             name: I18n.t("models.enrollment.enrollmentType.name"),
@@ -150,7 +156,7 @@
             reverse: false,
             icon: filter,
             sortType: sortType.ALPHA,
-            width: "20%",
+            width: "10%",
             center: true
         },
         {
@@ -194,6 +200,10 @@
     span:not(:last-child) {
       margin-bottom: 5px;
     }
+  }
+
+  td.evidenceNarrativeRequired span {
+    display: block;
   }
 
   div.action-buttons {
@@ -245,6 +255,19 @@
           <a use:link
              href={`/badgeclass/${enrollment.badgeClass.entityId}/enrollments`}>{enrollment.badgeClass.name}</a>
         </td>
+        <td class="evidenceNarrativeRequired">
+          {#if enrollment.evidenceNarrativeRequired}
+            {#if enrollment.badgeClass.evidenceRequired}
+              <span>{I18n.t("models.enrollment.enrollmentType.evidence")}</span>
+            {/if}
+            {#if enrollment.badgeClass.narrativeRequired}
+              <span>{I18n.t("models.enrollment.enrollmentType.narrative")}</span>
+            {/if}
+          {:else}
+            <span>-</span>
+          {/if}
+        </td>
+
         <td class="center">
           {I18n.t("models.enrollment.enrollmentType.enrolled")}
         </td>

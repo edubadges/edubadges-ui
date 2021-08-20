@@ -40,7 +40,9 @@
     let showAwardModal = false;
 
     onMount(() => {
+        enrollments.forEach(enrollment => enrollment.evidenceNarrativeRequired = badgeClass.evidenceRequired || badgeClass.narrativeRequired);
         filteredEnrollments = enrollments.filter(enrollment => !enrollment.denied);
+
     })
 
     const displayDeniedChanged = val => {
@@ -109,7 +111,7 @@
             attribute: "user.email",
             reverse: false,
             sortType: sortType.ALPHA,
-            width: "40%"
+            width: "30%"
         },
         {
             name: I18n.t("models.enrollment.enrollmentType.name"),
@@ -117,8 +119,14 @@
             reverse: false,
             icon: filter,
             sortType: sortType.ALPHA,
-            width: "30%",
+            width: "25%",
             center: true
+        },
+        {
+            name: I18n.t("models.enrollment.enrollmentType.evidenceNarrativeRequired"),
+            attribute: "evidenceNarrativeRequired",
+            reverse: false,
+            width: "20%"
         },
         {
             name: I18n.t("models.enrollment.enrolledOn"),
@@ -133,7 +141,7 @@
             attribute: "denied",
             reverse: false,
             sortType: sortType.ALPHA,
-            width: "15%",
+            width: "10%",
             center: true
         }
     ];
@@ -179,6 +187,10 @@
     :global(a:last-child) {
       margin-left: 15px;
     }
+  }
+
+  td.evidenceNarrativeRequired span {
+    display: block;
   }
 
   div.checkbox-container {
@@ -233,8 +245,19 @@
         </div>
       </td>
       <td class="center">
-        <!--  ToDo     -->
         {I18n.t("models.enrollment.enrollmentType.enrolled")}
+      </td>
+      <td class="evidenceNarrativeRequired">
+        {#if enrollment.evidenceNarrativeRequired}
+          {#if badgeClass.evidenceRequired}
+            <span>{I18n.t("models.enrollment.enrollmentType.evidence")}</span>
+          {/if}
+          {#if badgeClass.narrativeRequired}
+            <span>{I18n.t("models.enrollment.enrollmentType.narrative")}</span>
+          {/if}
+        {:else}
+          <span>-</span>
+        {/if}
       </td>
       <td class="center">
         {moment(enrollment.dateCreated).format('MMM D, YYYY')}

@@ -42,6 +42,8 @@
         {@html th.icon}
       {/if}
     </th>
+  {:else if th.name}
+    <th class="table-header" width={th.width}>{th.name}</th>
   {:else}
     <th class="table-header" width={th.width}></th>
   {/if}
