@@ -12,6 +12,7 @@ I18n.translations.nl = {
         logout: "Logout",
         profile: "Mijn profiel",
         permissions: "Mijn permissies",
+        feedback: "Verstuur feedback",
         demo: "Demo omgeving",
         nav: {
             badgeclasses: "Badge classes",
