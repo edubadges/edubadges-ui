@@ -243,7 +243,8 @@ I18n.translations.en = {
       enrollments: "Requested ",
       assertions: "Awarded ",
       directAwardBundle: "Award status",
-      profile: "Profile"
+      profile: "Profile",
+      requestedBadges: "Requested badges"
     },
     edit: {
       edit: "edit",
@@ -712,7 +713,8 @@ I18n.translations.en = {
       enrollmentType: {
         name: "Request type",
         enrolled: "Self requested",
-        invited: "Invited"
+        invited: "Invited",
+        badgeClass: "Badge class"
       },
       confirmation: {
         award: "Award request",
@@ -915,7 +917,8 @@ I18n.translations.en = {
     selfPermissions: "There are no permissions for this user on the {{entity}} level.",
     userPermissions: "This user does not have any permissions for {{entity}} {{name}}.",
     directAwardBundles: "There is no direct award status for edubadge {{name}}",
-    directAwards: "All direct awards have been claimed. There are no more outstanding direct awards for this bundle."
+    directAwards: "All direct awards have been claimed. There are no more outstanding direct awards for this bundle.",
+    requestedBatches: "There are no outstanding eduBadge requests you are allowed to award."
   },
   userManagement: {
     permissions: "Permissions for {{name}}",

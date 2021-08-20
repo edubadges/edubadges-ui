@@ -125,7 +125,7 @@ export const revokedStudentBadgeInstances = `query {
   }`;
 
 export const enrollmentsQuery = `
-       pendingEnrollmentsIncludingDenied {
+   pendingEnrollmentsIncludingDenied {
         dateCreated,
         dateAwarded,
         denied,

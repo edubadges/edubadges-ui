@@ -243,7 +243,8 @@ I18n.translations.nl = {
       enrollments: "Aangevraagd",
       assertions: "Toegekend",
       directAwardBundle: "Award status",
-      profile: "Profiel"
+      profile: "Profiel",
+      requestedBadges: "Aangevraagde badges"
     },
     edit: {
       edit: "wijzig",
@@ -712,7 +713,8 @@ I18n.translations.nl = {
       enrollmentType: {
         name: "Type aanvraag",
         enrolled: "Zelf aangevraagd",
-        invited: "Uitgenodigd"
+        invited: "Uitgenodigd",
+        badgeClass: "Badge class"
       },
       confirmation: {
         award: "Ken inschrijving toe",
@@ -915,7 +917,8 @@ I18n.translations.nl = {
     selfPermissions: "Deze gebruiker heeft geen permissies op {{entity}} niveau.",
     userPermissions: "Deze gebruiker heeft geen permissies op {{entity}} niveau.",
     directAwardBundles: "Er is geen direct award status voor edubadge {{name}}",
-    directAwards: "Alle direct awards zijn geclaimed. Er zijn geen uitstaande direct awards meer voor deze bundel."
+    directAwards: "Alle direct awards zijn geclaimed. Er zijn geen uitstaande direct awards meer voor deze bundel.",
+    requestedBatches: "Er zijn geen openstaande eduBadge-verzoeken die je mag uitreiken."
   },
   userManagement: {
     permissions: "Permissies voor {{name}}",

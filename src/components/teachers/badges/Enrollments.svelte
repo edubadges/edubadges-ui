@@ -18,7 +18,7 @@
     export let enrollments = [];
     export let refresh;
 
-    export let badgeClass;
+    export let badgeClass = {};
 
     let selection = [];
     let filteredEnrollments = [];
@@ -38,7 +38,6 @@
 
     //AwardModal
     let showAwardModal = false;
-
 
     onMount(() => {
         filteredEnrollments = enrollments.filter(enrollment => !enrollment.denied);
@@ -89,7 +88,11 @@
 
     const onCheckOne = (val, entityId) => {
         if (val) {
-            selection = selection.concat(entityId);
+            if (badgeClass.evidenceRequired || badgeClass.narrativeRequired) {
+                selection = [entityId];
+            } else {
+                selection = selection.concat(entityId);
+            }
             table.checkAllValue = selection.length === enrollments.length;
         } else {
             selection = selection.filter(id => id !== entityId);
@@ -191,7 +194,7 @@
   bind:sort={enrollmentSort}
   isEmpty={enrollments.length === 0}
   withCheckAll={true}
-  checkAllDisabled={enrollments.filter(enrollment => !enrollment.denied).length === 0 || !badgeClass.permissions.mayAward}
+  checkAllDisabled={enrollments.filter(enrollment => !enrollment.denied).length === 0 || !badgeClass.permissions.mayAward || badgeClass.evidenceRequired || badgeClass.narrativeRequired}
   bind:checkAllValue>
   <div class="action-buttons" slot="check-buttons">
     <Button small action={() => award(true)} marginRight={true}
