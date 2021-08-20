@@ -171,7 +171,7 @@
   <div class="main-content-margin">
     <p
       class="sub-title">{@html I18n.t("badgeAward.bulkAward.subtitle", {sample: `${config.serverUrl}/static/sample_direct_award.csv`})}</p>
-    {#if enrollments.length > 0}
+    {#if enrollments.filter(enrollment => !enrollment.denied).length > 0}
       <div class="warning-container">
         <Warning msg={I18n.t("badgeAward.directAward.waringEnrollments", {count: enrollments.length})}>
           <a use:link
