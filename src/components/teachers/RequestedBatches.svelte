@@ -87,6 +87,7 @@
             showAwardModal = true;
         } else {
             showAwardModal = false;
+            loaded = false;
             awardBadges(badgeClass.entityId, selection, useEvidence, narrative, url, name, description).then(() => {
                 loadEnrollments();
                 narrative = "";
@@ -107,6 +108,7 @@
             showModal = true;
         } else {
             showModal = false;
+            loaded = false;
             Promise.all(selection.map(entityID => denyBadge(entityID)))
                 .then(() => {
                     loadEnrollments();
