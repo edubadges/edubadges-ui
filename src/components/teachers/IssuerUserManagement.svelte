@@ -83,8 +83,8 @@
     })
   };
 
-
   onMount(reload);
+
 </script>
 
 <UserManagement

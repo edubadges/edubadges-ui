@@ -471,6 +471,8 @@ I18n.translations.en = {
         issuer: {
             admin: "Issuer admin",
             awarder: "Issuer awarder",
+            switchToOwner: "Successfully changed user permissions to issuer admin role.",
+            switchToAwarder: "Successfully changed user permissions to issuer awarder role.",
             header: "Issuer",
             allRights: "Issuer admin",
             permissions: "Permissions on issuer level"

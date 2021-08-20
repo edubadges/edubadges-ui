@@ -127,12 +127,10 @@
     },
   ];
 
-  const permissionsRoles = [{value: "admin", name: I18n.t("editUsers.issuer.admin")}];
-
-  // const permissionsRoles = [
-  // {value: permissionsRole.ADMIN, name: I18n.t("editUsers.issuer.admin")},
-  // {value: permissionsRole.AWARDER, name: I18n.t("editUsers.issuer.awarder")}
-  // ];
+  const permissionsRoles = [
+    {value: permissionsRole.ADMIN, name: I18n.t("editUsers.issuer.admin")},
+    {value: permissionsRole.AWARDER, name: I18n.t("editUsers.issuer.awarder")}
+  ];
 
 </script>
 
@@ -158,7 +156,7 @@
       permissionsRoles={permissionsRoles}
       defaultValue={0}
       entityId={entityId}
-      disabledRole={true}
+      disabledRole={false}
       contentType={contentType}
     />
   </Route>
