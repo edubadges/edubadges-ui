@@ -46,7 +46,9 @@ export const expandStaffsBadgeClass = (institutionStaff, issuerGroupStaffs, issu
         staffs = [{
           badgeClass,
           _staffType: staffType.ISSUER_STAFF,
+          mayUpdate: issuerStaff.mayUpdate,
           role: issuerStaff.mayUpdate ? staffType.ISSUER_ADMIN : staffType.ISSUER_AWARDER},
+
           ...staffs];
       }
     }

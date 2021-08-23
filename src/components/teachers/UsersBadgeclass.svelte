@@ -94,6 +94,7 @@
     },
     issuerStaffs {
       mayAdministrateUsers,
+      mayUpdate,
       issuer {
         entityId
       }
@@ -131,6 +132,8 @@
     }
     issuerStaffs {
       entityId,
+      mayUpdate,
+      mayAdministrateUsers,
       issuer {
         nameDutch,
         nameEnglish,
@@ -150,8 +153,7 @@
             }
           }
         }
-      },
-      mayAdministrateUsers
+      }
     }
     facultyStaffs {
       entityId,
