@@ -173,7 +173,7 @@
       class="sub-title">{@html I18n.t("badgeAward.bulkAward.subtitle", {sample: `${config.serverUrl}/static/sample_direct_award.csv`})}</p>
     {#if enrollments.filter(enrollment => !enrollment.denied).length > 0}
       <div class="warning-container">
-        <Warning msg={I18n.t("badgeAward.directAward.waringEnrollments", {count: enrollments.length})}>
+        <Warning msg={I18n.t("badgeAward.directAward.waringEnrollments", {count: enrollments.filter(enrollment => !enrollment.denied).length})}>
           <a use:link
              href={`/badgeclass/${badgeclass.entityId}/enrollments`}>{I18n.t("badgeAward.directAward.toToEnrollments")}</a>
         </Warning>
