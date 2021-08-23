@@ -17,7 +17,7 @@
   import {permissionsRole} from "../../util/rolesToPermissions";
   import ListLink from "./ListLink.svelte";
   import {addStaffType, expandStaffsBadgeClass, staffType} from "../../util/staffTypes";
-  import {userHasAdminPermissions, userHasAnyPermissions} from "../../util/userPermissions";
+  import {userHasPermissions} from "../../util/userPermissions";
   import {flash} from "../../stores/flash";
   import {badgeclassIcon} from "../../icons";
   import {translateProperties} from "../../util/utils";
@@ -277,8 +277,8 @@
           }
         }
       }
-      newPermissionOptions = badgeClasses.filter(badgeClass => !userHasAdminPermissions(badgeClass, entityType.BADGE_CLASS, institutionStaffs, issuerGroupStaffs, issuerStaffs, badgeClassStaffs));
-      removePermissionOptions = badgeClasses.filter(badgeClass => userHasAnyPermissions(badgeClass, entityType.BADGE_CLASS, institutionStaffs, issuerGroupStaffs, issuerStaffs, badgeClassStaffs));
+      newPermissionOptions = badgeClasses.filter(badgeClass => !userHasPermissions(badgeClass, entityType.BADGE_CLASS, institutionStaffs, issuerGroupStaffs, issuerStaffs, badgeClassStaffs));
+      removePermissionOptions = badgeClasses.filter(badgeClass => userHasPermissions(badgeClass, entityType.BADGE_CLASS, institutionStaffs, issuerGroupStaffs, issuerStaffs, badgeClassStaffs));
       isEmpty = user.badgeclassStaffs.length === 0 &&
         user.issuerStaffs.length === 0 &&
         user.facultyStaffs.length === 0 &&
@@ -395,7 +395,7 @@
     if (val) {
       selection = selection.concat(entityId);
       checkAllValue = selection.length === filteredStaffs.filter(({_staffType, badgeClass}) =>
-        _staffType === staffType.BADGE_CLASS_STAFF && userHasAdminPermissions(
+        _staffType === staffType.BADGE_CLASS_STAFF && userHasPermissions(
         badgeClass, entityType.BADGE_CLASS,
         currentUser.institutionStaff,
         currentUser.facultyStaffs,
@@ -410,7 +410,7 @@
 
   const onCheckAll = val => {
     selection = val ? filteredStaffs.filter(({_staffType, badgeClass}) =>
-      _staffType === staffType.BADGE_CLASS_STAFF && userHasAdminPermissions(
+      _staffType === staffType.BADGE_CLASS_STAFF && userHasPermissions(
       badgeClass, entityType.BADGE_CLASS,
       currentUser.institutionStaff,
       currentUser.facultyStaffs,
@@ -421,7 +421,7 @@
   };
 
   $: disabledCheckAll = filteredStaffs.filter(({_staffType, badgeClass}) =>
-    _staffType === staffType.BADGE_CLASS_STAFF && userHasAdminPermissions(
+    _staffType === staffType.BADGE_CLASS_STAFF && userHasPermissions(
     badgeClass, entityType.BADGE_CLASS,
     currentUser.institutionStaff,
     currentUser.facultyStaffs,
@@ -513,7 +513,7 @@
             <td>
               <CheckBox
                 value={selection.includes(staffId)}
-                disabled={!userHasAdminPermissions(
+                disabled={!userHasPermissions(
                     badgeClass, entityType.BADGE_CLASS,
                     currentUser.institutionStaff,
                     currentUser.facultyStaffs,
@@ -550,7 +550,7 @@
             <td>
               <div class="badgeclass-role-select">
                 <Select
-                  nonEditable={!userHasAdminPermissions(
+                  nonEditable={!userHasPermissions(
                       badgeClass, entityType.BADGE_CLASS,
                       currentUser.institutionStaff,
                       currentUser.facultyStaffs,

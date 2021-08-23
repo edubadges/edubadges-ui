@@ -2,7 +2,7 @@
   import I18n from "i18n-js";
   import Button from "../Button.svelte";
   import {Field, Select, TextInput} from ".";
-  import {createEventDispatcher} from "svelte";
+  import {createEventDispatcher, onMount} from "svelte";
   import {entityType} from "../../util/entityTypes";
   import {permissionsRole} from "../../util/rolesToPermissions";
   import {
@@ -25,6 +25,7 @@
   export let targetOptions = [];
   export let badgeClassStaffs = [];
 
+  let filteredBadgeClassStaffs = [];
   let roles = [];
 
   let chosenBadgeClass = targetOptions[0];

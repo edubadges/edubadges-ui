@@ -69,8 +69,7 @@ export const enrichUser = (institution, institutionStaffMemberships, issuerGroup
   }
 };
 
-const _userPermissions = (entity, _entityType, institutionStaffs, issuerGroupStaffs, issuerStaffs, badgeClassStaffs,
-                          requiredBadgeClassPermission) => {
+export const userHasPermissions = (entity, _entityType, institutionStaffs, issuerGroupStaffs, issuerStaffs, badgeClassStaffs) => {
   if (!isEmpty(institutionStaffs)) {
     return true;
   }
@@ -83,16 +82,6 @@ const _userPermissions = (entity, _entityType, institutionStaffs, issuerGroupSta
       const foundBadgeClassStaff = badgeClassStaffs.find(bCS => bCS.badgeclass.entityId === entity.entityId);
       const foundIssuerStaff = issuerStaffs.find(iS => iS.issuer.badgeclasses.find(badgeClass => badgeClass.entityId === entity.entityId));
       const foundIssuerGroupStaff = issuerGroupStaffs.find(iGS => iGS.faculty.issuers.find(issuer => issuer.badgeclasses.find(badgeClass => badgeClass.entityId === entity.entityId)));
-      return (foundBadgeClassStaff && foundBadgeClassStaff[requiredBadgeClassPermission]) ||
-          (foundIssuerStaff && foundIssuerStaff.mayAdministrateUsers) ||
-          (foundIssuerGroupStaff && foundIssuerGroupStaff.mayAdministrateUsers);
+      return foundBadgeClassStaff || foundIssuerStaff || foundIssuerGroupStaff;
   }
-};
-
-export const userHasAdminPermissions = (entity, _entityType, institutionStaffs, issuerGroupStaffs, issuerStaffs, badgeClassStaffs) => {
-  return _userPermissions(entity, _entityType, institutionStaffs, issuerGroupStaffs, issuerStaffs, badgeClassStaffs, 'mayAdministrateUsers');
-}
-
-export const userHasAnyPermissions = (entity, _entityType, institutionStaffs, issuerGroupStaffs, issuerStaffs, badgeClassStaffs) => {
-  return _userPermissions(entity, _entityType, institutionStaffs, issuerGroupStaffs, issuerStaffs, badgeClassStaffs, 'mayAward');
 };

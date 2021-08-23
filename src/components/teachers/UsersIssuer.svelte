@@ -18,7 +18,7 @@
   import {permissionsRole} from "../../util/rolesToPermissions";
   import ListLink from "./ListLink.svelte";
   import {translateProperties} from "../../util/utils";
-  import {userHasAdminPermissions, userHasAnyPermissions} from "../../util/userPermissions";
+  import {userHasPermissions} from "../../util/userPermissions";
   import {addStaffType, expandStaffsIssuer, staffType} from "../../util/staffTypes";
   import {flash} from "../../stores/flash";
   import {issuerIcon} from "../../icons";
@@ -206,8 +206,8 @@
           }
         }
       }
-      newPermissionOptions = issuers.filter(issuer => !userHasAdminPermissions(issuer, entityType.ISSUER, institutionStaffs, issuerGroupStaffs, issuerStaffs, []));
-      removePermissionOptions = issuers.filter(issuer => userHasAdminPermissions(issuer, entityType.ISSUER, institutionStaffs, issuerGroupStaffs, issuerStaffs, []));
+      newPermissionOptions = issuers.filter(issuer => !userHasPermissions(issuer, entityType.ISSUER, institutionStaffs, issuerGroupStaffs, issuerStaffs, []));
+      removePermissionOptions = issuers.filter(issuer => userHasPermissions(issuer, entityType.ISSUER, institutionStaffs, issuerGroupStaffs, issuerStaffs, []));
       modalSelectedEntity = newPermissionOptions[0];
       isEmpty = user.issuerStaffs.length === 0 &&
         user.facultyStaffs.length === 0 && (!user.institutionStaff || (user.institutionStaff && faculties.length === 0));
@@ -370,7 +370,7 @@
     if (val) {
       selection = selection.concat(entityId);
       checkAllValue = selection.length === filteredStaffs.filter(({_staffType, issuer}) =>
-        _staffType === staffType.ISSUER_STAFF && userHasAnyPermissions(
+        _staffType === staffType.ISSUER_STAFF && userHasPermissions(
         issuer, entityType.ISSUER,
         currentUser.institutionStaff,
         currentUser.facultyStaffs,
@@ -385,7 +385,7 @@
 
   const onCheckAll = val => {
     selection = val ? filteredStaffs.filter(({_staffType, issuer}) =>
-      _staffType === staffType.ISSUER_STAFF && userHasAnyPermissions(
+      _staffType === staffType.ISSUER_STAFF && userHasPermissions(
       issuer, entityType.ISSUER,
       currentUser.institutionStaff,
       currentUser.facultyStaffs,
@@ -396,7 +396,7 @@
   };
 
   $: disabledCheckAll = filteredStaffs.filter(({_staffType, issuer}) =>
-    _staffType === staffType.ISSUER_STAFF && userHasAnyPermissions(
+    _staffType === staffType.ISSUER_STAFF && userHasPermissions(
     issuer, entityType.ISSUER,
     currentUser.institutionStaff,
     currentUser.facultyStaffs,
@@ -461,7 +461,7 @@
             <td>
               <CheckBox
                 value={selection.includes(staffId)}
-                disabled={!userHasAdminPermissions(
+                disabled={!userHasPermissions(
                     issuer, entityType.ISSUER,
                     currentUser.institutionStaff,
                     currentUser.facultyStaffs,
@@ -497,7 +497,7 @@
             </td>
             <td>
               <Select
-                  nonEditable={!userHasAdminPermissions(
+                  nonEditable={!userHasPermissions(
                       issuer, entityType.ISSUER,
                       currentUser.institutionStaff,
                       currentUser.facultyStaffs,
