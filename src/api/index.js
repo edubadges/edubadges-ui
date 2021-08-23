@@ -450,6 +450,23 @@ export function makeUserIssuerAdmin(issuerId, userId, notes) {
   return validFetch(path, {body: JSON.stringify(payload)}, "POST");
 }
 
+export function makeUserIssuerAwarder(issuerId, userId, notes) {
+  const path = `${serverUrl}/staff-membership/issuer/${issuerId}/create`;
+  const payload = {
+    "may_create": 0,
+    "may_read": 1,
+    "may_update": 0,
+    "may_delete": 0,
+    "may_sign": 1,
+    "may_award": 1,
+    "may_administrate_users": 0,
+    "user": userId,
+    "issuer": issuerId,
+    "notes": notes
+  };
+  return validFetch(path, {body: JSON.stringify(payload)}, "POST");
+}
+
 export function removeUserIssuerAdmin(issuerMembershipId) {
   const path = `${serverUrl}/staff-membership/issuer/change/${issuerMembershipId}`;
   return validFetch(path, {}, "DELETE");

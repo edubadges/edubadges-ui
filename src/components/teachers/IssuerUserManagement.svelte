@@ -29,6 +29,7 @@
       staff {
         entityId,
         mayAdministrateUsers,
+        mayUpdate,
         mayAward,
         user {
           firstName,

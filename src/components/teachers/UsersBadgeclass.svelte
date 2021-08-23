@@ -597,9 +597,15 @@
               <span class="sub-text">{badgeClass.issuer.faculty.name}</span>
             </td>
             <td>
-              {I18n.t(['editUsers', 'permissions', 'allRights'])}
-              <br/>
-              <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'issuerAllRights'])}</span>
+              {#if mayUpdate}
+                {I18n.t('editUsers.permissions.allRights')}
+                <br/>
+                <span class="sub-text">{I18n.t('editUsers.permissions.issuerAllRights')}</span>
+              {:else}
+                {I18n.t('editUsers.permissions.awarderRights')}
+                <br/>
+                <span class="sub-text">{I18n.t('editUsers.permissions.issuerAwarderRights')}</span>
+              {/if}
             </td>
           {:else if _staffType === staffType.ISSUER_GROUP_STAFF}
             <td>

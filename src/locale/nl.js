@@ -427,6 +427,8 @@ I18n.translations.nl = {
             institution_staff: "Instellingsadmin",
             issuer_group_staff: "Issuer group admin",
             issuer_staff: "Issuer admin",
+            issuer_admin: "Issuer admin",
+            issuer_awarder: "Issuer awarder",
             badge_class_owner: "Badge class admin",
             badge_class_editor: "Badge class editor",
             badge_class_awarder: "Badge class awarder",
@@ -439,6 +441,7 @@ I18n.translations.nl = {
             makeUserIssuerGroupAwarder: "{{name}} heeft de issuer group awarder rechten gekregen",
             removeUserIssuerGroupAdmin: "De issuer group admin rechten zijn verwijderd van {{name}}",
             makeUserIssuerAdmin: "{{name}} heeft de issuer admin rechten gekregen",
+            makeUserIssuerAwarder: "{{name}} heeft de issuer awarder rechten gekregen",
             removeUserIssuerAdmin: "De issuer admin rechten zijn verwijderd van {{name}}",
             makeUserBadgeClassAdmin: "{{name}} heeft badge class admin rechten gekregen",
             removeUserBadgeClassAdmin: "De badge class admin rechten zijn verwijderd van {{name}}",
@@ -471,6 +474,8 @@ I18n.translations.nl = {
         issuer: {
             admin: "Issuer admin",
             awarder: "Issuer awarder",
+            switchToOwner: "Permissie succesvol aangepast naar issuer admin.",
+            switchToAwarder: "Permissie succesvol aangepast naar issuer awarder.",
             header: "Issuer",
             allRights: "Issuer admin",
             permissions: "Permissies op issuer niveau"
@@ -493,9 +498,11 @@ I18n.translations.nl = {
             header: "Jouw Permissies",
             headerUser: "Permissies voor",
             allRights: "Alle rechten",
+            awarderRights: "Awarder rechten",
             institutionAllRights: "(vanwege instellingsadmin)",
             issuerGroupAllRights: "(vanwege issuer group admin)",
             issuerAllRights: "(vanwege issuer admin)",
+            issuerAwarderRights: "(vanwege issuer awarder)",
             addPermissions: "Voeg permissies toe",
             remove: {
                 institution: "Weet je zeker dat je de instellingsadmin-rechten wilt verwijderen?",

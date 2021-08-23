@@ -437,12 +437,34 @@
             <span class="sub-text">{user.email}</span>
           </td>
           <td>
-            {#if entity !== entityType.ISSUER}
-              {I18n.t(['editUsers', 'permissions', 'allRights'])}
-              <br/>
-              <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'issuerGroupAllRights'])}</span>
+            {#if entity === entityType.ISSUER}
+              <div class="badgeclass-role-select">
+                <Select
+                  nonEditable={!permissions || !permissions.mayAdministrateUsers}
+                  handleSelect={item => changeIssuerUserRole(item, entityId)}
+                  value={
+                      mayAdministrateUsers ? targetOptionsIssuer[0] :
+                      (mayAward ? targetOptionsIssuer[1] : 'error')
+                    }
+                  items={targetOptionsIssuer}
+                  clearable={false}
+                  optionIdentifier="name"
+                />
+              </div>
+            {:else if entity === entityType.BADGE_CLASS}
+              {#if mayUpdate}
+                {I18n.t('editUsers.permissions.allRights')}
+                <br/>
+                <span class="sub-text">{I18n.t('editUsers.permissions.issuerAllRights')}</span>
+              {:else}
+                {I18n.t('editUsers.permissions.awarderRights')}
+                <br/>
+                <span class="sub-text">{I18n.t('editUsers.permissions.issuerAwarderRights')}</span>
+              {/if}
             {:else}
-              {I18n.t(['editUsers', 'faculty', 'allRights'])}
+              {I18n.t('editUsers.permissions.allRights')}
+              <br/>
+              <span class="sub-text">{I18n.t(['editUsers.permissions.issuerGroupAllRights'])}</span>
             {/if}
           </td>
           <td class="center">
@@ -470,9 +492,9 @@
             {#if entity !== entityType.ISSUER_GROUP}
               {I18n.t(['editUsers', 'permissions', 'allRights'])}
               <br/>
-              <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'issuerGroupAllRights'])}</span>
+              <span class="sub-text">{I18n.t('editUsers.permissions.issuerGroupAllRights')}</span>
             {:else}
-              {I18n.t(['editUsers', 'faculty', 'allRights'])}
+              {I18n.t('editUsers.faculty.allRights')}
             {/if}
           </td>
           <td class="center">

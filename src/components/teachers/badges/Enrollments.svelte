@@ -13,6 +13,7 @@
     import filter from "../../../icons/filter-1.svg";
     import AwardBadgeModal from "../award/AwardBadgeModal.svelte";
     import {onMount} from "svelte";
+    import Spinner from "../../Spinner.svelte";
 
     export let entityId;
     export let enrollments = [];
@@ -29,6 +30,7 @@
     let name = "";
     let description = "";
     let useEvidence = false;
+    let serverBusy = false;
 
     //Modal
     let showModal = false;
@@ -60,9 +62,11 @@
             showAwardModal = true;
         } else {
             showAwardModal = false;
+            serverBusy = true;
             awardBadges(entityId, selection, useEvidence, narrative, url, name, description).then(() => {
                 refreshEnrollments();
                 flash.setValue(I18n.t("models.enrollment.flash.awarded"));
+                serverBusy = false;
             });
         }
     }
@@ -75,10 +79,12 @@
             showModal = true;
         } else {
             showModal = false;
+            serverBusy = true;
             Promise.all(selection.map(entityID => denyBadge(entityID)))
                 .then(() => {
                     refreshEnrollments();
                     flash.setValue(I18n.t("models.enrollment.flash.denied"))
+                    serverBusy = false;
                 });
         }
     }
@@ -199,7 +205,9 @@
   }
 
 </style>
-
+{#if serverBusy}
+  <Spinner />
+{/if}
 <Table
   {...table}
   bind:search={enrollmentSearch}
@@ -210,9 +218,9 @@
   bind:checkAllValue>
   <div class="action-buttons" slot="check-buttons">
     <Button small action={() => award(true)} marginRight={true}
-            text={I18n.t('models.enrollment.award')} disabled={selection.length === 0}/>
+            text={I18n.t('models.enrollment.award')} disabled={selection.length === 0 || serverBusy}/>
     <Button small action={() => deny(true)}
-            text={I18n.t('models.enrollment.deny')} disabled={selection.length === 0} secondary={true}/>
+            text={I18n.t('models.enrollment.deny')} disabled={selection.length === 0  || serverBusy} secondary={true}/>
     {#if enrollments.filter(enrollment => enrollment.denied).length > 0}
       <div class="checkbox-container">
         <CheckBox adjustTopFlex={true}

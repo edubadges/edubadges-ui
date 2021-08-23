@@ -24,6 +24,7 @@
   export let userId;
   export let targetOptions = [];
   export let badgeClassStaffs = [];
+
   let roles = [];
 
   let chosenBadgeClass = targetOptions[0];
