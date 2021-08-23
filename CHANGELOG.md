@@ -4,6 +4,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [5.0.0] - 2021-08-30
+- Show required attributes for awarding enrollments.
+- Added feedback dialog.
+- Show spinner when busy.
+- Added label with number of outstanding badge requests.
+- Show revoked number of direct awards in overview.
+- Only show one of the studyload types depending on the institution.
+- Default sort by most requested.
+- Added show denied checkbox for enrollments.
+- Refactored framework alignment.
+- Word break none for time investment label.
+- New extension TimeInvestment.
+- Show denied enrollments.
+- Changed layout date issued in backpack.
+- Styled badge class details.
+- Breadcrumb for new badgeclass - and do not fetch all issuers.
+- Do not show first trash can for alignments.
+- Bugfix for not showing placeholder Allowed institutions in new badgeclass.
+- Non-formal badges can be awarded to users with validated name.
+- Updated dependencies url-parse, path-parse, tar, minimist.
+
 ## [4.2.0] - 2021-07-19
 - Added missing date
 - Updated dependency Acorn
