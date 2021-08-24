@@ -11,7 +11,7 @@
       path: "/",
       active: $currentPath && !$currentPath.includes("/manage") && !$currentPath.includes("/users") && !$currentPath.includes("/catalog")
         && !$currentPath.includes("/profile") && !$currentPath.includes("/permissions")
-        && !$currentPath.includes("/public"),
+        && !$currentPath.includes("/public") && !$currentPath.includes("/insights"),
       name: "badgeclasses"
     },
     {
@@ -29,7 +29,11 @@
       active: $currentPath && ($currentPath.includes("/catalog") || $currentPath.includes("/public")),
       name: "catalog"
     },
-
+    {
+      path: "/insights",
+      active: $currentPath && $currentPath.includes("/insights"),
+      name: "insights"
+    },
   ];
 </script>
 

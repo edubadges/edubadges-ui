@@ -18,7 +18,8 @@ I18n.translations.nl = {
             badgeclasses: "Badge classes",
             manage: "Beheer",
             users: "Gebruikers",
-            catalog: "Catalogus"
+            catalog: "Catalogus",
+            insights: "Inzicht"
         },
     },
     login: {

@@ -28,6 +28,7 @@
   import VersionInfo from "./routes/VersionInfo.svelte";
   import Catalog from "./routes/catalog/Catalog.svelte";
   import DirectAward from "./routes/students/DirectAward.svelte";
+  import Insights from "./routes/insights/Insights.svelte";
 
 
   const homepage = {
@@ -177,6 +178,7 @@
         <Route path="/login" component={Login}/>
         <Route path="/auth/login/*" component={ProcessToken}/>
         <Route path="/catalog" component={Catalog}/>
+        <Route path="/insights" component={Insights}/>
         <Route component={NotFound}/>
 
         <!-- Expose current path through store -->

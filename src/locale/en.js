@@ -18,7 +18,8 @@ I18n.translations.en = {
             badgeclasses: "Badge classes",
             manage: "Manage",
             users: "Users",
-            catalog: "Catalog"
+            catalog: "Catalog",
+            insights: "Insights"
         },
     },
     login: {
