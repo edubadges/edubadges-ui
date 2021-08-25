@@ -1181,5 +1181,24 @@ I18n.translations.en = {
         send: "Send feedback",
         flash: "Your feedback has successfully been send. Thanks!"
     },
+    insights: {
+        awardedBadges: "Awarded badges",
+        totalAwarded: "Total awarded",
+        directAwarded: "Direct awarded",
+        requested: "Requested",
+        directAwardDenied: "Denied by student",
+        requestedDeniedTooltip: "Denied by teacher after request",
+        revoked: "Revoked after awarded",
+        requestedDenied: "Denied by teacher",
+        claimRate: "Claim rate",
+        claimRateTooltip: "The claim rate is the total number of awarded badges as a percentage of the total of direct awards and enrollments.",
+        numbers: "The numbers add up",
+        badgeClasses: "Badgeclasses",
+        issuers: "Issuers",
+        issuerGroups: "issuer Groups",
+        user: "Issuer-portal users",
+        crunching: "Crunching the numbers just for you...",
+        date: "Date"
+    }
 
 };

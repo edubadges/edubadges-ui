@@ -28,7 +28,7 @@
   import VersionInfo from "./routes/VersionInfo.svelte";
   import Catalog from "./routes/catalog/Catalog.svelte";
   import DirectAward from "./routes/students/DirectAward.svelte";
-  import Insights from "./routes/insights/Insights.svelte";
+  import Insights from "./routes/teachers/Insights.svelte";
 
 
   const homepage = {
