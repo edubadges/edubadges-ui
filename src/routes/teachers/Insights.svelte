@@ -8,7 +8,13 @@
     import OfflineExporting from "highcharts/modules/offline-exporting";
     import Exporter from 'highcharts/modules/exporting';
     import ExportData from 'highcharts/modules/export-data';
-    import {assertionSeries} from "../../util/insights";
+    import {
+        assertionSeries,
+        entityTypeLookup,
+        equalizeAssertionsSize,
+        extractAssertionFaculties,
+        filterSeries
+    } from "../../util/insights";
 
     data(Highcharts);
     Exporter(Highcharts);
@@ -18,9 +24,13 @@
     let serverData = null;
     let loaded = false;
 
+    //All faculties, issuer and badgeclass
+    let faculties = null;
+
     //The actual assertions e.g. badgeInstances
-    let directAwardsAssertions = null;
+    let directAwardAssertions = null;
     let requestedAssertions = null;
+    let totalAssertions = null;
 
     //To calculate the claim rate we also need the directAwards which can be unaccepted and denied enrollments
     let directAwards = null;
@@ -32,32 +42,57 @@
     let facultyId = null;
     let year = new Date().getFullYear();
 
+    //To calculate the X-axis
+    let firstWeek = 1;
+    let lastWeek = 1;
+
+    //To calculate the Y-axis
+    let maxNumber = 1;
+    let firstNumber = 1;
+
     onMount(() => {
         insights().then(res => {
             serverData = res;
-            //todo add names of badgeId, issuerId, facultyId
-            directAwardsAssertions = assertionSeries(res['assertions'], 'direct_award',false, badgeClassId, issuerId, facultyId);
-            requestedAssertions = assertionSeries(res['assertions'], 'requested', false ,badgeClassId, issuerId, facultyId);
-            directAwards = assertionSeries(res['direct_awards'], undefined, false ,badgeClassId, issuerId, facultyId);
-            enrollments = assertionSeries(res['enrollments'], undefined, true, badgeClassId, issuerId, facultyId);
-            debugger;
+            faculties = extractAssertionFaculties(res['assertions'], I18n.locale);
+            const filteredDA = filterSeries(res['assertions'], entityTypeLookup.ASSERTION, 'direct_award', badgeClassId, issuerId, facultyId);
+            let daAssertions = assertionSeries(filteredDA);
+            const filteredReq = filterSeries(res['assertions'], entityTypeLookup.ASSERTION, 'requested', badgeClassId, issuerId, facultyId);
+            let reqAssertions = assertionSeries(filteredReq);
+            directAwards = assertionSeries(filterSeries(res['direct_awards'], entityTypeLookup.DIRECT_AWARD, null, badgeClassId, issuerId, facultyId))
+                .map(da => da.nbr);
+            enrollments = assertionSeries(filterSeries(res['enrollments'], entityTypeLookup.ENROLMENT, null, badgeClassId, issuerId, facultyId))
+                .map(enr => enr.nbr);
+            if (daAssertions.length !== reqAssertions.length) {
+                const equalized = equalizeAssertionsSize(daAssertions, reqAssertions);
+                daAssertions = equalized[0];
+                reqAssertions = equalized[1];
+            }
+            firstWeek = Math.min(daAssertions[0].weekNumber, reqAssertions[0].weekNumber);
+            lastWeek = Math.max(daAssertions[daAssertions.length - 1].weekNumber, reqAssertions[reqAssertions.length - 1].weekNumber);
+            directAwardAssertions = daAssertions.map(assertion => assertion.nbr);
+            requestedAssertions = reqAssertions.map(assertion => assertion.nbr);
+            totalAssertions = directAwardAssertions.map((nbr, index) => nbr + requestedAssertions[index]);
             loaded = true;
         });
     });
 
-    const xAxisFormatter = ctx => {
-        return ctx.value;
-        // const date = new Date(ctx.value);
-        // return `${date.getDay()}- ${date.getMonth()}`;
-    }
+    const xAxisFormatter = ctx => ctx.value + firstWeek;
 
     afterUpdate(() => {
         if (!loaded) {
             return;
         }
         Highcharts.chart("content", {
+            title: "",
             chart: {
-                type: 'area'
+                type: 'area',
+                alignTicks: false,
+            },
+            tooltip: {
+                shared: true,
+                //https://jsfiddle.net/BlackLabel/vzqmb6f1/
+                headerFormat: 'Week {point.key}<br/>',
+                useHTML: true
             },
             plotOptions: {
                 area: {
@@ -70,13 +105,27 @@
                     }
                 },
             },
+            yAxis: {
+                labels: {
+                    formatter: ctx => {
+                        return ctx.tick.pos / 2
+                    }
+                },
+                title: {
+                    text: ''
+                }
+            },
             xAxis: {
                 accessibility: {
                     rangeDescription: I18n.t("insights.date")
                 },
                 labels: {
                     formatter: xAxisFormatter
-                }
+                },
+                title: {
+                    text: 'Week'
+                },
+                categories: new Array(lastWeek - firstWeek).map((val, index) => index + firstWeek)
             },
             legend: {
                 enabled: false
@@ -99,19 +148,19 @@
                     name: I18n.t("insights.totalAwarded"),
                     lineWidth: 3,
                     color: "#762483",
-                    data: [8, 7, 6, 9, 2, 4, 6, 5, 6, 6]
+                    data: totalAssertions
                 },
                 {
                     name: I18n.t("insights.directAwarded"),
                     lineWidth: 3,
                     color: "#e97501",
-                    data: [4, 7, 3, 2, 5, 6, 2, 2, 2, 6]
+                    data: directAwardAssertions
                 },
                 {
                     name: I18n.t("insights.requested"),
                     lineWidth: 3,
                     color: "#009e4d",
-                    data: [1, 2, 2, 2, 0, 1, 1, 2, 1, 2]
+                    data: requestedAssertions
                 }
             ]
         })
@@ -144,12 +193,9 @@
   {#if loaded}
     <!--    <SideBarCatelog/>-->
     <div class="insights">
-      {JSON.stringify(serverData)}
+
     </div>
     <div id="content" class="content">
-      <!--      <CatalogToolBar bind:sorting={$sortTarget} bind:view={view}/>-->
-
-
     </div>
 
   {:else}
