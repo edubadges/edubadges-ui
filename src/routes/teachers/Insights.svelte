@@ -8,6 +8,11 @@
     import OfflineExporting from "highcharts/modules/offline-exporting";
     import Exporter from 'highcharts/modules/exporting';
     import ExportData from 'highcharts/modules/export-data';
+    import badgesIcon from "../../icons/catalog.svg";
+    import issuerGroupIcon from "../../icons/issuer-group-purple.svg";
+    import issuerIcon from "../../icons/issuers-purple.svg";
+    import usersIcon from "../../icons/issuerportal-users-purple.svg";
+
     import {
         assertionSeries,
         badgeClassOptions,
@@ -73,6 +78,12 @@
     let maxNumber = 1;
     let firstNumber = 1;
 
+    //Counts
+    let badgeClassesCount = 0;
+    let issuersCount = 0;
+    let issuerGroupCount = 0;
+    let usersCount = 0;
+
     const reload = res => {
         loaded = false;
         const filteredDA = filterSeries(res['assertions'], entityTypeLookup.ASSERTION, 'direct_award', badgeClassId, issuerId, facultyId);
@@ -109,6 +120,15 @@
             facultySelectOptions = facultyOptions(faculties);
             issuerSelectOptions = issuerOptions(faculties, facultyId);
             badgeClassSelectOptions = badgeClassOptions(faculties, facultyId, issuerId);
+            Array.from(faculties.values()).forEach(fac => {
+                issuersCount += fac.issuers.size;
+                Array.from(fac.issuers.values()).forEach(issuer => {
+                    badgeClassesCount += issuer.badgeClasses.size
+                })
+            });
+            issuerGroupCount = faculties.size;
+            usersCount = res["users_count"];
+
 
             reload(res);
         });
@@ -382,6 +402,52 @@
     }
   }
 
+  .metadata-container {
+    display: flex;
+    flex-direction: column;
+    margin-right: 25px;
+
+    :global(section.metadata div.top-icon svg) {
+      width: 64px !important;
+      height: 64px !important;
+      margin: auto;
+    }
+
+    section.metadata {
+      display: flex;
+      flex-direction: column;
+      background-color: #fff;
+      border: var(--card-border);
+      border-radius: var(--card-border-radius);
+      box-shadow: 0 3px 0 2px var(--grey-3);
+      min-width: 150px;
+      margin-bottom: 20px;
+    }
+
+    .top-icon {
+      display: flex;
+      background-color: white;
+      align-items: center;
+      padding: 25px;
+    }
+
+    .data {
+      padding: 5px 10px;
+      display: flex;
+      p {
+        font-size: 18px;
+        font-family: "Proxima Nova", sans-serif;
+      }
+
+      .count {
+        font-size: 26px;
+        font-family: "Proxima Nova", sans-serif;
+        color: var(--purple);
+        margin-left: auto;
+      }
+    }
+  }
+
 
 </style>
 
@@ -389,6 +455,44 @@
   {#if loaded}
 
     <div class="stats-container">
+      <div class="metadata-container">
+        <section class="metadata">
+          <div class="top-icon">
+            {@html badgesIcon}
+          </div>
+          <div class="data">
+            <p>{I18n.t("insights.badgeClasses")}</p>
+            <span class="count">{badgeClassesCount}</span>
+          </div>
+        </section>
+        <section class="metadata">
+          <div class="top-icon">
+            {@html issuerIcon}
+          </div>
+          <div class="data">
+            <p>{I18n.t("insights.issuers")}</p>
+            <span class="count">{issuersCount}</span>
+          </div>
+        </section>
+        <section class="metadata">
+          <div class="top-icon">
+            {@html issuerGroupIcon}
+          </div>
+          <div class="data">
+            <p>{I18n.t("insights.issuerGroups")}</p>
+            <span class="count">{issuerGroupCount}</span>
+          </div>
+        </section>
+        <section class="metadata">
+          <div class="top-icon">
+            {@html usersIcon}
+          </div>
+          <div class="data">
+            <p>{I18n.t("insights.users")}</p>
+            <span class="count">{usersCount}</span>
+          </div>
+        </section>
+      </div>
       <div class="insights">
         <h2>{I18n.t("insights.awardedBadges")}</h2>
         <section class="stats">
@@ -489,11 +593,6 @@
       </div>
       <div id="content" class="content">
       </div>
-    </div>
-    <div class="metadata-container">
-      <section class="metadata">
-        
-      </section>
     </div>
   {:else}
     <Spinner message={I18n.t("insights.crunching")}/>

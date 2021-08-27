@@ -1206,8 +1206,8 @@ I18n.translations.en = {
         numbers: "The numbers add up",
         badgeClasses: "Badgeclasses",
         issuers: "Issuers",
-        issuerGroups: "issuer Groups",
-        user: "Issuer-portal users",
+        issuerGroups: "Issuer groups",
+        users: "Portal users",
         crunching: "Crunching the numbers just for you...",
         date: "Date",
         reset: "Reset"
