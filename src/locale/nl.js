@@ -158,7 +158,7 @@ I18n.translations.nl = {
             recipients: "Ontvangers",
             enrollments: "Open aanvragen",
             studyLoad: "Studielast",
-            timeInvestment: "Tijdinvestering",
+            timeInvestment: "Tijdsinvestering",
             educationProgramIdentifier: "Opleidingscode",
             ects: "{{value}} ECTS",
             hours: "{{value}} uren",
@@ -245,7 +245,7 @@ I18n.translations.nl = {
             assertions: "Toegekend",
             directAwardBundle: "Award status",
             profile: "Profiel",
-            requestedBadges: "Aangevraagde badges"
+            requestedBadges: "Aangevraagde edubadges"
         },
         edit: {
             edit: "wijzig",
@@ -260,8 +260,8 @@ I18n.translations.nl = {
             delete: "verwijder",
             info: {
                 assertionsBlock: {
-                    faculty: "Issuer group bevat badges die niet ingetrokken zijn en kan niet verwijderd worden.",
-                    issuer: "Issuer bevat badges die niet ingetrokken zijn. De issuer kan daarom niet verwijderd worden.",
+                    faculty: "Issuer group bevat edubadges die niet ingetrokken zijn en kan niet verwijderd worden.",
+                    issuer: "Issuer bevat edubadges die niet ingetrokken zijn. De issuer kan daarom niet verwijderd worden.",
                     badgeclass: "Er zijn voor deze badge class reeds edubadges uitgereikt. De badge class kan daarom niet verwijderd worden."
                 },
                 noPermission: {
@@ -346,8 +346,8 @@ I18n.translations.nl = {
         212: "Toegekende aanvragen kunnen niet afgewezen worden.",
         213: "Kan voor deze aanvraag geen edubadge uitgeven, dit is al gebeurd.",
         214: "Je kunt niets aanpassen, er zijn al edubadges uitgegeven binnen deze badge class.",
-        215: "Het is niet mogelijk een formele badge class aan te maken voor een instelling die geen grondslag heeft voor formele badges.",
-        216: "Het is niet mogelijk een informele badge class aan te maken voor een instelling die geen grondslag heeft voor informele badges.",
+        215: "Het is niet mogelijk een formele badge class aan te maken voor een instelling die geen grondslag heeft voor formele edubadges.",
+        216: "Het is niet mogelijk een informele badge class aan te maken voor een instelling die geen grondslag heeft voor informele edubadges.",
         500: "Kan niet de laatste permissie van de instelling verwijderen.",
         501: "Je kunt maar één uitnodiging hebben per emailadres.",
         502: "Kan de gebruiker niet uitnodigen voor deze entiteit: er is een conflicterende permissie.",
@@ -394,10 +394,10 @@ I18n.translations.nl = {
         929: "Email is een duplicaat",
         930: "EPPN is een duplicaat",
         931: "Er is al een nog niet geaccepteerde direct award voor deze EPPN",
-        932: "Een narratief is verplicht voor het awarden van deze badge",
-        933: "Een URL is verplicht voor het awarden van deze badge",
+        932: "Een narratief is verplicht voor het awarden van deze edubadge",
+        933: "Een URL is verplicht voor het awarden van deze edubadge",
         934: "De opleidingscode is verplicht als er studiepunten zijn opgegeven.",
-        935: "Vul de tijdinvestering of verwijder deze rubriek.",
+        935: "Vul de tijdsinvestering of verwijder deze rubriek.",
 
         unexpected: "Oeps, er is iets totaal onverwachts en onverklaarbaars gebeurd.",
         description: "Een onverwachte fout is opgetreden. Probeer het opnieuw of neem contact op met support@edubadges.nl voor ondersteuning.",
@@ -522,7 +522,7 @@ I18n.translations.nl = {
             memberSince: "Lid sinds",
             email: "e-mailadres",
             role: 'Rol',
-            notes: 'Commentaar',
+            notes: 'Persoonlijke boodschap',
             badgeclass: "Selecteer een badge class",
             issuerGroup: "Selecteer een issuer group",
             issuer: "Selecteer een issuer",
@@ -540,7 +540,7 @@ I18n.translations.nl = {
             name_english: "Naam in het Engels",
             name_dutch: "Naam in het Nederlands",
             award_allowed_institutions: "Toegestaande edubadge instellingen",
-            requestedBadges: "Aangevraagde badges"
+            requestedBadges: "Aangevraagde edubadges"
         },
         faculty: {
             created: "Aangemaakt",
@@ -591,7 +591,7 @@ I18n.translations.nl = {
             hours: "Uren",
             name: "Naam",
             description: "Beschrijving",
-            about: "Over deze badge",
+            about: "Over deze edubadge",
             criteria_text: "Aan welke criteria moet je voldoen om in aanmerking te komen voor deze edubadge?",
             criteria_url: "Of geef een link naar de criteria of meer informatie",
             criteria_url_value: "Link naar de criteria en meer informatie:",
@@ -607,7 +607,7 @@ I18n.translations.nl = {
             narrativeRequired: "Narrative verplicht",
             learningOutcome: "Leeruitkomst",
             studyLoad: "Studielast",
-            timeInvestment: "Tijdinvestering",
+            timeInvestment: "Tijdsinvestering",
             ects: {
                 creditPoints: "Studiepunten (ECTS)",
                 hours: "Uren"
@@ -631,7 +631,7 @@ I18n.translations.nl = {
                 additionalSections: "Extra toevoegingen",
                 educationalIdentifiers: "Opleidingscode",
                 studyLoad: "Studielast",
-                timeInvestment: "Tijd investering",
+                timeInvestment: "Tijdsinvestering",
                 alignment: "Gerelateerd onderwijskundig raamwerk",
                 allowedInstituions: "Toegestaande instellingen"
             },
@@ -732,7 +732,7 @@ I18n.translations.nl = {
             evidence: "Optionele beschrijvende metadata over het bewijs met betrekking tot de uitgifte van de edubadge.",
             evidenceRequired: "Verplichte beschrijvende metadata over het bewijs met betrekking tot de uitgifte van de edubadge.",
             evidenceHeader: "Metadata over het bewijs gerelateerd aan deze edubadge",
-            evidenceNarrative: "Commentaar",
+            evidenceNarrative: "Persoonlijke boodschap",
             evidenceURL: "URL",
             evidenceDescription: "Beschrijving",
             evidenceName: "Naam",
@@ -1020,9 +1020,9 @@ I18n.translations.nl = {
         badgeClassLanguageOfInstruction: "De voertaal die gebruikt is bij het behalen van deze edubadge. ",
         badgeClassLearningOutcome: "Beschrijf de leeruitkomst of het leerdoel. Vastgelegd in de Onderwijs- en examenregeling. Sluit mogelijk aan op de Tuning-methodiek.",
         //badgeClassLearningIssuer: "badgeClassLearningIssuer",
-        badgeClassIsPrivate: "Indien aangevinkt zal deze badge-klasse niet in de catalogus verschijnen. Houd er rekening mee dat er van privébadge-klassen geen edubadges kunnen worden uitgegeven.",
-        badgeClassEvidenceRequired: "Indien aangevinkt, moet voor alle onderscheidingen op basis van deze badgeklasse een bewijs worden ingevuld.",
-        badgeClassNarrativeRequired: "Indien aangevinkt, moet voor alle onderscheidingen op basis van deze badgeklasse een verhaal worden ingevuld.",
+        badgeClassIsPrivate: "Indien aangevinkt zal deze badge-klasse niet in de catalogus verschijnen. Houd er rekening mee dat er van privé badge classes geen edubadges kunnen worden uitgegeven.",
+        badgeClassEvidenceRequired: "Indien aangevinkt, moet voor alle onderscheidingen op basis van deze badge class een bewijs worden ingevuld.",
+        badgeClassNarrativeRequired: "Indien aangevinkt, moet voor alle onderscheidingen op basis van deze badge class een perssonlijke toelichting worden ingevuld.",
         //badgeClassCriteriaRequirements: "badgeClassCriteriaRequirements",
         //badgeClassCriteriaUrl: "badgeClassCriteriaUrl",
         //badgeClassTypeOfStudyLoad: "badgeClassTypeOfStudyLoad",
@@ -1167,7 +1167,7 @@ I18n.translations.nl = {
         title: "Feedback geven",
         subTitle: "Deel je mening",
         info: "Werkt dit goed voor je? Heb je een suggestie? Laat ons hier weten wat je ervan vindt!",
-        disclaimer: "We zullen deze informatie, in combinatie met andere informatie die we mogelijk hebben over je account, gebruiken om problemen op te lossen, ons product te verbeteren en je te helpen. " +
+        disclaimer: "Het SURF edubadges team zal deze informatie, in combinatie met andere informatie die we mogelijk hebben over je account, gebruiken om problemen op te lossen, ons product te verbeteren en je te helpen. " +
             "We kunnen contact met je opnemen over je feedback via het e-mailadres dat is gekoppeld met je account. " +
             "Je bent ervoor verantwoordelijk dat je feedback geen vertrouwelijke, gevoelige of persoonlijke informatie bevat. ",
         send: "Verstuur feedback",

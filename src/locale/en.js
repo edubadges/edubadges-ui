@@ -245,7 +245,7 @@ I18n.translations.en = {
             assertions: "Awarded ",
             directAwardBundle: "Award status",
             profile: "Profile",
-            requestedBadges: "Requested badges"
+            requestedBadges: "Requested edubadges"
         },
         edit: {
             edit: "edit",
@@ -260,8 +260,8 @@ I18n.translations.en = {
             delete: "Delete",
             info: {
                 assertionsBlock: {
-                    faculty: "Issuer group contains badges that haven't been revoked and can't be deleted",
-                    issuer: "Issuer contains badges that haven't been revoked. Therefore the issuer can't be deleted.",
+                    faculty: "Issuer group contains edubadges that haven't been revoked and can't be deleted",
+                    issuer: "Issuer contains edubadges that haven't been revoked. Therefore the issuer can't be deleted.",
                     badgeclass: "Edubadges belonging to this badge class have already been awarded. Therefore the badge class can’t be deleted."
                 },
                 noPermission: {
@@ -346,8 +346,8 @@ I18n.translations.en = {
         212: "Awarded requests can't be denied.",
         213: "Can’t award requested edubadge, it has already been awarded.",
         214: "Cannot change any value, edubadges have already been awarded within this entity.",
-        215: "Cannot create a formal badgeclass for an institution without the judicial basis for formal badges.",
-        216: "Cannot create an informal badgeclass for an institution without the judicial basis for informal badges.",
+        215: "Cannot create a formal badge class for an institution without the judicial basis for formal edubadges.",
+        216: "Cannot create an informal badge class for an institution without the judicial basis for informal edubadges.",
         500: "Cannot remove the last staff member of this institution.",
         501: "There may be only one invite per email address.",
         502: "Cannot invite user for this entity: there is a conflicting staff membership.",
@@ -369,11 +369,11 @@ I18n.translations.en = {
         904: "No file was uploaded.",
         905: "Either criteria or criteria URL is required.",
         906: "Enter the number of study load hours or remove this section.",
-        907: "This is a reserved name for badgeclasses",
+        907: "This is a reserved name for badge classes",
         908: "Cannot create Issuer with this English name in this issuer group. It already exists.",
         909: "Enter the programme identifier or remove this section.",
         910: "Either url or narrative is required.",
-        911: "Cannot create Badgeclass with this name in this Issuer. It already exists.",
+        911: "Cannot create Badge class with this name in this Issuer. It already exists.",
         912: "A Dutch name is required.",
         913: "A Dutch description is required.",
         914: "Cannot create Issuer with this Dutch name in this issuer group. It already exists.",
@@ -394,8 +394,8 @@ I18n.translations.en = {
         929: "Email is duplicated",
         930: "EPPN is duplicated",
         931: "There is already an unaccepted direct award for this EPPN",
-        932: "This badgeclass requires a narrative for awarding",
-        933: "This badgeclass requires evidence for awarding",
+        932: "This badge class requires a narrative for awarding",
+        933: "This badge class requires evidence for awarding",
         934: "The programme identifier is required when Credit points are specified.",
         935: "Enter the time investment or remove this section.",
 
@@ -1167,7 +1167,7 @@ I18n.translations.en = {
         title: "Provide Feedback",
         subTitle: "Share your thoughts",
         info: "Like what you see? Have a suggestion? Let us know what you think here!",
-        disclaimer: "We will use this information, in conjunction with other information we may have regarding your account, to fix problems, improve our products and help you. " +
+        disclaimer: "The SURF edubadges team will use this information, in conjunction with other information we may have regarding your account, to fix problems, improve our products and help you. " +
             "We may follow up with you regarding your feedback using the email address associated with your account. " +
             "You are responsible for ensuring that your feedback does not contain any confidential, sensitive, or personal information.",
         send: "Send feedback",
