@@ -84,33 +84,36 @@ export const assertionSeries = assertions => {
 }
 
 export const equalizeAssertionsSize = (daAssertions, reqAssertions) => {
+    if (daAssertions.length === reqAssertions.length) {
+        return [daAssertions, reqAssertions];
+    }
     let daFirstWeek, daLastWeek, reqFirstWeek, reqLastWeek, daResults, reqResults;
     if (daAssertions.length > 0) {
         daFirstWeek = daAssertions[0].weekNumber;
         daLastWeek = daAssertions[daAssertions.length - 1].weekNumber;
     } else {
         daResults = new Array(reqAssertions.length).fill({nbr: 0});
+        reqResults = reqAssertions;
     }
     if (reqAssertions.length > 0) {
         reqFirstWeek = reqAssertions[0].weekNumber;
         reqLastWeek = reqAssertions[reqAssertions.length - 1].weekNumber;
     } else {
         reqResults = new Array(daAssertions.length).fill({nbr: 0});
+        daResults = daAssertions;
     }
     if (daFirstWeek && reqFirstWeek) {
-        if (daFirstWeek > reqFirstWeek) {
-            const zeroReq = new Array(daFirstWeek - reqFirstWeek).fill({nbr: 0});
+        if (daFirstWeek < reqFirstWeek) {
+            const zeroReq = new Array(reqFirstWeek - daFirstWeek).fill({nbr: 0});
             reqResults = [...zeroReq, ...reqAssertions]
-        }
-        if (reqFirstWeek < daFirstWeek) {
-            const zeroDa = new Array(reqFirstWeek - daFirstWeek).fill({nbr: 0});
+        } else {
+            const zeroDa = new Array(daFirstWeek - reqFirstWeek).fill({nbr: 0});
             daResults = [...zeroDa, ...daAssertions]
         }
         if (daLastWeek > reqLastWeek) {
             const sameReq = new Array(daLastWeek - reqLastWeek).fill({nbr: reqAssertions[reqAssertions.length - 1].nbr});
             reqResults = [...reqAssertions, ...sameReq]
-        }
-        if (reqLastWeek > daLastWeek) {
+        } else {
             const sameDa = new Array(reqLastWeek - daLastWeek).fill({nbr: daAssertions[daAssertions.length - 1].nbr});
             daResults = [...daAssertions, ...sameDa]
         }

@@ -15,6 +15,7 @@
         extractAssertionFaculties,
         filterSeries
     } from "../../util/insights";
+    import Button from "../../components/Button.svelte";
 
     data(Highcharts);
     Exporter(Highcharts);
@@ -94,13 +95,30 @@
                 headerFormat: 'Week {point.key}<br/>',
                 useHTML: true
             },
+            navigation: {
+                menuStyle: {
+                    "border": "1px solid #cea0e5",
+                    "background": "#ffffff",
+                    "padding": "5px 0",
+                },
+                menuItemStyle: {
+                    "padding": "0.5em 1em",
+                    "fontSize": "16px",
+                    "color": "#772583",
+                    "background": "none",
+                    "transition": "background 250ms, color 250ms"
+                },
+                menuItemHoverStyle: {
+                    "background": "#f5ecfb", "color": "#37044f"
+                }
+            },
             plotOptions: {
                 area: {
                     stacking: 'normal',
-                    lineColor: '#ffffff',
-                    lineWidth: 1,
+                    lineColor: '#cea0e5',
+                    lineWidth: 0,
                     marker: {
-                        lineWidth: 1,
+                        lineWidth: 0,
                         lineColor: '#cea0e5'
                     }
                 },
@@ -146,19 +164,19 @@
             series: [
                 {
                     name: I18n.t("insights.totalAwarded"),
-                    lineWidth: 3,
+                    lineWidth: 1,
                     color: "#762483",
                     data: totalAssertions
                 },
                 {
                     name: I18n.t("insights.directAwarded"),
-                    lineWidth: 3,
+                    lineWidth: 1,
                     color: "#e97501",
                     data: directAwardAssertions
                 },
                 {
                     name: I18n.t("insights.requested"),
-                    lineWidth: 3,
+                    lineWidth: 1,
                     color: "#009e4d",
                     data: requestedAssertions
                 }
@@ -171,19 +189,16 @@
 <style lang="scss">
   .page-container {
     display: flex;
-    flex-direction: column;
+    width: 100%;
+    flex-direction: row;
   }
 
   .content {
-    padding: 30px 20px;
+    display: flex;
     width: 100%;
-    margin: 0 auto
   }
 
   div.insights {
-    --badge-margin-right: 20px;
-
-
   }
 
 
@@ -193,7 +208,7 @@
   {#if loaded}
     <!--    <SideBarCatelog/>-->
     <div class="insights">
-
+      <Button text="help" action={() => true}/>
     </div>
     <div id="content" class="content">
     </div>
