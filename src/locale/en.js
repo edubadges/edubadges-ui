@@ -772,6 +772,14 @@ I18n.translations.en = {
             initialTotal: "Total",
             rateClaim: "Claim rate",
             createdAt: "Created",
+        },
+        insights: {
+            faculty: "Issuer group",
+            facultyPlaceholder: "Select an issuer group...",
+            issuer: "Issuer",
+            issuerPlaceholder: "Select an issuer...",
+            badgeClass: "Badgeclass",
+            badgeClassPlaceholder: "Select a badgeclass...",
         }
     },
     inviteDialog: {
@@ -1067,7 +1075,8 @@ I18n.translations.en = {
         enrollmentEvidenceURL: "The URI of a webpage presenting the evidence of this achievement.",
         enrollmentEvidenceName: "A descriptive title of the evidence of this achievement.",
         enrollmentEvidenceDescription: "A longer description of the evidence of this achievement.",
-        demoEnvironment: "All data is deleted every month."
+        demoEnvironment: "All data is deleted every month.",
+        claimRate: "The claim rate is the total number of awarded badges as a percentage of the total of direct awards and enrollments.",
     },
     badgeOverview: {
         faculty: "Faculty",
@@ -1186,19 +1195,22 @@ I18n.translations.en = {
         totalAwarded: "Total awarded",
         directAwarded: "Direct awarded",
         requested: "Requested",
-        directAwardDenied: "Denied by student",
+        enrollments: "Enrollments",
+        open: "Open",
+        directAwards: "Direct awards",
+        directAwardDenied: "Rejected by student",
         requestedDeniedTooltip: "Denied by teacher after request",
         revoked: "Revoked after awarded",
         requestedDenied: "Denied by teacher",
         claimRate: "Claim rate",
-        claimRateTooltip: "The claim rate is the total number of awarded badges as a percentage of the total of direct awards and enrollments.",
         numbers: "The numbers add up",
         badgeClasses: "Badgeclasses",
         issuers: "Issuers",
         issuerGroups: "issuer Groups",
         user: "Issuer-portal users",
         crunching: "Crunching the numbers just for you...",
-        date: "Date"
+        date: "Date",
+        reset: "Reset"
     }
 
 };

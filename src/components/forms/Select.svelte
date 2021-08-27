@@ -54,6 +54,10 @@
     cursor: pointer;
   }
 
+  div :global(.selectContainer .clearSelect) {
+    cursor: pointer;
+  }
+
   div :global(.selectContainer .indicator svg) {
     fill: white;
     width: 32px;
@@ -116,6 +120,7 @@
       showChevron={showChevron}
       showIndicator={showIndicator}
       isMulti={isMulti}
+      on:clear={() => handleSelect(null)}
       isDisabled={disabled}
       indicatorSvg={customIndicator || indicator}
       isClearable={clearable}/>

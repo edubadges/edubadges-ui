@@ -40,6 +40,7 @@
     display: inline-block;
     opacity: 0;
     visibility: hidden;
+    z-index: 99;
     font-weight: lighter;
     transition: opacity 150ms, visibility 150ms;
     padding: 8px 16px;

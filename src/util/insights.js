@@ -5,6 +5,80 @@ export const weekNumber = s => {
     return Math.ceil((d.getDay() + 1 + numberOfDays) / 7);
 }
 
+export const lastNumber = assertions => {
+    return assertions.length === 0 ? 0 : assertions[assertions.length - 1];
+}
+
+export const facultyOptions = faculties => {
+    return Array.from(faculties.keys()).map(key => ({identifier: key, name: faculties.get(key).name}))
+}
+
+export const issuerOptions = (faculties, facultyId) => {
+    if (facultyId) {
+        const facIssuers = faculties.get(facultyId).issuers;
+        return Array.from(facIssuers.keys()).map(key => ({
+            identifier: key,
+            name: facIssuers.get(key).name,
+            facultyId: facultyId
+        }))
+    } else {
+        return Array.from(faculties.keys()).map(facultyKey => {
+            const faculty = faculties.get(facultyKey);
+            const issuers = faculty.issuers;
+            return Array.from(issuers.keys()).map(issuerKey => ({
+                identifier: issuerKey,
+                name: issuers.get(issuerKey).name,
+                facultyId: facultyKey
+            }))
+        }).flat();
+    }
+}
+
+const getBadgeClassesFromFaculty = (faculty, facultyKey) => {
+    const issuers = faculty.issuers;
+    return Array.from(issuers.keys()).map(issuerKey => {
+        const issuer = issuers.get(issuerKey);
+        const badgeClasses = issuer.badgeClasses;
+        return Array.from(badgeClasses.keys())
+            .map(key => ({
+                identifier: key,
+                name: badgeClasses.get(key),
+                facultyId: facultyKey,
+                issuerId: issuerKey
+            }));
+    })
+}
+
+export const badgeClassOptions = (faculties, facultyId, issuerId) => {
+    if (facultyId) {
+        const faculty = faculties.get(facultyId);
+        const facIssuers = faculty.issuers;
+        if (issuerId && facIssuers.has(issuerId)) {
+            const badgeClasses = facIssuers.get(issuerId).badgeClasses;
+            return Array.from(badgeClasses.keys())
+                .map(key => ({identifier: key, name: badgeClasses.get(key), facultyId: facultyId, issuerId: issuerId}));
+        } else {
+            return getBadgeClassesFromFaculty(faculty);
+        }
+    } else {
+        return Array.from(faculties.keys()).map(facultyKey => {
+            const faculty = faculties.get(facultyKey)
+            return getBadgeClassesFromFaculty(faculty, facultyKey);
+        }).flat(2);
+    }
+}
+
+export const findByAttributeValue = (assertions, attr, value) => {
+    return assertions.filter(assertion => assertion[attr] === value).map(assertion => assertion.nbr).reduce((a, b) => a + b, 0);
+}
+
+export const claimRate = (totalAssertions, directAwards, enrollments) => {
+    const notClaimedAwarded = directAwards.map(da => da.nbr).reduce((a, b) => a + b, 0) + enrollments.map(da => da.nbr).reduce((a, b) => a + b, 0);
+    const claimed = lastNumber(totalAssertions);
+    const total = notClaimedAwarded + claimed;
+    return Math.floor(claimed / total * 100);
+}
+
 export const entityTypeLookup = {
     ASSERTION: {BADGE_CLASS_ID: 'badgeclass_id', ISSUER_ID: 'issuer_id', FACULTY_ID: 'issuer__faculty_id'},
     DIRECT_AWARD: {
@@ -19,11 +93,15 @@ export const entityTypeLookup = {
     }
 }
 
-export const filterSeries = (assertions, identifiers, awardType = null, badgeClassId = null, issuerId = null, facultyId = null) =>
-    assertions.filter(assertion => (awardType == null || assertion.award_type === awardType)
+export const filterSeries = (assertions, identifiers, awardType = null, badgeClass = null, issuer = null, faculty = null) => {
+    const badgeClassId = badgeClass ? badgeClass.identifier : null;
+    const issuerId = issuer ? issuer.identifier : null;
+    const facultyId = faculty ? faculty.identifier : null;
+    return assertions.filter(assertion => (awardType == null || assertion.award_type === awardType)
         && (badgeClassId == null || assertion[identifiers['BADGE_CLASS_ID']] === badgeClassId)
         && (issuerId == null || assertion[identifiers['ISSUER_ID']] === issuerId)
         && (facultyId == null || assertion[identifiers['FACULTY_ID']] === facultyId));
+}
 
 export const extractAssertionFaculties = (assertions, locale) => {
     const faculties = new Map();
@@ -62,20 +140,21 @@ export const assertionSeries = assertions => {
     //and because we want to show a cumulative area chart we add the previous number with the current and so on
     let prevWeek;
     filteredAssertions = filteredAssertions.reduce((acc, val) => {
-        let prevAssertion
+        let prevAssertion;
+        let nbr = val.nbr;
         if (acc.length > 0) {
             prevAssertion = acc[acc.length - 1];
             if (prevAssertion.weekNumber !== val.weekNumber) {
-                val.nbr += prevAssertion.nbr;
+                nbr += prevAssertion.nbr;
             } else {
-                prevAssertion.nbr += val.nbr;
+                prevAssertion.nbr += nbr;
             }
         }
         if (prevWeek && prevAssertion && val.weekNumber > (prevWeek + 1)) {
             acc = acc.concat(new Array(val.weekNumber - prevWeek + -1).fill({nbr: prevAssertion.nbr}));
         }
         if (!prevAssertion || prevAssertion.weekNumber !== val.weekNumber) {
-            acc.push({nbr: val.nbr, weekNumber: val.weekNumber});
+            acc.push({nbr: nbr, weekNumber: val.weekNumber});
         }
         prevWeek = val.weekNumber;
         return acc;
@@ -111,12 +190,14 @@ export const equalizeAssertionsSize = (daAssertions, reqAssertions) => {
             daResults = [...zeroDa, ...daAssertions]
         }
         if (daLastWeek > reqLastWeek) {
-            const sameReq = new Array(daLastWeek - reqLastWeek).fill({nbr: reqAssertions[reqAssertions.length - 1].nbr});
+            const sameReq = new Array(daLastWeek - reqLastWeek).fill({nbr: lastNumber(reqAssertions).nbr});
             reqResults = [...reqAssertions, ...sameReq]
         } else {
-            const sameDa = new Array(reqLastWeek - daLastWeek).fill({nbr: daAssertions[daAssertions.length - 1].nbr});
+            const sameDa = new Array(reqLastWeek - daLastWeek).fill({nbr: lastNumber(daAssertions).nbr});
             daResults = [...daAssertions, ...sameDa]
         }
     }
     return [daResults, reqResults]
 }
+
+

@@ -773,6 +773,15 @@ I18n.translations.nl = {
             rateClaim: "Claim rate",
             createdAt: "Aangemaakt",
         },
+        insights: {
+            faculty: "Issuer group",
+            facultyPlaceholder: "Select an issuer group...",
+            issuer: "Issuer",
+            issuerPlaceholder: "Select an issuer...",
+            badgeClass: "Badgeclass",
+            badgeClassPlaceholder: "Select a badgeclass...",
+        }
+
     },
     inviteDialog: {
         title: "Nodig iemand uit om zich in te schrijven",
@@ -1067,7 +1076,8 @@ I18n.translations.nl = {
         enrollmentEvidenceURL: "De URL van een webpagina met bewijs van de geleverde prestatie.",
         enrollmentEvidenceName: "Een beschrijvende titel van het bewijs van de geleverde prestatie..",
         enrollmentEvidenceDescription: "Een langere beschrijving van het bewijs van de geleverde prestatie..",
-        demoEnvironment: "Alle data wordt iedere maand verwijderd."
+        demoEnvironment: "Alle data wordt iedere maand verwijderd.",
+        claimRate: "Het claimpercentage is het totale aantal toegekende badges als percentage van het totaal aan directe awards en inschrijvingen.",
     },
     badgeOverview: {
         faculty: "Faculteit",
