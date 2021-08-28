@@ -780,6 +780,8 @@ I18n.translations.en = {
             issuerPlaceholder: "Select an issuer...",
             badgeClass: "Badgeclass",
             badgeClassPlaceholder: "Select a badgeclass...",
+            year: "Year",
+            yearPlaceholder: "Select a year...",
         }
     },
     inviteDialog: {

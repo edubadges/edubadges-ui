@@ -780,8 +780,9 @@ I18n.translations.nl = {
             issuerPlaceholder: "Select an issuer...",
             badgeClass: "Badgeclass",
             badgeClassPlaceholder: "Select a badgeclass...",
+            year: "Year",
+            yearPlaceholder: "Select a year...",
         }
-
     },
     inviteDialog: {
         title: "Nodig iemand uit om zich in te schrijven",

@@ -700,10 +700,11 @@ export function sendFeedback(message) {
     return validFetch(path, {body: JSON.stringify({message})}, "POST");
 }
 
-export function insights() {
+export function insights(year) {
     const path = `${serverUrl}/insights/insight`;
     const data = {
-        lang: I18n.locale
+        lang: I18n.locale,
+        year: year
     }
     return validFetch(path, {body: JSON.stringify(data)}, "POST");
 }

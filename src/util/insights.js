@@ -73,6 +73,9 @@ export const findByAttributeValue = (assertions, attr, value) => {
 }
 
 export const claimRate = (totalAssertions, directAwards, enrollments) => {
+    if (totalAssertions.length === 0) {
+        return 0;
+    }
     const notClaimedAwarded = directAwards.map(da => da.nbr).reduce((a, b) => a + b, 0) + enrollments.map(da => da.nbr).reduce((a, b) => a + b, 0);
     const claimed = lastNumber(totalAssertions);
     const total = notClaimedAwarded + claimed;
@@ -162,6 +165,18 @@ export const assertionSeries = assertions => {
     return filteredAssertions;
 }
 
+export const minWeekOfAssertionSeries = (a1, a2) => {
+    const week1 = a1.length > 0 ? a1[0].weekNumber : 1;
+    const week2 = a2.length > 0 ? a2[0].weekNumber : 1;
+    return Math.min(week1 || 1, week2 || 1);
+}
+
+export const maxWeekOfAssertionSeries = (a1, a2) => {
+    const week1 = a1.length > 0 ? a1[a1.length -1].weekNumber : 1;
+    const week2 = a2.length > 0 ? a2[a2.length -1].weekNumber : 1;
+    return Math.max(week1 || 1, week2 || 1);
+}
+
 export const equalizeAssertionsSize = (daAssertions, reqAssertions) => {
     if (daAssertions.length === reqAssertions.length) {
         return [daAssertions, reqAssertions];
@@ -185,19 +200,19 @@ export const equalizeAssertionsSize = (daAssertions, reqAssertions) => {
         if (daFirstWeek < reqFirstWeek) {
             const zeroReq = new Array(reqFirstWeek - daFirstWeek).fill({nbr: 0});
             reqResults = [...zeroReq, ...reqAssertions]
-        } else {
+        } else if (daFirstWeek > reqFirstWeek) {
             const zeroDa = new Array(daFirstWeek - reqFirstWeek).fill({nbr: 0});
             daResults = [...zeroDa, ...daAssertions]
         }
         if (daLastWeek > reqLastWeek) {
             const sameReq = new Array(daLastWeek - reqLastWeek).fill({nbr: lastNumber(reqAssertions).nbr});
             reqResults = [...reqAssertions, ...sameReq]
-        } else {
+        } else if (daLastWeek < reqLastWeek) {
             const sameDa = new Array(reqLastWeek - daLastWeek).fill({nbr: lastNumber(daAssertions).nbr});
             daResults = [...daAssertions, ...sameDa]
         }
     }
-    return [daResults, reqResults]
+    return [daResults || daAssertions, reqResults || reqAssertions]
 }
 
 

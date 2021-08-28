@@ -24,7 +24,9 @@
         filterSeries,
         findByAttributeValue,
         issuerOptions,
-        lastNumber
+        lastNumber,
+        maxWeekOfAssertionSeries,
+        minWeekOfAssertionSeries
     } from "../../util/insights";
     import Tooltip from "../../components/Tooltip.svelte";
     import Field from "../../components/forms/Field.svelte";
@@ -62,7 +64,9 @@
     let badgeClassId = null;
     let issuerId = null;
     let facultyId = null;
-    let year = new Date().getFullYear();
+    const currentYear = new Date().getFullYear();
+    let yearSelectOptions = new Array(10).fill(0).map((a, i) => ({name: currentYear - i}));
+    let year = yearSelectOptions[0];
     let facultySelectOptions = [];
     let issuerSelectOptions = [];
     let badgeClassSelectOptions = [];
@@ -92,13 +96,12 @@
         let reqAssertions = assertionSeries(filteredReq);
         directAwards = filterSeries(res['direct_awards'], entityTypeLookup.DIRECT_AWARD, null, badgeClassId, issuerId, facultyId);
         enrollments = filterSeries(res['enrollments'], entityTypeLookup.ENROLMENT, null, badgeClassId, issuerId, facultyId);
-
         const equalized = equalizeAssertionsSize(daAssertions, reqAssertions);
         daAssertions = equalized[0];
         reqAssertions = equalized[1];
 
-        firstWeek = Math.min(daAssertions[0].weekNumber || 1, reqAssertions[0].weekNumber || 1);
-        lastWeek = Math.max(daAssertions[daAssertions.length - 1].weekNumber || 1, reqAssertions[reqAssertions.length - 1].weekNumber || 1);
+        firstWeek = minWeekOfAssertionSeries(daAssertions, reqAssertions);
+        lastWeek = maxWeekOfAssertionSeries(daAssertions, reqAssertions);
         directAwardAssertions = daAssertions.map(assertion => assertion.nbr);
         requestedAssertions = reqAssertions.map(assertion => assertion.nbr);
         totalAssertions = directAwardAssertions.map((nbr, index) => nbr + requestedAssertions[index]);
@@ -111,11 +114,14 @@
         loaded = true;
     }
 
-
-    onMount(() => {
-        insights().then(res => {
+    const initialize = () => {
+        insights(year.name).then(res => {
             serverData = res;
             faculties = extractAssertionFaculties(res['assertions'], I18n.locale);
+            //reset sorting options, except for the year
+            badgeClassId = null;
+            issuerId = null;
+            facultyId = null;
 
             facultySelectOptions = facultyOptions(faculties);
             issuerSelectOptions = issuerOptions(faculties, facultyId);
@@ -132,7 +138,9 @@
 
             reload(res);
         });
-    });
+    }
+
+    onMount(initialize);
 
     const facultySelected = item => {
         if (inBadgeSelected || inIssuerSelected) {
@@ -178,6 +186,11 @@
             issuerId = issuerSelectOptions.find(option => option.identifier === item.issuerId);
         }
         reload(serverData);
+    }
+
+    const yearSelected = item => {
+        year = item;
+        initialize();
     }
 
     const reset = () => {
@@ -356,7 +369,7 @@
 
       section.stat {
         display: flex;
-        margin-bottom: 15px;
+        margin-bottom: 20px;
 
         &.minor {
           margin-bottom: 10px;
@@ -393,7 +406,7 @@
   }
 
   .selectors {
-    margin-top: 20px;
+    margin-top: 25px;
 
     .reset {
       margin-top: 15px;
@@ -408,8 +421,8 @@
     margin-right: 25px;
 
     :global(section.metadata div.top-icon svg) {
-      width: 64px !important;
-      height: 64px !important;
+      width: 92px !important;
+      height: 92px !important;
       margin: auto;
     }
 
@@ -434,6 +447,7 @@
     .data {
       padding: 5px 10px;
       display: flex;
+
       p {
         font-size: 18px;
         font-family: "Proxima Nova", sans-serif;
@@ -583,6 +597,14 @@
               placeholder={I18n.t("models.insights.badgeClassPlaceholder")}
               items={badgeClassSelectOptions}
               optionIdentifier="identifier"/>
+          </Field>
+          <Field entity="insights" attribute="year">
+            <Select
+              value={year}
+              handleSelect={yearSelected}
+              placeholder={I18n.t("models.insights.yearPlaceholder")}
+              items={yearSelectOptions}
+              optionIdentifier="name"/>
           </Field>
           <section class="reset">
             <Button text={I18n.t("insights.reset")} action={reset} secondary={true}
