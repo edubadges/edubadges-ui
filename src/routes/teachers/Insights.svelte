@@ -117,7 +117,7 @@
     const initialize = () => {
         insights(year.name).then(res => {
             serverData = res;
-            faculties = extractAssertionFaculties(res['assertions'], I18n.locale);
+            faculties = extractAssertionFaculties(res['assertions'], res['direct_awards'], res['enrollments'], I18n.locale);
             //reset sorting options, except for the year
             badgeClassId = null;
             issuerId = null;
@@ -421,8 +421,8 @@
     margin-right: 25px;
 
     :global(section.metadata div.top-icon svg) {
-      width: 92px !important;
-      height: 92px !important;
+      width: 96px !important;
+      height: 96px !important;
       margin: auto;
     }
 
@@ -433,7 +433,7 @@
       border: var(--card-border);
       border-radius: var(--card-border-radius);
       box-shadow: 0 3px 0 2px var(--grey-3);
-      min-width: 150px;
+      min-width: 160px;
       margin-bottom: 20px;
     }
 
@@ -529,7 +529,7 @@
           </span>
           </section>
           <section class="stats">
-            {#if directAwardsOpen > 0 && directAwardsRevoked > 0 && directAwardsRejected > 0}
+            {#if directAwardsOpen > 0 || directAwardsRevoked > 0 || directAwardsRejected > 0}
               <h3>{I18n.t("insights.directAwards")}</h3>
               {#if directAwardsOpen > 0}
                 <section class="stat minor">
@@ -550,7 +550,7 @@
                 </section>
               {/if}
             {/if}
-            {#if enrollmentsOpen > 0 && enrollmentsDenied > 0}
+            {#if enrollmentsOpen > 0 || enrollmentsDenied > 0}
               <h3 class="last">{I18n.t("insights.enrollments")}</h3>
               {#if enrollmentsOpen > 0 }
                 <section class="stat minor">

@@ -106,12 +106,27 @@ export const filterSeries = (assertions, identifiers, awardType = null, badgeCla
         && (facultyId == null || assertion[identifiers['FACULTY_ID']] === facultyId));
 }
 
-export const extractAssertionFaculties = (assertions, locale) => {
+export const extractAssertionFaculties = (assertions, directAwards, enrolments, locale) => {
     const faculties = new Map();
     const lang = locale === 'en' ? 'english' : 'dutch'
     const facultyName = `issuer__faculty__name_${lang}`;
     const issuerName = `issuer__name_${lang}`;
-    assertions.forEach(assertion => {
+    const directAwardsTransformed = directAwards.map(da => ({
+        issuer__faculty_id: da.badgeclass__issuer__faculty_id,
+        [facultyName]: da[`badgeclass__issuer__faculty__name_${lang}`],
+        issuer_id: da.badgeclass__issuer__id,
+        [issuerName]: da[`badgeclass__issuer__name_${lang}`]
+    }));
+    const enrolmentsTransformed = enrolments.map(enr => ({
+        issuer__faculty_id: enr.badge_class__issuer__faculty_id,
+        [facultyName]: enr[`badge_class__issuer__faculty__name_${lang}`],
+        issuer_id: enr.badge_class__issuer__id,
+        [issuerName]: enr[`badge_class__issuer__name_${lang}`],
+        badgeclass_id: enr.badge_class_id,
+        badgeclass__name: enr.badge_class__name
+    }));
+    const allAssertions = assertions.concat(directAwardsTransformed).concat(enrolmentsTransformed);
+    allAssertions.forEach(assertion => {
         const facultyId = assertion.issuer__faculty_id;
         let faculty = faculties.get(facultyId);
         if (!faculty) {
