@@ -126,15 +126,11 @@
             facultySelectOptions = facultyOptions(faculties);
             issuerSelectOptions = issuerOptions(faculties, facultyId);
             badgeClassSelectOptions = badgeClassOptions(faculties, facultyId, issuerId);
-            Array.from(faculties.values()).forEach(fac => {
-                issuersCount += fac.issuers.size;
-                Array.from(fac.issuers.values()).forEach(issuer => {
-                    badgeClassesCount += issuer.badgeClasses.size
-                })
-            });
-            issuerGroupCount = faculties.size;
-            usersCount = res["users_count"];
 
+            badgeClassesCount = res["badge_class_count"];
+            issuersCount = res["issuers_count"];
+            issuerGroupCount = res["faculties_count"];
+            usersCount = res["users_count"];
 
             reload(res);
         });

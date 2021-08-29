@@ -115,7 +115,9 @@ export const extractAssertionFaculties = (assertions, directAwards, enrolments, 
         issuer__faculty_id: da.badgeclass__issuer__faculty_id,
         [facultyName]: da[`badgeclass__issuer__faculty__name_${lang}`],
         issuer_id: da.badgeclass__issuer__id,
-        [issuerName]: da[`badgeclass__issuer__name_${lang}`]
+        [issuerName]: da[`badgeclass__issuer__name_${lang}`],
+        badgeclass_id: da.badgeclass_id,
+        badgeclass__name: da.badgeclass__name
     }));
     const enrolmentsTransformed = enrolments.map(enr => ({
         issuer__faculty_id: enr.badge_class__issuer__faculty_id,
