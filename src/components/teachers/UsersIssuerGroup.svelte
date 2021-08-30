@@ -11,7 +11,7 @@
   import Spinner from "../Spinner.svelte";
   import {permissionsRole} from "../../util/rolesToPermissions";
   import ListLink from "./ListLink.svelte";
-  import {userHasAdminPermissions} from "../../util/userPermissions";
+  import {userHasPermissions} from "../../util/userPermissions";
   import {addStaffType, expandStaffsIssuerGroup, staffType} from "../../util/staffTypes";
   import {flash} from "../../stores/flash";
   import {facultyIcon} from "../../icons";
@@ -144,8 +144,8 @@
       }
       institutionStaffs = user.institutionStaff ? addStaffType([res.user.institutionStaff], staffType.INSTITUTION_STAFF) : [];
       issuerGroupStaffs = addStaffType(user.facultyStaffs, staffType.ISSUER_GROUP_STAFF);
-      newPermissionOptions = faculties.filter(faculty => !userHasAdminPermissions(faculty, entityType.ISSUER_GROUP, institutionStaffs, issuerGroupStaffs, [], []));
-      removePermissionOptions = faculties.filter(faculty => userHasAdminPermissions(faculty, entityType.ISSUER_GROUP, institutionStaffs, issuerGroupStaffs, [], []));
+      newPermissionOptions = faculties.filter(faculty => !userHasPermissions(faculty, entityType.ISSUER_GROUP, institutionStaffs, issuerGroupStaffs, [], []));
+      removePermissionOptions = faculties.filter(faculty => userHasPermissions(faculty, entityType.ISSUER_GROUP, institutionStaffs, issuerGroupStaffs, [], []));
       modalSelectedEntity = newPermissionOptions[0];
 
       userNameDict = {name: `${user.firstName} ${user.lastName}`};
@@ -280,7 +280,7 @@
     if (val) {
       selection = selection.concat(entityId);
       checkAllValue = selection.length === filteredStaffs.filter(({_staffType, issuerGroup}) =>
-        _staffType === staffType.ISSUER_GROUP_STAFF && userHasAdminPermissions(
+        _staffType === staffType.ISSUER_GROUP_STAFF && userHasPermissions(
           issuerGroup, entityType.ISSUER_GROUP,
           currentUser.institutionStaff,
           currentUser.facultyStaffs,
@@ -295,7 +295,7 @@
 
   const onCheckAll = val => {
     selection = val ? filteredStaffs.filter(({_staffType, issuerGroup}) =>
-      _staffType === staffType.ISSUER_GROUP_STAFF && userHasAdminPermissions(
+      _staffType === staffType.ISSUER_GROUP_STAFF && userHasPermissions(
         issuerGroup, entityType.ISSUER_GROUP,
         currentUser.institutionStaff,
         currentUser.facultyStaffs,
@@ -306,7 +306,7 @@
   };
 
   $: disabledCheckAll = filteredStaffs.filter(({_staffType, issuerGroup}) =>
-    _staffType === staffType.ISSUER_GROUP_STAFF && userHasAdminPermissions(
+    _staffType === staffType.ISSUER_GROUP_STAFF && userHasPermissions(
       issuerGroup, entityType.ISSUER_GROUP,
       currentUser.institutionStaff,
       currentUser.facultyStaffs,
@@ -352,7 +352,7 @@
             <td>
               <CheckBox
                   value={selection.includes(staffId)}
-                  disabled={!userHasAdminPermissions(
+                  disabled={!userHasPermissions(
                     issuerGroup, entityType.ISSUER_GROUP,
                     currentUser.institutionStaff,
                     currentUser.facultyStaffs,

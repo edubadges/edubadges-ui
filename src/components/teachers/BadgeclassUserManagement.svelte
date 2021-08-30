@@ -44,6 +44,8 @@
         staff {
           entityId,
           mayAdministrateUsers,
+          mayUpdate,
+          mayAward,
           user {
             firstName,
             lastName,
@@ -101,8 +103,8 @@
     })
   };
 
-
   onMount(reload);
+
 </script>
 
 <UserManagement

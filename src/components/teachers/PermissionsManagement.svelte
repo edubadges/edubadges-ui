@@ -149,18 +149,22 @@
             <ListLink path={`/manage/faculty/${staff.issuer.faculty.entityId}/issuers`} name={staff.issuer.faculty.name}/>
           </td>
           {#if staff._staffType === staffType.ISSUER_STAFF}
-            <td>{I18n.t(['editUsers', 'issuer', 'allRights'])}</td>
+            {#if staff.role === staffType.ISSUER_ADMIN}
+              <td>{I18n.t('editUsers.issuer.admin')}</td>
+            {:else}
+              <td>{I18n.t('editUsers.issuer.awarder')}</td>
+            {/if}
           {:else if staff._staffType === staffType.ISSUER_GROUP_STAFF}
             <td>
-              {I18n.t(['editUsers', 'permissions', 'allRights'])}
+              {I18n.t('editUsers.permissions.allRights')}
               <br/>
-              <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'issuerGroupAllRights'])}</span>
+              <span class="sub-text">{I18n.t('editUsers.permissions.issuerGroupAllRights')}</span>
             </td>
           {:else if staff._staffType === staffType.INSTITUTION_STAFF}
             <td>
-              {I18n.t(['editUsers', 'permissions', 'allRights'])}
+              {I18n.t('editUsers.permissions.allRights')}
               <br/>
-              <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'institutionAllRights'])}</span>
+              <span class="sub-text">{I18n.t('editUsers.permissions.institutionAllRights')}</span>
             </td>
           {/if}
         </tr>
@@ -191,9 +195,15 @@
             </td>
           {:else if staff._staffType === staffType.ISSUER_STAFF}
             <td>
-              {I18n.t(['editUsers', 'permissions', 'allRights'])}
-              <br/>
-              <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'issuerAllRights'])}</span>
+              {#if staff.mayUpdate}
+                {I18n.t('editUsers.permissions.allRights')}
+                <br/>
+                <span class="sub-text">{I18n.t('editUsers.permissions.issuerAllRights')}</span>
+              {:else}
+                {I18n.t('editUsers.permissions.awarderRights')}
+                <br/>
+                <span class="sub-text">{I18n.t('editUsers.permissions.issuerAwarderRights')}</span>
+              {/if}
             </td>
           {:else if staff._staffType === staffType.ISSUER_GROUP_STAFF}
             <td>

@@ -4,6 +4,8 @@ export const staffType = {
   ISSUER_STAFF: "issuer_staff",
   BADGE_CLASS_STAFF: "badge_class_staff",
   USER_PROVISIONMENT: "user_provisionment",
+  ISSUER_ADMIN: "issuer_admin",
+  ISSUER_AWARDER: "issuer_awarder",
   BADGE_CLASS_OWNER: "badge_class_owner",
   BADGE_CLASS_EDITOR: "badge_class_editor",
   BADGE_CLASS_AWARDER: "badge_class_awarder",
@@ -41,7 +43,13 @@ export const expandStaffsBadgeClass = (institutionStaff, issuerGroupStaffs, issu
   if (issuerStaffs.length > 0) {
     for (const issuerStaff of issuerStaffs) {
       for (const badgeClass of issuerStaff.issuer.badgeclasses) {
-        staffs = [{badgeClass, _staffType: staffType.ISSUER_STAFF, role: staffType.ISSUER_STAFF}, ...staffs];
+        staffs = [{
+          badgeClass,
+          _staffType: staffType.ISSUER_STAFF,
+          mayUpdate: issuerStaff.mayUpdate,
+          role: issuerStaff.mayUpdate ? staffType.ISSUER_ADMIN : staffType.ISSUER_AWARDER},
+
+          ...staffs];
       }
     }
   }
@@ -79,14 +87,17 @@ export const expandStaffsIssuer = (institutionStaff, issuerGroupStaffs, issuerSt
   if (issuerGroupStaffs.length > 0) {
     for (const issuerGroupStaff of issuerGroupStaffs) {
       for (const issuer of issuerGroupStaff.faculty.issuers) {
-        staffs = [{issuer, _staffType: staffType.ISSUER_GROUP_STAFF, role: staffType.ISSUER_GROUP_STAFF}, ...staffs];
+        staffs = [{issuer, _staffType: staffType.ISSUER_GROUP_STAFF,
+          role: staffType.ISSUER_GROUP_STAFF}, ...staffs];
       }
     }
   }
 
   if (issuerStaffs.length > 0) {
     for (const issuerStaff of issuerStaffs) {
-      staffs = [{issuer: issuerStaff.issuer, _staffType: staffType.ISSUER_STAFF, role: staffType.ISSUER_STAFF, staffId: issuerStaff.entityId}, ...staffs];
+      staffs = [{issuer: issuerStaff.issuer, _staffType: staffType.ISSUER_STAFF,
+        role: issuerStaff.mayUpdate ? staffType.ISSUER_ADMIN : staffType.ISSUER_AWARDER,
+        staffId: issuerStaff.entityId}, ...staffs];
     }
   }
 

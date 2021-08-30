@@ -91,6 +91,9 @@
       }
       issuerStaffs {
         entityId,
+        mayAdministrateUsers,
+        mayUpdate,
+        mayAward,
         issuer {
           nameDutch,
           nameEnglish,

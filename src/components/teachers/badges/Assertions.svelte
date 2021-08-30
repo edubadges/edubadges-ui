@@ -14,6 +14,7 @@
   import SideBarAssertions from "../award/SideBarAssertions.svelte";
   import {awardTypes, issuedTypes, statusTypes} from "../../../stores/filterAssertions";
   import {assertionStatus, assertionStatusClass, isRevoked} from "../../../util/assertions";
+  import Spinner from "../../Spinner.svelte";
 
   export let assertions = [];
   export let badgeclass;
@@ -33,7 +34,7 @@
   let statusOptions = [];
 
   let filteredAssertions = [];
-
+  let serverBusy = false;
   //Modal
   let showModal = false;
   let modalTitle;
@@ -145,9 +146,11 @@
         promises.push(revokeDirectAwards(selectedDirectAwards, revocationReason));
       }
       if (promises.length > 0) {
+        serverBusy = true;
         Promise.all(promises).then(() => {
           flash.setValue(I18n.t("models.badge.flash.revoked"));
           refreshAssertions();
+          serverBusy = false;
         });
       }
     }
@@ -311,6 +314,10 @@
 
 
 </style>
+{#if serverBusy}
+  <Spinner />
+{/if}
+
 <div class="assertions">
 
   <div class="filters">
@@ -334,7 +341,8 @@
     isEmpty={filteredAssertions.length === 0}
     bind:checkAllValue>
     <div class="action-buttons" slot="check-buttons">
-      <Button small disabled={selection.length === 0} action={() => revoke(true)}
+      <Button small disabled={selection.length === 0 || serverBusy}
+              action={() => revoke(true)}
               text={I18n.t('teacher.badgeRevoked.revoke')}/>
     </div>
 

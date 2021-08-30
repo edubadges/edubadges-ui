@@ -18,7 +18,8 @@ I18n.translations.en = {
             badgeclasses: "Badge classes",
             manage: "Manage",
             users: "Users",
-            catalog: "Catalog"
+            catalog: "Catalog",
+            insights: "Insights"
         },
     },
     login: {
@@ -427,6 +428,8 @@ I18n.translations.en = {
             institution_staff: "Institution Admin",
             issuer_group_staff: "Issuer group admin",
             issuer_staff: "Issuer Admin",
+            issuer_admin: "Issuer Admin",
+            issuer_awarder: "Issuer Awarder",
             badge_class_owner: "Badge class owner",
             badge_class_editor: "Badge class editor",
             badge_class_awarder: "Badge class awarder",
@@ -439,6 +442,7 @@ I18n.translations.en = {
             makeUserIssuerGroupAwarder: "{{name}} has been granted issuer group awarder rights",
             removeUserIssuerGroupAdmin: "Issuer group admin rights have been removed from {{name}}",
             makeUserIssuerAdmin: "{{name}} has been granted issuer admin rights",
+            makeUserIssuerAwarder: "{{name}} has been granted issuer awarder rights",
             removeUserIssuerAdmin: "Issuer admin rights have been removed from {{name}}",
             makeUserBadgeClassAdmin: "{{name}} has been granted badge class admin rights",
             removeUserBadgeClassAdmin: "Badge class admin rights have been removed from {{name}}",
@@ -471,6 +475,8 @@ I18n.translations.en = {
         issuer: {
             admin: "Issuer admin",
             awarder: "Issuer awarder",
+            switchToOwner: "Successfully changed user permissions to issuer admin role.",
+            switchToAwarder: "Successfully changed user permissions to issuer awarder role.",
             header: "Issuer",
             allRights: "Issuer admin",
             permissions: "Permissions on issuer level"
@@ -493,9 +499,11 @@ I18n.translations.en = {
             header: "Your Permissions",
             headerUser: "Permissions for",
             allRights: "All rights",
+            awarderRights: "Awarder rights",
             institutionAllRights: "(Because of status as institution admin)",
             issuerGroupAllRights: "(Because of status as issuer group admin)",
             issuerAllRights: "(Because of status as issuer admin)",
+            issuerAwarderRights: "(Because of status as issuer awarder)",
             addPermissions: "Add permissions",
             remove: {
                 institution: "Are you sure you want to remove institution admin permission?",
@@ -764,6 +772,16 @@ I18n.translations.en = {
             initialTotal: "Total",
             rateClaim: "Claim rate",
             createdAt: "Created",
+        },
+        insights: {
+            faculty: "Issuer group",
+            facultyPlaceholder: "Select an issuer group...",
+            issuer: "Issuer",
+            issuerPlaceholder: "Select an issuer...",
+            badgeClass: "Badgeclass",
+            badgeClassPlaceholder: "Select a badgeclass...",
+            year: "Year",
+            yearPlaceholder: "Select a year...",
         }
     },
     inviteDialog: {
@@ -1059,7 +1077,8 @@ I18n.translations.en = {
         enrollmentEvidenceURL: "The URI of a webpage presenting the evidence of this achievement.",
         enrollmentEvidenceName: "A descriptive title of the evidence of this achievement.",
         enrollmentEvidenceDescription: "A longer description of the evidence of this achievement.",
-        demoEnvironment: "All data is deleted every month."
+        demoEnvironment: "All data is deleted every month.",
+        claimRate: "The claim rate is the total number of awarded badges as a percentage of the total of direct awards and enrollments.",
     },
     badgeOverview: {
         faculty: "Faculty",
@@ -1173,5 +1192,27 @@ I18n.translations.en = {
         send: "Send feedback",
         flash: "Your feedback has successfully been send. Thanks!"
     },
+    insights: {
+        awardedBadges: "Awarded badges",
+        totalAwarded: "Total awarded",
+        directAwarded: "Direct awarded",
+        requested: "Requested",
+        enrollments: "Enrollments",
+        open: "Open",
+        directAwards: "Direct awards",
+        directAwardDenied: "Rejected by student",
+        requestedDeniedTooltip: "Denied by teacher after request",
+        revoked: "Revoked after awarded",
+        requestedDenied: "Denied by teacher",
+        claimRate: "Claim rate",
+        numbers: "The numbers add up",
+        badgeClasses: "Badgeclasses",
+        issuers: "Issuers",
+        issuerGroups: "Issuer groups",
+        users: "Portal users",
+        crunching: "Crunching the numbers just for you...",
+        date: "Date",
+        reset: "Reset"
+    }
 
 };

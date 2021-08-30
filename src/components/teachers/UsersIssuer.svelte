@@ -6,13 +6,19 @@
   import {UsersTable} from "../teachers";
   import {sort, sortType} from "../../util/sortData";
   import I18n from "i18n-js";
-  import {makeUserIssuerAdmin, removeUserIssuerAdmin} from "../../api";
-  import {AddPermissionsModal, Modal} from "../forms";
+  import {
+      changeUserToIssuerAwarder,
+      changeUserToIssuerOwner,
+      makeUserIssuerAdmin,
+      makeUserIssuerAwarder,
+      removeUserIssuerAdmin
+  } from "../../api";
+  import {AddPermissionsModal, Modal, Select} from "../forms";
   import Spinner from "../Spinner.svelte";
   import {permissionsRole} from "../../util/rolesToPermissions";
   import ListLink from "./ListLink.svelte";
   import {translateProperties} from "../../util/utils";
-  import {userHasAdminPermissions} from "../../util/userPermissions";
+  import {userHasPermissions} from "../../util/userPermissions";
   import {addStaffType, expandStaffsIssuer, staffType} from "../../util/staffTypes";
   import {flash} from "../../stores/flash";
   import {issuerIcon} from "../../icons";
@@ -88,6 +94,7 @@
     entityId,
     issuerStaffs {
       entityId,
+      mayUpdate,
       issuer {
         nameDutch,
         nameEnglish,
@@ -199,8 +206,8 @@
           }
         }
       }
-      newPermissionOptions = issuers.filter(issuer => !userHasAdminPermissions(issuer, entityType.ISSUER, institutionStaffs, issuerGroupStaffs, issuerStaffs, []));
-      removePermissionOptions = issuers.filter(issuer => userHasAdminPermissions(issuer, entityType.ISSUER, institutionStaffs, issuerGroupStaffs, issuerStaffs, []));
+      newPermissionOptions = issuers.filter(issuer => !userHasPermissions(issuer, entityType.ISSUER, institutionStaffs, issuerGroupStaffs, issuerStaffs, []));
+      removePermissionOptions = issuers.filter(issuer => userHasPermissions(issuer, entityType.ISSUER, institutionStaffs, issuerGroupStaffs, issuerStaffs, []));
       modalSelectedEntity = newPermissionOptions[0];
       isEmpty = user.issuerStaffs.length === 0 &&
         user.facultyStaffs.length === 0 && (!user.institutionStaff || (user.institutionStaff && faculties.length === 0));
@@ -266,6 +273,25 @@
     tableHeaders: tableHeaders
   };
 
+  const changeUserRole = (role, id) => {
+    loaded = false;
+    switch (role.value) {
+      case permissionsRole.ADMIN:
+        changeUserToIssuerOwner(id).then(() => {
+          reload();
+          flash.setValue(I18n.t("editUsers.flash.makeUserBadgeClassAdmin", userNameDict));
+        });
+        break;
+      case permissionsRole.AWARDER:
+        changeUserToIssuerAwarder(id).then(() => {
+          reload();
+          flash.setValue(I18n.t("editUsers.flash.makeUserIssuerAwarder", userNameDict));
+        });
+        break;
+    }
+  };
+
+
   const submitPermissions = () => {
     switch (modalChosenRole.value) {
       case permissionsRole.ADMIN:
@@ -273,6 +299,13 @@
           reload();
           showAddModal = false;
           flash.setValue(I18n.t("editUsers.flash.makeUserIssuerAdmin", userNameDict));
+        });
+        break;
+      case permissionsRole.AWARDER:
+        makeUserIssuerAwarder(modalSelectedEntity.entityId, userId, modalNotes).then(() => {
+          reload();
+          showAddModal = false;
+          flash.setValue(I18n.t("editUsers.flash.makeUserIssuerAwarder", userNameDict));
         });
         break;
       default:
@@ -305,7 +338,10 @@
     removeModalAction = removeSelectedPermissions;
   };
 
-  const permissionsRoles = [{value: "admin", name: I18n.t("editUsers.issuer.admin")}];
+  const permissionsRoles = [
+      {value: permissionsRole.ADMIN, name: I18n.t("editUsers.issuer.admin")},
+      {value: permissionsRole.AWARDER, name: I18n.t("editUsers.issuer.awarder")}
+  ];
 
   $: buttons = [
     {
@@ -334,7 +370,7 @@
     if (val) {
       selection = selection.concat(entityId);
       checkAllValue = selection.length === filteredStaffs.filter(({_staffType, issuer}) =>
-        _staffType === staffType.ISSUER_STAFF && userHasAdminPermissions(
+        _staffType === staffType.ISSUER_STAFF && userHasPermissions(
         issuer, entityType.ISSUER,
         currentUser.institutionStaff,
         currentUser.facultyStaffs,
@@ -349,7 +385,7 @@
 
   const onCheckAll = val => {
     selection = val ? filteredStaffs.filter(({_staffType, issuer}) =>
-      _staffType === staffType.ISSUER_STAFF && userHasAdminPermissions(
+      _staffType === staffType.ISSUER_STAFF && userHasPermissions(
       issuer, entityType.ISSUER,
       currentUser.institutionStaff,
       currentUser.facultyStaffs,
@@ -360,7 +396,7 @@
   };
 
   $: disabledCheckAll = filteredStaffs.filter(({_staffType, issuer}) =>
-    _staffType === staffType.ISSUER_STAFF && userHasAdminPermissions(
+    _staffType === staffType.ISSUER_STAFF && userHasPermissions(
     issuer, entityType.ISSUER,
     currentUser.institutionStaff,
     currentUser.facultyStaffs,
@@ -419,18 +455,17 @@
       {disabledCheckAll}
       {checkAllValue}
     >
-      {#each sortedFilteredStaffs as {_staffType, issuer, staffId}}
+      {#each sortedFilteredStaffs as {_staffType, role, issuer, staffId}}
         <tr>
           {#if _staffType === staffType.ISSUER_STAFF}
             <td>
               <CheckBox
                 value={selection.includes(staffId)}
-                disabled={!userHasAdminPermissions(
+                disabled={!userHasPermissions(
                     issuer, entityType.ISSUER,
                     currentUser.institutionStaff,
                     currentUser.facultyStaffs,
-                    currentUser.issuerStaffs,
-                    currentUser.badgeclassStaffs,
+                    currentUser.issuerStaffs
                   )}
                 onChange={val => onCheckOne(val, staffId)}/>
             </td>
@@ -461,7 +496,19 @@
                 name={findFacultyByIssuerEntityId(issuer.entityId).name}/>
             </td>
             <td>
-              {I18n.t(['editUsers', 'issuer', 'allRights'])}
+              <Select
+                  nonEditable={!userHasPermissions(
+                      issuer, entityType.ISSUER,
+                      currentUser.institutionStaff,
+                      currentUser.facultyStaffs,
+                      currentUser.issuerStaffs
+                    )}
+                  handleSelect={item => changeUserRole(item, staffId)}
+                  value={role === staffType.ISSUER_ADMIN ? permissionsRoles[0] : permissionsRoles[1]}
+                  items={permissionsRoles}
+                  clearable={false}
+                  optionIdentifier="name"
+                />
             </td>
           {:else if _staffType === staffType.ISSUER_GROUP_STAFF}
             <td>

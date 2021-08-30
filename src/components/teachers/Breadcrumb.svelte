@@ -61,10 +61,12 @@
 
   a {
     color: var(--text-color-grey);
+    text-decoration: underline;
   }
 
   a:last-of-type {
     font-weight: var(--semi-bold);
+    text-decoration: none;
   }
 
   a:not(:last-of-type) {

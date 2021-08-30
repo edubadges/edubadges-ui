@@ -45,7 +45,10 @@
               lastName,
               email,
               entityId
-            }
+            },
+            mayAdministrateUsers,
+            mayUpdate,
+            mayAward
           },
           badgeclasses {
             entityId,
