@@ -1,4 +1,5 @@
 import I18n from "i18n-js";
+import Catalog from "../routes/catalog/Catalog.svelte";
 
 I18n.translations.en = {
     routes: {
@@ -7,6 +8,7 @@ I18n.translations.en = {
         collections: "Collections",
         archived: "Archive",
         profile: "Account",
+        "badges-catalog": "Catalog"
     },
     header: {
         logout: "Logout",
@@ -1079,6 +1081,8 @@ I18n.translations.en = {
         enrollmentEvidenceDescription: "A longer description of the evidence of this achievement.",
         demoEnvironment: "All data is deleted every month.",
         claimRate: "The claim rate is the total number of awarded badges as a percentage of the total of direct awards and enrollments.",
+        directAwards: "Direct awards are badges that are awarded by the teacher to students by email. The number(s) below are direct awards that are either still not accepted, rejected or revoked",
+        enrollments: "Enrollments are requested by students and once approved will be new awarded badges. The number(s) below are enrollments that have not been approved by the teacher or are denied"
     },
     badgeOverview: {
         faculty: "Faculty",

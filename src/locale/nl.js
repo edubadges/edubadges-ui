@@ -7,6 +7,7 @@ I18n.translations.nl = {
         collections: "Collecties",
         archived: "Archief",
         profile: "Account",
+        "badges-catalog": "Catalog"
     },
     header: {
         logout: "Logout",
@@ -1079,6 +1080,8 @@ I18n.translations.nl = {
         enrollmentEvidenceDescription: "Een langere beschrijving van het bewijs van de geleverde prestatie..",
         demoEnvironment: "Alle data wordt iedere maand verwijderd.",
         claimRate: "Het claimpercentage is het totale aantal toegekende badges als percentage van het totaal aan directe awards en inschrijvingen.",
+        directAwards: "Direct awards are badges that are awarded by the teacher to students by email. The number(s) below are direct awards that are either still not accepted, rejected or revoked",
+        enrollments: "Enrollments are requested by students and once approved will be new awarded badges. The number(s) below are enrollments that have not been approved by the teacher or are denied"
     },
     badgeOverview: {
         faculty: "Faculteit",
@@ -1191,5 +1194,27 @@ I18n.translations.nl = {
             "Je bent ervoor verantwoordelijk dat je feedback geen vertrouwelijke, gevoelige of persoonlijke informatie bevat. ",
         send: "Verstuur feedback",
         flash: "Je feedback is succesvol verzonden. Bedankt!"
+    },
+    insights: {
+        awardedBadges: "Awarded badges",
+        totalAwarded: "Total awarded",
+        directAwarded: "Direct awarded",
+        requested: "Requested",
+        enrollments: "Enrollments",
+        open: "Open",
+        directAwards: "Direct awards",
+        directAwardDenied: "Rejected by student",
+        requestedDeniedTooltip: "Denied by teacher after request",
+        revoked: "Revoked after awarded",
+        requestedDenied: "Denied by teacher",
+        claimRate: "Claim rate",
+        numbers: "The numbers add up",
+        badgeClasses: "Badgeclasses",
+        issuers: "Issuers",
+        issuerGroups: "Issuer groups",
+        users: "Portal users",
+        crunching: "Crunching the numbers just for you...",
+        date: "Date",
+        reset: "Reset"
     }
 };

@@ -5,9 +5,12 @@
   import {MinimalisticSelect} from "../forms";
   import ViewSelector from "../shared/ViewSelector.svelte";
   import {sortTargetOptions} from "../../util/catalogFilters";
+  import {onMount} from "svelte";
 
   export let sorting = sortTargetOptions()[0];
   export let view;
+  let small = false;
+  onMount(()=> small = window.location.href.indexOf('badges-catalog') > -1)
 
 </script>
 
@@ -39,6 +42,9 @@
         display: inline-block;
         margin-right: 18px;
         font-weight: bold;
+        &.small {
+          display: none;
+        }
       }
     }
 
@@ -66,7 +72,7 @@
   </div>
   <div class="sort-options">
     <div class="sort">
-      <label class="title">{I18n.t("models.badgeclass.sorting")}</label>
+      <label class="title" class:small>{I18n.t("models.badgeclass.sorting")}</label>
       <MinimalisticSelect
         bind:value={sorting}
         items={sortTargetOptions()}

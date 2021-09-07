@@ -1,19 +1,19 @@
 <script>
-  import {onMount} from "svelte";
-  import {withdrawRequestBadge} from "../../api";
-  import {queryData} from "../../api/graphql";
-  import EnrollmentBadge from "./EnrollmentBadge.svelte";
-  import I18n from "i18n-js";
-  import {flash} from "../../stores/flash";
-  import Spinner from "../../components/Spinner.svelte";
-  import {ects, eqf, extensionValue, studyLoad, timeInvestment} from "../../components/extensions/badges/extensions";
-  import {translateProperties} from "../../util/utils";
+    import {onMount} from "svelte";
+    import {withdrawRequestBadge} from "../../api";
+    import {queryData} from "../../api/graphql";
+    import EnrollmentBadge from "./EnrollmentBadge.svelte";
+    import I18n from "i18n-js";
+    import {flash} from "../../stores/flash";
+    import Spinner from "../../components/Spinner.svelte";
+    import {ects, eqf, extensionValue, studyLoad, timeInvestment} from "../../components/extensions/badges/extensions";
+    import {translateProperties} from "../../util/utils";
 
-  let requests = [];
-  let error = false;
-  let loaded = false;
+    let requests = [];
+    let error = false;
+    let loaded = false;
 
-  const query = `query {
+    const query = `query {
     enrollments {
       entityId,
       dateCreated,
@@ -41,72 +41,72 @@
     }
   }`;
 
-  onMount(() => {
-    queryData(query).then(res => {
-      const enrollments = res.enrollments;
-      enrollments.forEach(enrollment => {
-        const issuer = enrollment.badgeClass.issuer;
-        translateProperties(issuer);
-        translateProperties(issuer.faculty);
-      });
-      requests = enrollments.filter(el => !el.dateAwarded);
-      loaded = true;
+    onMount(() => {
+        queryData(query).then(res => {
+            const enrollments = res.enrollments;
+            enrollments.forEach(enrollment => {
+                const issuer = enrollment.badgeClass.issuer;
+                translateProperties(issuer);
+                translateProperties(issuer.faculty);
+            });
+            requests = enrollments.filter(el => !el.dateAwarded);
+            loaded = true;
 
-      for (const request of requests) {
-        request.badgeclass.studyLoad = extensionValue(request.badgeclass.extensions, studyLoad);
-        request.badgeclass.timeInvestment = extensionValue(request.badgeclass.extensions, timeInvestment);
-        request.badgeclass.ects = extensionValue(request.badgeclass.extensions, ects);
-        request.badgeclass.eqf = extensionValue(request.badgeclass.extensions, eqf);
-      }
+            for (const request of requests) {
+                request.badgeClass.studyLoad = extensionValue(request.badgeClass.extensions, studyLoad);
+                request.badgeClass.timeInvestment = extensionValue(request.badgeClass.extensions, timeInvestment);
+                request.badgeClass.ects = extensionValue(request.badgeClass.extensions, ects);
+                request.badgeClass.eqf = extensionValue(request.badgeClass.extensions, eqf);
+            }
+        });
     });
-  });
 
-  const withdrawRequest = id =>
-    withdrawRequestBadge(id)
-      .then(() => queryData(query).then(res => {
-        const enrollments = res.enrollments;
-        enrollments.forEach(enrollment => {
-          const issuer = enrollment.badgeClass.issuer;
-          translateProperties(issuer);
-          translateProperties(issuer.faculty);
-        });
+    const withdrawRequest = id =>
+        withdrawRequestBadge(id)
+            .then(() => queryData(query).then(res => {
+                const enrollments = res.enrollments;
+                enrollments.forEach(enrollment => {
+                    const issuer = enrollment.badgeClass.issuer;
+                    translateProperties(issuer);
+                    translateProperties(issuer.faculty);
+                });
 
-        requests = enrollments;
-        flash.setValue(I18n.t("student.flash.withdrawn"));
-      }))
-      .catch(err => {
-        err.then(res => {
-          error = I18n.t(["error", res.fields.error_code]);
-        });
-      });
+                requests = enrollments;
+                flash.setValue(I18n.t("student.flash.withdrawn"));
+            }))
+            .catch(err => {
+                err.then(res => {
+                    error = I18n.t(["error", res.fields.error_code]);
+                });
+            });
 </script>
 
 <style>
 
-  h3 {
-    font-size: 22px;
-    margin-bottom: 20px;
-  }
+    h3 {
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
 
-  div.content {
-    display: grid;
-    grid-template-columns: 31% 31% 31%;
-    grid-row: auto;
-    grid-column-gap: 25px;
-    grid-row-gap: 25px;
-  }
-
-  @media (max-width: 1120px) {
     div.content {
-      grid-template-columns: 48% 48%;
+        display: grid;
+        grid-template-columns: 31% 31% 31%;
+        grid-row: auto;
+        grid-column-gap: 25px;
+        grid-row-gap: 25px;
     }
-  }
 
-  @media (max-width: 820px) {
-    div {
-      grid-template-columns: 100%;
+    @media (max-width: 1120px) {
+        div.content {
+            grid-template-columns: 48% 48%;
+        }
     }
-  }
+
+    @media (max-width: 820px) {
+        div {
+            grid-template-columns: 100%;
+        }
+    }
 
 </style>
 

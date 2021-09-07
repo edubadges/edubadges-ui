@@ -32,6 +32,7 @@
     import Field from "../../components/forms/Field.svelte";
     import {Select} from "../../components/forms";
     import Button from "../../components/Button.svelte";
+    import {config} from "../../util/config";
 
     data(Highcharts);
     Exporter(Highcharts);
@@ -213,11 +214,22 @@
                 type: 'area',
                 alignTicks: false,
                 backgroundColor: '#f9f6ff',
+                events: {
+                    load: function () {
+                        Highcharts.addEvent(this.tooltip, 'headerFormatter', function (e) {
+                            if (!e.isFooter) {
+                                e.text = `<b>Week ${e.labelConfig.key + 1}</b><br/>`;
+                                return false; // prevent default
+                            }
+                            return true; // run default
+                        });
+                    }
+                }
             },
             tooltip: {
                 shared: true,
                 //https://jsfiddle.net/BlackLabel/vzqmb6f1/
-                headerFormat: 'Week {point.key}<br/>',
+                //headerFormat: 'Week {point.key}<br/>',
                 useHTML: true
             },
             navigation: {
@@ -275,7 +287,7 @@
             },
             exporting: {
                 enabled: true,
-                // libURL: props.baseUrl,
+                libURL: config.extensionsRootUrl + '/js',
                 allowHTML: true,
                 fallbackToExportServer: false,
                 buttons: {
@@ -526,7 +538,7 @@
           </section>
           <section class="stats">
             {#if directAwardsOpen > 0 || directAwardsRevoked > 0 || directAwardsRejected > 0}
-              <h3>{I18n.t("insights.directAwards")}</h3>
+              <h3>{I18n.t("insights.directAwards")}<Tooltip tipKey="directAwards"/></h3>
               {#if directAwardsOpen > 0}
                 <section class="stat minor">
                   <span class="attr minor">{I18n.t("insights.open")}</span>
@@ -547,7 +559,7 @@
               {/if}
             {/if}
             {#if enrollmentsOpen > 0 || enrollmentsDenied > 0}
-              <h3 class="last">{I18n.t("insights.enrollments")}</h3>
+              <h3 class="last">{I18n.t("insights.enrollments")}<Tooltip tipKey="enrollments"/></h3>
               {#if enrollmentsOpen > 0 }
                 <section class="stat minor">
                   <span class="attr minor">{I18n.t("insights.open")}</span>
