@@ -1,17 +1,21 @@
 <script>
-  import I18n from "i18n-js";
-  import Tooltip from "../Tooltip.svelte";
-  import Error from "./Error.svelte";
+    import I18n from "i18n-js";
+    import Tooltip from "../Tooltip.svelte";
+    import Error from "./Error.svelte";
 
-  export let entity;
-  export let attribute;
-  export let disabled;
-  export let errors;
-  export let tipKey;
+    export let entity;
+    export let attribute;
+    export let disabled;
+    export let errors;
+    export let tipKey;
+    export let full = false;
 
 </script>
 
-<style>
+<style lang="scss">
+  div.field.full {
+    width: 100%;
+  }
 
   div.input {
     margin: 8px 0;
@@ -25,7 +29,7 @@
 
 </style>
 
-<div class="field" {disabled}>
+<div class="field" {disabled} class:full>
   <Tooltip label={I18n.t(['models', entity, attribute])} tipKey={tipKey}/>
 
   <div class="input">

@@ -1,96 +1,110 @@
 <script>
-  import I18n from "i18n-js";
-  import Button from "../../Button.svelte";
-  import {config} from "../../../util/config";
-  import {link, navigate} from "svelte-routing";
-  import {validEmail} from "../../../util/forms";
-  import {createDirectAwards} from "../../../api";
-  import {flash} from "../../../stores/flash";
-  import Dropzone from "svelte-file-dropzone";
-  import upload from "../../../icons/cloud-upload.svg";
-  import Warning from "../../forms/Warning.svelte";
-  import DotSpinner from "../../DotSpinner.svelte";
-  import BulkAwardResult from "./BulkAwardResult.svelte";
+    import I18n from "i18n-js";
+    import Button from "../../Button.svelte";
+    import {config} from "../../../util/config";
+    import {link, navigate} from "svelte-routing";
+    import {validEmail, validUrl} from "../../../util/forms";
+    import {createDirectAwards} from "../../../api";
+    import {flash} from "../../../stores/flash";
+    import Dropzone from "svelte-file-dropzone";
+    import upload from "../../../icons/cloud-upload.svg";
+    import Warning from "../../forms/Warning.svelte";
+    import DotSpinner from "../../DotSpinner.svelte";
+    import BulkAwardResult from "./BulkAwardResult.svelte";
 
-  export let badgeclass;
-  export let enrollments;
-  export let refresh;
-  export let existingDirectAwardsEppns;
+    export let badgeclass;
+    export let enrollments;
+    export let refresh;
+    export let existingDirectAwardsEppns;
 
-  let directAwards = [];
-  let errorAwards = [];
-  let duplicateAwards = [];
-  let alreadyEppnDirectAwards = [];
-  let processing = false;
-  let serverProcessing = false;
+    let directAwards = [];
+    let errorAwards = [];
+    let duplicateAwards = [];
+    let alreadyEppnDirectAwards = [];
+    let missingEvidenceOrNarrative = [];
+    let processing = false;
+    let serverProcessing = false;
 
-  const alreadyInList = (newDirectAwards, email, eppn) =>
-    newDirectAwards.some(da => da.email === email || da.eppn === eppn);
+    const alreadyInList = (newDirectAwards, email, eppn) =>
+        newDirectAwards.some(da => da.email === email || da.eppn === eppn);
 
-  const handleFilesSelect = e => {
-    processing = true;
-    setTimeout(() => {
-      const files = e.detail.acceptedFiles;
-      if (files && files.length > 0) {
-        const reader = new FileReader();
-        reader.onload = () => {
-          const data = reader.result;
-          const rows = data.split("\n");
-          const newDirectAwards = [];
-          const newErrorAwards = [];
-          const newDuplicateAwards = [];
-          const newAlreadyEppnDirectAwards = [];
-          rows.forEach(row => {
-            const cells = row.split(/[, \t]/);
-            const cellString = cells.join(" - ").trim();
-            if (cells.length < 2 && cellString.length > 0) {
-              newErrorAwards.push(cellString);
-            } else {
-              const email = cells[0];
-              const eppn = cells[1];
-              if (existingDirectAwardsEppns.includes(eppn)) {
-                newAlreadyEppnDirectAwards.push(eppn);
-              } else if (alreadyInList(newDirectAwards, email, eppn)) {
-                newDuplicateAwards.push(cellString)
-              } else if (validEmail(email) && eppn.trim().length > 0) {
-                newDirectAwards.push({email: email, eppn: eppn});
-              } else {
-                //ignore empty line at the end
-                if (cellString.length > 0) {
-                  newErrorAwards.push(cellString);
-                }
-              }
+    const handleFilesSelect = e => {
+        processing = true;
+        setTimeout(() => {
+            const files = e.detail.acceptedFiles;
+            if (files && files.length > 0) {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    const data = reader.result;
+                    const rows = data.split("\n");
+                    const newDirectAwards = [];
+                    const newErrorAwards = [];
+                    const newDuplicateAwards = [];
+                    const newAlreadyEppnDirectAwards = [];
+                    const newMissingEvidenceOrNarrative = [];
+                    rows.forEach(row => {
+                        const cells = row.split(/[,;\t]/);
+                        const cellString = cells.join(" - ").trim();
+                        if (cells.length > 0 && cells[0].indexOf('Recipient') > -1) {
+                            //Header line, simply ignore
+                        } else if (cells.length < 2 && cellString.length > 0) {
+                            newErrorAwards.push(cellString);
+                        } else {
+                            const email = cells[0];
+                            const eppn = cells[1];
+                            const narrative = cells[2] || null;
+                            const evidence_url = cells[3] || null;
+                            const name = cells[4] || null;
+                            const description = cells[5] || null;
+                            if (existingDirectAwardsEppns.includes(eppn)) {
+                                newAlreadyEppnDirectAwards.push(eppn);
+                            } else if (alreadyInList(newDirectAwards, email, eppn)) {
+                                newDuplicateAwards.push(cellString)
+                            } else if ((badgeclass.evidenceRequired && !evidence_url) || (badgeclass.narrativeRequired && !narrative)) {
+                                //ignore empty line at the end
+                                if (cellString.length > 0) {
+                                    newMissingEvidenceOrNarrative.push(cellString);
+                                }
+                            } else if (validEmail(email) && eppn.trim().length > 0 && (!evidence_url || validUrl(evidence_url))) {
+                                newDirectAwards.push({email, eppn, evidence_url, narrative, name, description});
+                            } else {
+                                //ignore empty line at the end
+                                if (cellString.length > 0) {
+                                    newErrorAwards.push(cellString);
+                                }
+                            }
+                        }
+
+                    });
+                    directAwards = newDirectAwards;
+                    errorAwards = newErrorAwards;
+                    duplicateAwards = newDuplicateAwards;
+                    alreadyEppnDirectAwards = newAlreadyEppnDirectAwards;
+                    missingEvidenceOrNarrative = newMissingEvidenceOrNarrative;
+                    processing = false;
+                };
+                reader.readAsText(files[0])
             }
+        }, 150);
+    }
 
-          });
-          directAwards = newDirectAwards;
-          errorAwards = newErrorAwards;
-          duplicateAwards = newDuplicateAwards;
-          alreadyEppnDirectAwards = newAlreadyEppnDirectAwards;
-          processing = false;
-        };
-        reader.readAsText(files[0])
-      }
-    }, 150);
-  }
+    const doAward = () => {
+        serverProcessing = true;
+        createDirectAwards(directAwards, badgeclass, true)
+            .then(() => {
+                refresh();
+                navigate(`/badgeclass/${badgeclass.entityId}/awarded`);
+                flash.setValue(I18n.t("badgeAward.bulkAward.flash.created"));
+                serverProcessing = false;
+            }).catch(() => {
+            refresh();
+            navigate(`/badgeclass/${badgeclass.entityId}/awarded`);
+            flash.setValue(I18n.t("badgeAward.bulkAward.flash.created"));
+            serverProcessing = false;
+        });
+    };
 
-  const doAward = () => {
-    serverProcessing = true;
-    createDirectAwards(directAwards, badgeclass, true)
-      .then(() => {
-        refresh();
-        navigate(`/badgeclass/${badgeclass.entityId}/awarded`);
-        flash.setValue(I18n.t("badgeAward.bulkAward.flash.created"));
-        serverProcessing = false;
-      }).catch(() => {
-        refresh();
-        navigate(`/badgeclass/${badgeclass.entityId}/awarded`);
-        flash.setValue(I18n.t("badgeAward.bulkAward.flash.created"));
-        serverProcessing = false;
-    });
-  };
-
-  $: maySubmit = directAwards.length > 0 && !processing && !serverProcessing;
+    $: maySubmit = directAwards.length > 0 && !processing && !serverProcessing;
 
 </script>
 
@@ -104,6 +118,7 @@
 
     p.sub-title {
       margin-bottom: 20px;
+      max-width: 50%;
     }
 
     div.warning-container {
@@ -127,6 +142,7 @@
       display: flex;
       align-items: center;
       margin: 45px 0;
+
       span {
         font-weight: bold;
         margin-left: 15px;
@@ -170,10 +186,19 @@
   <h2>{I18n.t("badgeAward.bulkAward.title")}</h2>
   <div class="main-content-margin">
     <p
-      class="sub-title">{@html I18n.t("badgeAward.bulkAward.subtitle", {sample: `${config.serverUrl}/static/sample_direct_award.csv`})}</p>
+      class="sub-title">{@html I18n.t("badgeAward.bulkAward.subtitle", {sample: `${config.serverUrl}/static/sample_direct_award.csv`})}
+      {#if badgeclass.evidenceRequired && badgeclass.narrativeRequired}
+        <span>{I18n.t("badgeAward.bulkAward.evidenceAndNarrativeRequired")}</span>
+      {:else if badgeclass.evidenceRequired}
+        <span>{I18n.t("badgeAward.bulkAward.evidenceRequired")}</span>
+      {:else if badgeclass.narrativeRequired}
+        <span>{I18n.t("badgeAward.bulkAward.narrativeRequired")}</span>
+      {/if}
+    </p>
     {#if enrollments.filter(enrollment => !enrollment.denied).length > 0}
       <div class="warning-container">
-        <Warning msg={I18n.t("badgeAward.directAward.waringEnrollments", {count: enrollments.filter(enrollment => !enrollment.denied).length})}>
+        <Warning
+          msg={I18n.t("badgeAward.directAward.waringEnrollments", {count: enrollments.filter(enrollment => !enrollment.denied).length})}>
           <a use:link
              href={`/badgeclass/${badgeclass.entityId}/enrollments`}>{I18n.t("badgeAward.directAward.toToEnrollments")}</a>
         </Warning>
@@ -198,7 +223,9 @@
     <BulkAwardResult warning={true} localeName="wrong" results={errorAwards}/>
     <BulkAwardResult warning={true} localeName="eppnExisting" results={alreadyEppnDirectAwards}/>
     <BulkAwardResult warning={true} localeName="duplicate" results={duplicateAwards}/>
-    <BulkAwardResult warning={false} localeName="good" results={directAwards.map(da => `${da.email} - ${da.eppn} `)}/>
+    <BulkAwardResult warning={true} localeName="missingEvidenceOrNarrative" results={missingEvidenceOrNarrative}/>
+    <BulkAwardResult warning={false} localeName="good"
+                     results={directAwards.map(da => `${da.email} - ${da.eppn} ${(da.evidence_url || da.narrative) ? I18n.t("badgeAward.bulkAward.evidenceIncluded") :""}`)}/>
 
     <div class="actions">
       <Button action={() => history.back()} text={I18n.t("badgeAward.directAward.cancel")} secondary={true}

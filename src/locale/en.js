@@ -1,5 +1,4 @@
 import I18n from "i18n-js";
-import Catalog from "../routes/catalog/Catalog.svelte";
 
 I18n.translations.en = {
     routes: {
@@ -1126,7 +1125,7 @@ I18n.translations.en = {
     badgeAward: {
         directAward: {
             title: "Award badges directly",
-            subtitle: "Your request will be sent, and you'll be notified when it's accepted or denied",
+            subtitle: "Your request will be sent, and you'll be notified when it's accepted or denied.",
             waringEnrollments: "There are {{count}} enrollments for this badge. ",
             toToEnrollments: "Maybe check them first?",
             addAnother: "+ Add another",
@@ -1147,9 +1146,14 @@ I18n.translations.en = {
             wrong: "Your upload contains {{count}} invalid entries which are removed from the upload.",
             duplicate: "Your upload contains {{count}} duplicate entries which are removed from the upload.",
             eppnExisting: "Your upload contains {{count}} EPPN's (StudentID'd) with outstanding unaccepted direct awards which are removed from the upload.",
+            missingEvidenceOrNarrative: "Your upload contains {{count}} entries missing narrative and / or evidence which are removed from the upload.",
             good: "Parsed {{count}} entries for upload.",
             view: "View",
             hide: "Hide",
+            evidenceIncluded: "(including evidence)",
+            evidenceAndNarrativeRequired: "This badgeclass requires both evidence and narrative to be awarded.",
+            evidenceRequired: "This badgeclass requires evidence to be awarded.",
+            narrativeRequired: "This badgeclass requires narrative to be awarded.",
             flash: {
                 created: "Bulk awards are sent"
             },

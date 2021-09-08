@@ -683,9 +683,14 @@ export function createDirectAwards(directAwards, badgeclass, bulkAward) {
         badgeclass: badgeclass.entityId,
         direct_awards: directAwards.map(da => ({
             recipient_email: da.email,
-            eppn: da.eppn
+            eppn: da.eppn,
+            evidence_url:  da.evidence_url,
+            narrative: da.narrative,
+            name: da.name,
+            description: da.description
         }))
     }
+    debugger;
     return validFetch(path, {body: JSON.stringify(payload)}, "POST", true, false);
 }
 

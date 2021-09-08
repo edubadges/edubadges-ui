@@ -44,8 +44,7 @@
     onMount(() => {
         enrollments.forEach(enrollment => enrollment.evidenceNarrativeRequired = badgeClass.evidenceRequired || badgeClass.narrativeRequired);
         filteredEnrollments = enrollments.filter(enrollment => !enrollment.denied);
-
-    })
+    });
 
     const displayDeniedChanged = val => {
         filteredEnrollments = val ? [...enrollments] : enrollments.filter(enrollment => !enrollment.denied)

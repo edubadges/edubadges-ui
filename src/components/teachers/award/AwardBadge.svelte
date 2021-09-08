@@ -1,91 +1,124 @@
 <script>
-  import {Field, TextInput} from "../../forms";
-  import I18n from "i18n-js";
-  import Button from "../../Button.svelte";
-  import Warning from "../../forms/Warning.svelte";
-  import {link, navigate} from "svelte-routing";
-  import trash from "../../../icons/trash.svg";
-  import {validEmail} from "../../../util/forms";
-  import Error from "../../forms/Error.svelte";
-  import {createDirectAwards} from "../../../api";
-  import {flash} from "../../../stores/flash";
+    import {Field, TextInput} from "../../forms";
+    import I18n from "i18n-js";
+    import Button from "../../Button.svelte";
+    import Warning from "../../forms/Warning.svelte";
+    import {link, navigate} from "svelte-routing";
+    import trash from "../../../icons/trash.svg";
+    import {validEmail} from "../../../util/forms";
+    import Error from "../../forms/Error.svelte";
+    import {createDirectAwards} from "../../../api";
+    import {flash} from "../../../stores/flash";
+    import {onMount} from "svelte";
+    import AwardBadgeModal from "./AwardBadgeModal.svelte";
 
-  export let badgeclass;
-  export let enrollments;
-  export let refresh;
-  export let existingDirectAwardsEppns;
+    export let badgeclass;
+    export let enrollments;
+    export let refresh;
+    export let existingDirectAwardsEppns;
 
-  let errors = {};
-  let errorsDuplications = {};
-  let errorsAlreadyAwarded = {};
+    let errors = {};
+    let errorsDuplications = {};
+    let errorsAlreadyAwarded = {};
 
-  let directAwards = [{email: "", eppn: ""}]
+    let directAwards = [];
+    let narrativeOrEvidenceRequired = false;
+    let showAwardModal = false;
+    let selectedDirectAwardForEvidence = null;
 
-  const addDirectAward = () => {
-    directAwards = [...directAwards, {email: "", eppn: ""}];
-  }
-
-  const removeDirectAward = index => () => {
-    const newDirectAwards = directAwards.filter((item, i) => i !== index);
-    invariant(newDirectAwards);
-  }
-
-  const init = e => e.focus();
-
-  const emailOnBlur = i => e => {
-    const val = e.target.value;
-    setTimeout(() => errors = {...errors, [`email_${i}`]: !validEmail(val)}, 150);
-    errorsDuplications = {
-      ...errorsDuplications,
-      [`email_${i}`]: directAwards.filter(da => da.email === val).length > 1 && val.trim().length > 0
-    }
-  }
-
-  const eppnOnBlur = i => e => {
-    const val = e.target.value;
-    errors = {...errors, [`eppn_${i}`]: val.trim().length === 0}
-    errorsDuplications = {
-      ...errorsDuplications,
-      [`eppn_${i}`]: directAwards.filter(da => da.eppn === val).length > 1  && val.trim().length > 0
-    }
-    errorsAlreadyAwarded = {
-      ...errorsAlreadyAwarded,
-      [`eppn_${i}`]: existingDirectAwardsEppns.some(eppn => eppn === val)
-    }
-  }
-
-  const doAward = () => {
-    createDirectAwards(directAwards, badgeclass, false)
-      .then(() => {
-        refresh(() => setTimeout(() => navigate(`/badgeclass/${badgeclass.entityId}/awarded`), 75));
-        flash.setValue(I18n.t("badgeAward.directAward.flash.created"));
-      }).catch(() => {
-        refresh(() => setTimeout(() => navigate(`/badgeclass/${badgeclass.entityId}/awarded`), 75));
-        flash.setValue(I18n.t("badgeAward.directAward.flash.created"));
+    onMount(() => {
+        narrativeOrEvidenceRequired = badgeclass.evidenceRequired || badgeclass.narrativeRequired;
+        directAwards = narrativeOrEvidenceRequired ?
+            [{email: "", eppn: "", narrative: "", evidence_url: "", name: "", description: ""}] :
+            [{email: "", eppn: ""}];
     });
-  };
 
-  //Need to rebuild the errors as in-between values might be removed
-  const invariant = newDirectAwards => {
-    errors = newDirectAwards.reduce((acc, da, i) => {
-      acc[`eppn_${i}`] = da.eppn.trim().length === 0;
-      acc[`email_${i}`] = !validEmail(da.email);
-      return acc;
-    }, {});
-    errorsAlreadyAwarded = newDirectAwards.reduce((acc, da, i) => {
-      acc[`eppn_${i}`] = existingDirectAwardsEppns.some(eppn => eppn === da.eppn);
-      return acc;
-    }, {});
-    errorsDuplications = newDirectAwards.reduce((acc, da, i) => {
-      acc[`eppn_${i}`] = newDirectAwards.filter(other => other.eppn === da.eppn).length > 1
-      acc[`email_${i}`] = newDirectAwards.filter(other => other.email === da.email).length > 1
-      return acc;
-    }, {});
-    directAwards = newDirectAwards;
-  }
 
-  $: disableSubmit = Object.values(errors).some(val => val) || Object.values(errorsDuplications).some(val => val) ||
-    Object.values(errorsAlreadyAwarded).some(val => val);
+    const addDirectAward = () => {
+        const newDa = (badgeclass.evidenceRequired || badgeclass.narrativeRequired) ?
+            {email: "", eppn: "", narrative: "", evidence_url: "", name: "", description: ""} : {email: "", eppn: ""}
+        directAwards = [...directAwards, newDa];
+
+    }
+
+    const removeDirectAward = index => () => {
+        const newDirectAwards = directAwards.filter((item, i) => i !== index);
+        invariant(newDirectAwards);
+    }
+
+    const addEvidence = i => {
+        selectedDirectAwardForEvidence = directAwards[i];
+        showAwardModal = true;
+    }
+
+    const awardModalSubmit = () => {
+        invariant(directAwards);
+        showAwardModal = false;
+    }
+
+    const init = e => e.focus();
+
+    const emailOnBlur = i => e => {
+        const val = e.target.value;
+        setTimeout(() => errors = {...errors, [`email_${i}`]: !validEmail(val)}, 150);
+        errorsDuplications = {
+            ...errorsDuplications,
+            [`email_${i}`]: directAwards.filter(da => da.email === val).length > 1 && val.trim().length > 0
+        }
+    }
+
+    const eppnOnBlur = i => e => {
+        const val = e.target.value;
+        errors = {...errors, [`eppn_${i}`]: val.trim().length === 0}
+        errorsDuplications = {
+            ...errorsDuplications,
+            [`eppn_${i}`]: directAwards.filter(da => da.eppn === val).length > 1 && val.trim().length > 0
+        }
+        errorsAlreadyAwarded = {
+            ...errorsAlreadyAwarded,
+            [`eppn_${i}`]: existingDirectAwardsEppns.some(eppn => eppn === val)
+        }
+    }
+
+    const doAward = () => {
+        invariant(directAwards);
+        debugger;
+        if (Object.values(errors).some(val => val)) {
+            return;
+        }
+        createDirectAwards(directAwards, badgeclass, false)
+            .then(() => {
+                refresh(() => setTimeout(() => navigate(`/badgeclass/${badgeclass.entityId}/awarded`), 75));
+                flash.setValue(I18n.t("badgeAward.directAward.flash.created"));
+            }).catch(() => {
+            refresh(() => setTimeout(() => navigate(`/badgeclass/${badgeclass.entityId}/awarded`), 75));
+            flash.setValue(I18n.t("badgeAward.directAward.flash.created"));
+        });
+    };
+
+    //Need to rebuild the errors as in-between values might be removed
+    const invariant = newDirectAwards => {
+        errors = newDirectAwards.reduce((acc, da, i) => {
+            acc[`eppn_${i}`] = da.eppn.trim().length === 0;
+            acc[`email_${i}`] = !validEmail(da.email);
+            acc[`evidence_${i}`] = badgeclass.evidenceRequired && !da.evidence_url;
+            acc[`narrative_${i}`] = badgeclass.narrativeRequired && !da.narrative;
+            return acc;
+        }, {});
+        errorsAlreadyAwarded = newDirectAwards.reduce((acc, da, i) => {
+            acc[`eppn_${i}`] = existingDirectAwardsEppns.some(eppn => eppn === da.eppn);
+            return acc;
+        }, {});
+        errorsDuplications = newDirectAwards.reduce((acc, da, i) => {
+            acc[`eppn_${i}`] = newDirectAwards.filter(other => other.eppn === da.eppn && other.eppn.trim().length > 0).length > 1;
+            acc[`email_${i}`] = newDirectAwards.filter(other => other.email === da.email && other.email.trim().length > 0).length > 1;
+            return acc;
+        }, {});
+        directAwards = newDirectAwards;
+    }
+
+    $: disableSubmit = Object.values(errors).some(val => val) || Object.values(errorsDuplications).some(val => val) ||
+        Object.values(errorsAlreadyAwarded).some(val => val);
 
 </script>
 
@@ -99,6 +132,7 @@
 
     p.sub-title {
       margin-bottom: 20px;
+      max-width: 50%;
     }
 
     div.warning-container {
@@ -119,21 +153,18 @@
     }
 
     div.deletable-row {
-      position: relative;
+      display: flex;
     }
 
     .rm-icon-container {
       color: purple;
       border: none;
       background-color: white;
-      position: absolute;
       height: 30px;
       width: 30px;
-      margin: 0 0 5px 0;
       align-self: center;
       cursor: pointer;
-      right: 160px;
-      top: 38px;
+      margin-left: 5px;
     }
 
     div.actions {
@@ -141,12 +172,26 @@
 
     }
 
+    div.evidence-container {
+      display: flex;
+      flex-direction: column;
+      padding: 27px 0 0 10px;
+    }
+
   }
 </style>
 <div class="award-badge">
   <h2>{I18n.t("badgeAward.directAward.title")}</h2>
   <div class="main-content-margin">
-    <p class="sub-title">{I18n.t("badgeAward.directAward.subtitle")}</p>
+    <p class="sub-title">{I18n.t("badgeAward.directAward.subtitle")}
+      {#if badgeclass.evidenceRequired && badgeclass.narrativeRequired}
+        <span>{I18n.t("badgeAward.bulkAward.evidenceAndNarrativeRequired")}</span>
+      {:else if badgeclass.evidenceRequired}
+        <span>{I18n.t("badgeAward.bulkAward.evidenceRequired")}</span>
+      {:else if badgeclass.narrativeRequired}
+        <span>{I18n.t("badgeAward.bulkAward.narrativeRequired")}</span>
+      {/if}
+    </p>
     {#if enrollments.filter(enrollment => !enrollment.denied).length > 0}
       <div class="warning-container">
         <Warning msg={I18n.t("badgeAward.directAward.waringEnrollments", {count: enrollments.length})}>
@@ -167,8 +212,12 @@
           {/if}
         </Field>
         <div class="deletable-row">
-          <Field entity="badgeAward" attribute="eppn">
-            <TextInput bind:value={da.eppn} error={errors[`eppn_${i}`]} onBlur={eppnOnBlur(i)}/>
+          <Field entity="badgeAward" attribute="eppn" full={true}>
+            <TextInput bind:value={da.eppn} error={errors[`eppn_${i}`]} onBlur={eppnOnBlur(i)}>
+              {#if i !== 0}
+                <button class="rm-icon-container" on:click={removeDirectAward(i)}>{@html trash}</button>
+              {/if}
+            </TextInput>
             {#if errors[`eppn_${i}`]}
               <Error standAlone={true} error_code={928}/>
             {/if}
@@ -179,9 +228,15 @@
               <Error standAlone={true} error_code={931}/>
             {/if}
           </Field>
-          {#if i !== 0}
-            <button class="rm-icon-container" on:click={removeDirectAward(i)}>{@html trash}</button>
-          {/if}
+          <div class="evidence-container">
+            <Button text="Add evidence" action={() => addEvidence(i)}/>
+            {#if errors[`narrative_${i}`]}
+              <Error standAlone={true} error_code={932}/>
+            {/if}
+            {#if errors[`evidence_${i}`]}
+              <Error standAlone={true} error_code={933}/>
+            {/if}
+          </div>
         </div>
       {/each}
     </div>
@@ -196,8 +251,14 @@
     </div>
   </div>
 </div>
-
-
-
-
-
+{#if showAwardModal}
+  <AwardBadgeModal
+    bind:narrative={selectedDirectAwardForEvidence.narrative}
+    bind:url={selectedDirectAwardForEvidence.evidence_url}
+    bind:useEvidence={narrativeOrEvidenceRequired}
+    bind:name={selectedDirectAwardForEvidence.name}
+    bind:description={selectedDirectAwardForEvidence.description}
+    badgeClass={badgeclass}
+    submit={awardModalSubmit}
+    cancel={() => showAwardModal = false}/>
+{/if}

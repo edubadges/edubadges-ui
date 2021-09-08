@@ -109,7 +109,7 @@
       <span>{I18n.t("invites.copyPublicUrlDisabled")}</span>
     </div>
   {:else}
-    {#if directAwardingEnabled && !badgeclass.evidenceRequired && !badgeclass.narrativeRequired}
+    {#if directAwardingEnabled}
       <Button href={`/badgeclass/${badgeclass.entityId}/direct-award`} text={I18n.t("badgeAwardOptions.directAward")}/>
       <span class="award-link">{I18n.t("badgeAwardOptions.or")}
         <a use:link href={`/badgeclass/${badgeclass.entityId}/bulk-award`}>

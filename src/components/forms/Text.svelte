@@ -41,4 +41,5 @@
   {:else}
     <input type="number" {placeholder} max={max} min="0" oninput="validity.valid||(value='');" class="input-field" class:error bind:value {disabled}/>
   {/if}
+  <slot/>
 </div>
