@@ -215,6 +215,7 @@
                 alignTicks: false,
                 backgroundColor: '#f9f6ff',
                 events: {
+                    //https://jsfiddle.net/BlackLabel/vzqmb6f1/
                     load: function () {
                         Highcharts.addEvent(this.tooltip, 'headerFormatter', function (e) {
                             if (!e.isFooter) {
@@ -228,8 +229,6 @@
             },
             tooltip: {
                 shared: true,
-                //https://jsfiddle.net/BlackLabel/vzqmb6f1/
-                //headerFormat: 'Week {point.key}<br/>',
                 useHTML: true
             },
             navigation: {

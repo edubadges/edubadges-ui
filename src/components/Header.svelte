@@ -140,10 +140,16 @@
       on:clickOutside={() => (menuOpen = false)}>
       {@html menuOpen ? chevronUp : chevronDown}
       <div class="menu card" class:show={menuOpen}>
+        {#if $userRole === role.STUDENT}
+          <div class="profile-menu" on:click={() => navigate("/")}>{I18n.t('header.home')}</div>
+        {/if}
         <div class="profile-menu" on:click={() => navigate("/profile")}>{I18n.t('header.profile')}</div>
         {#if $userRole === role.TEACHER}
           <div class="profile-menu"
                on:click={() => navigate("/permissions/institution")}>{I18n.t('header.permissions')}</div>
+        {/if}
+        {#if $userRole === role.STUDENT}
+          <div class="profile-menu" on:click={() => navigate("/catalog")}>{I18n.t('header.nav.catalog')}</div>
         {/if}
         <div class="profile-menu" on:click={() => showFeedback = true}>{I18n.t('header.feedback')}</div>
         <div class="profile-menu" on:click={logoutUser}>{I18n.t('header.logout')}</div>

@@ -7,11 +7,11 @@ I18n.translations.nl = {
         collections: "Collecties",
         archived: "Archief",
         profile: "Account",
-        "badges-catalog": "Catalog"
     },
     header: {
         logout: "Logout",
         profile: "Mijn profiel",
+        home: "Mijn backpack",
         permissions: "Mijn permissies",
         feedback: "Verstuur feedback",
         demo: "Demo omgeving",

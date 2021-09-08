@@ -4,11 +4,9 @@
     import security from "../icons/security.svg";
     import data_activity from "../icons/data_activity.svg";
     import personal_info from "../icons/personal_info.svg";
-    import catalogue_info from "../icons/connections.svg";
     import archived_svg from "../icons/archive-svgrepo-com.svg";
 
     import {Archived, Backpack, BadgeRequests, Profile} from "./students";
-    import Catalog from "./catalog/Catalog.svelte";
 
     export let bookmark;
 
@@ -16,7 +14,6 @@
         {path: "backpack", icon: data_activity, component: Backpack},
         {path: "badge-requests", icon: security, component: BadgeRequests},
         {path: "archived", icon: archived_svg, component: Archived},
-        {path: "badges-catalog", icon: catalogue_info, component: Catalog},
         {path: "profile", icon: personal_info, component: Profile}
     ];
 

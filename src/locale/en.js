@@ -13,6 +13,7 @@ I18n.translations.en = {
     header: {
         logout: "Logout",
         profile: "My profile",
+        home: "My backpack",
         permissions: "My permissions",
         feedback: "Send feedback",
         demo: "Demo environment",
