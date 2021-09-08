@@ -287,7 +287,7 @@
             },
             exporting: {
                 enabled: true,
-                libURL: config.extensionsRootUrl + '/js',
+                libURL: config.extensionsRootUrl + '/static/js',
                 allowHTML: true,
                 fallbackToExportServer: false,
                 buttons: {
