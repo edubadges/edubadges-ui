@@ -6,8 +6,7 @@ I18n.translations.en = {
         "badge-requests": "Edubadge requests",
         collections: "Collections",
         archived: "Archive",
-        profile: "Account",
-        "badges-catalog": "Catalog"
+        profile: "Account"
     },
     header: {
         logout: "Logout",
@@ -1131,6 +1130,8 @@ I18n.translations.en = {
             addAnother: "+ Add another",
             cancel: "Cancel",
             award: "Award",
+            addEvidence: "Add evidence",
+            editEvidence: "Edit evidence",
             processing: "Processing {{count}} direct awards. Please be patient...",
             flash: {
                 created: "Direct awards are sent"

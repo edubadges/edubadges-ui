@@ -5,7 +5,7 @@
     import Warning from "../../forms/Warning.svelte";
     import {link, navigate} from "svelte-routing";
     import trash from "../../../icons/trash.svg";
-    import {validEmail} from "../../../util/forms";
+    import {validEmail, validUrl} from "../../../util/forms";
     import Error from "../../forms/Error.svelte";
     import {createDirectAwards} from "../../../api";
     import {flash} from "../../../stores/flash";
@@ -22,13 +22,13 @@
     let errorsAlreadyAwarded = {};
 
     let directAwards = [];
-    let narrativeOrEvidenceRequired = false;
+    let narrativeOrEvidenceRequired = true;
     let showAwardModal = false;
     let selectedDirectAwardForEvidence = null;
+    let selectedDirectAwardForEvidenceIndex = null;
 
     onMount(() => {
-        narrativeOrEvidenceRequired = badgeclass.evidenceRequired || badgeclass.narrativeRequired;
-        directAwards = narrativeOrEvidenceRequired ?
+        directAwards = (badgeclass.evidenceRequired || badgeclass.narrativeRequired) ?
             [{email: "", eppn: "", narrative: "", evidence_url: "", name: "", description: ""}] :
             [{email: "", eppn: ""}];
     });
@@ -41,18 +41,29 @@
 
     }
 
+    const hasEvidence = directAward => {
+        return directAward.narrative || validUrl(directAward.evidence_url);
+    }
+
     const removeDirectAward = index => () => {
         const newDirectAwards = directAwards.filter((item, i) => i !== index);
         invariant(newDirectAwards);
     }
 
     const addEvidence = i => {
-        selectedDirectAwardForEvidence = directAwards[i];
+        selectedDirectAwardForEvidence = {...directAwards[i]};
+        selectedDirectAwardForEvidenceIndex = i;
         showAwardModal = true;
     }
 
     const awardModalSubmit = () => {
-        invariant(directAwards);
+        const newDirectAwards = [...directAwards];
+        newDirectAwards[selectedDirectAwardForEvidenceIndex] = selectedDirectAwardForEvidence;
+        invariant(newDirectAwards);
+        showAwardModal = false;
+    }
+
+    const awardModalCancel = () => {
         showAwardModal = false;
     }
 
@@ -82,7 +93,6 @@
 
     const doAward = () => {
         invariant(directAwards);
-        debugger;
         if (Object.values(errors).some(val => val)) {
             return;
         }
@@ -176,6 +186,12 @@
       display: flex;
       flex-direction: column;
       padding: 27px 0 0 10px;
+
+      div.evidence-subcontainer {
+        display: flex;
+        margin: 0 auto;
+        max-width: 180px;
+      }
     }
 
   }
@@ -229,7 +245,11 @@
             {/if}
           </Field>
           <div class="evidence-container">
-            <Button text="Add evidence" action={() => addEvidence(i)}/>
+            <div class="evidence-subcontainer">
+              <Button text={hasEvidence(da) ? I18n.t("badgeAward.directAward.editEvidence") :
+                              I18n.t("badgeAward.directAward.addEvidence")}
+                      action={() => addEvidence(i)}/>
+            </div>
             {#if errors[`narrative_${i}`]}
               <Error standAlone={true} error_code={932}/>
             {/if}
@@ -260,5 +280,6 @@
     bind:description={selectedDirectAwardForEvidence.description}
     badgeClass={badgeclass}
     submit={awardModalSubmit}
-    cancel={() => showAwardModal = false}/>
+    awardMode={false}
+    cancel={awardModalCancel}/>
 {/if}

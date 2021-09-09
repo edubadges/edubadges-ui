@@ -7,6 +7,7 @@
 
     export let submit;
     export let cancel;
+    export let awardMode = true;
 
     export let narrative;
     export let url;
@@ -21,7 +22,7 @@
 
     onMount(() => {
         narrativeOrEvidenceRequired = badgeClass.narrativeRequired || badgeClass.evidenceRequired;
-        useEvidence = narrativeOrEvidenceRequired;
+        useEvidence = narrativeOrEvidenceRequired || !awardMode;
     });
 
     const doSubmit = () => {
@@ -126,12 +127,14 @@
 <div class="modal">
   <div class="modal-content">
     <div class="modal-header">
-      <h3>{I18n.t("models.enrollment.confirmation.award")}</h3>
+      <h3>{awardMode ? I18n.t("models.enrollment.confirmation.award"): I18n.t("badgeAward.directAward.addEvidence")}</h3>
     </div>
     <div class="modal-body">
-      <p class="title">{I18n.t("models.enrollment.confirmation.awardConfirmation")}</p>
+      {#if awardMode}
+        <p class="title">{I18n.t("models.enrollment.confirmation.awardConfirmation")}</p>
+      {/if}
       {#if useEvidence}
-        {#if !narrativeOrEvidenceRequired}
+        {#if !narrativeOrEvidenceRequired && awardMode}
           <a href="/remove-evidence" disabled={!narrativeAllowed}
              on:click|preventDefault={swapUseEvidence}>{I18n.t("models.enrollment.removeEvidence")}</a>
         {/if}
@@ -158,14 +161,15 @@
                        placeholder={I18n.t("placeholders.enrollment.evidenceDescription")} size="100"/>
           </Field>
         </div>
-      {:else if narrativeAllowed}
+      {:else if narrativeAllowed && awardMode}
         <a href="/add-evidence"
            on:click|preventDefault={swapUseEvidence}>{I18n.t("models.enrollment.addEvidence")}</a>
       {/if}
     </div>
     <div class="options">
       <Button secondary={true} action={cancel} text={I18n.t("modal.cancel")}/>
-      <Button action={doSubmit} text={I18n.t("models.enrollment.awardButton")} disabled={false}/>
+      <Button action={doSubmit} text={awardMode ? I18n.t("models.enrollment.awardButton") : I18n.t("manage.new.save")}
+              disabled={false}/>
     </div>
 
   </div>

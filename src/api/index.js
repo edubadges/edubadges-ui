@@ -690,7 +690,6 @@ export function createDirectAwards(directAwards, badgeclass, bulkAward) {
             description: da.description
         }))
     }
-    debugger;
     return validFetch(path, {body: JSON.stringify(payload)}, "POST", true, false);
 }
 

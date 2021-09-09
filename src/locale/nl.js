@@ -1130,6 +1130,8 @@ I18n.translations.nl = {
             addAnother: "+ Toevoegen",
             cancel: "Annuleer",
             award: "Verzenden",
+            addEvidence: "Bewijs toevoegen",
+            editEvidence: "Bewijs bewerken",
             processing: "Bezig om {{count}} direct awards te verwerken. Even geduld...",
             flash: {
                 created: "Direct awards zijn verzonden"

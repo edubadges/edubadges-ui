@@ -123,9 +123,6 @@
         <Route path="/badge-requests">
           <Student bookmark="badge-requests"/>
         </Route>
-        <Route path="/badges-catalog">
-          <Student bookmark="badges-catalog"/>
-        </Route>
         <Route path="/archived">
           <Student bookmark="archived"/>
         </Route>
