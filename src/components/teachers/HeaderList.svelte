@@ -1,10 +1,10 @@
 <script>
-  import I18n from "i18n-js";
-  import { formatAdminNames } from "../../util/entityHeader";
-  import moment from "moment";
+    import I18n from "i18n-js";
+    import {formatAdminNames} from "../../util/entityHeader";
+    import moment from "moment";
 
-  export let entity;
-  export let headerItems = [];
+    export let entity;
+    export let headerItems = [];
 </script>
 
 <style lang="scss">
@@ -35,7 +35,7 @@
 </style>
 
 <div>
-  {#each headerItems as { attr, type, value } (attr)}
+  {#each headerItems as {attr, type, value} (attr)}
     <span>
       <h5>{I18n.t(['models', entity, attr])}</h5>
 

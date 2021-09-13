@@ -783,6 +783,10 @@ I18n.translations.en = {
             badgeClassPlaceholder: "Select a badgeclass...",
             year: "Year",
             yearPlaceholder: "Select a year...",
+        },
+        collections: {
+            number: "Number",
+            lastUpdated: "Last one created",
         }
     },
     inviteDialog: {
@@ -1223,6 +1227,16 @@ I18n.translations.en = {
         crunching: "Crunching the numbers just for you...",
         date: "Date",
         reset: "Reset"
+    },
+    collections: {
+        title: "Collections",
+        info: "A collection of badges that you as a whole can share with others.",
+        create: "Create a new collection",
+        shareable: "Collections that you can share",
+        all: "All your collections",
+        byRecent: "Most recent",
+        bySize: "Number of badges",
+        byName: "Name"
     }
 
 };

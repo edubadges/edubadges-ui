@@ -783,6 +783,10 @@ I18n.translations.nl = {
             badgeClassPlaceholder: "Select a badgeclass...",
             year: "Year",
             yearPlaceholder: "Select a year...",
+        },
+        collections: {
+            number: "Number",
+            lastUpdated: "Last one created",
         }
     },
     inviteDialog: {

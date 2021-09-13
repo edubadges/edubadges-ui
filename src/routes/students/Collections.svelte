@@ -2,18 +2,27 @@
     import I18n from "i18n-js";
     import Spinner from "../../components/Spinner.svelte";
     import {onMount} from "svelte";
-    import ViewSelector from "../../components/shared/ViewSelector.svelte";
     import BadgeListView from "../../components/shared/BadgeListView.svelte";
     import {createBadgeInstanceCollection} from "../../api";
     import Button from "../../components/Button.svelte";
     import {queryData} from "../../api/graphql";
     import {translateProperties} from "../../util/utils";
     import {ects, eqf, extensionValue, studyLoad, timeInvestment} from "../../components/extensions/badges/extensions";
+    import CollectionsHeader from "../../components/students/CollectionsHeader.svelte";
+    import CollectionsToolBar from "../../components/students/CollectionsToolBar.svelte";
+
+    const sortOptions =[
+            {value: "recent", name: I18n.t("collections.byRecent")},
+            {value: "size", name: I18n.t("collections.bySize")},
+            {value: "name", name: I18n.t("collections.byName")},
+    ]
 
     let loaded = false;
     let badgeInstanceCollections = [];
     let badges = [];
     let view = "cards";
+    let shareableFilter = true;
+    let sorting = sortOptions[0];
 
     const query = `query {
       badgeInstanceCollections {
@@ -21,6 +30,7 @@
         name,
         public,
         description,
+        createdAt,
         badgeInstances {
           id
         }
@@ -85,23 +95,32 @@
 
     const createCollection = () => {
         createBadgeInstanceCollection({
-            name: "test", description: "Desss",
-            badge_instances: [25, 27, 28], 'public': true
+            name: "test 12345", description: "Desss !!!!",
+            badge_instances: [25, 28], 'public': false
         });
     }
+
+    $: filteredAndSortedCollections = badgeInstanceCollections.filter(coll => shareableFilter ? coll.public : true).sort((a, b) => {
+        debugger;
+        switch (sorting) {
+            case "recent": {
+                return new Date(b.createdAt) - new Date(a.createdAt)
+            }
+            case "size": {
+                return a.badgeInstances.length - a.badgeInstances.length;
+            }
+            case "name": {
+                return a.name.localeCompare(b.name)
+            }
+        }
+    })
 
 </script>
 
 <style lang="scss">
-
-  .header {
+  div.container {
     display: flex;
-    align-content: center;
-  }
-
-  h3 {
-    font-size: 22px;
-    margin-bottom: 30px;
+    flex-direction: column;
   }
 
   div.content {
@@ -119,6 +138,10 @@
     }
   }
 
+  div.view-selector-container {
+    margin-left: auto;
+  }
+
   @media (max-width: 1120px) {
     div.content.cards {
       grid-template-columns: 48% 48%;
@@ -133,21 +156,24 @@
 </style>
 
 <div>
-  <div class="header">
-    <h3>{I18n.t('collections.title')}</h3>
-    <ViewSelector bind:view={view}/>
-  </div>
   {#if loaded}
-    <div class={`content ${view === "list" ? "list" : "cards"}`}>
-      {#if view === "list"}
-        <BadgeListView badges={[]}/>
-      {:else}
-        {#each badgeInstanceCollections as collection}
-          <!--          <BadgeCard badge={badge} badgeClass={badge.badgeclass} withHeaderData={true}/>-->
-        {/each}
-      {/if}
+    <div class="container">
+      <CollectionsHeader {badgeInstanceCollections}>
+        <Button action={createCollection} text={I18n.t("collections.create")}/>
+      </CollectionsHeader>
+      <CollectionsToolBar bind:shareableFilter={shareableFilter} bind:sorting={sorting} bind:view={view}/>
+      <div class={`content ${view === "list" ? "list" : "cards"}`}>
+        {#if view === "list"}
+          <p>LIST</p>
+          <BadgeListView badges={[]}/>
+        {:else}
+          <p>CARD</p>
+          {#each filteredAndSortedCollections as collection}
+            {collection.name}
+          {/each}
+        {/if}
+      </div>
     </div>
-    <Button action={createCollection} text={I18n.t("collections.create")}/>
   {:else}
     <Spinner/>
   {/if}
