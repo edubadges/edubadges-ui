@@ -712,3 +712,19 @@ export function insights(year) {
     }
     return validFetch(path, {body: JSON.stringify(data)}, "POST");
 }
+
+//BadgeInstanceCollections
+export function createBadgeInstanceCollection(badgeInstanceCollection) {
+    const path = `${serverUrl}/issuer/collections/create`;
+    return validFetch(path, {body: JSON.stringify(badgeInstanceCollection)}, "POST", true, false);
+}
+
+export function editBadgeInstanceCollection(badgeInstanceCollection) {
+    const path = `${serverUrl}/issuer/collections/edit/${badgeInstanceCollection.entityId}`;
+    return validFetch(path, {body: JSON.stringify(badgeInstanceCollection)}, "PUT", true, false);
+}
+
+export function deleteBadgeInstanceCollection(badgeInstanceCollection) {
+    const path = `${serverUrl}/issuer/collections/delete/${badgeInstanceCollection.entityId}`;
+    return validFetch(path, {}, "DELETE", true, false);
+}
