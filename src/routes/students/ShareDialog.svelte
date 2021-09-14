@@ -1,28 +1,24 @@
 <script>
-  import I18n from "i18n-js";
-  import {formatDate} from "../../util/utils";
-  import closeIcon from "../../icons/close_smll.svg";
-  import DotSpinner from "../../components/DotSpinner.svelte";
-  import checkP from "../../icons/check-purple.svg";
-  import {onMount} from "svelte";
-  import {validateBadge} from "../../api";
-  import CopyToClipboardButton from "../../components/CopyToClipboardButton.svelte";
-  import info from "../../icons/informational.svg";
+    import I18n from "i18n-js";
+    import closeIcon from "../../icons/close_smll.svg";
+    import CopyToClipboardButton from "../../components/CopyToClipboardButton.svelte";
+    import info from "../../icons/informational.svg";
 
+    export let cancel;
+    export let copied;
+    export let publicUrl;
+    export let title = I18n.t("shareDialog.title");
+    export let copyPublicUrl = I18n.t("shareDialog.copyPublicUrl");
 
-  export let cancel;
-  export let copied;
-  export let publicUrl;
+    const handle_keydown = e => {
+        if (e.key === "Escape") {
+            cancel();
+        }
+    };
 
-  const handle_keydown = e => {
-    if (e.key === "Escape") {
-      cancel();
+    const actionAfterCopy = () => {
+        setTimeout(copied, 750);
     }
-  };
-
-  const actionAfterCopy = () => {
-    setTimeout(copied, 1750);
-  }
 
 </script>
 
@@ -111,18 +107,19 @@
       <div class="close" on:click={cancel}>
         {@html closeIcon}
       </div>
-      <h3>{I18n.t("shareDialog.title")}</h3>
+      <h3>{title}</h3>
     </div>
     <div class="body">
       <div class="public-link">
         <div class="info">
           <span>{@html info}</span>
-          <span>{I18n.t("shareDialog.copyPublicUrl")}</span>
+          <span>{copyPublicUrl}</span>
         </div>
       </div>
     </div>
     <div class="footer">
-      <CopyToClipboardButton toCopy={publicUrl} actionAfterCopy={actionAfterCopy} full={true} text={I18n.t("shareDialog.copy")}/>
+      <CopyToClipboardButton toCopy={publicUrl} actionAfterCopy={actionAfterCopy} full={true}
+                             text={I18n.t("shareDialog.copy")}/>
 
     </div>
   </div>

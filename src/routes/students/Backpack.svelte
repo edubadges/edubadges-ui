@@ -16,6 +16,7 @@
   import {role} from "../../util/role";
   import {requestLoginToken} from "../../api";
   import Modal from "../../components/forms/Modal.svelte";
+  import BadgePanel from "../../components/students/BadgePanel.svelte";
 
   let loaded = false;
   let badges = [];
@@ -44,7 +45,7 @@
       }
       directAwards.forEach(da => da.isDirectAward = true);
 
-      const badgeInstances = sortCreatedAt(directAwards.concat(res.badgeInstances));
+      const badgeInstances = sortCreatedAt(directAwards.concat(res.badgeInstances.filter(bi => !bi.revoked)));
       badgeInstances.forEach(badgeInstance => {
         const issuer = badgeInstance.badgeclass.issuer;
         translateProperties(issuer);
@@ -78,32 +79,6 @@
     margin-bottom: 30px;
   }
 
-  div.content {
-    &.cards {
-      display: grid;
-      grid-template-columns: 31% 31% 31%;
-      grid-row: auto;
-      grid-column-gap: 25px;
-      grid-row-gap: 25px;
-    }
-
-    &.list {
-      display: flex;
-      flex-direction: column;
-    }
-  }
-
-  @media (max-width: 1120px) {
-    div.content.cards {
-      grid-template-columns: 48% 48%;
-    }
-  }
-
-  @media (max-width: 820px) {
-    div.content.cards {
-      grid-template-columns: 100%;
-    }
-  }
 </style>
 
 <div>
@@ -115,15 +90,7 @@
     <Welcome/>
   {/if}
   {#if loaded}
-    <div class={`content ${view === "list" ? "list" : "cards"}`}>
-      {#if view === "list"}
-        <BadgeListView badges={badges}/>
-      {:else}
-        {#each badges as badge}
-          <BadgeCard badge={badge} badgeClass={badge.badgeclass} withHeaderData={true}/>
-        {/each}
-      {/if}
-    </div>
+      <BadgePanel badges={badges} view={view}/>
   {:else}
     <Spinner/>
   {/if}

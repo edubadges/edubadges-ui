@@ -798,7 +798,9 @@ I18n.translations.en = {
     shareDialog: {
         title: "Share your edubadge",
         copyPublicUrl: "If you want to share the public page link of this edubadge, you can copy the link to your clipboard.",
-        copy: "Copy the link"
+        copy: "Copy the link",
+        titleCollections: "Share your collection",
+        copyPublicUrlCollections: "If you want to share the public page link of this collection of edubadges, you can copy the link to your clipboard.",
     },
     invites: {
         title: "Invite people to request",
@@ -1085,7 +1087,11 @@ I18n.translations.en = {
         demoEnvironment: "All data is deleted every month.",
         claimRate: "The claim rate is the total number of awarded badges as a percentage of the total of direct awards and enrollments.",
         directAwards: "Direct awards are badges that are awarded by the teacher to students by email. The number(s) below are direct awards that are either still not accepted, rejected or revoked",
-        enrollments: "Enrollments are requested by students and once approved will be new awarded badges. The number(s) below are enrollments that have not been approved by the teacher or are denied"
+        enrollments: "Enrollments are requested by students and once approved will be new awarded badges. The number(s) below are enrollments that have not been approved by the teacher or are denied",
+        editBadgeCollection: "Edit",
+        deleteBadgeCollection: "Delete",
+        toggleBadgeCollectionPublic: "A public collection can be shared with other whereas a private collection can not.",
+        collectionBadgeInstances: "Select all the badges you want to put in this collection"
     },
     badgeOverview: {
         faculty: "Faculty",
@@ -1231,12 +1237,23 @@ I18n.translations.en = {
     collections: {
         title: "Collections",
         info: "A collection of badges that you as a whole can share with others.",
+        zeroState: "You have not created any collections of badges yet.",
         create: "Create a new collection",
         shareable: "Collections that you can share",
         all: "All your collections",
         byRecent: "Most recent",
         bySize: "Number of badges",
-        byName: "Name"
+        byName: "Name",
+        deleteConfirmation: "Delete badge collection {{name}}",
+        deleteConfirmationQuestion: "Are you sure you want to delete badge collection {{name}}.",
+        deleteFlash: "Badge collection {{name}] deleted.",
+        share: {
+            publish: "Make this collection publicly visible",
+            publishConfirmation: "Are you sure you want to make this collection publicly visible?<br/><br/>If you make this collection public then it is viewable for everyone with the link.",
+            private: "Make this collection private",
+            privateConfirmation: "Are you sure you want to make this collection private?",
+        },
+
     }
 
 };

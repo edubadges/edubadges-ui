@@ -16,7 +16,6 @@
     font-size: 24px;
     display: flex;
     align-items: center;
-    margin-top: 15px;
   }
 
   .badge-filter-button {
@@ -51,7 +50,6 @@
     display: flex;
     align-items: center;
     width: 100%;
-    margin: 15px 0 20px 0;
 
     .sort {
       display: flex;
@@ -76,7 +74,7 @@
     <span class="badge-filter-button {shareableFilter ? 'inactive' : 'active'}"
           on:click={() => shareableFilter = false}>{I18n.t('collections.all')}</span>
   </span>
-
+<ViewSelector bind:view={view}/>
 </div>
 
 <div class="sort-options">
@@ -89,6 +87,6 @@
       optionIdentifier="name"/>
   </div>
 
-  <ViewSelector bind:view={view}/>
+
 
 </div>

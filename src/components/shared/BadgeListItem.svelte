@@ -1,40 +1,48 @@
 <script>
-  import {onMount} from "svelte";
-  import moment from "moment";
-  import I18n from "i18n-js";
-  import {navigate} from "svelte-routing";
-  import {issuerIcon} from "../../icons";
-  import StatusIndicator from "./StatusIndicator.svelte";
-  import BadgeShield from "./BadgeShield.svelte";
+    import {onMount} from "svelte";
+    import moment from "moment";
+    import I18n from "i18n-js";
+    import {navigate} from "svelte-routing";
+    import {issuerIcon} from "../../icons";
+    import StatusIndicator from "./StatusIndicator.svelte";
+    import BadgeShield from "./BadgeShield.svelte";
 
-  export let badge;
-  export let badgeClass;
-  export let isPublic = false;
+    export let badge;
+    export let badgeClass;
+    export let isPublic = false;
+    export let linksEnabled = true;
 
-  const detailLink = () => {
-    if (badge && badge.isDirectAward) {
-      navigate(`/direct-award/${badge.entityId}`);
-    } else if (isPublic) {
-      navigate(`/public/${badgeClass.entityId}`);
-    } else {
-      navigate(badge ? `/details/${badge.entityId}` : `/badgeclass/${badgeClass.entityId}`);
+    const detailLink = () => {
+        if (!linksEnabled) {
+            return;
+        }
+        if (badge && badge.isDirectAward) {
+            navigate(`/direct-award/${badge.entityId}`);
+        } else if (isPublic) {
+            navigate(`/public/${badgeClass.entityId}`);
+        } else {
+            navigate(badge ? `/details/${badge.entityId}` : `/badgeclass/${badgeClass.entityId}`);
+        }
     }
-  }
 
-  onMount(() => {
-    badgeClass.studyLoadValue = badgeClass.studyLoad ?
-      I18n.t("teacher.badgeclasses.hours", {value: badgeClass.studyLoad}) : badgeClass.ects ?
-        I18n.t("teacher.badgeclasses.ects", {value: badgeClass.ects}) : null;
-    badgeClass.timeInvestmentValue = badgeClass.timeInvestment ?
-      I18n.t("teacher.badgeclasses.hours", {value: badgeClass.timeInvestment}) : null;
+    onMount(() => {
+        badgeClass.studyLoadValue = badgeClass.studyLoad ?
+            I18n.t("teacher.badgeclasses.hours", {value: badgeClass.studyLoad}) : badgeClass.ects ?
+                I18n.t("teacher.badgeclasses.ects", {value: badgeClass.ects}) : null;
+        badgeClass.timeInvestmentValue = badgeClass.timeInvestment ?
+            I18n.t("teacher.badgeclasses.hours", {value: badgeClass.timeInvestment}) : null;
 
-  });
+    });
 </script>
 
 <style lang="scss">
   tr.badge {
     position: relative;
-    cursor: pointer;
+
+    &.links-enabled {
+      cursor: pointer;
+    }
+
     margin-bottom: 15px;
     border-top: 1px solid var(--grey-4);
 
@@ -101,7 +109,7 @@
 </style>
 
 {#if badge || badgeClass}
-  <tr class="badge" on:click|preventDefault|stopPropagation={detailLink}>
+  <tr class="badge" class:links-enabled={linksEnabled} on:click|preventDefault|stopPropagation={detailLink}>
     <td class="badge-class-img">
       <img src={badgeClass.image} alt=""/>
     </td>

@@ -13,8 +13,12 @@
     export let isPublic = false;
     export let withHeaderData;
     export let withPendingEnrollments = false;
+    export let linksEnabled = true;
 
     const detailLink = () => {
+        if (!linksEnabled) {
+            return;
+        }
         if (badge && badge.isDirectAward) {
             navigate(`/direct-award/${badge.entityId}`);
         } else if (isPublic) {
@@ -44,6 +48,10 @@
     &:not(.stand-alone) {
       cursor: pointer;
       margin: 0;
+    }
+
+    &:not(.links-enabled){
+      cursor: default;
     }
 
     &.stand-alone {
@@ -194,7 +202,8 @@
 </style>
 
 {#if badge || badgeClass}
-  <div class="card badge" class:stand-alone={standAlone} on:click|preventDefault|stopPropagation={detailLink}>
+  <div class="card badge" class:links-enabled={linksEnabled} class:stand-alone={standAlone}
+       on:click|preventDefault|stopPropagation={detailLink}>
 
     {#if withPendingEnrollments}
       <StatusIndicator badge={badge} badgeClass={badgeClass}/>

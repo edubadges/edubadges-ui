@@ -83,9 +83,9 @@
     }
 
     &[disabled="true"] {
-      background: var(--grey-2);
-      border-color: var(--grey-2);
-      color: var(--grey-4);
+      background: var(--grey-3);
+      border-color: var(--grey-3);
+      color: var(--grey-5);
     }
   }
 

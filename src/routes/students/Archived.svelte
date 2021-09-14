@@ -10,6 +10,7 @@
   import ViewSelector from "../../components/shared/ViewSelector.svelte";
   import BadgeListView from "../../components/shared/BadgeListView.svelte";
   import {translateProperties} from "../../util/utils";
+  import BadgePanel from "../../components/students/BadgePanel.svelte";
 
   let loaded = false;
   let badges = [];
@@ -49,32 +50,6 @@
     margin-bottom: 30px;
   }
 
-  div.content {
-    &.cards {
-      display: grid;
-      grid-template-columns: 31% 31% 31%;
-      grid-row: auto;
-      grid-column-gap: 25px;
-      grid-row-gap: 25px;
-    }
-
-    &.list {
-      display: flex;
-      flex-direction: column;
-    }
-  }
-
-  @media (max-width: 1120px) {
-    div.content.cards {
-      grid-template-columns: 48% 48%;
-    }
-  }
-
-  @media (max-width: 820px) {
-    div.content.cards {
-      grid-template-columns: 100%;
-    }
-  }
 </style>
 
 <div>
@@ -88,15 +63,7 @@
     {#if badges.length === 0}
       <p>{I18n.t("badgeRequests.noneArchived")}</p>
     {:else}
-      <div class={`content ${view === "list" ? "list" : "cards"}`}>
-        {#if view === "list"}
-          <BadgeListView badges={badges}/>
-        {:else}
-          {#each badges as badge}
-            <BadgeCard badge={badge} badgeClass={badge.badgeclass} withHeaderData={true}/>
-          {/each}
-        {/if}
-      </div>
+      <BadgePanel badges={badges} view={view}/>
     {/if}
   {:else}
     <Spinner/>

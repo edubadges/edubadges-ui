@@ -798,7 +798,9 @@ I18n.translations.nl = {
     shareDialog: {
         title: "Deel je edubadge",
         copyPublicUrl: "Als je de link naar de publieke pagina van deze edubadge wilt delen, kan je de link kopiëren",
-        copy: "Kopieer de link"
+        copy: "Kopieer de link",
+        titleCollections: "Deel je collectie",
+        copyPublicUrlCollections: "Als je de link naar de publieke pagina van deze collectie van edubadge wilt delen, kan je de link kopiëren",
     },
     invites: {
         title: "Nodig iemand uit om zich in te schrijven",

@@ -720,7 +720,7 @@ export function createBadgeInstanceCollection(badgeInstanceCollection) {
 }
 
 export function editBadgeInstanceCollection(badgeInstanceCollection) {
-    const path = `${serverUrl}/issuer/collections/edit/${badgeInstanceCollection.entityId}`;
+    const path = `${serverUrl}/issuer/collections/edit/${badgeInstanceCollection.entity_id}`;
     return validFetch(path, {body: JSON.stringify(badgeInstanceCollection)}, "PUT", true, false);
 }
 

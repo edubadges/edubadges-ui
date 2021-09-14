@@ -4,6 +4,7 @@
   export let badges = [];
   export let isBadgesClass = false;
   export let isPublic = false;
+  export let linksEnabled = true;
 
 </script>
 
@@ -19,9 +20,9 @@
   <tbody>
   {#each badges as badge}
     {#if isBadgesClass}
-      <BadgeListItem badgeClass={badge} isPublic={isPublic}/>
+      <BadgeListItem badgeClass={badge} isPublic={isPublic} linksEnabled={linksEnabled}/>
     {:else}
-      <BadgeListItem badge={badge} badgeClass={badge.badgeclass}/>
+      <BadgeListItem badge={badge} badgeClass={badge.badgeclass} linksEnabled={linksEnabled}/>
     {/if}
 
   {/each}

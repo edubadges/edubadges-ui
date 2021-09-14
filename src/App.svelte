@@ -29,6 +29,7 @@
   import Catalog from "./routes/catalog/Catalog.svelte";
   import DirectAward from "./routes/students/DirectAward.svelte";
   import Insights from "./routes/teachers/Insights.svelte";
+  import CollectionForm from "./components/students/CollectionForm.svelte";
 
 
   const homepage = {
@@ -125,6 +126,9 @@
         </Route>
         <Route path="/collections">
           <Student bookmark="collections"/>
+        </Route>
+        <Route path="/edit-collection/:entityId" let:params>
+          <CollectionForm entityId={params.entityId}/>
         </Route>
         <Route path="/archived">
           <Student bookmark="archived"/>
