@@ -1,18 +1,19 @@
 <script>
-  import {onMount} from "svelte";
-  import {queryData} from "../../api/graphql";
-  import {isEmpty} from "lodash";
-  import {Overview} from "../../components/teachers/badgeclass/";
-  import I18n from "i18n-js";
-  import chevronRightSmall from "../../icons/chevron-right-small.svg";
-  import {link} from "svelte-routing";
-  import {translateProperties} from "../../util/utils";
+    import {onMount} from "svelte";
+    import {queryData} from "../../api/graphql";
+    import {isEmpty} from "lodash";
+    import {Overview} from "../../components/teachers/badgeclass/";
+    import I18n from "i18n-js";
+    import chevronRightSmall from "../../icons/chevron-right-small.svg";
+    import {link} from "svelte-routing";
+    import {translateProperties} from "../../util/utils";
+    import StudentBreadCrumb from "../../components/students/StudentBreadCrumb.svelte";
 
-  export let enrollmentId;
-  let enrollment;
-  let badgeClass;
+    export let enrollmentId;
+    let enrollment;
+    let badgeClass;
 
-  const query = `query ($enrollmentId: String){
+    const query = `query ($enrollmentId: String){
     enrollment(id: $enrollmentId) {
       entityId,
       dateCreated,
@@ -55,17 +56,17 @@
     }
   }`;
 
-  onMount(() => {
-    queryData(query, {enrollmentId}).then(res => {
-      enrollment = res.enrollment;
-      badgeClass = enrollment.badgeClass;
+    onMount(() => {
+        queryData(query, {enrollmentId}).then(res => {
+            enrollment = res.enrollment;
+            badgeClass = enrollment.badgeClass;
 
-      const issuer = badgeClass.issuer;
-      translateProperties(issuer);
-      translateProperties(issuer.faculty);
-      translateProperties(issuer.faculty.institution);
+            const issuer = badgeClass.issuer;
+            translateProperties(issuer);
+            translateProperties(issuer.faculty);
+            translateProperties(issuer.faculty.institution);
+        });
     });
-  });
 </script>
 
 <style lang="scss">
@@ -109,28 +110,6 @@
     }
   }
 
-  div.bread-crumb {
-    padding: var(--ver-padding-m) var(--hor-padding-m);
-    min-height: 47px;
-    display: flex;
-    align-items: center;
-
-    span.icon {
-      height: 14px;
-      width: 14px;
-      margin: auto 4px;
-    }
-
-    a {
-      color: var(--text-grey-dark);
-      text-decoration: underline;
-    }
-
-    span.current {
-      font-weight: bold;
-    }
-  }
-
   .overview-container {
     padding: 20px 40px 10px 40px;
     position: relative;
@@ -153,11 +132,11 @@
 
 <div class="enrollment-detail">
   {#if !isEmpty(badgeClass)}
-    <div class="bread-crumb">
+    <StudentBreadCrumb>
       <a use:link href={`/badge-requests`}>{I18n.t("student.enrollments")}</a>
       <span class="icon">{@html chevronRightSmall}</span>
       <span class="current">{badgeClass.name}</span>
-    </div>
+    </StudentBreadCrumb>
     <div class="badge-header">
       <h1>{badgeClass.name}</h1>
     </div>

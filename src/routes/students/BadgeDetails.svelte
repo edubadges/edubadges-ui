@@ -21,6 +21,7 @@
     import BadgeInstanceEvidence from "../../components/shared/BadgeInstanceEvidence.svelte";
     import CheckBox from "../../components/CheckBox.svelte";
     import {translateProperties} from "../../util/utils";
+    import StudentBreadCrumb from "../../components/students/StudentBreadCrumb.svelte";
 
     export let entityId;
 
@@ -251,28 +252,6 @@
     position: relative;
   }
 
-  div.bread-crumb {
-    padding: var(--ver-padding-m) var(--hor-padding-m);
-    min-height: 47px;
-    display: flex;
-    align-items: center;
-
-    span.icon {
-      height: 14px;
-      width: 14px;
-      margin: auto 4px;
-    }
-
-    a {
-      color: var(--text-grey-dark);
-      text-decoration: underline;
-    }
-
-    span.current {
-      font-weight: bold;
-    }
-  }
-
   div.badge-header {
     background-color: var(--purple-2);
     color: var(--purple);
@@ -388,11 +367,11 @@
 
 <div class="badge-detail-container">
   {#if loaded}
-    <div class="bread-crumb">
+    <StudentBreadCrumb>
       <a use:link href={`/backpack`}>{I18n.t("student.badges")}</a>
       <span class="icon">{@html chevronRightSmall}</span>
       <span class="current">{badge.badgeclass.name}</span>
-    </div>
+    </StudentBreadCrumb>
     <div class="badge-header">
       <h1>{badge.badgeclass.name}</h1>
     </div>

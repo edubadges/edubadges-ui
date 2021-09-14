@@ -1,45 +1,46 @@
 <script>
-  import I18n from "i18n-js";
+    import I18n from "i18n-js";
 
-  import {onMount} from "svelte";
-  import {link, navigate} from "svelte-routing";
-  import {queryData} from "../../api/graphql";
-  import chevronRightSmall from "../../icons/chevron-right-small.svg";
-  import Spinner from "../../components/Spinner.svelte";
-  import BadgeCard from "../../components/shared/BadgeCard.svelte";
-  import BadgeClassDetails from "../../components/shared/BadgeClassDetails.svelte";
-  import moment from "moment";
-  import {Modal} from "../../components/forms";
-  import {translateProperties} from "../../util/utils";
-  import Button from "../../components/Button.svelte";
-  import {acceptRejectDirectAward, acceptTermsForBadge} from "../../api";
-  import {flash} from "../../stores/flash";
-  import {authToken, redirectPath, userLoggedIn, userRole, validatedUserName} from "../../stores/user";
-  import {config} from "../../util/config";
-  import AcceptInstitutionTerms from "../AcceptInstitutionTerms.svelte";
+    import {onMount} from "svelte";
+    import {link, navigate} from "svelte-routing";
+    import {queryData} from "../../api/graphql";
+    import chevronRightSmall from "../../icons/chevron-right-small.svg";
+    import Spinner from "../../components/Spinner.svelte";
+    import BadgeCard from "../../components/shared/BadgeCard.svelte";
+    import BadgeClassDetails from "../../components/shared/BadgeClassDetails.svelte";
+    import moment from "moment";
+    import {Modal} from "../../components/forms";
+    import {translateProperties} from "../../util/utils";
+    import Button from "../../components/Button.svelte";
+    import {acceptRejectDirectAward, acceptTermsForBadge} from "../../api";
+    import {flash} from "../../stores/flash";
+    import {authToken, redirectPath, userLoggedIn, userRole, validatedUserName} from "../../stores/user";
+    import {config} from "../../util/config";
+    import AcceptInstitutionTerms from "../AcceptInstitutionTerms.svelte";
+    import StudentBreadCrumb from "../../components/students/StudentBreadCrumb.svelte";
 
-  export let entityId;
+    export let entityId;
 
-  let directAward = {};
-  let currentUser = {};
+    let directAward = {};
+    let currentUser = {};
 
-  let showAcceptTerms = false;
-  let termsAccepted = false;
-  let noValidInstitution = false;
+    let showAcceptTerms = false;
+    let termsAccepted = false;
+    let noValidInstitution = false;
 
-  //Modal
-  let showModal = false;
-  let modalTitle;
-  let modalQuestion;
-  let modalAction;
-  let warning;
-  let loaded;
+    //Modal
+    let showModal = false;
+    let modalTitle;
+    let modalQuestion;
+    let modalAction;
+    let warning;
+    let loaded;
 
-  const cancel = () => {
-    showModal = false;
-  }
+    const cancel = () => {
+        showModal = false;
+    }
 
-  const query = `query ($entityId: String) {
+    const query = `query ($entityId: String) {
     currentUser {
       validatedName,
       schacHomes,
@@ -101,91 +102,91 @@
     }
   }`;
 
-  onMount(() => {
-    queryData(query, {entityId}).then(res => {
-      directAward = res.directAward;
-      currentUser = res.currentUser;
-      const issuer = directAward.badgeclass.issuer;
+    onMount(() => {
+        queryData(query, {entityId}).then(res => {
+            directAward = res.directAward;
+            currentUser = res.currentUser;
+            const issuer = directAward.badgeclass.issuer;
 
-      const userTerms = currentUser.termsAgreements;
-      const termsCandidate = userTerms.find(uTerm => uTerm.terms.entityId === directAward.badgeclass.terms.entityId);
-      termsAccepted = termsCandidate && termsCandidate.agreedVersion === directAward.badgeclass.terms.version && termsCandidate.agreed;
+            const userTerms = currentUser.termsAgreements;
+            const termsCandidate = userTerms.find(uTerm => uTerm.terms.entityId === directAward.badgeclass.terms.entityId);
+            termsAccepted = termsCandidate && termsCandidate.agreedVersion === directAward.badgeclass.terms.version && termsCandidate.agreed;
 
-      translateProperties(issuer);
-      translateProperties(issuer.faculty);
-      translateProperties(issuer.faculty.institution);
+            translateProperties(issuer);
+            translateProperties(issuer.faculty);
+            translateProperties(issuer.faculty.institution);
 
-      showModal = false;
-      loaded = true;
+            showModal = false;
+            loaded = true;
+        });
     });
-  });
 
-  const userDisagreed = () => {
-    showAcceptTerms = false;
-  };
+    const userDisagreed = () => {
+        showAcceptTerms = false;
+    };
 
-  const rejectDirectAward = showConfirmation => {
-    if (showConfirmation) {
-      modalTitle = I18n.t("models.badgeAward.reject");
-      modalQuestion = I18n.t("models.badgeAward.confirmation.reject");
-      modalAction = () => rejectDirectAward(false);
-      warning = true;
-      showModal = true;
-    } else {
-      showModal = false;
-      acceptRejectDirectAward(directAward, false).then(() => {
-        flash.setValue(I18n.t("models.badgeAward.flash.reject"));
-        navigate("/backpack");
-      });
+    const rejectDirectAward = showConfirmation => {
+        if (showConfirmation) {
+            modalTitle = I18n.t("models.badgeAward.reject");
+            modalQuestion = I18n.t("models.badgeAward.confirmation.reject");
+            modalAction = () => rejectDirectAward(false);
+            warning = true;
+            showModal = true;
+        } else {
+            showModal = false;
+            acceptRejectDirectAward(directAward, false).then(() => {
+                flash.setValue(I18n.t("models.badgeAward.flash.reject"));
+                navigate("/backpack");
+            });
+        }
     }
-  }
 
-  const claimDirectAward = showConfirmation => {
-    const schacHomes = currentUser.schacHomes;
-    const institution = directAward.badgeclass.issuer.faculty.institution
-    const identifiers = [institution.identifier].concat(directAward.badgeclass.awardAllowedInstitutions);
-    const allowedInstitution = identifiers.some(identifier => schacHomes.includes(identifier));
-    const allowClaim = currentUser.validatedName && !directAward.badgeclass.formal;
-    if (!allowedInstitution && !allowClaim) {
-      noValidInstitution = true;
-      return;
+    const claimDirectAward = showConfirmation => {
+        const schacHomes = currentUser.schacHomes;
+        const institution = directAward.badgeclass.issuer.faculty.institution
+        const identifiers = [institution.identifier].concat(directAward.badgeclass.awardAllowedInstitutions);
+        const allowedInstitution = identifiers.some(identifier => schacHomes.includes(identifier));
+        const allowClaim = currentUser.validatedName && !directAward.badgeclass.formal;
+        if (!allowedInstitution && !allowClaim) {
+            noValidInstitution = true;
+            return;
+        }
+        if (!termsAccepted) {
+            showAcceptTerms = true;
+            return;
+        }
+        if (showConfirmation) {
+            modalTitle = I18n.t("models.badgeAward.claim");
+            modalQuestion = I18n.t("models.badgeAward.confirmation.claim");
+            modalAction = () => claimDirectAward(false);
+            warning = false;
+            showModal = true;
+        } else {
+            showModal = false;
+            acceptRejectDirectAward(directAward, true).then(res => {
+                flash.setValue(I18n.t("models.badgeAward.flash.claim"));
+                navigate(`/details/${res.entity_id}`);
+            });
+        }
     }
-    if (!termsAccepted) {
-      showAcceptTerms = true;
-      return;
-    }
-    if (showConfirmation) {
-      modalTitle = I18n.t("models.badgeAward.claim");
-      modalQuestion = I18n.t("models.badgeAward.confirmation.claim");
-      modalAction = () => claimDirectAward(false);
-      warning = false;
-      showModal = true;
-    } else {
-      showModal = false;
-      acceptRejectDirectAward(directAward, true).then(res => {
-        flash.setValue(I18n.t("models.badgeAward.flash.claim"));
-        navigate(`/details/${res.entity_id}`);
-      });
-    }
-  }
 
-  const userHasAgreed = () => {
-    showAcceptTerms = false;
-    acceptTermsForBadge(directAward.badgeclass.terms.entityId).then(() => {
-      termsAccepted = true;
-      claimDirectAward(true);
-    });
-  };
+    const userHasAgreed = () => {
+        showAcceptTerms = false;
+        acceptTermsForBadge(directAward.badgeclass.terms.entityId).then(() => {
+            termsAccepted = true;
+            claimDirectAward(true);
+        });
+    };
 
 
-  const logInForceAuthn = () => {
-    $userLoggedIn = "";
-    $userRole = "";
-    $authToken = "";
-    $validatedUserName = "";
-    $redirectPath = window.location.pathname;
-    window.location.href = config.eduId;
-  };
+    const logInForceAuthn = () => {
+        $userLoggedIn = "";
+        $userRole = "";
+        $authToken = "";
+        $validatedUserName = "";
+        $redirectPath = window.location.pathname;
+        window.location.href = config.eduId;
+    };
 
 
 </script>
@@ -229,28 +230,6 @@
     max-width: 320px;
     margin: 0 auto 40px auto;
     position: relative;
-  }
-
-  div.bread-crumb {
-    padding: var(--ver-padding-m) var(--hor-padding-m);
-    min-height: 47px;
-    display: flex;
-    align-items: center;
-
-    span.icon {
-      height: 14px;
-      width: 14px;
-      margin: auto 4px;
-    }
-
-    a {
-      color: var(--text-grey-dark);
-      text-decoration: underline;
-    }
-
-    span.current {
-      font-weight: bold;
-    }
   }
 
   div.badge-header {
@@ -323,11 +302,11 @@
 {#if loaded}
   {#if !showAcceptTerms}
     <div class="badge-detail-container">
-      <div class="bread-crumb">
+      <StudentBreadCrumb>
         <a use:link href={`/backpack`}>{I18n.t("student.badges")}</a>
         <span class="icon">{@html chevronRightSmall}</span>
         <span class="current">{directAward.badgeclass.name}</span>
-      </div>
+      </StudentBreadCrumb>
       <div class="badge-header">
         <h1>{directAward.badgeclass.name}</h1>
       </div>
