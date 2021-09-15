@@ -113,7 +113,7 @@
       <div class="public-link">
         <div class="info">
           <span>{@html info}</span>
-          <span>{copyPublicUrl}</span>
+          <span>{@html copyPublicUrl}</span>
         </div>
       </div>
     </div>

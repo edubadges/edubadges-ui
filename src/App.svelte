@@ -30,6 +30,7 @@
   import DirectAward from "./routes/students/DirectAward.svelte";
   import Insights from "./routes/teachers/Insights.svelte";
   import CollectionForm from "./components/students/CollectionForm.svelte";
+  import PublicCollectionPage from "./routes/students/PublicCollectionPage.svelte";
 
 
   const homepage = {
@@ -173,6 +174,9 @@
         </Route>
         <Route path="/public/issuers/:entityId/" let:params>
           <PublicIssuerPage visitorRole={visitorRole} entityId={params.entityId}/>
+        </Route>
+        <Route path="/public/collections/:entityId/" let:params>
+          <PublicCollectionPage entityId={params.entityId}/>
         </Route>
         <Route path="/profile">
           {#if visitorRole === role.TEACHER}

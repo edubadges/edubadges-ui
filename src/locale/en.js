@@ -790,7 +790,8 @@ I18n.translations.en = {
             name: "Name",
             description: "Description",
             privatePublic: "Private / public",
-            badge_instances: "Badges"
+            badge_instances: "Badges",
+            createdAt: "Created at"
         }
     },
     inviteDialog: {
@@ -804,7 +805,7 @@ I18n.translations.en = {
         copyPublicUrl: "If you want to share the public page link of this edubadge, you can copy the link to your clipboard.",
         copy: "Copy the link",
         titleCollections: "Share your collection",
-        copyPublicUrlCollections: "If you want to share the public page link of this collection of edubadges, you can copy the link to your clipboard.",
+        copyPublicUrlCollections: "If you want to share the public page link of this collection of edubadges, you can copy the link to your clipboard.<br/><br/>Note that only public badges which are not revoked are shown on the public collection page.",
     },
     invites: {
         title: "Invite people to request",

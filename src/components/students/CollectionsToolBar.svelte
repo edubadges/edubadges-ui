@@ -7,6 +7,7 @@
     export let sorting;
     export let view;
     export let shareableFilter;
+    export let readOnly = false;
 
 </script>
 
@@ -67,6 +68,7 @@
 </style>
 
 <div class="buttons">
+  {#if !readOnly}
   <span>
     <span class="badge-filter-button {shareableFilter ? 'active' : 'inactive'}"
           on:click={() => shareableFilter = true}>{I18n.t('collections.shareable')}</span>
@@ -74,19 +76,18 @@
     <span class="badge-filter-button {shareableFilter ? 'inactive' : 'active'}"
           on:click={() => shareableFilter = false}>{I18n.t('collections.all')}</span>
   </span>
-<ViewSelector bind:view={view}/>
+  {/if}
+  <ViewSelector bind:view={view}/>
 </div>
-
-<div class="sort-options">
-  <div class="sort">
-    <label class="title">{I18n.t("models.badgeclass.sorting")}</label>
-    <MinimalisticSelect
-      bind:value={sorting}
-      items={sortOptions}
-      clearable={false}
-      optionIdentifier="name"/>
+{#if !readOnly}
+  <div class="sort-options">
+    <div class="sort">
+      <label class="title">{I18n.t("models.badgeclass.sorting")}</label>
+      <MinimalisticSelect
+        bind:value={sorting}
+        items={sortOptions}
+        clearable={false}
+        optionIdentifier="name"/>
+    </div>
   </div>
-
-
-
-</div>
+{/if}

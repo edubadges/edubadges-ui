@@ -12,6 +12,7 @@
     export let collection = {};
     export let view;
     export let refresh;
+    export let readOnly = false;
 
     let showDetails = true;
     let showShareDialog = false;
@@ -142,34 +143,38 @@
 </style>
 <section class="collection-card">
   <div class="header">
-    <div class="inner-header" on:click={() => showDetails = !showDetails}>
-      {@html showDetails ? chevronUp : chevronDown}
-      <h3>{collection.name}</h3>
-    </div>
-    <section class="buttons-container">
-      <section class="buttons">
-        <div class="trash collection-action" on:click={deleteCollection(true)}>
-          {@html trash}
-        </div>
-        <div class="pencil collection-action" on:click={() => navigate(`/edit-collection/${collection.entityId}`)}>
-          {@html pencilIcon}
-        </div>
-        <div class="shield collection-action" on:click={togglePublic(true)}>
-          {@html collection.public ? shieldUnlock : shieldLock}
-        </div>
+    {#if !readOnly}
+      <div class="inner-header" on:click={() => showDetails = !showDetails}>
+        {@html showDetails ? chevronUp : chevronDown}
+        <h3>{collection.name}</h3>
+      </div>
+      <section class="buttons-container">
+        <section class="buttons">
+          <div class="trash collection-action" on:click={deleteCollection(true)}>
+            {@html trash}
+          </div>
+          <div class="pencil collection-action" on:click={() => navigate(`/edit-collection/${collection.entityId}`)}>
+            {@html pencilIcon}
+          </div>
+          <div class="shield collection-action" on:click={togglePublic(true)}>
+            {@html collection.public ? shieldUnlock : shieldLock}
+          </div>
+        </section>
       </section>
-    </section>
+    {/if}
   </div>
   {#if showDetails}
     <section class="card-content">
       <section class="card-content-header">
-        <p>{collection.description}</p>
-        <div class="share-container">
-          <Button text={I18n.t("student.share")} action={() => showShareDialog = true}
-                  disabled={!collection.public}/>
-        </div>
+        {#if !readOnly}
+          <p>{collection.description}</p>
+          <div class="share-container">
+            <Button text={I18n.t("student.share")} action={() => showShareDialog = true}
+                    disabled={!collection.public}/>
+          </div>
+        {/if}
       </section>
-      <BadgePanel badges={collection.badgeInstances} view={view} linksEnabled={false}/>
+      <BadgePanel badges={collection.badgeInstances} view={view} linksEnabled={readOnly} isPublic={readOnly}/>
       {#if collection.badgeInstances.length === 0}
         <p>{I18n.t("collections.zeroStateBadges")}</p>
       {/if}

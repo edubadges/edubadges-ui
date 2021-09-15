@@ -790,7 +790,8 @@ I18n.translations.nl = {
             name: "Naam",
             description: "Omschrijving",
             privatePublic: "Privé / publiek",
-            badge_instances: "Badges"
+            badge_instances: "Badges",
+            createdAt: "Aangemaakt op"
         }
     },
     inviteDialog: {
@@ -804,7 +805,7 @@ I18n.translations.nl = {
         copyPublicUrl: "Als je de link naar de publieke pagina van deze edubadge wilt delen, kan je de link kopiëren",
         copy: "Kopieer de link",
         titleCollections: "Deel je collectie",
-        copyPublicUrlCollections: "Als je de link naar de publieke pagina van deze collectie van edubadge wilt delen, kan je de link kopiëren",
+        copyPublicUrlCollections: "Als je de link naar de publieke pagina van deze collectie van edubadge wilt delen, kan je de link kopiëren<br/><br/>Alleen je publieke en niet ingetrokken badges worden getoond op de publieke collectie pagina.",
     },
     invites: {
         title: "Nodig iemand uit om zich in te schrijven",
