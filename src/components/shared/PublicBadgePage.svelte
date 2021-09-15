@@ -8,6 +8,7 @@
   import {publicBadgeInformation} from "../extensions/badges/extensions";
   import BadgeValidation from "../../routes/students/BadgeValidation.svelte";
   import BadgeInstanceEvidence from "./BadgeInstanceEvidence.svelte";
+  import BadgeHeader from "../students/BadgeHeader.svelte";
 
   export let entityId;
 
@@ -53,20 +54,6 @@
     padding: 10px 40px;
   }
 
-  div.badge-header {
-    background-color: var(--purple-2);
-    color: var(--purple);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 60px;
-    margin-bottom: 25px;
-
-    h1 {
-      font-size: 28px;
-    }
-  }
-
   div.badge-card-container {
     display: flex;
     max-width: 320px;
@@ -82,10 +69,7 @@
 
 {#if loaded}
   <div class="badge-public-detail-container">
-    <div class="badge-header">
-      <h1>{badge.name}</h1>
-    </div>
-
+    <BadgeHeader title={badge.name}/>
     <div>
       <div class="badge-card-container">
         <BadgeCard badgeClass={badge} standAlone={true} withHeaderData={false}/>

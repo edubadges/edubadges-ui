@@ -2,7 +2,6 @@
     import I18n from "i18n-js";
     import Spinner from "../../components/Spinner.svelte";
     import {onMount} from "svelte";
-    import {createBadgeInstanceCollection} from "../../api";
     import Button from "../../components/Button.svelte";
     import {queryData} from "../../api/graphql";
     import {translateProperties} from "../../util/utils";
@@ -10,11 +9,12 @@
     import CollectionsHeader from "../../components/students/CollectionsHeader.svelte";
     import CollectionsToolBar from "../../components/students/CollectionsToolBar.svelte";
     import CollectionCard from "../../components/students/CollectionCard.svelte";
+    import {navigate} from "svelte-routing";
 
     const sortOptions = [
         {value: "recent", name: I18n.t("collections.byRecent")},
         {value: "size", name: I18n.t("collections.bySize")},
-        {value: "name", name: I18n.t("collections.byName")},
+        {value: "public", name: I18n.t("collections.byPublic")},
     ]
 
     let loaded = false;
@@ -99,23 +99,19 @@
 
     onMount(refresh);
 
-    const createCollection = () => {
-        createBadgeInstanceCollection({
-            name: "test 12345", description: "Desss !!!!",
-            badge_instances: [25, 28], 'public': false
-        });
-    }
-
-    $: filteredAndSortedCollections = badgeInstanceCollections.filter(coll => shareableFilter ? coll.public : true).sort((a, b) => {
-        switch (sorting) {
+    $: filteredAndSortedCollections = badgeInstanceCollections
+        .filter(coll => shareableFilter ? coll.public : true)
+        .sort((a, b) => {
+        const val = sorting.value;
+        switch (val) {
             case "recent": {
                 return new Date(b.createdAt) - new Date(a.createdAt)
             }
             case "size": {
-                return a.badgeInstances.length - b.badgeInstances.length;
+                return b.badgeInstances.length - a.badgeInstances.length;
             }
-            case "name": {
-                return a.name.localeCompare(b.name)
+            case "public": {
+                return (a.public === b.public)? 0 : b.public ? 1 : -1;
             }
         }
     })
@@ -139,7 +135,7 @@
   {#if loaded}
     <div class="container">
       <CollectionsHeader {badgeInstanceCollections}>
-        <Button action={createCollection} text={I18n.t("collections.create")}/>
+        <Button action={() => navigate("/edit-collection/new")} text={I18n.t("collections.create")}/>
       </CollectionsHeader>
       {#if badgeInstanceCollections.length === 0}
         <p>{I18n.t("collections.zeroState")}</p>

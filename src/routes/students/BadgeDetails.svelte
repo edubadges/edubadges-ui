@@ -22,6 +22,7 @@
     import CheckBox from "../../components/CheckBox.svelte";
     import {translateProperties} from "../../util/utils";
     import StudentBreadCrumb from "../../components/students/StudentBreadCrumb.svelte";
+    import BadgeHeader from "../../components/students/BadgeHeader.svelte";
 
     export let entityId;
 
@@ -252,20 +253,6 @@
     position: relative;
   }
 
-  div.badge-header {
-    background-color: var(--purple-2);
-    color: var(--purple);
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
-    height: 60px;
-
-    h1 {
-      font-size: 28px;
-    }
-  }
-
   div.actions {
     margin: 25px 0;
     display: flex;
@@ -372,10 +359,7 @@
       <span class="icon">{@html chevronRightSmall}</span>
       <span class="current">{badge.badgeclass.name}</span>
     </StudentBreadCrumb>
-    <div class="badge-header">
-      <h1>{badge.badgeclass.name}</h1>
-    </div>
-    <!--    <BadgeValidation validation={validation} public={badge} name={$userName}/>-->
+    <BadgeHeader title={badge.badgeclass.name}/>
     <div class="badge-detail">
       <div class="shield">
         {#if badge.public}

@@ -400,7 +400,7 @@ I18n.translations.en = {
         933: "This badge class requires evidence for awarding",
         934: "The programme identifier is required when Credit points are specified.",
         935: "Enter the time investment or remove this section.",
-
+        936: "Cannot create Badge collection with this name as it already exists.",
         unexpected: "Unexpected error occurred.",
         description: "An unexpected error has occurred. Please try again later or contact support@edubadges.nl for support.",
         close: "Close"
@@ -787,6 +787,10 @@ I18n.translations.en = {
         collections: {
             number: "Number",
             lastUpdated: "Last one created",
+            name: "Name",
+            description: "Description",
+            privatePublic: "Private / public",
+            badge_instances: "Badges"
         }
     },
     inviteDialog: {
@@ -1088,8 +1092,6 @@ I18n.translations.en = {
         claimRate: "The claim rate is the total number of awarded badges as a percentage of the total of direct awards and enrollments.",
         directAwards: "Direct awards are badges that are awarded by the teacher to students by email. The number(s) below are direct awards that are either still not accepted, rejected or revoked",
         enrollments: "Enrollments are requested by students and once approved will be new awarded badges. The number(s) below are enrollments that have not been approved by the teacher or are denied",
-        editBadgeCollection: "Edit",
-        deleteBadgeCollection: "Delete",
         toggleBadgeCollectionPublic: "A public collection can be shared with other whereas a private collection can not.",
         collectionBadgeInstances: "Select all the badges you want to put in this collection"
     },
@@ -1237,23 +1239,29 @@ I18n.translations.en = {
     collections: {
         title: "Collections",
         info: "A collection of badges that you as a whole can share with others.",
-        zeroState: "You have not created any collections of badges yet.",
+        zeroState: "You have not created any collections of badges yet...",
+        zeroStateBadges: "You have not added any badges yet...",
         create: "Create a new collection",
         shareable: "Collections that you can share",
         all: "All your collections",
         byRecent: "Most recent",
         bySize: "Number of badges",
-        byName: "Name",
+        byPublic: "Public / private",
         deleteConfirmation: "Delete badge collection {{name}}",
         deleteConfirmationQuestion: "Are you sure you want to delete badge collection {{name}}.",
         deleteFlash: "Badge collection {{name}] deleted.",
+        privatePublic: "Check to make this collection public",
         share: {
             publish: "Make this collection publicly visible",
             publishConfirmation: "Are you sure you want to make this collection publicly visible?<br/><br/>If you make this collection public then it is viewable for everyone with the link.",
             private: "Make this collection private",
             privateConfirmation: "Are you sure you want to make this collection private?",
         },
-
+        placeholders: {
+            name: "Name of the collection",
+            description: "Description of the collection",
+            chosenBadges: "Badges in this collection"
+        },
+        new: "New collection"
     }
-
 };

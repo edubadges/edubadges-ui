@@ -25,7 +25,7 @@
             const newCollection = {
                 public: !collection.public,
                 name: collection.name,
-                description: collection.name,
+                description: collection.description,
                 badge_instances: collection.badgeInstances.map(bi => bi.id),
                 entity_id: collection.entityId
             }
@@ -55,9 +55,7 @@
         }
     }
 
-    const copiedLink = () => {
-        showShareDialog = false;
-    }
+    const copiedLink = () => showShareDialog = false;
 
 </script>
 <style lang="scss">
@@ -172,6 +170,9 @@
         </div>
       </section>
       <BadgePanel badges={collection.badgeInstances} view={view} linksEnabled={false}/>
+      {#if collection.badgeInstances.length === 0}
+        <p>{I18n.t("collections.zeroStateBadges")}</p>
+      {/if}
     </section>
   {/if}
 </section>
@@ -195,7 +196,7 @@
 {#if showShareDialog}
   <ShareDialog
     copied={copiedLink}
-    cancel={() => showShareDialog = false}
+    cancel={copiedLink}
     publicUrl={publicUrl()}
     title={I18n.t("shareDialog.titleCollections")}
     copyPublicUrl={I18n.t("shareDialog.copyPublicUrlCollections")}/>

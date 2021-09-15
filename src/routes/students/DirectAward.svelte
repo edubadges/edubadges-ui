@@ -18,6 +18,7 @@
     import {config} from "../../util/config";
     import AcceptInstitutionTerms from "../AcceptInstitutionTerms.svelte";
     import StudentBreadCrumb from "../../components/students/StudentBreadCrumb.svelte";
+    import BadgeHeader from "../../components/students/BadgeHeader.svelte";
 
     export let entityId;
 
@@ -232,20 +233,6 @@
     position: relative;
   }
 
-  div.badge-header {
-    background-color: var(--purple-2);
-    color: var(--purple);
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
-    height: 60px;
-
-    h1 {
-      font-size: 28px;
-    }
-  }
-
   div.actions {
     margin: 25px 0;
     display: flex;
@@ -307,9 +294,7 @@
         <span class="icon">{@html chevronRightSmall}</span>
         <span class="current">{directAward.badgeclass.name}</span>
       </StudentBreadCrumb>
-      <div class="badge-header">
-        <h1>{directAward.badgeclass.name}</h1>
-      </div>
+      <BadgeHeader title={directAward.badgeclass.name}/>
       <div class="badge-detail">
         <div class="badge-card-container">
           <span class="status-indicator unclaimed">{I18n.t("models.badge.statuses.unclaimed")}</span>

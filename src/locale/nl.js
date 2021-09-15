@@ -400,7 +400,7 @@ I18n.translations.nl = {
         933: "Een URL is verplicht voor het awarden van deze edubadge",
         934: "De opleidingscode is verplicht als er studiepunten zijn opgegeven.",
         935: "Vul de tijdsinvestering of verwijder deze rubriek.",
-
+        936: "Kan geen badge collectie aanmaken met deze naam. Er bestaan al een collectie met deze naam.",
         unexpected: "Oeps, er is iets totaal onverwachts en onverklaarbaars gebeurd.",
         description: "Een onverwachte fout is opgetreden. Probeer het opnieuw of neem contact op met support@edubadges.nl voor ondersteuning.",
         close: "Sluit"
@@ -787,6 +787,10 @@ I18n.translations.nl = {
         collections: {
             number: "Number",
             lastUpdated: "Last one created",
+            name: "Naam",
+            description: "Omschrijving",
+            privatePublic: "Privé / publiek",
+            badge_instances: "Badges"
         }
     },
     inviteDialog: {
@@ -1087,7 +1091,9 @@ I18n.translations.nl = {
         demoEnvironment: "Alle data wordt iedere maand verwijderd.",
         claimRate: "Het claimpercentage is het totale aantal toegekende badges als percentage van het totaal aan directe awards en inschrijvingen.",
         directAwards: "Direct awards are badges that are awarded by the teacher to students by email. The number(s) below are direct awards that are either still not accepted, rejected or revoked",
-        enrollments: "Enrollments are requested by students and once approved will be new awarded badges. The number(s) below are enrollments that have not been approved by the teacher or are denied"
+        enrollments: "Enrollments are requested by students and once approved will be new awarded badges. The number(s) below are enrollments that have not been approved by the teacher or are denied",
+        toggleBadgeCollectionPublic: "Een openbare collectie kan met anderen worden gedeeld, een privécollectie niet.",
+        collectionBadgeInstances: "Selecteer alle badges die je in deze collectie wilt plaatsen."
     },
     badgeOverview: {
         faculty: "Faculteit",
@@ -1209,25 +1215,53 @@ I18n.translations.nl = {
         flash: "Je feedback is succesvol verzonden. Bedankt!"
     },
     insights: {
-        awardedBadges: "Awarded badges",
-        totalAwarded: "Total awarded",
-        directAwarded: "Direct awarded",
-        requested: "Requested",
-        enrollments: "Enrollments",
+        awardedBadges: "Bekroonde badges",
+        totalAwarded: "Totaal awarded",
+        directAwarded: "Direct toegekend",
+        requested: "Aangevraagd",
+        enrollments: "Inschrijvingen",
         open: "Open",
-        directAwards: "Direct awards",
-        directAwardDenied: "Rejected by student",
-        requestedDeniedTooltip: "Denied by teacher after request",
-        revoked: "Revoked after awarded",
-        requestedDenied: "Denied by teacher",
+        directAwards: "Direct toegekend",
+        directAwardDenied: "Geweigerd door student",
+        requestedDeniedTooltip: "Geweigerd door leraar na verzoek",
+        revoked: "Ingetrokken na toekenning",
+        requestedDenied: "Geweigerd door leraar",
         claimRate: "Claim rate",
-        numbers: "The numbers add up",
+        numbers: "De getallen tellen op",
         badgeClasses: "Badgeclasses",
         issuers: "Issuers",
-        issuerGroups: "Issuer groups",
-        users: "Portal users",
+        issuerGroups: "Issuer groepen",
+        users: "Portal gebruikers",
         crunching: "Crunching the numbers just for you...",
-        date: "Date",
+        date: "Datum",
         reset: "Reset"
+    },
+    collections: {
+        title: "Collecties",
+        info: "Een verzameling badges die je als geheel met anderen kan delen.",
+        zeroState: "Je hebt nog geen verzamelingen badges gemaakt...",
+        zeroStateBadges: "Je hebt nog geen badges toegevoegd...",
+        create: "Maak een nieuwe collectie",
+        shareable: "Collecties die je kan delen",
+        all: "Al je collecties",
+        byRecent: "Meest recent",
+        bySize: "Aantal badges",
+        byPublic: "Publiek / privé",
+        deleteConfirmation: "Verwijder badge collectie {{name}}",
+        deleteConfirmationQuestion: "Weet je zeker dat je de badgeverzameling {{name}} wilt verwijderen?",
+        deleteFlash: "Badge collectie {{name}] verwijderd.",
+        privatePublic: "Vink aan om deze collectie openbaar te maken",
+        share: {
+            publish: "Maak deze collectie openbaar zichtbaar",
+            publishConfirmation: "Weet je zeker dat je deze collectie openbaar zichtbaar wilt maken?<br/><br/>Als je deze collectie openbaar maakt, is deze voor iedereen zichtbaar met de link.",
+            private: "Maak deze verzameling privé",
+            privateConfirmation: "Weet je zeker dat je deze verzameling privé wilt maken?",
+        },
+        placeholders: {
+            name: "Naam van de collectie",
+            description: "Beschrijving van de collectie",
+            chosenBadges: "Badges in deze collectie"
+        },
+        new: "Nieuwe collectie"
     }
 };

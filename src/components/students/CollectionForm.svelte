@@ -2,7 +2,7 @@
     import {link, navigate} from "svelte-routing";
     import indicator from "../../icons/chevron-down-large.svg";
     import {Field, TextInput} from "../forms";
-    import {editInstitution} from "../../api";
+    import {createBadgeInstanceCollection, deleteBadgeInstanceCollection, editBadgeInstanceCollection} from "../../api";
     import I18n from "i18n-js";
     import Select from "../forms/Select.svelte";
     import CheckBox from "../CheckBox.svelte";
@@ -10,6 +10,11 @@
     import {queryData} from "../../api/graphql";
     import Spinner from "../Spinner.svelte";
     import chevronRightSmall from "../../icons/chevron-right-small.svg";
+    import StudentBreadCrumb from "./StudentBreadCrumb.svelte";
+    import BadgeHeader from "./BadgeHeader.svelte";
+    import Button from "../Button.svelte";
+    import {flash} from "../../stores/flash";
+    import Modal from "../forms/Modal.svelte";
 
     const queryBadgeInstance = `query ($entityId: String) {
       badgeInstanceCollection(id: $entityId) {
@@ -45,16 +50,16 @@
 
     export let entityId;
 
-    let entity = "collection";
+    let entity = "collections";
     let errors = {};
     let processing = false;
     let collection = {
-        name: "", description: "", public: false, badge_instances: []
+        name: "", description: "", public: false, badgeInstances: []
     }
     let isNew = true;
     let badges = [];
     let loaded = false;
-
+    let showRemoveModal = false;
 
     onMount(() => {
         isNew = entityId === "new";
@@ -62,47 +67,87 @@
             badgeInstanceCollection: collection
         }) : queryData(queryBadgeInstance, {entityId});
         Promise.all([promise, queryData(queryBadges)]).then(res => {
-            collection = res[0].badgeInstanceCollection;
             badges = res[1].badgeInstances.map(badge => {
                 badge.name = badge.badgeclass.name;
+                return badge;
             });
+            res[0].badgeInstanceCollection.badgeInstances.forEach(badge => {
+                badge.name = badges.find(b => b.id === badge.id).name;
+            })
+            collection = res[0].badgeInstanceCollection;
             loaded = true;
         });
     });
 
-    function handleSubmit() {
+    const handleSubmit = () => {
         errors = {};
         processing = true;
-
-        editInstitution(institution.entityId, institution)
-            .then(() => navigate(`/manage/institution`))
+        const promise = isNew ? createBadgeInstanceCollection : editBadgeInstanceCollection;
+        const newCollection = {
+            public: collection.public,
+            name: collection.name || null,
+            description: collection.description,
+            badge_instances: (collection.badgeInstances || []).map(bi => bi.id),
+            entity_id: collection.entityId
+        }
+        promise(newCollection)
+            .then(() => navigate(`/collections`))
             .catch(err => err.then(({fields}) => {
                 errors = fields.error_message;
                 processing = false;
-                debugger;
             }));
     }
+
+    const deleteCollection = showConfirmation => () => {
+        if (showConfirmation) {
+            showRemoveModal = true;
+        } else {
+            deleteBadgeInstanceCollection(collection).then(() => {
+                flash.setValue(I18n.t("collections.deleteFlash", {name: collection.name}));
+                navigate("/collections");
+            });
+        }
+    }
+
 </script>
-<style>
-    div.collection-form-container {
+<style lang="scss">
+  div.collection-form-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  div.collection-detail {
+    padding: 20px 40px 10px 40px;
+  }
+
+  div.actions {
+    display: flex;
+    margin-top: 25px;
+
+    .button-container {
+      &:not(:last-child) {
+        margin-right: 15px;
+      }
+
+      &.delete {
+        margin-left: auto;
+        margin-right: 0;
         display: flex;
         flex-direction: column;
-        width: 100%;
+      }
     }
-
-    div.collection-detail {
-        padding: 20px 40px 10px 40px;
-    }
-
+  }
 </style>
 
 <div class="collection-form-container">
   {#if loaded}
-    <div class="bread-crumb">
+    <StudentBreadCrumb>
       <a use:link href={`/collections`}>{I18n.t("routes.collections")}</a>
       <span class="icon">{@html chevronRightSmall}</span>
-      <span class="current">{isNew ? I18n.t("collections.form.new") : collection.name}</span>
-    </div>
+      <span class="current">{isNew ? I18n.t("collections.new") : collection.name}</span>
+    </StudentBreadCrumb>
+    <BadgeHeader title={isNew ? I18n.t("collections.new") : collection.name}/>
     <div class="collection-detail">
 
       <Field {entity} attribute="name" errors={errors.name}>
@@ -117,12 +162,12 @@
         <CheckBox
           value={collection.public || false}
           inForm={true}
-          adjustTop={true}
+          adjustTopFlex={true}
           label={I18n.t("collections.privatePublic")}
           onChange={val => collection.public = val}/>
       </Field>
       <Field {entity} attribute="badge_instances" errors={errors.badge_instances}
-             tipKey="chosenBadges">
+             tipKey="collectionBadgeInstances">
         <Select
           bind:value={collection.badgeInstances}
           items={badges}
@@ -135,9 +180,42 @@
           optionIdentifier="id"
         />
       </Field>
+      <div class="actions">
+        <div class="button-container">
+          <Button
+            secondary
+            disabled={processing}
+            action={() => window.history.back()}
+            text={I18n.t(['manage', isNew ? 'new' : 'edit', 'cancel'])}/>
+        </div>
+        <div class="button-container">
+          <Button
+            disabled={processing}
+            action={handleSubmit}
+            text={I18n.t(['manage', isNew ? 'new' : 'edit', 'save'])}/>
+        </div>
+        {#if !isNew}
+          <div class="button-container delete">
+            <Button
+              warning={true}
+              disabled={processing}
+              action={() => showRemoveModal = true}
+              text={I18n.t("manage.delete.delete")}/>
+          </div>
+        {/if}
+      </div>
+
     </div>
   {:else}
     <Spinner/>
   {/if}
 
 </div>
+{#if showRemoveModal}
+  <Modal
+    submit={deleteCollection(false)}
+    warning={true}
+    cancel={() => showRemoveModal = false}
+    question={I18n.t("collections.deleteConfirmationQuestion", {name: collection.name})}
+    title={I18n.t("collections.deleteConfirmation", {name: collection.name})}/>
+{/if}
