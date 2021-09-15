@@ -52,9 +52,6 @@
         margin-bottom: var(--ver-padding-m);
       }
     }
-    div.slot {
-      margin: 15px 0 0 auto;
-    }
   }
 </style>
 
