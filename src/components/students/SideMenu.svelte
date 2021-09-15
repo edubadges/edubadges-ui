@@ -65,7 +65,7 @@
     height: 30px;
     width: auto;
 
-    &.archived-svg {
+    &.archived-svg, &.award-ribbon {
       height: 25px;
       margin-right: 10px;
     }

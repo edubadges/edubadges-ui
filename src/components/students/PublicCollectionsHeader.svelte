@@ -1,7 +1,6 @@
 <script>
     import {onMount} from "svelte";
-    import catalog from "../../icons/catalog.svg";
-    import I18n from "i18n-js";
+    import badgeCollections from "../../icons/badge-collections.svg";
     import {HeaderList} from "../teachers";
 
     export let badgeInstanceCollection = {};
@@ -60,7 +59,7 @@
 </h2>
 <div class="header">
   <div class="collections-icon-container">
-    {@html catalog}
+    {@html badgeCollections}
   </div>
   <div class="content">
     <p>{badgeInstanceCollection.description}</p>

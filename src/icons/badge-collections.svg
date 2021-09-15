@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="114px" height="127px" viewBox="0 0 114 127" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>big icon</title>
+    <g id="Badge-classes-aangevraagd" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="VD---BADGES-CLASSES-|-Label-aangevraagde-badges" transform="translate(-877.000000, -203.000000)">
+            <g id="alerts-&amp;-notifications-/-notification-/-01-alerts-&amp;-notifications-/-notification-with-big-icon" transform="translate(852.000000, 182.000000)">
+                <g id="big-icon" transform="translate(25.248737, 21.000000)">
+                    <g id="icon" transform="translate(34.000000, 0.000000)" fill="#F7A410" fill-rule="nonzero">
+                        <path d="M62.44375,11.2776221 L36.04375,0.495320504 C34.4196034,-0.165106835 32.5941466,-0.165106835 30.97,0.495320504 L4.57,11.2776221 C2.10875,12.274985 0.5,14.6336135 0.5,17.2483217 C0.5,44.0019076 16.24375,62.4935549 30.95625,68.504688 C32.57875,69.165104 34.4075,69.165104 36.03,68.504688 C47.81375,63.6930859 66.5,47.0748635 66.5,17.2483217 C66.5,14.6336135 64.89125,12.274985 62.44375,11.2776221 Z M33.5136441,60 L33.5,9 L57.5,18.811811 C57.0497442,39.0779528 46.2981808,53.7622047 33.5136441,60 L33.5136441,60 Z" id="Shape"></path>
+                    </g>
+                    <circle id="Oval" fill="#EA7600" cx="88.5" cy="102.5" r="24.5"></circle>
+                    <rect id="Rectangle" fill="#009F4D" transform="translate(25.500000, 86.500000) rotate(45.000000) translate(-25.500000, -86.500000) " x="8" y="69" width="35" height="35" rx="2"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -5,6 +5,7 @@
     import data_activity from "../icons/data_activity.svg";
     import personal_info from "../icons/personal_info.svg";
     import archived_svg from "../icons/archive-svgrepo-com.svg";
+    import award from "../icons/award-ribbon-star-1.svg";
 
     import {Archived, Backpack, BadgeRequests, Profile} from "./students";
     import Collections from "./students/Collections.svelte";
@@ -14,7 +15,7 @@
     const pages = [
         {path: "backpack", icon: data_activity, component: Backpack},
         {path: "badge-requests", icon: security, component: BadgeRequests},
-        {path: "collections", icon: archived_svg, component: Collections},
+        {path: "collections", icon: award, component: Collections},
         {path: "archived", icon: archived_svg, component: Archived},
         {path: "profile", icon: personal_info, component: Profile}
     ];
