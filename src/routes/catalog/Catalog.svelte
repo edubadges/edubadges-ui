@@ -35,6 +35,7 @@
             image,
             entityId,
             assertionsCount,
+            archived,
             createdAt,
             extensions {
               name,

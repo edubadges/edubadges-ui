@@ -29,6 +29,7 @@ I18n.translations.en = {
         loginToEnrolInfo: "<strong>Attention!</strong> You can only request this edubadge if you are registered at one of these institutions: <strong>{{name}}</strong>.",
         loginToEnrolInfoOne: "<strong>Attention!</strong> You can only request this edubadge if you are registered at <strong>{{name}}</strong>.",
         loginToEnrolInfoAll: "<strong>Attention!</strong> You can only request this edubadge if your institution is registered with edubadges.",
+        badgeClassArchived: "This edubadge has been archived and can no longer be requested.",
         destination: "What would you like to do?",
         description:
             "Edubadges are digital certificates which show that the owner has acquired certain skills or knowledge. Edubadges can be issued for both accredited education and extracurriculair activities.",
@@ -257,6 +258,7 @@ I18n.translations.en = {
             badgeclass: "Edit badge class",
             save: "Save changes",
             cancel: "Cancel",
+            archive: "Archive"
         },
         delete: {
             delete: "Delete",
@@ -662,6 +664,18 @@ I18n.translations.en = {
             publicUrl: "Public URL",
             sorting: "Sorting:",
             award_allowed_institutions: "Award allowed institutions",
+            archive: {
+                confirmation: "Badgeclass archive",
+                confirmationQuestion: "Are you sure you want to archive this badgeclass?",
+                flash: "Badgeclass {{name}} is archived",
+                action: "Archive"
+            },
+            unarchive: {
+                confirmation: "Badgeclass unarchive",
+                confirmationQuestion: "Are you sure you wannt to unarchive this badgeclass?",
+                flash: "Badgeclass {{name}} is unarchived",
+                action: "Unarchive"
+            }
         },
         badge: {
             emailAddress: "Email address",
@@ -696,7 +710,8 @@ I18n.translations.en = {
                 unaccepted: "Pending",
                 pending: "Pending",
                 unclaimed: "Unclaimed",
-                pendingEnrollmentCount: "{{count}} open requests"
+                pendingEnrollmentCount: "{{count}} open requests",
+                archived: "Archived"
             },
             confirmation: {
                 revocationReason: "Reason for revocation (required)",
@@ -1133,6 +1148,7 @@ I18n.translations.en = {
         bulkAward: "Bulk award from csv",
         or: "-or-",
         inviteEnrollements: "Invite people to enroll",
+        badgeClassArchived: "Can not award archived badgeclass",
     },
     badgeAward: {
         directAward: {

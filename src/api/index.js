@@ -278,6 +278,11 @@ export function createBadgeclass(badgeclass) {
     return validFetchNoErrorDialog(path, {body: badgeClassToJson(badgeclass)}, "POST");
 }
 
+export function archiveBadgeclass(entityId, archive) {
+    const path = `${serverUrl}/issuer/badgeclasses/archive/${entityId}`;
+    return validFetchNoErrorDialog(path, {body: JSON.stringify({archive: archive})}, "PUT");
+}
+
 // Entities
 export function deleteEntity(entityTypeName, entityId) {
     let path;

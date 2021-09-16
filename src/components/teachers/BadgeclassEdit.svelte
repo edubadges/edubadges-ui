@@ -33,6 +33,7 @@
       description,
       createdAt,
       criteriaUrl,
+      archived,
       criteriaText,
       expirationPeriod,
       isPrivate,

@@ -47,7 +47,7 @@
     max-width: 145px;
   }
 
-  span.status-indicator.revoked {
+  span.status-indicator.revoked, span.status-indicator.archived {
     background-color: var(--red-strong-dark);
     color: white;
     max-width: 85px;
@@ -73,9 +73,13 @@
     <span class="status-indicator expired" class:card-view={cardView}>{I18n.t("models.badge.statuses.expired")}</span>
   {/if}
 {/if}
-{#if badgeClass && badgeClass.pendingEnrollmentCount > 0}
+{#if badgeClass && badgeClass.pendingEnrollmentCount && badgeClass.pendingEnrollmentCount > 0}
     <span class="status-indicator pending-enrollments" class:card-view={cardView}>
       {I18n.t("models.badge.statuses.pendingEnrollmentCount", {count: badgeClass.pendingEnrollmentCount})}
+    </span>
+{:else if badgeClass && badgeClass.archived}
+    <span class="status-indicator archived" class:card-view={cardView}>
+      {I18n.t("models.badge.statuses.archived")}
     </span>
 {/if}
 

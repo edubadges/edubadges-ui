@@ -5,6 +5,7 @@
     import Button from "../../Button.svelte";
     import {onMount} from "svelte";
     import warning from "../../../icons/warning.svg";
+    import EntityHeaderNotification from "../EntityHeaderNotification.svelte";
 
     export let badgeclass = {};
 
@@ -50,27 +51,6 @@
       }
     }
 
-    div.info {
-      display: flex;
-      align-items: center;
-      max-width: 180px;
-
-      span {
-        line-height: 20px;
-
-        &:first-child {
-          margin-right: 15px;
-          max-width: 100%;
-        }
-      }
-
-      :global(span.warning svg) {
-        width: 28px;
-        height: auto;
-        fill: var(--red-dark);
-      }
-    }
-
     div.tooltip {
       z-index: 9;
       position: absolute;
@@ -104,10 +84,9 @@
 </style>
 <div class="badge-award-options">
   {#if badgeclass.isPrivate}
-    <div class="info">
-      <span class="warning">{@html warning}</span>
-      <span>{I18n.t("invites.copyPublicUrlDisabled")}</span>
-    </div>
+    <EntityHeaderNotification msg={I18n.t("invites.copyPublicUrlDisabled")}/>
+  {:else if badgeclass.archived}
+    <EntityHeaderNotification msg={I18n.t("badgeAwardOptions.badgeClassArchived")}/>
   {:else}
     {#if directAwardingEnabled}
       <Button href={`/badgeclass/${badgeclass.entityId}/direct-award`} text={I18n.t("badgeAwardOptions.directAward")}/>

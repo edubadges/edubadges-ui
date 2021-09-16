@@ -29,6 +29,7 @@ I18n.translations.nl = {
         loginToEnrolInfo: "<strong>Let op!</strong> Je kan deze edubadge alleen aanvragen als je staat ingeschreven bij één van deze instellingen: <strong>{{name}}</strong>.",
         loginToEnrolInfoOne: "<strong>Let op!</strong> Je kan deze edubadge alleen aanvragen als je staat ingeschreven bij <strong>{{name}}</strong>.",
         loginToEnrolInfoAll: "<strong>Let op!</strong> Je kan deze edubadge alleen aanvragen als je instelling is aangesloten op edubadges.",
+        badgeClassArchived: "Deze edubadge is gearchiveerd en kan niet langer worden aangevraagd.",
         destination: "Wat zou je willen doen?",
         description:
             "Edubadges zijn digitale certificaten die aantonen dat de eigenaar bepaalde vaardigheden of kennis heeft verworven. Edubadges kunnen worden uitgereikt voor zowel geaccrediteerd onderwijs als extracurriculaire activiteiten.",
@@ -257,6 +258,7 @@ I18n.translations.nl = {
             badgeclass: "Wijzig badge class",
             save: "Opslaan",
             cancel: "Annuleren",
+            archive: "Archieveren"
         },
         delete: {
             delete: "verwijder",
@@ -662,6 +664,19 @@ I18n.translations.nl = {
             publicUrl: "Publieke URL",
             sorting: "Sorteer:",
             award_allowed_institutions: "Toegestaande edubadge instellingen",
+            archive: {
+                confirmation: "Badge class archiveren",
+                confirmationQuestion: "Weet je zeker dat je deze badge class wilt archiveren?",
+                flash: "Badgeclass {{name}} is gearchiveerd",
+                action: "Archiveer"
+            },
+            unarchive: {
+                confirmation: "Badgeclass dearchiveren",
+                confirmationQuestion: "Weet je zeker dat je deze badge class wilt dearchiveren?",
+                flash: "Badgeclass {{name}} is gedearchiveerd",
+                action: "Dearchiveer"
+            }
+
         },
         badge: {
             emailAddress: "E-mailadres",
@@ -696,7 +711,8 @@ I18n.translations.nl = {
                 unaccepted: "In afwachting",
                 pending: "In afwachting",
                 unclaimed: "Unclaimed",
-                pendingEnrollmentCount: "{{count}} open aanvragen"
+                pendingEnrollmentCount: "{{count}} open aanvragen",
+                archived: "Gearchiveerd"
             },
             confirmation: {
                 revocationReason: "Reden voor intrekking (verplicht)",
@@ -1133,6 +1149,7 @@ I18n.translations.nl = {
         bulkAward: "Bulk uitreiking uit csv",
         or: "-of-",
         inviteEnrollements: "Nodig gebruikers uit om in te schrijven",
+        badgeClassArchived: "Kan geen uitreikingen doen op een gearrchiveerde badgeclass",
     },
     badgeAward: {
         directAward: {

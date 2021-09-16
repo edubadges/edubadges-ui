@@ -205,7 +205,7 @@
   <div class="card badge" class:links-enabled={linksEnabled} class:stand-alone={standAlone}
        on:click|preventDefault|stopPropagation={detailLink}>
 
-    {#if withPendingEnrollments}
+    {#if withPendingEnrollments || isPublic}
       <StatusIndicator badge={badge} badgeClass={badgeClass}/>
     {:else }
       <StatusIndicator badge={badge}/>

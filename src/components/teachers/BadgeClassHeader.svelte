@@ -158,11 +158,14 @@
         <HeaderList {entity} {headerItems}/>
       </div>
     </div>
-    {#if visitorRole === role.TEACHER && mayUpdate}
+    {#if visitorRole === role.TEACHER}
       <div class="actions">
         <div class="button-container">
-          <Button fill={true} disabled={!mayUpdate} secondary href="edit" text={I18n.t(['manage', 'edit', entity])}/>
+          {#if mayUpdate}
+            <Button fill={true} secondary href="edit" text={I18n.t(['manage', 'edit', entity])}/>
+          {/if}
         </div>
+        <slot name="additional-actions"/>
       </div>
     {/if}
     <div class="slots">

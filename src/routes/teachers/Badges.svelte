@@ -30,6 +30,7 @@
           name,
           image,
           entityId,
+          archived,
           createdAt,
           extensions {
             name,

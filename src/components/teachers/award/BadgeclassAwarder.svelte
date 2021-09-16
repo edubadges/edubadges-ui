@@ -54,6 +54,7 @@
       ${headerStaff},
       image,
       criteriaUrl,
+      archived,
       isPrivate,
       narrativeRequired,
       evidenceRequired,

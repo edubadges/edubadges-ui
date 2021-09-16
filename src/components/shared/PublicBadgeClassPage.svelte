@@ -1,61 +1,61 @@
 <script>
-  import {onMount} from "svelte";
-  import I18n from "i18n-js";
-  import {queryData} from "../../api/graphql";
-  import {role} from "../../util/role";
-  import {navigate} from "svelte-routing";
-  import {acceptTermsForBadge, getPublicBadgeClass, requestBadge, requestLoginToken,} from "../../api";
-  import {BadgeClassHeader} from "../teachers";
-  import {Overview} from "../teachers/badgeclass";
-  import Button from "../Button.svelte";
-  import Spinner from "../Spinner.svelte";
-  import {publicBadgeInformation} from "../extensions/badges/extensions";
-  import {entityType} from "../../util/entityTypes"
-  import {Modal} from "../forms";
-  import {flash} from "../../stores/flash";
-  import AcceptInstitutionTerms from "../../routes/AcceptInstitutionTerms.svelte";
-  import {authToken, redirectPath, userLoggedIn, userRole, validatedUserName} from "../../stores/user";
-  import {config} from "../../util/config"
-  import {getService} from "../../util/getService";
-  import PublicBreadcrumb from "./PublicBreadcrumb.svelte";
-  import {translateProperties} from "../../util/utils";
+    import {onMount} from "svelte";
+    import I18n from "i18n-js";
+    import {queryData} from "../../api/graphql";
+    import {role} from "../../util/role";
+    import {navigate} from "svelte-routing";
+    import {acceptTermsForBadge, getPublicBadgeClass, requestBadge, requestLoginToken,} from "../../api";
+    import {BadgeClassHeader} from "../teachers";
+    import {Overview} from "../teachers/badgeclass";
+    import Button from "../Button.svelte";
+    import Spinner from "../Spinner.svelte";
+    import {publicBadgeInformation} from "../extensions/badges/extensions";
+    import {entityType} from "../../util/entityTypes"
+    import {Modal} from "../forms";
+    import {flash} from "../../stores/flash";
+    import AcceptInstitutionTerms from "../../routes/AcceptInstitutionTerms.svelte";
+    import {authToken, redirectPath, userLoggedIn, userRole, validatedUserName} from "../../stores/user";
+    import {config} from "../../util/config"
+    import {getService} from "../../util/getService";
+    import PublicBreadcrumb from "./PublicBreadcrumb.svelte";
+    import {translateProperties} from "../../util/utils";
 
-  export let entityId;
+    export let entityId;
 
-  let visitorRole;
-  $: visitorRole = $userLoggedIn ? $userRole : "guest";
+    let visitorRole;
+    $: visitorRole = $userLoggedIn ? $userRole : "guest";
 
-  let badgeClass = {};
-  let allowedInstitutions = [];
-  let allowedInstitutionsAttention = "";
-  let enrollmentId;
-  let studentEnrolled;
-  let studentAwarded;
-  let requestedDate;
-  let schacHomes;
+    let badgeClass = {};
+    let allowedInstitutions = [];
+    let allowedInstitutionsAttention = "";
+    let enrollmentId;
+    let studentEnrolled;
+    let studentAwarded;
+    let requestedDate;
+    let schacHomes;
 
-  let loaded;
+    let loaded;
 
-  //Modal
-  let showModal = false;
-  let modalTitle;
-  let modalQuestion;
-  let modalAction;
+    //Modal
+    let showModal = false;
+    let modalTitle;
+    let modalQuestion;
+    let modalAction;
 
-  let showAcceptTerms = false;
-  let termsAccepted = false;
-  let noValidatedName = false;
-  let showNoValidatedName = false;
-  let noValidInstitution = false;
+    let showAcceptTerms = false;
+    let termsAccepted = false;
+    let noValidatedName = false;
+    let showNoValidatedName = false;
+    let noValidInstitution = false;
 
-  const goToEduId = () => {
-    $userRole = role.STUDENT;
-    $redirectPath = window.location.pathname;
-    const service = getService(role.STUDENT);
-    requestLoginToken(service, true);
-  };
+    const goToEduId = () => {
+        $userRole = role.STUDENT;
+        $redirectPath = window.location.pathname;
+        const service = getService(role.STUDENT);
+        requestLoginToken(service, true);
+    };
 
-  const query = `query ($entityId: String){
+    const query = `query ($entityId: String){
     enrollment(badgeClassId: $entityId) {
       entityId,
       dateCreated,
@@ -68,7 +68,7 @@
     }
   }`;
 
-  const secureQuery = `query ($entityId: String){
+    const secureQuery = `query ($entityId: String){
     currentUser {
       validatedName,
       schacHomes,
@@ -87,6 +87,7 @@
       name,
       description,
       criteriaUrl,
+      archived,
       criteriaText,
       expirationPeriod,
       isPrivate,
@@ -135,136 +136,136 @@
     }
   }`;
 
-  onMount(() => {
-    if (visitorRole === role.STUDENT) {
-      Promise.all([queryData(query, {entityId}), queryData(secureQuery, {entityId})]).then(res => {
-        const enrollment = res[0].enrollment;
-        if (enrollment && (!enrollment.badgeInstance || !enrollment.badgeInstance.revoked)) {
-          studentAwarded = enrollment.badgeInstance && !enrollment.badgeInstance.revoked;
-          studentEnrolled = !enrollment.badgeInstance;
-          enrollmentId = enrollment.entityId;
-          requestedDate = enrollment.dateCreated;
+    onMount(() => {
+        if (visitorRole === role.STUDENT) {
+            Promise.all([queryData(query, {entityId}), queryData(secureQuery, {entityId})]).then(res => {
+                const enrollment = res[0].enrollment;
+                if (enrollment && (!enrollment.badgeInstance || !enrollment.badgeInstance.revoked)) {
+                    studentAwarded = enrollment.badgeInstance && !enrollment.badgeInstance.revoked;
+                    studentEnrolled = !enrollment.badgeInstance;
+                    enrollmentId = enrollment.entityId;
+                    requestedDate = enrollment.dateCreated;
+                }
+                const userTerms = res[1].currentUser.termsAgreements;
+                noValidatedName = !res[1].currentUser.validatedName;
+                badgeClass = res[1].badgeClass;
+                translateProperties(badgeClass.issuer);
+                translateProperties(badgeClass.issuer.faculty);
+                translateProperties(badgeClass.issuer.faculty.institution);
+
+                badgeClass.issuer.id = badgeClass.issuer.publicUrl;
+                schacHomes = res[1].currentUser.schacHomes;
+                loaded = true;
+
+                const termsCandidate = userTerms.find(uTerm => uTerm.terms.entityId === badgeClass.terms.entityId);
+                termsAccepted = termsCandidate && termsCandidate.agreedVersion === badgeClass.terms.version && termsCandidate.agreed;
+            });
+        } else {
+            getPublicBadgeClass(entityId).then(res => {
+                badgeClass = res;
+
+                translateProperties(badgeClass.issuer);
+                translateProperties(badgeClass.issuer.faculty);
+                translateProperties(badgeClass.issuer.faculty.institution);
+
+                const institution = badgeClass.issuer.faculty.institution;
+                let allowedNames = [institution.name]
+                if (!badgeClass.formal) {
+                    allowedNames = allowedNames.concat(badgeClass.award_allowed_institutions);
+                }
+
+                allowedInstitutions = allowedNames.join(", ");
+                allowedInstitutionsAttention = allowedNames.length === 1 ? "One" : "";
+
+                publicBadgeInformation(badgeClass, res);
+                //need to ensure the links work
+                badgeClass.entityId = badgeClass.id.substring(badgeClass.id.lastIndexOf("/") + 1);
+                badgeClass.issuer.entityId = badgeClass.issuer.id.substring(badgeClass.issuer.id.lastIndexOf("/") + 1);
+                loaded = true;
+            }).catch(() => {
+                navigate("/404");
+            });
         }
-        const userTerms = res[1].currentUser.termsAgreements;
-        noValidatedName = !res[1].currentUser.validatedName;
-        badgeClass = res[1].badgeClass;
-        translateProperties(badgeClass.issuer);
-        translateProperties(badgeClass.issuer.faculty);
-        translateProperties(badgeClass.issuer.faculty.institution);
-
-        badgeClass.issuer.id = badgeClass.issuer.publicUrl;
-        schacHomes = res[1].currentUser.schacHomes;
-        loaded = true;
-
-        const termsCandidate = userTerms.find(uTerm => uTerm.terms.entityId === badgeClass.terms.entityId);
-        termsAccepted = termsCandidate && termsCandidate.agreedVersion === badgeClass.terms.version && termsCandidate.agreed;
-      });
-    } else {
-      getPublicBadgeClass(entityId).then(res => {
-        badgeClass = res;
-
-        translateProperties(badgeClass.issuer);
-        translateProperties(badgeClass.issuer.faculty);
-        translateProperties(badgeClass.issuer.faculty.institution);
-
-        const institution = badgeClass.issuer.faculty.institution;
-        let allowedNames = [institution.name]
-        if (!badgeClass.formal) {
-          allowedNames = allowedNames.concat(badgeClass.award_allowed_institutions);
-        }
-
-        allowedInstitutions = allowedNames.join(", ");
-        allowedInstitutionsAttention = allowedNames.length === 1 ? "One" : "";
-
-        publicBadgeInformation(badgeClass, res);
-        //need to ensure the links work
-        badgeClass.entityId = badgeClass.id.substring(badgeClass.id.lastIndexOf("/") + 1);
-        badgeClass.issuer.entityId = badgeClass.issuer.id.substring(badgeClass.issuer.id.lastIndexOf("/") + 1);
-        loaded = true;
-      }).catch(() => {
-        navigate("/404");
-      });
-    }
-  });
-
-  const userHasAgreed = () => {
-    showAcceptTerms = false;
-    termsAccepted = true;
-    acceptTermsForBadge(badgeClass.terms.entityId).then(() => {
-      enrollStudent(false);
-      showModal = false;
-    })
-  };
-
-  const userDisagreed = () => {
-    showAcceptTerms = false;
-  };
-
-  const enrollStudent = showConfirmation => {
-    const institution = badgeClass.issuer.faculty.institution;
-    let identifiers = [institution.identifier]
-    if (!badgeClass.formal) {
-      identifiers = identifiers.concat(badgeClass.awardAllowedInstitutions);
-    }
-
-    const allowedInstitution = identifiers.some(identifier => schacHomes.includes(identifier));
-
-    if (noValidatedName) {
-      showNoValidatedName = true;
-      return;
-    }
-    if (!allowedInstitution) {
-      noValidInstitution = true;
-      return;
-    }
-    if (!termsAccepted) {
-      showAcceptTerms = true;
-      return;
-    }
-    if (showConfirmation) {
-      modalTitle = I18n.t("studentEnroll.confirmation.title");
-      modalQuestion = I18n.t("studentEnroll.confirmation.question", {name: badgeClass.name});
-      modalAction = () => enrollStudent(false);
-      showModal = true;
-    } else {
-      loaded = false;
-      requestBadge(entityId)
-        .then(() => {
-          loaded = true;
-          showConfirmation = false;
-          flash.setValue(I18n.t('student.flash.enrolled', {name: badgeClass.name}));
-          navigate("/badge-requests");
-        })
-        .catch(err => {
-          err.then(details => {
-            loaded = true;
-            flash.error(details);
-          })
-        });
-    }
-  };
-
-  const reload = () => {
-    queryData(query, {entityId}).then(res => {
-      showModal = false;
-      const enrollment = res.enrollment;
-      studentAwarded = enrollment && enrollment.badgeInstance && !enrollment.badgeInstance.revoked;
-      studentEnrolled = enrollment && !enrollment.badgeInstance;
-      if (studentEnrolled) {
-        enrollmentId = enrollment.entityId;
-        requestedDate = enrollment.dateCreated;
-      }
     });
-  };
 
-  const logInForceAuthn = () => {
-    $userLoggedIn = "";
-    $userRole = "";
-    $authToken = "";
-    $validatedUserName = "";
-    $redirectPath = window.location.pathname;
-    window.location.href = config.eduId;
-  };
+    const userHasAgreed = () => {
+        showAcceptTerms = false;
+        termsAccepted = true;
+        acceptTermsForBadge(badgeClass.terms.entityId).then(() => {
+            enrollStudent(false);
+            showModal = false;
+        })
+    };
+
+    const userDisagreed = () => {
+        showAcceptTerms = false;
+    };
+
+    const enrollStudent = showConfirmation => {
+        const institution = badgeClass.issuer.faculty.institution;
+        let identifiers = [institution.identifier]
+        if (!badgeClass.formal) {
+            identifiers = identifiers.concat(badgeClass.awardAllowedInstitutions);
+        }
+
+        const allowedInstitution = identifiers.some(identifier => schacHomes.includes(identifier));
+
+        if (noValidatedName) {
+            showNoValidatedName = true;
+            return;
+        }
+        if (!allowedInstitution) {
+            noValidInstitution = true;
+            return;
+        }
+        if (!termsAccepted) {
+            showAcceptTerms = true;
+            return;
+        }
+        if (showConfirmation) {
+            modalTitle = I18n.t("studentEnroll.confirmation.title");
+            modalQuestion = I18n.t("studentEnroll.confirmation.question", {name: badgeClass.name});
+            modalAction = () => enrollStudent(false);
+            showModal = true;
+        } else {
+            loaded = false;
+            requestBadge(entityId)
+                .then(() => {
+                    loaded = true;
+                    showConfirmation = false;
+                    flash.setValue(I18n.t('student.flash.enrolled', {name: badgeClass.name}));
+                    navigate("/badge-requests");
+                })
+                .catch(err => {
+                    err.then(details => {
+                        loaded = true;
+                        flash.error(details);
+                    })
+                });
+        }
+    };
+
+    const reload = () => {
+        queryData(query, {entityId}).then(res => {
+            showModal = false;
+            const enrollment = res.enrollment;
+            studentAwarded = enrollment && enrollment.badgeInstance && !enrollment.badgeInstance.revoked;
+            studentEnrolled = enrollment && !enrollment.badgeInstance;
+            if (studentEnrolled) {
+                enrollmentId = enrollment.entityId;
+                requestedDate = enrollment.dateCreated;
+            }
+        });
+    };
+
+    const logInForceAuthn = () => {
+        $userLoggedIn = "";
+        $userRole = "";
+        $authToken = "";
+        $validatedUserName = "";
+        $redirectPath = window.location.pathname;
+        window.location.href = config.eduId;
+    };
 
 </script>
 
@@ -287,7 +288,7 @@
     }
 
     @media (max-width: 1490px) {
-      margin-right: 0!important;
+      margin-right: 0 !important;
     }
   }
 
@@ -315,12 +316,19 @@
         visitorRole={visitorRole}>
         {#if visitorRole === role.GUEST}
           <div class="slots enrol">
-            <Button text={I18n.t("login.loginToEnrol")} action={goToEduId}/>
+            {#if badgeClass.archived}
             <span
               class="attention">
-              {@html I18n.t(`login.loginToEnrolInfo${allowedInstitutionsAttention}`,
-                {name: allowedInstitutions})}
+              {@html I18n.t(`login.badgeClassArchived`)}
             </span>
+            {:else}
+              <Button text={I18n.t("login.loginToEnrol")} action={goToEduId}/>
+              <span
+                class="attention">
+              {@html I18n.t(`login.loginToEnrolInfo${allowedInstitutionsAttention}`,
+                  {name: allowedInstitutions})}
+            </span>
+            {/if}
           </div>
         {:else if visitorRole === role.STUDENT}
           <div class="slots student">
