@@ -471,6 +471,8 @@ I18n.translations.en = {
         faculty: {
             admin: "Issuer group admin",
             awarder: "Issuer group awarder",
+            switchToOwner: "Successfully changed user permissions to issuer group admin role.",
+            switchToAwarder: "Successfully changed user permissions to issuer group awarder role.",
             header: "Issuer group",
             allRights: "Issuer group admin",
             permissions: "Permissions on issuer group level"
@@ -505,6 +507,7 @@ I18n.translations.en = {
             awarderRights: "Awarder rights",
             institutionAllRights: "(Because of status as institution admin)",
             issuerGroupAllRights: "(Because of status as issuer group admin)",
+            issuerGroupAwarderRights: "(Because of status as issuer group awarder)",
             issuerAllRights: "(Because of status as issuer admin)",
             issuerAwarderRights: "(Because of status as issuer awarder)",
             addPermissions: "Add permissions",

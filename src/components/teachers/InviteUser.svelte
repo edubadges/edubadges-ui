@@ -41,9 +41,9 @@
 
   const submit = () => {
     working = true;
-    const userProvisonments = newUsers.filter(user => emailRegExp.test(user.email))
+    const userProvisionments = newUsers.filter(user => emailRegExp.test(user.email))
       .map(user => ({'userEmail': user.email, 'permissions': rolesToPermissions(user.chosenRole.value)}));
-    inviteUser(contentType, entityId, userProvisonments).then(res => {
+    inviteUser(contentType, entityId, userProvisionments).then(res => {
       let hasFailures = res.some(el => el.status === "failure");
       if (hasFailures) {
         errors = res.map(el => {

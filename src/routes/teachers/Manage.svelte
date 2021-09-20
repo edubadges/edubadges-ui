@@ -2,14 +2,14 @@
   import {navigate, Route, Router} from "svelte-routing";
   import {
     BadgeclassEdit,
-    BadgeclassManage,
+    ManageBadgeclass,
     BadgeclassNew,
-    Faculty,
+    ManageFaculty,
     FacultyEdit,
     FacultyNew,
     Institution,
     InstitutionEdit,
-    Issuer,
+    ManageIssuer,
     IssuerEdit,
     IssuerNew
   } from "../../components/teachers";
@@ -34,16 +34,16 @@
 
     <Route path="/faculty/new" component={FacultyNew}/>
     <Route path="/faculty/:entityId/edit" component={FacultyEdit}/>
-    <Route path="/faculty/:entityId/*subEntity" component={Faculty}/>
+    <Route path="/faculty/:entityId/*subEntity" component={ManageFaculty}/>
 
     <Route path="/issuer/new" component={IssuerNew}/>
     <Route path="/issuer/new/*facultyEntityId" component={IssuerNew}/>
     <Route path="/issuer/:entityId/edit" component={IssuerEdit}/>
-    <Route path="/issuer/:entityId/*subEntity" component={Issuer}/>
+    <Route path="/issuer/:entityId/*subEntity" component={ManageIssuer}/>
 
     <Route path="/badgeclass/new/*issuerEntityId" component={BadgeclassNew}/>
     <Route path="/badgeclass/:entityId/edit" component={BadgeclassEdit}/>
-    <Route path="/badgeclass/:entityId/*tab" component={BadgeclassManage}/>
+    <Route path="/badgeclass/:entityId/*tab" component={ManageBadgeclass}/>
 
   </Router>
 </div>

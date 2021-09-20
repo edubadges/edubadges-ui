@@ -471,6 +471,8 @@ I18n.translations.nl = {
         faculty: {
             admin: "Issuer group admin",
             awarder: "Issuer group awarder",
+            switchToOwner: "Permissie succesvol aangepast naar issuer group admin.",
+            switchToAwarder: "Permissie succesvol aangepast naar issuer group awarder.",
             header: "Issuer group",
             allRights: "Issuer group admin",
             permissions: "Permissies op issuer group niveau"

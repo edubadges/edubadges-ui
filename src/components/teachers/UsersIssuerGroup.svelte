@@ -6,8 +6,14 @@
   import {UsersTable} from "../teachers";
   import {sort, sortType} from "../../util/sortData";
   import I18n from "i18n-js";
-  import {makeUserIssuerGroupAdmin, makeUserIssuerGroupAwarder, removeUserIssuerGroupAdmin} from "../../api";
-  import {AddPermissionsModal, Modal} from "../forms";
+  import {
+      changeUserToIssuerAwarder, changeUserToIssuerGroupAwarder, changeUserToIssuerGroupOwner,
+      changeUserToIssuerOwner,
+      makeUserIssuerGroupAdmin,
+      makeUserIssuerGroupAwarder,
+      removeUserIssuerGroupAdmin
+  } from "../../api";
+  import {AddPermissionsModal, Modal, Select} from "../forms";
   import Spinner from "../Spinner.svelte";
   import {permissionsRole} from "../../util/rolesToPermissions";
   import ListLink from "./ListLink.svelte";
@@ -68,12 +74,14 @@
     },
     facultyStaffs {
       mayAdministrateUsers,
+      mayUpdate,
       faculty {
         entityId
       }
     },
     issuerStaffs {
       mayAdministrateUsers,
+      mayUpdate,
       issuer {
         entityId
       }
@@ -90,12 +98,13 @@
     lastName,
     facultyStaffs {
       entityId,
+      mayUpdate,
+      mayAdministrateUsers,
       faculty {
         nameDutch,
         nameEnglish,
         entityId
       },
-      mayAdministrateUsers
     }
     institutionStaff {
       entityId,
@@ -113,6 +122,24 @@
     }
   }
  }`;
+
+    const changeUserRole = (role, id) => {
+      loaded = false;
+      switch (role.value) {
+        case permissionsRole.ADMIN:
+          changeUserToIssuerGroupOwner(id).then(() => {
+            reload();
+            flash.setValue(I18n.t("editUsers.flash.makeUserIssuerGroupAdmin", userNameDict));
+          });
+          break;
+        case permissionsRole.AWARDER:
+          changeUserToIssuerGroupAwarder(id).then(() => {
+            reload();
+            flash.setValue(I18n.t("editUsers.flash.makeUserIssuerGroupAwarder", userNameDict));
+          });
+          break;
+      }
+  };
 
   const reload = () => {
     loaded = false;
@@ -253,9 +280,8 @@
   };
 
   const permissionsRoles = [
+    {value: permissionsRole.AWARDER, name: I18n.t("editUsers.faculty.awarder")},
     {value: permissionsRole.ADMIN, name: I18n.t("editUsers.faculty.admin")}
-    //TODO
-    //{value: permissionsRole.AWARDER, name: I18n.t("editUsers.faculty.awarder")}
   ];
 
   $: buttons = [
@@ -346,7 +372,7 @@
         {checkAllValue}
         {disabledCheckAll}
     >
-      {#each sortedFilteredStaffs as {_staffType, issuerGroup, staffId}}
+      {#each sortedFilteredStaffs as {_staffType, role, issuerGroup, staffId}}
         {#if _staffType === staffType.ISSUER_GROUP_STAFF}
           <tr>
             <td>
@@ -366,7 +392,20 @@
             </td>
             <td><ListLink path={`/manage/faculty/${issuerGroup.entityId}/issuers`} name={issuerGroup.name}/></td>
             <td>
-              {I18n.t(['editUsers', 'faculty', 'allRights'])}
+              <Select
+                  nonEditable={!userHasPermissions(
+                      issuerGroup, entityType.ISSUER_GROUP,
+                      currentUser.institutionStaff,
+                      currentUser.facultyStaffs,
+                      currentUser.issuerStaffs
+                    )}
+                  handleSelect={item => changeUserRole(item, staffId)}
+                  value={role === staffType.ISSUER_GROUP_ADMIN ? permissionsRoles[1] : permissionsRoles[0]}
+                  items={permissionsRoles}
+                  clearable={false}
+                  optionIdentifier="name"
+                />
+
             </td>
           </tr>
         {:else if _staffType === staffType.INSTITUTION_STAFF}

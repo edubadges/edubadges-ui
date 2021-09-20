@@ -100,7 +100,10 @@
     }
   ];
 
-  const permissionsRoles = [{value: permissionsRole.ADMIN, name: I18n.t("editUsers.faculty.admin")}];
+  const permissionsRoles = [
+    {value: permissionsRole.AWARDER, name: I18n.t("editUsers.faculty.awarder")},
+    {value: permissionsRole.ADMIN, name: I18n.t("editUsers.faculty.admin")},
+  ];
 
 </script>
 {#if loaded}
@@ -127,7 +130,7 @@
       <InviteUser
           permissionsRoles={permissionsRoles}
           entityId={entityId}
-          disabledRole={true}
+          disabledRole={false}
           contentType={contentType}
       />
     </Route>

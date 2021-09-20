@@ -534,6 +534,35 @@ export function removeUserBadgeclassPermission(badgeclassMembershipId) {
     return validFetch(path, {}, "DELETE");
 }
 
+export function changeUserToIssuerGroupOwner(issuerMembershipId) {
+    const path = `${serverUrl}/staff-membership/faculty/change/${issuerMembershipId}`;
+    const payload = {
+        "may_create": 1,
+        "may_read": 1,
+        "may_update": 1,
+        "may_delete": 1,
+        "may_sign": 1,
+        "may_award": 1,
+        "may_administrate_users": 1,
+    };
+    return validFetch(path, {body: JSON.stringify(payload)}, "PUT");
+}
+
+export function changeUserToIssuerGroupAwarder(issuerMembershipId) {
+    const path = `${serverUrl}/staff-membership/faculty/change/${issuerMembershipId}`;
+    const payload = {
+        "may_create": 0,
+        "may_read": 1,
+        "may_update": 0,
+        "may_delete": 0,
+        "may_sign": 1,
+        "may_award": 1,
+        "may_administrate_users": 0,
+    };
+    return validFetch(path, {body: JSON.stringify(payload)}, "PUT");
+}
+
+
 export function changeUserToIssuerOwner(issuerMembershipId) {
     const path = `${serverUrl}/staff-membership/issuer/change/${issuerMembershipId}`;
     const payload = {
@@ -603,12 +632,20 @@ export function changeUserToBadgeclassAwarder(badgeclassMembershipId) {
     };
     return validFetch(path, {body: JSON.stringify(payload)}, "PUT");
 }
-
+//Following methods all re-use the changeProvisionmentToBadgeclass${Role} as this is generic based on the provisionment ID
 export function changeProvisionmentToIssuerOwner(provisionmentId) {
     return changeProvisionmentToBadgeclassOwner(provisionmentId)
 }
 
 export function changeProvisionmentToIssuerAwarder(provisionmentId) {
+    return changeProvisionmentToBadgeclassAwarder(provisionmentId)
+}
+
+export function changeProvisionmentToIssuerGroupOwner(provisionmentId) {
+    return changeProvisionmentToBadgeclassOwner(provisionmentId)
+}
+
+export function changeProvisionmentToIssuerGroupAwarder(provisionmentId) {
     return changeProvisionmentToBadgeclassAwarder(provisionmentId)
 }
 

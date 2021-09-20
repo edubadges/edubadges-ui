@@ -128,8 +128,8 @@
   ];
 
   const permissionsRoles = [
-    {value: permissionsRole.ADMIN, name: I18n.t("editUsers.issuer.admin")},
-    {value: permissionsRole.AWARDER, name: I18n.t("editUsers.issuer.awarder")}
+    {value: permissionsRole.AWARDER, name: I18n.t("editUsers.issuer.awarder")},
+    {value: permissionsRole.ADMIN, name: I18n.t("editUsers.issuer.admin")}
   ];
 
 </script>

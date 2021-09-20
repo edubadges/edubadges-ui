@@ -74,6 +74,7 @@
     },
     facultyStaffs {
       mayAdministrateUsers,
+      mayUpdate,
       faculty {
         entityId,
         issuers {
@@ -83,6 +84,7 @@
     },
     issuerStaffs {
       mayAdministrateUsers,
+      mayUpdate,
       issuer {
         entityId
       }
@@ -95,6 +97,7 @@
     issuerStaffs {
       entityId,
       mayUpdate,
+      mayAdministrateUsers,
       issuer {
         nameDutch,
         nameEnglish,
@@ -107,10 +110,11 @@
           entityId
         }
       },
-      mayAdministrateUsers
     }
     facultyStaffs {
       entityId,
+      mayUpdate,
+      mayAdministrateUsers,
       faculty {
         nameDutch,
         nameEnglish,
@@ -127,8 +131,7 @@
             entityId
           }
         }
-      },
-      mayAdministrateUsers
+      }
     }
     institutionStaff {
       entityId,
@@ -279,7 +282,7 @@
       case permissionsRole.ADMIN:
         changeUserToIssuerOwner(id).then(() => {
           reload();
-          flash.setValue(I18n.t("editUsers.flash.makeUserBadgeClassAdmin", userNameDict));
+          flash.setValue(I18n.t("editUsers.flash.makeUserIssuerAdmin", userNameDict));
         });
         break;
       case permissionsRole.AWARDER:
@@ -339,8 +342,8 @@
   };
 
   const permissionsRoles = [
-      {value: permissionsRole.ADMIN, name: I18n.t("editUsers.issuer.admin")},
-      {value: permissionsRole.AWARDER, name: I18n.t("editUsers.issuer.awarder")}
+      {value: permissionsRole.AWARDER, name: I18n.t("editUsers.issuer.awarder")},
+      {value: permissionsRole.ADMIN, name: I18n.t("editUsers.issuer.admin")}
   ];
 
   $: buttons = [
@@ -455,7 +458,7 @@
       {disabledCheckAll}
       {checkAllValue}
     >
-      {#each sortedFilteredStaffs as {_staffType, role, issuer, staffId}}
+      {#each sortedFilteredStaffs as {_staffType, role, issuer, staffId, mayUpdate}}
         <tr>
           {#if _staffType === staffType.ISSUER_STAFF}
             <td>
@@ -504,7 +507,7 @@
                       currentUser.issuerStaffs
                     )}
                   handleSelect={item => changeUserRole(item, staffId)}
-                  value={role === staffType.ISSUER_ADMIN ? permissionsRoles[0] : permissionsRoles[1]}
+                  value={role === staffType.ISSUER_AWARDER ? permissionsRoles[0] : permissionsRoles[1]}
                   items={permissionsRoles}
                   clearable={false}
                   optionIdentifier="name"
@@ -538,9 +541,15 @@
                         name={findFacultyByIssuerEntityId(issuer.entityId).name}/>
             </td>
             <td>
-              {I18n.t(['editUsers', 'permissions', 'allRights'])}
-              <br/>
-              <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'issuerGroupAllRights'])}</span>
+              {#if mayUpdate}
+                {I18n.t('editUsers.permissions.allRights')}
+                <br/>
+                <span class="sub-text">{I18n.t('editUsers.permissions.issuerGroupAllRights')}</span>
+              {:else}
+                {I18n.t('editUsers.permissions.awarderRights')}
+                <br/>
+                <span class="sub-text">{I18n.t('editUsers.permissions.issuerGroupAwarderRights')}</span>
+              {/if}
             </td>
           {:else if _staffType === staffType.INSTITUTION_STAFF}
             <td>

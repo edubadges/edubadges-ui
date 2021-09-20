@@ -81,6 +81,7 @@
     },
     facultyStaffs {
       mayAdministrateUsers,
+      mayUpdate,
       faculty {
         entityId,
         issuers {
@@ -101,6 +102,7 @@
     },
     badgeclassStaffs {
       mayAdministrateUsers,
+      mayUpdate
       badgeclass {
         entityId
       }
@@ -111,6 +113,9 @@
     lastName,
     badgeclassStaffs {
       entityId,
+      mayAdministrateUsers,
+      mayUpdate,
+      mayAward,
       badgeclass {
         name,
         entityId,
@@ -125,10 +130,7 @@
             entityId
           }
         }
-      },
-      mayAdministrateUsers,
-      mayUpdate,
-      mayAward
+      }
     }
     issuerStaffs {
       entityId,
@@ -157,6 +159,8 @@
     }
     facultyStaffs {
       entityId,
+      mayAdministrateUsers,
+      mayUpdate,
       faculty {
         nameDutch,
         nameEnglish,
@@ -181,8 +185,7 @@
             }
           }
         }
-      },
-      mayAdministrateUsers
+      }
     }
     institutionStaff {
       entityId,
@@ -649,9 +652,15 @@
               <span class="sub-text">{badgeClass.issuer.faculty.name}</span>
             </td>
             <td>
-              {I18n.t(['editUsers', 'permissions', 'allRights'])}
-              <br/>
-              <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'issuerGroupAllRights'])}</span>
+              {#if mayUpdate}
+                {I18n.t('editUsers.permissions.allRights')}
+                <br/>
+                <span class="sub-text">{I18n.t('editUsers.permissions.issuerGroupAllRights')}</span>
+              {:else}
+                {I18n.t('editUsers.permissions.awarderRights')}
+                <br/>
+                <span class="sub-text">{I18n.t('editUsers.permissions.issuerGroupAwarderRights')}</span>
+              {/if}
             </td>
           {:else if _staffType === staffType.INSTITUTION_STAFF}
             <td>

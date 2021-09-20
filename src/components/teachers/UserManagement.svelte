@@ -14,11 +14,15 @@
         changeProvisionmentToBadgeclassOwner,
         changeProvisionmentToIssuerAwarder,
         changeProvisionmentToIssuerOwner,
+        changeProvisionmentToIssuerGroupAwarder,
+        changeProvisionmentToIssuerGroupOwner,
         changeUserToBadgeclassAwarder,
         changeUserToBadgeclassEditor,
         changeUserToBadgeclassOwner,
         changeUserToIssuerAwarder,
         changeUserToIssuerOwner,
+        changeUserToIssuerGroupAwarder,
+        changeUserToIssuerGroupOwner,
         disinviteUser,
         removeStaffMembership
     } from "../../api";
@@ -70,6 +74,11 @@
     let targetOptionsIssuer = [
         {name: I18n.t(['editUsers', 'issuer', 'admin']), value: 'issuerOwner'},
         {name: I18n.t(['editUsers', 'issuer', 'awarder']), value: 'issuerAwarder'},
+    ];
+
+    let targetOptionsIssuerGroup = [
+        {name: I18n.t(['editUsers', 'faculty', 'admin']), value: 'issuerGroupOwner'},
+        {name: I18n.t(['editUsers', 'faculty', 'awarder']), value: 'issuerGroupAwarder'},
     ];
 
     const reloadAndReset = flashMessage => {
@@ -134,6 +143,32 @@
             case 'issuerAwarder':
                 selection = [];
                 changeUserToIssuerAwarder(id).then(() => reloadAndReset('editUsers.issuer.switchToAwarder'));
+                break;
+        }
+    };
+
+    const changeIssuerGroupProvisionmentRole = (role, id) => {
+        switch (role.value) {
+            case 'issuerGroupOwner':
+                selection = [];
+                changeProvisionmentToIssuerGroupOwner(id).then(() => reloadAndReset('editUsers.issuer.switchToOwner'));
+                break;
+            case 'issuerGroupAwarder':
+                selection = [];
+                changeProvisionmentToIssuerGroupAwarder(id).then(() => reloadAndReset('editUsers.issuer.switchToAwarder'));
+                break;
+        }
+    };
+
+    const changeIssuerGroupUserRole = (role, id) => {
+        switch (role.value) {
+            case 'issuerGroupOwner':
+                selection = [];
+                changeUserToIssuerGroupOwner(id).then(() => reloadAndReset('editUsers.issuer.switchToOwner'));
+                break;
+            case 'issuerGroupAwarder':
+                selection = [];
+                changeUserToIssuerGroupAwarder(id).then(() => reloadAndReset('editUsers.issuer.switchToAwarder'));
                 break;
         }
     };
@@ -287,7 +322,7 @@
     }
 
     .badgeclass-role-select {
-        width: 170px;
+        width: 220px;
     }
 
     .container {
@@ -370,6 +405,22 @@
                       (data.may_award ? targetOptionsIssuer[1] : 'error')
                     }
                   items={targetOptionsIssuer}
+                  clearable={false}
+                  optionIdentifier="name"
+                />
+              </div>
+            </td>
+          {:else if entity === entityType.ISSUER_GROUP}
+            <td>
+              <div class="badgeclass-role-select">
+                <Select
+                  nonEditable={!permissions || !permissions.mayAdministrateUsers}
+                  handleSelect={item => changeIssuerGroupProvisionmentRole(item, entityId)}
+                  value={
+                      data.may_administrate_users ? targetOptionsIssuerGroup[0] :
+                      (data.may_award ? targetOptionsIssuerGroup[1] : 'error')
+                    }
+                  items={targetOptionsIssuerGroup}
                   clearable={false}
                   optionIdentifier="name"
                 />
@@ -489,12 +540,44 @@
             <span class="sub-text">{user.email}</span>
           </td>
           <td>
-            {#if entity !== entityType.ISSUER_GROUP}
-              {I18n.t(['editUsers', 'permissions', 'allRights'])}
-              <br/>
-              <span class="sub-text">{I18n.t('editUsers.permissions.issuerGroupAllRights')}</span>
+            {#if entity === entityType.ISSUER_GROUP}
+              <div class="badgeclass-role-select">
+                <Select
+                  nonEditable={!permissions || !permissions.mayAdministrateUsers}
+                  handleSelect={item => changeIssuerGroupUserRole(item, entityId)}
+                  value={
+                      mayAdministrateUsers ? targetOptionsIssuerGroup[0] :
+                      (mayAward ? targetOptionsIssuerGroup[1] : 'error')
+                    }
+                  items={targetOptionsIssuerGroup}
+                  clearable={false}
+                  optionIdentifier="name"
+                />
+              </div>
+            {:else if entity === entityType.ISSUER}
+              {#if mayUpdate}
+                {I18n.t('editUsers.permissions.allRights')}
+                <br/>
+                <span class="sub-text">{I18n.t('editUsers.permissions.issuerGroupAllRights')}</span>
+              {:else}
+                {I18n.t('editUsers.permissions.awarderRights')}
+                <br/>
+                <span class="sub-text">{I18n.t('editUsers.permissions.issuerGroupAwarderRights')}</span>
+              {/if}
+            {:else if entity === entityType.BADGE_CLASS}
+              {#if mayUpdate}
+                {I18n.t('editUsers.permissions.allRights')}
+                <br/>
+                <span class="sub-text">{I18n.t('editUsers.permissions.issuerGroupAllRights')}</span>
+              {:else}
+                {I18n.t('editUsers.permissions.awarderRights')}
+                <br/>
+                <span class="sub-text">{I18n.t('editUsers.permissions.issuerGroupAwarderRights')}</span>
+              {/if}
             {:else}
-              {I18n.t('editUsers.faculty.allRights')}
+              {I18n.t('editUsers.permissions.allRights')}
+              <br/>
+              <span class="sub-text">{I18n.t(['editUsers.permissions.issuerGroupAllRights'])}</span>
             {/if}
           </td>
           <td class="center">

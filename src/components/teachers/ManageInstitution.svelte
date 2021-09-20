@@ -137,7 +137,9 @@
         }
     ];
 
-    const permissionsRoles = [{value: permissionsRole.ADMIN, name: I18n.t("editUsers.institution.admin")}];
+    const permissionsRoles = [
+        {value: permissionsRole.ADMIN, name: I18n.t("editUsers.institution.admin")}
+    ];
 
 </script>
 

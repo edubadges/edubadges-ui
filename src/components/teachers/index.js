@@ -5,7 +5,7 @@ export { default as Badgeclasses } from "./Badgeclasses.svelte";
 export { default as BadgeClassesToolBar } from "./BadgeClassesToolBar"
 export { default as BadgeclassForm } from "./BadgeclassForm.svelte";
 export { default as BadgeClassHeader } from "./BadgeClassHeader.svelte";
-export { default as BadgeclassManage } from "./BadgeclassManage.svelte";
+export { default as ManageBadgeclass } from "./ManageBadgeclass.svelte";
 export { default as BadgeclassNew } from "./BadgeclassNew.svelte";
 export { default as BadgeclassUserManagement } from "./BadgeclassUserManagement.svelte";
 export { default as BadgesHeader } from "./BadgesHeader.svelte";
@@ -16,7 +16,7 @@ export { default as EntityForm } from "./EntityForm.svelte";
 export { default as EntityHeader } from "./EntityHeader.svelte";
 export { default as EntityHeaderTabs } from "./EntityHeaderTabs.svelte";
 export { default as Faculties } from "./Faculties.svelte";
-export { default as Faculty } from "./Faculty.svelte";
+export { default as ManageFaculty } from "./ManageFaculty.svelte";
 export { default as FacultyEdit } from "./FacultyEdit.svelte";
 export { default as FacultyForm } from "./FacultyForm.svelte";
 export { default as FacultyNew } from "./FacultyNew.svelte";
@@ -30,7 +30,7 @@ export { default as InstitutionUserManagement } from "./InstitutionUserManagemen
 export { default as InvitationStatusWidget } from  "./InvitationStatusWidget.svelte"
 export { default as InviteEnrollments } from "./InviteEnrollments.svelte";
 export { default as InviteUser } from "./InviteUser.svelte";
-export { default as Issuer } from "./ManageIssuer.svelte";
+export { default as ManageIssuer } from "./ManageIssuer.svelte";
 export { default as IssuerEdit } from "./IssuerEdit.svelte";
 export { default as IssuerForm } from "./IssuerForm.svelte";
 export { default as IssuerNew } from "./IssuerNew.svelte";

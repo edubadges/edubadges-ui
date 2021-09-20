@@ -28,6 +28,9 @@
         nameEnglish,
         entityId,
         staff {
+          mayAdministrateUsers,
+          mayUpdate,
+          mayAward,
           user {
             firstName,
             lastName,
@@ -40,15 +43,15 @@
           nameDutch,
           nameEnglish,
           staff {
+            mayAdministrateUsers,
+            mayUpdate,
+            mayAward,
             user {
               firstName,
               lastName,
               email,
               entityId
             },
-            mayAdministrateUsers,
-            mayUpdate,
-            mayAward
           },
           badgeclasses {
             entityId,
