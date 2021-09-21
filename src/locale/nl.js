@@ -29,6 +29,7 @@ I18n.translations.nl = {
         loginToEnrolInfo: "<strong>Let op!</strong> Je kan deze edubadge alleen aanvragen als je staat ingeschreven bij één van deze instellingen: <strong>{{name}}</strong>.",
         loginToEnrolInfoOne: "<strong>Let op!</strong> Je kan deze edubadge alleen aanvragen als je staat ingeschreven bij <strong>{{name}}</strong>.",
         loginToEnrolInfoAll: "<strong>Let op!</strong> Je kan deze edubadge alleen aanvragen als je instelling is aangesloten op edubadges.",
+        loginAllowedWithoutValidatedName: "Je kan deze badge aanvragen als een ediID gast gebruiker.",
         badgeClassArchived: "Deze edubadge is gearchiveerd en kan niet langer worden aangevraagd.",
         destination: "Wat zou je willen doen?",
         description:
@@ -618,6 +619,7 @@ I18n.translations.nl = {
             isPrivate: "Privé badge class",
             evidenceRequired: "Evidence verplicht",
             narrativeRequired: "Narrative verplicht",
+            awardNonValidatedNameAllowed: "Toereiking aan niet gevalideerd account toestaan",
             learningOutcome: "Leeruitkomst",
             studyLoad: "Studielast",
             timeInvestment: "Tijdsinvestering",
@@ -1071,6 +1073,7 @@ I18n.translations.nl = {
         badgeClassIsPrivate: "Indien aangevinkt zal deze badge-klasse niet in de catalogus verschijnen. Houd er rekening mee dat er van privé badge classes geen edubadges kunnen worden uitgegeven.",
         badgeClassEvidenceRequired: "Indien aangevinkt, moet voor alle onderscheidingen op basis van deze badge class een bewijs worden ingevuld.",
         badgeClassNarrativeRequired: "Indien aangevinkt, moet voor alle onderscheidingen op basis van deze badge class een perssonlijke toelichting worden ingevuld.",
+        badgeClassAwardNonValidatedNameAllowed: "Indien aangevinkt, mogen non-formal badges uitgereikt worden aan niet-gevalideerde accounts.",
         //badgeClassCriteriaRequirements: "badgeClassCriteriaRequirements",
         //badgeClassCriteriaUrl: "badgeClassCriteriaUrl",
         //badgeClassTypeOfStudyLoad: "badgeClassTypeOfStudyLoad",

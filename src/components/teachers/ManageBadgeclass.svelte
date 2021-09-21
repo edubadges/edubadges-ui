@@ -47,6 +47,7 @@
       image,
       contentTypeId,
       criteriaUrl,
+      awardNonValidatedNameAllowed,
       archived,
       criteriaText,
       expirationPeriod,

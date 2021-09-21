@@ -92,6 +92,7 @@
         description,
         entityId,
         criteriaUrl,
+        awardNonValidatedNameAllowed,
         criteriaText,
         issuer {
           nameDutch,

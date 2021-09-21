@@ -104,6 +104,7 @@
         showStudyLoad = true;
         extensions[timeInvestment.name] = 0;
         showTimeInvestment = false;
+        badgeclass.awardNonValidatedNameAllowed = false;
         if (!isInstitutionMBO) {
             showEducationalIdentifiers = true;
         }
@@ -211,6 +212,7 @@
             is_private: badgeclass.isPrivate,
             evidence_required: badgeclass.evidenceRequired,
             narrative_required: badgeclass.narrativeRequired,
+            award_non_validated_name_allowed: badgeclass.awardNonValidatedNameAllowed,
             criteria_url: toHttpOrHttps(badgeclass.criteriaUrl),
         };
         setExpirationPeriod(newBadgeclass);
@@ -463,6 +465,14 @@
         label={I18n.t(['models', entity, 'narrativeRequired'])}
         tipKey="badgeClassNarrativeRequired"
         onChange={val => badgeclass.narrativeRequired = val}/>
+      <CheckBox
+        value={badgeclass.awardNonValidatedNameAllowed || false}
+        inForm={true}
+        disabled={showStudyLoad}
+        adjustTop={true}
+        label={I18n.t(['models', entity, 'awardNonValidatedNameAllowed'])}
+        tipKey="badgeClassAwardNonValidatedNameAllowed"
+        onChange={val => badgeclass.awardNonValidatedNameAllowed = val}/>
     </Field>
   </div>
 

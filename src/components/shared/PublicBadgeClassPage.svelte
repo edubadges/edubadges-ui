@@ -52,7 +52,7 @@
         $userRole = role.STUDENT;
         $redirectPath = window.location.pathname;
         const service = getService(role.STUDENT);
-        requestLoginToken(service, true);
+        requestLoginToken(service, !badgeClass.awardNonValidatedNameAllowed);
     };
 
     const query = `query ($entityId: String){
@@ -87,6 +87,7 @@
       name,
       description,
       criteriaUrl,
+      awardNonValidatedNameAllowed,
       archived,
       criteriaText,
       expirationPeriod,
@@ -210,11 +211,11 @@
 
         const allowedInstitution = identifiers.some(identifier => schacHomes.includes(identifier));
 
-        if (noValidatedName) {
+        if (noValidatedName && !badgeClass.awardNonValidatedNameAllowed) {
             showNoValidatedName = true;
             return;
         }
-        if (!allowedInstitution) {
+        if (!allowedInstitution && !badgeClass.awardNonValidatedNameAllowed) {
             noValidInstitution = true;
             return;
         }
@@ -323,11 +324,15 @@
             </span>
             {:else}
               <Button text={I18n.t("login.loginToEnrol")} action={goToEduId}/>
-              <span
-                class="attention">
-              {@html I18n.t(`login.loginToEnrolInfo${allowedInstitutionsAttention}`,
-                  {name: allowedInstitutions})}
-            </span>
+              {#if badgeClass.awardNonValidatedNameAllowed}
+              <span class="attention">
+                {@html I18n.t("login.loginAllowedWithoutValidatedName")}
+              </span>
+              {:else}
+              <span class="attention">
+                {@html I18n.t(`login.loginToEnrolInfo${allowedInstitutionsAttention}`, {name: allowedInstitutions})}
+              </span>
+              {/if}
             {/if}
           </div>
         {:else if visitorRole === role.STUDENT}

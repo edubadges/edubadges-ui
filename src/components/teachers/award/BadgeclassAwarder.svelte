@@ -54,6 +54,7 @@
       ${headerStaff},
       image,
       criteriaUrl,
+      awardNonValidatedNameAllowed,
       archived,
       isPrivate,
       narrativeRequired,

@@ -29,6 +29,7 @@ I18n.translations.en = {
         loginToEnrolInfo: "<strong>Attention!</strong> You can only request this edubadge if you are registered at one of these institutions: <strong>{{name}}</strong>.",
         loginToEnrolInfoOne: "<strong>Attention!</strong> You can only request this edubadge if you are registered at <strong>{{name}}</strong>.",
         loginToEnrolInfoAll: "<strong>Attention!</strong> You can only request this edubadge if your institution is registered with edubadges.",
+        loginAllowedWithoutValidatedName: "You can request this edubadge as an geduID uest user.",
         badgeClassArchived: "This edubadge has been archived and can no longer be requested.",
         destination: "What would you like to do?",
         description:
@@ -619,6 +620,7 @@ I18n.translations.en = {
             isPrivate: "Private badgeclass",
             evidenceRequired: "Evidence required",
             narrativeRequired: "Narrative required",
+            awardNonValidatedNameAllowed: "Award tot non-validated account allowed",
             learningOutcome: "Learning outcome",
             studyLoad: "Study load",
             timeInvestment: "Time investment",
@@ -1071,6 +1073,7 @@ I18n.translations.en = {
         badgeClassIsPrivate: "If checked, this badgeclass will not appear in the catalog. Note that you cannot award edubadges from a private badgeclass.",
         badgeClassEvidenceRequired: "If checked, any awards based on this badgeclass require an evidence to be filled in.",
         badgeClassNarrativeRequired: "If checked, any awards based on this badgeclass require an narrative to be filled in.",
+        badgeClassAwardNonValidatedNameAllowed: "If checked, non-formal badges can be awarded to non-validated accounts.",
         //badgeClassCriteriaRequirements: "badgeClassCriteriaRequirements",
         //badgeClassCriteriaUrl: "badgeClassCriteriaUrl",
         //badgeClassTypeOfStudyLoad: "badgeClassTypeOfStudyLoad",
