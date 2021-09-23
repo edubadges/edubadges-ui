@@ -217,6 +217,12 @@ I18n.translations.nl = {
         publicPrivateRejected: "Voordat je deze edubadge publiek zichtbaar kan maken, moet je deze edubadge eerst accepteren.",
         revoked: "Deze edubadge is ingetrokken door de uitgever",
         revokedWithReason: "Deze edubadge is ingetrokken door de uitgever met als reden: '{{revocationReason}}'",
+        collections: {
+            title: "Voe toe aan collectie",
+            question: "Selecteer een collectie om deze badge aan toe te voegen",
+            placeholder: "Selecteer...",
+            flash: "Badge {{name}} toegovoegd aan collectie {{col}}"
+        },
         confirmation: {
             publish: "Maak deze edubadge publiekelijk zichtbaar",
             private: "Maak deze edubadge privé",
@@ -508,6 +514,7 @@ I18n.translations.nl = {
             awarderRights: "Awarder rechten",
             institutionAllRights: "(vanwege instellingsadmin)",
             issuerGroupAllRights: "(vanwege issuer group admin)",
+            issuerGroupAwarderRights: "(vanwege issuer group awarder)",
             issuerAllRights: "(vanwege issuer admin)",
             issuerAwarderRights: "(vanwege issuer awarder)",
             addPermissions: "Voeg permissies toe",
@@ -706,6 +713,7 @@ I18n.translations.nl = {
             status: "Status",
             revoked: "Ingetrokken",
             validUntil: "Geldig tot",
+            addToCollection: "Voeg toe aan collectie",
             statuses: {
                 new: "Nieuw",
                 rejected: "Geweigerd",

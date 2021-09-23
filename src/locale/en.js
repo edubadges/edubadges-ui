@@ -217,6 +217,12 @@ I18n.translations.en = {
         publicPrivateRejected: "In order for you to make this edubadge public, you'll first have to accept this edubadge",
         revoked: "This edubadge has been revoked",
         revokedWithReason: "This edubadge has been revoked by the issuer for the reason: '{{revocationReason}}'",
+        collections: {
+            title: "Add to collection",
+            question: "Select a collection to add this badge to",
+            placeholder: "Select...",
+            flash: "Badge {{name}} added to collection {{col}}"
+        },
         confirmation: {
             publish: "Make this edubadge publicly visible",
             private: "Make this edubadge private",
@@ -706,6 +712,7 @@ I18n.translations.en = {
             status: "Status",
             revoked: "Revoked",
             validUntil: "Valid until",
+            addToCollection: "Add to collection",
             statuses: {
                 new: "New",
                 rejected: "Rejected",

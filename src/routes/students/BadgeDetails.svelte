@@ -12,9 +12,15 @@
     import Spinner from "../../components/Spinner.svelte";
     import BadgeCard from "../../components/shared/BadgeCard.svelte";
     import BadgeClassDetails from "../../components/shared/BadgeClassDetails.svelte";
-    import {Modal} from "../../components/forms";
+    import {Modal, Select} from "../../components/forms";
     import DownloadButton from "../../components/DownloadButton.svelte";
-    import {acceptAssertion, claimAssertion, deleteAssertion, publicAssertion} from "../../api";
+    import {
+        acceptAssertion,
+        claimAssertion,
+        deleteAssertion,
+        editBadgeInstanceCollection,
+        publicAssertion
+    } from "../../api";
     import {flash} from "../../stores/flash";
     import ToggleSwitch from "../../components/ToggleSwitch.svelte";
     import ShareDialog from "./ShareDialog.svelte";
@@ -39,13 +45,15 @@
     let includeEvidence = true;
     let makePublicAction = false;
 
+    //Collections
+    let badgeInstanceCollections = [];
+    let showCollectionsModal = false;
+    let selectedCollection = null;
 
     const cancel = () => {
         showModal = false;
-    }
-
-    const cancelShareDialog = () => {
         showShareDialog = false;
+        showCollectionsModal = false;
     }
 
     const copiedLink = () => {
@@ -70,8 +78,47 @@
         return `${sanitizedName}_edubadge.${ext}`;
     }
 
+    const showCollectionModal = () => {
+        showCollectionsModal = true;
+    }
+
+    const addToCollection = () => {
+        showCollectionsModal = false;
+        if (selectedCollection !== null) {
+            const collection = badgeInstanceCollections.find(c => c.entityId === selectedCollection.entityId);
+            const newCollection = {
+                public: collection.public,
+                name: collection.name,
+                description: collection.description,
+                badge_instances: collection.badgeInstances.map(bi => bi.id).concat(badge.id),
+                entity_id: collection.entityId
+            }
+            editBadgeInstanceCollection(newCollection).then(() => {
+                flash.setValue(I18n.t("student.collections.flash", {name: badge.badgeclass.name, col: collection.name}));
+                selectedCollection = null;
+                queryData(badgeInstanceCollectionsQuery).then(res => {
+                    badgeInstanceCollections = res.badgeInstanceCollections.filter(coll => !coll.badgeInstances.find(b => b.id === badge.id));
+                });
+            });
+        }
+    }
+
+    const badgeInstanceCollectionsQuery = `query {
+      badgeInstanceCollections {
+        entityId,
+        name,
+        public,
+        description,
+        createdAt,
+        badgeInstances {
+          id
+        }
+      }
+    }`
+
     const query = `query ($entityId: String){
     badgeInstance(id: $entityId) {
+      id,
       image,
       entityId,
       issuedOn,
@@ -146,6 +193,9 @@
 
             showModal = false;
             loaded = true;
+            queryData(badgeInstanceCollectionsQuery).then(res => {
+                badgeInstanceCollections = res.badgeInstanceCollections.filter(coll => !coll.badgeInstances.find(b => b.id === badge.id));
+            });
         });
     }
 
@@ -184,7 +234,6 @@
                 });
         }
     }
-
 
     const makePublic = (showConfirmation, isPublic) => {
         makePublicAction = isPublic;
@@ -402,6 +451,12 @@
         </div>
         <div class="actions">
           <div class="button-container">
+            <Button text={I18n.t("models.badge.addToCollection")}
+                    secondary={true}
+                    disabled={badgeInstanceCollections.length === 0}
+                    action={showCollectionModal}/>
+          </div>
+          <div class="button-container">
             <DownloadButton text={I18n.t("models.badge.download")} secondary={true}
                             filename={downloadFileName(badge)}
                             disabled={badge && (badge.acceptance === "REJECTED" || !badge.public)}
@@ -456,6 +511,23 @@
 {#if showShareDialog}
   <ShareDialog
     copied={copiedLink}
-    cancel={cancelShareDialog}
+    cancel={cancel}
     publicUrl={publicUrl()}/>
+{/if}
+
+{#if showCollectionsModal}
+  <Modal
+    submit={addToCollection}
+    cancel={cancel}
+    disabled={selectedCollection === null}
+    question={I18n.t("student.collections.question")}
+    title={I18n.t("student.collections.title")}>
+    <div class="select-collection">
+      <Select
+        placeholder={I18n.t("student.collections.placeholder")}
+        bind:value={selectedCollection}
+        items={badgeInstanceCollections.map(coll => ({name: coll.name, entityId: coll.entityId}))}
+        clearable={false}/>
+    </div>
+  </Modal>
 {/if}
