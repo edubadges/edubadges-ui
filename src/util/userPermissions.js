@@ -43,7 +43,7 @@ export const enrichUser = (institution, institutionStaffMemberships, issuerGroup
         const allFaculties = institution.faculties;
         issuerGroupStaffMemberships.forEach(issuerGroupStaffMembership => {
             issuerGroupStaffMembership.role = issuerGroupStaffMembership.mayUpdate ? staffType.ISSUER_GROUP_ADMIN : staffType.ISSUER_GROUP_AWARDER;
-            const faculty = allFaculties.find(faculty => issuerGroupStaffMembership.facult.entityId === faculty.entityId);
+            const faculty = allFaculties.find(faculty => issuerGroupStaffMembership.faculty.entityId === faculty.entityId);
             faculty.issuers.forEach(issuer => {
                 issuerStaffMemberships.push({
                     issuer: {

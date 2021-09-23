@@ -8,9 +8,10 @@
     import {config} from "../util/config";
     import question from "../icons/question.svg";
     import {authToken, redirectPath, userLoggedIn, userName, userRole, validatedUserName} from "../stores/user";
-    import {logoutCurrentUser} from "../api";
+    import {getProfile, logoutCurrentUser} from "../api";
     import Modal from "./forms/Modal.svelte";
     import Feedback from "./shared/Feedback.svelte";
+    import {onMount} from "svelte";
 
     const doLogOut = () => {
         $userLoggedIn = "";
@@ -30,6 +31,16 @@
     let menuOpen = false;
     let showModal = false;
     let showFeedback = false;
+    let profile = {};
+
+    onMount(() => {
+        if ($userRole === role.TEACHER) {
+            getProfile().then(res => {
+                profile = res;
+            });
+        }
+    });
+
 
 </script>
 
@@ -147,6 +158,10 @@
         {#if $userRole === role.TEACHER}
           <div class="profile-menu"
                on:click={() => navigate("/permissions/institution")}>{I18n.t('header.permissions')}</div>
+        {/if}
+        {#if profile.is_superuser}
+          <div class="profile-menu"
+               on:click={() => navigate("/impersonate")}>{I18n.t('header.impersonate')}</div>
         {/if}
         {#if $userRole === role.STUDENT}
           <div class="profile-menu" on:click={() => navigate("/catalog")}>{I18n.t('header.nav.catalog')}</div>

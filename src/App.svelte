@@ -4,7 +4,7 @@
   import {Router, Route, navigate} from "svelte-routing";
   import {Student, ProcessToken, NotFound, Login} from "./routes";
   import AcceptTerms from "./routes/AcceptTerms.svelte";
-  import {Badges, Manage, Users, UserPermissions} from "./routes/teachers";
+  import {Badges, Manage, Users, UserPermissions, Impersonate} from "./routes/teachers";
   import {Header, Footer, SubscribeToPath, Spinner} from "./components";
   import {
     Header as TeacherHeader,
@@ -158,6 +158,7 @@
           <InviteEnrollments entityId={params.entityId}/>
         </Route>
         <Route path="/permissions/:entity" component={TeacherPermissions} />
+        <Route path="/impersonate" component={Impersonate} />
 
         <!-- Shared -->
         <Route path="/public/:entityId/" let:params>

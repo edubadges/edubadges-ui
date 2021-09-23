@@ -15,6 +15,7 @@ I18n.translations.nl = {
         permissions: "Mijn permissies",
         feedback: "Verstuur feedback",
         demo: "Demo omgeving",
+        impersonate: "Impersoneer",
         nav: {
             badgeclasses: "Badge classes",
             manage: "Beheer",

@@ -15,6 +15,7 @@ I18n.translations.en = {
         permissions: "My permissions",
         feedback: "Send feedback",
         demo: "Demo environment",
+        impersonate: "Impersonate",
         nav: {
             badgeclasses: "Badge classes",
             manage: "Manage",
