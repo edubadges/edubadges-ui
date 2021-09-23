@@ -66,7 +66,8 @@
 
     const downloadFileName = badge => {
         const sanitizedName = badge.badgeclass.name.replace(/ /g, "_").toLowerCase();
-        return `${sanitizedName}_edubadge.png`;
+        const ext = badge.image.endsWith("svg") ? "svg" : "png";
+        return `${sanitizedName}_edubadge.${ext}`;
     }
 
     const query = `query ($entityId: String){
