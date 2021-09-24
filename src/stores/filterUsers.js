@@ -9,7 +9,7 @@ export const facultyIds = writable([]);
 export const issuerIds = writable([]);
 export const userIds = writable([]);
 
-function filterBySearch(users, search) {
+export function filterBySearch(users, search) {
   if (search && search.length > 0) {
     return users.filter(user => {
       const userName = user.firstName.toLowerCase() + " " + user.lastName.toLowerCase();

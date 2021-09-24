@@ -7,8 +7,16 @@
     import {role} from "../util/role";
     import {config} from "../util/config";
     import question from "../icons/question.svg";
-    import {authToken, redirectPath, userLoggedIn, userName, userRole, validatedUserName} from "../stores/user";
-    import {getProfile, logoutCurrentUser} from "../api";
+    import {
+        authToken,
+        redirectPath,
+        userImpersonated,
+        userLoggedIn,
+        userName,
+        userRole,
+        validatedUserName
+    } from "../stores/user";
+    import {getProfile, logoutCurrentUser, requestLoginToken} from "../api";
     import Modal from "./forms/Modal.svelte";
     import Feedback from "./shared/Feedback.svelte";
     import {onMount} from "svelte";
@@ -18,15 +26,28 @@
         $userRole = "";
         $userName = "";
         $validatedUserName = "";
+        $userImpersonated = "";
         $authToken = "";
         $redirectPath = "";
-        navigate("/login");
     }
 
     const logoutUser = () => {
         logoutCurrentUser()
-            .then(() => doLogOut()).catch(() => doLogOut());
-    };
+            .then(() => {
+                doLogOut();
+                navigate("/login");
+            }).catch(() => {
+            doLogOut()
+            navigate("/login");
+        });
+    }
+
+    const clearImpersonation = () => {
+        doLogOut();
+        $redirectPath = "/";
+        $userRole = role.TEACHER;
+        requestLoginToken(config.teacherDomain);
+    }
 
     let menuOpen = false;
     let showModal = false;
@@ -162,6 +183,9 @@
         {#if profile.is_superuser}
           <div class="profile-menu"
                on:click={() => navigate("/impersonate")}>{I18n.t('header.impersonate')}</div>
+        {:else if $userImpersonated === "true"}
+          <div class="profile-menu"
+               on:click={clearImpersonation}>{I18n.t('header.clearImpersonation')}</div>
         {/if}
         {#if $userRole === role.STUDENT}
           <div class="profile-menu" on:click={() => navigate("/catalog")}>{I18n.t('header.nav.catalog')}</div>

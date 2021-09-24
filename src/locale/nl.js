@@ -16,6 +16,7 @@ I18n.translations.nl = {
         feedback: "Verstuur feedback",
         demo: "Demo omgeving",
         impersonate: "Impersoneer",
+        clearImpersonation: "Stop impersonatie",
         nav: {
             badgeclasses: "Badge classes",
             manage: "Beheer",
@@ -438,6 +439,8 @@ I18n.translations.nl = {
         roles: {
             institution_staff: "Instellingsadmin",
             issuer_group_staff: "Issuer group admin",
+            issuer_group_awarder: "Issuer group Awarder",
+            issuer_group_admin: "Issuer group Admin",
             issuer_staff: "Issuer admin",
             issuer_admin: "Issuer admin",
             issuer_awarder: "Issuer awarder",
@@ -1295,5 +1298,9 @@ I18n.translations.nl = {
             chosenBadges: "Badges in deze collectie"
         },
         new: "Nieuwe collectie"
+    },
+    impersonate : {
+        confirmation: "Weet je zeker dat je {{name}} wilt personificeren",
+        title: "Personificatie"
     }
 };

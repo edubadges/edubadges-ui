@@ -16,6 +16,7 @@ I18n.translations.en = {
         feedback: "Send feedback",
         demo: "Demo environment",
         impersonate: "Impersonate",
+        clearImpersonation: "Clear impersonation",
         nav: {
             badgeclasses: "Badge classes",
             manage: "Manage",
@@ -438,12 +439,14 @@ I18n.translations.en = {
         roles: {
             institution_staff: "Institution Admin",
             issuer_group_staff: "Issuer group admin",
+            issuer_group_awarder: "Issuer group Awarder",
+            issuer_group_admin: "Issuer group Admin",
             issuer_staff: "Issuer Admin",
             issuer_admin: "Issuer Admin",
             issuer_awarder: "Issuer Awarder",
-            badge_class_owner: "Badge class owner",
-            badge_class_editor: "Badge class editor",
-            badge_class_awarder: "Badge class awarder",
+            badge_class_owner: "Badge class Owner",
+            badge_class_editor: "Badge class Editor",
+            badge_class_awarder: "Badge class Awarder",
             viewer: "Viewer",
         },
         flash: {
@@ -1294,5 +1297,9 @@ I18n.translations.en = {
             chosenBadges: "Badges in this collection"
         },
         new: "New collection"
+    },
+    impersonate : {
+        confirmation: "Are you sure you want to impersonate {{name}}",
+        title: "Impersonate"
     }
 };

@@ -770,3 +770,8 @@ export function deleteBadgeInstanceCollection(badgeInstanceCollection) {
     const path = `${serverUrl}/issuer/collections/delete/${badgeInstanceCollection.entityId}`;
     return validFetch(path, {}, "DELETE", true, false);
 }
+
+export function impersonate(userId) {
+    const path = `${serverUrl}/account/impersonate/${userId}`;
+    return validFetch(path, {});
+}
