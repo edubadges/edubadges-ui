@@ -5,5 +5,5 @@ export const config = {
   teacherDomain: "surf_conext",
   extensionsRootUrl: "http://127.0.0.1:8000/static",
   eduId: "https://mijn.test.eduid.nl",
-  isDemoEnvironment: !0
+  isDemoEnvironment: 0
 };
