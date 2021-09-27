@@ -35,7 +35,8 @@ export const userTree = derived(
       faculties: [],
       roles: [
         {'role': staffType.INSTITUTION_STAFF, count: 0},
-        {'role': staffType.ISSUER_GROUP_STAFF, count: 0},
+        {'role': staffType.ISSUER_GROUP_ADMIN, count: 0},
+        {'role': staffType.ISSUER_GROUP_AWARDER, count: 0},
         {'role': staffType.ISSUER_ADMIN, count: 0},
         {'role': staffType.ISSUER_AWARDER, count: 0},
         {'role': staffType.BADGE_CLASS_OWNER, count: 0},
@@ -80,11 +81,11 @@ export const userTree = derived(
         continue;
       }
 
-      for (const {user} of faculty.staff) {
+      for (const {user, mayUpdate} of faculty.staff) {
         if (!tree.users.some(_user => _user.entityId === user.entityId)) {
-          user.role = staffType.ISSUER_GROUP_STAFF;
+          user.role = mayUpdate ? staffType.ISSUER_GROUP_ADMIN : staffType.ISSUER_GROUP_AWARDER;
           tree.users = [user, ...tree.users];
-          tree.roles.find(el => el.role === staffType.ISSUER_GROUP_STAFF).count++;
+          tree.roles.find(el => el.role === (mayUpdate ? staffType.ISSUER_GROUP_ADMIN : staffType.ISSUER_GROUP_AWARDER)).count++;
         }
 
         if (!faculty.users.some(_user => user.entityId === _user.entityId)) {

@@ -435,7 +435,7 @@ I18n.translations.nl = {
         user: {
             header: "Gebruiker",
         },
-        headerControl: "Gebruikers die je kunt beheren in",
+        headerControl: "Gebruikers in ",
         roles: {
             institution_staff: "Instellingsadmin",
             issuer_group_staff: "Issuer group admin",

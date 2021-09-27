@@ -66,7 +66,7 @@ export function requestLoginToken(service, validateName = false) {
 
 export function getProfile() {
     const path = `${serverUrl}/user/profile`;
-    return validFetch(path);
+    return validFetchNoErrorDialog(path);
 }
 
 export function deleteProfile() {

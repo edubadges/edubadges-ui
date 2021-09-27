@@ -435,7 +435,7 @@ I18n.translations.en = {
         user: {
             header: "User",
         },
-        headerControl: "Users for which you have admin rights",
+        headerControl: "Users of",
         roles: {
             institution_staff: "Institution Admin",
             issuer_group_staff: "Issuer group admin",
