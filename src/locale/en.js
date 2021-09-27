@@ -980,7 +980,7 @@ I18n.translations.en = {
         assertions: "There are no awarded edubadges for {{name}}.",
         enrollments: "There are no requests for edubadge {{name}}.",
         permissions: "There are no permissions for this user on the {{entity}} level.",
-        selfPermissions: "There are no permissions for this user on the {{entity}} level.",
+        selfPermissions: "There are no permissions for you on the {{entity}} level.",
         userPermissions: "This user does not have any permissions for {{entity}} {{name}}.",
         directAwardBundles: "There is no direct award status for edubadge {{name}}",
         directAwards: "All direct awards have been claimed. There are no more outstanding direct awards for this bundle.",
