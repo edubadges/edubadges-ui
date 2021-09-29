@@ -20,7 +20,7 @@
     let loaded = false;
     let badgeInstanceCollections = [];
     let view = "cards";
-    let shareableFilter = true;
+    let shareableFilter = false;
     let sorting = sortOptions[0];
 
     const query = `query {
@@ -100,7 +100,7 @@
     onMount(refresh);
 
     $: filteredAndSortedCollections = badgeInstanceCollections
-        .filter(coll => shareableFilter ? coll.public : true)
+        .filter(coll => shareableFilter ? (coll.public && coll.badgeInstances.filter(badge => badge.public).length > 0) : true)
         .sort((a, b) => {
         const val = sorting.value;
         switch (val) {

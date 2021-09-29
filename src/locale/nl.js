@@ -1278,6 +1278,7 @@ I18n.translations.nl = {
         zeroStateBadges: "Je hebt nog geen edubadges toegevoegd...",
         create: "Maak een nieuwe collectie",
         shareable: "Collecties die je kan delen",
+        requiresPublicBadgePresent: "Een publieke collectie vereist op zijn minst 1 publieke badge",
         all: "Al je collecties",
         byRecent: "Meest recent",
         bySize: "Aantal edubadges",
@@ -1287,6 +1288,7 @@ I18n.translations.nl = {
         deleteFlash: "Collectie {{name}] verwijderd.",
         privatePublic: "Vink aan om deze collectie openbaar te maken",
         share: {
+            title: "Niet deeelbaar",
             publish: "Maak deze collectie openbaar zichtbaar",
             publishConfirmation: "Weet je zeker dat je deze collectie openbaar zichtbaar wilt maken?<br/><br/>Als je deze collectie openbaar maakt, is deze voor iedereen zichtbaar met de link.",
             private: "Maak deze collectie privé",

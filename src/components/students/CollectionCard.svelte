@@ -18,8 +18,14 @@
     let showShareDialog = false;
     let showDeleteModal = false;
     let showTogglePublicModal = false;
+    let showPublicCollectionRequiresModal = false;
 
     const togglePublic = showConfirmation => () => {
+        //Show informative modal explaining that public badges are required
+        if (collection.badgeInstances.filter(badge => badge.public).length === 0) {
+            showPublicCollectionRequiresModal = true;
+            return;
+        }
         if (showConfirmation) {
             showTogglePublicModal = true;
         } else {
@@ -170,7 +176,7 @@
           <p>{collection.description}</p>
           <div class="share-container">
             <Button text={I18n.t("student.share")} action={() => showShareDialog = true}
-                    disabled={!collection.public}/>
+                    disabled={!collection.public || collection.badgeInstances.filter(badge => badge.public).length === 0}/>
           </div>
         {/if}
       </section>
@@ -196,6 +202,16 @@
     evaluateQuestion={true}
     question={I18n.t(`collections.share.${collection.public ? "privateConfirmation" : "publishConfirmation"}`, {name: collection.name})}
     title={I18n.t(`collections.share.${collection.public ? "private" : "publish"}`, {name: collection.name})}
+  />
+{/if}
+{#if showPublicCollectionRequiresModal}
+  <Modal
+    submit={() => showPublicCollectionRequiresModal = false}
+    cancel={() => showPublicCollectionRequiresModal = false}
+    question={I18n.t("collections.requiresPublicBadgePresent")}
+    cancelLabel={"Ok"}
+    hideSubmit={true}
+    title={I18n.t("collections.share.title")}
   />
 {/if}
 {#if showShareDialog}

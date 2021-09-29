@@ -31,6 +31,7 @@
     const queryBadges = `query {
       badgeInstances {
         id,
+        public,
         badgeclass {
           name,
           image,
@@ -109,6 +110,8 @@
         }
     }
 
+    $: publicBadgePresent = collection.badgeInstances.filter(badge => badge.public).length > 0
+
 </script>
 <style lang="scss">
   div.collection-form-container {
@@ -119,6 +122,13 @@
 
   div.collection-detail {
     padding: 20px 40px 10px 40px;
+  }
+
+  span.info {
+    margin-top: 6px;
+    font-size: 14px;
+    font-style: italic;
+    display: inline-block;
   }
 
   div.actions {
@@ -137,6 +147,7 @@
         flex-direction: column;
       }
     }
+
   }
 </style>
 
@@ -160,12 +171,15 @@
       </Field>
       <Field {entity} attribute="privatePublic" tipKey="toggleBadgeCollectionPublic">
         <CheckBox
-          value={collection.public || false}
+          value={(publicBadgePresent && collection.public) || false}
           inForm={true}
           adjustTopFlex={true}
+          disabled={!publicBadgePresent}
           label={I18n.t("collections.privatePublic")}
           onChange={val => collection.public = val}/>
+        <span class="info">{I18n.t("collections.requiresPublicBadgePresent")}</span>
       </Field>
+
       <Field {entity} attribute="badge_instances" errors={errors.badge_instances}
              tipKey="collectionBadgeInstances">
         <Select

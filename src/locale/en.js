@@ -1277,6 +1277,7 @@ I18n.translations.en = {
         zeroStateBadges: "You have not added any edubadges yet...",
         create: "Create a new collection",
         shareable: "Collections that you can share",
+        requiresPublicBadgePresent: "A public collection requires at least one public badge",
         all: "All your collections",
         byRecent: "Most recent",
         bySize: "Number of edubadges",
@@ -1286,6 +1287,7 @@ I18n.translations.en = {
         deleteFlash: "Collection {{name}] deleted.",
         privatePublic: "Check to make this collection public",
         share: {
+            title: "Not shareable",
             publish: "Make this collection publicly visible",
             publishConfirmation: "Are you sure you want to make this collection publicly visible?<br/><br/>If you make this collection public then it is viewable for everyone with the link.",
             private: "Make this collection private",
