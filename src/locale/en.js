@@ -31,7 +31,7 @@ I18n.translations.en = {
         loginToEnrolInfo: "<strong>Attention!</strong> You can only request this edubadge if you are registered at one of these institutions: <strong>{{name}}</strong>.",
         loginToEnrolInfoOne: "<strong>Attention!</strong> You can only request this edubadge if you are registered at <strong>{{name}}</strong>.",
         loginToEnrolInfoAll: "<strong>Attention!</strong> You can only request this edubadge if your institution is registered with edubadges.",
-        loginAllowedWithoutValidatedName: "You can request this edubadge as an geduID uest user.",
+        loginAllowedWithoutValidatedName: "You can request this edubadge as an eduID guest user.",
         badgeClassArchived: "This edubadge has been archived and can no longer be requested.",
         destination: "What would you like to do?",
         description:
@@ -45,7 +45,7 @@ I18n.translations.en = {
         catalog: {
             title: "<strong style='font-size: 38px'>B</strong>rowse",
             subtitle: "At this moment {{badgeInstancesCount}} edubadges have been awarded by the institutions.",
-            info: "The catalog shows all the badgeclasses of all institutions using edubadges.",
+            info: "The catalog shows all the badge classes of all institutions using edubadges.",
             beta: "{{badgeClassesCount}} Badge Classes",
             action: "Open the catalog",
         },
@@ -411,7 +411,7 @@ I18n.translations.en = {
         933: "This badge class requires evidence for awarding",
         934: "The programme identifier is required when Credit points are specified.",
         935: "Enter the time investment or remove this section.",
-        936: "Cannot create Badge collection with this name as it already exists.",
+        936: "Cannot create edubadge collection with this name as it already exists.",
         unexpected: "Unexpected error occurred.",
         description: "An unexpected error has occurred. Please try again later or contact support@edubadges.nl for support.",
         close: "Close"
@@ -680,15 +680,15 @@ I18n.translations.en = {
             sorting: "Sorting:",
             award_allowed_institutions: "Award allowed institutions",
             archive: {
-                confirmation: "Badgeclass archive",
-                confirmationQuestion: "Are you sure you want to archive this badgeclass?",
-                flash: "Badgeclass {{name}} is archived",
+                confirmation: "Badge class archive",
+                confirmationQuestion: "Are you sure you want to archive this badge class?",
+                flash: "Badge class {{name}} is archived",
                 action: "Archive"
             },
             unarchive: {
-                confirmation: "Badgeclass unarchive",
-                confirmationQuestion: "Are you sure you wannt to unarchive this badgeclass?",
-                flash: "Badgeclass {{name}} is unarchived",
+                confirmation: "Badge class unarchive",
+                confirmationQuestion: "Are you sure you wannt to unarchive this badge class?",
+                flash: "Badge class {{name}} is unarchived",
                 action: "Unarchive"
             }
         },
@@ -810,8 +810,8 @@ I18n.translations.en = {
             facultyPlaceholder: "Select an issuer group...",
             issuer: "Issuer",
             issuerPlaceholder: "Select an issuer...",
-            badgeClass: "Badgeclass",
-            badgeClassPlaceholder: "Select a badgeclass...",
+            badgeClass: "Badge class",
+            badgeClassPlaceholder: "Select a badge class...",
             year: "Year",
             yearPlaceholder: "Select a year...",
         },
@@ -821,7 +821,7 @@ I18n.translations.en = {
             name: "Name",
             description: "Description",
             privatePublic: "Private / public",
-            badge_instances: "Badges",
+            badge_instances: "Edubadges",
             createdAt: "Created at"
         }
     },
@@ -1081,9 +1081,9 @@ I18n.translations.en = {
         badgeClassLanguageOfInstruction: "The language used in obtaining this edubadge.",
         badgeClassLearningOutcome: "Describe the learning outcome or learning goal. Recorded in the Teaching and Examination Regulations. Possibly in line with the Tuning methodology.",
         //badgeClassLearningIssuer: "badgeClassLearningIssuer",
-        badgeClassIsPrivate: "If checked, this badgeclass will not appear in the catalog. Note that you cannot award edubadges from a private badgeclass.",
-        badgeClassEvidenceRequired: "If checked, any awards based on this badgeclass require an evidence to be filled in.",
-        badgeClassNarrativeRequired: "If checked, any awards based on this badgeclass require an narrative to be filled in.",
+        badgeClassIsPrivate: "If checked, this badge class will not appear in the catalog. Note that you cannot award edubadges from a private badge class.",
+        badgeClassEvidenceRequired: "If checked, any awards based on this badge class require an evidence to be filled in.",
+        badgeClassNarrativeRequired: "If checked, any awards based on this badge class require an narrative to be filled in.",
         badgeClassAwardNonValidatedNameAllowed: "If checked, non-formal badges can be awarded to non-validated accounts.",
         //badgeClassCriteriaRequirements: "badgeClassCriteriaRequirements",
         //badgeClassCriteriaUrl: "badgeClassCriteriaUrl",
@@ -1122,11 +1122,11 @@ I18n.translations.en = {
         enrollmentEvidenceName: "A descriptive title of the evidence of this achievement.",
         enrollmentEvidenceDescription: "A longer description of the evidence of this achievement.",
         demoEnvironment: "All data is deleted every month.",
-        claimRate: "The claim rate is the total number of awarded badges as a percentage of the total of direct awards and enrollments.",
-        directAwards: "Direct awards are badges that are awarded by the teacher to students by email. The number(s) below are direct awards that are either still not accepted, rejected or revoked",
-        enrollments: "Enrollments are requested by students and once approved will be new awarded badges. The number(s) below are enrollments that have not been approved by the teacher or are denied",
+        claimRate: "The claim rate is the total number of awarded edubadges as a percentage of the total of direct awards and enrollments.",
+        directAwards: "Direct awards are edubadges that are awarded by the teacher to students by email. The number(s) below are direct awards that are either still not accepted, rejected or revoked",
+        enrollments: "Enrollments are requested by students and once approved will be new awarded edubadges. The number(s) below are enrollments that have not been approved by the teacher or are denied",
         toggleBadgeCollectionPublic: "A public collection can be shared with other whereas a private collection can not.",
-        collectionBadgeInstances: "Select all the badges you want to put in this collection"
+        collectionBadgeInstances: "Select all the edubadges you want to put in this collection"
     },
     badgeOverview: {
         faculty: "Faculty",
@@ -1165,13 +1165,13 @@ I18n.translations.en = {
         bulkAward: "Bulk award from csv",
         or: "-or-",
         inviteEnrollements: "Invite people to enroll",
-        badgeClassArchived: "Can not award archived badgeclass",
+        badgeClassArchived: "Can not award archived badge class",
     },
     badgeAward: {
         directAward: {
-            title: "Award badges directly",
+            title: "Award edubadges directly",
             subtitle: "Your request will be sent, and you'll be notified when it's accepted or denied.",
-            waringEnrollments: "There are {{count}} enrollments for this badge. ",
+            waringEnrollments: "There are {{count}} enrollments for this badge class. ",
             toToEnrollments: "Maybe check them first?",
             addAnother: "+ Add another",
             cancel: "Cancel",
@@ -1180,7 +1180,7 @@ I18n.translations.en = {
             editEvidence: "Edit evidence",
             processing: "Processing {{count}} direct awards. Please be patient...",
             flash: {
-                created: "Direct awards are sent"
+                created: "Direct awards have been sent"
             }
         },
         bulkAward: {
@@ -1198,9 +1198,9 @@ I18n.translations.en = {
             view: "View",
             hide: "Hide",
             evidenceIncluded: "(including evidence)",
-            evidenceAndNarrativeRequired: "This badgeclass requires both evidence and narrative to be awarded.",
-            evidenceRequired: "This badgeclass requires evidence to be awarded.",
-            narrativeRequired: "This badgeclass requires narrative to be awarded.",
+            evidenceAndNarrativeRequired: "This badge class requires both evidence and narrative to be awarded.",
+            evidenceRequired: "This badge class requires evidence to be awarded.",
+            narrativeRequired: "This badge class requires narrative to be awarded.",
             flash: {
                 created: "Bulk awards are sent"
             },
@@ -1249,7 +1249,7 @@ I18n.translations.en = {
         flash: "Your feedback has successfully been send. Thanks!"
     },
     insights: {
-        awardedBadges: "Awarded badges",
+        awardedBadges: "Awarded edubadges",
         totalAwarded: "Total awarded",
         directAwarded: "Direct awarded",
         requested: "Requested",
@@ -1262,7 +1262,7 @@ I18n.translations.en = {
         requestedDenied: "Denied by teacher",
         claimRate: "Claim rate",
         numbers: "The numbers add up",
-        badgeClasses: "Badgeclasses",
+        badgeClasses: "Badge classes",
         issuers: "Issuers",
         issuerGroups: "Issuer groups",
         users: "Portal users",
@@ -1272,18 +1272,18 @@ I18n.translations.en = {
     },
     collections: {
         title: "Collections",
-        info: "A collection of badges that you as a whole can share with others.",
-        zeroState: "You have not created any collections of badges yet...",
-        zeroStateBadges: "You have not added any badges yet...",
+        info: "A collection of edubadges that you as a whole can share with others.",
+        zeroState: "You have not created any collections of edubadges yet...",
+        zeroStateBadges: "You have not added any edubadges yet...",
         create: "Create a new collection",
         shareable: "Collections that you can share",
         all: "All your collections",
         byRecent: "Most recent",
-        bySize: "Number of badges",
+        bySize: "Number of edubadges",
         byPublic: "Public / private",
-        deleteConfirmation: "Delete badge collection {{name}}",
-        deleteConfirmationQuestion: "Are you sure you want to delete badge collection {{name}}.",
-        deleteFlash: "Badge collection {{name}] deleted.",
+        deleteConfirmation: "Delete collection {{name}}",
+        deleteConfirmationQuestion: "Are you sure you want to delete collection {{name}}.",
+        deleteFlash: "Collection {{name}] deleted.",
         privatePublic: "Check to make this collection public",
         share: {
             publish: "Make this collection publicly visible",
@@ -1294,7 +1294,7 @@ I18n.translations.en = {
         placeholders: {
             name: "Name of the collection",
             description: "Description of the collection",
-            chosenBadges: "Badges in this collection"
+            chosenBadges: "Edubadges in this collection"
         },
         new: "New collection"
     },

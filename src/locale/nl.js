@@ -156,7 +156,7 @@ I18n.translations.nl = {
             title: "Badge classes",
             badges: "Edubadges",
             noBadges: "(Nog geen edubadges uitgegeven)",
-            badgesCount: "{{count}} Edubadges uitgegeven",
+            badgesCount: "{{count}} edubadges uitgegeven",
             requestedBadges: "Open aanvragen",
             noRequestedBadges: "Geen open aanvragen",
             requestedBadgesCount: "{{count}} Open aanvragen",
@@ -221,9 +221,9 @@ I18n.translations.nl = {
         revokedWithReason: "Deze edubadge is ingetrokken door de uitgever met als reden: '{{revocationReason}}'",
         collections: {
             title: "Voe toe aan collectie",
-            question: "Selecteer een collectie om deze badge aan toe te voegen",
+            question: "Selecteer een collectie om deze edubadge aan toe te voegen",
             placeholder: "Selecteer...",
-            flash: "Badge {{name}} toegovoegd aan collectie {{col}}"
+            flash: "Edubadge {{name}} toegevoegd aan de collectie {{col}}"
         },
         confirmation: {
             publish: "Maak deze edubadge publiekelijk zichtbaar",
@@ -411,7 +411,7 @@ I18n.translations.nl = {
         933: "Een URL is verplicht voor het awarden van deze edubadge",
         934: "De opleidingscode is verplicht als er studiepunten zijn opgegeven.",
         935: "Vul de tijdsinvestering of verwijder deze rubriek.",
-        936: "Kan geen badge collectie aanmaken met deze naam. Er bestaan al een collectie met deze naam.",
+        936: "Kan geen collectie aanmaken met deze naam. Er bestaat al een collectie met deze naam.",
         unexpected: "Oeps, er is iets totaal onverwachts en onverklaarbaars gebeurd.",
         description: "Een onverwachte fout is opgetreden. Probeer het opnieuw of neem contact op met support@edubadges.nl voor ondersteuning.",
         close: "Sluit"
@@ -682,13 +682,13 @@ I18n.translations.nl = {
             archive: {
                 confirmation: "Badge class archiveren",
                 confirmationQuestion: "Weet je zeker dat je deze badge class wilt archiveren?",
-                flash: "Badgeclass {{name}} is gearchiveerd",
+                flash: "Badge class {{name}} is gearchiveerd",
                 action: "Archiveer"
             },
             unarchive: {
-                confirmation: "Badgeclass dearchiveren",
+                confirmation: "Badgec lass dearchiveren",
                 confirmationQuestion: "Weet je zeker dat je deze badge class wilt dearchiveren?",
-                flash: "Badgeclass {{name}} is gedearchiveerd",
+                flash: "Badge class {{name}} is gedearchiveerd",
                 action: "Dearchiveer"
             }
 
@@ -808,21 +808,21 @@ I18n.translations.nl = {
         },
         insights: {
             faculty: "Issuer group",
-            facultyPlaceholder: "Select an issuer group...",
+            facultyPlaceholder: "Selecteer een issuer group...",
             issuer: "Issuer",
-            issuerPlaceholder: "Select an issuer...",
-            badgeClass: "Badgeclass",
-            badgeClassPlaceholder: "Select a badgeclass...",
-            year: "Year",
-            yearPlaceholder: "Select a year...",
+            issuerPlaceholder: "Selecteer een issuer...",
+            badgeClass: "Badge class",
+            badgeClassPlaceholder: "Selecteer een badge class...",
+            year: "Jaar",
+            yearPlaceholder: "Selecteer een jaar...",
         },
         collections: {
-            number: "Number",
-            lastUpdated: "Last one created",
+            number: "Nummer",
+            lastUpdated: "Laatste gemaakt",
             name: "Naam",
             description: "Omschrijving",
             privatePublic: "Privé / publiek",
-            badge_instances: "Badges",
+            badge_instances: "Edubadges",
             createdAt: "Aangemaakt op"
         }
     },
@@ -985,7 +985,7 @@ I18n.translations.nl = {
         userPermissions: "Deze gebruiker heeft geen permissies op {{entity}} niveau.",
         directAwardBundles: "Er is geen direct award status voor edubadge {{name}}",
         directAwards: "Alle direct awards zijn geclaimed. Er zijn geen uitstaande direct awards meer voor deze bundel.",
-        requestedBatches: "Er zijn geen openstaande eduBadge-verzoeken die je mag uitreiken."
+        requestedBatches: "Er zijn geen openstaande edubadge-verzoeken die je mag uitreiken."
     },
     userManagement: {
         permissions: "Permissies voor {{name}}",
@@ -1120,14 +1120,14 @@ I18n.translations.nl = {
         badgeclassAwardAllowedInstitutions: "Selecteer andere instellingen waarvan de studenten<br/>ook deze edubadge kunnen verdienen.",
         enrollmentEvidenceNarrative: "Een persoonlijke toelichting dat kan worden toegevoegd aan deze toegekende edubadge.",
         enrollmentEvidenceURL: "De URL van een webpagina met bewijs van de geleverde prestatie.",
-        enrollmentEvidenceName: "Een beschrijvende titel van het bewijs van de geleverde prestatie..",
-        enrollmentEvidenceDescription: "Een langere beschrijving van het bewijs van de geleverde prestatie..",
+        enrollmentEvidenceName: "Een beschrijvende titel van het bewijs van de geleverde prestatie.",
+        enrollmentEvidenceDescription: "Een langere beschrijving van het bewijs van de geleverde prestatie.",
         demoEnvironment: "Alle data wordt iedere maand verwijderd.",
-        claimRate: "Het claimpercentage is het totale aantal toegekende badges als percentage van het totaal aan directe awards en inschrijvingen.",
-        directAwards: "Direct awards are badges that are awarded by the teacher to students by email. The number(s) below are direct awards that are either still not accepted, rejected or revoked",
-        enrollments: "Enrollments are requested by students and once approved will be new awarded badges. The number(s) below are enrollments that have not been approved by the teacher or are denied",
-        toggleBadgeCollectionPublic: "Een openbare collectie kan met anderen worden gedeeld, een privécollectie niet.",
-        collectionBadgeInstances: "Selecteer alle badges die je in deze collectie wilt plaatsen."
+        claimRate: "Het claimpercentage is het totale aantal toegekende edubadges als percentage van het totaal aan directe awards en inschrijvingen.",
+        directAwards: "Direct awards zijn edubadges die door de leraar per e-mail aan leerlingen worden uitgereikt. De onderstaande nummers zijn rechtstreekse toekenningen die nog niet aanvaard, geweigerd of ingetrokken zijn",
+        enrollments: "Enrollments worden door leerlingen aangevraagd en na goedkeuring worden nieuwe edubadges toegekend. De nummers hieronder zijn enrollments die niet goedgekeurd zijn door de leraar of geweigerd zijn",
+        toggleBadgeCollectionPublic: "Een openbare collectie kan met anderen worden gedeeld, een privé collectie niet.",
+        collectionBadgeInstances: "Selecteer alle edubadges die je in deze collectie wilt plaatsen."
     },
     badgeOverview: {
         faculty: "Faculteit",
@@ -1155,7 +1155,7 @@ I18n.translations.nl = {
             eqf: "NLQF niveau {{level}}",
         },
         issuer: {
-            contact: "Contact de issuer",
+            contact: "Neem contact op met de issuer",
             website: "Bezoek issuer website",
             gradingTable: "Bekijk de grading tabel",
             institution: "<span>Onderdeel van <a href=\"{{link}}\" target=\"_blank\">{{name}}</a></span>"
@@ -1166,7 +1166,7 @@ I18n.translations.nl = {
         bulkAward: "Bulk uitreiking uit csv",
         or: "-of-",
         inviteEnrollements: "Nodig gebruikers uit om in te schrijven",
-        badgeClassArchived: "Kan geen uitreikingen doen op een gearrchiveerde badgeclass",
+        badgeClassArchived: "Kan geen uitreikingen doen op een gearrchiveerde badge class",
     },
     badgeAward: {
         directAward: {
@@ -1199,9 +1199,9 @@ I18n.translations.nl = {
             view: "Bekijk",
             hide: "Verbergen",
             evidenceIncluded: "(inclusief evidence)",
-            evidenceAndNarrativeRequired: "Deze badgeclass vereist zowel evidence als narrative om te worden toegekend.",
-            evidenceRequired: "Deze badgeclass vereist evidence om te worden toegekend.",
-            narrativeRequired: "Deze badgeclass vereist narrative om te worden toegekend.",
+            evidenceAndNarrativeRequired: "Deze badge class vereist zowel evidence als narrative om te worden toegekend.",
+            evidenceRequired: "Deze badge class vereist evidence om te worden toegekend.",
+            narrativeRequired: "Deze badge class vereist narrative om te worden toegekend.",
             flash: {
                 created: "Bulk awards zijn verzonden"
             },
@@ -1250,7 +1250,7 @@ I18n.translations.nl = {
         flash: "Je feedback is succesvol verzonden. Bedankt!"
     },
     insights: {
-        awardedBadges: "Bekroonde badges",
+        awardedBadges: "Awarded edubadges",
         totalAwarded: "Totaal awarded",
         directAwarded: "Direct toegekend",
         requested: "Aangevraagd",
@@ -1258,14 +1258,14 @@ I18n.translations.nl = {
         open: "Open",
         directAwards: "Direct toegekend",
         directAwardDenied: "Geweigerd door student",
-        requestedDeniedTooltip: "Geweigerd door leraar na verzoek",
+        requestedDeniedTooltip: "Geweigerd door issuer na verzoek",
         revoked: "Ingetrokken na toekenning",
-        requestedDenied: "Geweigerd door leraar",
+        requestedDenied: "Geweigerd door issuer",
         claimRate: "Claim rate",
         numbers: "De getallen tellen op",
-        badgeClasses: "Badgeclasses",
+        badgeClasses: "Badge classes",
         issuers: "Issuers",
-        issuerGroups: "Issuer groepen",
+        issuerGroups: "Issuer groups",
         users: "Portal gebruikers",
         crunching: "Crunching the numbers just for you...",
         date: "Datum",
@@ -1273,34 +1273,34 @@ I18n.translations.nl = {
     },
     collections: {
         title: "Collecties",
-        info: "Een verzameling badges die je als geheel met anderen kan delen.",
-        zeroState: "Je hebt nog geen verzamelingen badges gemaakt...",
-        zeroStateBadges: "Je hebt nog geen badges toegevoegd...",
+        info: "Een verzameling edubadges die je als geheel met anderen kan delen.",
+        zeroState: "Je hebt nog geen collectie van edubadges gemaakt...",
+        zeroStateBadges: "Je hebt nog geen edubadges toegevoegd...",
         create: "Maak een nieuwe collectie",
         shareable: "Collecties die je kan delen",
         all: "Al je collecties",
         byRecent: "Meest recent",
-        bySize: "Aantal badges",
+        bySize: "Aantal edubadges",
         byPublic: "Publiek / privé",
-        deleteConfirmation: "Verwijder badge collectie {{name}}",
-        deleteConfirmationQuestion: "Weet je zeker dat je de badgeverzameling {{name}} wilt verwijderen?",
-        deleteFlash: "Badge collectie {{name}] verwijderd.",
+        deleteConfirmation: "Verwijder collectie {{name}}",
+        deleteConfirmationQuestion: "Weet je zeker dat je de collectie {{name}} wilt verwijderen?",
+        deleteFlash: "Collectie {{name}] verwijderd.",
         privatePublic: "Vink aan om deze collectie openbaar te maken",
         share: {
             publish: "Maak deze collectie openbaar zichtbaar",
             publishConfirmation: "Weet je zeker dat je deze collectie openbaar zichtbaar wilt maken?<br/><br/>Als je deze collectie openbaar maakt, is deze voor iedereen zichtbaar met de link.",
-            private: "Maak deze verzameling privé",
-            privateConfirmation: "Weet je zeker dat je deze verzameling privé wilt maken?",
+            private: "Maak deze collectie privé",
+            privateConfirmation: "Weet je zeker dat je deze collectie privé wilt maken?",
         },
         placeholders: {
             name: "Naam van de collectie",
             description: "Beschrijving van de collectie",
-            chosenBadges: "Badges in deze collectie"
+            chosenBadges: "Edubadges in deze collectie"
         },
         new: "Nieuwe collectie"
     },
     impersonate : {
-        confirmation: "Weet je zeker dat je {{name}} wilt personificeren",
-        title: "Personificatie"
+        confirmation: "Weet je zeker dat je je wilt voordoen als {{name}} ?",
+        title: "Impersonate"
     }
 };
