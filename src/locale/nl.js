@@ -214,7 +214,7 @@ I18n.translations.nl = {
         badgeRevoked: "Deze edubadge is ingetrokken. Je ziet deze nog wel, maar deze edubadge kan je niet langer delen",
         badgeExpired: "Deze edubadge is verlopen. Je ziet deze nog wel, maar deze edubadge kan je niet langer delen",
         privateBadge: "Privé edubadge",
-        publicPrivate: "Je edubadge staat op privé, alleen jij kan deze edubadge zien en downloaden.",
+        publicPrivate: "Je edubadge staat op privé, alleen jij kan deze edubadge zien.",
         publicPrivatePublic: "Je edubadge staat niet op privé, iedereen met de publieke link kan deze edubadge zien en downloaden.",
         publicPrivateRejected: "Voordat je deze edubadge publiek zichtbaar kan maken, moet je deze edubadge eerst accepteren.",
         revoked: "Deze edubadge is ingetrokken door de uitgever",
