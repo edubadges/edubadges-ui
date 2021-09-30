@@ -145,6 +145,10 @@
         loaded = false;
         checkAllValue = false;
         queryData(query, {userId}).then(res => {
+            faculties = [];
+            newPermissionOptions = [];
+            removePermissionOptions = [];
+
             const institution = res.currentInstitution;
             user = res.user;
 
