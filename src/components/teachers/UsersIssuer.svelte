@@ -216,7 +216,8 @@
                 }
             }
             newPermissionOptions = issuers.filter(issuer => !userHasPermissions(issuer, entityType.ISSUER, institutionStaffs, issuerGroupStaffs, issuerStaffs, [], true));
-            removePermissionOptions = issuers.filter(issuer => userHasPermissions(issuer, entityType.ISSUER, institutionStaffs, issuerGroupStaffs, issuerStaffs, []));
+            removePermissionOptions = issuers.filter(issuer => userHasPermissions(issuer, entityType.ISSUER, currentUser.institutionStaff, currentUser.facultyStaffs, currentUser.issuerStaffs, []));
+
             modalSelectedEntity = newPermissionOptions[0];
             isEmpty = user.issuerStaffs.length === 0 &&
                 user.facultyStaffs.length === 0 && (!user.institutionStaff || (user.institutionStaff && faculties.length === 0));

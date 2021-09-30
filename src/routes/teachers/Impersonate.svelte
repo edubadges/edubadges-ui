@@ -49,6 +49,7 @@
       badgeclassStaffs {
         mayUpdate,
         mayAward,
+        mayDelete,
         badgeclass {
           name
         }
@@ -86,7 +87,7 @@
         } else if (user.badgeclassStaffs && user.badgeclassStaffs.length > 0) {
             const staff = user.badgeclassStaffs.find(staff => staff.mayUpdate) ||
                 user.badgeclassStaffs.find(staff => staff.mayAward) || user.badgeclassStaffs[0];
-            user.role = staff.mayUpdate ? staffType.BADGE_CLASS_OWNER : staff.mayAward ? staffType.BADGE_CLASS_AWARDER : staffType.BADGE_CLASS_EDITOR;
+            user.role = staff.mayDelete ? staffType.BADGE_CLASS_OWNER : staff.mayUpdate ? staffType.BADGE_CLASS_EDITOR : staffType.BADGE_CLASS_AWARDER;
             user.roleAt = `${staff.badgeclass.name} (${user.institution.name})`;
         } else {
             user.role = staffType.VIEWER;

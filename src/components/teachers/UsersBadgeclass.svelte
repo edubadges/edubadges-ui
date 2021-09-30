@@ -290,7 +290,7 @@
                 }
             }
             newPermissionOptions = badgeClasses.filter(badgeClass => !userHasPermissions(badgeClass, entityType.BADGE_CLASS, institutionStaffs, issuerGroupStaffs, issuerStaffs, badgeClassStaffs, true));
-            removePermissionOptions = badgeClasses.filter(badgeClass => userHasPermissions(badgeClass, entityType.BADGE_CLASS, institutionStaffs, issuerGroupStaffs, issuerStaffs, badgeClassStaffs));
+            removePermissionOptions = badgeClasses.filter(badgeClass => userHasPermissions(badgeClass, entityType.BADGE_CLASS, currentUser.institutionStaff, currentUser.facultyStaffs, currentUser.issuerStaffs, currentUser.badgeclassStaffs));
             isEmpty = user.badgeclassStaffs.length === 0 &&
                 user.issuerStaffs.length === 0 &&
                 user.facultyStaffs.length === 0 &&

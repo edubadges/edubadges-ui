@@ -101,7 +101,7 @@ export const userHasPermissions = (entity, _entityType, institutionStaffs, issue
                 issuerGroupStaffs.some(iGS => iGS.faculty.issuers.some(issuer => issuer.entityId === entity.entityId) && (anyAllowed || (iGS.mayAdministrateUsers || iGS.mayUpdate)));
             break;
         case entityType.BADGE_CLASS:
-            const foundBadgeClassStaff = badgeClassStaffs.find(bCS => bCS.badgeclass.entityId === entity.entityId && (anyAllowed || (bCS.mayAdministrateUsers || iGS.mayUpdate)));
+            const foundBadgeClassStaff = badgeClassStaffs.find(bCS => bCS.badgeclass.entityId === entity.entityId && (anyAllowed || (bCS.mayAdministrateUsers || bCS.mayUpdate)));
             const foundIssuerStaff = issuerStaffs.find(iS => iS.issuer.badgeclasses.find(badgeClass => badgeClass.entityId === entity.entityId) && (anyAllowed || (iS.mayAdministrateUsers || iS.mayUpdate)));
             const foundIssuerGroupStaff = issuerGroupStaffs.find(iGS => iGS.faculty.issuers.find(issuer => issuer.badgeclasses.find(badgeClass => badgeClass.entityId === entity.entityId))
                 && (anyAllowed || (iGS.mayAdministrateUsers || iGS.mayUpdate)));
