@@ -1,21 +1,20 @@
 <script>
-  import {queryData} from "../../api/graphql";
-  import { onMount } from "svelte";
-  import I18n from "i18n-js";
-  import {UserManagement} from "../teachers";
-  import {staffType, addStaffType} from "../../util/staffTypes";
-  import {translateProperties} from "../../util/utils";
+    import {queryData} from "../../api/graphql";
+    import {onMount} from "svelte";
+    import {UserManagement} from "../teachers";
+    import {addStaffType, staffType} from "../../util/staffTypes";
+    import {translateProperties} from "../../util/utils";
 
-  export let entity;
-  export let entityId;
+    export let entity;
+    export let entityId;
 
-  let institutionStaffMembers = [];
-  let issuerGroupStaffMembers = [];
-  let selection = [];
-  let permissions;
-  let userProvisionments = [];
+    let institutionStaffMembers = [];
+    let issuerGroupStaffMembers = [];
+    let selection = [];
+    let permissions;
+    let userProvisionments = [];
 
-  const query = `query ($entityId: String){
+    const query = `query ($entityId: String){
     faculty(id: $entityId) {
       nameEnglish,
       nameDutch,
@@ -56,28 +55,28 @@
       }
 		}
   }`;
-  const reload = () => {
-    queryData(query, {entityId}).then(res => {
-      translateProperties(res.faculty);
-      translateProperties(res.faculty.institution);
+    const reload = () => {
+        queryData(query, {entityId}).then(res => {
+            translateProperties(res.faculty);
+            translateProperties(res.faculty.institution);
 
-      institutionStaffMembers = addStaffType(res.faculty.institution.staff, staffType.INSTITUTION_STAFF);
-      issuerGroupStaffMembers = addStaffType(res.faculty.staff, staffType.ISSUER_GROUP_STAFF);
-      userProvisionments = addStaffType(res.faculty.userprovisionments, staffType.USER_PROVISIONMENT);
-      permissions = res.faculty.permissions;
-    })
-  };
+            institutionStaffMembers = addStaffType(res.faculty.institution.staff, staffType.INSTITUTION_STAFF);
+            issuerGroupStaffMembers = addStaffType(res.faculty.staff, staffType.ISSUER_GROUP_STAFF);
+            userProvisionments = addStaffType(res.faculty.userprovisionments, staffType.USER_PROVISIONMENT);
+            permissions = res.faculty.permissions;
+        })
+    };
 
-  onMount(reload);
+    onMount(reload);
 
 </script>
 
 <UserManagement
-    {entity}
-    {entityId}
-    {permissions}
-    institutionStaffs={institutionStaffMembers}
-    issuerGroupStaffs={issuerGroupStaffMembers}
-    {userProvisionments}
-    {reload}
+  {entity}
+  {entityId}
+  {permissions}
+  institutionStaffs={institutionStaffMembers}
+  issuerGroupStaffs={issuerGroupStaffMembers}
+  {userProvisionments}
+  {reload}
 />

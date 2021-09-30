@@ -84,7 +84,8 @@
             user.role = staff.mayUpdate ? staffType.ISSUER_ADMIN : staffType.ISSUER_AWARDER;
             user.roleAt = `${staff.issuer.name} (${user.institution.name})`;
         } else if (user.badgeclassStaffs && user.badgeclassStaffs.length > 0) {
-            const staff = user.badgeclassStaffs.find(staff => staff.mayUpdate) || user.badgeclassStaffs.find(staff => staff.mayEdit) || user.issuerStaffs[0];
+            const staff = user.badgeclassStaffs.find(staff => staff.mayUpdate) ||
+                user.badgeclassStaffs.find(staff => staff.mayAward) || user.badgeclassStaffs[0];
             user.role = staff.mayUpdate ? staffType.BADGE_CLASS_OWNER : staff.mayAward ? staffType.BADGE_CLASS_AWARDER : staffType.BADGE_CLASS_EDITOR;
             user.roleAt = `${staff.badgeclass.name} (${user.institution.name})`;
         } else {

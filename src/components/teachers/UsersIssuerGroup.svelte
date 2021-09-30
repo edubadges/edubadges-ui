@@ -171,12 +171,13 @@
             }
             institutionStaffs = user.institutionStaff ? addStaffType([res.user.institutionStaff], staffType.INSTITUTION_STAFF) : [];
             issuerGroupStaffs = addStaffType(user.facultyStaffs, staffType.ISSUER_GROUP_STAFF);
-            newPermissionOptions = faculties.filter(faculty => !userHasPermissions(faculty, entityType.ISSUER_GROUP, institutionStaffs, issuerGroupStaffs, [], []));
-            removePermissionOptions = faculties.filter(faculty => userHasPermissions(faculty, entityType.ISSUER_GROUP, institutionStaffs, issuerGroupStaffs, [], []));
+
+            currentUser = res.currentUser;
+            newPermissionOptions = faculties.filter(faculty => !userHasPermissions(faculty, entityType.ISSUER_GROUP, institutionStaffs, issuerGroupStaffs, [], [], true));
+            removePermissionOptions = faculties.filter(faculty => userHasPermissions(faculty, entityType.ISSUER_GROUP, currentUser.institutionStaff, currentUser.facultyStaffs, [], []));
             modalSelectedEntity = newPermissionOptions[0];
 
             userNameDict = {name: `${user.firstName} ${user.lastName}`};
-            currentUser = res.currentUser;
             isEmpty = user.facultyStaffs.length === 0 &&
                 (!user.institutionStaff || (user.institutionStaff && faculties.length === 0));
             loaded = true;

@@ -209,7 +209,7 @@
           }
         }
       }
-      newPermissionOptions = issuers.filter(issuer => !userHasPermissions(issuer, entityType.ISSUER, institutionStaffs, issuerGroupStaffs, issuerStaffs, []));
+      newPermissionOptions = issuers.filter(issuer => !userHasPermissions(issuer, entityType.ISSUER, institutionStaffs, issuerGroupStaffs, issuerStaffs, [], true));
       removePermissionOptions = issuers.filter(issuer => userHasPermissions(issuer, entityType.ISSUER, institutionStaffs, issuerGroupStaffs, issuerStaffs, []));
       modalSelectedEntity = newPermissionOptions[0];
       isEmpty = user.issuerStaffs.length === 0 &&
