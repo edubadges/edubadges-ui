@@ -63,6 +63,7 @@
         margin-bottom: var(--ver-padding-m);
       }
     }
+
     div.slot {
       margin: 15px 0 0 auto;
     }
@@ -78,7 +79,9 @@
   </div>
   <div class="content">
     <p>{I18n.t("collections.info")}</p>
-    <HeaderList {headerItems} entity="collections"/>
+    {#if badgeInstanceCollections.length > 0}
+      <HeaderList {headerItems} entity="collections"/>
+    {/if}
   </div>
   <div class="slot">
     <slot/>

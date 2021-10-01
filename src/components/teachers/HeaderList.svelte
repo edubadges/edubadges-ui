@@ -38,7 +38,7 @@
   {#each headerItems as {attr, type, value} (attr)}
     <span>
       <h5>{I18n.t(['models', entity, attr])}</h5>
-
+      {#if value !== null && value !== undefined}
       {#if type === 'date'}
         <p>{moment(value).format('MMM D, YYYY')}</p>
       {:else if type === 'adminNames'}
@@ -52,6 +52,7 @@
           <p>{value}</p>
         {:else}<p>-</p>{/if}
       {:else}<p>{value}</p>{/if}
+        {/if}
     </span>
   {/each}
 </div>
