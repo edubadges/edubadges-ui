@@ -109,7 +109,7 @@
             contentType = res.badgeClass.contentTypeId;
             permissions = res.badgeClass.permissions;
             const hasUnrevokedAssertions = badgeclass.badgeAssertions.some(assertion => !assertion.revoked);
-            const hasOpenEnrollments = badgeclass.enrollments.some(enrollment => !enrollment.denied);
+            const hasOpenEnrollments = badgeclass.enrollments.some(enrollment => !enrollment.denied && enrollment.dateAwarded === null);
             const hasPendingDirectAwards = badgeclass.directAwardBundles.some(bundle => bundle.directAwardCount > 0);
             mayUpdatePermission = badgeclass.permissions && badgeclass.permissions.mayUpdate
             mayUpdateBadgeclass = mayUpdatePermission && !hasUnrevokedAssertions;
