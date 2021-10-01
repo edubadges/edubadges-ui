@@ -947,7 +947,7 @@ I18n.translations.en = {
     publicBadge: {
         verification: "Verification",
         issuedTo: "This edubadge was issued to <strong>{{name}}</strong> on {{date}}",
-        noValidatedName: "This edubadge was issued to a user which name was <strong>not</strong> validated by an Institution on {{date}}",
+        noValidatedName: "This edubadge was issued to {{name}} which name was <strong>not</strong> validated by an Institution on {{date}}",
         expires: "It expires on {{date}}",
         hasExpired: "It has expired on {{date}}",
         neverExpires: "It has no expiry date",

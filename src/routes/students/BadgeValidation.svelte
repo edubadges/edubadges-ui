@@ -48,7 +48,7 @@
       {#if validatedName}
         <p>{@html I18n.t("publicBadge.issuedTo", {name: validatedName, date: formatDate(badge.issuedOn)})}</p>
       {:else}
-        <p>{@html I18n.t("publicBadge.noValidatedName", {date: formatDate(badge.issuedOn)})}</p>
+        <p>{@html I18n.t("publicBadge.noValidatedName", {date: formatDate(badge.issuedOn), name: badge.user})}</p>
       {/if}
       {#if badge.expires && new Date(badge.expires) < new Date()}
         <p class="expired">{I18n.t("publicBadge.hasExpired", {date: formatDate(badge.expires)})}</p>

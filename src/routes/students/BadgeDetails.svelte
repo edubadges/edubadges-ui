@@ -33,7 +33,6 @@
     export let entityId;
 
     let badge = {};
-    // let validation = {valid: false, messages: [], unloaded: true};
 
     //Modal
     let showModal = false;
