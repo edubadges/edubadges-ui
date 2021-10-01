@@ -1028,6 +1028,11 @@ I18n.translations.nl = {
             criteriaUrl: "Bijv. https://universiteitvanharderwijk.nl/geschiedenis/criteria",
             studyLoad: "Bijv. 120",
             timeInvestment: "Bijv. 260",
+            status: {
+                name: "Status",
+                archived: "Gearchiveerd",
+                active: "Actief"
+            },
             educationProgramIdentifier: "Bijv. 12111990",
             alignmentName: "Bijv. Geschiedenis",
             alignmentFramework: "Bijv. ESCO",

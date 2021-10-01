@@ -63,8 +63,16 @@
       right: true
     },
     {
+      name: I18n.t("placeholders.badgeClass.status.name"),
+      attribute: "archived",
+      reverse: false,
+      sortType: sortType.BOOLEAN,
+      width: "11%",
+      center: true
+    },
+    {
       name: "",
-      width: "31%"
+      width: "20%"
     },
   ];
 
@@ -145,6 +153,7 @@
       <td class="center">{badgeclass.pendingEnrollmentCount === 0 ? "-" : badgeclass.pendingEnrollmentCount}</td>
       <td class="right">{badgeclass.studyLoad}</td>
       <td class="right">{badgeclass.timeInvestment}</td>
+      <td class="center">{I18n.t(`placeholders.badgeClass.status.${badgeclass.archived ? "archived" : "active"}`) }</td>
       <td></td>
     </tr>
   {/each}

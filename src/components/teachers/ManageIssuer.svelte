@@ -49,6 +49,7 @@
         image,
         createdAt,
         assertionCount,
+        archived,
         pendingEnrollmentCount,
         extensions {
          name,

@@ -51,7 +51,6 @@
       archived,
       criteriaText,
       expirationPeriod,
-      archived,
       issuer {
         nameEnglish,
         nameDutch,

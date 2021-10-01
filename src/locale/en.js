@@ -1027,6 +1027,11 @@ I18n.translations.en = {
             criteriaUrl: "e.g. https://www.universityofharderwijk.nl/renaissance/criteria",
             studyLoad: "e.g. 120",
             timeInvestment: "e.g. 260",
+            status: {
+                name: "Status",
+                archived: "Archived",
+                active: "Active"
+            },
             educationProgramIdentifier: "e.g. 12111990",
             alignmentName: "e.g. history",
             alignmentFramework: "e.g. ESCO",
