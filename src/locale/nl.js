@@ -435,6 +435,9 @@ I18n.translations.nl = {
         user: {
             header: "Gebruiker",
         },
+        delete: "Verwijder gebruiker",
+        deleteConfirmation: "Weet je zeker dat je gebruiker {{name}} wilt verwijderen?",
+        deleteFlash: "Gebruiker {{name}} is verwijderd",
         headerControl: "Gebruikers in ",
         roles: {
             institution_staff: "Instellingsadmin",

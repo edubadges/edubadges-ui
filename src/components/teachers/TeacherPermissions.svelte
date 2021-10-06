@@ -52,6 +52,7 @@
       email,
       institutionStaff {
         entityId,
+        mayAdministrateUsers,
         institution {
           nameDutch,
           nameEnglish,

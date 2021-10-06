@@ -1,72 +1,70 @@
 <script>
-  import Button from "../Button.svelte";
-  import I18n from "i18n-js";
-  import {Field, Select, TextInput} from "../../components/forms"
-  import {inviteUser} from "../../api";
-  import {rolesToPermissions} from "../../util/rolesToPermissions";
-  import {isNumber} from "lodash";
-  import {trash} from "../../icons";
-  import {flash} from "../../stores/flash";
-  import {navigate} from "svelte-routing";
+    import Button from "../Button.svelte";
+    import I18n from "i18n-js";
+    import {Field, Select, TextInput} from "../../components/forms"
+    import {inviteUser} from "../../api";
+    import {rolesToPermissions} from "../../util/rolesToPermissions";
+    import {trash} from "../../icons";
+    import {flash} from "../../stores/flash";
 
-  export let contentType;
-  export let entityId;
-  export let disabledRole;
-  export let permissionsRoles = [];
-  export let defaultValue = 0;
+    export let contentType;
+    export let entityId;
+    export let disabledRole;
+    export let permissionsRoles = [];
+    export let defaultValue = 0;
 
-  let newUsers = [{"email": "", "chosenRole": permissionsRoles[defaultValue]}];
-  let errors = [];
-  let working = false;
+    let newUsers = [{"email": "", "chosenRole": permissionsRoles[defaultValue]}];
+    let errors = [];
+    let working = false;
 
-  const emailRegExp = /(.+)@(.+){1,}/
+    const emailRegExp = /(.+)@(.+){1,}/
 
-  const addEmailField = () => {
-    newUsers = [...newUsers, {
-      'email': '',
-      'chosenRole': permissionsRoles[defaultValue]
-    }];
-  };
+    const addEmailField = () => {
+        newUsers = [...newUsers, {
+            'email': '',
+            'chosenRole': permissionsRoles[defaultValue]
+        }];
+    };
 
-  const findErrors = (index, email) => {
-    const error = errors[index];
-    return error ? error.email === email ? [error] : undefined : undefined;
-  }
+    const findErrors = (index, email) => {
+        const error = errors[index];
+        return error ? error.email === email ? [error] : undefined : undefined;
+    }
 
-  const deleteEmailField = index => {
-    newUsers = newUsers.filter((user, i) => i !== index);
-  }
+    const deleteEmailField = index => {
+        newUsers = newUsers.filter((user, i) => i !== index);
+    }
 
-  const cancel = () => window.history.back();
+    const cancel = () => window.history.back();
 
-  const submit = () => {
-    working = true;
-    const userProvisionments = newUsers.filter(user => emailRegExp.test(user.email))
-      .map(user => ({'userEmail': user.email, 'permissions': rolesToPermissions(user.chosenRole.value)}));
-    inviteUser(contentType, entityId, userProvisionments).then(res => {
-      let hasFailures = res.some(el => el.status === "failure");
-      if (hasFailures) {
-        errors = res.map(el => {
-          if(el.status === "failure"){
-            return {
-              email: el.email,
-              error_code: el.message.fields.error_code,
-              error_message: el.message.fields.error_message
+    const submit = () => {
+        working = true;
+        const userProvisionments = newUsers.filter(user => emailRegExp.test(user.email))
+            .map(user => ({'userEmail': user.email, 'permissions': rolesToPermissions(user.chosenRole.value)}));
+        inviteUser(contentType, entityId, userProvisionments).then(res => {
+            let hasFailures = res.some(el => el.status === "failure");
+            if (hasFailures) {
+                errors = res.map(el => {
+                    if (el.status === "failure") {
+                        return {
+                            email: el.email,
+                            error_code: el.message.fields.error_code,
+                            error_message: el.message.fields.error_message
+                        }
+                    }
+                });
             }
-          }
+            newUsers = newUsers.filter(user => errors.find(error => error ? error.email === user.email : undefined));
+            const emails = res.filter(el => el.status === "success").map(el => el.email);
+            if (emails.length > 0) {
+                flash.setValue(I18n.t('inviteUsers.flash.confirm', {emails: emails.join(", ")}));
+            }
+            working = false;
+            if (!hasFailures) {
+                window.history.back();
+            }
         });
-      }
-      newUsers = newUsers.filter(user => errors.find(error => error ? error.email === user.email: undefined));
-      const emails = res.filter(el => el.status === "success").map(el => el.email);
-      if (emails.length > 0) {
-        flash.setValue(I18n.t('inviteUsers.flash.confirm', {emails: emails.join(", ")}));
-      }
-      working = false;
-      if (!hasFailures) {
-        window.history.back();
-      }
-    });
-  };
+    };
 </script>
 
 <style lang="scss">

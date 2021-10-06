@@ -1,13 +1,31 @@
 <script>
-  import I18n from "i18n-js";
-  import {EntityHeaderTabs, HeaderList} from "../teachers";
-  import {flash} from "../../stores/flash";
-  import {userManagementIcon} from "../../icons";
+    import I18n from "i18n-js";
+    import {EntityHeaderTabs, HeaderList} from "../teachers";
+    import {userManagementIcon} from "../../icons";
+    import Button from "../Button.svelte";
+    import Modal from "../forms/Modal.svelte";
+    import {navigate} from "svelte-routing";
+    import {flash} from "../../stores/flash";
+    import {deleteUser} from "../../api";
 
-  export let user;
-  export let tabs;
-  export let headerItems;
-  export let title;
+    export let user;
+    export let currentUser;
+    export let tabs;
+    export let headerItems;
+    export let title;
+
+    let showDeleteModal = false;
+
+    const doDeleteUser = showConfirmation => () => {
+        if (showConfirmation) {
+            showDeleteModal = true;
+        } else {
+            deleteUser(user.entityId).then(() => {
+                navigate("/users");
+                flash.setValue(I18n.t('editUsers.deleteFlash', {name: `${user.firstName} ${user.lastName}`}));
+            });
+        }
+    }
 </script>
 
 <style lang="scss">
@@ -31,6 +49,7 @@
       }
 
       .list {
+        display: flex;
         margin: var(--ver-padding-m) 0;
         margin-left: 80px;
       }
@@ -44,6 +63,10 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+  }
+
+  .actions {
+    margin-left: auto;
   }
 
 </style>
@@ -66,6 +89,11 @@
       {#if user}
         <div class="list">
           <HeaderList entity="editUsers" {headerItems}/>
+          {#if user && !user.hasIssuedDirectAwardBundle && currentUser && currentUser.institutionStaff && currentUser.institutionStaff.mayAdministrateUsers}
+            <div class="actions">
+              <Button text={I18n.t("editUsers.delete")} action={doDeleteUser(true)} secondary={true}/>
+            </div>
+          {/if}
         </div>
       {/if}
     </div>
@@ -73,3 +101,11 @@
 
   <EntityHeaderTabs {tabs}/>
 </div>
+{#if showDeleteModal}
+  <Modal
+    submit={doDeleteUser(false)}
+    warning={true}
+    cancel={() => showDeleteModal = false}
+    question={I18n.t("editUsers.deleteConfirmation", {name: `${user.firstName} ${user.lastName}`})}
+    title={I18n.t("editUsers.delete")}/>
+{/if}

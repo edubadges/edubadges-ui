@@ -113,6 +113,11 @@ export function getSocialAccounts() {
     return validFetch(path);
 }
 
+export function deleteUser(entityId) {
+    const path = `${serverUrl}/user/delete/${entityId}`;
+    return validFetch(path, {}, "DELETE");
+}
+
 // Terms and agreements
 export function validateInstitutions(schacHomeOrganisations) {
     const path = `${serverUrl}/institution/check`;

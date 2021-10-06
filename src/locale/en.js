@@ -435,6 +435,9 @@ I18n.translations.en = {
         user: {
             header: "User",
         },
+        delete: "Delete user",
+        deleteConfirmation: "Are you sure you want to delete user {{name}}?",
+        deleteFlash: "User {{name}} has been deleted",
         headerControl: "Users of",
         roles: {
             institution_staff: "Institution Admin",

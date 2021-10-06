@@ -15,12 +15,20 @@
     export let entity;
 
     let user = {};
+    let currentUser = {};
 
     const query = `query ($userId: String){
     user(id: $userId) {
       firstName,
       lastName,
-      email
+      entityId,
+      email,
+      hasIssuedDirectAwardBundle
+    },
+    currentUser {
+      institutionStaff {
+        mayAdministrateUsers
+      }
     }
    }`;
 
@@ -64,6 +72,7 @@
     onMount(() => {
         queryData(query, {userId}).then(res => {
             user = res.user;
+            currentUser = res.currentUser;
         });
     });
 </script>
@@ -85,6 +94,7 @@
 
     <PermissionsHeader
       {user}
+      {currentUser}
       {tabs}
       {headerItems}
     />

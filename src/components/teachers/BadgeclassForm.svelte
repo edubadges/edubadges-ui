@@ -75,7 +75,7 @@
             target_description: alignment.targetDescription,
             target_framework: alignment.targetFramework,
             target_code: alignment.targetCode
-        }))
+        }));
     });
 
     if (!isEmpty(badgeclass.alignments)) {
@@ -579,8 +579,6 @@
       <div class="deletable-title"><h4>{I18n.t('models.badgeclass.headers.educationalIdentifiers')}</h4></div>
       {#if mayEdit && (!showStudyLoad || isInstitutionMBO)}
         <button class="rm-icon-container" on:click={() => showEducationalIdentifiers = false}>{@html trash}</button>
-      {:else}
-        <button class="rm-icon-container disabled">{@html trash}</button>
       {/if}
     </div>
 
@@ -714,7 +712,7 @@
           />
         </span>
       {/if}
-      {#if !showTimeInvestment}
+      {#if !showTimeInvestment && institution.grondslagInformeel !== null}
         <span class="add-button">
           <AddButton
             text={I18n.t('models.badgeclass.addButtons.timeInvestment')}

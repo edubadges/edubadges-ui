@@ -1,25 +1,23 @@
 <script>
-  import I18n from "i18n-js";
-  import {EntityHeaderTabs, HeaderList} from "../teachers";
-  import {Button} from "../../components";
-  import { requestBadge} from "../../api";
-  import {role} from "../../util/role";
-  import {flash} from "../../stores/flash";
-  import RemoteImage from "../RemoteImage.svelte";
-  import {entityType} from "../../util/entityTypes"
-  import {institutionIcon, facultyIcon, issuerIcon} from "../../icons";
+    import I18n from "i18n-js";
+    import {EntityHeaderTabs, HeaderList} from "../teachers";
+    import {Button} from "../../components";
+    import {role} from "../../util/role";
+    import RemoteImage from "../RemoteImage.svelte";
+    import {entityType} from "../../util/entityTypes"
+    import {facultyIcon, institutionIcon, issuerIcon} from "../../icons";
 
-  export let entity;
-  export let object = {};
-  export let mayUpdate;
+    export let entity;
+    export let object = {};
+    export let mayUpdate;
 
-  export let tabs;
-  export let headerItems;
-  export let visitorRole = role.TEACHER;
+    export let tabs;
+    export let headerItems;
+    export let visitorRole = role.TEACHER;
 
-  let imageId = "";
+    let imageId = "";
 
-  const currentLanguage = I18n.locale;
+    const currentLanguage = I18n.locale;
 </script>
 
 <style lang="scss">
@@ -88,7 +86,7 @@
         color: var(--grey-5);
       }
 
-        .info {
+      .info {
         flex: 1;
         display: flex;
         flex-direction: column;
@@ -124,9 +122,9 @@
 <div class="entity">
   <div class="title">
     <span class="logo logo-colour">{@html
-      entity === entityType.INSTITUTION ? institutionIcon :
-      entity === entityType.ISSUER_GROUP ? facultyIcon :
-      entity === entityType.ISSUER ? issuerIcon : ''
+        entity === entityType.INSTITUTION ? institutionIcon :
+            entity === entityType.ISSUER_GROUP ? facultyIcon :
+                entity === entityType.ISSUER ? issuerIcon : ''
     }</span>
     <span><h2>{object.name}</h2></span>
   </div>
