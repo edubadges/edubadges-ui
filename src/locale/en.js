@@ -1321,7 +1321,7 @@ I18n.translations.en = {
     importedBadges: {
         title: "Imported badges",
         info: "All the digital badges that you earned outside the eduBadges platform",
-        zeroState: "You have not imported any externaal badges  yet...",
+        zeroState: "You have not imported any external badges  yet...",
         import: "Import badge",
         importWindow: {
             title: "Import your external badge",
