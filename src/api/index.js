@@ -32,7 +32,6 @@ function validFetchNoErrorDialog(path, options = {}, method = "GET", useToken = 
 
 function badgeClassToJson(badgeclass) {
     return JSON.stringify(badgeclass).replace(/[\x00-\x09\x0B-\x0C\x0E-\x1F\x7F-\x9F]/g, '');
-    //.replace(/^[\x20-\x7E]/g, '');
 }
 
 function validFetch(path, options = {}, method = "GET", useToken = true, showErrorDialog = true) {
@@ -780,3 +779,19 @@ export function impersonate(userId) {
     const path = `${serverUrl}/account/impersonate/${userId}`;
     return validFetch(path, {});
 }
+
+//Import assertions
+export function assertionJson(url) {
+    return validFetch(url, {});
+}
+
+export function importedAssertions() {
+    const path = `${serverUrl}/earner/imported/assertions`;
+    return validFetch(path, {});
+}
+
+export function importAssertion(body) {
+    const path = `${serverUrl}/earner/imported/assertions`;
+    return validFetch(path, {body: JSON.stringify(body)}, "POST", false);
+}
+

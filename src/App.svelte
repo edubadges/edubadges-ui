@@ -128,6 +128,9 @@
         <Route path="/collections">
           <Student bookmark="collections"/>
         </Route>
+        <Route path="/import">
+          <Student bookmark="import"/>
+        </Route>
         <Route path="/edit-collection/:entityId" let:params>
           <CollectionForm entityId={params.entityId}/>
         </Route>

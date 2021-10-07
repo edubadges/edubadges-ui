@@ -6,6 +6,7 @@
   export let error;
   export let disabled = false;
   export let removeAllowed = false;
+  export let disclaimer;
 
   let input;
   let src = "";
@@ -98,7 +99,7 @@
         action={_ => setFile()}
         text={I18n.t('file.remove')} />
     {/if}
-    <span class="disclaimer">{I18n.t('file.disclaimer')}</span>
+    <span class="disclaimer">{disclaimer || I18n.t('file.disclaimer')}</span>
 
   </div>
 </div>

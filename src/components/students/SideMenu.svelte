@@ -70,6 +70,11 @@
       margin-right: 10px;
     }
 
+    &.imported-svg {
+      height: 22px;
+      margin-right: 12px;
+    }
+
   }
 </style>
 

@@ -5,6 +5,7 @@ I18n.translations.en = {
         backpack: "My backpack",
         "badge-requests": "Edubadge requests",
         collections: "Collections",
+        "import": "Imported",
         archived: "Archive",
         profile: "Account"
     },
@@ -826,7 +827,12 @@ I18n.translations.en = {
             privatePublic: "Private / public",
             badge_instances: "Edubadges",
             createdAt: "Created at"
+        },
+        importedBadges: {
+            image: "Image",
+            url: "Badge URL"
         }
+
     },
     inviteDialog: {
         title: "Invite people to enroll",
@@ -1311,5 +1317,20 @@ I18n.translations.en = {
     impersonate : {
         confirmation: "Are you sure you want to impersonate {{name}}",
         title: "Impersonate"
+    },
+    importedBadges: {
+        title: "Imported badges",
+        info: "All the digital badges that you earned outside the eduBadges platform",
+        zeroState: "You have not imported any externaal badges  yet...",
+        import: "Import badge",
+        importWindow: {
+            title: "Import your external badge",
+            question: "Upload a badge image that you’ve earned from an external issuer.",
+            disclaimer: "Baked badge image must be in either .svg or .png format.",
+            submit: "Import Badge",
+            urlPlaceholder: "https://api.eu.badgr.io/public/assertions/-kDl8isfQoKrMHrqOx5Thw",
+            urlInfo: "Or paste the URL where the badge is hosted.",
+        }
     }
+
 };
