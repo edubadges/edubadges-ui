@@ -95,7 +95,7 @@
     {#if removeAllowed}
       <Button
         secondary
-        disabled={disabled}
+        disabled={disabled || !value}
         action={_ => setFile()}
         text={I18n.t('file.remove')} />
     {/if}

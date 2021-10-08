@@ -135,15 +135,14 @@
         initData();
     }}
     submitLabel={I18n.t("importedBadges.importWindow.submit")}
-    disabled={(!newImport.image && !newImport.import_url) || !newImport.email}>
+    disabled={(!newImport.image && !newImport.import_url) || !newImport.email || !loaded}>
 
     <Field {entity} attribute="image" errors={errors.image} tipKey="importedBadgeImage">
       <File
         bind:value={newImport.image}
-        disabled={false}
         error={errors.image}
-        disclaimer={I18n.t("importedBadges.importWindow.disclaimer")}
-        removeAllowed={false}/>
+        removeAllowed={true}
+        disclaimer={I18n.t("importedBadges.importWindow.disclaimer")}/>
     </Field>
 
     <div class="modal-info-divider">
@@ -153,7 +152,6 @@
     <Field {entity} attribute="url" errors={errors.url} tipKey="importedBadgeImageUrl">
       <TextInput
         bind:value={newImport.import_url}
-        disabled={false}
         placeholder={I18n.t("importedBadges.importWindow.urlPlaceholder")}
         error={errors.criteria_url}/>
     </Field>
@@ -161,7 +159,6 @@
     <Field {entity} attribute="email" errors={errors.email} tipKey="importedBadgeEmail">
       <TextInput
         bind:value={newImport.email}
-        disabled={false}
         placeholder={currentUser.email}
         error={errors.email}/>
     </Field>
@@ -184,11 +181,10 @@
 
     }}
     submitLabel={I18n.t("importedBadges.codeWindow.submit")}
-    disabled={!newImport.code || newImport.code.length < 6}>
+    disabled={!newImport.code || newImport.code.length < 6 || !loaded}>
     <Field {entity} attribute="code" errors={errors.code} tipKey="importedBadgeCode">
       <TextInput
         bind:value={newImport.code}
-        disabled={false}
         placeholder={I18n.t("importedBadges.codeWindow.codePlaceholder")}
         error={errors.code}/>
     </Field>
