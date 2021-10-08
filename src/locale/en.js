@@ -830,9 +830,10 @@ I18n.translations.en = {
         },
         importedBadges: {
             image: "Image",
-            url: "Badge URL"
+            url: "Badge URL",
+            email: "Email",
+            code: "Verification code"
         }
-
     },
     inviteDialog: {
         title: "Invite people to enroll",
@@ -1140,7 +1141,10 @@ I18n.translations.en = {
         directAwards: "Direct awards are edubadges that are awarded by the teacher to students by email. The number(s) below are direct awards that are either still not accepted, rejected or revoked",
         enrollments: "Enrollments are requested by students and once approved will be new awarded edubadges. The number(s) below are enrollments that have not been approved by the teacher or are denied",
         toggleBadgeCollectionPublic: "A public collection can be shared with other whereas a private collection can not.",
-        collectionBadgeInstances: "Select all the edubadges you want to put in this collection"
+        collectionBadgeInstances: "Select all the edubadges you want to put in this collection",
+        importedBadgeEmail: "Your email that was used when this badge was issued",
+        importedBadgeImageUrl: "The URL to the badge JSON data",
+        importedBadgeImage: "The png or svg badge image file"
     },
     badgeOverview: {
         faculty: "Faculty",
@@ -1314,13 +1318,13 @@ I18n.translations.en = {
         },
         new: "New collection"
     },
-    impersonate : {
+    impersonate: {
         confirmation: "Are you sure you want to impersonate {{name}}",
         title: "Impersonate"
     },
     importedBadges: {
         title: "Imported badges",
-        info: "All the digital badges that you earned outside the eduBadges platform",
+        info: "All the digital badges that you earned and imported.",
         zeroState: "You have not imported any external badges  yet...",
         import: "Import badge",
         importWindow: {
@@ -1330,7 +1334,19 @@ I18n.translations.en = {
             submit: "Import Badge",
             urlPlaceholder: "https://api.eu.badgr.io/public/assertions/-kDl8isfQoKrMHrqOx5Thw",
             urlInfo: "Or paste the URL where the badge is hosted.",
-        }
+        },
+        codeWindow: {
+            title: "Validation code",
+            question: "An email has been send to {{email}}. Please enter the 6 characters code from the email to finish the import.",
+            submit: "Verify",
+            codePlaceholder: "Enter the verification code"
+        },
+        error: {
+            url: "The URL is not a valid Badge URL",
+            image: "The uploaded image is not a valid Badge image",
+        },
+        codeMismatch: "The entered code is invalid"
+
     }
 
 };

@@ -11,7 +11,7 @@
     onMount(() => {
         let lastUpdated = null;
         importedBadges.forEach(coll => {
-            let createdAt = new Date(coll.createdAt);
+            let createdAt = new Date(coll.created_at);
             if (lastUpdated === null || lastUpdated < createdAt) {
                 lastUpdated = createdAt;
             }

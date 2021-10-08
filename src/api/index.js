@@ -792,6 +792,15 @@ export function importedAssertions() {
 
 export function importAssertion(body) {
     const path = `${serverUrl}/earner/imported/assertions`;
-    return validFetch(path, {body: JSON.stringify(body)}, "POST", false);
+    return validFetch(path, {body: JSON.stringify(body)}, "POST", true, false);
 }
 
+export function confirmImportedAssertion(body) {
+    const path = `${serverUrl}/earner/imported/assertions/edit/${body.entity_id}`;
+    return validFetch(path, {body: JSON.stringify(body)}, "PUT", true, false);
+}
+
+export function deleteImportedAssertion(body) {
+    const path = `${serverUrl}/earner/imported/assertions/delete/${body.entity_id}`;
+    return validFetch(path, {body: JSON.stringify(body)}, "DELETE", true, false);
+}

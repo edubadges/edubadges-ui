@@ -2,63 +2,98 @@
     import I18n from "i18n-js";
     import Spinner from "../../components/Spinner.svelte";
     import {onMount} from "svelte";
-    import {assertionJson} from "../../api";
+    import {confirmImportedAssertion, importAssertion, importedAssertions} from "../../api";
     import ImportBadgeHeader from "../../components/students/imported/ImportBadgeHeader.svelte";
     import Button from "../../components/Button.svelte";
     import Modal from "../../components/forms/Modal.svelte";
-    import ImportBadge from "../../components/students/imported/ImportBadge.svelte";
     import Field from "../../components/forms/Field.svelte";
     import File from "../../components/forms/File.svelte";
     import {TextInput} from "../../components/forms";
+    import {queryData} from "../../api/graphql";
 
-    const entity="importedBadges";
+    const entity = "importedBadges";
 
     let loaded = false;
     let importedBadges = [];
     let assertion = {};
     let view = "cards";
     let showImportModal = false;
+    let showCodeConfirmationModal = false;
     let errors = {};
-    let newImport = {
-        image: null,
-    }
+    let error = false;
+    let codeMismatch = false;
+    let currentUser = {};
+    let newImport = {};
 
     const query = `query {
-    currentUser {
-      validatedName,
-    },
-  }`;
+      currentUser {
+        email
+      },
+    }`;
 
-    onMount(() => {
-        assertionJson("https://api.eu.badgr.io/public/assertions/-kDl8isfQoKrMHrqOx5Thw").then(res => {
+    const initData = () => {
+        codeMismatch = false;
+        error = false
+        newImport = {
+            image: null,
+            import_url: null,
+            email: currentUser.email,
+            code: null
+        }
+    }
+
+    const refresh = () => {
+        loaded = false;
+        Promise.all([importedAssertions(), queryData(query)]).then(res => {
+            importedBadges = res[0];
+            currentUser = res[1].currentUser;
+            initData();
             loaded = true;
-            assertion = res;
-        })
-    });
+        });
+    }
+
+    onMount(() => refresh());
+    // assertionJson("https://api.eu.badgr.io/public/assertions/-kDl8isfQoKrMHrqOx5Thw").then(res => {
+    //     loaded = true;
+    //     assertion = res;
+    // })
 
     const doImportBadge = () => {
-        debugger;
+        loaded = false;
+        importAssertion(newImport).then(res => {
+            showImportModal = false;
+            if (res.verified) {
+                refresh();
+            } else {
+                loaded = true;
+                showCodeConfirmationModal = true;
+                newImport = {...res, ...newImport};
+            }
+        }).catch(() => {
+            error = true;
+            loaded = true;
+        });
     }
-    //queryData(query).then(all => {-->
-    //  const res = all[0];-->
-    //   badges = badgeInstances;
-    //   loaded = true;
-    // });
-    //});
+
+    const confirm = () => {
+        loaded = false;
+        confirmImportedAssertion(newImport).then(() => {
+            showCodeConfirmationModal = false;
+            refresh();
+        }).catch(() => {
+            codeMismatch = true;
+            loaded = true;
+            newImport.code = '';
+        });
+    }
 
 
 </script>
 
 <style lang="scss">
 
-  .header {
-    display: flex;
-    align-content: center;
-  }
-
-  h3 {
-    font-size: 22px;
-    margin-bottom: 30px;
+  .error {
+    color: var(--red-dark);
   }
 
   div.modal-info-divider {
@@ -75,13 +110,13 @@
       <ImportBadgeHeader {importedBadges}>
         <Button action={() => showImportModal = true} text={I18n.t("importedBadges.import")}/>
       </ImportBadgeHeader>
-
       {#if importedBadges.length === 0}
         <p>{I18n.t("importedBadges.zeroState")}</p>
       {:else}
         <div class="content">
           {#each importedBadges as badge}
-            <ImportBadge badge={badge} view={view} refresh={refresh}/>
+            <!--            <ImportBadge badge={badge} view={view} refresh={refresh}/>-->
+            {JSON.stringify(badge)}
           {/each}
         </div>
       {/if}
@@ -95,9 +130,12 @@
     submit={doImportBadge}
     title={I18n.t("importedBadges.importWindow.title")}
     question={I18n.t("importedBadges.importWindow.question")}
-    cancel={() => showImportModal = false}
+    cancel={() => {
+        showImportModal = false;
+        initData();
+    }}
     submitLabel={I18n.t("importedBadges.importWindow.submit")}
-    hideSubmit={false}>
+    disabled={(!newImport.image && !newImport.import_url) || !newImport.email}>
 
     <Field {entity} attribute="image" errors={errors.image} tipKey="importedBadgeImage">
       <File
@@ -107,16 +145,59 @@
         disclaimer={I18n.t("importedBadges.importWindow.disclaimer")}
         removeAllowed={false}/>
     </Field>
+
     <div class="modal-info-divider">
       <p>{I18n.t("importedBadges.importWindow.urlInfo")}</p>
     </div>
+
     <Field {entity} attribute="url" errors={errors.url} tipKey="importedBadgeImageUrl">
       <TextInput
-        bind:value={newImport.url}
+        bind:value={newImport.import_url}
         disabled={false}
         placeholder={I18n.t("importedBadges.importWindow.urlPlaceholder")}
         error={errors.criteria_url}/>
     </Field>
+
+    <Field {entity} attribute="email" errors={errors.email} tipKey="importedBadgeEmail">
+      <TextInput
+        bind:value={newImport.email}
+        disabled={false}
+        placeholder={currentUser.email}
+        error={errors.email}/>
+    </Field>
+    {#if error}
+      <div class="error">
+        <p>{I18n.t(`importedBadges.error.${newImport.import_url ? 'url' : 'image'}`)}</p>
+      </div>
+    {/if}
+
+  </Modal>
+{/if}
+{#if showCodeConfirmationModal }
+  <Modal
+    submit={confirm}
+    title={I18n.t("importedBadges.codeWindow.title")}
+    question={I18n.t("importedBadges.codeWindow.question", {email: newImport.email})}
+    cancel={() => {
+        showCodeConfirmationModal = false;
+        initData();
+
+    }}
+    submitLabel={I18n.t("importedBadges.codeWindow.submit")}
+    disabled={!newImport.code || newImport.code.length < 6}>
+    <Field {entity} attribute="code" errors={errors.code} tipKey="importedBadgeCode">
+      <TextInput
+        bind:value={newImport.code}
+        disabled={false}
+        placeholder={I18n.t("importedBadges.codeWindow.codePlaceholder")}
+        error={errors.code}/>
+    </Field>
+
+    {#if codeMismatch}
+      <div class="error">
+        <p>{I18n.t("importedBadges.codeMismatch")}</p>
+      </div>
+    {/if}
 
   </Modal>
 {/if}
