@@ -731,7 +731,8 @@ I18n.translations.en = {
                 pending: "Pending",
                 unclaimed: "Unclaimed",
                 pendingEnrollmentCount: "{{count}} open requests",
-                archived: "Archived"
+                archived: "Archived",
+                imported: "Imported"
             },
             confirmation: {
                 revocationReason: "Reason for revocation (required)",
@@ -1334,6 +1335,7 @@ I18n.translations.en = {
             submit: "Import Badge",
             urlPlaceholder: "https://api.eu.badgr.io/public/assertions/-kDl8isfQoKrMHrqOx5Thw",
             urlInfo: "Or paste the URL where the badge is hosted.",
+            emailInfo: "Enter the email which this badge was issued to.",
         },
         codeWindow: {
             title: "Validation code",

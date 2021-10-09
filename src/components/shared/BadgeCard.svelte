@@ -23,6 +23,8 @@
             navigate(`/direct-award/${badge.entityId}`);
         } else if (isPublic) {
             navigate(`/public/${badgeClass.entityId}`);
+        } else if (badge.importedBadge) {
+            navigate(`/import/${badge.importedBadge.entity_id}`);
         } else if (!standAlone) {
             navigate(badge ? `/details/${badge.entityId}` : `/badgeclass/${badgeClass.entityId}`);
         }
@@ -50,7 +52,7 @@
       margin: 0;
     }
 
-    &:not(.links-enabled){
+    &:not(.links-enabled) {
       cursor: default;
     }
 

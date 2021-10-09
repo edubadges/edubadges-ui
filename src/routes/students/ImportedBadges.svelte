@@ -2,7 +2,7 @@
     import I18n from "i18n-js";
     import Spinner from "../../components/Spinner.svelte";
     import {onMount} from "svelte";
-    import {confirmImportedAssertion, importAssertion, importedAssertions} from "../../api";
+    import {assertionJson, confirmImportedAssertion, importAssertion, importedAssertions} from "../../api";
     import ImportBadgeHeader from "../../components/students/imported/ImportBadgeHeader.svelte";
     import Button from "../../components/Button.svelte";
     import Modal from "../../components/forms/Modal.svelte";
@@ -10,6 +10,8 @@
     import File from "../../components/forms/File.svelte";
     import {TextInput} from "../../components/forms";
     import {queryData} from "../../api/graphql";
+    import BadgePanel from "../../components/students/BadgePanel.svelte";
+    import ViewSelector from "../../components/shared/ViewSelector.svelte";
 
     const entity = "importedBadges";
 
@@ -44,19 +46,31 @@
 
     const refresh = () => {
         loaded = false;
+        importedBadges = [];
         Promise.all([importedAssertions(), queryData(query)]).then(res => {
-            importedBadges = res[0];
+            res[0].forEach(importedBadge => {
+                assertionJson(importedBadge.import_url).then(badge => {
+                    badge.importedBadge = importedBadge;
+                    assertionJson(badge.badge).then(badgeClass => {
+                        badge.badgeclass = badgeClass;
+                        assertionJson(badgeClass.issuer).then(issuer => {
+                            badge.badgeclass.issuer = issuer;
+                            badge.created_at = badge.issuedOn;
+                            importedBadges = [...importedBadges, badge];
+                            if (importedBadges.length === res[0].length) {
+                                loaded = true;
+                            }
+                        });
+                    });
+                });
+            })
             currentUser = res[1].currentUser;
             initData();
-            loaded = true;
         });
     }
 
+
     onMount(() => refresh());
-    // assertionJson("https://api.eu.badgr.io/public/assertions/-kDl8isfQoKrMHrqOx5Thw").then(res => {
-    //     loaded = true;
-    //     assertion = res;
-    // })
 
     const doImportBadge = () => {
         loaded = false;
@@ -92,13 +106,18 @@
 
 <style lang="scss">
 
+  .view-container {
+    display: flex;
+    margin-bottom: 10px;
+  }
+
   .error {
     color: var(--red-dark);
   }
 
   div.modal-info-divider {
-    margin: 20px 0;
-    padding: 20px 0;
+    margin-top: 20px;
+    padding: 20px 0 10px 0;
     border-top: 1px solid var(--purple-1);
   }
 
@@ -113,12 +132,10 @@
       {#if importedBadges.length === 0}
         <p>{I18n.t("importedBadges.zeroState")}</p>
       {:else}
-        <div class="content">
-          {#each importedBadges as badge}
-            <!--            <ImportBadge badge={badge} view={view} refresh={refresh}/>-->
-            {JSON.stringify(badge)}
-          {/each}
+        <div class="view-container">
+          <ViewSelector bind:view={view}/>
         </div>
+        <BadgePanel badges={importedBadges} view={view}/>
       {/if}
     </div>
   {:else}
@@ -155,6 +172,10 @@
         placeholder={I18n.t("importedBadges.importWindow.urlPlaceholder")}
         error={errors.criteria_url}/>
     </Field>
+
+      <div class="modal-info-divider">
+      <p>{I18n.t("importedBadges.importWindow.emailInfo")}</p>
+    </div>
 
     <Field {entity} attribute="email" errors={errors.email} tipKey="importedBadgeEmail">
       <TextInput

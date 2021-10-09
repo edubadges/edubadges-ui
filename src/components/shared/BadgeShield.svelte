@@ -23,7 +23,7 @@
 </style>
 {#if badge}
   <div class="shield" class:card-view={cardView}>
-    {#if badge.public && !badge.isDirectAward}
+    {#if (badge.public && !badge.isDirectAward) || badge.importedBadge}
       {@html shieldUnlocked}
     {:else if !badge.isDirectAward}
       {@html shieldLocked}

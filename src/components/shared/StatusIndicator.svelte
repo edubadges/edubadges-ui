@@ -41,7 +41,7 @@
     max-width: 85px;
   }
 
-  span.status-indicator.pending-enrollments {
+  span.status-indicator.pending-enrollments, span.status-indicator.imported {
     background-color: var(--green-dark);
     color: white;
     max-width: 145px;
@@ -71,6 +71,8 @@
     <span class="status-indicator rejected"  class:card-view={cardView}>{I18n.t("models.badge.statuses.rejected")}</span>
   {:else if badge.expiresAt && new Date(badge.expiresAt) < new Date()}
     <span class="status-indicator expired" class:card-view={cardView}>{I18n.t("models.badge.statuses.expired")}</span>
+  {:else if badge.importedBadge }
+    <span class="status-indicator imported" class:card-view={cardView}>{I18n.t("models.badge.statuses.imported")}</span>
   {/if}
 {/if}
 {#if badgeClass && badgeClass.pendingEnrollmentCount && badgeClass.pendingEnrollmentCount > 0}

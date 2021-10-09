@@ -20,6 +20,8 @@
             navigate(`/direct-award/${badge.entityId}`);
         } else if (isPublic) {
             navigate(`/public/${badgeClass.entityId}`);
+        } else if (badge.importedBadge) {
+            navigate(`/import/${badge.importedBadge.entityId}`);
         } else {
             navigate(badge ? `/details/${badge.entityId}` : `/badgeclass/${badgeClass.entityId}`);
         }
@@ -145,9 +147,13 @@
       {/if}
     </td>
     <td class="institution">
-      <span class="name">{badgeClass.issuer.faculty.institution.name}</span>
-      <span class="issuer">{badgeClass.issuer.name}</span>
-      <span class="faculty">{badgeClass.issuer.faculty.name}</span>
+      {#if badgeClass.issuer.faculty}
+        <span class="name">{badgeClass.issuer.faculty.institution.name}</span>
+        <span class="issuer">{badgeClass.issuer.name}</span>
+        <span class="faculty">{badgeClass.issuer.faculty.name}</span>
+      {:else}
+        <span class="issuer">{badgeClass.issuer.name}</span>
+      {/if}
     </td>
     {#if badge || badgeClass}
       <td class="badge-status">
