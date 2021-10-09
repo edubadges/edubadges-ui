@@ -800,7 +800,12 @@ export function confirmImportedAssertion(body) {
     return validFetch(path, {body: JSON.stringify(body)}, "PUT", true, false);
 }
 
-export function deleteImportedAssertion(body) {
-    const path = `${serverUrl}/earner/imported/assertions/delete/${body.entity_id}`;
-    return validFetch(path, {body: JSON.stringify(body)}, "DELETE", true, false);
+export function importedAssertionByEntityId(entityId) {
+    const path = `${serverUrl}/earner/imported/assertions/detail/${entityId}`;
+    return validFetch(path, {});
+}
+
+export function deleteImportedAssertion(entityId) {
+    const path = `${serverUrl}/earner/imported/assertions/delete/${entityId}`;
+    return validFetch(path, {}, "DELETE", true);
 }

@@ -1347,8 +1347,16 @@ I18n.translations.en = {
             url: "The URL is not a valid Badge URL",
             image: "The uploaded image is not a valid Badge image",
         },
-        codeMismatch: "The entered code is invalid"
-
+        codeMismatch: "The entered code is invalid",
+        details: {
+            delete: "Remove imported badge {{name}}",
+            import: "Imported badges",
+            imported: "Imported badge",
+            remove: "Remove",
+            publicInfo: "This badge is hosted at {{url}} and is public.",
+            deleteConfirmation: "Are you sure you want to remove the imported badge {{name}} from your backback. Note that this does not delete the original badge.",
+            flashDeleted: "Removed imported badge {{name}} from your backback",
+        }
     }
 
 };

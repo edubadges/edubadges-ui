@@ -31,6 +31,7 @@
   import Insights from "./routes/teachers/Insights.svelte";
   import CollectionForm from "./components/students/CollectionForm.svelte";
   import PublicCollectionPage from "./routes/students/PublicCollectionPage.svelte";
+  import BadgeImported from "./routes/students/BadgeImported.svelte";
 
 
   const homepage = {
@@ -145,6 +146,9 @@
         </Route>
         <Route path="/details/:entityId/" let:params>
           <BadgeDetails entityId={params.entityId}/>
+        </Route>
+        <Route path="/import/:entityId/" let:params>
+          <BadgeImported entityId={params.entityId}/>
         </Route>
         <Route path="/direct-award/:entityId/" let:params>
           <DirectAward entityId={params.entityId}/>
