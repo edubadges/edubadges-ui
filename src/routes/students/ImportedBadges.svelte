@@ -48,6 +48,9 @@
         loaded = false;
         importedBadges = [];
         Promise.all([importedAssertions(), queryData(query)]).then(res => {
+            if (res[0].length === 0) {
+                loaded = true;
+            }
             res[0].forEach(importedBadge => {
                 assertionJson(importedBadge.import_url).then(badge => {
                     badge.importedBadge = importedBadge;
