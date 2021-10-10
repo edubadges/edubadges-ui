@@ -23,6 +23,7 @@
     let showCodeConfirmationModal = false;
     let errors = {};
     let error = false;
+    let emailError = false;
     let codeMismatch = false;
     let currentUser = {};
     let newImport = {};
@@ -35,7 +36,8 @@
 
     const initData = () => {
         codeMismatch = false;
-        error = false
+        error = false;
+        emailError = false;
         newImport = {
             image: null,
             import_url: null,
@@ -69,9 +71,18 @@
                 showCodeConfirmationModal = true;
                 newImport = {...res, ...newImport};
             }
-        }).catch(() => {
-            error = true;
-            loaded = true;
+        }).catch(e => {
+            e.then(j => {
+                if (j.length === 1 && j[0] === "email mismatch") {
+                    error = false;
+                    loaded = true;
+                    emailError = true;
+                } else {
+                    error = true;
+                    emailError = false;
+                    loaded = true;
+                }
+            })
         });
     }
 
@@ -162,6 +173,11 @@
     <div class="modal-info-divider">
       <p>{I18n.t("importedBadges.importWindow.emailInfo")}</p>
     </div>
+    {#if error}
+      <div class="error">
+        <p>{I18n.t(`importedBadges.error.${newImport.import_url ? 'url' : 'image'}`)}</p>
+      </div>
+    {/if}
 
     <Field {entity} attribute="email" errors={errors.email} tipKey="importedBadgeEmail">
       <TextInput
@@ -169,9 +185,9 @@
         placeholder={currentUser.email}
         error={errors.email}/>
     </Field>
-    {#if error}
+    {#if emailError}
       <div class="error">
-        <p>{I18n.t(`importedBadges.error.${newImport.import_url ? 'url' : 'image'}`)}</p>
+        <p>{I18n.t("importedBadges.error.email")}</p>
       </div>
     {/if}
 

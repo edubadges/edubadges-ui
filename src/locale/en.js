@@ -1346,6 +1346,7 @@ I18n.translations.en = {
         error: {
             url: "The URL is not a valid Badge URL",
             image: "The uploaded image is not a valid Badge image",
+            email: "This email does not match the email of the imported badge"
         },
         codeMismatch: "The entered code is invalid",
         details: {
