@@ -2,7 +2,7 @@
     import I18n from "i18n-js";
     import Spinner from "../../components/Spinner.svelte";
     import {onMount} from "svelte";
-    import {assertionJson, confirmImportedAssertion, importAssertion, importedAssertions} from "../../api";
+    import {confirmImportedAssertion, importAssertion, importedAssertions} from "../../api";
     import ImportBadgeHeader from "../../components/students/imported/ImportBadgeHeader.svelte";
     import Button from "../../components/Button.svelte";
     import Modal from "../../components/forms/Modal.svelte";
@@ -48,27 +48,10 @@
         loaded = false;
         importedBadges = [];
         Promise.all([importedAssertions(), queryData(query)]).then(res => {
-            if (res[0].length === 0) {
-                loaded = true;
-            }
-            res[0].forEach(importedBadge => {
-                assertionJson(importedBadge.import_url).then(badge => {
-                    badge.importedBadge = importedBadge;
-                    assertionJson(badge.badge).then(badgeClass => {
-                        badge.badgeclass = badgeClass;
-                        assertionJson(badgeClass.issuer).then(issuer => {
-                            badge.badgeclass.issuer = issuer;
-                            badge.created_at = badge.issuedOn;
-                            importedBadges = [...importedBadges, badge];
-                            if (importedBadges.length === res[0].length) {
-                                loaded = true;
-                            }
-                        });
-                    });
-                });
-            })
+            importedBadges = res[0];
             currentUser = res[1].currentUser;
             initData();
+            loaded = true;
         });
     }
 
@@ -176,7 +159,7 @@
         error={errors.criteria_url}/>
     </Field>
 
-      <div class="modal-info-divider">
+    <div class="modal-info-divider">
       <p>{I18n.t("importedBadges.importWindow.emailInfo")}</p>
     </div>
 

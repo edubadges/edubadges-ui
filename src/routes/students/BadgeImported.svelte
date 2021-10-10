@@ -11,7 +11,7 @@
     import BadgeClassDetails from "../../components/shared/BadgeClassDetails.svelte";
     import {Modal} from "../../components/forms";
     import DownloadButton from "../../components/DownloadButton.svelte";
-    import {assertionJson, deleteImportedAssertion, importedAssertionByEntityId} from "../../api";
+    import {deleteImportedAssertion, importedAssertionByEntityId} from "../../api";
     import {flash} from "../../stores/flash";
     import ShareDialog from "./ShareDialog.svelte";
     import StudentBreadCrumb from "../../components/students/StudentBreadCrumb.svelte";
@@ -47,7 +47,7 @@
 
     const downloadFileName = badge => {
         const sanitizedName = badge.badgeclass.name.replace(/ /g, "_").toLowerCase();
-        const ext = badge.image.endsWith("svg") ? "svg" : "png";
+        const ext = "png";//badge.image.endsWith("svg") ? "svg" : "png";
         return `${sanitizedName}_edubadge.${ext}`;
     }
 
@@ -55,18 +55,8 @@
 
     const refreshBadgeDetails = () => {
         importedAssertionByEntityId(entityId).then(res => {
-            assertionJson(res.import_url).then(badge => {
-                badge.importedBadge = res;
-                assertionJson(badge.badge).then(badgeClass => {
-                    badge.badgeclass = badgeClass;
-                    assertionJson(badgeClass.issuer).then(issuer => {
-                        badge.badgeclass.issuer = issuer;
-                        badge.created_at = badge.issuedOn;
-                        importedBadge = badge;
-                        loaded = true;
-                    });
-                });
-            });
+            importedBadge = res;
+            loaded = true;
         });
     };
 
@@ -222,14 +212,14 @@
         <div class="header">
           <h3>{I18n.t("importedBadges.details.imported")}</h3>
         </div>
-        <p>{I18n.t("importedBadges.details.publicInfo", {url: new URL(importedBadge.importedBadge.import_url).hostname})}</p>
+        <p>{I18n.t("importedBadges.details.publicInfo", {url: new URL(importedBadge.import_url).hostname})}</p>
 
       </div>
       <div class="actions">
         <div class="button-container">
           <DownloadButton text={I18n.t("models.badge.download")} secondary={true}
                           filename={downloadFileName(importedBadge)}
-                          url={importedBadge.importedBadge.import_url}/>
+                          url={importedBadge.import_url}/>
         </div>
         <div class="button-container">
           {#if showShareFeedback}
@@ -266,5 +256,5 @@
   <ShareDialog
     copied={copiedLink}
     cancel={cancel}
-    publicUrl={importedBadge.importedBadge.import_url}/>
+    publicUrl={importedBadge.import_url}/>
 {/if}

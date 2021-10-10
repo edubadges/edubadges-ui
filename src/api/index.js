@@ -781,10 +781,6 @@ export function impersonate(userId) {
 }
 
 //Import assertions
-export function assertionJson(url) {
-    return validFetch(url, {});
-}
-
 export function importedAssertions() {
     const path = `${serverUrl}/earner/imported/assertions`;
     return validFetch(path, {});

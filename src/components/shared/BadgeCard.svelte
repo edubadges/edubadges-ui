@@ -24,7 +24,7 @@
         } else if (isPublic) {
             navigate(`/public/${badgeClass.entityId}`);
         } else if (badge.importedBadge) {
-            navigate(`/import/${badge.importedBadge.entity_id}`);
+            navigate(`/import/${badge.entity_id}`);
         } else if (!standAlone) {
             navigate(badge ? `/details/${badge.entityId}` : `/badgeclass/${badgeClass.entityId}`);
         }
