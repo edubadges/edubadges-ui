@@ -801,6 +801,11 @@ export function importedAssertionByEntityId(entityId) {
     return validFetch(path, {});
 }
 
+export function importedAssertionValidate(entityId) {
+    const path = `${serverUrl}/earner/imported/assertions/validate/${entityId}`;
+    return validFetch(path, {});
+}
+
 export function deleteImportedAssertion(entityId) {
     const path = `${serverUrl}/earner/imported/assertions/delete/${entityId}`;
     return validFetch(path, {}, "DELETE", true);

@@ -1320,7 +1320,7 @@ I18n.translations.nl = {
         },
         new: "Nieuwe collectie"
     },
-    impersonate : {
+    impersonate: {
         confirmation: "Weet je zeker dat je je wilt voordoen als {{name}} ?",
         title: "Impersonate"
     },
@@ -1355,6 +1355,9 @@ I18n.translations.nl = {
             import: "Geïmporteerde badges",
             imported: "Geïmporteerde badge",
             remove: "Verwijder",
+            validate: "Valideer",
+            validation: "Badge validatie",
+            validationResults: "Badge validatie resultaten",
             publicInfo: "Deze badge is gehost op {{url}} en is publiek beschikbaar.",
             deleteConfirmation: "Weet je zeker dat  je de geïmporteerde badge {{name}} wilt verwijderen uit je backpack. Let op dat dit niet de originele badge verwijderd.",
             flashDeleted: "Verwijder geïmporteerde badge {{name}} uit je backback",

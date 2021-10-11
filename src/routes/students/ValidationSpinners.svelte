@@ -1,61 +1,68 @@
 <script>
-  import I18n from "i18n-js";
-  import {formatDate} from "../../util/utils";
-  import closeIcon from "../../icons/close_smll.svg";
-  import DotSpinner from "../../components/DotSpinner.svelte";
-  import checkP from "../../icons/check-purple.svg";
-  import {onMount} from "svelte";
-  import {validateBadge} from "../../api";
-  import DOMPurify from 'dompurify';
+    import I18n from "i18n-js";
+    import {formatDate} from "../../util/utils";
+    import closeIcon from "../../icons/close_smll.svg";
+    import DotSpinner from "../../components/DotSpinner.svelte";
+    import checkP from "../../icons/check-purple.svg";
+    import {onMount} from "svelte";
+    import {importedAssertionValidate, validateBadge} from "../../api";
+    import DOMPurify from 'dompurify';
 
-  export let close;
-  export let badge = {issuer: {}};
-  export let validatedName;
+    export let close;
+    export let badge = {issuer: {}};
+    export let validatedName;
+    export let importedBadge = false;
 
-  const timer = 375;
-  let validationResult = {valid: false};
-  let done = false;
+    const timer = 375;
+    let validationResult = {valid: false};
+    let done = false;
 
-  const validations = [
-    {key: "issuedOn", val: formatDate(badge.issuedOn)},
-    {key: "institution", val: badge.issuer.faculty.institution.name},
-    {key: "issuedBy", val: badge.issuer.name},
-    {key: "issuedUsing", val: "eduBadges"},
-    {key: "issuedTo", val: validatedName || I18n.t("publicBadge.validations.noValidatedName"), invalid: !validatedName},
-    {key: "claimedOn", val: formatDate(badge.updatedAt)},
-    {key: "expiresOn", val: badge.expires ? formatDate(badge.expires) : I18n.t("publicBadge.validations.never"),
-      invalid: badge.expires && new Date(badge.expires) < new Date()},
-    {key: "verified", val: "", last: true}
-  ].map(item => ({
-    key: item.key,
-    last: item.last,
-    pre: I18n.t(`publicBadge.validations.${item.key}`, {val: "..."}),
-    post: I18n.t(`publicBadge.validations.${item.key}`, {val: item.val}),
-    invalid: item.invalid
-  }));
+    const validations = [
+        {key: "issuedOn", val: formatDate(badge.issuedOn)},
+        {key: "institution", val: badge.issuer.faculty ? badge.issuer.faculty.institution.name : "-"},
+        {key: "issuedBy", val: badge.issuer.name},
+        {key: "issuedUsing", val: "eduBadges"},
+        {
+            key: "issuedTo",
+            val: validatedName || I18n.t("publicBadge.validations.noValidatedName"),
+            invalid: !validatedName
+        },
+        {key: "claimedOn", val: formatDate(badge.updatedAt)},
+        {
+            key: "expiresOn", val: badge.expires ? formatDate(badge.expires) : I18n.t("publicBadge.validations.never"),
+            invalid: badge.expires && new Date(badge.expires) < new Date()
+        },
+        {key: "verified", val: "", last: true}
+    ].map(item => ({
+        key: item.key,
+        last: item.last,
+        pre: I18n.t(`publicBadge.validations.${item.key}`, {val: "..."}),
+        post: I18n.t(`publicBadge.validations.${item.key}`, {val: item.val}),
+        invalid: item.invalid
+    }));
 
 
-  let timeOuts = validations.reduce((acc, validation) => {
-    acc[validation.key] = true;
-    return acc;
-  }, {});
+    let timeOuts = validations.reduce((acc, validation) => {
+        acc[validation.key] = true;
+        return acc;
+    }, {});
 
-  onMount(() => {
-    validateBadge(badge.entityId)
-      .then(res => {
-        validationResult = res.report;
-        done = true;
-      }).catch(() => done = true);
-    validations.forEach((validation, i) => {
-      setTimeout(() => timeOuts = {...timeOuts, [validation.key]: false}, (i + 1) * timer)
+    onMount(() => {
+        const promise = importedBadge ? importedAssertionValidate(badge.entityId) : validateBadge(badge.entityId)
+        promise.then(res => {
+            validationResult = res.report;
+            done = true;
+        }).catch(() => done = true);
+        validations.forEach((validation, i) => {
+            setTimeout(() => timeOuts = {...timeOuts, [validation.key]: false}, (i + 1) * timer)
+        })
     })
-  })
 
-  const handle_keydown = e => {
-    if (e.key === "Escape") {
-      close();
-    }
-  };
+    const handle_keydown = e => {
+        if (e.key === "Escape") {
+            close();
+        }
+    };
 </script>
 
 <style lang="scss">
@@ -154,7 +161,8 @@
           {:else}
             {@html checkP}
           {/if}
-          <span class="pre">{@html timeOuts[validation.key] ? validation.pre : DOMPurify.sanitize(validation.post)}</span>
+          <span
+            class="pre">{@html timeOuts[validation.key] ? validation.pre : DOMPurify.sanitize(validation.post)}</span>
         </section>
       {/each}
     </div>

@@ -11,15 +11,18 @@
     import BadgeClassDetails from "../../components/shared/BadgeClassDetails.svelte";
     import {Modal} from "../../components/forms";
     import DownloadButton from "../../components/DownloadButton.svelte";
-    import {deleteImportedAssertion, importedAssertionByEntityId} from "../../api";
+    import {deleteImportedAssertion, importedAssertionByEntityId, importedAssertionValidate} from "../../api";
     import {flash} from "../../stores/flash";
     import ShareDialog from "./ShareDialog.svelte";
     import StudentBreadCrumb from "../../components/students/StudentBreadCrumb.svelte";
     import BadgeHeader from "../../components/students/BadgeHeader.svelte";
+    import BadgeValidation from "./BadgeValidation.svelte";
 
     export let entityId;
 
     let importedBadge = {};
+    let loaded;
+    let validationLoading = false;
 
     //Modal
     let showModal = false;
@@ -27,6 +30,7 @@
     let modalQuestion;
     let modalAction;
     let showShareDialog = false;
+    let validation = null;
     let showShareFeedback = false;
 
     const cancel = () => {
@@ -45,17 +49,26 @@
         showShareDialog = true;
     }
 
+    const validate = () => {
+        validationLoading = true;
+        importedAssertionValidate(entityId).then(res => {
+            validation = res;
+            validationLoading = false;
+        });
+    }
+
     const downloadFileName = badge => {
         const sanitizedName = badge.badgeclass.name.replace(/ /g, "_").toLowerCase();
         const ext = "png";//badge.image.endsWith("svg") ? "svg" : "png";
         return `${sanitizedName}_edubadge.${ext}`;
     }
 
-    let loaded;
-
     const refreshBadgeDetails = () => {
         importedAssertionByEntityId(entityId).then(res => {
             importedBadge = res;
+            importedBadge.issuer = res.badgeclass.issuer;
+            importedBadge.updatedAt = importedBadge.issuedOn;
+            importedBadge.entityId = entityId;
             loaded = true;
         });
     };
@@ -208,17 +221,18 @@
         <span class="status-indicator revoked">{I18n.t("models.badge.statuses.imported")}</span>
         <BadgeCard badgeClass={importedBadge.badgeclass} standAlone={true} withHeaderData={false}/>
       </div>
+      <BadgeValidation badge={importedBadge} validatedName={importedBadge.email} importedBadge={true}/>
       <div class="public-private">
         <div class="header">
           <h3>{I18n.t("importedBadges.details.imported")}</h3>
         </div>
         <p>{I18n.t("importedBadges.details.publicInfo", {url: new URL(importedBadge.import_url).hostname})}</p>
-
       </div>
       <div class="actions">
         <div class="button-container">
           <DownloadButton text={I18n.t("models.badge.download")} secondary={true}
                           filename={downloadFileName(importedBadge)}
+                          disabled={!loaded}
                           url={importedBadge.import_url}/>
         </div>
         <div class="button-container">
@@ -227,7 +241,7 @@
               {I18n.t("copyToClipboard.copied")}
             </div>
           {/if}
-          <Button text={I18n.t("models.badge.share")} action={copyToClipboard}/>
+          <Button text={I18n.t("models.badge.share")} disabled={!loaded} action={copyToClipboard}/>
         </div>
       </div>
       <BadgeClassDetails badgeclass={importedBadge.badgeclass} badge={importedBadge}/>
@@ -249,6 +263,17 @@
     question={modalQuestion}
     evaluateQuestion={true}
     title={modalTitle}>
+  </Modal>
+{/if}
+
+{#if validation}
+  <Modal
+    hideSubmit={true}
+    cancelLabel={I18n.t("importedBadges.details.ok")}
+    cancel={() => validation = null}
+    question={I18n.t("importedBadges.details.validationResults")}
+    title={I18n.t("importedBadges.details.validation")}>
+    <div class="validation-results">{JSON.stringify(validation)}</div>
   </Modal>
 {/if}
 

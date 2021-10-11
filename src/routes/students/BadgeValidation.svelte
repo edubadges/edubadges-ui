@@ -1,20 +1,20 @@
 <script>
 
-  import I18n from "i18n-js";
-  import {formatDate} from "../../util/utils";
-  import {validateBadge} from "../../api";
-  import {Button} from "../../components";
-  import ValidationSpinners from "./ValidationSpinners.svelte";
+    import I18n from "i18n-js";
+    import {formatDate} from "../../util/utils";
+    import {Button} from "../../components";
+    import ValidationSpinners from "./ValidationSpinners.svelte";
 
-  export let validatedName;
-  export let badge;
+    export let validatedName;
+    export let badge;
+    export let importedBadge = false;
 
-  let fetchingValidation = false;
-  let validation;
+    let fetchingValidation = false;
+    let validation;
 
-  const validate = () => {
-    fetchingValidation = true;
-  }
+    const validate = () => {
+        fetchingValidation = true;
+    }
 
 </script>
 
@@ -64,6 +64,7 @@
   </div>
 </div>
 {#if fetchingValidation}
-  <ValidationSpinners badge={badge} validatedName={validatedName} close={() => fetchingValidation = false}/>
+  <ValidationSpinners badge={badge} importedBadge={importedBadge} validatedName={validatedName}
+                      close={() => fetchingValidation = false}/>
 {/if}
 
