@@ -20,7 +20,7 @@
             navigate(`/direct-award/${badge.entityId}`);
         } else if (isPublic) {
             navigate(`/public/${badgeClass.entityId}`);
-        } else if (badge.importedBadge) {
+        } else if (badge && badge.importedBadge) {
             navigate(`/import/${badge.entity_id}`);
         } else {
             navigate(badge ? `/details/${badge.entityId}` : `/badgeclass/${badgeClass.entityId}`);

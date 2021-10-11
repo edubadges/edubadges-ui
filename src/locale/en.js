@@ -173,7 +173,10 @@ I18n.translations.en = {
             allBadges: "All badge classes",
             mostRecent: "Most recent",
             mostAwarded: "Most awarded",
-            mostRequested: "Most requested"
+            mostRequested: "Most requested",
+            awardAllowedInstitutions: "Award to institution",
+            showMoreInstitutions: "Show more institutions",
+            showLessInstitutions: "Show less institutions",
         },
         issuers: {
             title: "Issuers",

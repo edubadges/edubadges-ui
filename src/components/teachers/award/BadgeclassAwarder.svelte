@@ -34,7 +34,7 @@
   let issuer;
   let faculty;
   let badgeclass = {extensions: [], issuer: {faculty: {institution: {}}}};
-
+  let publicInstitutions = [];
   let enrollments = [];
   let assertions = [];
   let directAwardBundles = [];
@@ -46,6 +46,12 @@
   };
 
   const query = `query ($entityId: String, $days: Int){
+    publicInstitutions {
+      id,
+      identifier,
+      nameEnglish,
+      nameDutch
+    },
     badgeClass(id: $entityId, days: $days) {
       entityId,
       name,
@@ -55,6 +61,7 @@
       image,
       criteriaUrl,
       awardNonValidatedNameAllowed,
+      awardAllowedInstitutions,
       archived,
       isPrivate,
       narrativeRequired,
@@ -71,6 +78,7 @@
           entityId,
           institution {
             entityId,
+            identifier,
             nameEnglish,
             nameDutch,
             directAwardingEnabled
@@ -157,6 +165,7 @@
       translateProperties(badgeclass.issuer.faculty);
       translateProperties(badgeclass.issuer.faculty.institution);
 
+      publicInstitutions = res.publicInstitutions;
       issuer = res.badgeClass.issuer;
       faculty = issuer.faculty;
 
@@ -341,7 +350,7 @@
         <Router>
           <Route path="/overview">
             <div class="overview-container">
-              <Overview {badgeclass}/>
+              <Overview {badgeclass} {publicInstitutions}/>
             </div>
           </Route>
 

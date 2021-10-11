@@ -25,6 +25,7 @@
     let faculty;
     let badgeclass = {extensions: [], issuer: {}};
     let permissions;
+    let publicInstitutions = [];
 
     let contentType;
     let loaded;
@@ -37,6 +38,12 @@
     let archiveQuestion = null;
 
     const query = `query ($entityId: String){
+    publicInstitutions {
+      id,
+      identifier,
+      nameEnglish,
+      nameDutch
+    },
     badgeClass(id: $entityId) {
       entityId,
       name,
@@ -48,6 +55,7 @@
       contentTypeId,
       criteriaUrl,
       awardNonValidatedNameAllowed,
+      awardAllowedInstitutions,
       archived,
       criteriaText,
       expirationPeriod,
@@ -60,6 +68,7 @@
           nameDutch,
           entityId,
           institution {
+            identifier,
             nameEnglish,
             nameDutch,
           }
@@ -98,6 +107,8 @@
     const refresh = () => {
         loaded = false;
         queryData(query, {entityId}).then(res => {
+            publicInstitutions = res.publicInstitutions;
+
             badgeclass = res.badgeClass;
 
             translateProperties(badgeclass.issuer);
@@ -213,7 +224,7 @@
     <Router>
       <Route path="/overview">
         <div class="overview-container">
-          <Overview {badgeclass}/>
+          <Overview {badgeclass} {publicInstitutions}/>
         </div>
       </Route>
       <Route path="/user-management/invite-new-user">

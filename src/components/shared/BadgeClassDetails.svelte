@@ -19,9 +19,15 @@
     import languageIcon from "../../icons/messages-bubble-square-text.svg";
     import schoolTrophyIcon from "../../icons/school-book-trophy.svg";
     import calendarIcon from "../../icons/calendar-1.svg";
+    import awardIcon from "../../icons/award-ribbon-star-1.svg";
+    import {translateProperties} from "../../util/utils";
 
     export let badgeclass;
+    export let publicInstitutions;
     export let badge;
+
+    let cutoffInstitutionThreshold = 5;
+    let showAllInstitutions = false;
 
     onMount(() => {
         //The component is used by public pages where the data structure is different
@@ -33,6 +39,14 @@
             badgeclass.timeInvestment = extensionValue(badgeclass.extensions, timeInvestment);
             badgeclass.ects = extensionValue(badgeclass.extensions, ects);
             badgeclass.language = extensionValue(badgeclass.extensions, language);
+        }
+        if (publicInstitutions) {
+            publicInstitutions.forEach(ins => translateProperties(ins))
+        }
+        if (badgeclass.awardAllowedInstitutions) {
+            badgeclass.awardAllowedInstitutions = badgeclass.awardAllowedInstitutions
+                .map(identifier => publicInstitutions.find(ins => ins.identifier === identifier))
+                .sort((a, b) => a.name.localeCompare(b.name));
         }
         badgeclass.studyLoadValue = badgeclass.studyLoad ? I18n.t("teacher.badgeclasses.hours", {value: badgeclass.studyLoad}) : badgeclass.ects ?
             I18n.t("teacher.badgeclasses.ects", {value: badgeclass.ects}) : null;
@@ -297,6 +311,24 @@
           {/if}
           {#if badgeclass.eqf}
             <span>{`NLQF ${badgeclass.eqf}`}</span>
+          {/if}
+        </div>
+      </section>
+    {/if}
+    {#if publicInstitutions && badgeclass.awardAllowedInstitutions && badgeclass.awardAllowedInstitutions.length > 0}
+      <section class="study-load">
+        {@html awardIcon}
+        <div>
+          <h3>{I18n.t("teacher.badgeclasses.awardAllowedInstitutions")}</h3>
+          {#each badgeclass.awardAllowedInstitutions as institution, i }
+            {#if i < cutoffInstitutionThreshold || showAllInstitutions}
+              <span>{institution.name}</span>
+            {/if}
+          {/each}
+          {#if badgeclass.awardAllowedInstitutions.length > cutoffInstitutionThreshold}
+            <a href="#" on:click|preventDefault|stopPropagation={() => showAllInstitutions = !showAllInstitutions}>
+              {I18n.t(`teacher.badgeclasses.${showAllInstitutions ? "showLessInstitutions" : "showMoreInstitutions" }`)}
+            </a>
           {/if}
         </div>
       </section>

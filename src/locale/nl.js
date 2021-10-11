@@ -173,7 +173,10 @@ I18n.translations.nl = {
             allBadges: "Alle badge classes",
             mostRecent: "Meest recent",
             mostAwarded: "Hoogste aantal toegekend",
-            mostRequested: "Meest aangevraagd"
+            mostRequested: "Meest aangevraagd",
+            awardAllowedInstitutions: "Uitreiken aan instelling",
+            showMoreInstitutions: "Toon meer instellingen",
+            showLessInstitutions: "Toon minder instellingen",
         },
         issuers: {
             title: "Issuers",

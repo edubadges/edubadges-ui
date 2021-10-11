@@ -14,6 +14,7 @@
   const dispatch = createEventDispatcher();
 
   export let badgeclass;
+  export let publicInstitutions;
   export let studentEnrolled;
   export let enrollmentId;
   export let requested;
@@ -96,7 +97,7 @@
       </div>
     </div>
   {/if}
-  <BadgeClassDetails badgeclass={badgeclass}>
+  <BadgeClassDetails badgeclass={badgeclass} publicInstitutions={publicInstitutions}>
     <slot/>
   </BadgeClassDetails>
 </div>
