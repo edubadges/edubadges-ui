@@ -326,7 +326,7 @@
             {/if}
           {/each}
           {#if badgeclass.awardAllowedInstitutions.length > cutoffInstitutionThreshold}
-            <a href="#" on:click|preventDefault|stopPropagation={() => showAllInstitutions = !showAllInstitutions}>
+            <a href="/" on:click|preventDefault|stopPropagation={() => showAllInstitutions = !showAllInstitutions}>
               {I18n.t(`teacher.badgeclasses.${showAllInstitutions ? "showLessInstitutions" : "showMoreInstitutions" }`)}
             </a>
           {/if}
