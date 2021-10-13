@@ -637,7 +637,7 @@ I18n.translations.en = {
             isPrivate: "Private badgeclass",
             evidenceRequired: "Evidence required",
             narrativeRequired: "Narrative required",
-            awardNonValidatedNameAllowed: "Award tot non-validated account allowed",
+            awardNonValidatedNameAllowed: "Award to non-validated account allowed",
             learningOutcome: "Learning outcome",
             studyLoad: "Study load",
             timeInvestment: "Time investment",
@@ -1329,12 +1329,12 @@ I18n.translations.en = {
     importedBadges: {
         title: "Imported badges",
         info: "All the digital badges that you earned and imported.",
-        zeroState: "You have not imported any external badges  yet...",
+        zeroState: "You have not imported any external badges yet...",
         import: "Import badge",
         importWindow: {
             title: "Import your external badge",
             question: "Upload a badge image that you’ve earned from an external issuer.",
-            disclaimer: "Baked badge image must be in either .svg or .png format.",
+            disclaimer: "Badge image must be in either .svg or .png format.",
             submit: "Import Badge",
             urlPlaceholder: "https://api.eu.badgr.io/public/assertions/-kDl8isfQoKrMHrqOx5Thw",
             urlInfo: "Or paste the URL where the badge is hosted.",
@@ -1347,8 +1347,8 @@ I18n.translations.en = {
             codePlaceholder: "Enter the verification code"
         },
         error: {
-            url: "The URL is not a valid Badge URL",
-            image: "The uploaded image is not a valid Badge image",
+            url: "The URL is not a valid badge URL",
+            image: "The uploaded image is not a valid badge image",
             email: "This email does not match the email of the imported badge"
         },
         codeMismatch: "The entered code is invalid",

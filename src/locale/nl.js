@@ -637,7 +637,7 @@ I18n.translations.nl = {
             isPrivate: "Privé badge class",
             evidenceRequired: "Evidence verplicht",
             narrativeRequired: "Narrative verplicht",
-            awardNonValidatedNameAllowed: "Toereiking aan niet gevalideerd account toestaan",
+            awardNonValidatedNameAllowed: "Uitreiken aan niet gevalideerd account toestaan",
             learningOutcome: "Leeruitkomst",
             studyLoad: "Studielast",
             timeInvestment: "Tijdsinvestering",
@@ -1109,7 +1109,7 @@ I18n.translations.nl = {
         //badgeClassCriteriaUrl: "badgeClassCriteriaUrl",
         //badgeClassTypeOfStudyLoad: "badgeClassTypeOfStudyLoad",
         badgeClassStudyLoadNumber: "Studie Belastings Uren (SBU in uren)",
-        badgeClassTimeInvestmentNumber: "Hoeveel uren geïnvesteerd moeten worden om deze informele edubadge te kunnen verdienen.",
+        badgeClassTimeInvestmentNumber: "Hoeveel uren geïnvesteerd moeten worden om deze non-formal edubadge te kunnen verdienen.",
         //badgeClassSBUNumber: "badgeClassSBULoadNumber",
         badgeClassStudyLoadEcts: "Het European Credit Transfer System (ECTS) is een puntensysteem dat wordt gebruikt door universiteiten en is goedgekeurd door overheden, waardoor internationaal onderwijs beter vergelijkbaar is over de grenzen heen.",
         //badgeClassProgrammeIdentifier: "badgeClassProgrammeIdentifier",
@@ -1147,7 +1147,7 @@ I18n.translations.nl = {
         enrollments: "Enrollments worden door leerlingen aangevraagd en na goedkeuring worden nieuwe edubadges toegekend. De nummers hieronder zijn enrollments die niet goedgekeurd zijn door de leraar of geweigerd zijn",
         toggleBadgeCollectionPublic: "Een openbare collectie kan met anderen worden gedeeld, een privé collectie niet.",
         collectionBadgeInstances: "Selecteer alle edubadges die je in deze collectie wilt plaatsen.",
-        importedBadgeEmail: "Je email die is gebruikt op het moment dat deze badge aan je werd uitgeereikt",
+        importedBadgeEmail: "Je email die is gebruikt op het moment dat deze badge aan je werd uitgereikt",
         importedBadgeImageUrl: "De URL met de badge JSON informatie",
         importedBadgeImage: "Een png of svg badge afbeelding"
     },
@@ -1335,10 +1335,10 @@ I18n.translations.nl = {
         importWindow: {
             title: "Importeer je externe badge",
             question: "Upload een badge afbeelding die je hebt verdiend van een externe issuer.",
-            disclaimer: "Baked badge afbeelding moet een svg of png formaat zijn.",
-            submit: "Importeer Badge",
+            disclaimer: "Badge afbeelding moet een svg of png formaat zijn.",
+            submit: "Importeer badge",
             urlPlaceholder: "https://api.eu.badgr.io/public/assertions/-kDl8isfQoKrMHrqOx5Thw",
-            urlInfo: "Of paste een URL waar de badge  wordt gehosted.",
+            urlInfo: "Of paste een URL waar de badge wordt gehosted.",
             emailInfo: "Voer je email in waarop je deze badge hebt verdiend.",
         },
         codeWindow: {
@@ -1348,8 +1348,8 @@ I18n.translations.nl = {
             codePlaceholder: "Validatie code"
         },
         error: {
-            url: "Deze URL is geen geldige Badge  URL",
-            image: "De geuploade afbeelding is geen geldige Badge afbeelding",
+            url: "Deze URL is geen geldige badge URL",
+            image: "De geuploade afbeelding is geen geldige badge afbeelding",
             email: "Dit email adres is niet gelijk aan de email van de geïmporteerde badge"
         },
         codeMismatch: "De ingevoerde code is niet geldig",
@@ -1362,7 +1362,7 @@ I18n.translations.nl = {
             validation: "Badge validatie",
             validationResults: "Badge validatie resultaten",
             publicInfo: "Deze badge is gehost op {{url}} en is publiek beschikbaar.",
-            deleteConfirmation: "Weet je zeker dat  je de geïmporteerde badge {{name}} wilt verwijderen uit je backpack. Let op dat dit niet de originele badge verwijderd.",
+            deleteConfirmation: "Weet je zeker dat je de geïmporteerde badge {{name}} wilt verwijderen uit je backpack. Let op dat dit niet de originele badge verwijderd.",
             flashDeleted: "Verwijder geïmporteerde badge {{name}} uit je backback",
         }
     }
