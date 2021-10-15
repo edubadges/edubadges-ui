@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [5.1.0] - 2021-10-18
+- Badgeclass metadata now shows a list of other institutions that could be awarded to. Only in the manage screens, not in the public badgeclass.
+- Added the deletion of an issuerportal user, but only when this user hasn't  issued any edubadges yet.
+- Changed badgeclass metadata logic when an institution only awards the formal type of edubadges.
+- Added support for SVG images in the badgeclass.
+- Added insights functionality: a dashboard showing statistics about awarded edubadges and badgeclasses.
+- Added import functionality to import other hosted open badges in your backpack.
+- Added option to award non-formal edubadge to an user with no validated name.
+- Added new roles issuer group admin, issuer group awarder, issuer admin, issuer awarder. 
+- Added archive badgeclass option when no open Direct Awards and no open enrollments are present.
+- Refactored student bread crumbes.
+- Added evidence and narrative option for bulk awarding.
+- Added collections function to backpack.
+- Changed error keys for English combined with Dutch.
+- Added catalog menu option to backpack.
+- Updated dependencies tar, tmpl.
+
 ## [5.0.0] - 2021-08-30
 - Show required attributes for awarding enrollments.
 - Added feedback dialog.
