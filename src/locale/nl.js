@@ -32,15 +32,15 @@ I18n.translations.nl = {
         loginToEnrolInfo: "<strong>Let op!</strong> Je kan deze edubadge alleen aanvragen als je staat ingeschreven bij één van deze instellingen: <strong>{{name}}</strong>.",
         loginToEnrolInfoOne: "<strong>Let op!</strong> Je kan deze edubadge alleen aanvragen als je staat ingeschreven bij <strong>{{name}}</strong>.",
         loginToEnrolInfoAll: "<strong>Let op!</strong> Je kan deze edubadge alleen aanvragen als je instelling is aangesloten op edubadges.",
-        loginAllowedWithoutValidatedName: "Je kan deze badge aanvragen als een ediID gast gebruiker.",
+        loginAllowedWithoutValidatedName: "Je kan deze badge aanvragen als een eduID gast gebruiker.",
         badgeClassArchived: "Deze edubadge is gearchiveerd en kan niet langer worden aangevraagd.",
         destination: "Wat zou je willen doen?",
         description:
-            "Edubadges zijn digitale certificaten die aantonen dat de eigenaar bepaalde vaardigheden of kennis heeft verworven. Edubadges kunnen worden uitgereikt voor zowel geaccrediteerd onderwijs als extracurriculaire activiteiten.",
+            "Edubadges zijn digitale certificaten die aantonen dat de eigenaar bepaalde vaardigheden of kennis heeft verworven. Edubadges kunnen worden uitgereikt voor zowel geaccrediteerd onderwijs als voor extracurriculaire activiteiten.",
         student: {
             title: "<strong style='font-size: 38px'>C</strong>ollect",
             subtitle: "De backpack is de plek om  edubadges te ontvangen en verzamelen",
-            noEduId: "Een eduID is nodig om je backpack aan te maken en te gebruuken. Het maken van een eduID duurt minder dan 30 seconden.",
+            noEduId: "Een eduID is nodig om je backpack aan te maken en te gebruiken. Het maken van een eduID duurt minder dan 30 seconden.",
             action: "Open je backpack",
         },
         catalog: {
@@ -52,7 +52,7 @@ I18n.translations.nl = {
         },
         teacher: {
             title: "<strong style='font-size: 38px'>A</strong>ward",
-            subtitle: "Ken edubadges toe aan je studenten, de micro credentials van de toekomst.",
+            subtitle: "Ken edubadges, de micro credentials van de toekomst, toe aan je studenten.",
             action: "Open het issuer portaal",
             accountCreation: {
                 askAccount: "De issuer portaal is alleen beschikbaar op uitnodiging. Als je binnen wilt komen, maar nog geen toegang hebt, neem dan contact op met je beheerder bij jouw instelling.",
