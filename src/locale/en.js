@@ -1349,7 +1349,8 @@ I18n.translations.en = {
         error: {
             url: "The URL is not a valid badge URL",
             image: "The uploaded image is not a valid badge image",
-            email: "This email does not match the email of the imported badge"
+            email: "This email does not match the email of the imported badge",
+            duplicate: "You have already imported this badge. Duplicates are not allowed"
         },
         codeMismatch: "The entered code is invalid",
         details: {

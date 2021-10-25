@@ -1350,7 +1350,8 @@ I18n.translations.nl = {
         error: {
             url: "Deze URL is geen geldige badge URL",
             image: "De geuploade afbeelding is geen geldige badge afbeelding",
-            email: "Dit email adres is niet gelijk aan de email van de geïmporteerde badge"
+            email: "Dit email adres is niet gelijk aan de email van de geïmporteerde badge",
+            duplicate: "Je hebt deze badge al geimporteerd. Duplicate imports zijn niet toegestaan"
         },
         codeMismatch: "De ingevoerde code is niet geldig",
         details: {
