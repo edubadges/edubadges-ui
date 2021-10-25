@@ -12,7 +12,7 @@ export const userIds = writable([]);
 export function filterBySearch(users, search) {
   if (search && search.length > 0) {
     return users.filter(user => {
-      const userName = user.firstName.toLowerCase() + " " + user.lastName.toLowerCase();
+      const userName = user.firstName.toLowerCase() + " " + user.lastName.toLowerCase() + (user.email || "").toLowerCase();
       return userName.indexOf(search.toLowerCase()) !== -1;
     })
   }

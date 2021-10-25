@@ -1324,7 +1324,7 @@ I18n.translations.nl = {
         new: "Nieuwe collectie"
     },
     impersonate: {
-        confirmation: "Weet je zeker dat je je wilt voordoen als {{name}} ?",
+        confirmation: "Weet je zeker dat je je wilt voordoen als {{name}}?",
         title: "Impersonate"
     },
     importedBadges: {

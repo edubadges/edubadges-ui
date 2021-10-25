@@ -5,7 +5,7 @@ import {isEmpty} from "lodash";
 export const enrichUser = (institution, institutionStaffMemberships, issuerGroupStaffMemberships, issuerStaffMemberships, badgeClassStaffMemberships) => {
     const _issuerGroupStaffMemberships = [...issuerGroupStaffMemberships];
     const _issuerStaffMemberships = [...issuerStaffMemberships];
-    const _badgeClassStaffMemberships = [...badgeClassStaffMemberships];
+    // const _badgeClassStaffMemberships = [...badgeClassStaffMemberships];
 
     if (!isEmpty(institutionStaffMemberships)) {
         for (const faculty of institution.faculties) {
@@ -13,16 +13,15 @@ export const enrichUser = (institution, institutionStaffMemberships, issuerGroup
                 faculty: {name: faculty.name, entityId: faculty.entityId},
                 _staffType: staffType.INSTITUTION_STAFF, role: staffType.INSTITUTION_STAFF
             });
-
             for (const issuer of faculty.issuers) {
                 issuerStaffMemberships.push({
                     issuer: {
                         name: issuer.name, entityId: issuer.entityId,
                         faculty: {name: faculty.name, entityId: faculty.entityId}
                     },
-                    _staffType: staffType.INSTITUTION_STAFF, role: staffType.INSTITUTION_STAFF
+                    _staffType: staffType.INSTITUTION_STAFF,
+                    role: staffType.INSTITUTION_STAFF
                 });
-
                 for (const badgeClass of issuer.badgeclasses) {
                     badgeClassStaffMemberships.push({
                         badgeclass: {
@@ -32,16 +31,17 @@ export const enrichUser = (institution, institutionStaffMemberships, issuerGroup
                             },
                             name: badgeClass.name, entityId: badgeClass.entityId
                         },
-                        _staffType: staffType.INSTITUTION_STAFF, role: staffType.INSTITUTION_STAFF
+                        _staffType: staffType.INSTITUTION_STAFF,
+                        role: staffType.BADGE_CLASS_OWNER
                     });
                 }
             }
         }
     }
 
-    if (!isEmpty(issuerGroupStaffMemberships)) {
+    if (!isEmpty(_issuerGroupStaffMemberships)) {
         const allFaculties = institution.faculties;
-        issuerGroupStaffMemberships.forEach(issuerGroupStaffMembership => {
+        _issuerGroupStaffMemberships.forEach(issuerGroupStaffMembership => {
             issuerGroupStaffMembership.role = issuerGroupStaffMembership.mayUpdate ? staffType.ISSUER_GROUP_ADMIN : staffType.ISSUER_GROUP_AWARDER;
             const faculty = allFaculties.find(faculty => issuerGroupStaffMembership.faculty.entityId === faculty.entityId);
             faculty.issuers.forEach(issuer => {
@@ -53,14 +53,24 @@ export const enrichUser = (institution, institutionStaffMemberships, issuerGroup
                     _staffType: staffType.ISSUER_GROUP_STAFF,
                     role: issuerGroupStaffMembership.mayUpdate ? staffType.ISSUER_ADMIN : staffType.ISSUER_AWARDER
                 });
-            })
-        })
+                issuer.badgeclasses.forEach(badgeClass => {
+                    badgeClassStaffMemberships.push({
+                        badgeclass: {
+                            issuer: {name: issuer.name, faculty: {name: faculty.name}},
+                            name: badgeClass.name, entityId: badgeClass.entityId
+                        },
+                        _staffType: staffType.ISSUER_GROUP_STAFF,
+                        role: issuerGroupStaffMembership.mayUpdate ? staffType.BADGE_CLASS_OWNER : staffType.BADGE_CLASS_AWARDER
+                    });
+                });
+            });
+        });
     }
 
-    if (!isEmpty(issuerStaffMemberships)) {
+    if (!isEmpty(_issuerStaffMemberships)) {
         const allIssuers = [];
         institution.faculties.forEach(faculty => faculty.issuers.forEach(issuer => allIssuers.push(issuer)));
-        issuerStaffMemberships.forEach(issuerStaffMembership => {
+        _issuerStaffMemberships.forEach(issuerStaffMembership => {
             issuerStaffMembership.role = issuerStaffMembership.mayUpdate ? staffType.ISSUER_ADMIN : staffType.ISSUER_AWARDER;
             const issuer = allIssuers.find(issuer => issuerStaffMembership.issuer.entityId === issuer.entityId);
             issuer.badgeclasses.forEach(badgeClass => {
@@ -70,13 +80,13 @@ export const enrichUser = (institution, institutionStaffMemberships, issuerGroup
                         name: badgeClass.name, entityId: badgeClass.entityId
                     },
                     _staffType: staffType.ISSUER_STAFF,
-                    role: issuerStaffMembership.mayUpdate ? staffType.ISSUER_ADMIN : staffType.ISSUER_AWARDER
+                    role: issuerStaffMembership.mayUpdate ? staffType.BADGE_CLASS_OWNER : staffType.BADGE_CLASS_AWARDER
                 });
             })
         })
     }
 
-    for (const badgeClassStaffMembership of _badgeClassStaffMemberships) {
+    for (const badgeClassStaffMembership of badgeClassStaffMemberships) {
         if (badgeClassStaffMembership.mayAdministrateUsers) {
             Object.assign(badgeClassStaffMembership, {role: staffType.BADGE_CLASS_OWNER});
         } else if (badgeClassStaffMembership.mayUpdate) {

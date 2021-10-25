@@ -75,6 +75,7 @@
       },
       facultyStaffs {
         entityId,
+        mayUpdate,
         faculty {
           nameDutch,
           nameEnglish,

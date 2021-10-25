@@ -124,7 +124,13 @@
             <ListLink path={`/manage/faculty/${staff.faculty.entityId}/issuers`} name={staff.faculty.name}/>
           </td>
           {#if staff._staffType === staffType.ISSUER_GROUP_STAFF}
-            <td>{I18n.t(['editUsers', 'faculty', 'allRights'])}</td>
+            <td>
+              {#if staff.mayUpdate}
+                {I18n.t('editUsers.faculty.admin')}
+              {:else}
+                {I18n.t('editUsers.faculty.awarder')}
+              {/if}
+            </td>
           {:else if staff._staffType === staffType.INSTITUTION_STAFF}
             <td>
               {I18n.t(['editUsers', 'permissions', 'allRights'])}
@@ -157,9 +163,15 @@
             {/if}
           {:else if staff._staffType === staffType.ISSUER_GROUP_STAFF}
             <td>
-              {I18n.t('editUsers.permissions.allRights')}
-              <br/>
-              <span class="sub-text">{I18n.t('editUsers.permissions.issuerGroupAllRights')}</span>
+              {#if staff.role === staffType.ISSUER_ADMIN}
+                {I18n.t('editUsers.permissions.allRights')}
+                <br/>
+                <span class="sub-text">{I18n.t('editUsers.permissions.issuerGroupAllRights')}</span>
+              {:else}
+                {I18n.t('editUsers.permissions.awarderRights')}
+                <br/>
+                <span class="sub-text">{I18n.t('editUsers.permissions.issuerGroupAwarderRights')}</span>
+              {/if}
             </td>
           {:else if staff._staffType === staffType.INSTITUTION_STAFF}
             <td>
@@ -196,7 +208,7 @@
             </td>
           {:else if staff._staffType === staffType.ISSUER_STAFF}
             <td>
-              {#if staff.mayUpdate}
+              {#if staff.role === staffType.BADGE_CLASS_OWNER}
                 {I18n.t('editUsers.permissions.allRights')}
                 <br/>
                 <span class="sub-text">{I18n.t('editUsers.permissions.issuerAllRights')}</span>
@@ -208,7 +220,7 @@
             </td>
           {:else if staff._staffType === staffType.ISSUER_GROUP_STAFF}
             <td>
-              {#if staff.mayUpdate}
+              {#if staff.role === staffType.BADGE_CLASS_OWNER}
                 {I18n.t('editUsers.permissions.allRights')}
                 <br/>
                 <span class="sub-text">{I18n.t('editUsers.permissions.issuerGroupAllRights')}</span>

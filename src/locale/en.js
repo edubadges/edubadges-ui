@@ -1323,7 +1323,7 @@ I18n.translations.en = {
         new: "New collection"
     },
     impersonate: {
-        confirmation: "Are you sure you want to impersonate {{name}}",
+        confirmation: "Are you sure you want to impersonate {{name}}?",
         title: "Impersonate"
     },
     importedBadges: {
