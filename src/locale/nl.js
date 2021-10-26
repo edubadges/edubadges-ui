@@ -165,7 +165,7 @@ I18n.translations.nl = {
             recipients: "Ontvangers",
             enrollments: "Open aanvragen",
             studyLoad: "Studielast",
-            timeInvestment: "Tijdsinvestering",
+            timeInvestment: "Tijd investering",
             educationProgramIdentifier: "Opleidingscode",
             ects: "{{value}} ECTS",
             hours: "{{value}} uren",
@@ -414,7 +414,7 @@ I18n.translations.nl = {
         932: "Een narratief is verplicht voor het awarden van deze edubadge",
         933: "Een URL is verplicht voor het awarden van deze edubadge",
         934: "De opleidingscode is verplicht als er studiepunten zijn opgegeven.",
-        935: "Vul de tijdsinvestering of verwijder deze rubriek.",
+        935: "Vul de tijd investering of verwijder deze rubriek.",
         936: "Kan geen collectie aanmaken met deze naam. Er bestaat al een collectie met deze naam.",
         unexpected: "Oeps, er is iets totaal onverwachts en onverklaarbaars gebeurd.",
         description: "Een onverwachte fout is opgetreden. Probeer het opnieuw of neem contact op met support@edubadges.nl voor ondersteuning.",
@@ -640,7 +640,7 @@ I18n.translations.nl = {
             awardNonValidatedNameAllowed: "Uitreiken aan niet gevalideerd account toestaan",
             learningOutcome: "Leeruitkomst",
             studyLoad: "Studielast",
-            timeInvestment: "Tijdsinvestering",
+            timeInvestment: "Tijd investering",
             ects: {
                 creditPoints: "Studiepunten (ECTS)",
                 hours: "Uren"
@@ -664,14 +664,14 @@ I18n.translations.nl = {
                 additionalSections: "Extra toevoegingen",
                 educationalIdentifiers: "Opleidingscode",
                 studyLoad: "Studielast",
-                timeInvestment: "Tijdsinvestering",
+                timeInvestment: "Tijd investering",
                 alignment: "Gerelateerd onderwijskundig raamwerk",
                 allowedInstituions: "Toegestaande instellingen"
             },
             addButtons: {
                 educationalIdentifiers: "Opleidingscode(s) toevoegen",
                 studyLoad: "Studielast toevoegen",
-                timeInvestment: "Tijdinvestering toevoegen",
+                timeInvestment: "Tijd investering toevoegen",
                 alignment: "Gerelateerd onderwijskundig raamwerk toevoegen",
                 alignmentAddition: "Nog een gerelateerd onderwijskundig raamwerk toevoegen",
             },
