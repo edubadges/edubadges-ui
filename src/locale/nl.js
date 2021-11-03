@@ -969,6 +969,8 @@ I18n.translations.nl = {
         verify: "Verifieer",
         validations: {
             institution: "Van instelling {{val}}",
+            hosted: "Hosted bij {{val}}",
+            imported: "Geïmporteerd op {{val}}",
             issuedOn: "Uitgereikt op {{val}}",
             issuedBy: "Uitgereikt door {{val}}",
             issuedUsing: "Gebruikt platform {{val}}",

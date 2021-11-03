@@ -19,21 +19,24 @@
 
     const validations = [
         {key: "issuedOn", val: formatDate(badge.issuedOn)},
-        {key: "institution", val: badge.issuer.faculty ? badge.issuer.faculty.institution.name : "-"},
+        {key: "institution", val: badge.issuer.faculty ? badge.issuer.faculty.institution.name : "-", eduBadge: true },
+        {key: "imported", val: formatDate(badge.created_at), eduBadge: false},
         {key: "issuedBy", val: badge.issuer.name},
-        {key: "issuedUsing", val: "eduBadges"},
+        {key: "issuedUsing", val: "eduBadges", eduBadge: true},
+        {key: "hosted", val: importedBadge ? new URL(badge.import_url).hostname : "", eduBadge: false },
         {
             key: "issuedTo",
             val: validatedName || I18n.t("publicBadge.validations.noValidatedName"),
             invalid: !validatedName
         },
-        {key: "claimedOn", val: formatDate(badge.updatedAt)},
+        {key: "claimedOn", val: formatDate(badge.updatedAt), eduBadge: true},
         {
             key: "expiresOn", val: badge.expires ? formatDate(badge.expires) : I18n.t("publicBadge.validations.never"),
             invalid: badge.expires && new Date(badge.expires) < new Date()
         },
         {key: "verified", val: "", last: true}
-    ].map(item => ({
+    ].filter(item => item.eduBadge === undefined || item.eduBadge === !importedBadge)
+     .map(item => ({
         key: item.key,
         last: item.last,
         pre: I18n.t(`publicBadge.validations.${item.key}`, {val: "..."}),
