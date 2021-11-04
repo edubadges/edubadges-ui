@@ -1291,6 +1291,7 @@ I18n.translations.nl = {
         issuers: "Issuers",
         issuerGroups: "Issuer groups",
         users: "Portal gebruikers",
+        backpack: "Backpack gebruikers",
         crunching: "Crunching the numbers just for you...",
         date: "Datum",
         reset: "Reset"

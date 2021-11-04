@@ -1290,6 +1290,7 @@ I18n.translations.en = {
         issuers: "Issuers",
         issuerGroups: "Issuer groups",
         users: "Portal users",
+        backpack: "Backpack users",
         crunching: "Crunching the numbers just for you...",
         date: "Date",
         reset: "Reset"
