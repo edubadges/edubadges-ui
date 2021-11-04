@@ -1,27 +1,42 @@
 <script>
 
-  import {config} from "../util/config";
-  import {onMount} from "svelte";
+    import {config} from "../util/config";
+    import {onMount} from "svelte";
+    import Spinner from "../components/Spinner.svelte";
+    import {getValidatorInfo} from "../api";
 
-  const serverUrl = config.serverUrl;
-  const version = `${VERSION}`;
-  const commit = `${COMMITHASH}`;
-  const branch = `${BRANCH}`;
+    const serverUrl = config.serverUrl;
+    const version = `${VERSION}`;
+    const commit = `${COMMITHASH}`;
+    const branch = `${BRANCH}`;
 
-  let versionServer = "";
-  let commitServer = "";
-  let branchServer = "";
+    let versionServer = "";
+    let commitServer = "";
+    let branchServer = "";
 
-  onMount(() => {
-    fetch(`${serverUrl}/extensions/git.info`).then(res => {
-      res.text().then(txt => {
-        const lines = txt.match(/[^\r\n]+/g);
-        versionServer = lines[0];
-        commitServer = lines[1];
-        branchServer = lines[2];
-      });
-    })
-  });
+    let versionValidator = "";
+    let commitValidator = "";
+    let branchValidator = "";
+
+    let loaded = false;
+
+    onMount(() => {
+        fetch(`${serverUrl}/extensions/git.info`).then(res => {
+            res.text().then(txt => {
+                const lines = txt.match(/[^\r\n]+/g);
+                versionServer = lines[0];
+                commitServer = lines[1];
+                branchServer = lines[2];
+                getValidatorInfo().then(json => {
+                    const lines = json.git.match(/[^\r\n]+/g);
+                    versionValidator = lines[0];
+                    commitValidator = lines[1];
+                    branchValidator = lines[2];
+                    loaded = true;
+                })
+            });
+        })
+    });
 
 </script>
 <style lang="scss">
@@ -36,17 +51,27 @@
 
 </style>
 <section class="version-info">
-  <div class="client">
-    <h3>Client git info:</h3>
-    <p>{`Version: ${version}`}</p>
-    <p>{`Commit: ${commit}`}</p>
-    <p>{`Branch: ${branch}`}</p>
-  </div>
-  <div class="server">
-    <h3>Server git info:</h3>
-    <p>{`Version: ${versionServer}`}</p>
-    <p>{`Commit: ${commitServer}`}</p>
-    <p>{`Branch: ${branchServer}`}</p>
-  </div>
+    {#if loaded}
+        <div class="client">
+            <h3>Client git info:</h3>
+            <p>{`Version: ${version}`}</p>
+            <p>{`Commit: ${commit}`}</p>
+            <p>{`Branch: ${branch}`}</p>
+        </div>
+        <div class="server">
+            <h3>Server git info:</h3>
+            <p>{`Version: ${versionServer}`}</p>
+            <p>{`Commit: ${commitServer}`}</p>
+            <p>{`Branch: ${branchServer}`}</p>
+        </div>
+        <div class="validator">
+            <h3>Validator git info:</h3>
+            <p>{`Version: ${versionValidator}`}</p>
+            <p>{`Commit: ${commitValidator}`}</p>
+            <p>{`Branch: ${branchValidator}`}</p>
+        </div>
+    {:else}
+        <Spinner/>
+    {/if}
 </section>
 
