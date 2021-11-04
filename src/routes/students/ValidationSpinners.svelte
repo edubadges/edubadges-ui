@@ -22,7 +22,7 @@
         {key: "institution", val: badge.issuer.faculty ? badge.issuer.faculty.institution.name : "-", eduBadge: true },
         {key: "imported", val: formatDate(badge.created_at), eduBadge: false},
         {key: "issuedBy", val: badge.issuer.name},
-        {key: "issuedUsing", val: "eduBadges", eduBadge: true},
+        {key: "issuedUsing", val: "edubadges", eduBadge: true},
         {key: "hosted", val: importedBadge ? new URL(badge.import_url).hostname : "", eduBadge: false },
         {
             key: "issuedTo",
