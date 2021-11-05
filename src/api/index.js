@@ -181,9 +181,9 @@ export function awardBadges(badgeId, enrollmentIds, useEvidence, narrative, url,
     return validFetch(path, {body: JSON.stringify(body)}, "POST");
 }
 
-export function denyBadge(enrollmentEntityId) {
+export function denyBadge(enrollmentEntityId, denyReason) {
     const path = `${serverUrl}/lti_edu/enrollment/${enrollmentEntityId}/deny`;
-    return validFetch(path, {body: "{}"}, "PUT");
+    return validFetch(path, {body: JSON.stringify({denyReason})}, "PUT");
 
 }
 

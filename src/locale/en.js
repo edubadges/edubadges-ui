@@ -774,6 +774,7 @@ I18n.translations.en = {
                 awardConfirmation: "Are you sure you want to award this request?",
                 deny: "Deny request",
                 denyConfirmation: "Are you sure you want to deny this request?",
+                denyReason: "What is the reason for denial (optional)?"
             },
             awardButton: "Award",
             showDenied: "Show denied enrollments ({{count}})",

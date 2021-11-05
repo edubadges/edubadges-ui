@@ -775,6 +775,7 @@ I18n.translations.nl = {
                 awardConfirmation: "Weet je zeker dat je deze inschrijving wilt toekennen?",
                 deny: "Wijs inschrijving af",
                 denyConfirmation: "Weet je zeker dat je deze inschrijving wilt afwijzen?",
+                denyReason: "Wat is reden voor om deze inschrijving af te wijzen (optioneel)?"
             },
             awardButton: "Toekennen",
             showDenied: "Toon afgewezen inschrijvingen ({{count}})",

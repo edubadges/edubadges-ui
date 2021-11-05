@@ -1,15 +1,16 @@
 <script>
-  import I18n from "i18n-js";
-  import {isEmpty} from "lodash";
-  import question from "../icons/question.svg";
+    import I18n from "i18n-js";
+    import {isEmpty} from "lodash";
+    import question from "../icons/question.svg";
 
-  export let label = "";
-  export let tipKey = "";
-  export let marginBottom = false;
-  export let marginTop = false;
+    export let label = "";
+    export let tipKey = "";
+    export let marginBottom = false;
+    export let marginTop = false;
+    export let tooltipText;
 
-  const translations = I18n.translations[I18n.locale];
-  const exists = !isEmpty(translations.tooltips[tipKey]);
+    const translations = I18n.translations[I18n.locale];
+    const exists = !isEmpty(translations.tooltips[tipKey]) || tooltipText;
 
 </script>
 
@@ -22,6 +23,7 @@
       display: block;
       margin-bottom: 25px;
     }
+
     &.marginTop {
       display: block;
       margin-top: 15px;
@@ -102,19 +104,23 @@
 </style>
 
 <label class:marginBottom class:marginTop>
-  {#if label}
-    {label}
-  {/if}
-  {#if exists}
-    <div class="tooltip-wrapper">
+    {#if label}
+        {label}
+    {/if}
+    {#if exists}
+        <div class="tooltip-wrapper">
     <span class="tooltip-slot">
       {@html question}
     </span>
-      <div class="tooltip top">
-        {@html translations.tooltips[tipKey]}
-      </div>
-    </div>
-  {/if}
+            <div class="tooltip top">
+                {#if tooltipText}
+                    {@html tooltipText}
+                {:else}
+                    {@html translations.tooltips[tipKey]}
+                {/if}
+            </div>
+        </div>
+    {/if}
 </label>
 
 
