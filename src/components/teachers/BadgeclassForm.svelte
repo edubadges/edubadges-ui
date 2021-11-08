@@ -91,7 +91,7 @@
         name: I18n.t("language.nl_NL")
     }];
     let languageSelection = languages[0];
-    if (!isCreate) {
+    if (!isCreate || isCopy) {
         languageSelection = languages.find(x => x.value === extensionValue(badgeclass.extensions, language));
     }
 
@@ -189,7 +189,7 @@
         if (extensions[educationProgramIdentifier.name]) {
           showEducationalIdentifiers = true;
         }
-        if (institution.grondslagFormeel !== null && (ectsValue || extensions[studyLoad.name] || isCreate)) {
+        if (institution.grondslagFormeel !== null && (ectsValue || extensions[studyLoad.name] || (isCreate && !isCopy))) {
             showStudyLoad = true;
             if (!isInstitutionMBO) {
                 showEducationalIdentifiers = true;
@@ -197,7 +197,7 @@
         }
         if (!showStudyLoad) {
             const timeInvestmentValue = extensionValue(badgeclass.extensions, timeInvestment) || 0;
-            if (isCreate || timeInvestmentValue) {
+            if ((isCreate && !isCopy) || timeInvestmentValue) {
                 extensions[timeInvestment.name] = timeInvestmentValue;
                 showTimeInvestment = true;
             }
