@@ -273,6 +273,9 @@ I18n.translations.en = {
             cancel: "Cancel",
             archive: "Archive"
         },
+        copy: {
+            badgeclass: "Copy badge class",
+        },
         delete: {
             delete: "Delete",
             info: {
@@ -697,7 +700,8 @@ I18n.translations.en = {
                 confirmationQuestion: "Are you sure you wannt to unarchive this badge class?",
                 flash: "Badge class {{name}} is unarchived",
                 action: "Unarchive"
-            }
+            },
+            copyBadgeClass: "Copy badge class"
         },
         badge: {
             emailAddress: "Email address",

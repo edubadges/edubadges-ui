@@ -13,6 +13,7 @@
   export let fill;
   export let icon;
   export let marginRight;
+  export let marginBottom;
 </script>
 
 <style lang="scss">
@@ -139,6 +140,9 @@
   a.margin-right {
     margin-right: 15px;
   }
+  a.margin-bottom {
+    margin-bottom: 15px;
+  }
 
 </style>
 
@@ -152,6 +156,7 @@
     {disabled}
     class:small
     class:margin-right={marginRight}
+    class:margin-bottom={marginBottom}
     class:warning
     class:icon-button={icon}
     class:secondary>

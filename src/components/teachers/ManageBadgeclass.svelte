@@ -18,6 +18,7 @@
     import {archiveBadgeclass} from "../../api";
     import warning from "../../icons/warning.svg";
     import EntityHeaderNotification from "./EntityHeaderNotification.svelte";
+
     export let entityId;
     export let tab;
 
@@ -26,6 +27,7 @@
     let badgeclass = {extensions: [], issuer: {}};
     let permissions;
     let publicInstitutions = [];
+    let allowedIssuers;
 
     let contentType;
     let loaded;
@@ -43,6 +45,11 @@
       identifier,
       nameEnglish,
       nameDutch
+    },
+    issuers {
+      nameEnglish,
+      nameDutch,
+      entityId,
     },
     badgeClass(id: $entityId) {
       entityId,
@@ -69,6 +76,7 @@
           entityId,
           institution {
             identifier,
+            entityId,
             nameEnglish,
             nameDutch,
           }
@@ -108,7 +116,7 @@
         loaded = false;
         queryData(query, {entityId}).then(res => {
             publicInstitutions = res.publicInstitutions;
-
+            allowedIssuers = res.issuers;
             badgeclass = res.badgeClass;
 
             translateProperties(badgeclass.issuer);
@@ -204,50 +212,56 @@
 </style>
 
 {#if loaded}
-  <Breadcrumb {faculty} {issuer} {badgeclass} badgeclassName={badgeclass.name}/>
-  <BadgeClassHeader
-    object={badgeclass}
-    entity={entityType.BADGE_CLASS}
-    entityId={entityId}
-    {tabs}
-    {headerItems}
-    mayUpdate={mayUpdateBadgeclass && !badgeclass.archived}>
-    <div slot="additional-actions" class="button-container">
-      {#if mayArchiveBadgeclass}
-        <Button fill={true} secondary action={doArchiveBadgeclass(true, !badgeclass.archived)}
-                text={I18n.t(`models.badgeclass.${!badgeclass.archived ? "archive" : "unarchive"}.action`)}/>
-      {/if}
-    </div>
-  </BadgeClassHeader>
+    <Breadcrumb {faculty} {issuer} {badgeclass} badgeclassName={badgeclass.name}/>
+    <BadgeClassHeader
+            object={badgeclass}
+            entity={entityType.BADGE_CLASS}
+            entityId={entityId}
+            {tabs}
+            {headerItems}
+            mayUpdate={mayUpdateBadgeclass && !badgeclass.archived}>
+        <div slot="additional-actions" >
+            {#if mayArchiveBadgeclass}
+                    <Button fill={true} secondary action={doArchiveBadgeclass(true, !badgeclass.archived)}
+                            marginBottom={true}
+                            text={I18n.t(`models.badgeclass.${!badgeclass.archived ? "archive" : "unarchive"}.action`)}/>
+            {/if}
+            {#if allowedIssuers && allowedIssuers.length > 0}
+                    <Button fill={true} secondary action={() => navigate(`/manage/badgeclass/${badgeclass.entityId}/edit/copy`)}
+                            text={I18n.t("models.badgeclass.copyBadgeClass")}/>
+            {/if}
 
-  <div class="main-content-margin">
-    <Router>
-      <Route path="/overview">
-        <div class="overview-container">
-          <Overview {badgeclass} {publicInstitutions}/>
         </div>
-      </Route>
-      <Route path="/user-management/invite-new-user">
-        <InviteUser
-          permissionsRoles={permissionsRoles}
-          defaultValue={2}
-          disabledRole={false}
-          entityId={entityId}
-          contentType={contentType}
-        />
-      </Route>
-      <Route path="/user-management">
-        <BadgeclassUserManagement entity={entityType.BADGE_CLASS} {entityId}/>
-      </Route>
-    </Router>
-  </div>
+    </BadgeClassHeader>
+
+    <div class="main-content-margin">
+        <Router>
+            <Route path="/overview">
+                <div class="overview-container">
+                    <Overview {badgeclass} {publicInstitutions}/>
+                </div>
+            </Route>
+            <Route path="/user-management/invite-new-user">
+                <InviteUser
+                        permissionsRoles={permissionsRoles}
+                        defaultValue={2}
+                        disabledRole={false}
+                        entityId={entityId}
+                        contentType={contentType}
+                />
+            </Route>
+            <Route path="/user-management">
+                <BadgeclassUserManagement entity={entityType.BADGE_CLASS} {entityId}/>
+            </Route>
+        </Router>
+    </div>
 {:else}
-  <Spinner/>
+    <Spinner/>
 {/if}
 {#if showArchiveModal}
-  <Modal
-    submit={doArchiveBadgeclass(false)}
-    cancel={() => showArchiveModal = false}
-    question={archiveQuestion}
-    title={archiveTitle}/>
+    <Modal
+            submit={doArchiveBadgeclass(false)}
+            cancel={() => showArchiveModal = false}
+            question={archiveQuestion}
+            title={archiveTitle}/>
 {/if}

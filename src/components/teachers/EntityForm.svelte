@@ -14,6 +14,7 @@
   export let mayEdit = true;
 
   export let create;
+  export let action;
   export let entityTypeName;
   export let entityId;
   export let parentId;
@@ -69,9 +70,10 @@
   {badgeclassName}
   edit={!create}
   {create}
+  copy={action === "copy"}
   entity={entityTypeName}/>
 
-<h2>{I18n.t(['manage', create ? 'new' : 'edit', entityTypeName])}</h2>
+<h2>{I18n.t(['manage', action  === "copy" ? 'copy' : create ? 'new' : 'edit', entityTypeName])}</h2>
 <div class="main-content-margin">
   <div class="offset">
     <slot/>

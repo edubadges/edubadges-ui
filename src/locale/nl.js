@@ -697,8 +697,8 @@ I18n.translations.nl = {
                 confirmationQuestion: "Weet je zeker dat je deze badge class wilt dearchiveren?",
                 flash: "Badge class {{name}} is gedearchiveerd",
                 action: "Dearchiveer"
-            }
-
+            },
+            copyBadgeClass: "Kopieer badge class"
         },
         badge: {
             emailAddress: "E-mailadres",

@@ -35,8 +35,10 @@
     export let hasUnrevokedAssertions;
     export let institution = {};
     export let publicInstitutions = [];
+    export let action;
 
     const isCreate = !entityId;
+    const isCopy = !entityId && action === "copy";
     const entity = entityType.BADGE_CLASS;
 
     let expireValueSet = false;
@@ -368,6 +370,7 @@
   parentId={badgeclass.issuer.entityId}
   {mayDelete}
   {mayEdit}
+  {action}
   {hasUnrevokedAssertions}
   entityId={entityId}
   issuer={badgeclass.issuer}
@@ -437,8 +440,9 @@
       <Select
         bind:value={badgeclass.issuer}
         error={errors.issuer}
-        disabled={true}
+        disabled={issuers.length === 1}
         clearable={false}
+        optionIdentifier="entityId"
         items={issuers}/>
     </Field>
 

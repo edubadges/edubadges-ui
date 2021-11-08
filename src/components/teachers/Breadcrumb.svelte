@@ -16,6 +16,7 @@
   export let badgeclassName = "";
   export let entity;
   export let edit = false;
+  export let copy = false;
   export let create = false;
   export let studentBadge;
   export let studentPath;
@@ -30,12 +31,13 @@
 
   let institutionName = "";
 
-  const editCreatePart = (isEdited, isCreate) => {
-    return isEdited
-      ? I18n.t(["manage", "edit", entity])
-      : isCreate
-        ? I18n.t(["manage", "new", entity])
-        : undefined;
+  const editCreatePart = (isEdited, isCreate, isCopy) => {
+    return isCopy
+      ? I18n.t(["manage", "copy", entity])
+      : isEdited
+        ? I18n.t(["manage", "edit", entity])
+        : isCreate
+          ? I18n.t(["manage", "new", entity]) : undefined;
   };
 
   onMount(() => {
@@ -87,7 +89,6 @@
     <a use:link href={`/badge-requests`}>{studentPath}</a>
   {/if}
 
-
   {#if institutionName && !user}
     <a use:link href="/manage/institution">{institutionName}</a>
   {/if}
@@ -114,9 +115,9 @@
 
   {/if}
 
-  {#if edit || create}
+  {#if edit || create || copy}
     <span class="crumb">{@html chevronRightSmall}</span>
-    <a use:link href={$currentPath}>{editCreatePart(edit, create)}</a>
+    <a use:link href={$currentPath}>{editCreatePart(edit, create, copy)}</a>
   {/if}
 
   {#if badgeclassName && $userRole === role.TEACHER}
