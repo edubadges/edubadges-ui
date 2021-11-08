@@ -388,20 +388,20 @@
     <Field {entity} attribute="image" errors={errors.image} tipKey="badgeClassImage">
       <File
         bind:value={badgeclass.image}
-        disabled={!mayEdit}
+        disabled={!mayEdit && !isCopy}
         error={errors.image}
         removeAllowed={false}/>
     </Field>
 
     <ExpirationSettings
       bind:expireValueSet={badgeclass.expireValueSet}
-      disabled={!mayEdit}
+      disabled={!mayEdit && !isCopy}
       className=""
       bind:number={badgeclass.expirationDuration}
       bind:period={badgeclass.expirationPeriod}/>
 
     <Field {entity} attribute="name" errors={errors.name} tipKey="badgeClassName">
-      <TextInput bind:value={badgeclass.name} disabled={!mayEdit} error={errors.name}
+      <TextInput bind:value={badgeclass.name} disabled={!mayEdit && !isCopy} error={errors.name}
                  placeholder={I18n.t("placeholders.badgeClass.name")}/>
     </Field>
 
@@ -409,7 +409,7 @@
       <Select
         bind:value={languageSelection}
         items={languages}
-        disabled={!mayEdit}
+        disabled={!mayEdit && !isCopy}
         optionIdentifier="value"
         clearable={false}/>
     </Field>
@@ -418,7 +418,7 @@
       <TextInput
         bind:value={badgeclass.description}
         error={errors.description}
-        disabled={!mayEdit}
+        disabled={!mayEdit && !isCopy}
         area
         placeholder={I18n.t("placeholders.badgeClass.description")}
         size="100"
@@ -428,7 +428,7 @@
     <Field {entity} attribute="learningOutcome" errors={errors.learningOutcome} tipKey="badgeClassLearningOutcome">
       <TextInput
         bind:value={extensions[learningOutcome.name]}
-        disabled={!mayEdit}
+        disabled={!mayEdit && !isCopy}
         error={errors.learningOutcome}
         area
         placeholder={I18n.t("placeholders.badgeClass.learningOutcome")}
@@ -440,7 +440,7 @@
       <Select
         bind:value={badgeclass.issuer}
         error={errors.issuer}
-        disabled={issuers.length === 1}
+        disabled={issuers.length === 1 || (!mayEdit && !isCopy)}
         clearable={false}
         optionIdentifier="entityId"
         items={issuers}/>
@@ -487,7 +487,7 @@
       <TextInput
         area
         bind:value={badgeclass.criteriaText}
-        disabled={!mayEdit}
+        disabled={!mayEdit && !isCopy}
         placeholder={I18n.t("placeholders.badgeClass.criteriaText")}
         error={errors.criteria_text}
         size="150"
@@ -497,7 +497,7 @@
     <Field {entity} attribute="criteria_url" errors={errors.criteria_url} tipKey="badgeClassCriteriaUrl">
       <TextInput
         bind:value={badgeclass.criteriaUrl}
-        disabled={!mayEdit}
+        disabled={!mayEdit && !isCopy}
         placeholder={I18n.t("placeholders.badgeClass.criteriaUrl")}
         error={errors.criteria_url}/>
     </Field>
@@ -542,14 +542,14 @@
             type="number"
             bind:value={extensions[studyLoad.name]}
             error={errors.StudyLoadExtension}
-            disabled={!mayEdit}
+            disabled={!mayEdit && !isCopy}
             placeholder={I18n.t("placeholders.badgeClass.studyLoad")}/>
         </Field>
       {:else}
         <Field {entity} attribute="ects.creditPoints" errors={errors.ectsLong} tipKey="badgeClassStudyLoadEcts">
           <EctsCreditPoints
             bind:ectsValue={extensions[ects.name]}
-            disabled={!mayEdit}
+            disabled={!mayEdit && !isCopy}
           />
         </Field>
       {/if}
@@ -572,7 +572,7 @@
           type="number"
           bind:value={extensions[timeInvestment.name]}
           error={errors.TimeInvestmentExtension}
-          disabled={!mayEdit}
+          disabled={!mayEdit && !isCopy}
           placeholder={I18n.t("placeholders.badgeClass.timeInvestment")}/>
       </Field>
     </div>
@@ -595,7 +595,7 @@
         <TextInput
           type="text"
           bind:value={extensions[educationProgramIdentifier.name]}
-          disabled={!mayEdit}
+          disabled={!mayEdit && !isCopy}
           placeholder={I18n.t("placeholders.badgeClass.educationProgramIdentifier")}
           error={errors.EducationProgramIdentifierExtension}/>
         <span class="info">
@@ -607,7 +607,7 @@
         <Select
           bind:value={extensions[eqf.name]}
           items={eqfItems}
-          disabled={!mayEdit}
+          disabled={!mayEdit && !isCopy}
           optionIdentifier="value"
           clearable={false}/>
         <span class="info">
@@ -637,7 +637,7 @@
                tipKey="badgeClassRelatedFrameworkName">
           <TextInput
             bind:value={alignment.target_name}
-            disabled={!mayEdit}
+            disabled={!mayEdit && !isCopy}
             error={errors.target_name}
             placeholder={I18n.t("placeholders.badgeClass.alignmentName")}
           />
@@ -647,7 +647,7 @@
                tipKey="badgeClassRelatedFrameworkFramework">
           <TextInput
             bind:value={alignment.target_framework}
-            disabled={!mayEdit}
+            disabled={!mayEdit && !isCopy}
             error={errors.target_framework}
             placeholder={I18n.t("placeholders.badgeClass.alignmentFramework")}
           />
@@ -656,7 +656,7 @@
                tipKey="badgeClassRelatedFrameworkURL">
           <TextInput
             bind:value={alignment.target_url}
-            disabled={!mayEdit}
+            disabled={!mayEdit && !isCopy}
             error={errors.target_url}
             placeholder={I18n.t("placeholders.badgeClass.alignmentUrl")}
           />
@@ -665,7 +665,7 @@
                tipKey="badgeClassRelatedFrameworkCode">
           <TextInput
             bind:value={alignment.target_code}
-            disabled={!mayEdit}
+            disabled={!mayEdit && !isCopy}
             error={errors.target_code}
             placeholder={I18n.t("placeholders.badgeClass.alignmentCode")}
           />
@@ -676,7 +676,7 @@
           <TextInput
             bind:value={alignment.target_description}
             error={errors.target_description}
-            disabled={!mayEdit}
+            disabled={!mayEdit && !isCopy}
             area
             size="100"
             placeholder={I18n.t("placeholders.badgeClass.alignmentDescription")}
@@ -689,7 +689,7 @@
           text={I18n.t('models.badgeclass.addButtons.alignmentAddition')}
           handleClick={() => addEmptyAlignment()}
           visibility={showAddAlignmentButton}
-          disabled={!mayEdit}
+          disabled={!mayEdit && !isCopy}
         />
       </span>
   {/if}
@@ -703,7 +703,7 @@
           text={I18n.t('models.badgeclass.addButtons.educationalIdentifiers')}
           handleClick={() => showEducationalIdentifiers = true}
           visibility={!showEducationalIdentifiers}
-          disabled={!mayEdit}
+          disabled={!mayEdit && !isCopy}
         />
       </span>
       {#if institution.grondslagFormeel !== null}
@@ -712,7 +712,7 @@
             text={I18n.t('models.badgeclass.addButtons.studyLoad')}
             handleClick={addStudyLoad}
             visibility={!showStudyLoad}
-            disabled={!mayEdit}
+            disabled={!mayEdit && !isCopy}
           />
         </span>
       {/if}
@@ -722,7 +722,7 @@
             text={I18n.t('models.badgeclass.addButtons.timeInvestment')}
             handleClick={addTimeInvestment}
             visibility={!showTimeInvestment}
-            disabled={!mayEdit}
+            disabled={!mayEdit && !isCopy}
           />
         </span>
       {/if}
@@ -731,7 +731,7 @@
           text={I18n.t('models.badgeclass.addButtons.alignment')}
           handleClick={() => addEmptyAlignment()}
           visibility={!showAlignment}
-          disabled={!mayEdit}
+          disabled={!mayEdit && !isCopy}
         />
       </span>
     </div>

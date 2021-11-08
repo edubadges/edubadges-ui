@@ -82,13 +82,13 @@
       <div class="button-container">
         <Button
           secondary
-          disabled={processing || deleting || !mayEdit}
+          disabled={processing || deleting || (!mayEdit && action  !== "copy")}
           action={() => window.history.back()}
           text={I18n.t(['manage', create ? 'new' : 'edit', 'cancel'])} />
       </div>
       <div class="button-container">
         <Button
-          disabled={processing || deleting || !mayEdit}
+          disabled={processing || deleting || (!mayEdit && action  !== "copy")}
           action={submit}
           text={I18n.t(['manage', create ? 'new' : 'edit', 'save'])}/>
       </div>
