@@ -43,7 +43,7 @@
         if (publicInstitutions) {
             publicInstitutions.forEach(ins => translateProperties(ins))
         }
-        if (badgeclass.awardAllowedInstitutions) {
+        if (badgeclass.awardAllowedInstitutions && publicInstitutions) {
             badgeclass.awardAllowedInstitutions = badgeclass.awardAllowedInstitutions
                 .map(identifier => publicInstitutions.find(ins => ins.identifier === identifier))
                 .sort((a, b) => a.name.localeCompare(b.name));
