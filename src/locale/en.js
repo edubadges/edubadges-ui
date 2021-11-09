@@ -23,7 +23,8 @@ I18n.translations.en = {
             manage: "Manage",
             users: "Users",
             catalog: "Catalog",
-            insights: "Insights"
+            insights: "Insights",
+            lti: "LTI"
         },
     },
     login: {

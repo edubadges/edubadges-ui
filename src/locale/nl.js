@@ -23,7 +23,8 @@ I18n.translations.nl = {
             manage: "Beheer",
             users: "Gebruikers",
             catalog: "Catalogus",
-            insights: "Inzicht"
+            insights: "Inzicht",
+            lti: "LTI"
         },
     },
     login: {

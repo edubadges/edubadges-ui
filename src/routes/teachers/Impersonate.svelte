@@ -106,7 +106,6 @@
                 $userLoggedIn = false;
                 window.location.href = res.url;
             })
-
         }
     }
 
