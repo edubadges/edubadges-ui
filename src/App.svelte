@@ -32,6 +32,8 @@
   import CollectionForm from "./components/students/CollectionForm.svelte";
   import PublicCollectionPage from "./routes/students/PublicCollectionPage.svelte";
   import BadgeImported from "./routes/students/BadgeImported.svelte";
+  import LTI from "./components/teachers/lti/LTI.svelte";
+  import LTIContext from "./components/teachers/lti/LTIContext.svelte";
 
 
   const homepage = {
@@ -45,7 +47,8 @@
   onMount(() => {
     //if we are heading to /auth/login/ then we proceed
     const path = window.location.pathname;
-    if (path.indexOf("public") === -1 && path !== "/auth/login/" && path.indexOf("signup") === -1 && path.indexOf("version/info") === -1) {
+    if (path.indexOf("public") === -1 && path !== "/auth/login/" && path.indexOf("signup") === -1 && path.indexOf("version/info") === -1 &&
+        path.indexOf("lti") === -1) {
       getSocialAccount()
         .then(res => {
           loaded = true;
@@ -118,7 +121,7 @@
         <Route path="/version/info">
           <VersionInfo />
         </Route>
-
+        <Route path="/lti" component={LTI} />
         <!-- Student -->
         <Route path="/backpack">
           <Student bookmark="backpack"/>
@@ -198,6 +201,8 @@
         <Route path="/auth/login/*" component={ProcessToken}/>
         <Route path="/catalog" component={Catalog}/>
         <Route path="/insights" component={Insights}/>
+        <Route path="/lti/context" component={LTIContext}/>
+
         <Route component={NotFound}/>
 
         <!-- Expose current path through store -->

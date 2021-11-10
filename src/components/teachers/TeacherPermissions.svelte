@@ -9,6 +9,7 @@
   import UserBreadcrumb from "./UserBreadcrumb.svelte";
   import Spinner from "../Spinner.svelte";
   import {translateProperties} from "../../util/utils";
+  import I18n from "i18n-js";
 
   export let entity;
 
@@ -214,7 +215,7 @@
 </style>
 {#if loaded}
   <div class="container">
-    <UserBreadcrumb isProfile={false} user={currentUser}/>
+    <UserBreadcrumb path={I18n.t("user.permissions")}/>
 
     <PermissionsHeader
       {tabs}

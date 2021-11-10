@@ -8,24 +8,12 @@
     import {Header} from "../../components";
     import {onMount} from "svelte";
 
-    onMount(() => {
-        if ($ltiContext.ltiEnabled) {
-            tabs = tabs.concat([
-                {
-                    path: "/lti",
-                    active: $currentPath && $currentPath.includes("/lti"),
-                    name: "lti"
-                },
-            ])
-        }
-    });
-
     $: tabs = [
         {
             path: "/",
             active: $currentPath && !$currentPath.includes("/manage") && !$currentPath.includes("/users") && !$currentPath.includes("/catalog")
                 && !$currentPath.includes("/profile") && !$currentPath.includes("/permissions")
-                && !$currentPath.includes("/public") && !$currentPath.includes("/insights"),
+                && !$currentPath.includes("/public") && !$currentPath.includes("/insights") && !$currentPath.includes("/context"),
             name: "badgeclasses"
         },
         {
@@ -48,6 +36,12 @@
             active: $currentPath && $currentPath.includes("/insights"),
             name: "insights"
         },
+        {
+            path: "/lti/context",
+            active: $currentPath && $currentPath.includes("/lti/context"),
+            name: "lti",
+            excluded: !$ltiContext.launchId
+        }
     ];
 </script>
 
@@ -83,10 +77,12 @@
 <Header logout>
     <nav>
         {#if $userLoggedIn && $userLoggedIn !== "false"}
-            {#each tabs as {path, active, name} (path)}
-                <a href={path} use:link class="button" class:active>
-                    {I18n.t(['header', 'nav', name])}
-                </a>
+            {#each tabs as {path, active, name, excluded} (path)}
+                {#if !excluded}
+                    <a href={path} use:link class="button" class:active>
+                        {I18n.t(['header', 'nav', name])}
+                    </a>
+                {/if}
             {/each}
         {/if}
     </nav>

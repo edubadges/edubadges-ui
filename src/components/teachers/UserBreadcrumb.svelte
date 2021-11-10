@@ -3,7 +3,7 @@
   import { link } from "svelte-routing";
   import chevronRightSmall from "../../icons/chevron-right-small.svg";
 
-  export let isProfile = true;
+  export let path = "";
 
 </script>
 
@@ -36,5 +36,5 @@
 <div class="user-bread-crumb">
     <a use:link href={"/"}>{I18n.t("user.home")}</a>
     <span class="icon">{@html chevronRightSmall}</span>
-    <span class="path">{isProfile ? I18n.t("user.profile") : I18n.t("user.permissions")}</span>
+    <span class="path">{path ? I18n.t("user.profile") : I18n.t("user.permissions")}</span>
 </div>

@@ -641,6 +641,7 @@ export function changeUserToBadgeclassAwarder(badgeclassMembershipId) {
     };
     return validFetch(path, {body: JSON.stringify(payload)}, "PUT");
 }
+
 //Following methods all re-use the changeProvisionmentToBadgeclass${Role} as this is generic based on the provisionment ID
 export function changeProvisionmentToIssuerOwner(provisionmentId) {
     return changeProvisionmentToBadgeclassOwner(provisionmentId)
@@ -735,7 +736,7 @@ export function createDirectAwards(directAwards, badgeclass, bulkAward) {
         direct_awards: directAwards.map(da => ({
             recipient_email: da.email,
             eppn: da.eppn,
-            evidence_url:  da.evidence_url,
+            evidence_url: da.evidence_url,
             narrative: da.narrative,
             name: da.name,
             description: da.description
@@ -815,3 +816,10 @@ export function deleteImportedAssertion(entityId) {
     const path = `${serverUrl}/earner/imported/assertions/delete/${entityId}`;
     return validFetch(path, {}, "DELETE", true);
 }
+
+//LTI
+export function getLTIContext(launchId) {
+    const path = `${serverUrl}/lti/context/${launchId}/`;
+    return validFetchNoErrorDialog(path, {}, "GET");
+}
+

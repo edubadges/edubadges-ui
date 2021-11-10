@@ -1021,7 +1021,8 @@ I18n.translations.en = {
         permissions: "Your permissions",
         banner: "Hi {{firstName}} {{lastName}}",
         profile: "Profile",
-        loggedIn: "You are currently logged in with your institutional account, via SURFconext"
+        loggedIn: "You are currently logged in with your institutional account, via SURFconext",
+        lti: "LTI"
     },
     placeholders: {
         institution: {

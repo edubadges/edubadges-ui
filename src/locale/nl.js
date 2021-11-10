@@ -274,6 +274,9 @@ I18n.translations.nl = {
             cancel: "Annuleren",
             archive: "Archieveren"
         },
+        copy: {
+            badgeclass: "Copy badge class",
+        },
         delete: {
             delete: "verwijder",
             info: {
@@ -1018,7 +1021,8 @@ I18n.translations.nl = {
         permissions: "Je permissies",
         banner: "Hallo {{firstName}} {{lastName}}",
         profile: "Profiel",
-        loggedIn: "Je bent momenteel ingelogd met je instellingsaccount, via SURFconext"
+        loggedIn: "Je bent momenteel ingelogd met je instellingsaccount, via SURFconext",
+        lti: "LTI"
     },
     placeholders: {
         institution: {
