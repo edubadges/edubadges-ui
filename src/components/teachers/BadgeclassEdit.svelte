@@ -1,17 +1,21 @@
 <script>
-  import {onMount} from "svelte";
-  import {BadgeclassForm} from "../teachers";
-  import {queryData} from "../../api/graphql";
-  import {
-    deduceExpirationPeriod,
-    expirationPeriods
-  } from "../extensions/badges/expiration_period";
-  import Spinner from "../Spinner.svelte";
-  import {translateProperties} from "../../util/utils";
+    import {onMount} from "svelte";
+    import {BadgeclassForm} from "../teachers";
+    import {queryData} from "../../api/graphql";
+    import {
+        deduceExpirationPeriod,
+        expirationPeriods
+    } from "../extensions/badges/expiration_period";
+    import Spinner from "../Spinner.svelte";
+    import {translateProperties} from "../../util/utils";
+    import {value} from "../forms/File.svelte";
 
-  export let entityId;
+    export let entityId;
+    export let action = "edit";
 
-  const query = `query ($entityId: String){
+    let isCopy = false;
+
+    const query = `query ($entityId: String){
     publicInstitutions {
       id,
       identifier,
@@ -25,6 +29,11 @@
       identifier,
       awardAllowedInstitutions,
       awardAllowAllInstitutions
+    },
+    issuers {
+      nameEnglish,
+      nameDutch,
+      entityId,
     },
     badgeClass(id: $entityId) {
       entityId,
@@ -75,39 +84,66 @@
     }
   }`;
 
-  let badgeclass = {issuer: {faculty: {}}, extensions: []};
-  let permissions = {};
-  let currentInstitution;
-  let publicInstitutions;
-  let loaded = false;
-  let mayDelete = false;
-  let mayEdit = false;
-  let hasUnrevokedAssertions = true;
+    let badgeclass = {issuer: {faculty: {}}, extensions: []};
+    let issuers = [];
+    let permissions = {};
+    let currentInstitution;
+    let publicInstitutions;
+    let loaded = false;
+    let mayDelete = false;
+    let mayEdit = false;
+    let hasUnrevokedAssertions = true;
 
-  onMount(() => {
-    queryData(query, {entityId}).then(res => {
-      badgeclass = res.badgeClass;
+    onMount(() => {
+        queryData(query, {entityId}).then(res => {
+            badgeclass = res.badgeClass;
+            issuers = res.issuers.filter(issuer => issuer.entityId !== badgeclass.issuer.entityId);
+            translateProperties(badgeclass.issuer);
+            translateProperties(badgeclass.issuer.faculty);
+            isCopy = action === "copy";
+            if (isCopy) {
+                badgeclass.entityId = null;
+                badgeclass.id = null;
+                badgeclass.issuer = issuers[0];
+                //https://stackoverflow.com/questions/25690641/img-url-to-dataurl-using-javascript
+                fetch(badgeclass.image).then(res => {
+                    res.blob().then(content => {
+                        const reader = new FileReader();
+                        reader.onload = ({ target: { result } }) => {
+                          badgeclass.image  = result;
+                          loaded = true;
+                        };
+                        reader.readAsDataURL(content);
+                    })
+                });
+            }
+            issuers.forEach(issuer => translateProperties(issuer));
 
-      translateProperties(badgeclass.issuer);
-      translateProperties(badgeclass.issuer.faculty);
+            deduceExpirationPeriod(badgeclass);
 
-      deduceExpirationPeriod(badgeclass);
-
-      publicInstitutions = res.publicInstitutions;
-      permissions = res.badgeClass.permissions;
-      currentInstitution = res.currentInstitution;
-      loaded = true;
-      hasUnrevokedAssertions = badgeclass.badgeAssertions.some(assertion => !assertion.revoked);
-      mayDelete = permissions && permissions.mayDelete;
-      mayEdit = permissions && permissions.mayUpdate && !hasUnrevokedAssertions;
+            publicInstitutions = res.publicInstitutions;
+            permissions = res.badgeClass.permissions;
+            currentInstitution = res.currentInstitution;
+            hasUnrevokedAssertions = badgeclass.badgeAssertions.some(assertion => !assertion.revoked);
+            mayDelete = permissions && permissions.mayDelete;
+            mayEdit = permissions && permissions.mayUpdate && !hasUnrevokedAssertions;
+            if (!isCopy) {
+                loaded = true;
+            }
+        });
     });
-  });
 </script>
 {#if loaded}
-  <BadgeclassForm issuers={[badgeclass.issuer]} {badgeclass} {entityId} institution={currentInstitution}
-                  {publicInstitutions}
-                  mayDelete={mayDelete} mayEdit={mayEdit} hasUnrevokedAssertions={hasUnrevokedAssertions}/>
+    <BadgeclassForm issuers={isCopy ? issuers : [badgeclass.issuer].concat(issuers)}
+                    {badgeclass}
+                    entityId={isCopy ? null : entityId}
+                    institution={currentInstitution}
+                    {publicInstitutions}
+                    action={action}
+                    mayDelete={mayDelete}
+                    mayEdit={mayEdit}
+                    hasUnrevokedAssertions={hasUnrevokedAssertions}/>
 {:else}
-  <Spinner/>
+    <Spinner/>
 {/if}
 

@@ -23,7 +23,8 @@ I18n.translations.en = {
             manage: "Manage",
             users: "Users",
             catalog: "Catalog",
-            insights: "Insights"
+            insights: "Insights",
+            lti: "LTI"
         },
     },
     login: {
@@ -272,6 +273,9 @@ I18n.translations.en = {
             save: "Save changes",
             cancel: "Cancel",
             archive: "Archive"
+        },
+        copy: {
+            badgeclass: "Copy badge class",
         },
         delete: {
             delete: "Delete",
@@ -697,7 +701,8 @@ I18n.translations.en = {
                 confirmationQuestion: "Are you sure you wannt to unarchive this badge class?",
                 flash: "Badge class {{name}} is unarchived",
                 action: "Unarchive"
-            }
+            },
+            copyBadgeClass: "Copy badge class"
         },
         badge: {
             emailAddress: "Email address",
@@ -774,6 +779,7 @@ I18n.translations.en = {
                 awardConfirmation: "Are you sure you want to award this request?",
                 deny: "Deny request",
                 denyConfirmation: "Are you sure you want to deny this request?",
+                denyReason: "What is the reason for denial (optional)?"
             },
             awardButton: "Award",
             showDenied: "Show denied enrollments ({{count}})",
@@ -968,6 +974,8 @@ I18n.translations.en = {
         verify: "Verify",
         validations: {
             institution: "From institution {{val}}",
+            hosted: "Hosted on {{val}}",
+            imported: "Imported on {{val}}",
             issuedOn: "Issued on {{val}}",
             issuedBy: "Issued by {{val}}",
             issuedUsing: "Issued using {{val}}",
@@ -1013,7 +1021,8 @@ I18n.translations.en = {
         permissions: "Your permissions",
         banner: "Hi {{firstName}} {{lastName}}",
         profile: "Profile",
-        loggedIn: "You are currently logged in with your institutional account, via SURFconext"
+        loggedIn: "You are currently logged in with your institutional account, via SURFconext",
+        lti: "LTI"
     },
     placeholders: {
         institution: {
@@ -1288,6 +1297,7 @@ I18n.translations.en = {
         issuers: "Issuers",
         issuerGroups: "Issuer groups",
         users: "Portal users",
+        backpack: "Backpack users",
         crunching: "Crunching the numbers just for you...",
         date: "Date",
         reset: "Reset"
@@ -1323,7 +1333,7 @@ I18n.translations.en = {
         new: "New collection"
     },
     impersonate: {
-        confirmation: "Are you sure you want to impersonate {{name}}",
+        confirmation: "Are you sure you want to impersonate {{name}}?",
         title: "Impersonate"
     },
     importedBadges: {
@@ -1349,7 +1359,8 @@ I18n.translations.en = {
         error: {
             url: "The URL is not a valid badge URL",
             image: "The uploaded image is not a valid badge image",
-            email: "This email does not match the email of the imported badge"
+            email: "This email does not match the email of the imported badge",
+            duplicate: "You have already imported this badge. Duplicates are not allowed"
         },
         codeMismatch: "The entered code is invalid",
         details: {

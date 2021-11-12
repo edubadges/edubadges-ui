@@ -23,7 +23,8 @@ I18n.translations.nl = {
             manage: "Beheer",
             users: "Gebruikers",
             catalog: "Catalogus",
-            insights: "Inzicht"
+            insights: "Inzicht",
+            lti: "LTI"
         },
     },
     login: {
@@ -165,7 +166,7 @@ I18n.translations.nl = {
             recipients: "Ontvangers",
             enrollments: "Open aanvragen",
             studyLoad: "Studielast",
-            timeInvestment: "Tijdsinvestering",
+            timeInvestment: "Tijd investering",
             educationProgramIdentifier: "Opleidingscode",
             ects: "{{value}} ECTS",
             hours: "{{value}} uren",
@@ -272,6 +273,9 @@ I18n.translations.nl = {
             save: "Opslaan",
             cancel: "Annuleren",
             archive: "Archieveren"
+        },
+        copy: {
+            badgeclass: "Copy badge class",
         },
         delete: {
             delete: "verwijder",
@@ -414,7 +418,7 @@ I18n.translations.nl = {
         932: "Een narratief is verplicht voor het awarden van deze edubadge",
         933: "Een URL is verplicht voor het awarden van deze edubadge",
         934: "De opleidingscode is verplicht als er studiepunten zijn opgegeven.",
-        935: "Vul de tijdsinvestering of verwijder deze rubriek.",
+        935: "Vul de tijd investering of verwijder deze rubriek.",
         936: "Kan geen collectie aanmaken met deze naam. Er bestaat al een collectie met deze naam.",
         unexpected: "Oeps, er is iets totaal onverwachts en onverklaarbaars gebeurd.",
         description: "Een onverwachte fout is opgetreden. Probeer het opnieuw of neem contact op met support@edubadges.nl voor ondersteuning.",
@@ -640,7 +644,7 @@ I18n.translations.nl = {
             awardNonValidatedNameAllowed: "Uitreiken aan niet gevalideerd account toestaan",
             learningOutcome: "Leeruitkomst",
             studyLoad: "Studielast",
-            timeInvestment: "Tijdsinvestering",
+            timeInvestment: "Tijd investering",
             ects: {
                 creditPoints: "Studiepunten (ECTS)",
                 hours: "Uren"
@@ -664,14 +668,14 @@ I18n.translations.nl = {
                 additionalSections: "Extra toevoegingen",
                 educationalIdentifiers: "Opleidingscode",
                 studyLoad: "Studielast",
-                timeInvestment: "Tijdsinvestering",
+                timeInvestment: "Tijd investering",
                 alignment: "Gerelateerd onderwijskundig raamwerk",
                 allowedInstituions: "Toegestaande instellingen"
             },
             addButtons: {
                 educationalIdentifiers: "Opleidingscode(s) toevoegen",
                 studyLoad: "Studielast toevoegen",
-                timeInvestment: "Tijdinvestering toevoegen",
+                timeInvestment: "Tijd investering toevoegen",
                 alignment: "Gerelateerd onderwijskundig raamwerk toevoegen",
                 alignmentAddition: "Nog een gerelateerd onderwijskundig raamwerk toevoegen",
             },
@@ -697,8 +701,8 @@ I18n.translations.nl = {
                 confirmationQuestion: "Weet je zeker dat je deze badge class wilt dearchiveren?",
                 flash: "Badge class {{name}} is gedearchiveerd",
                 action: "Dearchiveer"
-            }
-
+            },
+            copyBadgeClass: "Kopieer badge class"
         },
         badge: {
             emailAddress: "E-mailadres",
@@ -775,6 +779,7 @@ I18n.translations.nl = {
                 awardConfirmation: "Weet je zeker dat je deze inschrijving wilt toekennen?",
                 deny: "Wijs inschrijving af",
                 denyConfirmation: "Weet je zeker dat je deze inschrijving wilt afwijzen?",
+                denyReason: "Wat is reden voor om deze inschrijving af te wijzen (optioneel)?"
             },
             awardButton: "Toekennen",
             showDenied: "Toon afgewezen inschrijvingen ({{count}})",
@@ -969,6 +974,8 @@ I18n.translations.nl = {
         verify: "Verifieer",
         validations: {
             institution: "Van instelling {{val}}",
+            hosted: "Hosted bij {{val}}",
+            imported: "Geïmporteerd op {{val}}",
             issuedOn: "Uitgereikt op {{val}}",
             issuedBy: "Uitgereikt door {{val}}",
             issuedUsing: "Gebruikt platform {{val}}",
@@ -1014,7 +1021,8 @@ I18n.translations.nl = {
         permissions: "Je permissies",
         banner: "Hallo {{firstName}} {{lastName}}",
         profile: "Profiel",
-        loggedIn: "Je bent momenteel ingelogd met je instellingsaccount, via SURFconext"
+        loggedIn: "Je bent momenteel ingelogd met je instellingsaccount, via SURFconext",
+        lti: "LTI"
     },
     placeholders: {
         institution: {
@@ -1289,6 +1297,7 @@ I18n.translations.nl = {
         issuers: "Issuers",
         issuerGroups: "Issuer groups",
         users: "Portal gebruikers",
+        backpack: "Backpack gebruikers",
         crunching: "Crunching the numbers just for you...",
         date: "Datum",
         reset: "Reset"
@@ -1324,7 +1333,7 @@ I18n.translations.nl = {
         new: "Nieuwe collectie"
     },
     impersonate: {
-        confirmation: "Weet je zeker dat je je wilt voordoen als {{name}} ?",
+        confirmation: "Weet je zeker dat je je wilt voordoen als {{name}}?",
         title: "Impersonate"
     },
     importedBadges: {
@@ -1350,7 +1359,8 @@ I18n.translations.nl = {
         error: {
             url: "Deze URL is geen geldige badge URL",
             image: "De geuploade afbeelding is geen geldige badge afbeelding",
-            email: "Dit email adres is niet gelijk aan de email van de geïmporteerde badge"
+            email: "Dit email adres is niet gelijk aan de email van de geïmporteerde badge",
+            duplicate: "Je hebt deze badge al geimporteerd. Duplicate imports zijn niet toegestaan"
         },
         codeMismatch: "De ingevoerde code is niet geldig",
         details: {

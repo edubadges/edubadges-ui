@@ -14,6 +14,7 @@
     import AwardBadgeModal from "../award/AwardBadgeModal.svelte";
     import {onMount} from "svelte";
     import Spinner from "../../Spinner.svelte";
+    import Tooltip from "../../../components/Tooltip.svelte";
 
     export let entityId;
     export let enrollments = [];
@@ -37,6 +38,7 @@
     let modalTitle;
     let modalQuestion;
     let modalAction;
+    let denyReason = "";
 
     //AwardModal
     let showAwardModal = false;
@@ -79,10 +81,11 @@
         } else {
             showModal = false;
             serverBusy = true;
-            Promise.all(selection.map(entityID => denyBadge(entityID)))
+            Promise.all(selection.map(entityID => denyBadge(entityID, denyReason)))
                 .then(() => {
                     refreshEnrollments();
-                    flash.setValue(I18n.t("models.enrollment.flash.denied"))
+                    denyReason = "";
+                    flash.setValue(I18n.t("models.enrollment.flash.denied"));
                     serverBusy = false;
                 });
         }
@@ -271,6 +274,9 @@
       </td>
       <td class="center">
         <span>{enrollment.denied ? I18n.t("models.enrollment.denied") : I18n.t("models.enrollment.open")}</span>
+        {#if enrollment.denied}
+          <Tooltip tooltipText={enrollment.denyReason}/>
+        {/if}
       </td>
     </tr>
   {/each}
@@ -286,7 +292,12 @@
     submit={modalAction}
     cancel={() => showModal = false}
     question={modalQuestion}
-    title={modalTitle}/>
+    title={modalTitle}>
+    <div class="slots">
+      <label for="revocation-reason">{I18n.t("models.enrollment.confirmation.denyReason")}</label>
+      <input id="revocation-reason" class="input-field" bind:value={denyReason}/>
+    </div>
+  </Modal>
 {/if}
 
 {#if showAwardModal}

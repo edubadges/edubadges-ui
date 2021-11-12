@@ -12,6 +12,7 @@
     import issuerGroupIcon from "../../icons/issuer-group-purple.svg";
     import issuerIcon from "../../icons/issuers-purple.svg";
     import usersIcon from "../../icons/issuerportal-users-purple.svg";
+    import schoolbag from "../../icons/school-bag.svg";
 
     import {
         assertionSeries,
@@ -88,6 +89,7 @@
     let issuersCount = 0;
     let issuerGroupCount = 0;
     let usersCount = 0;
+    let backpackCount = 0;
 
     const reload = res => {
         loaded = false;
@@ -132,7 +134,7 @@
             issuersCount = res["issuers_count"];
             issuerGroupCount = res["faculties_count"];
             usersCount = res["users_count"];
-
+            backpackCount = res["backpack_count"]
             reload(res);
         });
     }
@@ -513,6 +515,16 @@
             <span class="count">{usersCount}</span>
           </div>
         </section>
+        <section class="metadata">
+          <div class="top-icon">
+            {@html schoolbag}
+          </div>
+          <div class="data">
+            <p>{I18n.t("insights.backpack")}</p>
+            <span class="count">{backpackCount}</span>
+          </div>
+        </section>
+
       </div>
       <div class="insights">
         <h2>{I18n.t("insights.awardedBadges")}</h2>

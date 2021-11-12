@@ -43,6 +43,7 @@
 
     <Route path="/badgeclass/new/*issuerEntityId" component={BadgeclassNew}/>
     <Route path="/badgeclass/:entityId/edit" component={BadgeclassEdit}/>
+    <Route path="/badgeclass/:entityId/edit/*action" component={BadgeclassEdit}/>
     <Route path="/badgeclass/:entityId/*tab" component={ManageBadgeclass}/>
 
   </Router>

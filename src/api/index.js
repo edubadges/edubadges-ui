@@ -181,9 +181,9 @@ export function awardBadges(badgeId, enrollmentIds, useEvidence, narrative, url,
     return validFetch(path, {body: JSON.stringify(body)}, "POST");
 }
 
-export function denyBadge(enrollmentEntityId) {
+export function denyBadge(enrollmentEntityId, denyReason) {
     const path = `${serverUrl}/lti_edu/enrollment/${enrollmentEntityId}/deny`;
-    return validFetch(path, {body: "{}"}, "PUT");
+    return validFetch(path, {body: JSON.stringify({denyReason})}, "PUT");
 
 }
 
@@ -334,6 +334,11 @@ export function validateBadge(entityId) {
 
 export function validateName(identityHash, salt) {
     const path = `${serverUrl}/public/assertions/identity/${identityHash}/${salt}`;
+    return validFetch(path, {}, "GET", false);
+}
+
+export function getValidatorInfo() {
+    const path = `${serverUrl}/public/validator/info`;
     return validFetch(path, {}, "GET", false);
 }
 
@@ -636,6 +641,7 @@ export function changeUserToBadgeclassAwarder(badgeclassMembershipId) {
     };
     return validFetch(path, {body: JSON.stringify(payload)}, "PUT");
 }
+
 //Following methods all re-use the changeProvisionmentToBadgeclass${Role} as this is generic based on the provisionment ID
 export function changeProvisionmentToIssuerOwner(provisionmentId) {
     return changeProvisionmentToBadgeclassOwner(provisionmentId)
@@ -730,7 +736,7 @@ export function createDirectAwards(directAwards, badgeclass, bulkAward) {
         direct_awards: directAwards.map(da => ({
             recipient_email: da.email,
             eppn: da.eppn,
-            evidence_url:  da.evidence_url,
+            evidence_url: da.evidence_url,
             narrative: da.narrative,
             name: da.name,
             description: da.description
@@ -810,3 +816,10 @@ export function deleteImportedAssertion(entityId) {
     const path = `${serverUrl}/earner/imported/assertions/delete/${entityId}`;
     return validFetch(path, {}, "DELETE", true);
 }
+
+//LTI
+export function getLTIContext(launchId) {
+    const path = `${serverUrl}/lti/context/${launchId}/`;
+    return validFetchNoErrorDialog(path, {}, "GET");
+}
+

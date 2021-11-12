@@ -36,7 +36,7 @@
 
 {#if loaded}
   <div class="container">
-    <UserBreadcrumb isProfile={true}/>
+    <UserBreadcrumb path={I18n.t("user.profile")}/>
     <PermissionsHeader
       {tabs}
       title={I18n.t("user.banner", {firstName: profile.first_name, lastName: profile.last_name})}

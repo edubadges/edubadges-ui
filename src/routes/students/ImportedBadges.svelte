@@ -24,6 +24,7 @@
     let errors = {};
     let error = false;
     let emailError = false;
+    let duplicateError = false;
     let codeMismatch = false;
     let currentUser = {};
     let newImport = {};
@@ -73,13 +74,21 @@
             }
         }).catch(e => {
             e.then(j => {
-                if (j.length === 1 && j[0] === "email mismatch") {
+                if (j.fields && j.fields.error_message && j.fields.error_message.import_url &&
+                    j.fields.error_message.import_url.length > 0 && j.fields.error_message.import_url[0].error_code === '936') {
+                    error = false;
+                    loaded = true;
+                    emailError = false;
+                    duplicateError = true;
+                } else if (j.length === 1 && j[0] === "email mismatch") {
                     error = false;
                     loaded = true;
                     emailError = true;
+                    duplicateError = false;
                 } else {
                     error = true;
                     emailError = false;
+                    duplicateError = false;
                     loaded = true;
                 }
             })
@@ -121,102 +130,107 @@
 </style>
 
 <div>
-  {#if loaded}
-    <div class="container">
-      <ImportBadgeHeader {importedBadges}>
-        <Button action={() => showImportModal = true} text={I18n.t("importedBadges.import")}/>
-      </ImportBadgeHeader>
-      {#if importedBadges.length === 0}
-        <p>{I18n.t("importedBadges.zeroState")}</p>
-      {:else}
-        <div class="view-container">
-          <ViewSelector bind:view={view}/>
+    {#if loaded}
+        <div class="container">
+            <ImportBadgeHeader {importedBadges}>
+                <Button action={() => showImportModal = true} text={I18n.t("importedBadges.import")}/>
+            </ImportBadgeHeader>
+            {#if importedBadges.length === 0}
+                <p>{I18n.t("importedBadges.zeroState")}</p>
+            {:else}
+                <div class="view-container">
+                    <ViewSelector bind:view={view}/>
+                </div>
+                <BadgePanel badges={importedBadges} view={view}/>
+            {/if}
         </div>
-        <BadgePanel badges={importedBadges} view={view}/>
-      {/if}
-    </div>
-  {:else}
-    <Spinner/>
-  {/if}
+    {:else}
+        <Spinner/>
+    {/if}
 </div>
 {#if showImportModal}
-  <Modal
-    submit={doImportBadge}
-    title={I18n.t("importedBadges.importWindow.title")}
-    question={I18n.t("importedBadges.importWindow.question")}
-    cancel={() => {
+    <Modal
+            submit={doImportBadge}
+            title={I18n.t("importedBadges.importWindow.title")}
+            question={I18n.t("importedBadges.importWindow.question")}
+            cancel={() => {
         showImportModal = false;
         initData();
     }}
-    submitLabel={I18n.t("importedBadges.importWindow.submit")}
-    disabled={(!newImport.image && !newImport.import_url) || !newImport.email || !loaded}>
+            submitLabel={I18n.t("importedBadges.importWindow.submit")}
+            disabled={(!newImport.image && !newImport.import_url) || !newImport.email || !loaded}>
 
-    <Field {entity} attribute="image" errors={errors.image} tipKey="importedBadgeImage">
-      <File
-        bind:value={newImport.image}
-        error={errors.image}
-        removeAllowed={true}
-        disclaimer={I18n.t("importedBadges.importWindow.disclaimer")}/>
-    </Field>
+        <Field {entity} attribute="image" errors={errors.image} tipKey="importedBadgeImage">
+            <File
+                    bind:value={newImport.image}
+                    error={errors.image}
+                    removeAllowed={true}
+                    disclaimer={I18n.t("importedBadges.importWindow.disclaimer")}/>
+        </Field>
 
-    <div class="modal-info-divider">
-      <p>{I18n.t("importedBadges.importWindow.urlInfo")}</p>
-    </div>
+        <div class="modal-info-divider">
+            <p>{I18n.t("importedBadges.importWindow.urlInfo")}</p>
+        </div>
 
-    <Field {entity} attribute="url" errors={errors.url} tipKey="importedBadgeImageUrl">
-      <TextInput
-        bind:value={newImport.import_url}
-        placeholder={I18n.t("importedBadges.importWindow.urlPlaceholder")}
-        error={errors.criteria_url}/>
-    </Field>
+        <Field {entity} attribute="url" errors={errors.url} tipKey="importedBadgeImageUrl">
+            <TextInput
+                    bind:value={newImport.import_url}
+                    placeholder={I18n.t("importedBadges.importWindow.urlPlaceholder")}
+                    error={errors.criteria_url}/>
+        </Field>
+        {#if duplicateError}
+            <div class="error">
+                <p>{I18n.t("importedBadges.error.duplicate")}</p>
+            </div>
+        {/if}
 
-    <div class="modal-info-divider">
-      <p>{I18n.t("importedBadges.importWindow.emailInfo")}</p>
-    </div>
-    {#if error}
-      <div class="error">
-        <p>{I18n.t(`importedBadges.error.${newImport.import_url ? 'url' : 'image'}`)}</p>
-      </div>
-    {/if}
+        <div class="modal-info-divider">
+            <p>{I18n.t("importedBadges.importWindow.emailInfo")}</p>
+        </div>
+        {#if error}
+            <div class="error">
+                <p>{I18n.t(`importedBadges.error.${newImport.import_url ? 'url' : 'image'}`)}</p>
+            </div>
+        {/if}
 
-    <Field {entity} attribute="email" errors={errors.email} tipKey="importedBadgeEmail">
-      <TextInput
-        bind:value={newImport.email}
-        placeholder={currentUser.email}
-        error={errors.email}/>
-    </Field>
-    {#if emailError}
-      <div class="error">
-        <p>{I18n.t("importedBadges.error.email")}</p>
-      </div>
-    {/if}
+        <Field {entity} attribute="email" errors={errors.email} tipKey="importedBadgeEmail">
+            <TextInput
+                    bind:value={newImport.email}
+                    placeholder={currentUser.email}
+                    error={errors.email}/>
+        </Field>
+        {#if emailError}
+            <div class="error">
+                <p>{I18n.t("importedBadges.error.email")}</p>
+            </div>
+        {/if}
 
-  </Modal>
+    </Modal>
 {/if}
 {#if showCodeConfirmationModal }
-  <Modal
-    submit={confirm}
-    title={I18n.t("importedBadges.codeWindow.title")}
-    question={I18n.t("importedBadges.codeWindow.question", {email: newImport.email})}
-    cancel={() => {
+    <Modal
+            submit={confirm}
+            title={I18n.t("importedBadges.codeWindow.title")}
+            question={I18n.t("importedBadges.codeWindow.question", {email: newImport.email})}
+            cancel={() => {
         showCodeConfirmationModal = false;
         initData();
 
     }}
-    submitLabel={I18n.t("importedBadges.codeWindow.submit")}
-    disabled={!newImport.code || newImport.code.length < 6 || !loaded}>
-    <Field {entity} attribute="code" errors={errors.code} tipKey="importedBadgeCode">
-      <TextInput
-        bind:value={newImport.code}
-        placeholder={I18n.t("importedBadges.codeWindow.codePlaceholder")}
-        error={errors.code}/>
-    </Field>
+            submitLabel={I18n.t("importedBadges.codeWindow.submit")}
+            disabled={!newImport.code || newImport.code.length < 6 || !loaded}>
+        <Field {entity} attribute="code" errors={errors.code} tipKey="importedBadgeCode">
+            <TextInput
+                    bind:value={newImport.code}
+                    placeholder={I18n.t("importedBadges.codeWindow.codePlaceholder")}
+                    error={errors.code}/>
+        </Field>
 
-    {#if codeMismatch}
-      <div class="error">
-        <p>{I18n.t("importedBadges.codeMismatch")}</p>
-      </div>
-    {/if}
+        {#if codeMismatch}
+            <div class="error">
+                <p>{I18n.t("importedBadges.codeMismatch")}</p>
+            </div>
+        {/if}
 
-  </Modal>
+    </Modal>
 {/if}

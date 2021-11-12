@@ -35,6 +35,7 @@
     let modalTitle;
     let modalQuestion;
     let modalAction;
+    let denyReason = "";
 
     //AwardModal
     let showAwardModal = false;
@@ -109,10 +110,11 @@
         } else {
             showModal = false;
             loaded = false;
-            Promise.all(selection.map(entityID => denyBadge(entityID)))
+            Promise.all(selection.map(entityID => denyBadge(entityID, denyReason)))
                 .then(() => {
                     loadEnrollments();
-                    flash.setValue(I18n.t("models.enrollment.flash.denied"))
+                    flash.setValue(I18n.t("models.enrollment.flash.denied"));
+                    denyReason = "";
                 });
         }
     }
@@ -291,7 +293,12 @@
     submit={modalAction}
     cancel={() => showModal = false}
     question={modalQuestion}
-    title={modalTitle}/>
+    title={modalTitle}>
+    <div class="slots">
+      <label for="revocation-reason">{I18n.t("models.enrollment.confirmation.denyReason")}</label>
+      <input id="revocation-reason" class="input-field" bind:value={denyReason}/>
+    </div>
+  </Modal>
 {/if}
 
 {#if showAwardModal}

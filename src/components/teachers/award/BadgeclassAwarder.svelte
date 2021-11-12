@@ -27,6 +27,7 @@
   import DirectAwardBundles from "./DirectAwardBundles.svelte";
   import {issuedTypes} from "../../../stores/filterAssertions";
   import BulkAwardDetails from "./BulkAwardDetails.svelte";
+  import {config} from "../../../util/config";
 
   export let entityId;
   export let subEntity;
@@ -201,7 +202,8 @@
       href: `/badgeclass/${entityId}/direct-awards-bundles`
     }
   ].filter(tab => tab.entity !== "directAwardBundle" || (badgeclass.issuer.faculty.institution.directAwardingEnabled
-      && directAwardBundles.length));
+      && directAwardBundles.length))
+   .filter(tab => tab.entity !== "assertions" || badgeclass.name !== config.welcomeBadgeClassName)
 
   $: if (!subEntity) {
     navigate(tabs[0].href, {replace: true});
@@ -357,11 +359,11 @@
           <Route path="/enrollments">
             <Enrollments {entityId} bind:enrollments badgeClass={badgeclass} refresh={refresh}/>
           </Route>
-
-          <Route path="/awarded">
-            <Assertions {badgeclass} assertions={assertions} refresh={refresh}/>
-          </Route>
-
+          {#if badgeclass.name !== config.welcomeBadgeClassName}
+            <Route path="/awarded">
+              <Assertions {badgeclass} assertions={assertions} refresh={refresh}/>
+            </Route>
+          {/if}
           <Route path="/direct-awards-bundles">
             <DirectAwardBundles badgeClass={badgeclass} {directAwardBundles}/>
           </Route>
