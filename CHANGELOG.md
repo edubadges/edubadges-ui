@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+
+## [5.2.0] - 2021-11-15
+- Hide SURF welcome awarded badges.
+- No default studyload if in copy-mode.
+- Check for publicInstitutions.
+- If isCopy then allow save.
+- Copy badge class when there are editable issuers.
+- Added deny_reason to enrollment.
+- Proxy call to validator git info.
+- Added backpack user count to insights.
+- Changed validation of imported badges.
+- Bugfix for my permisssions.
+- Duplicated imports are not allowed.
+
 ## [5.1.0] - 2021-10-18
 - Badgeclass metadata now shows a list of other institutions that could be awarded to. Only in the manage screens, not in the public badgeclass.
 - Added the deletion of an issuerportal user, but only when this user hasn't  issued any edubadges yet.
