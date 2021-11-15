@@ -19,7 +19,8 @@
     }
 
     if (!authError) {
-      $authToken = urlSearchParams.get("authToken");
+      const token =  urlSearchParams.get("authToken");
+      $authToken = token;
       $userLoggedIn = true;
       let redirectTo = $redirectPath || "/";
       if (redirectTo === "/login") {

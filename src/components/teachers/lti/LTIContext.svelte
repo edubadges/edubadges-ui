@@ -18,7 +18,6 @@ import JSONTree from 'svelte-json-tree';
         getLTIContext($ltiContext.launchId).then(res => {
             context = res;
             loaded = true;
-            debugger;
         });
     });
 

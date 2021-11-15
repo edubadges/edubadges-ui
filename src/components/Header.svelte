@@ -55,7 +55,7 @@
     let profile = {};
 
     onMount(() => {
-        if ($userRole === role.TEACHER) {
+        if ($userRole === role.TEACHER && $authToken) {
             getProfile().then(res => {
                 profile = res;
             }).catch(() => {

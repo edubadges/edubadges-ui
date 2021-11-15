@@ -55,7 +55,7 @@
           $userLoggedIn = true;
           $userName = `${res[0].firstName} ${res[0].lastName}`;
         })
-        .catch(() => {
+        .catch(e => {
           $redirectPath = path;
           if (path.indexOf("catalog") === -1) {
             navigate("/login");
