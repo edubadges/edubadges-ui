@@ -58,6 +58,8 @@
         if ($userRole === role.TEACHER) {
             getProfile().then(res => {
                 profile = res;
+            }).catch(() => {
+              doLogOut();
             });
         }
     });

@@ -12,7 +12,8 @@
         if (status === "failure") {
             const adminEmail = urlSearchParams.get("admin_email");
             const queryParam = adminEmail ? `admin_email=${adminEmail}` : "";
-            navigate(`/auth/login?${queryParam}&code=2`);
+            const path = `/auth/login?${queryParam}&code=2&authError=error`;
+            navigate(path);
         } else if (status === "success") {
             $authToken = urlSearchParams.get("auth_token");
             $userLoggedIn = true;
