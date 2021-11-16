@@ -1,17 +1,16 @@
 <script>
-  import I18n from "i18n-js";
-  import { chevronUp, chevronDown, closeIcon } from "../../icons";
+    import I18n from "i18n-js";
+    import {chevronUp, chevronDown, closeIcon} from "../../icons";
 
-  export let collection;
-  export let value;
-  export let title = "";
+    export let collection;
+    export let value;
+    export let title = "";
 
-  let showExpand = false;
-  let expanded = false;
-  let maxLength = 7;
+    let expanded = false;
+    let maxLength = 7;
 
-  $: showExpand = !value.length && collection.length > maxLength && collection.filter(item => item.count > 0) > maxLength;
-  $: items = expanded ? collection : collection.slice(0, maxLength);
+    $: showExpand = !value.length && collection.length > maxLength && collection.filter(item => item.count > 0).length > maxLength;
+    $: items = expanded ? collection : collection.filter(item => item.count > 0).slice(0, maxLength);
 </script>
 
 <style lang="scss">
@@ -82,27 +81,29 @@
 </style>
 
 <div class="filter-block">
-  <h3>{I18n.t(`teacher.sidebar.filters.${title}`)}</h3>
+    <h3>{I18n.t(`teacher.sidebar.filters.${title}`)}</h3>
 
-  {#each items as item (item.role)}
-    <label
-        class="link"
-        class:active={value.includes(item.role)}
-        class:inactive={value.length && !value.includes(item.role)}>
-      <input type="checkbox" bind:group={value} value={item.role} />
-      <div>{I18n.t(['editUsers', 'roles', item.role])} ({item.count})</div>
+    {#each items as item (item.role)}
+        {#if item.count > 0}
+            <label
+                    class="link"
+                    class:active={value.includes(item.role)}
+                    class:inactive={value.length && !value.includes(item.role)}>
+                <input type="checkbox" bind:group={value} value={item.role}/>
+                <div>{I18n.t(['editUsers', 'roles', item.role])} ({item.count})</div>
 
-      {#if value.includes(item.role)}
-        {@html closeIcon}
-      {/if}
-    </label>
-  {/each}
+                {#if value.includes(item.role)}
+                    {@html closeIcon}
+                {/if}
+            </label>
+        {/if}
+    {/each}
 
-  {#if showExpand}
-    <label class="expand click">
-      <input type="checkbox" bind:checked={expanded} />
-      {expanded ? I18n.t(`teacher.sidebar.filters.show_less`) : I18n.t(`teacher.sidebar.filters.show_all`)}
-      {@html expanded ? chevronUp : chevronDown}
-    </label>
-  {/if}
+    {#if showExpand}
+        <label class="expand click">
+            <input type="checkbox" bind:checked={expanded}/>
+            {expanded ? I18n.t(`teacher.sidebar.filters.show_less`) : I18n.t(`teacher.sidebar.filters.show_all`)}
+            {@html expanded ? chevronUp : chevronDown}
+        </label>
+    {/if}
 </div>
