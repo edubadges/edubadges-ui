@@ -823,3 +823,12 @@ export function getLTIContext(launchId) {
     return validFetchNoErrorDialog(path, {}, "GET");
 }
 
+export function getGrades(launchId) {
+    const path = `${serverUrl}/lti/grades/${launchId}/`;
+    return validFetchNoErrorDialog(path, {}, "GET");
+}
+
+export function getMembers(launchId) {
+    const path = `${serverUrl}/lti/members/${launchId}/`;
+    return validFetchNoErrorDialog(path, {}, "GET");
+}

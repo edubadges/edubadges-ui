@@ -5,8 +5,9 @@
     import {navigate} from "svelte-routing";
     import {ltiContext} from "../../../stores/lti";
     import {role} from "../../../util/role";
-    import {getLTIContext} from "../../../api";
-import JSONTree from 'svelte-json-tree';
+    import {getGrades, getLTIContext, getMembers} from "../../../api";
+    import JSONTree from 'svelte-json-tree';
+
     let context;
     let course;
     let grades;
@@ -15,8 +16,14 @@ import JSONTree from 'svelte-json-tree';
     let loaded;
 
     onMount(() => {
-        getLTIContext($ltiContext.launchId).then(res => {
-            context = res;
+        Promise.all([
+            getLTIContext($ltiContext.launchId),
+            getGrades($ltiContext.launchId),
+            getMembers($ltiContext.launchId),
+        ]).then(res => {
+            context = res[0];
+            grades = res[1];
+            members = res[2];
             loaded = true;
         });
     });
@@ -44,13 +51,11 @@ import JSONTree from 'svelte-json-tree';
     {#if loaded}
         <div class="content">
             <h3>LTI message launch</h3>
-            <JSONTree value={context} />
-<!--            <h3>LTI course information</h3>-->
-<!--            <JSONTree value={context} />-->
-<!--            <h3>LTI members</h3>-->
-<!--            <JSONTree value={context} />-->
-<!--            <h3>LTI grades</h3>-->
-<!--            <JSONTree value={context} />-->
+            <JSONTree value={context}/>
+            <h3>LTI grades </h3>
+            <JSONTree value={grades}/>
+            <h3>LTI members</h3>
+            <JSONTree value={members}/>
         </div>
     {:else}
         <Spinner/>
