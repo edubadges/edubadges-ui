@@ -1378,7 +1378,30 @@ I18n.translations.en = {
         }
     },
     ltiBadgeClass: {
-
+        title: "LTI Course information",
+        linked: "Badgeclass {{name}} is linked to LTI course {{lti}}",
+        notLinked: "Badgeclass {{name}} is currently not linked to a LTI course",
+        linkPossible: "You can link badgeclass {{name}} to LTI course {{lti}}",
+        linkNotPossible: "In order to link badgeclasses to LTI courses you need to access Edubadges from within a LMS platform",
+        course: {
+            title: "Title",
+            label: "Label"
+        },
+        tool: {
+            info: "You are currently logged in with the following LTI context:",
+            title: "Name",
+            issuer: "Issuer",
+            description: "Description",
+            institution: "Institution"
+        },
+        actions: {
+            link: "Link",
+            unlink: "Unlink"
+        },
+        confirmations: {
+            link: "Are you sure you want to link badgeclass {{name}} to LTI course {{lti}}?",
+            unLink: "Are you sure you want to remove the link between badgeclass {{name}} and LTI course {{lti}}?"
+        }
     }
 
 };

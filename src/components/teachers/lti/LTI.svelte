@@ -5,6 +5,7 @@
     import {navigate} from "svelte-routing";
     import {ltiContext} from "../../../stores/lti";
     import {role} from "../../../util/role";
+    import {getLTIContext} from "../../../api";
 
     onMount(() => {
         const urlSearchParams = new URLSearchParams(window.location.search);
@@ -19,6 +20,7 @@
             $userLoggedIn = true;
             $userRole = role.TEACHER;
             $ltiContext.launchId = urlSearchParams.get("launch_id");
+            getLTIContext($ltiContext.launchId).then(ctx => $ltiContext.launchJson = ctx);
             navigate("/");
         }
     });

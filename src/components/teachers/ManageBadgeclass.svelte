@@ -53,6 +53,7 @@
       entityId,
     },
     badgeClass(id: $entityId) {
+      id,
       entityId,
       name,
       description,
@@ -115,7 +116,10 @@
       entityId,
       createdAt,
       identifier,
-      title
+      title,
+      tool {
+        title, description, issuer
+      }
     }
   }`;
 
@@ -178,8 +182,7 @@
         {
             entity: "lti",
             href: `/manage/badgeclass/${entityId}/lti`,
-            icon: importIcon,
-            excluded: !$ltiContext.launchId
+            icon: importIcon
         }
     ];
 

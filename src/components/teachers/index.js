@@ -2,7 +2,7 @@ export { default as AwardBadge } from "./award/AwardBadge.svelte";
 export { default as BadgeclassAwarder } from "./award/BadgeclassAwarder.svelte";
 export { default as BadgeclassEdit } from "./BadgeclassEdit.svelte";
 export { default as Badgeclasses } from "./Badgeclasses.svelte";
-export { default as BadgeClassesToolBar } from "./BadgeClassesToolBar"
+export { default as BadgeClassesToolBar } from "./BadgeClassesToolBar.svelte"
 export { default as BadgeclassForm } from "./BadgeclassForm.svelte";
 export { default as BadgeClassHeader } from "./BadgeClassHeader.svelte";
 export { default as ManageBadgeclass } from "./ManageBadgeclass.svelte";

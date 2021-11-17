@@ -1,45 +1,86 @@
 <script>
-  import I18n from "i18n-js";
-  import {navigate} from "svelte-routing";
-  import moment from "moment";
-  import Breadcrumb from "../Breadcrumb.svelte";
-  import {withdrawRequestBadge} from "../../../api";
-  import EnrollmentBadge from "../../../routes/students/EnrollmentBadge.svelte";
-  import {Modal} from "../../forms";
-  import BadgeClassDetails from "../../shared/BadgeClassDetails.svelte";
-  import Button from "../../../components/Button.svelte";
-  import {flash} from "../../../stores/flash";
-  import {createEventDispatcher} from 'svelte';
+    import I18n from "i18n-js";
+    import {navigate} from "svelte-routing";
+    import moment from "moment";
+    import Breadcrumb from "../Breadcrumb.svelte";
+    import {linkLtiCourse, withdrawRequestBadge} from "../../../api";
+    import EnrollmentBadge from "../../../routes/students/EnrollmentBadge.svelte";
+    import {Modal} from "../../forms";
+    import BadgeClassDetails from "../../shared/BadgeClassDetails.svelte";
+    import Button from "../../../components/Button.svelte";
+    import {flash} from "../../../stores/flash";
+    import {createEventDispatcher, onMount} from 'svelte';
+    import {ltiContext} from "../../../stores/lti";
+    import {queryData} from "../../../api/graphql";
+    import {entityId} from "../ManageBadgeclass.svelte";
 
 
-  export let badgeclass;
-  export let ltiCourse;
-  export let reload;
+    export let badgeclass;
+    export let ltiCourse;
+    export let reload;
 
-  //Modal
-  let showModal = false;
-  let modalTitle;
-  let modalQuestion;
-  let modalAction;
+    const query = `query ($clientId: String, $issuer: String) {
+          ltiTool(clientId: $clientId, issuer: $issuer) {
+            id,
+            title,
+            description,
+            issuer
+          },
+    }`
 
-  const linkCourse = showConfirmation => {
-    if (showConfirmation) {
-      modalTitle = I18n.t("models.enrollment.deleteEnrollment");
-      modalQuestion = I18n.t("models.enrollment.deleteEnrollmentConfirmation");
-      modalAction = () => linkCourse(false, enrollmentId);
-      showModal = true;
-    } else {
-      withdrawRequestBadge(enrollmentId).then(() => {
-        dispatch('enrollmentWithdrawn');
-        if (!publicPage) {
-          navigate('/badge-requests');
-        } else {
-          flash.setValue(I18n.t('student.flash.withdrawn'));
+
+    //Modal
+    let showModal = false;
+    let modalTitle;
+    let modalQuestion;
+    let modalAction;
+
+    //LTI
+    let launchJson = null;
+    let ltiTool = null;
+    let contextLoaded = false;
+    let existingLink = false;
+
+    onMount(() => {
+        contextLoaded = $ltiContext.launchId && $ltiContext.launchJson;
+        existingLink = !!ltiCourse;
+        if (contextLoaded) {
+            const clientId = $ltiContext.launchJson.aud;
+            const issuer = $ltiContext.launchJson.iss;
+            queryData(query, {clientId, issuer}).then(res => {
+                ltiTool = res.ltiTool;
+                if (!existingLink) {
+                    const ctx = $ltiContext.launchJson["https://purl.imsglobal.org/spec/lti/claim/context"];
+                    ltiCourse = {
+                        identifier: ctx.id,
+                        title: ctx.title,
+                        label: ctx.label,
+                        badgeclass: badgeclass.id,
+                        tool: ltiTool.id,
+                    }
+                }
+            });
         }
-      });
-      showModal = false;
+    });
+
+    const linkCourse = showConfirmation => {
+        if (showConfirmation) {
+            modalTitle = I18n.t("models.enrollment.deleteEnrollment");
+            modalQuestion = I18n.t("models.enrollment.deleteEnrollmentConfirmation");
+            modalAction = () => linkCourse(false);
+            showModal = true;
+        } else {
+            linkLtiCourse(enrollmentId).then(() => {
+                dispatch('enrollmentWithdrawn');
+                if (!publicPage) {
+                    navigate('/badge-requests');
+                } else {
+                    flash.setValue(I18n.t('student.flash.withdrawn'));
+                }
+            });
+            showModal = false;
+        }
     }
-  }
 </script>
 
 <style lang="scss">
@@ -101,9 +142,9 @@ TDODO
 <!--</div>-->
 
 {#if showModal}
-  <Modal
-    submit={modalAction}
-    cancel={() => showModal = false}
-    question={modalQuestion}
-    title={modalTitle}/>
+    <Modal
+            submit={modalAction}
+            cancel={() => showModal = false}
+            question={modalQuestion}
+            title={modalTitle}/>
 {/if}
