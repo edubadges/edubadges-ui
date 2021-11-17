@@ -832,3 +832,15 @@ export function getMembers(launchId) {
     const path = `${serverUrl}/lti/members/${launchId}/`;
     return validFetchNoErrorDialog(path, {}, "GET");
 }
+
+export function linkLtiCourse(ltiCourse) {
+    const path = `${serverUrl}/lti/course/create`;
+    return validFetch(path, {body: JSON.stringify(ltiCourse)}, "POST", true, false);
+}
+
+export function deleteLtiCourse(ltiCourse) {
+    const path = `${serverUrl}/lti/course/delete/${ltiCourse.entityId}`;
+    return validFetch(path, {}, "DELETE", true, false);
+}
+
+
