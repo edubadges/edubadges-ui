@@ -1,23 +1,20 @@
 <script>
     import I18n from "i18n-js";
-    import {navigate} from "svelte-routing";
-    import moment from "moment";
-    import Breadcrumb from "../Breadcrumb.svelte";
-    import {linkLtiCourse, withdrawRequestBadge} from "../../../api";
-    import EnrollmentBadge from "../../../routes/students/EnrollmentBadge.svelte";
+    import {deleteLtiCourse, linkLtiCourse} from "../../../api";
     import {Modal} from "../../forms";
-    import BadgeClassDetails from "../../shared/BadgeClassDetails.svelte";
-    import Button from "../../../components/Button.svelte";
     import {flash} from "../../../stores/flash";
-    import {createEventDispatcher, onMount} from 'svelte';
+    import {onMount} from 'svelte';
     import {ltiContext} from "../../../stores/lti";
     import {queryData} from "../../../api/graphql";
-    import {entityId} from "../ManageBadgeclass.svelte";
-
+    import Spinner from "../../Spinner.svelte";
+    import Button from "../../Button.svelte";
+    import info from "../../../icons/informational.svg";
+    import moment from "moment";
 
     export let badgeclass;
     export let ltiCourse;
-    export let reload;
+    export let refresh;
+    export let mayUpdatePermission;
 
     const query = `query ($clientId: String, $issuer: String) {
           ltiTool(clientId: $clientId, issuer: $issuer) {
@@ -27,7 +24,7 @@
             issuer
           },
     }`
-
+    let loaded = false;
 
     //Modal
     let showModal = false;
@@ -40,10 +37,16 @@
     let ltiTool = null;
     let contextLoaded = false;
     let existingLink = false;
+    let i18nCtx = {};
 
     onMount(() => {
         contextLoaded = $ltiContext.launchId && $ltiContext.launchJson;
         existingLink = !!ltiCourse;
+        i18nCtx = {
+            name: badgeclass.name,
+            lti: ltiCourse ? ltiCourse.title : "",
+            institution: badgeclass.issuer.faculty.institution.name
+        }
         if (contextLoaded) {
             const clientId = $ltiContext.launchJson.aud;
             const issuer = $ltiContext.launchJson.iss;
@@ -59,24 +62,38 @@
                         tool: ltiTool.id,
                     }
                 }
+                loaded = true;
             });
+        } else {
+            loaded = true;
         }
     });
 
     const linkCourse = showConfirmation => {
         if (showConfirmation) {
-            modalTitle = I18n.t("models.enrollment.deleteEnrollment");
-            modalQuestion = I18n.t("models.enrollment.deleteEnrollmentConfirmation");
+            modalTitle = I18n.t("ltiBadgeClass.actions.link");
+            modalQuestion = I18n.t("ltiBadgeClass.confirmations.link", i18nCtx);
             modalAction = () => linkCourse(false);
             showModal = true;
         } else {
-            linkLtiCourse(enrollmentId).then(() => {
-                dispatch('enrollmentWithdrawn');
-                if (!publicPage) {
-                    navigate('/badge-requests');
-                } else {
-                    flash.setValue(I18n.t('student.flash.withdrawn'));
-                }
+            linkLtiCourse(ltiCourse).then(() => {
+                refresh();
+                flash.setValue(I18n.t('ltiBadgeClass.flash.link'));
+            });
+            showModal = false;
+        }
+    }
+
+    const unlinkCourse = showConfirmation => {
+        if (showConfirmation) {
+            modalTitle = I18n.t("ltiBadgeClass.actions.unLink");
+            modalQuestion = I18n.t("ltiBadgeClass.confirmations.unLink", i18nCtx);
+            modalAction = () => unlinkCourse(false);
+            showModal = true;
+        } else {
+            deleteLtiCourse(ltiCourse).then(() => {
+                refresh();
+                flash.setValue(I18n.t('ltiBadgeClass.flash.unLink'));
             });
             showModal = false;
         }
@@ -84,62 +101,95 @@
 </script>
 
 <style lang="scss">
-  .badge-sub-header {
+  h3 {
     margin-bottom: 40px;
+
+  }
+
+  section.info {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 4px;
+    padding: 15px;
+    margin-bottom: 15px;
 
-    div.requested {
-      flex-grow: 1;
+    div.sub-info {
+      display: flex;
+      align-items: start;
+      margin-top: 15px;
     }
 
-    div.withdraw {
-      padding-left: 25px;
-      margin-left: auto;
-      min-width: 30%;
+    .svg {
+      margin-right: 15px;
     }
 
+    background-color: #95d7e4;
   }
 
-  .badge {
-    display: flex;
-    max-width: 320px;
-    margin: 0 auto 40px auto;
-    position: relative;
-  }
-
-  @media (max-width: 1120px) {
-    .overview {
-      padding: 30px 0 !important;
-    }
-  }
 </style>
-TDODO
-<!--<div class="container main-content-margin">-->
-<!--  <div class="header">-->
-<!--    <h3>{title}</h3>-->
-<!--      {#if button.allowed}-->
-<!--        <Button text={button.text} action={button.action} disabled={button.disabled}/>-->
-<!--      {/if}-->
-<!--  </div>-->
-<!--  <slot name="check-buttons"/>-->
-<!--  <table class="entity-table">-->
-<!--    <thead>-->
-<!--    {#if !isEmpty}-->
-<!--      <tr>-->
-<!--        {#if withCheckAll}-->
-<!--          <th class="checker">-->
-<!--            <CheckBox disabled={disabledCheckAll} bind:value={checkAllValue} onChange={onCheckAll}/>-->
-<!--          </th>-->
-<!--        {/if}-->
-<!--        <UsersTableHeaders {tableHeaders} {setSort} {sort}/>-->
-<!--      </tr>-->
-<!--    {/if}-->
-<!--    </thead>-->
-<!--    <tbody>-->
-<!--    <slot/>-->
-<!--    </tbody>-->
-<!--  </table>-->
-<!--</div>-->
+{#if loaded}
+    <div class="container main-content-margin">
+        <div class="header">
+            <h3>{I18n.t("ltiBadgeClass.title")}</h3>
+            {#if existingLink}
+                <p>{I18n.t("ltiBadgeClass.linked", i18nCtx)}</p>
+            {:else}
+                <p>{I18n.t("ltiBadgeClass.notLinked", i18nCtx)}</p>
+            {/if}
+            {#if !contextLoaded}
+                {#if existingLink}
+                    <p>{I18n.t("ltiBadgeClass.unlinkNotPossible", i18nCtx)}</p>
+                {:else }
+                    <p>{I18n.t("ltiBadgeClass.linkNotPossible", i18nCtx)}</p>
+                {/if}
+            {/if}
+
+            {#if mayUpdatePermission && contextLoaded}
+                <div class="actions">
+                    {#if existingLink}
+                        <Button text={I18n.t("ltiBadgeClass.actions.unlink", i18nCtx)}
+                                action={() => unlinkCourse(true)}/>
+                    {:else}
+                        <Button text={I18n.t("ltiBadgeClass.actions.link", i18nCtx)} action={() => linkCourse(true)}/>
+                    {/if}
+                </div>
+            {/if}
+        </div>
+        {#if existingLink}
+            <table class="lti-table">
+                <thead>
+                <tr>
+                    <th>{I18n.t("ltiBadgeClass.course.title")}</th>
+                    <th>{I18n.t("ltiBadgeClass.course.label")}</th>
+                    <th>{I18n.t("ltiBadgeClass.course.identifier")}</th>
+                    <th>{I18n.t("ltiBadgeClass.course.createdAt")}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{ltiTool.title}</td>
+                    <td>{ltiTool.label}</td>
+                    <td>{ltiTool.identifier}</td>
+                    <td>{moment(ltiTool.createdAt).format('MMM D, YYYY')}</td>
+                </tr>
+                </tbody>
+            </table>
+        {/if}
+        {#if contextLoaded}
+            <section class="info">
+                <div class="sub-info">
+                    <span class="svg">{@html info}</span>
+                    <span>{@html I18n.t("ltiBadgeClass.tool.info", i18nCtx)}</span>
+                </div>
+
+                <p>{ltiTool.description}</p>
+            </section>
+        {/if}
+    </div>
+{:else}
+    <Spinner/>
+{/if}
 
 {#if showModal}
     <Modal

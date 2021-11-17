@@ -1383,16 +1383,14 @@ I18n.translations.en = {
         notLinked: "Badgeclass {{name}} is currently not linked to a LTI course",
         linkPossible: "You can link badgeclass {{name}} to LTI course {{lti}}",
         linkNotPossible: "In order to link badgeclasses to LTI courses you need to access Edubadges from within a LMS platform",
+        unlinkNotPossible: "In order to remove the link between badgeclasses {{name}} and LTI course {{lti}} you need to access Edubadges from within a LMS platform",
         course: {
             title: "Title",
-            label: "Label"
+            label: "Label",
+            createdAt: "Linked at"
         },
         tool: {
-            info: "You are currently logged in with the following LTI context:",
-            title: "Name",
-            issuer: "Issuer",
-            description: "Description",
-            institution: "Institution"
+            info: "You are currently logged in with LTI platform {{name}} from institution {{institution}}",
         },
         actions: {
             link: "Link",
@@ -1401,6 +1399,10 @@ I18n.translations.en = {
         confirmations: {
             link: "Are you sure you want to link badgeclass {{name}} to LTI course {{lti}}?",
             unLink: "Are you sure you want to remove the link between badgeclass {{name}} and LTI course {{lti}}?"
+        },
+        flash: {
+            link: "Linked badgeclass {{name}} to LTI course {{lti}}",
+            unLink: "Unlinked badgeclass {{name}} from LTI course {{lti}}",
         }
     }
 

@@ -117,6 +117,7 @@
       createdAt,
       identifier,
       title,
+      label,
       tool {
         title, description, issuer
       }
@@ -272,7 +273,7 @@
                 <BadgeclassUserManagement entity={entityType.BADGE_CLASS} {entityId}/>
             </Route>
             <Route path="/lti">
-                <BadgeclassLTI {badgeclass} {ltiCourse} {refresh}/>
+                <BadgeclassLTI {badgeclass} {ltiCourse} {refresh} {mayUpdatePermission}/>
             </Route>
         </Router>
     </div>
