@@ -52,12 +52,13 @@
       nameDutch,
       nameEnglish,
       entityId,
-			faculty {
+      archived,
+      faculty {
         nameDutch,
         nameEnglish,
-			},
-			imageEnglish,
-			imageDutch,
+      },
+      imageEnglish,
+      imageDutch,
       badgeclassCount,
       assertionCount,
       pendingEnrollmentCount,

@@ -3,7 +3,7 @@
     import {navigate, Route, Router} from "svelte-routing";
     import {BadgeClassHeader, BadgeclassUserManagement, Breadcrumb, InviteUser} from "../teachers";
     import {Overview} from "./badgeclass";
-    import {overview, userManagementIcon} from "../../icons";
+    import {importIcon, overview, userManagementIcon} from "../../icons";
     import {queryData} from "../../api/graphql";
     import {headerStaff} from "../../api/queries";
     import I18n from "i18n-js";
@@ -16,8 +16,8 @@
     import {flash} from "../../stores/flash";
     import Modal from "../forms/Modal.svelte";
     import {archiveBadgeclass} from "../../api";
-    import warning from "../../icons/warning.svg";
-    import EntityHeaderNotification from "./EntityHeaderNotification.svelte";
+    import {ltiContext} from "../../stores/lti";
+    import BadgeclassLTI from "./badgeclass/BadgeclassLTI.svelte";
 
     export let entityId;
     export let tab;
@@ -28,6 +28,7 @@
     let permissions;
     let publicInstitutions = [];
     let allowedIssuers;
+    let ltiCourse;
 
     let contentType;
     let loaded;
@@ -109,6 +110,12 @@
         mayUpdate,
         mayAward
       }
+    },
+    ltiCourse(badgeClassId: $entityId) {
+      entityId,
+      createdAt,
+      identifier,
+      title
     }
   }`;
 
@@ -118,6 +125,7 @@
             publicInstitutions = res.publicInstitutions;
             allowedIssuers = res.issuers;
             badgeclass = res.badgeClass;
+            ltiCourse = res.ltiCourse;
 
             translateProperties(badgeclass.issuer);
             translateProperties(badgeclass.issuer.faculty);
@@ -166,6 +174,12 @@
             entity: "userManagement",
             href: `/manage/badgeclass/${entityId}/user-management`,
             icon: userManagementIcon
+        },
+        {
+            entity: "lti",
+            href: `/manage/badgeclass/${entityId}/lti`,
+            icon: importIcon,
+            excluded: !$ltiContext.launchId
         }
     ];
 
@@ -220,15 +234,16 @@
             {tabs}
             {headerItems}
             mayUpdate={mayUpdateBadgeclass && !badgeclass.archived}>
-        <div slot="additional-actions" >
+        <div slot="additional-actions">
             {#if mayArchiveBadgeclass}
-                    <Button fill={true} secondary action={doArchiveBadgeclass(true, !badgeclass.archived)}
-                            marginBottom={true}
-                            text={I18n.t(`models.badgeclass.${!badgeclass.archived ? "archive" : "unarchive"}.action`)}/>
+                <Button fill={true} secondary action={doArchiveBadgeclass(true, !badgeclass.archived)}
+                        marginBottom={true}
+                        text={I18n.t(`models.badgeclass.${!badgeclass.archived ? "archive" : "unarchive"}.action`)}/>
             {/if}
             {#if allowedIssuers && allowedIssuers.length > 0}
-                    <Button fill={true} secondary action={() => navigate(`/manage/badgeclass/${badgeclass.entityId}/edit/copy`)}
-                            text={I18n.t("models.badgeclass.copyBadgeClass")}/>
+                <Button fill={true} secondary
+                        action={() => navigate(`/manage/badgeclass/${badgeclass.entityId}/edit/copy`)}
+                        text={I18n.t("models.badgeclass.copyBadgeClass")}/>
             {/if}
 
         </div>
@@ -252,6 +267,9 @@
             </Route>
             <Route path="/user-management">
                 <BadgeclassUserManagement entity={entityType.BADGE_CLASS} {entityId}/>
+            </Route>
+            <Route path="/lti">
+                <BadgeclassLTI {badgeclass} {ltiCourse} {refresh}/>
             </Route>
         </Router>
     </div>

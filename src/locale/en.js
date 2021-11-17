@@ -262,7 +262,8 @@ I18n.translations.en = {
             assertions: "Awarded ",
             directAwardBundle: "Award status",
             profile: "Profile",
-            requestedBadges: "Requested edubadges"
+            requestedBadges: "Requested edubadges",
+            lti: "LTI"
         },
         edit: {
             edit: "edit",
@@ -1375,6 +1376,9 @@ I18n.translations.en = {
             deleteConfirmation: "Are you sure you want to remove the imported badge {{name}} from your backback. Note that this does not delete the original badge.",
             flashDeleted: "Removed imported badge {{name}} from your backback",
         }
+    },
+    ltiBadgeClass: {
+
     }
 
 };

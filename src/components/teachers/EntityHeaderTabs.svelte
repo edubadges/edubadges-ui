@@ -1,10 +1,10 @@
 <script>
-  import I18n from "i18n-js";
-  import {Link} from "svelte-routing";
-  import {institutionIcon} from "../../icons";
-  import {currentPath} from "../../stores/currentPath";
+    import I18n from "i18n-js";
+    import {Link} from "svelte-routing";
+    import {institutionIcon} from "../../icons";
+    import {currentPath} from "../../stores/currentPath";
 
-  export let tabs = [];
+    export let tabs = [];
 </script>
 
 <style lang="scss">
@@ -44,16 +44,22 @@
       color: var(--text-grey-dark);
       border-color: var(--grey-3);
 
+      :global(svg) {
+        fill: var(--text-grey-dark);
+      }
+
       &:hover {
         background: var(--grey-5);
         color: var(--black);
         border-color: var(--grey-5);
       }
     }
+
     span.count {
       display: inline-block;
       margin-left: 5px;
     }
+
     :global(svg) {
       width: 20px;
       margin-right: 8px;
@@ -67,20 +73,20 @@
   }
 </style>
 <div class="tabs">
-  {#each tabs as { href, icon, entity, count } (entity)}
+    {#each tabs as {href, icon, entity, count, excluded} (entity)}
+        {#if !excluded }
+            <Link to={href}>
+                <div class="tab click" class:active={($currentPath).includes(href)}>
 
-    <Link to={href}>
-      <div class="tab click" class:active={($currentPath).includes(href)}>
-
-        {#if icon}
-          <span class="icon">{@html icon}</span>
+                    {#if icon}
+                        <span class="icon">{@html icon}</span>
+                    {/if}
+                    <span class="title">{I18n.t(['manage', 'tabs', entity])}</span>
+                    {#if !isNaN(count)}
+                        <span class="count">{`(${count})`}</span>
+                    {/if}
+                </div>
+            </Link>
         {/if}
-        <span class="title">{I18n.t(['manage', 'tabs', entity])}</span>
-        {#if !isNaN(count)}
-          <span class="count">{`(${count})`}</span>
-        {/if}
-      </div>
-    </Link>
-
-  {/each}
+    {/each}
 </div>

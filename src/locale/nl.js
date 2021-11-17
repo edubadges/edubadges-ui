@@ -262,7 +262,8 @@ I18n.translations.nl = {
             assertions: "Toegekend",
             directAwardBundle: "Award status",
             profile: "Profiel",
-            requestedBadges: "Aangevraagde edubadges"
+            requestedBadges: "Aangevraagde edubadges",
+            lti: "LTI"
         },
         edit: {
             edit: "wijzig",
