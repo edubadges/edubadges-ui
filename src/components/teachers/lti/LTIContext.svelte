@@ -27,8 +27,8 @@
             members = res[2];
             error = null;
             loaded = true;
-        }).catch(e => e.text().then(text => {
-                error = text;
+        }).catch(e => e.then(res => {
+                error = res;
                 loaded = true;
             }
         ))
