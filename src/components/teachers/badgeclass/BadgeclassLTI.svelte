@@ -45,23 +45,27 @@
         i18nCtx = {
             name: badgeclass.name,
             lti: ltiCourse ? ltiCourse.title : "",
-            institution: badgeclass.issuer.faculty.institution.name
+            institution: badgeclass.issuer.faculty.institution.name,
+            platform: ltiCourse ? ltiCourse.tool.title : ""
         }
-        if (contextLoaded) {
+        if (existingLink) {
+            ltiTool = ltiCourse.tool;
+            loaded = true;
+        } else if (contextLoaded) {
             const clientId = $ltiContext.launchJson.aud;
             const issuer = $ltiContext.launchJson.iss;
             queryData(query, {clientId, issuer}).then(res => {
                 ltiTool = res.ltiTool;
-                if (!existingLink) {
-                    const ctx = $ltiContext.launchJson["https://purl.imsglobal.org/spec/lti/claim/context"];
-                    ltiCourse = {
-                        identifier: ctx.id,
-                        title: ctx.title,
-                        label: ctx.label,
-                        badgeclass: badgeclass.id,
-                        tool: ltiTool.id,
-                    }
+                const ctx = $ltiContext.launchJson["https://purl.imsglobal.org/spec/lti/claim/context"];
+                ltiCourse = {
+                    identifier: ctx.id,
+                    title: ctx.title,
+                    label: ctx.label,
+                    badgeclass: badgeclass.id,
+                    tool: ltiTool.id
                 }
+                i18nCtx.lti = ltiCourse.title;
+                i18nCtx.platform = ltiTool.title;
                 loaded = true;
             });
         } else {
@@ -78,7 +82,7 @@
         } else {
             linkLtiCourse(ltiCourse).then(() => {
                 refresh();
-                flash.setValue(I18n.t('ltiBadgeClass.flash.link'));
+                flash.setValue(I18n.t('ltiBadgeClass.flash.link', i18nCtx));
             });
             showModal = false;
         }
@@ -86,14 +90,14 @@
 
     const unlinkCourse = showConfirmation => {
         if (showConfirmation) {
-            modalTitle = I18n.t("ltiBadgeClass.actions.unLink");
-            modalQuestion = I18n.t("ltiBadgeClass.confirmations.unLink", i18nCtx);
+            modalTitle = I18n.t("ltiBadgeClass.actions.unlink");
+            modalQuestion = I18n.t("ltiBadgeClass.confirmations.unlink", i18nCtx);
             modalAction = () => unlinkCourse(false);
             showModal = true;
         } else {
             deleteLtiCourse(ltiCourse).then(() => {
                 refresh();
-                flash.setValue(I18n.t('ltiBadgeClass.flash.unLink'));
+                flash.setValue(I18n.t('ltiBadgeClass.flash.unlink', i18nCtx));
             });
             showModal = false;
         }
@@ -101,56 +105,117 @@
 </script>
 
 <style lang="scss">
-  h3 {
-    margin-bottom: 40px;
+  .header {
+    margin-top: 60px;
+    display: flex;
+    align-items: center;
 
+    .left {
+      max-width: 50%;
+    }
+  }
+
+  h3 {
+    margin-bottom: 20px;
+
+  }
+
+  p.context {
+    margin-top: 15px;
+
+  }
+
+  div.actions {
+    margin-left: auto;
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 25px;
+
+    thead {
+      color: purple;
+      border-bottom: 3px solid var(--grey-3);
+      text-align: left;
+      cursor: pointer;
+
+      th.identifier {
+        width: 35%;
+      }
+
+      th.platform {
+        width: 20%;
+      }
+
+      th.label {
+        width: 15%;
+      }
+
+      th.title {
+        width: 15%;
+      }
+
+      th.createdAt {
+        width: 15%;
+      }
+    }
+
+    th, td {
+      padding: var(--ver-padding-m) 0;
+    }
+
+    tbody {
+      tr:not(:last-of-type) td {
+        border-bottom: var(--card-border);
+      }
+    }
   }
 
   section.info {
     display: flex;
-    flex-direction: column;
     align-items: center;
     border-radius: 4px;
     padding: 15px;
-    margin-bottom: 15px;
-
-    div.sub-info {
-      display: flex;
-      align-items: start;
-      margin-top: 15px;
-    }
+    margin: 15px 0;
+    background-color: #95d7e4;
 
     .svg {
       margin-right: 15px;
     }
 
-    background-color: #95d7e4;
+    span {
+      line-height: 20px;
+    }
+
   }
+
 
 </style>
 {#if loaded}
     <div class="container main-content-margin">
         <div class="header">
-            <h3>{I18n.t("ltiBadgeClass.title")}</h3>
-            {#if existingLink}
-                <p>{I18n.t("ltiBadgeClass.linked", i18nCtx)}</p>
-            {:else}
-                <p>{I18n.t("ltiBadgeClass.notLinked", i18nCtx)}</p>
-            {/if}
-            {#if !contextLoaded}
+            <div class="left">
+                <h3>{I18n.t("ltiBadgeClass.title")}</h3>
                 {#if existingLink}
-                    <p>{I18n.t("ltiBadgeClass.unlinkNotPossible", i18nCtx)}</p>
-                {:else }
-                    <p>{I18n.t("ltiBadgeClass.linkNotPossible", i18nCtx)}</p>
+                    <p>{@html I18n.t("ltiBadgeClass.linked", i18nCtx)}</p>
+                {:else}
+                    <p>{@html I18n.t("ltiBadgeClass.notLinked", i18nCtx)}</p>
                 {/if}
-            {/if}
-
-            {#if mayUpdatePermission && contextLoaded}
+                {#if !contextLoaded}
+                    {#if existingLink}
+                        <!--                        <p class="context">{@html I18n.t("ltiBadgeClass.unlinkNotPossible", i18nCtx)}</p>-->
+                    {:else }
+                        <p class="context">{@html I18n.t("ltiBadgeClass.linkNotPossible", i18nCtx)}</p>
+                    {/if}
+                {/if}
+            </div>
+            {#if mayUpdatePermission}
                 <div class="actions">
                     {#if existingLink}
                         <Button text={I18n.t("ltiBadgeClass.actions.unlink", i18nCtx)}
                                 action={() => unlinkCourse(true)}/>
-                    {:else}
+                    {:else if contextLoaded}
                         <Button text={I18n.t("ltiBadgeClass.actions.link", i18nCtx)} action={() => linkCourse(true)}/>
                     {/if}
                 </div>
@@ -160,30 +225,28 @@
             <table class="lti-table">
                 <thead>
                 <tr>
-                    <th>{I18n.t("ltiBadgeClass.course.title")}</th>
-                    <th>{I18n.t("ltiBadgeClass.course.label")}</th>
-                    <th>{I18n.t("ltiBadgeClass.course.identifier")}</th>
-                    <th>{I18n.t("ltiBadgeClass.course.createdAt")}</th>
+                    <th class="title">{I18n.t("ltiBadgeClass.course.title")}</th>
+                    <th class="label">{I18n.t("ltiBadgeClass.course.label")}</th>
+                    <th class="platform">{I18n.t("ltiBadgeClass.course.platform")}</th>
+                    <th class="identifier">{I18n.t("ltiBadgeClass.course.identifier")}</th>
+                    <th class="createdAt">{I18n.t("ltiBadgeClass.course.createdAt")}</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td>{ltiTool.title}</td>
-                    <td>{ltiTool.label}</td>
-                    <td>{ltiTool.identifier}</td>
-                    <td>{moment(ltiTool.createdAt).format('MMM D, YYYY')}</td>
+                    <td>{ltiCourse.title}</td>
+                    <td>{ltiCourse.label}</td>
+                    <td>{ltiCourse.tool.title}</td>
+                    <td>{ltiCourse.identifier}</td>
+                    <td>{moment(ltiCourse.createdAt).format('MMM D, YYYY')}</td>
                 </tr>
                 </tbody>
             </table>
         {/if}
         {#if contextLoaded}
             <section class="info">
-                <div class="sub-info">
-                    <span class="svg">{@html info}</span>
-                    <span>{@html I18n.t("ltiBadgeClass.tool.info", i18nCtx)}</span>
-                </div>
-
-                <p>{ltiTool.description}</p>
+                <span class="svg">{@html info}</span>
+                <span>{@html I18n.t("ltiBadgeClass.tool.info", i18nCtx)}</span>
             </section>
         {/if}
     </div>

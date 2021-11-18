@@ -16,7 +16,6 @@
     import {flash} from "../../stores/flash";
     import Modal from "../forms/Modal.svelte";
     import {archiveBadgeclass} from "../../api";
-    import {ltiContext} from "../../stores/lti";
     import BadgeclassLTI from "./badgeclass/BadgeclassLTI.svelte";
 
     export let entityId;
@@ -119,7 +118,7 @@
       title,
       label,
       tool {
-        title, description, issuer
+        id, title, description, issuer
       }
     }
   }`;

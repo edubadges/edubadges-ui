@@ -1376,6 +1376,37 @@ I18n.translations.nl = {
             deleteConfirmation: "Weet je zeker dat je de geïmporteerde badge {{name}} wilt verwijderen uit je backpack. Let op dat dit niet de originele badge verwijderd.",
             flashDeleted: "Verwijder geïmporteerde badge {{name}} uit je backback",
         }
+    },
+    ltiBadgeClass: {
+        title: "LTI Cursus informate",
+        linked: "Badgeclass <strong>{{name}}</strong> is gekoppeld aan LTI cursus <strong>{{lti}}</strong>.",
+        notLinked: "Badgeclass <strong>{{name}}</strong> is momenteel niet gekoppeld aan een LTI cursus.",
+        linkPossible: "Je kan badgeclass <strong>{{name}}</strong> koppelen aan LTI course {{lti}}.",
+        linkNotPossible: "Om badgeclasses te koppelen aan een LTI cursus moet je edubadges in de context van een LTI platform gebruiken.",
+        unlinkNotPossible: "De koppeling tussen badgeclass {{name}} en LTI cursus {{lti}} kan verwijderd worden als je edubadges in de context van het LTI platform {{platform}} gebruikt.",
+        course: {
+            title: "Titel",
+            label: "Label",
+            createdAt: "gekoppeld op",
+            platform: "Platform",
+            identifier: "LTI id"
+        },
+        tool: {
+            info: "Je bent momenteel ingelogd met het LTI platform <strong>{{platform}}</strong> van de instelling <strong>{{institution}}</strong> met LTI context cursus {{lti}}.",
+        },
+        actions: {
+            link: "Koppel",
+            unlink: "Ontkoppel"
+        },
+        confirmations: {
+            link: "Weet je zeker dat je badgeclass {{name}} wilt koppelen met LTI cursus {{lti}}?",
+            unlink: "Weet je zker dat je de koppeling tussen badgeclass {{name}} en LTI cursus {{lti}} wilt verwijderen?"
+        },
+        flash: {
+            link: "Badgeclass {{name}} is gekoppeld aan LTI cursus {{lti}}",
+            unlink: "Badgeclass {{name}} is ontkoppeld aand LTI cursus {{lti}}",
+        }
     }
+
 
 };

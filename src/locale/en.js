@@ -1379,18 +1379,20 @@ I18n.translations.en = {
     },
     ltiBadgeClass: {
         title: "LTI Course information",
-        linked: "Badgeclass {{name}} is linked to LTI course {{lti}}",
-        notLinked: "Badgeclass {{name}} is currently not linked to a LTI course",
-        linkPossible: "You can link badgeclass {{name}} to LTI course {{lti}}",
-        linkNotPossible: "In order to link badgeclasses to LTI courses you need to access Edubadges from within a LMS platform",
-        unlinkNotPossible: "In order to remove the link between badgeclasses {{name}} and LTI course {{lti}} you need to access Edubadges from within a LMS platform",
+        linked: "Badgeclass <strong>{{name}}</strong> is linked to LTI course <strong>{{lti}}</strong>.",
+        notLinked: "Badgeclass <strong>{{name}}</strong> is currently not linked to a LTI course.",
+        linkPossible: "You can link badgeclass <strong>{{name}}</strong> to LTI course {{lti}}.",
+        linkNotPossible: "To link badgeclasses to a LTI course you need to access Edubadges from within a LTI platform.",
+        unlinkNotPossible: "The link between badgeclass {{name}} and LTI course {{lti}} can be removed if you access Edubadges from within the LTI platform {{platform}}.",
         course: {
             title: "Title",
             label: "Label",
-            createdAt: "Linked at"
+            createdAt: "Linked at",
+            platform: "Platform",
+            identifier: "LTI id"
         },
         tool: {
-            info: "You are currently logged in with LTI platform {{name}} from institution {{institution}}",
+            info: "You are currently logged in with LTI platform <strong>{{platform}}</strong> from institution <strong>{{institution}}</strong> with LTI context course <strong>{{lti}}</strong>.",
         },
         actions: {
             link: "Link",
@@ -1398,11 +1400,11 @@ I18n.translations.en = {
         },
         confirmations: {
             link: "Are you sure you want to link badgeclass {{name}} to LTI course {{lti}}?",
-            unLink: "Are you sure you want to remove the link between badgeclass {{name}} and LTI course {{lti}}?"
+            unlink: "Are you sure you want to remove the link between badgeclass {{name}} and LTI course {{lti}}?"
         },
         flash: {
             link: "Linked badgeclass {{name}} to LTI course {{lti}}",
-            unLink: "Unlinked badgeclass {{name}} from LTI course {{lti}}",
+            unlink: "Unlinked badgeclass {{name}} from LTI course {{lti}}",
         }
     }
 
