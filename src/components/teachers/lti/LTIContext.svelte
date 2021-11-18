@@ -14,6 +14,7 @@
     let members;
 
     let loaded;
+    let error;
 
     onMount(() => {
         Promise.all([
@@ -24,8 +25,13 @@
             context = res[0];
             grades = res[1];
             members = res[2];
+            error = null;
             loaded = true;
-        });
+        }).catch(e => e.text().then(text => {
+                error = text;
+                loaded = true;
+            }
+        ))
     });
 
 </script>
@@ -48,7 +54,9 @@
 
 </style>
 <div class="page-container">
-    {#if loaded}
+    {#if !loaded && !error}
+        <Spinner/>
+    {:else if loaded && !error}
         <div class="content">
             <h3>LTI message launch</h3>
             <JSONTree value={context}/>
@@ -58,7 +66,9 @@
             <JSONTree value={members}/>
         </div>
     {:else}
-        <Spinner/>
+        <div class="error">
+            {@html error}
+        </div>
     {/if}
 </div>
 
