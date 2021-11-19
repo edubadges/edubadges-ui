@@ -3,6 +3,7 @@
 
   export let text;
   export let href;
+  export let externalUrl;
   export let label;
   export let action;
   export let secondary;
@@ -167,4 +168,6 @@
   </a>
 {:else if href}
   <a use:link {href} {disabled} class:fill class:small class:secondary>{text}</a>
+{:else if externalUrl}
+  <a href={externalUrl} target="_blank" rel="noreferrer" class:fill class:small class:secondary>{text}</a>
 {/if}

@@ -34,6 +34,7 @@
   import BadgeImported from "./routes/students/BadgeImported.svelte";
   import LTI from "./components/teachers/lti/LTI.svelte";
   import LTIContext from "./components/teachers/lti/LTIContext.svelte";
+  import LTILaunch from "./components/teachers/lti/LTILaunch.svelte";
 
 
   const homepage = {
@@ -47,7 +48,7 @@
   onMount(() => {
     //if we are heading to any of the public path we don't fetch the profile
     const path = window.location.pathname;
-    const publicPaths = ["public", "/auth/login", "signup", "version/info", "lti"]
+    const publicPaths = ["public", "/auth/login", "signup", "version/info", "launch/lti"]
     if (!publicPaths.some(p => path.indexOf(p) > -1)) {
       getSocialAccount()
         .then(res => {
@@ -121,7 +122,7 @@
         <Route path="/version/info">
           <VersionInfo />
         </Route>
-        <Route path="/lti" component={LTI} />
+        <Route path="/launch/lti" component={LTILaunch} />
         <!-- Student -->
         <Route path="/backpack">
           <Student bookmark="backpack"/>
@@ -201,8 +202,7 @@
         <Route path="/auth/login/*" component={ProcessToken}/>
         <Route path="/catalog" component={Catalog}/>
         <Route path="/insights" component={Insights}/>
-        <Route path="/lti/context" component={LTIContext}/>
-
+        <Route path="/lti/*tab" component={LTI}/>
         <Route component={NotFound}/>
 
         <!-- Expose current path through store -->

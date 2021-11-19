@@ -230,10 +230,11 @@
       </div>
       <div class="actions">
         <div class="button-container">
-          <DownloadButton text={I18n.t("models.badge.download")} secondary={true}
-                          filename={downloadFileName(importedBadge)}
-                          disabled={!loaded}
-                          url={importedBadge.import_url}/>
+          <Button secondary={true} text={I18n.t("models.badge.download")} disabled={!loaded} externalUrl={importedBadge.import_url}/>
+<!--          <DownloadButton text={I18n.t("models.badge.download")} secondary={true}-->
+<!--                          filename={downloadFileName(importedBadge)}-->
+<!--                          disabled={!loaded}-->
+<!--                          url={importedBadge.import_url}/>-->
         </div>
         <div class="button-container">
           {#if showShareFeedback}

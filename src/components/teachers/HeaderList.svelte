@@ -35,24 +35,24 @@
 </style>
 
 <div>
-  {#each headerItems as {attr, type, value} (attr)}
+    {#each headerItems as {attr, type, value} (attr)}
     <span>
       <h5>{I18n.t(['models', entity, attr])}</h5>
-      {#if value !== null && value !== undefined}
+        {#if value !== null && value !== undefined}
       {#if type === 'date'}
-        <p>{moment(value).format('MMM D, YYYY')}</p>
+          <p>{moment(value).format('MMM D, YYYY')}</p>
       {:else if type === 'adminNames'}
-        <p>{formatAdminNames(value)}</p>
+          <p>{formatAdminNames(value)}</p>
       {:else if type === 'link'}
-        {#if value}
-          <p><a class="is-link" href={value} rel="noreferrer noopener" target="_blank">visit website</a></p>
-        {:else}<p>-</p>{/if}
+          {#if value}
+              <p><a class="is-link" href={value} rel="noreferrer noopener" target="_blank">visit website</a></p>
+          {:else}<p>-</p>{/if}
       {:else if type === 'email'}
-        {#if value}
-          <p>{value}</p>
-        {:else}<p>-</p>{/if}
+          {#if value}
+              <p>{value}</p>
+          {:else}<p>-</p>{/if}
       {:else}<p>{value}</p>{/if}
         {/if}
     </span>
-  {/each}
+    {/each}
 </div>

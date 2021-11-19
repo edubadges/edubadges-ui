@@ -74,6 +74,7 @@
             }
         }).catch(e => {
             e.then(j => {
+                debugger;
                 if (j.fields && j.fields.error_message && j.fields.error_message.import_url &&
                     j.fields.error_message.import_url.length > 0 && j.fields.error_message.import_url[0].error_code === '936') {
                     error = false;

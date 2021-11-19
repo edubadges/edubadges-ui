@@ -1,38 +1,7 @@
 <script>
-    import {onMount} from "svelte";
-    import Spinner from "../../Spinner.svelte";
-    import {authToken, userLoggedIn, userRole} from "../../../stores/user";
-    import {navigate} from "svelte-routing";
-    import {ltiContext} from "../../../stores/lti";
-    import {role} from "../../../util/role";
-    import {getGrades, getLTIContext, getMembers} from "../../../api";
     import JSONTree from 'svelte-json-tree';
 
-    let context;
-    let course;
-    let grades;
-    let members;
-
-    let loaded;
-    let error;
-
-    onMount(() => {
-        Promise.all([
-            getLTIContext($ltiContext.launchId),
-            getGrades($ltiContext.launchId),
-            getMembers($ltiContext.launchId),
-        ]).then(res => {
-            context = res[0];
-            grades = res[1];
-            members = res[2];
-            error = null;
-            loaded = true;
-        }).catch(e => e.then(res => {
-                error = res;
-                loaded = true;
-            }
-        ))
-    });
+    export let launchData;
 
 </script>
 
@@ -54,22 +23,10 @@
 
 </style>
 <div class="page-container">
-    {#if !loaded && !error}
-        <Spinner/>
-    {:else if loaded && !error}
-        <div class="content">
-            <h3>LTI message launch</h3>
-            <JSONTree value={context}/>
-            <h3>LTI grades </h3>
-            <JSONTree value={grades}/>
-            <h3>LTI members</h3>
-            <JSONTree value={members}/>
-        </div>
-    {:else}
-        <div class="error">
-            {@html error}
-        </div>
-    {/if}
+    <div class="content">
+        <h3>LTI message launch</h3>
+        <JSONTree value={launchData}/>
+    </div>
 </div>
 
 

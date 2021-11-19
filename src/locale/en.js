@@ -263,7 +263,10 @@ I18n.translations.en = {
             directAwardBundle: "Award status",
             profile: "Profile",
             requestedBadges: "Requested edubadges",
-            lti: "LTI"
+            lti: "LTI",
+            ltiContext: "Context",
+            ltiUsers: "Users",
+            ltiGrades: "Grades"
         },
         edit: {
             edit: "edit",
@@ -1406,6 +1409,12 @@ I18n.translations.en = {
             link: "Linked badgeclass {{name}} to LTI course {{lti}}",
             unlink: "Unlinked badgeclass {{name}} from LTI course {{lti}}",
         }
+    },
+    lti: {
+        path: "LTI",
+        title: "LTI Information",
+        info: "The edubadges applications runs within a LMS LTI context.",
+        login: "You are logged in as <strong>{{name}}</strong> in LMS <strong>{{lti}}</strong>."
     }
 
 };

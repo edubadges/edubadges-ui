@@ -13,7 +13,7 @@
             path: "/",
             active: $currentPath && !$currentPath.includes("/manage") && !$currentPath.includes("/users") && !$currentPath.includes("/catalog")
                 && !$currentPath.includes("/profile") && !$currentPath.includes("/permissions")
-                && !$currentPath.includes("/public") && !$currentPath.includes("/insights") && !$currentPath.includes("/context"),
+                && !$currentPath.includes("/public") && !$currentPath.includes("/insights") && !$currentPath.includes("/lti"),
             name: "badgeclasses"
         },
         {
@@ -38,9 +38,9 @@
         },
         {
             path: "/lti/context",
-            active: $currentPath && $currentPath.includes("/lti/context"),
+            active: $currentPath && $currentPath.includes("/lti"),
             name: "lti",
-            excluded: !$ltiContext.launchId
+            excluded: !$ltiContext.launchId && false
         }
     ];
 </script>
