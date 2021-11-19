@@ -728,6 +728,7 @@ I18n.translations.en = {
             expires: "Expires",
             expiresNever: "Never",
             download: "Download",
+            open: "Open",
             share: "Share",
             status: "Status",
             revoked: "Revoked",

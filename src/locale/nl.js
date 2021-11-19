@@ -725,6 +725,7 @@ I18n.translations.nl = {
             expires: "Verloopt op",
             expiresNever: "Nooit",
             download: "Download",
+            open: "Open",
             share: "Deel",
             status: "Status",
             revoked: "Ingetrokken",
