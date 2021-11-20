@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg viewBox="-120 -120 240 240" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="fill-rule:evenodd;clip-rule:evenodd;">
+	<g id="Atom">
+		<title>Rainbow Flag Atom Icon, by Adam Stanislav</title>
+
+		<defs>
+			<linearGradient id="Rainbow" x1="0" x2="0" y1="0" y2="1" gradientUnits="objectBoundingBox">
+				<stop offset="0" stop-color="#F00"/>
+				<stop offset="0.1667" stop-color="#F00"/>
+				<stop offset="0.1667" stop-color="#FF9800"/>
+				<stop offset="0.3333" stop-color="#FF9800"/>
+				<stop offset="0.3333" stop-color="#FF0"/>
+				<stop offset="0.5" stop-color="#FF0"/>
+				<stop offset="0.5" stop-color="#009800"/>
+				<stop offset="0.6667" stop-color="#009800"/>
+				<stop offset="0.6667" stop-color="#00F"/>
+				<stop offset="0.8333" stop-color="#00F"/>
+				<stop offset="0.8333" stop-color="#980098"/>
+				<stop offset="1.00" stop-color="#980098"/>
+			</linearGradient>
+		</defs>
+
+		<circle r="120" fill="url(#Rainbow)"/>
+
+		<g opacity="0.5">
+			<path id="a" d="M0-106.074c15.629 0 28.317 47.53 28.317 106.074 0 58.544-12.688 106.074-28.317 106.074-15.629 0-28.317-47.53-28.317-106.074 0-58.544 12.688-106.074 28.317-106.074zm0 26.135c11.778 0 21.341 35.819 21.341 79.939 0 44.12-9.563 79.939-21.341 79.939-11.778 0-21.341-35.819-21.341-79.939 0-44.12 9.563-79.939 21.341-79.939z"/>
+			<use xlink:href="#a" transform="rotate(60)"/>
+			<use xlink:href="#a" transform="rotate(-60)"/>
+			<circle r="8.125"/>
+		</g>
+	</g>
+</svg>

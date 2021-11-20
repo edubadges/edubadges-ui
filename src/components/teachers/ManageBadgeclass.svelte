@@ -217,7 +217,7 @@
 
 <style>
     .overview-container {
-        padding: 40px 140px;
+        padding: 0 140px 40px 40px;
     }
 
     @media (max-width: 1120px) {

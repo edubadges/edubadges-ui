@@ -38,7 +38,7 @@
         },
         {
             path: "/lti/context",
-            active: $currentPath && $currentPath.includes("/lti"),
+            active: $currentPath && $currentPath.includes("/lti") && !$currentPath.includes("/manage"),
             name: "lti",
             excluded: !$ltiContext.launchId && false
         }

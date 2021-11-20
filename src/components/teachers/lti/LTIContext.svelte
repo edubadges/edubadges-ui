@@ -12,13 +12,13 @@
   }
 
   .content {
-    padding: 40px;
+    padding: 0;
   }
 
   h3 {
-    color: var(--grey-9);
     font-size: 22px;
-    margin: 35px 0 20px 0;
+    font-weight: var(--semi-bold);
+    margin: 10px 0 20px 0;
   }
 
 </style>

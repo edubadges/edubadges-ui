@@ -36,5 +36,5 @@
 <div class="user-bread-crumb">
     <a use:link href={"/"}>{I18n.t("user.home")}</a>
     <span class="icon">{@html chevronRightSmall}</span>
-    <span class="path">{path ? I18n.t("user.profile") : I18n.t("user.permissions")}</span>
+    <span class="path">{path}</span>
 </div>
