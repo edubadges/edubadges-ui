@@ -110,7 +110,7 @@
   </div>
 </div>
 
-{#if mayDelete && hasUnrevokedAssertions == false}
+{#if mayDelete && hasUnrevokedAssertions === false}
   <RemovalConfirmation {entityTypeName} entityId={entityId} parentId={parentId} {showRemoveModal}
                        cancel={() => showRemoveModal=false} deleting={v => deleting = v}/>
 {/if}

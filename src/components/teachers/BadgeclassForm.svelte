@@ -76,7 +76,8 @@
             target_url: alignment.targetUrl,
             target_description: alignment.targetDescription,
             target_framework: alignment.targetFramework,
-            target_code: alignment.targetCode
+            target_code: alignment.targetCode,
+            existing: true
         }));
     });
 
@@ -225,6 +226,7 @@
         if (newBadgeclass.alignments) {
             for (let alignment of newBadgeclass.alignments) {
                 alignment.target_url = toHttpOrHttps(alignment.target_url)
+                delete alignment.existing
             }
         }
         newBadgeclass.extensions = extensionToJson([
@@ -369,7 +371,7 @@
   entityTypeName={entity}
   parentId={badgeclass.issuer.entityId}
   {mayDelete}
-  {mayEdit}
+  mayEdit={true}
   {action}
   {hasUnrevokedAssertions}
   entityId={entityId}
@@ -395,7 +397,7 @@
 
     <ExpirationSettings
       bind:expireValueSet={badgeclass.expireValueSet}
-      disabled={!mayEdit && !isCopy}
+      disabled={false}
       className=""
       bind:number={badgeclass.expirationDuration}
       bind:period={badgeclass.expirationPeriod}/>
@@ -626,7 +628,7 @@
     </div>
 
     {#each badgeclass.alignments as alignment, i}
-      {#if mayEdit && badgeclass.alignments.length > 1}
+      {#if (mayEdit || !alignment.existing) && badgeclass.alignments.length > 1}
         <div>
           <button style="float:right;" class="rm-icon-container"
                   on:click={() => removeAlignment(i) }>{@html trash}</button>
@@ -637,7 +639,7 @@
                tipKey="badgeClassRelatedFrameworkName">
           <TextInput
             bind:value={alignment.target_name}
-            disabled={!mayEdit && !isCopy}
+            disabled={(!mayEdit && alignment.existing) && !isCopy}
             error={errors.target_name}
             placeholder={I18n.t("placeholders.badgeClass.alignmentName")}
           />
@@ -647,7 +649,7 @@
                tipKey="badgeClassRelatedFrameworkFramework">
           <TextInput
             bind:value={alignment.target_framework}
-            disabled={!mayEdit && !isCopy}
+            disabled={(!mayEdit && alignment.existing) && !isCopy}
             error={errors.target_framework}
             placeholder={I18n.t("placeholders.badgeClass.alignmentFramework")}
           />
@@ -656,7 +658,7 @@
                tipKey="badgeClassRelatedFrameworkURL">
           <TextInput
             bind:value={alignment.target_url}
-            disabled={!mayEdit && !isCopy}
+            disabled={(!mayEdit && alignment.existing) && !isCopy}
             error={errors.target_url}
             placeholder={I18n.t("placeholders.badgeClass.alignmentUrl")}
           />
@@ -665,7 +667,7 @@
                tipKey="badgeClassRelatedFrameworkCode">
           <TextInput
             bind:value={alignment.target_code}
-            disabled={!mayEdit && !isCopy}
+            disabled={(!mayEdit && alignment.existing) && !isCopy}
             error={errors.target_code}
             placeholder={I18n.t("placeholders.badgeClass.alignmentCode")}
           />
@@ -676,7 +678,7 @@
           <TextInput
             bind:value={alignment.target_description}
             error={errors.target_description}
-            disabled={!mayEdit && !isCopy}
+            disabled={(!mayEdit && alignment.existing) && !isCopy}
             area
             size="100"
             placeholder={I18n.t("placeholders.badgeClass.alignmentDescription")}
@@ -689,7 +691,7 @@
           text={I18n.t('models.badgeclass.addButtons.alignmentAddition')}
           handleClick={() => addEmptyAlignment()}
           visibility={showAddAlignmentButton}
-          disabled={!mayEdit && !isCopy}
+          disabled={false}
         />
       </span>
   {/if}
