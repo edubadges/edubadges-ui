@@ -40,7 +40,7 @@
             path: "/lti/context",
             active: $currentPath && $currentPath.includes("/lti") && !$currentPath.includes("/manage"),
             name: "lti",
-            excluded: !$ltiContext.launchId && false
+            excluded: !$ltiContext.launchId
         }
     ];
 </script>

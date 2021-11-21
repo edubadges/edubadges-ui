@@ -263,7 +263,10 @@ I18n.translations.nl = {
             directAwardBundle: "Award status",
             profile: "Profiel",
             requestedBadges: "Aangevraagde edubadges",
-            lti: "LTI"
+            lti: "LTI",
+            ltiContext: "Context",
+            ltiUsers: "Gebruikers",
+            ltiGrades: "Cijfers"
         },
         edit: {
             edit: "wijzig",
@@ -1407,7 +1410,40 @@ I18n.translations.nl = {
             link: "Badgeclass {{name}} is gekoppeld aan LTI cursus {{lti}}",
             unlink: "Badgeclass {{name}} is ontkoppeld aand LTI cursus {{lti}}",
         }
+    },
+    lti: {
+        path: "LTI",
+        title: "LTI Information",
+        info: "The edubadges applications currently runs within a LMS LTI context.",
+        login: "You are logged in as <strong>{{name}}</strong> in LMS <strong>{{lti}}</strong>.",
+        context: {
+            title: "LTI message launch",
+            issuer: "Issuer",
+            version: "Version",
+            email: "Email",
+            course: "Course context",
+            platform: {
+                name: "Naam",
+                vendor: "Vendor",
+            },
+            roles: "Roles",
+            placement: "Placement"
+        },
+        users: {
+            title: "LTI members",
+            subTitle: "LTI members",
+            name: "Name",
+            email: "Email",
+            status: "Status",
+            roles: "Roles"
+        },
+        grades: {
+            title: "LTI grades",
+            subTitle: "LTI grades",
+            user: "user",
+            assignment: "Assignment",
+            resultScore: "Results score",
+            resultMaximum: "Max result"
+        }
     }
-
-
 };

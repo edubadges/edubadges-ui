@@ -91,4 +91,4 @@ export function sort(collection, attribute, reversed, howToSort = sortType.ALPHA
     }
   });
   return reversed ? col.reverse() : col;
-};
+}

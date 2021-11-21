@@ -1,31 +1,34 @@
 <script>
     import {navigate, Route, Router} from "svelte-routing";
-    // import {onMount} from "svelte";
-    // import {authToken, userLoggedIn, userRole} from "../../../stores/user";
-    // import {navigate} from "svelte-routing";
-    // import {ltiContext} from "../../../stores/lti";
-    // import {role} from "../../../util/role";
-    // import {getGrades, getLTIContext, getMembers} from "../../../api";
-    import context from './json/message_launch.json';
+    import {ltiContext} from "../../../stores/lti";
+    import {getGrades, getLTIContext, getMembers} from "../../../api";
     import {importIcon, userManagementIcon} from "../../../icons";
     import schoolTrophyIcon from "../../../icons/school-book-trophy.svg";
     import UserBreadcrumb from "../UserBreadcrumb.svelte";
     import I18n from "i18n-js";
     import LTIHeader from "./LTIHeader.svelte";
-    // import {onMount} from "svelte";
-    // import {getLTIContext} from "../../../api";
-    import {ltiContext} from "../../../stores/lti";
     import LTIContext from "./LTIContext.svelte";
     import Spinner from "../../Spinner.svelte";
-    import EntityHeaderTabs from "../EntityHeaderTabs.svelte";
+    import LTIUsers from "./LTIUsers.svelte";
+    import LTIGrades from "./LTIGrades.svelte";
 
     export let tab = "context";
-    let launchData = context;
-    let loaded = true;
-    //onMount(() => getLTIContext($ltiContext.launchId).then(res => {
-    //    launchData = res;
-    //   loaded = true
-    //}));
+
+    let launchData;
+    let users;
+    let gradesLineItems;
+    let loaded = false;
+
+    Promise.all([
+        getLTIContext($ltiContext.launchId),
+        getGrades($ltiContext.launchId),
+        getMembers($ltiContext.launchId),
+    ]).then(res => {
+        launchData = res[0];
+        gradesLineItems = res[1];
+        users = res[2];
+        loaded = true;
+    })
 
     $: tabs = [
         {
@@ -56,6 +59,7 @@
     div.lti-container {
         display: flex;
         flex-direction: column;
+        width: 100%;
     }
 </style>
 <div class="lti-container">
@@ -69,10 +73,10 @@
                     <LTIContext launchData={launchData}/>
                 </Route>
                 <Route path="/participants">
-                    <LTIContext launchData={launchData}/>
+                    <LTIUsers users={users}/>
                 </Route>
                 <Route path="/grades">
-                    <LTIContext launchData={launchData}/>
+                    <LTIGrades users={users} gradesLineItems={gradesLineItems}/>
                 </Route>
             </Router>
         </div>

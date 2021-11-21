@@ -1414,8 +1414,36 @@ I18n.translations.en = {
     lti: {
         path: "LTI",
         title: "LTI Information",
-        info: "The edubadges applications runs within a LMS LTI context.",
-        login: "You are logged in as <strong>{{name}}</strong> in LMS <strong>{{lti}}</strong>."
+        info: "The edubadges applications currently runs within a LMS LTI context.",
+        login: "You are logged in as <strong>{{name}}</strong> in LMS <strong>{{lti}}</strong>.",
+        context: {
+            title: "LTI message launch",
+            issuer: "Issuer",
+            version: "Version",
+            email: "Email",
+            course: "Course context",
+            platform:{
+                name: "Naam",
+                vendor: "Vendor",
+            },
+            roles: "Roles",
+            placement: "Placement"
+        },
+        users: {
+            title: "LTI members",
+            subTitle: "LTI members",
+            name: "Name",
+            email: "Email",
+            status: "Status",
+            roles: "Roles"
+        },
+        grades: {
+            title: "LTI grades",
+            subTitle: "LTI grades",
+            user: "user",
+            assignment: "Assignment",
+            resultScore: "Results score",
+            resultMaximum: "Max result"
+        }
     }
-
 };
