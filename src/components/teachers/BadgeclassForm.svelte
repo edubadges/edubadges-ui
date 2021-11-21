@@ -733,7 +733,7 @@
           text={I18n.t('models.badgeclass.addButtons.alignment')}
           handleClick={() => addEmptyAlignment()}
           visibility={!showAlignment}
-          disabled={!mayEdit && !isCopy}
+          disabled={false}
         />
       </span>
     </div>

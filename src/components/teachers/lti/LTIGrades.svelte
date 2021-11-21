@@ -4,7 +4,7 @@
     import {search} from "../../../util/searchData";
     import Table from "../Table.svelte";
     import {onMount} from "svelte";
-    import schoolTrophyIcon from "../../../icons/school-book-trophy.svg";
+    import awardIcon from "../../../icons/award-ribbon-star-1.svg";
 
     export let users = [];
     export let gradesLineItems = [];
@@ -107,7 +107,7 @@
                     <div class="img-container">
                         <div class="img-icon">
                           <span class="icon">
-                            {@html schoolTrophyIcon}
+                            {@html awardIcon}
                           </span>
                         </div>
                     </div>
