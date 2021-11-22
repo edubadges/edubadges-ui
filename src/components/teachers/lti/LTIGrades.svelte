@@ -1,7 +1,7 @@
 <script>
     import I18n from "i18n-js";
     import {sort, sortType} from "../../../util/sortData";
-    import {search} from "../../../util/searchData";
+    import {searchMultiple} from "../../../util/searchData";
     import Table from "../Table.svelte";
     import {onMount} from "svelte";
     import awardIcon from "../../../icons/award-ribbon-star-1.svg";
@@ -69,7 +69,7 @@
 
     let gradeSearch = "";
     let searchedGradesIds = [];
-    $: searchedGradesIds = search(grades, gradeSearch, "name", "id");
+    $: searchedGradesIds = searchMultiple(grades, gradeSearch, "id", "user", "assignment");
 
     let gradeSort = tableHeaders[1];
 

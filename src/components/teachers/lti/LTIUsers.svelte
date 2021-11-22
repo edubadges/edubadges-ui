@@ -1,7 +1,7 @@
 <script>
     import I18n from "i18n-js";
     import {sort, sortType} from "../../../util/sortData";
-    import {search} from "../../../util/searchData";
+    import {searchMultiple} from "../../../util/searchData";
     import userIcon from "../../../icons/personal_info.svg";
     import {roles} from "../../../util/lti";
     import Table from "../Table.svelte";
@@ -62,7 +62,7 @@
 
     let userSearch = "";
     let searchedUsersIds = [];
-    $: searchedUsersIds = search(users, userSearch, "name", "user_id");
+    $: searchedUsersIds = searchMultiple(users, userSearch, "user_id", "name", "email");
 
     let userSort = tableHeaders[2];
 
