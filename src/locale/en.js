@@ -639,7 +639,7 @@ I18n.translations.en = {
             expiresAfterOption: "After",
             expiresAfterNever: "Never",
             expiresAfterValue: "{{nbr}} weeks",
-            expireSettings: "Default expiration settings",
+            expireSettings: "Default expiration setting",
             language: "Language of instruction",
             extraOptions: "Extra options",
             isPrivate: "Private badgeclass",
@@ -1011,7 +1011,7 @@ I18n.translations.en = {
         userPermissions: "This user does not have any permissions for {{entity}} {{name}}.",
         directAwardBundles: "There is no direct award status for edubadge {{name}}",
         directAwards: "All direct awards have been claimed. There are no more outstanding direct awards for this bundle.",
-        requestedBatches: "There are no outstanding eduBadge requests you are allowed to award."
+        requestedBatches: "There are no outstanding edubadge requests you are allowed to award."
     },
     userManagement: {
         permissions: "Permissions for {{name}}",
@@ -1110,7 +1110,8 @@ I18n.translations.en = {
         //badgeClassImage: "badgeClassImage",
         badgeClassExpireSettings: "After this period edubadges will expiry and will be no longer valid.",
         badgeClassName: "Avoid abbreviations, make sure the name is recognisable for others.",
-        //badgeClassDescription: "",
+        badgeClassDescription: "This description supports markdown. " +
+        "See <a target=\"_blank\" href=\"https://wiki.surfnet.nl/display/Edubadges/Edubadges+Example+BadgeClass\"> the wiki </a> for examples.",
         badgeClassLanguageOfInstruction: "The language used in obtaining this edubadge.",
         badgeClassLearningOutcome: "Describe the learning outcome or learning goal. Recorded in the Teaching and Examination Regulations. Possibly in line with the Tuning methodology.",
         //badgeClassLearningIssuer: "badgeClassLearningIssuer",

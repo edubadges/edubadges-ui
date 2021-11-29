@@ -639,7 +639,7 @@ I18n.translations.nl = {
             expiresAfterOption: "Na",
             expiresAfterNever: "Nooit",
             expiresAfterValue: "{{nbr}} weken",
-            expireSettings: "Standaard verloop setting",
+            expireSettings: "Standaard periode waarop deze badge class verloopt",
             language: "Taal van het onderwijs",
             extraOptions: "Extra opties",
             isPrivate: "Privé badge class",
@@ -1110,7 +1110,8 @@ I18n.translations.nl = {
         //badgeClassImage: "badgeClassImage",
         badgeClassExpireSettings: "Geef hier aan of en hoelang de edubadge geldig is. Na deze datum zal een edubadge niet meer geldig zijn.",
         badgeClassName: "Vermijdt afkortingen, zorg voor herkenbare naam ook voor externen.",
-        //badgeClassDescription: "",
+        badgeClassDescription: "Deze beschrijving ondersteund opmaak in markdown formaat. " +
+        "Zie <a target=\"_blank\" href=\"https://wiki.surfnet.nl/display/Edubadges/Edubadges+Example+BadgeClass\"> de wiki </a> voor voorbeelden.",
         badgeClassLanguageOfInstruction: "De voertaal die gebruikt is bij het behalen van deze edubadge. ",
         badgeClassLearningOutcome: "Beschrijf de leeruitkomst of het leerdoel. Vastgelegd in de Onderwijs- en examenregeling. Sluit mogelijk aan op de Tuning-methodiek.",
         //badgeClassLearningIssuer: "badgeClassLearningIssuer",
