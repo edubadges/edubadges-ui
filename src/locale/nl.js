@@ -639,7 +639,7 @@ I18n.translations.nl = {
             expiresAfterOption: "Na",
             expiresAfterNever: "Nooit",
             expiresAfterValue: "{{nbr}} weken",
-            expireSettings: "Standaard periode waarop deze badge class verloopt",
+            expireSettings: "standaard vervaldatum",
             language: "Taal van het onderwijs",
             extraOptions: "Extra opties",
             isPrivate: "Privé badge class",
