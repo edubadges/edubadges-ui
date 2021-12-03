@@ -97,7 +97,7 @@ I18n.translations.nl = {
         permissionsInfo: "Je kan je gegeven akkoordverklaring(en) intrekken.",
         noPermissions: "Er zijn op dit moment geen kennisinstellingen waar je een akkoordverklaring aan hebt gegeven.",
         consentWithdrawn: "Akkoordverklaring voor instelling {{institution}} ingetrokken.",
-        deleteHeader: "Je edubadges edubadges account verwijderen",
+        deleteHeader: "Je edubadges account verwijderen",
         deleteInfo1: "Je kunt je edubadges account verwijderen als je dat wilt.",
         deleteInfo2: "Wees je dan wel bewust dat hierna al je edubadges niet meer gevalideerd kunnen worden.",
         deleteInfo3: "Het verwijderen van je edubadges account betekent overigens niet dat je eduID ook verwijderd wordt.",
