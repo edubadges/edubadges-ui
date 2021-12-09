@@ -463,10 +463,11 @@
       }
 
       .count {
-        font-size: 26px;
+        font-size: 22px;
         font-family: "Proxima Nova", sans-serif;
         color: var(--purple);
         margin-left: auto;
+        word-break: keep-all;
       }
     }
   }

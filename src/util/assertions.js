@@ -5,15 +5,20 @@ export const isRevoked = assertion => {
 }
 
 export const assertionStatus = assertion => {
-    if (!assertion.isDirectAward && assertion.revoked) {
-        return I18n.t("models.badge.statuses.revoked");
-    }
-    return I18n.t(`models.badge.statuses.${assertion.isDirectAward ? assertion.status.toLowerCase() : assertion.acceptance.toLowerCase()}`);
+    status = assertionStatusClass(assertion);
+    return I18n.t(`models.badge.statuses.${status}`);
 }
 
 export const assertionStatusClass = assertion => {
     if (!assertion.isDirectAward && assertion.revoked) {
         return "revoked"
     }
-    return assertion.isDirectAward ? assertion.status.toLowerCase() : assertion.acceptance.toLowerCase();
+    if (assertion.isDirectAward) {
+        return assertion.status.toLowerCase();
+    }
+    const acceptance = assertion.acceptance.toLowerCase();
+    if (acceptance === "rejected") {
+        return acceptance;
+    }
+    return "awarded";
 }

@@ -745,7 +745,8 @@ I18n.translations.en = {
                 unclaimed: "Unclaimed",
                 pendingEnrollmentCount: "{{count}} open requests",
                 archived: "Archived",
-                imported: "Imported"
+                imported: "Imported",
+                awarded: "Awarded"
             },
             confirmation: {
                 revocationReason: "Reason for revocation (required)",

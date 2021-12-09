@@ -745,7 +745,8 @@ I18n.translations.nl = {
                 unclaimed: "Unclaimed",
                 pendingEnrollmentCount: "{{count}} open aanvragen",
                 archived: "Gearchiveerd",
-                imported: "Import"
+                imported: "Import",
+                awarded: "Toegekend"
             },
             confirmation: {
                 revocationReason: "Reden voor intrekking (verplicht)",

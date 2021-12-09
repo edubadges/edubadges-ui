@@ -293,7 +293,7 @@
     font-size: 14px;
     font-weight: bold;
 
-    &.accepted {
+    &.accepted, &.awarded {
       background-color: var(--green-light);
     }
 
