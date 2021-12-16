@@ -178,11 +178,12 @@
             href: `/manage/badgeclass/${entityId}/user-management`,
             icon: userManagementIcon
         },
-        {
-            entity: "lti",
-            href: `/manage/badgeclass/${entityId}/lti`,
-            icon: importIcon
-        }
+        // For now disbale LTI
+        // {
+        //     entity: "lti",
+        //     href: `/manage/badgeclass/${entityId}/lti`,
+        //     icon: importIcon
+        // }
     ];
 
     $: if (!tab) {
