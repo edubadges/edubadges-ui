@@ -18,7 +18,7 @@
     "mini-css-extract-plugin": "^0.8.0",
     "node-notifier": "^9.0.0",
     "node-sass": "^5.0.0",
-    "postcss": "^8.2.10",
+    "postcss": "^8.2.13",
     "prettier": "^2.0.4",
     "regenerator-runtime": "^0.13.5",
     "serialize-javascript": "^3.1.0",
