@@ -14,7 +14,7 @@
     } from "../extensions/badges/extensions";
     import {onMount} from "svelte";
     import DOMPurify from 'dompurify';
-    import marked from "marked";
+    import { marked } from "marked";
     import {fallBackValue} from "../../util/forms";
     import languageIcon from "../../icons/messages-bubble-square-text.svg";
     import schoolTrophyIcon from "../../icons/school-book-trophy.svg";

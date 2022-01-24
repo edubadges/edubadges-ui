@@ -1,7 +1,7 @@
 <script>
   import I18n from "i18n-js";
   import DOMPurify from 'dompurify';
-  import marked from "marked";
+  import { marked } from "marked";
 
   export let evidences = [];
   export let isPrivate = false;
