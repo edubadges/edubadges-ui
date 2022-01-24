@@ -80,6 +80,7 @@
             entityId,
             nameEnglish,
             nameDutch,
+            ltiEnabled
           }
         }
       },
@@ -131,6 +132,14 @@
             badgeclass = res.badgeClass;
             ltiCourse = res.ltiCourse;
 
+            if (badgeclass.issuer.faculty.institution.ltiEnabled) {
+                tabs = [...tabs, {
+                    entity: "lti",
+                    href: `/manage/badgeclass/${entityId}/lti`,
+                    icon: importIcon
+                }]
+            }
+
             translateProperties(badgeclass.issuer);
             translateProperties(badgeclass.issuer.faculty);
             translateProperties(badgeclass.issuer.faculty.institution);
@@ -177,13 +186,7 @@
             entity: "userManagement",
             href: `/manage/badgeclass/${entityId}/user-management`,
             icon: userManagementIcon
-        },
-        // For now disbale LTI
-        // {
-        //     entity: "lti",
-        //     href: `/manage/badgeclass/${entityId}/lti`,
-        //     icon: importIcon
-        // }
+        }
     ];
 
     $: if (!tab) {
