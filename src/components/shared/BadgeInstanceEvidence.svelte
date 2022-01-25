@@ -1,10 +1,9 @@
 <script>
-  import I18n from "i18n-js";
-  import DOMPurify from 'dompurify';
-  import { marked } from "marked";
+    import I18n from "i18n-js";
+    import MarkdownField from "../forms/MarkdownField.svelte";
 
-  export let evidences = [];
-  export let isPrivate = false;
+    export let evidences = [];
+    export let isPrivate = false;
 
 
 </script>
@@ -84,43 +83,44 @@
 
 </style>
 {#if evidences && evidences.length > 0}
-  <div class="badge-public-evidence-container" class:is-private={isPrivate}>
-    <h3>{I18n.t('models.enrollment.evidenceHeader')}</h3>
-    {#each evidences as evidence}
-      <div class="badge-public-evidence">
-        <div class="left-side-nav">
-          {#if evidence.narrative}
-            <h4>{I18n.t('models.enrollment.evidenceNarrative')}</h4>
-            <p class="info markdown">
-              {@html DOMPurify.sanitize(marked(evidence.narrative))}
-            </p>
-          {/if}
-          {#if evidence.id || evidence.evidenceUrl}
-            <h4>{I18n.t('models.enrollment.evidenceURL')}</h4>
-            <a href={evidence.id || evidence.evidenceUrl} target="_blank">{evidence.id || evidence.evidenceUrl}</a>
-          {/if}
-        </div>
-        <div class="right-side-nav">
-          {#if evidence.name}
-            <div>
-              <h4>{I18n.t('models.enrollment.evidenceName')}</h4>
-              <span>
+    <div class="badge-public-evidence-container" class:is-private={isPrivate}>
+        <h3>{I18n.t('models.enrollment.evidenceHeader')}</h3>
+        {#each evidences as evidence}
+            <div class="badge-public-evidence">
+                <div class="left-side-nav">
+                    {#if evidence.narrative}
+                        <h4>{I18n.t('models.enrollment.evidenceNarrative')}</h4>
+                        <div class="info markdown-body">
+                            <MarkdownField value={evidence.narrative} disabled={true}/>
+                        </div>
+                    {/if}
+                    {#if evidence.id || evidence.evidenceUrl}
+                        <h4>{I18n.t('models.enrollment.evidenceURL')}</h4>
+                        <a href={evidence.id || evidence.evidenceUrl}
+                           target="_blank">{evidence.id || evidence.evidenceUrl}</a>
+                    {/if}
+                </div>
+                <div class="right-side-nav">
+                    {#if evidence.name}
+                        <div>
+                            <h4>{I18n.t('models.enrollment.evidenceName')}</h4>
+                            <span>
               {evidence.name}
             </span>
-            </div>
-          {/if}
-          {#if evidence.description}
-            <div>
-              <h4>{I18n.t('models.enrollment.evidenceDescription')}</h4>
-              <span>
+                        </div>
+                    {/if}
+                    {#if evidence.description}
+                        <div>
+                            <h4>{I18n.t('models.enrollment.evidenceDescription')}</h4>
+                            <span>
               {evidence.description}
             </span>
-            </div>
-          {/if}
-        </div>
+                        </div>
+                    {/if}
+                </div>
 
-      </div>
-    {/each}
-  </div>
+            </div>
+        {/each}
+    </div>
 {/if}
 

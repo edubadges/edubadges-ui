@@ -1,46 +1,9 @@
-div.markdown-body h1, h2, h3, h4 {
-  margin: 15px 0 5px 0;
-}
+.markdown-body {
 
-div.markdown-body table {
-  border-collapse: collapse;
-  width: 100%;
-  margin: 15px 0;
-}
-
-div.markdown-body thead {
-  color: var(--purple);
-  border-bottom: 3px solid var(--grey-3);
-  text-align: left;
-  padding: 5px;
-}
-
-div.markdown-body td {
-  padding: 7px 5px;
-}
-
-div.markdown-body tr:nth-child(even) {
-  background: var(--grey-1);
-}
-
-div.markdown-body ul, p.markdown ul {
-  margin: 15px 0 15px 25px;
-  list-style: circle;
-  line-height: 22px;
-}
-
-div.markdown-body ol, p.markdown ol {
-  margin: 15px 0 15px 25px;
-  line-height: 22px;
-  list-style-type: decimal;
-}
-
-p.markdown {
   color: var(--black) !important;
 
-  h1, h2, h3, h4, h5, h6 {
-    color: var(--black) !important;
-    font-family: "Source Sans Pro", sans-serif !important;
+  h1, h2, h3, h4 {
+    margin: 15px 0 5px 0;
   }
 
   ul, ol {
@@ -52,27 +15,46 @@ p.markdown {
   }
 
   table {
-    margin: 10px 0;
     border-collapse: collapse;
     width: 100%;
+    margin: 15px 0;
 
-    th {
-      background-color: var(--purple-1);
+    thead {
+      color: var(--purple);
+      border-bottom: 3px solid var(--grey-1);
+      text-align: left;
+      padding: 5px;
+
+      th {
+        background-color: var(--purple-1);
+      }
     }
 
-    td, th {
-      border: 1px solid var(--grey-3);
-      padding: 8px;
-      text-align: left;
+    td {
+      padding: 7px 5px;
     }
 
     tr:nth-child(even) {
-      background-color: var(--grey-1);
+      background: var(--grey-1);
     }
-  }
-}
 
-.markdown blockquote {
-  padding: 0 1em;
-  border-left: .25em solid lightgray;
+  }
+
+  ul {
+    margin: 15px 0 15px 25px;
+    list-style: circle;
+    line-height: 22px;
+  }
+
+  ol {
+    margin: 15px 0 15px 25px;
+    line-height: 22px;
+    list-style-type: decimal;
+  }
+
+  blockquote {
+    padding: 0 1em;
+    border-left: .25em solid lightgray;
+  }
+
 }

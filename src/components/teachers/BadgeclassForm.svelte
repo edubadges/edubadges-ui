@@ -26,6 +26,7 @@
     import {toHttpOrHttps} from "../../util/Url";
     import {CheckBox} from "../index";
     import {translateProperties} from "../../util/utils";
+    import MarkdownField from "../forms/MarkdownField.svelte";
 
     export let entityId;
     export let badgeclass = {extensions: [], issuer: {}, alignments: []};
@@ -188,7 +189,7 @@
         }
 
         if (extensions[educationProgramIdentifier.name]) {
-          showEducationalIdentifiers = true;
+            showEducationalIdentifiers = true;
         }
         if (institution.grondslagFormeel !== null && (ectsValue || extensions[studyLoad.name] || (isCreate && !isCopy))) {
             showStudyLoad = true;
@@ -368,374 +369,371 @@
 </style>
 
 <EntityForm
-  entityTypeName={entity}
-  parentId={badgeclass.issuer.entityId}
-  {mayDelete}
-  mayEdit={true}
-  {action}
-  {hasUnrevokedAssertions}
-  entityId={entityId}
-  issuer={badgeclass.issuer}
-  faculty={badgeclass.issuer.faculty}
-  badgeclass={isCreate ? null : badgeclass}
-  badgeclassName={isCreate ? null : badgeclass.name}
-  submit={onSubmit}
-  create={isCreate}
-  {processing}>
+        entityTypeName={entity}
+        parentId={badgeclass.issuer.entityId}
+        {mayDelete}
+        mayEdit={true}
+        {action}
+        {hasUnrevokedAssertions}
+        entityId={entityId}
+        issuer={badgeclass.issuer}
+        faculty={badgeclass.issuer.faculty}
+        badgeclass={isCreate ? null : badgeclass}
+        badgeclassName={isCreate ? null : badgeclass.name}
+        submit={onSubmit}
+        create={isCreate}
+        {processing}>
 
-  <h4>{I18n.t("models.badgeclass.headers.basicInformation")}</h4>
-
-  <div class="form">
-
-    <Field {entity} attribute="image" errors={errors.image} tipKey="badgeClassImage">
-      <File
-        bind:value={badgeclass.image}
-        disabled={!mayEdit && !isCopy}
-        error={errors.image}
-        removeAllowed={false}/>
-    </Field>
-
-    <ExpirationSettings
-      bind:expireValueSet={badgeclass.expireValueSet}
-      disabled={false}
-      className=""
-      bind:number={badgeclass.expirationDuration}
-      bind:period={badgeclass.expirationPeriod}/>
-
-    <Field {entity} attribute="name" errors={errors.name} tipKey="badgeClassName">
-      <TextInput bind:value={badgeclass.name} disabled={!mayEdit && !isCopy} error={errors.name}
-                 placeholder={I18n.t("placeholders.badgeClass.name")}/>
-    </Field>
-
-    <Field {entity} attribute="language" errors={errors.language} tipKey="badgeClassLanguageOfInstruction">
-      <Select
-        bind:value={languageSelection}
-        items={languages}
-        disabled={!mayEdit && !isCopy}
-        optionIdentifier="value"
-        clearable={false}/>
-    </Field>
-
-    <Field {entity} attribute="description" errors={errors.description} tipKey="badgeClassDescription">
-      <TextInput
-        bind:value={badgeclass.description}
-        error={errors.description}
-        disabled={!mayEdit && !isCopy}
-        area
-        placeholder={I18n.t("placeholders.badgeClass.description")}
-        size="100"
-      />
-    </Field>
-
-    <Field {entity} attribute="learningOutcome" errors={errors.learningOutcome} tipKey="badgeClassLearningOutcome">
-      <TextInput
-        bind:value={extensions[learningOutcome.name]}
-        disabled={!mayEdit && !isCopy}
-        error={errors.learningOutcome}
-        area
-        placeholder={I18n.t("placeholders.badgeClass.learningOutcome")}
-        size="100"
-      />
-    </Field>
-
-    <Field {entity} attribute="issuer" errors={errors.issuer} tipKey="badgeClassLearningIssuer">
-      <Select
-        bind:value={badgeclass.issuer}
-        error={errors.issuer}
-        disabled={issuers.length === 1 || (!mayEdit && !isCopy)}
-        clearable={false}
-        optionIdentifier="entityId"
-        items={issuers}/>
-    </Field>
-
-    <Field {entity} attribute="extraOptions">
-      <CheckBox
-        value={badgeclass.isPrivate || false}
-        inForm={true}
-        adjustTop={true}
-        label={I18n.t(['models', entity, 'isPrivate'])}
-        tipKey="badgeClassIsPrivate"
-        disabled={hasUnrevokedAssertions}
-        onChange={val => badgeclass.isPrivate = val}/>
-      <CheckBox
-        value={badgeclass.evidenceRequired || false}
-        inForm={true}
-        adjustTop={true}
-        label={I18n.t(['models', entity, 'evidenceRequired'])}
-        tipKey="badgeClassEvidenceRequired"
-        onChange={val => badgeclass.evidenceRequired = val}/>
-      <CheckBox
-        value={badgeclass.narrativeRequired || false}
-        inForm={true}
-        adjustTop={true}
-        label={I18n.t(['models', entity, 'narrativeRequired'])}
-        tipKey="badgeClassNarrativeRequired"
-        onChange={val => badgeclass.narrativeRequired = val}/>
-      <CheckBox
-        value={badgeclass.awardNonValidatedNameAllowed || false}
-        inForm={true}
-        disabled={showStudyLoad}
-        adjustTop={true}
-        label={I18n.t(['models', entity, 'awardNonValidatedNameAllowed'])}
-        tipKey="badgeClassAwardNonValidatedNameAllowed"
-        onChange={val => badgeclass.awardNonValidatedNameAllowed = val}/>
-    </Field>
-  </div>
-
-  <h4>{I18n.t('models.badgeclass.headers.earningCriteria')}</h4>
-
-  <div class="form">
-    <Field {entity} attribute="criteria_text" errors={errors.criteria_text} tipKey="badgeClassCriteriaRequirements">
-      <TextInput
-        area
-        bind:value={badgeclass.criteriaText}
-        disabled={!mayEdit && !isCopy}
-        placeholder={I18n.t("placeholders.badgeClass.criteriaText")}
-        error={errors.criteria_text}
-        size="150"
-      />
-    </Field>
-
-    <Field {entity} attribute="criteria_url" errors={errors.criteria_url} tipKey="badgeClassCriteriaUrl">
-      <TextInput
-        bind:value={badgeclass.criteriaUrl}
-        disabled={!mayEdit && !isCopy}
-        placeholder={I18n.t("placeholders.badgeClass.criteriaUrl")}
-        error={errors.criteria_url}/>
-    </Field>
-  </div>
-
-  {#if publicInstitutions.length > 0 && !showStudyLoad}
-
-    <h4>{I18n.t('models.badgeclass.headers.allowedInstituions')}</h4>
-
-    <Field {entity} attribute="award_allowed_institutions" errors={errors.award_allowed_institutions}
-           tipKey="badgeclassAwardAllowedInstitutions">
-      <Select
-        bind:value={publicInstitutionsChosen}
-        items={publicInstitutions}
-        isMulti={true}
-        customIndicator={indicator}
-        showIndicator={false}
-        showChevron={true}
-        clearable={true}
-        placeholder={I18n.t("placeholders.institution.allowedInstitutions")}
-        optionIdentifier="id"
-      />
-    </Field>
-  {/if}
-
-  {#if showStudyLoad}
-    <div style="display: flex">
-      <div class="deletable-title"><h4>{I18n.t('models.badgeclass.headers.studyLoad')}</h4></div>
-      {#if institution.grondslagInformeel !== null}
-        {#if mayEdit}
-          <button class="rm-icon-container" on:click={removeStudyLoad}>{@html trash}</button>
-        {:else}
-          <button class="rm-icon-container disabled">{@html trash}</button>
-        {/if}
-      {/if}
-    </div>
+    <h4>{I18n.t("models.badgeclass.headers.basicInformation")}</h4>
 
     <div class="form">
-      {#if isInstitutionMBO}
-        <Field {entity} attribute="hours" errors={errors.StudyLoadExtension} tipKey="badgeClassStudyLoadNumber">
-          <TextInput
-            type="number"
-            bind:value={extensions[studyLoad.name]}
-            error={errors.StudyLoadExtension}
-            disabled={!mayEdit && !isCopy}
-            placeholder={I18n.t("placeholders.badgeClass.studyLoad")}/>
+
+        <Field {entity} attribute="image" errors={errors.image} tipKey="badgeClassImage">
+            <File
+                    bind:value={badgeclass.image}
+                    disabled={!mayEdit && !isCopy}
+                    error={errors.image}
+                    removeAllowed={false}/>
         </Field>
-      {:else}
-        <Field {entity} attribute="ects.creditPoints" errors={errors.ectsLong} tipKey="badgeClassStudyLoadEcts">
-          <EctsCreditPoints
-            bind:ectsValue={extensions[ects.name]}
-            disabled={!mayEdit && !isCopy}
-          />
+
+        <ExpirationSettings
+                bind:expireValueSet={badgeclass.expireValueSet}
+                disabled={false}
+                className=""
+                bind:number={badgeclass.expirationDuration}
+                bind:period={badgeclass.expirationPeriod}/>
+
+        <Field {entity} attribute="name" errors={errors.name} tipKey="badgeClassName">
+            <TextInput bind:value={badgeclass.name} disabled={!mayEdit && !isCopy} error={errors.name}
+                       placeholder={I18n.t("placeholders.badgeClass.name")}/>
         </Field>
-      {/if}
-    </div>
-  {/if}
 
-  {#if showTimeInvestment}
-    <div style="display: flex">
-      <div class="deletable-title"><h4>{I18n.t('models.badgeclass.headers.timeInvestment')}</h4></div>
-      {#if mayEdit}
-        <button class="rm-icon-container" on:click={removeTimeInvestment}>{@html trash}</button>
-      {:else}
-        <button class="rm-icon-container disabled">{@html trash}</button>
-      {/if}
+        <Field {entity} attribute="language" errors={errors.language} tipKey="badgeClassLanguageOfInstruction">
+            <Select
+                    bind:value={languageSelection}
+                    items={languages}
+                    disabled={!mayEdit && !isCopy}
+                    optionIdentifier="value"
+                    clearable={false}/>
+        </Field>
+
+        <div style="grid-column: span 1;">
+            <Field {entity} attribute="description" errors={errors.description} tipKey="badgeClassDescription">
+                <MarkdownField
+                        bind:value={badgeclass.description}
+                        disabled={!mayEdit && !isCopy}
+                />
+            </Field>
+        </div>
+        <div style="grid-column: span 1;">
+            <Field {entity} attribute="learningOutcome" errors={errors.learningOutcome}
+                   tipKey="badgeClassLearningOutcome">
+                <MarkdownField
+                        bind:value={extensions[learningOutcome.name]}
+                        disabled={!mayEdit && !isCopy}
+                />
+            </Field>
+        </div>
+
+        <Field {entity} attribute="issuer" errors={errors.issuer} tipKey="badgeClassLearningIssuer">
+            <Select
+                    bind:value={badgeclass.issuer}
+                    error={errors.issuer}
+                    disabled={issuers.length === 1 || (!mayEdit && !isCopy)}
+                    clearable={false}
+                    optionIdentifier="entityId"
+                    items={issuers}/>
+        </Field>
+
+        <Field {entity} attribute="extraOptions">
+            <CheckBox
+                    value={badgeclass.isPrivate || false}
+                    inForm={true}
+                    adjustTop={true}
+                    label={I18n.t(['models', entity, 'isPrivate'])}
+                    tipKey="badgeClassIsPrivate"
+                    disabled={hasUnrevokedAssertions}
+                    onChange={val => badgeclass.isPrivate = val}/>
+            <CheckBox
+                    value={badgeclass.evidenceRequired || false}
+                    inForm={true}
+                    adjustTop={true}
+                    label={I18n.t(['models', entity, 'evidenceRequired'])}
+                    tipKey="badgeClassEvidenceRequired"
+                    onChange={val => badgeclass.evidenceRequired = val}/>
+            <CheckBox
+                    value={badgeclass.narrativeRequired || false}
+                    inForm={true}
+                    adjustTop={true}
+                    label={I18n.t(['models', entity, 'narrativeRequired'])}
+                    tipKey="badgeClassNarrativeRequired"
+                    onChange={val => badgeclass.narrativeRequired = val}/>
+            <CheckBox
+                    value={badgeclass.awardNonValidatedNameAllowed || false}
+                    inForm={true}
+                    disabled={showStudyLoad}
+                    adjustTop={true}
+                    label={I18n.t(['models', entity, 'awardNonValidatedNameAllowed'])}
+                    tipKey="badgeClassAwardNonValidatedNameAllowed"
+                    onChange={val => badgeclass.awardNonValidatedNameAllowed = val}/>
+        </Field>
     </div>
+
+    <h4>{I18n.t('models.badgeclass.headers.earningCriteria')}</h4>
 
     <div class="form">
-      <Field {entity} attribute="hours" errors={errors.TimeInvestmentExtension} tipKey="badgeClassTimeInvestmentNumber">
-        <TextInput
-          type="number"
-          bind:value={extensions[timeInvestment.name]}
-          error={errors.TimeInvestmentExtension}
-          disabled={!mayEdit && !isCopy}
-          placeholder={I18n.t("placeholders.badgeClass.timeInvestment")}/>
-      </Field>
+        <div style="grid-column: span 1;">
+            <Field {entity} attribute="criteria_text" errors={errors.criteria_text}
+                   tipKey="badgeClassCriteriaRequirements">
+                <MarkdownField
+                        bind:value={badgeclass.criteriaText}
+                        disabled={!mayEdit && !isCopy}
+                />
+            </Field>
+        </div>
+        <Field {entity} attribute="criteria_url" errors={errors.criteria_url} tipKey="badgeClassCriteriaUrl">
+            <TextInput
+                    bind:value={badgeclass.criteriaUrl}
+                    disabled={!mayEdit && !isCopy}
+                    placeholder={I18n.t("placeholders.badgeClass.criteriaUrl")}
+                    error={errors.criteria_url}/>
+        </Field>
     </div>
-  {/if}
 
-  {#if showEducationalIdentifiers}
-    <div style="display: flex">
-      <div class="deletable-title"><h4>{I18n.t('models.badgeclass.headers.educationalIdentifiers')}</h4></div>
-      {#if mayEdit && (!showStudyLoad || isInstitutionMBO)}
-        <button class="rm-icon-container" on:click={() => showEducationalIdentifiers = false}>{@html trash}</button>
-      {/if}
-    </div>
+    {#if publicInstitutions.length > 0 && !showStudyLoad}
 
-    <div class="form">
-      <Field
-        {entity}
-        attribute="educationProgramIdentifierLong"
-        errors={errors.EducationProgramIdentifierExtension}
-        tipKey="badgeClassProgrammeIdentifier">
-        <TextInput
-          type="text"
-          bind:value={extensions[educationProgramIdentifier.name]}
-          disabled={!mayEdit && !isCopy}
-          placeholder={I18n.t("placeholders.badgeClass.educationProgramIdentifier")}
-          error={errors.EducationProgramIdentifierExtension}/>
-        <span class="info">
+        <h4>{I18n.t('models.badgeclass.headers.allowedInstituions')}</h4>
+
+        <Field {entity} attribute="award_allowed_institutions" errors={errors.award_allowed_institutions}
+               tipKey="badgeclassAwardAllowedInstitutions">
+            <Select
+                    bind:value={publicInstitutionsChosen}
+                    items={publicInstitutions}
+                    isMulti={true}
+                    customIndicator={indicator}
+                    showIndicator={false}
+                    showChevron={true}
+                    clearable={true}
+                    placeholder={I18n.t("placeholders.institution.allowedInstitutions")}
+                    optionIdentifier="id"
+            />
+        </Field>
+    {/if}
+
+    {#if showStudyLoad}
+        <div style="display: flex">
+            <div class="deletable-title"><h4>{I18n.t('models.badgeclass.headers.studyLoad')}</h4></div>
+            {#if institution.grondslagInformeel !== null}
+                {#if mayEdit}
+                    <button class="rm-icon-container" on:click={removeStudyLoad}>{@html trash}</button>
+                {:else}
+                    <button class="rm-icon-container disabled">{@html trash}</button>
+                {/if}
+            {/if}
+        </div>
+
+        <div class="form">
+            {#if isInstitutionMBO}
+                <Field {entity} attribute="hours" errors={errors.StudyLoadExtension} tipKey="badgeClassStudyLoadNumber">
+                    <TextInput
+                            type="number"
+                            bind:value={extensions[studyLoad.name]}
+                            error={errors.StudyLoadExtension}
+                            disabled={!mayEdit && !isCopy}
+                            placeholder={I18n.t("placeholders.badgeClass.studyLoad")}/>
+                </Field>
+            {:else}
+                <Field {entity} attribute="ects.creditPoints" errors={errors.ectsLong} tipKey="badgeClassStudyLoadEcts">
+                    <EctsCreditPoints
+                            bind:ectsValue={extensions[ects.name]}
+                            disabled={!mayEdit && !isCopy}
+                    />
+                </Field>
+            {/if}
+        </div>
+    {/if}
+
+    {#if showTimeInvestment}
+        <div style="display: flex">
+            <div class="deletable-title"><h4>{I18n.t('models.badgeclass.headers.timeInvestment')}</h4></div>
+            {#if mayEdit}
+                <button class="rm-icon-container" on:click={removeTimeInvestment}>{@html trash}</button>
+            {:else}
+                <button class="rm-icon-container disabled">{@html trash}</button>
+            {/if}
+        </div>
+
+        <div class="form">
+            <Field {entity} attribute="hours" errors={errors.TimeInvestmentExtension}
+                   tipKey="badgeClassTimeInvestmentNumber">
+                <TextInput
+                        type="number"
+                        bind:value={extensions[timeInvestment.name]}
+                        error={errors.TimeInvestmentExtension}
+                        disabled={!mayEdit && !isCopy}
+                        placeholder={I18n.t("placeholders.badgeClass.timeInvestment")}/>
+            </Field>
+        </div>
+    {/if}
+
+    {#if showEducationalIdentifiers}
+        <div style="display: flex">
+            <div class="deletable-title"><h4>{I18n.t('models.badgeclass.headers.educationalIdentifiers')}</h4></div>
+            {#if mayEdit && (!showStudyLoad || isInstitutionMBO)}
+                <button class="rm-icon-container"
+                        on:click={() => showEducationalIdentifiers = false}>{@html trash}</button>
+            {/if}
+        </div>
+
+        <div class="form">
+            <Field
+                    {entity}
+                    attribute="educationProgramIdentifierLong"
+                    errors={errors.EducationProgramIdentifierExtension}
+                    tipKey="badgeClassProgrammeIdentifier">
+                <TextInput
+                        type="text"
+                        bind:value={extensions[educationProgramIdentifier.name]}
+                        disabled={!mayEdit && !isCopy}
+                        placeholder={I18n.t("placeholders.badgeClass.educationProgramIdentifier")}
+                        error={errors.EducationProgramIdentifierExtension}/>
+                <span class="info">
           {@html I18n.t('models.badgeclass.info.educationProgramIdentifier')}
         </span>
-      </Field>
+            </Field>
 
-      <Field {entity} attribute="eqf" errors={errors.eqf} tipKey="badgeClassNLQFLevel">
-        <Select
-          bind:value={extensions[eqf.name]}
-          items={eqfItems}
-          disabled={!mayEdit && !isCopy}
-          optionIdentifier="value"
-          clearable={false}/>
-        <span class="info">
+            <Field {entity} attribute="eqf" errors={errors.eqf} tipKey="badgeClassNLQFLevel">
+                <Select
+                        bind:value={extensions[eqf.name]}
+                        items={eqfItems}
+                        disabled={!mayEdit && !isCopy}
+                        optionIdentifier="value"
+                        clearable={false}/>
+                <span class="info">
           {@html I18n.t('models.badgeclass.info.eqf')}
         </span>
-      </Field>
-    </div>
-  {/if}
-
-  {#if showAlignment}
-    <div style="display: flex">
-      <div class="deletable-title"><h4>{I18n.t('models.badgeclass.headers.alignment')}</h4></div>
-      {#if mayEdit}
-        <button class="rm-icon-container" on:click={() => removeAllAlignment()}>{@html trash}</button>
-      {/if}
-    </div>
-
-    {#each badgeclass.alignments as alignment, i}
-      {#if (mayEdit || !alignment.existing) && badgeclass.alignments.length > 1}
-        <div>
-          <button style="float:right;" class="rm-icon-container"
-                  on:click={() => removeAlignment(i) }>{@html trash}</button>
+            </Field>
         </div>
-      {/if}
-      <div class="form">
-        <Field {entity} attribute="alignmentName" errors={errors.alignments? errors.alignments[i].target_name: [] }
-               tipKey="badgeClassRelatedFrameworkName">
-          <TextInput
-            bind:value={alignment.target_name}
-            disabled={(!mayEdit && alignment.existing) && !isCopy}
-            error={errors.target_name}
-            placeholder={I18n.t("placeholders.badgeClass.alignmentName")}
-          />
-        </Field>
-        <Field {entity} attribute="alignmentFramework"
-               errors={errors.alignments? errors.alignments[i].target_framework: [] }
-               tipKey="badgeClassRelatedFrameworkFramework">
-          <TextInput
-            bind:value={alignment.target_framework}
-            disabled={(!mayEdit && alignment.existing) && !isCopy}
-            error={errors.target_framework}
-            placeholder={I18n.t("placeholders.badgeClass.alignmentFramework")}
-          />
-        </Field>
-        <Field {entity} attribute="alignmentUrl" errors={errors.alignments? errors.alignments[i].target_url: []}
-               tipKey="badgeClassRelatedFrameworkURL">
-          <TextInput
-            bind:value={alignment.target_url}
-            disabled={(!mayEdit && alignment.existing) && !isCopy}
-            error={errors.target_url}
-            placeholder={I18n.t("placeholders.badgeClass.alignmentUrl")}
-          />
-        </Field>
-        <Field {entity} attribute="alignmentCode" errors={errors.alignments? errors.alignments[i].target_code: []}
-               tipKey="badgeClassRelatedFrameworkCode">
-          <TextInput
-            bind:value={alignment.target_code}
-            disabled={(!mayEdit && alignment.existing) && !isCopy}
-            error={errors.target_code}
-            placeholder={I18n.t("placeholders.badgeClass.alignmentCode")}
-          />
-        </Field>
-        <Field {entity} attribute="alignmentDescription"
-               errors={errors.alignments? errors.alignments[i].target_description: []}
-               tipKey="badgeClassRelatedFrameworkDescription">
-          <TextInput
-            bind:value={alignment.target_description}
-            error={errors.target_description}
-            disabled={(!mayEdit && alignment.existing) && !isCopy}
-            area
-            size="100"
-            placeholder={I18n.t("placeholders.badgeClass.alignmentDescription")}
-          />
-        </Field>
-      </div>
-    {/each}
-    <span class="add-button">
+    {/if}
+
+    {#if showAlignment}
+        <div style="display: flex">
+            <div class="deletable-title"><h4>{I18n.t('models.badgeclass.headers.alignment')}</h4></div>
+            {#if mayEdit}
+                <button class="rm-icon-container" on:click={() => removeAllAlignment()}>{@html trash}</button>
+            {/if}
+        </div>
+
+        {#each badgeclass.alignments as alignment, i}
+            {#if (mayEdit || !alignment.existing) && badgeclass.alignments.length > 1}
+                <div>
+                    <button style="float:right;" class="rm-icon-container"
+                            on:click={() => removeAlignment(i) }>{@html trash}</button>
+                </div>
+            {/if}
+            <div class="form">
+                <Field {entity} attribute="alignmentName"
+                       errors={errors.alignments? errors.alignments[i].target_name: [] }
+                       tipKey="badgeClassRelatedFrameworkName">
+                    <TextInput
+                            bind:value={alignment.target_name}
+                            disabled={(!mayEdit && alignment.existing) && !isCopy}
+                            error={errors.target_name}
+                            placeholder={I18n.t("placeholders.badgeClass.alignmentName")}
+                    />
+                </Field>
+                <Field {entity} attribute="alignmentFramework"
+                       errors={errors.alignments? errors.alignments[i].target_framework: [] }
+                       tipKey="badgeClassRelatedFrameworkFramework">
+                    <TextInput
+                            bind:value={alignment.target_framework}
+                            disabled={(!mayEdit && alignment.existing) && !isCopy}
+                            error={errors.target_framework}
+                            placeholder={I18n.t("placeholders.badgeClass.alignmentFramework")}
+                    />
+                </Field>
+                <Field {entity} attribute="alignmentUrl" errors={errors.alignments? errors.alignments[i].target_url: []}
+                       tipKey="badgeClassRelatedFrameworkURL">
+                    <TextInput
+                            bind:value={alignment.target_url}
+                            disabled={(!mayEdit && alignment.existing) && !isCopy}
+                            error={errors.target_url}
+                            placeholder={I18n.t("placeholders.badgeClass.alignmentUrl")}
+                    />
+                </Field>
+                <Field {entity} attribute="alignmentCode"
+                       errors={errors.alignments? errors.alignments[i].target_code: []}
+                       tipKey="badgeClassRelatedFrameworkCode">
+                    <TextInput
+                            bind:value={alignment.target_code}
+                            disabled={(!mayEdit && alignment.existing) && !isCopy}
+                            error={errors.target_code}
+                            placeholder={I18n.t("placeholders.badgeClass.alignmentCode")}
+                    />
+                </Field>
+                <div style="grid-column: span 1;">
+                    <Field {entity} attribute="alignmentDescription"
+                           errors={errors.alignments? errors.alignments[i].target_description: []}
+                           tipKey="badgeClassRelatedFrameworkDescription">
+                        <MarkdownField
+                                bind:value={alignment.target_description}
+                                disabled={(!mayEdit && alignment.existing) && !isCopy}
+                        />
+                    </Field>
+                </div>
+
+            </div>
+        {/each}
+        <span class="add-button">
         <AddButton
-          text={I18n.t('models.badgeclass.addButtons.alignmentAddition')}
-          handleClick={() => addEmptyAlignment()}
-          visibility={showAddAlignmentButton}
-          disabled={false}
+                text={I18n.t('models.badgeclass.addButtons.alignmentAddition')}
+                handleClick={() => addEmptyAlignment()}
+                visibility={showAddAlignmentButton}
+                disabled={false}
         />
       </span>
-  {/if}
+    {/if}
 
-  {#if !(showStudyLoad && showEducationalIdentifiers && showAlignment)}
-    <h4>{I18n.t('models.badgeclass.headers.additionalSections')}</h4>
+    {#if !(showStudyLoad && showEducationalIdentifiers && showAlignment)}
+        <h4>{I18n.t('models.badgeclass.headers.additionalSections')}</h4>
 
-    <div class="add-buttons">
+        <div class="add-buttons">
       <span class="add-button">
         <AddButton
-          text={I18n.t('models.badgeclass.addButtons.educationalIdentifiers')}
-          handleClick={() => showEducationalIdentifiers = true}
-          visibility={!showEducationalIdentifiers}
-          disabled={!mayEdit && !isCopy}
+                text={I18n.t('models.badgeclass.addButtons.educationalIdentifiers')}
+                handleClick={() => showEducationalIdentifiers = true}
+                visibility={!showEducationalIdentifiers}
+                disabled={!mayEdit && !isCopy}
         />
       </span>
-      {#if institution.grondslagFormeel !== null}
+            {#if institution.grondslagFormeel !== null}
         <span class="add-button">
           <AddButton
-            text={I18n.t('models.badgeclass.addButtons.studyLoad')}
-            handleClick={addStudyLoad}
-            visibility={!showStudyLoad}
-            disabled={!mayEdit && !isCopy}
+                  text={I18n.t('models.badgeclass.addButtons.studyLoad')}
+                  handleClick={addStudyLoad}
+                  visibility={!showStudyLoad}
+                  disabled={!mayEdit && !isCopy}
           />
         </span>
-      {/if}
-      {#if !showTimeInvestment && institution.grondslagInformeel !== null}
+            {/if}
+            {#if !showTimeInvestment && institution.grondslagInformeel !== null}
         <span class="add-button">
           <AddButton
-            text={I18n.t('models.badgeclass.addButtons.timeInvestment')}
-            handleClick={addTimeInvestment}
-            visibility={!showTimeInvestment}
-            disabled={!mayEdit && !isCopy}
+                  text={I18n.t('models.badgeclass.addButtons.timeInvestment')}
+                  handleClick={addTimeInvestment}
+                  visibility={!showTimeInvestment}
+                  disabled={!mayEdit && !isCopy}
           />
         </span>
-      {/if}
-      <span class="add-button">
+            {/if}
+            <span class="add-button">
         <AddButton
-          text={I18n.t('models.badgeclass.addButtons.alignment')}
-          handleClick={() => addEmptyAlignment()}
-          visibility={!showAlignment}
-          disabled={false}
+                text={I18n.t('models.badgeclass.addButtons.alignment')}
+                handleClick={() => addEmptyAlignment()}
+                visibility={!showAlignment}
+                disabled={false}
         />
       </span>
-    </div>
-  {/if}
+        </div>
+    {/if}
 </EntityForm>

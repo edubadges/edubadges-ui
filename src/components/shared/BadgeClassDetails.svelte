@@ -13,14 +13,13 @@
         timeInvestment
     } from "../extensions/badges/extensions";
     import {onMount} from "svelte";
-    import DOMPurify from 'dompurify';
-    import { marked } from "marked";
     import {fallBackValue} from "../../util/forms";
     import languageIcon from "../../icons/messages-bubble-square-text.svg";
     import schoolTrophyIcon from "../../icons/school-book-trophy.svg";
     import calendarIcon from "../../icons/calendar-1.svg";
     import awardIcon from "../../icons/award-ribbon-star-1.svg";
     import {translateProperties} from "../../util/utils";
+    import MarkdownField from "../forms/MarkdownField.svelte";
 
     export let badgeclass;
     export let publicInstitutions;
@@ -200,140 +199,141 @@
 </style>
 
 <div class="slots">
-  <slot/>
+    <slot/>
 </div>
 <div class="badge-class-detail-container">
-  <div class="badge-class-detail">
-    <h2 class="black-header">{I18n.t('models.badgeclass.about')}</h2>
-    <p class="info markdown">
-      {@html DOMPurify.sanitize(marked(badgeclass.description))}
-    </p>
-    <h3>{I18n.t('models.badgeclass.learningOutcome')}</h3>
-    <p class="info markdown">
-      {@html DOMPurify.sanitize(marked(fallBackValue(badgeclass.learningOutcome)))}
-    </p>
-    <h3>{I18n.t('models.badgeclass.criteria_text')}</h3>
-    {#if badgeclass.criteriaText}
-      <p class="info markdown">
-        {@html DOMPurify.sanitize(marked(fallBackValue(badgeclass.criteriaText)))}
-      </p>
-    {/if}
-    {#if badgeclass.criteriaUrl}
-      <p class="green">
-        <a href={badgeclass.criteriaUrl} target="_blank" rel="noreferrer noopener">
-          {badgeclass.criteriaUrl}
-        </a>
-      </p>
-    {/if}
-    {#if badgeclass.alignments && badgeclass.alignments.length > 0}
-      <section class="alignments">
-        <h3
-          class="black-header">{badgeclass.alignments.length > 1 ? I18n.t("models.badgeclass.alignmentMultiple") : I18n.t("models.badgeclass.alignment")}</h3>
-        {#each badgeclass.alignments as alignment}
-          <section class="alignment">
-            <h4 class="black-header">{alignment.targetName}</h4>
-            <div class="alignment-container">
-              <div class="alignment-item alignmentCode">
-                <h4>{I18n.t('models.badgeclass.alignmentCode')}</h4>
-                {alignment.targetCode}
-              </div>
-              <div class="vertical">&nbsp;</div>
-              <div class="alignment-item alignmentFramework">
-                <h4>{I18n.t('models.badgeclass.alignmentFramework')}</h4>
-                {alignment.targetFramework}
-              </div>
-              <div class="vertical">&nbsp;</div>
-              <div class="alignment-item alignmentUrl">
-                <h4>{I18n.t('models.badgeclass.alignmentUrl')}</h4>
-                {#if alignment.targetUrl}
-                  <a href="{alignment.targetUrl}" target="_blank">{alignment.targetUrl}</a>
-                {/if}
-              </div>
+    <div class="badge-class-detail">
+        <h2 class="black-header">{I18n.t('models.badgeclass.about')}</h2>
+        <div class="info markdown-body">
+            <MarkdownField value={badgeclass.description} disabled={true}/>
+        </div>
+        <h3>{I18n.t('models.badgeclass.learningOutcome')}</h3>
+        <div class="info markdown-body">
+            <MarkdownField value={fallBackValue(badgeclass.learningOutcome)} disabled={true}/>
+        </div>
+        <h3>{I18n.t('models.badgeclass.criteria_text')}</h3>
+        {#if badgeclass.criteriaText}
+            <div class="info markdown-body">
+                <MarkdownField value={fallBackValue(badgeclass.criteriaText)} disabled={true}/>
             </div>
-            {#if alignment.targetDescription}
-              <p class="sub-info markdown">
-                {@html DOMPurify.sanitize(marked(alignment.targetDescription))}
-              </p>
-            {/if}
-          </section>
-        {/each}
-      </section>
+        {/if}
+        {#if badgeclass.criteriaUrl}
+            <p class="green">
+                <a href={badgeclass.criteriaUrl} target="_blank" rel="noreferrer noopener">
+                    {badgeclass.criteriaUrl}
+                </a>
+            </p>
+        {/if}
+        {#if badgeclass.alignments && badgeclass.alignments.length > 0}
+            <section class="alignments">
+                <h3
+                        class="black-header">{badgeclass.alignments.length > 1 ? I18n.t("models.badgeclass.alignmentMultiple") : I18n.t("models.badgeclass.alignment")}</h3>
+                {#each badgeclass.alignments as alignment}
+                    <section class="alignment">
+                        <h4 class="black-header">{alignment.targetName}</h4>
+                        <div class="alignment-container">
+                            <div class="alignment-item alignmentCode">
+                                <h4>{I18n.t('models.badgeclass.alignmentCode')}</h4>
+                                {alignment.targetCode}
+                            </div>
+                            <div class="vertical">&nbsp;</div>
+                            <div class="alignment-item alignmentFramework">
+                                <h4>{I18n.t('models.badgeclass.alignmentFramework')}</h4>
+                                {alignment.targetFramework}
+                            </div>
+                            <div class="vertical">&nbsp;</div>
+                            <div class="alignment-item alignmentUrl">
+                                <h4>{I18n.t('models.badgeclass.alignmentUrl')}</h4>
+                                {#if alignment.targetUrl}
+                                    <a href="{alignment.targetUrl}" target="_blank">{alignment.targetUrl}</a>
+                                {/if}
+                            </div>
+                        </div>
+                        {#if alignment.targetDescription}
+                            <div class="sub-info markdown-body">
+                                <MarkdownField value={fallBackValue(alignment.targetDescription)} disabled={true}/>
+                            </div>
+                        {/if}
+                    </section>
+                {/each}
+            </section>
 
-    {/if}
-  </div>
-  <div class="right-side-nav">
-    {#if badge}
-      <section class="study-load">
-        <div class="no-icon">
-          <h3>{I18n.t("models.badge.issuedOn")}</h3>
-          <span>{moment(badge.issuedOn).format('MMM D, YYYY')}</span>
-        </div>
-      </section>
-      <section class="study-load">
-        <div class="no-icon">
-          <h3>{I18n.t("models.badge.expires")}</h3>
-          <span>{badge.expiresAt ? moment(badge.expiresAt).format('MMM D, YYYY') : I18n.t("models.badge.expiresNever")}</span>
-        </div>
-      </section>
-    {/if}
-    <section class="study-load">
-      {@html languageIcon}
-      <div>
-        <h3>{I18n.t('models.badgeclass.language')}</h3>
-        <span>
+        {/if}
+    </div>
+    <div class="right-side-nav">
+        {#if badge}
+            <section class="study-load">
+                <div class="no-icon">
+                    <h3>{I18n.t("models.badge.issuedOn")}</h3>
+                    <span>{moment(badge.issuedOn).format('MMM D, YYYY')}</span>
+                </div>
+            </section>
+            <section class="study-load">
+                <div class="no-icon">
+                    <h3>{I18n.t("models.badge.expires")}</h3>
+                    <span>{badge.expiresAt ? moment(badge.expiresAt).format('MMM D, YYYY') : I18n.t("models.badge.expiresNever")}</span>
+                </div>
+            </section>
+        {/if}
+        <section class="study-load">
+            {@html languageIcon}
+            <div>
+                <h3>{I18n.t('models.badgeclass.language')}</h3>
+                <span>
         {I18n.t(`language.${badgeclass.language || "en_EN"}`)}
       </span>
-      </div>
-    </section>
-    {#if badgeclass.studyLoadValue}
-      <section class="study-load">
-        {@html schoolTrophyIcon}
-        <div>
-          <h3>{I18n.t("teacher.badgeclasses.studyLoad")}</h3>
-          <span>{fallBackValue(badgeclass.studyLoadValue)}</span>
-        </div>
-      </section>
-    {/if}
-    {#if badgeclass.timeInvestmentValue}
-      <section class="study-load">
-        {@html schoolTrophyIcon}
-        <div>
-          <h3>{I18n.t("teacher.badgeclasses.timeInvestment")}</h3>
-          <span>{fallBackValue(badgeclass.timeInvestmentValue)}</span>
-        </div>
-      </section>
-    {/if}
-    {#if badgeclass.educationProgramIdentifier || badgeclass.eqf}
-      <section class="study-load">
-        {@html calendarIcon}
-        <div>
-          <h3>{I18n.t("teacher.badgeclasses.educationProgramIdentifier")}</h3>
-          {#if badgeclass.educationProgramIdentifier}
-            <span>{fallBackValue(badgeclass.educationProgramIdentifier)}</span>
-          {/if}
-          {#if badgeclass.eqf}
-            <span>{`NLQF ${badgeclass.eqf}`}</span>
-          {/if}
-        </div>
-      </section>
-    {/if}
-    {#if publicInstitutions && badgeclass.awardAllowedInstitutions && badgeclass.awardAllowedInstitutions.length > 0}
-      <section class="study-load">
-        {@html awardIcon}
-        <div>
-          <h3>{I18n.t("teacher.badgeclasses.awardAllowedInstitutions")}</h3>
-          {#each badgeclass.awardAllowedInstitutions as institution, i }
-            {#if i < cutoffInstitutionThreshold || showAllInstitutions}
-              <span>{institution.name}</span>
-            {/if}
-          {/each}
-          {#if badgeclass.awardAllowedInstitutions.length > cutoffInstitutionThreshold}
-            <a href="/" on:click|preventDefault|stopPropagation={() => showAllInstitutions = !showAllInstitutions}>
-              {I18n.t(`teacher.badgeclasses.${showAllInstitutions ? "showLessInstitutions" : "showMoreInstitutions" }`)}
-            </a>
-          {/if}
-        </div>
-      </section>
-    {/if}
-  </div>
+            </div>
+        </section>
+        {#if badgeclass.studyLoadValue}
+            <section class="study-load">
+                {@html schoolTrophyIcon}
+                <div>
+                    <h3>{I18n.t("teacher.badgeclasses.studyLoad")}</h3>
+                    <span>{fallBackValue(badgeclass.studyLoadValue)}</span>
+                </div>
+            </section>
+        {/if}
+        {#if badgeclass.timeInvestmentValue}
+            <section class="study-load">
+                {@html schoolTrophyIcon}
+                <div>
+                    <h3>{I18n.t("teacher.badgeclasses.timeInvestment")}</h3>
+                    <span>{fallBackValue(badgeclass.timeInvestmentValue)}</span>
+                </div>
+            </section>
+        {/if}
+        {#if badgeclass.educationProgramIdentifier || badgeclass.eqf}
+            <section class="study-load">
+                {@html calendarIcon}
+                <div>
+                    <h3>{I18n.t("teacher.badgeclasses.educationProgramIdentifier")}</h3>
+                    {#if badgeclass.educationProgramIdentifier}
+                        <span>{fallBackValue(badgeclass.educationProgramIdentifier)}</span>
+                    {/if}
+                    {#if badgeclass.eqf}
+                        <span>{`NLQF ${badgeclass.eqf}`}</span>
+                    {/if}
+                </div>
+            </section>
+        {/if}
+        {#if publicInstitutions && badgeclass.awardAllowedInstitutions && badgeclass.awardAllowedInstitutions.length > 0}
+            <section class="study-load">
+                {@html awardIcon}
+                <div>
+                    <h3>{I18n.t("teacher.badgeclasses.awardAllowedInstitutions")}</h3>
+                    {#each badgeclass.awardAllowedInstitutions as institution, i }
+                        {#if i < cutoffInstitutionThreshold || showAllInstitutions}
+                            <span>{institution.name}</span>
+                        {/if}
+                    {/each}
+                    {#if badgeclass.awardAllowedInstitutions.length > cutoffInstitutionThreshold}
+                        <a href="/"
+                           on:click|preventDefault|stopPropagation={() => showAllInstitutions = !showAllInstitutions}>
+                            {I18n.t(`teacher.badgeclasses.${showAllInstitutions ? "showLessInstitutions" : "showMoreInstitutions"}`)}
+                        </a>
+                    {/if}
+                </div>
+            </section>
+        {/if}
+    </div>
 </div>
