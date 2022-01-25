@@ -338,6 +338,13 @@
     font-size: 14px;
   }
 
+  div.mark-down-container.disabled {
+    background-color: var(--grey-2);
+    border: 1px solid var(--text-grey-dark);
+    padding: 5px;
+    border-radius: 4px;
+  }
+
   .deletable-title {
     display: inline-block;
   }
@@ -419,19 +426,23 @@
 
         <div style="grid-column: span 1;">
             <Field {entity} attribute="description" errors={errors.description} tipKey="badgeClassDescription">
-                <MarkdownField
-                        bind:value={badgeclass.description}
-                        disabled={!mayEdit && !isCopy}
-                />
+                <div class="mark-down-container" class:disabled={!mayEdit && !isCopy}>
+                    <MarkdownField
+                            bind:value={badgeclass.description}
+                            disabled={!mayEdit && !isCopy}
+                    />
+                </div>
             </Field>
         </div>
         <div style="grid-column: span 1;">
             <Field {entity} attribute="learningOutcome" errors={errors.learningOutcome}
                    tipKey="badgeClassLearningOutcome">
-                <MarkdownField
-                        bind:value={extensions[learningOutcome.name]}
-                        disabled={!mayEdit && !isCopy}
-                />
+                <div class="mark-down-container" class:disabled={!mayEdit && !isCopy}>
+                    <MarkdownField
+                            bind:value={extensions[learningOutcome.name]}
+                            disabled={!mayEdit && !isCopy}
+                    />
+                </div>
             </Field>
         </div>
 
@@ -485,10 +496,12 @@
         <div style="grid-column: span 1;">
             <Field {entity} attribute="criteria_text" errors={errors.criteria_text}
                    tipKey="badgeClassCriteriaRequirements">
-                <MarkdownField
-                        bind:value={badgeclass.criteriaText}
-                        disabled={!mayEdit && !isCopy}
-                />
+                <div class="mark-down-container" class:disabled={!mayEdit && !isCopy}>
+                    <MarkdownField
+                            bind:value={badgeclass.criteriaText}
+                            disabled={!mayEdit && !isCopy}
+                    />
+                </div>
             </Field>
         </div>
         <Field {entity} attribute="criteria_url" errors={errors.criteria_url} tipKey="badgeClassCriteriaUrl">
@@ -675,10 +688,12 @@
                     <Field {entity} attribute="alignmentDescription"
                            errors={errors.alignments? errors.alignments[i].target_description: []}
                            tipKey="badgeClassRelatedFrameworkDescription">
-                        <MarkdownField
-                                bind:value={alignment.target_description}
-                                disabled={(!mayEdit && alignment.existing) && !isCopy}
-                        />
+                        <div class="mark-down-container" class:disabled={(!mayEdit && alignment.existing) && !isCopy}>
+                            <MarkdownField
+                                    bind:value={alignment.target_description}
+                                    disabled={(!mayEdit && alignment.existing) && !isCopy}
+                            />
+                        </div>
                     </Field>
                 </div>
             </div>

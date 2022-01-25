@@ -19,11 +19,8 @@
   }
 </style>
 
-<template class="markdown">
-    {#if disabled}
-        <Viewer {value} {plugins}/>
-    {:else}
-        <Editor {value} {plugins} mode="split" on:change={e => value = e.detail.value}/>
-    {/if}
-
-</template>
+{#if disabled}
+    <Viewer {value} {plugins}/>
+{:else}
+    <Editor {value} {plugins} mode="split" on:change={e => value = e.detail.value}/>
+{/if}
