@@ -1,9 +1,11 @@
 <script>
   import I18n from "i18n-js";
   import Button from "../Button.svelte";
+  import {isEmpty} from "lodash";
   import {Field, Select, TextInput} from ".";
   import {createEventDispatcher, onMount} from "svelte";
   import {entityType} from "../../util/entityTypes";
+  import indicator from "../../icons/chevron-down-large.svg";
   import {permissionsRole} from "../../util/rolesToPermissions";
   import {
     changeUserToBadgeclassAwarder,
@@ -21,6 +23,7 @@
   export let title;
 
   export let userNameDict;
+  export let busy;
   export let userId;
   export let targetOptions = [];
   export let badgeClassStaffs = [];
@@ -28,12 +31,12 @@
   let filteredBadgeClassStaffs = [];
   let roles = [];
 
-  let chosenBadgeClass = targetOptions[0];
+  let chosenBadgeClasses = null;
   let chosenRole;
 
-  const setRolesForBadgeClass = selectedBadgeClass => {
+  const setRolesForBadgeClass = selectedBadgeClasses => {
     roles = [];
-    let permissions = badgeClassStaffs.find(bCF => bCF.badgeclass.entityId === selectedBadgeClass.entityId);
+    let permissions = badgeClassStaffs.find(bCF => selectedBadgeClasses && selectedBadgeClasses.some(chosen => chosen.entityId === bCF.badgeclass.entityId));
     if (!permissions || !permissions.mayAdministrateUsers) {
       roles = [...roles, {
         name: I18n.t(['editUsers', 'badgeclass', permissionsRole.OWNER]),
@@ -55,12 +58,13 @@
     chosenRole = roles[roles.length - 1];
   };
 
-  setRolesForBadgeClass(chosenBadgeClass);
+  setRolesForBadgeClass(chosenBadgeClasses);
 
   let notes;
 
   const submit = () => {
-    let alreadyHasPermissions = badgeClassStaffs.find(bCF => bCF.badgeclass.entityId === chosenBadgeClass.entityId);
+    busy && busy();
+    let alreadyHasPermissions = badgeClassStaffs.find(bCF => chosenBadgeClasses && chosenBadgeClasses.some(chosen => chosen.entityId === bCF.badgeclass.entityId));
 
     if (alreadyHasPermissions) {
       switch (chosenRole.value) {
@@ -84,28 +88,27 @@
           break;
       }
     } else {
+      let promise = null;
+      let flashPart = "";
       switch (chosenRole.value) {
         case permissionsRole.OWNER:
-          makeUserBadgeclassOwner(chosenBadgeClass.entityId, userId, notes).then(() => {
-            dispatch('permissionAdded');
-            flash.setValue(I18n.t("editUsers.flash.makeUserBadgeClassAdmin", userNameDict));
-          });
+          promise = makeUserBadgeclassOwner;
+          flashPart = "makeUserBadgeClassAdmin";
           break;
         case permissionsRole.EDITOR:
-          makeUserBadgeclassEditor(chosenBadgeClass.entityId, userId, notes).then(() => {
-            dispatch('permissionAdded');
-            flash.setValue(I18n.t("editUsers.flash.makeUserBadgeClassEditor", userNameDict));
-          });
+          promise = makeUserBadgeclassEditor;
+          flashPart = "makeUserBadgeClassEditor";
           break;
         case permissionsRole.AWARDER:
-          makeUserBadgeclassAwarder(chosenBadgeClass.entityId, userId, notes).then(() => {
-            dispatch('permissionAdded');
-            flash.setValue(I18n.t("editUsers.flash.makeUserBadgeClassAwarder", userNameDict));
-          });
+          promise = makeUserBadgeclassAwarder;
+          flashPart = "makeUserBadgeClassAwarder";
           break;
-        default:
-          throw new Error(`error: invalid role ${chosenBadgeClass.value}`);
       }
+      const promises = chosenBadgeClasses.map(chosen => promise(chosen.entityId, userId, notes));
+      Promise.all(promises).then(() => {
+            dispatch('permissionAdded');
+            flash.setValue(I18n.t(`editUsers.flash.${flashPart}`, userNameDict));
+      });
     }
   };
 
@@ -128,31 +131,39 @@
       <h3>{title}</h3>
     </div>
     <div class="modal-body">
-      <Field entity={'editUsers'} attribute={entityType.BADGE_CLASS}>
+      <Field entity={'editUsers'} full={true} attribute={entityType.BADGE_CLASS}>
         <Select
-          bind:value={chosenBadgeClass}
+          bind:value={chosenBadgeClasses}
           items={targetOptions}
-          handleSelect={setRolesForBadgeClass}
+          isMulti={true}
+          full={true}
           clearable={false}
+          customIndicator={indicator}
+          showIndicator={false}
+          showChevron={true}
+          placeholder={I18n.t("models.editUsers.badgeClassPlaceholder")}
+          handleSelect={setRolesForBadgeClass}
           optionIdentifier="name"
         />
       </Field>
-      <Field entity={'editUsers'} attribute={'role'}>
+      <Field entity={'editUsers'} full={true} attribute={'role'}>
         <Select
           disabled={false}
+          customIndicator={indicator}
+          full={true}
           bind:value={chosenRole}
           bind:items={roles}
           clearable={false}
           optionIdentifier="name"
         />
       </Field>
-      <Field entity={'editUsers'} attribute={'notes'}>
-        <TextInput bind:value={notes} area={true} placeholder={I18n.t("placeholders.permissions.notes")}/>
+      <Field entity={'editUsers'} full={true} attribute={'notes'}>
+        <TextInput full={true} bind:value={notes} area={true} placeholder={I18n.t("placeholders.permissions.notes")}/>
       </Field>
     </div>
     <div class="options">
       <Button secondary={true} action={cancel} text={I18n.t("modal.cancel")}/>
-      <Button action={submit} text={I18n.t(['editUsers', 'modal', 'add'])} disabled={false}/>
+      <Button action={submit} text={I18n.t(['editUsers', 'modal', 'add'])} disabled={isEmpty(chosenBadgeClasses)}/>
     </div>
   </div>
 </div>
@@ -172,7 +183,7 @@
   .modal-content {
     margin: auto;
     width: calc(100vw - 4em);
-    max-width: 32em;
+    max-width: 44em;
     max-height: calc(100vh - 4em);
     border-radius: 8px;
     background: white;

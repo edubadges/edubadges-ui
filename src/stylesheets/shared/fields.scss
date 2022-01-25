@@ -65,7 +65,9 @@
 
 .select-field {
   @include input-label;
-
+  &.full {
+    max-width: 100%;
+  }
   /* select */
   --border: 1px solid var(--text-grey-dark);
   --borderHoverColor: var(--text-grey-dark);
@@ -86,6 +88,7 @@
 
   .selectContainer.focused input {
     @include input-focus;
+    max-width: 100%;
     cursor: text;
   }
 

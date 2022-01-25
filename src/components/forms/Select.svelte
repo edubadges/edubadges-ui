@@ -10,6 +10,7 @@
   export let nonEditable = false;
   export let clearable = true;
   export let isMulti = false;
+  export let full = false;
   export let error;
   export let showChevron = true;
   export let showIndicator = true;
@@ -108,7 +109,7 @@
 {#if nonEditable || disabled}
   <TextInput disabled={true} value={value ? value.name : ""}/>
 {:else}
-  <div class="select-field" {error} {disabled}>
+  <div class="select-field" {error} {disabled} class:full>
     <Select
       on:select={() => handleSelect(value)}
       {items}
