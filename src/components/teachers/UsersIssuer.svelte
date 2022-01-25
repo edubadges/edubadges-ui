@@ -324,14 +324,16 @@
     };
 
     const removeSelectedPermissions = () => {
-        for (const selected of selection) {
-            removeUserIssuerAdmin(selected).then(() => {
-                reload();
-                showRemoveModal = false;
+        checkAllValue = false;
+        loaded = false;
+        showRemoveModal = false;
+        const promises = selection.map(selected => removeUserIssuerAdmin(selected));
+        Promise.all(promises).then(() => {
+            reload(() => {
+                selection.length = 0;
                 flash.setValue(I18n.t("editUsers.flash.removeUserIssuerAdmin", userNameDict));
-            })
-        }
-        selection.length = 0;
+            });
+        })
     };
 
     const addPermissions = () => {
@@ -453,179 +455,181 @@
 </style>
 
 {#if loaded}
-  <div class="container">
-    <UsersTable
-      {...table}
-      isEmpty={isEmpty}
-      bind:search={issuerSearch}
-      bind:sort={issuerSort}
-      withCheckAll={true}
-      bind:buttons={buttons}
-      {onCheckAll}
-      {disabledCheckAll}
-      {checkAllValue}
-    >
-      {#each sortedFilteredStaffs as {_staffType, role, issuer, staffId, mayUpdate}}
-        <tr>
-          {#if _staffType === staffType.ISSUER_STAFF}
-            <td>
-              <CheckBox
-                value={selection.includes(staffId)}
-                disabled={!userHasPermissions(
+    <div class="container">
+        <UsersTable
+                {...table}
+                isEmpty={isEmpty}
+                bind:search={issuerSearch}
+                bind:sort={issuerSort}
+                withCheckAll={true}
+                bind:buttons={buttons}
+                {onCheckAll}
+                {disabledCheckAll}
+                {checkAllValue}
+        >
+            {#each sortedFilteredStaffs as {_staffType, role, issuer, staffId, mayUpdate}}
+                <tr>
+                    {#if _staffType === staffType.ISSUER_STAFF}
+                        <td>
+                            <CheckBox
+                                    value={selection.includes(staffId)}
+                                    disabled={!userHasPermissions(
                     issuer, entityType.ISSUER,
                     currentUser.institutionStaff,
                     currentUser.facultyStaffs,
                     currentUser.issuerStaffs
                   )}
-                onChange={val => onCheckOne(val, staffId)}/>
-            </td>
-            <td>
-              {#if issuer.image}
-                <div class="img-container">
-                  <div class="img-icon">
-                    <img src={issuer.image} alt=""/>
-                  </div>
-                </div>
-              {:else}
-                <div class="img-container">
-                  <div class="img-icon">
-                    <span class="icon">{@html issuerIcon}</span>
-                  </div>
-                </div>
-              {/if}
-            </td>
-            <td>
-              <ListLink
-                path={`/manage/issuer/${issuer.entityId}/badgeclasses`}
-                name={issuer.name}
-              />
-            </td>
-            <td>
-              <ListLink
-                path={`/manage/faculty/${findFacultyByIssuerEntityId(issuer.entityId).entityId}/issuers`}
-                name={findFacultyByIssuerEntityId(issuer.entityId).name}/>
-            </td>
-            <td>
-              <Select
-                nonEditable={!userHasPermissions(
+                                    onChange={val => onCheckOne(val, staffId)}/>
+                        </td>
+                        <td>
+                            {#if issuer.image}
+                                <div class="img-container">
+                                    <div class="img-icon">
+                                        <img src={issuer.image} alt=""/>
+                                    </div>
+                                </div>
+                            {:else}
+                                <div class="img-container">
+                                    <div class="img-icon">
+                                        <span class="icon">{@html issuerIcon}</span>
+                                    </div>
+                                </div>
+                            {/if}
+                        </td>
+                        <td>
+                            <ListLink
+                                    path={`/manage/issuer/${issuer.entityId}/badgeclasses`}
+                                    name={issuer.name}
+                            />
+                        </td>
+                        <td>
+                            <ListLink
+                                    path={`/manage/faculty/${findFacultyByIssuerEntityId(issuer.entityId).entityId}/issuers`}
+                                    name={findFacultyByIssuerEntityId(issuer.entityId).name}/>
+                        </td>
+                        <td>
+                            <Select
+                                    nonEditable={!userHasPermissions(
                       issuer, entityType.ISSUER,
                       currentUser.institutionStaff,
                       currentUser.facultyStaffs,
                       currentUser.issuerStaffs
                     )}
-                handleSelect={item => changeUserRole(item, staffId)}
-                value={role === staffType.ISSUER_AWARDER ? permissionsRoles[0] : permissionsRoles[1]}
-                items={permissionsRoles}
-                clearable={false}
-                optionIdentifier="name"
-              />
-            </td>
-          {:else if _staffType === staffType.ISSUER_GROUP_STAFF}
-            <td>
-              <CheckBox
-                disabled={true}/>
-            </td>
-            <td>
-              {#if issuer.image}
-                <div class="img-container">
-                  <div class="img-icon">
-                    <img src={issuer.image} alt=""/>
-                  </div>
-                </div>
-              {:else}
-                <div class="img-container">
-                  <div class="img-icon">
-                    <span class="icon">{@html issuerIcon}</span>
-                  </div>
-                </div>
-              {/if}
-            </td>
-            <td>
-              <ListLink path={`/manage/issuer/${issuer.entityId}/badgeclasses`} name={issuer.name}/>
-            </td>
-            <td>
-              <ListLink path={`/manage/faculty/${findFacultyByIssuerEntityId(issuer.entityId).entityId}/issuers`}
-                        name={findFacultyByIssuerEntityId(issuer.entityId).name}/>
-            </td>
-            <td>
-              {#if mayUpdate}
-                {I18n.t('editUsers.permissions.allRights')}
-                <br/>
-                <span class="sub-text">{I18n.t('editUsers.permissions.issuerGroupAllRights')}</span>
-              {:else}
-                {I18n.t('editUsers.permissions.awarderRights')}
-                <br/>
-                <span class="sub-text">{I18n.t('editUsers.permissions.issuerGroupAwarderRights')}</span>
-              {/if}
-            </td>
-          {:else if _staffType === staffType.INSTITUTION_STAFF}
-            <td>
-              <CheckBox
-                value={''}
-                name={''}
-                disabled={true}/>
-            </td>
-            <td>
-              {#if issuer.image}
-                <div class="img-container">
-                  <div class="img-icon">
-                    <img src={issuer.image} alt=""/>
-                  </div>
-                </div>
-              {:else}
-                <div class="img-container">
-                  <div class="img-icon">
-                    <span class="icon">{@html issuerIcon}</span>
-                  </div>
-                </div>
-              {/if}
-            </td>
-            <td>
-              <ListLink path={`/manage/issuer/${issuer.entityId}/badgeclasses`} name={issuer.name}/>
-            </td>
-            <td>
-              <ListLink path={`/manage/faculty/${findFacultyByIssuerEntityId(issuer.entityId).entityId}/issuers`}
-                        name={findFacultyByIssuerEntityId(issuer.entityId).name}/>
-            </td>
-            <td>
-              {I18n.t(['editUsers', 'permissions', 'allRights'])}
-              <br/>
-              <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'institutionAllRights'])}</span>
-            </td>
-          {/if}
-          <td></td>
-        </tr>
-      {/each}
-      {#if isEmpty}
-        <tr>
-          <td colspan="4">{I18n.t("zeroState.permissions", {entity: I18n.t("userManagement.issuer_staff")})}</td>
-        </tr>
-      {/if}
-    </UsersTable>
-  </div>
+                                    handleSelect={item => changeUserRole(item, staffId)}
+                                    value={role === staffType.ISSUER_AWARDER ? permissionsRoles[0] : permissionsRoles[1]}
+                                    items={permissionsRoles}
+                                    clearable={false}
+                                    optionIdentifier="name"
+                            />
+                        </td>
+                    {:else if _staffType === staffType.ISSUER_GROUP_STAFF}
+                        <td>
+                            <CheckBox
+                                    disabled={true}/>
+                        </td>
+                        <td>
+                            {#if issuer.image}
+                                <div class="img-container">
+                                    <div class="img-icon">
+                                        <img src={issuer.image} alt=""/>
+                                    </div>
+                                </div>
+                            {:else}
+                                <div class="img-container">
+                                    <div class="img-icon">
+                                        <span class="icon">{@html issuerIcon}</span>
+                                    </div>
+                                </div>
+                            {/if}
+                        </td>
+                        <td>
+                            <ListLink path={`/manage/issuer/${issuer.entityId}/badgeclasses`} name={issuer.name}/>
+                        </td>
+                        <td>
+                            <ListLink
+                                    path={`/manage/faculty/${findFacultyByIssuerEntityId(issuer.entityId).entityId}/issuers`}
+                                    name={findFacultyByIssuerEntityId(issuer.entityId).name}/>
+                        </td>
+                        <td>
+                            {#if mayUpdate}
+                                {I18n.t('editUsers.permissions.allRights')}
+                                <br/>
+                                <span class="sub-text">{I18n.t('editUsers.permissions.issuerGroupAllRights')}</span>
+                            {:else}
+                                {I18n.t('editUsers.permissions.awarderRights')}
+                                <br/>
+                                <span class="sub-text">{I18n.t('editUsers.permissions.issuerGroupAwarderRights')}</span>
+                            {/if}
+                        </td>
+                    {:else if _staffType === staffType.INSTITUTION_STAFF}
+                        <td>
+                            <CheckBox
+                                    value={''}
+                                    name={''}
+                                    disabled={true}/>
+                        </td>
+                        <td>
+                            {#if issuer.image}
+                                <div class="img-container">
+                                    <div class="img-icon">
+                                        <img src={issuer.image} alt=""/>
+                                    </div>
+                                </div>
+                            {:else}
+                                <div class="img-container">
+                                    <div class="img-icon">
+                                        <span class="icon">{@html issuerIcon}</span>
+                                    </div>
+                                </div>
+                            {/if}
+                        </td>
+                        <td>
+                            <ListLink path={`/manage/issuer/${issuer.entityId}/badgeclasses`} name={issuer.name}/>
+                        </td>
+                        <td>
+                            <ListLink
+                                    path={`/manage/faculty/${findFacultyByIssuerEntityId(issuer.entityId).entityId}/issuers`}
+                                    name={findFacultyByIssuerEntityId(issuer.entityId).name}/>
+                        </td>
+                        <td>
+                            {I18n.t(['editUsers', 'permissions', 'allRights'])}
+                            <br/>
+                            <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'institutionAllRights'])}</span>
+                        </td>
+                    {/if}
+                    <td></td>
+                </tr>
+            {/each}
+            {#if isEmpty}
+                <tr>
+                    <td colspan="4">{I18n.t("zeroState.permissions", {entity: I18n.t("userManagement.issuer_staff")})}</td>
+                </tr>
+            {/if}
+        </UsersTable>
+    </div>
 {:else}
-  <Spinner/>
+    <Spinner/>
 {/if}
 
 {#if showRemoveModal}
-  <Modal
-    submit={removeModalAction}
-    cancel={() => showRemoveModal = false}
-    question={removeModalQuestion}
-    title={removeModalTitle}
-  />
+    <Modal
+            submit={removeModalAction}
+            cancel={() => showRemoveModal = false}
+            question={removeModalQuestion}
+            title={removeModalTitle}
+    />
 {/if}
 
 {#if showAddModal}
-  <AddPermissionsModal
-    submit={addModalAction}
-    cancel={() => showAddModal = false}
-    selectEntity={selectEntity}
-    permissionsRoles={permissionsRoles}
-    title={addModalTitle}
-    targetOptions={newPermissionOptions}
-    bind:target={modalSelectedEntity}
-    bind:chosenRole={modalChosenRole}
-    bind:notes={modalNotes}
-  />
+    <AddPermissionsModal
+            submit={addModalAction}
+            cancel={() => showAddModal = false}
+            selectEntity={selectEntity}
+            permissionsRoles={permissionsRoles}
+            title={addModalTitle}
+            targetOptions={newPermissionOptions}
+            bind:target={modalSelectedEntity}
+            bind:chosenRole={modalChosenRole}
+            bind:notes={modalNotes}
+    />
 {/if}

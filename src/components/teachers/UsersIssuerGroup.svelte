@@ -10,7 +10,7 @@
         changeUserToIssuerGroupAwarder,
         changeUserToIssuerGroupOwner,
         makeUserIssuerGroupAdmin,
-        makeUserIssuerGroupAwarder,
+        makeUserIssuerGroupAwarder, removeUserBadgeclassPermission,
         removeUserIssuerGroupAdmin
     } from "../../api";
     import {AddPermissionsModal, Modal, Select} from "../forms";
@@ -260,14 +260,16 @@
     };
 
     const removeSelectedPermissions = () => {
-        for (const selected of selection) {
-            removeUserIssuerGroupAdmin(selected).then(() => {
-                reload();
-                showRemoveModal = false;
+        checkAllValue = false;
+        loaded = false;
+        showRemoveModal = false;
+        const promises = selection.map(selected => removeUserIssuerGroupAdmin(selected));
+        Promise.all(promises).then(() => {
+            reload(() => {
+                selection.length = 0;
                 flash.setValue(I18n.t("editUsers.flash.removeUserIssuerGroupAdmin", userNameDict));
-            })
-        }
-        selection.length = 0;
+            });
+        });
     };
 
     const addPermissions = () => {
@@ -365,106 +367,106 @@
 </style>
 
 {#if loaded}
-  <div class="container">
-    <UsersTable
-      {...table}
-      isEmpty={isEmpty}
-      bind:search={issuerGroupSearch}
-      bind:sort={issuerGroupSort}
-      withCheckAll={true}
-      bind:buttons={buttons}
-      {onCheckAll}
-      {checkAllValue}
-      {disabledCheckAll}
-    >
-      {#each sortedFilteredStaffs as {_staffType, role, issuerGroup, staffId}}
-        {#if _staffType === staffType.ISSUER_GROUP_STAFF}
-          <tr>
-            <td>
-              <CheckBox
-                value={selection.includes(staffId)}
-                disabled={!userHasPermissions(
+    <div class="container">
+        <UsersTable
+                {...table}
+                isEmpty={isEmpty}
+                bind:search={issuerGroupSearch}
+                bind:sort={issuerGroupSort}
+                withCheckAll={true}
+                bind:buttons={buttons}
+                {onCheckAll}
+                {checkAllValue}
+                {disabledCheckAll}
+        >
+            {#each sortedFilteredStaffs as {_staffType, role, issuerGroup, staffId}}
+                {#if _staffType === staffType.ISSUER_GROUP_STAFF}
+                    <tr>
+                        <td>
+                            <CheckBox
+                                    value={selection.includes(staffId)}
+                                    disabled={!userHasPermissions(
                     issuerGroup, entityType.ISSUER_GROUP,
                     currentUser.institutionStaff,
                     currentUser.facultyStaffs,
                     currentUser.issuerStaffs,
                     currentUser.badgeclassStaffs,
                   )}
-                onChange={val => onCheckOne(val, staffId)}/>
-            </td>
-            <td>
-              <span class="icon">{@html facultyIcon}</span>
-            </td>
-            <td>
-              <ListLink path={`/manage/faculty/${issuerGroup.entityId}/issuers`} name={issuerGroup.name}/>
-            </td>
-            <td>
-              <Select
-                nonEditable={!userHasPermissions(
+                                    onChange={val => onCheckOne(val, staffId)}/>
+                        </td>
+                        <td>
+                            <span class="icon">{@html facultyIcon}</span>
+                        </td>
+                        <td>
+                            <ListLink path={`/manage/faculty/${issuerGroup.entityId}/issuers`} name={issuerGroup.name}/>
+                        </td>
+                        <td>
+                            <Select
+                                    nonEditable={!userHasPermissions(
                       issuerGroup, entityType.ISSUER_GROUP,
                       currentUser.institutionStaff,
                       currentUser.facultyStaffs,
                       currentUser.issuerStaffs
                     )}
-                handleSelect={item => changeUserRole(item, staffId)}
-                value={role === staffType.ISSUER_GROUP_ADMIN ? permissionsRoles[1] : permissionsRoles[0]}
-                items={permissionsRoles}
-                clearable={false}
-                optionIdentifier="name"
-              />
+                                    handleSelect={item => changeUserRole(item, staffId)}
+                                    value={role === staffType.ISSUER_GROUP_ADMIN ? permissionsRoles[1] : permissionsRoles[0]}
+                                    items={permissionsRoles}
+                                    clearable={false}
+                                    optionIdentifier="name"
+                            />
 
-            </td>
-          </tr>
-        {:else if _staffType === staffType.INSTITUTION_STAFF}
-          <tr>
-            <td>
-              <CheckBox
-                disabled={true}/>
-            </td>
-            <td>
-              <span class="icon">{@html facultyIcon}</span>
-            </td>
-            <td>
-              <ListLink path={`/manage/faculty/${issuerGroup.entityId}/issuers`} name={issuerGroup.name}/>
-            </td>
-            <td>
-              {I18n.t(['editUsers', 'permissions', 'allRights'])}
-              <br/>
-              <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'institutionAllRights'])}</span>
-            </td>
-          </tr>
-        {/if}
-      {/each}
-      {#if isEmpty}
-        <tr>
-          <td colspan="4">{I18n.t("zeroState.permissions", {entity: I18n.t("userManagement.issuer_group_staff")})}</td>
-        </tr>
-      {/if}
-    </UsersTable>
-  </div>
+                        </td>
+                    </tr>
+                {:else if _staffType === staffType.INSTITUTION_STAFF}
+                    <tr>
+                        <td>
+                            <CheckBox
+                                    disabled={true}/>
+                        </td>
+                        <td>
+                            <span class="icon">{@html facultyIcon}</span>
+                        </td>
+                        <td>
+                            <ListLink path={`/manage/faculty/${issuerGroup.entityId}/issuers`} name={issuerGroup.name}/>
+                        </td>
+                        <td>
+                            {I18n.t(['editUsers', 'permissions', 'allRights'])}
+                            <br/>
+                            <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'institutionAllRights'])}</span>
+                        </td>
+                    </tr>
+                {/if}
+            {/each}
+            {#if isEmpty}
+                <tr>
+                    <td colspan="4">{I18n.t("zeroState.permissions", {entity: I18n.t("userManagement.issuer_group_staff")})}</td>
+                </tr>
+            {/if}
+        </UsersTable>
+    </div>
 {:else}
-  <Spinner/>
+    <Spinner/>
 {/if}
 
 
 {#if showRemoveModal}
-  <Modal
-    submit={removeModalAction}
-    cancel={() => showRemoveModal = false}
-    question={removeModalQuestion}
-    title={removeModalTitle}/>
+    <Modal
+            submit={removeModalAction}
+            cancel={() => showRemoveModal = false}
+            question={removeModalQuestion}
+            title={removeModalTitle}/>
 {/if}
 
 {#if showAddModal}
-  <AddPermissionsModal
-    submit={addModalAction}
-    cancel={() => showAddModal = false}
-    selectEntity={selectEntity}
-    permissionsRoles={permissionsRoles}
-    title={addModalTitle}
-    bind:targetOptions={newPermissionOptions}
-    bind:target={modalSelectedEntity}
-    bind:chosenRole={modalChosenRole}
-    bind:notes={modalNotes}
-  />
+    <AddPermissionsModal
+            submit={addModalAction}
+            cancel={() => showAddModal = false}
+            selectEntity={selectEntity}
+            permissionsRoles={permissionsRoles}
+            title={addModalTitle}
+            bind:targetOptions={newPermissionOptions}
+            bind:target={modalSelectedEntity}
+            bind:chosenRole={modalChosenRole}
+            bind:notes={modalNotes}
+    />
 {/if}

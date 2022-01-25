@@ -214,7 +214,9 @@
     </p>
     <h3>{I18n.t('models.badgeclass.criteria_text')}</h3>
     {#if badgeclass.criteriaText}
-      <p class="info markdown">{@html DOMPurify.sanitize(marked(fallBackValue(badgeclass.criteriaText)))}</p>
+      <p class="info markdown">
+        {@html DOMPurify.sanitize(marked(fallBackValue(badgeclass.criteriaText)))}
+      </p>
     {/if}
     {#if badgeclass.criteriaUrl}
       <p class="green">

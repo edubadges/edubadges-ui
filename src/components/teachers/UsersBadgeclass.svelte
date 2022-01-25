@@ -366,7 +366,7 @@
                 selection.length = 0;
                 flash.setValue(I18n.t("editUsers.flash.removeUserBadgeClassRole", userNameDict));
             });
-        })
+        });
     };
 
     const addPermissions = () => {
