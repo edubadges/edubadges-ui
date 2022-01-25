@@ -328,7 +328,7 @@
       bind:statusSelected={ statusSelected }
       { issuedOptions}
       { awardTypeOptions}
-      {statusOptions }/>
+      { statusOptions }/>
   </div>
 
   <Table
