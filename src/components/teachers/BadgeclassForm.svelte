@@ -681,7 +681,6 @@
                         />
                     </Field>
                 </div>
-
             </div>
         {/each}
         <span class="add-button">

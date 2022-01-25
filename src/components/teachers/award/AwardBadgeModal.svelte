@@ -4,6 +4,7 @@
     import {Field, TextInput} from "../../forms";
     import {validUrl} from "../../../util/forms";
     import {onMount} from "svelte";
+    import MarkdownField from "../../forms/MarkdownField.svelte";
 
     export let submit;
     export let cancel;
@@ -84,7 +85,7 @@
   .modal-content {
     margin: auto;
     width: calc(100vw - 4em);
-    max-width: 32em;
+    max-width: 44em;
     max-height: calc(100vh - 4em);
     border-radius: 8px;
     background: white;
@@ -125,52 +126,54 @@
 <svelte:window on:keydown={handleKeydown}/>
 
 <div class="modal">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h3>{awardMode ? I18n.t("models.enrollment.confirmation.award"): I18n.t("badgeAward.directAward.addEvidence")}</h3>
-    </div>
-    <div class="modal-body">
-      {#if awardMode}
-        <p class="title">{I18n.t("models.enrollment.confirmation.awardConfirmation")}</p>
-      {/if}
-      {#if useEvidence}
-        {#if !narrativeOrEvidenceRequired && awardMode}
-          <a href="/remove-evidence" disabled={!narrativeAllowed}
-             on:click|preventDefault={swapUseEvidence}>{I18n.t("models.enrollment.removeEvidence")}</a>
-        {/if}
-        <div class="evidence">
-          {#if narrativeOrEvidenceRequired}
-            <p>{I18n.t("models.enrollment.evidenceRequired")}</p>
-          {:else}
-            <p>{I18n.t("models.enrollment.evidence")}</p>
-          {/if}
-          <Field entity={'enrollment'} errors={errors.narrative} attribute={'evidenceNarrative'}
-                 tipKey="enrollmentEvidenceNarrative">
-            <TextInput bind:value={narrative} area={true} error={errors.narrative}
-                       placeholder={I18n.t("placeholders.enrollment.evidenceNarrative")}
-                       size="100"/>
-          </Field>
-          <Field entity={'enrollment'} errors={errors.url} attribute={'evidenceURL'} tipKey="enrollmentEvidenceURL">
-            <TextInput bind:value={url} error={errors.url} placeholder={I18n.t("placeholders.enrollment.evidenceURL")}/>
-          </Field>
-          <Field entity={'enrollment'} attribute={'evidenceName'} tipKey="enrollmentEvidenceName">
-            <TextInput bind:value={name} placeholder={I18n.t("placeholders.enrollment.evidenceName")}/>
-          </Field>
-          <Field entity={'enrollment'} attribute={'evidenceDescription'} tipKey="enrollmentEvidenceDescription">
-            <TextInput bind:value={description} area={true}
-                       placeholder={I18n.t("placeholders.enrollment.evidenceDescription")} size="100"/>
-          </Field>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>{awardMode ? I18n.t("models.enrollment.confirmation.award") : I18n.t("badgeAward.directAward.addEvidence")}</h3>
         </div>
-      {:else if narrativeAllowed && awardMode}
-        <a href="/add-evidence"
-           on:click|preventDefault={swapUseEvidence}>{I18n.t("models.enrollment.addEvidence")}</a>
-      {/if}
-    </div>
-    <div class="options">
-      <Button secondary={true} action={cancel} text={I18n.t("modal.cancel")}/>
-      <Button action={doSubmit} text={awardMode ? I18n.t("models.enrollment.awardButton") : I18n.t("manage.new.save")}
-              disabled={false}/>
-    </div>
+        <div class="modal-body">
+            {#if awardMode}
+                <p class="title">{I18n.t("models.enrollment.confirmation.awardConfirmation")}</p>
+            {/if}
+            {#if useEvidence}
+                {#if !narrativeOrEvidenceRequired && awardMode}
+                    <a href="/remove-evidence" disabled={!narrativeAllowed}
+                       on:click|preventDefault={swapUseEvidence}>{I18n.t("models.enrollment.removeEvidence")}</a>
+                {/if}
+                <div class="evidence">
+                    {#if narrativeOrEvidenceRequired}
+                        <p>{I18n.t("models.enrollment.evidenceRequired")}</p>
+                    {:else}
+                        <p>{I18n.t("models.enrollment.evidence")}</p>
+                    {/if}
+                    <Field entity={'enrollment'} errors={errors.narrative} attribute={'evidenceNarrative'}
+                           tipKey="enrollmentEvidenceNarrative">
+                        <MarkdownField bind:value={narrative}/>
+                    </Field>
+                    <Field entity={'enrollment'} errors={errors.url} attribute={'evidenceURL'}
+                           tipKey="enrollmentEvidenceURL">
+                        <TextInput bind:value={url} error={errors.url}
+                                   placeholder={I18n.t("placeholders.enrollment.evidenceURL")}/>
+                    </Field>
+                    <Field entity={'enrollment'} attribute={'evidenceName'} tipKey="enrollmentEvidenceName">
+                        <TextInput bind:value={name} placeholder={I18n.t("placeholders.enrollment.evidenceName")}/>
+                    </Field>
+                    <Field entity={'enrollment'} attribute={'evidenceDescription'}
+                           tipKey="enrollmentEvidenceDescription">
+                        <TextInput bind:value={description} area={true}
+                                   placeholder={I18n.t("placeholders.enrollment.evidenceDescription")} size="100"/>
+                    </Field>
+                </div>
+            {:else if narrativeAllowed && awardMode}
+                <a href="/add-evidence"
+                   on:click|preventDefault={swapUseEvidence}>{I18n.t("models.enrollment.addEvidence")}</a>
+            {/if}
+        </div>
+        <div class="options">
+            <Button secondary={true} action={cancel} text={I18n.t("modal.cancel")}/>
+            <Button action={doSubmit}
+                    text={awardMode ? I18n.t("models.enrollment.awardButton") : I18n.t("manage.new.save")}
+                    disabled={false}/>
+        </div>
 
-  </div>
+    </div>
 </div>
