@@ -279,7 +279,7 @@ I18n.translations.nl = {
             archive: "Archieveren"
         },
         copy: {
-            badgeclass: "Copy badge class",
+            badgeclass: "Kopiëer badge class",
         },
         delete: {
             delete: "verwijder",

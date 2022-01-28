@@ -97,14 +97,14 @@
     onMount(() => {
         queryData(query, {entityId}).then(res => {
             badgeclass = res.badgeClass;
-            issuers = res.issuers.filter(issuer => issuer.entityId !== badgeclass.issuer.entityId);
+            issuers = res.issuers;
             translateProperties(badgeclass.issuer);
             translateProperties(badgeclass.issuer.faculty);
             isCopy = action === "copy";
             if (isCopy) {
                 badgeclass.entityId = null;
+                badgeclass.name = "";
                 badgeclass.id = null;
-                badgeclass.issuer = issuers[0];
                 //https://stackoverflow.com/questions/25690641/img-url-to-dataurl-using-javascript
                 fetch(badgeclass.image).then(res => {
                     res.blob().then(content => {
@@ -134,7 +134,7 @@
     });
 </script>
 {#if loaded}
-    <BadgeclassForm issuers={isCopy ? issuers : [badgeclass.issuer].concat(issuers)}
+    <BadgeclassForm issuers={issuers}
                     {badgeclass}
                     entityId={isCopy ? null : entityId}
                     institution={currentInstitution}
