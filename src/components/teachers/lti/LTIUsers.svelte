@@ -30,27 +30,30 @@
             attribute: "email",
             reverse: false,
             sortType: sortType.ALPHA,
-            width: "25%"
+            width: "30%"
+        },
+        {
+            name: I18n.t("lti.users.sisId"),
+            attribute: "lis_person_sourcedid",
+            reverse: false,
+            sortType: sortType.ALPHA,
+            width: "30%"
         },
         {
             name: I18n.t("lti.users.roles"),
             attribute: "role",
             reverse: false,
             sortType: sortType.ALPHA,
-            width: "25%"
+            width: "15%"
         },
         {
             name: I18n.t("lti.users.status"),
             attribute: "status",
             reverse: false,
             sortType: sortType.ALPHA,
-            width: "15%",
+            width: "10%",
             center: false
         },
-        {
-            name: "",
-            width: "15%"
-        }
     ];
 
     let table;
@@ -110,6 +113,9 @@
                 </td>
                 <td>
                     {user.email}
+                </td>
+                <td>
+                    {user.lis_person_sourcedid}
                 </td>
                 <td>
                     {user.role}

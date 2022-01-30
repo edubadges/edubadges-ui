@@ -1437,6 +1437,7 @@ I18n.translations.nl = {
             subTitle: "LTI members",
             name: "Name",
             email: "Email",
+            sisId: "SIS Id",
             status: "Status",
             roles: "Roles"
         },
