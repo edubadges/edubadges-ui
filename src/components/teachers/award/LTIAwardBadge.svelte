@@ -292,24 +292,14 @@
                     </div>
                 {/each}
             </div>
-            {#if users.length === 0}
-                <div class="imported">
-                    <p>
-                        {@html I18n.t("badgeAward.ltiAward.noUsers", {
-                            nbr: users.length, name: launchData["iss"]
-                        })}
-                        <a use:link href={"/lti/participants"}>
-                            {I18n.t("badgeAward.ltiAward.checkContext")}
-                        </a>
-                    </p>
-                </div>
-            {:else}
-                <div class="imported">
-                    <p>{@html I18n.t("badgeAward.ltiAward.usersImported", {
-                        nbr: users.length, name: launchData["iss"]
-                    })}</p>
-                </div>
-            {/if}
+            <div class="imported">
+                <p>{@html I18n.t(`badgeAward.ltiAward.${users.length === 0 ? "noUsers" : "usersImported"}`, {
+                    nbr: users.length, name: launchData["iss"]
+                })}</p>
+                <a use:link href={"/lti/participants"}>
+                    {I18n.t("badgeAward.ltiAward.checkContext")}
+                </a>
+            </div>
             <div class="add-email">
                 <a on:click|preventDefault|stopPropagation={addDirectAward}
                    href="/add">{I18n.t("badgeAward.directAward.addAnother")}</a>
