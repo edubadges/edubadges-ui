@@ -1225,9 +1225,9 @@ I18n.translations.en = {
         },
         ltiAward: {
             title: "Award edubadges directly from LTI import",
-            noUsers: "No students with a valid <em>lis_person_sourcedid</em> are imported from <strong>{{name}}</strong>.",
-            usersImported: "{{nbr}} students with a valid <em>lis_person_sourcedid</em> are imported from <strong>{{name}}</strong>",
-            checkContext: "See all users in the LTI context."
+            noUsers: "No students with a valid <em>lis_person_sourcedid</em> are imported from <strong>{{name}}</strong>. ",
+            usersImported: "{{nbr}} students with a valid <em>lis_person_sourcedid</em> are imported from <strong>{{name}}</strong>. ",
+            checkContext: " See all users in the LTI context."
         },
         bulkAward: {
             title: "Bulk award from CSV",

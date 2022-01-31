@@ -1225,9 +1225,9 @@ I18n.translations.nl = {
         },
         ltiAward: {
             title: "Reik direct edubadges uit vanuit de LTI import",
-            noUsers: "Geen studenten met een geldige <em>lis_person_sourcedid</em> konden worden geimporteerd vanuit <strong>{{name}}</strong>.",
-            usersImported: "{{nbr}} studenten met een valide <em>lis_person_sourcedid</em> zijn geimporteerd vanuit <strong>{{name}}</strong>.",
-            checkContext: "Zie alle gebruikers in de LTI context."
+            noUsers: "Geen studenten met een geldige <em>lis_person_sourcedid</em> konden worden geimporteerd vanuit <strong>{{name}}</strong>. ",
+            usersImported: "{{nbr}} studenten met een valide <em>lis_person_sourcedid</em> zijn geimporteerd vanuit <strong>{{name}}</strong>. ",
+            checkContext: " Zie alle gebruikers in de LTI context."
         },
         bulkAward: {
             title: "Bulk award vanuit CSV",
