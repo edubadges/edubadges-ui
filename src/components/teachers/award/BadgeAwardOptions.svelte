@@ -99,7 +99,7 @@
         <a on:click|preventDefault|stopPropagation={() => showInviteDialog = true}
            href="/">{I18n.t("badgeAwardOptions.inviteEnrollements")}</a>
       </span>
-      {#if $ltiContext.launchId || true}
+      {#if $ltiContext.launchId}
         <span class="award-link">{I18n.t("badgeAwardOptions.or")}
         <a use:link href={`/badgeclass/${badgeclass.entityId}/lti-award`}>
           {I18n.t("badgeAwardOptions.ltiAward")}
