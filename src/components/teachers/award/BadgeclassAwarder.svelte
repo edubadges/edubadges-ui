@@ -9,12 +9,7 @@
     import Enrollments from "../badges/Enrollments.svelte";
     import {queryData} from "../../../api/graphql";
 
-    import {
-        assertionsQuery,
-        directAwardBundleQuery,
-        enrollmentsQuery,
-        headerStaff
-    } from "../../../api/queries";
+    import {assertionsQuery, directAwardBundleQuery, enrollmentsQuery, headerStaff} from "../../../api/queries";
     import {expirationPeriod} from "../../../util/entityHeader";
     import {entityType} from "../../../util/entityTypes"
     import Spinner from "../../Spinner.svelte";
@@ -29,7 +24,6 @@
     import {issuedTypes} from "../../../stores/filterAssertions";
     import BulkAwardDetails from "./BulkAwardDetails.svelte";
     import {config} from "../../../util/config";
-    import LTIAwardBadge from "./LTIAwardBadge.svelte";
 
     export let entityId;
     export let subEntity;
@@ -325,6 +319,7 @@
             <Router>
                 <Route path="/direct-award">
                     <AwardBadge badgeclass={badgeclass}
+                                ltiContextEnabled={false}
                                 existingDirectAwardsEppns={assertions
                                     .filter(da => da.isDirectAward && da.status.toLowerCase() === "unaccepted")
                                     .map(da => da.eppn)}
@@ -332,7 +327,8 @@
                                 refresh={refresh}/>
                 </Route>
                 <Route path="/lti-award">
-                    <LTIAwardBadge badgeclass={badgeclass}
+                    <AwardBadge badgeclass={badgeclass}
+                                ltiContextEnabled={true}
                                 existingDirectAwardsEppns={assertions
                                     .filter(da => da.isDirectAward && da.status.toLowerCase() === "unaccepted")
                                     .map(da => da.eppn)}
@@ -355,7 +351,7 @@
         </div>
 
         {#if !$currentPath.endsWith("bulk-award") && !$currentPath.endsWith("direct-award") &&
-                    !$currentPath.endsWith("lti-award") && $currentPath.indexOf("award-details") === -1}
+        !$currentPath.endsWith("lti-award") && $currentPath.indexOf("award-details") === -1}
             <BadgeClassHeader
                     object={badgeclass}
                     entity={entityType.BADGE_CLASS}
