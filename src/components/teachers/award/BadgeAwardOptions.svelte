@@ -4,7 +4,7 @@
     import InviteDialog from "./InviteDialog.svelte";
     import Button from "../../Button.svelte";
     import {onMount} from "svelte";
-    import warning from "../../../icons/warning.svg";
+    import {ltiContext} from "../../../stores/lti";
     import EntityHeaderNotification from "../EntityHeaderNotification.svelte";
 
     export let badgeclass = {};
@@ -98,7 +98,14 @@
       <span class="award-link">{I18n.t("badgeAwardOptions.or")}
         <a on:click|preventDefault|stopPropagation={() => showInviteDialog = true}
            href="/">{I18n.t("badgeAwardOptions.inviteEnrollements")}</a>
-    </span>
+      </span>
+      {#if $ltiContext.launchId || true}
+        <span class="award-link">{I18n.t("badgeAwardOptions.or")}
+        <a use:link href={`/badgeclass/${badgeclass.entityId}/lti-award`}>
+          {I18n.t("badgeAwardOptions.ltiAward")}
+        </a>
+      </span>
+      {/if}
     {:else}
       <Button action={() => showInviteDialog = true} text={I18n.t("badgeAwardOptions.inviteEnrollements")}/>
     {/if}

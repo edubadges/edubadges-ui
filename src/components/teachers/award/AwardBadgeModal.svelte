@@ -5,6 +5,7 @@
     import {validUrl} from "../../../util/forms";
     import {onMount} from "svelte";
     import MarkdownField from "../../forms/MarkdownField.svelte";
+    import {isEmpty} from "lodash";
 
     export let submit;
     export let cancel;
@@ -29,21 +30,21 @@
     const doSubmit = () => {
         errors = {};
         if (narrativeOrEvidenceRequired) {
-            if (url && url.trim().length > 0 && !validUrl(url)) {
+            if (!isEmpty(url) && !validUrl(url)) {
                 errors = {url: [{error_code: 921}]};
             }
-            if (badgeClass.narrativeRequired && !narrative.trim()) {
+            if (badgeClass.narrativeRequired && isEmpty(narrative)) {
                 errors.narrative = [{error_code: 932}];
             }
-            if (badgeClass.evidenceRequired && !url) {
+            if (badgeClass.evidenceRequired && isEmpty(url)) {
                 errors.url = [{error_code: 933}];
             }
             if (Object.keys(errors).length === 0) {
                 submit();
             }
-        } else if (useEvidence && url && url.trim().length > 0 && !validUrl(url)) {
+        } else if (!isEmpty(url) && !validUrl(url)) {
             errors = {url: [{error_code: 921}]};
-        } else if (useEvidence && !url.trim() && !narrative.trim()) {
+        } else if (useEvidence && isEmpty(url) && isEmpty(narrative)) {
             errors = {narrative: [{error_code: 910}], url: [{error_code: 910}]};
         } else {
             errors = {};

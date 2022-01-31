@@ -1205,6 +1205,7 @@ I18n.translations.en = {
         or: "-or-",
         inviteEnrollements: "Invite people to enroll",
         badgeClassArchived: "Can not award archived badge class",
+        ltiAward: "Award from LTI import",
     },
     badgeAward: {
         directAward: {
@@ -1221,6 +1222,9 @@ I18n.translations.en = {
             flash: {
                 created: "Direct awards have been sent"
             }
+        },
+        ltiAward: {
+            title: "Award edubadges directly from LTI import",
         },
         bulkAward: {
             title: "Bulk award from CSV",

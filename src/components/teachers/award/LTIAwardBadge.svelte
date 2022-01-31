@@ -7,11 +7,14 @@
     import trash from "../../../icons/trash.svg";
     import {validEmail, validUrl} from "../../../util/forms";
     import Error from "../../forms/Error.svelte";
-    import {createDirectAwards} from "../../../api";
+    import {createDirectAwards, getLTIContext, getMembers} from "../../../api";
     import {flash} from "../../../stores/flash";
     import {onMount} from "svelte";
     import AwardBadgeModal from "./AwardBadgeModal.svelte";
     import {isEmpty} from "lodash";
+    import Spinner from "../../Spinner.svelte";
+    import {ltiContext} from "../../../stores/lti";
+    import {roles} from "../../../util/lti";
 
     export let badgeclass;
     export let enrollments;
@@ -28,13 +31,26 @@
     let selectedDirectAwardForEvidence = null;
     let selectedDirectAwardForEvidenceIndex = null;
     let beforeCommit = true;
+    let launchData;
+    let users;
+    let loaded = false;
 
     onMount(() => {
-        directAwards = (badgeclass.evidenceRequired || badgeclass.narrativeRequired) ?
-            [{email: "", eppn: "", narrative: "", evidence_url: "", name: "", description: ""}] :
-            [{email: "", eppn: ""}];
+        Promise.all([
+            getLTIContext($ltiContext.launchId),
+            getMembers($ltiContext.launchId),
+        ]).then(res => {
+            launchData = res[0];
+            res[1].forEach(user => user.role = roles(user.roles));
+            users = res[1].filter(user => user.role.indexOf("Learner") > -1 && !isEmpty(user.lis_person_sourcedid));
+            directAwards = users.map(user => {
+               return (badgeclass.evidenceRequired || badgeclass.narrativeRequired) ?
+                {email: user.email, eppn: user.lis_person_sourcedid, narrative: "", evidence_url: "", name: "", description: ""} :
+                {email: user.email, eppn: user.lis_person_sourcedid}
+            }) ;
+            loaded = true;
+        })
     });
-
 
     const addDirectAward = () => {
         const newDa = (badgeclass.evidenceRequired || badgeclass.narrativeRequired) ?
@@ -99,7 +115,7 @@
         if (Object.values(errors).some(val => val)) {
             return;
         }
-        createDirectAwards(directAwards, badgeclass, false)
+        createDirectAwards(directAwards, badgeclass, false, true)
             .then(() => {
                 refresh(() => setTimeout(() => navigate(`/badgeclass/${badgeclass.entityId}/awarded`), 75));
                 flash.setValue(I18n.t("badgeAward.directAward.flash.created"));
@@ -199,90 +215,95 @@
 
   }
 </style>
-<div class="award-badge">
-  <h2>{I18n.t("badgeAward.directAward.title")}</h2>
-  <div class="main-content-margin">
-    <p class="sub-title">{I18n.t("badgeAward.directAward.subtitle")}
-      {#if badgeclass.evidenceRequired && badgeclass.narrativeRequired}
-        <span>{I18n.t("badgeAward.bulkAward.evidenceAndNarrativeRequired")}</span>
-      {:else if badgeclass.evidenceRequired}
-        <span>{I18n.t("badgeAward.bulkAward.evidenceRequired")}</span>
-      {:else if badgeclass.narrativeRequired}
-        <span>{I18n.t("badgeAward.bulkAward.narrativeRequired")}</span>
-      {/if}
-    </p>
-    {#if enrollments.filter(enrollment => !enrollment.denied).length > 0}
-      <div class="warning-container">
-        <Warning msg={I18n.t("badgeAward.directAward.waringEnrollments", {count: enrollments.length})}>
-          <a use:link
-             href={`/badgeclass/${badgeclass.entityId}/enrollments`}>{I18n.t("badgeAward.directAward.toToEnrollments")}</a>
-        </Warning>
-      </div>
-    {/if}
-    <div class="grouped">
-      {#each directAwards as da, i}
-        <Field entity="badgeAward" attribute="email">
-          <TextInput bind:value={da.email} error={errors[`email_${i}`]} {init} onBlur={emailOnBlur(i)}/>
-          {#if errors[`email_${i}`]}
-            <Error standAlone={true} error_code={927}/>
-          {/if}
-          {#if errorsDuplications[`email_${i}`]}
-            <Error standAlone={true} error_code={929}/>
-          {/if}
-        </Field>
-        <div class="deletable-row">
-          <Field entity="badgeAward" attribute="eppn" full={true}>
-            <TextInput bind:value={da.eppn} error={errors[`eppn_${i}`]} onBlur={eppnOnBlur(i)}>
-              {#if i !== 0}
-                <button class="rm-icon-container" on:click={removeDirectAward(i)}>{@html trash}</button>
-              {/if}
-            </TextInput>
-            {#if errors[`eppn_${i}`]}
-              <Error standAlone={true} error_code={928}/>
+{#if loaded}
+    <div class="award-badge">
+        <h2>{I18n.t("badgeAward.ltiAward.title")}</h2>
+        <div class="main-content-margin">
+            <p class="sub-title">{I18n.t("badgeAward.directAward.subtitle")}
+                {#if badgeclass.evidenceRequired && badgeclass.narrativeRequired}
+                    <span>{I18n.t("badgeAward.bulkAward.evidenceAndNarrativeRequired")}</span>
+                {:else if badgeclass.evidenceRequired}
+                    <span>{I18n.t("badgeAward.bulkAward.evidenceRequired")}</span>
+                {:else if badgeclass.narrativeRequired}
+                    <span>{I18n.t("badgeAward.bulkAward.narrativeRequired")}</span>
+                {/if}
+            </p>
+            {#if enrollments.filter(enrollment => !enrollment.denied).length > 0}
+                <div class="warning-container">
+                    <Warning msg={I18n.t("badgeAward.directAward.waringEnrollments", {count: enrollments.length})}>
+                        <a use:link
+                           href={`/badgeclass/${badgeclass.entityId}/enrollments`}>{I18n.t("badgeAward.directAward.toToEnrollments")}</a>
+                    </Warning>
+                </div>
             {/if}
-            {#if errorsDuplications[`eppn_${i}`]}
-              <Error standAlone={true} error_code={930}/>
-            {/if}
-            {#if errorsAlreadyAwarded[`eppn_${i}`]}
-              <Error standAlone={true} error_code={931}/>
-            {/if}
-          </Field>
-          <div class="evidence-container">
-            <div class="evidence-subcontainer">
-              <Button text={hasEvidence(da) ? I18n.t("badgeAward.directAward.editEvidence") :
+            <div class="grouped">
+                {#each directAwards as da, i}
+                    <Field entity="badgeAward" attribute="email">
+                        <TextInput bind:value={da.email} error={errors[`email_${i}`]} {init} onBlur={emailOnBlur(i)}/>
+                        {#if errors[`email_${i}`]}
+                            <Error standAlone={true} error_code={927}/>
+                        {/if}
+                        {#if errorsDuplications[`email_${i}`]}
+                            <Error standAlone={true} error_code={929}/>
+                        {/if}
+                    </Field>
+                    <div class="deletable-row">
+                        <Field entity="badgeAward" attribute="eppn" full={true}>
+                            <TextInput bind:value={da.eppn} error={errors[`eppn_${i}`]} onBlur={eppnOnBlur(i)}>
+                                {#if i !== 0}
+                                    <button class="rm-icon-container"
+                                            on:click={removeDirectAward(i)}>{@html trash}</button>
+                                {/if}
+                            </TextInput>
+                            {#if errors[`eppn_${i}`]}
+                                <Error standAlone={true} error_code={928}/>
+                            {/if}
+                            {#if errorsDuplications[`eppn_${i}`]}
+                                <Error standAlone={true} error_code={930}/>
+                            {/if}
+                            {#if errorsAlreadyAwarded[`eppn_${i}`]}
+                                <Error standAlone={true} error_code={931}/>
+                            {/if}
+                        </Field>
+                        <div class="evidence-container">
+                            <div class="evidence-subcontainer">
+                                <Button text={hasEvidence(da) ? I18n.t("badgeAward.directAward.editEvidence") :
                               I18n.t("badgeAward.directAward.addEvidence")}
-                      action={() => addEvidence(i)}/>
+                                        action={() => addEvidence(i)}/>
+                            </div>
+                            {#if errors[`narrative_${i}`]}
+                                <Error standAlone={true} error_code={932}/>
+                            {/if}
+                            {#if errors[`evidence_${i}`]}
+                                <Error standAlone={true} error_code={933}/>
+                            {/if}
+                        </div>
+                    </div>
+                {/each}
             </div>
-            {#if errors[`narrative_${i}`]}
-              <Error standAlone={true} error_code={932}/>
-            {/if}
-            {#if errors[`evidence_${i}`]}
-              <Error standAlone={true} error_code={933}/>
-            {/if}
-          </div>
+            <div class="add-email">
+                <a on:click|preventDefault|stopPropagation={addDirectAward}
+                   href="/add">{I18n.t("badgeAward.directAward.addAnother")}</a>
+            </div>
+            <div class="actions">
+                <Button action={() => history.back()} text={I18n.t("badgeAward.directAward.cancel")} secondary={true}
+                        marginRight={true}/>
+                <Button action={doAward} text={I18n.t("badgeAward.directAward.award")} disabled={disableSubmit}/>
+            </div>
         </div>
-      {/each}
     </div>
-    <div class="add-email">
-      <a on:click|preventDefault|stopPropagation={addDirectAward}
-         href="/add">{I18n.t("badgeAward.directAward.addAnother")}</a>
-    </div>
-    <div class="actions">
-      <Button action={() => history.back()} text={I18n.t("badgeAward.directAward.cancel")} secondary={true}
-              marginRight={true}/>
-      <Button action={doAward} text={I18n.t("badgeAward.directAward.award")} disabled={disableSubmit}/>
-    </div>
-  </div>
-</div>
+{:else}
+    <Spinner/>
+{/if}
 {#if showAwardModal}
-  <AwardBadgeModal
-    bind:narrative={selectedDirectAwardForEvidence.narrative}
-    bind:url={selectedDirectAwardForEvidence.evidence_url}
-    bind:useEvidence={narrativeOrEvidenceRequired}
-    bind:name={selectedDirectAwardForEvidence.name}
-    bind:description={selectedDirectAwardForEvidence.description}
-    badgeClass={badgeclass}
-    submit={awardModalSubmit}
-    awardMode={false}
-    cancel={awardModalCancel}/>
+    <AwardBadgeModal
+            bind:narrative={selectedDirectAwardForEvidence.narrative}
+            bind:url={selectedDirectAwardForEvidence.evidence_url}
+            bind:useEvidence={narrativeOrEvidenceRequired}
+            bind:name={selectedDirectAwardForEvidence.name}
+            bind:description={selectedDirectAwardForEvidence.description}
+            badgeClass={badgeclass}
+            submit={awardModalSubmit}
+            awardMode={false}
+            cancel={awardModalCancel}/>
 {/if}

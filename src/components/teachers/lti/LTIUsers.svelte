@@ -10,7 +10,7 @@
     export let users = [];
 
     onMount(() => {
-        users.forEach(user => user.role = roles(user.roles))
+        users.forEach(user => user.role = roles(user.roles));
     })
 
     const tableHeaders = [

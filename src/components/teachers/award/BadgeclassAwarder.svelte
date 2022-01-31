@@ -8,6 +8,7 @@
     import Assertions from "../badges/Assertions.svelte";
     import Enrollments from "../badges/Enrollments.svelte";
     import {queryData} from "../../../api/graphql";
+
     import {
         assertionsQuery,
         directAwardBundleQuery,
@@ -28,6 +29,7 @@
     import {issuedTypes} from "../../../stores/filterAssertions";
     import BulkAwardDetails from "./BulkAwardDetails.svelte";
     import {config} from "../../../util/config";
+    import LTIAwardBadge from "./LTIAwardBadge.svelte";
 
     export let entityId;
     export let subEntity;
@@ -82,7 +84,8 @@
             identifier,
             nameEnglish,
             nameDutch,
-            directAwardingEnabled
+            directAwardingEnabled,
+            ltiEnabled
           }
         }
       },
@@ -319,12 +322,19 @@
                 <Route path="/direct-award">
                     <AwardBadge badgeclass={badgeclass}
                                 existingDirectAwardsEppns={assertions
-                            .filter(da => da.isDirectAward && da.status.toLowerCase() === "unaccepted")
-                            .map(da => da.eppn)}
+                                    .filter(da => da.isDirectAward && da.status.toLowerCase() === "unaccepted")
+                                    .map(da => da.eppn)}
                                 enrollments={enrollments}
                                 refresh={refresh}/>
                 </Route>
-
+                <Route path="/lti-award">
+                    <LTIAwardBadge badgeclass={badgeclass}
+                                existingDirectAwardsEppns={assertions
+                                    .filter(da => da.isDirectAward && da.status.toLowerCase() === "unaccepted")
+                                    .map(da => da.eppn)}
+                                enrollments={enrollments}
+                                refresh={refresh}/>
+                </Route>
                 <Route path="/bulk-award">
                     <BulkAwardBadge badgeclass={badgeclass}
                                     existingDirectAwardsEppns={assertions
@@ -340,7 +350,8 @@
             </Router>
         </div>
 
-        {#if !$currentPath.endsWith("bulk-award") && !$currentPath.endsWith("direct-award") && $currentPath.indexOf("award-details") === -1}
+        {#if !$currentPath.endsWith("bulk-award") && !$currentPath.endsWith("direct-award") &&
+                    !$currentPath.endsWith("lti-award") && $currentPath.indexOf("award-details") === -1}
             <BadgeClassHeader
                     object={badgeclass}
                     entity={entityType.BADGE_CLASS}

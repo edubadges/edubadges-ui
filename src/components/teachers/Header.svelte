@@ -6,7 +6,6 @@
     import {ltiContext} from "../../stores/lti";
 
     import {Header} from "../../components";
-    import {onMount} from "svelte";
 
     $: tabs = [
         {

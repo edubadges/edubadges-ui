@@ -1205,6 +1205,7 @@ I18n.translations.nl = {
         or: "-of-",
         inviteEnrollements: "Nodig gebruikers uit om in te schrijven",
         badgeClassArchived: "Kan geen uitreikingen doen op een gearrchiveerde badge class",
+        ltiAward: "Uitreiken van LTI import",
     },
     badgeAward: {
         directAward: {
