@@ -44,10 +44,17 @@
             res[1].forEach(user => user.role = roles(user.roles));
             users = res[1].filter(user => user.role.indexOf("Learner") > -1 && !isEmpty(user.lis_person_sourcedid));
             directAwards = users.map(user => {
-               return (badgeclass.evidenceRequired || badgeclass.narrativeRequired) ?
-                {email: user.email, eppn: user.lis_person_sourcedid, narrative: "", evidence_url: "", name: "", description: ""} :
-                {email: user.email, eppn: user.lis_person_sourcedid}
-            }) ;
+                return (badgeclass.evidenceRequired || badgeclass.narrativeRequired) ?
+                    {
+                        email: user.email,
+                        eppn: user.lis_person_sourcedid,
+                        narrative: "",
+                        evidence_url: "",
+                        name: "",
+                        description: ""
+                    } :
+                    {email: user.email, eppn: user.lis_person_sourcedid}
+            });
             loaded = true;
         })
     });
@@ -181,6 +188,10 @@
       margin: 15px 5px 30px 0;
     }
 
+    div.imported {
+      margin-top: 15px;
+    }
+
     div.deletable-row {
       display: flex;
     }
@@ -281,6 +292,24 @@
                     </div>
                 {/each}
             </div>
+            {#if users.length === 0}
+                <div class="imported">
+                    <p>
+                        {@html I18n.t("badgeAward.ltiAward.noUsers", {
+                            nbr: users.length, name: launchData["iss"]
+                        })}
+                        <a use:link href={"/lti/participants"}>
+                            {I18n.t("badgeAward.ltiAward.checkContext")}
+                        </a>
+                    </p>
+                </div>
+            {:else}
+                <div class="imported">
+                    <p>{@html I18n.t("badgeAward.ltiAward.usersImported", {
+                        nbr: users.length, name: launchData["iss"]
+                    })}</p>
+                </div>
+            {/if}
             <div class="add-email">
                 <a on:click|preventDefault|stopPropagation={addDirectAward}
                    href="/add">{I18n.t("badgeAward.directAward.addAnother")}</a>

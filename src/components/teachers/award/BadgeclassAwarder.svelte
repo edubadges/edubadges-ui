@@ -310,6 +310,10 @@
                 <span class="crumb">{@html chevronRightSmall}</span>
                 <span>{I18n.t("badgeAwardOptions.bulkAward")}</span>
             {/if}
+            {#if $currentPath.endsWith("lti-award")}
+                <span class="crumb">{@html chevronRightSmall}</span>
+                <span>{I18n.t("badgeAwardOptions.ltiAward")}</span>
+            {/if}
             {#if $currentPath.indexOf("award-details") > 0}
                 <span class="crumb">{@html chevronRightSmall}</span>
                 <span>{I18n.t("badgeAward.bulkAward.details.breadCrumb")}</span>
