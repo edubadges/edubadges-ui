@@ -131,8 +131,8 @@
             allowedIssuers = res.issuers;
             badgeclass = res.badgeClass;
             ltiCourse = res.ltiCourse;
-
-            if (badgeclass.issuer.faculty.institution.ltiEnabled) {
+            const ltiTabPresent = tabs.some(t => t.entity === "lti")
+            if (!ltiTabPresent && badgeclass.issuer.faculty.institution.ltiEnabled) {
                 tabs = [...tabs, {
                     entity: "lti",
                     href: `/manage/badgeclass/${entityId}/lti`,
