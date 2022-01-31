@@ -115,7 +115,7 @@
                     {user.email}
                 </td>
                 <td>
-                    {user.lis_person_sourcedid}
+                    {user.lis_person_sourcedid || "-"}
                 </td>
                 <td>
                     {user.role}
