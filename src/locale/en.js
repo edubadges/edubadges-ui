@@ -634,7 +634,7 @@ I18n.translations.en = {
             description: "Description",
             about: "About this badge",
             criteria_text: "What are the requirements to qualify for this edubadge?",
-            criteria_url: "Or provide a link to a webpage with the criteria or more information",
+            criteria_url: "Or provide a persistent link to a webpage with the criteria or more information",
             criteria_url_value: "Link to the criteria for earning this edubadge:",
             expiresAfter: "Expires after",
             expiresAfterOption: "After",
@@ -1115,7 +1115,7 @@ I18n.translations.en = {
         badgeClassDescription: "This description supports markdown. " +
         "See <a target=\"_blank\" href=\"https://wiki.surfnet.nl/display/Edubadges/Edubadges+Example+BadgeClass\"> the wiki </a> for examples.",
         badgeClassLanguageOfInstruction: "The language used in obtaining this edubadge.",
-        badgeClassLearningOutcome: "Describe the learning outcome or learning goal. Recorded in the Teaching and Examination Regulations. Possibly in line with the Tuning methodology.",
+        badgeClassLearningOutcome: "Describe the learning outcome or learning goal. Recorded in the Teaching and Examination Regulations.",
         //badgeClassLearningIssuer: "badgeClassLearningIssuer",
         badgeClassIsPrivate: "If checked, this badge class will not appear in the catalog. Note that you cannot award edubadges from a private badge class.",
         badgeClassEvidenceRequired: "If checked, any awards based on this badge class require an evidence to be filled in.",

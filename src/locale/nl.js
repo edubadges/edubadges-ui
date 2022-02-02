@@ -634,7 +634,7 @@ I18n.translations.nl = {
             description: "Beschrijving",
             about: "Over deze edubadge",
             criteria_text: "Aan welke criteria moet je voldoen om in aanmerking te komen voor deze edubadge?",
-            criteria_url: "Of geef een link naar de criteria of meer informatie",
+            criteria_url: "Of geef een persistente (blijvende) link naar de criteria of meer informatie",
             criteria_url_value: "Link naar de criteria en meer informatie:",
             expiresAfter: "Verloopt na",
             expiresAfterOption: "Na",
@@ -1115,7 +1115,7 @@ I18n.translations.nl = {
         badgeClassDescription: "Deze beschrijving ondersteund opmaak in markdown formaat. " +
         "Zie <a target=\"_blank\" href=\"https://wiki.surfnet.nl/display/Edubadges/Edubadges+Example+BadgeClass\"> de wiki </a> voor voorbeelden.",
         badgeClassLanguageOfInstruction: "De voertaal die gebruikt is bij het behalen van deze edubadge. ",
-        badgeClassLearningOutcome: "Beschrijf de leeruitkomst of het leerdoel. Vastgelegd in de Onderwijs- en examenregeling. Sluit mogelijk aan op de Tuning-methodiek.",
+        badgeClassLearningOutcome: "Beschrijf de leeruitkomst of het leerdoel. Vastgelegd in de Onderwijs- en examenregeling.",
         //badgeClassLearningIssuer: "badgeClassLearningIssuer",
         badgeClassIsPrivate: "Indien aangevinkt zal deze badge-klasse niet in de catalogus verschijnen. Houd er rekening mee dat er van privé badge classes geen edubadges kunnen worden uitgegeven.",
         badgeClassEvidenceRequired: "Indien aangevinkt, moet voor alle onderscheidingen op basis van deze badge class een bewijs worden ingevuld.",
