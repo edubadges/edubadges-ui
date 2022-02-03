@@ -622,6 +622,7 @@ I18n.translations.nl = {
             image: "Edubadge afbeelding",
             created: "Aangemaakt",
             issuedBy: "Uitgegeven door",
+            onBehalfOf: "Uitgegeven namens",
             of: "van",
             admin: "Admin",
             alignment: "Gerelateerd onderwijskundig raamwerk",
