@@ -134,7 +134,7 @@
                         </div>
                     {/if}
                     <div class="right">
-                        {#if object.object.issuer.faculty.onBehalfOf}
+                        {#if object.issuer.faculty.onBehalfOf}
                             <span class="top">{I18n.t("models.badgeclass.onBehalfOf")}</span>
                         {:else}
                             <span class="top">{I18n.t("models.badgeclass.issuedBy")}</span>
