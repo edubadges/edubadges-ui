@@ -424,6 +424,7 @@ I18n.translations.en = {
         934: "The programme identifier is required when Credit points are specified.",
         935: "Enter the time investment or remove this section.",
         936: "Cannot create edubadge collection with this name as it already exists.",
+        937: "ECTS can not be empty or 0",
         unexpected: "Unexpected error occurred.",
         description: "An unexpected error has occurred. Please try again later or contact support@edubadges.nl for support.",
         close: "Close"

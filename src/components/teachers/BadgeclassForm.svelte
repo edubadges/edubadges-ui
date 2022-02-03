@@ -286,22 +286,22 @@
                 processing = false;
                 errors = fields.error_message;
                 if (errors.extensions) {
-                    for (const ext of errors.extensions) {
+                    errors.extensions.forEach(ext => {
                         const ext_name = ext.error_message.split(' ')[1].split(':')[1];
                         if (ext_name === "StudyLoadExtension") {
                             errors[ext_name] = [{'error_code': 906}];
-                        }
-                        if (ext_name === "TimeInvestmentExtension") {
+                        } else if (ext_name === "TimeInvestmentExtension") {
                             errors[ext_name] = [{'error_code': 935}];
-                        }
-                        if (ext_name === "EducationProgramIdentifierExtension") {
+                        } else if (ext_name === "EducationProgramIdentifierExtension") {
                             if (showStudyLoad && !isInstitutionMBO && !extensions[educationProgramIdentifier.name]) {
                                 errors[ext_name] = [{'error_code': 934}];
                             } else {
                                 errors[ext_name] = [{'error_code': 909}];
                             }
+                        } else if (ext_name === "ECTSExtension") {
+                            errors[ext_name] = [{'error_code': 937}];
                         }
-                    }
+                    })
                 }
             }));
     }
@@ -556,7 +556,8 @@
                             placeholder={I18n.t("placeholders.badgeClass.studyLoad")}/>
                 </Field>
             {:else}
-                <Field {entity} attribute="ects.creditPoints" errors={errors.ectsLong} tipKey="badgeClassStudyLoadEcts">
+                <Field {entity} attribute="ects.creditPoints" errors={errors.ECTSExtension}
+                       tipKey="badgeClassStudyLoadEcts">
                     <EctsCreditPoints
                             bind:ectsValue={extensions[ects.name]}
                             disabled={!mayEdit && !isCopy}

@@ -76,7 +76,7 @@
 
 <div class="ects-points" {disabled}>
   <span class="control" on:click={decrement}>-</span>
-  <input type="number" max="240" min="0" oninput="validity.valid||(value='');" class="value" bind:value={ectsValue}/>
+  <input type="number" max="240" min="0.5" step="0.5" oninput="validity.valid||(value='0.5');" class="value" bind:value={ectsValue}/>
   <span class="control" on:click={increment}>+</span>
   <p class="info">{@html I18n.t("models.badgeclass.info.ects")}</p>
 

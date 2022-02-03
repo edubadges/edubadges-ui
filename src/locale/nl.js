@@ -424,6 +424,7 @@ I18n.translations.nl = {
         934: "De opleidingscode is verplicht als er studiepunten zijn opgegeven.",
         935: "Vul de tijd investering of verwijder deze rubriek.",
         936: "Kan geen collectie aanmaken met deze naam. Er bestaat al een collectie met deze naam.",
+        937: "ECTS mag niet leeg of 0 zijn",
         unexpected: "Oeps, er is iets totaal onverwachts en onverklaarbaars gebeurd.",
         description: "Een onverwachte fout is opgetreden. Probeer het opnieuw of neem contact op met support@edubadges.nl voor ondersteuning.",
         close: "Sluit"
