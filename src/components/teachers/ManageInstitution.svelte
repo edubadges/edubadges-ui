@@ -56,6 +56,7 @@
       faculty {
         nameDutch,
         nameEnglish,
+        onBehalfOf
       },
       imageEnglish,
       imageDutch,

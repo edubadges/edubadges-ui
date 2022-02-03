@@ -48,6 +48,7 @@
               faculty {
                 nameDutch,
                 nameEnglish,
+                onBehalfOf,
                 institution {
                   nameDutch,
                   nameEnglish,

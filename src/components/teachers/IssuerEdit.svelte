@@ -23,6 +23,7 @@
       faculty {
         nameDutch,
         nameEnglish,
+        onBehalfOf,
         entityId
       },
       badgeclasses {

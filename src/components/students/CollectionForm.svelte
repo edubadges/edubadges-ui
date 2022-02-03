@@ -42,7 +42,8 @@
             imageEnglish,
             faculty {
               nameDutch,
-              nameEnglish
+              nameEnglish,
+              onBehalfOf
             }
           }
         }

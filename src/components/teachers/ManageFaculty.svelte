@@ -41,7 +41,8 @@
         assertionCount,
         faculty {
           nameEnglish,
-          nameDutch
+          nameDutch,
+          onBehalfOf
         }
       },
       permissions {

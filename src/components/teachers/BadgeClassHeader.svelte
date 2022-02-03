@@ -1,22 +1,22 @@
 <script>
-  import I18n from "i18n-js";
-  import {EntityHeaderTabs, HeaderList} from "../teachers";
-  import {Button} from "../../components";
-  import {role} from "../../util/role";
-  import RemoteImage from "../RemoteImage.svelte";
-  import {entityType} from "../../util/entityTypes"
-  import {link} from "svelte-routing";
+    import I18n from "i18n-js";
+    import {EntityHeaderTabs, HeaderList} from "../teachers";
+    import {Button} from "../../components";
+    import {role} from "../../util/role";
+    import RemoteImage from "../RemoteImage.svelte";
+    import {entityType} from "../../util/entityTypes"
+    import {link} from "svelte-routing";
 
-  export let entity;
-  export let object = {};
-  export let mayUpdate;
-  export let hasDescription = false;
+    export let entity;
+    export let object = {};
+    export let mayUpdate;
+    export let hasDescription = false;
 
-  export let tabs;
-  export let headerItems;
-  export let visitorRole = role.TEACHER;
+    export let tabs;
+    export let headerItems;
+    export let visitorRole = role.TEACHER;
 
-  let imageId = "";
+    let imageId = "";
 
 </script>
 
@@ -112,30 +112,35 @@
 </style>
 
 <div class="entity">
-  <div class="content">
-    {#if object.image}
-      <div class="img-container">
-        <div class="img-icon">
-          <RemoteImage imageUrl={object.image} alt={`${object.name} logo`}/>
-        </div>
-      </div>
-    {/if}
-    <div class="info">
-      <h2>{object.name}</h2>
-      {#if hasDescription}
-        <h4>{object.description}</h4>
-      {/if}
-      <slot name="institution"/>
-      {#if entity === entityType.BADGE_CLASS && object.issuer && object.issuer.faculty && object.issuer.faculty.institution}
-        <div class="badge-class-sub-info">
-          {#if object.issuer.image}
-            <div class="sub-img-container">
-              <RemoteImage imageUrl={object.issuer.image} alt={`${object.name} sub-logo`}/>
+    <div class="content">
+        {#if object.image}
+            <div class="img-container">
+                <div class="img-icon">
+                    <RemoteImage imageUrl={object.image} alt={`${object.name} logo`}/>
+                </div>
             </div>
-          {/if}
-          <div class="right">
-            <span class="top">{I18n.t("models.badgeclass.issuedBy")}</span>
-            <span>
+        {/if}
+        <div class="info">
+            <h2>{object.name}</h2>
+            {#if hasDescription}
+                <h4>{object.description}</h4>
+            {/if}
+            <slot name="institution"/>
+            {#if entity === entityType.BADGE_CLASS && object.issuer && object.issuer.faculty && object.issuer.faculty.institution}
+                <div class="badge-class-sub-info">
+                    {#if object.issuer.image}
+                        <div class="sub-img-container">
+                            <RemoteImage imageUrl={object.issuer.image} alt={`${object.name} sub-logo`}/>
+                        </div>
+                    {/if}
+                    <div class="right">
+                        {#if object.object.issuer.faculty.onBehalfOf}
+                            <span class="top">{I18n.t("models.badgeclass.onBehalfOf")}</span>
+                        {:else}
+                            <span class="top">{I18n.t("models.badgeclass.issuedBy")}</span>
+                        {/if}
+
+                        <span>
               {#if object.issuer.id}
                <a href={object.issuer.id}>{object.issuer.name}</a>
               {:else if object.issuer.entityId}
@@ -143,34 +148,34 @@
               {:else}
                 <span class="issuer">{object.issuer.name}</span>
               {/if}
-              <span>{I18n.t("models.badgeclass.of")}</span>
+                            <span>{I18n.t("models.badgeclass.of")}</span>
               <a href="/public/institutions/{object.issuer.faculty.institution.entityId}"
                  use:link>{object.issuer.faculty.institution.name}</a>
             </span>
-          </div>
+                    </div>
 
+                </div>
+            {/if}
+            {#if object.publicLink}
+                <p><a href={object.publicLink} rel="noreferrer noopener" target="_blank">{object.publicLink}</a></p>
+            {/if}
+            <div class="list">
+                <HeaderList {entity} {headerItems}/>
+            </div>
         </div>
-      {/if}
-      {#if object.publicLink}
-        <p><a href={object.publicLink} rel="noreferrer noopener" target="_blank">{object.publicLink}</a></p>
-      {/if}
-      <div class="list">
-        <HeaderList {entity} {headerItems}/>
-      </div>
-    </div>
-    {#if visitorRole === role.TEACHER}
-      <div class="actions">
-        <div class="button-container">
-          {#if mayUpdate}
-            <Button fill={true} secondary href="edit" text={I18n.t(['manage', 'edit', entity])}/>
-          {/if}
+        {#if visitorRole === role.TEACHER}
+            <div class="actions">
+                <div class="button-container">
+                    {#if mayUpdate}
+                        <Button fill={true} secondary href="edit" text={I18n.t(['manage', 'edit', entity])}/>
+                    {/if}
+                </div>
+                <slot name="additional-actions"/>
+            </div>
+        {/if}
+        <div class="slots">
+            <slot/>
         </div>
-        <slot name="additional-actions"/>
-      </div>
-    {/if}
-    <div class="slots">
-      <slot/>
     </div>
-  </div>
-  <EntityHeaderTabs {tabs}/>
+    <EntityHeaderTabs {tabs}/>
 </div>

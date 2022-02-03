@@ -111,6 +111,7 @@
           nameDutch,
           nameEnglish,
           entityId,
+          onBehalfOf,
           institution {
             identifier,
             nameDutch,

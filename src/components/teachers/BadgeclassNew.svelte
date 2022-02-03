@@ -31,6 +31,7 @@
       faculty {
         nameEnglish,
         nameDutch,
+        onBehalfOf,
         entityId,
       }
     },

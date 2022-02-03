@@ -15,6 +15,7 @@
       descriptionEnglish,
       descriptionDutch,
       hasUnrevokedAssertions,
+      onBehalfOf,
       defaultLanguage,
       permissions {
         mayCreate

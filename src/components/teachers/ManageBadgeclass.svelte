@@ -74,6 +74,7 @@
         faculty {
           nameEnglish,
           nameDutch,
+          onBehalfOf,
           entityId,
           institution {
             identifier,

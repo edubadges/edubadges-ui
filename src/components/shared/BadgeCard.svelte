@@ -204,65 +204,69 @@
 </style>
 
 {#if badge || badgeClass}
-  <div class="card badge" class:links-enabled={linksEnabled} class:stand-alone={standAlone}
-       on:click|preventDefault|stopPropagation={detailLink}>
+    <div class="card badge" class:links-enabled={linksEnabled} class:stand-alone={standAlone}
+         on:click|preventDefault|stopPropagation={detailLink}>
 
-    {#if withPendingEnrollments || isPublic}
-      <StatusIndicator badge={badge} badgeClass={badgeClass}/>
-    {:else }
-      <StatusIndicator badge={badge}/>
-    {/if}
+        {#if withPendingEnrollments || isPublic}
+            <StatusIndicator badge={badge} badgeClass={badgeClass}/>
+        {:else }
+            <StatusIndicator badge={badge}/>
+        {/if}
 
 
-    <div class="header {withHeaderData ? 'header-extra-height' : 'header-regular-height'}">
-      {#if badge}
-        <span>{badge.isDirectAward ? moment(badge.createdAt).format('MMM D, YYYY') : moment(badge.issuedOn).format('MMM D, YYYY')}</span>
-        <BadgeShield badge={badge}/>
-      {/if}
-      <div class="image-center-v" class:direct-award={badge && badge.isDirectAward}>
-        <img src={badgeClass.image} alt=""/>
-        {#if badge && badge.isDirectAward}
+        <div class="header {withHeaderData ? 'header-extra-height' : 'header-regular-height'}">
+            {#if badge}
+                <span>{badge.isDirectAward ? moment(badge.createdAt).format('MMM D, YYYY') : moment(badge.issuedOn).format('MMM D, YYYY')}</span>
+                <BadgeShield badge={badge}/>
+            {/if}
+            <div class="image-center-v" class:direct-award={badge && badge.isDirectAward}>
+                <img src={badgeClass.image} alt=""/>
+                {#if badge && badge.isDirectAward}
           <span class="direct-award-action">
             {I18n.t("models.badge.claimDirectAward")}
           </span>
-        {/if}
-      </div>
-    </div>
-    <div class="content">
-      <div class="content-header">
-        <span class="name">{badgeClass.name}</span>
-      </div>
+                {/if}
+            </div>
+        </div>
+        <div class="content">
+            <div class="content-header">
+                <span class="name">{badgeClass.name}</span>
+            </div>
 
-      <div class="details">
-        <div class="vert-center">
-          <div class="issuer-img">
-            {#if badgeClass.issuer.image}
-              <img src={badgeClass.issuer.image} alt=""/>
-            {:else}
-              <span class="issuer-icon">{@html issuerIcon}</span>
-            {/if}
-          </div>
+            <div class="details">
+                <div class="vert-center">
+                    <div class="issuer-img">
+                        {#if badgeClass.issuer.image}
+                            <img src={badgeClass.issuer.image} alt=""/>
+                        {:else}
+                            <span class="issuer-icon">{@html issuerIcon}</span>
+                        {/if}
+                    </div>
+                </div>
+                <div class="issued">
+                    <span class="issued-by">{I18n.t("models.badge.issuedBy")}</span>
+                    <span class="issuer">{badgeClass.issuer.name}</span>
+                    {#if badgeClass.issuer.faculty}
+                        {#if badgeClass.issuer.faculty.onBehalfOf}
+                            <span class="faculty">({badgeClass.issuer.faculty.name})</span>
+                        {:else}
+                            <span class="faculty">{I18n.t("models.badge.onBehalfOf", {name: badgeClass.issuer.faculty.name})}</span>
+                        {/if}
+                    {/if}
+                </div>
+                {#if badgeClass.studyLoadValue}
+                    <div class="study-load">
+                        <span class="study-load-label">{I18n.t('models.badgeclass.studyLoad')}</span>
+                        <span class="study-load-value">{badgeClass.studyLoadValue}</span>
+                    </div>
+                {/if}
+                {#if badgeClass.timeInvestmentValue}
+                    <div class="study-load">
+                        <span class="study-load-label">{I18n.t('models.badgeclass.timeInvestment')}</span>
+                        <span class="study-load-value">{badgeClass.timeInvestmentValue}</span>
+                    </div>
+                {/if}
+            </div>
         </div>
-        <div class="issued">
-          <span class="issued-by">{I18n.t("models.badge.issuedBy")}</span>
-          <span class="issuer">{badgeClass.issuer.name}</span>
-          {#if badgeClass.issuer.faculty}
-            <span class="faculty">({badgeClass.issuer.faculty.name})</span>
-          {/if}
-        </div>
-        {#if badgeClass.studyLoadValue}
-          <div class="study-load">
-            <span class="study-load-label">{I18n.t('models.badgeclass.studyLoad')}</span>
-            <span class="study-load-value">{badgeClass.studyLoadValue}</span>
-          </div>
-        {/if}
-        {#if badgeClass.timeInvestmentValue}
-          <div class="study-load">
-            <span class="study-load-label">{I18n.t('models.badgeclass.timeInvestment')}</span>
-            <span class="study-load-value">{badgeClass.timeInvestmentValue}</span>
-          </div>
-        {/if}
-      </div>
     </div>
-  </div>
 {/if}

@@ -37,6 +37,7 @@
       faculty {
         nameDutch,
         nameEnglish,
+        onBehalfOf,
         entityId,
         institution {
           imageDutch,

@@ -516,6 +516,7 @@ I18n.translations.en = {
         badgeclass: {
             header: "Badge class",
             issuedBy: "Issued by",
+            onBehalfOf: "Issued on behalf of",
             badgeclassOwner: "Admin",
             badgeclassEditor: "Editor",
             badgeclassAwarder: "Awarder",
@@ -593,6 +594,7 @@ I18n.translations.en = {
             name: "Issuer group name",
             name_english: "Issuer group English name",
             name_dutch: "Issuer group Dutch name",
+            onBehalfOf: "On behalf of consortia"
         },
         issuer: {
             description: "About this issuer",
@@ -726,6 +728,7 @@ I18n.translations.en = {
             associatedInstitution: "Associated institution",
             issuedOn: "Issued",
             issuedBy: "Issued by",
+            onBehalfOf: " on behalf of {{name}}",
             claimed: "Claimed",
             expires: "Expires",
             expiresNever: "Never",
@@ -1137,6 +1140,7 @@ I18n.translations.en = {
         //badgeClassRelatedFrameworkCode: "badgeClassRelatedFrameworkCode",
         //badgeClassRelatedFrameworkDescription: "badgeClassRelatedFrameworkDescription",
         facultyName: "Avoid abbreviations, make sure your name is recognisable, also to external parties.",
+        facultyOnBehalfOf: "If checked the badgeclass mentions that this badgeclass is on behalf of the Issuer Group consortia",
         //facultyDescriptionEn: "facultyDescriptionEn",
         //facultyDescriptionNl: "facultyDescriptionNl",
         //issuerFaculty: "issuerFaculty",

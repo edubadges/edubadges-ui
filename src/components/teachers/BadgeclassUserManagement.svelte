@@ -56,6 +56,7 @@
         faculty {
           nameEnglish,
           nameDutch,
+          onBehalfOf,
           staff {
             entityId,
             mayAdministrateUsers,

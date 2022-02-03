@@ -40,6 +40,7 @@
       faculty {
         nameEnglish,
         nameDutch,
+        onBehalfOf,
         institution {
           nameEnglish,
           nameDutch,

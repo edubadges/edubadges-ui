@@ -516,6 +516,7 @@ I18n.translations.nl = {
         badgeclass: {
             header: "Badge class",
             issuedBy: "Uitgegeven door",
+            onBehalfOf: "Uitgegeven namens",
             badgeclassOwner: "Admin",
             badgeclassEditor: "Editor",
             badgeclassAwarder: "Awarder",
@@ -593,6 +594,7 @@ I18n.translations.nl = {
             name: "Naam",
             name_english: "Naam in het Engels",
             name_dutch: "Naam in het Nederlands",
+            onBehalfOf: "Namens consortia"
         },
         issuer: {
             description: "Over deze issuer",
@@ -726,6 +728,7 @@ I18n.translations.nl = {
             associatedInstitution: "Van instelling",
             issuedOn: "Uitgegeven op",
             issuedBy: "Uitgegeven door",
+            onBehalfOf: " namens {{name}}",
             claimed: "Geclaimd",
             expires: "Verloopt op",
             expiresNever: "Nooit",
@@ -1137,6 +1140,7 @@ I18n.translations.nl = {
         //badgeClassRelatedFrameworkCode: "badgeClassRelatedFrameworkCode",
         //badgeClassRelatedFrameworkDescription: "badgeClassRelatedFrameworkDescription",
         facultyName: "Vermijdt afkortingen, zorg voor herkenbare naam ook voor externen.",
+        facultyOnBehalfOf: "Indien aangevinkt vermeldt de badgeclass dat deze badgeclass namens de Faculteit consortia is",
         //facultyDescriptionEn: "facultyDescriptionEn",
         //facultyDescriptionNl: "facultyDescriptionNl",
         //issuerFaculty: "issuerFaculty",
