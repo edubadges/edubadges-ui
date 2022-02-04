@@ -247,10 +247,10 @@
                     <span class="issued-by">{I18n.t("models.badge.issuedBy")}</span>
                     <span class="issuer">{badgeClass.issuer.name}</span>
                     {#if badgeClass.issuer.faculty}
-                        {#if badgeClass.issuer.faculty.onBehalfOf}
-                            <span class="faculty">({badgeClass.issuer.faculty.name})</span>
-                        {:else}
+                        {#if badgeClass.issuer.faculty.onBehalfOf || badgeClass.issuer.faculty.on_behalf_of}
                             <span class="faculty">{I18n.t("models.badge.onBehalfOf", {name: badgeClass.issuer.faculty.name})}</span>
+                        {:else}
+                            <span class="faculty">({badgeClass.issuer.faculty.name})</span>
                         {/if}
                     {/if}
                 </div>

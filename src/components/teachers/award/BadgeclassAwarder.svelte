@@ -73,6 +73,7 @@
           nameEnglish,
           nameDutch,
           entityId,
+          onBehalfOf,
           institution {
             entityId,
             identifier,
