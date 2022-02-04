@@ -32,6 +32,7 @@
         nameEnglish,
         nameDutch,
         entityId,
+        onBehalfOf,
         publicIssuers {
           nameEnglish,
           nameDutch,
