@@ -15,6 +15,7 @@
     faculties {
       ${headerEntityMultiLanguage},
       ${headerStaff},
+      onBehalfOf,
       institution {
         imageDutch,
         imageEnglish,
