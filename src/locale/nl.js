@@ -594,7 +594,7 @@ I18n.translations.nl = {
             name: "Naam",
             name_english: "Naam in het Engels",
             name_dutch: "Naam in het Nederlands",
-            onBehalfOf: "Namens consortia"
+            onBehalfOf: "Uitgeven namens naam issuer group"
         },
         issuer: {
             description: "Over deze issuer",
@@ -1141,7 +1141,7 @@ I18n.translations.nl = {
         //badgeClassRelatedFrameworkCode: "badgeClassRelatedFrameworkCode",
         //badgeClassRelatedFrameworkDescription: "badgeClassRelatedFrameworkDescription",
         facultyName: "Vermijdt afkortingen, zorg voor herkenbare naam ook voor externen.",
-        facultyOnBehalfOf: "Indien aangevinkt vermeldt de badgeclass dat deze badgeclass namens de Faculteit consortia is",
+        facultyOnBehalfOf: "Indien aangevinkt vermeldt de badgeclass dat edubadges zijn uitgereikt namens deze issuer groep. Kan gebruikt worden bij het uitgeven namens een consortium.",
         //facultyDescriptionEn: "facultyDescriptionEn",
         //facultyDescriptionNl: "facultyDescriptionNl",
         //issuerFaculty: "issuerFaculty",
@@ -1174,7 +1174,7 @@ I18n.translations.nl = {
         importedBadgeImage: "Een png of svg badge afbeelding"
     },
     badgeOverview: {
-        faculty: "Faculteit",
+        faculty: "Issuer groep",
         issuer: "Vakgroup",
     },
     catalog: {

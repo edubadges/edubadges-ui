@@ -594,7 +594,7 @@ I18n.translations.en = {
             name: "Issuer group name",
             name_english: "Issuer group English name",
             name_dutch: "Issuer group Dutch name",
-            onBehalfOf: "On behalf of consortia"
+            onBehalfOf: "Issue on behalf of name issuer group"
         },
         issuer: {
             description: "About this issuer",
@@ -1141,7 +1141,7 @@ I18n.translations.en = {
         //badgeClassRelatedFrameworkCode: "badgeClassRelatedFrameworkCode",
         //badgeClassRelatedFrameworkDescription: "badgeClassRelatedFrameworkDescription",
         facultyName: "Avoid abbreviations, make sure your name is recognisable, also to external parties.",
-        facultyOnBehalfOf: "If checked the badgeclass mentions that this badgeclass is on behalf of the Issuer Group consortia",
+        facultyOnBehalfOf: "When checked, the badge class indicates that edubadges are issued on behalf of this issuer group. Can be used when issuing on behalf of a consortium.",
         //facultyDescriptionEn: "facultyDescriptionEn",
         //facultyDescriptionNl: "facultyDescriptionNl",
         //issuerFaculty: "issuerFaculty",
@@ -1174,7 +1174,7 @@ I18n.translations.en = {
         importedBadgeImage: "The png or svg badge image file"
     },
     badgeOverview: {
-        faculty: "Faculty",
+        faculty: "Issuer Group",
         issuer: "Issuer"
     },
     catalog: {
