@@ -438,7 +438,7 @@ I18n.translations.nl = {
         cancel: "Annuleer",
         inviteStatus: "Status",
         sent: "Uitnodiging verstuurd",
-        accepted: "Geaccepteeerd",
+        accepted: "Geaccepteerd",
         flash: {
             confirm: "{{emails}} succesvol uitgenodigd"
         }
