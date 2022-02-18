@@ -14,7 +14,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Made it possible to copy a badgeclass within the current issuer.
 - Several small changes in the locales.
 - Updated dependencies postcss, bump, nanoid, marked, follow-redirects.
- 
 ## [5.4.0] - 2022-01-17
 - Narrative supports markdown.
 
