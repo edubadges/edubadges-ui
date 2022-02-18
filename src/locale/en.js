@@ -226,7 +226,7 @@ I18n.translations.en = {
         revokedWithReason: "This edubadge has been revoked by the issuer for the reason: '{{revocationReason}}'",
         collections: {
             title: "Add to collection",
-            question: "Select a collection to add this badge to",
+            question: "Select a collection to add this edubadge to",
             placeholder: "Select...",
             flash: "Badge {{name}} added to collection {{col}}"
         },
@@ -583,7 +583,7 @@ I18n.translations.en = {
             name_english: "Institution name in English",
             name_dutch: "Institution name in Dutch",
             award_allowed_institutions: "Award allowed institutions",
-            requestedBadges: "Requested badges"
+            requestedBadges: "Requested edubadges"
         },
         faculty: {
             created: "Created",
@@ -636,7 +636,7 @@ I18n.translations.en = {
             hours: "Hours",
             name: "Name",
             description: "Description",
-            about: "About this badge",
+            about: "About this edubadge",
             criteria_text: "What are the requirements to qualify for this edubadge?",
             criteria_url: "Or provide a persistent link to a webpage with the criteria or more information",
             criteria_url_value: "Link to the criteria for earning this edubadge:",
@@ -647,7 +647,7 @@ I18n.translations.en = {
             expireSettings: "Default expiration setting",
             language: "Language of instruction",
             extraOptions: "Extra options",
-            isPrivate: "Private badgeclass",
+            isPrivate: "Private badge class",
             evidenceRequired: "Evidence required",
             narrativeRequired: "Narrative required",
             awardNonValidatedNameAllowed: "Award to non-validated account allowed",
@@ -868,7 +868,7 @@ I18n.translations.en = {
         copyPublicUrl: "If you want to share the public page link of this edubadge, you can copy the link to your clipboard.",
         copy: "Copy the link",
         titleCollections: "Share your collection",
-        copyPublicUrlCollections: "If you want to share the public page link of this collection of edubadges, you can copy the link to your clipboard.<br/><br/>Note that only public badges which are not revoked are shown on the public collection page.",
+        copyPublicUrlCollections: "If you want to share the public page link of this collection of edubadges, you can copy the link to your clipboard.<br/><br/>Note that only public edubadges which are not revoked are shown on the public collection page.",
     },
     invites: {
         title: "Invite people to request",
@@ -1123,9 +1123,9 @@ I18n.translations.en = {
         badgeClassLearningOutcome: "Describe the learning outcome or learning goal. Recorded in the Teaching and Examination Regulations.",
         //badgeClassLearningIssuer: "badgeClassLearningIssuer",
         badgeClassIsPrivate: "If checked, this badge class will not appear in the catalog. Note that you cannot award edubadges from a private badge class.",
-        badgeClassEvidenceRequired: "If checked, any awards based on this badge class require an evidence to be filled in.",
+        badgeClassEvidenceRequired: "If checked, any awards based on this badge class require an evidence of the achievement to be filled in.",
         badgeClassNarrativeRequired: "If checked, any awards based on this badge class require an narrative to be filled in.",
-        badgeClassAwardNonValidatedNameAllowed: "If checked, non-formal badges can be awarded to non-validated accounts.",
+        badgeClassAwardNonValidatedNameAllowed: "If checked, non-formal edubadges (edubadges without Study load) can be awarded to non-validated accounts.",
         //badgeClassCriteriaRequirements: "badgeClassCriteriaRequirements",
         //badgeClassCriteriaUrl: "badgeClassCriteriaUrl",
         //badgeClassTypeOfStudyLoad: "badgeClassTypeOfStudyLoad",
@@ -1330,7 +1330,7 @@ I18n.translations.en = {
         zeroStateBadges: "You have not added any edubadges yet...",
         create: "Create a new collection",
         shareable: "Collections that you can share",
-        requiresPublicBadgePresent: "A public collection requires at least one public badge",
+        requiresPublicBadgePresent: "A public collection requires at least one public edubadge",
         all: "All your collections",
         byRecent: "Most recent",
         bySize: "Number of edubadges",
@@ -1401,9 +1401,9 @@ I18n.translations.en = {
         title: "LTI Course information",
         linked: "Badgeclass <strong>{{name}}</strong> is linked to LTI course <strong>{{lti}}</strong>.",
         notLinked: "Badgeclass <strong>{{name}}</strong> is currently not linked to a LTI course.",
-        linkPossible: "You can link badgeclass <strong>{{name}}</strong> to LTI course {{lti}}.",
-        linkNotPossible: "To link badgeclasses to a LTI course you need to access Edubadges from within a LTI platform.",
-        unlinkNotPossible: "The link between badgeclass {{name}} and LTI course {{lti}} can be removed if you access Edubadges from within the LTI platform {{platform}}.",
+        linkPossible: "You can link badge class <strong>{{name}}</strong> to LTI course {{lti}}.",
+        linkNotPossible: "To link badge classes to a LTI course you need to access Edubadges from within a LTI platform.",
+        unlinkNotPossible: "The link between badge class {{name}} and LTI course {{lti}} can be removed if you access Edubadges from within the LTI platform {{platform}}.",
         course: {
             title: "Title",
             label: "Label",
@@ -1419,12 +1419,12 @@ I18n.translations.en = {
             unlink: "Unlink"
         },
         confirmations: {
-            link: "Are you sure you want to link badgeclass {{name}} to LTI course {{lti}}?",
-            unlink: "Are you sure you want to remove the link between badgeclass {{name}} and LTI course {{lti}}?"
+            link: "Are you sure you want to link badge class {{name}} to LTI course {{lti}}?",
+            unlink: "Are you sure you want to remove the link between badge class {{name}} and LTI course {{lti}}?"
         },
         flash: {
-            link: "Linked badgeclass {{name}} to LTI course {{lti}}",
-            unlink: "Unlinked badgeclass {{name}} from LTI course {{lti}}",
+            link: "Linked badge class {{name}} to LTI course {{lti}}",
+            unlink: "Unlinked badge class {{name}} from LTI course {{lti}}",
         }
     },
     lti: {

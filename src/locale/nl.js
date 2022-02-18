@@ -235,7 +235,7 @@ I18n.translations.nl = {
             private: "Maak deze edubadge privé",
             publishConfirmation: "Weet je zeker dat je deze edubadge publiek zichtbaar wilt maken?<b/><br/>Als je deze edubadge publiek maakt, wordt je gevalideerde naam <strong>{{name}}</strong> weergegeven in het validatiegedeelte van de openbare badge-webpagina.",
             privateConfirmation: "Weet je het zeker dat je deze edubadge privé wilt maken",
-            publishEvidenceConfirmation: "Wil je het bewijs sectie ook toevoegen aan de publiek beschikbare informatie?",
+            publishEvidenceConfirmation: "Wil je het bewijs (evidence) ook toevoegen aan de publiek beschikbare informatie?",
             deleteBadgeConfirmation: "Weet je het zeker dat je deze edubadge wilt weigeren?",
             acceptBadgeConfirmation: "Weet je het zeker dat je deze edubadge wilt accepteren?",
         },
@@ -1122,10 +1122,10 @@ I18n.translations.nl = {
         badgeClassLanguageOfInstruction: "De voertaal die gebruikt is bij het behalen van deze edubadge. ",
         badgeClassLearningOutcome: "Beschrijf de leeruitkomst of het leerdoel. Vastgelegd in de Onderwijs- en examenregeling.",
         //badgeClassLearningIssuer: "badgeClassLearningIssuer",
-        badgeClassIsPrivate: "Indien aangevinkt zal deze badge-klasse niet in de catalogus verschijnen. Houd er rekening mee dat er van privé badge classes geen edubadges kunnen worden uitgegeven.",
-        badgeClassEvidenceRequired: "Indien aangevinkt, moet voor alle onderscheidingen op basis van deze badge class een bewijs worden ingevuld.",
-        badgeClassNarrativeRequired: "Indien aangevinkt, moet voor alle onderscheidingen op basis van deze badge class een perssonlijke toelichting worden ingevuld.",
-        badgeClassAwardNonValidatedNameAllowed: "Indien aangevinkt, mogen non-formal badges uitgereikt worden aan niet-gevalideerde accounts.",
+        badgeClassIsPrivate: "Indien aangevinkt zal deze badge class niet in de catalogus verschijnen. Houd er rekening mee dat er van privé badge classes geen edubadges kunnen worden uitgegeven.",
+        badgeClassEvidenceRequired: "Indien aangevinkt, moet voor alle onderscheidingen op basis van deze badge class een bewijs van de geleverde prestatie worden ingevuld.",
+        badgeClassNarrativeRequired: "Indien aangevinkt, moet voor alle onderscheidingen op basis van deze badge class een persoonlijke toelichting worden ingevuld.",
+        badgeClassAwardNonValidatedNameAllowed: "Indien aangevinkt, mogen non-formal edubadges (edubadges zonder Studielast) uitgereikt worden aan niet-gevalideerde accounts.",
         //badgeClassCriteriaRequirements: "badgeClassCriteriaRequirements",
         //badgeClassCriteriaUrl: "badgeClassCriteriaUrl",
         //badgeClassTypeOfStudyLoad: "badgeClassTypeOfStudyLoad",
@@ -1141,7 +1141,7 @@ I18n.translations.nl = {
         //badgeClassRelatedFrameworkCode: "badgeClassRelatedFrameworkCode",
         //badgeClassRelatedFrameworkDescription: "badgeClassRelatedFrameworkDescription",
         facultyName: "Vermijdt afkortingen, zorg voor herkenbare naam ook voor externen.",
-        facultyOnBehalfOf: "Indien aangevinkt vermeldt de badgeclass dat edubadges zijn uitgereikt namens deze issuer groep. Kan gebruikt worden bij het uitgeven namens een consortium.",
+        facultyOnBehalfOf: "Indien aangevinkt vermeldt de badge class dat edubadges zijn uitgereikt namens deze issuer groep. Kan gebruikt worden bij het uitgeven namens een consortium.",
         //facultyDescriptionEn: "facultyDescriptionEn",
         //facultyDescriptionNl: "facultyDescriptionNl",
         //issuerFaculty: "issuerFaculty",
@@ -1399,11 +1399,11 @@ I18n.translations.nl = {
     },
     ltiBadgeClass: {
         title: "LTI Cursus informate",
-        linked: "Badgeclass <strong>{{name}}</strong> is gekoppeld aan LTI cursus <strong>{{lti}}</strong>.",
-        notLinked: "Badgeclass <strong>{{name}}</strong> is momenteel niet gekoppeld aan een LTI cursus.",
-        linkPossible: "Je kan badgeclass <strong>{{name}}</strong> koppelen aan LTI course {{lti}}.",
-        linkNotPossible: "Om badgeclasses te koppelen aan een LTI cursus moet je edubadges in de context van een LTI platform gebruiken.",
-        unlinkNotPossible: "De koppeling tussen badgeclass {{name}} en LTI cursus {{lti}} kan verwijderd worden als je edubadges in de context van het LTI platform {{platform}} gebruikt.",
+        linked: "Badge class <strong>{{name}}</strong> is gekoppeld aan LTI cursus <strong>{{lti}}</strong>.",
+        notLinked: "Badge class <strong>{{name}}</strong> is momenteel niet gekoppeld aan een LTI cursus.",
+        linkPossible: "Je kan badge class <strong>{{name}}</strong> koppelen aan LTI course {{lti}}.",
+        linkNotPossible: "Om badge classes te koppelen aan een LTI cursus moet je edubadges in de context van een LTI platform gebruiken.",
+        unlinkNotPossible: "De koppeling tussen badge class {{name}} en LTI cursus {{lti}} kan verwijderd worden als je edubadges in de context van het LTI platform {{platform}} gebruikt.",
         course: {
             title: "Titel",
             label: "Label",
@@ -1419,12 +1419,12 @@ I18n.translations.nl = {
             unlink: "Ontkoppel"
         },
         confirmations: {
-            link: "Weet je zeker dat je badgeclass {{name}} wilt koppelen met LTI cursus {{lti}}?",
-            unlink: "Weet je zker dat je de koppeling tussen badgeclass {{name}} en LTI cursus {{lti}} wilt verwijderen?"
+            link: "Weet je zeker dat je badge class {{name}} wilt koppelen met LTI cursus {{lti}}?",
+            unlink: "Weet je zker dat je de koppeling tussen badge class {{name}} en LTI cursus {{lti}} wilt verwijderen?"
         },
         flash: {
-            link: "Badgeclass {{name}} is gekoppeld aan LTI cursus {{lti}}",
-            unlink: "Badgeclass {{name}} is ontkoppeld aand LTI cursus {{lti}}",
+            link: "Badge class {{name}} is gekoppeld aan LTI cursus {{lti}}",
+            unlink: "Badge class {{name}} is ontkoppeld van LTI cursus {{lti}}",
         }
     },
     lti: {
