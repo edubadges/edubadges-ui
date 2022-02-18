@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [6.0.0] - 2022-02-21
+- Option added to issuer groups to make awarding on behalf of (consortia) possible.
+- Study load metadatafield in the badgeclass can not have the value '0'.
+- Several interface additions to support LTI connections to a LMS.
+- Added markdown WYSIWYG editor to badgeclass metadata input fields.
+- Added option to set permissions for multiple badgeclasses.
+- We don't show the pending status for awarded self enrolled edubadges.
+- Made it possible to copy a badgeclass within the current issuer.
+- Several small changes in the locales.
+- Updated dependencies postcss, bump, nanoid, marked, follow-redirects.
+ 
 ## [5.4.0] - 2022-01-17
 - Narrative supports markdown.
 
