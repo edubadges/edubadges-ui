@@ -65,6 +65,8 @@
           nameEnglish,
           nameDutch,
           onBehalfOf,
+          onBehalfOfDisplayName,
+          onBehalfOfUrl,
           entityId,
         }
       },

@@ -38,6 +38,8 @@
         nameDutch,
         nameEnglish,
         onBehalfOf,
+        onBehalfOfDisplayName,
+        onBehalfOfUrl,
         entityId,
         institution {
           imageDutch,

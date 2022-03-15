@@ -32,6 +32,8 @@
         faculty.name_english = faculty.nameEnglish;
         faculty.name_dutch = faculty.nameDutch;
         faculty.on_behalf_of = faculty.onBehalfOf;
+        faculty.on_behalf_of_url = faculty.onBehalfOfUrl;
+        faculty.on_behalf_of_display_name = faculty.onBehalfOfDisplayName;
 
         const args = isCreate ? [faculty] : [entityId, faculty];
         const apiCall = isCreate ? createFaculty : editFaculty;
@@ -58,6 +60,12 @@
             }));
     }
 </script>
+
+<style lang="scss">
+  div.checkbox-container {
+    margin-bottom: 15px;
+  }
+</style>
 
 <EntityForm faculty={ {...faculty, entityId} } submit={onSubmit} create={isCreate} {processing}
             {mayDelete} entityTypeName={entity} entityId={entityId} {hasUnrevokedAssertions}>
@@ -87,12 +95,29 @@
             </Field>
         </div>
     </MultiLanguageField>
-    <CheckBox
-            value={faculty.onBehalfOf || false}
-            inForm={true}
-            adjustTop={true}
-            label={I18n.t(['models', entity, 'onBehalfOf'])}
-            tipKey="facultyOnBehalfOf"
-            onChange={val => faculty.onBehalfOf = val}/>
+    <div class="checkbox-container">
+        <CheckBox
+                value={faculty.onBehalfOf || false}
+                inForm={true}
+                adjustTop={true}
+                label={I18n.t(['models', entity, 'onBehalfOf'])}
+                tipKey="facultyOnBehalfOf"
+                onChange={val => faculty.onBehalfOf = val}/>
+    </div>
+    <Field {entity} attribute="on_behalf_of_url" errors={errors.on_behalf_of_url}
+           tipKey="facultyOnBehalfOfUrl">
+        <TextInput bind:value={faculty.onBehalfOfUrl}
+                   error={errors.on_behalf_of_url}
+                   disabled={!faculty.onBehalfOf}
+                   placeholder={I18n.t("placeholders.faculty.onBehalfOfUrl")}/>
+    </Field>
+    <Field {entity} attribute="on_behalf_of_display_name" errors={errors.on_behalf_of_display_name}
+           tipKey="facultyOnBehalfOfDisplayName">
+        <TextInput bind:value={faculty.onBehalfOfDisplayName}
+                   error={errors.on_behalf_of_display_name}
+                   disabled={!faculty.onBehalfOf}
+                   placeholder={I18n.t("placeholders.faculty.onBehalfOfDisplayName")}/>
+    </Field>
+
 </EntityForm>
 

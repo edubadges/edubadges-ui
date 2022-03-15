@@ -75,6 +75,8 @@
           nameEnglish,
           nameDutch,
           onBehalfOf,
+          onBehalfOfDisplayName,
+          onBehalfOfUrl,
           entityId,
           institution {
             identifier,

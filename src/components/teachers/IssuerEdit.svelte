@@ -24,6 +24,8 @@
         nameDutch,
         nameEnglish,
         onBehalfOf,
+        onBehalfOfDisplayName,
+        onBehalfOfUrl,
         entityId
       },
       badgeclasses {

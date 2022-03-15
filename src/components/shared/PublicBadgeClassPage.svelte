@@ -112,6 +112,8 @@
           nameEnglish,
           entityId,
           onBehalfOf,
+          onBehalfOfDisplayName,
+          onBehalfOfUrl,
           institution {
             identifier,
             nameDutch,

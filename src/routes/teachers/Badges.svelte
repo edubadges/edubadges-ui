@@ -16,6 +16,8 @@
       ${headerEntityMultiLanguage},
       ${headerStaff},
       onBehalfOf,
+      onBehalfOfDisplayName,
+      onBehalfOfUrl,
       institution {
         imageDutch,
         imageEnglish,

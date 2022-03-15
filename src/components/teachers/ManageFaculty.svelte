@@ -42,7 +42,9 @@
         faculty {
           nameEnglish,
           nameDutch,
-          onBehalfOf
+          onBehalfOf,
+          onBehalfOfDisplayName,
+          onBehalfOfUrl
         }
       },
       permissions {

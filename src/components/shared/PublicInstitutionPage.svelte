@@ -33,6 +33,8 @@
         nameDutch,
         entityId,
         onBehalfOf,
+        onBehalfOfDisplayName,
+        onBehalfOfUrl,
         publicIssuers {
           nameEnglish,
           nameDutch,

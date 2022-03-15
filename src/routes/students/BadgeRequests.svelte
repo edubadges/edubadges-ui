@@ -35,7 +35,9 @@
           faculty {
             nameDutch,
             nameEnglish,
-            onBehalfOf
+            onBehalfOf,
+            onBehalfOfDisplayName,
+            onBehalfOfUrl
           }
         }
       },

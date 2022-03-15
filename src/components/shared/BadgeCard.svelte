@@ -6,6 +6,7 @@
     import {issuerIcon} from "../../icons";
     import StatusIndicator from "./StatusIndicator.svelte";
     import BadgeShield from "./BadgeShield.svelte";
+    import {onBehalfOfDisplayName} from "../../util/onBehalfOf";
 
     export let badge;
     export let badgeClass;
@@ -245,11 +246,15 @@
                 </div>
                 <div class="issued">
                     <span class="issued-by">{I18n.t("models.badge.issuedBy")}</span>
-                    <span class="issuer">{badgeClass.issuer.name}</span>
                     {#if badgeClass.issuer.faculty}
                         {#if badgeClass.issuer.faculty.onBehalfOf || badgeClass.issuer.faculty.on_behalf_of}
-                            <span class="faculty">{I18n.t("models.badge.onBehalfOf", {name: badgeClass.issuer.faculty.name})}</span>
+                            <span class="issuer">{badgeClass.issuer.faculty.institution.name}</span>
+                            <span class="faculty">
+                                {@html I18n.t("models.badge.onBehalfOf",
+                                    {name: onBehalfOfDisplayName(badgeClass.issuer.faculty) })}
+                            </span>
                         {:else}
+                            <span class="issuer">{badgeClass.issuer.name}</span>
                             <span class="faculty">({badgeClass.issuer.faculty.name})</span>
                         {/if}
                     {/if}

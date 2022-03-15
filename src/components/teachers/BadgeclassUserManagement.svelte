@@ -57,6 +57,8 @@
           nameEnglish,
           nameDutch,
           onBehalfOf,
+          onBehalfOfDisplayName,
+          onBehalfOfUrl,
           staff {
             entityId,
             mayAdministrateUsers,

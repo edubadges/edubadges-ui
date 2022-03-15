@@ -594,7 +594,9 @@ I18n.translations.en = {
             name: "Issuer group name",
             name_english: "Issuer group English name",
             name_dutch: "Issuer group Dutch name",
-            onBehalfOf: "Issue on behalf of name issuer group"
+            onBehalfOf: "Issue on behalf of name issuer group",
+            on_behalf_of_url: "URL of the on behalf of group",
+            on_behalf_of_display_name: "Display name of the on behalf of group",
         },
         issuer: {
             description: "About this issuer",
@@ -1046,7 +1048,9 @@ I18n.translations.en = {
         },
         faculty: {
             name: "(Required field) e.g. History",
-            description: "(Required field) e.g. all History related studies"
+            description: "(Required field) e.g. all History related studies",
+            onBehalfOfUrl: "(Optional) e.g. URL of the consortium",
+            onBehalfOfDisplayName: "(Optional) e.g. display name of the consortium",
         },
         issuer: {
             name: "(Required field) e.g. Social History Studies",
@@ -1142,6 +1146,8 @@ I18n.translations.en = {
         //badgeClassRelatedFrameworkDescription: "badgeClassRelatedFrameworkDescription",
         facultyName: "Avoid abbreviations, make sure your name is recognisable, also to external parties.",
         facultyOnBehalfOf: "When checked, the badge class indicates that edubadges are issued on behalf of this issuer group. Can be used when issuing on behalf of a consortium.",
+        facultyOnBehalfOfUrl: "When on behalf of is checked, this URL will be used as a external link to the actual on behalf of.",
+        facultyOnBehalfOfDisplayName: "When on behalf of is checked, this display name will used instead of the actual name of the issuer group.",
         //facultyDescriptionEn: "facultyDescriptionEn",
         //facultyDescriptionNl: "facultyDescriptionNl",
         //issuerFaculty: "issuerFaculty",

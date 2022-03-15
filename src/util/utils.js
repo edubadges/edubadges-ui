@@ -40,4 +40,5 @@ export const translateProperties = obj => {
       obj[attr] = isEnglish ? (obj[`${attr}_english`] || obj[`${attr}_dutch`]) : (obj[`${attr}_dutch`] || obj[`${attr}_english`]);
     }
   });
+  return obj;
 }
