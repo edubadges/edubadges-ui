@@ -5,6 +5,7 @@
     import {search} from "../../util/searchData";
     import {sort, sortType} from "../../util/sortData";
     import {issuerIcon} from "../../icons";
+    import {onBehalfOfDisplayName} from "../../util/onBehalfOf";
 
     export let issuers = [];
     export let institution = {};
@@ -118,7 +119,8 @@
                 {issuer.name}
                 <br/>
                 {#if issuer.faculty.onBehalfOf || issuer.faculty.on_behalf_of}
-                    <span class="sub-text">{I18n.t("models.badge.onBehalfOf", {name: issuer.faculty.name})}</span>
+                    <span class="sub-text">{@html I18n.t("models.badge.onBehalfOf",
+                        {name: onBehalfOfDisplayName(issuer.faculty)})}</span>
                 {:else}
                     <span class="sub-text">{issuer.faculty.name}</span>
                 {/if}

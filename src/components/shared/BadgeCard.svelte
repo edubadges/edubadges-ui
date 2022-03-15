@@ -16,7 +16,11 @@
     export let withPendingEnrollments = false;
     export let linksEnabled = true;
 
-    const detailLink = () => {
+    const detailLink = e => {
+        if (e.target && e.target.href && e.target.target && e.target.target === "_blank") {
+            window.open(e.target.href, e.target.target);
+            return;
+        }
         if (!linksEnabled) {
             return;
         }

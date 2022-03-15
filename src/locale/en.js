@@ -624,7 +624,7 @@ I18n.translations.en = {
             image: "Edubadge image",
             created: "Created",
             issuedBy: "Issued by",
-            onBehalfOf: "Issued on behalf of",
+            onBehalfOf: "Issued on behalf of {{name}}",
             of: "of",
             admin: "Admin",
             alignment: "Related educational framework",

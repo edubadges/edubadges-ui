@@ -594,7 +594,9 @@ I18n.translations.nl = {
             name: "Naam",
             name_english: "Naam in het Engels",
             name_dutch: "Naam in het Nederlands",
-            onBehalfOf: "Uitgeven namens naam issuer group"
+            onBehalfOf: "Uitgeven namens naam issuer groep",
+            on_behalf_of_url: "URL van de namens groep",
+            on_behalf_of_display_name: "Weergavenaam van de names groep",
         },
         issuer: {
             description: "Over deze issuer",
@@ -622,7 +624,7 @@ I18n.translations.nl = {
             image: "Edubadge afbeelding",
             created: "Aangemaakt",
             issuedBy: "Uitgegeven door",
-            onBehalfOf: "Uitgegeven namens",
+            onBehalfOf: "Uitgegeven namens {{name}}",
             of: "van",
             admin: "Admin",
             alignment: "Gerelateerd onderwijskundig raamwerk",
@@ -1046,7 +1048,9 @@ I18n.translations.nl = {
         },
         faculty: {
             name: "(Verplicht veld) Bijv. Geschiedenis",
-            description: "(Verplicht veld) Bijv. Alle issuers van de faculteit Geschiedenis"
+            description: "(Verplicht veld) Bijv. Alle issuers van de faculteit Geschiedenis",
+            onBehalfOfUrl: "(Optioneell) e.g. URL van het consortium",
+            onBehalfOfDisplayName: "(Optional) e.g. naam van het consortium",
         },
         issuer: {
             name: "(Verplicht veld) Bijv. Economische en Sociale geschiedenis",
@@ -1142,6 +1146,8 @@ I18n.translations.nl = {
         //badgeClassRelatedFrameworkDescription: "badgeClassRelatedFrameworkDescription",
         facultyName: "Vermijdt afkortingen, zorg voor herkenbare naam ook voor externen.",
         facultyOnBehalfOf: "Indien aangevinkt vermeldt de badge class dat edubadges zijn uitgereikt namens deze issuer groep. Kan gebruikt worden bij het uitgeven namens een consortium.",
+        facultyOnBehalfOfUrl: "Wanneer namens is aangevinkt, wordt deze URL gebruikt als een externe link naar de werkelijke namens.",
+        facultyOnBehalfOfDisplayName: "Wanneer namens is aangevinkt, wordt deze weergavenaam gebruikt in plaats van de werkelijke naam van de issuer groep.",
         //facultyDescriptionEn: "facultyDescriptionEn",
         //facultyDescriptionNl: "facultyDescriptionNl",
         //issuerFaculty: "issuerFaculty",
