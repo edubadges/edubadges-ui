@@ -98,7 +98,7 @@
     onMount(() => {
         queryData(query, {entityId}).then(res => {
             badgeclass = res.badgeClass;
-            issuers = res.issuers;
+            issuers = res.issuers || [];
             translateProperties(badgeclass.issuer);
             translateProperties(badgeclass.issuer.faculty);
             isCopy = action === "copy";
