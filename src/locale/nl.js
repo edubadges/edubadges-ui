@@ -271,7 +271,7 @@ I18n.translations.nl = {
         edit: {
             edit: "wijzig",
             institution: "Wijzig onderwijsinstelling",
-            faculty: "Wijzig issuer group",
+            faculty: "Wijzig issuer groep",
             issuer: "Wijzig issuer",
             badgeclass: "Wijzig badge class",
             save: "Opslaan",
@@ -285,13 +285,13 @@ I18n.translations.nl = {
             delete: "verwijder",
             info: {
                 assertionsBlock: {
-                    faculty: "Issuer group bevat edubadges die niet ingetrokken zijn en kan niet verwijderd worden.",
+                    faculty: "Issuer groep bevat edubadges die niet ingetrokken zijn en kan niet verwijderd worden.",
                     issuer: "Issuer bevat edubadges die niet ingetrokken zijn. De issuer kan daarom niet verwijderd worden.",
                     badgeclass: "Er zijn voor deze badge class reeds edubadges uitgereikt. De badge class kan daarom niet verwijderd worden."
                 },
                 noPermission: {
                     institution: "Instellingen kunnen niet verwijderd worden in het issuer portaal.",
-                    faculty: "Je hebt geen bevoegdheid om deze issuer group te verwijderen.",
+                    faculty: "Je hebt geen bevoegdheid om deze issuer groep te verwijderen.",
                     issuer: "Je hebt geen bevoegdheid om deze issuer te verwijderen.",
                     badgeclass: "Je hebt geen bevoegdheid om deze badge class te verwijderen."
                 }
@@ -303,9 +303,9 @@ I18n.translations.nl = {
                 question: "Wil je deze instelling echt verwijderen?"
             },
             faculty: {
-                name: "issuer group",
-                title: "Verwijder issuer group",
-                question: "Wil je deze issuer group echt verwijderen? Alle issuers en badge classes worden dan ook verwijderd."
+                name: "issuer groep",
+                title: "Verwijder issuer groep",
+                question: "Wil je deze issuer groep echt verwijderen? Alle issuers en badge classes worden dan ook verwijderd."
             },
             issuer: {
                 name: "Issuer",
@@ -388,20 +388,20 @@ I18n.translations.nl = {
         701: "Ongespecifieerde share provider.",
         702: "Ongeldige share provider.",
         801: "Kan grading table URL niet aanpassen, er zijn al edubadges uitgegeven.",
-        802: "Kan BRIN code niet aanpassen, er zijn al edubadges uitgegeven.",
+        802: "Kan instellingscode niet aanpassen, er zijn al edubadges uitgegeven.",
         902: "Dit is geen geldige URL of het formaat van de afbeelding klopt niet.",
         903: "Dit veld is verplicht.",
         904: "Geen bestand gekozen.",
         905: "Invullen van criteria of van criteria URL is verplicht.",
         906: "Vul een getal in voor studiebelastingsuren of verwijder deze rubriek.",
         907: "Dit is een gereserveerde naam voor badge classes",
-        908: "Kan een Issuer met deze Engelse naam niet aanmaken in deze Issuer group. Er bestaat er al een met dezelfde Engelse naam.",
+        908: "Kan een Issuer met deze Engelse naam niet aanmaken in deze Issuer groep. Er bestaat er al een met dezelfde Engelse naam.",
         909: "Vul de opleidingscode of verwijder deze rubriek.",
         910: "Invullen van narratief of van URL is verplicht.",
         911: "Kan een badge class met deze naam niet aanmaken in deze Issuer. Er bestaat er al een met dezelfde naam.",
         912: "Invullen van een Nederlandse of Engelse naam is verplicht.",
         913: "Invullen van een Nederlandse of Engelse beschrijving is verplicht.",
-        914: "Kan een Issuer met deze Nederlandse naam niet aanmaken in deze Issuer group. Er bestaat er al een met dezelfde Nederlandse naam.",
+        914: "Kan een Issuer met deze Nederlandse naam niet aanmaken in deze Issuer groep. Er bestaat er al een met dezelfde Nederlandse naam.",
         915: "Invullen van een Nederlandse of Engelse url is verplicht.",
         916: "Kan een Issuer Groep met deze Nederlandse naam niet aanmaken in deze instelling. Er bestaat er al een met dezelfde Nederlandse naam.",
         917: "Kan een Issuer Groep met deze Engelse naam niet aanmaken in deze instelling. Er bestaat er al een met dezelfde Engelse naam.",
@@ -454,9 +454,9 @@ I18n.translations.nl = {
         headerControl: "Gebruikers in ",
         roles: {
             institution_staff: "Instellingsadmin",
-            issuer_group_staff: "Issuer group admin",
-            issuer_group_awarder: "Issuer group Awarder",
-            issuer_group_admin: "Issuer group Admin",
+            issuer_group_staff: "Issuer groep admin",
+            issuer_group_awarder: "Issuer groep Awarder",
+            issuer_group_admin: "Issuer groep Admin",
             issuer_staff: "Issuer admin",
             issuer_admin: "Issuer admin",
             issuer_awarder: "Issuer awarder",
@@ -468,9 +468,9 @@ I18n.translations.nl = {
         flash: {
             makeUserInstitutionAdmin: "{{name}} heeft de instellingsadmin-rechten gekregen",
             removeUserInstitutionAdmin: "De instellingsadmin-rechten zijn verwijderd van {{name}}",
-            makeUserIssuerGroupAdmin: "{{name}} heeft de issuer group admin rechten gekregen",
-            makeUserIssuerGroupAwarder: "{{name}} heeft de issuer group awarder rechten gekregen",
-            removeUserIssuerGroupAdmin: "De issuer group admin rechten zijn verwijderd van {{name}}",
+            makeUserIssuerGroupAdmin: "{{name}} heeft de issuer groep admin rechten gekregen",
+            makeUserIssuerGroupAwarder: "{{name}} heeft de issuer groep awarder rechten gekregen",
+            removeUserIssuerGroupAdmin: "De issuer groep admin rechten zijn verwijderd van {{name}}",
             makeUserIssuerAdmin: "{{name}} heeft de issuer admin rechten gekregen",
             makeUserIssuerAwarder: "{{name}} heeft de issuer awarder rechten gekregen",
             removeUserIssuerAdmin: "De issuer admin rechten zijn verwijderd van {{name}}",
@@ -496,13 +496,13 @@ I18n.translations.nl = {
             removeUserInstitutionAdminQuestion: "Weet je het zeker dat je de instellingsadmin-rechten van {{name}} wilt verwijderen?",
         },
         faculty: {
-            admin: "Issuer group admin",
-            awarder: "Issuer group awarder",
-            switchToOwner: "Permissie succesvol aangepast naar issuer group admin.",
-            switchToAwarder: "Permissie succesvol aangepast naar issuer group awarder.",
-            header: "Issuer group",
-            allRights: "Issuer group admin",
-            permissions: "Permissies op issuer group niveau"
+            admin: "Issuer groep admin",
+            awarder: "Issuer groep awarder",
+            switchToOwner: "Permissie succesvol aangepast naar issuer groep admin.",
+            switchToAwarder: "Permissie succesvol aangepast naar issuer groep awarder.",
+            header: "Issuer groep",
+            allRights: "Issuer groep admin",
+            permissions: "Permissies op issuer groep niveau"
         },
         issuer: {
             admin: "Issuer admin",
@@ -534,14 +534,14 @@ I18n.translations.nl = {
             allRights: "Alle rechten",
             awarderRights: "Awarder rechten",
             institutionAllRights: "(vanwege instellingsadmin)",
-            issuerGroupAllRights: "(vanwege issuer group admin)",
-            issuerGroupAwarderRights: "(vanwege issuer group awarder)",
+            issuerGroupAllRights: "(vanwege issuer groep admin)",
+            issuerGroupAwarderRights: "(vanwege issuer groep awarder)",
             issuerAllRights: "(vanwege issuer admin)",
             issuerAwarderRights: "(vanwege issuer awarder)",
             addPermissions: "Voeg permissies toe",
             remove: {
                 institution: "Weet je zeker dat je de instellingsadmin-rechten wilt verwijderen?",
-                faculty: "Weet je zeker dat je de issuer group rechten wilt verwijderen?",
+                faculty: "Weet je zeker dat je de issuer groep rechten wilt verwijderen?",
                 issuer: "Weet je zeker dat je de issuer-rechten wilt verwijderen?",
                 badgeclass: "Weet je zeker dat je deze rechten wilt verwijderen?"
             },
@@ -567,13 +567,13 @@ I18n.translations.nl = {
             notes: 'Persoonlijke boodschap',
             badgeclass: "Selecteer badge classes",
             badgeClassPlaceholder: "Zoek en selecteer badge classes",
-            issuerGroup: "Selecteer een issuer group",
+            issuerGroup: "Selecteer een issuer groep",
             issuer: "Selecteer een issuer",
         },
         institution: {
             created: "Aangemaakt",
             admin: "Admin",
-            brin: "BRIN code",
+            brin: "Instellingscode",
             description: "Over deze instelling",
             description_english: "Beschrijving in het Engels",
             description_dutch: "Beschrijving in het Nederlands",
@@ -663,7 +663,7 @@ I18n.translations.nl = {
             sbu: "Study Belasting Uren",
             ectsLong: "European Credit Transfer and Accumulation System",
             typeOfStudyLoad: "Soort studielast",
-            eqf: "NLQF niveau",
+            eqf: "Indicatief NLQF niveau",
             educationProgramIdentifier: "ISAT",
             educationProgramIdentifierLong: "Opleidingscode",
             notSet: "-",
@@ -834,8 +834,8 @@ I18n.translations.nl = {
             createdAt: "Aangemaakt",
         },
         insights: {
-            faculty: "Issuer group",
-            facultyPlaceholder: "Selecteer een issuer group...",
+            faculty: "Issuer groep",
+            facultyPlaceholder: "Selecteer een issuer groep...",
             issuer: "Issuer",
             issuerPlaceholder: "Selecteer een issuer...",
             badgeClass: "Badge class",
@@ -1011,7 +1011,7 @@ I18n.translations.nl = {
     zeroState: {
         badgeClasses: "Er zijn geen badge classes voor issuer {{name}}.",
         issuers: "Er zijn geen issuers voor {{name}}.",
-        faculties: "Er zijn geen issuer groups voor instelling {{name}}.",
+        faculties: "Er zijn geen issuer groepen voor instelling {{name}}.",
         users: "Er zijn geen gebruikers voor instelling {{name}}.",
         assertions: "Er zijn geen uitreikingen voor edubadge {{name}}.",
         enrollments: "Er zijn geen aanvragen voor edubadge {{name}}.",
@@ -1025,7 +1025,7 @@ I18n.translations.nl = {
     userManagement: {
         permissions: "Permissies voor {{name}}",
         institution_staff: "institution staff",
-        issuer_group_staff: "issuer group staff",
+        issuer_group_staff: "issuer groep staff",
         issuer_staff: "issuer staff",
         badge_class_staff: "badge class staff",
         user_provisionment: "uitnodigingen gebruikers"
@@ -1041,7 +1041,7 @@ I18n.translations.nl = {
     placeholders: {
         institution: {
             name: "(Verplicht veld) Bijv. Universiteit van Harderwijk",
-            brin: "(Verplicht veld) Basisregistratie Instellingen - BRIN",
+            brin: "(Verplicht veld) Instellingscode (voorheen BRIN code)",
             gradingTable: "URL van de grading table",
             description: "(Verplicht veld) Bijv. De Universiteit van Harderwijk is gesticht in 1977.",
             allowedInstitutions: "Selecteer 1 of meer instellingen..."
@@ -1138,7 +1138,7 @@ I18n.translations.nl = {
         //badgeClassSBUNumber: "badgeClassSBULoadNumber",
         badgeClassStudyLoadEcts: "Het European Credit Transfer System (ECTS) is een puntensysteem dat wordt gebruikt door universiteiten en is goedgekeurd door overheden, waardoor internationaal onderwijs beter vergelijkbaar is over de grenzen heen.",
         //badgeClassProgrammeIdentifier: "badgeClassProgrammeIdentifier",
-        //badgeClassNLQFLevel: "badgeClassNLQFLevel",
+        badgeClassNLQFLevel: "Geef aan op welk kwalificatie niveau deze edubadge is afgeleid.",
         //badgeClassRelatedFrameworkName: "badgeClassRelatedFrameworkName",
         //badgeClassRelatedFrameworkFramework: "badgeClassRelatedFrameworkFramework",
         //badgeClassRelatedFrameworkURL: "badgeClassRelatedFrameworkURL",
@@ -1161,7 +1161,7 @@ I18n.translations.nl = {
         //institutionName: "institutionName",
         //institutionDescriptionEn: "institutionDescriptionEn",
         //institutionDescriptionNl: "institutionDescriptionNl",
-        //institutionBrin: "institutionBrin",
+        institutionBrin: "Instellingscode uitgegeven door DUO. Voorheen BRIN code.",
         institutionGradingTable: "Gebruik hier een URL die niet zal veranderen. (Persistent URL).",
         institutionAwardAllowedInstitutions: "Selecteer andere instellingen waarvan de studenten<br/>ook edubadges kunnen verdienen.",
         badgeclassAwardAllowedInstitutions: "Selecteer andere instellingen waarvan de studenten<br/>ook deze edubadge kunnen verdienen.",
@@ -1181,7 +1181,7 @@ I18n.translations.nl = {
     },
     badgeOverview: {
         faculty: "Issuer groep",
-        issuer: "Vakgroup",
+        issuer: "Issuer",
     },
     catalog: {
         name: "Catalogus",
@@ -1322,7 +1322,7 @@ I18n.translations.nl = {
         numbers: "De getallen tellen op",
         badgeClasses: "Badge classes",
         issuers: "Issuers",
-        issuerGroups: "Issuer groups",
+        issuerGroups: "Issuer groepen",
         users: "Portal gebruikers",
         backpack: "Backpack gebruikers",
         crunching: "Crunching the numbers just for you...",

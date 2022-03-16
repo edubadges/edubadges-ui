@@ -388,7 +388,7 @@ I18n.translations.en = {
         701: "Unspecified share provider.",
         702: "Invalid share provider.",
         801: "Cannot change grading table URL, edubadges have already been issued.",
-        802: "Cannot change BRIN code, edubadges have already been issued.",
+        802: "Cannot change institution code, edubadges have already been issued.",
         902: "Must be a valid URL or picture format.",
         903: "This is a required attribute.",
         904: "No file was uploaded.",
@@ -573,7 +573,7 @@ I18n.translations.en = {
         institution: {
             created: "Created",
             admin: "Admin",
-            brin: "BRIN code",
+            brin: "Institution code",
             description: "About this institution",
             description_english: "Description in English",
             description_dutch: "Description in Dutch",
@@ -663,7 +663,7 @@ I18n.translations.en = {
             sbu: "Studie Belasting Uren",
             ectsLong: "European Credit Transfer and Accumulation System",
             typeOfStudyLoad: "Type of study load",
-            eqf: "NLQF level",
+            eqf: "Indicative NLQF level",
             educationProgramIdentifier: "ISAT",
             educationProgramIdentifierLong: "Programme Identifier",
             notSet: "-",
@@ -1041,7 +1041,7 @@ I18n.translations.en = {
     placeholders: {
         institution: {
             name: "(Required field) e.g. University of Harderwijk",
-            brin: "(Required field) BRIN code",
+            brin: "(Required field) Institution code (used to be the BRIN code)",
             gradingTable: "URL of the grading table",
             description: "(Required field) e.g. The University of Harderwijk was founded in 1977",
             allowedInstitutions: "Select one or more institutions..."
@@ -1138,7 +1138,7 @@ I18n.translations.en = {
         //badgeClassSBUNumber: "badgeClassSBULoadNumber",
         badgeClassStudyLoadEcts: "The European Credit Transfer System (ECTS) is a points system used by universities and agreed by governments, that makes international education more easily comparable across borders.",
         //badgeClassProgrammeIdentifier: "badgeClassProgrammeIdentifier",
-        //badgeClassNLQFLevel: "badgeClassNLQFLevel",
+        badgeClassNLQFLevel: "Indicate at which qualification level this edubadge is derived.",
         //badgeClassRelatedFrameworkName: "badgeClassRelatedFrameworkName",
         //badgeClassRelatedFrameworkFramework: "badgeClassRelatedFrameworkFramework",
         //badgeClassRelatedFrameworkURL: "badgeClassRelatedFrameworkURL",
@@ -1161,7 +1161,7 @@ I18n.translations.en = {
         //institutionName: "institutionName",
         //institutionDescriptionEn: "institutionDescriptionEn",
         //institutionDescriptionNl: "institutionDescriptionNl",
-        //institutionBrin: "institutionBrin",
+        institutionBrin: "Institution code issued by DUO. (used to be the BRIN code)",
         institutionGradingTable: "Use a URL that will not change. (Persistent URL).",
         institutionAwardAllowedInstitutions: "Select other institutions from which<br/>students potentially may be awarded edubadges.",
         badgeclassAwardAllowedInstitutions: "Select other institutions from which<br/>students may be awarded this edubadge.",
