@@ -134,11 +134,12 @@ export function withdrawTermsForBadge(terms_agreement_entity_id) {
 }
 
 // Student badges
-export function requestBadge(id) {
+export function requestBadge(id, narrative, evidence_url) {
     const path = `${serverUrl}/lti_edu/enroll`;
+    const body = {badgeclass_slug: id, narrative: narrative, evidence_url: evidence_url};
     return validFetchNoErrorDialog(
         path,
-        {body: JSON.stringify({badgeclass_slug: id})},
+        {body: JSON.stringify(body)},
         "POST"
     );
 }

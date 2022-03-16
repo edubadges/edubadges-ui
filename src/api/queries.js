@@ -133,6 +133,8 @@ export const enrollmentsQuery = `
         dateAwarded,
         denied,
         denyReason,
+        evidenceUrl,
+        narrative,
         entityId,
         user {
           entityId,

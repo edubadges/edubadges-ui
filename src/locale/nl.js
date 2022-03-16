@@ -425,6 +425,8 @@ I18n.translations.nl = {
         935: "Vul de tijdsinvestering of verwijder deze rubriek.",
         936: "Kan geen collectie aanmaken met deze naam. Er bestaat al een collectie met deze naam.",
         937: "ECTS mag niet leeg of 0 zijn",
+        938: "Een motivatie is verplicht voor het aanvragen van deze badge",
+        939: "Een bronvermelding is verplicht voor het aanvragen van deze badge",
         unexpected: "Oeps, er is iets totaal onverwachts en onverklaarbaars gebeurd.",
         description: "Een onverwachte fout is opgetreden. Probeer het opnieuw of neem contact op met support@edubadges.nl voor ondersteuning.",
         close: "Sluit"
@@ -652,6 +654,8 @@ I18n.translations.nl = {
             isPrivate: "Privé badge class",
             evidenceRequired: "Evidence verplicht",
             narrativeRequired: "Narrative verplicht",
+            narrativeStudentRequired: "Motivatie verplicht voor student aanvraag",
+            evidenceStudentRequired: "Evidence URL verplicht voor student aanvraag",
             awardNonValidatedNameAllowed: "Uitreiken aan niet gevalideerd account toestaan",
             learningOutcome: "Leeruitkomst",
             studyLoad: "Studielast",
@@ -804,10 +808,13 @@ I18n.translations.nl = {
             evidenceURL: "URL",
             evidenceDescription: "Beschrijving",
             evidenceName: "Naam",
+            evidence_url: "Bronvermelding URL",
+            narrative: "Motivatie",
             flash: {
                 denied: "De inschrijving(en) zijn afgewezen.",
                 awarded: "De inschrijving(en) zijn toegekend."
-            }
+            },
+            studentEvidenceRequired: "Om deze Badge aan te vragen dien je bewijs / motivatie toe te voegen waarom het verzoek gegrond is."
         },
         badgeAward: {
             email: "E-mail",
@@ -1129,6 +1136,8 @@ I18n.translations.nl = {
         badgeClassIsPrivate: "Indien aangevinkt zal deze badge class niet in de catalogus verschijnen. Houd er rekening mee dat er van privé badge classes geen edubadges kunnen worden uitgegeven.",
         badgeClassEvidenceRequired: "Indien aangevinkt, moet voor alle onderscheidingen op basis van deze badge class een bewijs van de geleverde prestatie worden ingevuld.",
         badgeClassNarrativeRequired: "Indien aangevinkt, moet voor alle onderscheidingen op basis van deze badge class een persoonlijke toelichting worden ingevuld.",
+        badgeClassNarrativeStudentRequired: "Indien aangevinkt, moet voor alle aanvragen van deze badge class een persoonlijke motivatie worden ingevuld.",
+        badgeClassEvidenceStudentRequired: "Indien aangevinkt, moet voor alle aanvragen van deze badge class een bronvermelding URL worden ingevuld.",
         badgeClassAwardNonValidatedNameAllowed: "Indien aangevinkt, mogen non-formal edubadges (edubadges zonder Studielast) uitgereikt worden aan niet-gevalideerde accounts.",
         //badgeClassCriteriaRequirements: "badgeClassCriteriaRequirements",
         //badgeClassCriteriaUrl: "badgeClassCriteriaUrl",

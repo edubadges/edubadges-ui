@@ -24,7 +24,7 @@
 
     onMount(() => {
         narrativeOrEvidenceRequired = badgeClass.narrativeRequired || badgeClass.evidenceRequired;
-        useEvidence = narrativeOrEvidenceRequired || !awardMode;
+        useEvidence = narrativeOrEvidenceRequired || !awardMode || !isEmpty(url) || !isEmpty(description);
     });
 
     const doSubmit = () => {
@@ -111,7 +111,9 @@
     margin-top: 10px;
     padding-top: 10px;
     border-top: 1px solid var(--purple);
-
+    :global(.bytemd) {
+        height: 150px;
+  }
   }
 
   div.options {

@@ -96,8 +96,14 @@
         showAwardModal = false;
     }
 
+
+
     const awardModalCancel = () => {
         showAwardModal = false;
+        selectedDirectAwardForEvidence.narrative = ""
+        selectedDirectAwardForEvidence.evidence_url = ""
+        selectedDirectAwardForEvidence.name = ""
+        selectedDirectAwardForEvidence.description = ""
     }
 
     const init = e => e.focus();

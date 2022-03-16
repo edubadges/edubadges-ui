@@ -216,6 +216,8 @@
             is_private: badgeclass.isPrivate,
             evidence_required: badgeclass.evidenceRequired,
             narrative_required: badgeclass.narrativeRequired,
+            narrative_student_required: badgeclass.narrativeStudentRequired,
+            evidence_student_required: badgeclass.evidenceStudentRequired,
             award_non_validated_name_allowed: badgeclass.awardNonValidatedNameAllowed,
             criteria_url: toHttpOrHttps(badgeclass.criteriaUrl),
         };
@@ -479,6 +481,20 @@
                     label={I18n.t(['models', entity, 'narrativeRequired'])}
                     tipKey="badgeClassNarrativeRequired"
                     onChange={val => badgeclass.narrativeRequired = val}/>
+            <CheckBox
+                    value={badgeclass.narrativeStudentRequired || false}
+                    inForm={true}
+                    adjustTop={true}
+                    label={I18n.t(['models', entity, 'narrativeStudentRequired'])}
+                    tipKey="badgeClassNarrativeStudentRequired"
+                    onChange={val => badgeclass.narrativeStudentRequired = val}/>
+            <CheckBox
+                    value={badgeclass.evidenceStudentRequired || false}
+                    inForm={true}
+                    adjustTop={true}
+                    label={I18n.t(['models', entity, 'evidenceStudentRequired'])}
+                    tipKey="badgeClassEvidenceStudentRequired"
+                    onChange={val => badgeclass.evidenceStudentRequired = val}/>
             <CheckBox
                     value={badgeclass.awardNonValidatedNameAllowed || false}
                     inForm={true}

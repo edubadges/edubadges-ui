@@ -91,6 +91,15 @@
         }
     }
 
+    const cancelAwardDialog = () => {
+        showAwardModal = false;
+        narrative = "";
+        url = "";
+        name = "";
+        description = "";
+    }
+
+
     const onCheckAll = val => {
         selection = val ? enrollments.filter(enrollment => !enrollment.denied).map(({entityId}) => entityId) : [];
         table.checkAllValue = val;
@@ -98,7 +107,7 @@
 
     const onCheckOne = (val, entityId) => {
         if (val) {
-            if (badgeClass.evidenceRequired || badgeClass.narrativeRequired) {
+            if (badgeClass.evidenceRequired || badgeClass.narrativeRequired || badgeClass) {
                 selection = [entityId];
             } else {
                 selection = selection.concat(entityId);
@@ -208,107 +217,108 @@
 
 </style>
 {#if serverBusy}
-  <Spinner />
+    <Spinner/>
 {/if}
 <Table
-  {...table}
-  bind:search={enrollmentSearch}
-  bind:sort={enrollmentSort}
-  isEmpty={enrollments.length === 0}
-  withCheckAll={true}
-  checkAllDisabled={enrollments.filter(enrollment => !enrollment.denied).length === 0 || !badgeClass.permissions.mayAward || badgeClass.evidenceRequired || badgeClass.narrativeRequired}
-  bind:checkAllValue>
-  <div class="action-buttons" slot="check-buttons">
-    <Button small action={() => award(true)} marginRight={true}
-            text={I18n.t('models.enrollment.award')} disabled={selection.length === 0 || serverBusy}/>
-    <Button small action={() => deny(true)}
-            text={I18n.t('models.enrollment.deny')} disabled={selection.length === 0  || serverBusy} secondary={true}/>
-    {#if enrollments.filter(enrollment => enrollment.denied).length > 0}
-      <div class="checkbox-container">
-        <CheckBox adjustTopFlex={true}
-                  label={I18n.t('models.enrollment.showDenied', {count: enrollments.filter(enrollment => enrollment.denied).length})}
-                  bind:value={displayDenied}
-                  onChange={displayDeniedChanged}/>
-      </div>
+        {...table}
+        bind:search={enrollmentSearch}
+        bind:sort={enrollmentSort}
+        isEmpty={enrollments.length === 0}
+        withCheckAll={true}
+        checkAllDisabled={enrollments.filter(enrollment => !enrollment.denied).length === 0 || !badgeClass.permissions.mayAward || badgeClass.evidenceRequired || badgeClass.narrativeRequired}
+        bind:checkAllValue>
+    <div class="action-buttons" slot="check-buttons">
+        <Button small action={() => award(true)} marginRight={true}
+                text={I18n.t('models.enrollment.award')} disabled={selection.length === 0 || serverBusy}/>
+        <Button small action={() => deny(true)}
+                text={I18n.t('models.enrollment.deny')} disabled={selection.length === 0  || serverBusy}
+                secondary={true}/>
+        {#if enrollments.filter(enrollment => enrollment.denied).length > 0}
+            <div class="checkbox-container">
+                <CheckBox adjustTopFlex={true}
+                          label={I18n.t('models.enrollment.showDenied', {count: enrollments.filter(enrollment => enrollment.denied).length})}
+                          bind:value={displayDenied}
+                          onChange={displayDeniedChanged}/>
+            </div>
+        {/if}
+
+    </div>
+
+    {#each sortedFilteredEnrollments as enrollment}
+        <tr>
+            <td>
+                <CheckBox
+                        value={selection.includes(enrollment.entityId)}
+                        name={`select-${enrollment.entityId}`}
+                        disabled={enrollment.denied || !badgeClass.permissions.mayAward}
+                        onChange={val => onCheckOne(val, enrollment.entityId)}/>
+            </td>
+            <td class="single-neutral-check">
+                <div class="single-neutral-check">
+                    {@html singleNeutralCheck}
+                </div>
+            </td>
+            <td>
+                <div class="recipient">
+                    <span>{userName(enrollment)}</span>
+                    <span>{enrollment.user.email}</span>
+                </div>
+            </td>
+            <td class="center">
+                {I18n.t("models.enrollment.enrollmentType.enrolled")}
+            </td>
+            <td class="evidenceNarrativeRequired">
+                {#if enrollment.evidenceNarrativeRequired}
+                    {#if badgeClass.evidenceRequired}
+                        <span>{I18n.t("models.enrollment.enrollmentType.evidence")}</span>
+                    {/if}
+                    {#if badgeClass.narrativeRequired}
+                        <span>{I18n.t("models.enrollment.enrollmentType.narrative")}</span>
+                    {/if}
+                {:else}
+                    <span>-</span>
+                {/if}
+            </td>
+            <td class="center">
+                {moment(enrollment.dateCreated).format('MMM D, YYYY')}
+            </td>
+            <td class="center">
+                <span>{enrollment.denied ? I18n.t("models.enrollment.denied") : I18n.t("models.enrollment.open")}</span>
+                {#if enrollment.denied}
+                    <Tooltip tooltipText={enrollment.denyReason}/>
+                {/if}
+            </td>
+        </tr>
+    {/each}
+    {#if enrollments.length === 0}
+        <tr>
+            <td colspan="6">{I18n.t("zeroState.enrollments", {name: badgeClass.name})}</td>
+        </tr>
     {/if}
-
-  </div>
-
-  {#each sortedFilteredEnrollments as enrollment}
-    <tr>
-      <td>
-        <CheckBox
-          value={selection.includes(enrollment.entityId)}
-          name={`select-${enrollment.entityId}`}
-          disabled={enrollment.denied || !badgeClass.permissions.mayAward}
-          onChange={val => onCheckOne(val, enrollment.entityId)}/>
-      </td>
-      <td class="single-neutral-check">
-        <div class="single-neutral-check">
-          {@html singleNeutralCheck}
-        </div>
-      </td>
-      <td>
-        <div class="recipient">
-          <span>{userName(enrollment)}</span>
-          <span>{enrollment.user.email}</span>
-        </div>
-      </td>
-      <td class="center">
-        {I18n.t("models.enrollment.enrollmentType.enrolled")}
-      </td>
-      <td class="evidenceNarrativeRequired">
-        {#if enrollment.evidenceNarrativeRequired}
-          {#if badgeClass.evidenceRequired}
-            <span>{I18n.t("models.enrollment.enrollmentType.evidence")}</span>
-          {/if}
-          {#if badgeClass.narrativeRequired}
-            <span>{I18n.t("models.enrollment.enrollmentType.narrative")}</span>
-          {/if}
-        {:else}
-          <span>-</span>
-        {/if}
-      </td>
-      <td class="center">
-        {moment(enrollment.dateCreated).format('MMM D, YYYY')}
-      </td>
-      <td class="center">
-        <span>{enrollment.denied ? I18n.t("models.enrollment.denied") : I18n.t("models.enrollment.open")}</span>
-        {#if enrollment.denied}
-          <Tooltip tooltipText={enrollment.denyReason}/>
-        {/if}
-      </td>
-    </tr>
-  {/each}
-  {#if enrollments.length === 0}
-    <tr>
-      <td colspan="6">{I18n.t("zeroState.enrollments", {name: badgeClass.name})}</td>
-    </tr>
-  {/if}
 </Table>
 
 {#if showModal}
-  <Modal
-    submit={modalAction}
-    cancel={() => showModal = false}
-    question={modalQuestion}
-    title={modalTitle}>
-    <div class="slots">
-      <label for="revocation-reason">{I18n.t("models.enrollment.confirmation.denyReason")}</label>
-      <input id="revocation-reason" class="input-field" bind:value={denyReason}/>
-    </div>
-  </Modal>
+    <Modal
+            submit={modalAction}
+            cancel={() => showModal = false}
+            question={modalQuestion}
+            title={modalTitle}>
+        <div class="slots">
+            <label for="revocation-reason">{I18n.t("models.enrollment.confirmation.denyReason")}</label>
+            <input id="revocation-reason" class="input-field" bind:value={denyReason}/>
+        </div>
+    </Modal>
 {/if}
 
 {#if showAwardModal}
-  <AwardBadgeModal
-    bind:narrative={narrative}
-    bind:url={url}
-    bind:useEvidence={useEvidence}
-    bind:name={name}
-    bind:description={description}
-    badgeClass={badgeClass}
-    submit={() => award(false)}
-    narrativeAllowed={selection.length === 1}
-    cancel={() => showAwardModal = false}/>
+    <AwardBadgeModal
+            bind:narrative={narrative}
+            bind:url={url}
+            bind:useEvidence={useEvidence}
+            bind:name={name}
+            bind:description={description}
+            badgeClass={badgeClass}
+            submit={() => award(false)}
+            narrativeAllowed={selection.length === 1}
+            cancel={cancelAwardDialog}/>
 {/if}

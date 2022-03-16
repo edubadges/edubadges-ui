@@ -63,6 +63,8 @@
       isPrivate,
       narrativeRequired,
       evidenceRequired,
+      narrativeStudentRequired,
+      evidenceStudentRequired,
       criteriaText,
       expirationPeriod,
       issuer {

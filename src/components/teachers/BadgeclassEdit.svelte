@@ -48,7 +48,9 @@
       expirationPeriod,
       isPrivate,
       narrativeRequired,
-      evidenceRequired
+      evidenceRequired,
+      evidenceStudentRequired,
+      narrativeStudentRequired,
       awardAllowedInstitutions,
       alignments {
         targetName,

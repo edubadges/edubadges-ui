@@ -11,7 +11,7 @@
     import Spinner from "../Spinner.svelte";
     import {publicBadgeInformation} from "../extensions/badges/extensions";
     import {entityType} from "../../util/entityTypes"
-    import {Modal} from "../forms";
+    import {Modal, TextInput} from "../forms";
     import {flash} from "../../stores/flash";
     import AcceptInstitutionTerms from "../../routes/AcceptInstitutionTerms.svelte";
     import {authToken, redirectPath, userLoggedIn, userRole, validatedUserName} from "../../stores/user";
@@ -19,6 +19,9 @@
     import {getService} from "../../util/getService";
     import PublicBreadcrumb from "./PublicBreadcrumb.svelte";
     import {translateProperties} from "../../util/utils";
+    import Field from "../forms/Field.svelte";
+    import {isEmpty} from "lodash";
+    import {isValidURL} from "../../util/validations";
 
     export let entityId;
 
@@ -47,6 +50,11 @@
     let noValidatedName = false;
     let showNoValidatedName = false;
     let noValidInstitution = false;
+
+    // All related to narrative and evidence_url required by the student
+    let narrative;
+    let evidence_url;
+    let errors = {};
 
     const goToEduId = () => {
         $userRole = role.STUDENT;
@@ -93,6 +101,8 @@
       expirationPeriod,
       isPrivate,
       formal,
+      evidenceStudentRequired,
+      narrativeStudentRequired,
       terms {
         entityId,
         termsType,
@@ -232,20 +242,33 @@
             modalAction = () => enrollStudent(false);
             showModal = true;
         } else {
-            loaded = false;
-            requestBadge(entityId)
-                .then(() => {
-                    loaded = true;
-                    showConfirmation = false;
-                    flash.setValue(I18n.t('student.flash.enrolled', {name: badgeClass.name}));
-                    navigate("/badge-requests");
-                })
-                .catch(err => {
-                    err.then(details => {
+            errors = {};
+            if (badgeClass.narrativeStudentRequired && isEmpty(narrative)) {
+                errors.narrative = [{error_code: 938}]
+            }
+            if (badgeClass.evidenceStudentRequired) {
+                if (isEmpty(evidence_url)) {
+                    errors.evidence_url = [{error_code: 939}]
+                } else if (!isValidURL(evidence_url)) {
+                    errors.evidence_url = [{error_code: 921}]
+                }
+            }
+            if (isEmpty(errors)) {
+                loaded = false;
+                requestBadge(entityId, narrative, evidence_url)
+                    .then(() => {
                         loaded = true;
-                        flash.error(details);
+                        showConfirmation = false;
+                        flash.setValue(I18n.t('student.flash.enrolled', {name: badgeClass.name}));
+                        navigate("/badge-requests");
                     })
-                });
+                    .catch(err => {
+                        err.then(details => {
+                            loaded = true;
+                            flash.error(details);
+                        })
+                    });
+            }
         }
     };
 
@@ -308,90 +331,121 @@
       max-width: 275px;
     }
   }
+
+  div.evidence {
+    p.info {
+      margin-bottom: 20px;
+    }
+  }
+
 </style>
 
 {#if loaded}
-  {#if !showAcceptTerms}
-    <div class="page-container">
-      <PublicBreadcrumb badgeClass={badgeClass}/>
-      <BadgeClassHeader
-        entity={entityType.BADGE_CLASS}
-        object={badgeClass}
-        visitorRole={visitorRole}>
-        {#if visitorRole === role.GUEST}
-          <div class="slots enrol">
-            {#if badgeClass.archived}
+    {#if !showAcceptTerms}
+        <div class="page-container">
+            <PublicBreadcrumb badgeClass={badgeClass}/>
+            <BadgeClassHeader
+                    entity={entityType.BADGE_CLASS}
+                    object={badgeClass}
+                    visitorRole={visitorRole}>
+                {#if visitorRole === role.GUEST}
+                    <div class="slots enrol">
+                        {#if badgeClass.archived}
             <span
-              class="attention">
+                    class="attention">
               {@html I18n.t(`login.badgeClassArchived`)}
             </span>
-            {:else}
-              <Button text={I18n.t("login.loginToEnrol")} action={goToEduId}/>
-              {#if badgeClass.awardNonValidatedNameAllowed}
+                        {:else}
+                            <Button text={I18n.t("login.loginToEnrol")} action={goToEduId}/>
+                            {#if badgeClass.awardNonValidatedNameAllowed}
               <span class="attention">
                 {@html I18n.t("login.loginAllowedWithoutValidatedName")}
               </span>
-              {:else}
+                            {:else}
               <span class="attention">
                 {@html I18n.t(`login.loginToEnrolInfo${allowedInstitutionsAttention}`, {name: allowedInstitutions})}
               </span>
-              {/if}
-            {/if}
-          </div>
-        {:else if visitorRole === role.STUDENT}
-          <div class="slots student">
-            {#if !studentEnrolled && !studentAwarded}
-              <Button secondary action={() => enrollStudent(true)} text={I18n.t('student.enroll')} class="btn"/>
-            {:else}
-              <Button label="alreadyEnrolled" disabled={true} text={I18n.t('student.enrolled')}/>
-            {/if}
-          </div>
-        {/if}
-      </BadgeClassHeader>
+                            {/if}
+                        {/if}
+                    </div>
+                {:else if visitorRole === role.STUDENT}
+                    <div class="slots student">
+                        {#if !studentEnrolled && !studentAwarded}
+                            <Button secondary action={() => enrollStudent(true)} text={I18n.t('student.enroll')}
+                                    class="btn"/>
+                        {:else}
+                            <Button label="alreadyEnrolled" disabled={true} text={I18n.t('student.enrolled')}/>
+                        {/if}
+                    </div>
+                {/if}
+            </BadgeClassHeader>
 
-      <div class="overview-container">
-        <Overview badgeclass={badgeClass} studentEnrolled={studentEnrolled} enrollmentId={enrollmentId}
-                  requested={requestedDate} studentPath={I18n.t("student.enrollments")} publicPage={true}
-                  on:enrollmentWithdrawn={reload} showBreadCrumb={false}/>
-      </div>
-    </div>
-  {/if}
+            <div class="overview-container">
+                <Overview badgeclass={badgeClass} studentEnrolled={studentEnrolled} enrollmentId={enrollmentId}
+                          requested={requestedDate} studentPath={I18n.t("student.enrollments")} publicPage={true}
+                          on:enrollmentWithdrawn={reload} showBreadCrumb={false}/>
+            </div>
+        </div>
+    {/if}
 {:else}
-  <Spinner/>
+    <Spinner/>
 {/if}
 
 {#if showModal}
-  <Modal
-    submit={modalAction}
-    cancel={() => showModal = false}
-    question={modalQuestion}
-    evaluateQuestion={true}
-    title={modalTitle}/>
+    <Modal
+            submit={modalAction}
+            cancel={() => showModal = false}
+            question={modalQuestion}
+            evaluateQuestion={true}
+            title={modalTitle}>
+        {#if badgeClass.narrativeStudentRequired || badgeClass.evidenceStudentRequired}
+            <div class="evidence">
+                <p class="info">{I18n.t("models.enrollment.studentEvidenceRequired")}</p>
+                <Field entity="enrollment" attribute="evidence_url" errors={errors.evidence_url}
+                       tipKey="enrollmentEvidenceURL">
+                    <TextInput
+                            bind:value={evidence_url}
+                            placeholder={I18n.t("placeholders.enrollment.evidenceURL")}
+                            error={errors.evidence_url}/>
+                </Field>
+                <Field entity="enrollment" attribute="narrative" errors={errors.narrative}
+                       tipKey="enrollmentEvidenceDescription">
+                    <TextInput
+                            area={true}
+                            size={"125"}
+                            bind:value={narrative}
+                            placeholder={I18n.t("placeholders.enrollment.evidenceDescription")}
+                            error={errors.narrative}/>
+                </Field>
+            </div>
+        {/if}
+
+    </Modal>
 {/if}
 
 {#if showAcceptTerms}
-  <AcceptInstitutionTerms
-    badgeClass={badgeClass}
-    userHasAgreed={userHasAgreed}
-    userDisagreed={userDisagreed}/>
+    <AcceptInstitutionTerms
+            badgeClass={badgeClass}
+            userHasAgreed={userHasAgreed}
+            userDisagreed={userDisagreed}/>
 {/if}
 
 {#if showNoValidatedName}
-  <Modal
-    submit={goToEduId}
-    title={I18n.t("publicBadge.noValidatedNameModal.noLinkedInstitution")}
-    question={I18n.t("publicBadge.noValidatedNameModal.question", {name: badgeClass.issuer.faculty.institution.name})}
-    evaluateQuestion={true}
-    cancel={() => showNoValidatedName = false}
-    submitLabel={I18n.t("publicBadge.noValidatedNameModal.goToEduID")}/>
+    <Modal
+            submit={goToEduId}
+            title={I18n.t("publicBadge.noValidatedNameModal.noLinkedInstitution")}
+            question={I18n.t("publicBadge.noValidatedNameModal.question", {name: badgeClass.issuer.faculty.institution.name})}
+            evaluateQuestion={true}
+            cancel={() => showNoValidatedName = false}
+            submitLabel={I18n.t("publicBadge.noValidatedNameModal.goToEduID")}/>
 {/if}
 
 {#if noValidInstitution}
-  <Modal
-    submit={logInForceAuthn}
-    title={I18n.t("acceptTerms.noValidInstitution")}
-    question={I18n.t("acceptTerms.noValidInstitutionInfoForEnrollment", {name: badgeClass.issuer.faculty.institution.name})}
-    evaluateQuestion={true}
-    cancel={() => noValidInstitution = false}
-    submitLabel={I18n.t("acceptTerms.goToSurfConext")}/>
+    <Modal
+            submit={logInForceAuthn}
+            title={I18n.t("acceptTerms.noValidInstitution")}
+            question={I18n.t("acceptTerms.noValidInstitutionInfoForEnrollment", {name: badgeClass.issuer.faculty.institution.name})}
+            evaluateQuestion={true}
+            cancel={() => noValidInstitution = false}
+            submitLabel={I18n.t("acceptTerms.goToSurfConext")}/>
 {/if}

@@ -425,6 +425,8 @@ I18n.translations.en = {
         935: "Enter the time investment or remove this section.",
         936: "Cannot create edubadge collection with this name as it already exists.",
         937: "ECTS can not be empty or 0",
+        938: "This badge requires a motivation for enrollment",
+        939: "This badge requires an citation URL for enrollment",
         unexpected: "Unexpected error occurred.",
         description: "An unexpected error has occurred. Please try again later or contact support@edubadges.nl for support.",
         close: "Close"
@@ -652,6 +654,8 @@ I18n.translations.en = {
             isPrivate: "Private badge class",
             evidenceRequired: "Evidence required",
             narrativeRequired: "Narrative required",
+            narrativeStudentRequired: "Motivation required for student enrollment",
+            evidenceStudentRequired: "Evidence URL required for student enrollment",
             awardNonValidatedNameAllowed: "Award to non-validated account allowed",
             learningOutcome: "Learning outcome",
             studyLoad: "Study load",
@@ -804,10 +808,13 @@ I18n.translations.en = {
             evidenceURL: "URL",
             evidenceDescription: "Description",
             evidenceName: "Name",
+            evidence_url: "Citation URL",
+            narrative: "Evidence description",
             flash: {
                 denied: "The request(s) have been denied.",
                 awarded: "The request(s) have been awarded."
-            }
+            },
+            studentEvidenceRequired: "To request this Badge you need to add evidence / motivation as to why the request is justified."
         },
         badgeAward: {
             email: "Email address",
@@ -1122,13 +1129,15 @@ I18n.translations.en = {
         badgeClassExpireSettings: "After this period edubadges will expiry and will be no longer valid.",
         badgeClassName: "Avoid abbreviations, make sure the name is recognisable for others.",
         badgeClassDescription: "This description supports markdown. " +
-        "See <a target=\"_blank\" href=\"https://wiki.surfnet.nl/display/Edubadges/Edubadges+Example+BadgeClass\"> the wiki </a> for examples.",
+            "See <a target=\"_blank\" href=\"https://wiki.surfnet.nl/display/Edubadges/Edubadges+Example+BadgeClass\"> the wiki </a> for examples.",
         badgeClassLanguageOfInstruction: "The language used in obtaining this edubadge.",
         badgeClassLearningOutcome: "Describe the learning outcome or learning goal. Recorded in the Teaching and Examination Regulations.",
         //badgeClassLearningIssuer: "badgeClassLearningIssuer",
         badgeClassIsPrivate: "If checked, this badge class will not appear in the catalog. Note that you cannot award edubadges from a private badge class.",
         badgeClassEvidenceRequired: "If checked, any awards based on this badge class require an evidence of the achievement to be filled in.",
         badgeClassNarrativeRequired: "If checked, any awards based on this badge class require an narrative to be filled in.",
+        badgeClassNarrativeStudentRequired: "If checked, any enrollments for this badge class require a motivation of why the enrollment is justified.",
+        badgeClassEvidenceStudentRequired: "If checked, any enrollments for this badge class require an evidence URL of why the enrollment is justified.",
         badgeClassAwardNonValidatedNameAllowed: "If checked, non-formal edubadges (edubadges without Study load) can be awarded to non-validated accounts.",
         //badgeClassCriteriaRequirements: "badgeClassCriteriaRequirements",
         //badgeClassCriteriaUrl: "badgeClassCriteriaUrl",
@@ -1444,7 +1453,7 @@ I18n.translations.en = {
             version: "Version",
             email: "Email",
             course: "Course context",
-            platform:{
+            platform: {
                 name: "Naam",
                 vendor: "Vendor",
             },
