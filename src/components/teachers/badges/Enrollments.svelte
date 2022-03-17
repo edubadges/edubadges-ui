@@ -60,12 +60,19 @@
 
     const award = showConfirmation => {
         if (showConfirmation) {
+            const enrollment = enrollments.find(enrollment => enrollment.entityId === selection[0]);
+            description = enrollment.narrative;
+            url = enrollment.evidenceUrl;
             showAwardModal = true;
         } else {
             showAwardModal = false;
             serverBusy = true;
             awardBadges(entityId, selection, useEvidence, narrative, url, name, description).then(() => {
                 refreshEnrollments();
+                narrative = "";
+                url = "";
+                name = "";
+                description = "";
                 flash.setValue(I18n.t("models.enrollment.flash.awarded"));
                 serverBusy = false;
             });
@@ -107,7 +114,7 @@
 
     const onCheckOne = (val, entityId) => {
         if (val) {
-            if (badgeClass.evidenceRequired || badgeClass.narrativeRequired || badgeClass) {
+            if (badgeClass.evidenceRequired || badgeClass.narrativeRequired || badgeClass.evidenceStudentRequired || badgeClass.narrativeStudentRequired) {
                 selection = [entityId];
             } else {
                 selection = selection.concat(entityId);
