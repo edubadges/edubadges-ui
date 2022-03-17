@@ -182,6 +182,10 @@
           <div class="profile-menu"
                on:click={() => navigate("/permissions/institution")}>{I18n.t('header.permissions')}</div>
         {/if}
+        {#if $userRole === role.TEACHER}
+          <div class="profile-menu"
+               on:click={() => navigate("/notifications")}>{I18n.t('header.notifications')}</div>
+        {/if}
         {#if profile.is_superuser}
           <div class="profile-menu"
                on:click={() => navigate("/impersonate")}>{I18n.t('header.impersonate')}</div>

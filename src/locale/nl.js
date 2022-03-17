@@ -14,6 +14,7 @@ I18n.translations.nl = {
         profile: "Mijn profiel",
         home: "Mijn backpack",
         permissions: "Mijn permissies",
+        notifications: "Mijn notificaties",
         feedback: "Verstuur feedback",
         demo: "Demo omgeving",
         impersonate: "Impersoneer",

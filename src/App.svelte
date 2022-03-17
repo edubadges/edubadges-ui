@@ -35,6 +35,7 @@
   import LTI from "./components/teachers/lti/LTI.svelte";
   import LTIContext from "./components/teachers/lti/LTIContext.svelte";
   import LTILaunch from "./components/teachers/lti/LTILaunch.svelte";
+ // import Notifications from "./components/teachers/Notifications.svelte";
 
 
   const homepage = {
@@ -163,6 +164,7 @@
         <!-- Teacher -->
         <Route path="/users" component={Users}/>
         <Route path="/users/:userId/:entity" component={UserPermissions}/>
+<!--        <Route path="/notifications" component={Notifications}/>-->
         <Route path="/manage/*mainEntity" component={Manage}/>
         <Route path="/badgeclass/:entityId/*subEntity" component={BadgeclassAwarder}/>
         <Route path="/invite-enrollements/:entityId/" let:params>

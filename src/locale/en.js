@@ -14,6 +14,7 @@ I18n.translations.en = {
         profile: "My profile",
         home: "My backpack",
         permissions: "My permissions",
+        notifications: "My notifications",
         feedback: "Send feedback",
         demo: "Demo environment",
         impersonate: "Impersonate",
