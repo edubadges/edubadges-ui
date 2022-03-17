@@ -17,6 +17,7 @@ export { default as searchIcon } from "./search.svg";
 export { default as stepChecked } from "./step-checked.svg";
 export { default as trash } from "./trash.svg";
 export { default as userManagementIcon } from "./single-neutral-actions-key.svg";
+export { default as notificationsIcon } from "./single-neutral-check.svg";
 export { default as warningIcon } from "./warning.svg";
 export { default as pencilIcon } from "./pencil-write.svg";
 export { default as shieldUnlock } from "./shield-unlock.svg";

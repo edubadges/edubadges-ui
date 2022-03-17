@@ -14,7 +14,7 @@ export const staffType = {
   VIEWER: "viewer"
 };
 
-export const addStaffType = (users, type) => users.map(user => {
+export const addStaffType = (staffUsers, type) => staffUsers.map(user => {
   user._staffType = type;
   return user;
 });
@@ -26,7 +26,12 @@ export const expandStaffsBadgeClass = (institutionStaff, issuerGroupStaffs, issu
     for (const faculty of institutionStaff[0].institution.faculties){
       for (const issuer of faculty.issuers) {
         for (const badgeClass of issuer.badgeclasses) {
-          staffs = [{badgeClass, _staffType: staffType.INSTITUTION_STAFF, role: staffType.INSTITUTION_STAFF}, ...staffs];
+          staffs = [{
+            badgeClass,
+            _staffType: staffType.INSTITUTION_STAFF,
+            mayUpdate: true,
+            role: staffType.INSTITUTION_STAFF
+          }, ...staffs];
         }
       }
     }

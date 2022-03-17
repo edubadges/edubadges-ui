@@ -1028,7 +1028,8 @@ I18n.translations.nl = {
         userPermissions: "Deze gebruiker heeft geen permissies op {{entity}} niveau.",
         directAwardBundles: "Er is geen direct award status voor edubadge {{name}}",
         directAwards: "Alle direct awards zijn geclaimed. Er zijn geen uitstaande direct awards meer voor deze bundel.",
-        requestedBatches: "Er zijn geen openstaande edubadge-verzoeken die je mag uitreiken."
+        requestedBatches: "Er zijn geen openstaande edubadge-verzoeken die je mag uitreiken.",
+        notifications: "Je hebt geen permissies om badges te awarden"
     },
     userManagement: {
         permissions: "Permissies voor {{name}}",
@@ -1041,6 +1042,7 @@ I18n.translations.nl = {
     user: {
         home: "Home",
         permissions: "Je permissies",
+        notifications: "Je notificatie instellingen",
         banner: "Hallo {{firstName}} {{lastName}}",
         profile: "Profiel",
         loggedIn: "Je bent momenteel ingelogd met je instellingsaccount, via SURFconext",
@@ -1478,5 +1480,12 @@ I18n.translations.nl = {
             resultScore: "Results score",
             resultMaximum: "Max result"
         }
+    },
+    notifications: {
+        update: "Bijwerken",
+        title: "Je notificatie instellingen",
+        info: "Voor elke geselecteerde badgeklasse ontvang je een e-mailmelding als een student zich inschrijft voor deze badge.",
+        confirmationTitle: "Confirmatie",
+        confirmationQuestion: "Weet je zeker dat je je notificatie instellingen wilt wijzigen?"
     }
 };

@@ -1,35 +1,33 @@
 <script>
-  import I18n from "i18n-js";
-  import {link} from "svelte-routing";
-  import {Search, Button, CheckBox} from "../../components";
-  import {UsersTableHeaders} from "../teachers";
-  import {sortType} from "../../util/sortData";
-  import {onMount} from "svelte";
+    import {Button, CheckBox, Search} from "../../components";
+    import {UsersTableHeaders} from "../teachers";
+    import {sortType} from "../../util/sortData";
 
-  export let title = "";
-  export let tableHeaders = [];
-  export let search = "";
-  export let sort = {
-    attribute: null,
-    reverse: false,
-    sortType: sortType.ALPHA
-  };
+    export let title = "";
+    export let subTitle = "";
+    export let tableHeaders = [];
+    export let search = "";
+    export let sort = {
+        attribute: null,
+        reverse: false,
+        sortType: sortType.ALPHA
+    };
 
-  export let withCheckAll;
-  export let checkAllValue;
-  export let onCheckAll;
-  export let isEmpty;
-  export let disabledCheckAll = false;
+    export let withCheckAll;
+    export let checkAllValue;
+    export let onCheckAll;
+    export let isEmpty;
+    export let disabledCheckAll = false;
 
-  export let buttons = [];
+    export let buttons = [];
 
-  const setSort = tableHeader => {
-    if (sort.attribute === tableHeader.attribute) {
-      sort.reverse = !sort.reverse;
-    } else {
-      sort = tableHeader;
-    }
-  };
+    const setSort = tableHeader => {
+        if (sort.attribute === tableHeader.attribute) {
+            sort.reverse = !sort.reverse;
+        } else {
+            sort = tableHeader;
+        }
+    };
 </script>
 
 <style lang="scss">
@@ -67,31 +65,32 @@
 </style>
 
 <div class="container main-content-margin">
-  <div class="header">
-    <h3>{title}</h3>
-    <Search bind:value={search}/>
-    {#each buttons as button}
-      {#if button.allowed}
-        <Button text={button.text} action={button.action} disabled={button.disabled}/>
-      {/if}
-    {/each}
-  </div>
-  <slot name="check-buttons"/>
-  <table class="entity-table">
-    <thead>
-    {#if !isEmpty}
-      <tr>
-        {#if withCheckAll}
-          <th class="checker">
-            <CheckBox disabled={disabledCheckAll} bind:value={checkAllValue} onChange={onCheckAll}/>
-          </th>
+    <div class="header">
+        <h3>{title}</h3>
+        <p>{subTitle}</p>
+        <Search bind:value={search}/>
+        {#each buttons as button}
+            {#if button.allowed}
+                <Button text={button.text} action={button.action} disabled={button.disabled}/>
+            {/if}
+        {/each}
+    </div>
+    <slot name="check-buttons"/>
+    <table class="entity-table">
+        <thead>
+        {#if !isEmpty}
+            <tr>
+                {#if withCheckAll}
+                    <th class="checker">
+                        <CheckBox disabled={disabledCheckAll} bind:value={checkAllValue} onChange={onCheckAll}/>
+                    </th>
+                {/if}
+                <UsersTableHeaders {tableHeaders} {setSort} {sort}/>
+            </tr>
         {/if}
-        <UsersTableHeaders {tableHeaders} {setSort} {sort}/>
-      </tr>
-    {/if}
-    </thead>
-    <tbody>
-    <slot/>
-    </tbody>
-  </table>
+        </thead>
+        <tbody>
+        <slot/>
+        </tbody>
+    </table>
 </div>

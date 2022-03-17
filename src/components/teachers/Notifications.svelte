@@ -1,31 +1,27 @@
 <script>
-    import {entityType} from "../../util/entityTypes";
     import {onMount} from "svelte";
     import {queryData} from "../../api/graphql";
     import {CheckBox} from "../../components";
     import {UsersTable} from "../teachers";
     import {sort, sortType} from "../../util/sortData";
     import I18n from "i18n-js";
-    import {
-        changeUserToBadgeclassAwarder,
-        changeUserToBadgeclassEditor,
-        changeUserToBadgeclassOwner,
-        removeUserBadgeclassPermission
-    } from "../../api";
-    import {AddPermissionsBadgeClassesModal, Modal, Select} from "../forms";
+    import {Modal} from "../forms";
     import Spinner from "../Spinner.svelte";
-    import {permissionsRole} from "../../util/rolesToPermissions";
     import ListLink from "./ListLink.svelte";
     import {addStaffType, expandStaffsBadgeClass, staffType} from "../../util/staffTypes";
-    import {userHasPermissions} from "../../util/userPermissions";
-    import {flash} from "../../stores/flash";
     import {badgeclassIcon} from "../../icons";
     import {translateProperties} from "../../util/utils";
+    import Breadcrumb from "./Breadcrumb.svelte";
+    import UserBreadcrumb from "./UserBreadcrumb.svelte";
+    import NotificationsHeader from "./NotificationsHeader.svelte";
 
     let currentUser;
-    let userNameDict;
     let badgeClassSearch = '';
     let badgeClasses = [];
+
+    let staffs = [];
+    let filteredStaffs = [];
+    let sortedFilteredStaffs = [];
 
     let selection = [];
     let checkAllValue = false;
@@ -36,61 +32,104 @@
     let isEmpty;
 
     const query = `query {
-        currentInstitution {
-            nameDutch,
-            nameEnglish,
+    currentInstitution {
+      id,
+      entityId,
+      nameDutch,
+      nameEnglish,
+      faculties {
+        nameDutch,
+        nameEnglish,
+        entityId,
+        issuers {
+          nameDutch,
+          nameEnglish,
+          entityId,
+          badgeclasses {
+            name,
             entityId,
-            faculties {
-                nameDutch,
-                nameEnglish,
-                entityId,
-                issuers {
-                    nameDutch,
-                    nameEnglish,
-                    entityId,
-                    badgeclasses {
-                        name,
-                        entityId,
-                        image
-                    }
-                }
-            }
-        },
-        currentUser {
-            institutionStaff {
-                mayAdministrateUsers
-            },
-            facultyStaffs {
-                mayAdministrateUsers,
-                mayUpdate,
-                faculty {
-                    entityId,
-                }
-            },
-            issuerStaffs {
-                mayAdministrateUsers,
-                mayUpdate,
-                issuer {
-                    entityId
-                }
-            },
-            badgeclassStaffs {
-                mayAdministrateUsers,
-                mayUpdate,
-                mayAward,
-                badgeclass {
-                    entityId
-                }
-            },
+            image
+          },
         }
-    }`;
+      }
+    },
+    currentUser {
+      entityId,
+      firstName,
+      lastName,
+      email,
+      institutionStaff {
+        entityId,
+        mayAdministrateUsers
+      },
+      facultyStaffs {
+        entityId,
+        mayUpdate,
+        faculty {
+          entityId
+        }
+      }
+      issuerStaffs {
+        entityId,
+        mayAdministrateUsers,
+        mayUpdate,
+        mayAward,
+        issuer {
+          entityId
+        }
+      }
+      badgeclassStaffs {
+        entityId,
+        mayAdministrateUsers,
+        mayUpdate,
+        mayAward,
+        badgeclass {
+          entityId
+        }
+      },
+    }
+  }`;
 
     const reload = () => {
         loaded = false;
         queryData(query).then(res => {
+            const currentInstitution = res.currentInstitution;
+            translateProperties(currentInstitution);
+
+            const facultyMap = {};
+            const issuerMap = {};
+            const badgeClassMap = {};
+
+            currentInstitution.faculties.forEach(faculty => {
+                translateProperties(faculty);
+                faculty.institution = currentInstitution;
+                facultyMap[faculty.entityId] = faculty;
+                faculty.issuers.forEach(issuer => {
+                    translateProperties(issuer);
+                    issuerMap[issuer.entityId] = issuer;
+                    issuer.faculty = faculty;
+                    issuer.badgeclasses.forEach(badgeclass => {
+                        badgeclass.issuer = issuer
+                        badgeClassMap[badgeclass.entityId] = badgeclass;
+                    })
+                })
+            });
+            currentUser = res.currentUser;
+            const institutionStaffs = currentUser.institutionStaff ? addStaffType([currentUser.institutionStaff], staffType.INSTITUTION_STAFF) : [];
+            const issuerGroupStaffs = addStaffType(currentUser.facultyStaffs, staffType.ISSUER_GROUP_STAFF);
+            const issuerStaffs = addStaffType(currentUser.issuerStaffs, staffType.ISSUER_STAFF);
+            const badgeClassStaffs = addStaffType(currentUser.badgeclassStaffs, staffType.BADGE_CLASS_STAFF);
+
+            institutionStaffs.forEach(staff => staff.institution = currentInstitution);
+            issuerGroupStaffs.forEach(staff => staff.faculty = facultyMap[staff.faculty.entityId]);
+            issuerStaffs.forEach(staff => staff.issuer = issuerMap[staff.issuer.entityId]);
+            badgeClassStaffs.forEach(staff => staff.badgeclass = badgeClassMap[staff.badgeclass.entityId]);
+
+            staffs = expandStaffsBadgeClass(institutionStaffs, issuerGroupStaffs, issuerStaffs, badgeClassStaffs);
+            staffs.forEach(staff => staff.entityId = staff.badgeClass.entityId);
             loaded = true;
-            debugger
         });
+
     };
 
     onMount(reload);
@@ -105,7 +144,7 @@
             attribute: "badgeClass.name",
             reverse: false,
             sortType: sortType.ALPHA,
-            width: "25%"
+            width: "50%"
         },
         {
             name: I18n.t("editUsers.badgeclass.issuedBy"),
@@ -120,16 +159,12 @@
             reverse: false,
             sortType: sortType.ROLES,
             width: "20%"
-        },
-        {
-            name: "",
-            width: "25%"
         }
     ];
 
     $: table = {
         entity: "user",
-        title: `${I18n.t("editUsers.institutionPermissions", {instance: I18n.t("editUsers.badgeclass.header")})}`,
+        subTitle: I18n.t("notifications.info"),
         tableHeaders: tableHeaders
     };
 
@@ -140,6 +175,7 @@
             showModal = true;
         } else {
             //Update everything
+            alert('todo');
         }
     };
 
@@ -151,13 +187,14 @@
         }
     ];
 
-    $: filteredBadgeClasses = badgeClasses.filter(badgeClass => badgeClass.name.toLowerCase().includes(badgeClassSearch.toLowerCase()));
-    $: disabledCheckAll = filteredBadgeClasses.length === 0;
+    $: filteredStaffs = staffs.filter(({badgeClass}) => badgeClass.name.toLowerCase().includes(badgeClassSearch.toLowerCase()));
+    $: sortedFilteredStaffs = sort(filteredStaffs, badgeClassSort.attribute, badgeClassSort.reverse, badgeClassSort.sortType);
+    $: disabledCheckAll = filteredStaffs.length === 0;
 
-        function onCheckOne(val, entityId) {
+    function onCheckOne(val, entityId) {
         if (val) {
             selection = selection.concat(entityId);
-            checkAllValue = selection.length === filteredBadgeClasses.length;
+            checkAllValue = selection.length === filteredStaffs.length;
         } else {
             selection = selection.filter(id => id !== entityId);
             checkAllValue = false;
@@ -165,16 +202,21 @@
     }
 
     const onCheckAll = val => {
-        selection = val ? filteredBadgeClasses.map(badgeClass => badgeClass.entityId) : [];
+        selection = val ? filteredStaffs.map(badgeClass => badgeClass.entityId) : [];
         checkAllValue = val;
     };
 
 </script>
 
 <style>
-    .container {
+    div.container {
         display: flex;
         flex-direction: column;
+        width: 100%;
+    }
+
+    div {
+        flex: 1;
     }
 
     .icon {
@@ -200,10 +242,14 @@
         flex-direction: column;
         justify-content: space-around;
     }
+
 </style>
 
 {#if loaded}
     <div class="container">
+        <UserBreadcrumb path={I18n.t("user.notifications")}/>
+
+        <NotificationsHeader/>
         <UsersTable
                 {...table}
                 isEmpty={isEmpty}
@@ -215,194 +261,66 @@
                 {onCheckAll}
                 {disabledCheckAll}
         >
-            {#each sortedFilteredStaffs as {_staffType, badgeClass, staffId, mayAdministrateUsers, mayUpdate, mayAward}}
+            {#each sortedFilteredStaffs as {_staffType, badgeClass, entityId, mayAdministrateUsers, mayUpdate, role}}
                 <tr>
-                    {#if _staffType === staffType.BADGE_CLASS_STAFF}
-                        <td>
-                            <CheckBox
-                                    value={selection.includes(staffId)}
-                                    disabled={!userHasPermissions(
-                    badgeClass, entityType.BADGE_CLASS,
-                    currentUser.institutionStaff,
-                    currentUser.facultyStaffs,
-                    currentUser.issuerStaffs,
-                    currentUser.badgeclassStaffs,
-                  )}
-                                    onChange={val => onCheckOne(val, staffId)}/>
-                        </td>
-                        <td>
-                            {#if badgeClass.image}
-                                <div class="img-container">
-                                    <div class="img-icon">
-                                        <img src={badgeClass.image} alt=""/>
-                                    </div>
+                    <td>
+                        <CheckBox
+                                value={selection.includes(entityId)}
+                                onChange={val => onCheckOne(val, entityId)}/>
+                    </td>
+                    <td>
+                        {#if badgeClass.image}
+                            <div class="img-container">
+                                <div class="img-icon">
+                                    <img src={badgeClass.image} alt=""/>
                                 </div>
-                            {:else}
-                                <div class="img-container">
-                                    <div class="img-icon">
-                                        <span class="icon">{@html badgeclassIcon}</span>
-                                    </div>
-                                </div>
-                            {/if}
-                        </td>
-                        <td>
-                            <ListLink path={`/manage/badgeclass/${badgeClass.entityId}/overview`}
-                                      name={badgeClass.name}/>
-                        </td>
-                        <td>
-                            <ListLink path={`/manage/issuer/${badgeClass.issuer.entityId}/badgeclasses`}
-                                      name={badgeClass.issuer.name}/>
-                            <br/>
-                            <span class="sub-text">{badgeClass.issuer.faculty.name}</span>
-                        </td>
-                        <td>
-                            <div class="badgeclass-role-select">
-                                <Select
-                                        nonEditable={!userHasPermissions(
-                      badgeClass, entityType.BADGE_CLASS,
-                      currentUser.institutionStaff,
-                      currentUser.facultyStaffs,
-                      currentUser.issuerStaffs,
-                      currentUser.badgeclassStaffs,
-                    )}
-                                        handleSelect={item => changeUserRole(item, staffId)}
-                                        value={
-                      mayAdministrateUsers ? permissionsRoles[0] :
-                      mayUpdate ? permissionsRoles[1] :
-                      mayAward ? permissionsRoles[2] : 'error'
-                    }
-                                        items={permissionsRoles}
-                                        clearable={false}
-                                        optionIdentifier="name"
-                                />
                             </div>
-                        </td>
-                    {:else if _staffType === staffType.ISSUER_STAFF}
-                        <td>
-                            <CheckBox
-                                    disabled={true}/>
-                        </td>
-                        <td>
-                            {#if badgeClass.image}
-                                <div class="img-container">
-                                    <div class="img-icon">
-                                        <img src={badgeClass.image} alt=""/>
-                                    </div>
+                        {:else}
+                            <div class="img-container">
+                                <div class="img-icon">
+                                    <span class="icon">{@html badgeclassIcon}</span>
                                 </div>
-                            {:else}
-                                <div class="img-container">
-                                    <div class="img-icon">
-                                        <span class="icon">{@html badgeclassIcon}</span>
-                                    </div>
-                                </div>
-                            {/if}
-                        </td>
-                        <td>
-                            <ListLink path={`/manage/badgeclass/${badgeClass.entityId}/overview`}
-                                      name={badgeClass.name}/>
-                        </td>
-                        <td>
-                            <ListLink path={`/manage/issuer/${badgeClass.issuer.entityId}/badgeclasses`}
-                                      name={badgeClass.issuer.name}/>
+                            </div>
+                        {/if}
+                    </td>
+                    <td>
+                        <ListLink path={`/manage/badgeclass/${badgeClass.entityId}/overview`}
+                                  name={badgeClass.name}/>
+                    </td>
+                    <td>
+                        <ListLink path={`/manage/issuer/${badgeClass.issuer.entityId}/badgeclasses`}
+                                  name={badgeClass.issuer.name}/>
+                        <br/>
+                        <span class="sub-text">{badgeClass.issuer.faculty.name}</span>
+                    </td>
+                    <td>
+                        {#if mayUpdate}
+                            {I18n.t('editUsers.permissions.allRights')}
+                        {:else}
+                            {I18n.t('editUsers.permissions.awarderRights')}
+                        {/if}
+                        {#if role === staffType.INSTITUTION_STAFF}
                             <br/>
-                            <span class="sub-text">{badgeClass.issuer.faculty.name}</span>
-                        </td>
-                        <td>
-                            {#if mayUpdate}
-                                {I18n.t('editUsers.permissions.allRights')}
-                                <br/>
-                                <span class="sub-text">{I18n.t('editUsers.permissions.issuerAllRights')}</span>
-                            {:else}
-                                {I18n.t('editUsers.permissions.awarderRights')}
-                                <br/>
-                                <span class="sub-text">{I18n.t('editUsers.permissions.issuerAwarderRights')}</span>
-                            {/if}
-                        </td>
-                    {:else if _staffType === staffType.ISSUER_GROUP_STAFF}
-                        <td>
-                            <CheckBox
-                                    disabled={true}
-                            />
-                        </td>
-                        <td>
-                            {#if badgeClass.image}
-                                <div class="img-container">
-                                    <div class="img-icon">
-                                        <img src={badgeClass.image} alt=""/>
-                                    </div>
-                                </div>
-                            {:else}
-                                <div class="img-container">
-                                    <div class="img-icon">
-                                        <span class="icon">{@html badgeclassIcon}</span>
-                                    </div>
-                                </div>
-                            {/if}
-                        </td>
-                        <td>
-                            <ListLink path={`/manage/badgeclass/${badgeClass.entityId}/overview`}
-                                      name={badgeClass.name}/>
-                        </td>
-                        <td>
-                            <ListLink path={`/manage/issuer/${badgeClass.issuer.entityId}/badgeclasses`}
-                                      name={badgeClass.issuer.name}/>
+                            <span class="sub-text">{I18n.t('editUsers.permissions.institutionAllRights')}</span>
+                        {:else if role === staffType.ISSUER_GROUP_ADMIN}
                             <br/>
-                            <span class="sub-text">{badgeClass.issuer.faculty.name}</span>
-                        </td>
-                        <td>
-                            {#if mayUpdate}
-                                {I18n.t('editUsers.permissions.allRights')}
-                                <br/>
-                                <span class="sub-text">{I18n.t('editUsers.permissions.issuerGroupAllRights')}</span>
-                            {:else}
-                                {I18n.t('editUsers.permissions.awarderRights')}
-                                <br/>
-                                <span class="sub-text">{I18n.t('editUsers.permissions.issuerGroupAwarderRights')}</span>
-                            {/if}
-                        </td>
-                    {:else if _staffType === staffType.INSTITUTION_STAFF}
-                        <td>
-                            <CheckBox
-                                    disabled={true}
-                            />
-                        </td>
-                        <td>
-                            {#if badgeClass.image}
-                                <div class="img-container">
-                                    <div class="img-icon">
-                                        <img src={badgeClass.image} alt=""/>
-                                    </div>
-                                </div>
-                            {:else}
-                                <div class="img-container">
-                                    <div class="img-icon">
-                                        <span class="icon">{@html badgeclassIcon}</span>
-                                    </div>
-                                </div>
-                            {/if}
-                        </td>
-                        <td>
-                            <ListLink path={`/manage/badgeclass/${badgeClass.entityId}/overview`}
-                                      name={badgeClass.name}/>
-                        </td>
-                        <td>
-                            <ListLink path={`/manage/issuer/${badgeClass.issuer.entityId}/badgeclasses`}
-                                      name={badgeClass.issuer.name}/>
+                            <span class="sub-text">{I18n.t('editUsers.permissions.issuerGroupAllRights')}</span>
+                        {:else if role === staffType.ISSUER_GROUP_AWARDER}
                             <br/>
-                            <span class="sub-text">{badgeClass.issuer.faculty.name}</span>
-                        </td>
-                        <td>
-                            {I18n.t(['editUsers', 'permissions', 'allRights'])}
+                            <span class="sub-text">{I18n.t('editUsers.permissions.issuerGroupAwarderRights')}</span>
+                        {:else if role === staffType.ISSUER_ADMIN}
                             <br/>
-                            <span class="sub-text">{I18n.t(['editUsers', 'permissions', 'institutionAllRights'])}</span>
-                        </td>
-                    {/if}
-                    <td></td>
+                            <span class="sub-text">{I18n.t('editUsers.permissions.issuerAllRights')}</span>
+                        {:else if role === staffType.ISSUER_AWARDER}
+                            <br/>
+                            <span class="sub-text">{I18n.t('editUsers.permissions.issuerAwarderRights')}</span>
+                        {/if}
+                    </td>
                 </tr>
             {/each}
             {#if isEmpty}
                 <tr>
-                    <td colspan="4">{I18n.t("zeroState.permissions", {entity: I18n.t("userManagement.badge_class_staff")})}</td>
+                    <td colspan="4">{I18n.t("zeroState.notifications")}</td>
                 </tr>
             {/if}
         </UsersTable>
@@ -411,25 +329,10 @@
     <Spinner/>
 {/if}
 
-{#if showRemoveModal}
+{#if showModal}
     <Modal
-            submit={removeModalAction}
-            cancel={() => showRemoveModal = false}
-            question={removeModalQuestion}
-            title={removeModalTitle}/>
-{/if}
-
-{#if showAddModal}
-    <AddPermissionsBadgeClassesModal
-            bind:userNameDict={userNameDict}
-            busy={() => {
-                loaded = false;
-                showAddModal = false;
-            }}
-            bind:targetOptions={newPermissionOptions}
-            cancel={() => showAddModal = false}
-            title={addModalTitle}
-            {badgeClassStaffs}
-            {userId}
-            on:permissionAdded={handlePermissionAdded}/>
+            submit={() => alert("submit")}
+            cancel={() => showModal = false}
+            question={I18n.t("notifications.confirmationQuestion")}
+            title={I18n.t("notifications.confirmationTitle")}/>
 {/if}
