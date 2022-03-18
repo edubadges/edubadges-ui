@@ -43,7 +43,8 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: var(--ver-padding-m);
-
+    align-items: center;
+    
     :global(> *:not(:last-child)) {
       margin-right: var(--hor-padding-s);
     }
