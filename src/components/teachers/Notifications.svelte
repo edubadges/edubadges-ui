@@ -11,9 +11,13 @@
     import {addStaffType, expandStaffsBadgeClass, staffType} from "../../util/staffTypes";
     import {badgeclassIcon} from "../../icons";
     import {translateProperties} from "../../util/utils";
-    import Breadcrumb from "./Breadcrumb.svelte";
     import UserBreadcrumb from "./UserBreadcrumb.svelte";
     import NotificationsHeader from "./NotificationsHeader.svelte";
+    import {updateNotifications} from "../../api";
+    import {flash} from "../../stores/flash";
+
+    let originalNotifications = [];
+    let notifications = [];
 
     let currentUser;
     let badgeClassSearch = '';
@@ -23,7 +27,6 @@
     let filteredStaffs = [];
     let sortedFilteredStaffs = [];
 
-    let selection = [];
     let checkAllValue = false;
 
     let showModal = false;
@@ -32,6 +35,11 @@
     let isEmpty;
 
     const query = `query {
+    notifications {
+      badgeclass {
+        entityId
+      }
+    },
     currentInstitution {
       id,
       entityId,
@@ -127,6 +135,12 @@
 
             staffs = expandStaffsBadgeClass(institutionStaffs, issuerGroupStaffs, issuerStaffs, badgeClassStaffs);
             staffs.forEach(staff => staff.entityId = staff.badgeClass.entityId);
+            notifications = staffs.map(staff => ({
+                selected: res.notifications.some(notification => notification.badgeclass.entityId === staff.entityId),
+                entityId: staff.entityId
+            }));
+            originalNotifications = res.notifications;
+            isEmpty = staffs.length === 0;
             loaded = true;
         });
 
@@ -174,16 +188,29 @@
         if (showConfirmation) {
             showModal = true;
         } else {
-            //Update everything
-            alert('todo');
+            showModal = false;
+            loaded = false;
+            const deletions = originalNotifications.filter(notification => !notifications.find(n => n.entityId === notification.badgeclass.entityId).selected);
+            const creations = notifications.filter(notification => notification.selected && originalNotifications.every(n => n.badgeclass.entityId !== notification.entityId));
+            updateNotifications({
+                deletions: deletions.map(notification => ({entity_id: notification.badgeclass.entityId})),
+                creations: creations.map(notification => ({entity_id: notification.entityId}))
+            }).then(() => {
+                reload();
+                flash.setValue(I18n.t("notifications.updated"));
+            })
         }
     };
 
     $: buttons = [
         {
-            'action': update,
+            'action': () => update(true),
             'text': I18n.t('notifications.update'),
             'allowed': true,
+            'disabled': notifications.every(notification => {
+                const found = originalNotifications.some(n => n.badgeclass.entityId === notification.entityId);
+                return notification.selected ? found : !found;
+            })
         }
     ];
 
@@ -192,17 +219,20 @@
     $: disabledCheckAll = filteredStaffs.length === 0;
 
     function onCheckOne(val, entityId) {
-        if (val) {
-            selection = selection.concat(entityId);
-            checkAllValue = selection.length === filteredStaffs.length;
-        } else {
-            selection = selection.filter(id => id !== entityId);
-            checkAllValue = false;
-        }
+        notifications = notifications.map(notification => {
+            if (notification.entityId === entityId) {
+                notification.selected = val;
+            }
+            return notification;
+        });
+        checkAllValue = notifications.filter(n => n.selected).length === filteredStaffs.length;
     }
 
     const onCheckAll = val => {
-        selection = val ? filteredStaffs.map(badgeClass => badgeClass.entityId) : [];
+        notifications = notifications.map(notification => {
+            notification.selected = val;
+            return notification;
+        });
         checkAllValue = val;
     };
 
@@ -232,7 +262,9 @@
         display: flex;
         justify-content: space-around;
     }
-
+    p.zero-state {
+        margin: 25px 50px;
+    }
     .img-icon {
         height: 50px;
         width: 50px;
@@ -250,80 +282,86 @@
         <UserBreadcrumb path={I18n.t("user.notifications")}/>
 
         <NotificationsHeader/>
-        <UsersTable
-                {...table}
-                isEmpty={isEmpty}
-                bind:search={badgeClassSearch}
-                bind:sort={badgeClassSort}
-                withCheckAll={true}
-                bind:checkAllValue={checkAllValue}
-                bind:buttons={buttons}
-                {onCheckAll}
-                {disabledCheckAll}
-        >
-            {#each sortedFilteredStaffs as {_staffType, badgeClass, entityId, mayAdministrateUsers, mayUpdate, role}}
-                <tr>
-                    <td>
-                        <CheckBox
-                                value={selection.includes(entityId)}
-                                onChange={val => onCheckOne(val, entityId)}/>
-                    </td>
-                    <td>
-                        {#if badgeClass.image}
-                            <div class="img-container">
-                                <div class="img-icon">
-                                    <img src={badgeClass.image} alt=""/>
+        {#if isEmpty}
+            <p class="zero-state">{I18n.t("zeroState.notifications")}</p>
+        {:else}
+            <UsersTable
+                    {...table}
+                    isEmpty={isEmpty}
+                    bind:search={badgeClassSearch}
+                    bind:sort={badgeClassSort}
+                    withCheckAll={true}
+                    bind:checkAllValue={checkAllValue}
+                    bind:buttons={buttons}
+                    {onCheckAll}
+                    {disabledCheckAll}
+            >
+                {#each sortedFilteredStaffs as {
+                    _staffType,
+                    badgeClass,
+                    entityId,
+                    mayAdministrateUsers,
+                    mayUpdate,
+                    role
+                }}
+                    <tr>
+                        <td>
+                            <CheckBox
+                                    value={notifications.find(notification => notification.entityId === entityId).selected}
+                                    onChange={val => onCheckOne(val, entityId)}/>
+                        </td>
+                        <td>
+                            {#if badgeClass.image}
+                                <div class="img-container">
+                                    <div class="img-icon">
+                                        <img src={badgeClass.image} alt=""/>
+                                    </div>
                                 </div>
-                            </div>
-                        {:else}
-                            <div class="img-container">
-                                <div class="img-icon">
-                                    <span class="icon">{@html badgeclassIcon}</span>
+                            {:else}
+                                <div class="img-container">
+                                    <div class="img-icon">
+                                        <span class="icon">{@html badgeclassIcon}</span>
+                                    </div>
                                 </div>
-                            </div>
-                        {/if}
-                    </td>
-                    <td>
-                        <ListLink path={`/manage/badgeclass/${badgeClass.entityId}/overview`}
-                                  name={badgeClass.name}/>
-                    </td>
-                    <td>
-                        <ListLink path={`/manage/issuer/${badgeClass.issuer.entityId}/badgeclasses`}
-                                  name={badgeClass.issuer.name}/>
-                        <br/>
-                        <span class="sub-text">{badgeClass.issuer.faculty.name}</span>
-                    </td>
-                    <td>
-                        {#if mayUpdate}
-                            {I18n.t('editUsers.permissions.allRights')}
-                        {:else}
-                            {I18n.t('editUsers.permissions.awarderRights')}
-                        {/if}
-                        {#if role === staffType.INSTITUTION_STAFF}
+                            {/if}
+                        </td>
+                        <td>
+                            <ListLink path={`/manage/badgeclass/${badgeClass.entityId}/overview`}
+                                      name={badgeClass.name}/>
+                        </td>
+                        <td>
+                            <ListLink path={`/manage/issuer/${badgeClass.issuer.entityId}/badgeclasses`}
+                                      name={badgeClass.issuer.name}/>
                             <br/>
-                            <span class="sub-text">{I18n.t('editUsers.permissions.institutionAllRights')}</span>
-                        {:else if role === staffType.ISSUER_GROUP_ADMIN}
-                            <br/>
-                            <span class="sub-text">{I18n.t('editUsers.permissions.issuerGroupAllRights')}</span>
-                        {:else if role === staffType.ISSUER_GROUP_AWARDER}
-                            <br/>
-                            <span class="sub-text">{I18n.t('editUsers.permissions.issuerGroupAwarderRights')}</span>
-                        {:else if role === staffType.ISSUER_ADMIN}
-                            <br/>
-                            <span class="sub-text">{I18n.t('editUsers.permissions.issuerAllRights')}</span>
-                        {:else if role === staffType.ISSUER_AWARDER}
-                            <br/>
-                            <span class="sub-text">{I18n.t('editUsers.permissions.issuerAwarderRights')}</span>
-                        {/if}
-                    </td>
-                </tr>
-            {/each}
-            {#if isEmpty}
-                <tr>
-                    <td colspan="4">{I18n.t("zeroState.notifications")}</td>
-                </tr>
-            {/if}
-        </UsersTable>
+                            <span class="sub-text">{badgeClass.issuer.faculty.name}</span>
+                        </td>
+                        <td>
+                            {#if mayUpdate}
+                                {I18n.t('editUsers.permissions.allRights')}
+                            {:else}
+                                {I18n.t('editUsers.permissions.awarderRights')}
+                            {/if}
+                            {#if role === staffType.INSTITUTION_STAFF}
+                                <br/>
+                                <span class="sub-text">{I18n.t('editUsers.permissions.institutionAllRights')}</span>
+                            {:else if role === staffType.ISSUER_GROUP_ADMIN}
+                                <br/>
+                                <span class="sub-text">{I18n.t('editUsers.permissions.issuerGroupAllRights')}</span>
+                            {:else if role === staffType.ISSUER_GROUP_AWARDER}
+                                <br/>
+                                <span class="sub-text">{I18n.t('editUsers.permissions.issuerGroupAwarderRights')}</span>
+                            {:else if role === staffType.ISSUER_ADMIN}
+                                <br/>
+                                <span class="sub-text">{I18n.t('editUsers.permissions.issuerAllRights')}</span>
+                            {:else if role === staffType.ISSUER_AWARDER}
+                                <br/>
+                                <span class="sub-text">{I18n.t('editUsers.permissions.issuerAwarderRights')}</span>
+                            {/if}
+                        </td>
+                    </tr>
+                {/each}
+            </UsersTable>
+        {/if}
     </div>
 {:else}
     <Spinner/>
@@ -331,7 +369,7 @@
 
 {#if showModal}
     <Modal
-            submit={() => alert("submit")}
+            submit={() => update(false)}
             cancel={() => showModal = false}
             question={I18n.t("notifications.confirmationQuestion")}
             title={I18n.t("notifications.confirmationTitle")}/>

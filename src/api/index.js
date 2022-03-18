@@ -845,4 +845,8 @@ export function deleteLtiCourse(ltiCourse) {
     return validFetch(path, {}, "DELETE", true, false);
 }
 
+export function updateNotifications(delta) {
+    const path = `${serverUrl}/notifications/notifications`;
+    return validFetch(path, {body: JSON.stringify(delta)}, "PUT");
+}
 

@@ -1029,7 +1029,7 @@ I18n.translations.en = {
         directAwardBundles: "There is no direct award status for edubadge {{name}}",
         directAwards: "All direct awards have been claimed. There are no more outstanding direct awards for this bundle.",
         requestedBatches: "There are no outstanding edubadge requests you are allowed to award.",
-        notifications: "You don't have permissions to award badges"
+        notifications: "You don't have permissions to award badges and therefore you can not configure any notifications."
     },
     userManagement: {
         permissions: "Permissions for {{name}}",
@@ -1486,6 +1486,7 @@ I18n.translations.en = {
         title: "Your notifications settings",
         info: "For each selected badge class you will receive a mail notification if a student enrolls for this badge.",
         confirmationTitle: "Confirmation",
-        confirmationQuestion: "Are you sure you want to update your notification settings?"
+        confirmationQuestion: "Are you sure you want to update your notification settings?",
+        updated: "Your notification settings were updated"
     }
 };
