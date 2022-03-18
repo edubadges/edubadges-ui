@@ -425,8 +425,8 @@ I18n.translations.nl = {
         935: "Vul de tijdsinvestering of verwijder deze rubriek.",
         936: "Kan geen collectie aanmaken met deze naam. Er bestaat al een collectie met deze naam.",
         937: "ECTS mag niet leeg of 0 zijn",
-        938: "Een motivatie is verplicht voor het aanvragen van deze badge",
-        939: "Een bronvermelding is verplicht voor het aanvragen van deze badge",
+        938: "Een motivatie is verplicht voor het aanvragen van deze edubadge.",
+        939: "Een bronvermelding is verplicht voor het aanvragen van deze edubadge.",
         unexpected: "Oeps, er is iets totaal onverwachts en onverklaarbaars gebeurd.",
         description: "Een onverwachte fout is opgetreden. Probeer het opnieuw of neem contact op met support@edubadges.nl voor ondersteuning.",
         close: "Sluit"
@@ -597,8 +597,8 @@ I18n.translations.nl = {
             name_english: "Naam in het Engels",
             name_dutch: "Naam in het Nederlands",
             onBehalfOf: "Uitgeven namens naam issuer groep",
-            on_behalf_of_url: "URL van de namens groep",
-            on_behalf_of_display_name: "Weergavenaam van de names groep",
+            on_behalf_of_url: "URL",
+            on_behalf_of_display_name: "Weergavenaam",
         },
         issuer: {
             description: "Over deze issuer",
@@ -654,8 +654,8 @@ I18n.translations.nl = {
             isPrivate: "Privé badge class",
             evidenceRequired: "Evidence verplicht",
             narrativeRequired: "Narrative verplicht",
-            narrativeStudentRequired: "Motivatie verplicht voor student aanvraag",
-            evidenceStudentRequired: "Evidence URL verplicht voor student aanvraag",
+            narrativeStudentRequired: "Motivatie verplicht voor aanvraag",
+            evidenceStudentRequired: "Evidence URL verplicht voor aanvraag",
             awardNonValidatedNameAllowed: "Uitreiken aan niet gevalideerd account toestaan",
             learningOutcome: "Leeruitkomst",
             studyLoad: "Studielast",
@@ -814,7 +814,7 @@ I18n.translations.nl = {
                 denied: "De inschrijving(en) zijn afgewezen.",
                 awarded: "De inschrijving(en) zijn toegekend."
             },
-            studentEvidenceRequired: "Om deze Badge aan te vragen dien je bewijs / motivatie toe te voegen waarom het verzoek gegrond is."
+            studentEvidenceRequired: "Om deze edubadge aan te vragen dien je bewijs / motivatie toe te voegen waarom het verzoek gegrond is."
         },
         badgeAward: {
             email: "E-mail",
@@ -877,7 +877,7 @@ I18n.translations.nl = {
         copyPublicUrl: "Als je de link naar de publieke pagina van deze edubadge wilt delen, kan je de link kopiëren",
         copy: "Kopieer de link",
         titleCollections: "Deel je collectie",
-        copyPublicUrlCollections: "Als je de link naar de publieke pagina van deze collectie van edubadge wilt delen, kan je de link kopiëren<br/><br/>Alleen je publieke en niet ingetrokken badges worden getoond op de publieke collectie pagina.",
+        copyPublicUrlCollections: "Als je de link naar de publieke pagina van deze collectie van edubadge wilt delen, kan je de link kopiëren<br/><br/>Alleen je publieke en niet ingetrokken edubadges worden getoond op de publieke collectie pagina.",
     },
     invites: {
         title: "Nodig iemand uit om zich in te schrijven",
@@ -1056,8 +1056,8 @@ I18n.translations.nl = {
         faculty: {
             name: "(Verplicht veld) Bijv. Geschiedenis",
             description: "(Verplicht veld) Bijv. Alle issuers van de faculteit Geschiedenis",
-            onBehalfOfUrl: "(Optioneell) e.g. URL van het consortium",
-            onBehalfOfDisplayName: "(Optional) e.g. naam van het consortium",
+            onBehalfOfUrl: "(Optioneell) e.g. URL van de issuer groep of het consortium",
+            onBehalfOfDisplayName: "(Optional) e.g. naam van de issuer groep of het consortium",
         },
         issuer: {
             name: "(Verplicht veld) Bijv. Economische en Sociale geschiedenis",
@@ -1155,8 +1155,8 @@ I18n.translations.nl = {
         //badgeClassRelatedFrameworkDescription: "badgeClassRelatedFrameworkDescription",
         facultyName: "Vermijdt afkortingen, zorg voor herkenbare naam ook voor externen.",
         facultyOnBehalfOf: "Indien aangevinkt vermeldt de badge class dat edubadges zijn uitgereikt namens deze issuer groep. Kan gebruikt worden bij het uitgeven namens een consortium.",
-        facultyOnBehalfOfUrl: "Wanneer namens is aangevinkt, wordt deze URL gebruikt als een externe link naar de werkelijke namens.",
-        facultyOnBehalfOfDisplayName: "Wanneer namens is aangevinkt, wordt deze weergavenaam gebruikt in plaats van de werkelijke naam van de issuer groep.",
+        facultyOnBehalfOfUrl: "Wanneer Uitgeven namens naam issuer groep is aangevinkt, wordt deze URL gebruikt als een externe link naar deze issuer groep.",
+        facultyOnBehalfOfDisplayName: "Wanneer Uitgeven namens naam issuer groep is aangevinkt, wordt deze weergavenaam gebruikt in plaats van de werkelijke naam van de issuer groep.",
         //facultyDescriptionEn: "facultyDescriptionEn",
         //facultyDescriptionNl: "facultyDescriptionNl",
         //issuerFaculty: "issuerFaculty",
@@ -1345,7 +1345,7 @@ I18n.translations.nl = {
         zeroStateBadges: "Je hebt nog geen edubadges toegevoegd...",
         create: "Maak een nieuwe collectie",
         shareable: "Collecties die je kan delen",
-        requiresPublicBadgePresent: "Een publieke collectie vereist op zijn minst 1 publieke badge",
+        requiresPublicBadgePresent: "Een publieke collectie vereist op zijn minst 1 publieke edubadge",
         all: "Al je collecties",
         byRecent: "Meest recent",
         bySize: "Aantal edubadges",

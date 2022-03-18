@@ -425,8 +425,8 @@ I18n.translations.en = {
         935: "Enter the time investment or remove this section.",
         936: "Cannot create edubadge collection with this name as it already exists.",
         937: "ECTS can not be empty or 0",
-        938: "This badge requires a motivation for enrollment",
-        939: "This badge requires an citation URL for enrollment",
+        938: "This edubadge requires a motivation for enrollment.",
+        939: "This edubadge requires an evidence URL for enrollment.",
         unexpected: "Unexpected error occurred.",
         description: "An unexpected error has occurred. Please try again later or contact support@edubadges.nl for support.",
         close: "Close"
@@ -597,8 +597,8 @@ I18n.translations.en = {
             name_english: "Issuer group English name",
             name_dutch: "Issuer group Dutch name",
             onBehalfOf: "Issue on behalf of name issuer group",
-            on_behalf_of_url: "URL of the on behalf of group",
-            on_behalf_of_display_name: "Display name of the on behalf of group",
+            on_behalf_of_url: "URL",
+            on_behalf_of_display_name: "Display name",
         },
         issuer: {
             description: "About this issuer",
@@ -654,8 +654,8 @@ I18n.translations.en = {
             isPrivate: "Private badge class",
             evidenceRequired: "Evidence required",
             narrativeRequired: "Narrative required",
-            narrativeStudentRequired: "Motivation required for student enrollment",
-            evidenceStudentRequired: "Evidence URL required for student enrollment",
+            narrativeStudentRequired: "Motivation required for enrollment",
+            evidenceStudentRequired: "Evidence URL required for enrollment",
             awardNonValidatedNameAllowed: "Award to non-validated account allowed",
             learningOutcome: "Learning outcome",
             studyLoad: "Study load",
@@ -814,7 +814,7 @@ I18n.translations.en = {
                 denied: "The request(s) have been denied.",
                 awarded: "The request(s) have been awarded."
             },
-            studentEvidenceRequired: "To request this Badge you need to add evidence / motivation as to why the request is justified."
+            studentEvidenceRequired: "To request this edubadge you need to add evidence / motivation as to why the request is justified."
         },
         badgeAward: {
             email: "Email address",
@@ -1056,8 +1056,8 @@ I18n.translations.en = {
         faculty: {
             name: "(Required field) e.g. History",
             description: "(Required field) e.g. all History related studies",
-            onBehalfOfUrl: "(Optional) e.g. URL of the consortium",
-            onBehalfOfDisplayName: "(Optional) e.g. display name of the consortium",
+            onBehalfOfUrl: "(Optional) e.g. URL of the issuer group or consortium",
+            onBehalfOfDisplayName: "(Optional) e.g. display name of the issuer group or consortium",
         },
         issuer: {
             name: "(Required field) e.g. Social History Studies",
@@ -1155,8 +1155,8 @@ I18n.translations.en = {
         //badgeClassRelatedFrameworkDescription: "badgeClassRelatedFrameworkDescription",
         facultyName: "Avoid abbreviations, make sure your name is recognisable, also to external parties.",
         facultyOnBehalfOf: "When checked, the badge class indicates that edubadges are issued on behalf of this issuer group. Can be used when issuing on behalf of a consortium.",
-        facultyOnBehalfOfUrl: "When on behalf of is checked, this URL will be used as a external link to the actual on behalf of.",
-        facultyOnBehalfOfDisplayName: "When on behalf of is checked, this display name will used instead of the actual name of the issuer group.",
+        facultyOnBehalfOfUrl: "When Issue on behalf of name issuer group is checked, this URL will be used as a external link to the issuer group.",
+        facultyOnBehalfOfDisplayName: "When Issue on behalf of name issuer group is checked, this display name will used instead of the actual name of the issuer group.",
         //facultyDescriptionEn: "facultyDescriptionEn",
         //facultyDescriptionNl: "facultyDescriptionNl",
         //issuerFaculty: "issuerFaculty",
