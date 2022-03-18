@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [6.1.0] - 2022-03-21
+- Align items center in table header.
+- Added notifications to get informed when an edubadge is requested.
+- Ensure all is checked when all are checked.
+- Show all badge classes that may be awarded by user and why.
+- Show description, url from enrollment.
+- Use narrative and url from enrollment for evidence badgeclass.
+- Added onBehalfOf link on badge class / assertion.
+- Fetch on behalf fields for faculty.
+- Fallback to empty array for issuers.
+- Updated locales.
+- Updated url-parse from 1.5.3 to 1.5.10, follow-redirects from 1.14.7 to 1.14.8.
+
 ## [6.0.0] - 2022-02-21
 - Option added to issuer groups to make awarding on behalf of (consortia) possible.
 - Study load metadatafield in the badgeclass can not have the value '0'.
@@ -14,6 +27,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Made it possible to copy a badgeclass within the current issuer.
 - Several small changes in the locales.
 - Updated dependencies postcss, bump, nanoid, marked, follow-redirects.
+
 ## [5.4.0] - 2022-01-17
 - Narrative supports markdown.
 
