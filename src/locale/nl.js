@@ -1029,7 +1029,7 @@ I18n.translations.nl = {
         directAwardBundles: "Er is geen direct award status voor edubadge {{name}}",
         directAwards: "Alle direct awards zijn geclaimed. Er zijn geen uitstaande direct awards meer voor deze bundel.",
         requestedBatches: "Er zijn geen openstaande edubadge-verzoeken die je mag uitreiken.",
-        notifications: "Je hebt geen permissies om badges te awarden en daarom kan je geen notificaties instellen."
+        notifications: "Je hebt geen permissies om edubadges te awarden en daarom kan je geen notificaties instellen."
     },
     userManagement: {
         permissions: "Permissies voor {{name}}",
@@ -1484,7 +1484,7 @@ I18n.translations.nl = {
     notifications: {
         update: "Bijwerken",
         title: "Je notificatie instellingen",
-        info: "Voor elke geselecteerde badgeklasse ontvang je een e-mailmelding als een student zich inschrijft voor deze badge.",
+        info: "Voor elke geselecteerde badge class ontvang je een e-mailmelding als een student zich inschrijft voor deze edubadge.",
         confirmationTitle: "Confirmatie",
         confirmationQuestion: "Weet je zeker dat je je notificatie instellingen wilt wijzigen?",
         updated: "Je notificatie instellingen zijn bijgwerkt"
