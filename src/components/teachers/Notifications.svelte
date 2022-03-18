@@ -141,6 +141,7 @@
             }));
             originalNotifications = res.notifications;
             isEmpty = staffs.length === 0;
+            checkAllValue = notifications.filter(n => n.selected).length === staffs.length;
             loaded = true;
         });
 
