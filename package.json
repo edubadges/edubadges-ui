@@ -50,7 +50,7 @@
     "js-cookie": "^2.2.1",
     "jwt-decode": "^2.2.0",
     "marked": "^4.0.10",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "svelte-file-dropzone": "^0.0.15",
     "svelte-json-tree": "^0.1.0",
     "svelte-routing": "^1.4.2",
