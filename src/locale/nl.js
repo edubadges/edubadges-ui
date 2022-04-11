@@ -658,6 +658,7 @@ I18n.translations.nl = {
             narrativeStudentRequired: "Motivatie verplicht voor aanvraag",
             evidenceStudentRequired: "Evidence URL verplicht voor aanvraag",
             awardNonValidatedNameAllowed: "Uitreiken aan niet gevalideerd account toestaan",
+            isMicroCredentials: "Micro-credentials ingeschakeld",
             learningOutcome: "Leeruitkomst",
             studyLoad: "Studielast",
             timeInvestment: "Tijdsinvestering",
@@ -694,6 +695,8 @@ I18n.translations.nl = {
                 timeInvestment: "Tijdsinvestering toevoegen",
                 alignment: "Gerelateerd onderwijskundig raamwerk toevoegen",
                 alignmentAddition: "Nog een gerelateerd onderwijskundig raamwerk toevoegen",
+                programmeIdentifier: "Opleidingscode toevoegen"
+
             },
             info: {
                 educationProgramIdentifier:
@@ -1142,6 +1145,7 @@ I18n.translations.nl = {
         badgeClassNarrativeStudentRequired: "Indien aangevinkt, moet voor alle aanvragen van deze badge class een persoonlijke motivatie worden ingevuld.",
         badgeClassEvidenceStudentRequired: "Indien aangevinkt, moet voor alle aanvragen van deze badge class een bronvermelding URL worden ingevuld.",
         badgeClassAwardNonValidatedNameAllowed: "Indien aangevinkt, mogen non-formal edubadges (edubadges zonder Studielast) uitgereikt worden aan niet-gevalideerde accounts.",
+        badgeClassIsMicroCredentials: "Indien aangevinkt, dan is deze badge class ihkv de Microcredentials pilot",
         //badgeClassCriteriaRequirements: "badgeClassCriteriaRequirements",
         //badgeClassCriteriaUrl: "badgeClassCriteriaUrl",
         //badgeClassTypeOfStudyLoad: "badgeClassTypeOfStudyLoad",

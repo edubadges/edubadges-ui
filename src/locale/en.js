@@ -658,6 +658,7 @@ I18n.translations.en = {
             narrativeStudentRequired: "Motivation required for enrollment",
             evidenceStudentRequired: "Evidence URL required for enrollment",
             awardNonValidatedNameAllowed: "Award to non-validated account allowed",
+            isMicroCredentials: "Micro-credentials enabled",
             learningOutcome: "Learning outcome",
             studyLoad: "Study load",
             timeInvestment: "Time investment",
@@ -694,6 +695,7 @@ I18n.translations.en = {
                 timeInvestment: "Add time investment",
                 alignment: "Add related educational framework",
                 alignmentAddition: "Add another related educational framework",
+                programmeIdentifier: "Add programme identifier"
             },
             info: {
                 educationProgramIdentifier:
@@ -1142,6 +1144,7 @@ I18n.translations.en = {
         badgeClassNarrativeStudentRequired: "If checked, any enrollments for this badge class require a motivation of why the enrollment is justified.",
         badgeClassEvidenceStudentRequired: "If checked, any enrollments for this badge class require an evidence URL of why the enrollment is justified.",
         badgeClassAwardNonValidatedNameAllowed: "If checked, non-formal edubadges (edubadges without Study load) can be awarded to non-validated accounts.",
+        badgeClassIsMicroCredentials: "If checked, then this badge class is participating in the Microcredentials pilot",
         //badgeClassCriteriaRequirements: "badgeClassCriteriaRequirements",
         //badgeClassCriteriaUrl: "badgeClassCriteriaUrl",
         //badgeClassTypeOfStudyLoad: "badgeClassTypeOfStudyLoad",
