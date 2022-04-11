@@ -96,6 +96,9 @@
     let languageSelection = languages[0];
     if (!isCreate || isCopy) {
         languageSelection = languages.find(x => x.value === extensionValue(badgeclass.extensions, language));
+    } else {
+        const language = institution.defaultLanguage.replace("-","_");
+        languageSelection = languages.find(x => x.value === language);
     }
 
     const eqfItems = [...Array(8).keys()].map(i => {

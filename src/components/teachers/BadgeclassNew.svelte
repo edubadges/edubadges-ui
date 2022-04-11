@@ -22,7 +22,8 @@
       institutionType,
       identifier,
       awardAllowedInstitutions,
-      awardAllowAllInstitutions
+      awardAllowAllInstitutions,
+      defaultLanguage
     },
     issuer(id: $entityId) {
       nameEnglish,
