@@ -29,7 +29,7 @@
     import MarkdownField from "../forms/MarkdownField.svelte";
 
     export let entityId;
-    export let badgeclass = {extensions: [], issuer: {}, alignments: []};
+    export let badgeclass = {extensions: [], issuer: {}, alignments: [], criteriaText: ""};
     export let issuers = [];
     export let mayDelete;
     export let mayEdit;
@@ -71,7 +71,6 @@
         if (publicInstitutions.length > 0 && badgeclass.awardAllowedInstitutions.length > 0) {
             publicInstitutionsChosen = publicInstitutions.filter(ins => badgeclass.awardAllowedInstitutions.includes(ins.identifier))
         }
-
         badgeclass.alignments = badgeclass.alignments.map(alignment => ({
             target_name: alignment.targetName,
             target_url: alignment.targetUrl,

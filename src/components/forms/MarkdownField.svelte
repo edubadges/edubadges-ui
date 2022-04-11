@@ -2,9 +2,10 @@
     import {Editor, Viewer} from 'bytemd';
     import gfm from '@bytemd/plugin-gfm';
     import 'bytemd/dist/index.min.css'
+    import {onMount} from "svelte";
 
-    export let value;
-    export let disabled;
+    export let value = "";
+    export let disabled = false;
 
     const plugins = [gfm()];
 
@@ -20,7 +21,7 @@
 </style>
 
 {#if disabled}
-    <Viewer {value} {plugins}/>
+    <Viewer value = {value || ""} {plugins}/>
 {:else}
-    <Editor {value} {plugins} mode="split" on:change={e => value = e.detail.value}/>
+    <Editor value = {value || ""} {plugins} mode="split" on:change={e => value = e.detail.value}/>
 {/if}
