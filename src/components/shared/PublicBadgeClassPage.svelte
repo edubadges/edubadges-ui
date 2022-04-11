@@ -126,6 +126,7 @@
           onBehalfOfUrl,
           institution {
             identifier,
+            alternativeIdentifier,
             nameDutch,
             nameEnglish,
             imageDutch,
@@ -221,7 +222,9 @@
         if (!badgeClass.formal) {
             identifiers = identifiers.concat(badgeClass.awardAllowedInstitutions);
         }
-
+        if (institution.alternativeIdentifier) {
+            identifiers.push(institution.alternativeIdentifier);
+        }
         const allowedInstitution = identifiers.some(identifier => schacHomes.includes(identifier));
 
         if (noValidatedName && !badgeClass.awardNonValidatedNameAllowed) {
