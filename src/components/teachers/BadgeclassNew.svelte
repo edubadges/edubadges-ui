@@ -23,6 +23,7 @@
       identifier,
       awardAllowedInstitutions,
       awardAllowAllInstitutions,
+      alternativeIdentifier,
       defaultLanguage
     },
     issuer(id: $entityId) {

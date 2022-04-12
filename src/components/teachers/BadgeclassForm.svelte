@@ -196,6 +196,7 @@
             if (!showStudyLoad && !showTimeInvestment) {
                 addStudyLoad();
             }
+            removeProgrammeIdentifier();
             const newAlignments = badgeclass.alignments || [];
             badgeclass.alignments = [{
                 target_name: microCredentialsFramework.name,
@@ -285,12 +286,15 @@
             ]);
             newBadgeclass.extensions = {...newBadgeclass.extensions, ...learningOutcomeExt}
         }
-        if (showEducationalIdentifiers) {
-            const programIdentifier = extensions[educationProgramIdentifier.name]
-            const extensionValues = [{
+        if (showEducationalIdentifiers || showProgrammeIdentifier) {
+            const extensionValues = []
+            const programIdentifier = extensions[educationProgramIdentifier.name];
+            if (programIdentifier || !badgeclass.isMicroCredentials) {
+                extensionValues.push({
                     name: educationProgramIdentifier.name,
                     value: parseInt(programIdentifier, 10)
-                }];
+                })
+            }
             const extension = extensions[eqf.name];
             if (extension) {
                 extensionValues.push({name: eqf.name, value: extension.value})
