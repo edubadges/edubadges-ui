@@ -6,6 +6,7 @@
     eqfLevelSelected,
     institutionSelected,
     studyLoadSelected,
+    typeBadgeClassSelected,
     tree
   } from "../../stores/filterCatalog";
 </script>
@@ -80,5 +81,13 @@
       title="eqfs"/>
   </div>
 
+  <div>
+    <FilterBlock
+      bind:value={$typeBadgeClassSelected}
+      collection={$tree.badgeClassTypes}
+      objectIdentifier="value"
+      maxLength={100}
+      title="badgeClassType"/>
+  </div>
 
 </div>

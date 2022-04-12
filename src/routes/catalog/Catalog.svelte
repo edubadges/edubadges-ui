@@ -40,6 +40,7 @@
             assertionsCount,
             archived,
             createdAt,
+            isMicroCredentials,
             extensions {
               name,
               originalJson

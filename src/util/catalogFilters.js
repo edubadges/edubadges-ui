@@ -24,6 +24,12 @@ export const educationalLevels = {
   NONE: "NONE"
 }
 
+export const badgeClassFilterTypes = {
+  MICRO_CREDENTIALS: "MICRO_CREDENTIALS",
+  ARCHIVED: "ARCHIVED",
+  OTHER: "OTHER"
+}
+
 export const assignFilterTypes = badgeClass => {
   if (badgeClass.studyLoad) {
     const studyLoad = badgeClass.studyLoad;

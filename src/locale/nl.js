@@ -142,6 +142,7 @@ I18n.translations.nl = {
                 institutions: "Instelling",
                 studyLoads: "Studyload",
                 eqfs: "NLQF niveau",
+                badgeClassType: "Type edubadge",
                 roles: "Rollen (hoogste)",
                 issued: "Uitgegeven",
                 awardType: "Award type",
@@ -1219,6 +1220,11 @@ I18n.translations.nl = {
         eqf: {
             eqfNone: "Geen NLQF level",
             eqf: "NLQF niveau {{level}}",
+        },
+        badgeClassType: {
+              OTHER: "Anders",
+              ARCHIVED: "Gearchiveerd",
+              MICRO_CREDENTIALS: "Microcredentials"
         },
         issuer: {
             contact: "Neem contact op met de issuer",
