@@ -219,6 +219,7 @@ I18n.translations.en = {
         shareYourBadge: "Share your edubadge",
         shareYourBadgeQuestion: "Your public edubadge URL is accessible for everyone",
         badgeRevoked: "This edubadge has been revoked. You can see the details, but this edubadge can no longer be shared",
+        revocationReason: "The revocation reason:",
         badgeExpired: "This edubadge has been expired. You can see the details, but this edubadge can no longer be shared",
         privateBadge: "Private edubadge",
         publicPrivate: "Your edubadge is set to private, only you can see it.",
