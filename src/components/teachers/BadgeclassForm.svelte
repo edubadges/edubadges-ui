@@ -193,6 +193,9 @@
     const changeIsMicroCredentials = val => {
         badgeclass.isMicroCredentials = val;
         if (val) {
+            if (!extensions[eqf.name]) {
+                extensions[eqf.name] = {name: "NLQF 5", value: 5};
+            }
             if (!showStudyLoad && !showTimeInvestment) {
                 addStudyLoad();
             }
@@ -217,11 +220,17 @@
     $: if (badgeclass.extensions.length > 0 && !loaded) {
         isInstitutionMBO = institution.institutionType === "MBO";
         const studyLoadValue = extensionValue(badgeclass.extensions, studyLoad);
-        let ectsValue = extensionValue(badgeclass.extensions, ects);
+        const ectsValue = extensionValue(badgeclass.extensions, ects);
+        let eqfValue = extensionValue(badgeclass.extensions, eqf);
+        if (isCreate) {
+            eqfValue = {name: "NLQF 5", value: 5};
+        } else if (eqfValue !== null) {
+            eqfValue = eqfItems.find(item => item.value === eqfValue)
+        }
         extensions = {
             [language.name]: extensionValue(badgeclass.extensions, language) || "en_EN",
             [ects.name]: ectsValue || (isCreate ? 2.5 : ""),
-            [eqf.name]: extensionValue(badgeclass.extensions, eqf) || {name: "NLQF 5", value: 5},
+            [eqf.name]: eqfValue,
             [learningOutcome.name]: extensionValue(badgeclass.extensions, learningOutcome) || "",
             [educationProgramIdentifier.name]: extensionValue(badgeclass.extensions, educationProgramIdentifier) || "",
             [studyLoad.name]: studyLoadValue || "",
@@ -229,7 +238,6 @@
         if (extensions[eqf.name] && typeof extensions[eqf.name] === "number") {
             extensions[eqf.name] = {name: `NLQF ${extensions[eqf.name]}`, value: extensions[eqf.name]}
         }
-
         if (extensions[educationProgramIdentifier.name]) {
             showEducationalIdentifiers = true;
         }
