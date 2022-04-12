@@ -14,7 +14,7 @@
     let directAwardingEnabled = false;
 
     onMount(() => {
-        directAwardingEnabled = badgeclass.issuer.faculty.institution.directAwardingEnabled;
+        directAwardingEnabled = badgeclass.issuer.faculty.institution.directAwardingEnabled && !badgeclass.directAwardingDisabled;
     });
 
     const publicUrl = () => {

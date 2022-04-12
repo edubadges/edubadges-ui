@@ -270,10 +270,10 @@
             evidence_student_required: badgeclass.evidenceStudentRequired,
             award_non_validated_name_allowed: badgeclass.awardNonValidatedNameAllowed,
             is_micro_credentials: badgeclass.isMicroCredentials,
+            direct_awarding_disabled: badgeclass.directAwardingDisabled,
             criteria_url: toHttpOrHttps(badgeclass.criteriaUrl),
         };
         setExpirationPeriod(newBadgeclass);
-
         if (!showAlignment) {
             newBadgeclass.alignments = [];
         }
@@ -566,6 +566,15 @@
                         label={I18n.t(['models', entity, 'isMicroCredentials'])}
                         tipKey="badgeClassIsMicroCredentials"
                         onChange={changeIsMicroCredentials}/>
+            {/if}
+            {#if institution.directAwardingEnabled}
+                <CheckBox
+                        value={badgeclass.directAwardingDisabled || false}
+                        inForm={true}
+                        adjustTop={true}
+                        label={I18n.t(['models', entity, 'directAwardingDisabled'])}
+                        tipKey="badgeClassDirectAwardingDisabled"
+                        onChange={val => badgeclass.directAwardingDisabled = val}/>
             {/if}
         </Field>
     </div>

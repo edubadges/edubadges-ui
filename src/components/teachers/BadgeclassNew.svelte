@@ -24,7 +24,8 @@
       awardAllowedInstitutions,
       awardAllowAllInstitutions,
       alternativeIdentifier,
-      defaultLanguage
+      defaultLanguage,
+      directAwardingEnabled
     },
     issuer(id: $entityId) {
       nameEnglish,

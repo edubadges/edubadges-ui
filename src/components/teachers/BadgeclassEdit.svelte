@@ -29,7 +29,8 @@
       identifier,
       awardAllowedInstitutions,
       awardAllowAllInstitutions,
-      alternativeIdentifier
+      alternativeIdentifier,
+      directAwardingEnabled
     },
     issuers {
       nameEnglish,
@@ -54,6 +55,7 @@
       narrativeStudentRequired,
       awardAllowedInstitutions,
       isMicroCredentials,
+      directAwardingDisabled,
       alignments {
         targetName,
         targetUrl,
