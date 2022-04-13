@@ -89,15 +89,15 @@
 
     let errors = {};
 
-    const languages = [{value: "en_EN", name: I18n.t("language.en_EN")}, {
-        value: "nl_NL",
-        name: I18n.t("language.nl_NL")
-    }];
+    const languages = [
+        {value: "en_EN", name: I18n.t("language.en_EN")},
+        {value: "nl_NL", name: I18n.t("language.nl_NL")}
+    ];
     let languageSelection = languages[0];
     if (!isCreate || isCopy) {
         languageSelection = languages.find(x => x.value === extensionValue(badgeclass.extensions, language));
     } else {
-        const language = institution.defaultLanguage.replace("-","_");
+        const language = institution.defaultLanguage;
         languageSelection = languages.find(x => x.value === language);
     }
 

@@ -30,7 +30,8 @@
       awardAllowedInstitutions,
       awardAllowAllInstitutions,
       alternativeIdentifier,
-      directAwardingEnabled
+      directAwardingEnabled,
+      defaultLanguage
     },
     issuers {
       nameEnglish,
