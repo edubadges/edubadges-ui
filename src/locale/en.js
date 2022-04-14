@@ -54,7 +54,7 @@ I18n.translations.en = {
         },
         teacher: {
             title: "<strong style='font-size: 38px'>A</strong>ward",
-            subtitle: "Award your students with edubadges, the micro credentials of the future.",
+            subtitle: "Award your students with edubadges, the microcredentials of the future.",
             action: "Open the issuer portal",
             accountCreation: {
                 askAccount: "The issuer portal is by invite only. If you want to enter, but don't have access, please contact your institution admin.",
@@ -660,7 +660,7 @@ I18n.translations.en = {
             narrativeStudentRequired: "Motivation required for enrollment",
             evidenceStudentRequired: "Evidence URL required for enrollment",
             awardNonValidatedNameAllowed: "Award to non-validated account allowed",
-            isMicroCredentials: "Micro-credentials enabled",
+            isMicroCredentials: "Badge class related to Microcredentials pilot",
             directAwardingDisabled: "Direct-Award disabled",
             learningOutcome: "Learning outcome",
             studyLoad: "Study load",
@@ -1147,7 +1147,7 @@ I18n.translations.en = {
         badgeClassNarrativeStudentRequired: "If checked, any enrollments for this badge class require a motivation of why the enrollment is justified.",
         badgeClassEvidenceStudentRequired: "If checked, any enrollments for this badge class require an evidence URL of why the enrollment is justified.",
         badgeClassAwardNonValidatedNameAllowed: "If checked, non-formal edubadges (edubadges without Study load) can be awarded to non-validated accounts.",
-        badgeClassIsMicroCredentials: "If checked, then this badge class is participating in the Microcredentials pilot",
+        badgeClassIsMicroCredentials: "If checked, then this badge class is participating in the Microcredentials pilot.",
         badgeClassDirectAwardingDisabled: "If checked, then this badge class can bot be drirect awarded",
         //badgeClassCriteriaRequirements: "badgeClassCriteriaRequirements",
         //badgeClassCriteriaUrl: "badgeClassCriteriaUrl",
@@ -1226,7 +1226,7 @@ I18n.translations.en = {
         badgeClassType: {
               OTHER: "Other",
               ARCHIVED: "Archived",
-              MICRO_CREDENTIALS: "Micro-credentials"
+              MICRO_CREDENTIALS: "Pilot Microcredentials"
         },
         issuer: {
             contact: "Contact the issuer",

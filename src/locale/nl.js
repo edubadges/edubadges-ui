@@ -54,7 +54,7 @@ I18n.translations.nl = {
         },
         teacher: {
             title: "<strong style='font-size: 38px'>A</strong>ward",
-            subtitle: "Ken edubadges, de micro credentials van de toekomst, toe aan je studenten.",
+            subtitle: "Ken edubadges, de microcredentials van de toekomst, toe aan je studenten.",
             action: "Open het issuer portaal",
             accountCreation: {
                 askAccount: "De issuer portaal is alleen beschikbaar op uitnodiging. Als je binnen wilt komen, maar nog geen toegang hebt, neem dan contact op met je beheerder bij jouw instelling.",
@@ -660,7 +660,7 @@ I18n.translations.nl = {
             narrativeStudentRequired: "Motivatie verplicht voor aanvraag",
             evidenceStudentRequired: "Evidence URL verplicht voor aanvraag",
             awardNonValidatedNameAllowed: "Uitreiken aan niet gevalideerd account toestaan",
-            isMicroCredentials: "Micro-credentials ingeschakeld",
+            isMicroCredentials: "Badge class ihkv de pilot Microcredentials",
             directAwardingDisabled: "Direct-Award niet toegestaan",
             learningOutcome: "Leeruitkomst",
             studyLoad: "Studielast",
@@ -1148,7 +1148,7 @@ I18n.translations.nl = {
         badgeClassNarrativeStudentRequired: "Indien aangevinkt, moet voor alle aanvragen van deze badge class een persoonlijke motivatie worden ingevuld.",
         badgeClassEvidenceStudentRequired: "Indien aangevinkt, moet voor alle aanvragen van deze badge class een bronvermelding URL worden ingevuld.",
         badgeClassAwardNonValidatedNameAllowed: "Indien aangevinkt, mogen non-formal edubadges (edubadges zonder Studielast) uitgereikt worden aan niet-gevalideerde accounts.",
-        badgeClassIsMicroCredentials: "Indien aangevinkt, dan is deze badge class ihkv de Microcredentials pilot",
+        badgeClassIsMicroCredentials: "Indien aangevinkt, dan wordt deze badge class ihkv de Microcredentials pilot uitgegeven.",
         badgeClassDirectAwardingDisabled: "Indien aangevinkt, dan is voor deze badge class het direct awarden uitgeschakeld",
         //badgeClassCriteriaRequirements: "badgeClassCriteriaRequirements",
         //badgeClassCriteriaUrl: "badgeClassCriteriaUrl",
@@ -1227,7 +1227,7 @@ I18n.translations.nl = {
         badgeClassType: {
               OTHER: "Anders",
               ARCHIVED: "Gearchiveerd",
-              MICRO_CREDENTIALS: "Microcredentials"
+              MICRO_CREDENTIALS: "Pilot Microcredentials"
         },
         issuer: {
             contact: "Neem contact op met de issuer",
