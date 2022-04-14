@@ -311,7 +311,7 @@
                         <span>{fallBackValue(badgeclass.educationProgramIdentifier)}</span>
                     {/if}
                     {#if badgeclass.eqf}
-                        <span>{`NLQF ${badgeclass.eqf}`}</span>
+                        <span>{`EQF ${badgeclass.eqf}`}</span>
                     {/if}
                 </div>
             </section>

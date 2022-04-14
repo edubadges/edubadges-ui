@@ -102,7 +102,7 @@
     }
 
     const eqfItems = [...Array(8).keys()].map(i => {
-        return {name: `NLQF ${i + 1}`, value: i + 1}
+        return {name: `EQF ${i + 1}`, value: i + 1}
     });
 
     let extensions = {};
@@ -198,7 +198,7 @@
         badgeclass.isMicroCredentials = val;
         if (val) {
             if (!extensions[eqf.name]) {
-                extensions[eqf.name] = {name: "NLQF 5", value: 5};
+                extensions[eqf.name] = {name: "EQF 5", value: 5};
             }
             if (!showStudyLoad && !showTimeInvestment) {
                 addStudyLoad();
@@ -226,7 +226,7 @@
         const ectsValue = extensionValue(badgeclass.extensions, ects);
         let eqfValue = extensionValue(badgeclass.extensions, eqf);
         if (isCreate) {
-            eqfValue = {name: "NLQF 5", value: 5};
+            eqfValue = {name: "EQF 5", value: 5};
         } else if (eqfValue !== null) {
             eqfValue = eqfItems.find(item => item.value === eqfValue)
         }
@@ -239,7 +239,7 @@
             [studyLoad.name]: studyLoadValue || "",
         };
         if (extensions[eqf.name] && typeof extensions[eqf.name] === "number") {
-            extensions[eqf.name] = {name: `NLQF ${extensions[eqf.name]}`, value: extensions[eqf.name]}
+            extensions[eqf.name] = {name: `EQF ${extensions[eqf.name]}`, value: extensions[eqf.name]}
         }
         if (extensions[educationProgramIdentifier.name]) {
             showEducationalIdentifiers = true;
