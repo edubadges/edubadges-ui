@@ -141,7 +141,7 @@ I18n.translations.en = {
                 educations: "Educational level",
                 institutions: "Institution",
                 studyLoads: "Studyload",
-                eqfs: "NLQF level",
+                eqfs: "EQF level",
                 badgeClassType: "Type edubadge",
                 roles: "Roles (highest)",
                 issued: "Issued",
@@ -672,7 +672,7 @@ I18n.translations.en = {
             sbu: "Studie Belasting Uren",
             ectsLong: "European Credit Transfer and Accumulation System",
             typeOfStudyLoad: "Type of study load",
-            eqf: "Indicative NLQF level",
+            eqf: "Indicative EQF level",
             educationProgramIdentifier: "ISAT",
             educationProgramIdentifierLong: "Programme Identifier",
             notSet: "-",
@@ -1220,8 +1220,8 @@ I18n.translations.en = {
             HOURS_120_MORE: "> 120 hours (WO/HBO)"
         },
         eqf: {
-            eqfNone: "No NLQF level",
-            eqf: "NLQF level {{level}}",
+            eqfNone: "No EQF level",
+            eqf: "EQF level {{level}}",
         },
         badgeClassType: {
               OTHER: "Other",

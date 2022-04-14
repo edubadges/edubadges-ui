@@ -141,7 +141,7 @@ I18n.translations.nl = {
                 educations: "Educatie niveau level",
                 institutions: "Instelling",
                 studyLoads: "Studyload",
-                eqfs: "NLQF niveau",
+                eqfs: "EQF niveau",
                 badgeClassType: "Type edubadge",
                 roles: "Rollen (hoogste)",
                 issued: "Uitgegeven",
@@ -672,7 +672,7 @@ I18n.translations.nl = {
             sbu: "Study Belasting Uren",
             ectsLong: "European Credit Transfer and Accumulation System",
             typeOfStudyLoad: "Soort studielast",
-            eqf: "Indicatief NLQF niveau",
+            eqf: "Indicatief EQF niveau",
             educationProgramIdentifier: "ISAT",
             educationProgramIdentifierLong: "Opleidingscode",
             notSet: "-",
@@ -1221,8 +1221,8 @@ I18n.translations.nl = {
             HOURS_120_MORE: "> 120 uren (WO/HBO)"
         },
         eqf: {
-            eqfNone: "Geen NLQF level",
-            eqf: "NLQF niveau {{level}}",
+            eqfNone: "Geen EQF level",
+            eqf: "EQF niveau {{level}}",
         },
         badgeClassType: {
               OTHER: "Anders",
