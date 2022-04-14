@@ -687,6 +687,7 @@ I18n.translations.en = {
                 earningCriteria: "Criteria for this edubadge",
                 additionalSections: "Additional sections",
                 educationalIdentifiers: "Educational identifiers",
+                qualificationLevel: "Qualification level",
                 studyLoad: "Study load",
                 timeInvestment: "Time investment",
                 alignment: "Related educational framework ",

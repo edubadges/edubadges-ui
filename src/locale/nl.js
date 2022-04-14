@@ -687,6 +687,7 @@ I18n.translations.nl = {
                 earningCriteria: "Criteria om in aanmerking te komen voor deze edubadge",
                 additionalSections: "Extra toevoegingen",
                 educationalIdentifiers: "Opleidingscode",
+                qualificationLevel: "Kwalificatie niveau",
                 studyLoad: "Studielast",
                 timeInvestment: "Tijdsinvestering",
                 alignment: "Gerelateerd onderwijskundig raamwerk",

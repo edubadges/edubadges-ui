@@ -150,7 +150,7 @@
         }
     }
 
-    function addEmptyAlignment() {
+    const addEmptyAlignment = () => {
         showAlignment = true
         badgeclass.alignments.push({
             target_name: "",
@@ -171,8 +171,12 @@
         badgeclass = badgeclass
     }
 
+    const mayRemoveAlignment = alignment => {
+        return mayEdit && alignment.target_name !== microCredentialsFramework.name;
+    }
+
     const removeAllAlignment = () => {
-        badgeclass.alignments = badgeclass.alignments.filter(alignment => alignment.readOnly);
+        badgeclass.alignments = badgeclass.alignments.filter(alignment => alignment.target_name === microCredentialsFramework.name);
         showAlignment = badgeclass.alignments.length > 0;
     }
 
@@ -207,7 +211,6 @@
                 target_description: microCredentialsFramework.description,
                 target_framework: microCredentialsFramework.framework,
                 target_code: microCredentialsFramework.code,
-                readOnly: true
             },
                 ...newAlignments];
             showAlignment = true;
@@ -240,6 +243,7 @@
         }
         if (extensions[educationProgramIdentifier.name]) {
             showEducationalIdentifiers = true;
+            showProgrammeIdentifier = true;
         }
         if (institution.grondslagFormeel !== null && (ectsValue || extensions[studyLoad.name] || (isCreate && !isCopy))) {
             showStudyLoad = true;
@@ -280,7 +284,6 @@
         if (newBadgeclass.alignments) {
             for (let alignment of newBadgeclass.alignments) {
                 alignment.target_url = toHttpOrHttps(alignment.target_url)
-                delete alignment.readOnly
                 delete alignment.existing
             }
         }
@@ -722,16 +725,31 @@
         </div>
     {/if}
     {#if badgeclass.isMicroCredentials}
-        <div style="display: flex">
-            <div class="deletable-title"><h4>{I18n.t('models.badgeclass.headers.educationalIdentifiers')}</h4></div>
-            {#if mayEdit && showProgrammeIdentifier}
-                <button class="rm-icon-container"
-                        on:click={removeProgrammeIdentifier}>{@html trash}</button>
-            {/if}
+        <h4>{I18n.t('models.badgeclass.headers.qualificationLevel')}</h4>
+        <div class="form">
+            <Field {entity} attribute="eqf" errors={errors.eqf} tipKey="badgeClassNLQFLevel">
+                <Select
+                        bind:value={extensions[eqf.name]}
+                        items={eqfItems}
+                        disabled={!mayEdit && !isCopy}
+                        optionIdentifier="value"
+                        clearable={badgeclass.isMicroCredentials}/>
+                <span class="info">
+                    {@html I18n.t('models.badgeclass.info.eqf')}
+                </span>
+            </Field>
         </div>
 
-        <div class="form">
-            {#if showProgrammeIdentifier}
+        {#if showProgrammeIdentifier}
+            <div style="display: flex">
+                <div class="deletable-title"><h4>{I18n.t('models.badgeclass.headers.educationalIdentifiers')}</h4></div>
+                {#if mayEdit}
+                    <button class="rm-icon-container"
+                            on:click={removeProgrammeIdentifier}>{@html trash}</button>
+                {/if}
+            </div>
+
+            <div class="form">
                 <Field
                         {entity}
                         attribute="educationProgramIdentifierLong"
@@ -747,31 +765,20 @@
                         {@html I18n.t('models.badgeclass.info.educationProgramIdentifier')}
                     </span>
                 </Field>
-            {/if}
-            <Field {entity} attribute="eqf" errors={errors.eqf} tipKey="badgeClassNLQFLevel">
-                <Select
-                        bind:value={extensions[eqf.name]}
-                        items={eqfItems}
-                        disabled={!mayEdit && !isCopy}
-                        optionIdentifier="value"
-                        clearable={badgeclass.isMicroCredentials}/>
-                <span class="info">
-                    {@html I18n.t('models.badgeclass.info.eqf')}
-                </span>
-            </Field>
-        </div>
+            </div>
+        {/if}
     {/if}
 
     {#if showAlignment}
         <div style="display: flex">
             <div class="deletable-title"><h4>{I18n.t('models.badgeclass.headers.alignment')}</h4></div>
-            {#if mayEdit && badgeclass.alignments.length !== badgeclass.alignments.filter(alignment => alignment.readOnly).length}
+            {#if badgeclass.alignments.every(alignment => mayRemoveAlignment(alignment))}
                 <button class="rm-icon-container" on:click={() => removeAllAlignment()}>{@html trash}</button>
             {/if}
         </div>
 
         {#each badgeclass.alignments as alignment, i}
-            {#if !alignment.readOnly && (mayEdit || !alignment.existing) && badgeclass.alignments.length > 1}
+            {#if mayRemoveAlignment(alignment) && (mayEdit || !alignment.existing) && badgeclass.alignments.length > 1}
                 <div>
                     <button style="float:right;" class="rm-icon-container"
                             on:click={() => removeAlignment(i) }>{@html trash}</button>
@@ -783,7 +790,7 @@
                        tipKey="badgeClassRelatedFrameworkName">
                     <TextInput
                             bind:value={alignment.target_name}
-                            disabled={alignment.readOnly || (!mayEdit && alignment.existing) && !isCopy}
+                            disabled={!mayRemoveAlignment(alignment) && !isCopy}
                             error={errors.target_name}
                             placeholder={I18n.t("placeholders.badgeClass.alignmentName")}
                     />
@@ -793,7 +800,7 @@
                        tipKey="badgeClassRelatedFrameworkFramework">
                     <TextInput
                             bind:value={alignment.target_framework}
-                            disabled={alignment.readOnly || (!mayEdit && alignment.existing) && !isCopy}
+                            disabled={!mayRemoveAlignment(alignment) && !isCopy}
                             error={errors.target_framework}
                             placeholder={I18n.t("placeholders.badgeClass.alignmentFramework")}
                     />
@@ -802,7 +809,7 @@
                        tipKey="badgeClassRelatedFrameworkURL">
                     <TextInput
                             bind:value={alignment.target_url}
-                            disabled={alignment.readOnly || (!mayEdit && alignment.existing) && !isCopy}
+                            disabled={!mayRemoveAlignment(alignment) && !isCopy}
                             error={errors.target_url}
                             placeholder={I18n.t("placeholders.badgeClass.alignmentUrl")}
                     />
@@ -812,7 +819,7 @@
                        tipKey="badgeClassRelatedFrameworkCode">
                     <TextInput
                             bind:value={alignment.target_code}
-                            disabled={alignment.readOnly || (!mayEdit && alignment.existing) && !isCopy}
+                            disabled={!mayRemoveAlignment(alignment) && !isCopy}
                             error={errors.target_code}
                             placeholder={I18n.t("placeholders.badgeClass.alignmentCode")}
                     />
@@ -824,7 +831,7 @@
                         <div class="mark-down-container" class:disabled={(!mayEdit && alignment.existing) && !isCopy}>
                             <MarkdownField
                                     bind:value={alignment.target_description}
-                                    disabled={alignment.readOnly || (!mayEdit && alignment.existing) && !isCopy}
+                                    disabled={!mayRemoveAlignment(alignment) && !isCopy}
                             />
                         </div>
                     </Field>
