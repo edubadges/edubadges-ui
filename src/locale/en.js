@@ -169,7 +169,7 @@ I18n.translations.en = {
             recipients: "Recipients",
             studyLoad: "Study load",
             timeInvestment: "Time investment",
-            educationProgramIdentifier: "Education identifier",
+            educationProgramIdentifier: "Indicative EQF",
             ects: "{{value}} ECTS",
             hours: "{{value}} hours",
             canAward: "Badge classes you can award",
@@ -1148,7 +1148,8 @@ I18n.translations.en = {
         badgeClassNarrativeStudentRequired: "If checked, any enrollments for this badge class require a motivation of why the enrollment is justified.",
         badgeClassEvidenceStudentRequired: "If checked, any enrollments for this badge class require an evidence URL of why the enrollment is justified.",
         badgeClassAwardNonValidatedNameAllowed: "If checked, non-formal edubadges (edubadges without Study load) can be awarded to non-validated accounts.",
-        badgeClassIsMicroCredentials: "If checked, then this badge class is participating in the Microcredentials pilot.",
+        badgeClassIsMicroCredentials: "If checked, then this badge class is participating in the Microcredentials pilot." +
+        "See <a target=\"_blank\" href=\"https://wiki.surfnet.nl/display/Edubadges/Handleiding+uitgeven+ihkv+de+pilot+microcredentials\"> the wiki </a> for a manual.",
         badgeClassDirectAwardingDisabled: "If checked, then this badge class can bot be drirect awarded",
         //badgeClassCriteriaRequirements: "badgeClassCriteriaRequirements",
         //badgeClassCriteriaUrl: "badgeClassCriteriaUrl",

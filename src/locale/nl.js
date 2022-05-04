@@ -587,7 +587,7 @@ I18n.translations.nl = {
             image_dutch: "Logo in het Nederlands",
             name_english: "Naam in het Engels",
             name_dutch: "Naam in het Nederlands",
-            award_allowed_institutions: "Toegestaande edubadge instellingen",
+            award_allowed_institutions: "Toegestane edubadge instellingen",
             requestedBadges: "Aangevraagde edubadges"
         },
         faculty: {
@@ -691,7 +691,7 @@ I18n.translations.nl = {
                 studyLoad: "Studielast",
                 timeInvestment: "Tijdsinvestering",
                 alignment: "Gerelateerd onderwijskundig raamwerk",
-                allowedInstituions: "Toegestaande instellingen"
+                allowedInstituions: "Toegestane instellingen"
             },
             addButtons: {
                 educationalIdentifiers: "Opleidingscode(s) toevoegen",
@@ -712,7 +712,7 @@ I18n.translations.nl = {
             },
             publicUrl: "Publieke URL",
             sorting: "Sorteer:",
-            award_allowed_institutions: "Toegestaande edubadge instellingen",
+            award_allowed_institutions: "Toegestane edubadge instellingen",
             archive: {
                 confirmation: "Badge class archiveren",
                 confirmationQuestion: "Weet je zeker dat je deze badge class wilt archiveren?",
@@ -1141,7 +1141,7 @@ I18n.translations.nl = {
         badgeClassDescription: "Deze beschrijving ondersteund opmaak in markdown formaat. " +
         "Zie <a target=\"_blank\" href=\"https://wiki.surfnet.nl/display/Edubadges/Edubadges+Example+BadgeClass\"> de wiki </a> voor voorbeelden.",
         badgeClassLanguageOfInstruction: "De voertaal die gebruikt is bij het behalen van deze edubadge. ",
-        badgeClassLearningOutcome: "Beschrijf de leeruitkomst of het leerdoel. Vastgelegd in de Onderwijs- en examenregeling.",
+        badgeClassLearningOutcome: "Beschrijf de leeruitkomst of de leerresultaten. Vastgelegd in de Onderwijs- en examenregeling.",
         //badgeClassLearningIssuer: "badgeClassLearningIssuer",
         badgeClassIsPrivate: "Indien aangevinkt zal deze badge class niet in de catalogus verschijnen. Houd er rekening mee dat er van privé badge classes geen edubadges kunnen worden uitgegeven.",
         badgeClassEvidenceRequired: "Indien aangevinkt, moet voor alle onderscheidingen op basis van deze badge class een bewijs van de geleverde prestatie worden ingevuld.",
@@ -1149,7 +1149,8 @@ I18n.translations.nl = {
         badgeClassNarrativeStudentRequired: "Indien aangevinkt, moet voor alle aanvragen van deze badge class een persoonlijke motivatie worden ingevuld.",
         badgeClassEvidenceStudentRequired: "Indien aangevinkt, moet voor alle aanvragen van deze badge class een bronvermelding URL worden ingevuld.",
         badgeClassAwardNonValidatedNameAllowed: "Indien aangevinkt, mogen non-formal edubadges (edubadges zonder Studielast) uitgereikt worden aan niet-gevalideerde accounts.",
-        badgeClassIsMicroCredentials: "Indien aangevinkt, dan wordt deze badge class ihkv de Microcredentials pilot uitgegeven.",
+        badgeClassIsMicroCredentials: "Indien aangevinkt, dan wordt deze badge class ihkv de Microcredentials pilot uitgegeven." +
+        "Zie <a target=\"_blank\" href=\"https://wiki.surfnet.nl/display/Edubadges/Handleiding+uitgeven+ihkv+de+pilot+microcredentials\"> de wiki </a> voor een handleiding.",
         badgeClassDirectAwardingDisabled: "Indien aangevinkt, dan is voor deze badge class het direct awarden uitgeschakeld",
         //badgeClassCriteriaRequirements: "badgeClassCriteriaRequirements",
         //badgeClassCriteriaUrl: "badgeClassCriteriaUrl",
@@ -1222,7 +1223,7 @@ I18n.translations.nl = {
             HOURS_120_MORE: "> 120 uren (WO/HBO)"
         },
         eqf: {
-            eqfNone: "Geen EQF level",
+            eqfNone: "Geen EQF niveau",
             eqf: "EQF niveau {{level}}",
         },
         badgeClassType: {
