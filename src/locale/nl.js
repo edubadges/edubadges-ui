@@ -169,7 +169,7 @@ I18n.translations.nl = {
             enrollments: "Open aanvragen",
             studyLoad: "Studielast",
             timeInvestment: "Tijdsinvestering",
-            educationProgramIdentifier: "Opleidingscode",
+            educationProgramIdentifier: "Indicatief EQF",
             ects: "{{value}} ECTS",
             hours: "{{value}} uren",
             canAward: "Badge classes die je kunt uitreiken",
