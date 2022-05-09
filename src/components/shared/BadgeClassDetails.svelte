@@ -261,6 +261,8 @@
                                 <h4>{I18n.t('models.badgeclass.alignmentUrl')}</h4>
                                 {#if alignment.targetUrl}
                                     <a href="{alignment.targetUrl}" target="_blank">{alignment.targetUrl}</a>
+                                {:else}
+                                    <span>-</span>
                                 {/if}
                             </div>
                         </div>
