@@ -9,7 +9,7 @@
   import {ects, eqf, extensionValue, studyLoad, timeInvestment} from "../../components/extensions/badges/extensions";
   import BadgeListView from "../../components/shared/BadgeListView.svelte";
   import {translateProperties} from "../../util/utils";
-  import {sortTargetOptions} from "../../util/catalogFilters";
+  import {badgeClassFilterTypes, sortTargetOptions} from "../../util/catalogFilters";
 
   const query = `query {
     faculties {
@@ -34,6 +34,7 @@
           image,
           entityId,
           archived,
+          isMicroCredentials,
           createdAt,
           extensions {
             name,
@@ -73,6 +74,21 @@
             badgeClass.ects = extensionValue(badgeClass.extensions, ects);
             badgeClass.eqf = extensionValue(badgeClass.extensions, eqf);
             badgeClass.timeInvestment = extensionValue(badgeClass.extensions, timeInvestment);
+
+            let isOther = true;
+            badgeClass.types = [];
+            if (badgeClass.archived) {
+                badgeClass.types.push(badgeClassFilterTypes.ARCHIVED);
+                isOther = false
+            }
+            if (badgeClass.isMicroCredentials) {
+                badgeClass.types.push(badgeClassFilterTypes.MICRO_CREDENTIALS);
+                isOther = false
+            }
+            if (isOther) {
+                badgeClass.types.push(badgeClassFilterTypes.OTHER);
+            }
+
           });
         });
       })

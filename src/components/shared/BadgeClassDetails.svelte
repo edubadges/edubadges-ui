@@ -27,6 +27,7 @@
 
     let cutoffInstitutionThreshold = 5;
     let showAllInstitutions = false;
+    let showFrameworkDescriptions = [];
 
     onMount(() => {
         //The component is used by public pages where the data structure is different
@@ -50,8 +51,22 @@
         badgeclass.studyLoadValue = badgeclass.studyLoad ? I18n.t("teacher.badgeclasses.hours", {value: badgeclass.studyLoad}) : badgeclass.ects ?
             I18n.t("teacher.badgeclasses.ects", {value: badgeclass.ects}) : null;
         badgeclass.timeInvestmentValue = badgeclass.timeInvestment ? I18n.t("teacher.badgeclasses.hours", {value: badgeclass.timeInvestment}) : null;
+        if (badgeclass.alignments && badgeclass.alignments.length > 0) {
+            showFrameworkDescriptions = Array(badgeclass.alignments.length).fill(true);
+        }
     });
 
+    const toggleAlignment = index => {
+        const newShowFrameworkDescriptions = [...showFrameworkDescriptions];
+        newShowFrameworkDescriptions[index] = !newShowFrameworkDescriptions[index];
+        showFrameworkDescriptions = newShowFrameworkDescriptions;
+        // Force re-render
+        badgeclass = {...badgeclass}
+    }
+
+    const alignmentDescription = (alignment, index) => {
+        return showFrameworkDescriptions[index] ? "" : fallBackValue(alignment.targetDescription);
+    }
 </script>
 
 <style lang="scss">
@@ -228,7 +243,7 @@
             <section class="alignments">
                 <h3
                         class="black-header">{badgeclass.alignments.length > 1 ? I18n.t("models.badgeclass.alignmentMultiple") : I18n.t("models.badgeclass.alignment")}</h3>
-                {#each badgeclass.alignments as alignment}
+                {#each badgeclass.alignments as alignment, index}
                     <section class="alignment">
                         <h4 class="black-header">{alignment.targetName}</h4>
                         <div class="alignment-container">
@@ -251,8 +266,12 @@
                         </div>
                         {#if alignment.targetDescription}
                             <div class="sub-info markdown-body">
-                                <MarkdownField value={fallBackValue(alignment.targetDescription)} disabled={true}/>
+                                <MarkdownField value={alignmentDescription(alignment, index)} disabled={true}/>
                             </div>
+                            <a href="/toggle"
+                               on:click|preventDefault|stopPropagation={() => toggleAlignment(index)}>
+                                {I18n.t(`toggle.${showFrameworkDescriptions[index] ? "showMore" : "showLess"}`) }
+                            </a>
                         {/if}
                     </section>
                 {/each}

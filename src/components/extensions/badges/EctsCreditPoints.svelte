@@ -3,14 +3,17 @@
 
   export let ectsValue;
   export let disabled = false;
+  export let isMicroCredentials = false;
 
   const decrement = () => {
-    ectsValue = Math.max((ectsValue || 0) - 0.5, 0.5);
+    ectsValue = Math.max((ectsValue || 0) - 0.5, isMicroCredentials ? 3 : 0.5);
   }
 
   const increment = () => {
-    ectsValue = Math.min((ectsValue || 0) + 0.5, 240);
+    ectsValue = Math.min((ectsValue || 0) + 0.5, isMicroCredentials ? 30 : 240);
   }
+
+  const onValid = `validity.valid||(value=${isMicroCredentials ? '3' : '0.5'})`;
 
 </script>
 
@@ -76,8 +79,14 @@
 
 <div class="ects-points" {disabled}>
   <span class="control" on:click={decrement}>-</span>
-  <input type="number" max="240" min="0.5" step="0.5" oninput="validity.valid||(value='0.5');" class="value" bind:value={ectsValue}/>
+  <input type="number"
+         max={`${isMicroCredentials ? "30" : "240"}`}
+         min={`${isMicroCredentials ? "3" : "0.5"}`}
+         step="0.5"
+         onblur={onValid}
+         class="value"
+         bind:value={ectsValue}/>
   <span class="control" on:click={increment}>+</span>
-  <p class="info">{@html I18n.t("models.badgeclass.info.ects")}</p>
+  <p class="info">{@html I18n.t(`models.badgeclass.info.${isMicroCredentials ? "ectsMicroCredentials" : "ects"}`)}</p>
 
 </div>

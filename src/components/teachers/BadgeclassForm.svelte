@@ -91,7 +91,10 @@
 
     const languages = [
         {value: "en_EN", name: I18n.t("language.en_EN")},
-        {value: "nl_NL", name: I18n.t("language.nl_NL")}
+        {value: "nl_NL", name: I18n.t("language.nl_NL")},
+        {value: "de_DE", name: I18n.t("language.de_DE")},
+        {value: "fr_FR", name: I18n.t("language.fr_FR")},
+        {value: "es_ES", name: I18n.t("language.es_ES")},
     ];
     let languageSelection = languages[0];
     if (!isCreate || isCopy) {
@@ -108,7 +111,7 @@
     let extensions = {};
 
     const addStudyLoad = () => {
-        extensions[ects.name] = 2.5;
+        extensions[ects.name] = badgeclass.isMicroCredentials ? 5 : 2.5;
         showStudyLoad = true;
         extensions[timeInvestment.name] = 0;
         showTimeInvestment = false;
@@ -203,6 +206,13 @@
             if (!showStudyLoad && !showTimeInvestment) {
                 addStudyLoad();
             }
+            if (showStudyLoad) {
+                if (extensions[ects.name] > 30) {
+                    extensions[ects.name] = 30;
+                } else if (extensions[ects.name] < 3) {
+                    extensions[ects.name] = 3;
+                }
+            }
             removeProgrammeIdentifier();
             const newAlignments = badgeclass.alignments || [];
             badgeclass.alignments = [{
@@ -232,7 +242,7 @@
         }
         extensions = {
             [language.name]: extensionValue(badgeclass.extensions, language) || "en_EN",
-            [ects.name]: ectsValue || (isCreate ? 2.5 : ""),
+            [ects.name]: ectsValue || (isCreate ? (badgeclass.isMicroCredentials ? 5 : 2.5) : ""),
             [eqf.name]: eqfValue,
             [learningOutcome.name]: extensionValue(badgeclass.extensions, learningOutcome) || "",
             [educationProgramIdentifier.name]: extensionValue(badgeclass.extensions, educationProgramIdentifier) || "",
@@ -651,6 +661,7 @@
                 <Field {entity} attribute="ects.creditPoints" errors={errors.ECTSExtension}
                        tipKey="badgeClassStudyLoadEcts">
                     <EctsCreditPoints
+                            isMicroCredentials={badgeclass.isMicroCredentials}
                             bind:ectsValue={extensions[ects.name]}
                             disabled={!mayEdit && !isCopy}
                     />

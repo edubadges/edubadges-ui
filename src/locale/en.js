@@ -704,10 +704,9 @@ I18n.translations.en = {
             info: {
                 educationProgramIdentifier:
                     "Consult <a target='_blank' rel='noreferrer' href='https://apps.duo.nl/MCROHO/pages/zoeken.jsf'>the DUO CROHO register</a> or <a target='_blank' rel='noreferrer' href='https://kwalificaties.s-bb.nl/Lijsten/Groep/14'>the SBB CREBO lists</a> if you don’t know the code.",
-                eqf:
-                    "Check <a target='_blank' rel='noreferrer' href='https://www.nlqf.nl/images/English2015/NLQF_levels_English_description_2020.pdf'>https://www.nlqf.nl/images/English2015/NLQF_levels_English_description_2020.pdf</a> for help",
-                ects:
-                    "Whole and half points only. <br/>A minimum of 0.5 points is required.",
+                eqf: "Check <a target='_blank' rel='noreferrer' href='https://www.nlqf.nl/images/English2015/NLQF_levels_English_description_2020.pdf'>https://www.nlqf.nl/images/English2015/NLQF_levels_English_description_2020.pdf</a> for help",
+                ects: "Whole and half points only. <br/>A minimum of 0.5 points is required.",
+                ectsMicroCredentials: "Whole and half points only. <br/>Valid value between 3 and 30 point."
             },
             publicUrl: "Public URL",
             sorting: "Sorting:",
@@ -990,7 +989,10 @@ I18n.translations.en = {
         en_EN: "English",
         En_En: "English",
         nl_NL: "Dutch",
-        Nl_Nl: "Dutch"
+        Nl_Nl: "Dutch",
+        es_ES: "Spanish",
+        fr_FR: "French",
+        de_DE: "German"
     },
     publicBadge: {
         verification: "Verification",
@@ -1502,5 +1504,9 @@ I18n.translations.en = {
         confirmationTitle: "Confirmation",
         confirmationQuestion: "Are you sure you want to update your notification settings?",
         updated: "Your notification settings were updated"
+    },
+    toggle: {
+        showMore: "Show more...",
+        showLess: "Show less..."
     }
 };
