@@ -67,7 +67,7 @@ Het verbinden van credits aan (de europese normen voor) studiebelasting is voor 
 >
 ---
 >
-#### This microcredential has been issued in the context of the national pilot of microcredentials within higher education in the Netherlands.
+#### This microcredential has been issued in the context of the national pilot of microcredentials within higher education in the Netherlands
 > 
 The microcredential is a reliable certificate that allows professionals to demonstrate what they know, can do, and understand after successfully completing an educational unit in higher education. In other words, a microcredential gives a measured value to a small educational unit. 
 >
@@ -89,8 +89,7 @@ This Microcredential was issued in the context of the Pilot Microcredentials wit
 2. The education certified by a microcredential is substantively related to the educational and/or research portfolio of the institution. This may be existing education as well as newly developed education or research;
 3. It is clear who the intended target group of the education is, what prior knowledge is required from the participants, what the entry requirements are if any, and how they are tested;
 4. The education programme, the learning environment, and the quality of the teaching staff enable the participants to achieve the intended learning outcomes;
-5. The learning outcomes and the educational level and scope of the microcredential are specified. The participating institutions describe this in an unambiguous manner, in line with European agreements (Bologna) and developments in Brussels;
-**Below you will find the addition to the quality framework on this point**
+5. The learning outcomes and the educational level and scope of the microcredential are specified. The participating institutions describe this in an unambiguous manner, in line with European agreements (Bologna) and developments in Brussels. **Below you will find the addition to the quality framework on this point**;
 6. In principle, institutions recognise the (validated) learning outcomes of microcredentials already obtained and/or are being obtained at other institutions. Whether this leads to intake and/or exemption remains under the mandate of the Examination Board or another body designated by the institution;
 7. Testing support the learning process of the participant and the assessment is valid, reliable, transparent for participants, and sufficiently independent.  
 
@@ -105,13 +104,14 @@ In the framework of the European Bologna agreements, learning outcomes are defin
 *Learning outcomes describe what a learner is expected to know, understand and be able to demonstrate after successful completion of a process of learning. They are statements of concrete and verifiable signs that witness/certify how the planned competences, including the required levels of knowledge, are being developed or acquired.*
 >
 **Quality framework regarding the description of the level of microcredentials**
+
 The level of microcredentials is described in two ways:
  
 - Using well-formulated learning outcomes that give the reader an idea of the level of the microcredential;
 - Additionally, institutions use the EQF/NLQF indicators to indicate the level of the microcredential. The institution must be able to justify this itself.  
-
-**Quality framework regarding the description of the extent of microcredentials**
 >
+**Quality framework regarding the description of the extent of microcredentials**
+
 Describing the study load in terms of credits or study load hours is widely applicable for both accredited and accreditation-worthy programmes [4]. This promotes interchangeability and is preferable for microcredentials.
 Linking credits to (the European standards for) study load is relevant for participants and employers so they can estimate the possible time investment. This estimate can be based on the average participant without extra prior knowledge.
 >
@@ -124,5 +124,6 @@ Linking credits to (the European standards for) study load is relevant for parti
 [3] Competences in Education an Recognition Project (CoRe). (2010). A Tuning Guide to Formulating Degree Programme Profiles including Programma Competences and Programme Learning Outcomes. http://tuningacademy.org/wp-content/uploads/2014/02/A-Guide-to-Formulating-DPP_EN.pdf
 >
 [4] Accreditation-worthy offerings are used as a working term to indicate that the offerings within the quality framework of the pilot meet the European ESG standards for quality assurance but still fall outside existing external quality assurance instruments.
+---
 `
 }
