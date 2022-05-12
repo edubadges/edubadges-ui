@@ -93,7 +93,10 @@
                 entity_id: collection.entityId
             }
             editBadgeInstanceCollection(newCollection).then(() => {
-                flash.setValue(I18n.t("student.collections.flash", {name: badge.badgeclass.name, col: collection.name}));
+                flash.setValue(I18n.t("student.collections.flash", {
+                    name: badge.badgeclass.name,
+                    col: collection.name
+                }));
                 selectedCollection = null;
                 queryData(badgeInstanceCollectionsQuery).then(res => {
                     badgeInstanceCollections = res.badgeInstanceCollections.filter(coll => !coll.badgeInstances.find(b => b.id === badge.id));
@@ -383,12 +386,27 @@
     margin-top: 15px;
   }
 
+  div.revocation {
+    display: flex;
+    flex-direction: column;
+    margin: 30px 0;
+  }
+
+  span.revocation-reason {
+    font-style: italic;
+  }
+
   p.revoked {
     background-color: var(--grey-2);
     border-radius: 8px;
     padding: 12px;
     color: var(--red-strong-dark);
-    margin: 30px 0;
+    margin-bottom: 5px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
     display: inline-block;
   }
 
@@ -406,130 +424,134 @@
 </style>
 
 <div class="badge-detail-container">
-  {#if loaded}
-    <StudentBreadCrumb>
-      <a use:link href={`/backpack`}>{I18n.t("student.badges")}</a>
-      <span class="icon">{@html chevronRightSmall}</span>
-      <span class="current">{badge.badgeclass.name}</span>
-    </StudentBreadCrumb>
-    <BadgeHeader title={badge.badgeclass.name}/>
-    <div class="badge-detail">
-      <div class="shield">
-        {#if badge.public}
-          {@html shieldUnlocked}
-        {:else}
-          {@html shieldLocked}
-        {/if}
-      </div>
-      <div class="badge-card-container">
-        {#if badge && badge.revoked}
-          <span class="status-indicator revoked">{I18n.t("models.badge.statuses.revoked")}</span>
-        {:else if badge && badge.acceptance === "REJECTED"}
-          <span class="status-indicator rejected">{I18n.t("models.badge.statuses.rejected")}</span>
-        {:else if badge && badge.expiresAt && new Date(badge.expiresAt) < new Date()}
-          <span class="status-indicator expired">{I18n.t("models.badge.statuses.expired")}</span>
-        {/if}
-        <BadgeCard badgeClass={badge.badgeclass} standAlone={true} withHeaderData={false}/>
-      </div>
-      {#if badge.revoked}
-        <p class="revoked">{ I18n.t("student.badgeRevoked")}</p>
-      {:else if badge && badge.expiresAt && new Date(badge.expiresAt) < new Date()}
-        <p class="revoked">{ I18n.t("student.badgeExpired")}</p>
-      {:else}
-        <div class="public-private">
-          <div class="header">
-            <h3>{I18n.t("student.privateBadge")}</h3>
-            <div class="switch-container">
-              <ToggleSwitch disabled={badge && badge.acceptance === "REJECTED"}
-                            value={!badge.public} onChange={val => makePublic(true, !val)}/>
+    {#if loaded}
+        <StudentBreadCrumb>
+            <a use:link href={`/backpack`}>{I18n.t("student.badges")}</a>
+            <span class="icon">{@html chevronRightSmall}</span>
+            <span class="current">{badge.badgeclass.name}</span>
+        </StudentBreadCrumb>
+        <BadgeHeader title={badge.badgeclass.name}/>
+        <div class="badge-detail">
+            <div class="shield">
+                {#if badge.public}
+                    {@html shieldUnlocked}
+                {:else}
+                    {@html shieldLocked}
+                {/if}
             </div>
-          </div>
+            <div class="badge-card-container">
+                {#if badge && badge.revoked}
+                    <span class="status-indicator revoked">{I18n.t("models.badge.statuses.revoked")}</span>
+                {:else if badge && badge.acceptance === "REJECTED"}
+                    <span class="status-indicator rejected">{I18n.t("models.badge.statuses.rejected")}</span>
+                {:else if badge && badge.expiresAt && new Date(badge.expiresAt) < new Date()}
+                    <span class="status-indicator expired">{I18n.t("models.badge.statuses.expired")}</span>
+                {/if}
+                <BadgeCard badgeClass={badge.badgeclass} standAlone={true} withHeaderData={false}/>
+            </div>
+            {#if badge.revoked}
+                <div class="revocation">
+                    <p class="revoked">{ I18n.t("student.badgeRevoked")}</p>
+                    <p class="revoked">{ I18n.t("student.revocationReason")} <span
+                            class="revocation-reason">{badge.revocationReason}</span></p>
+                </div>
+            {:else if badge && badge.expiresAt && new Date(badge.expiresAt) < new Date()}
+                <p class="revoked">{ I18n.t("student.badgeExpired")}</p>
+            {:else}
+                <div class="public-private">
+                    <div class="header">
+                        <h3>{I18n.t("student.privateBadge")}</h3>
+                        <div class="switch-container">
+                            <ToggleSwitch disabled={badge && badge.acceptance === "REJECTED"}
+                                          value={!badge.public} onChange={val => makePublic(true, !val)}/>
+                        </div>
+                    </div>
 
-          <p>{I18n.t(badge.public ? "student.publicPrivatePublic" : "student.publicPrivate")}</p>
-          {#if badge && badge.acceptance === "REJECTED"}
-            <p class="rejected">{I18n.t("student.publicPrivateRejected")}</p>
-          {/if}
+                    <p>{I18n.t(badge.public ? "student.publicPrivatePublic" : "student.publicPrivate")}</p>
+                    {#if badge && badge.acceptance === "REJECTED"}
+                        <p class="rejected">{I18n.t("student.publicPrivateRejected")}</p>
+                    {/if}
 
-        </div>
-        <div class="actions">
-          <div class="button-container">
-            <Button text={I18n.t("models.badge.addToCollection")}
-                    secondary={true}
-                    disabled={badgeInstanceCollections.length === 0}
-                    action={showCollectionModal}/>
-          </div>
-          <div class="button-container">
-            <DownloadButton text={I18n.t("models.badge.download")} secondary={true}
-                            filename={downloadFileName(badge)}
-                            disabled={badge && (badge.acceptance === "REJECTED" || !badge.public)}
-                            url={badge.image}/>
-          </div>
-          <div class="button-container">
-            {#if showShareFeedback}
-              <div class="tooltip">
-                {I18n.t("copyToClipboard.copied")}
-              </div>
+                </div>
+                <div class="actions">
+                    <div class="button-container">
+                        <Button text={I18n.t("models.badge.addToCollection")}
+                                secondary={true}
+                                disabled={badgeInstanceCollections.length === 0}
+                                action={showCollectionModal}/>
+                    </div>
+                    <div class="button-container">
+                        <DownloadButton text={I18n.t("models.badge.download")} secondary={true}
+                                        filename={downloadFileName(badge)}
+                                        disabled={badge && (badge.acceptance === "REJECTED" || !badge.public)}
+                                        url={badge.image}/>
+                    </div>
+                    <div class="button-container">
+                        {#if showShareFeedback}
+                            <div class="tooltip">
+                                {I18n.t("copyToClipboard.copied")}
+                            </div>
+                        {/if}
+                        <Button text={I18n.t("models.badge.share")} action={copyToClipboard}
+                                disabled={!badge.public}/>
+                    </div>
+                </div>
             {/if}
-            <Button text={I18n.t("models.badge.share")} action={copyToClipboard}
-                    disabled={!badge.public}/>
-          </div>
-        </div>
-      {/if}
-      <BadgeClassDetails badgeclass={badge.badgeclass} badge={badge}/>
+            <BadgeClassDetails badgeclass={badge.badgeclass} badge={badge}/>
 
-      <BadgeInstanceEvidence evidences={badge.evidences} isPrivate={true}/>
-    </div>
-    {#if !badge.revoked && (!badge.expiresAt && new Date(badge.expiresAt) < new Date())}
-      <div class="delete">
-        {#if badge && badge.acceptance === "ACCEPTED"}
-          <Button action={() => rejectBadge(true)} secondary={true} text={I18n.t("student.deleteBadge")}/>
-        {:else}
-          <Button action={() => acceptBadge(true)} secondary={true} text={I18n.t("student.acceptBadge")}/>
+            <BadgeInstanceEvidence evidences={badge.evidences} isPrivate={true}/>
+        </div>
+        {#if !badge.revoked && (!badge.expiresAt && new Date(badge.expiresAt) < new Date())}
+            <div class="delete">
+                {#if badge && badge.acceptance === "ACCEPTED"}
+                    <Button action={() => rejectBadge(true)} secondary={true} text={I18n.t("student.deleteBadge")}/>
+                {:else}
+                    <Button action={() => acceptBadge(true)} secondary={true} text={I18n.t("student.acceptBadge")}/>
+                {/if}
+            </div>
         {/if}
-      </div>
+    {:else}
+        <Spinner/>
     {/if}
-  {:else}
-    <Spinner/>
-  {/if}
 
 </div>
 
 {#if showModal}
-  <Modal
-    submit={modalAction}
-    cancel={cancel}
-    question={modalQuestion}
-    evaluateQuestion={true}
-    title={modalTitle}>
-    {#if makePublicAction && (badge.evidences || []).length > 0}
-      <div class="evidence-question">
-        <CheckBox value={includeEvidence} label={I18n.t("student.confirmation.publishEvidenceConfirmation")}
-                  onChange={e => includeEvidence = !includeEvidence} inForm={true} adjustTop={true}/>
-      </div>
-    {/if}
-  </Modal>
+    <Modal
+            submit={modalAction}
+            cancel={cancel}
+            question={modalQuestion}
+            evaluateQuestion={true}
+            title={modalTitle}>
+        {#if makePublicAction && (badge.evidences || []).length > 0}
+            <div class="evidence-question">
+                <CheckBox value={includeEvidence} label={I18n.t("student.confirmation.publishEvidenceConfirmation")}
+                          onChange={e => includeEvidence = !includeEvidence} inForm={true} adjustTop={true}/>
+            </div>
+        {/if}
+    </Modal>
 {/if}
 
 {#if showShareDialog}
-  <ShareDialog
-    copied={copiedLink}
-    cancel={cancel}
-    publicUrl={publicUrl()}/>
+    <ShareDialog
+            copied={copiedLink}
+            cancel={cancel}
+            publicUrl={publicUrl()}/>
 {/if}
 
 {#if showCollectionsModal}
-  <Modal
-    submit={addToCollection}
-    cancel={cancel}
-    disabled={selectedCollection === null}
-    question={I18n.t("student.collections.question")}
-    title={I18n.t("student.collections.title")}>
-    <div class="select-collection">
-      <Select
-        placeholder={I18n.t("student.collections.placeholder")}
-        bind:value={selectedCollection}
-        items={badgeInstanceCollections.map(coll => ({name: coll.name, entityId: coll.entityId}))}
-        clearable={false}/>
-    </div>
-  </Modal>
+    <Modal
+            submit={addToCollection}
+            cancel={cancel}
+            disabled={selectedCollection === null}
+            question={I18n.t("student.collections.question")}
+            title={I18n.t("student.collections.title")}>
+        <div class="select-collection">
+            <Select
+                    placeholder={I18n.t("student.collections.placeholder")}
+                    bind:value={selectedCollection}
+                    items={badgeInstanceCollections.map(coll => ({name: coll.name, entityId: coll.entityId}))}
+                    clearable={false}/>
+        </div>
+    </Modal>
 {/if}

@@ -54,7 +54,7 @@ I18n.translations.nl = {
         },
         teacher: {
             title: "<strong style='font-size: 38px'>A</strong>ward",
-            subtitle: "Ken edubadges, de micro credentials van de toekomst, toe aan je studenten.",
+            subtitle: "Ken edubadges, de microcredentials van de toekomst, toe aan je studenten.",
             action: "Open het issuer portaal",
             accountCreation: {
                 askAccount: "De issuer portaal is alleen beschikbaar op uitnodiging. Als je binnen wilt komen, maar nog geen toegang hebt, neem dan contact op met je beheerder bij jouw instelling.",
@@ -141,7 +141,8 @@ I18n.translations.nl = {
                 educations: "Educatie niveau level",
                 institutions: "Instelling",
                 studyLoads: "Studyload",
-                eqfs: "NLQF niveau",
+                eqfs: "EQF niveau",
+                badgeClassType: "Type edubadge",
                 roles: "Rollen (hoogste)",
                 issued: "Uitgegeven",
                 awardType: "Award type",
@@ -168,7 +169,7 @@ I18n.translations.nl = {
             enrollments: "Open aanvragen",
             studyLoad: "Studielast",
             timeInvestment: "Tijdsinvestering",
-            educationProgramIdentifier: "Opleidingscode",
+            educationProgramIdentifier: "Indicatief EQF",
             ects: "{{value}} ECTS",
             hours: "{{value}} uren",
             canAward: "Badge classes die je kunt uitreiken",
@@ -218,6 +219,7 @@ I18n.translations.nl = {
         shareYourBadge: "Deel jouw edubadge",
         shareYourBadgeQuestion: "Jouw publieke edubadge URL is voor iedereen toegankelijk",
         badgeRevoked: "Deze edubadge is ingetrokken. Je ziet deze nog wel, maar deze edubadge kan je niet langer delen",
+        revocationReason: "De reden voor intrekking:",
         badgeExpired: "Deze edubadge is verlopen. Je ziet deze nog wel, maar deze edubadge kan je niet langer delen",
         privateBadge: "Privé edubadge",
         publicPrivate: "Je edubadge staat op privé, alleen jij kan deze edubadge zien.",
@@ -585,7 +587,7 @@ I18n.translations.nl = {
             image_dutch: "Logo in het Nederlands",
             name_english: "Naam in het Engels",
             name_dutch: "Naam in het Nederlands",
-            award_allowed_institutions: "Toegestaande edubadge instellingen",
+            award_allowed_institutions: "Toegestane edubadge instellingen",
             requestedBadges: "Aangevraagde edubadges"
         },
         faculty: {
@@ -658,6 +660,8 @@ I18n.translations.nl = {
             narrativeStudentRequired: "Motivatie verplicht voor aanvraag",
             evidenceStudentRequired: "Evidence URL verplicht voor aanvraag",
             awardNonValidatedNameAllowed: "Uitreiken aan niet gevalideerd account toestaan",
+            isMicroCredentials: "Badge class ihkv de pilot Microcredentials",
+            directAwardingDisabled: "Direct-Award niet toegestaan",
             learningOutcome: "Leeruitkomst",
             studyLoad: "Studielast",
             timeInvestment: "Tijdsinvestering",
@@ -668,7 +672,7 @@ I18n.translations.nl = {
             sbu: "Study Belasting Uren",
             ectsLong: "European Credit Transfer and Accumulation System",
             typeOfStudyLoad: "Soort studielast",
-            eqf: "Indicatief NLQF niveau",
+            eqf: "Indicatief EQF niveau",
             educationProgramIdentifier: "ISAT",
             educationProgramIdentifierLong: "Opleidingscode",
             notSet: "-",
@@ -683,10 +687,11 @@ I18n.translations.nl = {
                 earningCriteria: "Criteria om in aanmerking te komen voor deze edubadge",
                 additionalSections: "Extra toevoegingen",
                 educationalIdentifiers: "Opleidingscode",
+                qualificationLevel: "Kwalificatie niveau",
                 studyLoad: "Studielast",
                 timeInvestment: "Tijdsinvestering",
                 alignment: "Gerelateerd onderwijskundig raamwerk",
-                allowedInstituions: "Toegestaande instellingen"
+                allowedInstituions: "Toegestane instellingen"
             },
             addButtons: {
                 educationalIdentifiers: "Opleidingscode(s) toevoegen",
@@ -694,18 +699,19 @@ I18n.translations.nl = {
                 timeInvestment: "Tijdsinvestering toevoegen",
                 alignment: "Gerelateerd onderwijskundig raamwerk toevoegen",
                 alignmentAddition: "Nog een gerelateerd onderwijskundig raamwerk toevoegen",
+                programmeIdentifier: "Opleidingscode toevoegen"
+
             },
             info: {
                 educationProgramIdentifier:
                     "Raadpleeg <a target='_blank' rel='noreferrer' href='https://apps.duo.nl/MCROHO/pages/zoeken.jsf'>het DUO CROHO register</a> of <a target='_blank' rel='noreferrer' href='https://kwalificaties.s-bb.nl/Lijsten/Groep/14'>de SBB CREBO lijsten</a> als je deze code niet weet.",
-                eqf:
-                    "Kijk op <a target='_blank' rel='noreferrer' href='https://www.nlqf.nl/nlqf-niveaus'>https://www.nlqf.nl/nlqf-niveaus</a> voor een overzicht",
-                ects:
-                    "Alleen hele en halve punten. <br/>Een minimum van 0,5 punt is vereist.",
+                eqf: "Kijk op <a target='_blank' rel='noreferrer' href='https://www.nlqf.nl/nlqf-niveaus'>https://www.nlqf.nl/nlqf-niveaus</a> voor een overzicht",
+                ects: "Alleen hele en halve punten. <br/>Een minimum van 0,5 punt is vereist.",
+                ectsMicroCredentials: "Alleen hele en halve punten. <br/>Een waarde tussen de 3 en 30 punten is vereist."
             },
             publicUrl: "Publieke URL",
             sorting: "Sorteer:",
-            award_allowed_institutions: "Toegestaande edubadge instellingen",
+            award_allowed_institutions: "Toegestane edubadge instellingen",
             archive: {
                 confirmation: "Badge class archiveren",
                 confirmationQuestion: "Weet je zeker dat je deze badge class wilt archiveren?",
@@ -984,7 +990,10 @@ I18n.translations.nl = {
         en_EN: "Engels",
         En_En: "Engels",
         nl_NL: "Nederlands",
-        Nl_Nl: "Nederlands"
+        Nl_Nl: "Nederlands",
+        es_ES: "Spaans",
+        fr_FR: "Frans",
+        de_DE: "Duits"
     },
     publicBadge: {
         verification: "Verificatie",
@@ -1029,7 +1038,7 @@ I18n.translations.nl = {
         directAwardBundles: "Er is geen direct award status voor edubadge {{name}}",
         directAwards: "Alle direct awards zijn geclaimed. Er zijn geen uitstaande direct awards meer voor deze bundel.",
         requestedBatches: "Er zijn geen openstaande edubadge-verzoeken die je mag uitreiken.",
-        notifications: "Je hebt geen permissies om badges te awarden en daarom kan je geen notificaties instellen."
+        notifications: "Je hebt geen permissies om edubadges te awarden en daarom kan je geen notificaties instellen."
     },
     userManagement: {
         permissions: "Permissies voor {{name}}",
@@ -1134,7 +1143,7 @@ I18n.translations.nl = {
         badgeClassDescription: "Deze beschrijving ondersteund opmaak in markdown formaat. " +
         "Zie <a target=\"_blank\" href=\"https://wiki.surfnet.nl/display/Edubadges/Edubadges+Example+BadgeClass\"> de wiki </a> voor voorbeelden.",
         badgeClassLanguageOfInstruction: "De voertaal die gebruikt is bij het behalen van deze edubadge. ",
-        badgeClassLearningOutcome: "Beschrijf de leeruitkomst of het leerdoel. Vastgelegd in de Onderwijs- en examenregeling.",
+        badgeClassLearningOutcome: "Beschrijf de leeruitkomst of de leerresultaten. Vastgelegd in de Onderwijs- en examenregeling.",
         //badgeClassLearningIssuer: "badgeClassLearningIssuer",
         badgeClassIsPrivate: "Indien aangevinkt zal deze badge class niet in de catalogus verschijnen. Houd er rekening mee dat er van privé badge classes geen edubadges kunnen worden uitgegeven.",
         badgeClassEvidenceRequired: "Indien aangevinkt, moet voor alle onderscheidingen op basis van deze badge class een bewijs van de geleverde prestatie worden ingevuld.",
@@ -1142,6 +1151,9 @@ I18n.translations.nl = {
         badgeClassNarrativeStudentRequired: "Indien aangevinkt, moet voor alle aanvragen van deze badge class een persoonlijke motivatie worden ingevuld.",
         badgeClassEvidenceStudentRequired: "Indien aangevinkt, moet voor alle aanvragen van deze badge class een bronvermelding URL worden ingevuld.",
         badgeClassAwardNonValidatedNameAllowed: "Indien aangevinkt, mogen non-formal edubadges (edubadges zonder Studielast) uitgereikt worden aan niet-gevalideerde accounts.",
+        badgeClassIsMicroCredentials: "Indien aangevinkt, dan wordt deze badge class ihkv de Microcredentials pilot uitgegeven." +
+        "Zie <a target=\"_blank\" href=\"https://wiki.surfnet.nl/display/Edubadges/Handleiding+uitgeven+ihkv+de+pilot+microcredentials\"> de wiki </a> voor een handleiding.",
+        badgeClassDirectAwardingDisabled: "Indien aangevinkt, dan is voor deze badge class het direct awarden uitgeschakeld",
         //badgeClassCriteriaRequirements: "badgeClassCriteriaRequirements",
         //badgeClassCriteriaUrl: "badgeClassCriteriaUrl",
         //badgeClassTypeOfStudyLoad: "badgeClassTypeOfStudyLoad",
@@ -1213,8 +1225,13 @@ I18n.translations.nl = {
             HOURS_120_MORE: "> 120 uren (WO/HBO)"
         },
         eqf: {
-            eqfNone: "Geen NLQF level",
-            eqf: "NLQF niveau {{level}}",
+            eqfNone: "Geen EQF niveau",
+            eqf: "EQF niveau {{level}}",
+        },
+        badgeClassType: {
+              OTHER: "Anders",
+              ARCHIVED: "Gearchiveerd",
+              MICRO_CREDENTIALS: "Pilot Microcredentials"
         },
         issuer: {
             contact: "Neem contact op met de issuer",
@@ -1484,7 +1501,7 @@ I18n.translations.nl = {
     notifications: {
         update: "Bijwerken",
         title: "Je notificatie instellingen",
-        info: "Voor elke geselecteerde badgeklasse ontvang je een e-mailmelding als een student zich inschrijft voor deze badge.",
+        info: "Voor elke geselecteerde badge class ontvang je een e-mailmelding als een student zich inschrijft voor deze edubadge.",
         confirmationTitle: "Confirmatie",
         confirmationQuestion: "Weet je zeker dat je je notificatie instellingen wilt wijzigen?",
         updated: "Je notificatie instellingen zijn bijgwerkt"

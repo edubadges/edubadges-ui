@@ -6,7 +6,8 @@
     eqfLevelSelected,
     institutionSelected,
     studyLoadSelected,
-    tree
+    typeBadgeClassSelected,
+    tree, facultySelected, issuerSelected
   } from "../../stores/filterCatalog";
 </script>
 
@@ -61,6 +62,23 @@
       title="institutions"/>
   </div>
 
+  {#if $institutionSelected.length > 0}
+    <div>
+      <FilterBlock
+        bind:value={$facultySelected}
+        collection={$tree.faculties}
+        maxLength={5}
+        title="faculties"/>
+    </div>
+
+    <div>
+      <FilterBlock
+        bind:value={$issuerSelected}
+        collection={$tree.issuers}
+        maxLength={5}
+        title="issuers"/>
+    </div>
+  {/if}
 
   <div>
     <FilterBlock
@@ -80,5 +98,13 @@
       title="eqfs"/>
   </div>
 
+  <div>
+    <FilterBlock
+      bind:value={$typeBadgeClassSelected}
+      collection={$tree.badgeClassTypes}
+      objectIdentifier="value"
+      maxLength={100}
+      title="badgeClassType"/>
+  </div>
 
 </div>

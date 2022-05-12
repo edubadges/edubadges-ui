@@ -67,8 +67,12 @@
 
 <div class="container main-content-margin">
     <div class="header">
-        <h3>{title}</h3>
-        <p>{subTitle}</p>
+        {#if title && title.trim().length > 0}
+            <h3>{title}</h3>
+        {/if}
+        {#if subTitle && subTitle.trim().length > 0}
+            <p>{subTitle}</p>
+        {/if}
         <Search bind:value={search}/>
         {#each buttons as button}
             {#if button.allowed}

@@ -67,6 +67,7 @@
       evidenceStudentRequired,
       criteriaText,
       expirationPeriod,
+      directAwardingDisabled,
       issuer {
         nameEnglish,
         nameDutch,

@@ -6,10 +6,6 @@
 </script>
 
 <style>
-  .invisible {
-    display: none;
-  }
-
   .add {
     color: var(--green-medium);
     border: none;
@@ -21,6 +17,10 @@
     cursor: pointer;
   }
 
+  .add-button {
+    margin-right: 20px;
+  }
+
   .disabled {
     cursor: not-allowed !important;
     color: var(--grey-7);
@@ -28,8 +28,8 @@
 
 </style>
 
-{#if disabled}
-  <button class="add disabled {visibility ? '' : 'invisible'}" on:click={handleClick}>+ {text}</button>
-{:else}
-  <button class="add {visibility ? '' : 'invisible'}" on:click={handleClick}>+ {text}</button>
+{#if visibility}
+  <span class="add-button">
+    <button class="add" class:disabled on:click={e => !disabled && handleClick(e)}>+ {text}</button>
+  </span>
 {/if}

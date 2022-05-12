@@ -28,7 +28,10 @@
       institutionType,
       identifier,
       awardAllowedInstitutions,
-      awardAllowAllInstitutions
+      awardAllowAllInstitutions,
+      alternativeIdentifier,
+      directAwardingEnabled,
+      defaultLanguage
     },
     issuers {
       nameEnglish,
@@ -52,6 +55,8 @@
       evidenceStudentRequired,
       narrativeStudentRequired,
       awardAllowedInstitutions,
+      isMicroCredentials,
+      directAwardingDisabled,
       alignments {
         targetName,
         targetUrl,

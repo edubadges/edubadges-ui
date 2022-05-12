@@ -54,7 +54,7 @@ I18n.translations.en = {
         },
         teacher: {
             title: "<strong style='font-size: 38px'>A</strong>ward",
-            subtitle: "Award your students with edubadges, the micro credentials of the future.",
+            subtitle: "Award your students with edubadges, the microcredentials of the future.",
             action: "Open the issuer portal",
             accountCreation: {
                 askAccount: "The issuer portal is by invite only. If you want to enter, but don't have access, please contact your institution admin.",
@@ -141,7 +141,8 @@ I18n.translations.en = {
                 educations: "Educational level",
                 institutions: "Institution",
                 studyLoads: "Studyload",
-                eqfs: "NLQF level",
+                eqfs: "EQF level",
+                badgeClassType: "Type edubadge",
                 roles: "Roles (highest)",
                 issued: "Issued",
                 awardType: "Award type",
@@ -168,7 +169,7 @@ I18n.translations.en = {
             recipients: "Recipients",
             studyLoad: "Study load",
             timeInvestment: "Time investment",
-            educationProgramIdentifier: "Education identifier",
+            educationProgramIdentifier: "Indicative EQF",
             ects: "{{value}} ECTS",
             hours: "{{value}} hours",
             canAward: "Badge classes you can award",
@@ -218,6 +219,7 @@ I18n.translations.en = {
         shareYourBadge: "Share your edubadge",
         shareYourBadgeQuestion: "Your public edubadge URL is accessible for everyone",
         badgeRevoked: "This edubadge has been revoked. You can see the details, but this edubadge can no longer be shared",
+        revocationReason: "The revocation reason:",
         badgeExpired: "This edubadge has been expired. You can see the details, but this edubadge can no longer be shared",
         privateBadge: "Private edubadge",
         publicPrivate: "Your edubadge is set to private, only you can see it.",
@@ -658,6 +660,8 @@ I18n.translations.en = {
             narrativeStudentRequired: "Motivation required for enrollment",
             evidenceStudentRequired: "Evidence URL required for enrollment",
             awardNonValidatedNameAllowed: "Award to non-validated account allowed",
+            isMicroCredentials: "Badge class related to Microcredentials pilot",
+            directAwardingDisabled: "Direct-Award disabled",
             learningOutcome: "Learning outcome",
             studyLoad: "Study load",
             timeInvestment: "Time investment",
@@ -668,7 +672,7 @@ I18n.translations.en = {
             sbu: "Studie Belasting Uren",
             ectsLong: "European Credit Transfer and Accumulation System",
             typeOfStudyLoad: "Type of study load",
-            eqf: "Indicative NLQF level",
+            eqf: "Indicative EQF level",
             educationProgramIdentifier: "ISAT",
             educationProgramIdentifierLong: "Programme Identifier",
             notSet: "-",
@@ -683,6 +687,7 @@ I18n.translations.en = {
                 earningCriteria: "Criteria for this edubadge",
                 additionalSections: "Additional sections",
                 educationalIdentifiers: "Educational identifiers",
+                qualificationLevel: "Qualification level",
                 studyLoad: "Study load",
                 timeInvestment: "Time investment",
                 alignment: "Related educational framework ",
@@ -694,14 +699,14 @@ I18n.translations.en = {
                 timeInvestment: "Add time investment",
                 alignment: "Add related educational framework",
                 alignmentAddition: "Add another related educational framework",
+                programmeIdentifier: "Add programme identifier"
             },
             info: {
                 educationProgramIdentifier:
                     "Consult <a target='_blank' rel='noreferrer' href='https://apps.duo.nl/MCROHO/pages/zoeken.jsf'>the DUO CROHO register</a> or <a target='_blank' rel='noreferrer' href='https://kwalificaties.s-bb.nl/Lijsten/Groep/14'>the SBB CREBO lists</a> if you don’t know the code.",
-                eqf:
-                    "Check <a target='_blank' rel='noreferrer' href='https://www.nlqf.nl/images/English2015/NLQF_levels_English_description_2020.pdf'>https://www.nlqf.nl/images/English2015/NLQF_levels_English_description_2020.pdf</a> for help",
-                ects:
-                    "Whole and half points only. <br/>A minimum of 0.5 points is required.",
+                eqf: "Check <a target='_blank' rel='noreferrer' href='https://www.nlqf.nl/images/English2015/NLQF_levels_English_description_2020.pdf'>https://www.nlqf.nl/images/English2015/NLQF_levels_English_description_2020.pdf</a> for help",
+                ects: "Whole and half points only. <br/>A minimum of 0.5 points is required.",
+                ectsMicroCredentials: "Whole and half points only. <br/>Valid value between 3 and 30 point."
             },
             publicUrl: "Public URL",
             sorting: "Sorting:",
@@ -984,7 +989,10 @@ I18n.translations.en = {
         en_EN: "English",
         En_En: "English",
         nl_NL: "Dutch",
-        Nl_Nl: "Dutch"
+        Nl_Nl: "Dutch",
+        es_ES: "Spanish",
+        fr_FR: "French",
+        de_DE: "German"
     },
     publicBadge: {
         verification: "Verification",
@@ -1029,7 +1037,7 @@ I18n.translations.en = {
         directAwardBundles: "There is no direct award status for edubadge {{name}}",
         directAwards: "All direct awards have been claimed. There are no more outstanding direct awards for this bundle.",
         requestedBatches: "There are no outstanding edubadge requests you are allowed to award.",
-        notifications: "You don't have permissions to award badges and therefore you can not configure any notifications."
+        notifications: "You don't have permissions to award edubadges and therefore you can not configure any notifications."
     },
     userManagement: {
         permissions: "Permissions for {{name}}",
@@ -1142,6 +1150,9 @@ I18n.translations.en = {
         badgeClassNarrativeStudentRequired: "If checked, any enrollments for this badge class require a motivation of why the enrollment is justified.",
         badgeClassEvidenceStudentRequired: "If checked, any enrollments for this badge class require an evidence URL of why the enrollment is justified.",
         badgeClassAwardNonValidatedNameAllowed: "If checked, non-formal edubadges (edubadges without Study load) can be awarded to non-validated accounts.",
+        badgeClassIsMicroCredentials: "If checked, then this badge class is participating in the Microcredentials pilot." +
+        "See <a target=\"_blank\" href=\"https://wiki.surfnet.nl/display/Edubadges/Handleiding+uitgeven+ihkv+de+pilot+microcredentials\"> the wiki </a> for a manual.",
+        badgeClassDirectAwardingDisabled: "If checked, then this badge class can bot be drirect awarded",
         //badgeClassCriteriaRequirements: "badgeClassCriteriaRequirements",
         //badgeClassCriteriaUrl: "badgeClassCriteriaUrl",
         //badgeClassTypeOfStudyLoad: "badgeClassTypeOfStudyLoad",
@@ -1213,8 +1224,13 @@ I18n.translations.en = {
             HOURS_120_MORE: "> 120 hours (WO/HBO)"
         },
         eqf: {
-            eqfNone: "No NLQF level",
-            eqf: "NLQF level {{level}}",
+            eqfNone: "No EQF level",
+            eqf: "EQF level {{level}}",
+        },
+        badgeClassType: {
+              OTHER: "Other",
+              ARCHIVED: "Archived",
+              MICRO_CREDENTIALS: "Pilot Microcredentials"
         },
         issuer: {
             contact: "Contact the issuer",
@@ -1484,9 +1500,13 @@ I18n.translations.en = {
     notifications: {
         update: "Update",
         title: "Your notifications settings",
-        info: "For each selected badge class you will receive a mail notification if a student enrolls for this badge.",
+        info: "For each selected badge class you will receive a mail notification if a student enrolls for this edubadge.",
         confirmationTitle: "Confirmation",
         confirmationQuestion: "Are you sure you want to update your notification settings?",
         updated: "Your notification settings were updated"
+    },
+    toggle: {
+        showMore: "Show more...",
+        showLess: "Show less..."
     }
 };

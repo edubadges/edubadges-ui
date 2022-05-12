@@ -2,7 +2,7 @@
   import I18n from "i18n-js";
   import { FilterBlock } from "../../components/teachers";
   import { Search } from "../../components";
-  import { search, tree, facultyIds, issuerIds } from "../../stores/filterBadges";
+  import { search, tree, facultyIds, issuerIds, typeBadgeClassSelected } from "../../stores/filterBadges";
 </script>
 
 <style lang="scss">
@@ -45,5 +45,14 @@
       bind:value={$issuerIds}
       collection={$tree.issuers}
       title="issuers" />
+  </div>
+
+  <div>
+    <FilterBlock
+      bind:value={$typeBadgeClassSelected}
+      collection={$tree.badgeClassTypes}
+      objectIdentifier="value"
+      maxLength={100}
+      title="badgeClassType"/>
   </div>
 </div>
