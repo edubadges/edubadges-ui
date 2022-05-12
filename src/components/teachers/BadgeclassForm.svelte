@@ -822,7 +822,7 @@
                             bind:value={alignment.target_url}
                             disabled={!mayRemoveAlignment(alignment) && !isCopy}
                             error={errors.target_url}
-                            placeholder={I18n.t("placeholders.badgeClass.alignmentUrl")}
+                            placeholder={alignment.target_name !== microCredentialsFramework.name ? I18n.t("placeholders.badgeClass.alignmentUrl") : ""}
                     />
                 </Field>
                 <Field {entity} attribute="alignmentCode"

@@ -1,7 +1,7 @@
 export const microCredentialsFramework = {
     "name": "Kwaliteitskader Pilot Microcredentials voor Professionals",
     "framework": "Pilot microcredentials voor professionals",
-    "url": "https://www.versnellingsplan.nl/Kennisbank/pilot-microcredentials/",
+    "url": "",
     "code": "Kwaliteitskader",
     "description": `
 
