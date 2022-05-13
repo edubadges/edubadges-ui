@@ -4,6 +4,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [6.2.0] - 2022-05-16
+- Empty alignment URL placeholder for micro-credentials badgeclass.
+- Added English text to the Pilot Microcredentials framework.
+- Studyload is a value between 3-30 when pilot microcredentials is checked.
+- Related educational framework URL is optional when pilot microcredentials is checked.
+- Added more languages of instructions.
+- Added read more at the description of the related educational framework.
+- Extra filter type edubadges also in badclass screen.
+- Opleidingscode -> Indicatief EQF.
+- Bugfix for micro-credential badge form.
+- Changed NLQF to EQF.
+- Minor locale changes.
+- Added even more lines to the framework template for the microcredentials pilot.
+- Synced default languages for institution with server enum.
+- Ability to disable direct awards for badge classes.
+- Ensure swithcing to micro credentials get default values.
+- Show revocation reason on badge instance.
+- Show issuerGroups and issuers filters when an institution is selected.
+- Added new filter badge class type in catalog.
+- Default institution language for default instructions in new badge class.
+- Complex toggle's because of micro-services pilot.
+- Allow requests for badgeclasses from an institution with the correct alternative identifier.
+- Bugfix for criteria text is null in markdown field.
+
 ## [6.1.0] - 2022-03-21
 - Align items center in table header.
 - Added notifications to get informed when an edubadge is requested.
