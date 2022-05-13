@@ -1505,5 +1505,9 @@ I18n.translations.nl = {
         confirmationTitle: "Confirmatie",
         confirmationQuestion: "Weet je zeker dat je je notificatie instellingen wilt wijzigen?",
         updated: "Je notificatie instellingen zijn bijgwerkt"
+    },
+    toggle: {
+        showMore: "Toon meer...",
+        showLess: "Toon minder..."
     }
 };
