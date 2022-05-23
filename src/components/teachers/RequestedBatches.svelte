@@ -256,7 +256,7 @@
   td.evidenceNarrativeRequired ul {
     list-style: circle;
     li {
-      margin-left: 15px;
+      margin-left: 20px;
     }
   }
 
