@@ -15,15 +15,16 @@
     export let url;
     export let name;
     export let description;
-    export let useEvidence;
-    export let badgeClass = {};
+    export let useEvidence = false;
+    export let evidenceRequired = false;
+    export let narrativeRequired = false;
     export let narrativeAllowed = true;
 
     let errors = {};
     let narrativeOrEvidenceRequired = false;
 
     onMount(() => {
-        narrativeOrEvidenceRequired = badgeClass.narrativeRequired || badgeClass.evidenceRequired;
+        narrativeOrEvidenceRequired = narrativeRequired || evidenceRequired;
         useEvidence = narrativeOrEvidenceRequired || !awardMode || !isEmpty(url) || !isEmpty(description);
     });
 
@@ -33,10 +34,10 @@
             if (!isEmpty(url) && !validUrl(url)) {
                 errors = {url: [{error_code: 921}]};
             }
-            if (badgeClass.narrativeRequired && isEmpty(narrative)) {
+            if (narrativeRequired && isEmpty(narrative)) {
                 errors.narrative = [{error_code: 932}];
             }
-            if (badgeClass.evidenceRequired && isEmpty(url)) {
+            if (evidenceRequired && isEmpty(url)) {
                 errors.url = [{error_code: 933}];
             }
             if (Object.keys(errors).length === 0) {

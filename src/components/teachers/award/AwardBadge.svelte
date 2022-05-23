@@ -341,7 +341,8 @@
             bind:useEvidence={narrativeOrEvidenceRequired}
             bind:name={selectedDirectAwardForEvidence.name}
             bind:description={selectedDirectAwardForEvidence.description}
-            badgeClass={badgeclass}
+            narrativeRequired={badgeclass.narrativeRequired}
+            evidenceRequired={badgeclass.evidenceRequired}
             submit={awardModalSubmit}
             awardMode={false}
             cancel={awardModalCancel}/>

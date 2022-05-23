@@ -19,7 +19,8 @@
 
     let enrollments = [];
     let selection = [];
-    let badgeClass = null;
+    let narrativeRequired = false;
+    let evidenceRequired = false;
     let filteredEnrollments = [];
     let checkAllValue = false;
     let narrative = "";
@@ -72,7 +73,8 @@
             res.badgeClassesToAward.forEach(badgeClass => {
                 badgeClass.pendingEnrollments.forEach(enrollment => {
                         enrollment.badgeClass = badgeClass;
-                        enrollment.evidenceNarrativeRequired = badgeClass.evidenceRequired || badgeClass.narrativeRequired;
+                        enrollment.evidenceNarrativeRequired = badgeClass.evidenceRequired || badgeClass.narrativeRequired ||
+                            badgeClass.evidenceStudentRequired || badgeClass.narrativeStudentRequired;
                         allEnrollments.push(enrollment);
                     }
                 )
@@ -87,23 +89,39 @@
 
     const award = showConfirmation => {
         if (showConfirmation) {
-            const enrollment = enrollments.find(enrollment => enrollment.entityId === selection[0]);
-            badgeClass = enrollment.badgeClass;
+            const enrollment = findEnrollment(selection[0]);
+            const badgeClass = enrollment.badgeClass;
+            evidenceRequired = badgeClass.evidenceRequired;
+            narrativeRequired= badgeClass.narrativeRequired;
             description = enrollment.narrative;
             url = enrollment.evidenceUrl;
             showAwardModal = true;
         } else {
             showAwardModal = false;
             loaded = false;
-            awardBadges(badgeClass.entityId, selection, useEvidence, narrative, url, name, description).then(() => {
+            // Need to group all selected enrollments by badgeClass
+            const enrollmentsGroupedByBadgeClass = selection.reduce((acc, sel) => {
+                const enrollment = findEnrollment(sel);
+                const grouped = acc[enrollment.badgeClass.entityId];
+                if (grouped) {
+                    grouped.push(sel)
+                } else {
+                    acc[enrollment.badgeClass.entityId] = [sel]
+                }
+                return acc;
+            },{});
+            Promise.all(Object.entries(enrollmentsGroupedByBadgeClass).map(arr => {
+                return awardBadges(arr[0], arr[1], useEvidence, narrative, url, name, description);
+            })).then(() => {
                 loadEnrollments();
                 narrative = "";
                 url = "";
                 name = "";
                 description = "";
                 useEvidence = false;
+                checkAllValue = false;
                 flash.setValue(I18n.t("models.enrollment.flash.awarded"));
-            });
+            })
         }
     }
 
@@ -133,12 +151,29 @@
         description = "";
     }
 
+    const findEnrollment = entityId => enrollments.find(e => e.entityId === entityId);
+
     const onCheckOne = (val, entityId) => {
         if (val) {
-            selection = [entityId];
+            const enrollment = findEnrollment(entityId);
+            if (enrollment.evidenceNarrativeRequired) {
+                selection = [entityId];
+                table.checkAllValue = false;
+            } else {
+                selection = [...selection.filter(sel => !findEnrollment(sel).evidenceNarrativeRequired), entityId];
+            }
         } else {
             selection = selection.filter(id => id !== entityId);
             table.checkAllValue = false;
+        }
+    }
+
+    const onCheckAll = val => {
+        table.checkAllValue = val;
+        if (val) {
+            selection = enrollments.filter(e => !e.evidenceNarrativeRequired).map(e => e.entityId);
+        } else {
+            selection = [];
         }
     }
 
@@ -218,8 +253,11 @@
     }
   }
 
-  td.evidenceNarrativeRequired span {
-    display: block;
+  td.evidenceNarrativeRequired ul {
+    list-style: circle;
+    li {
+      margin-left: 15px;
+    }
   }
 
   div.action-buttons {
@@ -239,7 +277,8 @@
             bind:sort={enrollmentSort}
             isEmpty={enrollments.length === 0}
             withCheckAll={true}
-            checkAllDisabled={true}
+            checkAllDisabled={enrollments.every(e => e.evidenceNarrativeRequired)}
+            {onCheckAll}
             bind:checkAllValue>
         <div class="action-buttons" slot="check-buttons">
             <Button small action={() => award(true)} marginRight={true}
@@ -273,12 +312,20 @@
                 </td>
                 <td class="evidenceNarrativeRequired">
                     {#if enrollment.evidenceNarrativeRequired}
+                        <ul>
                         {#if enrollment.badgeClass.evidenceRequired}
-                            <span>{I18n.t("models.enrollment.enrollmentType.evidence")}</span>
+                            <li>{I18n.t("models.enrollment.enrollmentType.evidence")}</li>
                         {/if}
                         {#if enrollment.badgeClass.narrativeRequired}
-                            <span>{I18n.t("models.enrollment.enrollmentType.narrative")}</span>
+                            <li>{I18n.t("models.enrollment.enrollmentType.narrative")}</li>
                         {/if}
+                        {#if enrollment.badgeClass.narrativeStudentRequired}
+                            <li>{I18n.t("models.enrollment.enrollmentType.narrativeStudent")}</li>
+                        {/if}
+                        {#if enrollment.badgeClass.evidenceStudentRequired}
+                            <li>{I18n.t("models.enrollment.enrollmentType.evidenceStudent")}</li>
+                        {/if}
+                            </ul>
                     {:else}
                         <span>-</span>
                     {/if}
@@ -322,7 +369,8 @@
             bind:useEvidence={useEvidence}
             bind:name={name}
             bind:description={description}
-            badgeClass={badgeClass}
+            narrativeRequired={narrativeRequired}
+            evidenceRequired={evidenceRequired}
             submit={() => award(false)}
             cancel={cancelAwardDialog}/>
 {/if}

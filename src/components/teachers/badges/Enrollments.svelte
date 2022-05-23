@@ -324,7 +324,8 @@
             bind:useEvidence={useEvidence}
             bind:name={name}
             bind:description={description}
-            badgeClass={badgeClass}
+            narrativeRequired={badgeClass.narrativeRequired}
+            evidenceRequired={badgeClass.evidenceRequired}
             submit={() => award(false)}
             narrativeAllowed={selection.length === 1}
             cancel={cancelAwardDialog}/>
