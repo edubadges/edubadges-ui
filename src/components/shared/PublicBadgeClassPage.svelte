@@ -354,14 +354,13 @@
                 {#if visitorRole === role.GUEST}
                     <div class="slots enrol">
                         {#if badgeClass.archived}
-            <span
-                    class="attention">
-              {@html I18n.t(`login.badgeClassArchived`)}
-            </span>
+                            <span class="attention">
+                              {@html I18n.t(`login.badgeClassArchived`)}
+                            </span>
                         {:else}
                             <Button text={I18n.t("login.loginToEnrol")} action={goToEduId}/>
                             {#if badgeClass.awardNonValidatedNameAllowed}
-              <span class="attention">
+                      <span class="attention">
                 {@html I18n.t("login.loginAllowedWithoutValidatedName")}
               </span>
                             {:else}
