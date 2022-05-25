@@ -22,6 +22,7 @@
     import Field from "../forms/Field.svelte";
     import {isEmpty} from "lodash";
     import {isValidURL} from "../../util/validations";
+    import EndorsementView from "../teachers/endorsements/EndorsementView.svelte";
 
     export let entityId;
 
@@ -147,6 +148,32 @@
         targetCode,
         targetFramework,
         targetDescription
+      },
+      endorsements {
+        claim,
+        description,
+        status,
+        endorser {
+            name,
+            image,
+            issuer {
+                nameDutch,
+                nameEnglish,
+                entityId,
+                faculty {
+                  nameDutch,
+                  nameEnglish,
+                  entityId,
+                  institution {
+                    nameDutch,
+                    nameEnglish,
+                    imageDutch,
+                    imageEnglish,
+                    entityId
+                }
+              }
+            },
+        }
       }
     }
   }`;
@@ -178,7 +205,6 @@
         } else {
             getPublicBadgeClass(entityId).then(res => {
                 badgeClass = res;
-
                 translateProperties(badgeClass.issuer);
                 translateProperties(badgeClass.issuer.faculty);
                 translateProperties(badgeClass.issuer.faculty.institution);
@@ -360,13 +386,13 @@
                         {:else}
                             <Button text={I18n.t("login.loginToEnrol")} action={goToEduId}/>
                             {#if badgeClass.awardNonValidatedNameAllowed}
-                      <span class="attention">
-                {@html I18n.t("login.loginAllowedWithoutValidatedName")}
-              </span>
+                                <span class="attention">
+                                    {@html I18n.t("login.loginAllowedWithoutValidatedName")}
+                                </span>
                             {:else}
-              <span class="attention">
-                {@html I18n.t(`login.loginToEnrolInfo${allowedInstitutionsAttention}`, {name: allowedInstitutions})}
-              </span>
+                              <span class="attention">
+                                {@html I18n.t(`login.loginToEnrolInfo${allowedInstitutionsAttention}`, {name: allowedInstitutions})}
+                              </span>
                             {/if}
                         {/if}
                     </div>
@@ -379,6 +405,10 @@
                             <Button label="alreadyEnrolled" disabled={true} text={I18n.t('student.enrolled')}/>
                         {/if}
                     </div>
+                {:else if visitorRole === role.TEACHER}
+                     <div class="slots teacher">
+                         <EndorsementView badgeClass={badgeClass}/>
+                     </div>
                 {/if}
             </BadgeClassHeader>
 

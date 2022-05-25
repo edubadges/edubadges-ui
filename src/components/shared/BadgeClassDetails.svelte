@@ -249,12 +249,12 @@
                         <div class="alignment-container">
                             <div class="alignment-item alignmentCode">
                                 <h4>{I18n.t('models.badgeclass.alignmentCode')}</h4>
-                                {alignment.targetCode}
+                                <span>{alignment.targetCode}</span>
                             </div>
                             <div class="vertical">&nbsp;</div>
                             <div class="alignment-item alignmentFramework">
                                 <h4>{I18n.t('models.badgeclass.alignmentFramework')}</h4>
-                                {alignment.targetFramework}
+                                <span>{alignment.targetFramework}</span>
                             </div>
                             <div class="vertical">&nbsp;</div>
                             <div class="alignment-item alignmentUrl">

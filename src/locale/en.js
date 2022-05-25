@@ -872,6 +872,11 @@ I18n.translations.en = {
             url: "Badge URL",
             email: "Email",
             code: "Verification code"
+        },
+        endorsements: {
+            description: "Description",
+            claim : "Claim",
+            badgeClass: "Badge class"
         }
     },
     inviteDialog: {
@@ -1202,7 +1207,10 @@ I18n.translations.en = {
         collectionBadgeInstances: "Select all the edubadges you want to put in this collection",
         importedBadgeEmail: "Your email that was used when this badge was issued",
         importedBadgeImageUrl: "The URL to the badge JSON data",
-        importedBadgeImage: "The png or svg badge image file"
+        importedBadgeImage: "The png or svg badge image file",
+        endorsementDescription: "The description of the endorsement",
+        endorsementClaim: "The claim describes why and how this badge class is similar to the endorsed badge",
+        endorsementBadgeClass: "The badge class you would like to endorse."
     },
     badgeOverview: {
         faculty: "Issuer Group",
@@ -1510,5 +1518,21 @@ I18n.translations.en = {
     toggle: {
         showMore: "Show more...",
         showLess: "Show less..."
+    },
+    endorsements: {
+        request: "Request endorsement",
+        description: "Description",
+        descriptionPlaceholder: "Description of the endorsement",
+        claimPlaceholder: "Claim of the endorsement",
+        badgeClassPlaceholder: "Search and select a badge class...",
+        badgeClass: "The endorsed badge class",
+        claim: "Claim",
+        submit: "Request",
+        flash: {
+            created: "Endorsement request has been send",
+            accepted: "Endorsement request has been accepted",
+            rejected: "Endorsement request has been rejected",
+            revoked: "Endorsement request has been revoked",
+        }
     }
 };

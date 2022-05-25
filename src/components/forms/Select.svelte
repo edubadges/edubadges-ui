@@ -1,26 +1,30 @@
 <script>
-  import Select from "svelte-select";
-  import {TextInput} from "../forms";
-  import indicator from "../../icons/chevron-down.svg";
+    import Select from "svelte-select";
+    import {TextInput} from "../forms";
+    import indicator from "../../icons/chevron-down.svg";
 
-  export let value;
-  export let items = [];
+    export let value;
+    export let items = [];
 
-  export let disabled = false;
-  export let nonEditable = false;
-  export let clearable = true;
-  export let isMulti = false;
-  export let full = false;
-  export let error;
-  export let showChevron = true;
-  export let showIndicator = true;
-  export let placeholder = "";
-  export let customIndicator = null;
+    export let disabled = false;
+    export let nonEditable = false;
+    export let clearable = true;
+    export let isMulti = false;
+    export let full = false;
+    export let isSearchable = false;
+    export let listOpen = false;
+    export let error;
+    export let showChevron = true;
+    export let showIndicator = true;
+    export let placeholder = "";
+    export let customIndicator = null;
+    export let getOptionLabel = option => option.name;
+    export let getSelectionLabel = option => option.name;
 
-  export let optionIdentifier = "entityId";
+    export let optionIdentifier = "entityId";
 
-  export let handleSelect = () => {
-  };
+    export let handleSelect = () => {
+    };
 </script>
 
 <style lang="scss">
@@ -111,23 +115,25 @@
 </style>
 
 {#if nonEditable || disabled}
-  <TextInput disabled={true} value={value ? value.name : ""}/>
+    <TextInput disabled={true} value={value ? value.name : ""}/>
 {:else}
-  <div class="select-field" {error} {disabled} class:full>
-    <Select
-      on:select={() => handleSelect(value)}
-      {items}
-      bind:selectedValue={value}
-      {optionIdentifier}
-      getOptionLabel={({ name }) => name}
-      getSelectionLabel={({ name }) => name}
-      placeholder={placeholder}
-      showChevron={showChevron}
-      showIndicator={showIndicator}
-      isMulti={isMulti}
-      on:clear={() => handleSelect(null)}
-      isDisabled={disabled}
-      indicatorSvg={customIndicator || indicator}
-      isClearable={clearable}/>
-  </div>
+    <div class="select-field" {error} {disabled} class:full>
+        <Select
+                on:select={() => handleSelect(value)}
+                {items}
+                bind:selectedValue={value}
+                {optionIdentifier}
+                getOptionLabel={getOptionLabel}
+                getSelectionLabel={getSelectionLabel}
+                placeholder={placeholder}
+                showChevron={showChevron}
+                showIndicator={showIndicator}
+                isMulti={isMulti}
+                listOpen={listOpen}
+                isSearchable={isSearchable}
+                on:clear={() => handleSelect(null)}
+                isDisabled={disabled}
+                indicatorSvg={customIndicator || indicator}
+                isClearable={clearable}/>
+    </div>
 {/if}

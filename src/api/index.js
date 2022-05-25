@@ -314,7 +314,7 @@ export function getPublicInstitution(entityId) {
 }
 
 export function getPublicBadgeClass(badgeId) {
-    const path = `${serverUrl}/public/badges/${badgeId}?expand=issuer&expand=awards`;
+    const path = `${serverUrl}/public/badges/${badgeId}?expand=issuer&expand=awards&expand=endorsements`;
     return validFetch(path, {}, "GET", false, false);
 }
 
@@ -728,7 +728,7 @@ export function disinviteUser(provisionmentId) {
     return validFetch(path, {}, "DELETE");
 }
 
-export function createDirectAwards(directAwards, badgeclass, bulkAward, ltiImport=false) {
+export function createDirectAwards(directAwards, badgeclass, bulkAward, ltiImport = false) {
     const path = `${serverUrl}/directaward/create`;
     const payload = {
         notify_recipients: true,
@@ -845,8 +845,34 @@ export function deleteLtiCourse(ltiCourse) {
     return validFetch(path, {}, "DELETE", true, false);
 }
 
+//Notifications
 export function updateNotifications(delta) {
     const path = `${serverUrl}/notifications/notifications`;
     return validFetch(path, {body: JSON.stringify(delta)}, "PUT");
 }
 
+//Endorsements
+export function createEndorsement(endorsement) {
+    const path = `${serverUrl}/endorsement/create`;
+    return validFetch(path, {body: JSON.stringify(endorsement)}, "POST", true, false);
+}
+
+export function acceptEndorsement(endorsement) {
+    const path = `${serverUrl}/endorsement/edit/${endorsement.entity_id}`;
+    return validFetch(path, {body: JSON.stringify({status: "Accepted"})}, "PUT", true, false);
+}
+
+export function rejectEndorsement(endorsement) {
+    const path = `${serverUrl}/endorsement/edit/${endorsement.entity_id}`;
+    return validFetch(path, {body: JSON.stringify({status: "Rejected"})}, "PUT", true, false);
+}
+
+export function revokeEndorsement(endorsement, reason) {
+    const path = `${serverUrl}/endorsement/edit/${endorsement.entity_id}`;
+    return validFetch(path, {body: JSON.stringify({status: "Revoked", revocation_reason: reason})}, "PUT", true, false);
+}
+
+export function deleteEndorsement(endorsement) {
+    const path = `${serverUrl}/endorsement/delete/${endorsement.entityId}`;
+    return validFetch(path, {}, "DELETE", true, false);
+}
