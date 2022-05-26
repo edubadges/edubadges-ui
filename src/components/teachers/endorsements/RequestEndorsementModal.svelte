@@ -59,6 +59,9 @@
 
   .modal-body {
     padding: 18px 32px;
+    p.info {
+      margin-bottom: 15px;
+    }
   }
 
   div.options {
@@ -79,6 +82,7 @@
             <h3>{I18n.t("endorsements.request")}</h3>
         </div>
         <div class="modal-body">
+            <p class="info">{I18n.t("endorsements.info")}</p>
             <Field entity="endorsements" attribute="claim" tipKey="endorsementClaim">
                 <TextInput bind:value={claim}
                            area={true}

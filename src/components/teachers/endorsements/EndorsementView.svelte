@@ -82,7 +82,7 @@
         }
     }`;
 
-    onMount(() => {
+    const reload = entityIdentifiers => {
         queryData(query).then(res => {
             const currentInstitution = res.currentInstitution;
             translateProperties(currentInstitution);
@@ -117,17 +117,24 @@
             badgeClassStaffs.forEach(staff => staff.badgeclass = badgeClassMap[staff.badgeclass.entityId]);
 
             const staffs = expandStaffsBadgeClass(institutionStaffs, issuerGroupStaffs, issuerStaffs, badgeClassStaffs);
-            badgeClasses = staffs.map(staff => ({
-                name: staff.badgeClass.name,
-                image: staff.badgeClass.image,
-                entityId: staff.badgeClass.entityId,
-            }));
+            badgeClasses = staffs
+                .map(staff => ({
+                    name: staff.badgeClass.name,
+                    image: staff.badgeClass.image,
+                    entityId: staff.badgeClass.entityId,
+                }))
+                .filter(bc => !entityIdentifiers.includes(bc.entityId) && !(badgeClass.endorsed || []).some(s => s === bc.entityId));
             hasStaff = staffs.length > 0;
             otherInstitution = badgeClass.issuer.faculty.institution.entityId !== currentInstitution.entityId;
+            claim = "";
+            description = "";
+            selectedBadgeClass = null;
+
             loaded = true;
         });
+    }
 
-    });
+    onMount(() => reload([]));
 
     const endorse = () => showModal = true;
     const cancel = () => showModal = false;
@@ -140,7 +147,8 @@
             claim: claim,
             description: description
         }).then(() => {
-            loaded = true;
+            //cache is emptied async, soo we need to exclude manually
+            reload([selectedBadgeClass.entityId]);
             flash.setValue(I18n.t("endorsements.flash.created"))
         })
 

@@ -1521,6 +1521,7 @@ I18n.translations.en = {
     },
     endorsements: {
         request: "Request endorsement",
+        info: "The endorsement request will be send to all awarders of the badge class for approval.",
         description: "Description",
         descriptionPlaceholder: "Description of the endorsement",
         claimPlaceholder: "Claim of the endorsement",

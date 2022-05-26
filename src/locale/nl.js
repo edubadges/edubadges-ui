@@ -873,6 +873,11 @@ I18n.translations.nl = {
             url: "Badge URL",
             email: "Email",
             code: "Verificatie code"
+        },
+        endorsements: {
+            description: "Omschrijving",
+            claim : "Claim",
+            badgeClass: "Badge class"
         }
     },
     inviteDialog: {
@@ -1203,7 +1208,10 @@ I18n.translations.nl = {
         collectionBadgeInstances: "Selecteer alle edubadges die je in deze collectie wilt plaatsen.",
         importedBadgeEmail: "Je email die is gebruikt op het moment dat deze badge aan je werd uitgereikt",
         importedBadgeImageUrl: "De URL met de badge JSON informatie",
-        importedBadgeImage: "Een png of svg badge afbeelding"
+        importedBadgeImage: "Een png of svg badge afbeelding",
+        endorsementDescription: "De omschrijving van de aanbeveling",
+        endorsementClaim: "De claim beschrijft waarom en hoe deze badgeclass vergelijkbaar is met de geselecteerde badge",
+        endorsementBadgeClass: "De badgeklasse die je wilt aanbevelen."
     },
     badgeOverview: {
         faculty: "Issuer groep",
@@ -1511,5 +1519,23 @@ I18n.translations.nl = {
     toggle: {
         showMore: "Toon meer...",
         showLess: "Toon minder..."
+    },
+    endorsements: {
+        request: "Aanbeveling aanvragen",
+        info: "De aanbeling wordt ter goedkeuring naar alle begunstigers van de badgeclass gestuurd.",
+        description: "Omschrijving",
+        descriptionPlaceholder: "Omschrijbing van de aanbeveling",
+        claimPlaceholder: "Claim van de aanbeveling",
+        badgeClassPlaceholder: "Zoek en selecteer een badge class...",
+        badgeClass: "De aanbevolgen badge class",
+        claim: "Claim",
+        submit: "Aanvragen",
+        flash: {
+            created: "Aanbevelingsverzoek is verstuurd",
+            accepted: "Aanbevelingsverzoek is geaccepteerd",
+            rejected: "Aanbevelingsverzoek is afgewezen",
+            revoked: "Aanbevelingsverzoek is ingetrokken",
+        }
     }
+
 };
