@@ -183,3 +183,43 @@ export const directAwardBundleQuery = `
           }
       }
    `;
+
+export const alignments = `
+      alignments {
+        targetName,
+        targetUrl,
+        targetCode,
+        targetFramework,
+        targetDescription
+      }
+`;
+
+export const endorsements = `
+  endorsements {
+    claim,
+    description,
+    status,
+    endorser {
+        name,
+        image,
+        issuer {
+            nameDutch,
+            nameEnglish,
+            entityId,
+            faculty {
+              nameDutch,
+              nameEnglish,
+              entityId,
+              institution {
+                nameDutch,
+                nameEnglish,
+                imageDutch,
+                imageEnglish,
+                entityId
+            }
+          }
+        }
+    }
+  }
+
+`;

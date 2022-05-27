@@ -9,6 +9,7 @@
     import Spinner from "../Spinner.svelte";
     import {translateProperties} from "../../util/utils";
     import {value} from "../forms/File.svelte";
+    import {alignments} from "../../api/queries";
 
     export let entityId;
     export let action = "edit";
@@ -57,13 +58,7 @@
       awardAllowedInstitutions,
       isMicroCredentials,
       directAwardingDisabled,
-      alignments {
-        targetName,
-        targetUrl,
-        targetCode,
-        targetFramework,
-        targetDescription
-      },
+      ${alignments},
       issuer {
         nameEnglish,
         nameDutch,

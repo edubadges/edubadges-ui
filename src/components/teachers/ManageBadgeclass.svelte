@@ -5,7 +5,7 @@
     import {Overview} from "./badgeclass";
     import {importIcon, overview, userManagementIcon} from "../../icons";
     import {queryData} from "../../api/graphql";
-    import {headerStaff} from "../../api/queries";
+    import {alignments, endorsements, headerStaff} from "../../api/queries";
     import I18n from "i18n-js";
     import {expirationPeriod} from "../../util/entityHeader";
     import {entityType} from "../../util/entityTypes"
@@ -103,13 +103,8 @@
         name,
         originalJson
       },
-      alignments {
-        targetName,
-        targetUrl,
-        targetCode,
-        targetFramework,
-        targetDescription
-      },
+      ${alignments},
+      ${endorsements},
       permissions {
         mayUpdate,
         mayAward

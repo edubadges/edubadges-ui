@@ -9,7 +9,13 @@
     import Enrollments from "../badges/Enrollments.svelte";
     import {queryData} from "../../../api/graphql";
 
-    import {assertionsQuery, directAwardBundleQuery, enrollmentsQuery, headerStaff} from "../../../api/queries";
+    import {
+        alignments,
+        assertionsQuery,
+        directAwardBundleQuery, endorsements,
+        enrollmentsQuery,
+        headerStaff
+    } from "../../../api/queries";
     import {expirationPeriod} from "../../../util/entityHeader";
     import {entityType} from "../../../util/entityTypes"
     import Spinner from "../../Spinner.svelte";
@@ -91,13 +97,8 @@
       },
       permissions { mayUpdate, mayAward },
       extensions { name, originalJson },
-      alignments {
-        targetName,
-        targetUrl,
-        targetCode,
-        targetFramework,
-        targetDescription
-      },
+      ${alignments},
+      ${endorsements},
       ${directAwardBundleQuery},
       ${enrollmentsQuery},
       ${assertionsQuery}

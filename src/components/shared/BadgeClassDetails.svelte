@@ -301,8 +301,8 @@
             <div>
                 <h3>{I18n.t('models.badgeclass.language')}</h3>
                 <span>
-        {I18n.t(`language.${badgeclass.language || "en_EN"}`)}
-      </span>
+                    {I18n.t(`language.${badgeclass.language || "en_EN"}`)}
+                </span>
             </div>
         </section>
         {#if badgeclass.studyLoadValue}

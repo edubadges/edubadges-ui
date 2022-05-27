@@ -23,6 +23,7 @@
     import {isEmpty} from "lodash";
     import {isValidURL} from "../../util/validations";
     import EndorsementView from "../teachers/endorsements/EndorsementView.svelte";
+    import {alignments, endorsements} from "../../api/queries";
 
     export let entityId;
 
@@ -142,39 +143,8 @@
         name,
         originalJson
       },
-      alignments {
-        targetName,
-        targetUrl,
-        targetCode,
-        targetFramework,
-        targetDescription
-      },
-      endorsements {
-        claim,
-        description,
-        status,
-        endorser {
-            name,
-            image,
-            issuer {
-                nameDutch,
-                nameEnglish,
-                entityId,
-                faculty {
-                  nameDutch,
-                  nameEnglish,
-                  entityId,
-                  institution {
-                    nameDutch,
-                    nameEnglish,
-                    imageDutch,
-                    imageEnglish,
-                    entityId
-                }
-              }
-            },
-        }
-      }
+      ${alignments},
+      ${endorsements}
     }
   }`;
 
