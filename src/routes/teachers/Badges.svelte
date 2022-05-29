@@ -1,17 +1,18 @@
 <script>
-  import {onMount} from "svelte";
-  import {BadgeClassesToolBar, BadgesHeader, SideBarBadges} from "../../components/teachers";
-  import {queryData} from "../../api/graphql";
-  import {headerEntity, headerEntityMultiLanguage, headerStaff} from "../../api/queries";
-  import {faculties, sortTarget, tree} from "../../stores/filterBadges";
-  import BadgeCard from "../../components/shared/BadgeCard.svelte";
-  import Spinner from "../../components/Spinner.svelte";
-  import {ects, eqf, extensionValue, studyLoad, timeInvestment} from "../../components/extensions/badges/extensions";
-  import BadgeListView from "../../components/shared/BadgeListView.svelte";
-  import {translateProperties} from "../../util/utils";
-  import {badgeClassFilterTypes, sortTargetOptions} from "../../util/catalogFilters";
+    import {onMount} from "svelte";
+    import {BadgeClassesToolBar, BadgesHeader, SideBarBadges} from "../../components/teachers";
+    import {queryData} from "../../api/graphql";
+    import {headerEntity, headerEntityMultiLanguage, headerStaff} from "../../api/queries";
+    import {faculties, sortTarget, tree} from "../../stores/filterBadges";
+    import BadgeCard from "../../components/shared/BadgeCard.svelte";
+    import Spinner from "../../components/Spinner.svelte";
+    import {ects, eqf, extensionValue, studyLoad, timeInvestment} from "../../components/extensions/badges/extensions";
+    import BadgeListView from "../../components/shared/BadgeListView.svelte";
+    import {translateProperties} from "../../util/utils";
+    import {badgeClassFilterTypes, sortTargetOptions} from "../../util/catalogFilters";
+    import Pagination from "../../components/Pagination.svelte";
 
-  const query = `query {
+    const query = `query {
     faculties {
       ${headerEntityMultiLanguage},
       ${headerStaff},
@@ -50,53 +51,59 @@
     }
   }`;
 
-  let loaded;
-  let view = "cards";
+    let loaded;
+    let page = 1;
+    let view = "cards";
+    let paginatedBadges = [];
 
-  onMount(() => {
-    queryData(query).then(res => {
-        res.faculties.forEach(faculty => {
-        translateProperties(faculty);
-        translateProperties(faculty.institution);
-        faculty.issuers.forEach(issuer => {
-          issuer.faculty = faculty;
-          if (!issuer.image) {
-            issuer.image = faculty.institution.image;
-          }
-          translateProperties(issuer);
-          issuer.badgeclasses.forEach(badgeClass => {
-            badgeClass.issuer = issuer;
-            translateProperties(badgeClass.issuer);
-            translateProperties(badgeClass.issuer.faculty);
-            translateProperties(badgeClass.issuer.faculty.institution);
+    onMount(() => {
+        queryData(query).then(res => {
+            res.faculties.forEach(faculty => {
+                translateProperties(faculty);
+                translateProperties(faculty.institution);
+                faculty.issuers.forEach(issuer => {
+                    issuer.faculty = faculty;
+                    if (!issuer.image) {
+                        issuer.image = faculty.institution.image;
+                    }
+                    translateProperties(issuer);
+                    issuer.badgeclasses.forEach(badgeClass => {
+                        badgeClass.issuer = issuer;
+                        translateProperties(badgeClass.issuer);
+                        translateProperties(badgeClass.issuer.faculty);
+                        translateProperties(badgeClass.issuer.faculty.institution);
 
-            badgeClass.studyLoad = extensionValue(badgeClass.extensions, studyLoad);
-            badgeClass.ects = extensionValue(badgeClass.extensions, ects);
-            badgeClass.eqf = extensionValue(badgeClass.extensions, eqf);
-            badgeClass.timeInvestment = extensionValue(badgeClass.extensions, timeInvestment);
+                        badgeClass.studyLoad = extensionValue(badgeClass.extensions, studyLoad);
+                        badgeClass.ects = extensionValue(badgeClass.extensions, ects);
+                        badgeClass.eqf = extensionValue(badgeClass.extensions, eqf);
+                        badgeClass.timeInvestment = extensionValue(badgeClass.extensions, timeInvestment);
 
-            let isOther = true;
-            badgeClass.types = [];
-            if (badgeClass.archived) {
-                badgeClass.types.push(badgeClassFilterTypes.ARCHIVED);
-                isOther = false
-            }
-            if (badgeClass.isMicroCredentials) {
-                badgeClass.types.push(badgeClassFilterTypes.MICRO_CREDENTIALS);
-                isOther = false
-            }
-            if (isOther) {
-                badgeClass.types.push(badgeClassFilterTypes.OTHER);
-            }
+                        let isOther = true;
+                        badgeClass.types = [];
+                        if (badgeClass.archived) {
+                            badgeClass.types.push(badgeClassFilterTypes.ARCHIVED);
+                            isOther = false
+                        }
+                        if (badgeClass.isMicroCredentials) {
+                            badgeClass.types.push(badgeClassFilterTypes.MICRO_CREDENTIALS);
+                            isOther = false
+                        }
+                        if (isOther) {
+                            badgeClass.types.push(badgeClassFilterTypes.OTHER);
+                        }
 
-          });
+                    });
+                });
+            })
+            $faculties = res.faculties;
+            $sortTarget = sortTargetOptions()[0];
+            loaded = true;
         });
-      })
-      $faculties = res.faculties;
-      $sortTarget = sortTargetOptions()[0];
-      loaded = true;
     });
-  });
+
+    const PAGE_COUNT = 2;
+
+    $: paginatedBadges = $tree.badgeClasses.slice((page - 1) * PAGE_COUNT, page * PAGE_COUNT);
 
 </script>
 
@@ -145,26 +152,27 @@
 </style>
 
 <div class="page-container">
-  {#if loaded}
-    <SideBarBadges/>
+    {#if loaded}
+        <SideBarBadges/>
 
-    <div class="content">
-      <BadgesHeader/>
+        <div class="content">
+            <BadgesHeader/>
 
-      <BadgeClassesToolBar bind:sorting={$sortTarget} bind:view={view}/>
+            <BadgeClassesToolBar bind:sorting={$sortTarget} bind:view={view}/>
 
-      <div class={`badges ${view === "list" ? "list" : "cards"}`}>
-        {#if view === "list"}
-          <BadgeListView badges={$tree.badgeClasses} isBadgesClass={true}/>
-        {:else}
-          {#each $tree.badgeClasses as badge}
-            <BadgeCard withPendingEnrollments={true} badgeClass={badge} withHeaderData={false}/>
-          {/each}
-        {/if}
-      </div>
-    </div>
-  {:else}
-    <Spinner/>
-  {/if}
+            <div class={`badges ${view === "list" ? "list" : "cards"}`}>
+                {#if view === "list"}
+                    <BadgeListView badges={paginatedBadges} isBadgesClass={true}/>
+                {:else}
+                    {#each paginatedBadges as badge}
+                        <BadgeCard withPendingEnrollments={true} badgeClass={badge} withHeaderData={false}/>
+                    {/each}
+                {/if}
+            </div>
+            <Pagination page={page} total={$tree.badgeClasses.length} pageCount={PAGE_COUNT} onChange={nbr => page = nbr}/>
+        </div>
+    {:else}
+        <Spinner/>
+    {/if}
 
 </div>
