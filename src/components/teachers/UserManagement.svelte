@@ -30,6 +30,7 @@
     import {searchMultiple} from "../../util/searchData";
     import {flash} from "../../stores/flash";
     import ListLink from "./ListLink.svelte";
+    import {pageCount} from "../../util/pagination";
 
     export let entity;
     export let entityId;
@@ -261,6 +262,10 @@
         staffSort.sortType
     );
 
+    let page = 1;
+    $: minimalPage = Math.min(page, Math.ceil(sortedFilteredStaffs.length / pageCount));
+
+
     const onCheckAll = val => {
         selection = val ? staffs.filter(({_staffType}) => {
             if (_staffType === staffType.USER_PROVISIONMENT) {
@@ -343,10 +348,13 @@
     bind:buttons={buttons}
     bind:search={staffSearch}
     bind:sort={staffSort}
+    filteredCount={sortedFilteredStaffs.length}
+    page={minimalPage}
+    onPageChange={nbr => page = nbr}
     {checkAllValue}
     bind:disabledCheckAll={disabledCheckAll}
   >
-    {#each sortedFilteredStaffs as {
+    {#each sortedFilteredStaffs.slice((minimalPage - 1) * pageCount, minimalPage * pageCount) as {
         _staffType,
         user,
         entityId,

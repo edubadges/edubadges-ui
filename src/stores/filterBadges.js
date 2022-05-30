@@ -1,6 +1,7 @@
 import {derived, writable} from "svelte/store";
 import {badgeClassFilterTypes} from "../util/catalogFilters";
 import I18n from "i18n-js";
+import {catalogPageCount} from "../util/pagination";
 
 export const sortTarget = writable();
 export const faculties = writable([]);
@@ -10,7 +11,7 @@ export const facultyIds = writable([]);
 export const issuerIds = writable([]);
 export const awardFilter = writable(true);
 export const typeBadgeClassSelected = writable([]);
-
+export const page = writable(1);
 
 export const filterBySearch = (badgeclasses, search) => {
     if (!search || search.trim().length === 0) {
@@ -51,8 +52,8 @@ export const selectedEntity = derived(
 );
 
 export const tree = derived(
-    [faculties, awardFilter, search, facultyIds, issuerIds, typeBadgeClassSelected, sortTarget],
-    ([faculties, awardFilter, search, facultyIds, issuerIds, typeBadgeClassSelected, sortTarget]) => {
+    [faculties, awardFilter, search, page, facultyIds, issuerIds, typeBadgeClassSelected, sortTarget],
+    ([faculties, awardFilter, search, page, facultyIds, issuerIds, typeBadgeClassSelected, sortTarget]) => {
         const tree = faculties.filter(
             ({entityId}) => !facultyIds.length || facultyIds.includes(entityId)
         ).reduce(
@@ -128,10 +129,14 @@ export const tree = derived(
             })));
 
         tree.badgeClassTypes = badgeClassTypes;
+        const minimalPage = Math.min(page, Math.ceil(sortedBadgeClasses.length / catalogPageCount))
+
         return {
             faculties: sort(tree.faculties, true),
             issuers: sort(tree.issuers, true),
             badgeClasses: sortedBadgeClasses,
+            paginatedBadges: sortedBadgeClasses.slice((minimalPage - 1) * catalogPageCount, minimalPage * catalogPageCount),
+            page: minimalPage,
             badgeClassTypes: sort(tree.badgeClassTypes, true)
         };
     },

@@ -16,6 +16,7 @@
     import {onMount} from "svelte";
     import {queryData} from "../../api/graphql";
     import Spinner from "../Spinner.svelte";
+    import {pageCount} from "../../util/pagination";
 
     let enrollments = [];
     let selection = [];
@@ -92,7 +93,7 @@
             const enrollment = findEnrollment(selection[0]);
             const badgeClass = enrollment.badgeClass;
             evidenceRequired = badgeClass.evidenceRequired;
-            narrativeRequired= badgeClass.narrativeRequired;
+            narrativeRequired = badgeClass.narrativeRequired;
             description = enrollment.narrative;
             url = enrollment.evidenceUrl;
             showAwardModal = true;
@@ -109,7 +110,7 @@
                     acc[enrollment.badgeClass.entityId] = [sel]
                 }
                 return acc;
-            },{});
+            }, {});
             Promise.all(Object.entries(enrollmentsGroupedByBadgeClass).map(arr => {
                 return awardBadges(arr[0], arr[1], useEvidence, narrative, url, name, description);
             })).then(() => {
@@ -237,6 +238,10 @@
         enrollmentSort.reverse,
         enrollmentSort.sortType
     );
+
+    let page = 1;
+    $: minimalPage = Math.min(page, Math.ceil(sortedFilteredEnrollments.length / pageCount));
+
 </script>
 
 <style lang="scss">
@@ -255,6 +260,7 @@
 
   td.evidenceNarrativeRequired ul {
     list-style: circle;
+
     li {
       margin-left: 20px;
     }
@@ -276,6 +282,9 @@
             bind:search={enrollmentSearch}
             bind:sort={enrollmentSort}
             isEmpty={enrollments.length === 0}
+            filteredCount={sortedFilteredEnrollments.length}
+            page={minimalPage}
+            onPageChange={nbr => page = nbr}
             withCheckAll={true}
             checkAllDisabled={enrollments.every(e => e.evidenceNarrativeRequired)}
             {onCheckAll}
@@ -287,7 +296,7 @@
                     text={I18n.t('models.enrollment.deny')} disabled={selection.length === 0} secondary={true}/>
         </div>
 
-        {#each sortedFilteredEnrollments as enrollment}
+        {#each sortedFilteredEnrollments.slice((minimalPage - 1) * pageCount, minimalPage * pageCount) as enrollment}
             <tr>
                 <td>
                     <CheckBox
@@ -313,19 +322,19 @@
                 <td class="evidenceNarrativeRequired">
                     {#if enrollment.evidenceNarrativeRequired}
                         <ul>
-                        {#if enrollment.badgeClass.evidenceRequired}
-                            <li>{I18n.t("models.enrollment.enrollmentType.evidence")}</li>
-                        {/if}
-                        {#if enrollment.badgeClass.narrativeRequired}
-                            <li>{I18n.t("models.enrollment.enrollmentType.narrative")}</li>
-                        {/if}
-                        {#if enrollment.badgeClass.narrativeStudentRequired}
-                            <li>{I18n.t("models.enrollment.enrollmentType.narrativeStudent")}</li>
-                        {/if}
-                        {#if enrollment.badgeClass.evidenceStudentRequired}
-                            <li>{I18n.t("models.enrollment.enrollmentType.evidenceStudent")}</li>
-                        {/if}
-                            </ul>
+                            {#if enrollment.badgeClass.evidenceRequired}
+                                <li>{I18n.t("models.enrollment.enrollmentType.evidence")}</li>
+                            {/if}
+                            {#if enrollment.badgeClass.narrativeRequired}
+                                <li>{I18n.t("models.enrollment.enrollmentType.narrative")}</li>
+                            {/if}
+                            {#if enrollment.badgeClass.narrativeStudentRequired}
+                                <li>{I18n.t("models.enrollment.enrollmentType.narrativeStudent")}</li>
+                            {/if}
+                            {#if enrollment.badgeClass.evidenceStudentRequired}
+                                <li>{I18n.t("models.enrollment.enrollmentType.evidenceStudent")}</li>
+                            {/if}
+                        </ul>
                     {:else}
                         <span>-</span>
                     {/if}

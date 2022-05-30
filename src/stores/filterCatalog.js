@@ -1,11 +1,14 @@
 import {derived, writable} from "svelte/store";
 import {filterBySearch, sort, sortBadgeAssertions, sortCreatedAt} from "./filterBadges";
-import {badgeClassFilterTypes, badgeClassTypes, educationalLevels, studyLoadCategories} from "../util/catalogFilters";
+import {badgeClassFilterTypes, educationalLevels, studyLoadCategories} from "../util/catalogFilters";
 import I18n from "i18n-js";
+import {catalogPageCount} from "../util/pagination";
+
 
 export const sortTarget = writable();
 export const badgeClasses = writable([]);
 export const search = writable();
+export const page = writable(1);
 
 export const educationalLevelSelected = writable([]);
 export const institutionSelected = writable([]);
@@ -16,9 +19,9 @@ export const eqfLevelSelected = writable([]);
 export const typeBadgeClassSelected = writable([]);
 
 export const tree = derived(
-    [badgeClasses, search, educationalLevelSelected, institutionSelected, facultySelected, issuerSelected,
+    [badgeClasses, search, page, educationalLevelSelected, institutionSelected, facultySelected, issuerSelected,
         studyLoadSelected, eqfLevelSelected, typeBadgeClassSelected, sortTarget],
-    ([badgeClasses, search, educationalLevelSelected, institutionSelected, facultySelected, issuerSelected,
+    ([badgeClasses, search, page, educationalLevelSelected, institutionSelected, facultySelected, issuerSelected,
          studyLoadSelected, eqfLevelSelected, typeBadgeClassSelected, sortTarget]) => {
         const filteredBadgeClasses = filterBySearch(badgeClasses, search)
             .filter(badge => {
@@ -153,26 +156,19 @@ export const tree = derived(
                 count: 0
             })));
 
-        const tree = {
-            filteredBadgeClasses,
-            educationLevels,
-            institutions,
-            faculties,
-            issuers,
-            studyLoads,
-            eqfLevels,
-            badgeClassTypes
-        };
-        const sortedBadgeClasses = (sortTarget && sortTarget.value === "recent") ? sortCreatedAt(tree.filteredBadgeClasses) : sortBadgeAssertions(tree.filteredBadgeClasses);
+        const sortedBadgeClasses = (sortTarget && sortTarget.value === "recent") ? sortCreatedAt(filteredBadgeClasses) : sortBadgeAssertions(filteredBadgeClasses);
 
+        const minimalPage = Math.min(page, Math.ceil(sortedBadgeClasses.length / catalogPageCount))
         return {
             badgeClasses: sortedBadgeClasses,
-            educationLevels: sort(tree.educationLevels, true),
-            institutions: sort(tree.institutions, true),
-            faculties: sort(tree.faculties, true),
-            issuers: sort(tree.issuers, true),
-            studyLoads: sort(tree.studyLoads, true),
-            eqfLevels: sort(tree.eqfLevels, true),
-            badgeClassTypes: sort(tree.badgeClassTypes, true)
+            paginatedBadges: sortedBadgeClasses.slice((minimalPage - 1) * catalogPageCount, minimalPage * catalogPageCount),
+            page: minimalPage,
+            educationLevels: sort(educationLevels, true),
+            institutions: sort(institutions, true),
+            faculties: sort(faculties, true),
+            issuers: sort(issuers, true),
+            studyLoads: sort(studyLoads, true),
+            eqfLevels: sort(eqfLevels, true),
+            badgeClassTypes: sort(badgeClassTypes, true)
         };
     });

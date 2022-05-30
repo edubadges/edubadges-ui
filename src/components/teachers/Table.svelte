@@ -1,36 +1,42 @@
 <script>
-  import I18n from "i18n-js";
-  import {Button, CheckBox, Search} from "../../components";
-  import {TableHeaders} from "../teachers";
-  import {sortType} from "../../util/sortData";
+    import I18n from "i18n-js";
+    import {Button, CheckBox, Search} from "../../components";
+    import {TableHeaders} from "../teachers";
+    import {sortType} from "../../util/sortData";
+    import Pagination from "../Pagination.svelte";
+    import {pageCount} from "../../util/pagination";
 
-  export let mayCreate;
-  export let entity = "";
-  export let pathParameters = [];
-  export let title = "";
-  export let tableHeaders = [];
-  export let search = "";
-  export let sort = {
-    attribute: null,
-    reverse: false,
-    sortType: sortType.ALPHA
-  };
+    export let mayCreate;
+    export let entity = "";
+    export let pathParameters = [];
+    export let title = "";
+    export let tableHeaders = [];
+    export let search = "";
+    export let sort = {
+        attribute: null,
+        reverse: false,
+        sortType: sortType.ALPHA
+    };
 
-  export let withCheckAll;
-  export let checkAllValue;
-  export let onCheckAll;
-  export let checkAllDisabled = false;
-  export let isEmpty;
-  export let hideSearch;
-  export let full = false;
+    export let withCheckAll;
+    export let checkAllValue;
+    export let onCheckAll;
+    export let checkAllDisabled = false;
+    export let isEmpty;
+    export let hideSearch;
+    export let full = false;
+    //Pagination
+    export let filteredCount;
+    export let page;
+    export let onPageChange;
 
-  const setSort = tableHeader => {
-    if (sort.attribute === tableHeader.attribute) {
-      sort.reverse = !sort.reverse;
-    } else {
-      sort = tableHeader;
-    }
-  };
+    const setSort = tableHeader => {
+        if (sort.attribute === tableHeader.attribute) {
+            sort.reverse = !sort.reverse;
+        } else {
+            sort = tableHeader;
+        }
+    };
 </script>
 
 <style lang="scss">
@@ -44,7 +50,7 @@
     justify-content: space-between;
     margin-bottom: var(--ver-padding-m);
     align-items: center;
-    
+
     :global(> *:not(:last-child)) {
       margin-right: var(--hor-padding-s);
     }
@@ -74,33 +80,40 @@
 </style>
 
 <div class="container main-content-margin" class:full={full}>
-  <div class="header">
-    <h3>{title}</h3>
-    {#if !hideSearch}
-      <Search bind:value={search}/>
-    {/if}
-    {#if mayCreate}
-      <Button
-        href={`/manage/${entity}/new/${pathParameters.join("/")}`}
-        text={I18n.t(['manage', 'new', entity])}/>
-    {/if}
-  </div>
-  <slot name="check-buttons"/>
-  <table class="entity-table">
-    <thead>
-    {#if !isEmpty}
-      <tr>
-        {#if withCheckAll}
-          <th class="checker">
-            <CheckBox bind:value={checkAllValue} onChange={onCheckAll} disabled={checkAllDisabled}/>
-          </th>
+    <div class="header">
+        <h3>{title}</h3>
+        {#if !hideSearch}
+            <Search bind:value={search}/>
         {/if}
-        <TableHeaders {tableHeaders} {setSort} {sort}/>
-      </tr>
+        {#if mayCreate}
+            <Button
+                    href={`/manage/${entity}/new/${pathParameters.join("/")}`}
+                    text={I18n.t(['manage', 'new', entity])}/>
+        {/if}
+    </div>
+    <slot name="check-buttons"/>
+    <table class="entity-table">
+        <thead>
+        {#if !isEmpty}
+            <tr>
+                {#if withCheckAll}
+                    <th class="checker">
+                        <CheckBox bind:value={checkAllValue} onChange={onCheckAll} disabled={checkAllDisabled}/>
+                    </th>
+                {/if}
+                <TableHeaders {tableHeaders} {setSort} {sort}/>
+            </tr>
+        {/if}
+        </thead>
+        <tbody>
+        <slot/>
+        </tbody>
+    </table>
+    {#if onPageChange}
+        <Pagination currentPage={page}
+                    total={filteredCount}
+                    onChange={onPageChange}
+                    pageCount={pageCount}/>
     {/if}
-    </thead>
-    <tbody>
-    <slot/>
-    </tbody>
-  </table>
+
 </div>

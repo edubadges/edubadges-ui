@@ -5,6 +5,7 @@
     import Table from "../Table.svelte";
     import {onMount} from "svelte";
     import awardIcon from "../../../icons/award-ribbon-star-1.svg";
+    import {pageCount} from "../../../util/pagination";
 
     export let users = [];
     export let gradesLineItems = [];
@@ -81,6 +82,9 @@
         gradeSort.sortType
     );
 
+    let page = 1;
+    $: minimalPage = Math.min(page, Math.ceil(sortedFilteredGrades.length / pageCount));
+
 
 </script>
 
@@ -100,8 +104,11 @@
             bind:search={gradeSearch}
             bind:sort={gradeSort}
             isEmpty={grades.length === 0}
+                    filteredCount={sortedFilteredGrades.length}
+        page={minimalPage}
+        onPageChange={nbr => page = nbr}
             mayCreate={false}>
-        {#each sortedFilteredGrades as grade}
+        {#each sortedFilteredGrades.slice((minimalPage - 1) * pageCount, minimalPage * pageCount) as grade}
             <tr>
                 <td>
                     <div class="img-container">

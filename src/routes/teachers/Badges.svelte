@@ -11,6 +11,8 @@
     import {translateProperties} from "../../util/utils";
     import {badgeClassFilterTypes, sortTargetOptions} from "../../util/catalogFilters";
     import Pagination from "../../components/Pagination.svelte";
+    import {catalogPageCount, pageCount} from "../../util/pagination";
+    import {page} from "../../stores/filterBadges";
 
     const query = `query {
     faculties {
@@ -52,9 +54,7 @@
   }`;
 
     let loaded;
-    let page = 1;
     let view = "cards";
-    let paginatedBadges = [];
 
     onMount(() => {
         queryData(query).then(res => {
@@ -100,10 +100,6 @@
             loaded = true;
         });
     });
-
-    const PAGE_COUNT = 2;
-
-    $: paginatedBadges = $tree.badgeClasses.slice((page - 1) * PAGE_COUNT, page * PAGE_COUNT);
 
 </script>
 
@@ -162,14 +158,17 @@
 
             <div class={`badges ${view === "list" ? "list" : "cards"}`}>
                 {#if view === "list"}
-                    <BadgeListView badges={paginatedBadges} isBadgesClass={true}/>
+                    <BadgeListView badges={$tree.paginatedBadges} isBadgesClass={true}/>
                 {:else}
-                    {#each paginatedBadges as badge}
+                    {#each $tree.paginatedBadges as badge}
                         <BadgeCard withPendingEnrollments={true} badgeClass={badge} withHeaderData={false}/>
                     {/each}
                 {/if}
             </div>
-            <Pagination page={page} total={$tree.badgeClasses.length} pageCount={PAGE_COUNT} onChange={nbr => page = nbr}/>
+            <Pagination currentPage={$tree.page}
+                        total={$tree.badgeClasses.length}
+                        onChange={nbr => $page = nbr}
+                        pageCount={catalogPageCount}/>
         </div>
     {:else}
         <Spinner/>

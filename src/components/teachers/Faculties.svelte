@@ -6,6 +6,7 @@
     import {sort, sortType} from "../../util/sortData";
     import {entityType} from "../../util/entityTypes";
     import {facultyIcon} from "../../icons";
+    import {pageCount} from "../../util/pagination";
 
     export let faculties = [];
     export let mayCreate;
@@ -62,6 +63,10 @@
         facultySort.reverse,
         facultySort.sortType
     );
+
+    let page = 1;
+    $: minimalPage = Math.min(page, Math.ceil(sortedFilteredFaculties.length / pageCount));
+
 </script>
 
 <style>
@@ -72,28 +77,32 @@
 </style>
 
 <Table
-  {...table}
-  bind:search={facultySearch}
-  bind:sort={facultySort}
-  isEmpty={faculties.length === 0}
-  {mayCreate}>
-  {#each sortedFilteredFaculties as faculty (faculty.entityId)}
-    <tr
-      class="click"
-      on:click={() => navigate(`/manage/faculty/${faculty.entityId}`)}>
-      <td>
-        <span class="icon">{@html facultyIcon}</span>
-      </td>
-      <td>{faculty.name}</td>
-      <td class="center">{faculty.issuerCount === 0 ? "-" : faculty.issuerCount}</td>
-      <td class="center">{faculty.pendingEnrollmentCount === 0 ? "-" : faculty.pendingEnrollmentCount}</td>
-      <td></td>
-    </tr>
-  {/each}
-  {#if faculties.length === 0}
-    <tr>
-      <td colspan="3">{I18n.t("zeroState.faculties", {name: institutionName})}</td>
-    </tr>
-  {/if}
+        {...table}
+        bind:search={facultySearch}
+        bind:sort={facultySort}
+        isEmpty={faculties.length === 0}
+        filteredCount={sortedFilteredFaculties.length}
+        page={minimalPage}
+        onPageChange={nbr => page = nbr}
+
+        {mayCreate}>
+    {#each sortedFilteredFaculties.slice((minimalPage - 1) * pageCount, minimalPage * pageCount) as faculty (faculty.entityId)}
+        <tr
+                class="click"
+                on:click={() => navigate(`/manage/faculty/${faculty.entityId}`)}>
+            <td>
+                <span class="icon">{@html facultyIcon}</span>
+            </td>
+            <td>{faculty.name}</td>
+            <td class="center">{faculty.issuerCount === 0 ? "-" : faculty.issuerCount}</td>
+            <td class="center">{faculty.pendingEnrollmentCount === 0 ? "-" : faculty.pendingEnrollmentCount}</td>
+            <td></td>
+        </tr>
+    {/each}
+    {#if faculties.length === 0}
+        <tr>
+            <td colspan="3">{I18n.t("zeroState.faculties", {name: institutionName})}</td>
+        </tr>
+    {/if}
 
 </Table>

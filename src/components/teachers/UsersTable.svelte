@@ -2,6 +2,8 @@
     import {Button, CheckBox, Search} from "../../components";
     import {UsersTableHeaders} from "../teachers";
     import {sortType} from "../../util/sortData";
+    import {pageCount} from "../../util/pagination";
+    import Pagination from "../Pagination.svelte";
 
     export let title = "";
     export let subTitle = "";
@@ -18,6 +20,10 @@
     export let onCheckAll;
     export let isEmpty;
     export let disabledCheckAll = false;
+    //Pagination
+    export let filteredCount;
+    export let page;
+    export let onPageChange;
 
     export let buttons = [];
 
@@ -98,4 +104,11 @@
         <slot/>
         </tbody>
     </table>
+    {#if onPageChange}
+        <Pagination currentPage={page}
+                    total={filteredCount}
+                    onChange={onPageChange}
+                    pageCount={pageCount}/>
+    {/if}
+
 </div>

@@ -5,6 +5,7 @@
     import {sort, sortType} from "../../../util/sortData";
     import {onMount} from "svelte";
     import {navigate} from "svelte-routing";
+    import {pageCount} from "../../../util/pagination";
 
     export let directAwardBundles = [];
     export let badgeClass;
@@ -81,45 +82,52 @@
         directAwardBundleSort.reverse,
         directAwardBundleSort.sortType
     );
+
+    let page = 1;
+    $: minimalPage = Math.min(page, Math.ceil(sortedDirectAwardBundles.length / pageCount));
+
 </script>
 
 <style lang="scss">
 </style>
 
 <Table
-  {...table}
-  bind:sort={directAwardBundleSort}
-  hideSearch={true}
-  isEmpty={directAwardBundles.length === 0}>
-  {#each sortedDirectAwardBundles as dab}
-    <tr class="click"
-        on:click={() => navigate(`/badgeclass/${badgeClass.entityId}/award-details/${dab.entityId}`)}>
-      <td>
-        {moment(dab.createdAt).format('MMM D, YYYY')}
-      </td>
-      <td>
-        {dab.directAwardCount}
-      </td>
-      <td>
-        {dab.directAwardRejectedCount}
-      </td>
-      <td>
-        {dab.directAwardRevokedCount}
-      </td>
-      <td>
-        {dab.assertionCount}
-      </td>
-      <td>
-        {dab.initialTotal}
-      </td>
-      <td>
-        {dab.rateClaim}
-      </td>
-    </tr>
-  {/each}
-  {#if directAwardBundles.length === 0}
-    <tr>
-      <td colspan="6">{I18n.t("zeroState.directAwardBundles", {name: badgeClass.name})}</td>
-    </tr>
-  {/if}
+        {...table}
+        bind:sort={directAwardBundleSort}
+        hideSearch={true}
+        isEmpty={directAwardBundles.length === 0}
+        filteredCount={sortedDirectAwardBundles.length}
+        page={minimalPage}
+        onPageChange={nbr => page = nbr}>
+    {#each sortedDirectAwardBundles.slice((minimalPage - 1) * pageCount, minimalPage * pageCount) as dab}
+        <tr class="click"
+            on:click={() => navigate(`/badgeclass/${badgeClass.entityId}/award-details/${dab.entityId}`)}>
+            <td>
+                {moment(dab.createdAt).format('MMM D, YYYY')}
+            </td>
+            <td>
+                {dab.directAwardCount}
+            </td>
+            <td>
+                {dab.directAwardRejectedCount}
+            </td>
+            <td>
+                {dab.directAwardRevokedCount}
+            </td>
+            <td>
+                {dab.assertionCount}
+            </td>
+            <td>
+                {dab.initialTotal}
+            </td>
+            <td>
+                {dab.rateClaim}
+            </td>
+        </tr>
+    {/each}
+    {#if directAwardBundles.length === 0}
+        <tr>
+            <td colspan="6">{I18n.t("zeroState.directAwardBundles", {name: badgeClass.name})}</td>
+        </tr>
+    {/if}
 </Table>

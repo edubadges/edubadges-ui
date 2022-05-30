@@ -1,11 +1,11 @@
 <script>
-    import {onMount} from "svelte";
     import {navigate} from "svelte-routing";
     import I18n from "i18n-js";
     import {Table} from "../teachers";
     import {search} from "../../util/searchData";
     import {sort, sortType} from "../../util/sortData";
     import {issuerIcon} from "../../icons";
+    import {pageCount} from "../../util/pagination";
 
     export let mayCreate;
     export let issuers = [];
@@ -75,13 +75,17 @@
 
     let issuerSort = tableHeaders[2];
 
-    let sortedFilteredIssuers = [];
+    let sortedFilteredIssuers;
     $: sortedFilteredIssuers = sort(
         issuers.filter(el => searchedIssuerIds.includes(el.entityId)),
         issuerSort.attribute,
         issuerSort.reverse,
         issuerSort.sortType
     );
+
+    let page = 1;
+    $: minimalPage = Math.min(page, Math.ceil(sortedFilteredIssuers.length / pageCount));
+
 </script>
 
 <style>
@@ -119,9 +123,12 @@
         bind:search={issuerSearch}
         bind:sort={issuerSort}
         isEmpty={issuers.length === 0}
+        filteredCount={sortedFilteredIssuers.length}
+        page={minimalPage}
+        onPageChange={nbr => page = nbr}
         pathParameters={facultyEntityId ? [facultyEntityId] : []}
         {mayCreate}>
-    {#each sortedFilteredIssuers as issuer (issuer.entityId)}
+    {#each sortedFilteredIssuers.slice((minimalPage - 1) * pageCount, minimalPage * pageCount) as issuer (issuer.entityId)}
         <tr
                 class="click"
                 on:click={() => navigate(`/manage/issuer/${issuer.entityId}`)}>

@@ -1,5 +1,9 @@
+export const catalogPageCount = 10;
+export const pageCount = 10;
+export const selectAllPageCount = 25;
+
 //https://gist.github.com/kottenator/9d936eb3e4e3c3e02598
-export default function pagination(page, totalResults) {
+export const pagination = (page, totalResults) => {
     const current = page,
         last = totalResults,
         delta = 2,
@@ -27,6 +31,5 @@ export default function pagination(page, totalResults) {
         rangeWithDots.push(i);
         l = i;
     }
-
     return rangeWithDots;
 }

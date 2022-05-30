@@ -6,6 +6,7 @@
     import {roles} from "../../../util/lti";
     import Table from "../Table.svelte";
     import {onMount} from "svelte";
+    import {pageCount} from "../../../util/pagination";
 
     export let users = [];
 
@@ -77,6 +78,8 @@
         userSort.sortType
     );
 
+    let page = 1;
+    $: minimalPage = Math.min(page, Math.ceil(sortedFilteredUsers.length / pageCount));
 
 </script>
 
@@ -96,8 +99,11 @@
             bind:search={userSearch}
             bind:sort={userSort}
             isEmpty={users.length === 0}
+        filteredCount={sortedFilteredUsers.length}
+        page={minimalPage}
+        onPageChange={nbr => page = nbr}
             mayCreate={false}>
-        {#each sortedFilteredUsers as user}
+        {#each sortedFilteredUsers.slice((minimalPage - 1) * pageCount, minimalPage * pageCount) as user}
             <tr>
                 <td>
                     <div class="img-container">

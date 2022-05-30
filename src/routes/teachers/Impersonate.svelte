@@ -11,6 +11,7 @@
     import {impersonate} from "../../api";
     import Modal from "../../components/forms/Modal.svelte";
     import {authToken, userImpersonated, userLoggedIn} from "../../stores/user";
+    import {pageCount} from "../../util/pagination";
 
     let allUsers = [];
     let showConfirmationModal = false;
@@ -141,6 +142,10 @@
         userSort.reverse,
         userSort.sortType
     );
+
+    let page = 1;
+    $: minimalPage = Math.min(page, Math.ceil(sortedFilteredUsers.length / pageCount));
+
 </script>
 
 <style lang="scss">
@@ -156,40 +161,43 @@
 </style>
 
 <div class="page-container">
-  {#if loaded}
-    <div class="content">
-      <h2>All users</h2>
-      <Table
-        {...table}
-        bind:search={searchUsers}
-        bind:sort={userSort}
-        isEmpty={allUsers.length === 0}
-        mayCreate={false}>
-        {#each sortedFilteredUsers as user (user.entityId)}
-          <tr class="click" on:click={() => impersonateUser(user, true)}
-          >
-            <td>
-              {user.firstName} {user.lastName}
-              <br/>
-              <span class="sub-text">{user.email}</span>
-            </td>
-            <td>
-              {I18n.t(['editUsers', 'roles', user.role])}
-              <br/>
-              <span class="sub-text">{user.roleAt}</span>
-            </td>
-          </tr>
-        {/each}
-      </Table>
-    </div>
-  {:else}
-    <Spinner/>
-  {/if}
+    {#if loaded}
+        <div class="content">
+            <h2>All users</h2>
+            <Table
+                    {...table}
+                    bind:search={searchUsers}
+                    bind:sort={userSort}
+                    isEmpty={allUsers.length === 0}
+                    filteredCount={sortedFilteredUsers.length}
+                    page={minimalPage}
+                    onPageChange={nbr => page = nbr}
+                    mayCreate={false}>
+                {#each sortedFilteredUsers.slice((minimalPage - 1) * pageCount, minimalPage * pageCount) as user (user.entityId)}
+                    <tr class="click" on:click={() => impersonateUser(user, true)}
+                    >
+                        <td>
+                            {user.firstName} {user.lastName}
+                            <br/>
+                            <span class="sub-text">{user.email}</span>
+                        </td>
+                        <td>
+                            {I18n.t(['editUsers', 'roles', user.role])}
+                            <br/>
+                            <span class="sub-text">{user.roleAt}</span>
+                        </td>
+                    </tr>
+                {/each}
+            </Table>
+        </div>
+    {:else}
+        <Spinner/>
+    {/if}
 </div>
 {#if showConfirmationModal}
-  <Modal
-    submit={() => impersonateUser(selectedUser, false)}
-    cancel={() => showConfirmationModal = false}
-    question={I18n.t("impersonate.confirmation", {name: `${selectedUser.firstName} ${selectedUser.lastName}`})}
-    title={I18n.t("impersonate.title")}/>
+    <Modal
+            submit={() => impersonateUser(selectedUser, false)}
+            cancel={() => showConfirmationModal = false}
+            question={I18n.t("impersonate.confirmation", {name: `${selectedUser.firstName} ${selectedUser.lastName}`})}
+            title={I18n.t("impersonate.title")}/>
 {/if}

@@ -7,6 +7,7 @@
     import singleNeutralCheck from "../../../icons/single-neutral-check.svg";
     import {assertionStatus, assertionStatusClass} from "../../../util/assertions";
     import moment from "moment";
+    import {pageCount} from "../../../util/pagination";
 
     export let directAwardBundle;
 
@@ -60,6 +61,9 @@
         assertionsSort.sortType
     );
 
+    let page = 1;
+    $: minimalPage = Math.min(page, Math.ceil(sortedFilteredAssertions.length / pageCount));
+
 </script>
 
 <style lang="scss">
@@ -79,7 +83,11 @@
     bind:search={assertionSearch}
     bind:sort={assertionsSort}
     isEmpty={filteredAssertions.length === 0}>
-    {#each sortedFilteredAssertions as assertion}
+            filteredCount={sortedFilteredAssertions.length}
+        page={minimalPage}
+        onPageChange={nbr => page = nbr}
+
+    {#each sortedFilteredAssertions.slice((minimalPage - 1) * pageCount, minimalPage * pageCount) as assertion}
       <tr>
         <td class="single-neutral-check">
           <div class="single-neutral-check">

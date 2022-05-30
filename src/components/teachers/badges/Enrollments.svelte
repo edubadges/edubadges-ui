@@ -15,6 +15,7 @@
     import {onMount} from "svelte";
     import Spinner from "../../Spinner.svelte";
     import Tooltip from "../../../components/Tooltip.svelte";
+    import {pageCount} from "../../../util/pagination";
 
     export let entityId;
     export let enrollments = [];
@@ -188,6 +189,10 @@
         enrollmentSort.reverse,
         enrollmentSort.sortType
     );
+
+    let page = 1;
+    $: minimalPage = Math.min(page, Math.ceil(sortedFilteredEnrollments.length / pageCount));
+
 </script>
 
 <style lang="scss">
@@ -231,6 +236,9 @@
         bind:search={enrollmentSearch}
         bind:sort={enrollmentSort}
         isEmpty={enrollments.length === 0}
+        filteredCount={sortedFilteredEnrollments.length}
+        page={minimalPage}
+        onPageChange={nbr => page = nbr}
         withCheckAll={true}
         checkAllDisabled={enrollments.filter(enrollment => !enrollment.denied).length === 0 || !badgeClass.permissions.mayAward || badgeClass.evidenceRequired || badgeClass.narrativeRequired}
         bind:checkAllValue>
@@ -251,7 +259,7 @@
 
     </div>
 
-    {#each sortedFilteredEnrollments as enrollment}
+    {#each sortedFilteredEnrollments.slice((minimalPage - 1) * pageCount, minimalPage * pageCount) as enrollment}
         <tr>
             <td>
                 <CheckBox
