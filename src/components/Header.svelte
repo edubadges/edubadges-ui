@@ -53,13 +53,15 @@
     let showModal = false;
     let showFeedback = false;
     let profile = {};
+    const uaLower = window.navigator.userAgent.toLowerCase();
 
     onMount(() => {
+
         if ($userRole === role.TEACHER && $authToken) {
             getProfile().then(res => {
                 profile = res;
             }).catch(() => {
-              doLogOut();
+                doLogOut();
             });
         }
     });
@@ -108,6 +110,10 @@
     }
 
   }
+  a img.logo {
+    vertical-align: middle;
+    width: 150px;
+  }
 
   a :global(svg.edubadges-logo) {
     vertical-align: middle;
@@ -153,64 +159,69 @@
 </style>
 
 <header>
-  <a href="/" use:link class:demo={config.isDemoEnvironment}>
-    {@html logo}
-  </a>
-  {#if config.isDemoEnvironment}
+    <a href="/" use:link class:demo={config.isDemoEnvironment}>
+        {#if uaLower.indexOf("safari") > -1 && uaLower.indexOf("chrome") < 0}
+            <img class="logo" src="img/logo.png" alt="logo"/>
+        {:else}
+            {@html logo}
+        {/if}
+    </a>
+
+    {#if config.isDemoEnvironment}
     <span class="demo" on:click={() => showModal = true}>
       {I18n.t("header.demo")}{@html question}
     </span>
-  {/if}
+    {/if}
 
-  <div class="slot-container">
-    <slot/>
-  </div>
-
-  {#if $userLoggedIn}
-    <div
-      class="expand-menu click"
-      on:click={() => (menuOpen = !menuOpen)}
-      use:clickOutside
-      on:clickOutside={() => (menuOpen = false)}>
-      {@html menuOpen ? chevronUp : chevronDown}
-      <div class="menu card" class:show={menuOpen}>
-        {#if $userRole === role.STUDENT}
-          <div class="profile-menu" on:click={() => navigate("/")}>{I18n.t('header.home')}</div>
-        {/if}
-        <div class="profile-menu" on:click={() => navigate("/profile")}>{I18n.t('header.profile')}</div>
-        {#if $userRole === role.TEACHER}
-          <div class="profile-menu"
-               on:click={() => navigate("/permissions/institution")}>{I18n.t('header.permissions')}</div>
-        {/if}
-        {#if $userRole === role.TEACHER}
-          <div class="profile-menu"
-               on:click={() => navigate("/notifications")}>{I18n.t('header.notifications')}</div>
-        {/if}
-        {#if profile.is_superuser}
-          <div class="profile-menu"
-               on:click={() => navigate("/impersonate")}>{I18n.t('header.impersonate')}</div>
-        {:else if $userImpersonated === "true"}
-          <div class="profile-menu"
-               on:click={clearImpersonation}>{I18n.t('header.clearImpersonation')}</div>
-        {/if}
-        {#if $userRole === role.STUDENT}
-          <div class="profile-menu" on:click={() => navigate("/catalog")}>{I18n.t('header.nav.catalog')}</div>
-        {/if}
-        <div class="profile-menu" on:click={() => showFeedback = true}>{I18n.t('header.feedback')}</div>
-        <div class="profile-menu" on:click={logoutUser}>{I18n.t('header.logout')}</div>
-      </div>
+    <div class="slot-container">
+        <slot/>
     </div>
-  {/if}
+
+    {#if $userLoggedIn}
+        <div
+                class="expand-menu click"
+                on:click={() => (menuOpen = !menuOpen)}
+                use:clickOutside
+                on:clickOutside={() => (menuOpen = false)}>
+            {@html menuOpen ? chevronUp : chevronDown}
+            <div class="menu card" class:show={menuOpen}>
+                {#if $userRole === role.STUDENT}
+                    <div class="profile-menu" on:click={() => navigate("/")}>{I18n.t('header.home')}</div>
+                {/if}
+                <div class="profile-menu" on:click={() => navigate("/profile")}>{I18n.t('header.profile')}</div>
+                {#if $userRole === role.TEACHER}
+                    <div class="profile-menu"
+                         on:click={() => navigate("/permissions/institution")}>{I18n.t('header.permissions')}</div>
+                {/if}
+                {#if $userRole === role.TEACHER}
+                    <div class="profile-menu"
+                         on:click={() => navigate("/notifications")}>{I18n.t('header.notifications')}</div>
+                {/if}
+                {#if profile.is_superuser}
+                    <div class="profile-menu"
+                         on:click={() => navigate("/impersonate")}>{I18n.t('header.impersonate')}</div>
+                {:else if $userImpersonated === "true"}
+                    <div class="profile-menu"
+                         on:click={clearImpersonation}>{I18n.t('header.clearImpersonation')}</div>
+                {/if}
+                {#if $userRole === role.STUDENT}
+                    <div class="profile-menu" on:click={() => navigate("/catalog")}>{I18n.t('header.nav.catalog')}</div>
+                {/if}
+                <div class="profile-menu" on:click={() => showFeedback = true}>{I18n.t('header.feedback')}</div>
+                <div class="profile-menu" on:click={logoutUser}>{I18n.t('header.logout')}</div>
+            </div>
+        </div>
+    {/if}
 </header>
 {#if showModal}
-  <Modal
-    submit={() => showModal = false}
-    question={I18n.t("header.demo")}
-    title={I18n.t("header.demo")}>
-    <span>{@html I18n.t("demo.info")}</span>
-  </Modal>
+    <Modal
+            submit={() => showModal = false}
+            question={I18n.t("header.demo")}
+            title={I18n.t("header.demo")}>
+        <span>{@html I18n.t("demo.info")}</span>
+    </Modal>
 {/if}
 
 {#if showFeedback}
-  <Feedback close={() => showFeedback = false}/>
+    <Feedback close={() => showFeedback = false}/>
 {/if}
