@@ -194,6 +194,7 @@
 
             showModal = false;
             loaded = true;
+
             queryData(badgeInstanceCollectionsQuery).then(res => {
                 badgeInstanceCollections = res.badgeInstanceCollections.filter(coll => !coll.badgeInstances.find(b => b.id === badge.id));
             });
@@ -414,7 +415,7 @@
 
   div.delete {
     display: flex;
-    padding: 0 0 44px 0;
+    margin: 25px 0;
     justify-content: center;
   }
 </style>
@@ -497,7 +498,7 @@
 
             <BadgeInstanceEvidence evidences={badge.evidences} isPrivate={true}/>
         </div>
-        {#if !badge.revoked && (!badge.expiresAt && new Date(badge.expiresAt) < new Date())}
+        {#if !badge.revoked && (!badge.expiresAt || new Date(badge.expiresAt) > new Date())}
             <div class="delete">
                 {#if badge && badge.acceptance === "ACCEPTED"}
                     <Button action={() => rejectBadge(true)} secondary={true} text={I18n.t("student.deleteBadge")}/>
