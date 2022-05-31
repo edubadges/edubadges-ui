@@ -200,26 +200,63 @@ export const endorsements = `
     description,
     status,
     endorser {
-        name,
-        image,
-        issuer {
+      name,
+      description,
+      image,
+      entityId,
+      issuer {
+        imageDutch,
+        imageEnglish,
+        nameDutch,
+        nameEnglish,
+        entityId,
+        faculty {
+          nameDutch,
+          nameEnglish,
+          entityId,
+          institution {
             nameDutch,
             nameEnglish,
-            entityId,
-            faculty {
-              nameDutch,
-              nameEnglish,
-              entityId,
-              institution {
-                nameDutch,
-                nameEnglish,
-                imageDutch,
-                imageEnglish,
-                entityId
-            }
+            imageDutch,
+            imageEnglish,
+            entityId
           }
         }
+      }
     }
-  }
+ }
+`;
 
+export const endorsed = `
+  endorsed {
+    claim,
+    description,
+    status,
+    endorsee {
+      name,
+      description,
+      image,
+      entityId,
+      issuer {
+        nameDutch,
+        nameEnglish,
+        entityId,
+        faculty {
+          nameDutch,
+          nameEnglish,
+          entityId,
+          onBehalfOf,
+          onBehalfOfDisplayName,
+          onBehalfOfUrl,
+          institution {
+            nameDutch,
+            nameEnglish,
+            imageDutch,
+            imageEnglish,
+            entityId
+          }
+        }
+      }
+    }
+ }
 `;

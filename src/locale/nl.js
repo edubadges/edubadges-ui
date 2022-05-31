@@ -269,7 +269,9 @@ I18n.translations.nl = {
             lti: "LTI",
             ltiContext: "Context",
             ltiUsers: "Gebruikers",
-            ltiGrades: "Cijfers"
+            ltiGrades: "Cijfers",
+            endorsements: "Endorsements",
+            endorsed: "Endorsed"
         },
         edit: {
             edit: "wijzig",
@@ -639,6 +641,8 @@ I18n.translations.nl = {
             alignmentUrl: "URL",
             alignmentCode: "Code",
             alignmentDescription: "Omschrijving",
+            endorsement: "Endorsement",
+            endorsementMultiple: "Endorsements",
             number: "Aantal",
             hours: "Uren",
             name: "Naam",
@@ -1524,7 +1528,8 @@ I18n.translations.nl = {
         request: "Aanbeveling aanvragen",
         info: "De aanbeling wordt ter goedkeuring naar alle begunstigers van de badgeclass gestuurd.",
         description: "Omschrijving",
-        descriptionPlaceholder: "Omschrijbing van de aanbeveling",
+        descriptionPlaceholder: "Omschrijving van de aanbeveling",
+        badgeClassDescription: "Omschrijving badgeclass",
         claimPlaceholder: "Claim van de aanbeveling",
         badgeClassPlaceholder: "Zoek en selecteer een badge class...",
         badgeClass: "De aanbevolgen badge class",

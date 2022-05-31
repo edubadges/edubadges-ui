@@ -12,7 +12,9 @@
     import {
         alignments,
         assertionsQuery,
-        directAwardBundleQuery, endorsements,
+        directAwardBundleQuery,
+        endorsed,
+        endorsements,
         enrollmentsQuery,
         headerStaff
     } from "../../../api/queries";
@@ -21,7 +23,7 @@
     import Spinner from "../../Spinner.svelte";
     import LinkEye from "../LinkEye.svelte";
     import {facultyIds, issuerIds} from "../../../stores/filterBadges";
-    import {translateProperties} from "../../../util/utils";
+    import {translateBadgeClassProperties, translateProperties} from "../../../util/utils";
     import BadgeAwardOptions from "./BadgeAwardOptions.svelte";
     import {currentPath} from "../../../stores/currentPath";
     import AwardBadge from "./AwardBadge.svelte";
@@ -36,7 +38,7 @@
 
     let issuer;
     let faculty;
-    let badgeclass = {extensions: [], issuer: {faculty: {institution: {}}}};
+    let badgeclass = {extensions: [], issuer: {faculty: {institution: {}}}, endorsements: [], endorsed: []};
     let publicInstitutions = [];
     let enrollments = [];
     let assertions = [];
@@ -99,11 +101,43 @@
       extensions { name, originalJson },
       ${alignments},
       ${endorsements},
+      ${endorsed},
       ${directAwardBundleQuery},
       ${enrollmentsQuery},
       ${assertionsQuery}
     }
   }`;
+
+    const refreshEndorsements = () => {
+        const endorsementsQuery = `query ($entityId: String, $days: Int) {
+            badgeClass(id: $entityId, days: $days) {
+                entityId,
+                ${endorsements}
+            }
+        }`;
+        loaded = false;
+        queryData(endorsementsQuery, {entityId, days: 1}).then(res => {
+            res.endorsements.forEach(endorsement => translateBadgeClassProperties(endorsement.endorser));
+            badgeclass = {...badgeclass, endorsements: res.endorsements};
+            loaded = true;
+        });
+    }
+
+    const refreshEndorsed = () => {
+        const endorsedQuery = `query ($entityId: String, $days: Int) {
+            badgeClass(id: $entityId, days: $days) {
+                entityId,
+                ${endorsed}
+            }
+        }`;
+        loaded = false;
+        queryData(endorsedQuery, {entityId, days: 1}).then(res => {
+            res.endorsed.forEach(endorsement => translateBadgeClassProperties(endorsement.endorsee));
+            badgeclass = {...badgeclass, endorsed: res.endorsed};
+            loaded = true;
+        });
+
+    }
 
     const refreshQuery = `query ($entityId: String, $days: Int){
     badgeClass(id: $entityId, days: $days) {
@@ -169,11 +203,9 @@
         loaded = false;
         queryData(query, {entityId, days: 90}).then(res => {
             badgeclass = res.badgeClass;
-            translateProperties(badgeclass);
-            translateProperties(badgeclass.issuer);
-            translateProperties(badgeclass.issuer.faculty);
-            translateProperties(badgeclass.issuer.faculty.institution);
-
+            translateBadgeClassProperties(badgeclass);
+            badgeclass.endorsements.forEach(endorsement => translateBadgeClassProperties(endorsement.endorser));
+            badgeclass.endorsed.forEach(endorsement => translateBadgeClassProperties(endorsement.endorsee));
             publicInstitutions = res.publicInstitutions;
             issuer = res.badgeClass.issuer;
             faculty = issuer.faculty;
@@ -208,10 +240,22 @@
             entity: "directAwardBundle",
             count: directAwardBundles.length,
             href: `/badgeclass/${entityId}/direct-awards-bundles`
+        },
+        {
+            entity: "endorsements",
+            count: badgeclass.endorsements.length,
+            href: `/badgeclass/${entityId}/endorsements`
+        },
+        {
+            entity: "endorsed",
+            count: badgeclass.endorsed.length,
+            href: `/badgeclass/${entityId}/endorsed`
         }
     ].filter(tab => tab.entity !== "directAwardBundle" || (badgeclass.issuer.faculty.institution.directAwardingEnabled
-        && directAwardBundles.length))
+        && directAwardBundles.length > 0))
         .filter(tab => tab.entity !== "assertions" || badgeclass.name !== config.welcomeBadgeClassName)
+        .filter(tab => tab.entity !== "endorsements" || badgeclass.endorsements.length > 0)
+        .filter(tab => tab.entity !== "endorsed" || badgeclass.endorsed.length > 0)
 
     $: if (!subEntity) {
         navigate(tabs[0].href, {replace: true});
@@ -389,6 +433,12 @@
                         </Route>
                     {/if}
                     <Route path="/direct-awards-bundles">
+                        <DirectAwardBundles badgeClass={badgeclass} {directAwardBundles}/>
+                    </Route>
+                    <Route path="/endorsements">
+                        <DirectAwardBundles badgeClass={badgeclass} {directAwardBundles}/>
+                    </Route>
+                    <Route path="/endorsed">
                         <DirectAwardBundles badgeClass={badgeclass} {directAwardBundles}/>
                     </Route>
                 </Router>

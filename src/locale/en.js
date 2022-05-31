@@ -269,7 +269,9 @@ I18n.translations.en = {
             lti: "LTI",
             ltiContext: "Context",
             ltiUsers: "Users",
-            ltiGrades: "Grades"
+            ltiGrades: "Grades",
+            endorsements: "Endorsements",
+            endorsed: "Endorsed"
         },
         edit: {
             edit: "edit",
@@ -639,6 +641,8 @@ I18n.translations.en = {
             alignmentUrl: "URL",
             alignmentCode: "Code",
             alignmentDescription: "Description",
+            endorsement: "Endorsement",
+            endorsementMultiple: "Endorsements",
             number: "Number",
             hours: "Hours",
             name: "Name",
@@ -1524,6 +1528,7 @@ I18n.translations.en = {
         info: "The endorsement request will be send to all awarders of the badge class for approval.",
         description: "Description",
         descriptionPlaceholder: "Description of the endorsement",
+        badgeClassDescription: "Description badgeclass",
         claimPlaceholder: "Claim of the endorsement",
         badgeClassPlaceholder: "Search and select a badge class...",
         badgeClass: "The endorsed badge class",

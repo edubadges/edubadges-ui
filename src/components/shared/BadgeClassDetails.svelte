@@ -20,6 +20,7 @@
     import awardIcon from "../../icons/award-ribbon-star-1.svg";
     import {translateProperties} from "../../util/utils";
     import MarkdownField from "../forms/MarkdownField.svelte";
+    import Endorsement from "../teachers/Endorsement.svelte";
 
     export let badgeclass;
     export let publicInstitutions;
@@ -28,6 +29,7 @@
     let cutoffInstitutionThreshold = 5;
     let showAllInstitutions = false;
     let showFrameworkDescriptions = [];
+    let showEndorsementDetails = [];
 
     onMount(() => {
         //The component is used by public pages where the data structure is different
@@ -60,6 +62,14 @@
         const newShowFrameworkDescriptions = [...showFrameworkDescriptions];
         newShowFrameworkDescriptions[index] = !newShowFrameworkDescriptions[index];
         showFrameworkDescriptions = newShowFrameworkDescriptions;
+        // Force re-render
+        badgeclass = {...badgeclass}
+    }
+
+    const toggleEndorsement = index => {
+        const newShowEndorsementDetails = [...showEndorsementDetails];
+        newShowEndorsementDetails[index] = !newShowEndorsementDetails[index];
+        showEndorsementDetails = newShowEndorsementDetails;
         // Force re-render
         badgeclass = {...badgeclass}
     }
@@ -152,7 +162,7 @@
     word-break: break-all;
   }
 
-  section.alignments {
+  section.alignments, section.endorsements {
     margin-top: 10px;
     padding-top: 10px;
   }
@@ -162,49 +172,49 @@
   }
 
 
-  section.alignment {
-    margin-top: 25px;
+  section.alignment, section.endorsement {
+    margin-top: 15px;
     padding: 15px;
     border: 1px solid var(--grey-5);
     box-shadow: 0 1px 1px var(--grey-5);
     border-radius: 8px;
-
-    .black-header {
-      color: var(--black);
-      margin: 0;
-    }
-
-    .alignment-container {
-      display: flex;
-      width: 100%;
-      justify-content: space-between;
-      margin-bottom: 20px;
-
-      h4 {
-        margin: 10px 0 0 0;
-      }
-
-      div.vertical {
-        background-color: var(--grey-3);
-        max-width: 1px;
-      }
-    }
-
-    .alignment-item {
-      &.alignmentCode {
-        width: 25%;
-      }
-
-      &.alignmentFramework {
-        width: 20%;
-      }
-
-      &.alignmentUrl {
-        width: 45%;
-      }
-    }
-
   }
+
+  .black-header {
+    color: var(--black);
+    margin: 0;
+  }
+
+  .alignment-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 20px;
+
+    h4 {
+      margin: 10px 0 0 0;
+    }
+
+    div.vertical {
+      background-color: var(--grey-3);
+      max-width: 1px;
+    }
+  }
+
+  .alignment-item {
+    &.alignmentCode {
+      width: 25%;
+    }
+
+    &.alignmentFramework {
+      width: 20%;
+    }
+
+    &.alignmentUrl {
+      width: 45%;
+    }
+  }
+
 
   @media (max-width: 1120px) {
     .badge-class-detail {
@@ -239,10 +249,25 @@
                 </a>
             </p>
         {/if}
+        {#if badgeclass.endorsements && badgeclass.endorsements.length > 0}
+            <section class="endorsements">
+                <h3 class="black-header">
+                    {badgeclass.endorsements.length > 1 ? I18n.t("models.badgeclass.endorsementMultiple") : I18n.t("models.badgeclass.endorsement")}
+                </h3>
+                {#each badgeclass.endorsements as endorsement, index}
+                    <section class="endorsement">
+                        <Endorsement endorsement={endorsement}
+                                     toggleEndorsement={() => toggleEndorsement(index)}
+                                     showDetails={showEndorsementDetails[index]}/>
+                    </section>
+                {/each}
+            </section>
+        {/if}
         {#if badgeclass.alignments && badgeclass.alignments.length > 0}
             <section class="alignments">
-                <h3
-                        class="black-header">{badgeclass.alignments.length > 1 ? I18n.t("models.badgeclass.alignmentMultiple") : I18n.t("models.badgeclass.alignment")}</h3>
+                <h3 class="black-header">
+                    {badgeclass.alignments.length > 1 ? I18n.t("models.badgeclass.alignmentMultiple") : I18n.t("models.badgeclass.alignment")}
+                </h3>
                 {#each badgeclass.alignments as alignment, index}
                     <section class="alignment">
                         <h4 class="black-header">{alignment.targetName}</h4>

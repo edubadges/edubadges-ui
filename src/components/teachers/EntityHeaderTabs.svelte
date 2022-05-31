@@ -31,7 +31,7 @@
     &.active {
       background: white;
       color: var(--purple);
-
+      cursor: default;
       border-color: var(--purple);
 
       :global(svg) {

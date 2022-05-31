@@ -18,7 +18,7 @@
     import {config} from "../../util/config"
     import {getService} from "../../util/getService";
     import PublicBreadcrumb from "./PublicBreadcrumb.svelte";
-    import {translateProperties} from "../../util/utils";
+    import {translateBadgeClassProperties, translateProperties} from "../../util/utils";
     import Field from "../forms/Field.svelte";
     import {isEmpty} from "lodash";
     import {isValidURL} from "../../util/validations";
@@ -175,9 +175,7 @@
         } else {
             getPublicBadgeClass(entityId).then(res => {
                 badgeClass = res;
-                translateProperties(badgeClass.issuer);
-                translateProperties(badgeClass.issuer.faculty);
-                translateProperties(badgeClass.issuer.faculty.institution);
+                translateBadgeClassProperties(badgeClass);
 
                 const institution = badgeClass.issuer.faculty.institution;
                 let allowedNames = [institution.name]
