@@ -4,3 +4,10 @@ export const userName = obj => {
   }
   return "-";
 }
+
+export const userNameCreatedBy = obj => {
+  if (obj.createdBy) {
+    return `${obj.createdBy.firstName || ""} ${obj.createdBy.lastName || ""}`.trim() || "-";
+  }
+  return "-";
+}

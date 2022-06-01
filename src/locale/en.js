@@ -879,7 +879,7 @@ I18n.translations.en = {
         },
         endorsements: {
             description: "Description",
-            claim : "Claim",
+            claim: "Claim",
             badgeClass: "Badge class"
         }
     },
@@ -1048,7 +1048,9 @@ I18n.translations.en = {
         directAwardBundles: "There is no direct award status for edubadge {{name}}",
         directAwards: "All direct awards have been claimed. There are no more outstanding direct awards for this bundle.",
         requestedBatches: "There are no outstanding edubadge requests you are allowed to award.",
-        notifications: "You don't have permissions to award edubadges and therefore you can not configure any notifications."
+        notifications: "You don't have permissions to award edubadges and therefore you can not configure any notifications.",
+        endorsements: "There are no endorsements for {{name}}.",
+        endorsed: "{{name}} has not endorsed any other badge class."
     },
     userManagement: {
         permissions: "Permissions for {{name}}",
@@ -1162,7 +1164,7 @@ I18n.translations.en = {
         badgeClassEvidenceStudentRequired: "If checked, any enrollments for this badge class require an evidence URL of why the enrollment is justified.",
         badgeClassAwardNonValidatedNameAllowed: "If checked, non-formal edubadges (edubadges without Study load) can be awarded to non-validated accounts.",
         badgeClassIsMicroCredentials: "If checked, then this badge class is participating in the Microcredentials pilot." +
-        "See <a target=\"_blank\" href=\"https://wiki.surfnet.nl/display/Edubadges/Handleiding+uitgeven+ihkv+de+pilot+microcredentials\"> the wiki </a> for a manual.",
+            "See <a target=\"_blank\" href=\"https://wiki.surfnet.nl/display/Edubadges/Handleiding+uitgeven+ihkv+de+pilot+microcredentials\"> the wiki </a> for a manual.",
         badgeClassDirectAwardingDisabled: "If checked, then this badge class can bot be drirect awarded",
         //badgeClassCriteriaRequirements: "badgeClassCriteriaRequirements",
         //badgeClassCriteriaUrl: "badgeClassCriteriaUrl",
@@ -1242,9 +1244,9 @@ I18n.translations.en = {
             eqf: "EQF level {{level}}",
         },
         badgeClassType: {
-              OTHER: "Other",
-              ARCHIVED: "Archived",
-              MICRO_CREDENTIALS: "Pilot Microcredentials"
+            OTHER: "Other",
+            ARCHIVED: "Archived",
+            MICRO_CREDENTIALS: "Pilot Microcredentials"
         },
         issuer: {
             contact: "Contact the issuer",
@@ -1514,7 +1516,7 @@ I18n.translations.en = {
     notifications: {
         update: "Update",
         title: "Your notifications settings",
-        info: "For each selected badge class you will receive a mail notification if a student enrolls for this edubadge.",
+        info: "For each selected badge class you will receive a mail notification if a student enrolls for this edubadge or if someone requests an endorsement for this edubadge.",
         confirmationTitle: "Confirmation",
         confirmationQuestion: "Are you sure you want to update your notification settings?",
         updated: "Your notification settings were updated"
@@ -1534,11 +1536,49 @@ I18n.translations.en = {
         badgeClass: "The endorsed badge class",
         claim: "Claim",
         submit: "Request",
+        requested: "Requested",
+        status: "Status",
+        endorser: "Endorser",
+        statuses: {
+            unaccepted: "Pending acceptance",
+            accepted: "Accepted",
+            rejected: "Rejected",
+            revoked: "Revoked",
+        },
+        created: "Requested on",
+        reasons: {
+            revoke: "Revocation reason",
+            reject: "Rejection reason",
+            resend: "Personal message",
+        },
+        tableTitle: "All endorsements",
+        tableTitleEndorsed: "All endorsements requests",
+        accept: "Accept",
+        reject: "Reject",
+        revoke: "Revoke",
+        delete: "Delete",
+        resend: "Resend",
+        confirm: {
+            accept: "Accept endorsement request",
+            reject: "Reject endorsement request",
+            revoke: "Revoke endorsement",
+            delete: "Delete endorsement",
+            resend: "Resend endorsement request"
+        },
+        confirmations: {
+            accept: "Are you sure you want to accept this endorsement request?",
+            reject: "Are you sure you want to reject this endorsement request?",
+            revoke: "Are you sure you want to revoke this endorsement request?",
+            delete: "Are you sure you want to delete this endorsement request?",
+            resend: "Are you sure you want to resend this endorsement request?",
+        },
         flash: {
             created: "Endorsement request has been send",
-            accepted: "Endorsement request has been accepted",
-            rejected: "Endorsement request has been rejected",
-            revoked: "Endorsement request has been revoked",
+            accept: "Endorsement request has been accepted",
+            reject: "Endorsement request has been rejected",
+            revoke: "Endorsement has been revoked",
+            delete: "Endorsement has been deleted",
+            resend: "Endorsement request has been resend",
         }
     }
 };

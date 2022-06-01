@@ -1049,7 +1049,9 @@ I18n.translations.nl = {
         directAwardBundles: "Er is geen direct award status voor edubadge {{name}}",
         directAwards: "Alle direct awards zijn geclaimed. Er zijn geen uitstaande direct awards meer voor deze bundel.",
         requestedBatches: "Er zijn geen openstaande edubadge-verzoeken die je mag uitreiken.",
-        notifications: "Je hebt geen permissies om edubadges te awarden en daarom kan je geen notificaties instellen."
+        notifications: "Je hebt geen permissies om edubadges te awarden en daarom kan je geen notificaties instellen.",
+        endorsements: "Er zijn geen endorsements voor {{name}}.",
+        endorsed: "{{name}} heeft geen andere badge class endorsed."
     },
     userManagement: {
         permissions: "Permissies voor {{name}}",

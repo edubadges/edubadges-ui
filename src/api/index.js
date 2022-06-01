@@ -858,17 +858,17 @@ export function createEndorsement(endorsement) {
 }
 
 export function acceptEndorsement(endorsement) {
-    const path = `${serverUrl}/endorsement/edit/${endorsement.entity_id}`;
+    const path = `${serverUrl}/endorsement/edit/${endorsement.entityId}`;
     return validFetch(path, {body: JSON.stringify({status: "Accepted"})}, "PUT", true, false);
 }
 
-export function rejectEndorsement(endorsement) {
-    const path = `${serverUrl}/endorsement/edit/${endorsement.entity_id}`;
-    return validFetch(path, {body: JSON.stringify({status: "Rejected"})}, "PUT", true, false);
+export function rejectEndorsement(endorsement, reason) {
+    const path = `${serverUrl}/endorsement/edit/${endorsement.entityId}`;
+    return validFetch(path, {body: JSON.stringify({status: "Rejected", rejection_reason: reason})}, "PUT", true, false);
 }
 
 export function revokeEndorsement(endorsement, reason) {
-    const path = `${serverUrl}/endorsement/edit/${endorsement.entity_id}`;
+    const path = `${serverUrl}/endorsement/edit/${endorsement.entityId}`;
     return validFetch(path, {body: JSON.stringify({status: "Revoked", revocation_reason: reason})}, "PUT", true, false);
 }
 
@@ -876,3 +876,9 @@ export function deleteEndorsement(endorsement) {
     const path = `${serverUrl}/endorsement/delete/${endorsement.entityId}`;
     return validFetch(path, {}, "DELETE", true, false);
 }
+
+export function resendEndorsement(endorsement, message) {
+    const path = `${serverUrl}/endorsement/resend/${endorsement.entityId}`;
+    return validFetch(path, {body: JSON.stringify({message: message})}, "POST", true, false);
+}
+

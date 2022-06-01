@@ -101,7 +101,7 @@
                         <CheckBox bind:value={checkAllValue} onChange={onCheckAll} disabled={checkAllDisabled}/>
                     </th>
                 {/if}
-                <TableHeaders {tableHeaders} {setSort} {sort}/>
+                <TableHeaders {tableHeaders} {setSort} {sort} />
             </tr>
         {/if}
         </thead>

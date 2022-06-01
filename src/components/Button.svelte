@@ -139,7 +139,7 @@
   }
 
   a.margin-right {
-    margin-right: 15px;
+    margin-right: 30px;
   }
   a.margin-bottom {
     margin-bottom: 15px;

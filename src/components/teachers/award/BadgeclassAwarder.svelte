@@ -32,6 +32,8 @@
     import {issuedTypes} from "../../../stores/filterAssertions";
     import BulkAwardDetails from "./BulkAwardDetails.svelte";
     import {config} from "../../../util/config";
+    import Endorsements from "../endorsements/Endorsements.svelte";
+    import Endorsed from "../endorsements/Endorsed.svelte";
 
     export let entityId;
     export let subEntity;
@@ -117,8 +119,8 @@
         }`;
         loaded = false;
         queryData(endorsementsQuery, {entityId, days: 1}).then(res => {
-            res.endorsements.forEach(endorsement => translateBadgeClassProperties(endorsement.endorser));
-            badgeclass = {...badgeclass, endorsements: res.endorsements};
+            res.badgeClass.endorsements.forEach(endorsement => translateBadgeClassProperties(endorsement.endorser));
+            badgeclass = {...badgeclass, endorsements: res.badgeClass.endorsements};
             loaded = true;
         });
     }
@@ -132,8 +134,8 @@
         }`;
         loaded = false;
         queryData(endorsedQuery, {entityId, days: 1}).then(res => {
-            res.endorsed.forEach(endorsement => translateBadgeClassProperties(endorsement.endorsee));
-            badgeclass = {...badgeclass, endorsed: res.endorsed};
+            res.badgeClass.endorsed.forEach(endorsement => translateBadgeClassProperties(endorsement.endorsee));
+            badgeclass = {...badgeclass, endorsed: res.badgeClass.endorsed};
             loaded = true;
         });
 
@@ -201,16 +203,22 @@
 
     onMount(() => {
         loaded = false;
-        queryData(query, {entityId, days: 90}).then(res => {
-            badgeclass = res.badgeClass;
-            translateBadgeClassProperties(badgeclass);
-            badgeclass.endorsements.forEach(endorsement => translateBadgeClassProperties(endorsement.endorser));
-            badgeclass.endorsed.forEach(endorsement => translateBadgeClassProperties(endorsement.endorsee));
-            publicInstitutions = res.publicInstitutions;
-            issuer = res.badgeClass.issuer;
-            faculty = issuer.faculty;
+        queryData(query, {entityId, days: 90})
+            .then(res => {
+                badgeclass = res.badgeClass;
+                if (badgeclass === null) {
+                    loaded = true;
+                    navigate("/404");
+                } else {
+                translateBadgeClassProperties(badgeclass);
+                badgeclass.endorsements.forEach(endorsement => translateBadgeClassProperties(endorsement.endorser));
+                badgeclass.endorsed.forEach(endorsement => translateBadgeClassProperties(endorsement.endorsee));
+                publicInstitutions = res.publicInstitutions;
+                issuer = res.badgeClass.issuer;
+                faculty = issuer.faculty;
 
-            refreshAwardsAndEnrolments(res);
+                refreshAwardsAndEnrolments(res);
+                }
         });
 
     });
@@ -436,10 +444,10 @@
                         <DirectAwardBundles badgeClass={badgeclass} {directAwardBundles}/>
                     </Route>
                     <Route path="/endorsements">
-                        <DirectAwardBundles badgeClass={badgeclass} {directAwardBundles}/>
+                        <Endorsements badgeClass={badgeclass} refresh={refreshEndorsements}/>
                     </Route>
                     <Route path="/endorsed">
-                        <DirectAwardBundles badgeClass={badgeclass} {directAwardBundles}/>
+                        <Endorsed badgeClass={badgeclass} refresh={refreshEndorsed} />
                     </Route>
                 </Router>
             </div>

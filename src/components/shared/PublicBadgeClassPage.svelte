@@ -161,10 +161,7 @@
                 const userTerms = res[1].currentUser.termsAgreements;
                 noValidatedName = !res[1].currentUser.validatedName;
                 badgeClass = res[1].badgeClass;
-                translateProperties(badgeClass.issuer);
-                translateProperties(badgeClass.issuer.faculty);
-                translateProperties(badgeClass.issuer.faculty.institution);
-
+                translateBadgeClassProperties(badgeClass);
                 badgeClass.issuer.id = badgeClass.issuer.publicUrl;
                 schacHomes = res[1].currentUser.schacHomes;
                 loaded = true;
@@ -320,6 +317,8 @@
     display: flex;
     flex-direction: column;
 
+  }
+
     span.attention {
       display: inline-block;
       margin-top: 15px;
@@ -327,7 +326,6 @@
       line-height: 20px;
       max-width: 275px;
     }
-  }
 
   div.evidence {
     p.info {
@@ -366,7 +364,11 @@
                     </div>
                 {:else if visitorRole === role.STUDENT}
                     <div class="slots student">
-                        {#if !studentEnrolled && !studentAwarded}
+                        {#if badgeClass.archived}
+                            <span class="attention">
+                              {@html I18n.t(`login.badgeClassArchived`)}
+                            </span>
+                        {:else if !studentEnrolled && !studentAwarded}
                             <Button secondary action={() => enrollStudent(true)} text={I18n.t('student.enroll')}
                                     class="btn"/>
                         {:else}

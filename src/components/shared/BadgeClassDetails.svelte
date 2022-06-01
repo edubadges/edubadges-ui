@@ -20,7 +20,8 @@
     import awardIcon from "../../icons/award-ribbon-star-1.svg";
     import {translateProperties} from "../../util/utils";
     import MarkdownField from "../forms/MarkdownField.svelte";
-    import Endorsement from "../teachers/Endorsement.svelte";
+    import Endorsement from "../teachers/endorsements/Endorsement.svelte";
+    import {endorsementStatus} from "../../util/endorsements";
 
     export let badgeclass;
     export let publicInstitutions;
@@ -249,7 +250,7 @@
                 </a>
             </p>
         {/if}
-        {#if badgeclass.endorsements && badgeclass.endorsements.length > 0}
+        {#if badgeclass.endorsements && badgeclass.endorsements.filter(e => e.status === endorsementStatus.ACCEPTED).length > 0}
             <section class="endorsements">
                 <h3 class="black-header">
                     {badgeclass.endorsements.length > 1 ? I18n.t("models.badgeclass.endorsementMultiple") : I18n.t("models.badgeclass.endorsement")}

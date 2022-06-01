@@ -1,12 +1,12 @@
 <script>
     import I18n from "i18n-js";
-    import RemoteImage from "../RemoteImage.svelte";
+    import RemoteImage from "../../RemoteImage.svelte";
     import {link} from "svelte-routing";
-    import {onBehalfOfDisplayName} from "../../util/onBehalfOf";
-    import {translateBadgeClassProperties} from "../../util/utils";
+    import {onBehalfOfDisplayName} from "../../../util/onBehalfOf";
+    import {translateBadgeClassProperties} from "../../../util/utils";
     import {onMount} from "svelte";
-    import externalLink from "../../icons/external-link-alt.svg";
-    import MarkdownField from "../forms/MarkdownField.svelte";
+    import externalLink from "../../../icons/external-link-alt.svg";
+    import MarkdownField from "../../forms/MarkdownField.svelte";
 
     export let endorsement;
     export let toggleEndorsement;
@@ -86,7 +86,9 @@
     }
 
     a.external-link {
-      display: flex;
+      font-weight: bold;
+      display: inline-block;
+      margin-bottom: 5px;
     }
 
     :global(a.external-link svg) {
@@ -120,7 +122,8 @@
         {/if}
         <div class="info">
             <h4 class="black">{endorsement.endorser.name}
-                <a class="external-link" target="_blank" href={`/public/${endorsement.endorser.entityId}`}>{@html externalLink}</a>
+                <a class="external-link" target="_blank"
+                   href={`/public/${endorsement.endorser.entityId}`}>{@html externalLink}</a>
             </h4>
             <div class="badge-class-sub-info">
                 {#if endorsement.endorser.issuer.image}

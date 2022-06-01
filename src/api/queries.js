@@ -196,9 +196,16 @@ export const alignments = `
 
 export const endorsements = `
   endorsements {
+    entityId,
     claim,
     description,
     status,
+    revocationReason,
+    rejectionReason,
+    createdAt,
+    createdBy {
+      firstName, lastName, email
+    },
     endorser {
       name,
       description,
@@ -229,9 +236,16 @@ export const endorsements = `
 
 export const endorsed = `
   endorsed {
+    entityId,
     claim,
     description,
     status,
+    revocationReason,
+    rejectionReason,
+    createdAt,
+    createdBy {
+      firstName, lastName, email
+    },
     endorsee {
       name,
       description,
