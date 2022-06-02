@@ -71,10 +71,6 @@
     margin-left: 2px;
   }
 
-  div :global(.selectContainer) {
-    z-index: 999;
-  }
-
   div :global(.selectContainer .indicator svg.chevron-down-large) {
     height: 32px;
   }

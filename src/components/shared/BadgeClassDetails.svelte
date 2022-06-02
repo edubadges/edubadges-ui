@@ -250,7 +250,7 @@
                 </a>
             </p>
         {/if}
-        {#if badgeclass.endorsements && badgeclass.endorsements.filter(e => e.status === endorsementStatus.ACCEPTED).length > 0}
+        {#if badgeclass.endorsements && badgeclass.endorsements.filter(e => e.status.toLowerCase() === endorsementStatus.ACCEPTED).length > 0}
             <section class="endorsements">
                 <h3 class="black-header">
                     {badgeclass.endorsements.length > 1 ? I18n.t("models.badgeclass.endorsementMultiple") : I18n.t("models.badgeclass.endorsement")}

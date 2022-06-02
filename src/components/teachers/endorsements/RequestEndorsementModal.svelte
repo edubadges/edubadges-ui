@@ -85,11 +85,13 @@
             <p class="info">{I18n.t("endorsements.info")}</p>
             <Field entity="endorsements" attribute="claim" tipKey="endorsementClaim">
                 <TextInput bind:value={claim}
+                           size="60"
                            area={true}
                            placeholder={I18n.t("endorsements.claimPlaceholder")}/>
             </Field>
             <Field entity="endorsements" attribute="description" tipKey="endorsementDescription">
                 <TextInput bind:value={description}
+                           size="60"
                            area={true}
                            placeholder={I18n.t("endorsements.descriptionPlaceholder")}/>
             </Field>
