@@ -110,7 +110,7 @@
     }
   }`;
 
-    const refreshEndorsements = () => {
+    const refreshEndorsements = callback => {
         const endorsementsQuery = `query ($entityId: String, $days: Int) {
             badgeClass(id: $entityId, days: $days) {
                 entityId,
@@ -121,11 +121,12 @@
         queryData(endorsementsQuery, {entityId, days: 1}).then(res => {
             res.badgeClass.endorsements.forEach(endorsement => translateBadgeClassProperties(endorsement.endorser));
             badgeclass = {...badgeclass, endorsements: res.badgeClass.endorsements};
+            callback && callback(res.badgeClass);
             loaded = true;
         });
     }
 
-    const refreshEndorsed = () => {
+    const refreshEndorsed = callback => {
         const endorsedQuery = `query ($entityId: String, $days: Int) {
             badgeClass(id: $entityId, days: $days) {
                 entityId,
@@ -136,6 +137,7 @@
         queryData(endorsedQuery, {entityId, days: 1}).then(res => {
             res.badgeClass.endorsed.forEach(endorsement => translateBadgeClassProperties(endorsement.endorsee));
             badgeclass = {...badgeclass, endorsed: res.badgeClass.endorsed};
+            callback && callback(res.badgeClass);
             loaded = true;
         });
 
@@ -210,16 +212,15 @@
                     loaded = true;
                     navigate("/404");
                 } else {
-                translateBadgeClassProperties(badgeclass);
-                badgeclass.endorsements.forEach(endorsement => translateBadgeClassProperties(endorsement.endorser));
-                badgeclass.endorsed.forEach(endorsement => translateBadgeClassProperties(endorsement.endorsee));
-                publicInstitutions = res.publicInstitutions;
-                issuer = res.badgeClass.issuer;
-                faculty = issuer.faculty;
-
-                refreshAwardsAndEnrolments(res);
+                    translateBadgeClassProperties(badgeclass);
+                    badgeclass.endorsements.forEach(endorsement => translateBadgeClassProperties(endorsement.endorser));
+                    badgeclass.endorsed.forEach(endorsement => translateBadgeClassProperties(endorsement.endorsee));
+                    publicInstitutions = res.publicInstitutions;
+                    issuer = res.badgeClass.issuer;
+                    faculty = issuer.faculty;
+                    refreshAwardsAndEnrolments(res);
                 }
-        });
+            });
 
     });
 
@@ -259,11 +260,12 @@
             count: badgeclass.endorsed.length,
             href: `/badgeclass/${entityId}/endorsed`
         }
-    ].filter(tab => tab.entity !== "directAwardBundle" || (badgeclass.issuer.faculty.institution.directAwardingEnabled
-        && directAwardBundles.length > 0))
-        .filter(tab => tab.entity !== "assertions" || badgeclass.name !== config.welcomeBadgeClassName)
-        .filter(tab => tab.entity !== "endorsements" || badgeclass.endorsements.length > 0)
+    ].filter(tab => tab.entity !== "assertions" || badgeclass.name !== config.welcomeBadgeClassName)
+        .filter(tab => tab.entity !== "endorsements" || badgeclass.endorsements.length > 0  || subEntity === "endorsements")
         .filter(tab => tab.entity !== "endorsed" || badgeclass.endorsed.length > 0)
+        .filter(tab => tab.entity !== "directAwardBundle" || (badgeclass.issuer.faculty.institution.directAwardingEnabled
+            && directAwardBundles.length > 0))
+
 
     $: if (!subEntity) {
         navigate(tabs[0].href, {replace: true});
@@ -447,7 +449,7 @@
                         <Endorsements badgeClass={badgeclass} refresh={refreshEndorsements}/>
                     </Route>
                     <Route path="/endorsed">
-                        <Endorsed badgeClass={badgeclass} refresh={refreshEndorsed} />
+                        <Endorsed badgeClass={badgeclass} refresh={refreshEndorsed}/>
                     </Route>
                 </Router>
             </div>

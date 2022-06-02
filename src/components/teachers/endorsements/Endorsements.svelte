@@ -12,6 +12,9 @@
     import Tooltip from "../../Tooltip.svelte";
     import {pageCount} from "../../../util/pagination";
     import {endorsementActions, endorsementStatus} from "../../../util/endorsements";
+    import EllipsisText from "../../EllipsisText.svelte";
+    import {onMount} from "svelte";
+    import {navigate} from "svelte-routing";
 
     export let refresh;
     export let badgeClass = {};
@@ -64,7 +67,6 @@
             selection = [entityId];
         } else {
             selection = [];
-            table.checkAllValue = false;
         }
     }
 
@@ -83,26 +85,36 @@
             attribute: "createdBy.email",
             reverse: false,
             sortType: sortType.ALPHA,
-            width: "30%"
+            width: "15%"
         },
         {
             name: I18n.t("endorsements.endorser"),
             attribute: "endorser",
-            width: "30%"
+            width: "20%"
+        },
+        {
+            name: I18n.t("endorsements.claim"),
+            attribute: "claim",
+            width: "20%"
+        },
+        {
+            name: I18n.t("endorsements.description"),
+            attribute: "description",
+            width: "20%"
         },
         {
             name: I18n.t("endorsements.status"),
             attribute: "status",
             reverse: false,
             sortType: sortType.ALPHA,
-            width: "15%",
+            width: "10%",
         },
         {
             name: I18n.t("endorsements.created"),
             attribute: "createdAt",
             reverse: false,
             sortType: sortType.DATE,
-            width: "15%",
+            width: "10%",
             center: true
         },
     ];
@@ -139,6 +151,7 @@
     background: white;
     display: flex;
     justify-content: space-around;
+    margin-right: 10px;
   }
 
   .img-icon {
@@ -185,7 +198,6 @@
       margin: auto 0 0 8px;
       color: var(--grey-8);
     }
-
 
   }
 
@@ -235,7 +247,13 @@
             <td>
                 <div class="recipient">
                     <span>{userNameCreatedBy(endorsement)}</span>
-                    <span><a href={`mailto:${endorsement.createdBy.email}`}>{endorsement.createdBy.email}</a></span>
+                    <span>
+                        {#if endorsement.createdBy}
+                            <a href={`mailto:${endorsement.createdBy.email}`}>{endorsement.createdBy.email}</a>
+                        {:else}
+                            -
+                        {/if}
+                    </span>
                 </div>
             </td>
             <td class="endorser">
@@ -255,7 +273,12 @@
                         </a>
                     </span>
                 </div>
-
+            </td>
+            <td>
+                <EllipsisText text={endorsement.claim} maxLength={40}/>
+            </td>
+            <td>
+                <EllipsisText text={endorsement.description} maxLength={40}/>
             </td>
             <td>
                 <span>{I18n.t(`endorsements.statuses.${endorsement.status.toLowerCase()}`)}</span>

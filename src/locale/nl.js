@@ -1537,11 +1537,50 @@ I18n.translations.nl = {
         badgeClass: "De aanbevolgen badge class",
         claim: "Claim",
         submit: "Aanvragen",
+        requested: "Requested",
+        status: "Status",
+        endorser: "Endorser",
+        endorsee: "Endorsee",
+        statuses: {
+            unaccepted: "Pending acceptance",
+            accepted: "Accepted",
+            rejected: "Rejected",
+            revoked: "Revoked",
+        },
+        created: "Requested on",
+        reasons: {
+            revoke: "Revocation reason",
+            reject: "Rejection reason",
+            resend: "Personal message",
+        },
+        tableTitle: "All endorsements",
+        tableTitleEndorsed: "All endorsements requests",
+        accept: "Accept",
+        reject: "Reject",
+        revoke: "Revoke",
+        delete: "Delete",
+        resend: "Resend",
+        confirm: {
+            accept: "Accept endorsement request",
+            reject: "Reject endorsement request",
+            revoke: "Revoke endorsement",
+            delete: "Delete endorsement",
+            resend: "Resend endorsement request"
+        },
+        confirmations: {
+            accept: "Are you sure you want to accept this endorsement request?",
+            reject: "Are you sure you want to reject this endorsement request?",
+            revoke: "Are you sure you want to revoke this endorsement request?",
+            delete: "Are you sure you want to delete this endorsement request?",
+            resend: "Are you sure you want to resend this endorsement request?",
+        },
         flash: {
             created: "Aanbevelingsverzoek is verstuurd",
-            accepted: "Aanbevelingsverzoek is geaccepteerd",
-            rejected: "Aanbevelingsverzoek is afgewezen",
-            revoked: "Aanbevelingsverzoek is ingetrokken",
+            accept: "Aanbevelingsverzoek is geaccepteerd",
+            reject: "Aanbevelingsverzoek is afgewezen",
+            revoke: "Aanbevelingsverzoek is ingetrokken",
+            delete: "Endorsement has been deleted",
+            resend: "Endorsement request has been resend",
         }
     }
 

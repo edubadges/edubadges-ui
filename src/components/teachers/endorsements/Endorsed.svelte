@@ -86,8 +86,8 @@
             width: "15%"
         },
         {
-            name: I18n.t("endorsements.endorser"),
-            attribute: "endorser",
+            name: I18n.t("endorsements.endorsee"),
+            attribute: "endorsee",
             width: "20%"
         },
         {
@@ -218,7 +218,8 @@
         {#if badgeClass.permissions.mayUpdate}
             <Button small action={() => action(true, endorsementActions.ACCEPT)} marginRight={true}
                     text={I18n.t('endorsements.accept')}
-                    disabled={selection.length === 0 || statusEndorsement() !== endorsementStatus.UNACCEPTED}/>
+                    disabled={selection.length === 0 || statusEndorsement() === endorsementStatus.ACCEPTED
+                    || statusEndorsement() === endorsementStatus.REJECTED}/>
             <Button small secondary action={() => action(true, endorsementActions.REJECT)} marginRight={true}
                     text={I18n.t('endorsements.reject')}
                     disabled={selection.length === 0 || statusEndorsement() !== endorsementStatus.UNACCEPTED}/>
@@ -252,8 +253,8 @@
             </td>
             <td class="endorser">
                 <div class="endorser">
-                    <span class="badgeclass">{endorsement.endorsee.name}<a class="external-link" target="_blank"
-                                                                           href={`/public/${endorsement.endorsee.entityId}`}>
+                    <span class="badgeclass">{endorsement.endorsee.name}
+                        <a class="external-link" target="_blank" href={`/public/${endorsement.endorsee.entityId}`}>
                         {@html externalLink}
                     </a></span>
                     <span>
@@ -267,7 +268,6 @@
                         </a>
                     </span>
                 </div>
-
             </td>
             <td>
                 <EllipsisText text={endorsement.claim} maxLength={40}/>

@@ -1539,6 +1539,7 @@ I18n.translations.en = {
         requested: "Requested",
         status: "Status",
         endorser: "Endorser",
+        endorsee: "Endorsee",
         statuses: {
             unaccepted: "Pending acceptance",
             accepted: "Accepted",
