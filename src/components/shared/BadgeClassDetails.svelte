@@ -31,6 +31,7 @@
     let showAllInstitutions = false;
     let showFrameworkDescriptions = [];
     let showEndorsementDetails = [];
+    let endorsementsAccepted = [];
 
     onMount(() => {
         //The component is used by public pages where the data structure is different
@@ -57,6 +58,7 @@
         if (badgeclass.alignments && badgeclass.alignments.length > 0) {
             showFrameworkDescriptions = Array(badgeclass.alignments.length).fill(true);
         }
+        endorsementsAccepted = badgeclass.endorsements ? badgeclass.endorsements.filter(e => e.status.toLowerCase() === endorsementStatus.ACCEPTED) : [];
     });
 
     const toggleAlignment = index => {
@@ -250,12 +252,12 @@
                 </a>
             </p>
         {/if}
-        {#if badgeclass.endorsements && badgeclass.endorsements.filter(e => e.status.toLowerCase() === endorsementStatus.ACCEPTED).length > 0}
+        {#if endorsementsAccepted.length > 0}
             <section class="endorsements">
                 <h3 class="black-header">
                     {badgeclass.endorsements.length > 1 ? I18n.t("models.badgeclass.endorsementMultiple") : I18n.t("models.badgeclass.endorsement")}
                 </h3>
-                {#each badgeclass.endorsements as endorsement, index}
+                {#each endorsementsAccepted as endorsement, index}
                     <section class="endorsement">
                         <Endorsement endorsement={endorsement}
                                      toggleEndorsement={() => toggleEndorsement(index)}
