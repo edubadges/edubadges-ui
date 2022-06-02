@@ -18,7 +18,7 @@
     import schoolTrophyIcon from "../../icons/school-book-trophy.svg";
     import calendarIcon from "../../icons/calendar-1.svg";
     import awardIcon from "../../icons/award-ribbon-star-1.svg";
-    import {translateProperties} from "../../util/utils";
+    import {translateBadgeClassProperties, translateProperties} from "../../util/utils";
     import MarkdownField from "../forms/MarkdownField.svelte";
     import Endorsement from "../teachers/endorsements/Endorsement.svelte";
     import {endorsementStatus} from "../../util/endorsements";
@@ -58,7 +58,10 @@
         if (badgeclass.alignments && badgeclass.alignments.length > 0) {
             showFrameworkDescriptions = Array(badgeclass.alignments.length).fill(true);
         }
-        endorsementsAccepted = badgeclass.endorsements ? badgeclass.endorsements.filter(e => e.status.toLowerCase() === endorsementStatus.ACCEPTED) : [];
+        if (badgeclass.endorsements) {
+            badgeclass.endorsements.forEach(endorsement => translateBadgeClassProperties(endorsement.endorser));
+            endorsementsAccepted = badgeclass.endorsements.filter(e => e.status.toLowerCase() === endorsementStatus.ACCEPTED);
+        }
     });
 
     const toggleAlignment = index => {
