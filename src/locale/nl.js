@@ -1236,9 +1236,9 @@ I18n.translations.nl = {
             ECTS_0_5: "0-5 ECTS (WO/HBO)",
             ECTS_6_10: "6-10 ECTS (WO/HBO)",
             ECTS_10_MORE: "> 10 ECTS (WO/HBO)",
-            HOURS_0_60: "0-60 uren (WO/HBO)",
-            HOURS_61_120: "61-120 uren (WO/HBO)",
-            HOURS_120_MORE: "> 120 uren (WO/HBO)"
+            HOURS_0_60: "0-60 uren (MBO)",
+            HOURS_61_120: "61-120 uren (MBO)",
+            HOURS_120_MORE: "> 120 uren (MBO)"
         },
         eqf: {
             eqfNone: "Geen EQF niveau",
@@ -1527,12 +1527,12 @@ I18n.translations.nl = {
         showLess: "Toon minder..."
     },
     endorsements: {
-        request: "Aanbeveling aanvragen",
-        info: "De aanbeling wordt ter goedkeuring naar alle begunstigers van de badgeclass gestuurd.",
+        request: "Endorsement aanvragen",
+        info: "De endorsement wordt ter goedkeuring naar alle begunstigers van de badge class gestuurd.",
         description: "Omschrijving",
-        descriptionPlaceholder: "Omschrijving van de aanbeveling",
-        badgeClassDescription: "Omschrijving badgeclass",
-        claimPlaceholder: "Claim van de aanbeveling",
+        descriptionPlaceholder: "Omschrijving van de endorsement",
+        badgeClassDescription: "Omschrijving badge class",
+        claimPlaceholder: "Claim van de endorsement",
         badgeClassPlaceholder: "Zoek en selecteer een badge class...",
         badgeClass: "De aanbevolgen badge class",
         claim: "Claim",
@@ -1575,10 +1575,10 @@ I18n.translations.nl = {
             resend: "Weet je zeker dat je dit endormement verzoek opnieuw wil versturen?",
         },
         flash: {
-            created: "Aanbevelingsverzoek is verstuurd",
-            accept: "Aanbevelingsverzoek is geaccepteerd",
-            reject: "Aanbevelingsverzoek is afgewezen",
-            revoke: "Aanbevelingsverzoek is ingetrokken",
+            created: "Endorsement verzoek is verstuurd",
+            accept: "Endorsement verzoek is geaccepteerd",
+            reject: "Endorsement verzoek is afgewezen",
+            revoke: "Endorsement verzoek is ingetrokken",
             delete: "Endorsement is verwijderd",
             resend: "Endorsement verzoek is opnieuw verstuurd",
         }

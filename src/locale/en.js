@@ -1235,9 +1235,9 @@ I18n.translations.en = {
             ECTS_0_5: "0-5 ECTS (WO/HBO)",
             ECTS_6_10: "6-10 ECTS (WO/HBO)",
             ECTS_10_MORE: "> 10 ECTS (WO/HBO)",
-            HOURS_0_60: "0-60 hours (WO/HBO)",
-            HOURS_61_120: "61-120 hours (WO/HBO)",
-            HOURS_120_MORE: "> 120 hours (WO/HBO)"
+            HOURS_0_60: "0-60 hours (MBO)",
+            HOURS_61_120: "61-120 hours (MBO)",
+            HOURS_120_MORE: "> 120 hours (MBO)"
         },
         eqf: {
             eqfNone: "No EQF level",
@@ -1530,7 +1530,7 @@ I18n.translations.en = {
         info: "The endorsement request will be send to all awarders of the badge class for approval.",
         description: "Description",
         descriptionPlaceholder: "Description of the endorsement",
-        badgeClassDescription: "Description badgeclass",
+        badgeClassDescription: "Description badge class",
         claimPlaceholder: "Claim of the endorsement",
         badgeClassPlaceholder: "Search and select a badge class...",
         badgeClass: "The endorsed badge class",
