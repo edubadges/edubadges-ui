@@ -15,12 +15,14 @@
     export let badgeclass;
     export let enrollments;
     export let refresh;
+    export let existingAssertionsEmails;
     export let existingDirectAwardsEppns;
 
     let directAwards = [];
     let errorAwards = [];
     let duplicateAwards = [];
     let alreadyEppnDirectAwards = [];
+    let alreadyEmailAssertion = [];
     let missingEvidenceOrNarrative = [];
     let processing = false;
     let serverProcessing = false;
@@ -41,6 +43,7 @@
                     const newErrorAwards = [];
                     const newDuplicateAwards = [];
                     const newAlreadyEppnDirectAwards = [];
+                    const newAlreadyEmailAssertion = [];
                     const newMissingEvidenceOrNarrative = [];
                     rows.forEach(row => {
                         const cells = row.split(/[,;\t]/);
@@ -58,6 +61,8 @@
                             const description = cells[5] || null;
                             if (existingDirectAwardsEppns.includes(eppn)) {
                                 newAlreadyEppnDirectAwards.push(eppn);
+                            } else if (existingAssertionsEmails.includes(email)) {
+                                newAlreadyEmailAssertion.push(email);
                             } else if (alreadyInList(newDirectAwards, email, eppn)) {
                                 newDuplicateAwards.push(cellString)
                             } else if ((badgeclass.evidenceRequired && !evidence_url) || (badgeclass.narrativeRequired && !narrative)) {
@@ -80,6 +85,7 @@
                     errorAwards = newErrorAwards;
                     duplicateAwards = newDuplicateAwards;
                     alreadyEppnDirectAwards = newAlreadyEppnDirectAwards;
+                    alreadyEmailAssertion = newAlreadyEmailAssertion;
                     missingEvidenceOrNarrative = newMissingEvidenceOrNarrative;
                     processing = false;
                 };
@@ -183,56 +189,57 @@
   }
 </style>
 <div class="bulk-award-badge">
-  <h2>{I18n.t("badgeAward.bulkAward.title")}</h2>
-  <div class="main-content-margin">
-    <p
-      class="sub-title">{@html I18n.t("badgeAward.bulkAward.subtitle", {sample: `${config.serverUrl}/static/sample_direct_award.csv`})}
-      {#if badgeclass.evidenceRequired && badgeclass.narrativeRequired}
-        <span>{I18n.t("badgeAward.bulkAward.evidenceAndNarrativeRequired")}</span>
-      {:else if badgeclass.evidenceRequired}
-        <span>{I18n.t("badgeAward.bulkAward.evidenceRequired")}</span>
-      {:else if badgeclass.narrativeRequired}
-        <span>{I18n.t("badgeAward.bulkAward.narrativeRequired")}</span>
-      {/if}
-    </p>
-    {#if enrollments.filter(enrollment => !enrollment.denied).length > 0}
-      <div class="warning-container">
-        <Warning
-          msg={I18n.t("badgeAward.directAward.waringEnrollments", {count: enrollments.filter(enrollment => !enrollment.denied).length})}>
-          <a use:link
-             href={`/badgeclass/${badgeclass.entityId}/enrollments`}>{I18n.t("badgeAward.directAward.toToEnrollments")}</a>
-        </Warning>
-      </div>
-    {/if}
-    {#if processing}
-      <DotSpinner/>
-    {:else if serverProcessing}
-      <div class="server-processing">
-        <DotSpinner/>
-        <span>{I18n.t("badgeAward.directAward.processing", {count: directAwards.length})}</span>
-      </div>
-    {:else}
-      <Dropzone on:drop={handleFilesSelect} multiple={false} accept=".csv">
-        <div class="dropzone-slot">
-          <span class="cloud-upload-svg">{@html upload}</span>
-          <span class="cloud-upload-or">{I18n.t("badgeAward.bulkAward.or")}</span>
-          <span class="cloud-upload-link">{I18n.t("badgeAward.bulkAward.browse")}</span>
-        </div>
-      </Dropzone>
-    {/if}
-    <BulkAwardResult warning={true} localeName="wrong" results={errorAwards}/>
-    <BulkAwardResult warning={true} localeName="eppnExisting" results={alreadyEppnDirectAwards}/>
-    <BulkAwardResult warning={true} localeName="duplicate" results={duplicateAwards}/>
-    <BulkAwardResult warning={true} localeName="missingEvidenceOrNarrative" results={missingEvidenceOrNarrative}/>
-    <BulkAwardResult warning={false} localeName="good"
-                     results={directAwards.map(da => `${da.email} - ${da.eppn} ${(da.evidence_url || da.narrative) ? I18n.t("badgeAward.bulkAward.evidenceIncluded") :""}`)}/>
+    <h2>{I18n.t("badgeAward.bulkAward.title")}</h2>
+    <div class="main-content-margin">
+        <p
+                class="sub-title">{@html I18n.t("badgeAward.bulkAward.subtitle", {sample: `${config.serverUrl}/static/sample_direct_award.csv`})}
+            {#if badgeclass.evidenceRequired && badgeclass.narrativeRequired}
+                <span>{I18n.t("badgeAward.bulkAward.evidenceAndNarrativeRequired")}</span>
+            {:else if badgeclass.evidenceRequired}
+                <span>{I18n.t("badgeAward.bulkAward.evidenceRequired")}</span>
+            {:else if badgeclass.narrativeRequired}
+                <span>{I18n.t("badgeAward.bulkAward.narrativeRequired")}</span>
+            {/if}
+        </p>
+        {#if enrollments.filter(enrollment => !enrollment.denied).length > 0}
+            <div class="warning-container">
+                <Warning
+                        msg={I18n.t("badgeAward.directAward.waringEnrollments", {count: enrollments.filter(enrollment => !enrollment.denied).length})}>
+                    <a use:link
+                       href={`/badgeclass/${badgeclass.entityId}/enrollments`}>{I18n.t("badgeAward.directAward.toToEnrollments")}</a>
+                </Warning>
+            </div>
+        {/if}
+        {#if processing}
+            <DotSpinner/>
+        {:else if serverProcessing}
+            <div class="server-processing">
+                <DotSpinner/>
+                <span>{I18n.t("badgeAward.directAward.processing", {count: directAwards.length})}</span>
+            </div>
+        {:else}
+            <Dropzone on:drop={handleFilesSelect} multiple={false} accept=".csv">
+                <div class="dropzone-slot">
+                    <span class="cloud-upload-svg">{@html upload}</span>
+                    <span class="cloud-upload-or">{I18n.t("badgeAward.bulkAward.or")}</span>
+                    <span class="cloud-upload-link">{I18n.t("badgeAward.bulkAward.browse")}</span>
+                </div>
+            </Dropzone>
+        {/if}
+        <BulkAwardResult warning={true} localeName="wrong" results={errorAwards}/>
+        <BulkAwardResult warning={true} localeName="eppnExisting" results={alreadyEppnDirectAwards}/>
+        <BulkAwardResult warning={true} localeName="emailExisting" results={alreadyEmailAssertion}/>
+        <BulkAwardResult warning={true} localeName="duplicate" results={duplicateAwards}/>
+        <BulkAwardResult warning={true} localeName="missingEvidenceOrNarrative" results={missingEvidenceOrNarrative}/>
+        <BulkAwardResult warning={false} localeName="good"
+                         results={directAwards.map(da => `${da.email} - ${da.eppn} ${(da.evidence_url || da.narrative) ? I18n.t("badgeAward.bulkAward.evidenceIncluded") :""}`)}/>
 
-    <div class="actions">
-      <Button action={() => history.back()} text={I18n.t("badgeAward.directAward.cancel")} secondary={true}
-              marginRight={true}/>
-      <Button action={doAward} text={I18n.t("badgeAward.bulkAward.award")} disabled={!maySubmit}/>
+        <div class="actions">
+            <Button action={() => history.back()} text={I18n.t("badgeAward.directAward.cancel")} secondary={true}
+                    marginRight={true}/>
+            <Button action={doAward} text={I18n.t("badgeAward.bulkAward.award")} disabled={!maySubmit}/>
+        </div>
     </div>
-  </div>
 
 </div>
 

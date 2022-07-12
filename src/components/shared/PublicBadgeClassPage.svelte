@@ -33,6 +33,7 @@
     let badgeClass = {};
     let allowedInstitutions = [];
     let allowedInstitutionsAttention = "";
+    let badgeInstances = [];
     let enrollmentId;
     let studentEnrolled;
     let studentAwarded;
@@ -89,6 +90,11 @@
         agreed,
         agreedVersion
       }
+    },
+    badgeInstances {
+        badgeclass {
+            entityId
+        }
     },
     badgeClass(id: $entityId) {
       image,
@@ -161,6 +167,8 @@
                 const userTerms = res[1].currentUser.termsAgreements;
                 noValidatedName = !res[1].currentUser.validatedName;
                 badgeClass = res[1].badgeClass;
+                badgeInstances = res[1].badgeInstances;
+                studentAwarded = studentAwarded || (badgeInstances && badgeInstances.some(bi => bi.badgeclass.entityId === entityId));
                 translateBadgeClassProperties(badgeClass);
                 badgeClass.issuer.id = badgeClass.issuer.publicUrl;
                 schacHomes = res[1].currentUser.schacHomes;

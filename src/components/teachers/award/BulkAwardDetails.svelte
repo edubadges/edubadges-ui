@@ -77,41 +77,41 @@
   }
 </style>
 <div class="bulk-award-details">
-  <h2>{I18n.t("badgeAward.bulkAward.details.header")}</h2>
-  <Table
-    {...table}
-    bind:search={assertionSearch}
-    bind:sort={assertionsSort}
-    isEmpty={filteredAssertions.length === 0}>
+    <h2>{I18n.t("badgeAward.bulkAward.details.header")}</h2>
+    <Table
+            {...table}
+            bind:search={assertionSearch}
+            bind:sort={assertionsSort}
+            isEmpty={filteredAssertions.length === 0}
             filteredCount={sortedFilteredAssertions.length}
-        page={minimalPage}
-        onPageChange={nbr => page = nbr}
+            page={minimalPage}
+            onPageChange={nbr => page = nbr}>
 
-    {#each sortedFilteredAssertions.slice((minimalPage - 1) * pageCount, minimalPage * pageCount) as assertion}
-      <tr>
-        <td class="single-neutral-check">
-          <div class="single-neutral-check">
-            {@html singleNeutralCheck}
-          </div>
-        </td>
-        <td>
-          <span>{assertion.recipientEmail}</span>
-        </td>
-        <td>
-          <span>{assertion.eppn}</span>
-        </td>
-        <td class="assertion-status center">
-          <span class={assertionStatusClass(assertion)}>{assertionStatus(assertion)}</span>
-        </td>
-      </tr>
-    {/each}
-    {#if filteredAssertions.length === 0}
-      <tr>
-        <td colspan="8">{I18n.t("zeroState.directAwards")}</td>
-      </tr>
-    {/if}
+        {#each sortedFilteredAssertions.slice((minimalPage - 1) * pageCount, minimalPage * pageCount) as assertion}
+            <tr>
+                <td class="single-neutral-check">
+                    <div class="single-neutral-check">
+                        {@html singleNeutralCheck}
+                    </div>
+                </td>
+                <td>
+                    <span>{assertion.recipientEmail}</span>
+                </td>
+                <td>
+                    <span>{assertion.eppn}</span>
+                </td>
+                <td class="assertion-status center">
+                    <span class={assertionStatusClass(assertion)}>{assertionStatus(assertion)}</span>
+                </td>
+            </tr>
+        {/each}
+        {#if filteredAssertions.length === 0}
+            <tr>
+                <td colspan="8">{I18n.t("zeroState.directAwards")}</td>
+            </tr>
+        {/if}
 
-  </Table>
+    </Table>
 </div>
 
 

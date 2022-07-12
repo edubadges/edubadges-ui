@@ -18,6 +18,7 @@
 
     export let badgeclass;
     export let enrollments;
+    export let existingAssertionsEmails;
     export let refresh;
     export let existingDirectAwardsEppns;
     export let ltiContextEnabled = false;
@@ -116,6 +117,11 @@
             ...errorsDuplications,
             [`email_${i}`]: directAwards.filter(da => da.email === val).length > 1 && val.trim().length > 0
         }
+        errorsAlreadyAwarded = {
+            ...errorsAlreadyAwarded,
+            [`email_${i}`]: existingAssertionsEmails.some(email => email === val)
+        }
+
     }
 
     const eppnOnBlur = i => e => {
@@ -158,6 +164,7 @@
         }, {});
         errorsAlreadyAwarded = newDirectAwards.reduce((acc, da, i) => {
             acc[`eppn_${i}`] = existingDirectAwardsEppns.some(eppn => eppn === da.eppn);
+            acc[`email_${i}`] = existingAssertionsEmails.some(email => email === da.email);
             return acc;
         }, {});
         errorsDuplications = newDirectAwards.reduce((acc, da, i) => {
@@ -272,6 +279,10 @@
                         {#if errorsDuplications[`email_${i}`]}
                             <Error standAlone={true} error_code={929}/>
                         {/if}
+                        {#if errorsAlreadyAwarded[`email_${i}`]}
+                            <Error standAlone={true} error_code={940}/>
+                        {/if}
+
                     </Field>
                     <div class="deletable-row">
                         <Field entity="badgeAward" attribute="eppn" full={true}>

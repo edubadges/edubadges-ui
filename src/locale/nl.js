@@ -432,6 +432,8 @@ I18n.translations.nl = {
         937: "ECTS mag niet leeg of 0 zijn",
         938: "Een motivatie is verplicht voor het aanvragen van deze edubadge.",
         939: "Een bronvermelding is verplicht voor het aanvragen van deze edubadge.",
+        940: "Er is al een edubadge voor deze email",
+        941: "Er is al een badge aanvraag voor deze email",
         unexpected: "Oeps, er is iets totaal onverwachts en onverklaarbaars gebeurd.",
         description: "Een onverwachte fout is opgetreden. Probeer het opnieuw of neem contact op met support@edubadges.nl voor ondersteuning.",
         close: "Sluit"
@@ -1296,6 +1298,7 @@ I18n.translations.nl = {
             wrong: "De upload bevat {{count}} ongeldige entries die uit de upload zijn verwijderd.",
             duplicate: "De upload bevat {{count}} dubbele entries die uit de upload zijn verwijderd.",
             eppnExisting: "De upload bevat {{count}} EPPN's (student-ID's) met bestaande niet-geaccepteerde direct awards die uit de upload zijn verwijderd.",
+            emailExisting: "De upload bevat {{count}} emails die al deze edubadge hebben ontvangen die uit de upload zijn verwijderd.",
             missingEvidenceOrNarrative: "De upload bevat {{count}} entries die geen narrative en / of evidence bevatten en die uit de upload zijn verwijderd.",
             good: "Verwerkte entries voor de upload: {{count}} ",
             view: "Bekijk",

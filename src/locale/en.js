@@ -432,6 +432,8 @@ I18n.translations.en = {
         937: "ECTS can not be empty or 0",
         938: "This edubadge requires a motivation for enrollment.",
         939: "This edubadge requires an evidence URL for enrollment.",
+        940: "There is already an edubadge for this email",
+        941: "There is already an edubadge request from this email",
         unexpected: "Unexpected error occurred.",
         description: "An unexpected error has occurred. Please try again later or contact support@edubadges.nl for support.",
         close: "Close"
@@ -1295,6 +1297,7 @@ I18n.translations.en = {
             wrong: "Your upload contains {{count}} invalid entries which are removed from the upload.",
             duplicate: "Your upload contains {{count}} duplicate entries which are removed from the upload.",
             eppnExisting: "Your upload contains {{count}} EPPN's (StudentID'd) with outstanding unaccepted direct awards which are removed from the upload.",
+            emailExisting: "Your upload contains {{count}} emails that have already recieved this badgeclass which are removed from the upload",
             missingEvidenceOrNarrative: "Your upload contains {{count}} entries missing narrative and / or evidence which are removed from the upload.",
             good: "Parsed {{count}} entries for upload.",
             view: "View",

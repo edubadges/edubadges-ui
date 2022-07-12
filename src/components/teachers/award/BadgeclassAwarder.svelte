@@ -44,6 +44,8 @@
     let publicInstitutions = [];
     let enrollments = [];
     let assertions = [];
+    let existingAssertionsEmails = [];
+    let existingDirectAwardsEppns = [];
     let directAwardBundles = [];
     let loaded;
 
@@ -190,7 +192,10 @@
 
         res.badgeClass.directAwards = directAwards;
         assertions = badgeAssertions.concat(directAwards);
-
+        existingDirectAwardsEppns = directAwards
+            .filter(da => da.status.toLowerCase() === "unaccepted")
+            .map(da => da.eppn);
+        existingAssertionsEmails = badgeAssertions.map(assertion => assertion.user.email);
         loaded = true;
         callback && callback();
     }
@@ -381,26 +386,23 @@
                 <Route path="/direct-award">
                     <AwardBadge badgeclass={badgeclass}
                                 ltiContextEnabled={false}
-                                existingDirectAwardsEppns={assertions
-                                    .filter(da => da.isDirectAward && da.status.toLowerCase() === "unaccepted")
-                                    .map(da => da.eppn)}
                                 enrollments={enrollments}
+                                existingDirectAwardsEppns={existingDirectAwardsEppns}
+                                existingAssertionsEmails={existingAssertionsEmails}
                                 refresh={refresh}/>
                 </Route>
                 <Route path="/lti-award">
                     <AwardBadge badgeclass={badgeclass}
                                 ltiContextEnabled={true}
-                                existingDirectAwardsEppns={assertions
-                                    .filter(da => da.isDirectAward && da.status.toLowerCase() === "unaccepted")
-                                    .map(da => da.eppn)}
+                                existingDirectAwardsEppns={existingDirectAwardsEppns}
+                                existingAssertionsEmails={existingAssertionsEmails}
                                 enrollments={enrollments}
                                 refresh={refresh}/>
                 </Route>
                 <Route path="/bulk-award">
                     <BulkAwardBadge badgeclass={badgeclass}
-                                    existingDirectAwardsEppns={assertions
-                            .filter(da => da.isDirectAward && da.status.toLowerCase() === "unaccepted")
-                            .map(da => da.eppn)}
+                                    existingDirectAwardsEppns={existingDirectAwardsEppns}
+                                    existingAssertionsEmails={existingAssertionsEmails}
                                     enrollments={enrollments}
                                     refresh={refresh}/>
                 </Route>

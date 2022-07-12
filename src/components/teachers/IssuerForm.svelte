@@ -22,18 +22,8 @@
   let errors = {};
   let isCreate = !entityId;
   let processing = false;
-  let hasAssertions = false;
   let englishValueError = false;
   let dutchValueError = false;
-
-  let hasDutchName = true;
-  let hasEnglishName = true;
-
-  onMount(() => {
-    hasAssertions = (issuer.badgeclasses || []).some(badgeClass => (badgeClass.badgeAssertions || []).length > 0);
-    hasDutchName = !isEmpty(issuer.nameDutch);
-    hasEnglishName = !isEmpty(issuer.nameEnglish);
-  });
 
   function onSubmit() {
     errors = {};
@@ -107,8 +97,7 @@
 
       <Field {entity} attribute="name_english" errors={errors.name_english} tipKey="issuerNameEn">
         <TextInput bind:value={issuer.nameEnglish} error={errors.name_english}
-                   placeholder={I18n.t("placeholders.issuer.name")}
-                   disabled={hasAssertions && hasEnglishName}/>
+                   placeholder={I18n.t("placeholders.issuer.name")}/>
       </Field>
       <Field {entity} attribute="description_english" errors={errors.description_english} tipKey="issuerDescriptionEn">
         <TextInput bind:value={issuer.descriptionEnglish} error={errors.description_english} area size="100"
@@ -127,8 +116,7 @@
 
       <Field {entity} attribute="name_dutch" errors={errors.name_dutch} tipKey="issuerNameNl">
         <TextInput bind:value={issuer.nameDutch} error={errors.name_dutch}
-                   placeholder={I18n.t("placeholders.issuer.name")}
-                   disabled={hasAssertions  && hasDutchName}/>
+                   placeholder={I18n.t("placeholders.issuer.name")}/>
       </Field>
       <Field {entity} attribute="description_dutch" errors={errors.description_dutch} tipKey="issuerDescriptionNl">
         <TextInput bind:value={issuer.descriptionDutch} error={errors.description_dutch} area size="100"
