@@ -203,10 +203,10 @@
             if (!extensions[eqf.name]) {
                 extensions[eqf.name] = {name: "EQF 5", value: 5};
             }
-            if (!showStudyLoad && !showTimeInvestment) {
+            if (!showStudyLoad && !showTimeInvestment && institution.grondslagFormeel !== null) {
                 addStudyLoad();
             }
-            if (showStudyLoad) {
+            if (showStudyLoad && institution.grondslagFormeel !== null) {
                 if (extensions[ects.name] > 30) {
                     extensions[ects.name] = 30;
                 } else if (extensions[ects.name] < 3) {
@@ -635,7 +635,7 @@
         </Field>
     {/if}
 
-    {#if showStudyLoad}
+    {#if showStudyLoad && (institution.grondslagFormeel !== null || isInstitutionMBO)}
         <div style="display: flex">
             <div class="deletable-title"><h4>{I18n.t('models.badgeclass.headers.studyLoad')}</h4></div>
             {#if institution.grondslagInformeel !== null}
@@ -657,7 +657,7 @@
                             disabled={!mayEdit && !isCopy}
                             placeholder={I18n.t("placeholders.badgeClass.studyLoad")}/>
                 </Field>
-            {:else}
+            {:else if institution.grondslagFormeel !== null}
                 <Field {entity} attribute="ects.creditPoints" errors={errors.ECTSExtension}
                        tipKey="badgeClassStudyLoadEcts">
                     <EctsCreditPoints
