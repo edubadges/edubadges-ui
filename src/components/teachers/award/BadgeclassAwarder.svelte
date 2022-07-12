@@ -261,7 +261,7 @@
             href: `/badgeclass/${entityId}/endorsed`
         }
     ].filter(tab => tab.entity !== "assertions" || badgeclass.name !== config.welcomeBadgeClassName)
-        .filter(tab => tab.entity !== "endorsements" || badgeclass.endorsements.length > 0  || subEntity === "endorsements")
+        .filter(tab => tab.entity !== "endorsements" || badgeclass.endorsements.length > 0 || subEntity === "endorsements")
         .filter(tab => tab.entity !== "endorsed" || badgeclass.endorsed.length > 0)
         .filter(tab => tab.entity !== "directAwardBundle" || (badgeclass.issuer.faculty.institution.directAwardingEnabled
             && directAwardBundles.length > 0))
@@ -445,12 +445,14 @@
                     <Route path="/direct-awards-bundles">
                         <DirectAwardBundles badgeClass={badgeclass} {directAwardBundles}/>
                     </Route>
-                    <Route path="/endorsements">
-                        <Endorsements badgeClass={badgeclass} refresh={refreshEndorsements}/>
-                    </Route>
-                    <Route path="/endorsed">
-                        <Endorsed badgeClass={badgeclass} refresh={refreshEndorsed}/>
-                    </Route>
+                    {#if config.features.endorsements}
+                        <Route path="/endorsements">
+                            <Endorsements badgeClass={badgeclass} refresh={refreshEndorsements}/>
+                        </Route>
+                        <Route path="/endorsed">
+                            <Endorsed badgeClass={badgeclass} refresh={refreshEndorsed}/>
+                        </Route>
+                    {/if}
                 </Router>
             </div>
         {/if}

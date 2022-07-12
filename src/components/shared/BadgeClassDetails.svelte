@@ -22,6 +22,7 @@
     import MarkdownField from "../forms/MarkdownField.svelte";
     import Endorsement from "../teachers/endorsements/Endorsement.svelte";
     import {endorsementStatus} from "../../util/endorsements";
+    import {config} from "../../util/config";
 
     export let badgeclass;
     export let publicInstitutions;
@@ -255,7 +256,7 @@
                 </a>
             </p>
         {/if}
-        {#if endorsementsAccepted.length > 0}
+        {#if endorsementsAccepted.length > 0 && config.features.endorsements}
             <section class="endorsements">
                 <h3 class="black-header">
                     {badgeclass.endorsements.length > 1 ? I18n.t("models.badgeclass.endorsementMultiple") : I18n.t("models.badgeclass.endorsement")}

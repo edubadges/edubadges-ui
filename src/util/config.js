@@ -7,5 +7,8 @@ export const config = {
   eduId: "https://mijn.test.eduid.nl",
   isDemoEnvironment: 0,
   importBadgeAllowed: !0,
-  welcomeBadgeClassName: "Edubadge account complete"
+  welcomeBadgeClassName: "Edubadge account complete",
+  features: {
+    endorsements: true
+  }
 };

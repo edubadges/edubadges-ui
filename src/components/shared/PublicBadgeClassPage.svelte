@@ -375,7 +375,7 @@
                             <Button label="alreadyEnrolled" disabled={true} text={I18n.t('student.enrolled')}/>
                         {/if}
                     </div>
-                {:else if visitorRole === role.TEACHER}
+                {:else if visitorRole === role.TEACHER && config.features.endorsements}
                      <div class="slots teacher">
                          <EndorsementView badgeClass={badgeClass}/>
                      </div>
