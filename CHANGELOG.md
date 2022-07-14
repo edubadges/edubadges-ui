@@ -4,6 +4,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [6.3.0] - 2022-07-18
+- A change of email of the eduID account will now show in your profile.
+- Minor Locale changes.
+- After build favicon.ico changed.
+- Changing issuername is now allowed even if edubadges have been awarded.
+- Fixed bug using studyload field when institution doesn't support formal edubadges.
+- Fixed bug to issue same badgeclass to same receipient only once when using Direct Award.
+- Fixed narrative bug that also asks to fill in the evidence fields.
+- Added endorsement functionality.
+- Endorsements behind feature toggle.
+- Ensure no duplicates endorsements are created.
+- Retrieve badge class endorsements.
+- Show endorsements on public badge class page.
+- Do not show empty tabs for endorsements.
+- Show accepted endorsements on public badge class page.
+- Only show accepted endorsements.
+- Translate names for endorsements on public page.
+- Added support for pagination to display long lists.
+- Badges that are expired can not be rejected.
+- Fixed archived badgeclasses should not be requested by learners.
+- Hack to fix svg problem in Safari.
+- Defensive coding for misconfigured badges.
+- Added an option to award requested edubadges over multiple badgeclasses.
+
 ## [6.2.0] - 2022-05-16
 - Empty alignment URL placeholder for micro-credentials badgeclass.
 - Added English text to the Pilot Microcredentials framework.
