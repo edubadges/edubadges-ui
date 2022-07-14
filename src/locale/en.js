@@ -909,7 +909,7 @@ I18n.translations.en = {
         upload: "Upload image",
         remove: "Remove image",
         disclaimer:
-            "Image must be in .png format, contain at least 90x90 pixel and have a maximum size of 256 KB.",
+            "Image must be in .png format, contain at least 90x90 pixels, 300 dpi and have a maximum size of 256 KB.",
     },
     copyToClipboard: {
         copied: "Copied to clipboard"

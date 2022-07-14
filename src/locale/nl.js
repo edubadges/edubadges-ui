@@ -910,7 +910,7 @@ I18n.translations.nl = {
         upload: "Upload afbeelding",
         remove: "Verwijder afbeelding",
         disclaimer:
-            "Afbeelding moet van het type .png zijn, tenminste 90x90 pixels bevatten en kleiner zijn dan 256KB.",
+            "Afbeelding moet van het type .png zijn, tenminste 90x90 pixels bevatten, 300 dpi en kleiner zijn dan 256KB.",
     },
     copyToClipboard: {
         copied: "Naar klembord gekopieerd"
