@@ -434,8 +434,9 @@ I18n.translations.en = {
         937: "ECTS can not be empty or 0",
         938: "This edubadge requires a motivation for enrollment.",
         939: "This edubadge requires an evidence URL for enrollment.",
-        940: "There is already an edubadge for this email",
+        940: "There is already an edubadge or unaccepted direct award for this email",
         941: "There is already an edubadge request from this email",
+        942: "EPPN does not match the EPPN-format of your institution",
         unexpected: "Unexpected error occurred.",
         description: "An unexpected error has occurred. Please try again later or contact support@edubadges.nl for support.",
         close: "Close"

@@ -436,6 +436,7 @@ I18n.translations.nl = {
         939: "Een bronvermelding is verplicht voor het aanvragen van deze edubadge.",
         940: "Er is al een edubadge voor deze email",
         941: "Er is al een badge aanvraag voor deze email",
+        942: "EPPN voldoet niet aan het formaat van je instelling",
         unexpected: "Oeps, er is iets totaal onverwachts en onverklaarbaars gebeurd.",
         description: "Een onverwachte fout is opgetreden. Probeer het opnieuw of neem contact op met support@edubadges.nl voor ondersteuning.",
         close: "Sluit"

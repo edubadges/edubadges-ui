@@ -5,7 +5,7 @@
     import Warning from "../../forms/Warning.svelte";
     import {link, navigate} from "svelte-routing";
     import trash from "../../../icons/trash.svg";
-    import {validEmail, validUrl} from "../../../util/forms";
+    import {validEmail, validEppn, validUrl} from "../../../util/forms";
     import Error from "../../forms/Error.svelte";
     import {createDirectAwards, getLTIContext, getMembers} from "../../../api";
     import {flash} from "../../../stores/flash";
@@ -119,21 +119,22 @@
         }
         errorsAlreadyAwarded = {
             ...errorsAlreadyAwarded,
-            [`email_${i}`]: existingAssertionsEmails.some(email => email === val)
+            [`email_${i}`]: existingAssertionsEmails.some(email => email === val) || existingDirectAwardsEppns.some(inst => inst.recipientEmail === val)
         }
-
     }
 
     const eppnOnBlur = i => e => {
         const val = e.target.value;
-        errors = {...errors, [`eppn_${i}`]: val.trim().length === 0}
+        const isValid = (beforeCommit && isEmpty(val)) || validEppn(val, badgeclass);
+
+        errors = {...errors, [`eppn_${i}`]: val.trim().length === 0 || !isValid}
         errorsDuplications = {
             ...errorsDuplications,
             [`eppn_${i}`]: directAwards.filter(da => da.eppn === val).length > 1 && val.trim().length > 0
         }
         errorsAlreadyAwarded = {
             ...errorsAlreadyAwarded,
-            [`eppn_${i}`]: existingDirectAwardsEppns.some(eppn => eppn === val)
+            [`eppn_${i}`]: existingDirectAwardsEppns.some(da => da.eppn === val)
         }
     }
 
@@ -156,15 +157,16 @@
     //Need to rebuild the errors as in-between values might be removed
     const invariant = newDirectAwards => {
         errors = newDirectAwards.reduce((acc, da, i) => {
-            acc[`eppn_${i}`] = da.eppn.trim().length === 0;
+            acc[`eppn_${i}`] = da.eppn.trim().length === 0 || validEppn(da.eppn, badgeclass);
             acc[`email_${i}`] = !validEmail(da.email);
             acc[`evidence_${i}`] = badgeclass.evidenceRequired && !da.evidence_url;
             acc[`narrative_${i}`] = badgeclass.narrativeRequired && !da.narrative;
             return acc;
         }, {});
         errorsAlreadyAwarded = newDirectAwards.reduce((acc, da, i) => {
-            acc[`eppn_${i}`] = existingDirectAwardsEppns.some(eppn => eppn === da.eppn);
-            acc[`email_${i}`] = existingAssertionsEmails.some(email => email === da.email);
+            acc[`eppn_${i}`] = existingDirectAwardsEppns.some(inst => inst.eppn === da.eppn);
+            acc[`email_${i}`] = existingAssertionsEmails.some(email => email === da.email) ||
+                existingDirectAwardsEppns.some(inst => inst.recipientEmail === da.email);
             return acc;
         }, {});
         errorsDuplications = newDirectAwards.reduce((acc, da, i) => {
@@ -293,7 +295,11 @@
                                 {/if}
                             </TextInput>
                             {#if errors[`eppn_${i}`]}
-                                <Error standAlone={true} error_code={928}/>
+                                {#if isEmpty(da.eppn)}
+                                    <Error standAlone={true} error_code={928}/>
+                                {:else}
+                                    <Error standAlone={true} error_code={942}/>
+                                {/if}
                             {/if}
                             {#if errorsDuplications[`eppn_${i}`]}
                                 <Error standAlone={true} error_code={930}/>

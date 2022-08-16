@@ -59,9 +59,11 @@
                             const evidence_url = cells[3] || null;
                             const name = cells[4] || null;
                             const description = cells[5] || null;
-                            if (existingDirectAwardsEppns.includes(eppn)) {
+                            if (existingDirectAwardsEppns.some(da => da.eppn === eppn)) {
                                 newAlreadyEppnDirectAwards.push(eppn);
                             } else if (existingAssertionsEmails.includes(email)) {
+                                newAlreadyEmailAssertion.push(email);
+                            } else if (existingDirectAwardsEppns.some(da => da.recipientEmail === email)) {
                                 newAlreadyEmailAssertion.push(email);
                             } else if (alreadyInList(newDirectAwards, email, eppn)) {
                                 newDuplicateAwards.push(cellString)

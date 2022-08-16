@@ -98,7 +98,8 @@
             nameEnglish,
             nameDutch,
             directAwardingEnabled,
-            ltiEnabled
+            ltiEnabled,
+            eppnRegExpFormat
           }
         }
       },
@@ -194,8 +195,7 @@
         res.badgeClass.directAwards = directAwards;
         assertions = badgeAssertions.concat(directAwards);
         existingDirectAwardsEppns = directAwards
-            .filter(da => da.status.toLowerCase() === "unaccepted")
-            .map(da => da.eppn);
+            .filter(da => da.status.toLowerCase() === "unaccepted");
         existingAssertionsEmails = badgeAssertions.map(assertion => assertion.user.email);
         loaded = true;
         callback && callback();
