@@ -58,6 +58,7 @@
       awardAllowedInstitutions,
       isMicroCredentials,
       directAwardingDisabled,
+      selfEnrollmentDisabled,
       ${alignments},
       issuer {
         nameEnglish,

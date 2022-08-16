@@ -6,7 +6,7 @@
     import {Button, CheckBox} from "../../../components";
     import {revokeAssertions, revokeDirectAwards} from "../../../api";
     import singleNeutralCheck from "../../../icons/single-neutral-check.svg";
-    import {userName} from "../../../util/users";
+    import {constructUserName} from "../../../util/users";
     import {searchMultiple} from "../../../util/searchData";
     import {Modal} from "../../forms";
     import {flash} from "../../../stores/flash";
@@ -369,7 +369,7 @@
                 </td>
                 <td>
                     <div class="recipient">
-                        <span>{userName(assertion)}</span>
+                        <span>{constructUserName(assertion)}</span>
                         <span>{assertion.isDirectAward ? assertion.recipientEmail : assertion.user.email}</span>
                         {#if assertion.isDirectAward}
                             <span>{assertion.eppn} <em>(eppn)</em></span>

@@ -9,7 +9,7 @@
     import {flash} from "../../stores/flash";
     import {searchMultiple} from "../../util/searchData";
     import singleNeutralCheck from "../../icons/single-neutral-check.svg";
-    import {userName} from "../../util/users";
+    import {constructUserName} from "../../util/users";
     import {Modal} from "../forms";
     import filter from "../../icons/filter-1.svg";
     import AwardBadgeModal from "./award/AwardBadgeModal.svelte";
@@ -311,7 +311,7 @@
                 </td>
                 <td>
                     <div class="recipient">
-                        <span>{userName(enrollment)}</span>
+                        <span>{constructUserName(enrollment)}</span>
                         <span>{enrollment.user.email}</span>
                     </div>
                 </td>

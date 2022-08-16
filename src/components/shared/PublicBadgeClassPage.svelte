@@ -18,7 +18,7 @@
     import {config} from "../../util/config"
     import {getService} from "../../util/getService";
     import PublicBreadcrumb from "./PublicBreadcrumb.svelte";
-    import {translateBadgeClassProperties, translateProperties} from "../../util/utils";
+    import {translateBadgeClassProperties} from "../../util/utils";
     import Field from "../forms/Field.svelte";
     import {isEmpty} from "lodash";
     import {isValidURL} from "../../util/validations";
@@ -111,6 +111,7 @@
       formal,
       evidenceStudentRequired,
       narrativeStudentRequired,
+      selfEnrollmentDisabled,
       terms {
         entityId,
         termsType,
@@ -327,13 +328,13 @@
 
   }
 
-    span.attention {
-      display: inline-block;
-      margin-top: 15px;
-      font-size: 15px;
-      line-height: 20px;
-      max-width: 275px;
-    }
+  span.attention {
+    display: inline-block;
+    margin-top: 15px;
+    font-size: 15px;
+    line-height: 20px;
+    max-width: 275px;
+  }
 
   div.evidence {
     p.info {
@@ -357,7 +358,7 @@
                             <span class="attention">
                               {@html I18n.t(`login.badgeClassArchived`)}
                             </span>
-                        {:else}
+                        {:else if !badgeClass.self_enrollment_disabled}
                             <Button text={I18n.t("login.loginToEnrol")} action={goToEduId}/>
                             {#if badgeClass.awardNonValidatedNameAllowed}
                                 <span class="attention">
@@ -368,6 +369,11 @@
                                 {@html I18n.t(`login.loginToEnrolInfo${allowedInstitutionsAttention}`, {name: allowedInstitutions})}
                               </span>
                             {/if}
+                        {:else}
+                            <Button text={I18n.t("login.login")} action={goToEduId}/>
+                            <span class="attention">
+                                {I18n.t("login.selfEnrollmentDisabled")}
+                          </span>
                         {/if}
                     </div>
                 {:else if visitorRole === role.STUDENT}
@@ -376,17 +382,21 @@
                             <span class="attention">
                               {@html I18n.t(`login.badgeClassArchived`)}
                             </span>
-                        {:else if !studentEnrolled && !studentAwarded}
+                        {:else if !studentEnrolled && !studentAwarded && !badgeClass.selfEnrollmentDisabled}
                             <Button secondary action={() => enrollStudent(true)} text={I18n.t('student.enroll')}
                                     class="btn"/>
+                        {:else if badgeClass.selfEnrollmentDisabled}
+                            <span class="attention">
+                                {I18n.t("login.selfEnrollmentDisabled")}
+                          </span>
                         {:else}
                             <Button label="alreadyEnrolled" disabled={true} text={I18n.t('student.enrolled')}/>
                         {/if}
                     </div>
                 {:else if visitorRole === role.TEACHER && config.features.endorsements}
-                     <div class="slots teacher">
-                         <EndorsementView badgeClass={badgeClass}/>
-                     </div>
+                    <div class="slots teacher">
+                        <EndorsementView badgeClass={badgeClass}/>
+                    </div>
                 {/if}
             </BadgeClassHeader>
 

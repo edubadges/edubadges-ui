@@ -80,6 +80,7 @@
       criteriaText,
       expirationPeriod,
       directAwardingDisabled,
+      selfEnrollmentDisabled,
       issuer {
         nameEnglish,
         nameDutch,

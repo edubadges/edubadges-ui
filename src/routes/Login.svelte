@@ -186,7 +186,7 @@
         <div class="svg-container">
           {@html catalog}
         </div>
-        <h4>{I18n.t('login.catalog.subtitle', {badgeInstancesCount})}</h4>
+        <h4>{I18n.t('login.catalog.subtitle', {badgeInstancesCount: badgeInstancesCount.toLocaleString("nl-NL")})}</h4>
         <div class="login">
           <LoginButton
             label={I18n.t('login.catalog.action')}

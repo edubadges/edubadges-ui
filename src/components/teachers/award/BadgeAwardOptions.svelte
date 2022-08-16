@@ -83,47 +83,50 @@
   }
 </style>
 <div class="badge-award-options">
-  {#if badgeclass.isPrivate}
-    <EntityHeaderNotification msg={I18n.t("invites.copyPublicUrlDisabled")}/>
-  {:else if badgeclass.archived}
-    <EntityHeaderNotification msg={I18n.t("badgeAwardOptions.badgeClassArchived")}/>
-  {:else}
-    {#if directAwardingEnabled}
-      <Button href={`/badgeclass/${badgeclass.entityId}/direct-award`} text={I18n.t("badgeAwardOptions.directAward")}/>
-      <span class="award-link">{I18n.t("badgeAwardOptions.or")}
-        <a use:link href={`/badgeclass/${badgeclass.entityId}/bulk-award`}>
+    {#if badgeclass.isPrivate}
+        <EntityHeaderNotification msg={I18n.t("invites.copyPublicUrlDisabled")}/>
+    {:else if badgeclass.archived}
+        <EntityHeaderNotification msg={I18n.t("badgeAwardOptions.badgeClassArchived")}/>
+    {:else}
+        {#if directAwardingEnabled}
+            <Button href={`/badgeclass/${badgeclass.entityId}/direct-award`}
+                    text={I18n.t("badgeAwardOptions.directAward")}/>
+            <span class="award-link">{I18n.t("badgeAwardOptions.or")}
+                <a use:link href={`/badgeclass/${badgeclass.entityId}/bulk-award`}>
           {I18n.t("badgeAwardOptions.bulkAward")}
         </a>
       </span>
-      <span class="award-link">{I18n.t("badgeAwardOptions.or")}
-        <a on:click|preventDefault|stopPropagation={() => showInviteDialog = true}
-           href="/">{I18n.t("badgeAwardOptions.inviteEnrollements")}</a>
-      </span>
-      {#if $ltiContext.launchId}
+            {#if !badgeclass.selfEnrollmentDisabled}
         <span class="award-link">{I18n.t("badgeAwardOptions.or")}
-        <a use:link href={`/badgeclass/${badgeclass.entityId}/lti-award`}>
+            <a on:click|preventDefault|stopPropagation={() => showInviteDialog = true}
+               href="/">{I18n.t("badgeAwardOptions.inviteEnrollements")}</a>
+        </span>
+            {/if}
+            {#if $ltiContext.launchId}
+        <span class="award-link">{I18n.t("badgeAwardOptions.or")}
+            <a use:link href={`/badgeclass/${badgeclass.entityId}/lti-award`}>
           {I18n.t("badgeAwardOptions.ltiAward")}
         </a>
       </span>
-      {/if}
-    {:else}
-      <Button action={() => showInviteDialog = true} text={I18n.t("badgeAwardOptions.inviteEnrollements")}/>
+            {/if}
+        {:else if !badgeclass.selfEnrollmentDisabled}
+            <Button action={() => showInviteDialog = true} text={I18n.t("badgeAwardOptions.inviteEnrollements")}/>
+        {/if}
+        {#if showShareFeedback}
+            <div class="tooltip" class:direct-awarding-enabled={directAwardingEnabled}>
+                {I18n.t("copyToClipboard.copied")}
+            </div>
+        {/if}
     {/if}
-    {#if showShareFeedback}
-      <div class="tooltip" class:direct-awarding-enabled={directAwardingEnabled}>
-        {I18n.t("copyToClipboard.copied")}
-      </div>
-    {/if}
-  {/if}
 
 
 </div>
 
 {#if showInviteDialog}
-  <InviteDialog
-    copied={copiedLink}
-    cancel={() => showInviteDialog = false}
-    publicUrl={publicUrl()}/>
+    <InviteDialog
+            copied={copiedLink}
+            cancel={() => showInviteDialog = false}
+            publicUrl={publicUrl()}/>
 {/if}
 
 

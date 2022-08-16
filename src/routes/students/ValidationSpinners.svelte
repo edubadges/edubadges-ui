@@ -7,6 +7,7 @@
     import {onMount} from "svelte";
     import {importedAssertionValidate, validateBadge} from "../../api";
     import DOMPurify from 'dompurify';
+    import {validatedUserName} from "../../stores/user";
 
     export let close;
     export let badge = {issuer: {}};
@@ -26,7 +27,7 @@
         {key: "hosted", val: importedBadge ? new URL(badge.import_url).hostname : "", eduBadge: false },
         {
             key: "issuedTo",
-            val: validatedName || I18n.t("publicBadge.validations.noValidatedName"),
+            val:  validatedName ? validatedUserName(validatedName) : I18n.t("publicBadge.validations.noValidatedName"),
             invalid: !validatedName
         },
         {key: "claimedOn", val: formatDate(badge.updatedAt), eduBadge: true},

@@ -285,6 +285,7 @@
             award_non_validated_name_allowed: badgeclass.awardNonValidatedNameAllowed,
             is_micro_credentials: badgeclass.isMicroCredentials,
             direct_awarding_disabled: badgeclass.directAwardingDisabled,
+            self_enrollment_disabled: badgeclass.selfEnrollmentDisabled,
             criteria_url: toHttpOrHttps(badgeclass.criteriaUrl),
         };
         setExpirationPeriod(newBadgeclass);
@@ -589,6 +590,13 @@
                         tipKey="badgeClassDirectAwardingDisabled"
                         onChange={val => badgeclass.directAwardingDisabled = val}/>
             {/if}
+                <CheckBox
+                        value={badgeclass.selfEnrollmentDisabled || false}
+                        inForm={true}
+                        adjustTop={true}
+                        label={I18n.t(['models', entity, 'selfEnrollmentDisabled'])}
+                        tipKey="badgeClassSelfEnrollmentDisabled"
+                        onChange={val => badgeclass.selfEnrollmentDisabled = val}/>
         </Field>
     </div>
 

@@ -36,6 +36,7 @@
   import LTIContext from "./components/teachers/lti/LTIContext.svelte";
   import LTILaunch from "./components/teachers/lti/LTILaunch.svelte";
   import Notifications from "./components/teachers/Notifications.svelte";
+  import {constructUserName} from "./util/users";
 
 
   const homepage = {
@@ -55,7 +56,7 @@
         .then(res => {
           loaded = true;
           $userLoggedIn = true;
-          $userName = `${res[0].firstName} ${res[0].lastName}`;
+          $userName = constructUserName({user: {firstName:res[0].firstName, lastName: res[0].lastName}});
         })
         .catch(e => {
           $redirectPath = path;
