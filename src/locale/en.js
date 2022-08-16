@@ -1379,7 +1379,8 @@ I18n.translations.en = {
         backpack: "Backpack users",
         crunching: "Crunching the numbers just for you...",
         date: "Date",
-        reset: "Reset"
+        reset: "Reset",
+        total: "Total"
     },
     collections: {
         title: "Collections",

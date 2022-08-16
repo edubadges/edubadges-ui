@@ -67,7 +67,9 @@
     let issuerId = null;
     let facultyId = null;
     const currentYear = new Date().getFullYear();
-    let yearSelectOptions = new Array(10).fill(0).map((a, i) => ({name: currentYear - i}));
+    const number = currentYear - 2017
+    let yearSelectOptions = new Array(number).fill(0).map((a, i) => ({name: currentYear - i}));
+    yearSelectOptions.push({name: I18n.t("insights.total")})
     let year = yearSelectOptions[0];
     let facultySelectOptions = [];
     let issuerSelectOptions = [];
@@ -204,7 +206,9 @@
         reload(serverData);
     }
 
-    const xAxisFormatter = ctx => ctx.value + firstWeek;
+    const xAxisFormatter = ctx => {
+      return ctx.value + firstWeek;
+    }
 
     afterUpdate(() => {
         if (!loaded) {

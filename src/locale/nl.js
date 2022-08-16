@@ -1380,7 +1380,8 @@ I18n.translations.nl = {
         backpack: "Backpack gebruikers",
         crunching: "Crunching the numbers just for you...",
         date: "Datum",
-        reset: "Reset"
+        reset: "Reset",
+        total: "Totaal"
     },
     collections: {
         title: "Collecties",

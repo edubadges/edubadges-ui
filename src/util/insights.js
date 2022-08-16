@@ -5,6 +5,11 @@ export const weekNumber = s => {
     return Math.ceil((d.getDay() + 1 + numberOfDays) / 7);
 }
 
+export const yearNumber = s => {
+    const d = s ? new Date(s) : new Date();
+    return d.getFullYear();
+}
+
 export const lastNumber = assertions => {
     return assertions.length === 0 ? 0 : assertions[assertions.length - 1];
 }
@@ -154,6 +159,7 @@ export const assertionSeries = assertions => {
     //Add the week numbers based on the date
     let filteredAssertions = assertions.map(assertion => {
         assertion.weekNumber = weekNumber(assertion.week);
+        assertion.yearNumber = yearNumber(assertion.year)
         return assertion;
     });
     //because we have grouped_by on badge, faculty and issuer, we need to add up the equal week numbers
@@ -192,6 +198,18 @@ export const maxWeekOfAssertionSeries = (a1, a2) => {
     const week1 = a1.length > 0 ? a1[a1.length -1].weekNumber : 1;
     const week2 = a2.length > 0 ? a2[a2.length -1].weekNumber : 1;
     return Math.max(week1 || 1, week2 || 1);
+}
+
+export const minYearOfAssertionSeries = (a1, a2) => {
+    const year1 = a1.length > 0 ? a1[0].yearNumber : 1;
+    const year2 = a2.length > 0 ? a2[0].yearNumber : 1;
+    return Math.min(year1 || 1, year2 || 1);
+}
+
+export const maxYearOfAssertionSeries = (a1, a2) => {
+    const year1 = a1.length > 0 ? a1[a1.length -1].yearNumber : 1;
+    const year2 = a2.length > 0 ? a2[a2.length -1].yearNumber : 1;
+    return Math.max(year1 || 1, year2 || 1);
 }
 
 export const equalizeAssertionsSize = (daAssertions, reqAssertions) => {
