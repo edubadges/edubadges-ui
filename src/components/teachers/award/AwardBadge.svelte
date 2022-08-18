@@ -157,7 +157,7 @@
     //Need to rebuild the errors as in-between values might be removed
     const invariant = newDirectAwards => {
         errors = newDirectAwards.reduce((acc, da, i) => {
-            acc[`eppn_${i}`] = da.eppn.trim().length === 0 || validEppn(da.eppn, badgeclass);
+            acc[`eppn_${i}`] = da.eppn.trim().length === 0 || !validEppn(da.eppn, badgeclass);
             acc[`email_${i}`] = !validEmail(da.email);
             acc[`evidence_${i}`] = badgeclass.evidenceRequired && !da.evidence_url;
             acc[`narrative_${i}`] = badgeclass.narrativeRequired && !da.narrative;
