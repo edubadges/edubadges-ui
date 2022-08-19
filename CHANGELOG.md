@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [6.4.0] - 2022-08-22
+- Do not commit insights.
+- Detect used emails in direct awards.
+- Badgclass option to disable Invite people to enroll.
+- Added 300 dpi note to locales.
+
 ## [6.3.0] - 2022-07-18
 - A change of email of the eduID account will now show in your profile.
 - Minor Locale changes.
