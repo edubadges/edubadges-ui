@@ -7,7 +7,7 @@
     import {onMount} from "svelte";
     import {importedAssertionValidate, validateBadge} from "../../api";
     import DOMPurify from 'dompurify';
-    import {validatedUserName} from "../../stores/user";
+    import {validatedUserName} from "../../util/users";
 
     export let close;
     export let badge = {issuer: {}};
