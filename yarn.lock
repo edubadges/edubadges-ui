@@ -8696,10 +8696,10 @@ svelte-select@^3.10.0:
   resolved "https://registry.yarnpkg.com/svelte-select/-/svelte-select-3.10.0.tgz#728f47037994b378876560ceaacd1308901888fb"
   integrity sha512-ssiMIGWTMswbRr9ZqJXiOnIx5qlN/2kWcB9EQnisJpN9qeYDIfuWITu5TNaymsKpWH/3767eEtnBNiRFRUUrrQ==
 
-svelte@^3.23.1:
-  version "3.23.2"
-  resolved "https://registry.yarnpkg.com/svelte/-/svelte-3.23.2.tgz#f3e500384261a2e77b29681ee744c3c790fbcdc3"
-  integrity sha512-hE8GeTM83YVR4GY6/6PeDEcGct4JS5aCi+IYbCAa76oaPSfuF7L85DQYULQxlTK/KPWzw3L1GRGmC3oPG/PQoA==
+svelte@^3.49.0:
+  version "3.49.0"
+  resolved "https://registry.yarnpkg.com/svelte/-/svelte-3.49.0.tgz#5baee3c672306de1070c3b7888fc2204e36a4029"
+  integrity sha512-+lmjic1pApJWDfPCpUUTc1m8azDqYCG1JN9YEngrx/hUyIcFJo6VZhj0A1Ai0wqoHcEIuQy+e9tk+4uDgdtsFA==
 
 svg-inline-loader@^0.8.0:
   version "0.8.2"
