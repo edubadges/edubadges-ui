@@ -241,10 +241,12 @@ export const equalizeAssertionsSize = (daAssertions, reqAssertions) => {
         }
         if (daLastWeek > reqLastWeek) {
             const sameReq = new Array(daLastWeek - reqLastWeek).fill({nbr: lastNumber(reqAssertions).nbr});
-            reqResults = [...reqAssertions, ...sameReq]
+            const subReqResults = reqResults || reqAssertions;
+            reqResults = [...subReqResults, ...sameReq]
         } else if (daLastWeek < reqLastWeek) {
             const sameDa = new Array(reqLastWeek - daLastWeek).fill({nbr: lastNumber(daAssertions).nbr});
-            daResults = [...daAssertions, ...sameDa]
+            const subDaAssertions = daResults || daAssertions;
+            daResults = [...subDaAssertions, ...sameDa]
         }
     }
     return [daResults || daAssertions, reqResults || reqAssertions]
