@@ -16,7 +16,7 @@
 
 <style lang="scss">
 
-  label {
+  span.title {
     font-weight: bold;
 
     &.marginBottom {
@@ -103,7 +103,7 @@
 
 </style>
 
-<label class:marginBottom class:marginTop>
+<span class="title" class:marginBottom class:marginTop>
     {#if label}
         {label}
     {/if}
@@ -121,6 +121,6 @@
             </div>
         </div>
     {/if}
-</label>
+</span>
 
 

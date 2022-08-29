@@ -77,7 +77,7 @@
       display: flex;
       align-items: center;
 
-      label.title {
+      span.title {
         display: inline-block;
         margin-right: 18px;
         font-weight: bold;
@@ -104,7 +104,7 @@
 
 <div class="sort-options">
   <div class="sort">
-    <label class="title">{I18n.t("models.badgeclass.sorting")}</label>
+    <span class="title">{I18n.t("models.badgeclass.sorting")}</span>
     <MinimalisticSelect
       bind:value={sorting}
       items={sortTargetOptions()}

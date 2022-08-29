@@ -527,47 +527,21 @@
                     items={issuers}/>
         </Field>
 
-        <Field {entity} attribute="extraOptions">
+        <Field {entity} attribute="badgeClassOptions">
             <CheckBox
                     value={badgeclass.isPrivate || false}
                     inForm={true}
                     adjustTop={true}
+                    boldLabel={false}
                     label={I18n.t(['models', entity, 'isPrivate'])}
                     tipKey="badgeClassIsPrivate"
                     disabled={hasUnrevokedAssertions}
                     onChange={val => badgeclass.isPrivate = val}/>
             <CheckBox
-                    value={badgeclass.evidenceRequired || false}
-                    inForm={true}
-                    adjustTop={true}
-                    label={I18n.t(['models', entity, 'evidenceRequired'])}
-                    tipKey="badgeClassEvidenceRequired"
-                    onChange={val => badgeclass.evidenceRequired = val}/>
-            <CheckBox
-                    value={badgeclass.narrativeRequired || false}
-                    inForm={true}
-                    adjustTop={true}
-                    label={I18n.t(['models', entity, 'narrativeRequired'])}
-                    tipKey="badgeClassNarrativeRequired"
-                    onChange={val => badgeclass.narrativeRequired = val}/>
-            <CheckBox
-                    value={badgeclass.narrativeStudentRequired || false}
-                    inForm={true}
-                    adjustTop={true}
-                    label={I18n.t(['models', entity, 'narrativeStudentRequired'])}
-                    tipKey="badgeClassNarrativeStudentRequired"
-                    onChange={val => badgeclass.narrativeStudentRequired = val}/>
-            <CheckBox
-                    value={badgeclass.evidenceStudentRequired || false}
-                    inForm={true}
-                    adjustTop={true}
-                    label={I18n.t(['models', entity, 'evidenceStudentRequired'])}
-                    tipKey="badgeClassEvidenceStudentRequired"
-                    onChange={val => badgeclass.evidenceStudentRequired = val}/>
-            <CheckBox
                     value={badgeclass.awardNonValidatedNameAllowed || false}
                     inForm={true}
                     disabled={showStudyLoad}
+                    boldLabel={false}
                     adjustTop={true}
                     label={I18n.t(['models', entity, 'awardNonValidatedNameAllowed'])}
                     tipKey="badgeClassAwardNonValidatedNameAllowed"
@@ -576,27 +550,67 @@
                 <CheckBox
                         value={badgeclass.isMicroCredentials || false}
                         inForm={true}
+                        boldLabel={false}
                         adjustTop={true}
                         label={I18n.t(['models', entity, 'isMicroCredentials'])}
                         tipKey="badgeClassIsMicroCredentials"
                         onChange={changeIsMicroCredentials}/>
             {/if}
+        </Field>
+
+        <Field {entity} attribute="evidenceNarrativeOptions">
+            <CheckBox
+                    value={badgeclass.evidenceRequired || false}
+                    inForm={true}
+                    adjustTop={true}
+                    boldLabel={false}
+                    label={I18n.t(['models', entity, 'evidenceRequired'])}
+                    tipKey="badgeClassEvidenceRequired"
+                    onChange={val => badgeclass.evidenceRequired = val}/>
+            <CheckBox
+                    value={badgeclass.narrativeRequired || false}
+                    inForm={true}
+                    adjustTop={true}
+                    boldLabel={false}
+                    label={I18n.t(['models', entity, 'narrativeRequired'])}
+                    tipKey="badgeClassNarrativeRequired"
+                    onChange={val => badgeclass.narrativeRequired = val}/>
+            <CheckBox
+                    value={badgeclass.narrativeStudentRequired || false}
+                    inForm={true}
+                    adjustTop={true}
+                    boldLabel={false}
+                    label={I18n.t(['models', entity, 'narrativeStudentRequired'])}
+                    tipKey="badgeClassNarrativeStudentRequired"
+                    onChange={val => badgeclass.narrativeStudentRequired = val}/>
+            <CheckBox
+                    value={badgeclass.evidenceStudentRequired || false}
+                    inForm={true}
+                    adjustTop={true}
+                    boldLabel={false}
+                    label={I18n.t(['models', entity, 'evidenceStudentRequired'])}
+                    tipKey="badgeClassEvidenceStudentRequired"
+                    onChange={val => badgeclass.evidenceStudentRequired = val}/>
+        </Field>
+        <Field {entity} attribute="awardOptions">
             {#if institution.directAwardingEnabled}
                 <CheckBox
                         value={badgeclass.directAwardingDisabled || false}
                         inForm={true}
+                        boldLabel={false}
                         adjustTop={true}
                         label={I18n.t(['models', entity, 'directAwardingDisabled'])}
                         tipKey="badgeClassDirectAwardingDisabled"
                         onChange={val => badgeclass.directAwardingDisabled = val}/>
             {/if}
-                <CheckBox
-                        value={badgeclass.selfEnrollmentDisabled || false}
-                        inForm={true}
-                        adjustTop={true}
-                        label={I18n.t(['models', entity, 'selfEnrollmentDisabled'])}
-                        tipKey="badgeClassSelfEnrollmentDisabled"
-                        onChange={val => badgeclass.selfEnrollmentDisabled = val}/>
+            <CheckBox
+                    value={badgeclass.selfEnrollmentDisabled || false}
+                    inForm={true}
+                    boldLabel={false}
+                    adjustTop={true}
+                    label={I18n.t(['models', entity, 'selfEnrollmentDisabled'])}
+                    tipKey="badgeClassSelfEnrollmentDisabled"
+                    onChange={val => badgeclass.selfEnrollmentDisabled = val}/>
         </Field>
     </div>
 

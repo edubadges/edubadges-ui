@@ -3,15 +3,14 @@
     import Tooltip from "./Tooltip.svelte";
 
     export let value;
-    export let onChange = () => {
-    };
+    export let onChange = () => true;
     export let disabled = false;
     export let label;
     export let tipKey;
     export let inForm = false;
     export let adjustTop = false;
     export let adjustTopFlex = false;
-
+    export let boldLabel = true;
 
 </script>
 <style lang="scss">
@@ -22,7 +21,11 @@
     padding-left: 28px;
     cursor: pointer;
     user-select: none;
-    font-weight: 600;
+
+    &.bold-label {
+      font-weight: 600;
+    }
+
 
     &.disabled {
       cursor: not-allowed;
@@ -74,18 +77,18 @@
 
 
 </style>
-<label class="checkboxed" class:disabled={disabled} class:in-form={inForm}>
-  {#if label}
-    <span>{label}</span>
-    {#if tipKey}
-      <Tooltip tipKey={tipKey}/>
+<label class="checkboxed" class:disabled={disabled} class:in-form={inForm} class:bold-label={boldLabel}>
+    {#if label}
+        <span>{label}</span>
+        {#if tipKey}
+            <Tooltip tipKey={tipKey}/>
+        {/if}
     {/if}
-  {/if}
-  <input type="checkbox" checked={value}
-         on:change={e => onChange(e.target.checked)}
-         disabled={disabled}>
-  <span class="checkmarked" class:adjust-top={adjustTop} class:adjust-top-flex={adjustTopFlex} class:active={value}
-        class:disabled={disabled}>
+    <input type="checkbox" checked={value}
+           on:change={e => onChange(e.target.checked)}
+           disabled={disabled}>
+    <span class="checkmarked" class:adjust-top={adjustTop} class:adjust-top-flex={adjustTopFlex} class:active={value}
+          class:disabled={disabled}>
     {#if value && !disabled}
       {@html check}
     {/if}

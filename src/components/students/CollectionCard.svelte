@@ -86,7 +86,7 @@
         margin: 0 0 0 25px;
       }
 
-      :global(svg.chevron-down, svg.chevron-up) {
+      :global(svg.chevron-down), :global(svg.chevron-up) {
         width: 28px;
         fill: var(--purple);
       }

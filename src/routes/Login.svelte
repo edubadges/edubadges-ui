@@ -114,11 +114,6 @@
     align-items: center;
   }
 
-  .create-account-content > * {
-    margin-bottom: 20px;
-    text-align: left;
-  }
-
   .invite-only {
     display: flex;
     margin-top: 19px;
