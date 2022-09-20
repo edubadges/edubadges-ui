@@ -79,8 +79,10 @@
     let inFacultySelected = false;
 
     //To calculate the X-axis
-    let firstWeek = 1;
-    let lastWeek = 1;
+    let firstYear = 1;
+    let lastYear = 1;
+    let firstMonth = 1;
+    let lastMonth = 1;
 
     //To calculate the Y-axis
     let maxNumber = 1;
@@ -97,16 +99,19 @@
         loaded = false;
         const filteredDA = filterSeries(res['assertions'], entityTypeLookup.ASSERTION, 'direct_award', badgeClassId, issuerId, facultyId);
         let daAssertions = assertionSeries(filteredDA);
+
         const filteredReq = filterSeries(res['assertions'], entityTypeLookup.ASSERTION, 'requested', badgeClassId, issuerId, facultyId);
         let reqAssertions = assertionSeries(filteredReq);
+
         directAwards = filterSeries(res['direct_awards'], entityTypeLookup.DIRECT_AWARD, null, badgeClassId, issuerId, facultyId);
         enrollments = filterSeries(res['enrollments'], entityTypeLookup.ENROLMENT, null, badgeClassId, issuerId, facultyId);
         const equalized = equalizeAssertionsSize(daAssertions, reqAssertions);
         daAssertions = equalized[0];
         reqAssertions = equalized[1];
 
-        firstWeek = minWeekOfAssertionSeries(daAssertions, reqAssertions);
-        lastWeek = maxWeekOfAssertionSeries(daAssertions, reqAssertions);
+        firstMonth = minWeekOfAssertionSeries(daAssertions, reqAssertions);
+        lastMonth = maxWeekOfAssertionSeries(daAssertions, reqAssertions);
+        //these are the three series -TODO make categories for x-as, based on year = total
         directAwardAssertions = daAssertions.map(assertion => assertion.nbr);
         requestedAssertions = reqAssertions.map(assertion => assertion.nbr);
         totalAssertions = directAwardAssertions.map((nbr, index) => nbr + requestedAssertions[index]);
@@ -207,7 +212,10 @@
     }
 
     const xAxisFormatter = ctx => {
-      return ctx.value + firstWeek;
+      if (year.name === I18n.t("insights.total")) {
+
+      }
+      return ctx.value + firstMonth;
     }
 
     afterUpdate(() => {
@@ -282,10 +290,11 @@
                 labels: {
                     formatter: xAxisFormatter
                 },
+                tickInterval: year.name === I18n.t("insights.total") ? 10 : 5,
                 title: {
                     text: 'Week'
                 },
-                categories: new Array(lastWeek - firstWeek).map((val, index) => index + firstWeek)
+                categories: new Array(lastWeek - firstWeek).map((val, index) => index + firstWeek + "gek")
             },
             legend: {
                 enabled: false
@@ -307,14 +316,12 @@
                 {
                     name: I18n.t("insights.totalAwarded"),
                     lineWidth: 1,
-                    // color: "#eaceff",
                     color: "#782684",
                     data: totalAssertions
                 },
                 {
                     name: I18n.t("insights.directAwarded"),
                     lineWidth: 1,
-                    //color: "#feeedc",
                     color: "#e67506",
                     data: directAwardAssertions
                 },
@@ -322,7 +329,6 @@
                     name: I18n.t("insights.requested"),
                     lineWidth: 1,
                     color: "#3a9f2e",
-                    // color: "#aeebc8",
                     data: requestedAssertions
                 }
             ]

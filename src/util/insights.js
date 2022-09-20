@@ -156,33 +156,27 @@ export const extractAssertionFaculties = (assertions, directAwards, enrolments, 
 }
 
 export const assertionSeries = assertions => {
-    //Add the week numbers based on the date
-    let filteredAssertions = assertions.map(assertion => {
-        assertion.weekNumber = weekNumber(assertion.week);
-        assertion.yearNumber = yearNumber(assertion.year)
-        return assertion;
-    });
     //because we have grouped_by on badge, faculty and issuer, we need to add up the equal week numbers
     //and because we want to show a cumulative area chart we add the previous number with the current and so on
-    let prevWeek;
-    filteredAssertions = filteredAssertions.reduce((acc, val) => {
-        let prevAssertion;
+    let prevAssertion;
+    const filteredAssertions = assertions.reduce((acc, val) => {
         let nbr = val.nbr;
         if (acc.length > 0) {
             prevAssertion = acc[acc.length - 1];
-            if (prevAssertion.weekNumber !== val.weekNumber) {
+            if (prevAssertion.year !== val.year && prevAssertion.month !== val.month) {
                 nbr += prevAssertion.nbr;
             } else {
                 prevAssertion.nbr += nbr;
             }
         }
-        if (prevWeek && prevAssertion && val.weekNumber > (prevWeek + 1)) {
-            acc = acc.concat(new Array(val.weekNumber - prevWeek + -1).fill({nbr: prevAssertion.nbr}));
+        if (prevAssertion && (val.month > prevAssertion.month ||  val.year > prevAssertion.year)) {
+            //TODO We need to fill in blanks for the months not present, but also check if we are in a new year
+            acc = acc.concat(new Array(val.month - prevAssertion + -1).fill({nbr: prevAssertion.nbr}));
         }
-        if (!prevAssertion || prevAssertion.weekNumber !== val.weekNumber) {
-            acc.push({nbr: nbr, weekNumber: val.weekNumber});
+        if (!prevAssertion || (prevAssertion.month !== val.month)) {
+            acc.push({nbr: nbr, weekNumber: val.weekNumber, yearNumber: val.yearNumber});
         }
-        prevWeek = val.weekNumber;
+        prevAssertion = val;
         return acc;
     }, []);
     return filteredAssertions;
