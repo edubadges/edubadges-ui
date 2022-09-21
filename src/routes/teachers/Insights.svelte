@@ -1,7 +1,7 @@
 <script>
     import {afterUpdate, onMount} from "svelte";
     import Spinner from "../../components/Spinner.svelte";
-    import {insights} from "../../api";
+    import {getProfile, insights} from "../../api";
     import Highcharts from "highcharts";
     import I18n from "i18n-js";
     import data from "highcharts/modules/data";
@@ -15,25 +15,27 @@
     import schoolbag from "../../icons/school-bag.svg";
 
     import {
-        assertionSeries,
-        badgeClassOptions,
-        claimRate,
-        entityTypeLookup,
-        equalizeAssertionsSize,
-        extractAssertionFaculties,
-        facultyOptions,
-        filterSeries,
-        findByAttributeValue,
-        issuerOptions,
-        lastNumber,
-        maxWeekOfAssertionSeries,
-        minWeekOfAssertionSeries
+      assertionSeries,
+      badgeClassOptions,
+      claimRate,
+      entityTypeLookup,
+      equalizeAssertionsSize,
+      extractAssertionFaculties,
+      facultyOptions,
+      filterSeries,
+      findByAttributeValue, institutionOptions,
+      issuerOptions,
+      lastNumber,
+      maxWeekOfAssertionSeries,
+      minWeekOfAssertionSeries
     } from "../../util/insights";
     import Tooltip from "../../components/Tooltip.svelte";
     import Field from "../../components/forms/Field.svelte";
     import {Select} from "../../components/forms";
     import Button from "../../components/Button.svelte";
     import {config} from "../../util/config";
+    import {queryData} from "../../api/graphql";
+    import {isEmpty} from "lodash";
 
     data(Highcharts);
     Exporter(Highcharts);
@@ -41,7 +43,11 @@
     OfflineExporting(Highcharts);
 
     let serverData = null;
+    let profile = null;
     let loaded = false;
+
+    //Superusers can select institutions
+    let institutions = [];
 
     //All faculties, issuer and badgeclass
     let faculties = new Map();
@@ -66,6 +72,7 @@
     let badgeClassId = null;
     let issuerId = null;
     let facultyId = null;
+    let institutionId = null;
     const currentYear = new Date().getFullYear();
     const number = currentYear - 2017
     let yearSelectOptions = new Array(number).fill(0).map((a, i) => ({name: currentYear - i}));
@@ -94,6 +101,15 @@
     let issuerGroupCount = 0;
     let usersCount = 0;
     let backpackCount = 0;
+
+    const query = `query {
+      publicInstitutions {
+        id,
+        nameEnglish,
+        nameDutch,
+        entityId
+        }
+      }`
 
     const reload = res => {
         loaded = false;
@@ -125,9 +141,15 @@
     }
 
     const initialize = () => {
-        insights(year.name).then(res => {
-            serverData = res;
-            faculties = extractAssertionFaculties(res['assertions'], res['direct_awards'], res['enrollments'], I18n.locale);
+        Promise.all([insights(year.name, institutionId ? institutionId.identifier : null), getProfile()]).then(arr => {
+            serverData = arr[0];
+            profile = arr[1];
+            if (profile.is_superuser && isEmpty(institutions)) {
+              queryData(query).then(res => {
+                institutions = institutionOptions(res.publicInstitutions);
+              });
+            }
+            faculties = extractAssertionFaculties(serverData['assertions'], serverData['direct_awards'], serverData['enrollments'], I18n.locale);
             //reset sorting options, except for the year
             badgeClassId = null;
             issuerId = null;
@@ -137,16 +159,22 @@
             issuerSelectOptions = issuerOptions(faculties, facultyId);
             badgeClassSelectOptions = badgeClassOptions(faculties, facultyId, issuerId);
 
-            badgeClassesCount = res["badge_class_count"];
-            issuersCount = res["issuers_count"];
-            issuerGroupCount = res["faculties_count"];
-            usersCount = res["users_count"];
-            backpackCount = res["backpack_count"]
-            reload(res);
+            badgeClassesCount = serverData["badge_class_count"];
+            issuersCount = serverData["issuers_count"];
+            issuerGroupCount = serverData["faculties_count"];
+            usersCount = serverData["users_count"];
+            backpackCount = serverData["backpack_count"]
+            reload(serverData);
         });
     }
 
     onMount(initialize);
+
+    const institutionSelected = item => {
+        loaded = false;
+        institutionId = item;
+        initialize();
+    }
 
     const facultySelected = item => {
         if (inBadgeSelected || inIssuerSelected) {
@@ -225,7 +253,7 @@
         Highcharts.chart("content", {
             title: "",
             chart: {
-                type: 'area',
+                type: 'line',
                 alignTicks: false,
                 backgroundColor: '#f9f6ff',
                 events: {
@@ -294,7 +322,7 @@
                 title: {
                     text: 'Week'
                 },
-                categories: new Array(lastWeek - firstWeek).map((val, index) => index + firstWeek + "gek")
+                categories: new Array(20).map((val, index) => index + "gek")
             },
             legend: {
                 enabled: false
@@ -598,6 +626,16 @@
           </section>
         </section>
         <section class="selectors">
+          <Field entity="insights" attribute="institution">
+            <Select
+              value={institutionId}
+              showIndicator={!institutionId}
+              showChevron={!institutionId}
+              handleSelect={institutionSelected}
+              placeholder={I18n.t("models.insights.institutionsPlaceholder")}
+              items={institutions}
+              optionIdentifier="identifier"/>
+          </Field>
           <Field entity="insights" attribute="faculty">
             <Select
               value={facultyId}

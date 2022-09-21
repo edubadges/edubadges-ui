@@ -758,11 +758,14 @@ export function sendFeedback(message) {
     return validFetch(path, {body: JSON.stringify({message})}, "POST");
 }
 
-export function insights(year) {
+export function insights(year, institutionId) {
     const path = `${serverUrl}/insights/insight`;
     const data = {
         lang: I18n.locale,
         year: year
+    }
+    if (institutionId) {
+        data["institution_id"] = institutionId;
     }
     return validFetch(path, {body: JSON.stringify(data)}, "POST");
 }

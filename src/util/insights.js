@@ -1,17 +1,15 @@
-export const weekNumber = s => {
-    const d = s ? new Date(s) : new Date();
-    const oneJan = new Date(d.getFullYear(), 0, 1);
-    const numberOfDays = Math.floor((d - oneJan) / (24 * 60 * 60 * 1000));
-    return Math.ceil((d.getDay() + 1 + numberOfDays) / 7);
-}
-
-export const yearNumber = s => {
-    const d = s ? new Date(s) : new Date();
-    return d.getFullYear();
-}
+import I18n from "i18n-js";
 
 export const lastNumber = assertions => {
     return assertions.length === 0 ? 0 : assertions[assertions.length - 1];
+}
+
+export const institutionOptions = institutions => {
+    const name = I18n.locale === "en" ? "nameEnglish": "nameDutch";
+    return institutions.map(institution => ({
+        identifier: institution.entityId,
+        name: institution[name]
+    }))
 }
 
 export const facultyOptions = faculties => {
@@ -78,6 +76,7 @@ export const findByAttributeValue = (assertions, attr, value) => {
 }
 
 export const claimRate = (totalAssertions, directAwards, enrollments) => {
+    // TODO change algorithm
     if (totalAssertions.length === 0) {
         return 0;
     }
@@ -156,25 +155,32 @@ export const extractAssertionFaculties = (assertions, directAwards, enrolments, 
 }
 
 export const assertionSeries = assertions => {
-    //because we have grouped_by on badge, faculty and issuer, we need to add up the equal week numbers
+    //because we have grouped_by on badge, faculty and issuer, we need to add up the equal month / year numbers
     //and because we want to show a cumulative area chart we add the previous number with the current and so on
     let prevAssertion;
     const filteredAssertions = assertions.reduce((acc, val) => {
         let nbr = val.nbr;
         if (acc.length > 0) {
             prevAssertion = acc[acc.length - 1];
-            if (prevAssertion.year !== val.year && prevAssertion.month !== val.month) {
+            const newMonthOrYear = prevAssertion.year !== val.year || prevAssertion.month !== val.month;
+            if (newMonthOrYear) {
                 nbr += prevAssertion.nbr;
             } else {
                 prevAssertion.nbr += nbr;
             }
         }
-        if (prevAssertion && (val.month > prevAssertion.month ||  val.year > prevAssertion.year)) {
-            //TODO We need to fill in blanks for the months not present, but also check if we are in a new year
-            acc = acc.concat(new Array(val.month - prevAssertion + -1).fill({nbr: prevAssertion.nbr}));
+        if (prevAssertion && (val.month > prevAssertion.month || val.year > prevAssertion.year)) {
+            //We need to fill in blanks for the months not present, but also check if we are in a new year
+            let numberOfFills;
+            if (val.year === prevAssertion.year) {
+                numberOfFills = val.month - prevAssertion.month - 1;
+            } else {
+                numberOfFills = 12 - prevAssertion.month + val.month - 1;
+            }
+            acc = acc.concat(new Array(numberOfFills).fill({nbr: prevAssertion.nbr}));
         }
-        if (!prevAssertion || (prevAssertion.month !== val.month)) {
-            acc.push({nbr: nbr, weekNumber: val.weekNumber, yearNumber: val.yearNumber});
+        if (!prevAssertion || prevAssertion.month !== val.month || prevAssertion.year !== val.year) {
+            acc.push({nbr: nbr, year: val.year, month: val.month});
         }
         prevAssertion = val;
         return acc;
@@ -189,8 +195,8 @@ export const minWeekOfAssertionSeries = (a1, a2) => {
 }
 
 export const maxWeekOfAssertionSeries = (a1, a2) => {
-    const week1 = a1.length > 0 ? a1[a1.length -1].weekNumber : 1;
-    const week2 = a2.length > 0 ? a2[a2.length -1].weekNumber : 1;
+    const week1 = a1.length > 0 ? a1[a1.length - 1].weekNumber : 1;
+    const week2 = a2.length > 0 ? a2[a2.length - 1].weekNumber : 1;
     return Math.max(week1 || 1, week2 || 1);
 }
 
@@ -201,44 +207,52 @@ export const minYearOfAssertionSeries = (a1, a2) => {
 }
 
 export const maxYearOfAssertionSeries = (a1, a2) => {
-    const year1 = a1.length > 0 ? a1[a1.length -1].yearNumber : 1;
-    const year2 = a2.length > 0 ? a2[a2.length -1].yearNumber : 1;
+    const year1 = a1.length > 0 ? a1[a1.length - 1].yearNumber : 1;
+    const year2 = a2.length > 0 ? a2[a2.length - 1].yearNumber : 1;
     return Math.max(year1 || 1, year2 || 1);
 }
 
+const monthDiff = (laterDate, earliestDate) => {
+    let months = (laterDate.getFullYear() - earliestDate.getFullYear()) * 12;
+    months -= earliestDate.getMonth();
+    months += laterDate.getMonth();
+    return months;
+}
+
+//The assumption is made that gaps e.g. months missing in the assertion are already filled with assertionSeries
 export const equalizeAssertionsSize = (daAssertions, reqAssertions) => {
     if (daAssertions.length === reqAssertions.length) {
         return [daAssertions, reqAssertions];
     }
-    let daFirstWeek, daLastWeek, reqFirstWeek, reqLastWeek, daResults, reqResults;
+    let daFirstDate, daLastDate, reqFirstDate, reqLastDate, daResults, reqResults;
     if (daAssertions.length > 0) {
-        daFirstWeek = daAssertions[0].weekNumber;
-        daLastWeek = daAssertions[daAssertions.length - 1].weekNumber;
+        daFirstDate = new Date(daAssertions[0].year, daAssertions[0].month);
+        daLastDate = new Date(daAssertions[daAssertions.length - 1].year, daAssertions[daAssertions.length - 1].month);
     } else {
         daResults = new Array(reqAssertions.length).fill({nbr: 0});
         reqResults = reqAssertions;
     }
     if (reqAssertions.length > 0) {
-        reqFirstWeek = reqAssertions[0].weekNumber;
-        reqLastWeek = reqAssertions[reqAssertions.length - 1].weekNumber;
+        reqFirstDate = new Date(reqAssertions[0].year, reqAssertions[0].month);
+        reqLastDate = new Date(reqAssertions[reqAssertions.length - 1].year, reqAssertions[reqAssertions.length - 1].month);
     } else {
         reqResults = new Array(daAssertions.length).fill({nbr: 0});
         daResults = daAssertions;
     }
-    if (daFirstWeek && reqFirstWeek) {
-        if (daFirstWeek < reqFirstWeek) {
-            const zeroReq = new Array(reqFirstWeek - daFirstWeek).fill({nbr: 0});
+    if (daFirstDate && reqFirstDate) {
+        if (daFirstDate < reqFirstDate) {
+            const zeroReq = new Array(monthDiff(reqFirstDate, daFirstDate)).fill({nbr: 0});
             reqResults = [...zeroReq, ...reqAssertions]
-        } else if (daFirstWeek > reqFirstWeek) {
-            const zeroDa = new Array(daFirstWeek - reqFirstWeek).fill({nbr: 0});
+        } else if (daFirstDate > reqFirstDate) {
+            const zeroDa = new Array(monthDiff(daFirstDate, reqFirstDate)).fill({nbr: 0});
             daResults = [...zeroDa, ...daAssertions]
         }
-        if (daLastWeek > reqLastWeek) {
-            const sameReq = new Array(daLastWeek - reqLastWeek).fill({nbr: lastNumber(reqAssertions).nbr});
+        if (daLastDate > reqLastDate) {
+            const sameReq = new Array(monthDiff(daLastDate, reqLastDate)).fill({nbr: lastNumber(reqAssertions).nbr});
             const subReqResults = reqResults || reqAssertions;
             reqResults = [...subReqResults, ...sameReq]
-        } else if (daLastWeek < reqLastWeek) {
-            const sameDa = new Array(reqLastWeek - daLastWeek).fill({nbr: lastNumber(daAssertions).nbr});
+        } else if (daLastDate < reqLastDate) {
+            const sameDa = new Array(monthDiff(reqLastDate, daLastDate)).fill({nbr: lastNumber(daAssertions).nbr});
             const subDaAssertions = daResults || daAssertions;
             daResults = [...subDaAssertions, ...sameDa]
         }
