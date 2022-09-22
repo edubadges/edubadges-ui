@@ -26,8 +26,7 @@
       findByAttributeValue, institutionOptions,
       issuerOptions,
       lastNumber,
-      maxWeekOfAssertionSeries,
-      minWeekOfAssertionSeries
+      minMaxDateOfAssertionSeries
     } from "../../util/insights";
     import Tooltip from "../../components/Tooltip.svelte";
     import Field from "../../components/forms/Field.svelte";
@@ -125,7 +124,7 @@
         daAssertions = equalized[0];
         reqAssertions = equalized[1];
 
-        firstMonth = minWeekOfAssertionSeries(daAssertions, reqAssertions);
+        firstMonth = minMaxDateOfAssertionSeries(daAssertions, reqAssertions);
         lastMonth = maxWeekOfAssertionSeries(daAssertions, reqAssertions);
         //these are the three series -TODO make categories for x-as, based on year = total
         directAwardAssertions = daAssertions.map(assertion => assertion.nbr);

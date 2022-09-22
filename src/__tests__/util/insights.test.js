@@ -1,4 +1,10 @@
-import {assertionSeries, entityTypeLookup, equalizeAssertionsSize, filterSeries} from "../../util/insights";
+import {
+    assertionSeries,
+    entityTypeLookup,
+    equalizeAssertionsSize,
+    filterSeries,
+    minMaxDateOfAssertionSeries
+} from "../../util/insights";
 
 test("Filter series", () => {
     const series = [{badge_class_id: 1}, {badge_class__issuer__id: 2}, {badge_class__issuer__faculty_id: 3}]
@@ -79,5 +85,19 @@ test("Equalize Assertions size, adding to front and back of both", () => {
     ]
     expect(results[0]).toStrictEqual(daExpected);
     expect(results[1]).toStrictEqual(reqExpected);
+});
+
+test("minMaxDateOfAssertionSeries max date", () => {
+    const a1 = [{nbr: 0}, {nbr: 1, year: 2022, month: 10}]
+    const a2 = [{nbr: 0, year: 2021, month: 1}, {nbr: 1, year: 2023, month: 2}]
+    const maxDate = minMaxDateOfAssertionSeries(a1, a2, true);
+
+    expect(maxDate.getMonth()).toEqual(2);
+    expect(maxDate.getFullYear()).toEqual(2023);
+
+    const minDate = minMaxDateOfAssertionSeries(a1, a2, false);
+
+    expect(minDate.getMonth()).toEqual(1);
+    expect(minDate.getFullYear()).toEqual(2021);
 })
 

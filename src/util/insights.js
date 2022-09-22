@@ -5,7 +5,7 @@ export const lastNumber = assertions => {
 }
 
 export const institutionOptions = institutions => {
-    const name = I18n.locale === "en" ? "nameEnglish": "nameDutch";
+    const name = I18n.locale === "en" ? "nameEnglish" : "nameDutch";
     return institutions.map(institution => ({
         identifier: institution.entityId,
         name: institution[name]
@@ -155,8 +155,8 @@ export const extractAssertionFaculties = (assertions, directAwards, enrolments, 
 }
 
 export const assertionSeries = assertions => {
-    //because we have grouped_by on badge, faculty and issuer, we need to add up the equal month / year numbers
-    //and because we want to show a cumulative area chart we add the previous number with the current and so on
+    //because we have grouped_by badge, faculty and issuer, we need to add up the equal month / year numbers
+    //and because we want to show a cumulative line chart we add the previous number with the current and so on
     let prevAssertion;
     const filteredAssertions = assertions.reduce((acc, val) => {
         let nbr = val.nbr;
@@ -188,28 +188,15 @@ export const assertionSeries = assertions => {
     return filteredAssertions;
 }
 
-export const minWeekOfAssertionSeries = (a1, a2) => {
-    const week1 = a1.length > 0 ? a1[0].weekNumber : 1;
-    const week2 = a2.length > 0 ? a2[0].weekNumber : 1;
-    return Math.min(week1 || 1, week2 || 1);
-}
-
-export const maxWeekOfAssertionSeries = (a1, a2) => {
-    const week1 = a1.length > 0 ? a1[a1.length - 1].weekNumber : 1;
-    const week2 = a2.length > 0 ? a2[a2.length - 1].weekNumber : 1;
-    return Math.max(week1 || 1, week2 || 1);
-}
-
-export const minYearOfAssertionSeries = (a1, a2) => {
-    const year1 = a1.length > 0 ? a1[0].yearNumber : 1;
-    const year2 = a2.length > 0 ? a2[0].yearNumber : 1;
-    return Math.min(year1 || 1, year2 || 1);
-}
-
-export const maxYearOfAssertionSeries = (a1, a2) => {
-    const year1 = a1.length > 0 ? a1[a1.length - 1].yearNumber : 1;
-    const year2 = a2.length > 0 ? a2[a2.length - 1].yearNumber : 1;
-    return Math.max(year1 || 1, year2 || 1);
+export const minMaxDateOfAssertionSeries = (a1, a2, maxDate) => {
+    //The first entry can be added with 0 and the last entry with the same number to fill the array
+    const length1 = a1.length;
+    const length2 = a2.length;
+    const firstDate1 = (length1 > 0 && a1[0].year) ? new Date(a1[0].year, a1[0].month) : new Date(253373439600000);
+    const firstDate2 = (length2 > 0 && a2[0].year) ? new Date(a2[0].year, a2[0].month) : new Date(253373439600000);
+    const lastDate1 = (length1 > 0 && a1[length1 - 1].year) ? new Date(a1[length1 - 1].year, a1[length1 - 1].month) : new Date(0);
+    const lastDate2 = (length2 > 0 && a2[length2 - 1].year) ? new Date(a2[length2 - 1].year, a2[length2 - 1].month) : new Date(0);
+    return maxDate ? (lastDate1 <= lastDate2 ? lastDate2 : lastDate1) : (firstDate1 <= firstDate2 ? firstDate1 : firstDate2);
 }
 
 const monthDiff = (laterDate, earliestDate) => {
