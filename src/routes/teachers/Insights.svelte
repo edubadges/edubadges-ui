@@ -66,10 +66,16 @@
     let claimRate = 0;
     let enrollmentsOpen = 0;
     let enrollmentsDenied = 0;
+    let totalEnrollmentsNotAccepted = 0;
+
+    let totalDirectAwardsNotAccepted = 0;
     let directAwardsRejected = 0;
     let directAwardsRevoked = 0;
     let directAwardsOpen = 0;
     let publicAssertions = 0;
+
+    let assertionDirectAwardsRevoked = 0;
+    let assertionRequestedRevoked = 0;
 
     // Sorting options
     let badgeClassId = null;
@@ -129,10 +135,15 @@
 
         enrollmentsOpen = findByAttributeValue(enrollments, 'denied', false);
         enrollmentsDenied = findByAttributeValue(enrollments, 'denied', true);
+        totalEnrollmentsNotAccepted = enrollmentsOpen + enrollmentsDenied;
 
         directAwardsRejected = findByAttributeValue(directAwards, 'status', 'Rejected');
         directAwardsRevoked = findByAttributeValue(directAwards, 'status', 'Revoked');
         directAwardsOpen = findByAttributeValue(directAwards, 'status', 'Unaccepted');
+        totalDirectAwardsNotAccepted = directAwardsRejected + directAwardsRevoked + directAwardsOpen;
+
+        assertionDirectAwardsRevoked = findByAttributeValue(filteredDA, 'revoked', true);
+        assertionRequestedRevoked = findByAttributeValue(filteredReq, 'revoked', true);
 
         publicAssertions = findByAttributeValue(filteredReq.concat(filteredDA), 'public', true);
 
@@ -150,7 +161,7 @@
             firstDate.setMonth(firstDate.getMonth() + 1)
             const monthF = formatter.format(firstDate);
             const yF = useMonths ? "" : firstDate.getFullYear() + "-"
-            return  yF + monthF.substr(0, 1).toUpperCase() + monthF.substr(1, monthF.length - 1);
+            return yF + monthF.substr(0, 1).toUpperCase() + monthF.substr(1, monthF.length - 1);
         });
 
         loaded = true;
@@ -437,6 +448,10 @@
         display: flex;
         margin-bottom: 15px;
         align-items: center;
+
+        &.sub {
+          margin-left: 25px;
+        }
       }
 
       span.value {
@@ -607,16 +622,22 @@
                 <section class="stats">
                     <h3>{I18n.t("insights.directAwards")}</h3>
                     <section class="stat">
-                        <span class="attr">{I18n.t("insights.open")}
-                            <Tooltip tooltipText={I18n.t("insights.tooltips.open")}/>
+                        <span class="attr">{I18n.t("insights.total")}
+                            <Tooltip tooltipText={I18n.t("insights.tooltips.totalDirectAwards")}/>
+                        </span>
+                        <span class="value">{Number(totalDirectAwardsNotAccepted + lastNumber(directAwardAssertions)).toLocaleString()}</span>
+                    </section>
+                    <section class="stat">
+                        <span class="attr">{I18n.t("insights.unclaimed")}
+                            <Tooltip tooltipText={I18n.t("insights.tooltips.unclaimed")}/>
                         </span>
                         <span class="value">{directAwardsOpen}</span>
                     </section>
                     <section class="stat">
-                        <span class="attr">{I18n.t("insights.claimRate")}
-                            <Tooltip tooltipText={I18n.t("insights.tooltips.claimRate")}/>
+                        <span class="attr">{I18n.t("insights.revokedBefore")}
+                            <Tooltip tooltipText={I18n.t("insights.tooltips.revokedBefore")}/>
                         </span>
-                        <span class="value claim-rate">{claimRate}%</span>
+                        <span class="value">{assertionDirectAwardsRevoked}</span>
                     </section>
                     <section class="stat">
                         <span class="attr">{I18n.t("insights.revoked")}
@@ -630,10 +651,22 @@
                         </span>
                         <span class="value">{directAwardsRejected}</span>
                     </section>
+                    <section class="stat">
+                        <span class="attr">{I18n.t("insights.claimRate")}
+                            <Tooltip tooltipText={I18n.t("insights.tooltips.claimRate")}/>
+                        </span>
+                        <span class="value claim-rate">{claimRate}%</span>
+                    </section>
                     <h3 class="last">{I18n.t("insights.enrollments")}</h3>
                     <section class="stat">
-                        <span class="attr">{I18n.t("insights.open")}
-                            <Tooltip tooltipText={I18n.t("insights.tooltips.openEnrollments")}/>
+                        <span class="attr">{I18n.t("insights.total")}
+                            <Tooltip tooltipText={I18n.t("insights.tooltips.totalEnrollments")}/>
+                        </span>
+                        <span class="value">{Number(totalEnrollmentsNotAccepted + lastNumber(requestedAssertions)).toLocaleString()}</span>
+                    </section>
+                    <section class="stat">
+                        <span class="attr">{I18n.t("insights.pending")}
+                            <Tooltip tooltipText={I18n.t("insights.tooltips.pendingEnrollments")}/>
                         </span>
                         <span class="value">{enrollmentsOpen}</span>
                     </section>
@@ -642,6 +675,12 @@
                             <Tooltip tooltipText={I18n.t("insights.tooltips.requestedDenied")}/>
                         </span>
                         <span class="value">{enrollmentsDenied}</span>
+                    </section>
+                    <section class="stat">
+                        <span class="attr">{I18n.t("insights.revoked")}
+                            <Tooltip tooltipText={I18n.t("insights.tooltips.revoked")}/>
+                        </span>
+                        <span class="value">{assertionRequestedRevoked}</span>
                     </section>
                 </section>
                 <section class="selectors">
