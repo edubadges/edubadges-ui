@@ -15,18 +15,19 @@
     import schoolbag from "../../icons/school-bag.svg";
 
     import {
-      assertionSeries,
-      badgeClassOptions,
-      claimRate,
-      entityTypeLookup,
-      equalizeAssertionsSize,
-      extractAssertionFaculties,
-      facultyOptions,
-      filterSeries,
-      findByAttributeValue, institutionOptions,
-      issuerOptions,
-      lastNumber,
-      minMaxDateOfAssertionSeries
+        assertionSeries,
+        badgeClassOptions,
+        claimRatePercentage,
+        entityTypeLookup,
+        equalizeAssertionsSize,
+        extractAssertionFaculties,
+        facultyOptions,
+        filterSeries,
+        findByAttributeValue,
+        institutionOptions,
+        issuerOptions,
+        lastNumber,
+        minMaxDateOfAssertionSeries
     } from "../../util/insights";
     import Tooltip from "../../components/Tooltip.svelte";
     import Field from "../../components/forms/Field.svelte";
@@ -47,6 +48,7 @@
 
     //Superusers can select institutions
     let institutions = [];
+    let institutionSet = false;
 
     //All faculties, issuer and badgeclass
     let faculties = new Map();
@@ -61,17 +63,20 @@
     let enrollments = null;
 
     //The minor stats
+    let claimRate = 0;
     let enrollmentsOpen = 0;
     let enrollmentsDenied = 0;
     let directAwardsRejected = 0;
     let directAwardsRevoked = 0;
     let directAwardsOpen = 0;
+    let publicAssertions = 0;
 
     // Sorting options
     let badgeClassId = null;
     let issuerId = null;
     let facultyId = null;
     let institutionId = null;
+    let currentInstitutionEntityId = null;
     const currentYear = new Date().getFullYear();
     const number = currentYear - 2017
     let yearSelectOptions = new Array(number).fill(0).map((a, i) => ({name: currentYear - i}));
@@ -85,14 +90,9 @@
     let inFacultySelected = false;
 
     //To calculate the X-axis
-    let firstYear = 1;
-    let lastYear = 1;
-    let firstMonth = 1;
-    let lastMonth = 1;
-
-    //To calculate the Y-axis
-    let maxNumber = 1;
-    let firstNumber = 1;
+    let categories = [];
+    let firstDate = null;
+    let lastDate = null;
 
     //Counts
     let badgeClassesCount = 0;
@@ -106,6 +106,9 @@
         id,
         nameEnglish,
         nameDutch,
+        entityId
+        },
+      currentInstitution {
         entityId
         }
       }`
@@ -124,29 +127,49 @@
         daAssertions = equalized[0];
         reqAssertions = equalized[1];
 
-        firstMonth = minMaxDateOfAssertionSeries(daAssertions, reqAssertions);
-        lastMonth = maxWeekOfAssertionSeries(daAssertions, reqAssertions);
-        //these are the three series -TODO make categories for x-as, based on year = total
-        directAwardAssertions = daAssertions.map(assertion => assertion.nbr);
-        requestedAssertions = reqAssertions.map(assertion => assertion.nbr);
-        totalAssertions = directAwardAssertions.map((nbr, index) => nbr + requestedAssertions[index]);
-
         enrollmentsOpen = findByAttributeValue(enrollments, 'denied', false);
         enrollmentsDenied = findByAttributeValue(enrollments, 'denied', true);
+
         directAwardsRejected = findByAttributeValue(directAwards, 'status', 'Rejected');
         directAwardsRevoked = findByAttributeValue(directAwards, 'status', 'Revoked');
         directAwardsOpen = findByAttributeValue(directAwards, 'status', 'Unaccepted');
+
+        publicAssertions = findByAttributeValue(filteredReq.concat(filteredDA), 'public', true);
+
+        claimRate = claimRatePercentage(filteredDA, directAwards);
+
+        firstDate = minMaxDateOfAssertionSeries(daAssertions, reqAssertions, false);
+        lastDate = minMaxDateOfAssertionSeries(daAssertions, reqAssertions, true);
+        //these are the three series
+        directAwardAssertions = daAssertions.map(assertion => assertion.nbr);
+        requestedAssertions = reqAssertions.map(assertion => assertion.nbr);
+        totalAssertions = directAwardAssertions.map((nbr, index) => nbr + requestedAssertions[index]);
+        const useMonths = totalAssertions.length < 13;
+        const formatter = new Intl.DateTimeFormat(I18n.locale, {month: 'short'});
+        categories = totalAssertions.map(() => {
+            firstDate.setMonth(firstDate.getMonth() + 1)
+            const monthF = formatter.format(firstDate);
+            const yF = useMonths ? "" : firstDate.getFullYear() + "-"
+            return  yF + monthF.substr(0, 1).toUpperCase() + monthF.substr(1, monthF.length - 1);
+        });
+
         loaded = true;
     }
 
     const initialize = () => {
-        Promise.all([insights(year.name, institutionId ? institutionId.identifier : null), getProfile()]).then(arr => {
+        const institutionEntityId = institutionId ? institutionId.identifier : null;
+        Promise.all([insights(year.name, institutionEntityId), getProfile()]).then(arr => {
             serverData = arr[0];
             profile = arr[1];
             if (profile.is_superuser && isEmpty(institutions)) {
-              queryData(query).then(res => {
-                institutions = institutionOptions(res.publicInstitutions);
-              });
+                queryData(query).then(res => {
+                    institutions = institutionOptions(res.publicInstitutions).concat([{
+                        name: I18n.t("insights.total"),
+                        identifier: "all"
+                    }]);
+                    currentInstitutionEntityId = res.currentInstitution.entityId;
+                    institutionId = institutions.find(institution => institution.identifier === currentInstitutionEntityId);
+                });
             }
             faculties = extractAssertionFaculties(serverData['assertions'], serverData['direct_awards'], serverData['enrollments'], I18n.locale);
             //reset sorting options, except for the year
@@ -162,7 +185,7 @@
             issuersCount = serverData["issuers_count"];
             issuerGroupCount = serverData["faculties_count"];
             usersCount = serverData["users_count"];
-            backpackCount = serverData["backpack_count"]
+            backpackCount = serverData["backpack_count"];
             reload(serverData);
         });
     }
@@ -172,7 +195,14 @@
     const institutionSelected = item => {
         loaded = false;
         institutionId = item;
-        initialize();
+        //Prevent double initialization
+        if (!institutionSet) {
+            institutionSet = true;
+            loaded = true;
+        } else {
+            initialize();
+        }
+
     }
 
     const facultySelected = item => {
@@ -230,6 +260,8 @@
         badgeClassId = null;
         issuerId = null;
         facultyId = null;
+        institutionId = institutions.find(institution => institution.identifier === currentInstitutionEntityId);
+        year = yearSelectOptions[0];
 
         facultySelectOptions = facultyOptions(faculties);
         issuerSelectOptions = issuerOptions(faculties, null);
@@ -238,15 +270,8 @@
         reload(serverData);
     }
 
-    const xAxisFormatter = ctx => {
-      if (year.name === I18n.t("insights.total")) {
-
-      }
-      return ctx.value + firstMonth;
-    }
-
     afterUpdate(() => {
-        if (!loaded) {
+        if (!loaded || totalAssertions.length === 0) {
             return;
         }
         Highcharts.chart("content", {
@@ -260,7 +285,7 @@
                     load: function () {
                         Highcharts.addEvent(this.tooltip, 'headerFormatter', function (e) {
                             if (!e.isFooter) {
-                                e.text = `<b>Week ${e.labelConfig.key + 1}</b><br/>`;
+                                e.text = `<b>${e.labelConfig.key}</b><br/>`;
                                 return false; // prevent default
                             }
                             return true; // run default
@@ -303,25 +328,22 @@
             yAxis: {
                 labels: {
                     formatter: ctx => {
-                        return ctx.tick.pos / 2
+                        return ctx.tick.pos
                     }
                 },
+                allowDecimals: false,
                 title: {
                     text: ''
                 }
             },
             xAxis: {
-                accessibility: {
-                    rangeDescription: I18n.t("insights.date")
-                },
+                categories: categories,
                 labels: {
-                    formatter: xAxisFormatter
-                },
-                tickInterval: year.name === I18n.t("insights.total") ? 10 : 5,
-                title: {
-                    text: 'Week'
-                },
-                categories: new Array(20).map((val, index) => index + "gek")
+                    formatter: ctx => ctx.value,
+                    title: {
+                        text: I18n.t(`insights.${totalAssertions.length > 12 ? "term" : "month"}`)
+                    }
+                }
             },
             legend: {
                 enabled: false
@@ -334,6 +356,7 @@
                 buttons: {
                     contextButton: {
                         symbolStroke: '#772583',
+                        text: "Export",
                         menuItems: ['downloadPDF', 'separator', 'downloadPNG', 'downloadCSV']
                     },
                 }
@@ -342,25 +365,26 @@
             series: [
                 {
                     name: I18n.t("insights.totalAwarded"),
-                    lineWidth: 1,
+                    lineWidth: 2,
                     color: "#782684",
                     data: totalAssertions
                 },
                 {
                     name: I18n.t("insights.directAwarded"),
-                    lineWidth: 1,
+                    lineWidth: 2,
                     color: "#e67506",
                     data: directAwardAssertions
                 },
                 {
                     name: I18n.t("insights.requested"),
-                    lineWidth: 1,
+                    lineWidth: 2,
                     color: "#3a9f2e",
                     data: requestedAssertions
                 }
             ]
         })
-    });
+    })
+    ;
 
 
 </script>
@@ -385,6 +409,10 @@
     width: 100%;
   }
 
+  .no-content {
+    margin: 50px;
+  }
+
   div.insights {
     padding-right: 30px;
     min-width: 360px;
@@ -394,11 +422,7 @@
     }
 
     h3 {
-      margin: 0 0 10px 0;
-
-      &.last {
-        margin-top: 5px;
-      }
+      margin: 15px 0 10px 0;
     }
 
     section.stats {
@@ -407,23 +431,16 @@
 
       span.attr {
         font-size: 18px;
-
-        &.minor {
-          font-size: 16px;
-        }
       }
 
       section.stat {
         display: flex;
-        margin-bottom: 20px;
-
-        &.minor {
-          margin-bottom: 10px;
-        }
+        margin-bottom: 15px;
+        align-items: center;
       }
 
       span.value {
-        font-size: 26px;
+        font-size: 22px;
         margin-left: auto;
 
         &.total {
@@ -440,11 +457,6 @@
 
         &.claim-rate {
           color: var(--black);
-        }
-
-        &.minor {
-          font-size: 22px;
-          color: var(--grey-9);
         }
 
       }
@@ -513,177 +525,192 @@
 </style>
 
 <div class="page-container">
-  {#if loaded}
+    {#if loaded}
 
-    <div class="stats-container">
-      <div class="metadata-container">
-        <section class="metadata">
-          <div class="top-icon">
-            {@html badgesIcon}
-          </div>
-          <div class="data">
-            <p>{I18n.t("insights.badgeClasses")}</p>
-            <span class="count">{badgeClassesCount}</span>
-          </div>
-        </section>
-        <section class="metadata">
-          <div class="top-icon">
-            {@html issuerIcon}
-          </div>
-          <div class="data">
-            <p>{I18n.t("insights.issuers")}</p>
-            <span class="count">{issuersCount}</span>
-          </div>
-        </section>
-        <section class="metadata">
-          <div class="top-icon">
-            {@html issuerGroupIcon}
-          </div>
-          <div class="data">
-            <p>{I18n.t("insights.issuerGroups")}</p>
-            <span class="count">{issuerGroupCount}</span>
-          </div>
-        </section>
-        <section class="metadata">
-          <div class="top-icon">
-            {@html usersIcon}
-          </div>
-          <div class="data">
-            <p>{I18n.t("insights.users")}</p>
-            <span class="count">{usersCount}</span>
-          </div>
-        </section>
-        <section class="metadata">
-          <div class="top-icon">
-            {@html schoolbag}
-          </div>
-          <div class="data">
-            <p>{I18n.t("insights.backpack")}</p>
-            <span class="count">{backpackCount}</span>
-          </div>
-        </section>
+        <div class="stats-container">
+            <div class="metadata-container">
+                <section class="metadata">
+                    <div class="top-icon">
+                        {@html badgesIcon}
+                    </div>
+                    <div class="data">
+                        <p>{I18n.t("insights.badgeClasses")}</p>
+                        <span class="count">{badgeClassesCount}</span>
+                    </div>
+                </section>
+                <section class="metadata">
+                    <div class="top-icon">
+                        {@html issuerIcon}
+                    </div>
+                    <div class="data">
+                        <p>{I18n.t("insights.issuers")}</p>
+                        <span class="count">{issuersCount}</span>
+                    </div>
+                </section>
+                <section class="metadata">
+                    <div class="top-icon">
+                        {@html issuerGroupIcon}
+                    </div>
+                    <div class="data">
+                        <p>{I18n.t("insights.issuerGroups")}</p>
+                        <span class="count">{issuerGroupCount}</span>
+                    </div>
+                </section>
+                <section class="metadata">
+                    <div class="top-icon">
+                        {@html usersIcon}
+                    </div>
+                    <div class="data">
+                        <p>{I18n.t("insights.users")}</p>
+                        <span class="count">{usersCount}</span>
+                    </div>
+                </section>
+                <section class="metadata">
+                    <div class="top-icon">
+                        {@html schoolbag}
+                    </div>
+                    <div class="data">
+                        <p>{I18n.t("insights.backpack")}</p>
+                        <span class="count">{backpackCount}</span>
+                    </div>
+                </section>
 
-      </div>
-      <div class="insights">
-        <h2>{I18n.t("insights.awardedBadges")}</h2>
-        <section class="stats">
-          <section class="stat">
-            <span class="attr">{I18n.t("insights.totalAwarded")}</span>
-            <span class="value total">{Number(lastNumber(totalAssertions)).toLocaleString()}</span>
-          </section>
-          <section class="stat">
-            <span class="attr">{I18n.t("insights.directAwarded")}</span>
-            <span class="value direct-awards">{Number(lastNumber(directAwardAssertions)).toLocaleString()}</span>
-          </section>
-          <section class="stat">
-            <span class="attr">{I18n.t("insights.requested")}</span>
-            <span class="value requested">{Number(lastNumber(requestedAssertions)).toLocaleString()}</span>
-          </section>
-          <section class="stat">
-            <span class="attr">{I18n.t("insights.claimRate")}</span>
-            <span class="value claim-rate">{claimRate(totalAssertions, directAwards, enrollments)}%
-            <Tooltip tipKey="claimRate"/>
-          </span>
-          </section>
-          <section class="stats">
-            {#if directAwardsOpen > 0 || directAwardsRevoked > 0 || directAwardsRejected > 0}
-              <h3>{I18n.t("insights.directAwards")}<Tooltip tipKey="directAwards"/></h3>
-              {#if directAwardsOpen > 0}
-                <section class="stat minor">
-                  <span class="attr minor">{I18n.t("insights.open")}</span>
-                  <span class="value minor">{directAwardsOpen}</span>
+            </div>
+            <div class="insights">
+                <h2>{I18n.t("insights.awardedBadges")}</h2>
+                <section class="stats">
+                    <section class="stat">
+                        <span class="attr">{I18n.t("insights.totalAwarded")}
+                            <Tooltip tooltipText={I18n.t("insights.tooltips.totalAwarded")}/>
+                        </span>
+                        <span class="value total">{Number(lastNumber(totalAssertions)).toLocaleString()}</span>
+                    </section>
+                    <section class="stat sub">
+                        <span class="attr">{I18n.t("insights.directAwarded")}
+                            <Tooltip tooltipText={I18n.t("insights.tooltips.directAwarded")}/>
+                        </span>
+                        <span class="value direct-awards">{Number(lastNumber(directAwardAssertions)).toLocaleString()}</span>
+                    </section>
+                    <section class="stat sub">
+                        <span class="attr">{I18n.t("insights.requested")}
+                            <Tooltip tooltipText={I18n.t("insights.tooltips.requested")}/>
+                        </span>
+                        <span class="value requested">{Number(lastNumber(requestedAssertions)).toLocaleString()}</span>
+                    </section>
+                    <section class="stat">
+                        <span class="attr">{I18n.t("insights.public")}
+                            <Tooltip tooltipText={I18n.t("insights.tooltips.public")}/>
+                        </span>
+                        <span class="value">{Number(publicAssertions).toLocaleString()}</span>
+                    </section>
                 </section>
-              {/if}
-              {#if directAwardsRevoked > 0}
-                <section class="stat minor">
-                  <span class="attr minor">{I18n.t("insights.revoked")}</span>
-                  <span class="value minor">{directAwardsRevoked}</span>
+                <section class="stats">
+                    <h3>{I18n.t("insights.directAwards")}</h3>
+                    <section class="stat">
+                        <span class="attr">{I18n.t("insights.open")}
+                            <Tooltip tooltipText={I18n.t("insights.tooltips.open")}/>
+                        </span>
+                        <span class="value">{directAwardsOpen}</span>
+                    </section>
+                    <section class="stat">
+                        <span class="attr">{I18n.t("insights.claimRate")}
+                            <Tooltip tooltipText={I18n.t("insights.tooltips.claimRate")}/>
+                        </span>
+                        <span class="value claim-rate">{claimRate}%</span>
+                    </section>
+                    <section class="stat">
+                        <span class="attr">{I18n.t("insights.revoked")}
+                            <Tooltip tooltipText={I18n.t("insights.tooltips.revoked")}/>
+                        </span>
+                        <span class="value">{directAwardsRevoked}</span>
+                    </section>
+                    <section class="stat">
+                        <span class="attr">{I18n.t("insights.directAwardDenied")}
+                            <Tooltip tooltipText={I18n.t("insights.tooltips.directAwardDenied")}/>
+                        </span>
+                        <span class="value">{directAwardsRejected}</span>
+                    </section>
+                    <h3 class="last">{I18n.t("insights.enrollments")}</h3>
+                    <section class="stat">
+                        <span class="attr">{I18n.t("insights.open")}
+                            <Tooltip tooltipText={I18n.t("insights.tooltips.openEnrollments")}/>
+                        </span>
+                        <span class="value">{enrollmentsOpen}</span>
+                    </section>
+                    <section class="stat">
+                        <span class="attr">{I18n.t("insights.requestedDenied")}
+                            <Tooltip tooltipText={I18n.t("insights.tooltips.requestedDenied")}/>
+                        </span>
+                        <span class="value">{enrollmentsDenied}</span>
+                    </section>
                 </section>
-              {/if}
-              {#if directAwardsRejected > 0}
-                <section class="stat minor">
-                  <span class="attr minor">{I18n.t("insights.directAwardDenied")}</span>
-                  <span class="value minor">{directAwardsRejected}</span>
+                <section class="selectors">
+                    <Field entity="insights" attribute="institution">
+                        <Select
+                                value={institutionId}
+                                handleSelect={institutionSelected}
+                                placeholder={I18n.t("models.insights.institutionPlaceholder")}
+                                items={institutions}
+                                optionIdentifier="identifier"/>
+                    </Field>
+                    <Field entity="insights" attribute="faculty">
+                        <Select
+                                value={facultyId}
+                                showIndicator={!facultyId}
+                                showChevron={!facultyId}
+                                handleSelect={facultySelected}
+                                placeholder={I18n.t("models.insights.facultyPlaceholder")}
+                                items={facultySelectOptions}
+                                optionIdentifier="identifier"/>
+                    </Field>
+                    <Field entity="insights" attribute="issuer">
+                        <Select
+                                value={issuerId}
+                                showIndicator={!issuerId}
+                                showChevron={!issuerId}
+                                handleSelect={issuerSelected}
+                                placeholder={I18n.t("models.insights.issuerPlaceholder")}
+                                items={issuerSelectOptions}
+                                optionIdentifier="identifier"/>
+                    </Field>
+                    <Field entity="insights" attribute="badgeClass">
+                        <Select
+                                value={badgeClassId}
+                                showIndicator={!badgeClassId}
+                                showChevron={!badgeClassId}
+                                handleSelect={badgeClassSelected}
+                                placeholder={I18n.t("models.insights.badgeClassPlaceholder")}
+                                items={badgeClassSelectOptions}
+                                optionIdentifier="identifier"/>
+                    </Field>
+                    <Field entity="insights" attribute="year">
+                        <Select
+                                value={year}
+                                handleSelect={yearSelected}
+                                placeholder={I18n.t("models.insights.yearPlaceholder")}
+                                items={yearSelectOptions}
+                                optionIdentifier="name"/>
+                    </Field>
+                    <section class="reset">
+                        <Button text={I18n.t("insights.reset")}
+                                action={reset}
+                                secondary={true}
+                                disabled={!badgeClassId && !issuerId && !facultyId &&
+                    (isEmpty( institutionId) || institutionId.identifier === currentInstitutionEntityId) &&
+                    (isEmpty(year) || year.name === new Date().getFullYear())}/>
+                    </section>
+
                 </section>
-              {/if}
+            </div>
+            {#if totalAssertions.length === 0}
+                <div class="no-content">
+                    <h3>{I18n.t("insights.noContent")}</h3>
+                </div>
+            {:else}
+                <div id="content" class="content"></div>
             {/if}
-            {#if enrollmentsOpen > 0 || enrollmentsDenied > 0}
-              <h3 class="last">{I18n.t("insights.enrollments")}<Tooltip tipKey="enrollments"/></h3>
-              {#if enrollmentsOpen > 0 }
-                <section class="stat minor">
-                  <span class="attr minor">{I18n.t("insights.open")}</span>
-                  <span class="value minor">{enrollmentsOpen}</span>
-                </section>
-              {/if}
-              {#if enrollmentsDenied > 0 }
-                <section class="stat minor">
-                  <span class="attr minor">{I18n.t("insights.requestedDenied")}</span>
-                  <span class="value minor">{enrollmentsDenied}</span>
-                </section>
-              {/if}
-            {/if}
-          </section>
-        </section>
-        <section class="selectors">
-          <Field entity="insights" attribute="institution">
-            <Select
-              value={institutionId}
-              showIndicator={!institutionId}
-              showChevron={!institutionId}
-              handleSelect={institutionSelected}
-              placeholder={I18n.t("models.insights.institutionsPlaceholder")}
-              items={institutions}
-              optionIdentifier="identifier"/>
-          </Field>
-          <Field entity="insights" attribute="faculty">
-            <Select
-              value={facultyId}
-              showIndicator={!facultyId}
-              showChevron={!facultyId}
-              handleSelect={facultySelected}
-              placeholder={I18n.t("models.insights.facultyPlaceholder")}
-              items={facultySelectOptions}
-              optionIdentifier="identifier"/>
-          </Field>
-          <Field entity="insights" attribute="issuer">
-            <Select
-              value={issuerId}
-              showIndicator={!issuerId}
-              showChevron={!issuerId}
-              handleSelect={issuerSelected}
-              placeholder={I18n.t("models.insights.issuerPlaceholder")}
-              items={issuerSelectOptions}
-              optionIdentifier="identifier"/>
-          </Field>
-          <Field entity="insights" attribute="badgeClass">
-            <Select
-              value={badgeClassId}
-              showIndicator={!badgeClassId}
-              showChevron={!badgeClassId}
-              handleSelect={badgeClassSelected}
-              placeholder={I18n.t("models.insights.badgeClassPlaceholder")}
-              items={badgeClassSelectOptions}
-              optionIdentifier="identifier"/>
-          </Field>
-          <Field entity="insights" attribute="year">
-            <Select
-              value={year}
-              handleSelect={yearSelected}
-              placeholder={I18n.t("models.insights.yearPlaceholder")}
-              items={yearSelectOptions}
-              optionIdentifier="name"/>
-          </Field>
-          <section class="reset">
-            <Button text={I18n.t("insights.reset")} action={reset} secondary={true}
-                    disabled={!badgeClassId && !issuerId && !facultyId}/>
-          </section>
-
-        </section>
-      </div>
-      <div id="content" class="content">
-      </div>
-    </div>
-  {:else}
-    <Spinner message={I18n.t("insights.crunching")}/>
-  {/if}
+        </div>
+    {:else}
+        <Spinner message={I18n.t("insights.crunching")}/>
+    {/if}
 </div>

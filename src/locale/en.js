@@ -861,6 +861,8 @@ I18n.translations.en = {
             createdAt: "Created",
         },
         insights: {
+            institution: "Institution",
+            institutionPlaceholder: "Select an institution...",
             faculty: "Issuer group",
             facultyPlaceholder: "Select an issuer group...",
             issuer: "Issuer",
@@ -1215,7 +1217,6 @@ I18n.translations.en = {
         enrollmentEvidenceName: "A descriptive title of the evidence of this achievement.",
         enrollmentEvidenceDescription: "A longer description of the evidence of this achievement.",
         demoEnvironment: "All data is deleted every month.",
-        claimRate: "The claim rate is the total number of awarded edubadges as a percentage of the total of direct awards and enrollments.",
         directAwards: "Direct awards are edubadges that are awarded by the teacher to students by email. The number(s) below are direct awards that are either still not accepted, rejected or revoked",
         enrollments: "Enrollments are requested by students and once approved will be new awarded edubadges. The number(s) below are enrollments that have not been approved by the teacher or are denied",
         toggleBadgeCollectionPublic: "A public collection can be shared with other whereas a private collection can not.",
@@ -1377,12 +1378,29 @@ I18n.translations.en = {
         badgeClasses: "Badge classes",
         issuers: "Issuers",
         issuerGroups: "Issuer groups",
+        institution: "Institution",
         users: "Portal users",
         backpack: "Backpack users",
         crunching: "Crunching the numbers just for you...",
         date: "Date",
         reset: "Reset",
-        total: "Total"
+        total: "Total",
+        public: "Public",
+        noContent: "No badges were awarded in the given year for this institution",
+        term: "Term",
+        month: "Month",
+        tooltips: {
+            totalAwarded: "The total number of awarded badge classes resulting in eduBadge instances",
+            directAwarded: "The number of the awarded badges through direct awarding",
+            requested:"The number of the awarded badges requested by students and accepted by teachers",
+            public: "The number of badges that are made public available by students",
+            open: "Direct awards that have not been accepted by students",
+            claimRate: "The claim rate is the total number of accepted direct awarded badges as a percentage of the total of direct awards.",
+            revoked: "Direct awards that have been revoked by a teacher and as such can not be used anymore by the student",
+            directAwardDenied: "Direct awards that have been denied by the student",
+            openEnrollments: "Student enrollments that have not been accepted / denied by a teacher",
+            requestedDenied: "Student enrollments that have been denied by a teacher"
+        }
     },
     collections: {
         title: "Collections",

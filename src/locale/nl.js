@@ -862,6 +862,8 @@ I18n.translations.nl = {
             createdAt: "Aangemaakt",
         },
         insights: {
+            institution: "Instelling",
+            institutionPlaceholder: "Selecteer een instelling...",
             faculty: "Issuer groep",
             facultyPlaceholder: "Selecteer een issuer groep...",
             issuer: "Issuer",
@@ -1216,7 +1218,6 @@ I18n.translations.nl = {
         enrollmentEvidenceName: "Een beschrijvende titel van het bewijs van de geleverde prestatie.",
         enrollmentEvidenceDescription: "Een langere beschrijving van het bewijs van de geleverde prestatie.",
         demoEnvironment: "Alle data wordt iedere maand verwijderd.",
-        claimRate: "Het claimpercentage is het totale aantal toegekende edubadges als percentage van het totaal aan directe awards en inschrijvingen.",
         directAwards: "Direct awards zijn edubadges die door de leraar per e-mail aan leerlingen worden uitgereikt. De onderstaande nummers zijn rechtstreekse toekenningen die nog niet aanvaard, geweigerd of ingetrokken zijn",
         enrollments: "Enrollments worden door leerlingen aangevraagd en na goedkeuring worden nieuwe edubadges toegekend. De nummers hieronder zijn enrollments die niet goedgekeurd zijn door de leraar of geweigerd zijn",
         toggleBadgeCollectionPublic: "Een openbare collectie kan met anderen worden gedeeld, een privé collectie niet.",
@@ -1378,12 +1379,30 @@ I18n.translations.nl = {
         badgeClasses: "Badge classes",
         issuers: "Issuers",
         issuerGroups: "Issuer groepen",
+        institution: "Instelling",
         users: "Portal gebruikers",
         backpack: "Backpack gebruikers",
         crunching: "Crunching the numbers just for you...",
         date: "Datum",
         reset: "Reset",
-        total: "Totaal"
+        total: "Totaal",
+        public: "Publiek",
+        noContent: "Geen badges zijn uitgegeven in dit jaar voor deze instelling",
+        term: "Kwartaal",
+        month: "Maand",
+        tooltips: {
+            totalAwarded: "Het totale aantal toegekende badgeklassen resulterend in eduBadge-instanties",
+            directAwarded: "Het aantal toegekende badges dat door studenten is aangevraagd en door docenten is geaccepteerd",
+            requested:"Het aantal toegekende badges dat door studenten is aangevraagd en door docenten is geaccepteerd",
+            public: "Het aantal badges dat door studenten publiek is gemaakt",
+            open: "Direct awards die niet zijn geaccepteerd door studenten",
+            claimRate: "Het claimpercentage is het totale aantal geaccepteerde direct toegekende badges als percentage van het totaal aan direct toegekende badges.",
+            revoked: "Direct awards die zijn ingetrokken door een docent en als zodanig niet meer kunnen worden gebruikt door de student",
+            directAwardDenied: "Direct awards die zijn geweigerd door de student",
+            openEnrollments: "Studenteninschrijvingen die niet zijn geaccepteerd / geweigerd door een docent",
+            requestedDenied: "Studenteninschrijvingen die zijn geweigerd door een docent"
+        }
+
     },
     collections: {
         title: "Collecties",

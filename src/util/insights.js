@@ -75,15 +75,8 @@ export const findByAttributeValue = (assertions, attr, value) => {
     return assertions.filter(assertion => assertion[attr] === value).map(assertion => assertion.nbr).reduce((a, b) => a + b, 0);
 }
 
-export const claimRate = (totalAssertions, directAwards, enrollments) => {
-    // TODO change algorithm
-    if (totalAssertions.length === 0) {
-        return 0;
-    }
-    const notClaimedAwarded = directAwards.map(da => da.nbr).reduce((a, b) => a + b, 0) + enrollments.map(da => da.nbr).reduce((a, b) => a + b, 0);
-    const claimed = lastNumber(totalAssertions);
-    const total = notClaimedAwarded + claimed;
-    return Math.floor(claimed / total * 100);
+export const claimRatePercentage = (filteredDA, directAwards) => {
+    return Math.round(filteredDA.length / (filteredDA.length + directAwards.length ) * 100);
 }
 
 export const entityTypeLookup = {
