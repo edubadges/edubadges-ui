@@ -76,6 +76,12 @@ export const findByAttributeValue = (assertions, attr, value) => {
 }
 
 export const claimRatePercentage = (filteredDA, directAwards) => {
+    if (filteredDA.length === 0) {
+        return 0;
+    }
+    if (directAwards.length === 0) {
+        return 100;
+    }
     return Math.round(filteredDA.length / (filteredDA.length + directAwards.length ) * 100);
 }
 

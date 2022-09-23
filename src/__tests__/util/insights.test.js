@@ -1,5 +1,5 @@
 import {
-    assertionSeries,
+    assertionSeries, claimRatePercentage,
     entityTypeLookup,
     equalizeAssertionsSize,
     filterSeries,
@@ -86,6 +86,17 @@ test("Equalize Assertions size, adding to front and back of both", () => {
     expect(results[0]).toStrictEqual(daExpected);
     expect(results[1]).toStrictEqual(reqExpected);
 });
+
+test("claimRatePercentage", () => {
+    let claimRate = claimRatePercentage([], []);
+    expect(claimRate).toStrictEqual(0);
+
+    claimRate = claimRatePercentage(new Array(5).fill(0), []);
+    expect(claimRate).toStrictEqual(100);
+
+    claimRate = claimRatePercentage(new Array(5).fill(0), new Array(3).fill(0));
+    expect(claimRate).toStrictEqual(63);
+})
 
 test("minMaxDateOfAssertionSeries max date", () => {
     const a1 = [{nbr: 0}, {nbr: 1, year: 2022, month: 10}]
