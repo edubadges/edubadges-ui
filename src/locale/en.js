@@ -1368,6 +1368,7 @@ I18n.translations.en = {
         requested: "Requested and awarded",
         enrollments: "Requested",
         pending: "Pending by institution",
+        acceptedAndApproved: "Requested and approved",
         unclaimed: "Unclaimed by student",
         directAwards: "Direct awarded",
         directAwardDenied: "Rejected by student",
@@ -1387,11 +1388,24 @@ I18n.translations.en = {
         date: "Date",
         reset: "Reset",
         total: "Total",
+        totalDirectAwards: "Total send",
+        totalRequested: "Total requested",
+        directAwardedAccepted: "Direct awarded and accepted",
         public: "Public edubadges",
         noContent: "No edubadges were awarded in the given year for this institution",
         term: "Term",
         month: "Month",
+        tableHeader: "Edubadges for {{institution}} - {{year}}",
+        allYears: "all years",
+        allInstitutions: "all institutions",
         tooltips: {
+            awardedBadges: "Here you can see the total of all edubadges that are included in the backpack with the recipients.<br/><br/> " +
+                "These are divided into edubadges issued directly by the educational institution and accepted by the recipient and edubadges requested and awarded by the educational institution.<br/><br/> " +
+                "Finally, you can see how many edubadges are shared in the backpack.",
+            directAwards: "Here you can see the total of all edubadges issued directly by the institution. Then you will see the number per status.<br/><br/>" +
+                "The claim rate is the percentage of edubadges that have been awarded and accepted directly by the institution.<br/><br/>" +
+                "Claim rate = (claimed)/total sent) x 100%",
+            enrollments: "Here you can see the total of all edubadges that have been requested by students.",
             totalAwarded: "The total number of awarded badge classes resulting in edubadge instances",
             directAwarded: "The number of the awarded badges through direct awarding",
             requested:"The number of the awarded badges requested by students and accepted by teachers",

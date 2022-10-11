@@ -1369,6 +1369,7 @@ I18n.translations.nl = {
         requested: "Aangevraagd en toegekend",
         enrollments: "Aangevraagd",
         pending: "In behandeling bij instelling",
+        acceptedAndApproved: "Aangevraagd en toegekend",
         unclaimed: "Nog niet geclaimed door student",
         directAwards: "Direct toegekend",
         directAwardDenied: "Geweigerd door student",
@@ -1388,11 +1389,24 @@ I18n.translations.nl = {
         date: "Datum",
         reset: "Reset",
         total: "Totaal",
+        totalDirectAwards: "Totaal verstuurd",
+        totalRequested: "Totaal aangevraagd",
+        directAwardedAccepted: "Direct toegekend en geaccepteerd",
         public: "Publiek gemaakte edubadges",
         noContent: "Geen edubadges zijn uitgegeven in dit jaar voor deze instelling",
         term: "Kwartaal",
         month: "Maand",
+        tableHeader: "Edubadges voor {{institution}} - {{year}}",
+        allYears: "alle jaren",
+        allInstitutions: "alle instellingen",
         tooltips: {
+            awardedBadges: "Hier ziet u totaal van alle edubadges die bij de ontvangers in de backpack zijn opgenomen.<br/><br/>" +
+                "Deze zijn onderverdeeld in edubadges die door de onderwijsinstelling direct zijn uitgereikt en door de ontvanger zijn geaccepteerd en edubadges die zijn aangevraagd en door de onderwijsinstelling zijn toegekend.<br/><br/> " +
+                "Ten slotte ziet u hoeveel edubadges in de backpack gedeeld worden.",
+            directAwards: "Hier ziet u het totaal van alle edubadges die door de instelling direct zijn uitgereikt. Vervolgens ziet u het aantal per status.<br/><br/>" +
+                "De claim rate is het percentage edubadges dat door de instelling direct is uitgereikt en geaccepteerd.<br/><br/>" +
+                "Claim rate = (geaccepteerd)/totaal verstuurd) x 100%",
+            enrollments: "Hier ziet u het totaal van alle edubadges die door studenten zijn aangevraagd.",
             totalAwarded: "Het totale aantal toegekende badgeklassen resulterend in edubadge-instanties",
             directAwarded: "Het aantal toegekende badges dat door studenten is aangevraagd en door docenten is geaccepteerd",
             requested:"Het aantal toegekende badges dat door studenten is aangevraagd en door docenten is geaccepteerd",

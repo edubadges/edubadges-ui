@@ -82,12 +82,12 @@
     let issuerId = null;
     let facultyId = null;
     let institutionId = null;
-    let currentInstitutionEntityId = null;
+    let currentInstitution = {};
     const currentYear = new Date().getFullYear();
     const number = currentYear - 2017
     let yearSelectOptions = new Array(number).fill(0).map((a, i) => ({name: currentYear - i}));
     yearSelectOptions.push({name: I18n.t("insights.total")})
-    let year = yearSelectOptions[0];
+    let year = yearSelectOptions[yearSelectOptions.length - 1];
     let facultySelectOptions = [];
     let issuerSelectOptions = [];
     let badgeClassSelectOptions = [];
@@ -115,7 +115,9 @@
         entityId
         },
       currentInstitution {
-        entityId
+        entityId,
+        nameEnglish,
+        nameDutch,
         }
       }`
 
@@ -178,8 +180,8 @@
                         name: I18n.t("insights.total"),
                         identifier: "all"
                     }]);
-                    currentInstitutionEntityId = res.currentInstitution.entityId;
-                    institutionId = institutions.find(institution => institution.identifier === currentInstitutionEntityId);
+                    currentInstitution = res.currentInstitution;
+                    institutionId = institutions.find(institution => institution.identifier === currentInstitution.entityId);
                 });
             }
             faculties = extractAssertionFaculties(serverData['assertions'], serverData['direct_awards'], serverData['enrollments'], I18n.locale);
@@ -202,6 +204,19 @@
     }
 
     onMount(initialize);
+
+    const whichSelectedInstitution = (institutionSelected, homeInstitution) => {
+        if (institutionSelected) {
+            return institutionSelected.identifier === "all" ? I18n.t("insights.allInstitutions") : institutionSelected.name;
+        }
+        const name = I18n.locale === "en" ? "nameEnglish" : "nameDutch";
+        const backupName = I18n.locale === "en" ? "nameDutch" : "nameEnglish";
+        return homeInstitution[name] || homeInstitution[backupName];
+
+    }
+
+    $: selectedInstitutionName = whichSelectedInstitution(institutionId, currentInstitution);
+    $: selectedYear = year ? (year.name === I18n.t("insights.total") ? I18n.t("insights.allYears") : year.name) : "";
 
     const institutionSelected = item => {
         loaded = false;
@@ -271,7 +286,7 @@
         badgeClassId = null;
         issuerId = null;
         facultyId = null;
-        institutionId = institutions.find(institution => institution.identifier === currentInstitutionEntityId);
+        institutionId = institutions.find(institution => institution.identifier === currentInstitution.entityId);
         year = yearSelectOptions[0];
 
         facultySelectOptions = facultyOptions(faculties);
@@ -415,9 +430,23 @@
     background-color: var(--purple-background);
   }
 
+  .content-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+
+    h2 {
+      text-align: center;
+      font-size: 22px;
+      margin-bottom: 15px;
+    }
+  }
+
   .content {
     display: flex;
     width: 100%;
+    height: 100%;
   }
 
   .no-content {
@@ -425,8 +454,12 @@
   }
 
   div.insights {
-    padding-right: 30px;
-    min-width: 360px;
+    padding: 0 40px 0 5px;
+    min-width: 400px;
+
+    .title-wrapper {
+      display: flex;
+    }
 
     h2 {
       margin: 0 0 15px 0;
@@ -442,6 +475,14 @@
 
       span.attr {
         font-size: 18px;
+
+        &.orange {
+          color: #e67506;
+        }
+
+        &.green {
+          color: #3a9f2e;
+        }
       }
 
       section.stat {
@@ -592,95 +633,117 @@
 
             </div>
             <div class="insights">
-                <h2>{I18n.t("insights.awardedBadges")}</h2>
+                <div class="title-wrapper">
+                    <h2>{I18n.t("insights.awardedBadges")}
+                    </h2>
+                    <Tooltip tooltipText={I18n.t("insights.tooltips.awardedBadges")} placement="right"/>
+                </div>
                 <section class="stats">
                     <section class="stat">
                         <span class="attr">{I18n.t("insights.totalAwarded")}
-                            <Tooltip tooltipText={I18n.t("insights.tooltips.totalAwarded")}/>
+                            <!--                            <Tooltip tooltipText={I18n.t("insights.tooltips.totalAwarded")}/>-->
                         </span>
                         <span class="value total">{Number(lastNumber(totalAssertions)).toLocaleString()}</span>
                     </section>
                     <section class="stat sub">
-                        <span class="attr">{I18n.t("insights.directAwarded")}
-                            <Tooltip tooltipText={I18n.t("insights.tooltips.directAwarded")}/>
+                        <span class="attr orange">{I18n.t("insights.directAwarded")}
                         </span>
                         <span class="value direct-awards">{Number(lastNumber(directAwardAssertions)).toLocaleString()}</span>
                     </section>
                     <section class="stat sub">
-                        <span class="attr">{I18n.t("insights.requested")}
-                            <Tooltip tooltipText={I18n.t("insights.tooltips.requested")}/>
+                        <span class="attr  green">{I18n.t("insights.requested")}
+                            <!--                            <Tooltip tooltipText={I18n.t("insights.tooltips.requested")}/>-->
                         </span>
                         <span class="value requested">{Number(lastNumber(requestedAssertions)).toLocaleString()}</span>
                     </section>
                     <section class="stat">
                         <span class="attr">{I18n.t("insights.public")}
-                            <Tooltip tooltipText={I18n.t("insights.tooltips.public")}/>
+                            <!--                            <Tooltip tooltipText={I18n.t("insights.tooltips.public")}/>-->
                         </span>
                         <span class="value">{Number(publicAssertions).toLocaleString()}</span>
                     </section>
                 </section>
                 <section class="stats">
-                    <h3>{I18n.t("insights.directAwards")}</h3>
+                    <div class="title-wrapper">
+                        <h3>{I18n.t("insights.directAwards")}</h3>
+                        <Tooltip tooltipText={I18n.t("insights.tooltips.directAwards")}/>
+                    </div>
                     <section class="stat">
-                        <span class="attr">{I18n.t("insights.total")}
-                            <Tooltip tooltipText={I18n.t("insights.tooltips.totalDirectAwards")}/>
+                        <span class="attr">{I18n.t("insights.totalDirectAwards")}
                         </span>
                         <span class="value">{Number(totalDirectAwardsNotAccepted + lastNumber(directAwardAssertions)).toLocaleString()}</span>
                     </section>
-                    <section class="stat">
+                    <section class="stat sub">
+                        <span class="attr orange">{I18n.t("insights.directAwardedAccepted")}
+                        </span>
+                        <span class="value direct-awards">
+                            {Number(totalDirectAwardsNotAccepted + lastNumber(directAwardAssertions) - directAwardsOpen - assertionDirectAwardsRevoked - directAwardsRevoked - directAwardsRejected).toLocaleString()}
+                        </span>
+                    </section>
+                    <section class="stat sub">
+                        <span class="attr">{I18n.t("insights.directAwardDenied")}
+                            <!--                            <Tooltip tooltipText={I18n.t("insights.tooltips.directAwardDenied")}/>-->
+                        </span>
+                        <span class="value">{directAwardsRejected}</span>
+                    </section>
+                    <section class="stat sub">
                         <span class="attr">{I18n.t("insights.unclaimed")}
-                            <Tooltip tooltipText={I18n.t("insights.tooltips.unclaimed")}/>
+                            <!--                            <Tooltip tooltipText={I18n.t("insights.tooltips.unclaimed")}/>-->
                         </span>
                         <span class="value">{directAwardsOpen}</span>
                     </section>
-                    <section class="stat">
+                    <section class="stat sub">
                         <span class="attr">{I18n.t("insights.revokedBefore")}
-                            <Tooltip tooltipText={I18n.t("insights.tooltips.revokedBefore")}/>
+                            <!--                            <Tooltip tooltipText={I18n.t("insights.tooltips.revokedBefore")}/>-->
                         </span>
                         <span class="value">{assertionDirectAwardsRevoked}</span>
                     </section>
-                    <section class="stat">
+                    <section class="stat sub">
                         <span class="attr">{I18n.t("insights.revoked")}
-                            <Tooltip tooltipText={I18n.t("insights.tooltips.revoked")}/>
+                            <!--                            <Tooltip tooltipText={I18n.t("insights.tooltips.revoked")}/>-->
                         </span>
                         <span class="value">{directAwardsRevoked}</span>
                     </section>
                     <section class="stat">
-                        <span class="attr">{I18n.t("insights.directAwardDenied")}
-                            <Tooltip tooltipText={I18n.t("insights.tooltips.directAwardDenied")}/>
-                        </span>
-                        <span class="value">{directAwardsRejected}</span>
-                    </section>
-                    <section class="stat">
                         <span class="attr">{I18n.t("insights.claimRate")}
-                            <Tooltip tooltipText={I18n.t("insights.tooltips.claimRate")}/>
+                            <!--                            <Tooltip tooltipText={I18n.t("insights.tooltips.claimRate")}/>-->
                         </span>
                         <span class="value claim-rate">{claimRate}%</span>
                     </section>
-                    <h3 class="last">{I18n.t("insights.enrollments")}</h3>
+                    <div class="title-wrapper">
+                        <h3 class="last">{I18n.t("insights.enrollments")}</h3>
+                        <Tooltip tooltipText={I18n.t("insights.tooltips.enrollments")}/>
+                    </div>
+
                     <section class="stat">
-                        <span class="attr">{I18n.t("insights.total")}
-                            <Tooltip tooltipText={I18n.t("insights.tooltips.totalEnrollments")}/>
+                        <span class="attr">{I18n.t("insights.totalRequested")}
                         </span>
                         <span class="value">{Number(totalEnrollmentsNotAccepted + lastNumber(requestedAssertions)).toLocaleString()}</span>
                     </section>
-                    <section class="stat">
-                        <span class="attr">{I18n.t("insights.pending")}
-                            <Tooltip tooltipText={I18n.t("insights.tooltips.pendingEnrollments")}/>
+                    <section class="stat sub">
+                        <span class="attr green">{I18n.t("insights.acceptedAndApproved")}
                         </span>
-                        <span class="value">{enrollmentsOpen}</span>
+                        <span class="value requested">
+                            {Number(totalEnrollmentsNotAccepted + lastNumber(requestedAssertions) - enrollmentsOpen - enrollmentsDenied - assertionRequestedRevoked).toLocaleString()}
+                        </span>
                     </section>
-                    <section class="stat">
+                    <section class="stat sub">
                         <span class="attr">{I18n.t("insights.requestedDenied")}
-                            <Tooltip tooltipText={I18n.t("insights.tooltips.requestedDenied")}/>
+                            <!--                            <Tooltip tooltipText={I18n.t("insights.tooltips.requestedDenied")}/>-->
                         </span>
                         <span class="value">{enrollmentsDenied}</span>
                     </section>
-                    <section class="stat">
+                    <section class="stat sub">
                         <span class="attr">{I18n.t("insights.revoked")}
-                            <Tooltip tooltipText={I18n.t("insights.tooltips.revoked")}/>
+                            <!--                            <Tooltip tooltipText={I18n.t("insights.tooltips.revoked")}/>-->
                         </span>
                         <span class="value">{assertionRequestedRevoked}</span>
+                    </section>
+                    <section class="stat sub">
+                        <span class="attr">{I18n.t("insights.pending")}
+                            <!--                            <Tooltip tooltipText={I18n.t("insights.tooltips.pendingEnrollments")}/>-->
+                        </span>
+                        <span class="value">{enrollmentsOpen}</span>
                     </section>
                 </section>
                 <section class="selectors">
@@ -735,7 +798,7 @@
                                 action={reset}
                                 secondary={true}
                                 disabled={!badgeClassId && !issuerId && !facultyId &&
-                    (isEmpty( institutionId) || institutionId.identifier === currentInstitutionEntityId) &&
+                    (isEmpty( institutionId) || institutionId.identifier === currentInstitution.entityId) &&
                     (isEmpty(year) || year.name === new Date().getFullYear())}/>
                     </section>
 
@@ -746,7 +809,13 @@
                     <h3>{I18n.t("insights.noContent")}</h3>
                 </div>
             {:else}
-                <div id="content" class="content"></div>
+                <div class="content-wrapper">
+                    <h2>{I18n.t("insights.tableHeader", {
+                        year: selectedYear,
+                        institution: selectedInstitutionName
+                    })}</h2>
+                    <div id="content" class="content"></div>
+                </div>
             {/if}
         </div>
     {:else}

@@ -7,6 +7,7 @@
     export let tipKey = "";
     export let marginBottom = false;
     export let marginTop = false;
+    export let placement = "top";
     export let tooltipText;
 
     const translations = I18n.translations[I18n.locale];
@@ -57,6 +58,10 @@
     transform: translate(-50%, -100%);
     margin-top: -6px;
     width: 280px;
+
+    &.right {
+      transform: translate(10%, -40%);
+    }
   }
 
   .tooltip:after {
@@ -70,6 +75,21 @@
     margin-left: 2px;
     position: absolute;
     width: 0;
+  }
+
+  .tooltip.right:after {
+    border-left: solid transparent 8px;
+    border-right: solid var(--purple-1) 8px;
+    border-top: solid transparent 8px;
+    border-bottom: solid transparent 8px;
+    bottom: -8px;
+    content: " ";
+    height: 0;
+    left: -4px;
+    margin-left: -12px;
+    position: absolute;
+    width: 0;
+    top: 42%;
   }
 
   .tooltip-slot:hover + .tooltip {
@@ -112,7 +132,7 @@
     <span class="tooltip-slot">
       {@html question}
     </span>
-            <div class="tooltip top">
+            <div class="tooltip top" class:right={placement === "right"}>
                 {#if tooltipText}
                     {@html tooltipText}
                 {:else}

@@ -6,9 +6,10 @@ export const lastNumber = assertions => {
 
 export const institutionOptions = institutions => {
     const name = I18n.locale === "en" ? "nameEnglish" : "nameDutch";
+    const backupName = I18n.locale === "en" ? "nameDutch" : "nameEnglish";
     return institutions.map(institution => ({
         identifier: institution.entityId,
-        name: institution[name]
+        name: institution[name] || institution[backupName]
     }))
 }
 
