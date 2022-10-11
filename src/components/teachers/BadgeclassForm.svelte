@@ -420,6 +420,14 @@
     border-radius: 4px;
   }
 
+  .issuers {
+    grid-column: span 2;
+  }
+
+  .award-options {
+    margin: 35px 0 10px 0;
+  }
+
   .deletable-title {
     display: inline-block;
   }
@@ -516,48 +524,71 @@
                 </div>
             </Field>
         </div>
-
-        <Field {entity} attribute="issuer" errors={errors.issuer} tipKey="badgeClassLearningIssuer">
-            <Select
-                    bind:value={badgeclass.issuer}
-                    error={errors.issuer}
-                    disabled={issuers.length === 1 || (!mayEdit && !isCopy)}
-                    clearable={false}
-                    optionIdentifier="entityId"
-                    items={issuers}/>
-        </Field>
-
-        <Field {entity} attribute="badgeClassOptions">
-            <CheckBox
-                    value={badgeclass.isPrivate || false}
-                    inForm={true}
-                    adjustTop={true}
-                    boldLabel={false}
-                    label={I18n.t(['models', entity, 'isPrivate'])}
-                    tipKey="badgeClassIsPrivate"
-                    disabled={hasUnrevokedAssertions}
-                    onChange={val => badgeclass.isPrivate = val}/>
-            <CheckBox
-                    value={badgeclass.awardNonValidatedNameAllowed || false}
-                    inForm={true}
-                    disabled={showStudyLoad}
-                    boldLabel={false}
-                    adjustTop={true}
-                    label={I18n.t(['models', entity, 'awardNonValidatedNameAllowed'])}
-                    tipKey="badgeClassAwardNonValidatedNameAllowed"
-                    onChange={val => badgeclass.awardNonValidatedNameAllowed = val}/>
-            {#if institution.alternativeIdentifier}
+        <div class="issuers">
+            <Field {entity} attribute="issuer" errors={errors.issuer} tipKey="badgeClassLearningIssuer">
+                <Select
+                        bind:value={badgeclass.issuer}
+                        error={errors.issuer}
+                        disabled={issuers.length === 1 || (!mayEdit && !isCopy)}
+                        clearable={false}
+                        optionIdentifier="entityId"
+                        items={issuers}/>
+            </Field>
+        </div>
+        <div class="badge-class-options">
+            <Field {entity} attribute="badgeClassOptions">
                 <CheckBox
-                        value={badgeclass.isMicroCredentials || false}
+                        value={badgeclass.isPrivate || false}
                         inForm={true}
+                        adjustTop={true}
+                        boldLabel={false}
+                        label={I18n.t(['models', entity, 'isPrivate'])}
+                        tipKey="badgeClassIsPrivate"
+                        disabled={hasUnrevokedAssertions}
+                        onChange={val => badgeclass.isPrivate = val}/>
+                <CheckBox
+                        value={badgeclass.awardNonValidatedNameAllowed || false}
+                        inForm={true}
+                        disabled={showStudyLoad}
                         boldLabel={false}
                         adjustTop={true}
-                        label={I18n.t(['models', entity, 'isMicroCredentials'])}
-                        tipKey="badgeClassIsMicroCredentials"
-                        onChange={changeIsMicroCredentials}/>
-            {/if}
-        </Field>
-
+                        label={I18n.t(['models', entity, 'awardNonValidatedNameAllowed'])}
+                        tipKey="badgeClassAwardNonValidatedNameAllowed"
+                        onChange={val => badgeclass.awardNonValidatedNameAllowed = val}/>
+                {#if institution.alternativeIdentifier}
+                    <CheckBox
+                            value={badgeclass.isMicroCredentials || false}
+                            inForm={true}
+                            boldLabel={false}
+                            adjustTop={true}
+                            label={I18n.t(['models', entity, 'isMicroCredentials'])}
+                            tipKey="badgeClassIsMicroCredentials"
+                            onChange={changeIsMicroCredentials}/>
+                {/if}
+            </Field>
+            <div class="award-options">
+                <Field {entity} attribute="awardOptions">
+                    {#if institution.directAwardingEnabled}
+                        <CheckBox
+                                value={badgeclass.directAwardingDisabled || false}
+                                inForm={true}
+                                boldLabel={false}
+                                adjustTop={true}
+                                label={I18n.t(['models', entity, 'directAwardingDisabled'])}
+                                tipKey="badgeClassDirectAwardingDisabled"
+                                onChange={val => badgeclass.directAwardingDisabled = val}/>
+                    {/if}
+                    <CheckBox
+                            value={badgeclass.selfEnrollmentDisabled || false}
+                            inForm={true}
+                            boldLabel={false}
+                            adjustTop={true}
+                            label={I18n.t(['models', entity, 'selfEnrollmentDisabled'])}
+                            tipKey="badgeClassSelfEnrollmentDisabled"
+                            onChange={val => badgeclass.selfEnrollmentDisabled = val}/>
+                </Field>
+            </div>
+        </div>
         <Field {entity} attribute="evidenceNarrativeOptions">
             <CheckBox
                     value={badgeclass.evidenceRequired || false}
@@ -591,26 +622,6 @@
                     label={I18n.t(['models', entity, 'evidenceStudentRequired'])}
                     tipKey="badgeClassEvidenceStudentRequired"
                     onChange={val => badgeclass.evidenceStudentRequired = val}/>
-        </Field>
-        <Field {entity} attribute="awardOptions">
-            {#if institution.directAwardingEnabled}
-                <CheckBox
-                        value={badgeclass.directAwardingDisabled || false}
-                        inForm={true}
-                        boldLabel={false}
-                        adjustTop={true}
-                        label={I18n.t(['models', entity, 'directAwardingDisabled'])}
-                        tipKey="badgeClassDirectAwardingDisabled"
-                        onChange={val => badgeclass.directAwardingDisabled = val}/>
-            {/if}
-            <CheckBox
-                    value={badgeclass.selfEnrollmentDisabled || false}
-                    inForm={true}
-                    boldLabel={false}
-                    adjustTop={true}
-                    label={I18n.t(['models', entity, 'selfEnrollmentDisabled'])}
-                    tipKey="badgeClassSelfEnrollmentDisabled"
-                    onChange={val => badgeclass.selfEnrollmentDisabled = val}/>
         </Field>
     </div>
 
