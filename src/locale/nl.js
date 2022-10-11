@@ -1396,7 +1396,7 @@ I18n.translations.nl = {
         noContent: "Geen edubadges zijn uitgegeven in dit jaar voor deze instelling",
         term: "Kwartaal",
         month: "Maand",
-        tableHeader: "Edubadges voor {{institution}} - {{year}}",
+        tableHeader: "Edubadges voor {{institution}} in {{year}}",
         allYears: "alle jaren",
         allInstitutions: "alle instellingen",
         tooltips: {

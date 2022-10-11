@@ -1395,7 +1395,7 @@ I18n.translations.en = {
         noContent: "No edubadges were awarded in the given year for this institution",
         term: "Term",
         month: "Month",
-        tableHeader: "Edubadges for {{institution}} - {{year}}",
+        tableHeader: "Edubadges for {{institution}} in {{year}}",
         allYears: "all years",
         allInstitutions: "all institutions",
         tooltips: {
