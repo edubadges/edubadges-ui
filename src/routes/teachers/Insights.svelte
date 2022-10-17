@@ -43,7 +43,7 @@
     OfflineExporting(Highcharts);
 
     let serverData = null;
-    let profile = null;
+    let profile = {is_superuser: false};
     let loaded = false;
 
     //Superusers can select institutions
@@ -121,6 +121,14 @@
         }
       }`
 
+    const queryNoSuperUser = `query {
+      currentInstitution {
+        entityId,
+        nameEnglish,
+        nameDutch,
+        }
+      }`
+
     const reload = res => {
         loaded = false;
         const filteredDA = filterSeries(res['assertions'], entityTypeLookup.ASSERTION, 'direct_award', badgeClassId, issuerId, facultyId);
@@ -182,6 +190,10 @@
                     }]);
                     currentInstitution = res.currentInstitution;
                     institutionId = institutions.find(institution => institution.identifier === currentInstitution.entityId);
+                });
+            } else if (!profile.is_superuser && isEmpty(currentInstitution)) {
+                queryData(queryNoSuperUser).then(res => {
+                    currentInstitution = res.currentInstitution;
                 });
             }
             faculties = extractAssertionFaculties(serverData['assertions'], serverData['direct_awards'], serverData['enrollments'], I18n.locale);
@@ -747,14 +759,16 @@
                     </section>
                 </section>
                 <section class="selectors">
-                    <Field entity="insights" attribute="institution">
-                        <Select
-                                value={institutionId}
-                                handleSelect={institutionSelected}
-                                placeholder={I18n.t("models.insights.institutionPlaceholder")}
-                                items={institutions}
-                                optionIdentifier="identifier"/>
-                    </Field>
+                    {#if profile.is_superuser}
+                        <Field entity="insights" attribute="institution">
+                            <Select
+                                    value={institutionId}
+                                    handleSelect={institutionSelected}
+                                    placeholder={I18n.t("models.insights.institutionPlaceholder")}
+                                    items={institutions}
+                                    optionIdentifier="identifier"/>
+                        </Field>
+                    {/if}
                     <Field entity="insights" attribute="faculty">
                         <Select
                                 value={facultyId}
