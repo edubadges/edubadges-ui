@@ -653,7 +653,6 @@
                 <section class="stats">
                     <section class="stat">
                         <span class="attr">{I18n.t("insights.totalAwarded")}
-                            <!--                            <Tooltip tooltipText={I18n.t("insights.tooltips.totalAwarded")}/>-->
                         </span>
                         <span class="value total">{Number(lastNumber(totalAssertions)).toLocaleString()}</span>
                     </section>
@@ -664,13 +663,11 @@
                     </section>
                     <section class="stat sub">
                         <span class="attr  green">{I18n.t("insights.requested")}
-                            <!--                            <Tooltip tooltipText={I18n.t("insights.tooltips.requested")}/>-->
                         </span>
                         <span class="value requested">{Number(lastNumber(requestedAssertions)).toLocaleString()}</span>
                     </section>
                     <section class="stat">
                         <span class="attr">{I18n.t("insights.public")}
-                            <!--                            <Tooltip tooltipText={I18n.t("insights.tooltips.public")}/>-->
                         </span>
                         <span class="value">{Number(publicAssertions).toLocaleString()}</span>
                     </section>
