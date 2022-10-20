@@ -23,7 +23,7 @@
         extractAssertionFaculties,
         facultyOptions,
         filterSeries,
-        findByAttributeValue,
+        totalNbrByAttributeValue,
         institutionOptions,
         issuerOptions,
         lastNumber,
@@ -62,19 +62,28 @@
     let directAwards = null;
     let enrollments = null;
 
-    //The minor stats
-    let claimRate = 0;
-    let enrollmentsOpen = 0;
-    let enrollmentsDenied = 0;
-    let totalEnrollmentsNotAccepted = 0;
+    let useMonths = false;
 
-    let totalDirectAwardsNotAccepted = 0;
-    let directAwardsRejected = 0;
-    let directAwardsRevoked = 0;
-    let directAwardsOpen = 0;
+    //Edubadges in backpack
+    let totalAwarded = 0;
+    let directAwarded = 0;
+    let totalRequestedAssertions = 0;
     let publicAssertions = 0;
 
+    //Direct awarded
+    let totalDirectAwards = 0;
+    let directAwardedAccepted = 0;
+    let directAwardDenied = 0;
+    let directAwardsOpen = 0;
     let assertionDirectAwardsRevoked = 0;
+    let directAwardsRevoked = 0;
+    let claimRate = 0;
+
+    //Requested
+    let totalRequested = 0;
+    let enrollmentsOpen = 0;
+    let acceptedAndApproved = 0;
+    let enrollmentsDenied = 0;
     let assertionRequestedRevoked = 0;
 
     // Sorting options
@@ -132,10 +141,12 @@
     const reload = res => {
         loaded = false;
         const filteredDA = filterSeries(res['assertions'], entityTypeLookup.ASSERTION, 'direct_award', badgeClassId, issuerId, facultyId);
-        let daAssertions = assertionSeries(filteredDA);
+        const filteredDaNotRevoked = filteredDA.filter(assertion => assertion.revoked === false);
+        let daAssertions = assertionSeries(filteredDaNotRevoked);
 
         const filteredReq = filterSeries(res['assertions'], entityTypeLookup.ASSERTION, 'requested', badgeClassId, issuerId, facultyId);
-        let reqAssertions = assertionSeries(filteredReq);
+        const filteredReqNotRevoked = filteredReq.filter(assertion => assertion.revoked === false);
+        let reqAssertions = assertionSeries(filteredReqNotRevoked);
 
         directAwards = filterSeries(res['direct_awards'], entityTypeLookup.DIRECT_AWARD, null, badgeClassId, issuerId, facultyId);
         enrollments = filterSeries(res['enrollments'], entityTypeLookup.ENROLMENT, null, badgeClassId, issuerId, facultyId);
@@ -143,34 +154,42 @@
         daAssertions = equalized[0];
         reqAssertions = equalized[1];
 
-        enrollmentsOpen = findByAttributeValue(enrollments, 'denied', false);
-        enrollmentsDenied = findByAttributeValue(enrollments, 'denied', true);
-        totalEnrollmentsNotAccepted = enrollmentsOpen + enrollmentsDenied;
+        //Edubadges in backpack
+        directAwarded = totalNbrByAttributeValue(filteredDA, 'revoked', false );
+        totalRequestedAssertions = totalNbrByAttributeValue(filteredReq, 'revoked', false );
+        totalAwarded = directAwarded + totalRequestedAssertions;
+        publicAssertions = totalNbrByAttributeValue(filteredReq.concat(filteredDA), 'public', true);
 
-        directAwardsRejected = findByAttributeValue(directAwards, 'status', 'Rejected');
-        directAwardsRevoked = findByAttributeValue(directAwards, 'status', 'Revoked');
-        directAwardsOpen = findByAttributeValue(directAwards, 'status', 'Unaccepted');
-        totalDirectAwardsNotAccepted = directAwardsRejected + directAwardsRevoked + directAwardsOpen;
+        //Direct awarded
+        directAwardedAccepted = directAwarded;
+        directAwardDenied = totalNbrByAttributeValue(directAwards, 'status', 'Rejected');
+        directAwardsOpen = totalNbrByAttributeValue(directAwards, 'status', 'Unaccepted');
+        assertionDirectAwardsRevoked = totalNbrByAttributeValue(filteredDA, 'revoked', true);
+        directAwardsRevoked = totalNbrByAttributeValue(directAwards, 'status', 'Revoked');
+        totalDirectAwards = directAwardedAccepted + directAwardDenied + directAwardsOpen + assertionDirectAwardsRevoked + directAwardsRevoked;
+        claimRate = claimRatePercentage(directAwardedAccepted, totalDirectAwards);
 
-        assertionDirectAwardsRevoked = findByAttributeValue(filteredDA, 'revoked', true);
-        assertionRequestedRevoked = findByAttributeValue(filteredReq, 'revoked', true);
+        //Requested
+        acceptedAndApproved = totalRequestedAssertions;
+        enrollmentsDenied = totalNbrByAttributeValue(enrollments, 'denied', true);
+        assertionRequestedRevoked = totalNbrByAttributeValue(filteredReq, 'revoked', true);
+        enrollmentsOpen = totalNbrByAttributeValue(enrollments, 'denied', false);
+        totalRequested = acceptedAndApproved + enrollmentsDenied + assertionRequestedRevoked + enrollmentsOpen;
 
-        publicAssertions = findByAttributeValue(filteredReq.concat(filteredDA), 'public', true);
-
-        claimRate = claimRatePercentage(filteredDA, directAwards);
-
-        firstDate = minMaxDateOfAssertionSeries(daAssertions, reqAssertions, false);
-        lastDate = minMaxDateOfAssertionSeries(daAssertions, reqAssertions, true);
-        //these are the three series
+        //these are the actual three series
         directAwardAssertions = daAssertions.map(assertion => assertion.nbr);
         requestedAssertions = reqAssertions.map(assertion => assertion.nbr);
         totalAssertions = directAwardAssertions.map((nbr, index) => nbr + requestedAssertions[index]);
-        const useMonths = totalAssertions.length < 13;
+
+        //This determines the x-as categories
+        firstDate = minMaxDateOfAssertionSeries(daAssertions, reqAssertions, false);
+        lastDate = minMaxDateOfAssertionSeries(daAssertions, reqAssertions, true);
+        useMonths = firstDate.getFullYear() === lastDate.getFullYear();
         const formatter = new Intl.DateTimeFormat(I18n.locale, {month: 'short'});
         categories = totalAssertions.map(() => {
-            firstDate.setMonth(firstDate.getMonth() + 1)
             const monthF = formatter.format(firstDate);
             const yF = useMonths ? "" : firstDate.getFullYear() + "-"
+            firstDate.setMonth(firstDate.getMonth() + 1)
             return yF + monthF.substr(0, 1).toUpperCase() + monthF.substr(1, monthF.length - 1);
         });
 
@@ -379,7 +398,7 @@
                 labels: {
                     formatter: ctx => ctx.value,
                     title: {
-                        text: I18n.t(`insights.${totalAssertions.length > 12 ? "term" : "month"}`)
+                        text: I18n.t(`insights.${useMonths ? "month" : "term"}`)
                     }
                 }
             },
@@ -654,17 +673,17 @@
                     <section class="stat">
                         <span class="attr">{I18n.t("insights.totalAwarded")}
                         </span>
-                        <span class="value total">{Number(lastNumber(totalAssertions)).toLocaleString()}</span>
+                        <span class="value total">{Number(totalAwarded).toLocaleString()}</span>
                     </section>
                     <section class="stat sub">
                         <span class="attr orange">{I18n.t("insights.directAwarded")}
                         </span>
-                        <span class="value direct-awards">{Number(lastNumber(directAwardAssertions)).toLocaleString()}</span>
+                        <span class="value direct-awards">{Number(directAwarded).toLocaleString()}</span>
                     </section>
                     <section class="stat sub">
                         <span class="attr  green">{I18n.t("insights.requested")}
                         </span>
-                        <span class="value requested">{Number(lastNumber(requestedAssertions)).toLocaleString()}</span>
+                        <span class="value requested">{Number(totalRequestedAssertions).toLocaleString()}</span>
                     </section>
                     <section class="stat">
                         <span class="attr">{I18n.t("insights.public")}
@@ -680,42 +699,37 @@
                     <section class="stat">
                         <span class="attr">{I18n.t("insights.totalDirectAwards")}
                         </span>
-                        <span class="value">{Number(totalDirectAwardsNotAccepted + lastNumber(directAwardAssertions)).toLocaleString()}</span>
+                        <span class="value">{Number(totalDirectAwards).toLocaleString()}</span>
                     </section>
                     <section class="stat sub">
                         <span class="attr orange">{I18n.t("insights.directAwardedAccepted")}
                         </span>
                         <span class="value direct-awards">
-                            {Number(totalDirectAwardsNotAccepted + lastNumber(directAwardAssertions) - directAwardsOpen - assertionDirectAwardsRevoked - directAwardsRevoked - directAwardsRejected).toLocaleString()}
+                            {Number(directAwardedAccepted).toLocaleString()}
                         </span>
                     </section>
                     <section class="stat sub">
                         <span class="attr">{I18n.t("insights.directAwardDenied")}
-                            <!--                            <Tooltip tooltipText={I18n.t("insights.tooltips.directAwardDenied")}/>-->
                         </span>
-                        <span class="value">{directAwardsRejected}</span>
+                        <span class="value">{directAwardDenied}</span>
                     </section>
                     <section class="stat sub">
                         <span class="attr">{I18n.t("insights.unclaimed")}
-                            <!--                            <Tooltip tooltipText={I18n.t("insights.tooltips.unclaimed")}/>-->
                         </span>
                         <span class="value">{directAwardsOpen}</span>
                     </section>
                     <section class="stat sub">
                         <span class="attr">{I18n.t("insights.revokedBefore")}
-                            <!--                            <Tooltip tooltipText={I18n.t("insights.tooltips.revokedBefore")}/>-->
                         </span>
                         <span class="value">{assertionDirectAwardsRevoked}</span>
                     </section>
                     <section class="stat sub">
                         <span class="attr">{I18n.t("insights.revoked")}
-                            <!--                            <Tooltip tooltipText={I18n.t("insights.tooltips.revoked")}/>-->
                         </span>
                         <span class="value">{directAwardsRevoked}</span>
                     </section>
                     <section class="stat">
                         <span class="attr">{I18n.t("insights.claimRate")}
-                            <!--                            <Tooltip tooltipText={I18n.t("insights.tooltips.claimRate")}/>-->
                         </span>
                         <span class="value claim-rate">{claimRate}%</span>
                     </section>
@@ -727,30 +741,27 @@
                     <section class="stat">
                         <span class="attr">{I18n.t("insights.totalRequested")}
                         </span>
-                        <span class="value">{Number(totalEnrollmentsNotAccepted + lastNumber(requestedAssertions)).toLocaleString()}</span>
+                        <span class="value">{Number(totalRequested).toLocaleString()}</span>
                     </section>
                     <section class="stat sub">
                         <span class="attr green">{I18n.t("insights.acceptedAndApproved")}
                         </span>
                         <span class="value requested">
-                            {Number(totalEnrollmentsNotAccepted + lastNumber(requestedAssertions) - enrollmentsOpen - enrollmentsDenied - assertionRequestedRevoked).toLocaleString()}
+                            {Number(acceptedAndApproved).toLocaleString()}
                         </span>
                     </section>
                     <section class="stat sub">
                         <span class="attr">{I18n.t("insights.requestedDenied")}
-                            <!--                            <Tooltip tooltipText={I18n.t("insights.tooltips.requestedDenied")}/>-->
                         </span>
                         <span class="value">{enrollmentsDenied}</span>
                     </section>
                     <section class="stat sub">
                         <span class="attr">{I18n.t("insights.revoked")}
-                            <!--                            <Tooltip tooltipText={I18n.t("insights.tooltips.revoked")}/>-->
                         </span>
                         <span class="value">{assertionRequestedRevoked}</span>
                     </section>
                     <section class="stat sub">
                         <span class="attr">{I18n.t("insights.pending")}
-                            <!--                            <Tooltip tooltipText={I18n.t("insights.tooltips.pendingEnrollments")}/>-->
                         </span>
                         <span class="value">{enrollmentsOpen}</span>
                     </section>
@@ -815,7 +826,7 @@
 
                 </section>
             </div>
-            {#if totalAssertions.length === 0}
+            {#if totalAssertions === 0}
                 <div class="no-content">
                     <h3>{I18n.t("insights.noContent")}</h3>
                 </div>

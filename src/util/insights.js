@@ -1,7 +1,7 @@
 import I18n from "i18n-js";
 
 export const lastNumber = assertions => {
-    return assertions.length === 0 ? 0 : assertions[assertions.length - 1];
+    return !assertions || assertions.length === 0 ? 0 : assertions[assertions.length - 1];
 }
 
 export const institutionOptions = institutions => {
@@ -72,18 +72,17 @@ export const badgeClassOptions = (faculties, facultyId, issuerId) => {
     }
 }
 
-export const findByAttributeValue = (assertions, attr, value) => {
-    return assertions.filter(assertion => assertion[attr] === value).map(assertion => assertion.nbr).reduce((a, b) => a + b, 0);
+export const totalNbrByAttributeValue = (assertions, attr, value) => {
+    return assertions.filter(assertion => assertion[attr] === value)
+        .map(assertion => assertion.nbr)
+        .reduce((a, b) => a + b, 0);
 }
 
-export const claimRatePercentage = (filteredDA, directAwards) => {
-    if (filteredDA.length === 0) {
+export const claimRatePercentage = (filteredDANotRevoked, totalNbrDirectWards) => {
+    if (filteredDANotRevoked === 0 || totalNbrDirectWards === 0) {
         return 0;
     }
-    if (directAwards.length === 0) {
-        return 100;
-    }
-    return Math.round(filteredDA.length / (filteredDA.length + directAwards.length ) * 100);
+    return Math.round((filteredDANotRevoked/ totalNbrDirectWards) * 100);
 }
 
 export const entityTypeLookup = {
@@ -189,14 +188,10 @@ export const assertionSeries = assertions => {
 }
 
 export const minMaxDateOfAssertionSeries = (a1, a2, maxDate) => {
-    //The first entry can be added with 0 and the last entry with the same number to fill the array
-    const length1 = a1.length;
-    const length2 = a2.length;
-    const firstDate1 = (length1 > 0 && a1[0].year) ? new Date(a1[0].year, a1[0].month) : new Date(253373439600000);
-    const firstDate2 = (length2 > 0 && a2[0].year) ? new Date(a2[0].year, a2[0].month) : new Date(253373439600000);
-    const lastDate1 = (length1 > 0 && a1[length1 - 1].year) ? new Date(a1[length1 - 1].year, a1[length1 - 1].month) : new Date(0);
-    const lastDate2 = (length2 > 0 && a2[length2 - 1].year) ? new Date(a2[length2 - 1].year, a2[length2 - 1].month) : new Date(0);
-    return maxDate ? (lastDate1 <= lastDate2 ? lastDate2 : lastDate1) : (firstDate1 <= firstDate2 ? firstDate1 : firstDate2);
+    const dates1 = a1.filter(entry => entry.year).map(e => new Date(e.year, e.month - 1, 1));
+    const dates2 = a2.filter(entry => entry.year).map(e => new Date(e.year, e.month - 1, 1));
+    const time = maxDate ? Math.max(...dates1, ...dates2) : Math.min(...dates1, ...dates2);
+    return new Date(time);
 }
 
 const monthDiff = (laterDate, earliestDate) => {

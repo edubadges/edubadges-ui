@@ -88,14 +88,14 @@ test("Equalize Assertions size, adding to front and back of both", () => {
 });
 
 test("claimRatePercentage", () => {
-    let claimRate = claimRatePercentage([], []);
+    let claimRate = claimRatePercentage(0, 0);
     expect(claimRate).toStrictEqual(0);
 
-    claimRate = claimRatePercentage(new Array(5).fill(0), []);
-    expect(claimRate).toStrictEqual(100);
+    claimRate = claimRatePercentage(5, 10);
+    expect(claimRate).toStrictEqual(50);
 
-    claimRate = claimRatePercentage(new Array(5).fill(0), new Array(3).fill(0));
-    expect(claimRate).toStrictEqual(63);
+    claimRate = claimRatePercentage(10, 10);
+    expect(claimRate).toStrictEqual(100);
 })
 
 test("minMaxDateOfAssertionSeries max date", () => {
@@ -103,12 +103,12 @@ test("minMaxDateOfAssertionSeries max date", () => {
     const a2 = [{nbr: 0, year: 2021, month: 1}, {nbr: 1, year: 2023, month: 2}]
     const maxDate = minMaxDateOfAssertionSeries(a1, a2, true);
 
-    expect(maxDate.getMonth()).toEqual(2);
+    expect(maxDate.getMonth()).toEqual(2 - 1);
     expect(maxDate.getFullYear()).toEqual(2023);
 
     const minDate = minMaxDateOfAssertionSeries(a1, a2, false);
 
-    expect(minDate.getMonth()).toEqual(1);
+    expect(minDate.getMonth()).toEqual(1 - 1);
     expect(minDate.getFullYear()).toEqual(2021);
 })
 
