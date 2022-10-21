@@ -103,6 +103,7 @@ test("minMaxDateOfAssertionSeries max date", () => {
     const a2 = [{nbr: 0, year: 2021, month: 1}, {nbr: 1, year: 2023, month: 2}]
     const maxDate = minMaxDateOfAssertionSeries(a1, a2, true);
 
+    //Python based months start with 1, in JS they are 0-indexed
     expect(maxDate.getMonth()).toEqual(2 - 1);
     expect(maxDate.getFullYear()).toEqual(2023);
 

@@ -235,7 +235,7 @@
         const studyLoadValue = extensionValue(badgeclass.extensions, studyLoad);
         const ectsValue = extensionValue(badgeclass.extensions, ects);
         let eqfValue = extensionValue(badgeclass.extensions, eqf);
-        if (isCreate) {
+        if (isCreate && !isCopy) {
             eqfValue = {name: "EQF 5", value: 5};
         } else if (eqfValue !== null) {
             eqfValue = eqfItems.find(item => item.value === eqfValue)
