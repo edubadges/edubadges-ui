@@ -113,7 +113,7 @@ export const extractAssertionFaculties = (assertions, directAwards, enrolments, 
     const faculties = new Map();
     const name = I18n.locale === "en" ? "name_english" : "name_dutch";
     const backupName = I18n.locale === "en" ? "name_dutch" : "name_english";
-    
+
     const facultyName = `issuer__faculty__${name}`;
     const facultyNameBackup = `issuer__faculty__${backupName}`;
 
@@ -125,8 +125,8 @@ export const extractAssertionFaculties = (assertions, directAwards, enrolments, 
         issuer__faculty__name_english: da["badgeclass__issuer__faculty__english"],
         issuer__faculty__name_dutch: da["badgeclass__issuer__faculty__dutch"],
         issuer_id: da.badgeclass__issuer__id,
-        issuer__name__dutch: da["badgeclass__issuer__name_dutch"],
-        issuer__name__english: da["badgeclass__issuer__name_english"],
+        issuer__name_dutch: da["badgeclass__issuer__name_dutch"],
+        issuer__name_english: da["badgeclass__issuer__name_english"],
         badgeclass_id: da.badgeclass_id,
         badgeclass__name: da.badgeclass__name
     }));
@@ -135,8 +135,8 @@ export const extractAssertionFaculties = (assertions, directAwards, enrolments, 
         issuer__faculty__name_english: enr["badge_class__issuer__faculty__name_english"],
         issuer__faculty__name_dutch: enr["badge_class__issuer__faculty__name_dutch"],
         issuer_id: enr.badge_class__issuer__id,
-        issuer__name__dutch: enr["badge_class__issuer__name_dutch"],
-        issuer__name__english: enr["badge_class__issuer__name_english"],
+        issuer__name_dutch: enr["badge_class__issuer__name_dutch"],
+        issuer__name_english: enr["badge_class__issuer__name_english"],
         badgeclass_id: enr.badge_class_id,
         badgeclass__name: enr.badge_class__name
     }));
