@@ -82,7 +82,7 @@ export const claimRatePercentage = (filteredDANotRevoked, totalNbrDirectWards) =
     if (filteredDANotRevoked === 0 || totalNbrDirectWards === 0) {
         return 0;
     }
-    return Math.round((filteredDANotRevoked/ totalNbrDirectWards) * 100);
+    return Math.round((filteredDANotRevoked / totalNbrDirectWards) * 100);
 }
 
 export const entityTypeLookup = {
@@ -122,8 +122,8 @@ export const extractAssertionFaculties = (assertions, directAwards, enrolments, 
 
     const directAwardsTransformed = directAwards.map(da => ({
         issuer__faculty_id: da.badgeclass__issuer__faculty_id,
-        issuer__faculty__name_english: da["badgeclass__issuer__faculty__english"],
-        issuer__faculty__name_dutch: da["badgeclass__issuer__faculty__dutch"],
+        issuer__faculty__name_english: da["badgeclass__issuer__faculty__name_english"],
+        issuer__faculty__name_dutch: da["badgeclass__issuer__faculty__name_dutch"],
         issuer_id: da.badgeclass__issuer__id,
         issuer__name_dutch: da["badgeclass__issuer__name_dutch"],
         issuer__name_english: da["badgeclass__issuer__name_english"],
