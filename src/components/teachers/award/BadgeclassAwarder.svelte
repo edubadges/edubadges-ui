@@ -178,7 +178,7 @@
         directAwardBundles = res.badgeClass.directAwardBundles;
         const badgeAssertions = res.badgeClass.badgeAssertions;
         badgeAssertions.forEach(ba => {
-            ba.isDirectAward = false;
+            ba.isDirectAward = ba.awardType === "DIRECT_AWARD";
             ba.status = ba.revoked ? "REVOKED" : ba.acceptance;
             if (ba.awardType === "REQUESTED" && ba.status === "UNACCEPTED") {
                 //We don't show pending / in afwachting anymore after 5.3 release
