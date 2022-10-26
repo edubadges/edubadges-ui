@@ -158,7 +158,8 @@
         directAwarded = totalNbrByAttributeValue(filteredDA, 'revoked', false );
         totalRequestedAssertions = totalNbrByAttributeValue(filteredReq, 'revoked', false );
         totalAwarded = directAwarded + totalRequestedAssertions;
-        publicAssertions = totalNbrByAttributeValue(filteredReq.concat(filteredDA), 'public', true);
+        const notRevokedAssertions = filteredReq.concat(filteredDA).filter(assertion => assertion.revoked === false);
+        publicAssertions = totalNbrByAttributeValue(notRevokedAssertions, 'public', true);
 
         //Direct awarded
         directAwardedAccepted = directAwarded;
