@@ -4,6 +4,37 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [6.5.0] - 2022-10-31
+- Filter out revoked badges in the public count.
+- Sum of Award type Direct Award/Requested not always correct.
+- Another typo in null faculty names.
+- Typo in null issuer names.
+- Insights: null value due to missing language.
+- Ignore data analyse of insights.
+- Copy EQF value if badge class is copied.
+- Modified Insights and the displayed numbers.
+- Removed tooltips on each label in insights.
+- Do not show institutions in insights if not super user.
+- Changed insights table header.
+- Group extra options in edit badgeclass screen.
+- Minor changes on the locales.
+- Replaced node-sass with sass.
+- Added revoked before.
+- Bugfix for claimrates.
+- Synced locales.
+- Added tests for minMaxDateOfAssertionSeries.
+- Super users can select institutions in the insights.
+- Group extra options in edit badgeclass screen.
+- Bump minimist from 1.2.5 to 1.2.6.
+- Bump async from 2.6.3 to 2.6.4.
+- Bump eventsource from 1.0.7 to 1.1.1.
+- Bump jsdom from 16.4.0 to 16.7.0.
+- Bump moment from 2.24.0 to 2.29.4.
+- Bump svelte from 3.23.2 to 3.49.0.
+- Bump terser from 4.4.0 to 4.8.1.
+- Bugfix for total number of awarded in insights.
+- Bugfix for broken validation.
+
 ## [6.4.0] - 2022-08-22
 - Do not commit insights.
 - Detect used emails in direct awards.
