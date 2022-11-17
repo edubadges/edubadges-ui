@@ -94,6 +94,7 @@
               nameDutch,
               nameEnglish,
               identifier,
+              alternativeIdentifier,
               imageDutch,
               imageEnglish,
               grondslagFormeel,
@@ -149,6 +150,9 @@
         const schacHomes = currentUser.schacHomes;
         const institution = directAward.badgeclass.issuer.faculty.institution
         const identifiers = [institution.identifier].concat(directAward.badgeclass.awardAllowedInstitutions);
+        if (institution.alternativeIdentifier) {
+            identifiers.push(institution.alternativeIdentifier);
+        }
         const allowedInstitution = identifiers.some(identifier => schacHomes.includes(identifier));
         const allowClaim = currentUser.validatedName && !directAward.badgeclass.formal;
         if (!allowedInstitution && !allowClaim) {
