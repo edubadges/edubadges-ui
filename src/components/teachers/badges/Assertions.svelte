@@ -370,8 +370,8 @@
                 <td>
                     <div class="recipient">
                         <span>{constructUserName(assertion)}</span>
-                        <span>{assertion.isDirectAward ? assertion.recipientEmail : assertion.user.email}</span>
-                        {#if assertion.isDirectAward}
+                        <span>{(assertion.isDirectAward && assertion.status !== "ACCEPTED") ? assertion.recipientEmail : assertion.user.email}</span>
+                        {#if assertion.isDirectAward && assertion.status !== "ACCEPTED"}
                             <span>{assertion.eppn} <em>(eppn)</em></span>
                         {/if}
                     </div>
