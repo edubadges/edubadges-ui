@@ -1,5 +1,6 @@
 export { default as arrowRight } from "./arrow-right.svg";
 export { default as badgeclassIcon } from "./badgeclass.svg";
+export { default as directAwardIcon } from "./directaward.svg";
 export { default as badgeIcon } from "./badge.svg";
 export { default as checkIcon } from "./check.svg";
 export { default as chevronDown } from "./chevron-down.svg";

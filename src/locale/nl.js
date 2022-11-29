@@ -268,6 +268,7 @@ I18n.translations.nl = {
             directAwardBundle: "Award status",
             profile: "Profiel",
             requestedBadges: "Aangevraagde edubadges",
+            directAwards: "Unclaimed direct awards",
             lti: "LTI",
             ltiContext: "Context",
             ltiUsers: "Gebruikers",
@@ -892,6 +893,27 @@ I18n.translations.nl = {
             description: "Omschrijving",
             claim : "Claim",
             badgeClass: "Badge class"
+        },
+        directAwards: {
+            title: "Direct awards nog niet geclaimed",
+            revoke: "Trek in",
+            zeroState: "Er zijn geen directe awards die nog moeten worden geclaimed voor badge classes die jij mag toekennen",
+            recipient: "Ontvanger",
+            eppn: "EPPN",
+            status: "States",
+            createdAt: "Aangemaakt",
+            expires: "Verloopt",
+            badgeClass: "Badge class",
+            issuer: "Issuer",
+            faculty: "Issuer groep",
+            confirmation: {
+                revocationReason: "Reden voor het intrekken (verplicht)",
+                revoke: "Intrekken edubadge",
+                revokeConfirmation: "Weet je zeker dat je deze edubadge wilt intrekken? Dit kan <strong>niet</strong> ongedaan worden gemaakt."
+            },
+            flash: {
+                revoked: "De edubadge(s) zijn ingetrokken."
+            }
         }
     },
     inviteDialog: {

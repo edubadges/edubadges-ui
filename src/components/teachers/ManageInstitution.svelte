@@ -4,7 +4,7 @@
 
     import {navigate, Route, Router} from "svelte-routing";
     import {Breadcrumb, EntityHeader, Faculties, InviteUser, Issuers} from "../teachers";
-    import {badgeclassIcon, facultyIcon, issuerIcon, userManagementIcon} from "../../icons";
+    import {badgeclassIcon, facultyIcon, issuerIcon, userManagementIcon, directAwardIcon} from "../../icons";
     import {queryData} from "../../api/graphql";
     import {headerEntityMultiLanguage, headerStaff} from "../../api/queries";
     import {Spinner} from "../index";
@@ -13,6 +13,7 @@
     import {permissionsRole} from "../../util/rolesToPermissions";
     import {translateProperties} from "../../util/utils";
     import RequestedBatches from "./RequestedBatches.svelte";
+    import UnclaimedDirectAwards from "./UnclaimedDirectAwards.svelte";
 
     let entityId;
     export let subEntity;
@@ -108,7 +109,13 @@
             entity: "requestedBadges",
             href: "/manage/institution/requested-batches",
             icon: badgeclassIcon
+        },
+        {
+            entity: "directAwards",
+            href: "/manage/institution/direct-awards",
+            icon: directAwardIcon
         }
+
     ];
 
     $: if (!subEntity) {
@@ -179,6 +186,9 @@
     </Route>
     <Route path="/requested-batches">
       <RequestedBatches />
+    </Route>
+    <Route path="/direct-awards">
+      <UnclaimedDirectAwards />
     </Route>
 
   </Router>

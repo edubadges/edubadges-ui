@@ -268,6 +268,7 @@ I18n.translations.en = {
             directAwardBundle: "Award status",
             profile: "Profile",
             requestedBadges: "Requested edubadges",
+            directAwards: "Unclaimed direct awards",
             lti: "LTI",
             ltiContext: "Context",
             ltiUsers: "Users",
@@ -891,6 +892,27 @@ I18n.translations.en = {
             description: "Description",
             claim: "Claim",
             badgeClass: "Badge class"
+        },
+        directAwards: {
+            title: "Unclaimed direct awards",
+            revoke: "Revoke",
+            zeroState: "There are no unclaimed directe awards for badge classes you are allowed to award",
+            recipient: "Recipient",
+            eppn: "EPPN",
+            status: "Status",
+            createdAt: "Created",
+            expires: "Expires",
+            badgeClass: "Badge class",
+            issuer: "Issuer",
+            faculty: "Issuer group",
+            confirmation: {
+                revocationReason: "Reason for revocation (required)",
+                revoke: "Revoke edubadge",
+                revokeConfirmation: "Are you sure you want to revoke this edubadge? This can <strong>not</strong> be undone and the edubadge will be invalid after this."
+            },
+            flash: {
+                revoked: "The edubadge(s) have been revoked."
+            }
         }
     },
     inviteDialog: {

@@ -3,8 +3,10 @@
     import {Link} from "svelte-routing";
     import {institutionIcon} from "../../icons";
     import {currentPath} from "../../stores/currentPath";
+    import {onMount} from "svelte";
 
     export let tabs = [];
+
 </script>
 
 <style lang="scss">
