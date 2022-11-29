@@ -117,21 +117,21 @@
             attribute: "recipientEmail",
             reverse: false,
             sortType: sortType.ALPHA,
-            width: "15%"
+            width: "20%"
         },
         {
             name: I18n.t("models.directAwards.eppn"),
             attribute: "eppn",
             reverse: false,
             sortType: sortType.ALPHA,
-            width: "15%"
+            width: "20%"
         },
         {
             name: I18n.t("models.directAwards.badgeClass"),
             attribute: "badgeclass.name",
             reverse: false,
             sortType: sortType.ALPHA,
-            width: "15%"
+            width: "20%"
         },
         {
             name: I18n.t("models.directAwards.issuer"),
@@ -152,7 +152,7 @@
             attribute: "createdAt",
             reverse: false,
             sortType: sortType.ALPHA,
-            width: "15%",
+            width: "10%",
             center: true
         }
     ];
