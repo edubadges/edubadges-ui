@@ -113,7 +113,7 @@
         }
     }
 
-    $: publicBadgePresent = collection.badgeInstances.filter(badge => badge.public).length > 0
+    $: publicBadgePresent = collection.badgeInstances && collection.badgeInstances.filter(badge => badge.public).length > 0
 
 </script>
 <style lang="scss">
@@ -190,6 +190,7 @@
           items={badges}
           isMulti={true}
           customIndicator={indicator}
+          isSearchable={true}
           showIndicator={false}
           showChevron={true}
           clearable={true}
@@ -207,7 +208,7 @@
         </div>
         <div class="button-container">
           <Button
-            disabled={processing}
+            disabled={processing || !collection.badgeInstances || collection.badgeInstances.length === 0 || collection.name.length === 0}
             action={handleSubmit}
             text={I18n.t(['manage', isNew ? 'new' : 'edit', 'save'])}/>
         </div>
