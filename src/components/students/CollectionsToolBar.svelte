@@ -19,6 +19,13 @@
     align-items: center;
   }
 
+  .filters {
+    @media (max-width: 820px) {
+      display: none;
+    }
+
+  }
+
   .badge-filter-button {
     font-family: "Proxima Nova Soft", sans-serif;
     border: none;
@@ -52,6 +59,12 @@
     align-items: center;
     width: 100%;
 
+    @media (max-width: 820px) {
+      flex-direction: column;
+      align-items: start;
+      margin-left: 0;
+    }
+
     .sort {
       display: flex;
       align-items: center;
@@ -68,26 +81,26 @@
 </style>
 
 <div class="buttons">
-  {#if !readOnly}
-  <span>
+    {#if !readOnly}
+  <span class="filters">
     <span class="badge-filter-button {shareableFilter ? 'active' : 'inactive'}"
           on:click={() => shareableFilter = true}>{I18n.t('collections.shareable')}</span>
     <span>|</span>
     <span class="badge-filter-button {shareableFilter ? 'inactive' : 'active'}"
           on:click={() => shareableFilter = false}>{I18n.t('collections.all')}</span>
   </span>
-  {/if}
-  <ViewSelector bind:view={view}/>
+    {/if}
+    <ViewSelector bind:view={view}/>
 </div>
 {#if !readOnly}
-  <div class="sort-options">
-    <div class="sort">
-      <span class="title">{I18n.t("models.badgeclass.sorting")}</span>
-      <MinimalisticSelect
-        bind:value={sorting}
-        items={sortOptions}
-        clearable={false}
-        optionIdentifier="name"/>
+    <div class="sort-options">
+        <div class="sort">
+            <span class="title">{I18n.t("models.badgeclass.sorting")}</span>
+            <MinimalisticSelect
+                    bind:value={sorting}
+                    items={sortOptions}
+                    clearable={false}
+                    optionIdentifier="name"/>
+        </div>
     </div>
-  </div>
 {/if}

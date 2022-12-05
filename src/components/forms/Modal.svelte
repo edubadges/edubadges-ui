@@ -1,6 +1,7 @@
 <script>
     import I18n from "i18n-js";
     import Button from "../Button.svelte";
+    import {onDestroy, onMount} from "svelte";
 
     export let submit;
     export let cancel;
@@ -16,6 +17,14 @@
 
     let modal;
 
+    onMount(() => {
+        document.body.classList.add("modal-open");
+    })
+
+    onDestroy(() => {
+        document.body.classList.remove("modal-open");
+    })
+
     const handle_keydown = e => {
         if (e.key === "Escape") {
             cancel && cancel();
@@ -26,31 +35,31 @@
 <svelte:window on:keydown={handle_keydown}/>
 
 <div class="modal">
-  <div class="modal-content">
-    <div class="modal-header" class:warning>
-      <h3>{title}</h3>
-    </div>
-    {#if question}
-      <div class="modal-body">
-        {#if evaluateQuestion}
-          <p>{@html question}</p>
-        {:else}
-          <p>{question}</p>
+    <div class="modal-content">
+        <div class="modal-header" class:warning>
+            <h3>{title}</h3>
+        </div>
+        {#if question}
+            <div class="modal-body">
+                {#if evaluateQuestion}
+                    <p>{@html question}</p>
+                {:else}
+                    <p>{question}</p>
+                {/if}
+            </div>
         {/if}
-      </div>
-    {/if}
-    <div class="slots">
-      <slot/>
+        <div class="slots">
+            <slot/>
+        </div>
+        <div class="options" class:hideSubmit>
+            {#if cancel}
+                <Button secondary={true} action={cancel} text={cancelLabel}/>
+            {/if}
+            {#if !hideSubmit}
+                <Button warning={warning} action={submit} text={submitLabel} disabled={disabled}/>
+            {/if}
+        </div>
     </div>
-    <div class="options" class:hideSubmit>
-      {#if cancel}
-        <Button secondary={true} action={cancel} text={cancelLabel}/>
-      {/if}
-      {#if !hideSubmit}
-        <Button warning={warning} action={submit} text={submitLabel} disabled={disabled}/>
-      {/if}
-    </div>
-  </div>
 </div>
 
 <style lang="scss">
@@ -72,6 +81,7 @@
     max-height: calc(100vh - 4em);
     border-radius: 8px;
     background: white;
+    overflow: scroll;
   }
 
   .modal-header {
@@ -108,6 +118,12 @@
 
     :global(a:last-child) {
       margin-left: 25px;
+
+      @media (max-width: 820px) {
+        margin-left: 0;
+
+      }
+
     }
   }
 </style>

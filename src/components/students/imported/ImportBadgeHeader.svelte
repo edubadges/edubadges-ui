@@ -43,6 +43,12 @@
 
     display: flex;
 
+    @media (max-width: 820px) {
+      flex-direction: column;
+      align-items: start;
+      margin-left: 0;
+    }
+
     .collections-icon-container {
       height: 120px;
       width: 120px;
@@ -71,19 +77,19 @@
 </style>
 
 <h2>
-  {I18n.t('importedBadges.title')}
+    {I18n.t('importedBadges.title')}
 </h2>
 <div class="header">
-  <div class="collections-icon-container">
-    {@html importedBadgesSvg}
-  </div>
-  <div class="content">
-    <p>{I18n.t("importedBadges.info")}</p>
-    {#if importedBadgesSvg.length > 0}
-      <HeaderList {headerItems} entity="collections"/>
-    {/if}
-  </div>
-  <div class="slot">
-    <slot/>
-  </div>
+    <div class="collections-icon-container">
+        {@html importedBadgesSvg}
+    </div>
+    <div class="content">
+        <p>{I18n.t("importedBadges.info")}</p>
+        {#if importedBadgesSvg.length > 0}
+            <HeaderList {headerItems} entity="collections"/>
+        {/if}
+    </div>
+    <div class="slot">
+        <slot/>
+    </div>
 </div>

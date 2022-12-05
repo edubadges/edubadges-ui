@@ -58,6 +58,10 @@
 
     td {
       padding: 15px 0;
+
+      @media (max-width: 820px) {
+        display: block;
+      }
     }
 
     td.badge-status {

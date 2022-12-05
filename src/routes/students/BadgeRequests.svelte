@@ -106,7 +106,7 @@
     }
 
     @media (max-width: 820px) {
-        div {
+        div.content {
             grid-template-columns: 100%;
         }
     }

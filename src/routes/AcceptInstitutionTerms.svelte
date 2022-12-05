@@ -70,6 +70,10 @@
   .page-container {
     display: flex;
     flex: 1;
+    @media (max-width: 820px) {
+      flex-direction: column;
+    }
+
   }
 
   .content {
@@ -128,46 +132,46 @@
 </style>
 
 <div class="page-container">
-  <p class="content">
-    {#if loaded}
-      <div class="header">
-        <h3>{badgeClass.formal ? I18n.t("acceptTerms.badgeClassEnrollmentTerms.formalBadges") :
-            I18n.t("acceptTerms.badgeClassEnrollmentTerms.inFormalBadges")}</h3>
-        <img width="100px" src={badgeClass.issuer.faculty.institution.image} alt="Logo">
-      </div>
-      <div class="markdown-body">
-        {@html excerptMarkDown}
-      </div>
-      <div class="agree">
-        {@html termsIcon}
-        <p>
-          <span>{I18n.t(`acceptTerms.badgeClassEnrollmentTerms.statementLinkPre`)}</span>
-          <a href="/terms"
-             oncontextmenu="return false;"
-             on:click|preventDefault|stopPropagation={showTerms(
+    <p class="content">
+        {#if loaded}
+            <div class="header">
+                <h3>{badgeClass.formal ? I18n.t("acceptTerms.badgeClassEnrollmentTerms.formalBadges") :
+                    I18n.t("acceptTerms.badgeClassEnrollmentTerms.inFormalBadges")}</h3>
+                <img width="100px" src={badgeClass.issuer.faculty.institution.image} alt="Logo">
+            </div>
+            <div class="markdown-body">
+                {@html excerptMarkDown}
+            </div>
+            <div class="agree">
+                {@html termsIcon}
+                <p>
+                    <span>{I18n.t(`acceptTerms.badgeClassEnrollmentTerms.statementLinkPre`)}</span>
+                    <a href="/terms"
+                       oncontextmenu="return false;"
+                       on:click|preventDefault|stopPropagation={showTerms(
                 I18n.t(`acceptTerms.badgeClassEnrollmentTerms.statementTitle`),
                 termsUrl)}>
-            {I18n.t(`acceptTerms.badgeClassEnrollmentTerms.statementLink`)}
-          </a>
-          <span>{I18n.t(`acceptTerms.badgeClassEnrollmentTerms.statementLinkPost`)}</span>
-        </p>
-      </div>
-      <div class="actions">
-        <div class="cancel">
-          <Button secondary={true} text={I18n.t(`modal.cancel`)} action={userDisagreed}/>
-        </div>
-        <Button text={setButtonText(badgeClass)} action={userHasAgreed}/>
-      </div>
-    {:else}
-      <Spinner/>
-    {/if}
+                        {I18n.t(`acceptTerms.badgeClassEnrollmentTerms.statementLink`)}
+                    </a>
+                    <span>{I18n.t(`acceptTerms.badgeClassEnrollmentTerms.statementLinkPost`)}</span>
+                </p>
+            </div>
+            <div class="actions">
+                <div class="cancel">
+                    <Button secondary={true} text={I18n.t(`modal.cancel`)} action={userDisagreed}/>
+                </div>
+                <Button text={setButtonText(badgeClass)} action={userHasAgreed}/>
+            </div>
+        {:else}
+            <Spinner/>
+        {/if}
 </div>
 
 
 {#if showModalTerms}
-  <ModalTerms
-    title={termsTitle}
-    submit={closeTerms}
-    cancel={closeTerms}
-    url={termsUrl}/>
+    <ModalTerms
+            title={termsTitle}
+            submit={closeTerms}
+            cancel={closeTerms}
+            url={termsUrl}/>
 {/if}

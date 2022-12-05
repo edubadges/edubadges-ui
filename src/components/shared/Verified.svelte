@@ -1,10 +1,10 @@
 <script>
-  import check from "../../icons/check.svg";
-  import I18n from "i18n-js";
+    import check from "../../icons/check.svg";
+    import I18n from "i18n-js";
 
-  export let value;
-  export let showVerified = true;  // we don't show verifications right now
-  export let fromEduID = false;
+    export let value;
+    export let showVerified = true;  // we don't show verifications right now
+    export let fromEduID = false;
 
 </script>
 <style lang="scss">
@@ -12,6 +12,10 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    @media (max-width: 820px) {
+      flex-direction: column;
+      align-items: start;
+    }
 
     div.marker {
       border-radius: 4px;
@@ -33,10 +37,11 @@
 
 </style>
 <div class="verified">
-  <span>{value}</span>
-  {#if showVerified && !fromEduID}
-    <div class="marker">
-      {@html check} <span>{fromEduID ? I18n.t("profile.validatedByEduId") : I18n.t("profile.validatedByYourInstitution")}</span>
-    </div>
-  {/if}
+    <span>{value}</span>
+    {#if showVerified && !fromEduID}
+        <div class="marker">
+            {@html check}
+            <span>{fromEduID ? I18n.t("profile.validatedByEduId") : I18n.t("profile.validatedByYourInstitution")}</span>
+        </div>
+    {/if}
 </div>

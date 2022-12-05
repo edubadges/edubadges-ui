@@ -138,6 +138,11 @@
     display: flex;
     margin-top: 25px;
 
+    @media (max-width: 820px) {
+      flex-direction: column;
+    }
+
+
     .button-container {
       &:not(:last-child) {
         margin-right: 15px;
@@ -148,6 +153,12 @@
         margin-right: 0;
         display: flex;
         flex-direction: column;
+
+        @media (max-width: 820px) {
+          margin-left: 0;
+          display: block;
+        }
+
       }
     }
 
@@ -155,85 +166,85 @@
 </style>
 
 <div class="collection-form-container">
-  {#if loaded}
-    <StudentBreadCrumb>
-      <a use:link href={`/collections`}>{I18n.t("routes.collections")}</a>
-      <span class="icon">{@html chevronRightSmall}</span>
-      <span class="current">{isNew ? I18n.t("collections.new") : collection.name}</span>
-    </StudentBreadCrumb>
-    <BadgeHeader title={isNew ? I18n.t("collections.new") : collection.name}/>
-    <div class="collection-detail">
+    {#if loaded}
+        <StudentBreadCrumb>
+            <a use:link href={`/collections`}>{I18n.t("routes.collections")}</a>
+            <span class="icon">{@html chevronRightSmall}</span>
+            <span class="current">{isNew ? I18n.t("collections.new") : collection.name}</span>
+        </StudentBreadCrumb>
+        <BadgeHeader title={isNew ? I18n.t("collections.new") : collection.name}/>
+        <div class="collection-detail">
 
-      <Field {entity} attribute="name" errors={errors.name}>
-        <TextInput bind:value={collection.name} error={errors.name}
-                   placeholder={I18n.t("collections.placeholders.name")}/>
-      </Field>
-      <Field {entity} attribute="description" errors={errors.description}>
-        <TextInput bind:value={collection.description} error={errors.description}
-                   placeholder={I18n.t("collections.placeholders.description")}/>
-      </Field>
-      <Field {entity} attribute="privatePublic" tipKey="toggleBadgeCollectionPublic">
-        <CheckBox
-          value={(publicBadgePresent && collection.public) || false}
-          inForm={true}
-          adjustTopFlex={true}
-          disabled={!publicBadgePresent}
-          label={I18n.t("collections.privatePublic")}
-          onChange={val => collection.public = val}/>
-        <span class="info">{I18n.t("collections.requiresPublicBadgePresent")}</span>
-      </Field>
+            <Field {entity} attribute="name" errors={errors.name}>
+                <TextInput bind:value={collection.name} error={errors.name}
+                           placeholder={I18n.t("collections.placeholders.name")}/>
+            </Field>
+            <Field {entity} attribute="description" errors={errors.description}>
+                <TextInput bind:value={collection.description} error={errors.description}
+                           placeholder={I18n.t("collections.placeholders.description")}/>
+            </Field>
+            <Field {entity} attribute="privatePublic" tipKey="toggleBadgeCollectionPublic">
+                <CheckBox
+                        value={(publicBadgePresent && collection.public) || false}
+                        inForm={true}
+                        adjustTopFlex={true}
+                        disabled={!publicBadgePresent}
+                        label={I18n.t("collections.privatePublic")}
+                        onChange={val => collection.public = val}/>
+                <span class="info">{I18n.t("collections.requiresPublicBadgePresent")}</span>
+            </Field>
 
-      <Field {entity} attribute="badge_instances" errors={errors.badge_instances}
-             tipKey="collectionBadgeInstances">
-        <Select
-          bind:value={collection.badgeInstances}
-          items={badges}
-          isMulti={true}
-          customIndicator={indicator}
-          isSearchable={true}
-          showIndicator={false}
-          showChevron={true}
-          clearable={true}
-          placeholder={I18n.t("collections.placeholders.chosenBadges")}
-          optionIdentifier="id"
-        />
-      </Field>
-      <div class="actions">
-        <div class="button-container">
-          <Button
-            secondary
-            disabled={processing}
-            action={() => window.history.back()}
-            text={I18n.t(['manage', isNew ? 'new' : 'edit', 'cancel'])}/>
+            <Field {entity} attribute="badge_instances" errors={errors.badge_instances}
+                   tipKey="collectionBadgeInstances">
+                <Select
+                        bind:value={collection.badgeInstances}
+                        items={badges}
+                        isMulti={true}
+                        customIndicator={indicator}
+                        isSearchable={true}
+                        showIndicator={false}
+                        showChevron={true}
+                        clearable={true}
+                        placeholder={I18n.t("collections.placeholders.chosenBadges")}
+                        optionIdentifier="id"
+                />
+            </Field>
+            <div class="actions">
+                <div class="button-container">
+                    <Button
+                            secondary
+                            disabled={processing}
+                            action={() => window.history.back()}
+                            text={I18n.t(['manage', isNew ? 'new' : 'edit', 'cancel'])}/>
+                </div>
+                <div class="button-container">
+                    <Button
+                            disabled={processing || !collection.badgeInstances || collection.badgeInstances.length === 0 || collection.name.length === 0}
+                            action={handleSubmit}
+                            text={I18n.t(['manage', isNew ? 'new' : 'edit', 'save'])}/>
+                </div>
+                {#if !isNew}
+                    <div class="button-container delete">
+                        <Button
+                                warning={true}
+                                disabled={processing}
+                                action={() => showRemoveModal = true}
+                                text={I18n.t("manage.delete.delete")}/>
+                    </div>
+                {/if}
+            </div>
+
         </div>
-        <div class="button-container">
-          <Button
-            disabled={processing || !collection.badgeInstances || collection.badgeInstances.length === 0 || collection.name.length === 0}
-            action={handleSubmit}
-            text={I18n.t(['manage', isNew ? 'new' : 'edit', 'save'])}/>
-        </div>
-        {#if !isNew}
-          <div class="button-container delete">
-            <Button
-              warning={true}
-              disabled={processing}
-              action={() => showRemoveModal = true}
-              text={I18n.t("manage.delete.delete")}/>
-          </div>
-        {/if}
-      </div>
-
-    </div>
-  {:else}
-    <Spinner/>
-  {/if}
+    {:else}
+        <Spinner/>
+    {/if}
 
 </div>
 {#if showRemoveModal}
-  <Modal
-    submit={deleteCollection(false)}
-    warning={true}
-    cancel={() => showRemoveModal = false}
-    question={I18n.t("collections.deleteConfirmationQuestion", {name: collection.name})}
-    title={I18n.t("collections.deleteConfirmation", {name: collection.name})}/>
+    <Modal
+            submit={deleteCollection(false)}
+            warning={true}
+            cancel={() => showRemoveModal = false}
+            question={I18n.t("collections.deleteConfirmationQuestion", {name: collection.name})}
+            title={I18n.t("collections.deleteConfirmation", {name: collection.name})}/>
 {/if}

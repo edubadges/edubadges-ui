@@ -1,7 +1,7 @@
 <script>
     import {onMount} from "svelte";
     import {queryData} from "../../api/graphql";
-    import {badgeClasses, sortTarget, tree} from "../../stores/filterCatalog";
+    import {badgeClasses, page, sortTarget, tree} from "../../stores/filterCatalog";
     import BadgeCard from "../../components/shared/BadgeCard.svelte";
     import Spinner from "../../components/Spinner.svelte";
     import {ects, eqf, extensionValue, studyLoad} from "../../components/extensions/badges/extensions";
@@ -12,7 +12,6 @@
     import {Router} from "svelte-routing";
     import {translateProperties} from "../../util/utils";
     import Pagination from "../../components/Pagination.svelte";
-    import {page} from "../../stores/filterCatalog";
     import {catalogPageCount} from "../../util/pagination";
 
     const query = `query {
@@ -102,6 +101,10 @@
 <style lang="scss">
   .page-container {
     display: flex;
+    @media (max-width: 820px) {
+      flex-direction: column;
+    }
+
   }
 
   .content {

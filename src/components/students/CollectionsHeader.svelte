@@ -43,6 +43,10 @@
 
     display: flex;
 
+    @media (max-width: 820px) {
+      flex-direction: column;
+    }
+
     .collections-icon-container {
       height: 120px;
       width: 120px;
@@ -71,19 +75,19 @@
 </style>
 
 <h2>
-  {I18n.t('collections.title')}
+    {I18n.t('collections.title')}
 </h2>
 <div class="header">
-  <div class="collections-icon-container">
-    {@html badgeCollections}
-  </div>
-  <div class="content">
-    <p>{I18n.t("collections.info")}</p>
-    {#if badgeInstanceCollections.length > 0}
-      <HeaderList {headerItems} entity="collections"/>
-    {/if}
-  </div>
-  <div class="slot">
-    <slot/>
-  </div>
+    <div class="collections-icon-container">
+        {@html badgeCollections}
+    </div>
+    <div class="content">
+        <p>{I18n.t("collections.info")}</p>
+        {#if badgeInstanceCollections.length > 0}
+            <HeaderList {headerItems} entity="collections"/>
+        {/if}
+    </div>
+    <div class="slot">
+        <slot/>
+    </div>
 </div>

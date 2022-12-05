@@ -20,6 +20,10 @@
 
   .search {
     width: 460px;
+    @media (max-width: 820px) {
+      width: 320px;
+    }
+
   }
 
   .view-selector {
@@ -30,6 +34,12 @@
     display: flex;
     align-items: center;
     margin-left: auto;
+
+    @media (max-width: 820px) {
+      flex-direction: column;
+      align-items: start;
+      margin-left: 0;
+    }
 
     .sort {
       display: flex;
@@ -59,25 +69,25 @@
 
 </style>
 <div class="catalog-toolbar">
-  <div class="search">
+    <div class="search">
   <span class="search">
     <Search bind:value={$search} limitWidth={false}/>
   </span>
-  </div>
-  <div class="sort-options">
-    <div class="sort">
-      <span class="title">{I18n.t("models.badgeclass.sorting")}</span>
-      <MinimalisticSelect
-        bind:value={sorting}
-        items={sortTargetOptions()}
-        clearable={false}
-        optionIdentifier="name"/>
     </div>
-    <div class="view-selector">
-      <ViewSelector bind:view={view}/>
-    </div>
+    <div class="sort-options">
+        <div class="sort">
+            <span class="title">{I18n.t("models.badgeclass.sorting")}</span>
+            <MinimalisticSelect
+                    bind:value={sorting}
+                    items={sortTargetOptions()}
+                    clearable={false}
+                    optionIdentifier="name"/>
+        </div>
+        <div class="view-selector">
+            <ViewSelector bind:view={view}/>
+        </div>
 
 
-  </div>
+    </div>
 
 </div>

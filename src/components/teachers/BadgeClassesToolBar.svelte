@@ -1,27 +1,27 @@
 <script>
-  import I18n from "i18n-js";
-  import {Search} from "../../components";
-  import {awardFilter, facultyIds, issuerIds, search, tree} from "../../stores/filterBadges";
-  import {MinimalisticSelect} from "../forms";
-  import ViewSelector from "../shared/ViewSelector.svelte";
-  import {sortTargetOptions} from "../../util/catalogFilters";
+    import I18n from "i18n-js";
+    import {Search} from "../../components";
+    import {awardFilter, facultyIds, issuerIds, search, tree} from "../../stores/filterBadges";
+    import {MinimalisticSelect} from "../forms";
+    import ViewSelector from "../shared/ViewSelector.svelte";
+    import {sortTargetOptions} from "../../util/catalogFilters";
 
-  export let sorting;
-  export let view;
+    export let sorting;
+    export let view;
 
-  const setBadgeFilter = filter => {
-    $awardFilter = filter;
-    if ($issuerIds[0]) {
-      if (!$tree.issuers.some(issuer => issuer.entityId === $issuerIds[0] && issuer.count > 0)) {
-        $issuerIds.length = 0;
-      }
+    const setBadgeFilter = filter => {
+        $awardFilter = filter;
+        if ($issuerIds[0]) {
+            if (!$tree.issuers.some(issuer => issuer.entityId === $issuerIds[0] && issuer.count > 0)) {
+                $issuerIds.length = 0;
+            }
+        }
+        if ($facultyIds[0]) {
+            if (!$tree.faculties.some(faculty => faculty.entityId === $facultyIds[0] && faculty.count > 0)) {
+                $facultyIds.length = 0;
+            }
+        }
     }
-    if ($facultyIds[0]) {
-      if (!$tree.faculties.some(faculty => faculty.entityId === $facultyIds[0] && faculty.count > 0)) {
-        $facultyIds.length = 0;
-      }
-    }
-  }
 
 </script>
 
@@ -73,6 +73,12 @@
     width: 100%;
     margin: 15px 0 20px 0;
 
+    @media (max-width: 820px) {
+      flex-direction: column;
+      align-items: start;
+      margin-left: 0;
+    }
+
     .sort {
       display: flex;
       align-items: center;
@@ -97,21 +103,21 @@
           on:click={() => setBadgeFilter(false)}>{I18n.t('teacher.badgeclasses.allBadges')}</span>
   </span>
 
-  <span class="search">
+    <span class="search">
     <Search bind:value={$search}/>
   </span>
 </div>
 
 <div class="sort-options">
-  <div class="sort">
-    <span class="title">{I18n.t("models.badgeclass.sorting")}</span>
-    <MinimalisticSelect
-      bind:value={sorting}
-      items={sortTargetOptions()}
-      clearable={false}
-      optionIdentifier="name"/>
-  </div>
+    <div class="sort">
+        <span class="title">{I18n.t("models.badgeclass.sorting")}</span>
+        <MinimalisticSelect
+                bind:value={sorting}
+                items={sortTargetOptions()}
+                clearable={false}
+                optionIdentifier="name"/>
+    </div>
 
-  <ViewSelector bind:view={view}/>
+    <ViewSelector bind:view={view}/>
 
 </div>
