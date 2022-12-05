@@ -9,7 +9,6 @@
     import SideBarCatelog from "../../components/catalog/SideBarCatelog.svelte";
     import CatalogToolBar from "../../components/catalog/CatalogToolBar.svelte";
     import {assignFilterTypes} from "../../util/catalogFilters";
-    import {Router} from "svelte-routing";
     import {translateProperties} from "../../util/utils";
     import Pagination from "../../components/Pagination.svelte";
     import {catalogPageCount} from "../../util/pagination";
@@ -148,11 +147,7 @@
 
 <div class="page-container">
     {#if loaded}
-        <Router>
-
-        </Router>
         <SideBarCatelog/>
-
         <div class="content">
             <CatalogToolBar bind:sorting={$sortTarget} bind:view={view}/>
 

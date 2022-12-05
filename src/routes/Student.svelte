@@ -26,6 +26,7 @@
     }
 
     let currentPage = pages[0];
+    let showContent = true;
 
     onMount(() => {
         currentPage = pages.find(({path}) => path === bookmark) || pages[0];
@@ -45,8 +46,10 @@
 </style>
 
 <div class="page-container">
-  <SideMenu {pages} {currentPage}/>
-  <div class="content">
-    <svelte:component this={currentPage.component}/>
-  </div>
+    <SideMenu {pages} {currentPage} toggle={() => showContent = !showContent}/>
+    <div class="content">
+        {#if showContent}
+            <svelte:component this={currentPage.component}/>
+        {/if}
+    </div>
 </div>
