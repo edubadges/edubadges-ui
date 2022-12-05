@@ -33,23 +33,25 @@
     });
 </script>
 
-<style>
-    .page-container {
-        display: flex;
-        flex: 1;
-    }
+<style lang="scss">
+  .page-container {
+    display: flex;
+    flex: 1;
+  }
 
-    .content {
-        flex: 1;
-        padding: 30px 20px;
+  .content {
+    flex: 1;
+    padding: 30px 20px;
+
+    &.hide-content {
+      display: none;
     }
+  }
 </style>
 
 <div class="page-container">
     <SideMenu {pages} {currentPage} toggle={() => showContent = !showContent}/>
-    <div class="content">
-        {#if showContent}
-            <svelte:component this={currentPage.component}/>
-        {/if}
+    <div class="content" class:hide-content={!showContent}>
+        <svelte:component this={currentPage.component}/>
     </div>
 </div>
