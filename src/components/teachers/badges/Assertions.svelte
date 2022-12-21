@@ -6,7 +6,7 @@
     import {Button, CheckBox} from "../../../components";
     import {revokeAssertions, revokeDirectAwards} from "../../../api";
     import singleNeutralCheck from "../../../icons/single-neutral-check.svg";
-    import {constructUserName} from "../../../util/users";
+    import {constructUserEmail, constructUserName} from "../../../util/users";
     import {searchMultiple} from "../../../util/searchData";
     import {Modal} from "../../forms";
     import {flash} from "../../../stores/flash";
@@ -131,14 +131,18 @@
             showModal = true;
         } else {
             showModal = false;
+            //If a directAward is claimed it is converted to an assertion
             const selectedAssertions = filteredAssertions
-                .filter(assertion => selection.includes(assertion.entityId) && !assertion.isDirectAward)
+                .filter(assertion => selection.includes(assertion.entityId) &&
+                    (!assertion.isDirectAward || assertion.status === "ACCEPTED"))
                 .map(assertion => assertion.entityId);
 
             const selectedDirectAwards = filteredAssertions
-                .filter(assertion => selection.includes(assertion.entityId) && assertion.isDirectAward)
+                .filter(assertion => selection.includes(assertion.entityId) &&
+                    (assertion.isDirectAward && assertion.status !== "ACCEPTED"))
                 .map(assertion => assertion.entityId);
 
+            debugger;
             const promises = [];
             if (selectedAssertions.length > 0) {
                 promises.push(revokeAssertions(selectedAssertions, revocationReason));
@@ -370,8 +374,8 @@
                 <td>
                     <div class="recipient">
                         <span>{constructUserName(assertion)}</span>
-                        <span>{assertion.isDirectAward ? assertion.recipientEmail : assertion.user.email}</span>
-                        {#if assertion.isDirectAward}
+                        <span>{constructUserEmail(assertion)}</span>
+                        {#if assertion.eppn }
                             <span>{assertion.eppn} <em>(eppn)</em></span>
                         {/if}
                     </div>
@@ -386,7 +390,8 @@
                     <span class={assertionStatusClass(assertion)}>{assertionStatus(assertion)}</span>
                 </td>
                 <td class="center">
-                    {assertion.updatedAt && !assertion.isDirectAward ? moment(assertion.updatedAt).format('MMM D, YYYY') : ""}
+                    {assertion.updatedAt && (!assertion.isDirectAward || assertion.acceptance === "ACCEPTED") ?
+                        moment(assertion.updatedAt).format('MMM D, YYYY') : ""}
                 </td>
                 <td class="right">
                     {assertion.expiresAt ? moment(assertion.expiresAt).format('MMM D, YYYY') : ""}

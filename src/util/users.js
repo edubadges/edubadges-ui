@@ -31,3 +31,7 @@ export const userNameCreatedBy = obj => {
     }
     return "-";
 }
+
+export const constructUserEmail = assertion => {
+    return assertion.recipientEmail ? assertion.recipientEmail : (assertion.user ? assertion.user.email : "")
+}
