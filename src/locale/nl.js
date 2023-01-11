@@ -240,7 +240,7 @@ I18n.translations.nl = {
             private: "Maak deze edubadge privé",
             publishConfirmation: "Weet je zeker dat je deze edubadge publiek zichtbaar wilt maken?<b/><br/>Als je deze edubadge publiek maakt, wordt je gevalideerde naam <strong>{{name}}</strong> weergegeven in het validatiegedeelte van de openbare badge-webpagina.",
             privateConfirmation: "Weet je het zeker dat je deze edubadge privé wilt maken",
-            publishEvidenceConfirmation: "Bewijs/persoonlijk bericht (evidence) ook toevoegen aan de publiek beschikbare informatie.",
+            publishEvidenceConfirmation: "Bewijs/persoonlijk bericht (evidence) ook toevoegen aan de publiek beschikbare informatie van deze edubadge.",
             deleteBadgeConfirmation: "Weet je het zeker dat je deze edubadge wilt weigeren?",
             acceptBadgeConfirmation: "Weet je het zeker dat je deze edubadge wilt accepteren?",
         },
@@ -410,7 +410,7 @@ I18n.translations.nl = {
         912: "Invullen van een Nederlandse of Engelse naam is verplicht.",
         913: "Invullen van een Nederlandse of Engelse beschrijving is verplicht.",
         914: "Kan een Issuer met deze Nederlandse naam niet aanmaken in deze Issuer groep. Er bestaat er al een met dezelfde Nederlandse naam.",
-        915: "Invullen van een Nederlandse of Engelse url is verplicht.",
+        915: "Invullen van een Nederlandse of Engelse URL is verplicht.",
         916: "Kan een Issuer Groep met deze Nederlandse naam niet aanmaken in deze instelling. Er bestaat er al een met dezelfde Nederlandse naam.",
         917: "Kan een Issuer Groep met deze Engelse naam niet aanmaken in deze instelling. Er bestaat er al een met dezelfde Engelse naam.",
         918: "Invullen van een Nederlands of Engelse logo is verplicht.",
@@ -418,7 +418,7 @@ I18n.translations.nl = {
         920: "Kan een instelling met deze Engelse naam niet aanmaken. Er bestaat er al een met dezelfde Engelse naam.",
         921: "Ongeldige URL",
         922: "Te veel Gerelateerd onderwijskundig raamwerk objecten. De maximum is 8.",
-        923: "Invullen van een Engelse of Nederlandse url is verplicht.",
+        923: "Invullen van een Engelse of Nederlandse URL is verplicht.",
         924: "Invullen van een Engelse of Nederlandse naam is verplicht.",
         925: "Invullen van een Engelse of Nederlandse beschrijving is verplicht.",
         926: "Invullen van een Engels of Nederlandse logo is verplicht.",
@@ -667,10 +667,10 @@ I18n.translations.nl = {
             evidenceNarrativeOptions: "Evidence/Narrative opties",
             awardOptions: "Award opties",
             isPrivate: "Privé badge class",
-            evidenceRequired: "Bewijs (URL) verplicht",
-            narrativeRequired: "Persoonlijk bericht verplicht",
+            evidenceRequired: "Bewijs (URL) verplicht bij uitgeven",
+            narrativeRequired: "Persoonlijk bericht verplicht bij uitgeven",
             narrativeStudentRequired: "Motivatie verplicht voor aanvraag",
-            evidenceStudentRequired: "Bewijs URL verplicht voor aanvraag",
+            evidenceStudentRequired: "Bewijs (URL) verplicht voor aanvraag",
             awardNonValidatedNameAllowed: "Uitreiken aan niet gevalideerd account toestaan",
             isMicroCredentials: "Badge class ihkv de pilot Microcredentials",
             directAwardingDisabled: "Direct-Award niet toegestaan",
@@ -1305,8 +1305,8 @@ I18n.translations.nl = {
             addAnother: "+ Toevoegen",
             cancel: "Annuleer",
             award: "Verzenden",
-            addEvidence: "Informatie toevoegen",
-            editEvidence: "Informatie bewerken",
+            addEvidence: "Motivatie/bewijs",
+            editEvidence: "Motivatie/bewijs bewerken",
             processing: "Bezig om {{count}} direct awards te verwerken. Even geduld...",
             flash: {
                 created: "Direct awards zijn verzonden"
@@ -1590,7 +1590,7 @@ I18n.translations.nl = {
         info: "Voor elke geselecteerde badge class ontvang je een e-mailmelding als een student zich inschrijft voor deze edubadge.",
         confirmationTitle: "Confirmatie",
         confirmationQuestion: "Weet je zeker dat je je notificatie instellingen wilt wijzigen?",
-        updated: "Je notificatie instellingen zijn bijgwerkt"
+        updated: "Je notificatie instellingen zijn bijgewerkt"
     },
     toggle: {
         showMore: "Toon meer...",
@@ -1617,7 +1617,7 @@ I18n.translations.nl = {
             rejected: "Afgekeurd",
             revoked: "Ingetrokken",
         },
-        created: "Anngevraagd op on",
+        created: "Anngevraagd op",
         reasons: {
             revoke: "Reden voor intrekking",
             reject: "Reden voor afkeuring",
@@ -1638,11 +1638,11 @@ I18n.translations.nl = {
             resend: "Verstuur endorsement verzoek opnieuw"
         },
         confirmations: {
-            accept: "Weet je zeker dat je dit endormement verzoek wil accepteren?",
-            reject: "Weet je zeker dat je dit endormement verzoek wil weigeren?",
-            revoke: "Weet je zeker dat je dit endormement verzoek wil afkeuren?",
-            delete: "Weet je zeker dat je dit endormement verzoek wil verwijderen?",
-            resend: "Weet je zeker dat je dit endormement verzoek opnieuw wil versturen?",
+            accept: "Weet je zeker dat je dit endorsement verzoek wil accepteren?",
+            reject: "Weet je zeker dat je dit endorsement verzoek wil weigeren?",
+            revoke: "Weet je zeker dat je dit endorsement verzoek wil afkeuren?",
+            delete: "Weet je zeker dat je dit endorsement verzoek wil verwijderen?",
+            resend: "Weet je zeker dat je dit endorsement verzoek opnieuw wil versturen?",
         },
         flash: {
             created: "Endorsement verzoek is verstuurd",
