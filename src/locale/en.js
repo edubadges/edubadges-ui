@@ -1304,8 +1304,8 @@ I18n.translations.en = {
             addAnother: "+ Add another",
             cancel: "Cancel",
             award: "Award",
-            addEvidence: "Motivation/evidence",
-            editEvidence: "Edit motivation/evidence",
+            addEvidence: "Narrative",
+            editEvidence: "Edit narrative",
             processing: "Processing {{count}} direct awards. Please be patient...",
             flash: {
                 created: "Direct awards have been sent"

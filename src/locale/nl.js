@@ -668,7 +668,7 @@ I18n.translations.nl = {
             awardOptions: "Award opties",
             isPrivate: "Privé badge class",
             evidenceRequired: "Bewijs (URL) verplicht bij uitgeven",
-            narrativeRequired: "Persoonlijk bericht verplicht bij uitgeven",
+            narrativeRequired: "Motivatie verplicht bij uitgeven",
             narrativeStudentRequired: "Motivatie verplicht voor aanvraag",
             evidenceStudentRequired: "Bewijs (URL) verplicht voor aanvraag",
             awardNonValidatedNameAllowed: "Uitreiken aan niet gevalideerd account toestaan",
