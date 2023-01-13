@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [6.6.0] - 2023-01-16
+- Bugfix for undefined code.
+- Bugfix unknown error revoke a Direct Award.
+- Bump express from 4.17.1 to 4.18.2.
+- Hide, not show main content if menu is open.
+- Larger menu-items on mobile.
+- Improved mobile friendly backpack.
+- Bump decode-uri-component from 0.2.0 to 0.2.2.
+- Bugfix for collections.
+- Fixed layout.
+- View for unclaimed direct awards.
+- Bugfix for undefined in direct award.
+- Bugfix for ignoring alternativeIdentifier of institution.
+
 ## [6.5.0] - 2022-10-31
 - Filter out revoked badges in the public count.
 - Sum of Award type Direct Award/Requested not always correct.
