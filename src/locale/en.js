@@ -1011,6 +1011,14 @@ I18n.translations.en = {
         noValidInstitutionInfoForEnrollment: "Institution <strong>{{name}}</strong> is not connected to your eduID account. " +
             "To request this edubadge we require verification that you are able to identify yourself at institution <strong>{{name}}</strong>.<br/><br/>" +
             "Please contact <a href='mailto:support@edubadges.nl'>support@edubadges.nl</a> for support or try linking institution <strong>{{name}}</strong> to your eduID account",
+        noValidatedNameAnymoreTitle: "eduID account no longer linked",
+        noValidatedNameAnymore: "Your eduID account is no longer linked to an educational institution. " +
+            "To link your eduID account again please proceed to eduID.<br/><br/>" +
+            "Please contact <a href='mailto:support@edubadges.nl'>support@edubadges.nl</a> for support or try linking an institution to your eduID account",
+        noValidatedNameTitle: "eduID account not linked",
+        noValidatedName: "Your eduID account is not linked to an educational institution and therefore awarded badges can not be claimed. " +
+            "To link your eduID account please proceed to eduID.<br/><br/>" +
+            "Please contact <a href='mailto:support@edubadges.nl'>support@edubadges.nl</a> for support or try linking an institution to your eduID account",
         goToSurfConext: "Proceed to eduID",
         multipleValidInstitutions: "Multiple valid institutions",
         multipleValidInstitutionsInfo: "You have multiple institutions connected to your eduID account.<br/><br/>" +

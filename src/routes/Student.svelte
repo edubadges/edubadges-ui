@@ -12,6 +12,7 @@
     import Collections from "./students/Collections.svelte";
 
     export let bookmark;
+    export let revalidateName;
 
     let pages = [
         {path: "backpack", icon: data_activity, component: Backpack},
@@ -52,6 +53,6 @@
 <div class="page-container">
     <SideMenu {pages} {currentPage} toggle={() => showContent = !showContent}/>
     <div class="content" class:hide-content={!showContent}>
-        <svelte:component this={currentPage.component}/>
+        <svelte:component this={currentPage.component} {revalidateName}/>
     </div>
 </div>

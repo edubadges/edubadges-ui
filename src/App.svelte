@@ -155,7 +155,7 @@
                     <Student bookmark="archived"/>
                 </Route>
                 <Route path="/direct-awards">
-                    <Student bookmark="backpack"/>
+                    <Student bookmark="backpack" revalidateName="true"/>
                 </Route>
                 <Route path="/enrollment/:enrollmentId/" let:params>
                     <EnrollmentDetails enrollmentId={params.enrollmentId}/>

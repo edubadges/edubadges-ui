@@ -1,96 +1,126 @@
 <script>
-  import I18n from "i18n-js";
-  import {userLoggedIn, authToken, userRole, redirectPath} from "../stores/user";
-  import {navigate} from "svelte-routing";
-  import {onMount} from "svelte";
-  import tip from "../icons/tip.svg";
-  import Spinner from "../components/Spinner.svelte";
+    import I18n from "i18n-js";
+    import {authToken, redirectPath, userLoggedIn, userRole} from "../stores/user";
+    import {navigate} from "svelte-routing";
+    import {onMount} from "svelte";
+    import tip from "../icons/tip.svg";
+    import Spinner from "../components/Spinner.svelte";
+    import Modal from "../components/forms/Modal.svelte";
+    import {role} from "../util/role";
+    import {getService} from "../util/getService";
+    import {requestLoginToken} from "../api";
 
-  let authError;
-  let code = 1;
-  let adminEmail;
+    let authError;
+    let code = 1;
+    let adminEmail;
+    let redirectTo;
+    let showNoValidatedName = false;
 
-  onMount(() => {
-    const urlSearchParams = new URLSearchParams(window.location.search);
-    authError = urlSearchParams.get("authError");
-    const role = urlSearchParams.get("role");
-    if (role) {
-      $userRole = role;
-    }
+    const goToEduId = () => {
+        $userRole = role.STUDENT;
+        $redirectPath = redirectTo;
+        const service = getService(role.STUDENT);
+        requestLoginToken(service, true);
+    };
 
-    if (!authError) {
-      const token =  urlSearchParams.get("authToken");
-      $authToken = token;
-      $userLoggedIn = true;
-      let redirectTo = $redirectPath || "/";
-      if (redirectTo === "/login") {
-        redirectTo = "/";
-      }
-      navigate(redirectTo);
-    } else {
-      $userLoggedIn = "";
-      code = urlSearchParams.get("code") || "1";
-      adminEmail = urlSearchParams.get("admin_email");
-    }
+    onMount(() => {
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        authError = urlSearchParams.get("authError");
+        const role = urlSearchParams.get("role");
+        if (role) {
+            $userRole = role;
+        }
 
-  });
+        if (!authError) {
+            const token = urlSearchParams.get("authToken");
+            $authToken = token;
+            $userLoggedIn = true;
+            redirectTo = $redirectPath || "/";
+            if (redirectTo === "/login") {
+                redirectTo = "/";
+            }
+            let revalidateName = urlSearchParams.get("revalidate-name");
+            if (revalidateName) {
+                //server side signal that the eduID account is not linked anymore
+                showNoValidatedName = true;
+            } else {
+                navigate(redirectTo);
+            }
+        } else {
+            $userLoggedIn = "";
+            code = urlSearchParams.get("code") || "1";
+            adminEmail = urlSearchParams.get("admin_email");
+        }
+
+    });
 </script>
 
 <style>
-  .content-auth-error-container {
-    display: flex;
-    margin: 10vh auto;
-    max-width: 420px;
-  }
+    .content-auth-error-container {
+        display: flex;
+        margin: 10vh auto;
+        max-width: 420px;
+    }
 
-  .content-auth-error {
-    display: flex;
-    flex-direction: column;
-  }
+    .content-auth-error {
+        display: flex;
+        flex-direction: column;
+    }
 
-  h1 {
-    color: var(--grey-9);
-    margin-bottom: 25px;
-  }
+    h1 {
+        color: var(--grey-9);
+        margin-bottom: 25px;
+    }
 
-  div.info {
-    display: flex;
-    align-items: center;
-    background-color: #fef49a;
-    border: 1px solid #dabc28;
-    border-bottom: 2px solid #dabc28;
-    padding: 15px 25px;
-    margin: 25px 0;
-    border-radius: 8px;
-  }
+    div.info {
+        display: flex;
+        align-items: center;
+        background-color: #fef49a;
+        border: 1px solid #dabc28;
+        border-bottom: 2px solid #dabc28;
+        padding: 15px 25px;
+        margin: 25px 0;
+        border-radius: 8px;
+    }
 
-  span.tip {
-    margin: 0 25px 0 10px;
-    font-weight: bold;
-    word-break: normal;
-  }
+    span.tip {
+        margin: 0 25px 0 10px;
+        font-weight: bold;
+        word-break: normal;
+    }
 
 
 </style>
 
+{#if showNoValidatedName}
+    <Modal
+            submit={goToEduId}
+            title={I18n.t("acceptTerms.noValidatedNameAnymoreTitle")}
+            question={I18n.t("acceptTerms.noValidatedNameAnymore")}
+            evaluateQuestion={true}
+            cancel={() => navigate(redirectTo)    }
+            submitLabel={I18n.t("publicBadge.noValidatedNameModal.goToEduID")}/>
+{/if}
 {#if !authError}
-  <div>
-    <Spinner/>
-  </div>
+    <div>
+        {#if !showNoValidatedName}
+            <Spinner/>
+        {/if}
+    </div>
 {:else}
-  <div class="content-auth-error-container">
-    <div class="content-auth-error">
-      <h1>{I18n.t("authError.title")}</h1>
-      <p>{I18n.t(`authError.code.${code}`)}</p>
-      {#if adminEmail && code === "2"}
-        <div class="info">
-          <span>{@html tip}</span>
-          <span class="tip">{I18n.t("authError.tip")}</span>
-          <span>{I18n.t("authError.adminEmail",{email:adminEmail})}</span>
+    <div class="content-auth-error-container">
+        <div class="content-auth-error">
+            <h1>{I18n.t("authError.title")}</h1>
+            <p>{I18n.t(`authError.code.${code}`)}</p>
+            {#if adminEmail && code === "2"}
+                <div class="info">
+                    <span>{@html tip}</span>
+                    <span class="tip">{I18n.t("authError.tip")}</span>
+                    <span>{I18n.t("authError.adminEmail", {email: adminEmail})}</span>
+
+                </div>
+            {/if}
 
         </div>
-      {/if}
-
     </div>
-  </div>
 {/if}

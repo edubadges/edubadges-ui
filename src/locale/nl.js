@@ -1012,6 +1012,14 @@ I18n.translations.nl = {
         noValidInstitutionInfoForEnrollment: "Onderwijsinstelling {{name}} is niet gekoppeld aan je eduID account. " +
             "Om deze edubadge aan te kunnen vragen zal je eduID account gekoppeld moeten zijn met de onderwijsinstelling: <strong>{{name}}</strong>.<br/><br/>" +
             "Neem contact op met <a href='mailto:support@edubadges.nl'>support@edubadges.nl</a> voor ondersteuning of probeer je eduID account te koppelen met {{name}}.",
+        noValidatedNameAnymoreTitle: "Je eduID account is niet langer gekoppeld met een onderwijsinstelling",
+        noValidatedNameAnymore: "Je eduID account is niet langer gekoppeld aan een onderwijsinstelling. " +
+            "Je kan je eduID account opnieuw koppelen in de mijn omgeving van eduID.<br/><br/>" +
+            "Neem contact op met <a href='mailto:support@edubadges.nl'>support@edubadges.nl</a> voor ondersteuning of probeer je eduID account te koppelen.",
+        noValidatedNameTitle: "eduID account not linked",
+        noValidatedName: "Je eduID account is niet langer gekoppeld aan een onderwijsinstelling en daarom kan je toegekende badges niet claimen. " +
+            "Je kan je eduID account koppelen in de mijn omgeving van eduID.<br/><br/>" +
+            "Neem contact op met <a href='mailto:support@edubadges.nl'>support@edubadges.nl</a> voor ondersteuning of probeer je eduID account te koppelen.",
         goToSurfConext: "Ga door naar eduID",
         multipleValidInstitutions: "Meerdere geldige onderwijsinstellingen",
         multipleValidInstitutionsInfo: "Je hebt meerdere geldige onderwijsinstellingen gekoppeld aan je eduID account.<br/><br/>" +
