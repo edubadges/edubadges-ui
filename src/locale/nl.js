@@ -1287,6 +1287,7 @@ I18n.translations.nl = {
         badgeClassType: {
               OTHER: "Anders",
               ARCHIVED: "Gearchiveerd",
+              ALL: "Alle",
               MICRO_CREDENTIALS: "Pilot Microcredentials"
         },
         issuer: {

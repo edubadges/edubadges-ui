@@ -872,6 +872,7 @@ I18n.translations.en = {
             badgeClassPlaceholder: "Select a badge class...",
             year: "Year",
             yearPlaceholder: "Select a year...",
+            badgeClassType: "Type edubadge",
         },
         collections: {
             number: "Number",
@@ -1286,6 +1287,7 @@ I18n.translations.en = {
         badgeClassType: {
             OTHER: "Other",
             ARCHIVED: "Archived",
+            ALL: "All",
             MICRO_CREDENTIALS: "Pilot Microcredentials"
         },
         issuer: {

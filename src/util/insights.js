@@ -1,4 +1,5 @@
 import I18n from "i18n-js";
+import {badgeClassFilterTypes} from "./catalogFilters";
 
 export const lastNumber = assertions => {
     return !assertions || assertions.length === 0 ? 0 : assertions[assertions.length - 1];
@@ -99,14 +100,19 @@ export const entityTypeLookup = {
     }
 }
 
-export const filterSeries = (assertions, identifiers, awardType = null, badgeClass = null, issuer = null, faculty = null) => {
+export const filterSeries = (assertions, identifiers, awardType = null, badgeClass = null,
+                             issuer = null, faculty = null, badgeClassFilterType = badgeClassFilterTypes.ALL) => {
     const badgeClassId = badgeClass ? badgeClass.identifier : null;
     const issuerId = issuer ? issuer.identifier : null;
     const facultyId = faculty ? faculty.identifier : null;
     return assertions.filter(assertion => (awardType == null || assertion.award_type === awardType)
         && (badgeClassId == null || assertion[identifiers['BADGE_CLASS_ID']] === badgeClassId)
         && (issuerId == null || assertion[identifiers['ISSUER_ID']] === issuerId)
-        && (facultyId == null || assertion[identifiers['FACULTY_ID']] === facultyId));
+        && (facultyId == null || assertion[identifiers['FACULTY_ID']] === facultyId)
+        && ((badgeClassFilterType == null || badgeClassFilterType === badgeClassFilterTypes.ALL) ||
+            (assertion.badgeclass__is_micro_credentials && badgeClassFilterType === badgeClassFilterTypes.MICRO_CREDENTIALS) ||
+            (!assertion.badgeclass__is_micro_credentials && badgeClassFilterType === badgeClassFilterTypes.OTHER))
+    );
 }
 
 export const extractAssertionFaculties = (assertions, directAwards, enrolments, locale) => {

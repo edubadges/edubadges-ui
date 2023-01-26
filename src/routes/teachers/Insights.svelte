@@ -23,11 +23,10 @@
         extractAssertionFaculties,
         facultyOptions,
         filterSeries,
-        totalNbrByAttributeValue,
         institutionOptions,
         issuerOptions,
-        lastNumber,
-        minMaxDateOfAssertionSeries
+        minMaxDateOfAssertionSeries,
+        totalNbrByAttributeValue
     } from "../../util/insights";
     import Tooltip from "../../components/Tooltip.svelte";
     import Field from "../../components/forms/Field.svelte";
@@ -36,6 +35,7 @@
     import {config} from "../../util/config";
     import {queryData} from "../../api/graphql";
     import {isEmpty} from "lodash";
+    import {badgeClassFilterTypes} from "../../util/catalogFilters";
 
     data(Highcharts);
     Exporter(Highcharts);
@@ -104,6 +104,11 @@
     let inIssuerSelected = false;
     let inFacultySelected = false;
 
+    const badgeTypes = [{name: I18n.t("catalog.badgeClassType.ALL"), value: badgeClassFilterTypes.ALL},
+        {name: I18n.t("catalog.badgeClassType.OTHER"), value: badgeClassFilterTypes.OTHER},
+        {name: I18n.t("catalog.badgeClassType.MICRO_CREDENTIALS"), value: badgeClassFilterTypes.MICRO_CREDENTIALS}]
+    let badgeType = badgeTypes[0];
+
     //To calculate the X-axis
     let categories = [];
     let firstDate = null;
@@ -140,23 +145,23 @@
 
     const reload = res => {
         loaded = false;
-        const filteredDA = filterSeries(res['assertions'], entityTypeLookup.ASSERTION, 'direct_award', badgeClassId, issuerId, facultyId);
+        const filteredDA = filterSeries(res['assertions'], entityTypeLookup.ASSERTION, 'direct_award', badgeClassId, issuerId, facultyId, badgeType.value);
         const filteredDaNotRevoked = filteredDA.filter(assertion => assertion.revoked === false);
         let daAssertions = assertionSeries(filteredDaNotRevoked);
 
-        const filteredReq = filterSeries(res['assertions'], entityTypeLookup.ASSERTION, 'requested', badgeClassId, issuerId, facultyId);
+        const filteredReq = filterSeries(res['assertions'], entityTypeLookup.ASSERTION, 'requested', badgeClassId, issuerId, facultyId, badgeType.value);
         const filteredReqNotRevoked = filteredReq.filter(assertion => assertion.revoked === false);
         let reqAssertions = assertionSeries(filteredReqNotRevoked);
 
-        directAwards = filterSeries(res['direct_awards'], entityTypeLookup.DIRECT_AWARD, null, badgeClassId, issuerId, facultyId);
-        enrollments = filterSeries(res['enrollments'], entityTypeLookup.ENROLMENT, null, badgeClassId, issuerId, facultyId);
+        directAwards = filterSeries(res['direct_awards'], entityTypeLookup.DIRECT_AWARD, null, badgeClassId, issuerId, facultyId, badgeType.value);
+        enrollments = filterSeries(res['enrollments'], entityTypeLookup.ENROLMENT, null, badgeClassId, issuerId, facultyId, badgeType.value);
         const equalized = equalizeAssertionsSize(daAssertions, reqAssertions);
         daAssertions = equalized[0];
         reqAssertions = equalized[1];
 
         //Edubadges in backpack
-        directAwarded = totalNbrByAttributeValue(filteredDA, 'revoked', false );
-        totalRequestedAssertions = totalNbrByAttributeValue(filteredReq, 'revoked', false );
+        directAwarded = totalNbrByAttributeValue(filteredDA, 'revoked', false);
+        totalRequestedAssertions = totalNbrByAttributeValue(filteredReq, 'revoked', false);
         totalAwarded = directAwarded + totalRequestedAssertions;
         const notRevokedAssertions = filteredReq.concat(filteredDA).filter(assertion => assertion.revoked === false);
         publicAssertions = totalNbrByAttributeValue(notRevokedAssertions, 'public', true);
@@ -312,6 +317,11 @@
     const yearSelected = item => {
         year = item;
         initialize();
+    }
+
+    const badgeTypeSelected = item => {
+        badgeType = item;
+        reload(serverData);
     }
 
     const reset = () => {
@@ -807,6 +817,13 @@
                                 placeholder={I18n.t("models.insights.badgeClassPlaceholder")}
                                 items={badgeClassSelectOptions}
                                 optionIdentifier="identifier"/>
+                    </Field>
+                    <Field entity="insights" attribute="badgeClassType">
+                        <Select
+                                value={badgeType}
+                                handleSelect={badgeTypeSelected}
+                                items={badgeTypes}
+                                optionIdentifier="value"/>
                     </Field>
                     <Field entity="insights" attribute="year">
                         <Select

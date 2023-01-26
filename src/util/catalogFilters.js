@@ -27,7 +27,8 @@ export const educationalLevels = {
 export const badgeClassFilterTypes = {
     MICRO_CREDENTIALS: "MICRO_CREDENTIALS",
     ARCHIVED: "ARCHIVED",
-    OTHER: "OTHER"
+    OTHER: "OTHER",
+    ALL: "ALL",
 }
 
 export const assignFilterTypes = badgeClass => {
