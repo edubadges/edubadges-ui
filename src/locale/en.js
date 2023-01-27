@@ -675,7 +675,7 @@ I18n.translations.en = {
             isMicroCredentials: "Badge class related to Microcredentials pilot",
             directAwardingDisabled: "Direct-Award disabled",
             selfEnrollmentDisabled: "Self-enrollment disabled",
-            learningOutcome: "Learning outcome",
+            learningOutcome: "Learning outcomes",
             studyLoad: "Study load",
             timeInvestment: "Time investment",
             ects: {
@@ -1196,7 +1196,7 @@ I18n.translations.en = {
         badgeClassDescription: "This description supports markdown. " +
             "See <a target=\"_blank\" href=\"https://wiki.surfnet.nl/display/Edubadges/Edubadges+Example+BadgeClass\"> the wiki </a> for examples.",
         badgeClassLanguageOfInstruction: "The language used in obtaining this edubadge.",
-        badgeClassLearningOutcome: "Describe the learning outcome or learning goal. Recorded in the Teaching and Examination Regulations.",
+        badgeClassLearningOutcome: "Describe the learning outcomes or learning goals. Recorded in the Teaching and Examination Regulations.",
         //badgeClassLearningIssuer: "badgeClassLearningIssuer",
         badgeClassIsPrivate: "If checked, this badge class will not appear in the catalog. Note that you cannot award edubadges from a private badge class.",
         badgeClassEvidenceRequired: "If checked, any awards based on this badge class require an evidence of the achievement to be filled in.",

@@ -675,7 +675,7 @@ I18n.translations.nl = {
             isMicroCredentials: "Badge class ihkv de pilot Microcredentials",
             directAwardingDisabled: "Direct-Award niet toegestaan",
             selfEnrollmentDisabled: "Self-enrollment niet toegestaan",
-            learningOutcome: "Leeruitkomst",
+            learningOutcome: "Leeruitkomsten",
             studyLoad: "Studielast",
             timeInvestment: "Tijdsinvestering",
             ects: {
@@ -1196,7 +1196,7 @@ I18n.translations.nl = {
         badgeClassDescription: "Deze beschrijving ondersteund opmaak in markdown formaat. " +
         "Zie <a target=\"_blank\" href=\"https://wiki.surfnet.nl/display/Edubadges/Edubadges+Example+BadgeClass\"> de wiki </a> voor voorbeelden.",
         badgeClassLanguageOfInstruction: "De voertaal die gebruikt is bij het behalen van deze edubadge. ",
-        badgeClassLearningOutcome: "Beschrijf de leeruitkomst of de leerresultaten. Vastgelegd in de Onderwijs- en examenregeling.",
+        badgeClassLearningOutcome: "Beschrijf de leeruitkomsten of de leerresultaten. Vastgelegd in de Onderwijs- en examenregeling.",
         //badgeClassLearningIssuer: "badgeClassLearningIssuer",
         badgeClassIsPrivate: "Indien aangevinkt zal deze badge class niet in de catalogus verschijnen. Houd er rekening mee dat er van privé badge classes geen edubadges kunnen worden uitgegeven.",
         badgeClassEvidenceRequired: "Indien aangevinkt, moet voor alle onderscheidingen op basis van deze badge class een bewijs van de geleverde prestatie worden ingevuld.",
