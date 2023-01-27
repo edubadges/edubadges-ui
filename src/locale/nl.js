@@ -873,6 +873,7 @@ I18n.translations.nl = {
             badgeClassPlaceholder: "Selecteer een badge class...",
             year: "Jaar",
             yearPlaceholder: "Selecteer een jaar...",
+            badgeClassType: "Type edubadge",
         },
         collections: {
             number: "Nummer",
