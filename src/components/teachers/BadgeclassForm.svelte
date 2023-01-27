@@ -308,7 +308,7 @@
             ]);
             newBadgeclass.extensions = {...newBadgeclass.extensions, ...learningOutcomeExt}
         }
-        if (showEducationalIdentifiers || showProgrammeIdentifier) {
+        if (showEducationalIdentifiers || showProgrammeIdentifier || badgeclass.isMicroCredentials) {
             const extensionValues = []
             const programIdentifier = extensions[educationProgramIdentifier.name];
             if (programIdentifier || !badgeclass.isMicroCredentials) {

@@ -49,7 +49,7 @@
           {:else}<p>-</p>{/if}
       {:else if type === 'email'}
           {#if value}
-              <p>{value}</p>
+              <a href={`mailto:${value}`}>{value}</a>
           {:else}<p>-</p>{/if}
       {:else}<p>{value}</p>{/if}
         {/if}

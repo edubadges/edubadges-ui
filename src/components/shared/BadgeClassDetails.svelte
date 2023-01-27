@@ -359,11 +359,12 @@
             <section class="study-load">
                 {@html calendarIcon}
                 <div>
-                    <h3>{I18n.t("teacher.badgeclasses.educationProgramIdentifier")}</h3>
                     {#if badgeclass.educationProgramIdentifier}
+                        <h3>{I18n.t("models.badgeclass.educationProgramIdentifierLong")}</h3>
                         <span>{fallBackValue(badgeclass.educationProgramIdentifier)}</span>
                     {/if}
                     {#if badgeclass.eqf}
+                        <h3>{I18n.t("teacher.badgeclasses.educationProgramIdentifier")}</h3>
                         <span>{`EQF ${badgeclass.eqf}`}</span>
                     {/if}
                 </div>
