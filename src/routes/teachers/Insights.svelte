@@ -788,6 +788,13 @@
                                     optionIdentifier="identifier"/>
                         </Field>
                     {/if}
+                    <Field entity="insights" attribute="badgeClassType">
+                        <Select
+                                value={badgeType}
+                                handleSelect={badgeTypeSelected}
+                                items={badgeTypes}
+                                optionIdentifier="value"/>
+                    </Field>
                     <Field entity="insights" attribute="faculty">
                         <Select
                                 value={facultyId}
@@ -817,13 +824,6 @@
                                 placeholder={I18n.t("models.insights.badgeClassPlaceholder")}
                                 items={badgeClassSelectOptions}
                                 optionIdentifier="identifier"/>
-                    </Field>
-                    <Field entity="insights" attribute="badgeClassType">
-                        <Select
-                                value={badgeType}
-                                handleSelect={badgeTypeSelected}
-                                items={badgeTypes}
-                                optionIdentifier="value"/>
                     </Field>
                     <Field entity="insights" attribute="year">
                         <Select
