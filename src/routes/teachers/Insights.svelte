@@ -339,7 +339,7 @@
     }
 
     afterUpdate(() => {
-        if (!loaded) {
+        if (!loaded || totalAssertions.length === 0) {
             return;
         }
         Highcharts.chart("content", {
