@@ -339,7 +339,7 @@
     }
 
     afterUpdate(() => {
-        if (!loaded || totalAssertions.length === 0) {
+        if (!loaded) {
             return;
         }
         Highcharts.chart("content", {
@@ -492,7 +492,7 @@
   }
 
   .no-content {
-    margin: 50px;
+    margin: 8px 0 0 50px;
   }
 
   div.insights {
@@ -844,7 +844,7 @@
 
                 </section>
             </div>
-            {#if totalAssertions === 0}
+            {#if totalAssertions.length === 0}
                 <div class="no-content">
                     <h3>{I18n.t("insights.noContent")}</h3>
                 </div>

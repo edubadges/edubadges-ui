@@ -1424,7 +1424,7 @@ I18n.translations.en = {
         totalRequested: "Total requested",
         directAwardedAccepted: "Direct awarded and claimed",
         public: "Public edubadges",
-        noContent: "No edubadges were awarded in the given year for this institution",
+        noContent: "No edubadges were awarded with the provided filters",
         term: "Term",
         month: "Month",
         tableHeader: "Edubadges for {{institution}} in {{year}}",

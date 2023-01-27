@@ -1425,7 +1425,7 @@ I18n.translations.nl = {
         totalRequested: "Totaal aangevraagd",
         directAwardedAccepted: "Direct toegekend en geaccepteerd",
         public: "Publiek gemaakte edubadges",
-        noContent: "Geen edubadges zijn uitgegeven in dit jaar voor deze instelling",
+        noContent: "Geen edubadges zijn uitgegeven met de gekozen filters",
         term: "Kwartaal",
         month: "Maand",
         tableHeader: "Edubadges voor {{institution}} in {{year}}",
