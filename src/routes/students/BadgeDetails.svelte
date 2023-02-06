@@ -32,6 +32,7 @@
     import {alignments, endorsements} from "../../api/queries";
     import linkedInEn from "../../img/en_US.png";
     import linkedInNl from "../../img/nl_NL.png";
+    import Tooltip from "../../components/Tooltip.svelte";
 
     export let entityId;
 
@@ -435,6 +436,11 @@
   img.linkedin {
     width: auto;
     height: 41px;
+
+    &.disabled {
+      opacity: .2;
+      cursor: not-allowed;
+    }
   }
 </style>
 
@@ -513,9 +519,12 @@
                     <div class="button-container">
                         {#if badge.public}
                             <a href={linkedInUrl} target="_blank">
-                                    <img class="linkedin" src={I18n.locale === "nl" ? linkedInNl:linkedInEn}
-                                         alt="LinkedIn Add to Profile button"/>
+                                <img class="linkedin" src={I18n.locale === "nl" ? linkedInNl:linkedInEn}
+                                     alt="LinkedIn Add to Profile button"/>
                             </a>
+                        {:else}
+                            <img class="linkedin disabled" src={I18n.locale === "nl" ? linkedInNl:linkedInEn}
+                                 alt="LinkedIn Add to Profile button"/>
                         {/if}
                     </div>
                 </div>
