@@ -431,6 +431,11 @@
     margin: 25px 0;
     justify-content: center;
   }
+
+  img.linkedin {
+    width: auto;
+    height: 41px;
+  }
 </style>
 
 <div class="badge-detail-container">
@@ -508,11 +513,8 @@
                     <div class="button-container">
                         {#if badge.public}
                             <a href={linkedInUrl} target="_blank">
-                                {#if I18n.locale === "nl"}
-                                    <img src={linkedInNl} alt="LinkedIn Add to Profile button"/>
-                                {:else}
-                                    <img src={linkedInEn} alt="LinkedIn Add to Profile button"/>
-                                {/if}
+                                    <img class="linkedin" src={I18n.locale === "nl" ? linkedInNl:linkedInEn}
+                                         alt="LinkedIn Add to Profile button"/>
                             </a>
                         {/if}
                     </div>
