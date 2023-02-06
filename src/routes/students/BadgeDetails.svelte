@@ -32,7 +32,6 @@
     import {alignments, endorsements} from "../../api/queries";
     import linkedInEn from "../../img/en_US.png";
     import linkedInNl from "../../img/nl_NL.png";
-    import Tooltip from "../../components/Tooltip.svelte";
 
     export let entityId;
 
@@ -204,9 +203,9 @@
                 `organizationId=${badge.badgeclass.issuer.faculty.institution.linkedinOrgIdentifier || 206815}&` +
                 `issueYear=${issuedOn.getFullYear()}&` +
                 `issueMonth=${issuedOn.getMonth()}&` +
-                `certUrl=${encodeURIComponent("https://www.edubadges.nl/public/assertions/")}${entityId}&` +
+                `certUrl=${encodeURIComponent("https://" + window.location.hostname + "/public/assertions/")}${entityId}&` +
                 `certId=${entityId}&` +
-                `original_referer=${encodeURIComponent("https://www.edubadges.nl")}`;
+                `original_referer=${encodeURIComponent("https://" + window.location.hostname)}`;
             loaded = true;
 
             queryData(badgeInstanceCollectionsQuery).then(res => {
