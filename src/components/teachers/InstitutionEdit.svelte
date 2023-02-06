@@ -35,7 +35,8 @@
       brin,
       gradingTable,
       awardAllowedInstitutions,
-      awardAllowAllInstitutions
+      awardAllowAllInstitutions,
+      linkedinOrgIdentifier
     },
   }`;
 
@@ -74,6 +75,7 @@
     institution.image_english = institution.imageEnglish;
     institution.image_dutch = institution.imageDutch;
     institution.award_allowed_institutions = publicInstitutionsChosen ? publicInstitutionsChosen.map(ins => ins.id) : [];
+    institution.linkedin_org_identifier = institution.linkedinOrgIdentifier;
     if (!institution.image) {
       delete institution.image;
     }
@@ -152,6 +154,13 @@
             bind:value={institution.gradingTable}
             placeholder={I18n.t("placeholders.institution.gradingTable")}
             error={errors.grading_table}/>
+        </Field>
+        <Field {entity} attribute="linkedin_org_identifier" errors={errors.linkedin_org_identifier}
+               tipKey="institutionLinkedinOrgIdentifier">
+          <TextInput
+            bind:value={institution.linkedinOrgIdentifier}
+            placeholder={I18n.t("placeholders.institution.linkedinOrgIdentifier")}
+            error={errors.linkedin_org_identifier}/>
         </Field>
       </div>
     </MultiLanguageField>

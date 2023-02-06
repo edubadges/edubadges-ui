@@ -591,6 +591,7 @@ I18n.translations.en = {
             description_english: "Description in English",
             description_dutch: "Description in Dutch",
             grading_table: "Grading table",
+            linkedin_org_identifier: "LinkedIn organisation identifier",
             image_english: "Institution logo English",
             image_dutch: "Institution logo Dutch",
             name_english: "Institution name in English",
@@ -1115,6 +1116,7 @@ I18n.translations.en = {
             name: "(Required field) e.g. University of Harderwijk",
             brin: "(Required field) Institution code (used to be the BRIN code)",
             gradingTable: "URL of the grading table",
+            linkedinOrgIdentifier: "LinkedIn organisation identifier",
             description: "(Required field) e.g. The University of Harderwijk was founded in 1977",
             allowedInstitutions: "Select one or more institutions..."
         },
@@ -1241,6 +1243,7 @@ I18n.translations.en = {
         //institutionDescriptionNl: "institutionDescriptionNl",
         institutionBrin: "Institution code issued by DUO. (used to be the BRIN code)",
         institutionGradingTable: "Use a URL that will not change. (Persistent URL).",
+        institutionLinkedinOrgIdentifier: "LinkedIn identifier for this institution / organisation",
         institutionAwardAllowedInstitutions: "Select other institutions from which<br/>students potentially may be awarded edubadges.",
         badgeclassAwardAllowedInstitutions: "Select other institutions from which<br/>students may be awarded this edubadge.",
         enrollmentEvidenceNarrative: "A personal narrative that can be added to this awarded edubadge.",

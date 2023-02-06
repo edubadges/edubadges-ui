@@ -30,6 +30,8 @@
     import StudentBreadCrumb from "../../components/students/StudentBreadCrumb.svelte";
     import BadgeHeader from "../../components/students/BadgeHeader.svelte";
     import {alignments, endorsements} from "../../api/queries";
+    import linkedInEn from "../../img/en_US.png";
+    import linkedInNl from "../../img/nl_NL.png";
 
     export let entityId;
 
@@ -160,7 +162,8 @@
             institution {
               nameDutch,
               nameEnglish,
-              entityId
+              entityId,
+              linkedinOrgIdentifier
             }
           }
         },
@@ -175,6 +178,7 @@
   }`;
 
     let loaded;
+    let linkedInUrl;
 
     const refreshBadgeDetails = () => {
         loaded = false;
@@ -193,6 +197,15 @@
             badge = theBadge;
 
             showModal = false;
+            const issuedOn = new Date(badge.issuedOn);
+            linkedInUrl = `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&` +
+                `name=${encodeURIComponent(badge.badgeclass.name)}&` +
+                `organizationId=${badge.badgeclass.issuer.faculty.institution.linkedinOrgIdentifier || 206815}&` +
+                `issueYear=${issuedOn.getFullYear()}&` +
+                `issueMonth=${issuedOn.getMonth()}&` +
+                `certUrl=${encodeURIComponent("https://www.edubadges.nl/public/assertions/")}${entityId}&` +
+                `certId=${entityId}&` +
+                `original_referer=${encodeURIComponent("https://www.edubadges.nl")}`;
             loaded = true;
 
             queryData(badgeInstanceCollectionsQuery).then(res => {
@@ -491,6 +504,17 @@
                         {/if}
                         <Button text={I18n.t("models.badge.share")} action={copyToClipboard}
                                 disabled={!badge.public}/>
+                    </div>
+                    <div class="button-container">
+                        {#if badge.public}
+                            <a href={linkedInUrl} target="_blank">
+                                {#if I18n.locale === "nl"}
+                                    <img src={linkedInNl} alt="LinkedIn Add to Profile button"/>
+                                {:else}
+                                    <img src={linkedInEn} alt="LinkedIn Add to Profile button"/>
+                                {/if}
+                            </a>
+                        {/if}
                     </div>
                 </div>
             {/if}
