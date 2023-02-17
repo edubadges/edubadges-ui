@@ -196,7 +196,7 @@
         assertions = badgeAssertions.concat(directAwards);
         existingDirectAwardsEppns = directAwards
             .filter(da => da.status.toLowerCase() === "unaccepted");
-        existingAssertionsEmails = badgeAssertions.map(assertion => assertion.user.email);
+        existingAssertionsEmails = badgeAssertions.filter(ass => !ass.revoked).map(assertion => assertion.user.email);
         loaded = true;
         callback && callback();
     }
