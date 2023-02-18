@@ -174,7 +174,6 @@
         directAwardsRevoked = totalNbrByAttributeValue(directAwards, 'status', 'Revoked');
         totalDirectAwards = directAwardedAccepted + directAwardDenied + directAwardsOpen + assertionDirectAwardsRevoked + directAwardsRevoked;
         claimRate = claimRatePercentage(directAwardedAccepted, (totalDirectAwards - directAwardsRevoked - assertionDirectAwardsRevoked));
-        debugger;
         //Requested
         acceptedAndApproved = totalRequestedAssertions;
         enrollmentsDenied = totalNbrByAttributeValue(enrollments, 'denied', true);
