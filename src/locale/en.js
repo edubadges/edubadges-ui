@@ -351,7 +351,7 @@ I18n.translations.en = {
     footer: {
         poweredBy: "Proudly powered by",
         about: "About edubadges",
-        aboutLink: "https://wiki.surfnet.nl/display/Edubadges/"
+        aboutLink: "https://wiki.surfnet.nl/display/Edubadges/Edubadges#English"
     },
     modalTerms: {
         agree: "Agree",
