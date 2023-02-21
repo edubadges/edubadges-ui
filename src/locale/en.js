@@ -351,7 +351,7 @@ I18n.translations.en = {
     footer: {
         poweredBy: "Proudly powered by",
         about: "About edubadges",
-        aboutLink: "https://wiki.surfnet.nl/display/Edubadges/edubadges+in+English"
+        aboutLink: "https://wiki.surfnet.nl/display/Edubadges/"
     },
     modalTerms: {
         agree: "Agree",
@@ -1207,7 +1207,7 @@ I18n.translations.en = {
         badgeClassEvidenceStudentRequired: "If checked, any enrollments for this badge class require an evidence URL of why the enrollment is justified.",
         badgeClassAwardNonValidatedNameAllowed: "If checked, non-formal edubadges (edubadges without Study load) can be awarded to non-validated accounts.",
         badgeClassIsMicroCredentials: "If checked, then this badge class is participating in the Microcredentials pilot." +
-            "See <a target=\"_blank\" href=\"https://wiki.surfnet.nl/display/Edubadges/Handleiding+uitgeven+ihkv+de+pilot+microcredentials\"> the wiki </a> for a manual.",
+            "See <a target=\"_blank\" href=\"https://wiki.surfnet.nl/display/Edubadges/Handleiding+Metadata+ihkv+de+pilot+microcredentials\"> the wiki </a> for a manual.",
         badgeClassDirectAwardingDisabled: "If checked, then this badge class can not be direct awarded",
         badgeClassSelfEnrollmentDisabled: "If checked, then this badge class can not be requested by students",
         //badgeClassCriteriaRequirements: "badgeClassCriteriaRequirements",

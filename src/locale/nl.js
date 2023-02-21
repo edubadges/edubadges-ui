@@ -351,7 +351,7 @@ I18n.translations.nl = {
     footer: {
         poweredBy: "Trots aangeboden door",
         about: "Over edubadges",
-        aboutLink: "https://wiki.surfnet.nl/display/Edubadges/edubadges"
+        aboutLink: "https://wiki.surfnet.nl/display/Edubadges"
     },
     modalTerms: {
         agree: "Akkoord",
@@ -1208,7 +1208,7 @@ I18n.translations.nl = {
         badgeClassEvidenceStudentRequired: "Indien aangevinkt, moet voor alle aanvragen van deze badge class een bronvermelding URL worden ingevuld.",
         badgeClassAwardNonValidatedNameAllowed: "Indien aangevinkt, mogen non-formal edubadges (edubadges zonder Studielast) uitgereikt worden aan niet-gevalideerde accounts.",
         badgeClassIsMicroCredentials: "Indien aangevinkt, dan wordt deze badge class ihkv de Microcredentials pilot uitgegeven." +
-        "Zie <a target=\"_blank\" href=\"https://wiki.surfnet.nl/display/Edubadges/Handleiding+uitgeven+ihkv+de+pilot+microcredentials\"> de wiki </a> voor een handleiding.",
+        "Zie <a target=\"_blank\" href=\"https://wiki.surfnet.nl/display/Edubadges/Handleiding+Metadata+ihkv+de+pilot+microcredentials\"> de wiki </a> voor een handleiding.",
         badgeClassDirectAwardingDisabled: "Indien aangevinkt, dan is voor deze badge class het direct awarden uitgeschakeld",
         badgeClassSelfEnrollmentDisabled: "Indien aangevinkt, dan kan deze badge class niet worden aangevraagd door studenten",
         //badgeClassCriteriaRequirements: "badgeClassCriteriaRequirements",
