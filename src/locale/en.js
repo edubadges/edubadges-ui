@@ -668,7 +668,7 @@ I18n.translations.en = {
             evidenceNarrativeOptions: "Evidence/Narrative options",
             awardOptions: "Award options",
             isPrivate: "Private badge class",
-            evidenceRequired: "Evidence (URL) requiredwhen issuing",
+            evidenceRequired: "Evidence (URL) required when issuing",
             narrativeRequired: "Narrative required when issuing",
             narrativeStudentRequired: "Motivation required for enrollment",
             evidenceStudentRequired: "Evidence (URL) required for enrollment",

@@ -30,25 +30,25 @@
 
     const doSubmit = () => {
         errors = {};
-        if (narrativeOrEvidenceRequired) {
-            if (!isEmpty(url) && !validUrl(url)) {
+        if (narrativeRequired && isEmpty(narrative)) {
+            errors.narrative = [{error_code: 932}];
+        }
+        if (evidenceRequired && isEmpty(url)) {
+            errors.url = [{error_code: 933}];
+        }
+        if (!isEmpty(url)) {
+            if (validUrl(url)) {
+                 if (!url.startsWith("http")) {
+                     url = "https://" + url;
+                 }
+            } else {
                 errors = {url: [{error_code: 921}]};
             }
-            if (narrativeRequired && isEmpty(narrative)) {
-                errors.narrative = [{error_code: 932}];
-            }
-            if (evidenceRequired && isEmpty(url)) {
-                errors.url = [{error_code: 933}];
-            }
-            if (Object.keys(errors).length === 0) {
-                submit();
-            }
-        } else if (!isEmpty(url) && !validUrl(url)) {
-            errors = {url: [{error_code: 921}]};
-        } else if (useEvidence && isEmpty(url) && isEmpty(narrative)) {
+        }
+        if (useEvidence && isEmpty(url) && isEmpty(narrative)) {
             errors = {narrative: [{error_code: 910}], url: [{error_code: 910}]};
-        } else {
-            errors = {};
+        }
+        if (Object.keys(errors).length === 0) {
             submit();
         }
     }

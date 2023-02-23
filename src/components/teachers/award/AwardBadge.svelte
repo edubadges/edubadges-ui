@@ -148,9 +148,9 @@
             .then(() => {
                 refresh(() => setTimeout(() => navigate(`/badgeclass/${badgeclass.entityId}/awarded`), 75));
                 flash.setValue(I18n.t("badgeAward.directAward.flash.created"));
-            }).catch(() => {
-            refresh(() => setTimeout(() => navigate(`/badgeclass/${badgeclass.entityId}/awarded`), 75));
-            flash.setValue(I18n.t("badgeAward.directAward.flash.created"));
+            }).catch(e => {
+                refresh(() => setTimeout(() => navigate(`/badgeclass/${badgeclass.entityId}/awarded`), 75));
+                flash.error(e.message);
         });
     };
 
