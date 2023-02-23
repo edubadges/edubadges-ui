@@ -142,7 +142,6 @@
                     (assertion.isDirectAward && assertion.status !== "ACCEPTED"))
                 .map(assertion => assertion.entityId);
 
-            debugger;
             const promises = [];
             if (selectedAssertions.length > 0) {
                 promises.push(revokeAssertions(selectedAssertions, revocationReason));
