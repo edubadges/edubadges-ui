@@ -4,6 +4,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [6.7.0] - 2023-02-27
+- Removed debugger statement.
+- Bugfix for direct award with incomplete URL.
+- Wiki URL changed.
+- Bugfix for awarding revokes badges.
+- Minor locales changes.
+- Claim rate bugfix.
+- Use window.location.hostname in linkedin URL.
+- Always show the linkedin button.
+- Align buttons.
+- Added linkedin button for public badges.
+- Moved badge class type up in insights.
+- Bugfix for highcharts empty array.
+- Bugfix for no awarded badges.
+- Added missing badgeClassType: "Type edubadge".
+- learning outcome changed to learning outcomes.
+- Bugfix for not saving eqf extension for micro-credentials badgeclass.
+- Insights type badgeClass.
+- Ask the user for revalidation of the name.
+
 ## [6.6.0] - 2023-01-16
 - Bugfix for undefined code.
 - Bugfix unknown error revoke a Direct Award.
