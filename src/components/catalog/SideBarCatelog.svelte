@@ -7,7 +7,9 @@
     institutionSelected,
     studyLoadSelected,
     typeBadgeClassSelected,
-    tree, facultySelected, issuerSelected
+    tree,
+    facultySelected,
+    issuerSelected
   } from "../../stores/filterCatalog";
 </script>
 
