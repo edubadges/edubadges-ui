@@ -703,14 +703,14 @@ I18n.translations.nl = {
                 educationalIdentifiers: "Opleidingscode",
                 qualificationLevel: "Kwalificatie niveau",
                 studyLoad: "Studielast",
-                timeInvestment: "Tijdsinvestering",
+                timeInvestment: "Tijd investering",
                 alignment: "Gerelateerd onderwijskundig raamwerk",
                 allowedInstituions: "Toegestane instellingen"
             },
             addButtons: {
                 educationalIdentifiers: "Opleidingscode(s) toevoegen",
                 studyLoad: "Studielast toevoegen",
-                timeInvestment: "Tijdsinvestering toevoegen",
+                timeInvestment: "Tijd investering toevoegen",
                 alignment: "Gerelateerd onderwijskundig raamwerk toevoegen",
                 alignmentAddition: "Nog een gerelateerd onderwijskundig raamwerk toevoegen",
                 programmeIdentifier: "Opleidingscode toevoegen"
