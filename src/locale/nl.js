@@ -170,7 +170,7 @@ I18n.translations.nl = {
             recipients: "Ontvangers",
             enrollments: "Open aanvragen",
             studyLoad: "Studielast",
-            timeInvestment: "Tijdsinvestering",
+            timeInvestment: "Tijd investering",
             educationProgramIdentifier: "Indicatief EQF",
             ects: "{{value}} ECTS",
             hours: "{{value}} uren",
@@ -678,7 +678,7 @@ I18n.translations.nl = {
             selfEnrollmentDisabled: "Self-enrollment niet toegestaan",
             learningOutcome: "Leeruitkomsten",
             studyLoad: "Studielast",
-            timeInvestment: "Tijdsinvestering",
+            timeInvestment: "Tijd investering",
             ects: {
                 creditPoints: "Studiepunten (ECTS)",
                 hours: "Uren"
