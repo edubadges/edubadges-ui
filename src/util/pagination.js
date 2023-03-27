@@ -1,5 +1,5 @@
 export const catalogPageCount = 10;
-export const pageCount = 1;
+export const pageCount = 10;
 export const selectAllPageCount = 25;
 
 //https://gist.github.com/kottenator/9d936eb3e4e3c3e02598

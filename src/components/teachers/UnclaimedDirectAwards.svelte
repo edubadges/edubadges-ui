@@ -20,7 +20,6 @@
     import UnclaimedDirectAwardsSideBar from "./UnclaimedDirectAwardsSideBar.svelte";
 
     let selection = [];
-    let filteredDirectAwards = [];
     let checkAllValue = false;
     let loaded = false;
 
@@ -61,7 +60,6 @@
                 translateProperties(da.badgeclass.issuer.faculty);
             });
             $directAwards = res.allDirectAwards;
-            filteredDirectAwards = directAwards;
             loaded = true;
         })
     }
@@ -198,14 +196,6 @@
     }
   }
 
-  td.evidenceNarrativeRequired ul {
-    list-style: circle;
-
-    li {
-      margin-left: 20px;
-    }
-  }
-
   div.action-buttons {
     display: flex;
     margin: 15px 0;
@@ -282,7 +272,7 @@
                     </td>
                 </tr>
             {/each}
-            {#if directAwards.length === 0}
+            {#if $tree.directAwards.length === 0}
                 <tr>
                     <td colspan="6">{I18n.t("models.directAwards.zeroState")}</td>
                 </tr>
