@@ -136,6 +136,7 @@ I18n.translations.en = {
         sidebar: {
             filterBadges: "Filter badge classes",
             filterAwards: "Filter awards",
+            filterDirectAwards: "Filter direct awards",
             filterUsers: "Filter users",
             filters: {
                 faculties: "Issuer groups",
@@ -145,6 +146,7 @@ I18n.translations.en = {
                 studyLoads: "Studyload",
                 eqfs: "EQF level",
                 badgeClassType: "Type edubadge",
+                badgeClasses: "Badge class",
                 roles: "Roles (highest)",
                 issued: "Issued",
                 awardType: "Award type",

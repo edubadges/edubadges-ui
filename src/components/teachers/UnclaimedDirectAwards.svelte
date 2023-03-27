@@ -3,24 +3,22 @@
     import moment from "moment";
     import {link} from "svelte-routing";
     import {Table} from "../teachers";
+    import {directAwards, tree} from "../../stores/filterUnclaimedDirectAwards"
     import {sort, sortType} from "../../util/sortData";
     import {Button, CheckBox} from "../../components";
-    import {awardBadges, denyBadge, revokeAssertions, revokeDirectAwards} from "../../api";
+    import {revokeDirectAwards} from "../../api";
     import {flash} from "../../stores/flash";
     import {searchMultiple} from "../../util/searchData";
     import singleNeutralCheck from "../../icons/single-neutral-check.svg";
-    import {constructUserName} from "../../util/users";
     import {Modal} from "../forms";
-    import filter from "../../icons/filter-1.svg";
-    import AwardBadgeModal from "./award/AwardBadgeModal.svelte";
     import {onMount} from "svelte";
     import {queryData} from "../../api/graphql";
     import Spinner from "../Spinner.svelte";
     import {pageCount} from "../../util/pagination";
     import {translateProperties} from "../../util/utils";
     import {isEmpty} from "lodash";
+    import UnclaimedDirectAwardsSideBar from "./UnclaimedDirectAwardsSideBar.svelte";
 
-    let directAwards = [];
     let selection = [];
     let filteredDirectAwards = [];
     let checkAllValue = false;
@@ -62,7 +60,7 @@
                 translateProperties(da.badgeclass.issuer);
                 translateProperties(da.badgeclass.issuer.faculty);
             });
-            directAwards = res.allDirectAwards;
+            $directAwards = res.allDirectAwards;
             filteredDirectAwards = directAwards;
             loaded = true;
         })
@@ -164,13 +162,13 @@
     };
 
     let directAwardSearch = "";
-    $: searchedDirectAwardsIds = searchMultiple(filteredDirectAwards, directAwardSearch, "entityId",
+    $: searchedDirectAwardsIds = searchMultiple($tree.directAwards, directAwardSearch, "entityId",
         "eppn", "recipientEmail", "badgeclass.name", "badgeclass.issuer.name", "badgeclass.issuer.faculty.name");
 
     let directAwardSort = tableHeaders[1];
 
     $: sortedFilteredDirectAwards = sort(
-        filteredDirectAwards.filter(el => searchedDirectAwardsIds.includes(el.entityId)),
+        $tree.directAwards.filter(el => searchedDirectAwardsIds.includes(el.entityId)),
         directAwardSort.attribute,
         directAwardSort.reverse,
         directAwardSort.sortType
@@ -182,6 +180,11 @@
 </script>
 
 <style lang="scss">
+
+  div.unclaimed-direct-awards {
+    display: flex;
+  }
+
   div.single-neutral-check {
     width: 26px;
   }
@@ -214,74 +217,78 @@
 
 </style>
 {#if loaded}
-    <Table
-            {...table}
-            bind:search={directAwardSearch}
-            bind:sort={directAwardSort}
-            isEmpty={directAwards.length === 0}
-            filteredCount={sortedFilteredDirectAwards.length}
-            page={minimalPage}
-            onPageChange={nbr => page = nbr}
-            withCheckAll={true}
-            checkAllDisabled={directAwards.every(e => e.evidenceNarrativeRequired)}
-            {onCheckAll}
-            bind:checkAllValue>
-        <div class="action-buttons" slot="check-buttons">
-            <Button small action={() => revoke(true)}
-                    text={I18n.t('models.directAwards.revoke')} disabled={selection.length === 0} secondary={true}/>
-        </div>
-        {#each sortedFilteredDirectAwards.slice((minimalPage - 1) * pageCount, minimalPage * pageCount) as directAward}
-            <tr>
-                <td>
-                    <CheckBox
-                            value={selection.includes(directAward.entityId)}
-                            name={`select-${directAward.entityId}`}
-                            onChange={val => onCheckOne(val, directAward.entityId)}/>
-                </td>
-                <td class="single-neutral-check">
-                    <div class="single-neutral-check">
-                        {@html singleNeutralCheck}
-                    </div>
-                </td>
-                <td>
-                    <div class="recipient">
-                        <span>{directAward.recipientEmail}</span>
-                    </div>
-                </td>
-                <td>
-                    <div class="eppn">
-                        <span>{directAward.eppn}</span>
-                    </div>
-                </td>
-                <td>
-                    <a use:link
-                       href={`/badgeclass/${directAward.badgeclass.entityId}/awarded`}>
-                        {directAward.badgeclass.name}
-                    </a>
-                </td>
-                <td>
-                    <a use:link
-                       href={`/manage/issuer/${directAward.badgeclass.issuer.entityId}/badgeclasses`}>
-                        {directAward.badgeclass.issuer.name}
-                    </a>
-                </td>
-                <td>
-                    <a use:link
-                       href={`/manage/faculty/${directAward.badgeclass.issuer.faculty.entityId}/issuers`}>
-                        {directAward.badgeclass.issuer.faculty.name}
-                    </a>
-                </td>
-                <td class="center">
-                    {moment(directAward.createdAt).format('MMM D, YYYY')}
-                </td>
-            </tr>
-        {/each}
-        {#if directAwards.length === 0}
-            <tr>
-                <td colspan="6">{I18n.t("models.directAwards.zeroState")}</td>
-            </tr>
-        {/if}
-    </Table>
+    <div class="unclaimed-direct-awards">
+        <UnclaimedDirectAwardsSideBar/>
+        <Table
+                {...table}
+                bind:search={directAwardSearch}
+                bind:sort={directAwardSort}
+                isEmpty={$tree.directAwards.length === 0}
+                filteredCount={sortedFilteredDirectAwards.length}
+                page={minimalPage}
+                onPageChange={nbr => page = nbr}
+                withCheckAll={true}
+                checkAllDisabled={$tree.directAwards.every(e => e.evidenceNarrativeRequired)}
+                {onCheckAll}
+                full={true}
+                bind:checkAllValue>
+            <div class="action-buttons" slot="check-buttons">
+                <Button small action={() => revoke(true)}
+                        text={I18n.t('models.directAwards.revoke')} disabled={selection.length === 0} secondary={true}/>
+            </div>
+            {#each sortedFilteredDirectAwards.slice((minimalPage - 1) * pageCount, minimalPage * pageCount) as directAward}
+                <tr>
+                    <td>
+                        <CheckBox
+                                value={selection.includes(directAward.entityId)}
+                                name={`select-${directAward.entityId}`}
+                                onChange={val => onCheckOne(val, directAward.entityId)}/>
+                    </td>
+                    <td class="single-neutral-check">
+                        <div class="single-neutral-check">
+                            {@html singleNeutralCheck}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="recipient">
+                            <span>{directAward.recipientEmail}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="eppn">
+                            <span>{directAward.eppn}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <a use:link
+                           href={`/badgeclass/${directAward.badgeclass.entityId}/awarded`}>
+                            {directAward.badgeclass.name}
+                        </a>
+                    </td>
+                    <td>
+                        <a use:link
+                           href={`/manage/issuer/${directAward.badgeclass.issuer.entityId}/badgeclasses`}>
+                            {directAward.badgeclass.issuer.name}
+                        </a>
+                    </td>
+                    <td>
+                        <a use:link
+                           href={`/manage/faculty/${directAward.badgeclass.issuer.faculty.entityId}/issuers`}>
+                            {directAward.badgeclass.issuer.faculty.name}
+                        </a>
+                    </td>
+                    <td class="center">
+                        {moment(directAward.createdAt).format('MMM D, YYYY')}
+                    </td>
+                </tr>
+            {/each}
+            {#if directAwards.length === 0}
+                <tr>
+                    <td colspan="6">{I18n.t("models.directAwards.zeroState")}</td>
+                </tr>
+            {/if}
+        </Table>
+    </div>
 {:else}
     <Spinner/>
 {/if}

@@ -137,6 +137,7 @@ I18n.translations.nl = {
             filterBadges: "Filter badge classes",
             filterAwards: "Filter awards",
             filterUsers: "Filter gebruikers",
+            filterDirectAwards: "Filter direct awards",
             filters: {
                 faculties: "Issuer groepen",
                 issuers: "Issuers",
@@ -145,6 +146,7 @@ I18n.translations.nl = {
                 studyLoads: "Studyload",
                 eqfs: "EQF niveau",
                 badgeClassType: "Type edubadge",
+                badgeClasses: "Badge class",
                 roles: "Rollen (hoogste)",
                 issued: "Uitgegeven",
                 awardType: "Award type",
