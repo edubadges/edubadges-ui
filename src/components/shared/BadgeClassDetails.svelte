@@ -23,6 +23,7 @@
     import Endorsement from "../teachers/endorsements/Endorsement.svelte";
     import {endorsementStatus} from "../../util/endorsements";
     import {config} from "../../util/config";
+    import {isEmpty} from "lodash";
 
     export let badgeclass;
     export let publicInstitutions;
@@ -355,11 +356,11 @@
                 </div>
             </section>
         {/if}
-        {#if badgeclass.educationProgramIdentifier || badgeclass.eqf}
+        {#if !isEmpty(badgeclass.educationProgramIdentifier) || badgeclass.eqf}
             <section class="study-load">
                 {@html calendarIcon}
                 <div>
-                    {#if badgeclass.educationProgramIdentifier}
+                    {#if !isEmpty(badgeclass.educationProgramIdentifier)}
                         <h3>{I18n.t("models.badgeclass.educationProgramIdentifierLong")}</h3>
                         {#each badgeclass.educationProgramIdentifier as educationProgramIdentifier}
                             <span>{fallBackValue(educationProgramIdentifier)}</span>

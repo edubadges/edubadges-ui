@@ -256,13 +256,13 @@
             [ects.name]: ectsValue || (isCreate ? (badgeclass.isMicroCredentials ? 5 : 2.5) : ""),
             [eqf.name]: eqfValue,
             [learningOutcome.name]: extensionValue(badgeclass.extensions, learningOutcome) || "",
-            [educationProgramIdentifier.name]: extensionValue(badgeclass.extensions, educationProgramIdentifier) || [""],
+            [educationProgramIdentifier.name]: extensionValue(badgeclass.extensions, educationProgramIdentifier) || (isCreate ? [""] : []),
             [studyLoad.name]: studyLoadValue || "",
         };
         if (extensions[eqf.name] && typeof extensions[eqf.name] === "number") {
             extensions[eqf.name] = {name: `EQF ${extensions[eqf.name]}`, value: extensions[eqf.name]}
         }
-        if (extensions[educationProgramIdentifier.name]) {
+        if (extensions[educationProgramIdentifier.name].some(identifier => identifier)) {
             showEducationalIdentifiers = true;
             showProgrammeIdentifier = true;
         }
@@ -322,12 +322,10 @@
         if (showEducationalIdentifiers || showProgrammeIdentifier || badgeclass.isMicroCredentials) {
             const extensionValues = []
             const programIdentifiers = extensions[educationProgramIdentifier.name] || [];
-            if (programIdentifiers || !badgeclass.isMicroCredentials) {
-                extensionValues.push({
-                    name: educationProgramIdentifier.name,
-                    value: programIdentifiers.map(identifier => parseInt(identifier, 10))
-                })
-            }
+            extensionValues.push({
+                name: educationProgramIdentifier.name,
+                value: programIdentifiers.some(identifier => identifier) ? programIdentifiers.map(identifier => parseInt(identifier, 10)) : "invalid"
+            })
             const extension = extensions[eqf.name];
             if (extension) {
                 extensionValues.push({name: eqf.name, value: extension.value})
@@ -379,7 +377,8 @@
                         } else if (ext_name === "TimeInvestmentExtension") {
                             errors[ext_name] = [{'error_code': 935}];
                         } else if (ext_name === "EducationProgramIdentifierExtension") {
-                            if (showStudyLoad && !isInstitutionMBO && !extensions[educationProgramIdentifier.name]) {
+                            if (showStudyLoad && !isInstitutionMBO &&
+                                isEmpty((extensions[educationProgramIdentifier.name] || []).some(identifier => identifier))) {
                                 errors[ext_name] = [{'error_code': 934}];
                             } else {
                                 errors[ext_name] = [{'error_code': 909}];
