@@ -73,6 +73,7 @@
             modalAction = () => revoke(false);
             showModal = true;
         } else {
+            debugger;
             showModal = false;
             loaded = false;
             revokeDirectAwards(selection, revocationReason)
@@ -98,7 +99,7 @@
     const onCheckAll = val => {
         table.checkAllValue = val;
         if (val) {
-            selection = directAwards.map(e => e.entityId);
+            selection = sortedFilteredDirectAwards.map(e => e.entityId);
         } else {
             selection = [];
         }
