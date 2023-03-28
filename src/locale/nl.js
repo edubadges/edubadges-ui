@@ -690,7 +690,7 @@ I18n.translations.nl = {
             typeOfStudyLoad: "Soort studielast",
             eqf: "Indicatief EQF niveau",
             educationProgramIdentifier: "ISAT",
-            educationProgramIdentifierLong: "Opleidingscode",
+            educationProgramIdentifierLong: "Opleidingscodes",
             notSet: "-",
             expirationPeriods: {
                 days: "Dagen",
@@ -711,6 +711,7 @@ I18n.translations.nl = {
             },
             addButtons: {
                 educationalIdentifiers: "Opleidingscode(s) toevoegen",
+                educationProgramIdentifier: "Nog een opleidingscode toevoegen",
                 studyLoad: "Studielast toevoegen",
                 timeInvestment: "Tijd investering toevoegen",
                 alignment: "Gerelateerd onderwijskundig raamwerk toevoegen",

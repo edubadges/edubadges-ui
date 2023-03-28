@@ -690,7 +690,7 @@ I18n.translations.en = {
             typeOfStudyLoad: "Type of study load",
             eqf: "Indicative EQF level",
             educationProgramIdentifier: "ISAT",
-            educationProgramIdentifierLong: "Programme Identifier",
+            educationProgramIdentifierLong: "Programme Identifiers",
             notSet: "-",
             expirationPeriods: {
                 days: "Days",
@@ -711,6 +711,7 @@ I18n.translations.en = {
             },
             addButtons: {
                 educationalIdentifiers: "Add educational identifier(s)",
+                educationProgramIdentifier: "Add another programme identifier",
                 studyLoad: "Add study load",
                 timeInvestment: "Add time investment",
                 alignment: "Add related educational framework",

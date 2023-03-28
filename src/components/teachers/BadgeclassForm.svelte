@@ -131,12 +131,23 @@
 
     const removeProgrammeIdentifier = () => {
         showProgrammeIdentifier = false;
-        extensions[educationProgramIdentifier.name] = null;
+        extensions[educationProgramIdentifier.name] = [];
     }
 
     const addProgrammeIdentifier = () => {
         showProgrammeIdentifier = true;
-        extensions[educationProgramIdentifier.name] = "";
+        extensions[educationProgramIdentifier.name] = [""];
+    }
+
+    const addEducationProgramIdentifier = () => {
+        const newValue = extensions[educationProgramIdentifier.name] || [];
+        newValue.push("")
+        extensions[educationProgramIdentifier.name] = newValue;
+    }
+
+    const removeEducationProgramIdentifier = index => {
+        const existingValue = extensions[educationProgramIdentifier.name] || [];
+        extensions[educationProgramIdentifier.name] = existingValue.filter((val, i) => i !== index);
     }
 
     const addTimeInvestment = () => {
@@ -245,7 +256,7 @@
             [ects.name]: ectsValue || (isCreate ? (badgeclass.isMicroCredentials ? 5 : 2.5) : ""),
             [eqf.name]: eqfValue,
             [learningOutcome.name]: extensionValue(badgeclass.extensions, learningOutcome) || "",
-            [educationProgramIdentifier.name]: extensionValue(badgeclass.extensions, educationProgramIdentifier) || "",
+            [educationProgramIdentifier.name]: extensionValue(badgeclass.extensions, educationProgramIdentifier) || [""],
             [studyLoad.name]: studyLoadValue || "",
         };
         if (extensions[eqf.name] && typeof extensions[eqf.name] === "number") {
@@ -310,11 +321,11 @@
         }
         if (showEducationalIdentifiers || showProgrammeIdentifier || badgeclass.isMicroCredentials) {
             const extensionValues = []
-            const programIdentifier = extensions[educationProgramIdentifier.name];
-            if (programIdentifier || !badgeclass.isMicroCredentials) {
+            const programIdentifiers = extensions[educationProgramIdentifier.name] || [];
+            if (programIdentifiers || !badgeclass.isMicroCredentials) {
                 extensionValues.push({
                     name: educationProgramIdentifier.name,
-                    value: parseInt(programIdentifier, 10)
+                    value: programIdentifiers.map(identifier => parseInt(identifier, 10))
                 })
             }
             const extension = extensions[eqf.name];
@@ -409,8 +420,12 @@
 
   span.info {
     display: inline-block;
-    margin-bottom: 6px;
+    margin: 6px 0;
     font-size: 14px;
+
+    &.not-last {
+      margin-bottom: 8px;
+    }
   }
 
   div.mark-down-container.disabled {
@@ -451,6 +466,21 @@
   .disabled {
     cursor: not-allowed !important;
     color: var(--grey-7);
+  }
+
+  div.input-block {
+    display: flex;
+    position: relative;
+
+    &.not-first {
+      margin-top: 20px;
+    }
+
+    button.rm-icon-container {
+      position: absolute;
+      right: 90px;
+      top: 6px;
+    }
   }
 </style>
 
@@ -731,7 +761,10 @@
             <div class="deletable-title"><h4>{I18n.t('models.badgeclass.headers.educationalIdentifiers')}</h4></div>
             {#if mayEdit && (!showStudyLoad || isInstitutionMBO)}
                 <button class="rm-icon-container"
-                        on:click={() => showEducationalIdentifiers = false}>{@html trash}</button>
+                        on:click={() => {
+                            showEducationalIdentifiers = false;
+                            extensions[educationProgramIdentifier.name] = [];
+                        }}>{@html trash}</button>
             {/if}
         </div>
 
@@ -741,15 +774,30 @@
                     attribute="educationProgramIdentifierLong"
                     errors={errors.EducationProgramIdentifierExtension}
                     tipKey="badgeClassProgrammeIdentifier">
-                <TextInput
-                        type="text"
-                        bind:value={extensions[educationProgramIdentifier.name]}
-                        disabled={!mayEdit && !isCopy}
-                        placeholder={I18n.t("placeholders.badgeClass.educationProgramIdentifier")}
-                        error={errors.EducationProgramIdentifierExtension}/>
-                <span class="info">
+                {#each extensions[educationProgramIdentifier.name] as identifier, index}
+                    <div class="input-block" class:not-first={index !== 0}>
+                        <TextInput
+                                type="text"
+                                bind:value={extensions[educationProgramIdentifier.name][index]}
+                                disabled={!mayEdit && !isCopy}
+                                maxForm={true}
+                                placeholder={I18n.t("placeholders.badgeClass.educationProgramIdentifier")}
+                                error={errors.EducationProgramIdentifierExtension}/>
+                        {#if index !== 0}
+                            <button class="rm-icon-container"
+                                    on:click={() => removeEducationProgramIdentifier(index)}>{@html trash}</button>
+                        {/if}
+                    </div>
+                {/each}
+                <span class="info not-last">
                     {@html I18n.t('models.badgeclass.info.educationProgramIdentifier')}
                 </span>
+                <AddButton
+                        text={I18n.t('models.badgeclass.addButtons.educationProgramIdentifier')}
+                        handleClick={addEducationProgramIdentifier}
+                        visibility={true}
+                        disabled={!mayEdit}/>
+
             </Field>
 
             <Field {entity} attribute="eqf" errors={errors.eqf} tipKey="badgeClassNLQFLevel">
@@ -799,15 +847,29 @@
                         attribute="educationProgramIdentifierLong"
                         errors={errors.EducationProgramIdentifierExtension}
                         tipKey="badgeClassProgrammeIdentifier">
-                    <TextInput
-                            type="text"
-                            bind:value={extensions[educationProgramIdentifier.name]}
-                            disabled={!mayEdit && !isCopy}
-                            placeholder={I18n.t("placeholders.badgeClass.educationProgramIdentifier")}
-                            error={errors.EducationProgramIdentifierExtension}/>
-                    <span class="info">
+                    {#each extensions[educationProgramIdentifier.name] as identifier, index}
+                        <div class="input-block" class:not-first={index !== 0}>
+                            <TextInput
+                                    type="text"
+                                    bind:value={extensions[educationProgramIdentifier.name][index]}
+                                    disabled={!mayEdit && !isCopy}
+                                    maxForm={true}
+                                    placeholder={I18n.t("placeholders.badgeClass.educationProgramIdentifier")}
+                                    error={errors.EducationProgramIdentifierExtension}/>
+                            {#if index !== 0}
+                                <button class="rm-icon-container"
+                                        on:click={() => removeEducationProgramIdentifier(index)}>{@html trash}</button>
+                            {/if}
+                        </div>
+                    {/each}
+                    <span class="info not-last">
                         {@html I18n.t('models.badgeclass.info.educationProgramIdentifier')}
                     </span>
+                    <AddButton
+                            text={I18n.t('models.badgeclass.addButtons.educationProgramIdentifier')}
+                            handleClick={addEducationProgramIdentifier}
+                            visibility={true}
+                            disabled={!mayEdit}/>
                 </Field>
             </div>
         {/if}
@@ -903,7 +965,9 @@
         {:else}
             <AddButton
                     text={I18n.t('models.badgeclass.addButtons.educationalIdentifiers')}
-                    handleClick={() => showEducationalIdentifiers = true}
+                    handleClick={() => {
+                        extensions[educationProgramIdentifier.name] = [""];
+                        showEducationalIdentifiers = true;}}
                     visibility={!showEducationalIdentifiers}
                     disabled={!mayEdit && !isCopy}
             />

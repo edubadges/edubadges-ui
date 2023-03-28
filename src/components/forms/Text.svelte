@@ -6,6 +6,7 @@
   export let error;
   export let size;
   export let full;
+  export let maxForm;
   export let placeholder;
   export let init = () => true;
   export let onBlur;
@@ -19,7 +20,9 @@
   div[disabled="true"] * {
     color: var(--color-text-light-grey);
   }
-
+  div[maxForm="true"] {
+    width: 100%;
+  }
   div[disabled="true"] input,
   div[disabled="true"] textarea {
     cursor: not-allowed;
@@ -33,7 +36,7 @@
   }
 </style>
 
-<div {disabled} {error}>
+<div {disabled} {error} {maxForm}>
   {#if area}
     <textarea {placeholder} class="input-field" style="{size ? 'height:' + size + 'px' : ''}" class:full class:error bind:value rows="4" {disabled}/>
   {:else if type === "text"}

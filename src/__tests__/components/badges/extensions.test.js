@@ -26,7 +26,7 @@ const extensions = [{
   originalJson: `{"@context": "${config.extensionsRootUrl}/extensions/LearningOutcomeExtension/context.json", "type": ["Extension", "extensions:LearningOutcomeExtension"], "LearningOutcome": "Will appreciate the benefits of learning a foreign language."}`
 }, {
   name: "extensions:EducationProgramIdentifierExtension",
-  originalJson: `{"@context": "${config.extensionsRootUrl}/extensions/EducationProgramIdentifierExtension/context.json", "type": ["Extension", "extensions:EducationProgramIdentifierExtension"], "EducationProgramIdentifier": 56823}`
+  originalJson: `{"@context": "${config.extensionsRootUrl}/extensions/EducationProgramIdentifierExtension/context.json", "type": ["Extension", "extensions:EducationProgramIdentifierExtension"], "EducationProgramIdentifier": [56823, 123456]}`
 }];
 
 test("Extensions value", () => {
@@ -34,7 +34,7 @@ test("Extensions value", () => {
   expect(extensionValue(extensions, ects)).toStrictEqual(2.5);
   expect(extensionValue(extensions, eqf)).toStrictEqual(7);
   expect(extensionValue(extensions, learningOutcome)).toStrictEqual("Will appreciate the benefits of learning a foreign language.");
-  expect(extensionValue(extensions, educationProgramIdentifier)).toStrictEqual(56823);
+  expect(extensionValue(extensions, educationProgramIdentifier)).toStrictEqual([56823, 123456]);
 
   expect(extensionValue(extensions, {name: "nope"})).toBeNull();
 
@@ -45,7 +45,7 @@ test("Extensions JSON", () => {
     {name: language.name, value: "nl_NL"},
     {name: ects.name, value: 6},
     {name: eqf.name, value: 3.5},
-    {name: educationProgramIdentifier.name, value: "123456"},
+    {name: educationProgramIdentifier.name, value: ["123456", "654321"]},
   ]
   const extensions = extensionToJson(nameValuePairs);
   expect(extensions).toStrictEqual({
@@ -77,7 +77,7 @@ test("Extensions JSON", () => {
     },
     "extensions:EducationProgramIdentifierExtension": {
       "@context": `${config.extensionsRootUrl}/extensions/EducationProgramIdentifierExtension/context.json`,
-      "EducationProgramIdentifier": "123456",
+      "EducationProgramIdentifier": ["123456", "654321"],
       "type": [
         "Extension",
         "extensions:EducationProgramIdentifierExtension",
