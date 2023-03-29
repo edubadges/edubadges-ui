@@ -3,7 +3,13 @@
     import moment from "moment";
     import {link} from "svelte-routing";
     import {Table} from "../teachers";
-    import {directAwards, tree} from "../../stores/filterUnclaimedDirectAwards"
+    import {
+        badgeClassSelected,
+        directAwards,
+        facultySelected,
+        issuerSelected,
+        tree
+    } from "../../stores/filterUnclaimedDirectAwards"
     import {sort, sortType} from "../../util/sortData";
     import {Button, CheckBox} from "../../components";
     import {revokeDirectAwards} from "../../api";
@@ -22,6 +28,7 @@
     let selection = [];
     let checkAllValue = false;
     let loaded = false;
+    let directAwardSearch = "";
 
     //Modal
     let showModal = false;
@@ -54,12 +61,20 @@
   }`;
 
     const loadDirectAwards = () => {
+        selection = [];
+        checkAllValue = false;
+        directAwardSearch = "";
+        $facultySelected = [];
+        $issuerSelected = [];
+        $badgeClassSelected = [];
+
         queryData(query).then(res => {
             res.allDirectAwards.forEach(da => {
                 translateProperties(da.badgeclass.issuer);
                 translateProperties(da.badgeclass.issuer.faculty);
             });
             $directAwards = res.allDirectAwards;
+
             loaded = true;
         })
     }
@@ -73,7 +88,6 @@
             modalAction = () => revoke(false);
             showModal = true;
         } else {
-            debugger;
             showModal = false;
             loaded = false;
             revokeDirectAwards(selection, revocationReason)
@@ -160,7 +174,6 @@
         tableHeaders: tableHeaders
     };
 
-    let directAwardSearch = "";
     $: searchedDirectAwardsIds = searchMultiple($tree.directAwards, directAwardSearch, "entityId",
         "eppn", "recipientEmail", "badgeclass.name", "badgeclass.issuer.name", "badgeclass.issuer.faculty.name");
 
