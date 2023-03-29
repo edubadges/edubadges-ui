@@ -8,6 +8,7 @@
         directAwards,
         facultySelected,
         issuerSelected,
+        search,
         tree
     } from "../../stores/filterUnclaimedDirectAwards"
     import {sort, sortType} from "../../util/sortData";
@@ -28,7 +29,6 @@
     let selection = [];
     let checkAllValue = false;
     let loaded = false;
-    let directAwardSearch = "";
 
     //Modal
     let showModal = false;
@@ -64,7 +64,7 @@
     const loadDirectAwards = () => {
         selection = [];
         checkAllValue = false;
-        directAwardSearch = "";
+        $search = "";
         $facultySelected = [];
         $issuerSelected = [];
         $badgeClassSelected = [];
@@ -192,13 +192,10 @@
         tableHeaders: tableHeaders
     };
 
-    $: searchedDirectAwardsIds = searchMultiple($tree.directAwards, directAwardSearch, "entityId",
-        "eppn", "recipientEmail", "badgeclass.name", "badgeclass.issuer.name", "badgeclass.issuer.faculty.name");
-
     let directAwardSort = tableHeaders[1];
 
     $: sortedFilteredDirectAwards = sort(
-        $tree.directAwards.filter(el => searchedDirectAwardsIds.includes(el.entityId)),
+        $tree.directAwards,
         directAwardSort.attribute,
         directAwardSort.reverse,
         directAwardSort.sortType
@@ -243,7 +240,7 @@
         <UnclaimedDirectAwardsSideBar/>
         <Table
                 {...table}
-                bind:search={directAwardSearch}
+                bind:search={$search}
                 bind:sort={directAwardSort}
                 isEmpty={$tree.directAwards.length === 0}
                 filteredCount={sortedFilteredDirectAwards.length}

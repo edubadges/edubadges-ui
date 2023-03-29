@@ -1,17 +1,22 @@
 import {derived, writable} from "svelte/store";
 import {filterBySearch, sort} from "./filterBadges";
+import {searchMultiple} from "../util/searchData";
 
 
 export const directAwards = writable([]);
 
+export const search = writable("");
 export const facultySelected = writable([]);
 export const issuerSelected = writable([]);
 export const badgeClassSelected = writable([]);
 
 export const tree = derived(
-    [directAwards, facultySelected, issuerSelected, badgeClassSelected],
-    ([directAwards, facultySelected, issuerSelected, badgeClassSelected]) => {
+    [directAwards, search, facultySelected, issuerSelected, badgeClassSelected],
+    ([directAwards, search, facultySelected, issuerSelected, badgeClassSelected]) => {
+        const searchedDirectAwardsIds = searchMultiple(directAwards, search, "entityId",
+        "eppn", "recipientEmail", "badgeclass.name", "badgeclass.issuer.name", "badgeclass.issuer.faculty.name");
         const filteredDirectAwards = directAwards
+            .filter(el => searchedDirectAwardsIds.includes(el.entityId))
             .filter(directAward => {
                 return !facultySelected.length || facultySelected.includes(directAward.badgeclass.issuer.faculty.entityId);
             })
@@ -66,6 +71,7 @@ export const tree = derived(
 
         return {
             directAwards: filteredDirectAwards,
+            search: search,
             faculties: sort(faculties, true),
             issuers: sort(issuers, true),
             badgeClasses: sort(badgeClasses, true)
