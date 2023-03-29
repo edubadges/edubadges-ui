@@ -208,6 +208,16 @@ export function revokeDirectAwards(directAwardEntityIds, revocationReason) {
     );
 }
 
+export function resendDirectAwards(directAwardEntityIds) {
+    const path = `${serverUrl}/directaward/resend-direct-awards`;
+    const directAwards = directAwardEntityIds.map(entityId => ({entity_id: entityId}));
+    return validFetch(
+        path,
+        {body: JSON.stringify({direct_awards: directAwards})},
+        "POST"
+    );
+}
+
 export function deleteAssertion(assertionEntityId) {
     const path = `${serverUrl}/earner/badges/${assertionEntityId}`;
     return validFetch(

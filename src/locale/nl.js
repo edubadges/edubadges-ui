@@ -902,6 +902,7 @@ I18n.translations.nl = {
         directAwards: {
             title: "Direct awards nog niet geclaimed",
             revoke: "Trek in",
+            resend: "Opnieuw versturen",
             zeroState: "Er zijn geen directe awards die nog moeten worden geclaimed voor badge classes die jij mag toekennen",
             recipient: "Ontvanger",
             eppn: "EPPN",
@@ -914,10 +915,13 @@ I18n.translations.nl = {
             confirmation: {
                 revocationReason: "Reden voor het intrekken (verplicht)",
                 revoke: "Intrekken edubadge",
-                revokeConfirmation: "Weet je zeker dat je deze edubadge wilt intrekken? Dit kan <strong>niet</strong> ongedaan worden gemaakt."
+                revokeConfirmation: "Weet je zeker dat je deze edubadge wilt intrekken? Dit kan <strong>niet</strong> ongedaan worden gemaakt.",
+                resend: "Opnieuw versturen edubadge",
+                resendConfirmation: "Weet je zeker dat je deze edubadge opnieuw wilt versturen? De ontvanger zal een e-mail ontvangen."
             },
             flash: {
-                revoked: "De edubadge(s) zijn ingetrokken."
+                revoked: "De edubadge(s) zijn ingetrokken.",
+                resend: "De edubadge(s) zijn opnieuw verstuurd.",
             }
         }
     },

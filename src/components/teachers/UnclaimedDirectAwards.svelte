@@ -12,7 +12,7 @@
     } from "../../stores/filterUnclaimedDirectAwards"
     import {sort, sortType} from "../../util/sortData";
     import {Button, CheckBox} from "../../components";
-    import {revokeDirectAwards} from "../../api";
+    import {revokeDirectAwards, resendDirectAwards} from "../../api";
     import {flash} from "../../stores/flash";
     import {searchMultiple} from "../../util/searchData";
     import singleNeutralCheck from "../../icons/single-neutral-check.svg";
@@ -32,6 +32,7 @@
 
     //Modal
     let showModal = false;
+    let showResendModal = false;
     let modalTitle;
     let modalQuestion;
     let modalAction;
@@ -95,6 +96,23 @@
                     loadDirectAwards();
                     flash.setValue(I18n.t("models.directAwards.flash.revoked"));
                     revocationReason = "";
+                });
+        }
+    }
+
+    const resend = showConfirmation => {
+        if (showConfirmation) {
+            modalTitle = I18n.t("models.directAwards.confirmation.resend");
+            modalQuestion = I18n.t("models.directAwards.confirmation.resendConfirmation");
+            modalAction = () => resend(false);
+            showResendModal = true;
+        } else {
+            showResendModal = false;
+            loaded = false;
+            resendDirectAwards(selection)
+                .then(() => {
+                    loadDirectAwards();
+                    flash.setValue(I18n.t("models.directAwards.flash.resend"));
                 });
         }
     }
@@ -239,6 +257,8 @@
             <div class="action-buttons" slot="check-buttons">
                 <Button small action={() => revoke(true)}
                         text={I18n.t('models.directAwards.revoke')} disabled={selection.length === 0} secondary={true}/>
+                <Button small action={() => resend(true)}
+                        text={I18n.t('models.directAwards.resend')} disabled={selection.length === 0} secondary={true}/>
             </div>
             {#each sortedFilteredDirectAwards.slice((minimalPage - 1) * pageCount, minimalPage * pageCount) as directAward}
                 <tr>
@@ -311,3 +331,14 @@
         </div>
     </Modal>
 {/if}
+
+{#if showResendModal}
+    <Modal
+            submit={modalAction}
+            cancel={() => showResendModal = false}
+            evaluateQuestion={true}
+            question={modalQuestion}
+            title={modalTitle}>
+    </Modal>
+{/if}
+

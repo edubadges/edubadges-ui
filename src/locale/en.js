@@ -901,6 +901,7 @@ I18n.translations.en = {
         directAwards: {
             title: "Unclaimed direct awards",
             revoke: "Revoke",
+            resend: "Resend",
             zeroState: "There are no unclaimed directe awards for badge classes you are allowed to award",
             recipient: "Recipient",
             eppn: "EPPN",
@@ -913,10 +914,13 @@ I18n.translations.en = {
             confirmation: {
                 revocationReason: "Reason for revocation (required)",
                 revoke: "Revoke edubadge",
-                revokeConfirmation: "Are you sure you want to revoke this edubadge? This can <strong>not</strong> be undone and the edubadge will be invalid after this."
+                revokeConfirmation: "Are you sure you want to revoke this edubadge? This can <strong>not</strong> be undone and the edubadge will be invalid after this.",
+                resend: "Resend edubadge",
+                resendConfirmation: "Are you sure you want to resend this edubadge? The recipient will be notified with an email."
             },
             flash: {
-                revoked: "The edubadge(s) have been revoked."
+                revoked: "The edubadge(s) have been revoked.",
+                resend: "The edubadge(s) have been resend."
             }
         }
     },
