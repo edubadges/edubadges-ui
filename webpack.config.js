@@ -89,7 +89,7 @@ module.exports = {
       openAnalyzer: false
     }) : false
   ].filter(Boolean),
-  devtool: prod ? false : "source-map",
+  devtool: "source-map",
   devServer: {
     port: 4000,
     historyApiFallback: true,
