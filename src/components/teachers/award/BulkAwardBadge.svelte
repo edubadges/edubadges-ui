@@ -11,6 +11,11 @@
     import Warning from "../../forms/Warning.svelte";
     import DotSpinner from "../../DotSpinner.svelte";
     import BulkAwardResult from "./BulkAwardResult.svelte";
+    import {en, nl} from 'svelty-picker/i18n';
+    import SveltyPicker from 'svelty-picker';
+    import CheckBox from "../../CheckBox.svelte";
+    import calendarIcon from "../../../icons/calendar-1.svg";
+    import {onMount} from "svelte";
 
     export let badgeclass;
     export let enrollments;
@@ -26,6 +31,15 @@
     let missingEvidenceOrNarrative = [];
     let processing = false;
     let serverProcessing = false;
+    let enableScheduling = false;
+    let scheduledAt = null;
+    let initialDate = new Date();
+    let startDate = new Date();
+
+    onMount(() => {
+        initialDate.setDate(initialDate.getDate() + 1);
+        startDate.setDate(startDate.getDate() + 1);
+    });
 
     const alreadyInList = (newDirectAwards, email, eppn) =>
         newDirectAwards.some(da => da.email === email || da.eppn === eppn);
@@ -98,7 +112,7 @@
 
     const doAward = () => {
         serverProcessing = true;
-        createDirectAwards(directAwards, badgeclass, true, null, false)
+        createDirectAwards(directAwards, badgeclass, true, enableScheduling ? new Date(scheduledAt) : null, false)
             .then(() => {
                 refresh();
                 navigate(`/badgeclass/${badgeclass.entityId}/awarded`);
@@ -131,6 +145,38 @@
 
     div.warning-container {
       margin: 10px 0 20px 0;
+    }
+
+    .scheduled-at {
+      display: flex;
+      align-items: center;
+      margin: 15px 0 16px 0;
+
+      &.disable-scheduling {
+        margin: 23px 0 25px 0;
+      }
+
+      :global(input.input-field) {
+        max-width: 180px;
+        margin-left: 40px;
+      }
+
+      .svelte-picker {
+        position: relative;
+
+        span.calendar {
+          cursor: pointer;
+        }
+
+        :global(svg.calendar-1) {
+          position: absolute;
+          right: 0;
+          top: 8px;
+          color: var(--purple);
+          width: 24px;
+          height: auto;
+        }
+      }
     }
 
     :global(.dropzone) {
@@ -193,8 +239,7 @@
 <div class="bulk-award-badge">
     <h2>{I18n.t("badgeAward.bulkAward.title")}</h2>
     <div class="main-content-margin">
-        <p
-                class="sub-title">{@html I18n.t("badgeAward.bulkAward.subtitle", {sample: `${config.serverUrl}/static/sample_direct_award.csv`})}
+        <p class="sub-title">{@html I18n.t("badgeAward.bulkAward.subtitle", {sample: `${config.serverUrl}/static/sample_direct_award.csv`})}
             {#if badgeclass.evidenceRequired && badgeclass.narrativeRequired}
                 <span>{I18n.t("badgeAward.bulkAward.evidenceAndNarrativeRequired")}</span>
             {:else if badgeclass.evidenceRequired}
@@ -212,6 +257,39 @@
                 </Warning>
             </div>
         {/if}
+                    <div class="scheduled-at" class:disable-scheduling={!enableScheduling}>
+                <CheckBox
+                        value={enableScheduling}
+                        name={"enableScheduling"}
+                        tipKey="awardScheduling"
+                        inForm={false}
+                        adjustTop={true}
+                        boldLabel={false}
+                        label={I18n.t("badgeAward.directAward.schedulingDate")}
+                        onChange={val => {
+                            enableScheduling = val;
+                        }}/>
+                {#if enableScheduling}
+                    <div class="svelte-picker">
+                        <SveltyPicker
+                                inputClasses="input-field"
+                                inputId="svelty-picker-id"
+                                format="yyyy-mm-dd hh:ii"
+                                startDate={startDate}
+                                clearBtn={false}
+                                disabled={!enableScheduling}
+                                minuteIncrement={30}
+                                i18n={I18n.locale === "en" ? en : nl}
+                                todayBtn={false}
+                                bind:value={scheduledAt}
+                                bind:initialDate={initialDate}/>
+                        <span class="calendar" on:click={() => document.getElementById("svelty-picker-id").focus()}>
+                            {@html calendarIcon}
+                        </span>
+
+                    </div>
+                {/if}
+            </div>
         {#if processing}
             <DotSpinner/>
         {:else if serverProcessing}
