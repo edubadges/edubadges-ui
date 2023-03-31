@@ -215,7 +215,7 @@
         },
         {
             name: I18n.t("models.badge.status"),
-            attribute: "acceptance",
+            attribute: "statusDisplay",
             reverse: false,
             sortType: sortType.ALPHA,
             width: "12%",

@@ -6,6 +6,7 @@ export const isRevoked = assertion => {
 
 export const assertionStatus = assertion => {
     status = assertionStatusClass(assertion);
+    assertion.statusDisplay = status;
     return I18n.t(`models.badge.statuses.${status}`);
 }
 
