@@ -11,6 +11,7 @@ export const awardTypes= {
 }
 
 export const statusTypes = {
+  SCHEDULED: "SCHEDULED",
   PENDING: "UNACCEPTED",
   CLAIMED: "ACCEPTED",
   REJECTED: "REJECTED",

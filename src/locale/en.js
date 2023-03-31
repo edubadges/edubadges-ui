@@ -781,7 +781,8 @@ I18n.translations.en = {
                 pendingEnrollmentCount: "{{count}} open requests",
                 archived: "Archived",
                 imported: "Imported",
-                awarded: "Awarded"
+                awarded: "Awarded",
+                scheduled: "Scheduled",
             },
             confirmation: {
                 revocationReason: "Reason for revocation (required)",
@@ -1267,7 +1268,8 @@ I18n.translations.en = {
         importedBadgeImage: "The png or svg badge image file",
         endorsementDescription: "The description of the endorsement",
         endorsementClaim: "The claim describes why and how this badge class is similar to the endorsed badge",
-        endorsementBadgeClass: "The badge class you would like to endorse."
+        endorsementBadgeClass: "The badge class you would like to endorse.",
+        awardScheduling: "Enter a scheduling date to set the date / time when the emails will be send out to the users who are awarded the badge"
     },
     badgeOverview: {
         faculty: "Issuer Group",
@@ -1325,6 +1327,7 @@ I18n.translations.en = {
             cancel: "Cancel",
             award: "Award",
             addEvidence: "Narrative",
+            schedulingDate: "Enable scheduling",
             editEvidence: "Edit narrative",
             processing: "Processing {{count}} direct awards. Please be patient...",
             flash: {
@@ -1381,6 +1384,7 @@ I18n.translations.en = {
             REQUESTED: "Enrolled / requested",
         },
         status: {
+            SCHEDULED: "Scheduled",
             PENDING: "Pending",
             CLAIMED: "Claimed",
             REVOKED: "Revoked",

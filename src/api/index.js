@@ -738,12 +738,13 @@ export function disinviteUser(provisionmentId) {
     return validFetch(path, {}, "DELETE");
 }
 
-export function createDirectAwards(directAwards, badgeclass, bulkAward, ltiImport = false) {
+export function createDirectAwards(directAwards, badgeclass, bulkAward, scheduled_at = null, ltiImport = false) {
     const path = `${serverUrl}/directaward/create`;
     const payload = {
         notify_recipients: true,
         batch_mode: bulkAward,
         lti_import: ltiImport,
+        scheduled_at: scheduled_at,
         badgeclass: badgeclass.entityId,
         direct_awards: directAwards.map(da => ({
             recipient_email: da.email,

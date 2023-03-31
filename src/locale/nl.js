@@ -782,7 +782,8 @@ I18n.translations.nl = {
                 pendingEnrollmentCount: "{{count}} open aanvragen",
                 archived: "Gearchiveerd",
                 imported: "Import",
-                awarded: "Toegekend"
+                awarded: "Toegekend",
+                scheduled: "Ingepland",
             },
             confirmation: {
                 revocationReason: "Reden voor intrekking (verplicht)",
@@ -1268,7 +1269,8 @@ I18n.translations.nl = {
         importedBadgeImage: "Een png of svg badge afbeelding",
         endorsementDescription: "De omschrijving van de aanbeveling",
         endorsementClaim: "De claim beschrijft waarom en hoe deze badgeclass vergelijkbaar is met de geselecteerde badge",
-        endorsementBadgeClass: "De badgeklasse die je wilt aanbevelen."
+        endorsementBadgeClass: "De badgeklasse die je wilt aanbevelen.",
+        awardScheduling: "Voer de datum in waarop de e-mails zullen worden verzonden naar de gebruikers aan wie de badge is toegekend."
     },
     badgeOverview: {
         faculty: "Issuer groep",
@@ -1327,6 +1329,7 @@ I18n.translations.nl = {
             award: "Verzenden",
             addEvidence: "Motivatie/bewijs",
             editEvidence: "Motivatie/bewijs bewerken",
+            schedulingDate: "Planning inschakelen",
             processing: "Bezig om {{count}} direct awards te verwerken. Even geduld...",
             flash: {
                 created: "Direct awards zijn verzonden"
@@ -1382,6 +1385,7 @@ I18n.translations.nl = {
             REQUESTED: "Aangevraagd",
         },
         status: {
+            SCHEDULED: "Ingepland",
             PENDING: "In afwachting",
             CLAIMED: "Geclaimd",
             REVOKED: "Ingetrokken",

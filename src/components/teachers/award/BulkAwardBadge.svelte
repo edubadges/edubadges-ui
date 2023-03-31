@@ -98,7 +98,7 @@
 
     const doAward = () => {
         serverProcessing = true;
-        createDirectAwards(directAwards, badgeclass, true)
+        createDirectAwards(directAwards, badgeclass, true, null, false)
             .then(() => {
                 refresh();
                 navigate(`/badgeclass/${badgeclass.entityId}/awarded`);

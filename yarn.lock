@@ -1630,20 +1630,10 @@ acorn-walk@^7.1.1:
   resolved "https://registry.yarnpkg.com/acorn-walk/-/acorn-walk-7.2.0.tgz#0de889a601203909b0fbe07b8938dc21d2e967bc"
   integrity sha512-OPdCF6GsMIP+Az+aWfAAOEt2/+iVDKE7oy6lJ098aoe59oAmK76qV6Gw60SbZ8jHuG2wH058GF4pLFbYamYrVA==
 
-acorn@^6.2.1:
-  version "6.4.2"
-  resolved "https://registry.yarnpkg.com/acorn/-/acorn-6.4.2.tgz#35866fd710528e92de10cf06016498e47e39e1e6"
-  integrity sha512-XtGIhXwF8YM8bJhGxG5kXgjkEuNGLTkoYqVE+KMR+aspr4KGYmKYg7yUe3KghyQ9yheNwLnjmzh/7+gfDBmHCQ==
-
-acorn@^7.1.1:
-  version "7.4.1"
-  resolved "https://registry.yarnpkg.com/acorn/-/acorn-7.4.1.tgz#feaed255973d2e77555b83dbc08851a6c63520fa"
-  integrity sha512-nQyp0o1/mNdbTO1PO6kHkwSrmgZ0MT/jCCpNiwbUjGoRN4dlBhqJtoQuCnEOKzgTVwg0ZWiCoQy6SxMebQVh8A==
-
-acorn@^8.2.4:
-  version "8.7.1"
-  resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.7.1.tgz#0197122c843d1bf6d0a5e83220a788f278f63c30"
-  integrity sha512-Xx54uLJQZ19lKygFXOWsscKUbsBZW0CPykPhVQdhIeIwrbPmJzqeASDInc8nKBnp/JT6igTs82qPXz069H8I/A==
+acorn@8.0.1, acorn@^6.2.1, acorn@^7.1.1, acorn@^8.2.4:
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.0.1.tgz#d7e8eca9b71d5840db0e7e415b3b2b20e250f938"
+  integrity sha512-dmKn4pqZ29iQl2Pvze1zTrps2luvls2PBY//neO2WJ0s10B3AxJXshN+Ph7B4GrhfGhHXrl4dnUwyNNXQcnWGQ==
 
 agent-base@6:
   version "6.0.2"
@@ -8309,6 +8299,11 @@ svelte@^3.49.0:
   version "3.49.0"
   resolved "https://registry.yarnpkg.com/svelte/-/svelte-3.49.0.tgz#5baee3c672306de1070c3b7888fc2204e36a4029"
   integrity sha512-+lmjic1pApJWDfPCpUUTc1m8azDqYCG1JN9YEngrx/hUyIcFJo6VZhj0A1Ai0wqoHcEIuQy+e9tk+4uDgdtsFA==
+
+svelty-picker@^3.4.5:
+  version "3.4.5"
+  resolved "https://registry.yarnpkg.com/svelty-picker/-/svelty-picker-3.4.5.tgz#38d30d0c10368c3eb58d6ccb7c9bb9fc997127fb"
+  integrity sha512-y33KuOnh2s4dbwQaMUfgKteuIxvI0t76piZDwKFk/dHYIH+3lcBffSZySklmoFw+83N3pMYk1pCJ7O5rffQc4Q==
 
 svg-inline-loader@^0.8.0:
   version "0.8.2"

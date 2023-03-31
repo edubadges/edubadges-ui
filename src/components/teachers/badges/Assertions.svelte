@@ -309,7 +309,7 @@
       color: white;
     }
 
-    &.unaccepted, &.pending {
+    &.unaccepted, &.pending, &.scheduled {
       background-color: var(--grey-3);
     }
 

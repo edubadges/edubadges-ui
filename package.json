@@ -3,6 +3,9 @@
   "name": "edubadges",
   "version": "0.0.1",
   "license": "MIT",
+  "resolutions": {
+    "acorn": "8.0.1"
+  },
   "devDependencies": {
     "@babel/core": "^7.7.2",
     "@babel/preset-env": "^7.7.1",
@@ -54,7 +57,8 @@
     "svelte-file-dropzone": "^0.0.15",
     "svelte-json-tree": "^0.1.0",
     "svelte-routing": "^1.4.2",
-    "svelte-select": "^3.10.0"
+    "svelte-select": "^3.10.0",
+    "svelty-picker": "^3.4.5"
   },
   "performance": {
     "hints": true

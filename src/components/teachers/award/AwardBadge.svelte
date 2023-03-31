@@ -15,6 +15,10 @@
     import Spinner from "../../Spinner.svelte";
     import {ltiContext} from "../../../stores/lti";
     import {roles} from "../../../util/lti";
+    import {en, nl} from 'svelty-picker/i18n';
+    import SveltyPicker from 'svelty-picker';
+    import CheckBox from "../../CheckBox.svelte";
+    import calendarIcon from "../../../icons/calendar-1.svg";
 
     export let badgeclass;
     export let enrollments;
@@ -36,8 +40,14 @@
     let launchData;
     let users;
     let loaded = false;
+    let enableScheduling = false;
+    let scheduledAt = null;
+    let initialDate = new Date();
+    let startDate = new Date();
 
     onMount(() => {
+        initialDate.setDate(initialDate.getDate() + 1);
+        startDate.setDate(startDate.getDate() + 1);
         if (ltiContextEnabled) {
             Promise.all([
                 getLTIContext($ltiContext.launchId),
@@ -98,7 +108,6 @@
     }
 
 
-
     const awardModalCancel = () => {
         showAwardModal = false;
         selectedDirectAwardForEvidence.narrative = ""
@@ -144,13 +153,13 @@
         if (Object.values(errors).some(val => val)) {
             return;
         }
-        createDirectAwards(directAwards, badgeclass, ltiContextEnabled)
+        createDirectAwards(directAwards, badgeclass, false, enableScheduling ? new Date(scheduledAt) : null, ltiContextEnabled)
             .then(() => {
                 refresh(() => setTimeout(() => navigate(`/badgeclass/${badgeclass.entityId}/awarded`), 75));
                 flash.setValue(I18n.t("badgeAward.directAward.flash.created"));
             }).catch(e => {
-                refresh(() => setTimeout(() => navigate(`/badgeclass/${badgeclass.entityId}/awarded`), 75));
-                flash.error(e.message);
+            refresh(() => setTimeout(() => navigate(`/badgeclass/${badgeclass.entityId}/awarded`), 75));
+            flash.error(e.message);
         });
     };
 
@@ -191,8 +200,40 @@
     }
 
     p.sub-title {
-      margin-bottom: 20px;
+      margin-bottom: 0;
       max-width: 50%;
+    }
+
+    .scheduled-at {
+      display: flex;
+      align-items: center;
+      margin: 15px 0 16px 0;
+
+      &.disable-scheduling {
+        margin: 23px 0 25px 0;
+      }
+
+      :global(input.input-field) {
+        max-width: 180px;
+        margin-left: 40px;
+      }
+
+      .svelte-picker {
+        position: relative;
+
+        span.calendar {
+          cursor: pointer;
+        }
+
+        :global(svg.calendar-1) {
+          position: absolute;
+          right: 0;
+          top: 8px;
+          color: var(--purple);
+          width: 24px;
+          height: auto;
+        }
+      }
     }
 
     div.warning-container {
@@ -271,6 +312,39 @@
                     </Warning>
                 </div>
             {/if}
+            <div class="scheduled-at" class:disable-scheduling={!enableScheduling}>
+                <CheckBox
+                        value={enableScheduling}
+                        name={"enableScheduling"}
+                        tipKey="awardScheduling"
+                        inForm={false}
+                        adjustTop={true}
+                        boldLabel={false}
+                        label={I18n.t("badgeAward.directAward.schedulingDate")}
+                        onChange={val => {
+                            enableScheduling = val;
+                        }}/>
+                {#if enableScheduling}
+                    <div class="svelte-picker">
+                        <SveltyPicker
+                                inputClasses="input-field"
+                                inputId="svelty-picker-id"
+                                format="yyyy-mm-dd hh:ii"
+                                startDate={startDate}
+                                clearBtn={false}
+                                disabled={!enableScheduling}
+                                minuteIncrement={30}
+                                i18n={I18n.locale === "en" ? en : nl}
+                                todayBtn={false}
+                                bind:value={scheduledAt}
+                                bind:initialDate={initialDate}/>
+                        <span class="calendar" on:click={() => document.getElementById("svelty-picker-id").focus()}>
+                            {@html calendarIcon}
+                        </span>
+
+                    </div>
+                {/if}
+            </div>
             <div class="grouped">
                 {#each directAwards as da, i}
                     <Field entity="badgeAward" attribute="email">
