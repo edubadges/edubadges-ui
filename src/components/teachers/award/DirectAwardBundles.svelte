@@ -28,40 +28,54 @@
             name: I18n.t("models.directAwardBundle.directAwardCount"),
             attribute: "directAwardCount",
             reverse: false,
+            center: true,
             sortType: sortType.NUMERIC,
-            width: "15%"
+            width: "12%"
         },
         {
             name: I18n.t("models.directAwardBundle.directAwardRejectedCount"),
             attribute: "directAwardRejectedCount",
             reverse: false,
+            center: true,
             sortType: sortType.NUMERIC,
-            width: "15%"
+            width: "12%"
         },
         {
             name: I18n.t("models.directAwardBundle.directAwardRevokedCount"),
             attribute: "directAwardRevokedCount",
             reverse: false,
+            center: true,
             sortType: sortType.NUMERIC,
-            width: "15%"
+            width: "12%"
+        },
+        {
+            name: I18n.t("models.directAwardBundle.directAwardScheduledCount"),
+            attribute: "directAwardRevokedCount",
+            reverse: false,
+            center: true,
+            sortType: sortType.NUMERIC,
+            width: "12%"
         },
         {
             name: I18n.t("models.directAwardBundle.assertionCount"),
             attribute: "assertionCount",
             reverse: false,
+            center: true,
             sortType: sortType.NUMERIC,
-            width: "15%"
+            width: "12%"
         },
         {
             name: I18n.t("models.directAwardBundle.initialTotal"),
             attribute: "initialTotal",
+            center: true,
             reverse: false,
             sortType: sortType.NUMERIC,
-            width: "15%"
+            width: "12%"
         },
         {
             name: I18n.t("models.directAwardBundle.rateClaim"),
             attribute: "rateClaim",
+            center: true,
             reverse: false,
             sortType: sortType.NUMERIC,
             width: "15%"
@@ -105,22 +119,25 @@
             <td>
                 {moment(dab.createdAt).format('MMM D, YYYY')}
             </td>
-            <td>
+            <td class="center">
                 {dab.directAwardCount}
             </td>
-            <td>
+            <td class="center">
                 {dab.directAwardRejectedCount}
             </td>
-            <td>
+            <td class="center">
                 {dab.directAwardRevokedCount}
             </td>
-            <td>
+            <td class="center">
+                {dab.directAwardScheduledCount}
+            </td>
+            <td class="center">
                 {dab.assertionCount}
             </td>
-            <td>
+            <td class="center">
                 {dab.initialTotal}
             </td>
-            <td>
+            <td class="center">
                 {dab.rateClaim}
             </td>
         </tr>

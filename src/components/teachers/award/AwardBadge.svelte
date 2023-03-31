@@ -43,11 +43,15 @@
     let enableScheduling = false;
     let scheduledAt = null;
     let initialDate = new Date();
-    let startDate = new Date();
+    let startDate = null;
 
     onMount(() => {
         initialDate.setDate(initialDate.getDate() + 1);
-        startDate.setDate(startDate.getDate() + 1);
+        const minutes = initialDate.getMinutes();
+        if (minutes !== 0 || minutes !== 30) {
+            initialDate.setMinutes(minutes + (30 - minutes))
+        }
+        startDate = initialDate;
         if (ltiContextEnabled) {
             Promise.all([
                 getLTIContext($ltiContext.launchId),

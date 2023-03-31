@@ -171,6 +171,7 @@ export const directAwardBundleQuery = `
         assertionCount,
         directAwardCount,
         directAwardRejectedCount,
+        directAwardScheduledCount,
         directAwardRevokedCount
         initialTotal,
         directAwards {
