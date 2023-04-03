@@ -38,10 +38,7 @@
 
     onMount(() => {
         initialDate.setDate(initialDate.getDate() + 1);
-        const minutes =  initialDate.getMinutes();
-        if (minutes !== 0 || minutes !== 30) {
-            initialDate.setMinutes(minutes + (30 - minutes))
-        }
+        initialDate.setHours(0, 0, 0);
         startDate = initialDate;
     });
 
