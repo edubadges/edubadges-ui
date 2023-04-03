@@ -7,7 +7,8 @@
     "acorn": "8.0.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.7.2",
+    "@babel/core": "^7.21.4",
+    "@babel/plugin-proposal-optional-chaining": "^7.21.0",
     "@babel/preset-env": "^7.7.1",
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.1.0",
@@ -38,6 +39,7 @@
   },
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack",
+    "build2": "cross-env webpack",
     "dev": "webpack-dev-server --open --content-base public",
     "test": "jest src",
     "test:watch": "npm run test -- --watch",
