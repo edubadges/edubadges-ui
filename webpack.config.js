@@ -94,11 +94,11 @@ module.exports = {
             favicon: "src/favicon.ico",
             hash: true,
         }),
-        prod ? new BundleAnalyzerPlugin({
-            analyzerMode: "disabled",
-            generateStatsFile: false,
-            openAnalyzer: false
-        }) : false
+        // prod ? new BundleAnalyzerPlugin({
+        //     analyzerMode: "disabled",
+        //     generateStatsFile: false,
+        //     openAnalyzer: false
+        // }) : false
     ].filter(Boolean),
     // devtool: prod ? false : "source-map",
     devtool: false, //prod ? false : "source-map",

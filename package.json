@@ -38,8 +38,8 @@
     "webpack-dev-server": "^3.9.0"
   },
   "scripts": {
-    "build": "cross-env NODE_ENV=production webpack",
-    "build2": "cross-env webpack",
+    "build-old": "cross-env NODE_ENV=production webpack",
+    "build": "cross-env webpack",
     "dev": "webpack-dev-server --open --content-base public",
     "test": "jest src",
     "test:watch": "npm run test -- --watch",
