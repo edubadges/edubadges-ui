@@ -227,7 +227,10 @@
                     extensions[ects.name] = 3;
                 }
             }
-            removeProgrammeIdentifier();
+            if (isCreate || isEmpty(extensions[educationProgramIdentifier.name])) {
+                removeProgrammeIdentifier();
+                showEducationalIdentifiers = false;
+            }
             const newAlignments = badgeclass.alignments || [];
             badgeclass.alignments = [{
                 target_name: microCredentialsFramework.name,
@@ -241,6 +244,9 @@
         } else {
             badgeclass.alignments = (badgeclass.alignments || [])
                 .filter(alignment => alignment.target_name !== microCredentialsFramework.name);
+            if (showEducationalIdentifiers && isEmpty(extensions[educationProgramIdentifier.name])) {
+                extensions[educationProgramIdentifier.name] = [""];
+            }
         }
     }
 
@@ -322,12 +328,13 @@
             ]);
             newBadgeclass.extensions = {...newBadgeclass.extensions, ...learningOutcomeExt}
         }
-        if (showEducationalIdentifiers || showProgrammeIdentifier || badgeclass.isMicroCredentials) {
+        if (showEducationalIdentifiers || showProgrammeIdentifier) {
             const extensionValues = []
             const programIdentifiers = extensions[educationProgramIdentifier.name] || [];
             extensionValues.push({
                 name: educationProgramIdentifier.name,
-                value: programIdentifiers.some(identifier => identifier) ? programIdentifiers.map(identifier => parseInt(identifier, 10)) : "invalid"
+                value: programIdentifiers.some(identifier => identifier) ?
+                    programIdentifiers.map(identifier => parseInt(identifier, 10)) : "invalid"
             })
             const extension = extensions[eqf.name];
             if (extension) {
@@ -769,7 +776,6 @@
                         }}>{@html trash}</button>
             {/if}
         </div>
-
         <div class="form">
             <Field
                     {entity}
@@ -842,7 +848,6 @@
                             on:click={removeProgrammeIdentifier}>{@html trash}</button>
                 {/if}
             </div>
-
             <div class="form">
                 <Field
                         {entity}
