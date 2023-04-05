@@ -118,6 +118,9 @@
         badgeclass.awardNonValidatedNameAllowed = false;
         if (!isInstitutionMBO) {
             showEducationalIdentifiers = true;
+            if (isEmpty(extensions[educationProgramIdentifier.name])) {
+                extensions[educationProgramIdentifier.name] = [""];
+            }
         }
     }
 
