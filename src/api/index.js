@@ -43,6 +43,7 @@ function validFetch(path, options = {}, method = "GET", useToken = true, showErr
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
+            "x-requested-with": "client",
         },
     };
 

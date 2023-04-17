@@ -19,6 +19,7 @@ export const queryData = (query, variables) => {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+        "x-requested-with": "client",
         Authorization: `Bearer ${get(authToken)}`,
       },
       body: JSON.stringify({

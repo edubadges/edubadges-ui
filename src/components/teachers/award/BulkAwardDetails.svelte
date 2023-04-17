@@ -1,11 +1,10 @@
 <script>
     import I18n from "i18n-js";
     import {sort, sortType} from "../../../util/sortData";
-    import filter from "../../../icons/filter-1.svg";
     import {searchMultiple} from "../../../util/searchData";
     import Table from "../Table.svelte";
     import singleNeutralCheck from "../../../icons/single-neutral-check.svg";
-    import {assertionStatus, assertionStatusClass} from "../../../util/assertions";
+    import {assertionStatusClass} from "../../../util/assertions";
     import moment from "moment";
     import {pageCount} from "../../../util/pagination";
 
@@ -101,7 +100,7 @@
                     <span>{assertion.eppn}</span>
                 </td>
                 <td class="assertion-status center">
-                    <span class={assertionStatusClass(assertion)}>{assertionStatus(assertion)}</span>
+                    <span class={assertionStatusClass(assertion)}>{I18n.t(`models.badge.statuses.${assertion.statusDisplay}`)}</span>
                 </td>
             </tr>
         {/each}

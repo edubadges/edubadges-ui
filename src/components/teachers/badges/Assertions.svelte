@@ -13,7 +13,7 @@
     import filter from "../../../icons/filter-1.svg";
     import SideBarAssertions from "../award/SideBarAssertions.svelte";
     import {awardTypes, issuedTypes, statusTypes} from "../../../stores/filterAssertions";
-    import {assertionStatus, assertionStatusClass, isRevoked} from "../../../util/assertions";
+    import {assertionStatusClass, isRevoked} from "../../../util/assertions";
     import Spinner from "../../Spinner.svelte";
     import {pageCount} from "../../../util/pagination";
 
@@ -198,7 +198,7 @@
         },
         {
             name: I18n.t("models.badge.awardType.name"),
-            attribute: "award_type",
+            attribute: "awardType",
             reverse: false,
             icon: filter,
             sortType: sortType.ALPHA,
@@ -215,7 +215,7 @@
         },
         {
             name: I18n.t("models.badge.status"),
-            attribute: "statusDisplay",
+            attribute: "statusSort",
             reverse: false,
             sortType: sortType.ALPHA,
             width: "12%",
@@ -386,7 +386,7 @@
                     {moment(assertion.isDirectAward ? assertion.createdAt : assertion.issuedOn).format('MMM D, YYYY')}
                 </td>
                 <td class="assertion-status center">
-                    <span class={assertionStatusClass(assertion)}>{assertionStatus(assertion)}</span>
+                    <span class={assertionStatusClass(assertion)}>{I18n.t(`models.badge.statuses.${assertion.statusDisplay}`)}</span>
                 </td>
                 <td class="center">
                     {assertion.updatedAt && (!assertion.isDirectAward || assertion.acceptance === "ACCEPTED") ?

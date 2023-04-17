@@ -1,13 +1,5 @@
-import I18n from "i18n-js";
-
 export const isRevoked = assertion => {
     return (assertion.isDirectAward && assertion.status.toLowerCase() === "revoked") || (!assertion.isDirectAward && assertion.revoked);
-}
-
-export const assertionStatus = assertion => {
-    status = assertionStatusClass(assertion);
-    assertion.statusDisplay = status;
-    return I18n.t(`models.badge.statuses.${status}`);
 }
 
 export const assertionStatusClass = assertion => {

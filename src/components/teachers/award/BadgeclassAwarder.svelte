@@ -34,6 +34,7 @@
     import {config} from "../../../util/config";
     import Endorsements from "../endorsements/Endorsements.svelte";
     import Endorsed from "../endorsements/Endorsed.svelte";
+    import {assertionStatusClass} from "../../../util/assertions";
 
     export let entityId;
     export let subEntity;
@@ -194,6 +195,10 @@
 
         res.badgeClass.directAwards = directAwards;
         assertions = badgeAssertions.concat(directAwards);
+        assertions.forEach(assertion => {
+            assertion.statusDisplay = assertionStatusClass(assertion);
+            assertion.statusSort = I18n.t(`models.badge.statuses.${assertion.statusDisplay}`)
+        });
         existingDirectAwardsEppns = directAwards
             .filter(da => da.status.toLowerCase() === "unaccepted" || da.status.toLowerCase() === "scheduled");
         existingAssertionsEmails = badgeAssertions.filter(ass => !ass.revoked).map(assertion => assertion.user.email);
