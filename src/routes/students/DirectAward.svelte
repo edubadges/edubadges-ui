@@ -120,7 +120,6 @@
             translateProperties(issuer);
             translateProperties(issuer.faculty);
             translateProperties(issuer.faculty.institution);
-
             showModal = false;
             loaded = true;
         });
@@ -317,7 +316,7 @@
         <div class="dates">
           <div class="issued-on">
             <h3>{I18n.t("models.badge.issuedOn")}</h3>
-            <span>{moment(directAward.createAt).format('MMM D, YYYY')}</span>
+            <span>{moment(directAward.createdAt).format('MMM D, YYYY')}</span>
           </div>
         </div>
 
