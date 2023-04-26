@@ -11,21 +11,25 @@ export const institutionOptions = institutions => {
     return institutions.map(institution => ({
         identifier: institution.entityId,
         name: institution[name] || institution[backupName]
-    }))
+    })).sort((i1, i2) => i1.name.localeCompare(i2.name));
 }
 
 export const facultyOptions = faculties => {
-    return Array.from(faculties.keys()).map(key => ({identifier: key, name: faculties.get(key).name}))
+    return Array.from(faculties.keys())
+        .map(key => ({identifier: key, name: faculties.get(key).name}))
+        .sort((i1, i2) => i1.name.localeCompare(i2.name));
 }
 
 export const issuerOptions = (faculties, facultyId) => {
     if (facultyId) {
         const facIssuers = faculties.get(facultyId).issuers;
-        return Array.from(facIssuers.keys()).map(key => ({
+        return Array.from(facIssuers.keys())
+            .map(key => ({
             identifier: key,
             name: facIssuers.get(key).name,
             facultyId: facultyId
         }))
+        .sort((i1, i2) => i1.name.localeCompare(i2.name));
     } else {
         return Array.from(faculties.keys()).map(facultyKey => {
             const faculty = faculties.get(facultyKey);
@@ -35,7 +39,7 @@ export const issuerOptions = (faculties, facultyId) => {
                 name: issuers.get(issuerKey).name,
                 facultyId: facultyKey
             }))
-        }).flat();
+        }).flat().sort((i1, i2) => i1.name.localeCompare(i2.name));;
     }
 }
 
@@ -55,22 +59,24 @@ const getBadgeClassesFromFaculty = (faculty, facultyKey) => {
 }
 
 export const badgeClassOptions = (faculties, facultyId, issuerId) => {
+    let options;
     if (facultyId) {
         const faculty = faculties.get(facultyId);
         const facIssuers = faculty.issuers;
         if (issuerId && facIssuers.has(issuerId)) {
             const badgeClasses = facIssuers.get(issuerId).badgeClasses;
-            return Array.from(badgeClasses.keys())
+            options = Array.from(badgeClasses.keys())
                 .map(key => ({identifier: key, name: badgeClasses.get(key), facultyId: facultyId, issuerId: issuerId}));
         } else {
-            return getBadgeClassesFromFaculty(faculty);
+            options = getBadgeClassesFromFaculty(faculty);
         }
     } else {
-        return Array.from(faculties.keys()).map(facultyKey => {
+        options = Array.from(faculties.keys()).map(facultyKey => {
             const faculty = faculties.get(facultyKey)
             return getBadgeClassesFromFaculty(faculty, facultyKey);
         }).flat(2);
     }
+    return options.flat(2).sort((i1, i2) => i1.name.localeCompare(i2.name));
 }
 
 export const totalNbrByAttributeValue = (assertions, attr, value) => {

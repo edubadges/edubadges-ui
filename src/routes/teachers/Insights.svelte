@@ -208,12 +208,12 @@
             profile = arr[1];
             if (profile.is_superuser && isEmpty(institutions)) {
                 queryData(query).then(res => {
-                    institutions = institutionOptions(res.publicInstitutions).concat([{
+                    institutionId = {
                         name: I18n.t("insights.total"),
                         identifier: "all"
-                    }]);
+                    };
+                    institutions = institutionOptions(res.publicInstitutions).concat([institutionId]);
                     currentInstitution = res.currentInstitution;
-                    institutionId = institutions.find(institution => institution.identifier === currentInstitution.entityId);
                 });
             } else if (!profile.is_superuser && isEmpty(currentInstitution)) {
                 queryData(queryNoSuperUser).then(res => {
@@ -327,7 +327,7 @@
         badgeClassId = null;
         issuerId = null;
         facultyId = null;
-        institutionId = institutions.find(institution => institution.identifier === currentInstitution.entityId);
+        institutionId = institutions.find(institution => institution.identifier === "all");
         year = yearSelectOptions[0];
 
         facultySelectOptions = facultyOptions(faculties);
