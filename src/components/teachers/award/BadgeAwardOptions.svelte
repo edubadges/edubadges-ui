@@ -6,15 +6,19 @@
     import {onMount} from "svelte";
     import {ltiContext} from "../../../stores/lti";
     import EntityHeaderNotification from "../EntityHeaderNotification.svelte";
+    import CopyEntityIDDialog from "./CopyEntityIDDialog.svelte";
 
     export let badgeclass = {};
 
     let showInviteDialog = false;
     let showShareFeedback = false;
+    let showCopyEntityIDialog = false;
     let directAwardingEnabled = false;
+    let sisIntegrationEnabled = false;
 
     onMount(() => {
         directAwardingEnabled = badgeclass.issuer.faculty.institution.directAwardingEnabled && !badgeclass.directAwardingDisabled;
+        sisIntegrationEnabled = badgeclass.issuer.faculty.institution.sisIntegrationEnabled && !badgeclass.directAwardingDisabled;
     });
 
     const publicUrl = () => {
@@ -24,6 +28,7 @@
 
     const copiedLink = () => {
         showInviteDialog = false;
+        showCopyEntityIDialog = false;
         showShareFeedback = true;
         setTimeout(() => showShareFeedback = false, 1750)
     }
@@ -97,17 +102,23 @@
         </a>
       </span>
             {#if !badgeclass.selfEnrollmentDisabled}
-        <span class="award-link">{I18n.t("badgeAwardOptions.or")}
-            <a on:click|preventDefault|stopPropagation={() => showInviteDialog = true}
-               href="/">{I18n.t("badgeAwardOptions.inviteEnrollements")}</a>
-        </span>
+            <span class="award-link">{I18n.t("badgeAwardOptions.or")}
+                <a on:click|preventDefault|stopPropagation={() => showInviteDialog = true}
+                   href="/">{I18n.t("badgeAwardOptions.inviteEnrollements")}</a>
+            </span>
             {/if}
             {#if $ltiContext.launchId}
-        <span class="award-link">{I18n.t("badgeAwardOptions.or")}
-            <a use:link href={`/badgeclass/${badgeclass.entityId}/lti-award`}>
-          {I18n.t("badgeAwardOptions.ltiAward")}
-        </a>
-      </span>
+            <span class="award-link">{I18n.t("badgeAwardOptions.or")}
+                <a use:link href={`/badgeclass/${badgeclass.entityId}/lti-award`}>
+                    {I18n.t("badgeAwardOptions.ltiAward")}
+                </a>
+          </span>
+            {/if}
+            {#if sisIntegrationEnabled}
+            <span class="award-link">{I18n.t("badgeAwardOptions.or")}
+                <a on:click|preventDefault|stopPropagation={() => showCopyEntityIDialog = true}
+                   href="/">{I18n.t("badgeAwardOptions.copyBadgeClassId")}</a>
+            </span>
             {/if}
         {:else if !badgeclass.selfEnrollmentDisabled}
             <Button action={() => showInviteDialog = true} text={I18n.t("badgeAwardOptions.inviteEnrollements")}/>
@@ -127,6 +138,12 @@
             copied={copiedLink}
             cancel={() => showInviteDialog = false}
             publicUrl={publicUrl()}/>
+{/if}
+{#if showCopyEntityIDialog}
+    <CopyEntityIDDialog
+            copied={copiedLink}
+            cancel={() => showCopyEntityIDialog = false}
+            entityId={badgeclass.entityId}/>
 {/if}
 
 

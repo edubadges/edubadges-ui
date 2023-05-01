@@ -939,6 +939,11 @@ I18n.translations.en = {
         titleCollections: "Share your collection",
         copyPublicUrlCollections: "If you want to share the public page link of this collection of edubadges, you can copy the link to your clipboard.<br/><br/>Note that only public edubadges which are not revoked are shown on the public collection page.",
     },
+    copyDialog: {
+        title: "SIS integration",
+        sisIntegration: "For SIS integration you need to register the entityID of this edubadge in your SIS, you can copy this identifier to your clipboard",
+        copy: "Copy the identifier"
+    },
     invites: {
         title: "Invite people to request",
         copyPublicUrl: "If you want to place the link to the registration page on your intranet or electronic learning environment, you can copy the link.",
@@ -1315,6 +1320,7 @@ I18n.translations.en = {
         bulkAward: "Bulk award from csv",
         or: "-or-",
         inviteEnrollements: "Invite people to enroll",
+        copyBadgeClassId: "Copy the identifier for SIS integration",
         badgeClassArchived: "Can not award archived badge class",
         ltiAward: "Award from LTI import",
     },
@@ -1455,7 +1461,7 @@ I18n.translations.en = {
             enrollments: "Here you can see the total of all edubadges that have been requested by students.",
             totalAwarded: "The total number of awarded badge classes resulting in edubadge instances",
             directAwarded: "The number of the awarded badges through direct awarding",
-            requested:"The number of the awarded badges requested by students and accepted by teachers",
+            requested: "The number of the awarded badges requested by students and accepted by teachers",
             public: "The number of badges that are made public available by students",
             totalDirectAwards: "Total number of direct awards created",
             unclaimed: "Direct awards that have not been accepted by students",

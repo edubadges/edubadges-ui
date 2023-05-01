@@ -100,7 +100,8 @@
             nameDutch,
             directAwardingEnabled,
             ltiEnabled,
-            eppnRegExpFormat
+            eppnRegExpFormat,
+            sisIntegrationEnabled
           }
         }
       },

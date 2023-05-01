@@ -940,6 +940,11 @@ I18n.translations.nl = {
         titleCollections: "Deel je collectie",
         copyPublicUrlCollections: "Als je de link naar de publieke pagina van deze collectie van edubadge wilt delen, kan je de link kopiëren<br/><br/>Alleen je publieke en niet ingetrokken edubadges worden getoond op de publieke collectie pagina.",
     },
+    copyDialog: {
+        title: "SIS integrate",
+        sisIntegration: "Voor SIS-integratie kan je de entityID van deze edubadge in je SIS registreren, je kan deze identifier kopiëren naar je clipboard",
+        copy: "Kopieer de entityID"
+    },
     invites: {
         title: "Nodig iemand uit om zich in te schrijven",
         copyPublicUrl: "Als je de link naar de registratiepagina op je intranet of elektronische leeromgeving wilt plaatsen, kunt je de link kopiëren",
@@ -1316,6 +1321,7 @@ I18n.translations.nl = {
         bulkAward: "Bulk uitreiking uit csv",
         or: "-of-",
         inviteEnrollements: "Nodig gebruikers uit om in te schrijven",
+        copyBadgeClassId: "Kopieer de ID voor SIS integration",
         badgeClassArchived: "Kan geen uitreikingen doen op een gearrchiveerde badge class",
         ltiAward: "Uitreiken van LTI import",
     },

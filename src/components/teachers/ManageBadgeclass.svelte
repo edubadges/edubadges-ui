@@ -83,7 +83,8 @@
             entityId,
             nameEnglish,
             nameDutch,
-            ltiEnabled
+            ltiEnabled,
+            sisIntegrationEnabled
           }
         }
       },
