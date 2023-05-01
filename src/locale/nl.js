@@ -871,6 +871,7 @@ I18n.translations.nl = {
         insights: {
             institution: "Instelling",
             institutionPlaceholder: "Selecteer een instelling...",
+            countSURF: "Inclusief SURF badges in het totaal?",
             faculty: "Issuer groep",
             facultyPlaceholder: "Selecteer een issuer groep...",
             issuer: "Issuer",

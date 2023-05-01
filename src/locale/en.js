@@ -870,6 +870,7 @@ I18n.translations.en = {
         insights: {
             institution: "Institution",
             institutionPlaceholder: "Select an institution...",
+            countSURF: "Include SURF badges in the total?",
             faculty: "Issuer group",
             facultyPlaceholder: "Select an issuer group...",
             issuer: "Issuer",

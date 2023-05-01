@@ -770,7 +770,7 @@ export function sendFeedback(message) {
     return validFetch(path, {body: JSON.stringify({message})}, "POST");
 }
 
-export function insights(year, institutionId) {
+export function insights(year, institutionId, countSURFInTotal) {
     const path = `${serverUrl}/insights/insight`;
     const data = {
         lang: I18n.locale,
@@ -778,6 +778,7 @@ export function insights(year, institutionId) {
     }
     if (institutionId) {
         data["institution_id"] = institutionId;
+        data["include_surf"] = countSURFInTotal;
     }
     return validFetch(path, {body: JSON.stringify(data)}, "POST");
 }

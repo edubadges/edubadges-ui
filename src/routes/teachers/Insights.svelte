@@ -36,6 +36,7 @@
     import {queryData} from "../../api/graphql";
     import {isEmpty} from "lodash";
     import {badgeClassFilterTypes} from "../../util/catalogFilters";
+    import CheckBox from "../../components/CheckBox.svelte";
 
     data(Highcharts);
     Exporter(Highcharts);
@@ -49,6 +50,7 @@
     //Superusers can select institutions
     let institutions = [];
     let institutionSet = false;
+    let countSURFInTotal = false;
 
     //All faculties, issuer and badgeclass
     let faculties = new Map();
@@ -125,11 +127,13 @@
       publicInstitutions {
         id,
         nameEnglish,
+        identifier,
         nameDutch,
         entityId
         },
       currentInstitution {
         entityId,
+        identifier,
         nameEnglish,
         nameDutch,
         }
@@ -203,16 +207,16 @@
 
     const initialize = () => {
         const institutionEntityId = institutionId ? institutionId.identifier : null;
-        Promise.all([insights(year.name, institutionEntityId), getProfile()]).then(arr => {
+        Promise.all([insights(year.name, institutionEntityId, countSURFInTotal), getProfile()]).then(arr => {
             serverData = arr[0];
             profile = arr[1];
             if (profile.is_superuser && isEmpty(institutions)) {
+                institutionId = {
+                    name: I18n.t("insights.total"),
+                    identifier: "all"
+                };
                 queryData(query).then(res => {
-                    institutionId = {
-                        name: I18n.t("insights.total"),
-                        identifier: "all"
-                    };
-                    institutions = institutionOptions(res.publicInstitutions).concat([institutionId]);
+                    institutions = [institutionId].concat(institutionOptions(res.publicInstitutions));
                     currentInstitution = res.currentInstitution;
                 });
             } else if (!profile.is_superuser && isEmpty(currentInstitution)) {
@@ -258,13 +262,20 @@
         loaded = false;
         institutionId = item;
         //Prevent double initialization
+        if (item.identifier !== "all") {
+            countSURFInTotal = false;
+        }
         if (!institutionSet) {
             institutionSet = true;
             loaded = true;
         } else {
             initialize();
         }
+    }
 
+    const toggleCountSURFInTotal = () => {
+        countSURFInTotal = !countSURFInTotal;
+        initialize();
     }
 
     const facultySelected = item => {
@@ -570,6 +581,11 @@
     }
   }
 
+  .checkbox-container {
+    display: flex;
+    margin-bottom: 15px;
+  }
+
   .metadata-container {
     display: flex;
     flex-direction: column;
@@ -786,6 +802,13 @@
                                     items={institutions}
                                     optionIdentifier="identifier"/>
                         </Field>
+                        <div class="checkbox-container">
+                            <CheckBox value={countSURFInTotal && institutionId && institutionId.identifier === "all"}
+                                      label={I18n.t("models.insights.countSURF")}
+                                      onChange={toggleCountSURFInTotal}
+                                      disabled={institutionId && institutionId.identifier !== "all"}
+                                      adjustTopFlex={true}/>
+                        </div>
                     {/if}
                     <Field entity="insights" attribute="badgeClassType">
                         <Select
