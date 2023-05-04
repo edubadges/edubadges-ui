@@ -722,7 +722,7 @@ I18n.translations.nl = {
             info: {
                 educationProgramIdentifier:
                     "Raadpleeg <a target='_blank' rel='noreferrer' href='https://apps.duo.nl/MCROHO/pages/zoeken.jsf'>het DUO CROHO register</a> of <a target='_blank' rel='noreferrer' href='https://kwalificaties.s-bb.nl/Lijsten/Groep/14'>de SBB CREBO lijsten</a> als je deze code niet weet.",
-                eqf: "Kijk op <a target='_blank' rel='noreferrer' href='https://www.nlqf.nl/nlqf-niveaus'>https://www.nlqf.nl/nlqf-niveaus</a> voor een overzicht",
+                eqf: "Kijk op <a target='_blank' rel='noreferrer' href='https://www.nlqf.nl/daarom-nlqf/nlqf-niveaus'>https://www.nlqf.nl/daarom-nlqf/nlqf-niveaus</a> voor een overzicht",
                 ects: "Alleen hele en halve punten. <br/>Een minimum van 0,5 punt is vereist.",
                 ectsMicroCredentials: "Alleen hele en halve punten. <br/>Een waarde tussen de 3 en 30 punten is vereist."
             },
