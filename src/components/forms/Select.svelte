@@ -30,6 +30,7 @@
 <style lang="scss">
   div :global(.selectContainer) {
     padding: 0 0 0 0 !important;
+    z-index: 9;
   }
 
 
