@@ -25,6 +25,7 @@
     import {translateProperties} from "../../util/utils";
     import {isEmpty} from "lodash";
     import UnclaimedDirectAwardsSideBar from "./UnclaimedDirectAwardsSideBar.svelte";
+    import {constructUserEmail, constructUserName} from "../../util/users";
 
     let selection = [];
     let checkAllValue = false;
@@ -43,6 +44,7 @@
       entityId,
       eppn,
       createdAt,
+      resendAt,
       recipientEmail,
       badgeclass {
         name,
@@ -146,21 +148,14 @@
             attribute: "recipientEmail",
             reverse: false,
             sortType: sortType.ALPHA,
-            width: "20%"
-        },
-        {
-            name: I18n.t("models.directAwards.eppn"),
-            attribute: "eppn",
-            reverse: false,
-            sortType: sortType.ALPHA,
-            width: "20%"
+            width: "30%"
         },
         {
             name: I18n.t("models.directAwards.badgeClass"),
             attribute: "badgeclass.name",
             reverse: false,
             sortType: sortType.ALPHA,
-            width: "20%"
+            width: "15%"
         },
         {
             name: I18n.t("models.directAwards.issuer"),
@@ -176,11 +171,19 @@
             sortType: sortType.ALPHA,
             width: "15%"
         },
+                {
+            name: I18n.t("models.directAwards.resendAt"),
+            attribute: "resendAt",
+            reverse: false,
+            sortType: sortType.DATE,
+            width: "10%",
+            center: true
+        },
         {
             name: I18n.t("models.directAwards.createdAt"),
             attribute: "createdAt",
             reverse: false,
-            sortType: sortType.ALPHA,
+            sortType: sortType.DATE,
             width: "10%",
             center: true
         }
@@ -273,13 +276,8 @@
                     <td>
                         <div class="recipient">
                             <span>{directAward.recipientEmail}</span>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="eppn">
-                            <span>{directAward.eppn}</span>
-                        </div>
-                    </td>
+                            <span>{directAward.eppn} <em>(eppn)</em></span>
+                    </div>
                     <td>
                         <a use:link
                            href={`/badgeclass/${directAward.badgeclass.entityId}/awarded`}>
@@ -297,6 +295,9 @@
                            href={`/manage/faculty/${directAward.badgeclass.issuer.faculty.entityId}/issuers`}>
                             {directAward.badgeclass.issuer.faculty.name}
                         </a>
+                    </td>
+                    <td class="center">
+                        {directAward.resendAt ? moment(directAward.resendAt).format('MMM D, YYYY') : "-"}
                     </td>
                     <td class="center">
                         {moment(directAward.createdAt).format('MMM D, YYYY')}
