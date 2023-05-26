@@ -134,57 +134,73 @@
                 <Route path="/version/info">
                     <VersionInfo/>
                 </Route>
-                <Route path="/launch/lti" component={LTILaunch}/>
                 <!-- Student -->
-                <Route path="/backpack">
-                    <Student bookmark="backpack"/>
-                </Route>
-                <Route path="/badge-requests">
-                    <Student bookmark="badge-requests"/>
-                </Route>
-                <Route path="/collections">
-                    <Student bookmark="collections"/>
-                </Route>
-                <Route path="/import">
-                    <Student bookmark="import"/>
-                </Route>
-                <Route path="/edit-collection/:entityId" let:params>
-                    <CollectionForm entityId={params.entityId}/>
-                </Route>
-                <Route path="/archived">
-                    <Student bookmark="archived"/>
-                </Route>
-                <Route path="/direct-awards">
-                    <Student bookmark="backpack" revalidateName="true"/>
-                </Route>
-                <Route path="/enrollment/:enrollmentId/" let:params>
-                    <EnrollmentDetails enrollmentId={params.enrollmentId}/>
-                </Route>
-                <Route path="/details/:entityId/" let:params>
-                    <BadgeDetails entityId={params.entityId}/>
-                </Route>
-                <Route path="/import/:entityId/" let:params>
-                    <BadgeImported entityId={params.entityId}/>
-                </Route>
-                <Route path="/direct-award/:entityId/" let:params>
-                    <DirectAward entityId={params.entityId}/>
-                </Route>
-
-                <Route path="/signup" component={AcceptTerms}/>
-
+                {#if visitorRole === role.STUDENT}
+                    <Route path="/backpack">
+                        <Student bookmark="backpack"/>
+                    </Route>
+                    <Route path="/badge-requests">
+                        <Student bookmark="badge-requests"/>
+                    </Route>
+                    <Route path="/collections">
+                        <Student bookmark="collections"/>
+                    </Route>
+                    <Route path="/import">
+                        <Student bookmark="import"/>
+                    </Route>
+                    <Route path="/edit-collection/:entityId" let:params>
+                        <CollectionForm entityId={params.entityId}/>
+                    </Route>
+                    <Route path="/archived">
+                        <Student bookmark="archived"/>
+                    </Route>
+                    <Route path="/direct-awards">
+                        <Student bookmark="backpack" revalidateName="true"/>
+                    </Route>
+                    <Route path="/enrollment/:enrollmentId/" let:params>
+                        <EnrollmentDetails enrollmentId={params.enrollmentId}/>
+                    </Route>
+                    <Route path="/details/:entityId/" let:params>
+                        <BadgeDetails entityId={params.entityId}/>
+                    </Route>
+                    <Route path="/import/:entityId/" let:params>
+                        <BadgeImported entityId={params.entityId}/>
+                    </Route>
+                    <Route path="/direct-award/:entityId/" let:params>
+                        <DirectAward entityId={params.entityId}/>
+                    </Route>
+                {/if}
+                
                 <!-- Teacher -->
-                <Route path="/users" component={Users}/>
-                <Route path="/users/:userId/:entity" component={UserPermissions}/>
-                <Route path="/notifications" component={Notifications}/>
-                <Route path="/manage/*mainEntity" component={Manage}/>
-                <Route path="/badgeclass/:entityId/*subEntity" component={BadgeclassAwarder}/>
-                <Route path="/invite-enrollements/:entityId/" let:params>
-                    <InviteEnrollments entityId={params.entityId}/>
-                </Route>
-                <Route path="/permissions/:entity" component={TeacherPermissions}/>
-                <Route path="/impersonate" component={Impersonate}/>
+                {#if visitorRole === role.TEACHER}
+                    <Route path="/users" component={Users}/>
+                    <Route path="/users/:userId/:entity" component={UserPermissions}/>
+                    <Route path="/notifications" component={Notifications}/>
+                    <Route path="/manage/*mainEntity" component={Manage}/>
+                    <Route path="/badgeclass/:entityId/*subEntity" component={BadgeclassAwarder}/>
+                    <Route path="/invite-enrollements/:entityId/" let:params>
+                        <InviteEnrollments entityId={params.entityId}/>
+                    </Route>
+                    <Route path="/permissions/:entity" component={TeacherPermissions}/>
+                    <Route path="/impersonate" component={Impersonate}/>
+                    <Route path="/insights" component={Insights}/>
+                    <Route path="/launch/lti" component={LTILaunch}/>
+                    <Route path="/lti/*tab" component={LTI}/>
+                {/if}
 
                 <!-- Shared -->
+                <Route path="/profile">
+                    {#if visitorRole === role.TEACHER}
+                        <TeacherProfile/>
+                    {:else if visitorRole === role.STUDENT}
+                        <Student bookmark="profile"/>
+                    {/if}
+                </Route>
+                <Route path="/" component={homepage[visitorRole]}/>
+                <Route path="/login" component={Login}/>
+                <Route path="/auth/login/*" component={ProcessToken}/>
+                <Route path="/catalog" component={Catalog}/>
+                <Route path="/signup" component={AcceptTerms}/>
                 <Route path="/public/:entityId/" let:params>
                     <PublicBadgeClassPage entityId={params.entityId}/>
                 </Route>
@@ -203,19 +219,6 @@
                 <Route path="/public/collections/:entityId/" let:params>
                     <PublicCollectionPage entityId={params.entityId}/>
                 </Route>
-                <Route path="/profile">
-                    {#if visitorRole === role.TEACHER}
-                        <TeacherProfile/>
-                    {:else if visitorRole === role.STUDENT}
-                        <Student bookmark="profile"/>
-                    {/if}
-                </Route>
-                <Route path="/" component={homepage[visitorRole]}/>
-                <Route path="/login" component={Login}/>
-                <Route path="/auth/login/*" component={ProcessToken}/>
-                <Route path="/catalog" component={Catalog}/>
-                <Route path="/insights" component={Insights}/>
-                <Route path="/lti/*tab" component={LTI}/>
                 <Route component={NotFound}/>
 
                 <!-- Expose current path through store -->
