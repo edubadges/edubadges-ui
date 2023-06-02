@@ -911,7 +911,7 @@ I18n.translations.nl = {
             eppn: "EPPN",
             status: "States",
             createdAt: "Aangemaakt",
-            resendAt: "Herstuurd",
+            resendAt: "Reminder",
             expires: "Verloopt",
             badgeClass: "Badge class",
             issuer: "Issuer",

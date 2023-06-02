@@ -910,7 +910,7 @@ I18n.translations.en = {
             eppn: "EPPN",
             status: "Status",
             createdAt: "Created",
-            resendAt: "Resend",
+            resendAt: "Reminder",
             expires: "Expires",
             badgeClass: "Badge class",
             issuer: "Issuer",
