@@ -4,6 +4,35 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [6.8.0] - 2023-06-05
+- Disabled scheduling direct awards.
+- Minor locale changes.
+- Only bring focused select in foreground.
+- Only allow teacher pages to teachers.
+- Dropdown taal create badge bugfix.
+- Date reminder.
+- Fixed broken NLQF URL.
+- Feature toggle for including SURF badges.
+- If SIS integration is enabled, offer a copy entity_id option.
+- Sorting insights drop downs.
+- Bugfix for wrong issuedOn date.
+- Fixed Sorting bugs.
+- Bugfix for micro-credentials switch.
+- Bugfix for no input programme identifier.
+- Initialize award-date at coming midnight.
+- Temporary disable production mode for debugging optional chaining.
+- Show scheduled direct awards in the overview.
+- Fix for sorting assertions.
+- Allow for scheduled DA's in bulk award.
+- Searching unclaimed direct awards applies to filter.
+- Resend unclaimed direct awards.
+- Reset filter after revocation.
+- Only select the shown unclaimed direct awards for selectAll.
+- Ensure the programme identifier is required when Credit points are specified.
+- client side for allowing more then one program identifier.
+- Filter option in overview unclaimed direct awards.
+- Changed Tijdsinvestering to Tijd investering.
+
 ## [6.7.0] - 2023-02-27
 - Removed debugger statement.
 - Bugfix for direct award with incomplete URL.
