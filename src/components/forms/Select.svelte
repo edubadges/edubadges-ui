@@ -30,9 +30,11 @@
 <style lang="scss">
   div :global(.selectContainer) {
     padding: 0 0 0 0 !important;
-    z-index: 9;
   }
 
+  div :global(.selectContainer.focused) {
+    z-index: 9;
+  }
 
   div :global(.selectContainer .selectedItem) {
     padding: 0 0 0 16px !important;
