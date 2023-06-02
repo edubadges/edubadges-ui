@@ -201,7 +201,7 @@
     }
 
     p.sub-title {
-      margin-bottom: 0;
+      margin-bottom: 16px;
       max-width: 50%;
     }
 
@@ -313,39 +313,39 @@
                     </Warning>
                 </div>
             {/if}
-            <div class="scheduled-at" class:disable-scheduling={!enableScheduling}>
-                <CheckBox
-                        value={enableScheduling}
-                        name={"enableScheduling"}
-                        tipKey="awardScheduling"
-                        inForm={false}
-                        adjustTop={true}
-                        boldLabel={false}
-                        label={I18n.t("badgeAward.directAward.schedulingDate")}
-                        onChange={val => {
-                            enableScheduling = val;
-                        }}/>
-                {#if enableScheduling}
-                    <div class="svelte-picker">
-                        <SveltyPicker
-                                inputClasses="input-field"
-                                inputId="svelty-picker-id"
-                                format="yyyy-mm-dd hh:ii"
-                                startDate={startDate}
-                                clearBtn={false}
-                                disabled={!enableScheduling}
-                                minuteIncrement={30}
-                                i18n={I18n.locale === "en" ? en : nl}
-                                todayBtn={false}
-                                bind:value={scheduledAt}
-                                bind:initialDate={initialDate}/>
-                        <span class="calendar" on:click={() => document.getElementById("svelty-picker-id").focus()}>
-                            {@html calendarIcon}
-                        </span>
+<!--            <div class="scheduled-at" class:disable-scheduling={!enableScheduling}>-->
+<!--                <CheckBox-->
+<!--                        value={enableScheduling}-->
+<!--                        name={"enableScheduling"}-->
+<!--                        tipKey="awardScheduling"-->
+<!--                        inForm={false}-->
+<!--                        adjustTop={true}-->
+<!--                        boldLabel={false}-->
+<!--                        label={I18n.t("badgeAward.directAward.schedulingDate")}-->
+<!--                        onChange={val => {-->
+<!--                            enableScheduling = val;-->
+<!--                        }}/>-->
+<!--                {#if enableScheduling}-->
+<!--                    <div class="svelte-picker">-->
+<!--                        <SveltyPicker-->
+<!--                                inputClasses="input-field"-->
+<!--                                inputId="svelty-picker-id"-->
+<!--                                format="yyyy-mm-dd hh:ii"-->
+<!--                                startDate={startDate}-->
+<!--                                clearBtn={false}-->
+<!--                                disabled={!enableScheduling}-->
+<!--                                minuteIncrement={30}-->
+<!--                                i18n={I18n.locale === "en" ? en : nl}-->
+<!--                                todayBtn={false}-->
+<!--                                bind:value={scheduledAt}-->
+<!--                                bind:initialDate={initialDate}/>-->
+<!--                        <span class="calendar" on:click={() => document.getElementById("svelty-picker-id").focus()}>-->
+<!--                            {@html calendarIcon}-->
+<!--                        </span>-->
 
-                    </div>
-                {/if}
-            </div>
+<!--                    </div>-->
+<!--                {/if}-->
+<!--            </div>-->
             <div class="grouped">
                 {#each directAwards as da, i}
                     <Field entity="badgeAward" attribute="email">
