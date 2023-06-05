@@ -3,7 +3,6 @@
     import {EntityHeaderTabs, HeaderList} from "../teachers";
     import {Button} from "../../components";
     import {role} from "../../util/role";
-    import RemoteImage from "../RemoteImage.svelte";
     import {entityType} from "../../util/entityTypes"
     import {link} from "svelte-routing";
     import {onBehalfOfDisplayName} from "../../util/onBehalfOf";
@@ -118,7 +117,6 @@
             <div class="img-container">
                 <div class="img-icon">
                     <img src={object.image} alt=""/>
-<!--                    <RemoteImage imageUrl={object.image} alt={`${object.name} logo`}/>-->
                 </div>
             </div>
         {/if}
@@ -133,15 +131,14 @@
                     {#if object.issuer.image}
                         <div class="sub-img-container">
                             <img src={object.issuer.image} alt=""/>
-<!--                            <RemoteImage imageUrl={object.issuer.image} alt={`${object.name} sub-logo`}/>-->
                         </div>
                     {/if}
                     <div class="right">
                         {#if object.issuer.faculty.onBehalfOf || object.issuer.faculty.on_behalf_of}
                             <span class="top">{@html I18n.t("models.badgeclass.onBehalfOf",
-                            {
-                                name: onBehalfOfDisplayName(object.issuer.faculty)
-                            })}
+                                {
+                                    name: onBehalfOfDisplayName(object.issuer.faculty)
+                                })}
                             </span>
                         {:else}
                             <span class="top">{I18n.t("models.badgeclass.issuedBy")}</span>
@@ -157,7 +154,7 @@
                             {/if}
                             <span>{I18n.t("models.badgeclass.of")}</span>
                             <a href="/public/institutions/{object.issuer.faculty.institution.entityId}"
-                                    use:link>{object.issuer.faculty.institution.name}</a>
+                               use:link>{object.issuer.faculty.institution.name}</a>
                         </span>
                     </div>
 

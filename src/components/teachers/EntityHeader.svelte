@@ -3,7 +3,6 @@
     import {EntityHeaderTabs, HeaderList} from "../teachers";
     import {Button} from "../../components";
     import {role} from "../../util/role";
-    import RemoteImage from "../RemoteImage.svelte";
     import {entityType} from "../../util/entityTypes"
     import {facultyIcon, institutionIcon, issuerIcon} from "../../icons";
 
@@ -120,53 +119,53 @@
 </style>
 
 <div class="entity">
-  <div class="title">
+    <div class="title">
     <span class="logo logo-colour">{@html
         entity === entityType.INSTITUTION ? institutionIcon :
             entity === entityType.ISSUER_GROUP ? facultyIcon :
                 entity === entityType.ISSUER ? issuerIcon : ''
     }</span>
-    <span><h2>{object.name}</h2></span>
-  </div>
-  <div class="content">
-    {#if object.image}
-      <div class="img-container">
-        <div class="img-icon">
-          <img src={object.image} alt=""/>
-<!--          <RemoteImage imageUrl={object.image} alt={`${object.name} logo`}/>-->
-        </div>
-      </div>
-    {:else if entity === entityType.ISSUER}
-      <div class="icn-container">
-        <div class="icn-icon">
+        <span><h2>{object.name}</h2></span>
+    </div>
+    <div class="content">
+        {#if object.image}
+            <div class="img-container">
+                <div class="img-icon">
+                    <img src={object.image} alt=""/>
+                </div>
+            </div>
+        {:else if entity === entityType.ISSUER}
+            <div class="icn-container">
+                <div class="icn-icon">
         <span class="icon">
           {@html issuerIcon}
         </span>
+                </div>
+            </div>
+        {/if}
+        <div class="info">
+            {#if entity !== entityType.BADGE_CLASS}
+                <p>{currentLanguage === 'en' ? object.descriptionEnglish : object.descriptionDutch}</p>
+            {/if}
+            {#if object.publicLink}
+                <p><a href={object.publicLink} rel="noreferrer noopener" target="_blank">{object.publicLink}</a></p>
+            {/if}
+            <div class="list">
+                <HeaderList {entity} {headerItems}/>
+            </div>
         </div>
-      </div>
-    {/if}
-    <div class="info">
-      {#if entity !== entityType.BADGE_CLASS}
-        <p>{currentLanguage === 'en' ? object.descriptionEnglish : object.descriptionDutch}</p>
-      {/if}
-      {#if object.publicLink}
-        <p><a href={object.publicLink} rel="noreferrer noopener" target="_blank">{object.publicLink}</a></p>
-      {/if}
-      <div class="list">
-        <HeaderList {entity} {headerItems}/>
-      </div>
-    </div>
-    {#if visitorRole === role.TEACHER && mayUpdate}
-      <div class="actions">
-        <div class="button-container">
-          <Button fill={true} disabled={!mayUpdate} secondary href="edit" text={I18n.t(['manage', 'edit', entity])}/>
+        {#if visitorRole === role.TEACHER && mayUpdate}
+            <div class="actions">
+                <div class="button-container">
+                    <Button fill={true} disabled={!mayUpdate} secondary href="edit"
+                            text={I18n.t(['manage', 'edit', entity])}/>
+                </div>
+                <slot name="additional-actions"/>
+            </div>
+        {/if}
+        <div class="slots">
+            <slot/>
         </div>
-        <slot name="additional-actions"/>
-      </div>
-    {/if}
-    <div class="slots">
-      <slot/>
     </div>
-  </div>
-  <EntityHeaderTabs {tabs}/>
+    <EntityHeaderTabs {tabs}/>
 </div>

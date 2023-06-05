@@ -1,6 +1,5 @@
 <script>
     import I18n from "i18n-js";
-    import RemoteImage from "../../RemoteImage.svelte";
     import {link} from "svelte-routing";
     import {onBehalfOfDisplayName} from "../../../util/onBehalfOf";
     import {translateBadgeClassProperties} from "../../../util/utils";
@@ -116,7 +115,7 @@
         {#if endorsement.endorser.image}
             <div class="img-container">
                 <div class="img-icon">
-                    <RemoteImage imageUrl={endorsement.endorser.image} alt={`${endorsement.endorser.name} logo`}/>
+                    <img src={endorsement.endorser.image} alt=""/>
                 </div>
             </div>
         {/if}
@@ -128,8 +127,7 @@
             <div class="badge-class-sub-info">
                 {#if endorsement.endorser.issuer.image}
                     <div class="sub-img-container">
-                        <RemoteImage imageUrl={endorsement.endorser.issuer.image}
-                                     alt={`${endorsement.endorser.name} sub-logo`}/>
+                        <img src={endorsement.endorser.issuer.image} alt=""/>
                     </div>
                 {/if}
                 <div class="right">

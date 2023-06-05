@@ -1,17 +1,16 @@
 <script>
-  import {onMount} from "svelte";
-  import I18n from "i18n-js";
-  import {HeaderList} from "../teachers";
-  import {queryData} from "../../api/graphql";
-  import {headerEntityMultiLanguage, headerStaff} from "../../api/queries";
-  import {selectedEntity} from "../../stores/filterBadges";
-  import RemoteImage from "../RemoteImage.svelte";
-  import {translateProperties} from "../../util/utils";
+    import {onMount} from "svelte";
+    import I18n from "i18n-js";
+    import {HeaderList} from "../teachers";
+    import {queryData} from "../../api/graphql";
+    import {headerEntityMultiLanguage, headerStaff} from "../../api/queries";
+    import {selectedEntity} from "../../stores/filterBadges";
+    import {translateProperties} from "../../util/utils";
 
-  let institution = {};
-  $: entity = $selectedEntity || institution;
+    let institution = {};
+    $: entity = $selectedEntity || institution;
 
-  const query = `query {
+    const query = `query {
     currentInstitution {
       imageEnglish,
       imageDutch,
@@ -20,27 +19,27 @@
     }
   }`;
 
-  onMount(() => {
-    queryData(query).then(res => {
-      institution = res.currentInstitution;
-      translateProperties(institution);
-    })
-  });
+    onMount(() => {
+        queryData(query).then(res => {
+            institution = res.currentInstitution;
+            translateProperties(institution);
+        })
+    });
 
-  $: headerItems = [
-    {
-      attr: "created",
-      type: "date",
-      value: entity.createdAt
-    },
-    {
-      attr: "admin",
-      type: "adminNames",
-      value: entity
-    }
-  ];
+    $: headerItems = [
+        {
+            attr: "created",
+            type: "date",
+            value: entity.createdAt
+        },
+        {
+            attr: "admin",
+            type: "adminNames",
+            value: entity
+        }
+    ];
 
-  const currentLanguage = I18n.locale;
+    const currentLanguage = I18n.locale;
 </script>
 
 <style lang="scss">
@@ -89,19 +88,18 @@
 </style>
 
 <h2>
-  {I18n.t('teacher.badgeclasses.title')}
+    {I18n.t('teacher.badgeclasses.title')}
 </h2>
 <div class="header">
-  {#if entity.image}
-    <div class="img-container">
-      <div class="img-icon">
-      <img src={entity.image} alt=""/>
-        <!--        <RemoteImage bind:imageUrl={entity.image} alt={`${entity.name} logo`}/>-->
-      </div>
+    {#if entity.image}
+        <div class="img-container">
+            <div class="img-icon">
+                <img src={entity.image} alt=""/>
+            </div>
+        </div>
+    {/if}
+    <div class="content">
+        <p>{entity.description}</p>
+        <HeaderList {headerItems} entity="institution"/>
     </div>
-  {/if}
-  <div class="content">
-    <p>{entity.description}</p>
-    <HeaderList {headerItems} entity="institution"/>
-  </div>
 </div>
