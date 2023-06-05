@@ -117,7 +117,8 @@
         {#if object.image}
             <div class="img-container">
                 <div class="img-icon">
-                    <RemoteImage imageUrl={object.image} alt={`${object.name} logo`}/>
+                    <img src={object.image} alt=""/>
+<!--                    <RemoteImage imageUrl={object.image} alt={`${object.name} logo`}/>-->
                 </div>
             </div>
         {/if}
