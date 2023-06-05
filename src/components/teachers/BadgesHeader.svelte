@@ -95,7 +95,8 @@
   {#if entity.image}
     <div class="img-container">
       <div class="img-icon">
-        <RemoteImage bind:imageUrl={entity.image} alt={`${entity.name} logo`}/>
+      <img src={entity.image} alt=""/>
+        <!--        <RemoteImage bind:imageUrl={entity.image} alt={`${entity.name} logo`}/>-->
       </div>
     </div>
   {/if}

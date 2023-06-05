@@ -132,7 +132,8 @@
                 <div class="badge-class-sub-info">
                     {#if object.issuer.image}
                         <div class="sub-img-container">
-                            <RemoteImage imageUrl={object.issuer.image} alt={`${object.name} sub-logo`}/>
+                            <img src={object.issuer.image} alt=""/>
+<!--                            <RemoteImage imageUrl={object.issuer.image} alt={`${object.name} sub-logo`}/>-->
                         </div>
                     {/if}
                     <div class="right">
