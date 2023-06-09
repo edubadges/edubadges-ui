@@ -257,8 +257,8 @@
             <div class="action-buttons" slot="check-buttons">
                 <Button small action={() => revoke(true)}
                         text={I18n.t('models.directAwards.revoke')} disabled={selection.length === 0} secondary={true}/>
-<!--                <Button small action={() => resend(true)}-->
-<!--                        text={I18n.t('models.directAwards.resend')} disabled={selection.length === 0} secondary={true}/>-->
+                <Button small action={() => resend(true)}
+                        text={I18n.t('models.directAwards.resend')} disabled={selection.length === 0} secondary={true}/>
             </div>
             {#each sortedFilteredDirectAwards.slice((minimalPage - 1) * pageCount, minimalPage * pageCount) as directAward}
                 <tr>
