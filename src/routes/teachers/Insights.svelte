@@ -206,7 +206,7 @@
     }
 
     const initialize = () => {
-        const institutionEntityId = institutionId ? institutionId.identifier : null;
+        const institutionEntityId = institutionId ? institutionId.identifier : "all";
         Promise.all([insights(year.name, institutionEntityId, countSURFInTotal), getProfile()]).then(arr => {
             serverData = arr[0];
             profile = arr[1];
@@ -800,6 +800,7 @@
                                     handleSelect={institutionSelected}
                                     placeholder={I18n.t("models.insights.institutionPlaceholder")}
                                     items={institutions}
+                                    clearable={false}
                                     optionIdentifier="identifier"/>
                         </Field>
                         <div class="checkbox-container">
@@ -814,6 +815,7 @@
                         <Select
                                 value={badgeType}
                                 handleSelect={badgeTypeSelected}
+                                clearable={false}
                                 items={badgeTypes}
                                 optionIdentifier="value"/>
                     </Field>
@@ -851,6 +853,7 @@
                         <Select
                                 value={year}
                                 handleSelect={yearSelected}
+                                clearable={false}
                                 placeholder={I18n.t("models.insights.yearPlaceholder")}
                                 items={yearSelectOptions}
                                 optionIdentifier="name"/>
