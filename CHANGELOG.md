@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [6.8.1] - 2023-06-29
+- fix problem with remote image.
+- Do not use remote image.
+- Make the resend button visible again.
+- Bugfix Badgeclass type microcredential.
+- Bugfix for copy microcredential.
+- Default to all institutions.
+
 ## [6.8.0] - 2023-06-05
 - Disabled scheduling direct awards.
 - Minor locale changes.
