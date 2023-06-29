@@ -274,7 +274,7 @@
             [ects.name]: ectsValue || (isCreate ? (badgeclass.isMicroCredentials ? 5 : 2.5) : ""),
             [eqf.name]: eqfValue,
             [learningOutcome.name]: extensionValue(badgeclass.extensions, learningOutcome) || "",
-            [educationProgramIdentifier.name]: extensionValue(badgeclass.extensions, educationProgramIdentifier) || (isCreate ? [""] : []),
+            [educationProgramIdentifier.name]: extensionValue(badgeclass.extensions, educationProgramIdentifier) || (isCreate && !isCopy ? [""] : []),
             [studyLoad.name]: studyLoadValue || "",
         };
         if (extensions[eqf.name] && typeof extensions[eqf.name] === "number") {
