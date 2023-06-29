@@ -116,6 +116,13 @@
         extensions[timeInvestment.name] = 0;
         showTimeInvestment = false;
         badgeclass.awardNonValidatedNameAllowed = false;
+        let eqfValue = extensionValue(badgeclass.extensions, eqf);
+        if (isEmpty(eqfValue)) {
+            eqfValue = {name: "EQF 5", value: 5};
+        } else  {
+            eqfValue = eqfItems.find(item => item.value === eqfValue)
+        }
+        extensions[eqf.name] = eqfValue;
         if (!isInstitutionMBO) {
             showEducationalIdentifiers = true;
             if (isEmpty(extensions[educationProgramIdentifier.name])) {
@@ -134,6 +141,7 @@
 
     const removeProgrammeIdentifier = () => {
         showProgrammeIdentifier = false;
+        showEducationalIdentifiers = false;
         extensions[educationProgramIdentifier.name] = [];
     }
 
@@ -244,8 +252,9 @@
         } else {
             badgeclass.alignments = (badgeclass.alignments || [])
                 .filter(alignment => alignment.target_name !== microCredentialsFramework.name);
-            if (showEducationalIdentifiers && isEmpty(extensions[educationProgramIdentifier.name])) {
+            if (showStudyLoad && isEmpty(extensions[educationProgramIdentifier.name])) {
                 extensions[educationProgramIdentifier.name] = [""];
+                showEducationalIdentifiers = true;
             }
         }
     }
@@ -277,7 +286,7 @@
         }
         if (institution.grondslagFormeel !== null && (ectsValue || extensions[studyLoad.name] || (isCreate && !isCopy))) {
             showStudyLoad = true;
-            if (!isInstitutionMBO) {
+            if (!isInstitutionMBO && extensions[educationProgramIdentifier.name].length > 0) {
                 showEducationalIdentifiers = true;
             }
         }
@@ -342,6 +351,15 @@
             }
             const educationalIdentifiers = extensionToJson(extensionValues);
             newBadgeclass.extensions = {...newBadgeclass.extensions, ...educationalIdentifiers};
+        }
+        if (showEducationalIdentifiers || showProgrammeIdentifier || badgeclass.isMicroCredentials) {
+            const extensionValues = []
+            const extension = extensions[eqf.name];
+            if (extension) {
+                extensionValues.push({name: eqf.name, value: extension.value})
+            }
+            const eqfIdentifiers = extensionToJson(extensionValues);
+            newBadgeclass.extensions = {...newBadgeclass.extensions, ...eqfIdentifiers};
         }
         if (showStudyLoad) {
             if (isInstitutionMBO) {
@@ -767,11 +785,14 @@
 
     {#if showEducationalIdentifiers && !badgeclass.isMicroCredentials}
         <div style="display: flex">
-            <div class="deletable-title"><h4>{I18n.t('models.badgeclass.headers.educationalIdentifiers')}</h4></div>
+            <div class="deletable-title">
+                <h4>{I18n.t('models.badgeclass.headers.educationalIdentifiers')}</h4>
+            </div>
             {#if mayEdit && (!showStudyLoad || isInstitutionMBO)}
                 <button class="rm-icon-container"
                         on:click={() => {
                             showEducationalIdentifiers = false;
+                            showProgrammeIdentifier = false;
                             extensions[educationProgramIdentifier.name] = [];
                         }}>{@html trash}</button>
             {/if}
@@ -815,9 +836,9 @@
                         disabled={!mayEdit && !isCopy}
                         optionIdentifier="value"
                         customIndicator={indicator}
-                        showIndicator={badgeclass.isMicroCredentials}
-                        showChevron={badgeclass.isMicroCredentials}
-                        clearable={!badgeclass.isMicroCredentials}/>
+                        showIndicator={true}
+                        showChevron={true}
+                        clearable={false}/>
                 <span class="info">
                     {@html I18n.t('models.badgeclass.info.eqf')}
                 </span>
@@ -833,7 +854,7 @@
                         items={eqfItems}
                         disabled={!mayEdit && !isCopy}
                         optionIdentifier="value"
-                        clearable={badgeclass.isMicroCredentials}/>
+                        clearable={false}/>
                 <span class="info">
                     {@html I18n.t('models.badgeclass.info.eqf')}
                 </span>
