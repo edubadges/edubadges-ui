@@ -501,7 +501,8 @@
                                 action={showCollectionModal}/>
                     </div>
                     <div class="button-container">
-                        <DownloadButton text={I18n.t("models.badge.download")} secondary={true}
+                        <DownloadButton text={I18n.t("models.badge.download")}
+                                        secondary={true}
                                         filename={downloadFileName(badge)}
                                         disabled={badge && (badge.acceptance === "REJECTED" || !badge.public)}
                                         url={badge.image}/>
