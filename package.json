@@ -4,7 +4,8 @@
   "version": "0.0.1",
   "license": "MIT",
   "resolutions": {
-    "acorn": "8.0.1"
+    "acorn": "8.0.1",
+    "word-wrap": "^1.2.3"
   },
   "devDependencies": {
     "@babel/core": "^7.21.4",
