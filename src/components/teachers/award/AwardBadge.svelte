@@ -22,7 +22,6 @@
 
     export let badgeclass;
     export let enrollments;
-    export let existingAssertionsEmails;
     export let refresh;
     export let existingDirectAwardsEppns;
     export let ltiContextEnabled = false;
@@ -127,10 +126,6 @@
             ...errorsDuplications,
             [`email_${i}`]: directAwards.filter(da => da.email === val).length > 1 && val.trim().length > 0
         }
-        errorsAlreadyAwarded = {
-            ...errorsAlreadyAwarded,
-            [`email_${i}`]: existingAssertionsEmails.some(email => email === val) || existingDirectAwardsEppns.some(inst => inst.recipientEmail === val)
-        }
     }
 
     const eppnOnBlur = i => e => {
@@ -175,8 +170,6 @@
         }, {});
         errorsAlreadyAwarded = newDirectAwards.reduce((acc, da, i) => {
             acc[`eppn_${i}`] = existingDirectAwardsEppns.some(inst => inst.eppn === da.eppn);
-            acc[`email_${i}`] = existingAssertionsEmails.some(email => email === da.email) ||
-                existingDirectAwardsEppns.some(inst => inst.recipientEmail === da.email);
             return acc;
         }, {});
         errorsDuplications = newDirectAwards.reduce((acc, da, i) => {

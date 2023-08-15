@@ -45,7 +45,6 @@
     let publicInstitutions = [];
     let enrollments = [];
     let assertions = [];
-    let existingAssertionsEmails = [];
     let existingDirectAwardsEppns = [];
     let directAwardBundles = [];
     let loaded;
@@ -202,7 +201,6 @@
         });
         existingDirectAwardsEppns = directAwards
             .filter(da => da.status.toLowerCase() === "unaccepted" || da.status.toLowerCase() === "scheduled");
-        existingAssertionsEmails = badgeAssertions.filter(ass => !ass.revoked).map(assertion => assertion.user.email);
         loaded = true;
         callback && callback();
     }
@@ -395,21 +393,18 @@
                                 ltiContextEnabled={false}
                                 enrollments={enrollments}
                                 existingDirectAwardsEppns={existingDirectAwardsEppns}
-                                existingAssertionsEmails={existingAssertionsEmails}
                                 refresh={refresh}/>
                 </Route>
                 <Route path="/lti-award">
                     <AwardBadge badgeclass={badgeclass}
                                 ltiContextEnabled={true}
                                 existingDirectAwardsEppns={existingDirectAwardsEppns}
-                                existingAssertionsEmails={existingAssertionsEmails}
                                 enrollments={enrollments}
                                 refresh={refresh}/>
                 </Route>
                 <Route path="/bulk-award">
                     <BulkAwardBadge badgeclass={badgeclass}
                                     existingDirectAwardsEppns={existingDirectAwardsEppns}
-                                    existingAssertionsEmails={existingAssertionsEmails}
                                     enrollments={enrollments}
                                     refresh={refresh}/>
                 </Route>
