@@ -1,9 +1,9 @@
 import I18n from "i18n-js";
 
 export const sortTargetOptions = () => [
-    {value: "request", name: I18n.t("teacher.badgeclasses.mostRequested")},
-    {value: "recent", name: I18n.t("teacher.badgeclasses.mostRecent")},
     {value: "awarded", name: I18n.t("teacher.badgeclasses.mostAwarded")},
+    {value: "request", name: I18n.t("teacher.badgeclasses.mostRequested")},
+    {value: "recent", name: I18n.t("teacher.badgeclasses.mostRecent")}
 ];
 
 

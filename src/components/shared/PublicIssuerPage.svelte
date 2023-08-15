@@ -56,7 +56,8 @@
         image,
         entityId,
         archived,
-        assertionsCount,
+        directAwardedAssertionsCount,
+        selfRequestedAssertionsCount,
         createdAt,
         extensions {
           name,

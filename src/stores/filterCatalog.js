@@ -1,5 +1,11 @@
 import {derived, writable} from "svelte/store";
-import {filterBySearch, sort, sortBadgeAssertions, sortCreatedAt} from "./filterBadges";
+import {
+    filterBySearch,
+    sort,
+    sortBadgeAssertionsDirectAwarded,
+    sortBadgeAssertionsSelfRequested,
+    sortCreatedAt
+} from "./filterBadges";
 import {badgeClassFilterTypes, educationalLevels, studyLoadCategories} from "../util/catalogFilters";
 import I18n from "i18n-js";
 import {catalogPageCount} from "../util/pagination";
@@ -156,7 +162,8 @@ export const tree = derived(
                 count: 0
             })));
 
-        const sortedBadgeClasses = (sortTarget && sortTarget.value === "recent") ? sortCreatedAt(filteredBadgeClasses) : sortBadgeAssertions(filteredBadgeClasses);
+        const sortedBadgeClasses = (sortTarget && sortTarget.value === "recent") ? sortCreatedAt(filteredBadgeClasses) :
+            (sortTarget && sortTarget.value === "awarded") ? sortBadgeAssertionsDirectAwarded(filteredBadgeClasses) : sortBadgeAssertionsSelfRequested(filteredBadgeClasses);
 
         const minimalPage = Math.min(page, Math.ceil(sortedBadgeClasses.length / catalogPageCount))
         return {

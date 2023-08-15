@@ -46,7 +46,8 @@
           permissions {
             mayAward
           },
-          assertionsCount,
+            directAwardedAssertionsCount,
+            selfRequestedAssertionsCount,
           pendingEnrollmentCount,
         }
       },

@@ -29,8 +29,12 @@ export const sort = (collection, count = false) => {
 
 export const sortCreatedAt = collection => !collection ? [] : collection.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
-export const sortBadgeAssertions = collection => {
-    return !collection ? [] : collection.sort((a, b) => b.assertionsCount !== undefined ? b.assertionsCount - a.assertionsCount : b.badgeAssertions.length - a.badgeAssertions.length)
+export const sortBadgeAssertionsDirectAwarded = collection => {
+    return !collection ? [] : collection.sort((a, b) => b.directAwardedAssertionsCount - a.directAwardedAssertionsCount)
+}
+
+export const sortBadgeAssertionsSelfRequested = collection => {
+    return !collection ? [] : collection.sort((a, b) => b.selfRequestedAssertionsCount - a.selfRequestedAssertionsCount)
 }
 
 export const sortBadgePendingEnrollments = collection => {
@@ -96,9 +100,9 @@ export const tree = derived(
             if (sortTarget.value === "recent") {
                 sortedBadgeClasses = sortCreatedAt(tree.badgeClasses);
             } else if (sortTarget.value === "awarded") {
-                sortedBadgeClasses = sortBadgeAssertions(tree.badgeClasses);
+                sortedBadgeClasses = sortBadgeAssertionsDirectAwarded(tree.badgeClasses);
             } else {
-                sortedBadgeClasses = sortBadgePendingEnrollments(tree.badgeClasses);
+                sortedBadgeClasses = sortBadgeAssertionsSelfRequested(tree.badgeClasses);
             }
         }
         sortedBadgeClasses = sortedBadgeClasses.filter(badge => {
