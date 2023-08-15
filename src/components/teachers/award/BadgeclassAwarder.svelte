@@ -246,6 +246,11 @@
             href: `/badgeclass/${entityId}/overview`
         },
         {
+            entity: "openDirectAwards",
+            count: assertions.filter(assertion => assertion.isDirectAward && assertion.status.toLowerCase() === "unaccepted").length,
+            href: `/badgeclass/${entityId}/openDirectAwards`
+        },
+        {
             entity: "enrollments",
             count: enrollments.filter(enrollment => !enrollment.denied).length,
             href: `/badgeclass/${entityId}/enrollments`
@@ -254,6 +259,21 @@
             entity: "assertions",
             count: assertions.length,
             href: `/badgeclass/${entityId}/awarded`
+        },
+        {
+            entity: "revokedDirectAwards",
+            count: assertions.length,
+            href: `/badgeclass/${entityId}/revokedDirectAwards`
+        },
+        {
+            entity: "rejectedEnrollments",
+            count: assertions.length,
+            href: `/badgeclass/${entityId}/rejectedEnrollments`
+        },
+        {
+            entity: "deletedDirectAwards",
+            count: assertions.length,
+            href: `/badgeclass/${entityId}/deletedDirectAwards`
         },
         {
             entity: "directAwardBundle",
@@ -437,7 +457,6 @@
                             <Overview {badgeclass} {publicInstitutions}/>
                         </div>
                     </Route>
-
                     <Route path="/enrollments">
                         <Enrollments {entityId} bind:enrollments badgeClass={badgeclass} refresh={refresh}/>
                     </Route>
