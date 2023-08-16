@@ -266,7 +266,7 @@ I18n.translations.en = {
             badgeclassOverview: "Overview",
             userManagement: "User management",
             openDirectAwards: "Open awards",
-            enrollments: "Open requests",
+            openEnrollments: "Open requests",
             assertions: "Handeld",
             rejectedEnrollments: "Rejected",
             revokedDirectAwards: "Revoked",

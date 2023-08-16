@@ -266,7 +266,7 @@ I18n.translations.nl = {
             badgeclassOverview: "Overzicht",
             userManagement: "Gebruikers beheer",
             openDirectAwards: "Open awards",
-            enrollments: "Open aanvragen",
+            openEnrollments: "Open aanvragen",
             assertions: "Afgehandeld",
             rejectedEnrollments: "Afgewezen",
             revokedDirectAwards: "Ingetrokken",
