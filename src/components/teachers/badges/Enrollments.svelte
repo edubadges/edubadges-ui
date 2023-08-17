@@ -16,17 +16,18 @@
     import Spinner from "../../Spinner.svelte";
     import Tooltip from "../../../components/Tooltip.svelte";
     import {pageCount} from "../../../util/pagination";
+    import {ACTIONS} from "../../../util/assertions";
 
     export let entityId;
     export let enrollments = [];
     export let refresh;
+    export let actions = [ACTIONS.DENY_ENROLLMENT, ACTIONS.AWARD_ENROLLMENT];
 
     export let badgeClass = {};
 
     let selection = [];
     let filteredEnrollments = [];
     let checkAllValue = false;
-    let displayDenied = false;
     let narrative = "";
     let url = "";
     let name = "";
@@ -46,13 +47,8 @@
 
     onMount(() => {
         enrollments.forEach(enrollment => enrollment.evidenceNarrativeRequired = badgeClass.evidenceRequired || badgeClass.narrativeRequired);
-        filteredEnrollments = enrollments.filter(enrollment => !enrollment.denied);
+        filteredEnrollments = enrollments;
     });
-
-    const displayDeniedChanged = val => {
-        filteredEnrollments = val ? [...enrollments] : enrollments.filter(enrollment => !enrollment.denied)
-        displayDenied = val;
-    }
 
     const refreshEnrollments = () => {
         selection = [];
@@ -109,7 +105,7 @@
 
 
     const onCheckAll = val => {
-        selection = val ? enrollments.filter(enrollment => !enrollment.denied).map(({entityId}) => entityId) : [];
+        selection = val ? enrollments.map(({entityId}) => entityId) : [];
         table.checkAllValue = val;
     }
 
@@ -240,23 +236,18 @@
         page={minimalPage}
         onPageChange={nbr => page = nbr}
         withCheckAll={true}
-        checkAllDisabled={enrollments.filter(enrollment => !enrollment.denied).length === 0 || !badgeClass.permissions.mayAward || badgeClass.evidenceRequired || badgeClass.narrativeRequired}
+        checkAllDisabled={!badgeClass.permissions.mayAward || badgeClass.evidenceRequired || badgeClass.narrativeRequired}
         bind:checkAllValue>
     <div class="action-buttons" slot="check-buttons">
-        <Button small action={() => award(true)} marginRight={true}
-                text={I18n.t('models.enrollment.award')} disabled={selection.length === 0 || serverBusy}/>
-        <Button small action={() => deny(true)}
-                text={I18n.t('models.enrollment.deny')} disabled={selection.length === 0  || serverBusy}
-                secondary={true}/>
-        {#if enrollments.filter(enrollment => enrollment.denied).length > 0}
-            <div class="checkbox-container">
-                <CheckBox adjustTopFlex={true}
-                          label={I18n.t('models.enrollment.showDenied', {count: enrollments.filter(enrollment => enrollment.denied).length})}
-                          bind:value={displayDenied}
-                          onChange={displayDeniedChanged}/>
-            </div>
+        {#if actions.includes(ACTIONS.AWARD_ENROLLMENT)}
+            <Button small action={() => award(true)} marginRight={true}
+                    text={I18n.t('models.enrollment.award')} disabled={selection.length === 0 || serverBusy}/>
         {/if}
-
+        {#if actions.includes(ACTIONS.DENY_ENROLLMENT)}
+            <Button small action={() => deny(true)}
+                    text={I18n.t('models.enrollment.deny')} disabled={selection.length === 0  || serverBusy}
+                    secondary={true}/>
+        {/if}
     </div>
 
     {#each sortedFilteredEnrollments.slice((minimalPage - 1) * pageCount, minimalPage * pageCount) as enrollment}
@@ -265,7 +256,7 @@
                 <CheckBox
                         value={selection.includes(enrollment.entityId)}
                         name={`select-${enrollment.entityId}`}
-                        disabled={enrollment.denied || !badgeClass.permissions.mayAward}
+                        disabled={!badgeClass.permissions.mayAward}
                         onChange={val => onCheckOne(val, enrollment.entityId)}/>
             </td>
             <td class="single-neutral-check">

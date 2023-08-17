@@ -5,6 +5,12 @@ export const issuedTypes = {
   ALL: 4,
 }
 
+export const filterTypes = {
+  ISSUED: "issued",
+  AWARD_TYPE: "award_type",
+  STATUS: "status"
+}
+
 export const awardTypes= {
   DIRECT_AWARD: "direct_award",
   REQUESTED: "requested"

@@ -209,6 +209,16 @@ export function revokeDirectAwards(directAwardEntityIds, revocationReason) {
     );
 }
 
+export function deleteDirectAwards(directAwardEntityIds, revocationReason) {
+    const path = `${serverUrl}/directaward/delete-direct-awards`;
+    const directAwards = directAwardEntityIds.map(entityId => ({entity_id: entityId}));
+    return validFetch(
+        path,
+        {body: JSON.stringify({revocation_reason: revocationReason, direct_awards: directAwards})},
+        "POST"
+    );
+}
+
 export function resendDirectAwards(directAwardEntityIds) {
     const path = `${serverUrl}/directaward/resend-direct-awards`;
     const directAwards = directAwardEntityIds.map(entityId => ({entity_id: entityId}));

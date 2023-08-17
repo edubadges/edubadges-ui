@@ -12,7 +12,7 @@
     import {flash} from "../../../stores/flash";
     import filter from "../../../icons/filter-1.svg";
     import SideBarAssertions from "../award/SideBarAssertions.svelte";
-    import {awardTypes, issuedTypes, statusTypes} from "../../../stores/filterAssertions";
+    import {awardTypes, filterTypes, issuedTypes, statusTypes} from "../../../stores/filterAssertions";
     import {assertionStatusClass, isRevoked} from "../../../util/assertions";
     import Spinner from "../../Spinner.svelte";
     import {pageCount} from "../../../util/pagination";
@@ -20,6 +20,7 @@
     export let assertions = [];
     export let badgeclass;
     export let refresh;
+    export let filterOptions = [filterTypes.ISSUED, filterTypes.AWARD_TYPE, filterTypes.STATUS];
 
     let selection = [];
     let checkAllValue = false;
@@ -41,7 +42,6 @@
     let modalTitle;
     let modalQuestion;
     let modalAction;
-
 
     $: filteredAssertions = assertions;
 
@@ -68,13 +68,13 @@
                 value: issuedTypes.ALL,
                 count: assertions.length
             });
-        [[issuedTypes.LAST_60_DAYS, issuedTypes.LAST_30_DAYS], [issuedTypes.LAST_90_DAYS, issuedTypes.LAST_60_DAYS]]
-            .forEach(arr => {
-                const days = options.find(item => item.value === arr[0]);
-                const toAdd = options.find(option => option.value === arr[1]);
-                days.count += toAdd.count
-            });
-
+        //TODO do we want to include the LAST_30_DAYS in the LAST_60_DAYS
+        // [[issuedTypes.LAST_60_DAYS, issuedTypes.LAST_30_DAYS], [issuedTypes.LAST_90_DAYS, issuedTypes.LAST_60_DAYS]]
+        //     .forEach(arr => {
+        //         const days = options.find(item => item.value === arr[0]);
+        //         const toAdd = options.find(option => option.value === arr[1]);
+        //         days.count += toAdd.count
+        //     });
         issuedOptions = options;
         awardTypeOptions = filteredAssertions.reduce((acc, assertion) => {
                 const item = acc.find(v => v.value === (assertion.isDirectAward ? awardTypes.DIRECT_AWARD : awardTypes.REQUESTED));
@@ -333,6 +333,7 @@
                 bind:issuedSelected={issuedSelected}
                 bind:awardTypeSelected={awardTypeSelected}
                 bind:statusSelected={ statusSelected }
+                { filterOptions }
                 { issuedOptions}
                 { awardTypeOptions}
                 { statusOptions }/>

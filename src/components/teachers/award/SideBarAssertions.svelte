@@ -1,14 +1,16 @@
 <script>
-  import I18n from "i18n-js";
-  import {FilterBlock} from "../../../components/teachers";
+    import I18n from "i18n-js";
+    import {FilterBlock} from "../../../components/teachers";
+    import {filterTypes} from "../../../stores/filterAssertions";
 
-  export let issuedSelected = [];//[issuedTypes.LAST_30_DAYS];
-  export let awardTypeSelected = [];
-  export let statusSelected = [];
+    export let issuedSelected = [];//[issuedTypes.LAST_30_DAYS];
+    export let awardTypeSelected = [];
+    export let statusSelected = [];
+    export let filterOptions = [];
 
-  export let issuedOptions = [];
-  export let awardTypeOptions = [];
-  export let statusOptions = [];
+    export let issuedOptions = [];
+    export let awardTypeOptions = [];
+    export let statusOptions = [];
 
 </script>
 
@@ -41,32 +43,36 @@
 </style>
 
 <div class="sidebar">
-  <div>
-    <h3>{I18n.t('teacher.sidebar.filterAwards')}</h3>
-  </div>
+    <div>
+        <h3>{I18n.t('teacher.sidebar.filterAwards')}</h3>
+    </div>
+    {#if filterOptions.includes(filterTypes.ISSUED)}
+        <div>
+            <FilterBlock
+                    bind:value={issuedSelected}
+                    collection={issuedOptions}
+                    objectIdentifier="value"
+                    title="issued"/>
+        </div>
+    {/if}
+    {#if filterOptions.includes(filterTypes.AWARD_TYPE)}
+        <div>
+            <FilterBlock
+                    bind:value={awardTypeSelected}
+                    collection={awardTypeOptions}
+                    objectIdentifier="value"
+                    title="awardType"/>
+        </div>
+    {/if}
 
-  <div>
-    <FilterBlock
-      bind:value={issuedSelected}
-      collection={issuedOptions}
-      objectIdentifier="value"
-      title="issued"/>
-  </div>
-
-  <div>
-    <FilterBlock
-      bind:value={awardTypeSelected}
-      collection={awardTypeOptions}
-      objectIdentifier="value"
-      title="awardType"/>
-  </div>
-
-  <div>
-    <FilterBlock
-      bind:value={statusSelected}
-      collection={statusOptions}
-      objectIdentifier="value"
-      title="status"/>
-  </div>
+    {#if filterOptions.includes(filterTypes.STATUS)}
+        <div>
+            <FilterBlock
+                    bind:value={statusSelected}
+                    collection={statusOptions}
+                    objectIdentifier="value"
+                    title="status"/>
+        </div>
+    {/if}
 
 </div>

@@ -29,12 +29,12 @@
     import AwardBadge from "./AwardBadge.svelte";
     import BulkAwardBadge from "./BulkAwardBadge.svelte";
     import DirectAwardBundles from "./DirectAwardBundles.svelte";
-    import {issuedTypes} from "../../../stores/filterAssertions";
+    import {filterTypes, issuedTypes} from "../../../stores/filterAssertions";
     import BulkAwardDetails from "./BulkAwardDetails.svelte";
     import {config} from "../../../util/config";
     import Endorsements from "../endorsements/Endorsements.svelte";
     import Endorsed from "../endorsements/Endorsed.svelte";
-    import {assertionStatusClass} from "../../../util/assertions";
+    import {ACTIONS, assertionStatusClass} from "../../../util/assertions";
 
     export let entityId;
     export let subEntity;
@@ -155,8 +155,8 @@
     }
   }`;
 
-    const issuedOn = award => {
-        const createdAt = new Date(award.issuedOn);
+    const issuedOn = (award, issuedOn) => {
+        const createdAt = new Date(issuedOn);
         const today = new Date().getTime();
         const day = 1000 * 60 * 60 * 24;
         const minus30 = new Date(today - (day * 30));
@@ -186,7 +186,7 @@
                 //We don't show pending / in afwachting anymore after 5.3 release
                 ba.status = "ACCEPTED";
             }
-            issuedOn(ba);
+            issuedOn(ba, ba.issuedOn);
         });
         revokedBadgeAssertions = allBadgeAssertions.filter(assertion => assertion.revoked || assertion.acceptance.toLowerCase() === "rejected");
         badgeAssertions = allBadgeAssertions.filter(assertion => !assertion.revoked);
@@ -198,8 +198,8 @@
         directAwards.forEach(da => {
             da.isDirectAward = true;
             da.statusDisplay = assertionStatusClass(da);
-            da.statusSort = I18n.t(`models.badge.statuses.${da.statusDisplay}`)
-            issuedOn(da);
+            da.statusSort = I18n.t(`models.badge.statuses.${da.statusDisplay}`);
+            issuedOn(da, da.createdAt);
         });
         openDirectAwards = directAwards.filter(da => ["scheduled", "unaccepted"].includes(da.status.toLowerCase()))
         deletedDirectAwards = directAwards.filter(da => "deleted" === da.status.toLowerCase());
@@ -267,7 +267,7 @@
         {
             entity: "revokedBadgeAssertions",
             count: revokedBadgeAssertions.length,
-            href: `/badgeclass/${entityId}/revoked-direct-awards`
+            href: `/badgeclass/${entityId}/revoked-assertions`
         },
         {
             entity: "deniedEnrollments",
@@ -280,7 +280,7 @@
             href: `/badgeclass/${entityId}/deleted-direct-awards`
         },
         {
-            entity: "directAwardBundle",
+            entity: "directAwardBundles",
             count: directAwardBundles.length,
             href: `/badgeclass/${entityId}/direct-awards-bundles`
         },
@@ -295,11 +295,8 @@
             href: `/badgeclass/${entityId}/endorsed`
         }
     ]
-        .filter(tab => tab.entity !== "assertions" || badgeclass.name !== config.welcomeBadgeClassName)
-        .filter(tab => tab.entity !== "endorsements" || badgeclass.endorsements.length > 0 || subEntity === "endorsements")
-        .filter(tab => tab.entity !== "endorsed" || badgeclass.endorsed.length > 0)
-        .filter(tab => tab.entity !== "directAwardBundle" || (badgeclass.issuer.faculty.institution.directAwardingEnabled
-            && directAwardBundles.length > 0))
+    // .filter(tab => tab.count > 0 || subEntity === tab.entity)
+    // .filter(tab => badgeclass.name !== config.welcomeBadgeClassName);
 
 
     $: if (!subEntity) {
@@ -462,14 +459,27 @@
                             <Overview {badgeclass} {publicInstitutions}/>
                         </div>
                     </Route>
-                    <Route path="/enrollments">
-                        <Enrollments {entityId} bind:enrollments badgeClass={badgeclass} refresh={refresh}/>
+                    <Route path="/open-direct-awards">
+                        <Assertions {badgeclass} assertions={openDirectAwards} refresh={refresh}
+                                    filterOptions={[filterTypes.ISSUED, filterTypes.STATUS]}/>
                     </Route>
-                    {#if badgeclass.name !== config.welcomeBadgeClassName}
-                        <Route path="/awarded">
-                            <Assertions {badgeclass} assertions={assertions} refresh={refresh}/>
-                        </Route>
-                    {/if}
+                    <Route path="/open-enrollments">
+                        <Enrollments {entityId} enrollments={openEnrollments} badgeClass={badgeclass}
+                                     refresh={refresh} />
+                    </Route>
+                    <Route path="/awarded">
+                        <Assertions {badgeclass} assertions={badgeAssertions} refresh={refresh}/>
+                    </Route>
+                    <Route path="/revoked-assertions">
+                        <Assertions {badgeclass} assertions={revokedBadgeAssertions} refresh={refresh}/>
+                    </Route>
+                    <Route path="/denied-enrollments">
+                        <Enrollments {entityId} enrollments={deniedEnrollments} badgeClass={badgeclass}
+                                     refresh={refresh} actions={[ACTIONS.AWARD_ENROLLMENT]}/>
+                    </Route>
+                    <Route path="/deleted-direct-awards">
+                        <Assertions {badgeclass} assertions={deletedDirectAwards} refresh={refresh}/>
+                    </Route>
                     <Route path="/direct-awards-bundles">
                         <DirectAwardBundles badgeClass={badgeclass} {directAwardBundles}/>
                     </Route>

@@ -15,3 +15,11 @@ export const assertionStatusClass = assertion => {
     }
     return "awarded";
 }
+
+export const ACTIONS = {
+  AWARD_ENROLLMENT: "award_enrollment",
+  DENY_ENROLLMENT: "deny_enrollment",
+  DELETE_DIRECT_AWARD: "delete_direct_award",
+  REVOKE_ASSERTION: "revoke_assertion",
+  RESEND_DIRECT_AWARD: "RESEND_DIRECT_AWARD"
+}
