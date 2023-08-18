@@ -187,13 +187,11 @@
                 ba.status = "ACCEPTED";
             }
             issuedOn(ba, ba.issuedOn);
+            ba.statusDisplay = assertionStatusClass(ba);
+            ba.statusSort = I18n.t(`models.badge.statuses.${ba.statusDisplay}`)
         });
-        revokedBadgeAssertions = allBadgeAssertions.filter(assertion => assertion.revoked || assertion.acceptance.toLowerCase() === "rejected");
+        revokedBadgeAssertions = allBadgeAssertions.filter(assertion => assertion.revoked);
         badgeAssertions = allBadgeAssertions.filter(assertion => !assertion.revoked);
-        badgeAssertions.forEach(assertion => {
-            assertion.statusDisplay = assertionStatusClass(assertion);
-            assertion.statusSort = I18n.t(`models.badge.statuses.${assertion.statusDisplay}`)
-        });
         directAwards = res.badgeClass.directAwardBundles.map(dab => dab.directAwards).flat();
         directAwards.forEach(da => {
             da.isDirectAward = true;
@@ -295,8 +293,8 @@
             href: `/badgeclass/${entityId}/endorsed`
         }
     ]
-    // .filter(tab => tab.count > 0 || subEntity === tab.entity)
-    // .filter(tab => badgeclass.name !== config.welcomeBadgeClassName);
+    .filter(tab => tab.count === undefined || tab.count > 0 || subEntity === tab.href.substring(tab.href.lastIndexOf('/') + 1))
+    .filter(tab => tab.entity !== "badgeclassOverview" && badgeclass.name !== config.welcomeBadgeClassName);
 
 
     $: if (!subEntity) {
@@ -461,24 +459,34 @@
                     </Route>
                     <Route path="/open-direct-awards">
                         <Assertions {badgeclass} assertions={openDirectAwards} refresh={refresh}
-                                    filterOptions={[filterTypes.ISSUED, filterTypes.STATUS]}/>
+                                    filterOptions={[filterTypes.ISSUED, filterTypes.STATUS]}
+                                    actions={[ACTIONS.DELETE_DIRECT_AWARD, ACTIONS.RESEND_DIRECT_AWARD]}
+                        />
                     </Route>
                     <Route path="/open-enrollments">
                         <Enrollments {entityId} enrollments={openEnrollments} badgeClass={badgeclass}
-                                     refresh={refresh} />
+                                     refresh={refresh}/>
                     </Route>
                     <Route path="/awarded">
-                        <Assertions {badgeclass} assertions={badgeAssertions} refresh={refresh}/>
+                        <Assertions {badgeclass} assertions={badgeAssertions} refresh={refresh}
+                                    actions={[ACTIONS.REVOKE_ASSERTION]}
+                        />
                     </Route>
                     <Route path="/revoked-assertions">
-                        <Assertions {badgeclass} assertions={revokedBadgeAssertions} refresh={refresh}/>
+                        <Assertions {badgeclass} assertions={revokedBadgeAssertions} refresh={refresh}
+                                    actions={[]}
+                        />
                     </Route>
                     <Route path="/denied-enrollments">
                         <Enrollments {entityId} enrollments={deniedEnrollments} badgeClass={badgeclass}
-                                     refresh={refresh} actions={[ACTIONS.AWARD_ENROLLMENT]}/>
+                                     refresh={refresh}
+                                     actions={[ACTIONS.AWARD_ENROLLMENT]}
+                        />
                     </Route>
                     <Route path="/deleted-direct-awards">
-                        <Assertions {badgeclass} assertions={deletedDirectAwards} refresh={refresh}/>
+                        <Assertions {badgeclass} assertions={deletedDirectAwards} refresh={refresh}
+                                    actions={[]}
+                        />
                     </Route>
                     <Route path="/direct-awards-bundles">
                         <DirectAwardBundles badgeClass={badgeclass} {directAwardBundles}/>

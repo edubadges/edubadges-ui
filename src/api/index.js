@@ -215,7 +215,7 @@ export function deleteDirectAwards(directAwardEntityIds, revocationReason) {
     return validFetch(
         path,
         {body: JSON.stringify({revocation_reason: revocationReason, direct_awards: directAwards})},
-        "POST"
+        "PUT"
     );
 }
 
