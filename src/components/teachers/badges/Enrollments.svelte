@@ -22,6 +22,7 @@
     export let enrollments = [];
     export let refresh;
     export let actions = [ACTIONS.DENY_ENROLLMENT, ACTIONS.AWARD_ENROLLMENT];
+    export let title;
 
     export let badgeClass = {};
 
@@ -169,7 +170,7 @@
 
     $: table = {
         entity: "badgeclass",
-        title: `${I18n.t("models.enrollment.title")}`,
+        title: title,
         tableHeaders: tableHeaders,
         onCheckAll
     };

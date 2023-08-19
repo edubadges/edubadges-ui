@@ -4,7 +4,7 @@
     import {Table} from "../../teachers";
     import {sort, sortType} from "../../../util/sortData";
     import {Button, CheckBox} from "../../../components";
-    import {revokeAssertions, revokeDirectAwards, deleteDirectAwards, resendDirectAwards} from "../../../api";
+    import {deleteDirectAwards, resendDirectAwards, revokeAssertions, revokeDirectAwards} from "../../../api";
     import singleNeutralCheck from "../../../icons/single-neutral-check.svg";
     import {constructUserEmail, constructUserName} from "../../../util/users";
     import {searchMultiple} from "../../../util/searchData";
@@ -16,13 +16,14 @@
     import {ACTIONS, assertionStatusClass, isRevoked} from "../../../util/assertions";
     import Spinner from "../../Spinner.svelte";
     import {pageCount} from "../../../util/pagination";
-    import {onMount} from "svelte";
 
     export let assertions = [];
     export let badgeclass;
     export let refresh;
     export let filterOptions = [filterTypes.ISSUED, filterTypes.AWARD_TYPE, filterTypes.STATUS];
     export let actions = [ACTIONS.DELETE_DIRECT_AWARD, ACTIONS.REVOKE_ASSERTION, ACTIONS.RESEND_DIRECT_AWARD];
+    export let title;
+    export let type = "awarded";
 
     let selection = [];
     let checkAllValue = false;
@@ -290,8 +291,8 @@
             center: true
         },
         {
-            name: I18n.t("models.badge.expires"),
-            attribute: "expiresAt",
+            name: I18n.t(`models.badge.${type === "awarded" ? "expires" : "deleted"}`),
+            attribute: type === "awarded" ? "expiresAt" : "deleteAt",
             reverse: false,
             sortType: sortType.DATE,
             width: "12%",
@@ -301,7 +302,7 @@
 
     $: table = {
         entity: "badgeclass",
-        title: `${I18n.t("models.badge.awarded")}`,
+        title: title,
         tableHeaders: tableHeaders,
         onCheckAll
     };
@@ -462,9 +463,15 @@
                     {assertion.updatedAt && (!assertion.isDirectAward || assertion.acceptance === "ACCEPTED") ?
                         moment(assertion.updatedAt).format('MMM D, YYYY') : ""}
                 </td>
-                <td class="right">
-                    {assertion.expiresAt ? moment(assertion.expiresAt).format('MMM D, YYYY') : ""}
-                </td>
+                {#if type === "awarded"}
+                    <td class="right">
+                        {assertion.expiresAt ? moment(assertion.expiresAt).format('MMM D, YYYY') : ""}
+                    </td>
+                {:else}
+                    <td class="right">
+                        {assertion.deleteAt ? moment(assertion.deleteAt).format('MMM D, YYYY') : ""}
+                    </td>
+                {/if}
             </tr>
         {/each}
         {#if filteredAssertions.length === 0}

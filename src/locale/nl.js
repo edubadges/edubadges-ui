@@ -754,6 +754,9 @@ I18n.translations.nl = {
             recipient: "Ontvanger",
             requested: "Aangevraagd",
             awarded: "Toegekende edubadges",
+            openAwarded: "Open awarded edubadges",
+            deletedAwarded: "Verwijderde direct awards",
+            revokedAwarded: "Ingetrokken edubadges",
             awardType: {
                 name: "Type aanvraag",
                 REQUESTED: "Aangevraagd",
@@ -766,6 +769,7 @@ I18n.translations.nl = {
             onBehalfOf: " namens {{name}}",
             claimed: "Geclaimd",
             expires: "Verloopt op",
+            deleted: "Verwijder op",
             expiresNever: "Nooit",
             download: "Download",
             open: "Open",
@@ -801,6 +805,7 @@ I18n.translations.nl = {
         },
         enrollment: {
             title: "Personen die een edubadge hebben aangevraagd",
+            titleRejected: "Personen met een afgewezen edubadge verzoek",
             enrolled: "Aangevraagd",
             enrolledOn: "Aangevraagd op",
             deleteEnrollment: "Verwijder aanvraag",

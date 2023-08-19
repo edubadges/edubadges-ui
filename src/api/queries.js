@@ -180,7 +180,8 @@ export const directAwardBundleQuery = `
             status,
             recipientEmail,
             createdAt,
-            updatedAt
+            updatedAt,
+            deleteAt
           }
       }
    `;

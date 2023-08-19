@@ -294,7 +294,7 @@
         }
     ]
     .filter(tab => tab.count === undefined || tab.count > 0 || subEntity === tab.href.substring(tab.href.lastIndexOf('/') + 1))
-    .filter(tab => tab.entity !== "badgeclassOverview" && badgeclass.name !== config.welcomeBadgeClassName);
+    .filter(tab => tab.entity === "badgeclassOverview" || badgeclass.name !== config.welcomeBadgeClassName);
 
 
     $: if (!subEntity) {
@@ -411,7 +411,7 @@
                 <Route path="/direct-award">
                     <AwardBadge badgeclass={badgeclass}
                                 ltiContextEnabled={false}
-                                enrollments={enrollments}
+                                enrollments={openEnrollments}
                                 existingDirectAwardsEppns={existingDirectAwardsEppns}
                                 refresh={refresh}/>
                 </Route>
@@ -419,13 +419,13 @@
                     <AwardBadge badgeclass={badgeclass}
                                 ltiContextEnabled={true}
                                 existingDirectAwardsEppns={existingDirectAwardsEppns}
-                                enrollments={enrollments}
+                                enrollments={openEnrollments}
                                 refresh={refresh}/>
                 </Route>
                 <Route path="/bulk-award">
                     <BulkAwardBadge badgeclass={badgeclass}
                                     existingDirectAwardsEppns={existingDirectAwardsEppns}
-                                    enrollments={enrollments}
+                                    enrollments={openEnrollments}
                                     refresh={refresh}/>
                 </Route>
                 <Route path="/award-details/:entityId" let:params>
@@ -461,31 +461,46 @@
                         <Assertions {badgeclass} assertions={openDirectAwards} refresh={refresh}
                                     filterOptions={[filterTypes.ISSUED, filterTypes.STATUS]}
                                     actions={[ACTIONS.DELETE_DIRECT_AWARD, ACTIONS.RESEND_DIRECT_AWARD]}
+                                    title={I18n.t("models.badge.openAwarded")}
                         />
                     </Route>
                     <Route path="/open-enrollments">
                         <Enrollments {entityId} enrollments={openEnrollments} badgeClass={badgeclass}
-                                     refresh={refresh}/>
+                                     refresh={refresh} title={I18n.t("models.enrollment.title")}/>
                     </Route>
                     <Route path="/awarded">
-                        <Assertions {badgeclass} assertions={badgeAssertions} refresh={refresh}
+                        <Assertions {badgeclass}
+                                    assertions={badgeAssertions}
+                                    refresh={refresh}
                                     actions={[ACTIONS.REVOKE_ASSERTION]}
+                                    title={I18n.t("models.badge.awarded")}
                         />
                     </Route>
                     <Route path="/revoked-assertions">
-                        <Assertions {badgeclass} assertions={revokedBadgeAssertions} refresh={refresh}
+                        <Assertions {badgeclass}
+                                    assertions={revokedBadgeAssertions}
+                                    refresh={refresh}
                                     actions={[]}
+                                    title={I18n.t("models.badge.revokedAwarded")}
                         />
                     </Route>
                     <Route path="/denied-enrollments">
-                        <Enrollments {entityId} enrollments={deniedEnrollments} badgeClass={badgeclass}
+                        <Enrollments {entityId}
+                                     enrollments={deniedEnrollments}
+                                     badgeClass={badgeclass}
                                      refresh={refresh}
+                                     title={I18n.t("models.enrollment.titleRejected")}
                                      actions={[ACTIONS.AWARD_ENROLLMENT]}
                         />
                     </Route>
                     <Route path="/deleted-direct-awards">
-                        <Assertions {badgeclass} assertions={deletedDirectAwards} refresh={refresh}
+                        <Assertions {badgeclass}
+                                    assertions={deletedDirectAwards}
+                                    refresh={refresh}
                                     actions={[]}
+                                    type="deleted"
+                                    filterOptions = {[filterTypes.ISSUED]}
+                                    title={I18n.t("models.badge.deletedAwarded")}
                         />
                     </Route>
                     <Route path="/direct-awards-bundles">

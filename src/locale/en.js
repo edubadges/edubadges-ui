@@ -753,6 +753,9 @@ I18n.translations.en = {
             recipient: "Recipient",
             requested: "Requested",
             awarded: "Awarded edubadges",
+            openAwarded: "Open awarded edubadges",
+            deletedAwarded: "Deleted direct awards",
+            revokedAwarded: "Revoked edubadges",
             awardType: {
                 name: "Award type",
                 REQUESTED: "Requested",
@@ -765,6 +768,7 @@ I18n.translations.en = {
             onBehalfOf: " on behalf of {{name}}",
             claimed: "Claimed",
             expires: "Expires",
+            deleted: "Delete at",
             expiresNever: "Never",
             download: "Download",
             open: "Open",
@@ -799,7 +803,8 @@ I18n.translations.en = {
             }
         },
         enrollment: {
-            title: "Persons with edubadge requests",
+            title: "Persons with open edubadge requests",
+            titleRejected: "Persons with denied edubadge requests",
             enrolled: "Requested",
             enrolledOn: "Requested on",
             deleteEnrollment: "Delete request",
