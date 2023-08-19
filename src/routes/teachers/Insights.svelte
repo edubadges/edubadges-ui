@@ -77,7 +77,6 @@
     let directAwardedAccepted = 0;
     let directAwardDenied = 0;
     let directAwardsOpen = 0;
-    let assertionDirectAwardsRevoked = 0;
     let directAwardsRevoked = 0;
     let claimRate = 0;
 
@@ -174,10 +173,9 @@
         directAwardedAccepted = directAwarded;
         directAwardDenied = totalNbrByAttributeValue(directAwards, 'status', 'Rejected');
         directAwardsOpen = totalNbrByAttributeValue(directAwards, 'status', 'Unaccepted');
-        assertionDirectAwardsRevoked = totalNbrByAttributeValue(filteredDA, 'revoked', true);
         directAwardsRevoked = totalNbrByAttributeValue(directAwards, 'status', 'Revoked');
-        totalDirectAwards = directAwardedAccepted + directAwardDenied + directAwardsOpen + assertionDirectAwardsRevoked + directAwardsRevoked;
-        claimRate = claimRatePercentage(directAwardedAccepted, (totalDirectAwards - directAwardsRevoked - assertionDirectAwardsRevoked));
+        totalDirectAwards = directAwardedAccepted + directAwardDenied + directAwardsOpen + directAwardsRevoked;
+        claimRate = claimRatePercentage(directAwardedAccepted, (totalDirectAwards - directAwardsRevoked));
         //Requested
         acceptedAndApproved = totalRequestedAssertions;
         enrollmentsDenied = totalNbrByAttributeValue(enrollments, 'denied', true);
@@ -743,11 +741,6 @@
                         <span class="attr">{I18n.t("insights.unclaimed")}
                         </span>
                         <span class="value">{directAwardsOpen}</span>
-                    </section>
-                    <section class="stat sub">
-                        <span class="attr">{I18n.t("insights.revokedBefore")}
-                        </span>
-                        <span class="value">{assertionDirectAwardsRevoked}</span>
                     </section>
                     <section class="stat sub">
                         <span class="attr">{I18n.t("insights.revoked")}
