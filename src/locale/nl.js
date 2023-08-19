@@ -271,6 +271,7 @@ I18n.translations.nl = {
             deniedEnrollments: "Afgewezen",
             revokedBadgeAssertions: "Ingetrokken",
             deletedDirectAwards: "Verwijderd",
+            allDeletedDirectAwards:"Verwijderde direct awards",
             directAwardBundles: "Award status",
             profile: "Profiel",
             requestedBadges: "Aangevraagde edubadges",
@@ -914,6 +915,7 @@ I18n.translations.nl = {
         },
         directAwards: {
             title: "Direct awards nog niet geclaimed",
+            titleDeleted: "Verwijderde direct awards",
             revoke: "Trek in",
             resend: "Opnieuw versturen",
             delete: "Awards verwijderen",

@@ -443,7 +443,9 @@
                 </td>
                 <td>
                     <div class="recipient">
-                        <span>{constructUserName(assertion)}</span>
+                        {#if assertion.user }
+                            <span>{constructUserName(assertion)}</span>
+                        {/if}
                         <span>{constructUserEmail(assertion)}</span>
                         {#if assertion.eppn }
                             <span>{assertion.eppn} <em>(eppn)</em></span>
