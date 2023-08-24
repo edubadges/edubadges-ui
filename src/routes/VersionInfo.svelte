@@ -13,10 +13,12 @@
     let versionServer = "";
     let commitServer = "";
     let branchServer = "";
+    let hostNameServer = "";
 
     let versionValidator = "";
     let commitValidator = "";
     let branchValidator = "";
+    let hostNameValidator = "";
 
     let loaded = false;
 
@@ -27,11 +29,13 @@
                 versionServer = lines[0];
                 commitServer = lines[1];
                 branchServer = lines[2];
+                hostNameServer = lines[3]
                 getValidatorInfo().then(json => {
                     const lines = json.git.match(/[^\r\n]+/g);
                     versionValidator = lines[0];
                     commitValidator = lines[1];
                     branchValidator = lines[2];
+                    hostNameValidator = lines[4]
                     loaded = true;
                 })
             });
@@ -63,12 +67,18 @@
             <p>{`Version: ${versionServer}`}</p>
             <p>{`Commit: ${commitServer}`}</p>
             <p>{`Branch: ${branchServer}`}</p>
+            {#if hostNameServer}
+                <p>{`Host: ${hostNameServer}`}</p>
+            {/if}
         </div>
         <div class="validator">
             <h3>Validator git info:</h3>
             <p>{`Version: ${versionValidator}`}</p>
             <p>{`Commit: ${commitValidator}`}</p>
             <p>{`Branch: ${branchValidator}`}</p>
+            {#if hostNameValidator}
+                <p>{`Host: ${hostNameValidator}`}</p>
+            {/if}
         </div>
     {:else}
         <Spinner/>
