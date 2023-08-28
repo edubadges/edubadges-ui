@@ -65,7 +65,7 @@
             {#if uiHostName}
                 <p>{`Host: ${uiHostName}`}</p>
             {/if}
-
+            <br><br>
         </div>
         <div class="server">
             <h3>Server git info:</h3>
@@ -75,6 +75,7 @@
             {#if hostNameServer}
                 <p>{`Host: ${hostNameServer}`}</p>
             {/if}
+            <br><br>
         </div>
         <div class="validator">
             <h3>Validator git info:</h3>
