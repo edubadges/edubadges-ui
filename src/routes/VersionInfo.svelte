@@ -46,18 +46,22 @@
 </script>
 <style lang="scss">
 
-  .version-info {
-    padding: 25px;
+    .version-info {
+        padding: 25px;
 
-    h3 {
-      margin-bottom: 15px;
+        .git-version {
+            margin-bottom: 30px;
+        }
+
+        h3 {
+            margin-bottom: 10px;
+        }
     }
-  }
 
 </style>
 <section class="version-info">
     {#if loaded}
-        <div class="client">
+        <div class="git-version">
             <h3>Client git info:</h3>
             <p>{`Version: ${version}`}</p>
             <p>{`Commit: ${commit}`}</p>
@@ -65,9 +69,8 @@
             {#if uiHostName}
                 <p>{`Host: ${uiHostName}`}</p>
             {/if}
-            <br><br>
         </div>
-        <div class="server">
+        <div class="git-version">
             <h3>Server git info:</h3>
             <p>{`Version: ${versionServer}`}</p>
             <p>{`Commit: ${commitServer}`}</p>
@@ -75,9 +78,8 @@
             {#if hostNameServer}
                 <p>{`Host: ${hostNameServer}`}</p>
             {/if}
-            <br><br>
         </div>
-        <div class="validator">
+        <div class="git-version">
             <h3>Validator git info:</h3>
             <p>{`Version: ${versionValidator}`}</p>
             <p>{`Commit: ${commitValidator}`}</p>
