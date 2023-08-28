@@ -13,8 +13,6 @@
         alignments,
         assertionsQuery,
         directAwardBundleQuery,
-        endorsed,
-        endorsements,
         enrollmentsQuery,
         headerStaff
     } from "../../../api/queries";
@@ -23,7 +21,7 @@
     import Spinner from "../../Spinner.svelte";
     import LinkEye from "../LinkEye.svelte";
     import {facultyIds, issuerIds} from "../../../stores/filterBadges";
-    import {translateBadgeClassProperties, translateProperties} from "../../../util/utils";
+    import {translateBadgeClassProperties} from "../../../util/utils";
     import BadgeAwardOptions from "./BadgeAwardOptions.svelte";
     import {currentPath} from "../../../stores/currentPath";
     import AwardBadge from "./AwardBadge.svelte";
@@ -32,14 +30,12 @@
     import {filterTypes, issuedTypes} from "../../../stores/filterAssertions";
     import BulkAwardDetails from "./BulkAwardDetails.svelte";
     import {config} from "../../../util/config";
-    import Endorsements from "../endorsements/Endorsements.svelte";
-    import Endorsed from "../endorsements/Endorsed.svelte";
     import {ACTIONS, assertionStatusClass} from "../../../util/assertions";
 
     export let entityId;
     export let subEntity;
 
-    let badgeclass = {extensions: [], issuer: {faculty: {institution: {}}}, endorsements: [], endorsed: []};
+    let badgeclass = {extensions: [], issuer: {faculty: {institution: {}}}};
     let publicInstitutions = [];
 
     let openEnrollments = [];
@@ -106,46 +102,11 @@
       permissions { mayUpdate, mayAward },
       extensions { name, originalJson },
       ${alignments},
-      ${endorsements},
-      ${endorsed},
       ${directAwardBundleQuery},
       ${enrollmentsQuery},
       ${assertionsQuery}
     }
   }`;
-
-    const refreshEndorsements = callback => {
-        const endorsementsQuery = `query ($entityId: String, $days: Int) {
-            badgeClass(id: $entityId, days: $days) {
-                entityId,
-                ${endorsements}
-            }
-        }`;
-        loaded = false;
-        queryData(endorsementsQuery, {entityId, days: 1}).then(res => {
-            res.badgeClass.endorsements.forEach(endorsement => translateBadgeClassProperties(endorsement.endorser));
-            badgeclass = {...badgeclass, endorsements: res.badgeClass.endorsements};
-            callback && callback(res.badgeClass);
-            loaded = true;
-        });
-    }
-
-    const refreshEndorsed = callback => {
-        const endorsedQuery = `query ($entityId: String, $days: Int) {
-            badgeClass(id: $entityId, days: $days) {
-                entityId,
-                ${endorsed}
-            }
-        }`;
-        loaded = false;
-        queryData(endorsedQuery, {entityId, days: 1}).then(res => {
-            res.badgeClass.endorsed.forEach(endorsement => translateBadgeClassProperties(endorsement.endorsee));
-            badgeclass = {...badgeclass, endorsed: res.badgeClass.endorsed};
-            callback && callback(res.badgeClass);
-            loaded = true;
-        });
-
-    }
 
     const refreshQuery = `query ($entityId: String, $days: Int){
     badgeClass(id: $entityId, days: $days) {
@@ -227,8 +188,6 @@
                     navigate("/404");
                 } else {
                     translateBadgeClassProperties(badgeclass);
-                    badgeclass.endorsements.forEach(endorsement => translateBadgeClassProperties(endorsement.endorser));
-                    badgeclass.endorsed.forEach(endorsement => translateBadgeClassProperties(endorsement.endorsee));
                     publicInstitutions = res.publicInstitutions;
                     refreshAwardsAndEnrolments(res);
                 }
@@ -281,20 +240,10 @@
             entity: "directAwardBundles",
             count: directAwardBundles.length,
             href: `/badgeclass/${entityId}/direct-awards-bundles`
-        },
-        {
-            entity: "endorsements",
-            count: badgeclass.endorsements.length,
-            href: `/badgeclass/${entityId}/endorsements`
-        },
-        {
-            entity: "endorsed",
-            count: badgeclass.endorsed.length,
-            href: `/badgeclass/${entityId}/endorsed`
         }
     ]
-    .filter(tab => tab.count === undefined || tab.count > 0 || subEntity === tab.href.substring(tab.href.lastIndexOf('/') + 1))
-    .filter(tab => tab.entity === "badgeclassOverview" || badgeclass.name !== config.welcomeBadgeClassName);
+        .filter(tab => tab.count === undefined || tab.count > 0 || subEntity === tab.href.substring(tab.href.lastIndexOf('/') + 1))
+        .filter(tab => tab.entity === "badgeclassOverview" || badgeclass.name !== config.welcomeBadgeClassName);
 
 
     $: if (!subEntity) {
@@ -321,50 +270,50 @@
 </script>
 
 <style lang="scss">
-  div.container {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
+    div.container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
 
-  .overview-container {
-    padding: 27px 174px 67px 74px;
-  }
-
-  @media (max-width: 1120px) {
     .overview-container {
-      padding: 20px;
-    }
-  }
-
-
-  div.bread-crumb {
-    padding: var(--ver-padding-m) var(--hor-padding-m);
-    min-height: 47px;
-    display: flex;
-    align-items: center;
-    font-size: 14px;
-
-    a {
-      color: var(--text-color-grey);
+        padding: 27px 174px 67px 74px;
     }
 
-    a:last-of-type {
-      font-weight: var(--semi-bold);
+    @media (max-width: 1120px) {
+        .overview-container {
+            padding: 20px;
+        }
     }
 
-    a:not(:last-of-type) {
-      color: var(--text-grey-dark);
-      text-decoration: underline;
-    }
 
-    span.crumb {
-      height: 14px;
-      width: 14px;
-      margin: auto 4px;
-    }
+    div.bread-crumb {
+        padding: var(--ver-padding-m) var(--hor-padding-m);
+        min-height: 47px;
+        display: flex;
+        align-items: center;
+        font-size: 14px;
 
-  }
+        a {
+            color: var(--text-color-grey);
+        }
+
+        a:last-of-type {
+            font-weight: var(--semi-bold);
+        }
+
+        a:not(:last-of-type) {
+            color: var(--text-grey-dark);
+            text-decoration: underline;
+        }
+
+        span.crumb {
+            height: 14px;
+            width: 14px;
+            margin: auto 4px;
+        }
+
+    }
 
 </style>
 <div class="container">
@@ -499,21 +448,13 @@
                                     refresh={refresh}
                                     actions={[]}
                                     type="deleted"
-                                    filterOptions = {[filterTypes.ISSUED]}
+                                    filterOptions={[filterTypes.ISSUED]}
                                     title={I18n.t("models.badge.deletedAwarded")}
                         />
                     </Route>
                     <Route path="/direct-awards-bundles">
                         <DirectAwardBundles badgeClass={badgeclass} {directAwardBundles}/>
                     </Route>
-                    {#if config.features.endorsements}
-                        <Route path="/endorsements">
-                            <Endorsements badgeClass={badgeclass} refresh={refreshEndorsements}/>
-                        </Route>
-                        <Route path="/endorsed">
-                            <Endorsed badgeClass={badgeclass} refresh={refreshEndorsed}/>
-                        </Route>
-                    {/if}
                 </Router>
             </div>
         {/if}
