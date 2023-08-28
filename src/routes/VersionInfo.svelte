@@ -6,6 +6,7 @@
     import {getValidatorInfo} from "../api";
 
     const serverUrl = config.serverUrl;
+    const uiHostName = config.hostname;
     const version = `${VERSION}`;
     const commit = `${COMMITHASH}`;
     const branch = `${BRANCH}`;
@@ -35,7 +36,7 @@
                     versionValidator = lines[0];
                     commitValidator = lines[1];
                     branchValidator = lines[2];
-                    hostNameValidator = lines[4]
+                    hostNameValidator = lines[3]
                     loaded = true;
                 })
             });
@@ -61,6 +62,10 @@
             <p>{`Version: ${version}`}</p>
             <p>{`Commit: ${commit}`}</p>
             <p>{`Branch: ${branch}`}</p>
+            {#if uiHostName}
+                <p>{`Host: ${uiHostName}`}</p>
+            {/if}
+
         </div>
         <div class="server">
             <h3>Server git info:</h3>
