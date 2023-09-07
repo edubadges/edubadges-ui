@@ -267,7 +267,7 @@ I18n.translations.nl = {
             userManagement: "Gebruikers beheer",
             openDirectAwards: "Open awards",
             openEnrollments: "Open aanvragen",
-            assertions: "in Backpack",
+            assertions: "In backpack",
             deniedEnrollments: "Geweigerd",
             revokedBadgeAssertions: "Ingetrokken",
             deletedDirectAwards: "Verwijderd",

@@ -267,7 +267,7 @@ I18n.translations.en = {
             userManagement: "User management",
             openDirectAwards: "Open awards",
             openEnrollments: "Open requests",
-            assertions: "in Backpack",
+            assertions: "In backpack",
             deniedEnrollments: "Denied",
             revokedBadgeAssertions: "Revoked",
             deletedDirectAwards: "Deleted",
