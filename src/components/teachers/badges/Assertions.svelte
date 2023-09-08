@@ -201,10 +201,10 @@
 
     const resend = showConfirmation => {
         if (showConfirmation) {
+            revocationReasonRequired = false;
             modalTitle = I18n.t("models.directAwards.confirmation.resend");
             modalQuestion = I18n.t("models.directAwards.confirmation.resendConfirmation");
             modalAction = () => resend(false);
-            revocationReasonRequired = false;
             showModal = true;
         } else {
             showModal = false;
@@ -327,58 +327,59 @@
 
 <style lang="scss">
 
-  div.assertions {
-    display: flex;
+    div.assertions {
+        display: flex;
 
-  }
-
-  div.recipient {
-    display: flex;
-    flex-direction: column;
-
-    span:not(:last-child) {
-      margin-bottom: 5px;
-    }
-  }
-
-  div.action-buttons {
-    display: flex;
-    margin: 15px 0;
-  }
-
-  div.slots {
-    display: flex;
-    flex-direction: column;
-
-    label {
-      margin-bottom: 10px;
-    }
-  }
-
-  :global(td.assertion-status span) {
-    padding: 4px 10px;
-    border-radius: 12px;
-    font-size: 14px;
-    font-weight: bold;
-
-    &.accepted, &.awarded {
-      background-color: var(--green-light);
     }
 
-    &.revoked {
-      background-color: var(--red-strong-dark);
-      color: white;
+    div.recipient {
+        display: flex;
+        flex-direction: column;
+
+        span:not(:last-child) {
+            margin-bottom: 5px;
+        }
     }
 
-    &.unaccepted, &.pending, &.scheduled {
-      background-color: var(--grey-3);
+    div.action-buttons {
+        display: flex;
+        margin: 15px 0;
+        gap: 45px
     }
 
-    &.rejected {
-      background-color: var(--red-dark);
-      color: white;
+    div.slots {
+        display: flex;
+        flex-direction: column;
+
+        label {
+            margin-bottom: 10px;
+        }
     }
-  }
+
+    :global(td.assertion-status span) {
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: bold;
+
+        &.accepted, &.awarded {
+            background-color: var(--green-light);
+        }
+
+        &.revoked {
+            background-color: var(--red-strong-dark);
+            color: white;
+        }
+
+        &.unaccepted, &.pending, &.scheduled {
+            background-color: var(--grey-3);
+        }
+
+        &.rejected {
+            background-color: var(--red-dark);
+            color: white;
+        }
+    }
 
 
 </style>
@@ -413,6 +414,11 @@
             onPageChange={nbr => page = nbr}
             bind:checkAllValue>
         <div class="action-buttons" slot="check-buttons">
+            {#if actions.includes(ACTIONS.RESEND_DIRECT_AWARD)}
+                <Button small disabled={selection.length === 0 || serverBusy}
+                        action={() => resend(true)}
+                        text={I18n.t('models.directAwards.resend')}/>
+            {/if}
             {#if actions.includes(ACTIONS.REVOKE_ASSERTION)}
                 <Button small disabled={selection.length === 0 || serverBusy}
                         action={() => revoke(true)}
@@ -491,7 +497,7 @@
             question={modalQuestion}
             evaluateQuestion={true}
             title={modalTitle}
-            disabled={revocationReason.length === 0 || !revocationReasonRequired}>
+            disabled={revocationReasonRequired && revocationReason.length === 0}>
         {#if revocationReasonRequired}
             <div class="slots">
                 <label for="revocation-reason">{revocationReasonLabel}</label>

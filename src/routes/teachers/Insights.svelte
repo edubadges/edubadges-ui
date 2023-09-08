@@ -173,7 +173,7 @@
         directAwardedAccepted = directAwarded;
         directAwardDenied = totalNbrByAttributeValue(directAwards, 'status', 'Rejected');
         directAwardsOpen = totalNbrByAttributeValue(directAwards, 'status', 'Unaccepted');
-        directAwardsRevoked = totalNbrByAttributeValue(directAwards, 'status', 'Revoked');
+        directAwardsRevoked = totalNbrByAttributeValue(filteredDA, 'revoked', true);
         totalDirectAwards = directAwardedAccepted + directAwardDenied + directAwardsOpen + directAwardsRevoked;
         claimRate = claimRatePercentage(directAwardedAccepted, (totalDirectAwards - directAwardsRevoked));
         //Requested
@@ -817,6 +817,7 @@
                                 value={facultyId}
                                 showIndicator={!facultyId}
                                 showChevron={!facultyId}
+                                isSearchable={true}
                                 handleSelect={facultySelected}
                                 placeholder={I18n.t("models.insights.facultyPlaceholder")}
                                 items={facultySelectOptions}
@@ -828,6 +829,7 @@
                                 showIndicator={!issuerId}
                                 showChevron={!issuerId}
                                 handleSelect={issuerSelected}
+                                isSearchable={true}
                                 placeholder={I18n.t("models.insights.issuerPlaceholder")}
                                 items={issuerSelectOptions}
                                 optionIdentifier="identifier"/>
@@ -836,6 +838,7 @@
                         <Select
                                 value={badgeClassId}
                                 showIndicator={!badgeClassId}
+                                isSearchable={true}
                                 showChevron={!badgeClassId}
                                 handleSelect={badgeClassSelected}
                                 placeholder={I18n.t("models.insights.badgeClassPlaceholder")}

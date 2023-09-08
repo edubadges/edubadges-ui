@@ -160,7 +160,7 @@
             da.statusSort = I18n.t(`models.badge.statuses.${da.statusDisplay}`);
             issuedOn(da, da.createdAt);
         });
-        openDirectAwards = directAwards.filter(da => ["scheduled", "unaccepted"].includes(da.status.toLowerCase()))
+        openDirectAwards = directAwards.filter(da => ["scheduled", "unaccepted", "rejected"].includes(da.status.toLowerCase()))
         deletedDirectAwards = directAwards.filter(da => "deleted" === da.status.toLowerCase());
 
         res.badgeClass.directAwards = directAwards;
@@ -207,6 +207,11 @@
             href: `/badgeclass/${entityId}/overview`
         },
         {
+            entity: "directAwardBundles",
+            count: directAwardBundles.length,
+            href: `/badgeclass/${entityId}/direct-awards-bundles`
+        },
+        {
             entity: "openDirectAwards",
             count: openDirectAwards.length,
             href: `/badgeclass/${entityId}/open-direct-awards`
@@ -235,11 +240,6 @@
             entity: "deletedDirectAwards",
             count: deletedDirectAwards.length,
             href: `/badgeclass/${entityId}/deleted-direct-awards`
-        },
-        {
-            entity: "directAwardBundles",
-            count: directAwardBundles.length,
-            href: `/badgeclass/${entityId}/direct-awards-bundles`
         }
     ]
         .filter(tab => tab.count === undefined || tab.count > 0 || subEntity === tab.href.substring(tab.href.lastIndexOf('/') + 1))
