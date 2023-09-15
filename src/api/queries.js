@@ -179,6 +179,7 @@ export const directAwardBundleQuery = `
             eppn,
             status,
             recipientEmail,
+            resendAt,
             createdAt,
             updatedAt,
             deleteAt

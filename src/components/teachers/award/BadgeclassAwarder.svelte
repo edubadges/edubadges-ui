@@ -407,15 +407,21 @@
                         </div>
                     </Route>
                     <Route path="/open-direct-awards">
-                        <Assertions {badgeclass} assertions={openDirectAwards} refresh={refresh}
+                        <Assertions {badgeclass}
+                                    assertions={openDirectAwards}
+                                    refresh={refresh}
+                                    directAwards={true}
                                     filterOptions={[filterTypes.ISSUED, filterTypes.STATUS]}
                                     actions={[ACTIONS.DELETE_DIRECT_AWARD, ACTIONS.RESEND_DIRECT_AWARD]}
                                     title={I18n.t("models.badge.openAwarded")}
                         />
                     </Route>
                     <Route path="/open-enrollments">
-                        <Enrollments {entityId} enrollments={openEnrollments} badgeClass={badgeclass}
-                                     refresh={refresh} title={I18n.t("models.enrollment.title")}/>
+                        <Enrollments {entityId}
+                                     enrollments={openEnrollments}
+                                     badgeClass={badgeclass}
+                                     refresh={refresh}
+                                     title={I18n.t("models.enrollment.title")}/>
                     </Route>
                     <Route path="/awarded">
                         <Assertions {badgeclass}
@@ -447,6 +453,7 @@
                                     assertions={deletedDirectAwards}
                                     refresh={refresh}
                                     actions={[]}
+                                    directAwards={true}
                                     type="deleted"
                                     filterOptions={[filterTypes.ISSUED]}
                                     title={I18n.t("models.badge.deletedAwarded")}

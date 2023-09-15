@@ -24,6 +24,7 @@
     export let actions = [ACTIONS.DELETE_DIRECT_AWARD, ACTIONS.REVOKE_ASSERTION, ACTIONS.RESEND_DIRECT_AWARD];
     export let title;
     export let type = "awarded";
+    export let directAwards = false;
 
     let selection = [];
     let checkAllValue = false;
@@ -282,14 +283,23 @@
             width: "12%",
             center: true
         },
-        {
-            name: I18n.t("models.badge.claimed"),
-            attribute: "updatedOn",
-            reverse: false,
-            sortType: sortType.DATE,
-            width: "12%",
-            center: true
-        },
+        directAwards ?
+            {
+                name: I18n.t(`models.directAwards.resendAt`),
+                attribute: "resendAt",
+                reverse: false,
+                sortType: sortType.DATE,
+                width: "12%",
+                center: true
+            } :
+            {
+                name: I18n.t("models.badge.claimed"),
+                attribute: "updatedOn",
+                reverse: false,
+                sortType: sortType.DATE,
+                width: "12%",
+                center: true
+            },
         {
             name: I18n.t(`models.badge.${type === "awarded" ? "expires" : "deleted"}`),
             attribute: type === "awarded" ? "expiresAt" : "deleteAt",
@@ -370,7 +380,9 @@
             background-color: var(--red-strong-dark);
             color: white;
         }
-
+        &.deleted {
+            background-color: var(--red-light);
+        }
         &.unaccepted, &.pending, &.scheduled {
             background-color: var(--grey-3);
         }
@@ -467,10 +479,16 @@
                 <td class="assertion-status center">
                     <span class={assertionStatusClass(assertion)}>{I18n.t(`models.badge.statuses.${assertion.statusDisplay}`)}</span>
                 </td>
-                <td class="center">
-                    {assertion.updatedAt && (!assertion.isDirectAward || assertion.acceptance === "ACCEPTED") ?
-                        moment(assertion.updatedAt).format('MMM D, YYYY') : ""}
-                </td>
+                {#if directAwards}
+                    <td class="center">
+                        {assertion.resendAt ? moment(assertion.resendAt).format('MMM D, YYYY') : "-"}
+                    </td>
+                {:else}
+                    <td class="center">
+                        {assertion.updatedAt && (!assertion.isDirectAward || assertion.acceptance === "ACCEPTED") ?
+                            moment(assertion.updatedAt).format('MMM D, YYYY') : ""}
+                    </td>
+                {/if}
                 {#if type === "awarded"}
                     <td class="right">
                         {assertion.expiresAt ? moment(assertion.expiresAt).format('MMM D, YYYY') : ""}
