@@ -372,7 +372,7 @@
         font-size: 14px;
         font-weight: bold;
 
-        &.accepted, &.awarded {
+        &.accepted, &.awarded, &.open {
             background-color: var(--green-light);
         }
 
@@ -380,14 +380,16 @@
             background-color: var(--red-strong-dark);
             color: white;
         }
+
         &.deleted {
             background-color: var(--red-light);
         }
+
         &.unaccepted, &.pending, &.scheduled {
             background-color: var(--grey-3);
         }
 
-        &.rejected {
+        &.rejected, &.denied {
             background-color: var(--red-dark);
             color: white;
         }

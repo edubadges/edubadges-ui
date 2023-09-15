@@ -193,36 +193,61 @@
 </script>
 
 <style lang="scss">
-  div.single-neutral-check {
-    width: 26px;
-  }
-
-  div.recipient {
-    display: flex;
-    flex-direction: column;
-
-    span:not(:last-child) {
-      margin-bottom: 5px;
+    div.single-neutral-check {
+        width: 26px;
     }
-  }
 
-  div.action-buttons {
-    display: flex;
-    margin: 15px 0;
+    div.recipient {
+        display: flex;
+        flex-direction: column;
 
-    :global(a:last-child) {
-      margin-left: 15px;
+        span:not(:last-child) {
+            margin-bottom: 5px;
+        }
     }
-  }
 
-  td.evidenceNarrativeRequired span {
-    display: block;
-  }
+    div.action-buttons {
+        display: flex;
+        margin: 15px 0;
 
-  div.checkbox-container {
-    margin-left: 80px;
-    margin-top: 8px;
-  }
+        :global(a:last-child) {
+            margin-left: 15px;
+        }
+    }
+
+    :global(td.assertion-status span) {
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: bold;
+
+        &.open {
+            background-color: var(--green-light);
+        }
+
+        &.denied {
+            background-color: var(--red-dark);
+            color: white;
+        }
+
+    }
+
+    :global(td.assertion-status span.title) {
+        padding: 0;
+    }
+
+    :global(td.assertion-status span.tooltip-slot) {
+        padding: 0;
+    }
+
+    td.evidenceNarrativeRequired span {
+        display: block;
+    }
+
+    div.checkbox-container {
+        margin-left: 80px;
+        margin-top: 8px;
+    }
 
 </style>
 {#if serverBusy}
@@ -289,8 +314,9 @@
             <td class="center">
                 {moment(enrollment.dateCreated).format('MMM D, YYYY')}
             </td>
-            <td class="center">
-                <span>{enrollment.denied ? I18n.t("models.enrollment.denied") : I18n.t("models.enrollment.open")}</span>
+            <td class="assertion-status center">
+                <span class={enrollment.denied ? "denied" : "open"}>
+                    {enrollment.denied ? I18n.t("models.enrollment.denied") : I18n.t("models.enrollment.open")}</span>
                 {#if enrollment.denied}
                     <Tooltip tooltipText={enrollment.denyReason}/>
                 {/if}
