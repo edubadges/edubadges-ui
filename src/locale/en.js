@@ -18,6 +18,7 @@ I18n.translations.en = {
         feedback: "Send feedback",
         demo: "Demo environment",
         impersonate: "Impersonate",
+        queries: "Management queries",
         clearImpersonation: "Clear impersonation",
         nav: {
             badgeclasses: "Badge classes",
@@ -271,7 +272,7 @@ I18n.translations.en = {
             deniedEnrollments: "Denied",
             revokedBadgeAssertions: "Revoked",
             deletedDirectAwards: "Deleted",
-            allDeletedDirectAwards:"Deleted direct awards",
+            allDeletedDirectAwards: "Deleted direct awards",
             directAwardBundles: "Award status",
             profile: "Profile",
             requestedBadges: "Requested edubadges",
@@ -445,6 +446,7 @@ I18n.translations.en = {
         940: "There is already an edubadge or unaccepted direct award for this email",
         941: "There is already an edubadge request from this email",
         942: "EPPN does not match the EPPN-format of your institution",
+        943: "There is already a claimed assertion for this EPPN",
         unexpected: "Unexpected error occurred.",
         description: "An unexpected error has occurred. Please try again later or contact support@edubadges.nl for support.",
         close: "Close"
@@ -1701,5 +1703,14 @@ I18n.translations.en = {
             delete: "Endorsement has been deleted",
             resend: "Endorsement request has been resend",
         }
-    }
+    },
+    managementQueries: {
+        institutionAdmins: "Institution admins",
+        clear: "Clear",
+        download: "Download",
+        copy: "Copy",
+        show: "Show",
+        hide: "Hide",
+        loaded: "{{name}} query loaded and ready to copy, download or show....."
+    },
 };

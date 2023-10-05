@@ -200,6 +200,8 @@
                 {#if profile.is_superuser}
                     <div class="profile-menu"
                          on:click={() => navigate("/impersonate")}>{I18n.t('header.impersonate')}</div>
+                    <div class="profile-menu"
+                         on:click={() => navigate("/management-queries")}>{I18n.t('header.queries')}</div>
                 {:else if $userImpersonated === "true"}
                     <div class="profile-menu"
                          on:click={clearImpersonation}>{I18n.t('header.clearImpersonation')}</div>

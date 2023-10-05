@@ -271,7 +271,7 @@ I18n.translations.nl = {
             deniedEnrollments: "Geweigerd",
             revokedBadgeAssertions: "Ingetrokken",
             deletedDirectAwards: "Verwijderd",
-            allDeletedDirectAwards:"Verwijderde direct awards",
+            allDeletedDirectAwards: "Verwijderde direct awards",
             directAwardBundles: "Award status",
             profile: "Profiel",
             requestedBadges: "Aangevraagde edubadges",
@@ -445,6 +445,7 @@ I18n.translations.nl = {
         940: "Er is al een edubadge voor deze email",
         941: "Er is al een badge aanvraag voor deze email",
         942: "EPPN voldoet niet aan het formaat van je instelling",
+        943: "Er is al een edubadge voor deze EPPN",
         unexpected: "Oeps, er is iets totaal onverwachts en onverklaarbaars gebeurd.",
         description: "Een onverwachte fout is opgetreden. Probeer het opnieuw of neem contact op met support@edubadges.nl voor ondersteuning.",
         close: "Sluit"
@@ -1702,6 +1703,14 @@ I18n.translations.nl = {
             delete: "Endorsement is verwijderd",
             resend: "Endorsement verzoek is opnieuw verstuurd",
         }
-    }
-
+    },
+    managementQueries: {
+        institutionAdmins: "Institution admins",
+        clear: "Clear",
+        download: "Download",
+        copy: "Copy",
+        show: "Show",
+        hide: "Hide",
+        loaded: "{{name}} query loaded..."
+    },
 };

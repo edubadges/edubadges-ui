@@ -165,7 +165,8 @@
 
         res.badgeClass.directAwards = directAwards;
         existingDirectAwardsEppns = directAwards
-            .filter(da => da.status.toLowerCase() === "unaccepted" || da.status.toLowerCase() === "scheduled");
+            .filter(da => da.status.toLowerCase() === "unaccepted" || da.status.toLowerCase() === "scheduled")
+            .concat(badgeAssertions.map(ba => ba.user.eppns).flat().map(eppn => ({eppn: eppn, isAssertion: true})));
         loaded = true;
         callback && callback();
     }
@@ -436,6 +437,7 @@
                                     assertions={revokedBadgeAssertions}
                                     refresh={refresh}
                                     actions={[]}
+                                    revokedAwarded={true}
                                     title={I18n.t("models.badge.revokedAwarded")}
                         />
                     </Route>

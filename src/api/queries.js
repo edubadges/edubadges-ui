@@ -159,7 +159,8 @@ export const assertionsQuery = `
           entityId,
           firstName,
           lastName,
-          email
+          email,
+          eppns
         }
       }
   `;

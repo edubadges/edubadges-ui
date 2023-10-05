@@ -48,6 +48,7 @@
   },
   "dependencies": {
     "@bytemd/plugin-gfm": "^1.10.13",
+    "@zerodevx/svelte-json-view": "^1.0.7",
     "bytemd": "^1.10.13",
     "copy-to-clipboard": "^3.3.1",
     "dompurify": "2.0.17",
@@ -57,6 +58,7 @@
     "jwt-decode": "^2.2.0",
     "marked": "^4.0.10",
     "moment": "^2.29.4",
+    "svelte-copy": "^1.4.1",
     "svelte-file-dropzone": "^0.0.15",
     "svelte-json-tree": "^0.1.0",
     "svelte-routing": "^1.4.2",

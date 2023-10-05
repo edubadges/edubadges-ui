@@ -25,6 +25,7 @@
     export let title;
     export let type = "awarded";
     export let directAwards = false;
+    export let revokedAwarded = false;
 
     let selection = [];
     let checkAllValue = false;
@@ -74,13 +75,6 @@
                 value: issuedTypes.ALL,
                 count: assertions.length
             });
-        //TODO do we want to include the LAST_30_DAYS in the LAST_60_DAYS
-        // [[issuedTypes.LAST_60_DAYS, issuedTypes.LAST_30_DAYS], [issuedTypes.LAST_90_DAYS, issuedTypes.LAST_60_DAYS]]
-        //     .forEach(arr => {
-        //         const days = options.find(item => item.value === arr[0]);
-        //         const toAdd = options.find(option => option.value === arr[1]);
-        //         days.count += toAdd.count
-        //     });
         issuedOptions = options;
         awardTypeOptions = filteredAssertions.reduce((acc, assertion) => {
                 const item = acc.find(v => v.value === (assertion.isDirectAward ? awardTypes.DIRECT_AWARD : awardTypes.REQUESTED));
@@ -291,8 +285,15 @@
                 sortType: sortType.DATE,
                 width: "12%",
                 center: true
-            } :
+            } : revokedAwarded ?
             {
+                name: I18n.t("models.badge.revoked"),
+                attribute: "updatedOn",
+                reverse: false,
+                sortType: sortType.DATE,
+                width: "12%",
+                center: true
+            } :  {
                 name: I18n.t("models.badge.claimed"),
                 attribute: "updatedOn",
                 reverse: false,
@@ -419,8 +420,9 @@
             {...table}
             bind:search={assertionSearch}
             bind:sort={assertionsSort}
-            withCheckAll={actions.length > 0}
-            checkAllDisabled={!badgeclass.permissions.mayAward}
+            withCheckAll={actions.length > 0 }
+            checkAllDisabled={!badgeclass.permissions.mayAward || actions.includes(ACTIONS.REVOKE_ASSERTION)}
+            displayCheckAll={!actions.includes(ACTIONS.REVOKE_ASSERTION)}
             full={true}
             isEmpty={filteredAssertions.length === 0}
             filteredCount={sortedFilteredAssertions.length}

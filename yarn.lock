@@ -1849,6 +1849,11 @@
   resolved "https://registry.yarnpkg.com/@zeit/schemas/-/schemas-2.6.0.tgz#004e8e553b4cd53d538bd38eac7bcbf58a867fe3"
   integrity sha512-uUrgZ8AxS+Lio0fZKAipJjAh415JyrOZowliZAzmnJSsf7piVL5w+G0+gFJ0KSu3QRhvui/7zuvpLz03YjXAhg==
 
+"@zerodevx/svelte-json-view@^1.0.7":
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/@zerodevx/svelte-json-view/-/svelte-json-view-1.0.7.tgz#abf3efa71dedcb3e9d16bc9cc61d5ea98c8d00b1"
+  integrity sha512-yW0MV+9BCKOwzt3h86y3xDqYdI5st+Rxk+L5pa0Utq7nlPD+VvxyhL7R1gJoLxQvWwjyAvY/fyUCFTdwDyI14w==
+
 abab@^2.0.3, abab@^2.0.5:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/abab/-/abab-2.0.6.tgz#41b80f2c871d19686216b82309231cfd3cb3d291"
@@ -8537,6 +8542,11 @@ supports-hyperlinks@^2.0.0:
   dependencies:
     has-flag "^4.0.0"
     supports-color "^7.0.0"
+
+svelte-copy@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/svelte-copy/-/svelte-copy-1.4.1.tgz#4d5c2245dbb87476624499b644cfe304c4f1599b"
+  integrity sha512-ixNNlTfIQWYnQzE0pdMYVCS/2jzMhXm41jmtSvk8EK2Dh+B5sDFEz2xYYo4fVtwtK0dLW5M5ZH/Rs5Jah0r6dw==
 
 svelte-dev-helper@^1.1.9:
   version "1.1.9"

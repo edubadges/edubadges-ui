@@ -373,7 +373,8 @@
                                 <Error standAlone={true} error_code={930}/>
                             {/if}
                             {#if errorsAlreadyAwarded[`eppn_${i}`]}
-                                <Error standAlone={true} error_code={931}/>
+                                <Error standAlone={true}
+                                       error_code={(existingDirectAwardsEppns.find(ex => ex.eppn === da.eppn) || {}).isAssertion ? 943 : 931}/>
                             {/if}
                         </Field>
                         <div class="evidence-container">

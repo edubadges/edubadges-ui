@@ -780,6 +780,7 @@ export function sendFeedback(message) {
     return validFetch(path, {body: JSON.stringify({message})}, "POST");
 }
 
+//Insights
 export function insights(year, institutionId, countSURFInTotal) {
     const path = `${serverUrl}/insights/insight`;
     const data = {
@@ -792,6 +793,12 @@ export function insights(year, institutionId, countSURFInTotal) {
     }
     return validFetch(path, {body: JSON.stringify(data)}, "POST");
 }
+
+export function fetchInstitutionAdmins() {
+    const path = `${serverUrl}/insights/institution/admins`;
+    return validFetchNoErrorDialog(path, {}, "GET");
+}
+
 
 //BadgeInstanceCollections
 export function createBadgeInstanceCollection(badgeInstanceCollection) {
