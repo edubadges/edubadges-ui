@@ -1120,6 +1120,7 @@ I18n.translations.nl = {
         users: "Er zijn geen gebruikers voor instelling {{name}}.",
         assertions: "Er zijn geen uitreikingen voor edubadge {{name}}.",
         enrollments: "Er zijn geen aanvragen voor edubadge {{name}}.",
+        enrollmentsDenied: "Er zijn geen gewijgerde aanvragen voor edubadge {{name}}.",
         permissions: "Er zijn geen permissies voor deze gebruiker {{entity}} niveau.",
         selfPermissions: "Deze gebruiker heeft geen permissies op {{entity}} niveau.",
         userPermissions: "Deze gebruiker heeft geen permissies op {{entity}} niveau.",

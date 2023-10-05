@@ -446,6 +446,7 @@
                                      enrollments={deniedEnrollments}
                                      badgeClass={badgeclass}
                                      refresh={refresh}
+                                     denied={true}
                                      title={I18n.t("models.enrollment.titleRejected")}
                                      actions={[ACTIONS.AWARD_ENROLLMENT]}
                         />

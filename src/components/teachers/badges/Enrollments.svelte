@@ -23,6 +23,7 @@
     export let refresh;
     export let actions = [ACTIONS.DENY_ENROLLMENT, ACTIONS.AWARD_ENROLLMENT];
     export let title;
+    export let denied = false;
 
     export let badgeClass = {};
 
@@ -266,12 +267,15 @@
         bind:checkAllValue>
     <div class="action-buttons" slot="check-buttons">
         {#if actions.includes(ACTIONS.AWARD_ENROLLMENT)}
-            <Button small action={() => award(true)} marginRight={true}
-                    text={I18n.t('models.enrollment.award')} disabled={selection.length === 0 || serverBusy}/>
+            <Button small action={() => award(true)}
+                    marginRight={true}
+                    text={I18n.t('models.enrollment.award')}
+                    disabled={selection.length === 0 || serverBusy}/>
         {/if}
         {#if actions.includes(ACTIONS.DENY_ENROLLMENT)}
             <Button small action={() => deny(true)}
-                    text={I18n.t('models.enrollment.deny')} disabled={selection.length === 0  || serverBusy}
+                    text={I18n.t('models.enrollment.deny')}
+                    disabled={selection.length === 0  || serverBusy}
                     secondary={true}/>
         {/if}
     </div>
@@ -325,7 +329,7 @@
     {/each}
     {#if enrollments.length === 0}
         <tr>
-            <td colspan="6">{I18n.t("zeroState.enrollments", {name: badgeClass.name})}</td>
+            <td colspan="6">{I18n.t(`zeroState.${denied ? "enrollmentsDenied" : "enrollments"}`, {name: badgeClass.name})}</td>
         </tr>
     {/if}
 </Table>
