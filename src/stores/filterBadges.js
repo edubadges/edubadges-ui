@@ -109,18 +109,13 @@ export const tree = derived(
             return !typeBadgeClassSelected.length || typeBadgeClassSelected.find(typeBadge => badge.types.includes(typeBadge))
         });
         const badgeClassTypes = tree.badgeClasses.reduce((acc, badge) => {
-                let isOther = true;
                 if (badge.archived) {
                     const item = acc.find(v => v.value === badgeClassFilterTypes.ARCHIVED);
                     ++item.count;
-                    isOther = false
-                }
-                if (badge.isMicroCredentials) {
+                } else if (badge.isMicroCredentials) {
                     const item = acc.find(v => v.value === badgeClassFilterTypes.MICRO_CREDENTIALS);
                     ++item.count;
-                    isOther = false
-                }
-                if (isOther) {
+                } else {
                     const item = acc.find(v => v.value === badgeClassFilterTypes.OTHER);
                     ++item.count;
                 }
@@ -135,11 +130,19 @@ export const tree = derived(
         tree.badgeClassTypes = badgeClassTypes;
         const minimalPage = Math.min(page, Math.ceil(sortedBadgeClasses.length / catalogPageCount))
 
+        //Default we do not show the archived
+        const sortedBadgeClassesFiltered = sortedBadgeClasses.filter(badge => {
+            if (!typeBadgeClassSelected.includes(badgeClassFilterTypes.ARCHIVED)) {
+                return !badge.archived;
+            }
+            return true;
+        });
+
         return {
             faculties: sort(tree.faculties, true),
             issuers: sort(tree.issuers, true),
-            badgeClasses: sortedBadgeClasses,
-            paginatedBadges: sortedBadgeClasses.slice((minimalPage - 1) * catalogPageCount, minimalPage * catalogPageCount),
+            badgeClasses: sortedBadgeClassesFiltered,
+            paginatedBadges: sortedBadgeClassesFiltered.slice((minimalPage - 1) * catalogPageCount, minimalPage * catalogPageCount),
             page: minimalPage,
             badgeClassTypes: sort(tree.badgeClassTypes, true)
         };

@@ -53,17 +53,12 @@ export const assignFilterTypes = badgeClass => {
     } else {
         badgeClass.studyLoadType = studyLoadCategories.NO_STUDYLOAD;
     }
-    let isOther = true;
     badgeClass.types = [];
     if (badgeClass.archived) {
         badgeClass.types.push(badgeClassFilterTypes.ARCHIVED);
-        isOther = false
-    }
-    if (badgeClass.isMicroCredentials) {
+    } else if (badgeClass.isMicroCredentials) {
         badgeClass.types.push(badgeClassFilterTypes.MICRO_CREDENTIALS);
-        isOther = false
-    }
-    if (isOther) {
+    } else {
         badgeClass.types.push(badgeClassFilterTypes.OTHER);
     }
 
