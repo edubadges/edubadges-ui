@@ -5,7 +5,6 @@
     import {Spinner} from "../../components";
     import {JsonView} from '@zerodevx/svelte-json-view'
     import {copyText} from 'svelte-copy';
-    import {pagination} from "../../util/pagination";
 
     let queryObjects = [
         {
@@ -45,9 +44,10 @@
             return "";
         }
         const keys = Object.keys(content[0]);
-        let csv = keys.join(",") + "\n"
-        content.forEach(item => csv += keys.map(key => item[key]).join(",") + "\n")
-        return csv
+        const header = keys.join(",") + "\n"
+        return header + content
+            .map(item => keys.map(key => item[key] ? item[key].toString().replaceAll(",", " ") : "").join(","))
+            .join("\n");
     }
 
     const download = (content, fileName) => {
