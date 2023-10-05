@@ -1708,6 +1708,7 @@ I18n.translations.nl = {
     },
     managementQueries: {
         institutionAdmins: "Institution admins",
+        institutionBadges: "Badge overview",
         clear: "Clear",
         download: "Download",
         copy: "Copy",

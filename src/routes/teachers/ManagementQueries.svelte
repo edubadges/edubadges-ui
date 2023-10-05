@@ -1,28 +1,42 @@
 <script>
     import I18n from "i18n-js";
     import Button from "../../components/Button.svelte";
-    import {fetchInstitutionAdmins} from "../../api";
+    import {fetchInstitutionAdmins, fetchInstitutionBadges} from "../../api";
     import {Spinner} from "../../components";
     import {JsonView} from '@zerodevx/svelte-json-view'
     import {copyText} from 'svelte-copy';
+    import {pagination} from "../../util/pagination";
 
-    let institutionAdmins = [];
-    let showInstitutionAdmins = false;
+    let queryObjects = [
+        {
+            name: "institutionAdmins",
+            api: fetchInstitutionAdmins
+        },
+        {
+            name: "institutionBadges",
+            api: fetchInstitutionBadges
+        }
+    ]
+    let queryData = [];
+    let currentQueryObject;
+    let showData = false;
     let showLoaded = false;
     let loaded = true;
 
-    const institutionAdminsQuery = () => {
+    const fetchObjects = queryObject => {
+        currentQueryObject = queryObject.name;
         loaded = false;
-        fetchInstitutionAdmins().then(res => {
-            institutionAdmins = res;
+        queryObject.api().then(res => {
+            queryData = res;
             showLoaded = true;
             loaded = true;
         })
     }
 
     const clear = () => {
-        institutionAdmins = [];
-        showInstitutionAdmins = false;
+        queryData = [];
+        currentQueryObject = null;
+        showData = false;
         showLoaded = false;
     }
 
@@ -44,6 +58,10 @@
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
+    }
+
+    $: disabled = queryObject => {
+        return currentQueryObject !== queryObject.name || queryData.length === 0;
     }
 
 </script>
@@ -70,6 +88,7 @@
         flex-direction: column;
         box-shadow: 0 0.25rem 0.25rem 0 #00000040;
         border: 1px solid #00000040;
+        margin-bottom: 35px;
     }
 
     .controls {
@@ -95,32 +114,34 @@
         <h2>Management queries</h2>
         <div class="queries">
             {#if loaded}
-                <div class="query">
-                    <div class="controls">
-                        <Button action={() => institutionAdminsQuery()}
-                                text={I18n.t("managementQueries.institutionAdmins")}/>
-                        <Button action={() => download(institutionAdmins, "institution-admins.csv")}
-                                disabled={institutionAdmins.length === 0}
-                                text={I18n.t("managementQueries.download")}/>
-                        <Button action={() => copyText(toCSV(institutionAdmins))}
-                                disabled={institutionAdmins.length === 0}
-                                text={I18n.t("managementQueries.copy")}/>
-                        <Button action={() => showInstitutionAdmins = !showInstitutionAdmins}
-                                disabled={institutionAdmins.length === 0}
-                                text={I18n.t(`managementQueries.${showInstitutionAdmins ? "hide" : "show"}`)}/>
-                        <Button action={() => clear()}
-                                disabled={institutionAdmins.length === 0}
-                                text={I18n.t("managementQueries.clear")}/>
-                    </div>
-                    {#if institutionAdmins.length > 0 && showLoaded}
-                        <p class="info">{I18n.t("managementQueries.loaded", {name: I18n.t("managementQueries.institutionAdmins")})}</p>
-                    {/if}
-                    {#if institutionAdmins.length > 0 && showInstitutionAdmins}
-                        <div class="wrap">
-                            <JsonView json={institutionAdmins}/>
+                {#each queryObjects as queryObject}
+                    <div class="query">
+                        <div class="controls">
+                            <Button action={() => fetchObjects(queryObject)}
+                                    text={I18n.t(`managementQueries.${queryObject.name}`)}/>
+                            <Button action={() => download(queryData, `${queryObject.name}.csv`)}
+                                    disabled={disabled(queryObject)}
+                                    text={I18n.t("managementQueries.download")}/>
+                            <Button action={() => copyText(toCSV(queryData))}
+                                    disabled={disabled(queryObject)}
+                                    text={I18n.t("managementQueries.copy")}/>
+                            <Button action={() => showData = !showData}
+                                    disabled={disabled(queryObject)}
+                                    text={I18n.t(`managementQueries.${(showData && currentQueryObject === queryObject.name) ? "hide" : "show"}`)}/>
+                            <Button action={() => clear()}
+                                    disabled={disabled(queryObject)}
+                                    text={I18n.t("managementQueries.clear")}/>
                         </div>
-                    {/if}
-                </div>
+                        {#if queryData.length > 0 && showLoaded && currentQueryObject === queryObject.name}
+                            <p class="info">{I18n.t("managementQueries.loaded", {name: I18n.t(`managementQueries.${queryObject.name}`)})}</p>
+                        {/if}
+                        {#if queryData.length > 0 && showData && currentQueryObject === queryObject.name}
+                            <div class="wrap">
+                                <JsonView json={queryData}/>
+                            </div>
+                        {/if}
+                    </div>
+                {/each}
             {:else}
                 <Spinner/>
             {/if}

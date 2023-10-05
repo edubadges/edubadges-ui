@@ -1707,6 +1707,7 @@ I18n.translations.en = {
     },
     managementQueries: {
         institutionAdmins: "Institution admins",
+        institutionBadges: "Badge overview",
         clear: "Clear",
         download: "Download",
         copy: "Copy",

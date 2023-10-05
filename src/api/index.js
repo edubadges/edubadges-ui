@@ -799,6 +799,11 @@ export function fetchInstitutionAdmins() {
     return validFetchNoErrorDialog(path, {}, "GET");
 }
 
+export function fetchInstitutionBadges() {
+    const path = `${serverUrl}/insights/institution/badges`;
+    return validFetchNoErrorDialog(path, {}, "GET");
+}
+
 
 //BadgeInstanceCollections
 export function createBadgeInstanceCollection(badgeInstanceCollection) {
