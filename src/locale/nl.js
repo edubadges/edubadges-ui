@@ -18,6 +18,7 @@ I18n.translations.nl = {
         feedback: "Verstuur feedback",
         demo: "Demo omgeving",
         impersonate: "Impersoneer",
+        queries: "Management queries",
         clearImpersonation: "Stop impersonatie",
         nav: {
             badgeclasses: "Badge classes",
