@@ -1707,6 +1707,7 @@ I18n.translations.nl = {
         }
     },
     managementQueries: {
+        title: "Management queries",
         institutionAdmins: "Institution admins",
         institutionBadges: "Badge overview",
         clear: "Clear",
@@ -1714,6 +1715,7 @@ I18n.translations.nl = {
         copy: "Copy",
         show: "Show",
         hide: "Hide",
+        select: "Select the query to run...",
         loaded: "{{name}} query loaded..."
     },
 };
