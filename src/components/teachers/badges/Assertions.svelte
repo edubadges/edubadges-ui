@@ -25,7 +25,8 @@
     export let title;
     export let type = "awarded";
     export let directAwards = false;
-    export let revokedAwarded = false;
+    export let updatedTitle = I18n.t("models.badge.claimed");
+    export let showStatus = true;
 
     let selection = [];
     let checkAllValue = false;
@@ -285,16 +286,9 @@
                 sortType: sortType.DATE,
                 width: "12%",
                 center: true
-            } : revokedAwarded ?
+            } :
             {
-                name: I18n.t("models.badge.revoked"),
-                attribute: "updatedOn",
-                reverse: false,
-                sortType: sortType.DATE,
-                width: "12%",
-                center: true
-            } :  {
-                name: I18n.t("models.badge.claimed"),
+                name: updatedTitle,
                 attribute: "updatedOn",
                 reverse: false,
                 sortType: sortType.DATE,
@@ -309,7 +303,7 @@
             width: "12%",
             right: true
         }
-    ];
+    ].filter(tab => showStatus || tab.attribute !== "statusSort");
 
     $: table = {
         entity: "badgeclass",
@@ -480,9 +474,11 @@
                 <td class="center">
                     {moment(assertion.isDirectAward ? assertion.createdAt : assertion.issuedOn).format('MMM D, YYYY')}
                 </td>
-                <td class="assertion-status center">
-                    <span class={assertionStatusClass(assertion)}>{I18n.t(`models.badge.statuses.${assertion.statusDisplay}`)}</span>
-                </td>
+                {#if showStatus}
+                    <td class="assertion-status center">
+                        <span class={assertionStatusClass(assertion)}>{I18n.t(`models.badge.statuses.${assertion.statusDisplay}`)}</span>
+                    </td>
+                {/if}
                 {#if directAwards}
                     <td class="center">
                         {assertion.resendAt ? moment(assertion.resendAt).format('MMM D, YYYY') : "-"}

@@ -772,6 +772,7 @@ I18n.translations.en = {
             issuedBy: "Issued by",
             onBehalfOf: " on behalf of {{name}}",
             claimed: "Claimed",
+            inBackPack: "In backpack",
             expires: "Expires",
             deleted: "Delete at",
             expiresNever: "Never",

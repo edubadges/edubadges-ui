@@ -428,9 +428,11 @@
                         <Assertions {badgeclass}
                                     assertions={deniedDirectAwards}
                                     refresh={refresh}
+                                    showStatus={false}
                                     directAwards={true}
+                                    updatedTitle={I18n.t("models.enrollment.denied")}
                                     filterOptions={[filterTypes.ISSUED, filterTypes.STATUS]}
-                                    actions={[ACTIONS.DELETE_DIRECT_AWARD, ACTIONS.RESEND_DIRECT_AWARD]}
+                                    actions={[ACTIONS.DELETE_DIRECT_AWARD]}
                                     title={I18n.t("models.badge.deniedAwarded")}
                         />
                     </Route>
@@ -445,6 +447,8 @@
                         <Assertions {badgeclass}
                                     assertions={badgeAssertions}
                                     refresh={refresh}
+                                    showStatus={false}
+                                    updatedTitle={I18n.t("models.badge.inBackPack")}
                                     actions={[ACTIONS.REVOKE_ASSERTION]}
                                     title={I18n.t("models.badge.awarded")}
                         />
@@ -454,7 +458,8 @@
                                     assertions={revokedBadgeAssertions}
                                     refresh={refresh}
                                     actions={[]}
-                                    revokedAwarded={true}
+                                    showStatus={false}
+                                    updatedTitle={I18n.t("models.badge.revoked")}
                                     title={I18n.t("models.badge.revokedAwarded")}
                         />
                     </Route>
@@ -474,7 +479,9 @@
                                     refresh={refresh}
                                     actions={[]}
                                     directAwards={true}
+                                    showStatus={false}
                                     type="deleted"
+                                    updatedTitle={I18n.t("models.badge.statuses.deleted")}
                                     filterOptions={[filterTypes.ISSUED]}
                                     title={I18n.t("models.badge.deletedAwarded")}
                         />

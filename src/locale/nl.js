@@ -773,6 +773,7 @@ I18n.translations.nl = {
             issuedBy: "Uitgegeven door",
             onBehalfOf: " namens {{name}}",
             claimed: "Geclaimd",
+            inBackPack: "In backpack",
             expires: "Verloopt op",
             deleted: "Verwijder op",
             expiresNever: "Nooit",
