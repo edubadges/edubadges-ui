@@ -320,7 +320,7 @@
             </td>
             <td class="assertion-status center">
                 <span class={enrollment.denied ? "denied" : "open"}>
-                    {enrollment.denied ? I18n.t("models.enrollment.denied") : I18n.t("models.enrollment.open")}</span>
+                    {enrollment.denied ? I18n.t("models.enrollment.rejected") : I18n.t("models.enrollment.open")}</span>
                 {#if enrollment.denied}
                     <Tooltip tooltipText={enrollment.denyReason}/>
                 {/if}

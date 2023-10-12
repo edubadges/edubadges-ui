@@ -39,9 +39,10 @@
     let publicInstitutions = [];
 
     let openEnrollments = [];
-    let deniedEnrollments = [];
+    let rejectedEnrollments = [];
     let directAwards = [];
     let openDirectAwards = [];
+    let deniedDirectAwards = [];
     let badgeAssertions = [];
     let revokedBadgeAssertions = [];
     let deletedDirectAwards = [];
@@ -136,7 +137,7 @@
 
     const refreshAwardsAndEnrolments = (res, callback) => {
         const enrollments = res.badgeClass.pendingEnrollmentsIncludingDenied;
-        deniedEnrollments = enrollments.filter(enrollment => enrollment.denied);
+        rejectedEnrollments = enrollments.filter(enrollment => enrollment.denied);
         openEnrollments = enrollments.filter(enrollment => !enrollment.denied);
         directAwardBundles = res.badgeClass.directAwardBundles;
         const allBadgeAssertions = res.badgeClass.badgeAssertions;
@@ -160,7 +161,8 @@
             da.statusSort = I18n.t(`models.badge.statuses.${da.statusDisplay}`);
             issuedOn(da, da.createdAt);
         });
-        openDirectAwards = directAwards.filter(da => ["scheduled", "unaccepted", "rejected"].includes(da.status.toLowerCase()))
+        openDirectAwards = directAwards.filter(da => ["scheduled", "unaccepted"].includes(da.status.toLowerCase()))
+        deniedDirectAwards = directAwards.filter(da => ["rejected"].includes(da.status.toLowerCase()))
         deletedDirectAwards = directAwards.filter(da => "deleted" === da.status.toLowerCase());
 
         res.badgeClass.directAwards = directAwards;
@@ -233,15 +235,20 @@
             href: `/badgeclass/${entityId}/revoked-assertions`
         },
         {
-            entity: "deniedEnrollments",
-            count: deniedEnrollments.length,
-            href: `/badgeclass/${entityId}/denied-enrollments`
+            entity: "rejectedEnrollments",
+            count: rejectedEnrollments.length,
+            href: `/badgeclass/${entityId}/rejected-enrollments`
         },
         {
             entity: "deletedDirectAwards",
             count: deletedDirectAwards.length,
             href: `/badgeclass/${entityId}/deleted-direct-awards`
-        }
+        },
+        {
+            entity: "deniedDirectAwards",
+            count: deniedDirectAwards.length,
+            href: `/badgeclass/${entityId}/denied-direct-awards`
+        },
     ]
         .filter(tab => tab.count === undefined || tab.count > 0 || subEntity === tab.href.substring(tab.href.lastIndexOf('/') + 1))
         .filter(tab => tab.entity === "badgeclassOverview" || badgeclass.name !== config.welcomeBadgeClassName);
@@ -417,6 +424,16 @@
                                     title={I18n.t("models.badge.openAwarded")}
                         />
                     </Route>
+                    <Route path="/denied-direct-awards">
+                        <Assertions {badgeclass}
+                                    assertions={deniedDirectAwards}
+                                    refresh={refresh}
+                                    directAwards={true}
+                                    filterOptions={[filterTypes.ISSUED, filterTypes.STATUS]}
+                                    actions={[ACTIONS.DELETE_DIRECT_AWARD, ACTIONS.RESEND_DIRECT_AWARD]}
+                                    title={I18n.t("models.badge.deniedAwarded")}
+                        />
+                    </Route>
                     <Route path="/open-enrollments">
                         <Enrollments {entityId}
                                      enrollments={openEnrollments}
@@ -441,9 +458,9 @@
                                     title={I18n.t("models.badge.revokedAwarded")}
                         />
                     </Route>
-                    <Route path="/denied-enrollments">
+                    <Route path="/rejected-enrollments">
                         <Enrollments {entityId}
-                                     enrollments={deniedEnrollments}
+                                     enrollments={rejectedEnrollments}
                                      badgeClass={badgeclass}
                                      refresh={refresh}
                                      denied={true}
