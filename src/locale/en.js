@@ -11,7 +11,7 @@ I18n.translations.en = {
     },
     header: {
         logout: "Logout",
-        profile: "My profile",
+        profile: "My Account",
         home: "My backpack",
         permissions: "My permissions",
         notifications: "My notifications",
@@ -275,7 +275,7 @@ I18n.translations.en = {
             deletedDirectAwards: "Deleted",
             allDeletedDirectAwards: "Deleted direct awards",
             directAwardBundles: "Award status",
-            profile: "Profile",
+            profile: "Account",
             requestedBadges: "Requested edubadges",
             directAwards: "Unclaimed direct awards",
             lti: "LTI",
@@ -1147,7 +1147,7 @@ I18n.translations.en = {
         permissions: "Your permissions",
         notifications: "Your notification settings",
         banner: "Hi {{firstName}} {{lastName}}",
-        profile: "Profile",
+        profile: "Account",
         loggedIn: "You are currently logged in with your institutional account, via SURFconext",
         lti: "LTI"
     },

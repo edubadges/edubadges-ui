@@ -11,7 +11,7 @@ I18n.translations.nl = {
     },
     header: {
         logout: "Logout",
-        profile: "Mijn profiel",
+        profile: "Mijn account",
         home: "Mijn backpack",
         permissions: "Mijn permissies",
         notifications: "Mijn notificaties",
@@ -81,7 +81,7 @@ I18n.translations.nl = {
         }
     },
     profile: {
-        profile: "Profiel",
+        profile: "Account",
         name: "Naam",
         validatedName: "Bevestigde naam",
         primary: "Primair e-mailadres",
@@ -275,7 +275,7 @@ I18n.translations.nl = {
             deletedDirectAwards: "Verwijderd",
             allDeletedDirectAwards: "Verwijderde direct awards",
             directAwardBundles: "Award status",
-            profile: "Profiel",
+            profile: "Account",
             requestedBadges: "Aangevraagde edubadges",
             directAwards: "Unclaimed direct awards",
             lti: "LTI",
@@ -1148,7 +1148,7 @@ I18n.translations.nl = {
         permissions: "Je permissies",
         notifications: "Je notificatie instellingen",
         banner: "Hallo {{firstName}} {{lastName}}",
-        profile: "Profiel",
+        profile: "Account",
         loggedIn: "Je bent momenteel ingelogd met je instellingsaccount, via SURFconext",
         lti: "LTI"
     },
