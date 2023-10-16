@@ -380,8 +380,12 @@
             background-color: var(--red-light);
         }
 
-        &.unaccepted, &.pending, &.scheduled {
+        &.unaccepted, &.pending {
             background-color: var(--grey-3);
+        }
+
+        &.scheduled {
+            background-color: var(--purple-1);
         }
 
         &.rejected, &.denied {

@@ -149,7 +149,7 @@
             name: I18n.t("models.enrollment.enrollmentType.evidenceNarrativeRequired"),
             attribute: "evidenceNarrativeRequired",
             reverse: false,
-            width: "20%"
+            width: "15%"
         },
         {
             name: I18n.t("models.enrollment.enrolledOn"),
@@ -159,15 +159,16 @@
             width: "15%",
             center: true
         },
-        {
-            name: I18n.t("models.enrollment.status"),
-            attribute: "denied",
-            reverse: false,
-            sortType: sortType.ALPHA,
-            width: "10%",
-            center: true
-        }
-    ];
+        denied ?
+            {
+                name: I18n.t("models.enrollment.rejectedReason"),
+                attribute: "denyReason",
+                reverse: false,
+                sortType: sortType.ALPHA,
+                width: "15%",
+                center: true
+            } : null
+    ].filter(header => header !== null);
 
     $: table = {
         entity: "badgeclass",
@@ -318,13 +319,11 @@
             <td class="center">
                 {moment(enrollment.dateCreated).format('MMM D, YYYY')}
             </td>
-            <td class="assertion-status center">
-                <span class={enrollment.denied ? "denied" : "open"}>
-                    {enrollment.denied ? I18n.t("models.enrollment.rejected") : I18n.t("models.enrollment.open")}</span>
-                {#if enrollment.denied}
+            {#if denied}
+                <td class="assertion-status center">
                     <Tooltip tooltipText={enrollment.denyReason}/>
-                {/if}
-            </td>
+                </td>
+            {/if}
         </tr>
     {/each}
     {#if enrollments.length === 0}

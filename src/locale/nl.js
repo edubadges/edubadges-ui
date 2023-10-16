@@ -757,7 +757,7 @@ I18n.translations.nl = {
             details: "Details",
             recipient: "Ontvanger",
             requested: "Aangevraagd",
-            awarded: "Toegekende edubadges",
+            awarded: "Edubadges in backpack",
             openAwarded: "Open awarded edubadges",
             deniedAwarded: "Geweigerde awarded edubadges",
             deletedAwarded: "Verwijderde direct awards",
@@ -811,7 +811,8 @@ I18n.translations.nl = {
         },
         enrollment: {
             title: "Personen die een edubadge hebben aangevraagd",
-            titleRejected: "Personen met een geweigerd edubadge verzoek",
+            titleRejected: "Personen met een afgewezen edubadge aanvraag",
+            rejectedReason: "Reden voor afwijzing",
             enrolled: "Aangevraagd",
             enrolledOn: "Aangevraagd op",
             deleteEnrollment: "Verwijder aanvraag",
