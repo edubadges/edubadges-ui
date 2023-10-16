@@ -29,8 +29,12 @@ export const sort = (collection, count = false) => {
 
 export const sortCreatedAt = collection => !collection ? [] : collection.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
-export const sortBadgeAssertions = collection => {
-    return !collection ? [] : collection.sort((a, b) => b.assertionsCount !== undefined ? b.assertionsCount - a.assertionsCount : b.badgeAssertions.length - a.badgeAssertions.length)
+export const sortBadgeAssertionsDirectAwarded = collection => {
+    return !collection ? [] : collection.sort((a, b) => b.directAwardedAssertionsCount - a.directAwardedAssertionsCount)
+}
+
+export const sortBadgeAssertionsSelfRequested = collection => {
+    return !collection ? [] : collection.sort((a, b) => b.selfRequestedAssertionsCount - a.selfRequestedAssertionsCount)
 }
 
 export const sortBadgePendingEnrollments = collection => {
@@ -96,27 +100,22 @@ export const tree = derived(
             if (sortTarget.value === "recent") {
                 sortedBadgeClasses = sortCreatedAt(tree.badgeClasses);
             } else if (sortTarget.value === "awarded") {
-                sortedBadgeClasses = sortBadgeAssertions(tree.badgeClasses);
+                sortedBadgeClasses = sortBadgeAssertionsDirectAwarded(tree.badgeClasses);
             } else {
-                sortedBadgeClasses = sortBadgePendingEnrollments(tree.badgeClasses);
+                sortedBadgeClasses = sortBadgeAssertionsSelfRequested(tree.badgeClasses);
             }
         }
         sortedBadgeClasses = sortedBadgeClasses.filter(badge => {
             return !typeBadgeClassSelected.length || typeBadgeClassSelected.find(typeBadge => badge.types.includes(typeBadge))
         });
         const badgeClassTypes = tree.badgeClasses.reduce((acc, badge) => {
-                let isOther = true;
                 if (badge.archived) {
                     const item = acc.find(v => v.value === badgeClassFilterTypes.ARCHIVED);
                     ++item.count;
-                    isOther = false
-                }
-                if (badge.isMicroCredentials) {
+                } else if (badge.isMicroCredentials) {
                     const item = acc.find(v => v.value === badgeClassFilterTypes.MICRO_CREDENTIALS);
                     ++item.count;
-                    isOther = false
-                }
-                if (isOther) {
+                } else {
                     const item = acc.find(v => v.value === badgeClassFilterTypes.OTHER);
                     ++item.count;
                 }
@@ -131,11 +130,19 @@ export const tree = derived(
         tree.badgeClassTypes = badgeClassTypes;
         const minimalPage = Math.min(page, Math.ceil(sortedBadgeClasses.length / catalogPageCount))
 
+        //Default we do not show the archived
+        const sortedBadgeClassesFiltered = sortedBadgeClasses.filter(badge => {
+            if (!typeBadgeClassSelected.includes(badgeClassFilterTypes.ARCHIVED)) {
+                return !badge.archived;
+            }
+            return true;
+        });
+
         return {
             faculties: sort(tree.faculties, true),
             issuers: sort(tree.issuers, true),
-            badgeClasses: sortedBadgeClasses,
-            paginatedBadges: sortedBadgeClasses.slice((minimalPage - 1) * catalogPageCount, minimalPage * catalogPageCount),
+            badgeClasses: sortedBadgeClassesFiltered,
+            paginatedBadges: sortedBadgeClassesFiltered.slice((minimalPage - 1) * catalogPageCount, minimalPage * catalogPageCount),
             page: minimalPage,
             badgeClassTypes: sort(tree.badgeClassTypes, true)
         };

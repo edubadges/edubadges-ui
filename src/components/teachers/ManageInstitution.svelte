@@ -114,8 +114,12 @@
             entity: "directAwards",
             href: "/manage/institution/direct-awards",
             icon: directAwardIcon
+        },
+        {
+            entity: "allDeletedDirectAwards",
+            href: "/manage/institution/deleted-direct-awards",
+            icon: directAwardIcon
         }
-
     ];
 
     $: if (!subEntity) {
@@ -188,7 +192,10 @@
       <RequestedBatches />
     </Route>
     <Route path="/direct-awards">
-      <UnclaimedDirectAwards />
+      <UnclaimedDirectAwards allUnclaimed={true} />
+    </Route>
+    <Route path="/deleted-direct-awards">
+      <UnclaimedDirectAwards allUnclaimed={false}/>
     </Route>
 
   </Router>

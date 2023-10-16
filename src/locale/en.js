@@ -11,13 +11,14 @@ I18n.translations.en = {
     },
     header: {
         logout: "Logout",
-        profile: "My profile",
+        profile: "My Account",
         home: "My backpack",
         permissions: "My permissions",
         notifications: "My notifications",
         feedback: "Send feedback",
         demo: "Demo environment",
         impersonate: "Impersonate",
+        queries: "Management queries",
         clearImpersonation: "Clear impersonation",
         nav: {
             badgeclasses: "Badge classes",
@@ -265,10 +266,16 @@ I18n.translations.en = {
             badgeclasses: "Badge classes",
             badgeclassOverview: "Overview",
             userManagement: "User management",
-            enrollments: "Requested ",
-            assertions: "Awarded ",
-            directAwardBundle: "Award status",
-            profile: "Profile",
+            openDirectAwards: "Open awards",
+            deniedDirectAwards: "Denied",
+            openEnrollments: "Open requests",
+            assertions: "In backpack",
+            rejectedEnrollments: "Rejected",
+            revokedBadgeAssertions: "Revoked",
+            deletedDirectAwards: "Deleted",
+            allDeletedDirectAwards: "Deleted direct awards",
+            directAwardBundles: "Award status",
+            profile: "Account",
             requestedBadges: "Requested edubadges",
             directAwards: "Unclaimed direct awards",
             lti: "LTI",
@@ -440,6 +447,7 @@ I18n.translations.en = {
         940: "There is already an edubadge or unaccepted direct award for this email",
         941: "There is already an edubadge request from this email",
         942: "EPPN does not match the EPPN-format of your institution",
+        943: "There is already a claimed assertion for this EPPN",
         unexpected: "Unexpected error occurred.",
         description: "An unexpected error has occurred. Please try again later or contact support@edubadges.nl for support.",
         close: "Close"
@@ -749,6 +757,10 @@ I18n.translations.en = {
             recipient: "Recipient",
             requested: "Requested",
             awarded: "Awarded edubadges",
+            openAwarded: "Open awarded edubadges",
+            deniedAwarded: "Denied awarded edubadges",
+            deletedAwarded: "Deleted direct awards",
+            revokedAwarded: "Revoked edubadges",
             awardType: {
                 name: "Award type",
                 REQUESTED: "Requested",
@@ -760,7 +772,9 @@ I18n.translations.en = {
             issuedBy: "Issued by",
             onBehalfOf: " on behalf of {{name}}",
             claimed: "Claimed",
+            inBackPack: "In backpack",
             expires: "Expires",
+            deleted: "Delete at",
             expiresNever: "Never",
             download: "Download",
             open: "Open",
@@ -774,6 +788,7 @@ I18n.translations.en = {
                 rejected: "Rejected",
                 revoked: "Revoked",
                 expired: "Expired",
+                deleted: "Deleted",
                 accepted: "Claimed",
                 unaccepted: "Pending",
                 pending: "Pending",
@@ -794,7 +809,8 @@ I18n.translations.en = {
             }
         },
         enrollment: {
-            title: "Persons with edubadge requests",
+            title: "Persons with open edubadge requests",
+            titleRejected: "Persons with rejected edubadge requests",
             enrolled: "Requested",
             enrolledOn: "Requested on",
             deleteEnrollment: "Delete request",
@@ -803,6 +819,7 @@ I18n.translations.en = {
             status: "Status",
             open: "Open",
             denied: "Denied",
+            rejected: "Rejected",
             deny: "Deny request",
             addEvidence: "+ Add narrative and/or evidence",
             removeEvidence: "- Remove narrative and/or evidence",
@@ -903,9 +920,11 @@ I18n.translations.en = {
         },
         directAwards: {
             title: "Unclaimed direct awards",
+            titleDeleted: "Deleted direct awards",
             revoke: "Revoke",
             resend: "Resend",
-            zeroState: "There are no unclaimed directe awards for badge classes you are allowed to award",
+            delete: "Delete awards",
+            zeroState: "There are no unclaimed direct awards for badge classes you are allowed to award",
             recipient: "Recipient",
             eppn: "EPPN",
             status: "Status",
@@ -917,13 +936,17 @@ I18n.translations.en = {
             faculty: "Issuer group",
             confirmation: {
                 revocationReason: "Reason for revocation (required)",
+                deletionReason: "Reason for deletion (required)",
                 revoke: "Revoke edubadge",
                 revokeConfirmation: "Are you sure you want to revoke this edubadge? This can <strong>not</strong> be undone and the edubadge will be invalid after this.",
+                delete: "Delete edubadge",
+                deleteConfirmation: "Are you sure you want to delete this direct award? This can <strong>not</strong> be undone and the direct award will be invalid after this.",
                 resend: "Resend edubadge",
                 resendConfirmation: "Are you sure you want to resend this edubadge? The recipient will be notified with an email."
             },
             flash: {
                 revoked: "The edubadge(s) have been revoked.",
+                deleted: "The direct awards(s) have been deleted.",
                 resend: "The edubadge(s) have been resend."
             }
         }
@@ -1100,6 +1123,7 @@ I18n.translations.en = {
         users: "There are no users for institution {{name}}.",
         assertions: "There are no awarded edubadges for {{name}}.",
         enrollments: "There are no requests for edubadge {{name}}.",
+        enrollmentsDenied: "There are no denied requests for edubadge {{name}}.",
         permissions: "There are no permissions for this user on the {{entity}} level.",
         selfPermissions: "There are no permissions for you on the {{entity}} level.",
         userPermissions: "This user does not have any permissions for {{entity}} {{name}}.",
@@ -1123,7 +1147,7 @@ I18n.translations.en = {
         permissions: "Your permissions",
         notifications: "Your notification settings",
         banner: "Hi {{firstName}} {{lastName}}",
-        profile: "Profile",
+        profile: "Account",
         loggedIn: "You are currently logged in with your institutional account, via SURFconext",
         lti: "LTI"
     },
@@ -1684,5 +1708,17 @@ I18n.translations.en = {
             delete: "Endorsement has been deleted",
             resend: "Endorsement request has been resend",
         }
-    }
+    },
+    managementQueries: {
+        title: "Management queries",
+        institutionAdmins: "Institution admins",
+        institutionBadges: "Badge overview",
+        clear: "Clear",
+        download: "Download",
+        copy: "Copy",
+        show: "Show",
+        hide: "Hide",
+        select: "Select the query to run...",
+        loaded: "{{name}} query loaded and ready to copy, download or show....."
+    },
 };

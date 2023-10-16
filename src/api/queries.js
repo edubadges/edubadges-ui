@@ -159,7 +159,8 @@ export const assertionsQuery = `
           entityId,
           firstName,
           lastName,
-          email
+          email,
+          eppns
         }
       }
   `;
@@ -179,8 +180,10 @@ export const directAwardBundleQuery = `
             eppn,
             status,
             recipientEmail,
+            resendAt,
             createdAt,
-            updatedAt
+            updatedAt,
+            deleteAt
           }
       }
    `;

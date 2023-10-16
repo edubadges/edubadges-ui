@@ -10,5 +10,6 @@ export const config = {
   welcomeBadgeClassName: "Edubadge account complete",
   features: {
     endorsements: true
-  }
+  },
+  hostname: "localhost"
 };

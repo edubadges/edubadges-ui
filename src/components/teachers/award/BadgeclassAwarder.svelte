@@ -13,8 +13,6 @@
         alignments,
         assertionsQuery,
         directAwardBundleQuery,
-        endorsed,
-        endorsements,
         enrollmentsQuery,
         headerStaff
     } from "../../../api/queries";
@@ -23,37 +21,34 @@
     import Spinner from "../../Spinner.svelte";
     import LinkEye from "../LinkEye.svelte";
     import {facultyIds, issuerIds} from "../../../stores/filterBadges";
-    import {translateBadgeClassProperties, translateProperties} from "../../../util/utils";
+    import {translateBadgeClassProperties} from "../../../util/utils";
     import BadgeAwardOptions from "./BadgeAwardOptions.svelte";
     import {currentPath} from "../../../stores/currentPath";
     import AwardBadge from "./AwardBadge.svelte";
     import BulkAwardBadge from "./BulkAwardBadge.svelte";
     import DirectAwardBundles from "./DirectAwardBundles.svelte";
-    import {issuedTypes} from "../../../stores/filterAssertions";
+    import {filterTypes, issuedTypes} from "../../../stores/filterAssertions";
     import BulkAwardDetails from "./BulkAwardDetails.svelte";
     import {config} from "../../../util/config";
-    import Endorsements from "../endorsements/Endorsements.svelte";
-    import Endorsed from "../endorsements/Endorsed.svelte";
-    import {assertionStatusClass} from "../../../util/assertions";
+    import {ACTIONS, assertionStatusClass} from "../../../util/assertions";
 
     export let entityId;
     export let subEntity;
 
-    let issuer;
-    let faculty;
-    let badgeclass = {extensions: [], issuer: {faculty: {institution: {}}}, endorsements: [], endorsed: []};
+    let badgeclass = {extensions: [], issuer: {faculty: {institution: {}}}};
     let publicInstitutions = [];
-    let enrollments = [];
-    let assertions = [];
-    let existingAssertionsEmails = [];
+
+    let openEnrollments = [];
+    let rejectedEnrollments = [];
+    let directAwards = [];
+    let openDirectAwards = [];
+    let deniedDirectAwards = [];
+    let badgeAssertions = [];
+    let revokedBadgeAssertions = [];
+    let deletedDirectAwards = [];
     let existingDirectAwardsEppns = [];
     let directAwardBundles = [];
     let loaded;
-
-    const publicUrl = () => {
-        const currentUrl = window.location.origin;
-        return `${currentUrl}/public/${entityId}`;
-    };
 
     const query = `query ($entityId: String, $days: Int){
     publicInstitutions {
@@ -108,46 +103,11 @@
       permissions { mayUpdate, mayAward },
       extensions { name, originalJson },
       ${alignments},
-      ${endorsements},
-      ${endorsed},
       ${directAwardBundleQuery},
       ${enrollmentsQuery},
       ${assertionsQuery}
     }
   }`;
-
-    const refreshEndorsements = callback => {
-        const endorsementsQuery = `query ($entityId: String, $days: Int) {
-            badgeClass(id: $entityId, days: $days) {
-                entityId,
-                ${endorsements}
-            }
-        }`;
-        loaded = false;
-        queryData(endorsementsQuery, {entityId, days: 1}).then(res => {
-            res.badgeClass.endorsements.forEach(endorsement => translateBadgeClassProperties(endorsement.endorser));
-            badgeclass = {...badgeclass, endorsements: res.badgeClass.endorsements};
-            callback && callback(res.badgeClass);
-            loaded = true;
-        });
-    }
-
-    const refreshEndorsed = callback => {
-        const endorsedQuery = `query ($entityId: String, $days: Int) {
-            badgeClass(id: $entityId, days: $days) {
-                entityId,
-                ${endorsed}
-            }
-        }`;
-        loaded = false;
-        queryData(endorsedQuery, {entityId, days: 1}).then(res => {
-            res.badgeClass.endorsed.forEach(endorsement => translateBadgeClassProperties(endorsement.endorsee));
-            badgeclass = {...badgeclass, endorsed: res.badgeClass.endorsed};
-            callback && callback(res.badgeClass);
-            loaded = true;
-        });
-
-    }
 
     const refreshQuery = `query ($entityId: String, $days: Int){
     badgeClass(id: $entityId, days: $days) {
@@ -157,8 +117,8 @@
     }
   }`;
 
-    const issuedOn = award => {
-        const createdAt = new Date(award.issuedOn);
+    const issuedOn = (award, issuedOn) => {
+        const createdAt = new Date(issuedOn);
         const today = new Date().getTime();
         const day = 1000 * 60 * 60 * 24;
         const minus30 = new Date(today - (day * 30));
@@ -176,33 +136,39 @@
     }
 
     const refreshAwardsAndEnrolments = (res, callback) => {
-        enrollments = res.badgeClass.pendingEnrollmentsIncludingDenied;
+        const enrollments = res.badgeClass.pendingEnrollmentsIncludingDenied;
+        rejectedEnrollments = enrollments.filter(enrollment => enrollment.denied);
+        openEnrollments = enrollments.filter(enrollment => !enrollment.denied);
         directAwardBundles = res.badgeClass.directAwardBundles;
-        const badgeAssertions = res.badgeClass.badgeAssertions;
-        badgeAssertions.forEach(ba => {
+        const allBadgeAssertions = res.badgeClass.badgeAssertions;
+        allBadgeAssertions.forEach(ba => {
             ba.isDirectAward = ba.awardType === "DIRECT_AWARD";
             ba.status = ba.revoked ? "REVOKED" : ba.acceptance;
             if (ba.awardType === "REQUESTED" && ba.status === "UNACCEPTED") {
                 //We don't show pending / in afwachting anymore after 5.3 release
                 ba.status = "ACCEPTED";
             }
-            issuedOn(ba);
+            issuedOn(ba, ba.issuedOn);
+            ba.statusDisplay = assertionStatusClass(ba);
+            ba.statusSort = I18n.t(`models.badge.statuses.${ba.statusDisplay}`)
         });
-        const directAwards = res.badgeClass.directAwardBundles.map(dab => dab.directAwards).flat();
+        revokedBadgeAssertions = allBadgeAssertions.filter(assertion => assertion.revoked);
+        badgeAssertions = allBadgeAssertions.filter(assertion => !assertion.revoked);
+        directAwards = res.badgeClass.directAwardBundles.map(dab => dab.directAwards).flat();
         directAwards.forEach(da => {
             da.isDirectAward = true;
-            issuedOn(da);
+            da.statusDisplay = assertionStatusClass(da);
+            da.statusSort = I18n.t(`models.badge.statuses.${da.statusDisplay}`);
+            issuedOn(da, da.createdAt);
         });
+        openDirectAwards = directAwards.filter(da => ["scheduled", "unaccepted"].includes(da.status.toLowerCase()))
+        deniedDirectAwards = directAwards.filter(da => ["rejected"].includes(da.status.toLowerCase()))
+        deletedDirectAwards = directAwards.filter(da => "deleted" === da.status.toLowerCase());
 
         res.badgeClass.directAwards = directAwards;
-        assertions = badgeAssertions.concat(directAwards);
-        assertions.forEach(assertion => {
-            assertion.statusDisplay = assertionStatusClass(assertion);
-            assertion.statusSort = I18n.t(`models.badge.statuses.${assertion.statusDisplay}`)
-        });
         existingDirectAwardsEppns = directAwards
-            .filter(da => da.status.toLowerCase() === "unaccepted" || da.status.toLowerCase() === "scheduled");
-        existingAssertionsEmails = badgeAssertions.filter(ass => !ass.revoked).map(assertion => assertion.user.email);
+            .filter(da => da.status.toLowerCase() === "unaccepted" || da.status.toLowerCase() === "scheduled")
+            .concat(badgeAssertions.map(ba => ba.user.eppns).flat().map(eppn => ({eppn: eppn, isAssertion: true})));
         loaded = true;
         callback && callback();
     }
@@ -225,11 +191,7 @@
                     navigate("/404");
                 } else {
                     translateBadgeClassProperties(badgeclass);
-                    badgeclass.endorsements.forEach(endorsement => translateBadgeClassProperties(endorsement.endorser));
-                    badgeclass.endorsed.forEach(endorsement => translateBadgeClassProperties(endorsement.endorsee));
                     publicInstitutions = res.publicInstitutions;
-                    issuer = res.badgeClass.issuer;
-                    faculty = issuer.faculty;
                     refreshAwardsAndEnrolments(res);
                 }
             });
@@ -248,35 +210,48 @@
             href: `/badgeclass/${entityId}/overview`
         },
         {
-            entity: "enrollments",
-            count: enrollments.filter(enrollment => !enrollment.denied).length,
-            href: `/badgeclass/${entityId}/enrollments`
-        },
-        {
-            entity: "assertions",
-            count: assertions.length,
-            href: `/badgeclass/${entityId}/awarded`
-        },
-        {
-            entity: "directAwardBundle",
+            entity: "directAwardBundles",
             count: directAwardBundles.length,
             href: `/badgeclass/${entityId}/direct-awards-bundles`
         },
         {
-            entity: "endorsements",
-            count: badgeclass.endorsements.length,
-            href: `/badgeclass/${entityId}/endorsements`
+            entity: "openDirectAwards",
+            count: openDirectAwards.length,
+            href: `/badgeclass/${entityId}/open-direct-awards`
         },
         {
-            entity: "endorsed",
-            count: badgeclass.endorsed.length,
-            href: `/badgeclass/${entityId}/endorsed`
-        }
-    ].filter(tab => tab.entity !== "assertions" || badgeclass.name !== config.welcomeBadgeClassName)
-        .filter(tab => tab.entity !== "endorsements" || badgeclass.endorsements.length > 0 || subEntity === "endorsements")
-        .filter(tab => tab.entity !== "endorsed" || badgeclass.endorsed.length > 0)
-        .filter(tab => tab.entity !== "directAwardBundle" || (badgeclass.issuer.faculty.institution.directAwardingEnabled
-            && directAwardBundles.length > 0))
+            entity: "openEnrollments",
+            count: openEnrollments.length,
+            href: `/badgeclass/${entityId}/open-enrollments`
+        },
+        {
+            entity: "assertions",
+            count: badgeAssertions.length,
+            href: `/badgeclass/${entityId}/awarded`
+        },
+        {
+            entity: "revokedBadgeAssertions",
+            count: revokedBadgeAssertions.length,
+            href: `/badgeclass/${entityId}/revoked-assertions`
+        },
+        {
+            entity: "rejectedEnrollments",
+            count: rejectedEnrollments.length,
+            href: `/badgeclass/${entityId}/rejected-enrollments`
+        },
+        {
+            entity: "deletedDirectAwards",
+            count: deletedDirectAwards.length,
+            href: `/badgeclass/${entityId}/deleted-direct-awards`
+        },
+        {
+            entity: "deniedDirectAwards",
+            count: deniedDirectAwards.length,
+            href: `/badgeclass/${entityId}/denied-direct-awards`
+        },
+    ]
+        .filter(tab => tab.count === undefined || tab.count > 0 || subEntity === tab.href.substring(tab.href.lastIndexOf('/') + 1))
+        .filter(tab => tab.entity === "badgeclassOverview" || badgeclass.name !== config.welcomeBadgeClassName);
 
 
     $: if (!subEntity) {
@@ -303,50 +278,50 @@
 </script>
 
 <style lang="scss">
-  div.container {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
+    div.container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
 
-  .overview-container {
-    padding: 27px 174px 67px 74px;
-  }
-
-  @media (max-width: 1120px) {
     .overview-container {
-      padding: 20px;
-    }
-  }
-
-
-  div.bread-crumb {
-    padding: var(--ver-padding-m) var(--hor-padding-m);
-    min-height: 47px;
-    display: flex;
-    align-items: center;
-    font-size: 14px;
-
-    a {
-      color: var(--text-color-grey);
+        padding: 27px 174px 67px 74px;
     }
 
-    a:last-of-type {
-      font-weight: var(--semi-bold);
+    @media (max-width: 1120px) {
+        .overview-container {
+            padding: 20px;
+        }
     }
 
-    a:not(:last-of-type) {
-      color: var(--text-grey-dark);
-      text-decoration: underline;
-    }
 
-    span.crumb {
-      height: 14px;
-      width: 14px;
-      margin: auto 4px;
-    }
+    div.bread-crumb {
+        padding: var(--ver-padding-m) var(--hor-padding-m);
+        min-height: 47px;
+        display: flex;
+        align-items: center;
+        font-size: 14px;
 
-  }
+        a {
+            color: var(--text-color-grey);
+        }
+
+        a:last-of-type {
+            font-weight: var(--semi-bold);
+        }
+
+        a:not(:last-of-type) {
+            color: var(--text-grey-dark);
+            text-decoration: underline;
+        }
+
+        span.crumb {
+            height: 14px;
+            width: 14px;
+            margin: auto 4px;
+        }
+
+    }
 
 </style>
 <div class="container">
@@ -393,24 +368,21 @@
                 <Route path="/direct-award">
                     <AwardBadge badgeclass={badgeclass}
                                 ltiContextEnabled={false}
-                                enrollments={enrollments}
+                                enrollments={openEnrollments}
                                 existingDirectAwardsEppns={existingDirectAwardsEppns}
-                                existingAssertionsEmails={existingAssertionsEmails}
                                 refresh={refresh}/>
                 </Route>
                 <Route path="/lti-award">
                     <AwardBadge badgeclass={badgeclass}
                                 ltiContextEnabled={true}
                                 existingDirectAwardsEppns={existingDirectAwardsEppns}
-                                existingAssertionsEmails={existingAssertionsEmails}
-                                enrollments={enrollments}
+                                enrollments={openEnrollments}
                                 refresh={refresh}/>
                 </Route>
                 <Route path="/bulk-award">
                     <BulkAwardBadge badgeclass={badgeclass}
                                     existingDirectAwardsEppns={existingDirectAwardsEppns}
-                                    existingAssertionsEmails={existingAssertionsEmails}
-                                    enrollments={enrollments}
+                                    enrollments={openEnrollments}
                                     refresh={refresh}/>
                 </Route>
                 <Route path="/award-details/:entityId" let:params>
@@ -442,26 +414,81 @@
                             <Overview {badgeclass} {publicInstitutions}/>
                         </div>
                     </Route>
-
-                    <Route path="/enrollments">
-                        <Enrollments {entityId} bind:enrollments badgeClass={badgeclass} refresh={refresh}/>
+                    <Route path="/open-direct-awards">
+                        <Assertions {badgeclass}
+                                    assertions={openDirectAwards}
+                                    refresh={refresh}
+                                    directAwards={true}
+                                    filterOptions={[filterTypes.ISSUED, filterTypes.STATUS]}
+                                    actions={[ACTIONS.DELETE_DIRECT_AWARD, ACTIONS.RESEND_DIRECT_AWARD]}
+                                    title={I18n.t("models.badge.openAwarded")}
+                        />
                     </Route>
-                    {#if badgeclass.name !== config.welcomeBadgeClassName}
-                        <Route path="/awarded">
-                            <Assertions {badgeclass} assertions={assertions} refresh={refresh}/>
-                        </Route>
-                    {/if}
+                    <Route path="/denied-direct-awards">
+                        <Assertions {badgeclass}
+                                    assertions={deniedDirectAwards}
+                                    refresh={refresh}
+                                    showStatus={false}
+                                    directAwards={true}
+                                    updatedTitle={I18n.t("models.enrollment.denied")}
+                                    filterOptions={[filterTypes.ISSUED, filterTypes.STATUS]}
+                                    actions={[ACTIONS.DELETE_DIRECT_AWARD]}
+                                    title={I18n.t("models.badge.deniedAwarded")}
+                        />
+                    </Route>
+                    <Route path="/open-enrollments">
+                        <Enrollments {entityId}
+                                     enrollments={openEnrollments}
+                                     badgeClass={badgeclass}
+                                     refresh={refresh}
+                                     title={I18n.t("models.enrollment.title")}/>
+                    </Route>
+                    <Route path="/awarded">
+                        <Assertions {badgeclass}
+                                    assertions={badgeAssertions}
+                                    refresh={refresh}
+                                    showStatus={false}
+                                    updatedTitle={I18n.t("models.badge.inBackPack")}
+                                    actions={[ACTIONS.REVOKE_ASSERTION]}
+                                    title={I18n.t("models.badge.awarded")}
+                        />
+                    </Route>
+                    <Route path="/revoked-assertions">
+                        <Assertions {badgeclass}
+                                    assertions={revokedBadgeAssertions}
+                                    refresh={refresh}
+                                    actions={[]}
+                                    showStatus={false}
+                                    updatedTitle={I18n.t("models.badge.revoked")}
+                                    title={I18n.t("models.badge.revokedAwarded")}
+                        />
+                    </Route>
+                    <Route path="/rejected-enrollments">
+                        <Enrollments {entityId}
+                                     enrollments={rejectedEnrollments}
+                                     badgeClass={badgeclass}
+                                     refresh={refresh}
+                                     denied={true}
+                                     title={I18n.t("models.enrollment.titleRejected")}
+                                     actions={[ACTIONS.AWARD_ENROLLMENT]}
+                        />
+                    </Route>
+                    <Route path="/deleted-direct-awards">
+                        <Assertions {badgeclass}
+                                    assertions={deletedDirectAwards}
+                                    refresh={refresh}
+                                    actions={[]}
+                                    directAwards={true}
+                                    showStatus={false}
+                                    type="deleted"
+                                    updatedTitle={I18n.t("models.badge.statuses.deleted")}
+                                    filterOptions={[filterTypes.ISSUED]}
+                                    title={I18n.t("models.badge.deletedAwarded")}
+                        />
+                    </Route>
                     <Route path="/direct-awards-bundles">
                         <DirectAwardBundles badgeClass={badgeclass} {directAwardBundles}/>
                     </Route>
-                    {#if config.features.endorsements}
-                        <Route path="/endorsements">
-                            <Endorsements badgeClass={badgeclass} refresh={refreshEndorsements}/>
-                        </Route>
-                        <Route path="/endorsed">
-                            <Endorsed badgeClass={badgeclass} refresh={refreshEndorsed}/>
-                        </Route>
-                    {/if}
                 </Router>
             </div>
         {/if}

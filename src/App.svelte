@@ -42,6 +42,7 @@
     import LTILaunch from "./components/teachers/lti/LTILaunch.svelte";
     import Notifications from "./components/teachers/Notifications.svelte";
     import {constructUserName} from "./util/users";
+    import ManagementQueries from "./routes/teachers/ManagementQueries.svelte";
 
 
     const homepage = {
@@ -183,6 +184,7 @@
                     </Route>
                     <Route path="/permissions/:entity" component={TeacherPermissions}/>
                     <Route path="/impersonate" component={Impersonate}/>
+                    <Route path="/management-queries" component={ManagementQueries}/>
                     <Route path="/insights" component={Insights}/>
                     <Route path="/launch/lti" component={LTILaunch}/>
                     <Route path="/lti/*tab" component={LTI}/>

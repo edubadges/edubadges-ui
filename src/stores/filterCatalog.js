@@ -1,5 +1,11 @@
 import {derived, writable} from "svelte/store";
-import {filterBySearch, sort, sortBadgeAssertions, sortCreatedAt} from "./filterBadges";
+import {
+    filterBySearch,
+    sort,
+    sortBadgeAssertionsDirectAwarded,
+    sortBadgeAssertionsSelfRequested,
+    sortCreatedAt
+} from "./filterBadges";
 import {badgeClassFilterTypes, educationalLevels, studyLoadCategories} from "../util/catalogFilters";
 import I18n from "i18n-js";
 import {catalogPageCount} from "../util/pagination";
@@ -127,22 +133,17 @@ export const tree = derived(
             })));
 
         const badgeClassTypes = filteredBadgeClasses.reduce((acc, badge) => {
-                let isOther = true;
                 if (badge.archived) {
                     const item = acc.find(v => v.value === badgeClassFilterTypes.ARCHIVED);
                     if (item) {
                         ++item.count;
                     }
-                    isOther = false
-                }
-                if (badge.isMicroCredentials) {
+                } else if (badge.isMicroCredentials) {
                     const item = acc.find(v => v.value === badgeClassFilterTypes.MICRO_CREDENTIALS);
                     if (item) {
                         ++item.count;
                     }
-                    isOther = false
-                }
-                if (isOther) {
+                } else {
                     const item = acc.find(v => v.value === badgeClassFilterTypes.OTHER);
                     if (item) {
                         ++item.count;
@@ -156,12 +157,22 @@ export const tree = derived(
                 count: 0
             })));
 
-        const sortedBadgeClasses = (sortTarget && sortTarget.value === "recent") ? sortCreatedAt(filteredBadgeClasses) : sortBadgeAssertions(filteredBadgeClasses);
+        const sortedBadgeClasses = (sortTarget && sortTarget.value === "recent") ? sortCreatedAt(filteredBadgeClasses) :
+            (sortTarget && sortTarget.value === "awarded") ? sortBadgeAssertionsDirectAwarded(filteredBadgeClasses) : sortBadgeAssertionsSelfRequested(filteredBadgeClasses);
 
         const minimalPage = Math.min(page, Math.ceil(sortedBadgeClasses.length / catalogPageCount))
+
+        //Default we do not show the archived
+        const sortedBadgeClassesFiltered = sortedBadgeClasses.filter(badge => {
+            if (!typeBadgeClassSelected.includes(badgeClassFilterTypes.ARCHIVED)) {
+                return !badge.archived;
+            }
+            return true
+        });
+
         return {
-            badgeClasses: sortedBadgeClasses,
-            paginatedBadges: sortedBadgeClasses.slice((minimalPage - 1) * catalogPageCount, minimalPage * catalogPageCount),
+            badgeClasses: sortedBadgeClassesFiltered,
+            paginatedBadges: sortedBadgeClassesFiltered.slice((minimalPage - 1) * catalogPageCount, minimalPage * catalogPageCount),
             page: minimalPage,
             educationLevels: sort(educationLevels, true),
             institutions: sort(institutions, true),

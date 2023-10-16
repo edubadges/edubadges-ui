@@ -46,7 +46,8 @@
           permissions {
             mayAward
           },
-          assertionsCount,
+            directAwardedAssertionsCount,
+            selfRequestedAssertionsCount,
           pendingEnrollmentCount,
         }
       },
@@ -78,20 +79,14 @@
                         badgeClass.eqf = extensionValue(badgeClass.extensions, eqf);
                         badgeClass.timeInvestment = extensionValue(badgeClass.extensions, timeInvestment);
 
-                        let isOther = true;
                         badgeClass.types = [];
                         if (badgeClass.archived) {
                             badgeClass.types.push(badgeClassFilterTypes.ARCHIVED);
-                            isOther = false
-                        }
-                        if (badgeClass.isMicroCredentials) {
+                        } else if (badgeClass.isMicroCredentials) {
                             badgeClass.types.push(badgeClassFilterTypes.MICRO_CREDENTIALS);
-                            isOther = false
-                        }
-                        if (isOther) {
+                        } else {
                             badgeClass.types.push(badgeClassFilterTypes.OTHER);
                         }
-
                     });
                 });
             })

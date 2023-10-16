@@ -11,13 +11,14 @@ I18n.translations.nl = {
     },
     header: {
         logout: "Logout",
-        profile: "Mijn profiel",
+        profile: "Mijn account",
         home: "Mijn backpack",
         permissions: "Mijn permissies",
         notifications: "Mijn notificaties",
         feedback: "Verstuur feedback",
         demo: "Demo omgeving",
         impersonate: "Impersoneer",
+        queries: "Management queries",
         clearImpersonation: "Stop impersonatie",
         nav: {
             badgeclasses: "Badge classes",
@@ -80,7 +81,7 @@ I18n.translations.nl = {
         }
     },
     profile: {
-        profile: "Profiel",
+        profile: "Account",
         name: "Naam",
         validatedName: "Bevestigde naam",
         primary: "Primair e-mailadres",
@@ -265,10 +266,16 @@ I18n.translations.nl = {
             badgeclasses: "Badge classes",
             badgeclassOverview: "Overzicht",
             userManagement: "Gebruikers beheer",
-            enrollments: "Aangevraagd",
-            assertions: "Toegekend",
-            directAwardBundle: "Award status",
-            profile: "Profiel",
+            openDirectAwards: "Open awards",
+            deniedDirectAwards: "Geweigerd",
+            openEnrollments: "Open aanvragen",
+            assertions: "In backpack",
+            rejectedEnrollments: "Afgewezen",
+            revokedBadgeAssertions: "Ingetrokken",
+            deletedDirectAwards: "Verwijderd",
+            allDeletedDirectAwards: "Verwijderde direct awards",
+            directAwardBundles: "Award status",
+            profile: "Account",
             requestedBadges: "Aangevraagde edubadges",
             directAwards: "Unclaimed direct awards",
             lti: "LTI",
@@ -440,6 +447,7 @@ I18n.translations.nl = {
         940: "Er is al een edubadge voor deze email",
         941: "Er is al een badge aanvraag voor deze email",
         942: "EPPN voldoet niet aan het formaat van je instelling",
+        943: "Er is al een edubadge voor deze EPPN",
         unexpected: "Oeps, er is iets totaal onverwachts en onverklaarbaars gebeurd.",
         description: "Een onverwachte fout is opgetreden. Probeer het opnieuw of neem contact op met support@edubadges.nl voor ondersteuning.",
         close: "Sluit"
@@ -750,6 +758,10 @@ I18n.translations.nl = {
             recipient: "Ontvanger",
             requested: "Aangevraagd",
             awarded: "Toegekende edubadges",
+            openAwarded: "Open awarded edubadges",
+            deniedAwarded: "Geweigerde awarded edubadges",
+            deletedAwarded: "Verwijderde direct awards",
+            revokedAwarded: "Ingetrokken edubadges",
             awardType: {
                 name: "Type aanvraag",
                 REQUESTED: "Aangevraagd",
@@ -761,7 +773,9 @@ I18n.translations.nl = {
             issuedBy: "Uitgegeven door",
             onBehalfOf: " namens {{name}}",
             claimed: "Geclaimd",
+            inBackPack: "In backpack",
             expires: "Verloopt op",
+            deleted: "Verwijder op",
             expiresNever: "Nooit",
             download: "Download",
             open: "Open",
@@ -775,6 +789,7 @@ I18n.translations.nl = {
                 rejected: "Geweigerd",
                 revoked: "Ingetrokken",
                 expired: "Verlopen",
+                deleted: "Deleted",
                 accepted: "Geaccepteerd",
                 unaccepted: "In afwachting",
                 pending: "In afwachting",
@@ -796,6 +811,7 @@ I18n.translations.nl = {
         },
         enrollment: {
             title: "Personen die een edubadge hebben aangevraagd",
+            titleRejected: "Personen met een geweigerd edubadge verzoek",
             enrolled: "Aangevraagd",
             enrolledOn: "Aangevraagd op",
             deleteEnrollment: "Verwijder aanvraag",
@@ -803,6 +819,7 @@ I18n.translations.nl = {
             award: "Ken toe",
             status: "Status",
             open: "Open",
+            rejected: "Afgewezen",
             denied: "Geweigerd",
             deny: "Weiger verzoek",
             addEvidence: "+ Voeg persoonlijke boodschap en/of bewijs toe",
@@ -899,13 +916,15 @@ I18n.translations.nl = {
         },
         endorsements: {
             description: "Omschrijving",
-            claim : "Claim",
+            claim: "Claim",
             badgeClass: "Badge class"
         },
         directAwards: {
             title: "Direct awards nog niet geclaimed",
+            titleDeleted: "Verwijderde direct awards",
             revoke: "Trek in",
             resend: "Opnieuw versturen",
+            delete: "Awards verwijderen",
             zeroState: "Er zijn geen directe awards die nog moeten worden geclaimed voor badge classes die jij mag toekennen",
             recipient: "Ontvanger",
             eppn: "EPPN",
@@ -918,14 +937,18 @@ I18n.translations.nl = {
             faculty: "Issuer groep",
             confirmation: {
                 revocationReason: "Reden voor het intrekken (verplicht)",
+                deletionReason: "Reden voor het intrekken (verplicht)",
                 revoke: "Intrekken edubadge",
                 revokeConfirmation: "Weet je zeker dat je deze edubadge wilt intrekken? Dit kan <strong>niet</strong> ongedaan worden gemaakt.",
+                delete: "Verwijderen edubadge",
+                deleteConfirmation: "Weet je zeker dat je deze edubadge wilt verwijderen? Dit kan <strong>niet</strong> ongedaan worden gemaakt.",
                 resend: "Opnieuw versturen edubadge",
                 resendConfirmation: "Weet je zeker dat je deze edubadge opnieuw wilt versturen? De ontvanger zal een e-mail ontvangen."
             },
             flash: {
                 revoked: "De edubadge(s) zijn ingetrokken.",
                 resend: "De edubadge(s) zijn opnieuw verstuurd.",
+                deleted: "De edubadge(s) zijn verwijderd."
             }
         }
     },
@@ -1101,6 +1124,7 @@ I18n.translations.nl = {
         users: "Er zijn geen gebruikers voor instelling {{name}}.",
         assertions: "Er zijn geen uitreikingen voor edubadge {{name}}.",
         enrollments: "Er zijn geen aanvragen voor edubadge {{name}}.",
+        enrollmentsDenied: "Er zijn geen gewijgerde aanvragen voor edubadge {{name}}.",
         permissions: "Er zijn geen permissies voor deze gebruiker {{entity}} niveau.",
         selfPermissions: "Deze gebruiker heeft geen permissies op {{entity}} niveau.",
         userPermissions: "Deze gebruiker heeft geen permissies op {{entity}} niveau.",
@@ -1124,7 +1148,7 @@ I18n.translations.nl = {
         permissions: "Je permissies",
         notifications: "Je notificatie instellingen",
         banner: "Hallo {{firstName}} {{lastName}}",
-        profile: "Profiel",
+        profile: "Account",
         loggedIn: "Je bent momenteel ingelogd met je instellingsaccount, via SURFconext",
         lti: "LTI"
     },
@@ -1213,7 +1237,7 @@ I18n.translations.nl = {
         badgeClassExpireSettings: "Geef hier aan of en hoelang de edubadge geldig is. Na deze datum zal een edubadge niet meer geldig zijn.",
         badgeClassName: "Vermijdt afkortingen, zorg voor herkenbare naam ook voor externen.",
         badgeClassDescription: "Deze beschrijving ondersteund opmaak in markdown formaat. " +
-        "Zie <a target=\"_blank\" href=\"https://wiki.surfnet.nl/display/Edubadges/Edubadges+Example+BadgeClass\"> de wiki </a> voor voorbeelden.",
+            "Zie <a target=\"_blank\" href=\"https://wiki.surfnet.nl/display/Edubadges/Edubadges+Example+BadgeClass\"> de wiki </a> voor voorbeelden.",
         badgeClassLanguageOfInstruction: "De voertaal die gebruikt is bij het behalen van deze edubadge. ",
         badgeClassLearningOutcome: "Beschrijf de leeruitkomsten of de leerresultaten. Vastgelegd in de Onderwijs- en examenregeling.",
         //badgeClassLearningIssuer: "badgeClassLearningIssuer",
@@ -1224,7 +1248,7 @@ I18n.translations.nl = {
         badgeClassEvidenceStudentRequired: "Indien aangevinkt, moet voor alle aanvragen van deze badge class een bronvermelding URL worden ingevuld.",
         badgeClassAwardNonValidatedNameAllowed: "Indien aangevinkt, mogen non-formal edubadges (edubadges zonder Studielast) uitgereikt worden aan niet-gevalideerde accounts.",
         badgeClassIsMicroCredentials: "Indien aangevinkt, dan wordt deze badge class ihkv de Microcredentials pilot uitgegeven." +
-        "Zie <a target=\"_blank\" href=\"https://wiki.surfnet.nl/display/Edubadges/Handleiding+Metadata+ihkv+de+pilot+microcredentials\"> de wiki </a> voor een handleiding.",
+            "Zie <a target=\"_blank\" href=\"https://wiki.surfnet.nl/display/Edubadges/Handleiding+Metadata+ihkv+de+pilot+microcredentials\"> de wiki </a> voor een handleiding.",
         badgeClassDirectAwardingDisabled: "Indien aangevinkt, dan is voor deze badge class het direct awarden uitgeschakeld",
         badgeClassSelfEnrollmentDisabled: "Indien aangevinkt, dan kan deze badge class niet worden aangevraagd door studenten",
         //badgeClassCriteriaRequirements: "badgeClassCriteriaRequirements",
@@ -1306,10 +1330,10 @@ I18n.translations.nl = {
             eqf: "EQF niveau {{level}}",
         },
         badgeClassType: {
-              OTHER: "Anders",
-              ARCHIVED: "Gearchiveerd",
-              ALL: "Alle",
-              MICRO_CREDENTIALS: "Pilot Microcredentials"
+            OTHER: "Anders",
+            ARCHIVED: "Gearchiveerd",
+            ALL: "Alle",
+            MICRO_CREDENTIALS: "Pilot Microcredentials"
         },
         issuer: {
             contact: "Neem contact op met de issuer",
@@ -1464,7 +1488,7 @@ I18n.translations.nl = {
             enrollments: "Hier ziet u het totaal van alle edubadges die door studenten zijn aangevraagd.",
             totalAwarded: "Het totale aantal toegekende badgeklassen resulterend in edubadge-instanties",
             directAwarded: "Het aantal toegekende badges dat door studenten is aangevraagd en door docenten is geaccepteerd",
-            requested:"Het aantal toegekende badges dat door studenten is aangevraagd en door docenten is geaccepteerd",
+            requested: "Het aantal toegekende badges dat door studenten is aangevraagd en door docenten is geaccepteerd",
             public: "Het aantal badges dat door studenten publiek is gemaakt",
             totalDirectAwards: "Totaal aantal aangemaakte direct awards",
             unclaimed: "Direct awards die niet zijn geaccepteerd door studenten",
@@ -1685,6 +1709,17 @@ I18n.translations.nl = {
             delete: "Endorsement is verwijderd",
             resend: "Endorsement verzoek is opnieuw verstuurd",
         }
-    }
-
+    },
+    managementQueries: {
+        title: "Management queries",
+        institutionAdmins: "Institution admins",
+        institutionBadges: "Badge overview",
+        clear: "Clear",
+        download: "Download",
+        copy: "Copy",
+        show: "Show",
+        hide: "Hide",
+        select: "Select the query to run...",
+        loaded: "{{name}} query loaded..."
+    },
 };

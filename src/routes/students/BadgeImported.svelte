@@ -10,7 +10,6 @@
     import BadgeCard from "../../components/shared/BadgeCard.svelte";
     import BadgeClassDetails from "../../components/shared/BadgeClassDetails.svelte";
     import {Modal} from "../../components/forms";
-    import DownloadButton from "../../components/DownloadButton.svelte";
     import {deleteImportedAssertion, importedAssertionByEntityId, importedAssertionValidate} from "../../api";
     import {flash} from "../../stores/flash";
     import ShareDialog from "./ShareDialog.svelte";
@@ -206,81 +205,82 @@
 </style>
 
 <div class="badge-detail-container">
-  {#if loaded}
-    <StudentBreadCrumb>
-      <a use:link href={`/import`}>{I18n.t("importedBadges.details.import")}</a>
-      <span class="icon">{@html chevronRightSmall}</span>
-      <span class="current">{importedBadge.badgeclass.name}</span>
-    </StudentBreadCrumb>
-    <BadgeHeader title={importedBadge.badgeclass.name}/>
-    <div class="badge-detail">
-      <div class="shield">
-        {@html shieldUnlocked}
-      </div>
-      <div class="badge-card-container">
-        <span class="status-indicator revoked">{I18n.t("models.badge.statuses.imported")}</span>
-        <BadgeCard badgeClass={importedBadge.badgeclass} standAlone={true} withHeaderData={false}/>
-      </div>
-      <BadgeValidation badge={importedBadge} validatedName={importedBadge.email} importedBadge={true}/>
-      <div class="public-private">
-        <div class="header">
-          <h3>{I18n.t("importedBadges.details.imported")}</h3>
-        </div>
-        <p>{I18n.t("importedBadges.details.publicInfo", {url: new URL(importedBadge.import_url).hostname})}</p>
-      </div>
-      <div class="actions">
-        <div class="button-container">
-          <Button secondary={true} text={I18n.t("models.badge.open")} disabled={!loaded} externalUrl={importedBadge.import_url}/>
-<!--          <DownloadButton text={I18n.t("models.badge.download")} secondary={true}-->
-<!--                          filename={downloadFileName(importedBadge)}-->
-<!--                          disabled={!loaded}-->
-<!--                          url={importedBadge.import_url}/>-->
-        </div>
-        <div class="button-container">
-          {#if showShareFeedback}
-            <div class="tooltip">
-              {I18n.t("copyToClipboard.copied")}
+    {#if loaded}
+        <StudentBreadCrumb>
+            <a use:link href={`/import`}>{I18n.t("importedBadges.details.import")}</a>
+            <span class="icon">{@html chevronRightSmall}</span>
+            <span class="current">{importedBadge.badgeclass.name}</span>
+        </StudentBreadCrumb>
+        <BadgeHeader title={importedBadge.badgeclass.name}/>
+        <div class="badge-detail">
+            <div class="shield">
+                {@html shieldUnlocked}
             </div>
-          {/if}
-          <Button text={I18n.t("models.badge.share")} disabled={!loaded} action={copyToClipboard}/>
-        </div>
-      </div>
-      <BadgeClassDetails badgeclass={importedBadge.badgeclass} badge={importedBadge}/>
+            <div class="badge-card-container">
+                <span class="status-indicator revoked">{I18n.t("models.badge.statuses.imported")}</span>
+                <BadgeCard badgeClass={importedBadge.badgeclass} standAlone={true} withHeaderData={false}/>
+            </div>
+            <BadgeValidation badge={importedBadge} validatedName={importedBadge.email} importedBadge={true}/>
+            <div class="public-private">
+                <div class="header">
+                    <h3>{I18n.t("importedBadges.details.imported")}</h3>
+                </div>
+                <p>{I18n.t("importedBadges.details.publicInfo", {url: new URL(importedBadge.import_url).hostname})}</p>
+            </div>
+            <div class="actions">
+                <div class="button-container">
+                    <Button secondary={true} text={I18n.t("models.badge.open")} disabled={!loaded}
+                            externalUrl={importedBadge.import_url}/>
+                    <!--          <DownloadButton text={I18n.t("models.badge.download")} secondary={true}-->
+                    <!--                          filename={downloadFileName(importedBadge)}-->
+                    <!--                          disabled={!loaded}-->
+                    <!--                          url={importedBadge.import_url}/>-->
+                </div>
+                <div class="button-container">
+                    {#if showShareFeedback}
+                        <div class="tooltip">
+                            {I18n.t("copyToClipboard.copied")}
+                        </div>
+                    {/if}
+                    <Button text={I18n.t("models.badge.share")} disabled={!loaded} action={copyToClipboard}/>
+                </div>
+            </div>
+            <BadgeClassDetails badgeclass={importedBadge.badgeclass} badge={importedBadge}/>
 
-    </div>
-    <div class="delete">
-      <Button action={() => deleteBadge(true)} secondary={true} text={I18n.t("importedBadges.details.remove")}/>
-    </div>
-  {:else}
-    <Spinner/>
-  {/if}
+        </div>
+        <div class="delete">
+            <Button action={() => deleteBadge(true)} secondary={true} text={I18n.t("importedBadges.details.remove")}/>
+        </div>
+    {:else}
+        <Spinner/>
+    {/if}
 
 </div>
 
 {#if showModal}
-  <Modal
-    submit={modalAction}
-    cancel={cancel}
-    question={modalQuestion}
-    evaluateQuestion={true}
-    title={modalTitle}>
-  </Modal>
+    <Modal
+            submit={modalAction}
+            cancel={cancel}
+            question={modalQuestion}
+            evaluateQuestion={true}
+            title={modalTitle}>
+    </Modal>
 {/if}
 
 {#if validation}
-  <Modal
-    hideSubmit={true}
-    cancelLabel={I18n.t("importedBadges.details.ok")}
-    cancel={() => validation = null}
-    question={I18n.t("importedBadges.details.validationResults")}
-    title={I18n.t("importedBadges.details.validation")}>
-    <div class="validation-results">{JSON.stringify(validation)}</div>
-  </Modal>
+    <Modal
+            hideSubmit={true}
+            cancelLabel={I18n.t("importedBadges.details.ok")}
+            cancel={() => validation = null}
+            question={I18n.t("importedBadges.details.validationResults")}
+            title={I18n.t("importedBadges.details.validation")}>
+        <div class="validation-results">{JSON.stringify(validation)}</div>
+    </Modal>
 {/if}
 
 {#if showShareDialog}
-  <ShareDialog
-    copied={copiedLink}
-    cancel={cancel}
-    publicUrl={importedBadge.import_url}/>
+    <ShareDialog
+            copied={copiedLink}
+            cancel={cancel}
+            publicUrl={importedBadge.import_url}/>
 {/if}

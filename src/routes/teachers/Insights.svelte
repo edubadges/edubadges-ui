@@ -77,7 +77,6 @@
     let directAwardedAccepted = 0;
     let directAwardDenied = 0;
     let directAwardsOpen = 0;
-    let assertionDirectAwardsRevoked = 0;
     let directAwardsRevoked = 0;
     let claimRate = 0;
 
@@ -174,10 +173,9 @@
         directAwardedAccepted = directAwarded;
         directAwardDenied = totalNbrByAttributeValue(directAwards, 'status', 'Rejected');
         directAwardsOpen = totalNbrByAttributeValue(directAwards, 'status', 'Unaccepted');
-        assertionDirectAwardsRevoked = totalNbrByAttributeValue(filteredDA, 'revoked', true);
-        directAwardsRevoked = totalNbrByAttributeValue(directAwards, 'status', 'Revoked');
-        totalDirectAwards = directAwardedAccepted + directAwardDenied + directAwardsOpen + assertionDirectAwardsRevoked + directAwardsRevoked;
-        claimRate = claimRatePercentage(directAwardedAccepted, (totalDirectAwards - directAwardsRevoked - assertionDirectAwardsRevoked));
+        directAwardsRevoked = totalNbrByAttributeValue(filteredDA, 'revoked', true);
+        totalDirectAwards = directAwardedAccepted + directAwardDenied + directAwardsOpen + directAwardsRevoked;
+        claimRate = claimRatePercentage(directAwardedAccepted, (totalDirectAwards - directAwardsRevoked));
         //Requested
         acceptedAndApproved = totalRequestedAssertions;
         enrollmentsDenied = totalNbrByAttributeValue(enrollments, 'denied', true);
@@ -745,11 +743,6 @@
                         <span class="value">{directAwardsOpen}</span>
                     </section>
                     <section class="stat sub">
-                        <span class="attr">{I18n.t("insights.revokedBefore")}
-                        </span>
-                        <span class="value">{assertionDirectAwardsRevoked}</span>
-                    </section>
-                    <section class="stat sub">
                         <span class="attr">{I18n.t("insights.revoked")}
                         </span>
                         <span class="value">{directAwardsRevoked}</span>
@@ -824,6 +817,7 @@
                                 value={facultyId}
                                 showIndicator={!facultyId}
                                 showChevron={!facultyId}
+                                isSearchable={true}
                                 handleSelect={facultySelected}
                                 placeholder={I18n.t("models.insights.facultyPlaceholder")}
                                 items={facultySelectOptions}
@@ -835,6 +829,7 @@
                                 showIndicator={!issuerId}
                                 showChevron={!issuerId}
                                 handleSelect={issuerSelected}
+                                isSearchable={true}
                                 placeholder={I18n.t("models.insights.issuerPlaceholder")}
                                 items={issuerSelectOptions}
                                 optionIdentifier="identifier"/>
@@ -843,6 +838,7 @@
                         <Select
                                 value={badgeClassId}
                                 showIndicator={!badgeClassId}
+                                isSearchable={true}
                                 showChevron={!badgeClassId}
                                 handleSelect={badgeClassSelected}
                                 placeholder={I18n.t("models.insights.badgeClassPlaceholder")}

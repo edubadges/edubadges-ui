@@ -16,17 +16,20 @@
     import Spinner from "../../Spinner.svelte";
     import Tooltip from "../../../components/Tooltip.svelte";
     import {pageCount} from "../../../util/pagination";
+    import {ACTIONS} from "../../../util/assertions";
 
     export let entityId;
     export let enrollments = [];
     export let refresh;
+    export let actions = [ACTIONS.DENY_ENROLLMENT, ACTIONS.AWARD_ENROLLMENT];
+    export let title;
+    export let denied = false;
 
     export let badgeClass = {};
 
     let selection = [];
     let filteredEnrollments = [];
     let checkAllValue = false;
-    let displayDenied = false;
     let narrative = "";
     let url = "";
     let name = "";
@@ -46,13 +49,8 @@
 
     onMount(() => {
         enrollments.forEach(enrollment => enrollment.evidenceNarrativeRequired = badgeClass.evidenceRequired || badgeClass.narrativeRequired);
-        filteredEnrollments = enrollments.filter(enrollment => !enrollment.denied);
+        filteredEnrollments = enrollments;
     });
-
-    const displayDeniedChanged = val => {
-        filteredEnrollments = val ? [...enrollments] : enrollments.filter(enrollment => !enrollment.denied)
-        displayDenied = val;
-    }
 
     const refreshEnrollments = () => {
         selection = [];
@@ -109,7 +107,7 @@
 
 
     const onCheckAll = val => {
-        selection = val ? enrollments.filter(enrollment => !enrollment.denied).map(({entityId}) => entityId) : [];
+        selection = val ? enrollments.map(({entityId}) => entityId) : [];
         table.checkAllValue = val;
     }
 
@@ -173,7 +171,7 @@
 
     $: table = {
         entity: "badgeclass",
-        title: `${I18n.t("models.enrollment.title")}`,
+        title: title,
         tableHeaders: tableHeaders,
         onCheckAll
     };
@@ -196,36 +194,61 @@
 </script>
 
 <style lang="scss">
-  div.single-neutral-check {
-    width: 26px;
-  }
-
-  div.recipient {
-    display: flex;
-    flex-direction: column;
-
-    span:not(:last-child) {
-      margin-bottom: 5px;
+    div.single-neutral-check {
+        width: 26px;
     }
-  }
 
-  div.action-buttons {
-    display: flex;
-    margin: 15px 0;
+    div.recipient {
+        display: flex;
+        flex-direction: column;
 
-    :global(a:last-child) {
-      margin-left: 15px;
+        span:not(:last-child) {
+            margin-bottom: 5px;
+        }
     }
-  }
 
-  td.evidenceNarrativeRequired span {
-    display: block;
-  }
+    div.action-buttons {
+        display: flex;
+        margin: 15px 0;
 
-  div.checkbox-container {
-    margin-left: 80px;
-    margin-top: 8px;
-  }
+        :global(a:last-child) {
+            margin-left: 15px;
+        }
+    }
+
+    :global(td.assertion-status span) {
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: bold;
+
+        &.open {
+            background-color: var(--green-light);
+        }
+
+        &.denied {
+            background-color: var(--red-dark);
+            color: white;
+        }
+
+    }
+
+    :global(td.assertion-status span.title) {
+        padding: 0;
+    }
+
+    :global(td.assertion-status span.tooltip-slot) {
+        padding: 0;
+    }
+
+    td.evidenceNarrativeRequired span {
+        display: block;
+    }
+
+    div.checkbox-container {
+        margin-left: 80px;
+        margin-top: 8px;
+    }
 
 </style>
 {#if serverBusy}
@@ -240,23 +263,21 @@
         page={minimalPage}
         onPageChange={nbr => page = nbr}
         withCheckAll={true}
-        checkAllDisabled={enrollments.filter(enrollment => !enrollment.denied).length === 0 || !badgeClass.permissions.mayAward || badgeClass.evidenceRequired || badgeClass.narrativeRequired}
+        checkAllDisabled={!badgeClass.permissions.mayAward || badgeClass.evidenceRequired || badgeClass.narrativeRequired}
         bind:checkAllValue>
     <div class="action-buttons" slot="check-buttons">
-        <Button small action={() => award(true)} marginRight={true}
-                text={I18n.t('models.enrollment.award')} disabled={selection.length === 0 || serverBusy}/>
-        <Button small action={() => deny(true)}
-                text={I18n.t('models.enrollment.deny')} disabled={selection.length === 0  || serverBusy}
-                secondary={true}/>
-        {#if enrollments.filter(enrollment => enrollment.denied).length > 0}
-            <div class="checkbox-container">
-                <CheckBox adjustTopFlex={true}
-                          label={I18n.t('models.enrollment.showDenied', {count: enrollments.filter(enrollment => enrollment.denied).length})}
-                          bind:value={displayDenied}
-                          onChange={displayDeniedChanged}/>
-            </div>
+        {#if actions.includes(ACTIONS.AWARD_ENROLLMENT)}
+            <Button small action={() => award(true)}
+                    marginRight={true}
+                    text={I18n.t('models.enrollment.award')}
+                    disabled={selection.length === 0 || serverBusy}/>
         {/if}
-
+        {#if actions.includes(ACTIONS.DENY_ENROLLMENT)}
+            <Button small action={() => deny(true)}
+                    text={I18n.t('models.enrollment.deny')}
+                    disabled={selection.length === 0  || serverBusy}
+                    secondary={true}/>
+        {/if}
     </div>
 
     {#each sortedFilteredEnrollments.slice((minimalPage - 1) * pageCount, minimalPage * pageCount) as enrollment}
@@ -265,7 +286,7 @@
                 <CheckBox
                         value={selection.includes(enrollment.entityId)}
                         name={`select-${enrollment.entityId}`}
-                        disabled={enrollment.denied || !badgeClass.permissions.mayAward}
+                        disabled={!badgeClass.permissions.mayAward}
                         onChange={val => onCheckOne(val, enrollment.entityId)}/>
             </td>
             <td class="single-neutral-check">
@@ -297,8 +318,9 @@
             <td class="center">
                 {moment(enrollment.dateCreated).format('MMM D, YYYY')}
             </td>
-            <td class="center">
-                <span>{enrollment.denied ? I18n.t("models.enrollment.denied") : I18n.t("models.enrollment.open")}</span>
+            <td class="assertion-status center">
+                <span class={enrollment.denied ? "denied" : "open"}>
+                    {enrollment.denied ? I18n.t("models.enrollment.rejected") : I18n.t("models.enrollment.open")}</span>
                 {#if enrollment.denied}
                     <Tooltip tooltipText={enrollment.denyReason}/>
                 {/if}
@@ -307,7 +329,7 @@
     {/each}
     {#if enrollments.length === 0}
         <tr>
-            <td colspan="6">{I18n.t("zeroState.enrollments", {name: badgeClass.name})}</td>
+            <td colspan="6">{I18n.t(`zeroState.${denied ? "enrollmentsDenied" : "enrollments"}`, {name: badgeClass.name})}</td>
         </tr>
     {/if}
 </Table>

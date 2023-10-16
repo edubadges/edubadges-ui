@@ -22,7 +22,6 @@
 
     export let badgeclass;
     export let enrollments;
-    export let existingAssertionsEmails;
     export let refresh;
     export let existingDirectAwardsEppns;
     export let ltiContextEnabled = false;
@@ -127,10 +126,6 @@
             ...errorsDuplications,
             [`email_${i}`]: directAwards.filter(da => da.email === val).length > 1 && val.trim().length > 0
         }
-        errorsAlreadyAwarded = {
-            ...errorsAlreadyAwarded,
-            [`email_${i}`]: existingAssertionsEmails.some(email => email === val) || existingDirectAwardsEppns.some(inst => inst.recipientEmail === val)
-        }
     }
 
     const eppnOnBlur = i => e => {
@@ -175,8 +170,6 @@
         }, {});
         errorsAlreadyAwarded = newDirectAwards.reduce((acc, da, i) => {
             acc[`eppn_${i}`] = existingDirectAwardsEppns.some(inst => inst.eppn === da.eppn);
-            acc[`email_${i}`] = existingAssertionsEmails.some(email => email === da.email) ||
-                existingDirectAwardsEppns.some(inst => inst.recipientEmail === da.email);
             return acc;
         }, {});
         errorsDuplications = newDirectAwards.reduce((acc, da, i) => {
@@ -313,39 +306,39 @@
                     </Warning>
                 </div>
             {/if}
-<!--            <div class="scheduled-at" class:disable-scheduling={!enableScheduling}>-->
-<!--                <CheckBox-->
-<!--                        value={enableScheduling}-->
-<!--                        name={"enableScheduling"}-->
-<!--                        tipKey="awardScheduling"-->
-<!--                        inForm={false}-->
-<!--                        adjustTop={true}-->
-<!--                        boldLabel={false}-->
-<!--                        label={I18n.t("badgeAward.directAward.schedulingDate")}-->
-<!--                        onChange={val => {-->
-<!--                            enableScheduling = val;-->
-<!--                        }}/>-->
-<!--                {#if enableScheduling}-->
-<!--                    <div class="svelte-picker">-->
-<!--                        <SveltyPicker-->
-<!--                                inputClasses="input-field"-->
-<!--                                inputId="svelty-picker-id"-->
-<!--                                format="yyyy-mm-dd hh:ii"-->
-<!--                                startDate={startDate}-->
-<!--                                clearBtn={false}-->
-<!--                                disabled={!enableScheduling}-->
-<!--                                minuteIncrement={30}-->
-<!--                                i18n={I18n.locale === "en" ? en : nl}-->
-<!--                                todayBtn={false}-->
-<!--                                bind:value={scheduledAt}-->
-<!--                                bind:initialDate={initialDate}/>-->
-<!--                        <span class="calendar" on:click={() => document.getElementById("svelty-picker-id").focus()}>-->
-<!--                            {@html calendarIcon}-->
-<!--                        </span>-->
+            <div class="scheduled-at" class:disable-scheduling={!enableScheduling}>
+                <CheckBox
+                        value={enableScheduling}
+                        name={"enableScheduling"}
+                        tipKey="awardScheduling"
+                        inForm={false}
+                        adjustTop={true}
+                        boldLabel={false}
+                        label={I18n.t("badgeAward.directAward.schedulingDate")}
+                        onChange={val => {
+                            enableScheduling = val;
+                        }}/>
+                {#if enableScheduling}
+                    <div class="svelte-picker">
+                        <SveltyPicker
+                                inputClasses="input-field"
+                                inputId="svelty-picker-id"
+                                format="yyyy-mm-dd hh:ii"
+                                startDate={startDate}
+                                clearBtn={false}
+                                disabled={!enableScheduling}
+                                minuteIncrement={30}
+                                i18n={I18n.locale === "en" ? en : nl}
+                                todayBtn={false}
+                                bind:value={scheduledAt}
+                                bind:initialDate={initialDate}/>
+                        <span class="calendar" on:click={() => document.getElementById("svelty-picker-id").focus()}>
+                            {@html calendarIcon}
+                        </span>
 
-<!--                    </div>-->
-<!--                {/if}-->
-<!--            </div>-->
+                    </div>
+                {/if}
+            </div>
             <div class="grouped">
                 {#each directAwards as da, i}
                     <Field entity="badgeAward" attribute="email">
@@ -380,7 +373,8 @@
                                 <Error standAlone={true} error_code={930}/>
                             {/if}
                             {#if errorsAlreadyAwarded[`eppn_${i}`]}
-                                <Error standAlone={true} error_code={931}/>
+                                <Error standAlone={true}
+                                       error_code={(existingDirectAwardsEppns.find(ex => ex.eppn === da.eppn) || {}).isAssertion ? 943 : 931}/>
                             {/if}
                         </Field>
                         <div class="evidence-container">

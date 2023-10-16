@@ -119,7 +119,7 @@
         let eqfValue = extensionValue(badgeclass.extensions, eqf);
         if (isEmpty(eqfValue)) {
             eqfValue = {name: "EQF 5", value: 5};
-        } else  {
+        } else {
             eqfValue = eqfItems.find(item => item.value === eqfValue)
         }
         extensions[eqf.name] = eqfValue;
@@ -633,16 +633,23 @@
                                 adjustTop={true}
                                 label={I18n.t(['models', entity, 'directAwardingDisabled'])}
                                 tipKey="badgeClassDirectAwardingDisabled"
-                                onChange={val => badgeclass.directAwardingDisabled = val}/>
+                                onChange={val => {
+                                 badgeclass.directAwardingDisabled = val;
+                                 if (val) {
+                                     badgeclass.selfEnrollmentDisabled = false;
+                                 }
+                                }}/>
                     {/if}
-                    <CheckBox
-                            value={badgeclass.selfEnrollmentDisabled || false}
-                            inForm={true}
-                            boldLabel={false}
-                            adjustTop={true}
-                            label={I18n.t(['models', entity, 'selfEnrollmentDisabled'])}
-                            tipKey="badgeClassSelfEnrollmentDisabled"
-                            onChange={val => badgeclass.selfEnrollmentDisabled = val}/>
+                    {#if !badgeclass.directAwardingDisabled}
+                        <CheckBox
+                                value={badgeclass.selfEnrollmentDisabled || false}
+                                inForm={true}
+                                boldLabel={false}
+                                adjustTop={true}
+                                label={I18n.t(['models', entity, 'selfEnrollmentDisabled'])}
+                                tipKey="badgeClassSelfEnrollmentDisabled"
+                                onChange={val => badgeclass.selfEnrollmentDisabled = val}/>
+                    {/if}
                 </Field>
             </div>
         </div>

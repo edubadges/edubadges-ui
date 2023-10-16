@@ -209,6 +209,16 @@ export function revokeDirectAwards(directAwardEntityIds, revocationReason) {
     );
 }
 
+export function deleteDirectAwards(directAwardEntityIds, revocationReason) {
+    const path = `${serverUrl}/directaward/delete-direct-awards`;
+    const directAwards = directAwardEntityIds.map(entityId => ({entity_id: entityId}));
+    return validFetch(
+        path,
+        {body: JSON.stringify({revocation_reason: revocationReason, direct_awards: directAwards})},
+        "PUT"
+    );
+}
+
 export function resendDirectAwards(directAwardEntityIds) {
     const path = `${serverUrl}/directaward/resend-direct-awards`;
     const directAwards = directAwardEntityIds.map(entityId => ({entity_id: entityId}));
@@ -770,6 +780,7 @@ export function sendFeedback(message) {
     return validFetch(path, {body: JSON.stringify({message})}, "POST");
 }
 
+//Insights
 export function insights(year, institutionId, countSURFInTotal) {
     const path = `${serverUrl}/insights/insight`;
     const data = {
@@ -782,6 +793,17 @@ export function insights(year, institutionId, countSURFInTotal) {
     }
     return validFetch(path, {body: JSON.stringify(data)}, "POST");
 }
+
+export function fetchInstitutionAdmins() {
+    const path = `${serverUrl}/insights/institution/admins`;
+    return validFetchNoErrorDialog(path, {}, "GET");
+}
+
+export function fetchInstitutionBadges() {
+    const path = `${serverUrl}/insights/institution/badges`;
+    return validFetchNoErrorDialog(path, {}, "GET");
+}
+
 
 //BadgeInstanceCollections
 export function createBadgeInstanceCollection(badgeInstanceCollection) {

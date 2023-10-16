@@ -20,14 +20,12 @@
     export let badgeclass;
     export let enrollments;
     export let refresh;
-    export let existingAssertionsEmails;
     export let existingDirectAwardsEppns;
 
     let directAwards = [];
     let errorAwards = [];
     let duplicateAwards = [];
     let alreadyEppnDirectAwards = [];
-    let alreadyEmailAssertion = [];
     let missingEvidenceOrNarrative = [];
     let processing = false;
     let serverProcessing = false;
@@ -58,7 +56,6 @@
                     const newErrorAwards = [];
                     const newDuplicateAwards = [];
                     const newAlreadyEppnDirectAwards = [];
-                    const newAlreadyEmailAssertion = [];
                     const newMissingEvidenceOrNarrative = [];
                     rows.forEach(row => {
                         const cells = row.split(/[,;\t]/);
@@ -76,10 +73,6 @@
                             const description = cells[5] || null;
                             if (existingDirectAwardsEppns.some(da => da.eppn === eppn)) {
                                 newAlreadyEppnDirectAwards.push(eppn);
-                            } else if (existingAssertionsEmails.includes(email)) {
-                                newAlreadyEmailAssertion.push(email);
-                            } else if (existingDirectAwardsEppns.some(da => da.recipientEmail === email)) {
-                                newAlreadyEmailAssertion.push(email);
                             } else if (alreadyInList(newDirectAwards, email, eppn)) {
                                 newDuplicateAwards.push(cellString)
                             } else if ((badgeclass.evidenceRequired && !evidence_url) || (badgeclass.narrativeRequired && !narrative)) {
@@ -102,7 +95,6 @@
                     errorAwards = newErrorAwards;
                     duplicateAwards = newDuplicateAwards;
                     alreadyEppnDirectAwards = newAlreadyEppnDirectAwards;
-                    alreadyEmailAssertion = newAlreadyEmailAssertion;
                     missingEvidenceOrNarrative = newMissingEvidenceOrNarrative;
                     processing = false;
                 };
@@ -309,7 +301,6 @@
         {/if}
         <BulkAwardResult warning={true} localeName="wrong" results={errorAwards}/>
         <BulkAwardResult warning={true} localeName="eppnExisting" results={alreadyEppnDirectAwards}/>
-        <BulkAwardResult warning={true} localeName="emailExisting" results={alreadyEmailAssertion}/>
         <BulkAwardResult warning={true} localeName="duplicate" results={duplicateAwards}/>
         <BulkAwardResult warning={true} localeName="missingEvidenceOrNarrative" results={missingEvidenceOrNarrative}/>
         <BulkAwardResult warning={false} localeName="good"

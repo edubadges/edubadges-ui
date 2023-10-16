@@ -4,7 +4,7 @@
     import {Table} from "../../teachers";
     import {sort, sortType} from "../../../util/sortData";
     import {Button, CheckBox} from "../../../components";
-    import {revokeAssertions, revokeDirectAwards} from "../../../api";
+    import {deleteDirectAwards, resendDirectAwards, revokeAssertions, revokeDirectAwards} from "../../../api";
     import singleNeutralCheck from "../../../icons/single-neutral-check.svg";
     import {constructUserEmail, constructUserName} from "../../../util/users";
     import {searchMultiple} from "../../../util/searchData";
@@ -12,20 +12,28 @@
     import {flash} from "../../../stores/flash";
     import filter from "../../../icons/filter-1.svg";
     import SideBarAssertions from "../award/SideBarAssertions.svelte";
-    import {awardTypes, issuedTypes, statusTypes} from "../../../stores/filterAssertions";
-    import {assertionStatusClass, isRevoked} from "../../../util/assertions";
+    import {awardTypes, filterTypes, issuedTypes, statusTypes} from "../../../stores/filterAssertions";
+    import {ACTIONS, assertionStatusClass, isRevoked} from "../../../util/assertions";
     import Spinner from "../../Spinner.svelte";
     import {pageCount} from "../../../util/pagination";
 
     export let assertions = [];
     export let badgeclass;
     export let refresh;
+    export let filterOptions = [filterTypes.ISSUED, filterTypes.AWARD_TYPE, filterTypes.STATUS];
+    export let actions = [ACTIONS.DELETE_DIRECT_AWARD, ACTIONS.REVOKE_ASSERTION, ACTIONS.RESEND_DIRECT_AWARD];
+    export let title;
+    export let type = "awarded";
+    export let directAwards = false;
+    export let updatedTitle = I18n.t("models.badge.claimed");
+    export let showStatus = true;
 
     let selection = [];
     let checkAllValue = false;
     let revocationReason = "";
+    let revocationReasonRequired = false;
 
-    //Side bar filtering
+    //Sidebar filtering
     let issuedSelected = [];//[issuedTypes.LAST_30_DAYS];
     let awardTypeSelected = [];
     let statusSelected = [];
@@ -41,7 +49,7 @@
     let modalTitle;
     let modalQuestion;
     let modalAction;
-
+    let revocationReasonLabel;
 
     $: filteredAssertions = assertions;
 
@@ -68,17 +76,12 @@
                 value: issuedTypes.ALL,
                 count: assertions.length
             });
-        [[issuedTypes.LAST_60_DAYS, issuedTypes.LAST_30_DAYS], [issuedTypes.LAST_90_DAYS, issuedTypes.LAST_60_DAYS]]
-            .forEach(arr => {
-                const days = options.find(item => item.value === arr[0]);
-                const toAdd = options.find(option => option.value === arr[1]);
-                days.count += toAdd.count
-            });
-
         issuedOptions = options;
         awardTypeOptions = filteredAssertions.reduce((acc, assertion) => {
                 const item = acc.find(v => v.value === (assertion.isDirectAward ? awardTypes.DIRECT_AWARD : awardTypes.REQUESTED));
-                ++item.count;
+                if (item) {
+                    ++item.count;
+                }
                 return acc;
             },
             Object.keys(awardTypes).map(type => ({
@@ -88,7 +91,9 @@
             })));
         statusOptions = filteredAssertions.reduce((acc, assertion) => {
                 const item = acc.find(v => v.value === assertion.status);
-                ++item.count;
+                if (item) {
+                    ++item.count;
+                }
                 return acc;
             },
             Object.keys(statusTypes).map(type => ({
@@ -126,8 +131,10 @@
     const revoke = showConfirmation => {
         if (showConfirmation) {
             modalTitle = I18n.t("models.badge.confirmation.revoke");
+            revocationReasonLabel = I18n.t("models.badge.confirmation.revocationReason");
             modalQuestion = I18n.t("models.badge.confirmation.revokeConfirmation");
             modalAction = () => revoke(false);
+            revocationReasonRequired = true;
             showModal = true;
         } else {
             showModal = false;
@@ -157,6 +164,56 @@
                     serverBusy = false;
                 });
             }
+        }
+    }
+
+    const doDeleteDirectAwards = showConfirmation => {
+        if (showConfirmation) {
+            modalTitle = I18n.t("models.directAwards.confirmation.delete");
+            revocationReasonLabel = I18n.t("models.directAwards.confirmation.deletionReason");
+            modalQuestion = I18n.t("models.directAwards.confirmation.deleteConfirmation");
+            modalAction = () => doDeleteDirectAwards(false);
+            revocationReasonRequired = true;
+            showModal = true;
+        } else {
+            showModal = false;
+            const selectedAssertions = filteredAssertions
+                .filter(assertion => selection.includes(assertion.entityId))
+                .map(assertion => assertion.entityId);
+            const promises = [];
+            if (selectedAssertions.length > 0) {
+                promises.push(deleteDirectAwards(selectedAssertions, revocationReason));
+            }
+            if (promises.length > 0) {
+                serverBusy = true;
+                Promise.all(promises).then(() => {
+                    flash.setValue(I18n.t("models.directAwards.flash.deleted"));
+                    refreshAssertions();
+                    serverBusy = false;
+                });
+            }
+        }
+    }
+
+    const resend = showConfirmation => {
+        if (showConfirmation) {
+            revocationReasonRequired = false;
+            modalTitle = I18n.t("models.directAwards.confirmation.resend");
+            modalQuestion = I18n.t("models.directAwards.confirmation.resendConfirmation");
+            modalAction = () => resend(false);
+            showModal = true;
+        } else {
+            showModal = false;
+            serverBusy = true;
+            const selectedAssertions = filteredAssertions
+                .filter(assertion => selection.includes(assertion.entityId))
+                .map(assertion => assertion.entityId);
+            resendDirectAwards(selectedAssertions)
+                .then(() => {
+                    refreshAssertions();
+                    serverBusy = false;
+                    flash.setValue(I18n.t("models.directAwards.flash.resend"));
+                });
         }
     }
 
@@ -221,27 +278,36 @@
             width: "12%",
             center: true
         },
+        directAwards ?
+            {
+                name: I18n.t(`models.directAwards.resendAt`),
+                attribute: "resendAt",
+                reverse: false,
+                sortType: sortType.DATE,
+                width: "12%",
+                center: true
+            } :
+            {
+                name: updatedTitle,
+                attribute: "updatedOn",
+                reverse: false,
+                sortType: sortType.DATE,
+                width: "12%",
+                center: true
+            },
         {
-            name: I18n.t("models.badge.claimed"),
-            attribute: "updatedOn",
-            reverse: false,
-            sortType: sortType.DATE,
-            width: "12%",
-            center: true
-        },
-        {
-            name: I18n.t("models.badge.expires"),
-            attribute: "expiresAt",
+            name: I18n.t(`models.badge.${type === "awarded" ? "expires" : "deleted"}`),
+            attribute: type === "awarded" ? "expiresAt" : "deleteAt",
             reverse: false,
             sortType: sortType.DATE,
             width: "12%",
             right: true
         }
-    ];
+    ].filter(tab => showStatus || tab.attribute !== "statusSort");
 
     $: table = {
         entity: "badgeclass",
-        title: `${I18n.t("models.badge.awarded")}`,
+        title: title,
         tableHeaders: tableHeaders,
         onCheckAll
     };
@@ -266,58 +332,63 @@
 
 <style lang="scss">
 
-  div.assertions {
-    display: flex;
+    div.assertions {
+        display: flex;
 
-  }
-
-  div.recipient {
-    display: flex;
-    flex-direction: column;
-
-    span:not(:last-child) {
-      margin-bottom: 5px;
-    }
-  }
-
-  div.action-buttons {
-    display: flex;
-    margin: 15px 0;
-  }
-
-  div.slots {
-    display: flex;
-    flex-direction: column;
-
-    label {
-      margin-bottom: 10px;
-    }
-  }
-
-  :global(td.assertion-status span) {
-    padding: 4px 10px;
-    border-radius: 12px;
-    font-size: 14px;
-    font-weight: bold;
-
-    &.accepted, &.awarded {
-      background-color: var(--green-light);
     }
 
-    &.revoked {
-      background-color: var(--red-strong-dark);
-      color: white;
+    div.recipient {
+        display: flex;
+        flex-direction: column;
+
+        span:not(:last-child) {
+            margin-bottom: 5px;
+        }
     }
 
-    &.unaccepted, &.pending, &.scheduled {
-      background-color: var(--grey-3);
+    div.action-buttons {
+        display: flex;
+        margin: 15px 0;
+        gap: 45px
     }
 
-    &.rejected {
-      background-color: var(--red-dark);
-      color: white;
+    div.slots {
+        display: flex;
+        flex-direction: column;
+
+        label {
+            margin-bottom: 10px;
+        }
     }
-  }
+
+    :global(td.assertion-status span) {
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: bold;
+
+        &.accepted, &.awarded, &.open {
+            background-color: var(--green-light);
+        }
+
+        &.revoked {
+            background-color: var(--red-strong-dark);
+            color: white;
+        }
+
+        &.deleted {
+            background-color: var(--red-light);
+        }
+
+        &.unaccepted, &.pending, &.scheduled {
+            background-color: var(--grey-3);
+        }
+
+        &.rejected, &.denied {
+            background-color: var(--red-dark);
+            color: white;
+        }
+    }
 
 
 </style>
@@ -326,24 +397,26 @@
 {/if}
 
 <div class="assertions">
-
-    <div class="filters">
-        <SideBarAssertions
-                assertions={filteredAssertions}
-                bind:issuedSelected={issuedSelected}
-                bind:awardTypeSelected={awardTypeSelected}
-                bind:statusSelected={ statusSelected }
-                { issuedOptions}
-                { awardTypeOptions}
-                { statusOptions }/>
-    </div>
-
+    {#if assertions.length > 0}
+        <div class="filters">
+            <SideBarAssertions
+                    assertions={filteredAssertions}
+                    bind:issuedSelected={issuedSelected}
+                    bind:awardTypeSelected={awardTypeSelected}
+                    bind:statusSelected={ statusSelected }
+                    { filterOptions }
+                    { issuedOptions}
+                    { awardTypeOptions}
+                    { statusOptions }/>
+        </div>
+    {/if}
     <Table
             {...table}
             bind:search={assertionSearch}
             bind:sort={assertionsSort}
-            withCheckAll={true}
-            checkAllDisabled={!badgeclass.permissions.mayAward}
+            withCheckAll={actions.length > 0 }
+            checkAllDisabled={!badgeclass.permissions.mayAward || actions.includes(ACTIONS.REVOKE_ASSERTION)}
+            displayCheckAll={!actions.includes(ACTIONS.REVOKE_ASSERTION)}
             full={true}
             isEmpty={filteredAssertions.length === 0}
             filteredCount={sortedFilteredAssertions.length}
@@ -351,20 +424,34 @@
             onPageChange={nbr => page = nbr}
             bind:checkAllValue>
         <div class="action-buttons" slot="check-buttons">
-            <Button small disabled={selection.length === 0 || serverBusy}
-                    action={() => revoke(true)}
-                    text={I18n.t('teacher.badgeRevoked.revoke')}/>
+            {#if actions.includes(ACTIONS.RESEND_DIRECT_AWARD)}
+                <Button small disabled={selection.length === 0 || serverBusy}
+                        action={() => resend(true)}
+                        text={I18n.t('models.directAwards.resend')}/>
+            {/if}
+            {#if actions.includes(ACTIONS.REVOKE_ASSERTION)}
+                <Button small disabled={selection.length === 0 || serverBusy}
+                        action={() => revoke(true)}
+                        text={I18n.t('teacher.badgeRevoked.revoke')}/>
+            {/if}
+            {#if actions.includes(ACTIONS.DELETE_DIRECT_AWARD)}
+                <Button small disabled={selection.length === 0 || serverBusy}
+                        action={() => doDeleteDirectAwards(true)}
+                        text={I18n.t('models.directAwards.delete')}/>
+            {/if}
         </div>
 
         {#each sortedFilteredAssertions.slice((minimalPage - 1) * pageCount, minimalPage * pageCount) as assertion}
             <tr>
-                <td>
-                    <CheckBox
-                            value={selection.includes(assertion.entityId)}
-                            name={`select-${assertion.entityId}`}
-                            disabled={isRevoked(assertion) || !badgeclass.permissions.mayAward}
-                            onChange={val => onCheckOne(val, assertion.entityId)}/>
-                </td>
+                {#if actions.length > 0}
+                    <td>
+                        <CheckBox
+                                value={selection.includes(assertion.entityId)}
+                                name={`select-${assertion.entityId}`}
+                                disabled={isRevoked(assertion) || !badgeclass.permissions.mayAward}
+                                onChange={val => onCheckOne(val, assertion.entityId)}/>
+                    </td>
+                {/if}
                 <td class="single-neutral-check">
                     <div class="single-neutral-check">
                         {@html singleNeutralCheck}
@@ -372,7 +459,9 @@
                 </td>
                 <td>
                     <div class="recipient">
-                        <span>{constructUserName(assertion)}</span>
+                        {#if assertion.user }
+                            <span>{constructUserName(assertion)}</span>
+                        {/if}
                         <span>{constructUserEmail(assertion)}</span>
                         {#if assertion.eppn }
                             <span>{assertion.eppn} <em>(eppn)</em></span>
@@ -385,16 +474,30 @@
                 <td class="center">
                     {moment(assertion.isDirectAward ? assertion.createdAt : assertion.issuedOn).format('MMM D, YYYY')}
                 </td>
-                <td class="assertion-status center">
-                    <span class={assertionStatusClass(assertion)}>{I18n.t(`models.badge.statuses.${assertion.statusDisplay}`)}</span>
-                </td>
-                <td class="center">
-                    {assertion.updatedAt && (!assertion.isDirectAward || assertion.acceptance === "ACCEPTED") ?
-                        moment(assertion.updatedAt).format('MMM D, YYYY') : ""}
-                </td>
-                <td class="right">
-                    {assertion.expiresAt ? moment(assertion.expiresAt).format('MMM D, YYYY') : ""}
-                </td>
+                {#if showStatus}
+                    <td class="assertion-status center">
+                        <span class={assertionStatusClass(assertion)}>{I18n.t(`models.badge.statuses.${assertion.statusDisplay}`)}</span>
+                    </td>
+                {/if}
+                {#if directAwards}
+                    <td class="center">
+                        {assertion.resendAt ? moment(assertion.resendAt).format('MMM D, YYYY') : "-"}
+                    </td>
+                {:else}
+                    <td class="center">
+                        {assertion.updatedAt && (!assertion.isDirectAward || assertion.acceptance === "ACCEPTED") ?
+                            moment(assertion.updatedAt).format('MMM D, YYYY') : ""}
+                    </td>
+                {/if}
+                {#if type === "awarded"}
+                    <td class="right">
+                        {assertion.expiresAt ? moment(assertion.expiresAt).format('MMM D, YYYY') : ""}
+                    </td>
+                {:else}
+                    <td class="right">
+                        {assertion.deleteAt ? moment(assertion.deleteAt).format('MMM D, YYYY') : ""}
+                    </td>
+                {/if}
             </tr>
         {/each}
         {#if filteredAssertions.length === 0}
@@ -412,10 +515,12 @@
             question={modalQuestion}
             evaluateQuestion={true}
             title={modalTitle}
-            disabled={revocationReason.length === 0}>
-        <div class="slots">
-            <label for="revocation-reason">{I18n.t("models.badge.confirmation.revocationReason")}</label>
-            <input id="revocation-reason" class="input-field" bind:value={revocationReason }/>
-        </div>
+            disabled={revocationReasonRequired && revocationReason.length === 0}>
+        {#if revocationReasonRequired}
+            <div class="slots">
+                <label for="revocation-reason">{revocationReasonLabel}</label>
+                <input id="revocation-reason" class="input-field" bind:value={revocationReason }/>
+            </div>
+        {/if}
     </Modal>
 {/if}

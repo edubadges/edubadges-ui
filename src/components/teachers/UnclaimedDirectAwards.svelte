@@ -13,9 +13,8 @@
     } from "../../stores/filterUnclaimedDirectAwards"
     import {sort, sortType} from "../../util/sortData";
     import {Button, CheckBox} from "../../components";
-    import {revokeDirectAwards, resendDirectAwards} from "../../api";
+    import {resendDirectAwards, deleteDirectAwards} from "../../api";
     import {flash} from "../../stores/flash";
-    import {searchMultiple} from "../../util/searchData";
     import singleNeutralCheck from "../../icons/single-neutral-check.svg";
     import {Modal} from "../forms";
     import {onMount} from "svelte";
@@ -25,7 +24,8 @@
     import {translateProperties} from "../../util/utils";
     import {isEmpty} from "lodash";
     import UnclaimedDirectAwardsSideBar from "./UnclaimedDirectAwardsSideBar.svelte";
-    import {constructUserEmail, constructUserName} from "../../util/users";
+
+    export let allUnclaimed = true;
 
     let selection = [];
     let checkAllValue = false;
@@ -40,11 +40,13 @@
     let revocationReason = "";
 
     const query = `query {
-    allDirectAwards {
+    ${allUnclaimed ? "allUnclaimedDirectAwards" : "allDeletedDirectAwards"} {
       entityId,
       eppn,
       createdAt,
       resendAt,
+      deleteAt,
+      status,
       recipientEmail,
       badgeclass {
         name,
@@ -72,31 +74,31 @@
         $badgeClassSelected = [];
 
         queryData(query).then(res => {
-            res.allDirectAwards.forEach(da => {
+            const attr =  allUnclaimed? "allUnclaimedDirectAwards" : "allDeletedDirectAwards";
+            res[attr].forEach(da => {
                 translateProperties(da.badgeclass.issuer);
                 translateProperties(da.badgeclass.issuer.faculty);
             });
-            $directAwards = res.allDirectAwards;
-
+            $directAwards = res[attr];
             loaded = true;
         })
     }
 
     onMount(loadDirectAwards)
 
-    const revoke = showConfirmation => {
+    const doDeleteDirectAwards = showConfirmation => {
         if (showConfirmation) {
-            modalTitle = I18n.t("models.directAwards.confirmation.revoke");
-            modalQuestion = I18n.t("models.directAwards.confirmation.revokeConfirmation");
-            modalAction = () => revoke(false);
+            modalTitle = I18n.t("models.directAwards.confirmation.delete");
+            modalQuestion = I18n.t("models.directAwards.confirmation.deleteConfirmation");
+            modalAction = () => doDeleteDirectAwards(false);
             showModal = true;
         } else {
             showModal = false;
             loaded = false;
-            revokeDirectAwards(selection, revocationReason)
+            deleteDirectAwards(selection, revocationReason)
                 .then(() => {
                     loadDirectAwards();
-                    flash.setValue(I18n.t("models.directAwards.flash.revoked"));
+                    flash.setValue(I18n.t("models.directAwards.flash.deleted"));
                     revocationReason = "";
                 });
         }
@@ -118,8 +120,6 @@
                 });
         }
     }
-
-    const findDirectAward = entityId => directAwards.find(e => e.entityId === entityId);
 
     const onCheckOne = (val, entityId) => {
         if (val) {
@@ -171,17 +171,17 @@
             sortType: sortType.ALPHA,
             width: "15%"
         },
-                {
-            name: I18n.t("models.directAwards.resendAt"),
-            attribute: "resendAt",
+        {
+            name: I18n.t("models.directAwards.createdAt"),
+            attribute: "createdAt",
             reverse: false,
             sortType: sortType.DATE,
             width: "10%",
             center: true
         },
         {
-            name: I18n.t("models.directAwards.createdAt"),
-            attribute: "createdAt",
+            name: I18n.t(`models.${allUnclaimed ? "directAwards.resendAt" : "badge.deleted"}`),
+            attribute: allUnclaimed ? "resendAt" : "deleteAt",
             reverse: false,
             sortType: sortType.DATE,
             width: "10%",
@@ -191,7 +191,7 @@
 
     $: table = {
         entity: "directAwards",
-        title: `${I18n.t("models.directAwards.title")}`,
+        title: I18n.t(`models.directAwards.${allUnclaimed ? "title": "titleDeleted"}`),
         tableHeaders: tableHeaders
     };
 
@@ -249,25 +249,33 @@
                 filteredCount={sortedFilteredDirectAwards.length}
                 page={minimalPage}
                 onPageChange={nbr => page = nbr}
-                withCheckAll={true}
+                withCheckAll={allUnclaimed}
                 checkAllDisabled={$tree.directAwards.every(e => e.evidenceNarrativeRequired)}
                 {onCheckAll}
                 full={true}
                 bind:checkAllValue>
             <div class="action-buttons" slot="check-buttons">
-                <Button small action={() => revoke(true)}
-                        text={I18n.t('models.directAwards.revoke')} disabled={selection.length === 0} secondary={true}/>
-                <Button small action={() => resend(true)}
-                        text={I18n.t('models.directAwards.resend')} disabled={selection.length === 0} secondary={true}/>
+                {#if allUnclaimed}
+                    <Button small action={() => doDeleteDirectAwards(true)}
+                            text={I18n.t('models.directAwards.delete')}
+                            disabled={selection.length === 0}
+                            secondary={true}/>
+                    <Button small action={() => resend(true)}
+                            text={I18n.t('models.directAwards.resend')}
+                            disabled={selection.length === 0}
+                            secondary={true}/>
+                {/if}
             </div>
             {#each sortedFilteredDirectAwards.slice((minimalPage - 1) * pageCount, minimalPage * pageCount) as directAward}
                 <tr>
-                    <td>
-                        <CheckBox
-                                value={selection.includes(directAward.entityId)}
-                                name={`select-${directAward.entityId}`}
-                                onChange={val => onCheckOne(val, directAward.entityId)}/>
-                    </td>
+                    {#if allUnclaimed}
+                        <td>
+                            <CheckBox
+                                    value={selection.includes(directAward.entityId)}
+                                    name={`select-${directAward.entityId}`}
+                                    onChange={val => onCheckOne(val, directAward.entityId)}/>
+                        </td>
+                    {/if}
                     <td class="single-neutral-check">
                         <div class="single-neutral-check">
                             {@html singleNeutralCheck}
@@ -277,7 +285,7 @@
                         <div class="recipient">
                             <span>{directAward.recipientEmail}</span>
                             <span>{directAward.eppn} <em>(eppn)</em></span>
-                    </div>
+                        </div>
                     <td>
                         <a use:link
                            href={`/badgeclass/${directAward.badgeclass.entityId}/awarded`}>
@@ -297,11 +305,17 @@
                         </a>
                     </td>
                     <td class="center">
-                        {directAward.resendAt ? moment(directAward.resendAt).format('MMM D, YYYY') : "-"}
-                    </td>
-                    <td class="center">
                         {moment(directAward.createdAt).format('MMM D, YYYY')}
                     </td>
+                    {#if allUnclaimed}
+                        <td class="center">
+                            {directAward.resendAt ? moment(directAward.resendAt).format('MMM D, YYYY') : "-"}
+                        </td>
+                    {:else}
+                        <td class="center">
+                            {directAward.deleteAt ? moment(directAward.deleteAt).format('MMM D, YYYY') : "-"}
+                        </td>
+                    {/if}
                 </tr>
             {/each}
             {#if $tree.directAwards.length === 0}
@@ -324,7 +338,7 @@
             disabled={isEmpty(revocationReason)}
             title={modalTitle}>
         <div class="slots">
-            <label for="revocation-reason">{I18n.t("models.directAwards.confirmation.revocationReason")}</label>
+            <label for="revocation-reason">{I18n.t("models.directAwards.confirmation.deletionReason")}</label>
             <input id="revocation-reason" class="input-field" bind:value={revocationReason}/>
         </div>
     </Modal>

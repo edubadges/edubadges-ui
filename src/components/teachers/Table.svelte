@@ -20,6 +20,7 @@
 
     export let withCheckAll;
     export let checkAllValue;
+    export let displayCheckAll = true;
     export let onCheckAll;
     export let checkAllDisabled = false;
     export let isEmpty;
@@ -41,41 +42,41 @@
 
 <style lang="scss">
 
-  div.container.full {
-    width: 100%;
-  }
-
-  div.header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: var(--ver-padding-m);
-    align-items: center;
-
-    :global(> *:not(:last-child)) {
-      margin-right: var(--hor-padding-s);
-    }
-  }
-
-  table {
-    border-collapse: collapse;
-    width: 100%;
-
-    thead {
-      color: purple;
-      border-bottom: 3px solid var(--grey-3);
-      text-align: left;
-      cursor: pointer;
+    div.container.full {
+        width: 100%;
     }
 
-  }
+    div.header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: var(--ver-padding-m);
+        align-items: center;
 
-  :global(table.entity-table th, table.entity-table td) {
-    padding: var(--ver-padding-m) 0;
-  }
+        :global(> *:not(:last-child)) {
+            margin-right: var(--hor-padding-s);
+        }
+    }
 
-  :global(table.entity-table tbody tr:not(:last-of-type) td) {
-    border-bottom: var(--card-border);
-  }
+    table {
+        border-collapse: collapse;
+        width: 100%;
+
+        thead {
+            color: purple;
+            border-bottom: 3px solid var(--grey-3);
+            text-align: left;
+            cursor: pointer;
+        }
+
+    }
+
+    :global(table.entity-table th, table.entity-table td) {
+        padding: var(--ver-padding-m) 0;
+    }
+
+    :global(table.entity-table tbody tr:not(:last-of-type) td) {
+        border-bottom: var(--card-border);
+    }
 
 </style>
 
@@ -98,10 +99,12 @@
             <tr>
                 {#if withCheckAll}
                     <th class="checker">
-                        <CheckBox bind:value={checkAllValue} onChange={onCheckAll} disabled={checkAllDisabled}/>
+                        {#if displayCheckAll}
+                            <CheckBox bind:value={checkAllValue} onChange={onCheckAll} disabled={checkAllDisabled}/>
+                        {/if}
                     </th>
                 {/if}
-                <TableHeaders {tableHeaders} {setSort} {sort} />
+                <TableHeaders {tableHeaders} {setSort} {sort}/>
             </tr>
         {/if}
         </thead>
