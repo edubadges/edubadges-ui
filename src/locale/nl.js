@@ -1715,6 +1715,7 @@ I18n.translations.nl = {
         title: "Management queries",
         institutionAdmins: "Institution admins",
         institutionBadges: "Badge overview",
+        institutionMicroCredentials: "Micro-credentials count",
         clear: "Clear",
         download: "Download",
         copy: "Copy",

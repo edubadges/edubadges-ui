@@ -804,6 +804,12 @@ export function fetchInstitutionBadges() {
     return validFetchNoErrorDialog(path, {}, "GET");
 }
 
+export function fetchInstitutionMicroCredentials() {
+    const path = `${serverUrl}/insights/institution/micro-credentials`;
+    return validFetchNoErrorDialog(path, {}, "GET");
+}
+
+
 
 //BadgeInstanceCollections
 export function createBadgeInstanceCollection(badgeInstanceCollection) {

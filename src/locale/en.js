@@ -1714,6 +1714,7 @@ I18n.translations.en = {
         title: "Management queries",
         institutionAdmins: "Institution admins",
         institutionBadges: "Badge overview",
+        institutionMicroCredentials: "Micro-credentials count",
         clear: "Clear",
         download: "Download",
         copy: "Copy",
