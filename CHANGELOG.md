@@ -4,6 +4,36 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [6.9.0] - 2023-10-23
+- Added micro-credentials count query.
+- Use Select for picking management query.
+- Refactored management queries output to CSV.
+- Differentiate zero-state open and denied enrollments.
+- Added management queries and fixed award badges.
+- Default do not show archived badgeclasses.
+- Changed the view of the award-view.
+- Added option to resend open direct awards.
+- Show host name of the client.
+- Moved endorsements to admin tab.
+- Parse host name in version info page.
+- Removed 'Ingetrokken voor toekenning' from insights.
+- Deleted awards top level.
+- Variable titles for assertions and requests.
+- Refactoring of awarded badges.
+- Deletion of unclaimed ddirect awards is now possible.
+- Do not allow disabling self-registration when direct awards are disbaled.
+- Differtiate between direct_awarded and self_request assertions.
+- Don't check email address with direct awards.
+- Re-enabled scheduling direct awards.
+- Bump @babel/traverse from 7.7.2 to 7.23.2.
+- Bump fsevents from 1.2.9 to 1.2.13.
+- Bump postcss from 8.2.13 to 8.4.31.
+- Bump tough-cookie from 4.0.0 to 4.1.3.
+- Bump semver from 5.7.1 to 5.7.2.
+- Bump word-wrap from 1.2.3 to 1.2.4
+- Minor locale changes.
+
+
 ## [6.8.1] - 2023-06-29
 - fix problem with remote image.
 - Do not use remote image.
