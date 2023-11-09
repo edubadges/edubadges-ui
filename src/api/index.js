@@ -809,6 +809,10 @@ export function fetchInstitutionMicroCredentials() {
     return validFetchNoErrorDialog(path, {}, "GET");
 }
 
+export function fetchCountMicroCredentials() {
+    const path = `${serverUrl}/insights/institution/micro-credentials-count`;
+    return validFetchNoErrorDialog(path, {}, "GET");
+}
 
 
 //BadgeInstanceCollections
