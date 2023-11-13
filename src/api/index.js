@@ -814,6 +814,11 @@ export function fetchCountMicroCredentials() {
     return validFetchNoErrorDialog(path, {}, "GET");
 }
 
+export function fetchMicroCredentialsBadges() {
+    const path = `${serverUrl}/insights/institution/micro-credentials-badges`;
+    return validFetchNoErrorDialog(path, {}, "GET");
+}
+
 
 //BadgeInstanceCollections
 export function createBadgeInstanceCollection(badgeInstanceCollection) {

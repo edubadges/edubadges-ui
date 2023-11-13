@@ -5,7 +5,7 @@
         fetchCountMicroCredentials,
         fetchInstitutionAdmins,
         fetchInstitutionBadges,
-        fetchInstitutionMicroCredentials
+        fetchInstitutionMicroCredentials, fetchMicroCredentialsBadges
     } from "../../api";
     import {Spinner} from "../../components";
     import {JsonView} from '@zerodevx/svelte-json-view'
@@ -28,6 +28,10 @@
         {
             name: "countMicroCredentials",
             api: fetchCountMicroCredentials
+        },
+        {
+            name: "microCredentialsBadges",
+            api: fetchMicroCredentialsBadges
         }
 
     ]
