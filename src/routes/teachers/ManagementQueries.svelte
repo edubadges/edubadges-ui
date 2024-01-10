@@ -1,7 +1,12 @@
 <script>
     import I18n from "i18n-js";
     import Button from "../../components/Button.svelte";
-    import {fetchInstitutionAdmins, fetchInstitutionBadges, fetchInstitutionMicroCredentials} from "../../api";
+    import {
+        fetchCountMicroCredentials,
+        fetchInstitutionAdmins,
+        fetchInstitutionBadges,
+        fetchInstitutionMicroCredentials, fetchMicroCredentialsBadges
+    } from "../../api";
     import {Spinner} from "../../components";
     import {JsonView} from '@zerodevx/svelte-json-view'
     import {copyText} from 'svelte-copy';
@@ -19,6 +24,14 @@
         {
             name: "institutionMicroCredentials",
             api: fetchInstitutionMicroCredentials
+        },
+        {
+            name: "countMicroCredentials",
+            api: fetchCountMicroCredentials
+        },
+        {
+            name: "microCredentialsBadges",
+            api: fetchMicroCredentialsBadges
         }
 
     ]
