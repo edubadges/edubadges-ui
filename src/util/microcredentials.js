@@ -11,13 +11,13 @@ export const microCredentialsFramework = {
 >
 De microcredential is een betrouwbaar certificaat waarmee professionals kunnen aantonen wat ze weten, kunnen en begrijpen na succesvolle afronding van een onderwijseenheid. De microcredential geeft met andere woorden een zelfstandige waarde aan een kleinere onderwijseenheid.
 >
-Deze microcredential is uitgegeven in het kader van de pilot microcredentials binnen het Nederlandse Hoger Onderwijs [1] en staat voor kwaliteit. Door de besturen van de koepels Vereniging Hogescholen (VH) en Universiteiten Nederland (UNL) zijn de onderstaande kwaliteitsafspraken vastgesteld, waar deze microcredential aan voldoet. 
+Deze microcredential is uitgegeven in het kader van de pilot microcredentials binnen het Nederlandse Hoger Onderwijs en staat voor kwaliteit. Door de besturen van de koepels Vereniging Hogescholen (VH) en Universiteiten Nederland (UNL) zijn de onderstaande kwaliteitsafspraken vastgesteld, waar deze microcredential aan voldoet. 
 >
 #### Kwaliteitskader van de pilot microcredentials
 >
 **Rond de minimale (interne) kwaliteitszorg van microcredentials**
 >
-1. De kwaliteit van het met microcredentials gecertificeerde onderwijs wordt geborgd op basis van de Standaarden en richtlijnen voor kwaliteitszorg in de Europese hogeronderwijsruimte (ESG) [2].
+1. De kwaliteit van het met microcredentials gecertificeerde onderwijs wordt geborgd op basis van de Standaarden en richtlijnen voor kwaliteitszorg in de Europese hogeronderwijsruimte (ESG) [1].
 2. Het CvB is bekend met en kiest bewust voor het aanbod van de microcredentials vanuit de LLO-visie van de instelling.
 3. De instelling heeft een intern kwaliteitszorg-proces ingericht voor het ontwerp, erkenning en de borging van kwaliteit van de microcredentials.
 4. Er is door de instelling een orgaan of meerdere organen aangewezen welke het eindniveau van microcredential-gecertificeerd onderwijs kan garanderen.
@@ -37,7 +37,7 @@ Deze microcredential is uitgegeven in het kader van de pilot microcredentials bi
 >
 Voor het beschrijven van de inhoud van microcredentials nemen we het Europese kader over dat uitgaat van leerwegonafhankelijk geformuleerde learning outcomes. Learning outcomes kunnen in het Nederlands vertaald worden als leeruitkomsten en/of leerresultaten. De methodiek voor het formuleren van leeruitkomsten is aan de instelling.
 >
-In het kader van de Europese Bologna afspraken worden learning outcomes als volgt gedefinieerd [3]:
+In het kader van de Europese Bologna afspraken worden learning outcomes als volgt gedefinieerd [2]:
 >
 *A learning outcome is a measurable result of a learning experience which allows us to ascertain to which extent / level / standard a competence had been formed of enhanced. Learning outcomes are not properties unique to each student, but statements which allow higher education institutions to measure whether students have developed their competences to the required level.*
 >
@@ -52,18 +52,16 @@ Het niveau van microcredentials wordt op 2 manieren beschreven:
 
 **Kwaliteitskader met betrekking tot het beschrijven van de omvang van microcredentials**
 >
-Het beschrijven van de studielast aan de hand van credits of studiebelastingsuren is breed toepasbaar voor zowel geaccrediteerd als accreditatiewaardig[4] aanbod. Dit bevordert de uitwisselbaarheid en verdient de voorkeur voor microcredentials.
+Het beschrijven van de studielast aan de hand van credits of studiebelastingsuren is breed toepasbaar voor zowel geaccrediteerd als accreditatiewaardig [3] aanbod. Dit bevordert de uitwisselbaarheid en verdient de voorkeur voor microcredentials.
 Het verbinden van credits aan (de europese normen voor) studiebelasting is voor deelnemers en werkgevers relevant zodat zij een inschatting kunnen maken van de mogelijke tijdsinvestering. Deze inschaling kan worden gebaseerd op de gemiddelde deelnemer zonder extra voorkennis.
 >
 **Voetnoten:**
 >
-[1] De pilot is gestart in oktober 2021 en kent een looptijd van twee jaar, tot en met 31 december 2023.
+[1] Standard and Guidelines for Quality Asdsurance in the European Higher Education Area (ESG). (2015). Brussels, Belgium.
 >
-[2] Standard and Guidelines for Quality Asdsurance in the European Higher Education Area (ESG). (2015). Brussels, Belgium.
+[2] Competences in Education an Recognition Project (CoRe). (2010). [A Tuning Guide to Formulating Degree Programme Profiles including Programma Competences and Programme Learning Outcomes.](http://tuningacademy.org/wp-content/uploads/2014/02/A-Guide-to-Formulating-DPP_EN.pdf)
 >
-[3] Competences in Education an Recognition Project (CoRe). (2010). [A Tuning Guide to Formulating Degree Programme Profiles including Programma Competences and Programme Learning Outcomes.](http://tuningacademy.org/wp-content/uploads/2014/02/A-Guide-to-Formulating-DPP_EN.pdf)
->
-[4] Accreditatiewaardig aanbod gebruiken we als werkterm om aan te geven dat het aanbod vanuit het kwaliteitskader van de pilot aan de Europese ESG standaarden voor kwaliteitszorg voldoet maar nog buiten bestaande externe kwaliteitszorginstrumenten valt. 
+[3] Accreditatiewaardig aanbod gebruiken we als werkterm om aan te geven dat het aanbod vanuit het kwaliteitskader van de pilot aan de Europese ESG standaarden voor kwaliteitszorg voldoet maar nog buiten bestaande externe kwaliteitszorginstrumenten valt. 
 >
 ---
 >
@@ -77,7 +75,7 @@ This Microcredential was issued in the context of the Pilot Microcredentials wit
 >
 **About the minimum (internal) quality assurance of Microcredentials:**
 >
-1. The quality of education certified by microcredentials is assured based on the Standards and Guidelines for Quality Assurance in the European Higher Education Area (ESG) [2];
+1. The quality of education certified by microcredentials is assured based on the Standards and Guidelines for Quality Assurance in the European Higher Education Area (ESG) [1];
 2. The Executive Board is familiar with and consciously chooses the microcredentials offered from the perspective of the institution's Life Long Development vision;
 3. The institution has set up an internal quality assurance process for the design, accreditation, and quality assurance of microcredentials;
 4. The institution has designated a body or bodies to guarantee the final level of microcredentials certified education;
@@ -97,7 +95,7 @@ This Microcredential was issued in the context of the Pilot Microcredentials wit
 >
 To describe the content of microcredentials, we adopt the European framework that assumes learning outcomes formulated in a way that is independent of the learning programme. Learning outcomes can be translated as learning outcomes and/or learning results. The methodology for formulating learning outcomes is up to the institution.
 >
-In the framework of the European Bologna agreements, learning outcomes are defined as follows [3]:
+In the framework of the European Bologna agreements, learning outcomes are defined as follows [2]:
 >
 *A learning outcome is a measurable result of a learning experience which allows us to ascertain to which extent / level / standard a competence had been formed of enhanced. Learning outcomes are not properties unique to each student, but statements which allow higher education institutions to measure whether students have developed their competences to the required level.*
 >
@@ -112,12 +110,10 @@ The level of microcredentials is described in two ways:
 >
 **Quality framework regarding the description of the extent of microcredentials**
 
-Describing the study load in terms of credits or study load hours is widely applicable for both accredited and accreditation-worthy programmes [4]. This promotes interchangeability and is preferable for microcredentials.
+Describing the study load in terms of credits or study load hours is widely applicable for both accredited and accreditation-worthy programmes [3]. This promotes interchangeability and is preferable for microcredentials.
 Linking credits to (the European standards for) study load is relevant for participants and employers so they can estimate the possible time investment. This estimate can be based on the average participant without extra prior knowledge.
 >
 **Footnotes:**
->
-[1] The pilot started in October 2021 and will run for two years, until 31 December 2023.
 >
 [2] Standard and Guidelines for Quality Asdsurance in the European Higher Education Area (ESG). (2015). Brussels, Belgium.
 >
