@@ -115,11 +115,11 @@ Linking credits to (the European standards for) study load is relevant for parti
 >
 **Footnotes:**
 >
-[2] Standard and Guidelines for Quality Asdsurance in the European Higher Education Area (ESG). (2015). Brussels, Belgium.
+[1] Standard and Guidelines for Quality Asdsurance in the European Higher Education Area (ESG). (2015). Brussels, Belgium.
 >
-[3] Competences in Education an Recognition Project (CoRe). (2010). A Tuning Guide to Formulating Degree Programme Profiles including Programma Competences and Programme Learning Outcomes. http://tuningacademy.org/wp-content/uploads/2014/02/A-Guide-to-Formulating-DPP_EN.pdf
+[2] Competences in Education an Recognition Project (CoRe). (2010). A Tuning Guide to Formulating Degree Programme Profiles including Programma Competences and Programme Learning Outcomes. http://tuningacademy.org/wp-content/uploads/2014/02/A-Guide-to-Formulating-DPP_EN.pdf
 >
-[4] Accreditation-worthy offerings are used as a working term to indicate that the offerings within the quality framework of the pilot meet the European ESG standards for quality assurance but still fall outside existing external quality assurance instruments.
+[3] Accreditation-worthy offerings are used as a working term to indicate that the offerings within the quality framework of the pilot meet the European ESG standards for quality assurance but still fall outside existing external quality assurance instruments.
 >
 `
 }
