@@ -935,3 +935,10 @@ export function resendEndorsement(endorsement, message) {
     return validFetch(path, {body: JSON.stringify({message: message})}, "POST", true, false);
 }
 
+//ob3
+export function ob3WalletImport(badgeInstance) {
+    const path = `${serverUrl}/ob3/v1/ob3`;
+    const data = {badge_id: badgeInstance.id}
+    return validFetch(path, {body: JSON.stringify(data)}, "POST");
+}
+
