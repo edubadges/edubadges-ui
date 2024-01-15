@@ -783,6 +783,10 @@ I18n.translations.en = {
             revoked: "Revoked",
             validUntil: "Valid until",
             addToCollection: "Add to collection",
+            ob3SsiAgent: "Wallet import",
+            ob3SsiAgentQRCode: "Import into wallet",
+            ob3SsiAgentQRCodeQuestion: "Scan this code with your electronic credentials wallet",
+            ok: "Ok",
             statuses: {
                 new: "New",
                 rejected: "Rejected",

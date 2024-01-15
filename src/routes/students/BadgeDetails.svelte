@@ -18,7 +18,7 @@
         acceptAssertion,
         claimAssertion,
         deleteAssertion,
-        editBadgeInstanceCollection,
+        editBadgeInstanceCollection, ob3WalletImport,
         publicAssertion
     } from "../../api";
     import {flash} from "../../stores/flash";
@@ -52,10 +52,15 @@
     let showCollectionsModal = false;
     let selectedCollection = null;
 
+    //ob3
+    let showOb3SsiAgentModal = false;
+    let qrCode = null;
+
     const cancel = () => {
         showModal = false;
         showShareDialog = false;
         showCollectionsModal = false;
+        showOb3SsiAgentModal = false;
     }
 
     const copiedLink = () => {
@@ -82,6 +87,16 @@
 
     const showCollectionModal = () => {
         showCollectionsModal = true;
+    }
+
+    const startOb3SsiAgentImport = () => {
+        loaded = false
+        ob3WalletImport(badge).then(res => {
+            showOb3SsiAgentModal = true
+            loaded = true
+            qrCode = res.qr_code_base64;
+        })
+
     }
 
     const addToCollection = () => {
@@ -163,7 +178,8 @@
               nameDutch,
               nameEnglish,
               entityId,
-              linkedinOrgIdentifier
+              linkedinOrgIdentifier,
+              ob3SsiAgentEnabled
             }
           }
         },
@@ -179,6 +195,7 @@
 
     let loaded;
     let linkedInUrl;
+    let ob3SsiAgentEnabled;
 
     const refreshBadgeDetails = () => {
         loaded = false;
@@ -206,6 +223,7 @@
                 `certUrl=${encodeURIComponent("https://" + window.location.hostname + "/public/assertions/")}${entityId}&` +
                 `certId=${entityId}&` +
                 `original_referer=${encodeURIComponent("https://" + window.location.hostname)}`;
+            ob3SsiAgentEnabled = badge.badgeclass.issuer.faculty.institution.ob3SsiAgentEnabled
             loaded = true;
 
             queryData(badgeInstanceCollectionsQuery).then(res => {
@@ -441,6 +459,14 @@
       cursor: not-allowed;
     }
   }
+
+ .qr-code-container img {
+        width: 225px;
+        height: auto;
+        margin-left: 122px;
+        margin-top: 20px;
+    }
+
 </style>
 
 <div class="badge-detail-container">
@@ -513,8 +539,15 @@
                                 {I18n.t("copyToClipboard.copied")}
                             </div>
                         {/if}
-                        <Button text={I18n.t("models.badge.share")} action={copyToClipboard}
+                        <Button text={I18n.t("models.badge.share")}
+                                action={copyToClipboard}
                                 disabled={!badge.public}/>
+                    </div>
+                    <div class="button-container">
+                        {#if ob3SsiAgentEnabled}
+                            <Button text={I18n.t("models.badge.ob3SsiAgent")}
+                                    action={startOb3SsiAgentImport}/>
+                        {/if}
                     </div>
                     <div class="button-container">
                         {#if badge.public}
@@ -585,5 +618,17 @@
                     items={badgeInstanceCollections.map(coll => ({name: coll.name, entityId: coll.entityId}))}
                     clearable={false}/>
         </div>
+    </Modal>
+{/if}
+
+{#if showOb3SsiAgentModal}
+    <Modal
+            submit={() => showOb3SsiAgentModal = false}
+            question={I18n.t("models.badge.ob3SsiAgentQRCodeQuestion")}
+            title={I18n.t("models.badge.ob3SsiAgentQRCode")}
+            submitLabel={I18n.t("error.close")}>
+            <div class="qr-code-container">
+                    <img alt="QR code" src={`data:image/png;base64,${qrCode}`}/>
+            </div>
     </Modal>
 {/if}
