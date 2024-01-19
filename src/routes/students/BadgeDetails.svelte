@@ -460,12 +460,14 @@
     }
   }
 
- .qr-code-container img {
-        width: 225px;
+ .qr-code-container {
+     display: flex;
+     img {
+        width: 240px;
         height: auto;
-        margin-left: 122px;
-        margin-top: 20px;
+        margin: auto;
     }
+ }
 
 </style>
 
