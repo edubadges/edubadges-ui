@@ -3,7 +3,7 @@
     import Button from "../../components/Button.svelte";
     import {
         fetchCountMicroCredentials,
-        fetchInstitutionAdmins,
+        fetchInstitutionAdmins, fetchInstitutionBadgeOverview,
         fetchInstitutionBadges,
         fetchInstitutionMicroCredentials, fetchMicroCredentialsBadges
     } from "../../api";
@@ -32,6 +32,10 @@
         {
             name: "microCredentialsBadges",
             api: fetchMicroCredentialsBadges
+        },
+        {
+            name: "institutionBadgeOverview",
+            api: fetchInstitutionBadgeOverview
         }
 
     ]

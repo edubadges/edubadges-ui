@@ -1722,6 +1722,7 @@ I18n.translations.nl = {
         institutionMicroCredentials: "Micro-credentials count",
         countMicroCredentials: "Micro-credentials assertions per user",
         microCredentialsBadges: "Micro-credentials badges",
+        institutionBadgeOverview: "Awarded badges overview",
         clear: "Clear",
         download: "Download",
         copy: "Copy",

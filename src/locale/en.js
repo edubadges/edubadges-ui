@@ -1721,6 +1721,7 @@ I18n.translations.en = {
         institutionMicroCredentials: "Micro-credentials count",
         countMicroCredentials: "Micro-credentials assertions per user",
         microCredentialsBadges: "Micro-credentials badges",
+        institutionBadgeOverview: "Awarded badges overview",
         clear: "Clear",
         download: "Download",
         copy: "Copy",
