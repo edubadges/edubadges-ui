@@ -280,7 +280,7 @@
         if (extensions[eqf.name] && typeof extensions[eqf.name] === "number") {
             extensions[eqf.name] = {name: `EQF ${extensions[eqf.name]}`, value: extensions[eqf.name]}
         }
-        if (extensions[educationProgramIdentifier.name].some(identifier => identifier)) {
+        if (!isEmpty(extensions[educationProgramIdentifier.name])) {
             showEducationalIdentifiers = true;
             showProgrammeIdentifier = true;
         }
