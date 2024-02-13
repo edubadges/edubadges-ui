@@ -1,17 +1,17 @@
 export const microCredentialsFramework = {
-    "name": "Kwaliteitskader Pilot Microcredentials voor Professionals",
-    "framework": "Pilot microcredentials voor professionals",
+    "name": "Kwaliteitskader Microcredentials voor Professionals HBO en WO",
+    "framework": "Microcredentials voor professionals HBO en WO",
     "url": "",
     "code": "Kwaliteitskader",
     "description": `
 
 *See the English text below*
 >    
-#### Deze microcredential is uitgegeven in het kader van de landelijke pilot microcredentials binnen het hoger onderwijs in Nederland
+#### Deze microcredential is uitgegeven in het kader van samen doorbouwen aan microcredentials binnen het hoger onderwijs in Nederland
 >
 De microcredential is een betrouwbaar certificaat waarmee professionals kunnen aantonen wat ze weten, kunnen en begrijpen na succesvolle afronding van een onderwijseenheid. De microcredential geeft met andere woorden een zelfstandige waarde aan een kleinere onderwijseenheid.
 >
-Deze microcredential is uitgegeven in het kader van de pilot microcredentials binnen het Nederlandse Hoger Onderwijs en staat voor kwaliteit. Door de besturen van de koepels Vereniging Hogescholen (VH) en Universiteiten Nederland (UNL) zijn de onderstaande kwaliteitsafspraken vastgesteld, waar deze microcredential aan voldoet. 
+Deze microcredential is uitgegeven in het kader samen doorbouwen aan microcredentials binnen het Nederlandse Hoger Onderwijs en staat voor kwaliteit. Door de besturen van de koepels Vereniging Hogescholen (VH) en Universiteiten Nederland (UNL) zijn de onderstaande kwaliteitsafspraken vastgesteld, waar deze microcredential aan voldoet. 
 >
 #### Kwaliteitskader van de pilot microcredentials
 >
@@ -61,7 +61,7 @@ Het verbinden van credits aan (de europese normen voor) studiebelasting is voor 
 >
 [2] Competences in Education an Recognition Project (CoRe). (2010). [A Tuning Guide to Formulating Degree Programme Profiles including Programma Competences and Programme Learning Outcomes.](http://tuningacademy.org/wp-content/uploads/2014/02/A-Guide-to-Formulating-DPP_EN.pdf)
 >
-[3] Accreditatiewaardig aanbod gebruiken we als werkterm om aan te geven dat het aanbod vanuit het kwaliteitskader van de pilot aan de Europese ESG standaarden voor kwaliteitszorg voldoet maar nog buiten bestaande externe kwaliteitszorginstrumenten valt. 
+[3] Accreditatiewaardig aanbod gebruiken we als werkterm om aan te geven dat het aanbod vanuit dit kwaliteitskader aan de Europese ESG standaarden voor kwaliteitszorg voldoet maar nog buiten bestaande externe kwaliteitszorginstrumenten valt. 
 >
 ---
 >
