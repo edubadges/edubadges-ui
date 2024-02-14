@@ -1729,6 +1729,6 @@ I18n.translations.nl = {
         show: "Show",
         hide: "Hide",
         select: "Select the query to run...",
-        loaded: "{{name}} query loaded..."
+        loaded: "{{name}} query loaded in {{time}}ms and ready to copy, download or show....."
     },
 };

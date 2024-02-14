@@ -43,13 +43,16 @@
     let currentQueryObject;
     let showData = false;
     let loaded = true;
+    let timeMs = 0;
 
     const fetchObjects = value => {
         const queryObject = queryObjects.find(obj => obj.name === value.value)
         currentQueryObject = value;
         loaded = false;
+        const now = Date.now();
         queryObject.api().then(res => {
             queryData = res;
+            timeMs = (Date.now() - now);
             loaded = true;
         })
     }
@@ -152,7 +155,10 @@
                                 text={I18n.t("managementQueries.clear")}/>
                     </div>
                     {#if queryData.length > 0 }
-                        <p class="info">{I18n.t("managementQueries.loaded", {name: I18n.t(`managementQueries.${currentQueryObject.value}`)})}</p>
+                        <p class="info">{I18n.t("managementQueries.loaded", {
+                            name: I18n.t(`managementQueries.${currentQueryObject.value}`),
+                            time: timeMs
+                        })}</p>
                     {/if}
                     {#if queryData.length > 0 && showData}
                         <div class="wrap">
