@@ -65,9 +65,9 @@
         },
         {
             name: I18n.t("placeholders.badgeClass.status.name"),
-            attribute: "archived",
+            attribute: "status",
+            sortType: sortType.ALPHA,
             reverse: false,
-            sortType: sortType.BOOLEAN,
             width: "11%",
             center: true
         },

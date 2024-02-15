@@ -86,6 +86,8 @@
         badgeClass.studyLoad = studyLoadValue ? I18n.t("teacher.badgeclasses.hours", {value: studyLoadValue}) : ectsValue ?
           I18n.t("teacher.badgeclasses.ects", {value: ectsValue}) : "-";
         badgeClass.timeInvestment = timeInvestmentValue ? I18n.t("teacher.badgeclasses.hours", {value: timeInvestmentValue}) : "-";
+        badgeClass.status = I18n.t(`placeholders.badgeClass.status.${badgeClass.archived ? "archived" : badgeClass.isPrivate ? "private" : "active"}`);
+
       });
       permissions = res.issuer.permissions;
       contentType = res.issuer.contentTypeId;
