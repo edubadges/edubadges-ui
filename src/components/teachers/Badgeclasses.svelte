@@ -161,7 +161,7 @@
             <td class="center">{badgeclass.pendingEnrollmentCount === 0 ? "-" : badgeclass.pendingEnrollmentCount}</td>
             <td class="right">{badgeclass.studyLoad}</td>
             <td class="right">{badgeclass.timeInvestment}</td>
-            <td class="center">{I18n.t(`placeholders.badgeClass.status.${badgeclass.archived ? "archived" : "active"}`) }</td>
+            <td class="center">{I18n.t(`placeholders.badgeClass.status.${badgeclass.archived ? "archived" : badgeclass.isPrivate ? "private" : "active"}`) }</td>
             <td></td>
         </tr>
     {/each}

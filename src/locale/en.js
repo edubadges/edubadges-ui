@@ -672,6 +672,7 @@ I18n.translations.en = {
             expiresAfterOption: "After",
             expiresAfterNever: "Never",
             expiresAfterValue: "{{nbr}} weeks",
+            status: "Status",
             expireSettings: "Default expiration setting",
             language: "Language of instruction",
             badgeClassOptions: "Badge class options",
@@ -1188,6 +1189,7 @@ I18n.translations.en = {
             status: {
                 name: "Status",
                 archived: "Archived",
+                private: "Unpublished",
                 active: "Active"
             },
             educationProgramIdentifier: "e.g. 12111990",

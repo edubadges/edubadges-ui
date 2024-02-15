@@ -673,6 +673,7 @@ I18n.translations.nl = {
             expiresAfterNever: "Nooit",
             expiresAfterValue: "{{nbr}} weken",
             expireSettings: "Standaard vervaldatum",
+            status: "Status",
             language: "Taal van het onderwijs",
             badgeClassOptions: "Badge class opties",
             evidenceNarrativeOptions: "Evidence/Narrative opties",
@@ -1189,6 +1190,7 @@ I18n.translations.nl = {
             status: {
                 name: "Status",
                 archived: "Gearchiveerd",
+                private: "Niet gepubliseerd",
                 active: "Actief"
             },
             educationProgramIdentifier: "Bijv. 12111990",

@@ -53,6 +53,7 @@
         createdAt,
         assertionCount,
         archived,
+        isPrivate,
         pendingEnrollmentCount,
         extensions {
          name,

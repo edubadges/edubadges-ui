@@ -273,6 +273,11 @@
             attr: "issuer",
             type: "none",
             value: badgeclass.issuer.name
+        },
+        {
+            attr: "status",
+            type: "none",
+            value: I18n.t(`placeholders.badgeClass.status.${badgeclass.archived ? "archived" : badgeclass.isPrivate ? "private" : "active"}`)
         }
     ];
 </script>
