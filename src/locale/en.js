@@ -729,7 +729,7 @@ I18n.translations.en = {
             },
             info: {
                 educationProgramIdentifier:
-                    "Consult <a target='_blank' rel='noreferrer' href='https://apps.duo.nl/MCROHO/pages/zoeken.jsf'>the DUO CROHO register</a> or <a target='_blank' rel='noreferrer' href='https://kwalificaties.s-bb.nl/Lijsten/Groep/14'>the SBB CREBO lists</a> if you don’t know the code.",
+                    "Consult <a target='_blank' rel='noreferrer' href='https://zakelijk.duo.nl/portaal/zoeken-en-vinden/resultaten'>the DUO CROHO register</a> or <a target='_blank' rel='noreferrer' href='https://kwalificaties.s-bb.nl/Lijsten/Groep/14'>the SBB CREBO lists</a> if you don’t know the code.",
                 eqf: "Check <a target='_blank' rel='noreferrer' href='https://www.nlqf.nl/daarom-nlqf/nlqf-niveaus'>https://www.nlqf.nl/daarom-nlqf/nlqf-niveaus</a> for help",
                 ects: "Whole and half points only. <br/>A minimum of 0.5 points is required.",
                 ectsMicroCredentials: "Whole and half points only. <br/>Valid value between 3 and 30 point."
