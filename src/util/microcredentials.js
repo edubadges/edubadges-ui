@@ -13,7 +13,7 @@ De microcredential is een betrouwbaar certificaat waarmee professionals kunnen a
 >
 Deze microcredential is uitgegeven in het kader samen doorbouwen aan microcredentials binnen het Nederlandse Hoger Onderwijs en staat voor kwaliteit. Door de besturen van de koepels Vereniging Hogescholen (VH) en Universiteiten Nederland (UNL) zijn de onderstaande kwaliteitsafspraken vastgesteld, waar deze microcredential aan voldoet. 
 >
-#### Kwaliteitskader van de pilot microcredentials
+#### Kwaliteitskader Microcredentials voor Professionals HBO en WO
 >
 **Rond de minimale (interne) kwaliteitszorg van microcredentials**
 >
@@ -65,13 +65,13 @@ Het verbinden van credits aan (de europese normen voor) studiebelasting is voor 
 >
 ---
 >
-#### This microcredential has been issued in the context of the national pilot of microcredentials within higher education in the Netherlands
+#### This micro-credential has been issued in the context of jointly developing micro-credentials within higher education institutions in the Netherlands
 > 
 The microcredential is a reliable certificate that allows professionals to demonstrate what they know, can do, and understand after successfully completing an educational unit in higher education. In other words, a microcredential gives a measured value to a small educational unit. 
 >
-This Microcredential was issued in the context of the Pilot Microcredentials within Dutch Higher Education [1] . The Microcredentials insures quality. The boards of the Association of Universities of Applied Sciences (VH) and the Universities in the Netherlands (UNL) have established the following quality agreements, to which this Microcredential complies. 
+This micro-credential has been issued in the context of jointly developing micro-credentials within higher education institutions in the Netherlands. [1] . The Microcredentials insures quality. The boards of the Association of Universities of Applied Sciences (VH) and the Universities in the Netherlands (UNL) have established the following quality agreements, to which this Microcredential complies. 
 >
-#### The quality framework of the Pilot Microcredentials 
+#### Quality framework Microcredentials within higher education in the Netherlands 
 >
 **About the minimum (internal) quality assurance of Microcredentials:**
 >
@@ -119,7 +119,7 @@ Linking credits to (the European standards for) study load is relevant for parti
 >
 [2] Competences in Education an Recognition Project (CoRe). (2010). A Tuning Guide to Formulating Degree Programme Profiles including Programma Competences and Programme Learning Outcomes. http://tuningacademy.org/wp-content/uploads/2014/02/A-Guide-to-Formulating-DPP_EN.pdf
 >
-[3] Accreditation-worthy offerings are used as a working term to indicate that the offerings within the quality framework of the pilot meet the European ESG standards for quality assurance but still fall outside existing external quality assurance instruments.
+[3] Accreditation-worthy offerings is used as a working term to indicate that the offerings that comply to this quality framework meet the European ESG standards for quality assurance but still fall outside existing external quality assurance instruments.
 >
 `
 }
