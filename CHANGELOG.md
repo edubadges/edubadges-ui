@@ -4,6 +4,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [6.10.0] - 2024-02-23
+- New URLfor CROHO register
+- Text changes to quality framework
+- Sort badgeclass status fix
+- Added Status unpublished
+- Performance indicator for management queries
+- Change text qualifications framework Microcredentials
+- Query for awarded backpacks
+- Bump browserify-sign from 4.0.4 to 4.2.2
+- Bump follow-redirects from 1.14.8 to 1.15.4
+- Prevent null-pointer
+- Style wallet popup modal
+- Added import wallet in badge-details
+- Update microcredentials.js - Removed footnote 1
+- Bump follow-redirects from 1.14.8 to 1.15.4
+- Micro-credentials badges
+- Added raw query for counts user / assertions
+- Bump browserify-sign from 4.0.4 to 4.2.2
+
 ## [6.9.0] - 2023-10-23
 - Added micro-credentials count query.
 - Use Select for picking management query.
