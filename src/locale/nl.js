@@ -1197,8 +1197,8 @@ I18n.translations.nl = {
             alignmentName: "Bijv. Geschiedenis",
             alignmentFramework: "Bijv. ESCO",
             alignmentDescription: "Bijv. De tak van wetenschap die aan mensen gerelateerde gebeurtenissen uit het verleden bestudeert, analyseert en beschrijft.",
-            alignmentUrl: "http://data.europa.eu/esco/skill/2b22f3b1-5de4-43f9-b6d1-b20f65871268",
-            alignmentCode: "2b22f3b1-5de4-43f9-b6d1-b20f65871268"
+            alignmentUrl: "Bijv. http://data.europa.eu/esco/skill/2b22f3b1-5de4-43f9-b6d1-b20f65871268",
+            alignmentCode: "Bijv. 2b22f3b1-5de4-43f9-b6d1-b20f65871268"
         },
         permissions: {
             notes: "Bijv. waarom heb je permissies gegeven?"
