@@ -13,7 +13,6 @@
     import BadgeCard from "../../components/shared/BadgeCard.svelte";
     import BadgeClassDetails from "../../components/shared/BadgeClassDetails.svelte";
     import {Modal, Select} from "../../components/forms";
-    import DownloadButton from "../../components/DownloadButton.svelte";
     import {
         acceptAssertion,
         claimAssertion,
@@ -77,12 +76,6 @@
 
     const copyToClipboard = () => {
         showShareDialog = true;
-    }
-
-    const downloadFileName = badge => {
-        const sanitizedName = badge.badgeclass.name.replace(/ /g, "_").toLowerCase();
-        const ext = badge.image.endsWith("svg") ? "svg" : "png";
-        return `${sanitizedName}_edubadge.${ext}`;
     }
 
     const showCollectionModal = () => {
@@ -527,13 +520,6 @@
                                 secondary={true}
                                 disabled={badgeInstanceCollections.length === 0}
                                 action={showCollectionModal}/>
-                    </div>
-                    <div class="button-container">
-                        <DownloadButton text={I18n.t("models.badge.download")}
-                                        secondary={true}
-                                        filename={downloadFileName(badge)}
-                                        disabled={badge && (badge.acceptance === "REJECTED" || !badge.public)}
-                                        url={badge.image}/>
                     </div>
                     <div class="button-container">
                         {#if showShareFeedback}
