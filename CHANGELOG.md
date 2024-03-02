@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [6.10.0] - 2024-02-23
+- Bump ip from 1.1.5 to 1.1.9
+- Removed the backpack download button
 - New URLfor CROHO register
 - Text changes to quality framework
 - Sort badgeclass status fix
