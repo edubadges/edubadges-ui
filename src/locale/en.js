@@ -1196,8 +1196,8 @@ I18n.translations.en = {
             alignmentName: "e.g. history",
             alignmentFramework: "e.g. ESCO",
             alignmentDescription: "e.g. The discipline that studies, analyses and presents the events of the past related to humans.",
-            alignmentUrl: "http://data.europa.eu/esco/skill/2b22f3b1-5de4-43f9-b6d1-b20f65871268",
-            alignmentCode: "2b22f3b1-5de4-43f9-b6d1-b20f65871268"
+            alignmentUrl: "e.g. http://data.europa.eu/esco/skill/2b22f3b1-5de4-43f9-b6d1-b20f65871268",
+            alignmentCode: "e.g. 2b22f3b1-5de4-43f9-b6d1-b20f65871268"
         },
         permissions: {
             notes: "e.g. why did you add permissions?"
