@@ -55,7 +55,11 @@
                     {
                         name: "institutionBadgeOverview",
                         api: fetchInstitutionBadgeOverview
-                    }
+                    },
+                    {
+                        name: "issuerMembers",
+                        api: fetchIssuerMembers
+                    },
                 ]
             } else {
                 queryObjects = [
@@ -66,7 +70,7 @@
                     {
                         name: "issuerMembers",
                         api: fetchIssuerMembers
-                    },
+                    }
                 ]
             }
         });
