@@ -3,47 +3,74 @@
     import Button from "../../components/Button.svelte";
     import {
         fetchCountMicroCredentials,
-        fetchInstitutionAdmins, fetchInstitutionBadgeOverview,
+        fetchInstitutionAdmins,
+        fetchInstitutionBadgeOverview,
         fetchInstitutionBadges,
-        fetchInstitutionMicroCredentials, fetchMicroCredentialsBadges
+        fetchInstitutionMicroCredentials,
+        fetchIssuerMembers,
+        fetchMicroCredentialsBadges,
+        getProfile
     } from "../../api";
     import {Spinner} from "../../components";
     import {JsonView} from '@zerodevx/svelte-json-view'
     import {copyText} from 'svelte-copy';
     import {Select} from "../../components/forms";
+    import {onMount} from "svelte";
+    import {authToken, userRole} from "../../stores/user";
+    import {role} from "../../util/role";
 
-    let queryObjects = [
-        {
-            name: "institutionAdmins",
-            api: fetchInstitutionAdmins
-        },
-        {
-            name: "institutionBadges",
-            api: fetchInstitutionBadges
-        },
-        {
-            name: "institutionMicroCredentials",
-            api: fetchInstitutionMicroCredentials
-        },
-        {
-            name: "countMicroCredentials",
-            api: fetchCountMicroCredentials
-        },
-        {
-            name: "microCredentialsBadges",
-            api: fetchMicroCredentialsBadges
-        },
-        {
-            name: "institutionBadgeOverview",
-            api: fetchInstitutionBadgeOverview
-        }
-
-    ]
+    let queryObjects = [];
     let queryData = [];
     let currentQueryObject;
     let showData = false;
-    let loaded = true;
+    let loaded = false;
     let timeMs = 0;
+
+
+    onMount(() => {
+        getProfile().then(res => {
+            loaded = true;
+            if (res.is_superuser) {
+                queryObjects = [
+                    {
+                        name: "institutionAdmins",
+                        api: fetchInstitutionAdmins
+                    },
+                    {
+                        name: "institutionBadges",
+                        api: fetchInstitutionBadges
+                    },
+                    {
+                        name: "institutionMicroCredentials",
+                        api: fetchInstitutionMicroCredentials
+                    },
+                    {
+                        name: "countMicroCredentials",
+                        api: fetchCountMicroCredentials
+                    },
+                    {
+                        name: "microCredentialsBadges",
+                        api: fetchMicroCredentialsBadges
+                    },
+                    {
+                        name: "institutionBadgeOverview",
+                        api: fetchInstitutionBadgeOverview
+                    }
+                ]
+            } else {
+                queryObjects = [
+                    {
+                        name: "institutionBadgeOverview",
+                        api: fetchInstitutionBadgeOverview
+                    },
+                    {
+                        name: "issuerMembers",
+                        api: fetchIssuerMembers
+                    },
+                ]
+            }
+        });
+    });
 
     const fetchObjects = value => {
         const queryObject = queryObjects.find(obj => obj.name === value.value)

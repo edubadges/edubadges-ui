@@ -56,7 +56,6 @@
     const uaLower = window.navigator.userAgent.toLowerCase();
 
     onMount(() => {
-
         if ($userRole === role.TEACHER && $authToken) {
             getProfile().then(res => {
                 profile = res;
@@ -196,12 +195,12 @@
                 {#if $userRole === role.TEACHER}
                     <div class="profile-menu"
                          on:click={() => navigate("/notifications")}>{I18n.t('header.notifications')}</div>
+                    <div class="profile-menu"
+                         on:click={() => navigate("/management-queries")}>{I18n.t('header.queries')}</div>
                 {/if}
                 {#if profile.is_superuser}
                     <div class="profile-menu"
                          on:click={() => navigate("/impersonate")}>{I18n.t('header.impersonate')}</div>
-                    <div class="profile-menu"
-                         on:click={() => navigate("/management-queries")}>{I18n.t('header.queries')}</div>
                 {:else if $userImpersonated === "true"}
                     <div class="profile-menu"
                          on:click={clearImpersonation}>{I18n.t('header.clearImpersonation')}</div>

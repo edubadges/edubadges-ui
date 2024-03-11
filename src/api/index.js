@@ -809,6 +809,11 @@ export function fetchInstitutionBadgeOverview() {
     return validFetchNoErrorDialog(path, {}, "GET");
 }
 
+export function fetchIssuerMembers() {
+    const path = `${serverUrl}/insights/institution/issuer-members`;
+    return validFetchNoErrorDialog(path, {}, "GET");
+}
+
 export function fetchInstitutionMicroCredentials() {
     const path = `${serverUrl}/insights/institution/micro-credentials`;
     return validFetchNoErrorDialog(path, {}, "GET");
