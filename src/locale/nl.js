@@ -1190,7 +1190,7 @@ I18n.translations.nl = {
             status: {
                 name: "Status",
                 archived: "Gearchiveerd",
-                private: "Niet gepubliseerd",
+                private: "Niet gepubliceerd",
                 active: "Actief"
             },
             educationProgramIdentifier: "Bijv. 12111990",
