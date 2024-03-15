@@ -10,7 +10,7 @@
     import {staffType} from "../../util/staffTypes";
     import {impersonate} from "../../api";
     import Modal from "../../components/forms/Modal.svelte";
-    import {authToken, userImpersonated, userLoggedIn} from "../../stores/user";
+    import {authToken, impersonation, userImpersonated, userLoggedIn} from "../../stores/user";
     import {pageCount} from "../../util/pagination";
 
     let allUsers = [];
@@ -101,6 +101,7 @@
         if (showConfirmation) {
             showConfirmationModal = true;
         } else {
+            $impersonation = "true";
             impersonate(user.id).then(res => {
                 $authToken = "";
                 $userImpersonated = "true";

@@ -69,92 +69,93 @@
 </script>
 
 <style lang="scss">
-  header {
-    display: flex;
-    align-items: center;
+    header {
+        display: flex;
+        align-items: center;
 
-    padding-top: var(--ver-padding-header);
-    padding-bottom: var(--ver-padding-header);
-    padding-right: var(--hor-padding-s);
+        padding-top: var(--ver-padding-header);
+        padding-bottom: var(--ver-padding-header);
+        padding-right: var(--hor-padding-s);
 
-    span.demo {
-      padding: 0 var(--hor-padding-s);
-      color: var(--red-dark);
-      display: inline-block;
-      font-weight: bold;
-      font-size: 20px;
-      cursor: pointer;
-      text-decoration: underline;
-    }
-  }
-
-  :global(span.demo svg circle, span.demo svg path  ) {
-    color: var(--red-dark);
-    fill: var(--red-dark);
-  }
-
-
-  .slot-container {
-    margin-left: 24px;
-    flex: 1;
-  }
-
-  a {
-    margin-left: var(--hor-padding-s);
-    width: calc(var(--width-side-bar) - var(--hor-padding-s));
-
-    &.demo {
-      width: 150px;
-      padding-right: 5px;
+        span.demo {
+            padding: 0 var(--hor-padding-s);
+            color: var(--red-dark);
+            display: inline-block;
+            font-weight: bold;
+            font-size: 20px;
+            cursor: pointer;
+            text-decoration: underline;
+        }
     }
 
-  }
-  a img.logo {
-    vertical-align: middle;
-    width: 150px;
-  }
-
-  a :global(svg.edubadges-logo) {
-    vertical-align: middle;
-    width: 150px;
-  }
-
-  .expand-menu {
-    position: relative;
-
-    :global(svg.chevron-down), :global(svg.chevron-up) {
-      width: 28px;
-      fill: var(--purple);
+    :global(span.demo svg circle, span.demo svg path  ) {
+        color: var(--red-dark);
+        fill: var(--red-dark);
     }
 
-    div.menu.show {
-      display: block;
-      position: absolute;
-      right: 0;
-      min-width: 180px;
-      z-index: 99;
+
+    .slot-container {
+        margin-left: 24px;
+        flex: 1;
+    }
+
+    a {
+        margin-left: var(--hor-padding-s);
+        width: calc(var(--width-side-bar) - var(--hor-padding-s));
+
+        &.demo {
+            width: 150px;
+            padding-right: 5px;
+        }
 
     }
 
-    div.menu:not(.show) {
-      display: none;
-    }
-  }
-
-  .profile-menu {
-    color: var(--text-grey-dark);
-    padding: var(--ver-padding-m) var(--hor-padding-m);
-
-    &:not(:last-child) {
-      border-bottom: 2px solid var(--grey-4);
+    a img.logo {
+        vertical-align: middle;
+        width: 150px;
     }
 
-  }
+    a :global(svg.edubadges-logo) {
+        vertical-align: middle;
+        width: 150px;
+    }
 
-  .profile-menu:hover {
-    background-color: var(--grey-2);
-    color: var(--grey-10);
-  }
+    .expand-menu {
+        position: relative;
+
+        :global(svg.chevron-down), :global(svg.chevron-up) {
+            width: 28px;
+            fill: var(--purple);
+        }
+
+        div.menu.show {
+            display: block;
+            position: absolute;
+            right: 0;
+            min-width: 180px;
+            z-index: 99;
+
+        }
+
+        div.menu:not(.show) {
+            display: none;
+        }
+    }
+
+    .profile-menu {
+        color: var(--text-grey-dark);
+        padding: var(--ver-padding-m) var(--hor-padding-m);
+
+        &:not(:last-child) {
+            border-bottom: 2px solid var(--grey-4);
+        }
+
+    }
+
+    .profile-menu:hover {
+        background-color: var(--grey-2);
+        color: var(--grey-10);
+    }
 </style>
 
 <header>
