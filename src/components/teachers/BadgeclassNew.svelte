@@ -1,15 +1,14 @@
 <script>
-  import {onMount} from "svelte";
-  import {queryData} from "../../api/graphql";
-  import {BadgeclassForm} from "../teachers";
-  import {deduceExpirationPeriod} from "../extensions/badges/expiration_period";
-  import Spinner from "../Spinner.svelte";
-  import {translateProperties} from "../../util/utils";
-  import {entityId} from "./IssuerEdit.svelte";
+    import {onMount} from "svelte";
+    import {queryData} from "../../api/graphql";
+    import {BadgeclassForm} from "../teachers";
+    import {deduceExpirationPeriod} from "../extensions/badges/expiration_period";
+    import Spinner from "../Spinner.svelte";
+    import {translateProperties} from "../../util/utils";
 
-  export let issuerEntityId;
+    export let issuerEntityId;
 
-  const query = `query ($entityId: String) {
+    const query = `query ($entityId: String) {
     publicInstitutions {
       id,
       identifier,
@@ -42,29 +41,33 @@
     },
   }`;
 
-  let issuer = {};
-  let badgeclass = deduceExpirationPeriod({awardAllowedInstitutions:[], extensions: [{}]});
-  let currentInstitution;
-  let publicInstitutions;
+    let issuer = {};
+    let badgeclass = deduceExpirationPeriod({awardAllowedInstitutions: [], extensions: [{}]});
+    let currentInstitution;
+    let publicInstitutions;
 
-  let loaded = false;
+    let loaded = false;
 
-  onMount(() => {
-    queryData(query, {entityId: issuerEntityId}).then(res => {
-      issuer = res.issuer;
-      translateProperties(issuer)
-      translateProperties(issuer.faculty)
-      badgeclass.issuer = issuer;
-      currentInstitution = res.currentInstitution;
-      publicInstitutions = res.publicInstitutions;
-      loaded = true;
-    })
-  });
+    onMount(() => {
+        queryData(query, {entityId: issuerEntityId}).then(res => {
+            issuer = res.issuer;
+            translateProperties(issuer)
+            translateProperties(issuer.faculty)
+            badgeclass.issuer = issuer;
+            currentInstitution = res.currentInstitution;
+            publicInstitutions = res.publicInstitutions;
+            loaded = true;
+        })
+    });
 
 </script>
 {#if loaded}
-  <BadgeclassForm issuers={[issuer]} {badgeclass} institution={currentInstitution} {publicInstitutions} mayEdit={true}/>
+    <BadgeclassForm issuers={[issuer]}
+                    badgeclass={badgeclass}
+                    institution={currentInstitution}
+                    publicInstitutions={publicInstitutions}
+                    mayEdit={true}/>
 {:else}
-  <Spinner/>
+    <Spinner/>
 {/if}
 

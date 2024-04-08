@@ -2,13 +2,9 @@
     import {onMount} from "svelte";
     import {BadgeclassForm} from "../teachers";
     import {queryData} from "../../api/graphql";
-    import {
-        deduceExpirationPeriod,
-        expirationPeriods
-    } from "../extensions/badges/expiration_period";
+    import {deduceExpirationPeriod} from "../extensions/badges/expiration_period";
     import Spinner from "../Spinner.svelte";
     import {translateProperties} from "../../util/utils";
-    import {value} from "../forms/File.svelte";
     import {alignments} from "../../api/queries";
 
     export let entityId;
@@ -115,9 +111,9 @@
                 fetch(badgeclass.image).then(res => {
                     res.blob().then(content => {
                         const reader = new FileReader();
-                        reader.onload = ({ target: { result } }) => {
-                          badgeclass.image  = result;
-                          loaded = true;
+                        reader.onload = ({target: {result}}) => {
+                            badgeclass.image = result;
+                            loaded = true;
                         };
                         reader.readAsDataURL(content);
                     })
