@@ -313,6 +313,7 @@
             evidence_student_required: badgeclass.evidenceStudentRequired,
             award_non_validated_name_allowed: badgeclass.awardNonValidatedNameAllowed,
             is_micro_credentials: badgeclass.isMicroCredentials,
+            badge_class_type: badgeclass.badgeClassType,
             direct_awarding_disabled: badgeclass.directAwardingDisabled,
             self_enrollment_disabled: badgeclass.selfEnrollmentDisabled,
             criteria_url: toHttpOrHttps(badgeclass.criteriaUrl),
@@ -390,6 +391,7 @@
 
         const args = isCreate ? [newBadgeclass] : [entityId, newBadgeclass];
         const apiCall = isCreate ? createBadgeclass : editBadgeclass;
+        debugger;
         apiCall(...args)
             .then(res => {
                 navigate(`/manage/badgeclass/${res.entity_id}`)

@@ -129,9 +129,9 @@
     {/if}
     {#if exists}
         <div class="tooltip-wrapper">
-    <span class="tooltip-slot">
-      {@html question}
-    </span>
+            <span class="tooltip-slot">
+              {@html question}
+            </span>
             <div class="tooltip top" class:right={placement === "right"}>
                 {#if tooltipText}
                     {@html tooltipText}

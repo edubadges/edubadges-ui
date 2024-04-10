@@ -55,6 +55,7 @@
       isMicroCredentials,
       directAwardingDisabled,
       selfEnrollmentDisabled,
+      badgeClassType,
       ${alignments},
       issuer {
         nameEnglish,

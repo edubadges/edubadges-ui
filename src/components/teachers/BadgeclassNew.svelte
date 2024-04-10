@@ -5,6 +5,7 @@
     import {deduceExpirationPeriod} from "../extensions/badges/expiration_period";
     import Spinner from "../Spinner.svelte";
     import {translateProperties} from "../../util/utils";
+    import BadgeClassChoice from "../forms/BadgeClassChoice.svelte";
 
     export let issuerEntityId;
 
@@ -47,6 +48,7 @@
     let publicInstitutions;
 
     let loaded = false;
+    let choiceMade = false;
 
     onMount(() => {
         queryData(query, {entityId: issuerEntityId}).then(res => {
@@ -60,8 +62,17 @@
         })
     });
 
+    const makeChoice = choice => {
+        badgeclass = {...badgeclass, badge_class_type: choice};
+        choiceMade = true;
+    }
+
+    const cancel = () => window.history.back()
+
 </script>
-{#if loaded}
+{#if loaded && !choiceMade}
+    <BadgeClassChoice create={makeChoice} cancel={cancel} />
+{:else if loaded && choiceMade}
     <BadgeclassForm issuers={[issuer]}
                     badgeclass={badgeclass}
                     institution={currentInstitution}

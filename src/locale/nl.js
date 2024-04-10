@@ -1734,4 +1734,24 @@ I18n.translations.nl = {
         select: "Select the query to run...",
         loaded: "{{name}} query loaded in {{time}}ms and ready to copy, download or show....."
     },
+    newBadgeClassForm: {
+        modal: {
+            choose: "Kies een Badge class type",
+            tipPre: "Tip: Je kan ook een kopie maken van een ",
+            tipAction: "bestaande badge-class",
+            shortCopy: "Short copy that makes sense to choose this one.",
+            create: "Create",
+            types: {
+                micro_credential: "Microcredential",
+                regular: "Regulier",
+                extra_curricular: "Extra curricular"
+            },
+            info: {
+                micro_credential: "A badge class with all metadata following EU guidelines.",
+                regular: "A badge class based on ECTS.",
+                extra_curricular: "A badge class based on time investment."
+            },
+        },
+    }
+
 };

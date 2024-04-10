@@ -157,7 +157,9 @@
         {#if visitorRole === role.TEACHER && mayUpdate}
             <div class="actions">
                 <div class="button-container">
-                    <Button fill={true} disabled={!mayUpdate} secondary href="edit"
+                    <Button fill={true}
+                            disabled={!mayUpdate}
+                            secondary href="edit"
                             text={I18n.t(['manage', 'edit', entity])}/>
                 </div>
                 <slot name="additional-actions"/>
