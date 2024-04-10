@@ -71,7 +71,9 @@
 
 </script>
 {#if loaded && !choiceMade}
-    <BadgeClassChoice create={makeChoice} cancel={cancel} />
+    <BadgeClassChoice create={makeChoice}
+                      cancel={cancel}
+                      issuer={issuer} />
 {:else if loaded && choiceMade}
     <BadgeclassForm issuers={[issuer]}
                     badgeclass={badgeclass}

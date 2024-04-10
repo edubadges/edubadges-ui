@@ -1738,6 +1738,8 @@ I18n.translations.en = {
             choose: "Choose a Badge class type",
             tipPre: "Tip: You can also duplicate an ",
             tipAction: "existing badge-class",
+            tip:"Clik on an existing badge-class and choose the option to copy the badge class in the right header section. Go to the ",
+            issuerLink: "overview of all badge-classes for issuer {{name}}",
             shortCopy: "Short copy that makes sense to choose this one.",
             create: "Create",
             types: {

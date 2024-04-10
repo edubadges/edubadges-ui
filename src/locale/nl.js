@@ -1739,6 +1739,8 @@ I18n.translations.nl = {
             choose: "Kies een Badge class type",
             tipPre: "Tip: Je kan ook een kopie maken van een ",
             tipAction: "bestaande badge-class",
+            tip:"Clik on an existing badge-class and choose the option to copy the badge class in the right header section. Go to the ",
+            issuerLink: "overview of all badge-classes for issuer {{name}}",
             shortCopy: "Short copy that makes sense to choose this one.",
             create: "Create",
             types: {

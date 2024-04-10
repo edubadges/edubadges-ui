@@ -7,7 +7,9 @@
 
     export let create;
     export let cancel;
-    export let entityId;
+    export let issuer;
+
+    let showTip = false;
 
     const handle_keydown = e => {
         if (e.key === "Escape") {
@@ -29,8 +31,17 @@
         <div class="modal-body">
             <div class="tip">
                 <span>{I18n.t("newBadgeClassForm.modal.tipPre")}</span>
-                <a use:link
-                   href={`/manage/badgeclass/${entityId}/edit/copy`}>{I18n.t("newBadgeClassForm.modal.tipAction")}</a>
+                <a on:click|preventDefault={() => showTip = true}>
+                    {I18n.t("newBadgeClassForm.modal.tipAction")}
+                </a>
+                {#if showTip}
+                    <div class="tippy">
+                        <span>{I18n.t("newBadgeClassForm.modal.tip")}</span>
+                        <a use:link
+                           href={`/manage/issuer/${issuer.entityId}/badgeclasses`}>{I18n.t("newBadgeClassForm.modal.issuerLink", {name: issuer.name})}</a>
+                    </div>
+
+                {/if}
             </div>
             <div class="card-container">
                 {#each Object.values(badgeClassType) as type}
@@ -63,15 +74,30 @@
 
     .modal-content {
         margin: auto;
-        max-width: 64em;
+        width: 834px;
         max-height: calc(100vh - 4em);
         border-radius: 8px;
         background: white;
 
+        .tip {
+            color: var(--grey-8);
+            font-weight: lighter;
+
+            :global(a) {
+                color: var(--grey-8);
+                text-decoration: underline;
+            }
+
+            .tippy {
+                margin: 15px 0;
+            }
+        }
+
+
         .card-container {
             display: flex;
             gap: 25px;
-            margin-top: 15px;
+            margin: 15px 0 15px 0;
         }
 
         .card {
