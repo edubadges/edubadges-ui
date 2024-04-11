@@ -89,7 +89,7 @@
         {#if mayCreate}
             <Button
                     href={`/manage/${entity}/new/${pathParameters.join("/")}`}
-                    text={I18n.t(['manage', 'new', entity])}/>
+                    text={I18n.t(['manage', 'new', entity], {name: ""})}/>
         {/if}
     </div>
     <slot name="check-buttons"/>

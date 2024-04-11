@@ -28,6 +28,9 @@
     import {translateProperties} from "../../util/utils";
     import MarkdownField from "../forms/MarkdownField.svelte";
     import {microCredentialsFramework} from "../../util/microcredentials";
+    import {markDownTemplate} from "../../util/markDownTemplate";
+    import {userRole} from "../../stores/user";
+    import MarkDownExample from "./badgeclass/MarkDownExample.svelte";
 
     export let entityId;
     export let badgeclass = {extensions: [], issuer: {}, alignments: [], criteriaText: ""};
@@ -56,6 +59,7 @@
     let showAlignment = false;
     let showAddAlignmentButton = true;
     let initialToggle = true;
+    let participationOptions = [];
 
     onMount(() => {
         if (!badgeclass.alignments) {
@@ -81,6 +85,8 @@
             target_code: alignment.targetCode,
             existing: true
         }));
+        const options = I18n.translations[I18n.locale].newBadgeClassForm.form.participation.options;
+        participationOptions = Object.keys(options).map(key => ({value: key, name: options[key]}));
     });
 
     if (!isEmpty(badgeclass.alignments)) {
@@ -109,6 +115,10 @@
     });
 
     let extensions = {};
+
+    const markDownExample = attribute => {
+        badgeclass[attribute] = markDownTemplate;
+    }
 
     const addStudyLoad = () => {
         extensions[ects.name] = badgeclass.isMicroCredentials ? 5 : 2.5;
@@ -391,7 +401,6 @@
 
         const args = isCreate ? [newBadgeclass] : [entityId, newBadgeclass];
         const apiCall = isCreate ? createBadgeclass : editBadgeclass;
-        debugger;
         apiCall(...args)
             .then(res => {
                 navigate(`/manage/badgeclass/${res.entity_id}`)
@@ -423,94 +432,117 @@
 </script>
 
 <style lang="scss">
-  div.form {
-    display: grid;
-    grid-template-columns: 50% 50%;
-    grid-row: auto;
-    grid-column-gap: 40px;
-    grid-row-gap: 16px;
-    padding-right: 40px;
-
-  }
-
-  @media (max-width: 820px) {
     div.form {
-      grid-template-columns: 100%;
-    }
-  }
+        display: grid;
+        grid-template-columns: 50% 50%;
+        grid-row: auto;
+        grid-column-gap: 40px;
+        grid-row-gap: 22px;
+        padding-right: 40px;
+        max-width: 1020px;
 
-  h4 {
-    color: var(--purple);
-    padding: var(--ver-padding-s) var(--ver-padding-m);
-    font-size: 20px;
-    border-left: 3px solid var(--purple-2);
-    margin: var(--ver-padding-l) 0;
-  }
+        :global(.select-field) {
+            max-width: 100%;
+        }
 
-  span.info {
-    display: inline-block;
-    margin: 6px 0;
-    font-size: 14px;
-
-    &.not-last {
-      margin-bottom: 8px;
-    }
-  }
-
-  div.mark-down-container.disabled {
-    background-color: var(--grey-2);
-    border: 1px solid var(--text-grey-dark);
-    padding: 5px;
-    border-radius: 4px;
-  }
-
-  .issuers {
-    grid-column: span 2;
-  }
-
-  .award-options {
-    margin: 35px 0 10px 0;
-  }
-
-  .deletable-title {
-    display: inline-block;
-  }
-
-  .add-buttons {
-    margin-bottom: 30px;
-  }
-
-  .rm-icon-container {
-    border: none;
-    background-color: inherit;
-    color: purple;
-    display: inline-block;
-    height: 30px;
-    width: 30px;
-    margin: 0 0 5px 0;
-    align-self: center;
-    cursor: pointer;
-  }
-
-  .disabled {
-    cursor: not-allowed !important;
-    color: var(--grey-7);
-  }
-
-  div.input-block {
-    display: flex;
-    position: relative;
-
-    &.not-first {
-      margin-top: 20px;
+        :global(input) {
+            max-width: 100%;
+        }
     }
 
-    button.rm-icon-container {
-      position: absolute;
-      right: 90px;
-      top: 6px;
+    @media (max-width: 820px) {
+        div.form {
+            grid-template-columns: 100%;
+        }
     }
-  }
+
+    .two-columns {
+        grid-column-start: 2;
+        grid-row-start: 2;
+        grid-row-end: 3;
+    }
+
+    .one-row {
+        grid-column: 1 / -1;
+        position: relative;
+    }
+
+    .markup-example {
+        position: absolute;
+        right: 0;
+        top: 10px;
+        font-size: 15px;
+    }
+
+    h4 {
+        color: var(--purple);
+        padding: var(--ver-padding-s) 0;
+        font-size: 26px;
+        font-weight: lighter;
+        border-bottom: 1px solid var(--purple-2);
+        margin: var(--ver-padding-l) 0;
+    }
+
+    span.info {
+        display: inline-block;
+        margin: 6px 0;
+        font-size: 14px;
+
+        &.not-last {
+            margin-bottom: 8px;
+        }
+    }
+
+    div.mark-down-container.disabled {
+        background-color: var(--grey-2);
+        border: 1px solid var(--text-grey-dark);
+        padding: 5px;
+        border-radius: 4px;
+    }
+
+    .award-options {
+        margin: 35px 0 10px 0;
+    }
+
+    .deletable-title {
+        display: inline-block;
+    }
+
+    .add-buttons {
+        margin-bottom: 30px;
+    }
+
+    .rm-icon-container {
+        border: none;
+        background-color: inherit;
+        color: purple;
+        display: inline-block;
+        height: 30px;
+        width: 30px;
+        margin: 0 0 5px 0;
+        align-self: center;
+        cursor: pointer;
+    }
+
+    .disabled {
+        cursor: not-allowed !important;
+        color: var(--grey-7);
+    }
+
+    div.input-block {
+        display: flex;
+        position: relative;
+
+        &.not-first {
+            margin-top: 20px;
+        }
+
+        button.rm-icon-container {
+            position: absolute;
+            right: 0;
+            top: 6px;
+        }
+    }
 </style>
 
 <EntityForm
@@ -524,67 +556,25 @@
         issuer={badgeclass.issuer}
         faculty={badgeclass.issuer.faculty}
         badgeclass={isCreate ? null : badgeclass}
-        badgeclassName={isCreate ? null : badgeclass.name}
+        badgeclassName={isCreate ? " - " + I18n.t(`newBadgeClassForm.modal.types.${badgeclass.badge_class_type}`) : badgeclass.name}
         submit={onSubmit}
         create={isCreate}
         {processing}>
 
-    <h4>{I18n.t("models.badgeclass.headers.basicInformation")}</h4>
 
     <div class="form">
+        <h4 class="one-row">{I18n.t("models.badgeclass.headers.basicInformation")}</h4>
 
-        <Field {entity} attribute="image" errors={errors.image} tipKey="badgeClassImage">
-            <File
-                    bind:value={badgeclass.image}
-                    disabled={!mayEdit && !isCopy}
-                    error={errors.image}
-                    removeAllowed={false}/>
-        </Field>
-
-        <ExpirationSettings
-                bind:expireValueSet={badgeclass.expireValueSet}
-                disabled={false}
-                className=""
-                bind:number={badgeclass.expirationDuration}
-                bind:period={badgeclass.expirationPeriod}/>
-
-        <Field {entity} attribute="name" errors={errors.name} tipKey="badgeClassName">
-            <TextInput bind:value={badgeclass.name} disabled={!mayEdit && !isCopy} error={errors.name}
-                       placeholder={I18n.t("placeholders.badgeClass.name")}/>
-        </Field>
-
-        <Field {entity} attribute="language" errors={errors.language} tipKey="badgeClassLanguageOfInstruction">
-            <Select
-                    bind:value={languageSelection}
-                    items={languages}
-                    disabled={!mayEdit && !isCopy}
-                    optionIdentifier="value"
-                    clearable={false}/>
-        </Field>
-
-        <div style="grid-column: span 1;">
-            <Field {entity} attribute="description" errors={errors.description} tipKey="badgeClassDescription">
-                <div class="mark-down-container" class:disabled={!mayEdit && !isCopy}>
-                    <MarkdownField
-                            bind:value={badgeclass.description}
-                            disabled={!mayEdit && !isCopy}
-                    />
-                </div>
+        <div>
+            <Field {entity} attribute="name" errors={errors.name} tipKey="badgeClassName" required={true}>
+                <TextInput bind:value={badgeclass.name} disabled={!mayEdit && !isCopy} error={errors.name}
+                           placeholder={I18n.t("placeholders.badgeClass.name")}/>
             </Field>
-        </div>
-        <div style="grid-column: span 1;">
-            <Field {entity} attribute="learningOutcome" errors={errors.learningOutcome}
-                   tipKey="badgeClassLearningOutcome">
-                <div class="mark-down-container" class:disabled={!mayEdit && !isCopy}>
-                    <MarkdownField
-                            bind:value={extensions[learningOutcome.name]}
-                            disabled={!mayEdit && !isCopy}
-                    />
-                </div>
-            </Field>
-        </div>
-        <div class="issuers">
-            <Field {entity} attribute="issuer" errors={errors.issuer} tipKey="badgeClassLearningIssuer">
+            <Field entity={entity}
+                   attribute="issuer"
+                   errors={errors.issuer}
+                   isSelect={true}
+                   tipKey="badgeClassLearningIssuer">
                 <Select
                         bind:value={badgeclass.issuer}
                         error={errors.issuer}
@@ -594,6 +584,163 @@
                         items={issuers}/>
             </Field>
         </div>
+        <div class="two-columns">
+            <Field {entity} attribute="image" errors={errors.image} tipKey="badgeClassImage" required={true}>
+                <File
+                        bind:value={badgeclass.image}
+                        disabled={!mayEdit && !isCopy}
+                        error={errors.image}
+                        removeAllowed={false}/>
+            </Field>
+        </div>
+
+        <div class="one-row">
+            <MarkDownExample onClick={() => markDownExample("description")} tipKey="badgeClassDescription"/>
+            <Field entity={entity}
+                   attribute="description"
+                   errors={errors.description}
+                   tipKey="badgeClassDescription"
+                   required={true}>
+                <div class="mark-down-container" class:disabled={!mayEdit && !isCopy}>
+                    <MarkdownField
+                            bind:value={badgeclass.description}
+                            disabled={!mayEdit && !isCopy}
+                    />
+                </div>
+            </Field>
+        </div>
+
+        <div class="one-row">
+            <MarkDownExample onClick={() => extensions[learningOutcome.name] = markDownTemplate}
+                             tipKey="badgeClassLearningOutcome"/>
+            <Field entity={entity}
+                   attribute="learningOutcome"
+                   errors={errors.learningOutcome}
+                   tipKey="badgeClassLearningOutcome"
+                   required={true}>
+                <div class="mark-down-container" class:disabled={!mayEdit && !isCopy}>
+                    <MarkdownField
+                            bind:value={extensions[learningOutcome.name]}
+                            disabled={!mayEdit && !isCopy}
+                    />
+                </div>
+            </Field>
+        </div>
+
+        <div class="one-row">
+            <MarkDownExample onClick={() => markDownExample("criteriaText")} tipKey="badgeClassCriteriaRequirements"/>
+            <Field entity={entity}
+                   attribute="criteria_text"
+                   errors={errors.criteria_text}
+                   tipKey="badgeClassCriteriaRequirements"
+                   required={true}>
+                <div class="mark-down-container" class:disabled={!mayEdit && !isCopy}>
+                    <MarkdownField
+                            bind:value={badgeclass.criteriaText}
+                            disabled={!mayEdit && !isCopy}
+                    />
+                </div>
+            </Field>
+        </div>
+
+        <h4 class="one-row">{I18n.t("newBadgeClassForm.form.programmeInformation")}</h4>
+
+        <Field entity={entity}
+               attribute="language"
+               errors={errors.language}
+               isSelect={true}
+               tipKey="badgeClassLanguageOfInstruction">
+            <Select
+                    bind:value={languageSelection}
+                    items={languages}
+                    disabled={!mayEdit && !isCopy}
+                    optionIdentifier="value"
+                    clearable={false}/>
+        </Field>
+
+        <Field entity={entity}
+               attribute="ects.creditPoints"
+               errors={errors.ECTSExtension}
+               tipKey="badgeClassStudyLoadEcts"
+               required={true}>
+            <EctsCreditPoints
+                    isMicroCredentials={badgeclass.isMicroCredentials}
+                    bind:ectsValue={extensions[ects.name]}
+                    disabled={!mayEdit && !isCopy}
+            />
+        </Field>
+
+        <Field entity={entity}
+               attribute="eqf"
+               errors={errors.eqf}
+               isSelect={true}
+               tipKey="badgeClassNLQFLevel">
+            <Select
+                    bind:value={extensions[eqf.name]}
+                    items={eqfItems}
+                    disabled={!mayEdit && !isCopy}
+                    optionIdentifier="value"
+                    customIndicator={indicator}
+                    showIndicator={true}
+                    showChevron={true}
+                    clearable={false}/>
+            <span class="info">
+                    {@html I18n.t('models.badgeclass.info.eqf')}
+                </span>
+        </Field>
+
+        <Field entity={entity}
+               attribute="participation"
+               errors={errors.participation}
+               isSelect={true}
+               required={true}>
+            <Select
+                    bind:value={badgeclass.participation}
+                    items={participationOptions}
+                    disabled={!mayEdit}
+                    optionIdentifier="value"
+                    placeholder={I18n.t("newBadgeClassForm.form.placeHolder")}
+                    customIndicator={indicator}
+                    showIndicator={true}
+                    showChevron={true}
+                    clearable={true}/>
+        </Field>
+
+        <Field
+                {entity}
+                attribute="educationProgramIdentifierLong"
+                errors={errors.EducationProgramIdentifierExtension}
+                required={true}
+                tipKey="badgeClassProgrammeIdentifier">
+            {#each extensions[educationProgramIdentifier.name] as identifier, index}
+                <div class="input-block" class:not-first={index !== 0}>
+                    <TextInput
+                            type="text"
+                            bind:value={extensions[educationProgramIdentifier.name][index]}
+                            disabled={!mayEdit && !isCopy}
+                            maxForm={true}
+                            placeholder={I18n.t("placeholders.badgeClass.educationProgramIdentifier")}
+                            error={errors.EducationProgramIdentifierExtension}/>
+                    {#if index !== 0}
+                        <button class="rm-icon-container"
+                                on:click={() => removeEducationProgramIdentifier(index)}>{@html trash}</button>
+                    {/if}
+                </div>
+            {/each}
+            <span class="info not-last">
+                    {@html I18n.t('models.badgeclass.info.educationProgramIdentifier')}
+                </span>
+            <AddButton
+                    text={I18n.t('models.badgeclass.addButtons.educationProgramIdentifier')}
+                    handleClick={addEducationProgramIdentifier}
+                    visibility={true}
+                    disabled={!mayEdit}/>
+
+        </Field>
+
+        <h4 class="one-row">{I18n.t("newBadgeClassForm.form.assessmentInformation")}</h4>
+
+
         <div class="badge-class-options">
             <Field {entity} attribute="badgeClassOptions">
                 <CheckBox
@@ -694,17 +841,6 @@
     <h4>{I18n.t('models.badgeclass.headers.earningCriteria')}</h4>
 
     <div class="form">
-        <div style="grid-column: span 1;">
-            <Field {entity} attribute="criteria_text" errors={errors.criteria_text}
-                   tipKey="badgeClassCriteriaRequirements">
-                <div class="mark-down-container" class:disabled={!mayEdit && !isCopy}>
-                    <MarkdownField
-                            bind:value={badgeclass.criteriaText}
-                            disabled={!mayEdit && !isCopy}
-                    />
-                </div>
-            </Field>
-        </div>
         <Field {entity} attribute="criteria_url" errors={errors.criteria_url} tipKey="badgeClassCriteriaUrl">
             <TextInput
                     bind:value={badgeclass.criteriaUrl}
@@ -718,7 +854,10 @@
 
         <h4>{I18n.t('models.badgeclass.headers.allowedInstituions')}</h4>
 
-        <Field {entity} attribute="award_allowed_institutions" errors={errors.award_allowed_institutions}
+        <Field entity={entity}
+               attribute="award_allowed_institutions"
+               errors={errors.award_allowed_institutions}
+               isSelect={true}
                tipKey="badgeclassAwardAllowedInstitutions">
             <Select
                     bind:value={publicInstitutionsChosen}
@@ -733,6 +872,14 @@
             />
         </Field>
     {/if}
+
+    <ExpirationSettings
+            bind:expireValueSet={badgeclass.expireValueSet}
+            disabled={false}
+            className=""
+            bind:number={badgeclass.expirationDuration}
+            bind:period={badgeclass.expirationPeriod}/>
+
 
     {#if showStudyLoad && (institution.grondslagFormeel !== null || isInstitutionMBO)}
         <div style="display: flex">
@@ -757,14 +904,7 @@
                             placeholder={I18n.t("placeholders.badgeClass.studyLoad")}/>
                 </Field>
             {:else if institution.grondslagFormeel !== null}
-                <Field {entity} attribute="ects.creditPoints" errors={errors.ECTSExtension}
-                       tipKey="badgeClassStudyLoadEcts">
-                    <EctsCreditPoints
-                            isMicroCredentials={badgeclass.isMicroCredentials}
-                            bind:ectsValue={extensions[ects.name]}
-                            disabled={!mayEdit && !isCopy}
-                    />
-                </Field>
+
             {/if}
         </div>
     {/if}
@@ -806,58 +946,15 @@
                         }}>{@html trash}</button>
             {/if}
         </div>
-        <div class="form">
-            <Field
-                    {entity}
-                    attribute="educationProgramIdentifierLong"
-                    errors={errors.EducationProgramIdentifierExtension}
-                    tipKey="badgeClassProgrammeIdentifier">
-                {#each extensions[educationProgramIdentifier.name] as identifier, index}
-                    <div class="input-block" class:not-first={index !== 0}>
-                        <TextInput
-                                type="text"
-                                bind:value={extensions[educationProgramIdentifier.name][index]}
-                                disabled={!mayEdit && !isCopy}
-                                maxForm={true}
-                                placeholder={I18n.t("placeholders.badgeClass.educationProgramIdentifier")}
-                                error={errors.EducationProgramIdentifierExtension}/>
-                        {#if index !== 0}
-                            <button class="rm-icon-container"
-                                    on:click={() => removeEducationProgramIdentifier(index)}>{@html trash}</button>
-                        {/if}
-                    </div>
-                {/each}
-                <span class="info not-last">
-                    {@html I18n.t('models.badgeclass.info.educationProgramIdentifier')}
-                </span>
-                <AddButton
-                        text={I18n.t('models.badgeclass.addButtons.educationProgramIdentifier')}
-                        handleClick={addEducationProgramIdentifier}
-                        visibility={true}
-                        disabled={!mayEdit}/>
-
-            </Field>
-
-            <Field {entity} attribute="eqf" errors={errors.eqf} tipKey="badgeClassNLQFLevel">
-                <Select
-                        bind:value={extensions[eqf.name]}
-                        items={eqfItems}
-                        disabled={!mayEdit && !isCopy}
-                        optionIdentifier="value"
-                        customIndicator={indicator}
-                        showIndicator={true}
-                        showChevron={true}
-                        clearable={false}/>
-                <span class="info">
-                    {@html I18n.t('models.badgeclass.info.eqf')}
-                </span>
-            </Field>
-        </div>
     {/if}
     {#if badgeclass.isMicroCredentials}
         <h4>{I18n.t('models.badgeclass.headers.qualificationLevel')}</h4>
         <div class="form">
-            <Field {entity} attribute="eqf" errors={errors.eqf} tipKey="badgeClassNLQFLevel">
+            <Field entity={entity}
+                   attribute="eqf"
+                   errors={errors.eqf}
+                   isSelect={true}
+                   tipKey="badgeClassNLQFLevel">
                 <Select
                         bind:value={extensions[eqf.name]}
                         items={eqfItems}

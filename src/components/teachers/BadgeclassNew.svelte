@@ -6,6 +6,7 @@
     import Spinner from "../Spinner.svelte";
     import {translateProperties} from "../../util/utils";
     import BadgeClassChoice from "../forms/BadgeClassChoice.svelte";
+    import {badgeClassType} from "../../util/badgeClassTypes";
 
     export let issuerEntityId;
 
@@ -25,7 +26,8 @@
       awardAllowAllInstitutions,
       alternativeIdentifier,
       defaultLanguage,
-      directAwardingEnabled
+      directAwardingEnabled,
+      microCredentialsEnabled
     },
     issuer(id: $entityId) {
       nameEnglish,
@@ -43,12 +45,13 @@
   }`;
 
     let issuer = {};
-    let badgeclass = deduceExpirationPeriod({awardAllowedInstitutions: [], extensions: [{}]});
+    let badgeclass = deduceExpirationPeriod({awardAllowedInstitutions: [], extensions: [{}], badge_class_type: badgeClassType.MICRO_CREDENTIAL});
     let currentInstitution;
     let publicInstitutions;
 
     let loaded = false;
-    let choiceMade = false;
+    // let choiceMade = false;
+    let choiceMade = true;
 
     onMount(() => {
         queryData(query, {entityId: issuerEntityId}).then(res => {
@@ -73,6 +76,7 @@
 {#if loaded && !choiceMade}
     <BadgeClassChoice create={makeChoice}
                       cancel={cancel}
+                      currentInstitution={currentInstitution}
                       issuer={issuer} />
 {:else if loaded && choiceMade}
     <BadgeclassForm issuers={[issuer]}

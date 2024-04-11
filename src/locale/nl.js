@@ -1739,7 +1739,7 @@ I18n.translations.nl = {
             choose: "Kies een Badge class type",
             tipPre: "Tip: Je kan ook een kopie maken van een ",
             tipAction: "bestaande badge-class",
-            tip:"Clik on an existing badge-class and choose the option to copy the badge class in the right header section. Go to the ",
+            tip: "Clik on an existing badge-class and choose the option to copy the badge class in the right header section. Go to the ",
             issuerLink: "overview of all badge-classes for issuer {{name}}",
             shortCopy: "Short copy that makes sense to choose this one.",
             create: "Create",
@@ -1753,6 +1753,19 @@ I18n.translations.nl = {
                 regular: "A badge class based on ECTS.",
                 extra_curricular: "A badge class based on time investment."
             },
+            form: {
+                placeHolder: "Please select...",
+                markupExample: "Insert an example in Markup",
+                programmeInformation: "Program information",
+                participation: {
+                    options: {
+                        organized: "Georganiseerde leeractiviteiten",
+                        personalized: "Gepersonaliseerde leeractiviteiten",
+                        practical: "Werk- of praktijkervaring",
+                        voluntary_work: "Vrijwilligerswerk"
+                    }
+                }
+            }
         },
     }
 

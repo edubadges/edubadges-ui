@@ -1,5 +1,5 @@
 export const badgeClassType = {
-  EXTRA_CURRICULAR: "extra_curricular",
+  MICRO_CREDENTIAL: "micro_credential",
   REGULAR: "regular",
-  MICRO_CREDENTIAL: "micro_credential"
+  EXTRA_CURRICULAR: "extra_curricular"
 };

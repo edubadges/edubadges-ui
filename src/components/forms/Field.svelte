@@ -8,7 +8,9 @@
     export let disabled;
     export let errors;
     export let tipKey;
+    export let required = false;
     export let full = false;
+    export let isSelect = false;
 
 </script>
 
@@ -30,7 +32,10 @@
 </style>
 
 <div class="field" {disabled} class:full>
-  <Tooltip label={I18n.t(['models', entity, attribute])} tipKey={tipKey}/>
+  <Tooltip label={I18n.t(['models', entity, attribute])}
+           required={required}
+           isSelect={isSelect}
+           tipKey={tipKey}/>
 
   <div class="input">
     <slot/>

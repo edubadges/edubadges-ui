@@ -4,12 +4,23 @@
     import Button from "../Button.svelte";
     import {badgeClassType} from "../../util/badgeClassTypes";
     import closeIcon from "../../icons/close_smll.svg";
+    import {onMount} from "svelte";
+    import {isEmpty} from "lodash";
 
     export let create;
     export let cancel;
     export let issuer;
+    export let currentInstitution;
 
+    let options = [];
     let showTip = false;
+
+    onMount(() => {
+        options = Object.values(badgeClassType).map(type => (
+            {type: type, disabled: (type === badgeClassType.MICRO_CREDENTIAL && !currentInstitution.microCredentialsEnabled)
+                    || (type === badgeClassType.REGULAR && isEmpty(currentInstitution.grondslagFormeel))}
+        ));
+    })
 
     const handle_keydown = e => {
         if (e.key === "Escape") {
@@ -19,46 +30,6 @@
 
 </script>
 
-<svelte:window on:keydown={handle_keydown}/>
-
-
-<div class="modal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h3>{I18n.t("newBadgeClassForm.modal.choose")}</h3>
-            <span class="close" on:click={cancel}>{@html closeIcon}</span>
-        </div>
-        <div class="modal-body">
-            <div class="tip">
-                <span>{I18n.t("newBadgeClassForm.modal.tipPre")}</span>
-                <a on:click|preventDefault={() => showTip = true}>
-                    {I18n.t("newBadgeClassForm.modal.tipAction")}
-                </a>
-                {#if showTip}
-                    <div class="tippy">
-                        <span>{I18n.t("newBadgeClassForm.modal.tip")}</span>
-                        <a use:link
-                           href={`/manage/issuer/${issuer.entityId}/badgeclasses`}>{I18n.t("newBadgeClassForm.modal.issuerLink", {name: issuer.name})}</a>
-                    </div>
-
-                {/if}
-            </div>
-            <div class="card-container">
-                {#each Object.values(badgeClassType) as type}
-
-                    <div class="card">
-                        <h3>{I18n.t(`newBadgeClassForm.modal.types.${type}`)}</h3>
-                        <p class="info">{I18n.t(`newBadgeClassForm.modal.info.${type}`)}</p>
-                        <p>{I18n.t("newBadgeClassForm.modal.shortCopy")}</p>
-                        <div class="action-container">
-                            <Button action={() => create(type)} text={I18n.t("newBadgeClassForm.modal.create")}/>
-                        </div>
-                    </div>
-                {/each}
-            </div>
-        </div>
-    </div>
-</div>
 
 <style lang="scss">
     .modal {
@@ -105,7 +76,9 @@
             max-width: 240px;
             display: flex;
             flex-direction: column;
-
+            &.disabled {
+                background: var(--grey-1);
+            }
             h3 {
                 margin-bottom: 15px;
             }
@@ -116,7 +89,6 @@
 
             .action-container {
                 margin: auto auto 0 auto;
-                max-width: 120px;
             }
         }
 
@@ -140,3 +112,44 @@
 
 
 </style>
+
+<svelte:window on:keydown={handle_keydown}/>
+
+
+<div class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>{I18n.t("newBadgeClassForm.modal.choose")}</h3>
+            <span class="close" on:click={cancel}>{@html closeIcon}</span>
+        </div>
+        <div class="modal-body">
+            <div class="tip">
+                <span>{I18n.t("newBadgeClassForm.modal.tipPre")}</span>
+                <a on:click|preventDefault={() => showTip = true}>
+                    {I18n.t("newBadgeClassForm.modal.tipAction")}
+                </a>
+                {#if showTip}
+                    <div class="tippy">
+                        <span>{I18n.t("newBadgeClassForm.modal.tip")}</span>
+                        <a use:link
+                           href={`/manage/issuer/${issuer.entityId}/badgeclasses`}>{I18n.t("newBadgeClassForm.modal.issuerLink", {name: issuer.name})}</a>
+                    </div>
+
+                {/if}
+            </div>
+            <div class="card-container">
+                {#each options as option}
+
+                    <div class="card" class:disabled={option.disabled}>
+                        <h3>{I18n.t(`newBadgeClassForm.modal.types.${option.type}`)}</h3>
+                        <p class="info">{I18n.t(`newBadgeClassForm.modal.info.${option.type}`)}</p>
+                        <p>{I18n.t("newBadgeClassForm.modal.shortCopy")}</p>
+                        <div class="action-container">
+                            <Button disabled={option.disabled} action={() => create(option.type)} text={I18n.t("newBadgeClassForm.modal.create")}/>
+                        </div>
+                    </div>
+                {/each}
+            </div>
+        </div>
+    </div>
+</div>

@@ -37,7 +37,7 @@
       : isEdited
         ? I18n.t(["manage", "edit", entity])
         : isCreate
-          ? I18n.t(["manage", "new", entity]) : undefined;
+          ? I18n.t(["manage", "new", entity], {name: badgeclassName || ""}) : undefined;
   };
 
   onMount(() => {
@@ -103,7 +103,7 @@
     <a use:link href={`/manage/issuer/${issuer.entityId}`}>{issuer.name}</a>
   {/if}
 
-  {#if badgeclassName}
+  {#if badgeclass && badgeclassName}
     <span class="crumb">{@html chevronRightSmall}</span>
     <a use:link href={`/manage/badgeclass/${badgeclass.entityId}/overview`}>{badgeclassName}</a>
   {/if}
@@ -120,7 +120,7 @@
     <a use:link href={$currentPath}>{editCreatePart(edit, create, copy)}</a>
   {/if}
 
-  {#if badgeclassName && $userRole === role.TEACHER}
+  {#if badgeclass && badgeclassName && $userRole === role.TEACHER}
     <LinkEye badgeclass={badgeclass} isAdminView={true}/>
   {/if}
 </div>

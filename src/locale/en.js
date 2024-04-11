@@ -339,7 +339,7 @@ I18n.translations.en = {
             create: "new",
             faculty: "Add new issuer group",
             issuer: "Add new issuer",
-            badgeclass: "Add new badge class",
+            badgeclass: "Add new badge class {{name}}",
             save: "Save",
             cancel: "Cancel",
         },
@@ -665,7 +665,7 @@ I18n.translations.en = {
             name: "Name",
             description: "Description",
             about: "About this edubadge",
-            criteria_text: "What are the requirements to qualify for this edubadge?",
+            criteria_text: "Criteria & requirements to qualify",
             criteria_url: "Or provide a persistent link to a webpage with the criteria or more information",
             criteria_url_value: "Link to the criteria for earning this edubadge:",
             expiresAfter: "Expires after",
@@ -700,6 +700,7 @@ I18n.translations.en = {
             eqf: "Indicative EQF level",
             educationProgramIdentifier: "ISAT",
             educationProgramIdentifierLong: "Programme Identifiers",
+            participation: "Form of participation",
             notSet: "-",
             expirationPeriods: {
                 days: "Days",
@@ -1242,8 +1243,8 @@ I18n.translations.en = {
         //badgeClassImage: "badgeClassImage",
         badgeClassExpireSettings: "After this period edubadges will expiry and will be no longer valid.",
         badgeClassName: "Avoid abbreviations, make sure the name is recognisable for others.",
-        badgeClassDescription: "This description supports markdown. " +
-            "See <a target=\"_blank\" href=\"https://wiki.surfnet.nl/display/Edubadges/Edubadges+Example+BadgeClass\"> the wiki </a> for examples.",
+        // badgeClassDescription: "This description supports markdown. " +
+        //     "See <a target=\"_blank\" href=\"https://wiki.surfnet.nl/display/Edubadges/Edubadges+Example+BadgeClass\"> the wiki </a> for examples.",
         badgeClassLanguageOfInstruction: "The language used in obtaining this edubadge.",
         badgeClassLearningOutcome: "Describe the learning outcomes or learning goals. Recorded in the Teaching and Examination Regulations.",
         //badgeClassLearningIssuer: "badgeClassLearningIssuer",
@@ -1738,13 +1739,13 @@ I18n.translations.en = {
             choose: "Choose a Badge class type",
             tipPre: "Tip: You can also duplicate an ",
             tipAction: "existing badge-class",
-            tip:"Clik on an existing badge-class and choose the option to copy the badge class in the right header section. Go to the ",
+            tip: "Clik on an existing badge-class and choose the option to copy the badge class in the right header section. Go to the ",
             issuerLink: "overview of all badge-classes for issuer {{name}}",
             shortCopy: "Short copy that makes sense to choose this one.",
             create: "Create",
             types: {
-                micro_credential: "Microcredential",
-                regular: "Regulier",
+                micro_credential: "Micro-credential",
+                regular: "Regular",
                 extra_curricular: "Extra curricular"
             },
             info: {
@@ -1753,5 +1754,19 @@ I18n.translations.en = {
                 extra_curricular: "A badge class based on time investment."
             }
         },
+        form: {
+            placeHolder: "Please select...",
+            markupExample: "Insert an example in Markup",
+            programmeInformation: "Program information",
+            assessmentInformation: "Assessment information",
+            participation: {
+                options: {
+                    organized: "Organized learning activities",
+                    personalized: "Personalized learning activities",
+                    practical: "Work or practical experience",
+                    voluntary_work: "Voluntary work"
+                }
+            }
+        }
     }
 };
