@@ -31,6 +31,7 @@
     import {markDownTemplate} from "../../util/markDownTemplate";
     import {userRole} from "../../stores/user";
     import MarkDownExample from "./badgeclass/MarkDownExample.svelte";
+    import Switch from "../forms/Switch.svelte";
 
     export let entityId;
     export let badgeclass = {extensions: [], issuer: {}, alignments: [], criteriaText: ""};
@@ -40,6 +41,7 @@
     export let hasUnrevokedAssertions;
     export let institution = {};
     export let publicInstitutions = [];
+    export let institutionTags = [];
     export let action;
 
     const isCreate = !entityId;
@@ -50,6 +52,7 @@
     let loaded = false;
     let processing = false;
     let publicInstitutionsChosen = undefined;
+    let internalTags = undefined;
 
     let showStudyLoad = false;
     let showTimeInvestment = false;
@@ -60,6 +63,7 @@
     let showAddAlignmentButton = true;
     let initialToggle = true;
     let participationOptions = [];
+    let assessmentOptions = [];
 
     onMount(() => {
         if (!badgeclass.alignments) {
@@ -85,8 +89,17 @@
             target_code: alignment.targetCode,
             existing: true
         }));
-        const options = I18n.translations[I18n.locale].newBadgeClassForm.form.participation.options;
-        participationOptions = Object.keys(options).map(key => ({value: key, name: options[key]}));
+        const participationTranslation = I18n.translations[I18n.locale].newBadgeClassForm.form.participation.options;
+        participationOptions = Object.keys(participationTranslation).map(key => ({
+            value: key,
+            name: participationTranslation[key]
+        }));
+
+        const assessmentTranslation = I18n.translations[I18n.locale].newBadgeClassForm.form.assessment.options;
+        assessmentOptions = Object.keys(assessmentTranslation).map(key => ({
+            value: key,
+            name: assessmentTranslation[key]
+        }));
     });
 
     if (!isEmpty(badgeclass.alignments)) {
@@ -324,6 +337,15 @@
             award_non_validated_name_allowed: badgeclass.awardNonValidatedNameAllowed,
             is_micro_credentials: badgeclass.isMicroCredentials,
             badge_class_type: badgeclass.badgeClassType,
+            participation: badgeclass.participation,
+            assessment_type: badgeclass.assessmentType,
+            assessment_supervised: badgeclass.assessmentSupervised,
+            assessment_id_verified: badgeclass.assessmentIdVerified,
+            quality_assurance_name: badgeclass.qualityAssuranceName,
+            quality_assurance_url: badgeclass.qualityAssuranceUrl,
+            quality_assurance_description: badgeclass.qualityAssuranceDescription,
+            grade_achieved_required: badgeclass.gradeAchievedRequired,
+            stackable: badgeclass.stackable,
             direct_awarding_disabled: badgeclass.directAwardingDisabled,
             self_enrollment_disabled: badgeclass.selfEnrollmentDisabled,
             criteria_url: toHttpOrHttps(badgeclass.criteriaUrl),
@@ -556,7 +578,7 @@
         issuer={badgeclass.issuer}
         faculty={badgeclass.issuer.faculty}
         badgeclass={isCreate ? null : badgeclass}
-        badgeclassName={isCreate ? " - " + I18n.t(`newBadgeClassForm.modal.types.${badgeclass.badge_class_type}`) : badgeclass.name}
+        badgeclassName={isCreate ? " - " + I18n.t(`newBadgeClassForm.modal.types.${badgeclass.badgeClassType}`) : badgeclass.name}
         submit={onSubmit}
         create={isCreate}
         {processing}>
@@ -740,6 +762,137 @@
 
         <h4 class="one-row">{I18n.t("newBadgeClassForm.form.assessmentInformation")}</h4>
 
+        <Field entity={entity}
+               attribute="assessment"
+               errors={errors.assessment}
+               tipKey="badgeClassIsPrivate"
+               isSelect={true}
+               required={true}>
+            <Select
+                    bind:value={badgeclass.assessment}
+                    items={assessmentOptions}
+                    disabled={!mayEdit}
+                    optionIdentifier="value"
+                    placeholder={I18n.t("newBadgeClassForm.form.placeHolder")}
+                    customIndicator={indicator}
+                    showIndicator={true}
+                    showChevron={true}
+                    clearable={true}/>
+        </Field>
+        <div>
+            <Switch value={badgeclass.assessmentSupervised}
+                    disabled={!mayEdit || isEmpty(badgeclass.assessment)}
+                    label={I18n.t("newBadgeClassForm.form.assessment.supervision")}
+                    question={I18n.t("newBadgeClassForm.form.assessment.supervised")}
+                    onChange={() => badgeclass.assessmentSupervised = !badgeclass.assessmentSupervised}/>
+            <Switch value={badgeclass.assessmentIdVerified}
+                    disabled={!mayEdit || isEmpty(badgeclass.assessment)}
+                    question={I18n.t("newBadgeClassForm.form.assessment.idVerification")}
+                    onChange={() => badgeclass.assessmentIdVerified = !badgeclass.assessmentIdVerified}/>
+        </div>
+
+        <h4 class="one-row">{I18n.t("newBadgeClassForm.form.qualityAssurance")}</h4>
+
+        <Field entity={entity}
+               attribute="qualityAssuranceName"
+               errors={errors.qualityAssuranceName}
+               tipKey="qualityAssuranceName"
+               required={true}>
+            <TextInput bind:value={badgeclass.qualityAssuranceName}
+                       disabled={!mayEdit}
+                       error={errors.qualityAssuranceName}
+                       placeholder={I18n.t("placeholders.badgeClass.qualityAssuranceName")}/>
+        </Field>
+
+        <Field entity={entity}
+               attribute="qualityAssuranceUrl"
+               errors={errors.qualityAssuranceUrl}
+               tipKey="qualityAssuranceUrl"
+               required={true}>
+            <TextInput bind:value={badgeclass.qualityAssuranceUrl}
+                       disabled={!mayEdit}
+                       error={errors.qualityAssuranceUrl}
+                       placeholder={I18n.t("placeholders.badgeClass.qualityAssuranceUrl")}/>
+        </Field>
+
+        <div class="one-row">
+            <MarkDownExample onClick={() => markDownExample("qualityAssuranceDescription")}
+                             tipKey="qualityAssuranceDescription"/>
+            <Field entity={entity}
+                   attribute="qualityAssuranceDescription"
+                   errors={errors.qualityAssuranceDescription}
+                   tipKey="qualityAssuranceDescription"
+                   required={true}>
+                <div class="mark-down-container" class:disabled={!mayEdit}>
+                    <MarkdownField
+                            bind:value={badgeclass.qualityAssuranceDescription}
+                            disabled={!mayEdit}
+                    />
+                </div>
+            </Field>
+        </div>
+
+        <h4 class="one-row">{I18n.t("newBadgeClassForm.form.awardSettings")}</h4>
+        <Switch value={!badgeclass.directAwardingDisabled}
+                disabled={!mayEdit}
+                label={I18n.t("newBadgeClassForm.form.directAward.title")}
+                question={I18n.t("newBadgeClassForm.form.directAward.directAwardAllowed")}
+                onChange={() => badgeclass.directAwardingDisabled = !badgeclass.directAwardingDisabled}/>
+
+        <div class="separator">
+            <Switch value={badgeclass.evidenceRequired}
+                    disabled={!mayEdit || badgeclass.directAwardingDisabled}
+                    label={I18n.t("newBadgeClassForm.form.directAward.details")}
+                    question={I18n.t("newBadgeClassForm.form.directAward.evidenceURL")}
+                    onChange={() => badgeclass.evidenceRequired = !badgeclass.evidenceRequired}/>
+            <Switch value={badgeclass.narrativeRequired}
+                    disabled={!mayEdit || badgeclass.directAwardingDisabled}
+                    question={I18n.t("newBadgeClassForm.form.directAward.narrative")}
+                    onChange={() => badgeclass.narrativeRequired = !badgeclass.narrativeRequired}/>
+        </div>
+
+        <Switch value={!badgeclass.selfEnrollmentDisabled}
+                disabled={!mayEdit}
+                label={I18n.t("newBadgeClassForm.form.selfEnrollment.title")}
+                question={I18n.t("newBadgeClassForm.form.selfEnrollment.selfEnrollmentAllowed")}
+                onChange={() => badgeclass.selfEnrollmentDisabled = !badgeclass.selfEnrollmentDisabled}/>
+
+        <div class="separator">
+            <Switch value={badgeclass.evidenceStudentRequired}
+                    disabled={!mayEdit || badgeclass.selfEnrollmentDisabled}
+                    label={I18n.t("newBadgeClassForm.form.selfEnrollment.details")}
+                    question={I18n.t("newBadgeClassForm.form.selfEnrollment.evidenceURL")}
+                    onChange={() => badgeclass.evidenceStudentRequired = !badgeclass.evidenceStudentRequired}/>
+            <Switch value={badgeclass.narrativeStudentRequired}
+                    disabled={!mayEdit || badgeclass.selfEnrollmentDisabled}
+                    question={I18n.t("newBadgeClassForm.form.selfEnrollment.narrative")}
+                    onChange={() => badgeclass.narrativeStudentRequired = !badgeclass.narrativeStudentRequired}/>
+        </div>
+
+        <ExpirationSettings
+                bind:expireValueSet={badgeclass.expireValueSet}
+                disabled={false}
+                className=""
+                bind:number={badgeclass.expirationDuration}
+                bind:period={badgeclass.expirationPeriod}/>
+
+        <Field entity={entity}
+               attribute="internal_tags"
+               errors={errors.internal_tags}
+               isSelect={true}
+               tipKey="badgeclassInternalTags">
+            <Select
+                    bind:value={internalTags}
+                    items={institutionTags}
+                    isMulti={true}
+                    customIndicator={indicator}
+                    showIndicator={false}
+                    showChevron={true}
+                    clearable={true}
+                    placeholder={I18n.t("placeholders.badgeclass.internalTags")}
+                    optionIdentifier="id"
+            />
+        </Field>
 
         <div class="badge-class-options">
             <Field {entity} attribute="badgeClassOptions">
@@ -872,14 +1025,6 @@
             />
         </Field>
     {/if}
-
-    <ExpirationSettings
-            bind:expireValueSet={badgeclass.expireValueSet}
-            disabled={false}
-            className=""
-            bind:number={badgeclass.expirationDuration}
-            bind:period={badgeclass.expirationPeriod}/>
-
 
     {#if showStudyLoad && (institution.grondslagFormeel !== null || isInstitutionMBO)}
         <div style="display: flex">

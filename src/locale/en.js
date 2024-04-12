@@ -607,6 +607,7 @@ I18n.translations.en = {
             name_english: "Institution name in English",
             name_dutch: "Institution name in Dutch",
             award_allowed_institutions: "Award allowed institutions",
+            badge_class_tags: "Badge class tags",
             requestedBadges: "Requested edubadges"
         },
         faculty: {
@@ -701,6 +702,13 @@ I18n.translations.en = {
             educationProgramIdentifier: "ISAT",
             educationProgramIdentifierLong: "Programme Identifiers",
             participation: "Form of participation",
+            assessment: "Type of assessment",
+            url: "URL",
+            isStackable: "Stackable towards another credential?",
+            notStackable: "no, stand alone microcredential",
+            stackable: "yes, stackable microcredential",
+            isGradeAchieved: "Grade achieved",
+            gradeAchieved: "Grade achieved required?",
             notSet: "-",
             expirationPeriods: {
                 days: "Days",
@@ -1198,7 +1206,9 @@ I18n.translations.en = {
             alignmentFramework: "e.g. ESCO",
             alignmentDescription: "e.g. The discipline that studies, analyses and presents the events of the past related to humans.",
             alignmentUrl: "e.g. http://data.europa.eu/esco/skill/2b22f3b1-5de4-43f9-b6d1-b20f65871268",
-            alignmentCode: "e.g. 2b22f3b1-5de4-43f9-b6d1-b20f65871268"
+            alignmentCode: "e.g. 2b22f3b1-5de4-43f9-b6d1-b20f65871268",
+            qualityAssuranceName: "e.g. something",
+            qualityAssuranceUrl: "e.g. something",
         },
         permissions: {
             notes: "e.g. why did you add permissions?"
@@ -1293,6 +1303,7 @@ I18n.translations.en = {
         institutionGradingTable: "Use a URL that will not change. (Persistent URL).",
         institutionLinkedinOrgIdentifier: "LinkedIn identifier for this institution / organisation",
         institutionAwardAllowedInstitutions: "Select other institutions from which<br/>students potentially may be awarded edubadges.",
+        institutionBadgeClassTags: "Select or add tags. The tags can be linked to badge classes",
         badgeclassAwardAllowedInstitutions: "Select other institutions from which<br/>students may be awarded this edubadge.",
         enrollmentEvidenceNarrative: "A personal narrative that can be added to this awarded edubadge.",
         enrollmentEvidenceURL: "The URI of a webpage presenting the evidence of this achievement.",
@@ -1756,9 +1767,12 @@ I18n.translations.en = {
         },
         form: {
             placeHolder: "Please select...",
-            markupExample: "Insert an example in Markup",
+            markupExample: "Insert an example in MarkDown",
             programmeInformation: "Program information",
             assessmentInformation: "Assessment information",
+            qualityAssurance: "Quality assurance",
+            awardSettings: "Award settings",
+            relatedEducationalFramework: "Related Educational Frameworks",
             participation: {
                 options: {
                     organized: "Organized learning activities",
@@ -1766,7 +1780,38 @@ I18n.translations.en = {
                     practical: "Work or practical experience",
                     voluntary_work: "Voluntary work"
                 }
+            },
+            assessment: {
+                options: {
+                    knowledge_test: "Knowledge test",
+                    behavioural_assessment: "Behavioural assessment",
+                    professional_product: "Professional product",
+                    application_skill: "Application of a skill",
+                    portfolio_assessment: "Portfolio assessment",
+                    recognition_acquired_competences: "Recognition acquired competences",
+                    personalized_assessment: "Personalized assessment"
+                },
+                supervision: "Supervision & ID verification",
+                supervised: "Was the assessment supervised?",
+                idVerification: "Was the student's identity verified?"
+            },
+            directAward: {
+                title: "Direct awards",
+                directAwardAllowed: "Direct awarding allowed?",
+                details: "Direct award details",
+                evidenceURL: "Evidence (URL) required when issuing?",
+                narrative: "Narrative required when issuing?"
+            },
+            selfEnrollment: {
+                title: "Self enrollment",
+                directAwardAllowed: "Self enrollment allowed?",
+                details: "Self enrollment details",
+                evidenceURL: "Evidence (URL) required for enrollment?",
+                narrative: "Narrative required for enrollment?"
             }
-        }
+        },
+        saveAsDraft: "Save as draft",
+        preview: "Preview badge",
+        tagsPlaceholder: "Add or remove badge-class tags"
     }
 };

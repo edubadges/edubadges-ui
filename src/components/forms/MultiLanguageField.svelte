@@ -20,7 +20,6 @@
 
 <style>
   .tab-list {
-    max-width: 460px;
     display: flex;
     margin-top: 15px;
     padding-top: 10px;

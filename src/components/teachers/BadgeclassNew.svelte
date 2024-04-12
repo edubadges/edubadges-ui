@@ -45,7 +45,7 @@
   }`;
 
     let issuer = {};
-    let badgeclass = deduceExpirationPeriod({awardAllowedInstitutions: [], extensions: [{}], badge_class_type: badgeClassType.MICRO_CREDENTIAL});
+    let badgeclass = deduceExpirationPeriod({awardAllowedInstitutions: [], extensions: [{}], badgeClassType: badgeClassType.MICRO_CREDENTIAL});
     let currentInstitution;
     let publicInstitutions;
 
@@ -66,7 +66,7 @@
     });
 
     const makeChoice = choice => {
-        badgeclass = {...badgeclass, badge_class_type: choice};
+        badgeclass = {...badgeclass, badgeClassType: choice};
         choiceMade = true;
     }
 

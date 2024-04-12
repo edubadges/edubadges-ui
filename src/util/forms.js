@@ -15,3 +15,12 @@ export const validEppn = (val, badgeClass) => {
     const {eppnRegExpFormat} = badgeClass.issuer.faculty.institution;
     return isEmpty(eppnRegExpFormat) || new RegExp(eppnRegExpFormat,"i").test(val);
 }
+
+export function stopEvent(e) {
+    if (e !== undefined && e !== null) {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+    }
+    return true;
+}

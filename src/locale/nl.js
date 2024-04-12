@@ -607,6 +607,7 @@ I18n.translations.nl = {
             name_english: "Naam in het Engels",
             name_dutch: "Naam in het Nederlands",
             award_allowed_institutions: "Toegestane edubadge instellingen",
+            badge_class_tags: "Badge class tags",
             requestedBadges: "Aangevraagde edubadges"
         },
         faculty: {
@@ -700,6 +701,8 @@ I18n.translations.nl = {
             eqf: "Indicatief EQF niveau",
             educationProgramIdentifier: "ISAT",
             educationProgramIdentifierLong: "Opleidingscodes",
+            participation: "Form of participation",
+            assessment: "Type of assessment",
             notSet: "-",
             expirationPeriods: {
                 days: "Dagen",
@@ -1293,6 +1296,7 @@ I18n.translations.nl = {
         institutionGradingTable: "Gebruik hier een URL die niet zal veranderen. (Persistent URL).",
         institutionLinkedinOrgIdentifier: "LinkedIn id voor deze organisatie / instelling",
         institutionAwardAllowedInstitutions: "Selecteer andere instellingen waarvan de studenten<br/>ook edubadges kunnen ontvangen.",
+        institutionBadgeClassTags: "Verwijder of voeg een tag toe. De tags kunnen worden gekoppeld aan badge classes",
         badgeclassAwardAllowedInstitutions: "Selecteer andere instellingen waarvan de studenten<br/>ook deze edubadge kunnen ontvangen.",
         enrollmentEvidenceNarrative: "Een persoonlijke toelichting dat kan worden toegevoegd aan deze toegekende edubadge.",
         enrollmentEvidenceURL: "De URL van een webpagina met bewijs van de geleverde prestatie.",
@@ -1754,15 +1758,26 @@ I18n.translations.nl = {
                 extra_curricular: "A badge class based on time investment."
             },
             form: {
-                placeHolder: "Please select...",
-                markupExample: "Insert an example in Markup",
-                programmeInformation: "Program information",
+                placeHolder: "Selecteer een optie...",
+                markupExample: "Voeg een MarkDown voorbeeld in",
+                programmeInformation: "Programma informatie",
                 participation: {
                     options: {
                         organized: "Georganiseerde leeractiviteiten",
                         personalized: "Gepersonaliseerde leeractiviteiten",
                         practical: "Werk- of praktijkervaring",
                         voluntary_work: "Vrijwilligerswerk"
+                    }
+                },
+                assessment: {
+                    options: {
+                        knowledge_test: "Kennistoets",
+                        behavioural_assessment: "Gedragsassessment",
+                        professional_product: "Beroepsproduct",
+                        application_skill: "Toepassing van een vaardigheid",
+                        portfolio_assessment: "Portfolio assessment",
+                        recognition_acquired_competences: "Erkenning van verworven competenties",
+                        personalized_assessment: "Gepersonaliseerde toetsing"
                     }
                 }
             }
