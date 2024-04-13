@@ -68,12 +68,20 @@
             attribute: "status",
             sortType: sortType.ALPHA,
             reverse: false,
-            width: "11%",
+            width: "15%",
             center: true
         },
         {
+            name: I18n.t("newBadgeClassForm.badgeClassType"),
+            attribute: "badge_classs_type",
+            sortType: sortType.ALPHA,
+            reverse: false,
+            width: "15%",
+            center: false
+        },
+         {
             name: "",
-            width: "20%"
+            width: "1%"
         },
     ];
 
@@ -162,6 +170,7 @@
             <td class="right">{badgeclass.studyLoad}</td>
             <td class="right">{badgeclass.timeInvestment}</td>
             <td class="center">{I18n.t(`placeholders.badgeClass.status.${badgeclass.archived ? "archived" : badgeclass.isPrivate ? "private" : "active"}`) }</td>
+            <td class="">{I18n.t(`newBadgeClassForm.modal.types.${badgeclass.badgeClassType.toLowerCase()}`) }</td>
             <td></td>
         </tr>
     {/each}

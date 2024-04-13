@@ -55,6 +55,7 @@
         archived,
         isPrivate,
         pendingEnrollmentCount,
+        badgeClassType,
         extensions {
          name,
          originalJson

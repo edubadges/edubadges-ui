@@ -98,11 +98,12 @@
                     :global(svg) {
                         width: 18px;
                         height: auto;
+                        z-index: 3;
+                        &:hover {
+                            color: var(--sds--color--red--400);
+                        }
                     }
 
-                    &:hover {
-                        color: var(--sds--color--red--400);
-                    }
 
                     &.disabled {
                         cursor: not-allowed;

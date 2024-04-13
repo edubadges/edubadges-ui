@@ -889,7 +889,7 @@
                     showIndicator={false}
                     showChevron={true}
                     clearable={true}
-                    placeholder={I18n.t("placeholders.badgeclass.internalTags")}
+                    placeholder={I18n.t("placeholders.badgeClass.internalTags")}
                     optionIdentifier="id"
             />
         </Field>

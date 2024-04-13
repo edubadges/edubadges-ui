@@ -118,8 +118,8 @@
 </style>
 
 {#if loaded}
-    <div class="institution-form">
-        <EntityForm entityTypeName={entity} submit={handleSubmit} {processing}>
+    <EntityForm entityTypeName={entity} submit={handleSubmit} {processing}>
+        <div class="institution-form">
             <MultiLanguageField errorEnglish={englishValueError} errorDutch={dutchValueError}
                                 initialTab={institution.defaultLanguage == 'en-US'? "en" : "nl"}>
                 <div slot='en'>
@@ -199,21 +199,22 @@
                         optionIdentifier="id"
                 />
             </Field>
+            {#if !processing}
+                <Field {entity}
+                       attribute="badge_class_tags"
+                       errors={errors.badge_class_tags}
+                       tipKey="institutionBadgeClassTags">
+                    <Creatable addValues={addValues}
+                               removeValue={removeValue}
+                               values={institution.tags}
+                               placeholder={I18n.t("newBadgeClassForm.tagsPlaceholder")}
+                    />
 
-            <Field {entity}
-                   attribute="badge_class_tags"
-                   errors={errors.badge_class_tags}
-                   tipKey="institutionBadgeClassTags">
-                <Creatable addValues={addValues}
-                           removeValue={removeValue}
-                           values={institution.tags}
-                           placeholder={institution.tags.length === 0 ? I18n.t("newBadgeClassForm.tagsPlaceholder") : ""}
-                />
+                </Field>
+            {/if}
+        </div>
+    </EntityForm>
 
-            </Field>
-
-        </EntityForm>
-    </div>
 {:else}
     <Spinner/>
 {/if}

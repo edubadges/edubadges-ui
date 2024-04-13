@@ -710,6 +710,10 @@ I18n.translations.en = {
             isGradeAchieved: "Grade achieved",
             gradeAchieved: "Grade achieved required?",
             notSet: "-",
+            qualityAssuranceName: "Name",
+            qualityAssuranceUrl: "URL",
+            qualityAssuranceDescription: "Description",
+            internal_tags: "Internal tags",
             expirationPeriods: {
                 days: "Days",
                 weeks: "Weeks",
@@ -1209,6 +1213,7 @@ I18n.translations.en = {
             alignmentCode: "e.g. 2b22f3b1-5de4-43f9-b6d1-b20f65871268",
             qualityAssuranceName: "e.g. something",
             qualityAssuranceUrl: "e.g. something",
+            internalTags: "Select tags..."
         },
         permissions: {
             notes: "e.g. why did you add permissions?"
@@ -1746,6 +1751,7 @@ I18n.translations.en = {
         loaded: "{{name}} query loaded in {{time}}ms and ready to copy, download or show....."
     },
     newBadgeClassForm: {
+        badgeClassType: "Type",
         modal: {
             choose: "Choose a Badge class type",
             tipPre: "Tip: You can also duplicate an ",
@@ -1804,7 +1810,7 @@ I18n.translations.en = {
             },
             selfEnrollment: {
                 title: "Self enrollment",
-                directAwardAllowed: "Self enrollment allowed?",
+                selfEnrollmentAllowed: "Self enrollment allowed?",
                 details: "Self enrollment details",
                 evidenceURL: "Evidence (URL) required for enrollment?",
                 narrative: "Narrative required for enrollment?"
@@ -1814,4 +1820,5 @@ I18n.translations.en = {
         preview: "Preview badge",
         tagsPlaceholder: "Add or remove badge-class tags"
     }
+
 };

@@ -62,62 +62,68 @@
 </script>
 
 <style lang="scss">
-  div.checkbox-container {
-    margin-bottom: 15px;
-  }
+    .faculty-form {
+        max-width: 780px;
+    }
+
+    div.checkbox-container {
+        margin-bottom: 15px;
+    }
 </style>
 
 <EntityForm faculty={ {...faculty, entityId} } submit={onSubmit} create={isCreate} {processing}
             {mayDelete} entityTypeName={entity} entityId={entityId} {hasUnrevokedAssertions}>
-    <MultiLanguageField errorEnglish={englishValueError}
-                        errorDutch={dutchValueError}
-                        initialTab={defaultLanguage == 'en-US'? "en" : "nl"}>
-        <div slot='en'>
-            <Field {entity} attribute="name_english" errors={errors.name_english} tipKey="facultyNameEn">
-                <TextInput bind:value={faculty.nameEnglish} error={errors.name_english}
-                           placeholder={I18n.t("placeholders.faculty.name")}/>
-            </Field>
-            <Field {entity} attribute="description_english" errors={errors.description_english}
-                   tipKey="facultyDescriptionEn">
-                <TextInput bind:value={faculty.descriptionEnglish} error={errors.description_english} area size="100"
-                           placeholder={I18n.t("placeholders.faculty.description")}/>
-            </Field>
+    <div class="faculty-form">
+        <MultiLanguageField errorEnglish={englishValueError}
+                            errorDutch={dutchValueError}
+                            initialTab={defaultLanguage == 'en-US'? "en" : "nl"}>
+            <div slot='en'>
+                <Field {entity} attribute="name_english" errors={errors.name_english} tipKey="facultyNameEn">
+                    <TextInput bind:value={faculty.nameEnglish} error={errors.name_english}
+                               placeholder={I18n.t("placeholders.faculty.name")}/>
+                </Field>
+                <Field {entity} attribute="description_english" errors={errors.description_english}
+                       tipKey="facultyDescriptionEn">
+                    <TextInput bind:value={faculty.descriptionEnglish} error={errors.description_english} area
+                               size="100"
+                               placeholder={I18n.t("placeholders.faculty.description")}/>
+                </Field>
+            </div>
+            <div slot='nl'>
+                <Field {entity} attribute="name_dutch" errors={errors.name_dutch} tipKey="facultyNameNl">
+                    <TextInput bind:value={faculty.nameDutch} error={errors.name_dutch}
+                               placeholder={I18n.t("placeholders.faculty.name")}/>
+                </Field>
+                <Field {entity} attribute="description_dutch" errors={errors.description_dutch}
+                       tipKey="facultyDescriptionNl">
+                    <TextInput bind:value={faculty.descriptionDutch} error={errors.description_dutch} area size="100"
+                               placeholder={I18n.t("placeholders.faculty.description")}/>
+                </Field>
+            </div>
+        </MultiLanguageField>
+        <div class="checkbox-container">
+            <CheckBox
+                    value={faculty.onBehalfOf || false}
+                    inForm={true}
+                    adjustTop={true}
+                    label={I18n.t(['models', entity, 'onBehalfOf'])}
+                    tipKey="facultyOnBehalfOf"
+                    onChange={val => faculty.onBehalfOf = val}/>
         </div>
-        <div slot='nl'>
-            <Field {entity} attribute="name_dutch" errors={errors.name_dutch} tipKey="facultyNameNl">
-                <TextInput bind:value={faculty.nameDutch} error={errors.name_dutch}
-                           placeholder={I18n.t("placeholders.faculty.name")}/>
-            </Field>
-            <Field {entity} attribute="description_dutch" errors={errors.description_dutch}
-                   tipKey="facultyDescriptionNl">
-                <TextInput bind:value={faculty.descriptionDutch} error={errors.description_dutch} area size="100"
-                           placeholder={I18n.t("placeholders.faculty.description")}/>
-            </Field>
-        </div>
-    </MultiLanguageField>
-    <div class="checkbox-container">
-        <CheckBox
-                value={faculty.onBehalfOf || false}
-                inForm={true}
-                adjustTop={true}
-                label={I18n.t(['models', entity, 'onBehalfOf'])}
-                tipKey="facultyOnBehalfOf"
-                onChange={val => faculty.onBehalfOf = val}/>
+        <Field {entity} attribute="on_behalf_of_url" errors={errors.on_behalf_of_url}
+               tipKey="facultyOnBehalfOfUrl">
+            <TextInput bind:value={faculty.onBehalfOfUrl}
+                       error={errors.on_behalf_of_url}
+                       disabled={!faculty.onBehalfOf}
+                       placeholder={I18n.t("placeholders.faculty.onBehalfOfUrl")}/>
+        </Field>
+        <Field {entity} attribute="on_behalf_of_display_name" errors={errors.on_behalf_of_display_name}
+               tipKey="facultyOnBehalfOfDisplayName">
+            <TextInput bind:value={faculty.onBehalfOfDisplayName}
+                       error={errors.on_behalf_of_display_name}
+                       disabled={!faculty.onBehalfOf}
+                       placeholder={I18n.t("placeholders.faculty.onBehalfOfDisplayName")}/>
+        </Field>
     </div>
-    <Field {entity} attribute="on_behalf_of_url" errors={errors.on_behalf_of_url}
-           tipKey="facultyOnBehalfOfUrl">
-        <TextInput bind:value={faculty.onBehalfOfUrl}
-                   error={errors.on_behalf_of_url}
-                   disabled={!faculty.onBehalfOf}
-                   placeholder={I18n.t("placeholders.faculty.onBehalfOfUrl")}/>
-    </Field>
-    <Field {entity} attribute="on_behalf_of_display_name" errors={errors.on_behalf_of_display_name}
-           tipKey="facultyOnBehalfOfDisplayName">
-        <TextInput bind:value={faculty.onBehalfOfDisplayName}
-                   error={errors.on_behalf_of_display_name}
-                   disabled={!faculty.onBehalfOf}
-                   placeholder={I18n.t("placeholders.faculty.onBehalfOfDisplayName")}/>
-    </Field>
-
 </EntityForm>
 
