@@ -55,7 +55,9 @@
 
     div.actions {
         display: flex;
-        margin-top: 25px;
+        padding-top: 25px;
+        margin-top: 20px;
+        border-top: 2px solid var(--purple);
 
         .button-group {
             margin-left: auto;
