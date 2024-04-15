@@ -65,6 +65,7 @@
     let participationOptions = [];
     let assessmentOptions = [];
     let stackableOptions = [];
+    let showMicroCredentialFramework = false;
 
     onMount(() => {
         if (!badgeclass.alignments) {
@@ -572,6 +573,16 @@
 
     }
 
+    .required-micro-credential-framework {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+
+        p {
+            font-weight: 800
+        }
+    }
+
 </style>
 
 <EntityForm
@@ -941,66 +952,78 @@
                                 on:click={() => removeAlignment(i) }>{@html trash}</button>
                     </div>
                 {/if}
-                <Field entity={entity}
-                       attribute="alignmentName"
-                       errors={errors.alignments? errors.alignments[i].target_name: [] }
-                       tipKey="badgeClassRelatedFrameworkName">
-                    <TextInput
-                            bind:value={alignment.target_name}
-                            disabled={!mayRemoveAlignment(alignment) && !isCopy}
-                            error={errors.target_name}
-                            placeholder={I18n.t("placeholders.badgeClass.alignmentName")}
-                    />
-                </Field>
-                <Field entity={entity}
-                       attribute="alignmentFramework"
-                       errors={errors.alignments? errors.alignments[i].target_framework: [] }
-                       tipKey="badgeClassRelatedFrameworkFramework">
-                    <TextInput
-                            bind:value={alignment.target_framework}
-                            disabled={!mayRemoveAlignment(alignment) && !isCopy}
-                            error={errors.target_framework}
-                            placeholder={I18n.t("placeholders.badgeClass.alignmentFramework")}
-                    />
-                </Field>
-                <Field entity={entity}
-                       attribute="alignmentUrl"
-                       errors={errors.alignments? errors.alignments[i].target_url: []}
-                       tipKey="badgeClassRelatedFrameworkURL">
-                    <TextInput
-                            bind:value={alignment.target_url}
-                            disabled={!mayRemoveAlignment(alignment) && !isCopy}
-                            error={errors.target_url}
-                            placeholder={alignment.target_name !== microCredentialsFramework.name ? I18n.t("placeholders.badgeClass.alignmentUrl") : ""}
-                    />
-                </Field>
-                <Field {entity} attribute="alignmentCode"
-                       errors={errors.alignments? errors.alignments[i].target_code: []}
-                       tipKey="badgeClassRelatedFrameworkCode">
-                    <TextInput
-                            bind:value={alignment.target_code}
-                            disabled={!mayRemoveAlignment(alignment) && !isCopy}
-                            error={errors.target_code}
-                            placeholder={I18n.t("placeholders.badgeClass.alignmentCode")}
-                    />
-                </Field>
-                <div class="one-row">
-                    {#if mayRemoveAlignment(alignment)}
-                        <MarkDownExample onClick={() => markDownExample("description")} tipKey="badgeClassDescription"/>
-                    {/if}
+                {#if alignment.target_name === microCredentialsFramework.name}
+                    <div class="required-micro-credential-framework one-row">
+                        <p>{I18n.t("newBadgeClassForm.requiredMicroCredentialFramework")}</p>
+                        <a href="/toggle"
+                           on:click|preventDefault|stopPropagation={() => showMicroCredentialFramework = !showMicroCredentialFramework}>
+                            {I18n.t(`toggle.${!showMicroCredentialFramework ? "showMore" : "showLess"}`) }
+                        </a>
+                    </div>
+                {/if}
+                {#if alignment.target_name !== microCredentialsFramework.name || showMicroCredentialFramework}
                     <Field entity={entity}
-                           attribute="alignmentDescription"
-                           errors={errors.alignments? errors.alignments[i].target_description: []}
-                           tipKey="badgeClassRelatedFrameworkDescription">
-                        <div class="mark-down-container"
-                             class:disabled={!mayRemoveAlignment(alignment) && !isCopy}>
-                            <MarkdownField
-                                    bind:value={alignment.target_description}
-                                    disabled={!mayRemoveAlignment(alignment) && !isCopy}
-                            />
-                        </div>
+                           attribute="alignmentName"
+                           errors={errors.alignments? errors.alignments[i].target_name: [] }
+                           tipKey="badgeClassRelatedFrameworkName">
+                        <TextInput
+                                bind:value={alignment.target_name}
+                                disabled={!mayRemoveAlignment(alignment) && !isCopy}
+                                error={errors.target_name}
+                                placeholder={I18n.t("placeholders.badgeClass.alignmentName")}
+                        />
                     </Field>
-                </div>
+                    <Field entity={entity}
+                           attribute="alignmentFramework"
+                           errors={errors.alignments? errors.alignments[i].target_framework: [] }
+                           tipKey="badgeClassRelatedFrameworkFramework">
+                        <TextInput
+                                bind:value={alignment.target_framework}
+                                disabled={!mayRemoveAlignment(alignment) && !isCopy}
+                                error={errors.target_framework}
+                                placeholder={I18n.t("placeholders.badgeClass.alignmentFramework")}
+                        />
+                    </Field>
+                    <Field entity={entity}
+                           attribute="alignmentUrl"
+                           errors={errors.alignments? errors.alignments[i].target_url: []}
+                           tipKey="badgeClassRelatedFrameworkURL">
+                        <TextInput
+                                bind:value={alignment.target_url}
+                                disabled={!mayRemoveAlignment(alignment) && !isCopy}
+                                error={errors.target_url}
+                                placeholder={alignment.target_name !== microCredentialsFramework.name ? I18n.t("placeholders.badgeClass.alignmentUrl") : ""}
+                        />
+                    </Field>
+                    <Field {entity} attribute="alignmentCode"
+                           errors={errors.alignments? errors.alignments[i].target_code: []}
+                           tipKey="badgeClassRelatedFrameworkCode">
+                        <TextInput
+                                bind:value={alignment.target_code}
+                                disabled={!mayRemoveAlignment(alignment) && !isCopy}
+                                error={errors.target_code}
+                                placeholder={I18n.t("placeholders.badgeClass.alignmentCode")}
+                        />
+                    </Field>
+                    <div class="one-row">
+                        {#if mayRemoveAlignment(alignment)}
+                            <MarkDownExample onClick={() => markDownExample("description")}
+                                             tipKey="badgeClassDescription"/>
+                        {/if}
+                        <Field entity={entity}
+                               attribute="alignmentDescription"
+                               errors={errors.alignments? errors.alignments[i].target_description: []}
+                               tipKey="badgeClassRelatedFrameworkDescription">
+                            <div class="mark-down-container"
+                                 class:disabled={!mayRemoveAlignment(alignment) && !isCopy}>
+                                <MarkdownField
+                                        bind:value={alignment.target_description}
+                                        disabled={!mayRemoveAlignment(alignment) && !isCopy}
+                                />
+                            </div>
+                        </Field>
+                    </div>
+                {/if}
             {/each}
             <div class="one-row">
                 <AddButton

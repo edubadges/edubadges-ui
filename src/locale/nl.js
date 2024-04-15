@@ -1825,7 +1825,7 @@ I18n.translations.nl = {
         preview: "Preview badge",
         publish: "Publish",
         tagsPlaceholder: "Voeg een nieuwe tag toe, door hier te typen",
-        requiredMicroCredentialFramework: "Kwaliteitskader Microcredentials voor Professionals HBO en WO"
+        requiredMicroCredentialFramework: "Verplicht Kwaliteitskader Microcredentials voor Professionals HBO en WO"
     }
 
 }

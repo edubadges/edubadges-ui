@@ -1823,7 +1823,7 @@ I18n.translations.en = {
         preview: "Preview badge",
         publish: "Publish",
         tagsPlaceholder: "Start typing here to add a new badge-class tag",
-        requiredMicroCredentialFramework: "Quality framework Microcredentials for Professionals HBO and WO"
+        requiredMicroCredentialFramework: "Required: Quality framework Microcredentials for Professionals HBO and WO"
     }
 
 };
