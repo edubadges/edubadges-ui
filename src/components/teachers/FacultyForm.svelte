@@ -7,6 +7,7 @@
     import I18n from "i18n-js";
     import MultiLanguageField from "../forms/MultiLanguageField.svelte";
     import CheckBox from "../CheckBox.svelte";
+    import Switch from "../forms/Switch.svelte";
 
     export let entityId;
     export let faculty = {};
@@ -101,15 +102,13 @@
                 </Field>
             </div>
         </MultiLanguageField>
-        <div class="checkbox-container">
-            <CheckBox
-                    value={faculty.onBehalfOf || false}
-                    inForm={true}
-                    adjustTop={true}
-                    label={I18n.t(['models', entity, 'onBehalfOf'])}
-                    tipKey="facultyOnBehalfOf"
-                    onChange={val => faculty.onBehalfOf = val}/>
-        </div>
+
+        <Switch
+                value={faculty.onBehalfOf || false}
+                label={I18n.t(['models', entity, 'onBehalfOf'])}
+                question={I18n.t("tooltips.facultyOnBehalfOfUrl")}
+                onChange={() => faculty.onBehalfOf = !faculty.onBehalfOf}/>
+
         <Field {entity} attribute="on_behalf_of_url" errors={errors.on_behalf_of_url}
                tipKey="facultyOnBehalfOfUrl">
             <TextInput bind:value={faculty.onBehalfOfUrl}

@@ -55,7 +55,7 @@
 
     onMount(() => {
         queryData(query).then(res => {
-            res.currentInstitution.tags = res.currentInstitution.tags.map(tag => tag.name);
+            res.currentInstitution.tags = res.currentInstitution.tags.map(tag => tag.name).sort();
             institution = res.currentInstitution;
             publicInstitutions = res.publicInstitutions.filter(ins => ins.identifier !== institution.identifier);
             publicInstitutions.forEach(ins => translateProperties(ins));
@@ -116,7 +116,7 @@
 </script>
 <style lang="scss">
     .institution-form {
-        max-width: 680px;
+        max-width: 780px;
 
         :global(div.field) {
             margin-bottom: 20px;

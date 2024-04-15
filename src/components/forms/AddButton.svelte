@@ -10,7 +10,7 @@
     color: var(--green-medium);
     border: none;
     background-color: inherit;
-    font-size: 16px;
+    font-size: 14px;
     padding: 0;
     margin-left: 5px;
     margin-right: 5px;

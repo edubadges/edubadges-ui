@@ -705,10 +705,8 @@ I18n.translations.nl = {
             assessment: "Assessment type",
             url: "URL",
             isStackable: "Stackable vooor andere credential?",
-            notStackable: "nee, stand alone microcredential",
-            stackable: "ja, stackable microcredential",
             isGradeAchieved: "Cijfer behaald",
-            gradeAchieved: "Cijfer behaald verploicht?",
+            gradeAchieved: "Cijfer behaald verplicht?",
             notSet: "-",
             qualityAssuranceName: "Naam",
             qualityAssuranceUrl: "URL",
@@ -1260,7 +1258,7 @@ I18n.translations.nl = {
         badgeClassExpireSettings: "Geef hier aan of en hoelang de edubadge geldig is. Na deze datum zal een edubadge niet meer geldig zijn.",
         badgeClassName: "Vermijdt afkortingen, zorg voor herkenbare naam ook voor externen.",
         //badgeClassDescription: "Deze beschrijving ondersteund opmaak in markdown formaat. " +
-          //  "Zie <a target=\"_blank\" href=\"https://wiki.surfnet.nl/display/Edubadges/Edubadges+Example+BadgeClass\"> de wiki </a> voor voorbeelden.",
+        //  "Zie <a target=\"_blank\" href=\"https://wiki.surfnet.nl/display/Edubadges/Edubadges+Example+BadgeClass\"> de wiki </a> voor voorbeelden.",
         badgeClassLanguageOfInstruction: "De voertaal die gebruikt is bij het behalen van deze edubadge. ",
         badgeClassLearningOutcome: "Beschrijf de leeruitkomsten of de leerresultaten. Vastgelegd in de Onderwijs- en examenregeling.",
         //badgeClassLearningIssuer: "badgeClassLearningIssuer",
@@ -1290,7 +1288,7 @@ I18n.translations.nl = {
         //badgeClassRelatedFrameworkDescription: "badgeClassRelatedFrameworkDescription",
         facultyName: "Vermijdt afkortingen, zorg voor herkenbare naam ook voor externen.",
         facultyOnBehalfOf: "Indien aangevinkt vermeldt de badge class dat edubadges zijn uitgereikt namens deze issuer groep. Kan gebruikt worden bij het uitgeven namens een consortium.",
-        facultyOnBehalfOfUrl: "Wanneer Uitgeven namens naam issuer groep is aangevinkt, wordt deze URL gebruikt als een externe link naar deze issuer groep.",
+        facultyOnBehalfOfUrl: "Gebruik deze URL als een externe link naar deze issuer groep.",
         facultyOnBehalfOfDisplayName: "Wanneer Uitgeven namens naam issuer groep is aangevinkt, wordt deze weergavenaam gebruikt in plaats van de werkelijke naam van de issuer groep.",
         //facultyDescriptionEn: "facultyDescriptionEn",
         //facultyDescriptionNl: "facultyDescriptionNl",
@@ -1326,7 +1324,8 @@ I18n.translations.nl = {
         endorsementDescription: "De omschrijving van de aanbeveling",
         endorsementClaim: "De claim beschrijft waarom en hoe deze badgeclass vergelijkbaar is met de geselecteerde badge",
         endorsementBadgeClass: "De badgeklasse die je wilt aanbevelen.",
-        awardScheduling: "Voer de datum in waarop de e-mails zullen worden verzonden naar de gebruikers aan wie de badge is toegekend."
+        awardScheduling: "Voer de datum in waarop de e-mails zullen worden verzonden naar de gebruikers aan wie de badge is toegekend.",
+        badgeClassIsStackable: "A stackable badge-class can be linked to another badge-class"
     },
     badgeOverview: {
         faculty: "Issuer groep",
@@ -1815,11 +1814,18 @@ I18n.translations.nl = {
                 details: "Self enrollment details",
                 evidenceURL: "Evidence (URL) required for enrollment?",
                 narrative: "Narrative required for enrollment?"
+            },
+            stackable: {
+                notStackable: "nee, stand alone microcredential",
+                stackable: "ja, stackable microcredential",
             }
+
         },
         saveAsDraft: "Save as draft",
         preview: "Preview badge",
-        tagsPlaceholder: "Start typing here to add new badge-class tags"
+        publish: "Publish",
+        tagsPlaceholder: "Voeg een nieuwe tag toe, door hier te typen",
+        requiredMicroCredentialFramework: "Kwaliteitskader Microcredentials voor Professionals HBO en WO"
     }
 
 }

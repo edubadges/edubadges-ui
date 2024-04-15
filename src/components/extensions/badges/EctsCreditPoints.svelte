@@ -1,7 +1,7 @@
 <script>
     import I18n from "i18n-js";
-    import arrowDown from "../../../icons/new_forms/arrow-down.svg";
-    import arrowUp from "../../../icons/new_forms/arrow-up.svg";
+    import arrowDown from "../../../icons/forms/arrow-down.svg";
+    import arrowUp from "../../../icons/forms/arrow-up.svg";
 
     export let ectsValue;
     export let disabled = false;

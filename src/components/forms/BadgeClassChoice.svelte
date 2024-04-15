@@ -2,7 +2,7 @@
     import I18n from "i18n-js";
     import {link} from "svelte-routing";
     import Button from "../Button.svelte";
-    import {badgeClassType} from "../../util/badgeClassTypes";
+    import {badgeClassTypes} from "../../util/badgeClassTypes";
     import closeIcon from "../../icons/close_smll.svg";
     import {onMount} from "svelte";
     import {isEmpty} from "lodash";
@@ -16,9 +16,9 @@
     let showTip = false;
 
     onMount(() => {
-        options = Object.values(badgeClassType).map(type => (
-            {type: type, disabled: (type === badgeClassType.MICRO_CREDENTIAL && !currentInstitution.microCredentialsEnabled)
-                    || (type === badgeClassType.REGULAR && isEmpty(currentInstitution.grondslagFormeel))}
+        options = Object.values(badgeClassTypes).map(type => (
+            {type: type, disabled: (type === badgeClassTypes.MICRO_CREDENTIAL && !currentInstitution.microCredentialsEnabled)
+                    || (type === badgeClassTypes.REGULAR && isEmpty(currentInstitution.grondslagFormeel))}
         ));
     })
 

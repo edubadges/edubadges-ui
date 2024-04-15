@@ -705,8 +705,6 @@ I18n.translations.en = {
             assessment: "Type of assessment",
             url: "URL",
             isStackable: "Stackable towards another credential?",
-            notStackable: "no, stand alone microcredential",
-            stackable: "yes, stackable microcredential",
             isGradeAchieved: "Grade achieved",
             gradeAchieved: "Grade achieved required?",
             notSet: "-",
@@ -999,7 +997,7 @@ I18n.translations.en = {
         upload: "Upload image",
         remove: "Remove image",
         disclaimer:
-            "Image must be in .png format, contain at least 90x90 pixels, 300 dpi and have a maximum size of 256 KB.",
+            "<ul><li>Image must be in .png format</li><li>contain at least 90x90 pixels</li><li>have a maximum size of 256 KB</li></ul>",
     },
     copyToClipboard: {
         copied: "Copied to clipboard"
@@ -1289,7 +1287,7 @@ I18n.translations.en = {
         //badgeClassRelatedFrameworkDescription: "badgeClassRelatedFrameworkDescription",
         facultyName: "Avoid abbreviations, make sure your name is recognisable, also to external parties.",
         facultyOnBehalfOf: "When checked, the badge class indicates that edubadges are issued on behalf of this issuer group. Can be used when issuing on behalf of a consortium.",
-        facultyOnBehalfOfUrl: "When Issue on behalf of name issuer group is checked, this URL will be used as a external link to the issuer group.",
+        facultyOnBehalfOfUrl: "Use the URL as a external link to the issuer group.",
         facultyOnBehalfOfDisplayName: "When Issue on behalf of name issuer group is checked, this display name will used instead of the actual name of the issuer group.",
         //facultyDescriptionEn: "facultyDescriptionEn",
         //facultyDescriptionNl: "facultyDescriptionNl",
@@ -1325,7 +1323,8 @@ I18n.translations.en = {
         endorsementDescription: "The description of the endorsement",
         endorsementClaim: "The claim describes why and how this badge class is similar to the endorsed badge",
         endorsementBadgeClass: "The badge class you would like to endorse.",
-        awardScheduling: "Enter a scheduling date to set the date / time when the emails will be send out to the users who are awarded the badge"
+        awardScheduling: "Enter a scheduling date to set the date / time when the emails will be send out to the users who are awarded the badge",
+        badgeClassIsStackable: "A stackable badge-class can be linked to another badge-class"
     },
     badgeOverview: {
         faculty: "Issuer Group",
@@ -1814,11 +1813,17 @@ I18n.translations.en = {
                 details: "Self enrollment details",
                 evidenceURL: "Evidence (URL) required for enrollment?",
                 narrative: "Narrative required for enrollment?"
+            },
+            stackable: {
+                notStackable: "nee, stand alone microcredential",
+                stackable: "ja, stackable microcredential",
             }
         },
         saveAsDraft: "Save as draft",
         preview: "Preview badge",
-        tagsPlaceholder: "Start typing here to add new badge-class tags"
+        publish: "Publish",
+        tagsPlaceholder: "Start typing here to add a new badge-class tag",
+        requiredMicroCredentialFramework: "Quality framework Microcredentials for Professionals HBO and WO"
     }
 
 };

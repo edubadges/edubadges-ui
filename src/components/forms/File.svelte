@@ -64,8 +64,12 @@
   }
 
   .disclaimer {
-    margin-top: auto;
+    margin: auto 0 5px 18px;
     font-size: 14px;
+
+    :global(ul) {
+      list-style: initial;
+    }
   }
 </style>
 
@@ -99,7 +103,7 @@
         action={_ => setFile()}
         text={I18n.t('file.remove')} />
     {/if}
-    <span class="disclaimer">{disclaimer || I18n.t('file.disclaimer')}</span>
+    <span class="disclaimer">{ @html disclaimer || I18n.t('file.disclaimer')}</span>
 
   </div>
 </div>

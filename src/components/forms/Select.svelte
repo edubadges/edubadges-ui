@@ -92,7 +92,7 @@
     }
 
     div :global(.selectContainer .multiSelectItem) {
-        margin: 5px 8px;
+        margin: 5px;
     }
 
     div :global(.selectContainer .multiSelectItem:hover) {
