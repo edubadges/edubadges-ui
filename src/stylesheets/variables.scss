@@ -69,4 +69,13 @@
   --blue-link: #0077c8;
   --blue-light: #9adbe8;
 
+  /* Select */
+  --multiItemBorderRadius: 4px;
+  --multiItemBG: var(--grey-2);
+  --multiClearRadius: 4px;
+  --multiClearBG: var(--grey-2);
+  --multiClearFill: black;
+  --multiClearHoverBG: var(--grey-2);
+  --multiClearHoverFill: var(--red-medium);
+
 }

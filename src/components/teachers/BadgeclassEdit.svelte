@@ -28,7 +28,10 @@
       awardAllowAllInstitutions,
       alternativeIdentifier,
       directAwardingEnabled,
-      defaultLanguage
+      defaultLanguage,
+      tags {
+        id, name
+      }
     },
     issuers {
       nameEnglish,
@@ -52,10 +55,11 @@
       evidenceStudentRequired,
       narrativeStudentRequired,
       awardAllowedInstitutions,
+      tags,
       isMicroCredentials,
       directAwardingDisabled,
       selfEnrollmentDisabled,
-      badgeClassType,
+      typeBadgeClass,
       participation,
       assessmentType,
       assessmentIdVerified,
@@ -109,6 +113,7 @@
     onMount(() => {
         queryData(query, {entityId}).then(res => {
             badgeclass = res.badgeClass;
+            badgeclass.badgeClassType = badgeclass.typeBadgeClass;
             issuers = res.issuers || [];
             translateProperties(badgeclass.issuer);
             translateProperties(badgeclass.issuer.faculty);

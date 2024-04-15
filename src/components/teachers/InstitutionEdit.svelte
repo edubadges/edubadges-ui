@@ -38,7 +38,9 @@
       awardAllowedInstitutions,
       awardAllowAllInstitutions,
       linkedinOrgIdentifier,
-      tags
+      tags {
+        name
+      }
     },
   }`;
 
@@ -53,6 +55,7 @@
 
     onMount(() => {
         queryData(query).then(res => {
+            res.currentInstitution.tags = res.currentInstitution.tags.map(tag => tag.name);
             institution = res.currentInstitution;
             publicInstitutions = res.publicInstitutions.filter(ins => ins.identifier !== institution.identifier);
             publicInstitutions.forEach(ins => translateProperties(ins));
@@ -111,9 +114,13 @@
             }));
     }
 </script>
-<style>
+<style lang="scss">
     .institution-form {
-        max-width: 780px;
+        max-width: 680px;
+
+        :global(div.field) {
+            margin-bottom: 20px;
+        }
     }
 </style>
 

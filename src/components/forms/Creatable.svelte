@@ -100,7 +100,7 @@
                         height: auto;
                         z-index: 3;
                         &:hover {
-                            color: var(--sds--color--red--400);
+                            fill: var(--red-medium);
                         }
                     }
 

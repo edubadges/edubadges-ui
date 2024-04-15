@@ -73,7 +73,7 @@
         },
         {
             name: I18n.t("newBadgeClassForm.badgeClassType"),
-            attribute: "badge_classs_type",
+            attribute: "badgeClassType",
             sortType: sortType.ALPHA,
             reverse: false,
             width: "15%",

@@ -41,7 +41,6 @@
     export let hasUnrevokedAssertions;
     export let institution = {};
     export let publicInstitutions = [];
-    export let institutionTags = [];
     export let action;
 
     const isCreate = !entityId;
@@ -80,6 +79,9 @@
         publicInstitutions.forEach(ins => translateProperties(ins));
         if (publicInstitutions.length > 0 && badgeclass.awardAllowedInstitutions.length > 0) {
             publicInstitutionsChosen = publicInstitutions.filter(ins => badgeclass.awardAllowedInstitutions.includes(ins.identifier))
+        }
+        if (badgeclass.tags.length > 0) {
+            internalTags = institution.tags.filter(tag => badgeclass.tags.includes(parseInt(tag.id, 10)))
         }
         badgeclass.alignments = badgeclass.alignments.map(alignment => ({
             target_name: alignment.targetName,
@@ -336,9 +338,9 @@
             evidence_student_required: badgeclass.evidenceStudentRequired,
             award_non_validated_name_allowed: badgeclass.awardNonValidatedNameAllowed,
             is_micro_credentials: badgeclass.isMicroCredentials,
-            badge_class_type: badgeclass.badgeClassType,
-            participation: badgeclass.participation,
-            assessment_type: badgeclass.assessmentType,
+            badge_class_type: badgeclass.typeBadgeClass,
+            participation: badgeclass.participation ? badgeclass.participation.value : null,
+            assessment_type: badgeclass.assessmentType ? badgeclass.assessmentType.value : null,
             assessment_supervised: badgeclass.assessmentSupervised,
             assessment_id_verified: badgeclass.assessmentIdVerified,
             quality_assurance_name: badgeclass.qualityAssuranceName,
@@ -420,7 +422,7 @@
             newBadgeclass.issuer = badgeclass.issuer.entityId;
         }
         newBadgeclass.award_allowed_institutions = (!newBadgeclass.formal && publicInstitutionsChosen) ? publicInstitutionsChosen.map(ins => ins.id) : [];
-
+        newBadgeclass.tags = internalTags ? internalTags.map(tag => parseInt(tag.id, 10)) : [];
         const args = isCreate ? [newBadgeclass] : [entityId, newBadgeclass];
         const apiCall = isCreate ? createBadgeclass : editBadgeclass;
         apiCall(...args)
@@ -769,7 +771,7 @@
                isSelect={true}
                required={true}>
             <Select
-                    bind:value={badgeclass.assessment}
+                    bind:value={badgeclass.assessmentType}
                     items={assessmentOptions}
                     disabled={!mayEdit}
                     optionIdentifier="value"
@@ -781,12 +783,12 @@
         </Field>
         <div>
             <Switch value={badgeclass.assessmentSupervised}
-                    disabled={!mayEdit || isEmpty(badgeclass.assessment)}
+                    disabled={!mayEdit || isEmpty(badgeclass.assessmentType)}
                     label={I18n.t("newBadgeClassForm.form.assessment.supervision")}
                     question={I18n.t("newBadgeClassForm.form.assessment.supervised")}
                     onChange={() => badgeclass.assessmentSupervised = !badgeclass.assessmentSupervised}/>
             <Switch value={badgeclass.assessmentIdVerified}
-                    disabled={!mayEdit || isEmpty(badgeclass.assessment)}
+                    disabled={!mayEdit || isEmpty(badgeclass.assessmentType)}
                     question={I18n.t("newBadgeClassForm.form.assessment.idVerification")}
                     onChange={() => badgeclass.assessmentIdVerified = !badgeclass.assessmentIdVerified}/>
         </div>
@@ -883,7 +885,7 @@
                tipKey="badgeclassInternalTags">
             <Select
                     bind:value={internalTags}
-                    items={institutionTags}
+                    items={institution.tags}
                     isMulti={true}
                     customIndicator={indicator}
                     showIndicator={false}

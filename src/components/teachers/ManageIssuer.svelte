@@ -55,7 +55,7 @@
         archived,
         isPrivate,
         pendingEnrollmentCount,
-        badgeClassType,
+        typeBadgeClass,
         extensions {
          name,
          originalJson
@@ -88,7 +88,7 @@
           I18n.t("teacher.badgeclasses.ects", {value: ectsValue}) : "-";
         badgeClass.timeInvestment = timeInvestmentValue ? I18n.t("teacher.badgeclasses.hours", {value: timeInvestmentValue}) : "-";
         badgeClass.status = I18n.t(`placeholders.badgeClass.status.${badgeClass.archived ? "archived" : badgeClass.isPrivate ? "private" : "active"}`);
-
+        badgeClass.badgeClassType = badgeClass.typeBadgeClass;
       });
       permissions = res.issuer.permissions;
       contentType = res.issuer.contentTypeId;

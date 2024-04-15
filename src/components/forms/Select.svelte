@@ -28,89 +28,102 @@
 </script>
 
 <style lang="scss">
-  div :global(.selectContainer) {
-    padding: 0 0 0 0 !important;
-  }
+    div :global(.selectContainer) {
+        padding: 0 0 0 0 !important;
+    }
 
-  div :global(.selectContainer.focused) {
-    z-index: 9;
-  }
+    div :global(.selectContainer.focused) {
+        z-index: 9;
+    }
 
-  div :global(.selectContainer .selectedItem) {
-    padding: 0 0 0 16px !important;
-  }
+    div :global(.selectContainer .selectedItem) {
+        padding: 0 0 0 16px !important;
+    }
 
-  div :global(.selectContainer.multiSelect input) {
-    padding: 0 0 0 16px !important;
-    font-size: 16px;
-  }
+    div :global(.selectContainer.multiSelect input) {
+        padding: 0 0 0 16px !important;
+        font-size: 16px;
+    }
 
-  div :global(.selectContainer.focused) {
-    outline: var(--outline-fallback);
-    box-shadow: var(--field-outline-shadow);
-  }
+    div :global(.selectContainer.focused) {
+        outline: var(--outline-fallback);
+        box-shadow: var(--field-outline-shadow);
+    }
 
-  div :global(.selectContainer .indicator) {
-    position: relative;
-    margin-left: auto;
-    height: 100%;
-    width: 36px;
-    max-width: 36px;
-    right: 0;
-    top: 0;
-    background-color: var(--purple);
-    cursor: pointer;
-  }
+    div :global(.selectContainer .indicator) {
+        position: relative;
+        margin-left: auto;
+        height: 100%;
+        width: 36px;
+        max-width: 36px;
+        right: 0;
+        top: 0;
+        background-color: var(--purple);
+        cursor: pointer;
+    }
 
-  div :global(.selectContainer .clearSelect) {
-    cursor: pointer;
-  }
+    div :global(.selectContainer .clearSelect) {
+        cursor: pointer;
+    }
 
-  div :global(.selectContainer .indicator svg) {
-    fill: white;
-    width: 32px;
-    height: 26px;
-    margin-top: 5px;
-    margin-left: 2px;
-  }
+    div :global(.selectContainer .indicator svg) {
+        fill: white;
+        width: 32px;
+        height: 26px;
+        margin-top: 5px;
+        margin-left: 2px;
+    }
 
-  div :global(.selectContainer .indicator svg.chevron-down-large) {
-    height: 32px;
-  }
+    div :global(.selectContainer .indicator svg.chevron-down-large) {
+        height: 32px;
+    }
 
-  div :global(.selectContainer .listContainer .listItem .item.active) {
-    background-color: var(--purple);
-  }
+    div :global(.multiSelectItem_label) {
+        color: black;
+    }
 
-  div :global(.selectContainer .multiSelectItem) {
-    margin: 5px 8px;
-  }
+    div :global(.multiSelectItem) {
+        border: 1px solid var(--grey-4);
+        color: black;
+    }
 
-  div :global(.selectContainer .multiSelectItem:hover) {
-    background-color: var(--purple);
-  }
+    div :global(.selectContainer .listContainer .listItem .item.active) {
+        background-color: var(--purple);
+    }
 
-  div :global(.selectContainer .listContainer .listItem .item.hover:not(.active)) {
-    background-color: var(--purple-1);
-    cursor: pointer;
-  }
+    div :global(.selectContainer .multiSelectItem) {
+        margin: 5px 8px;
+    }
 
-  div :global(.selectContainer.disabled .indicator) {
-    background-color: var(--text-grey-light);
-  }
+    div :global(.selectContainer .multiSelectItem:hover) {
+        background-color: var(--grey-2);
+    }
 
-  /* Disabled */
-  div[disabled="true"] :global(.selectContainer input) {
-    cursor: not-allowed !important;
-  }
+    div :global(.selectContainer .listContainer .listItem .item.hover:not(.active)) {
+        background-color: var(--purple-1);
+        cursor: pointer;
+    }
 
-  /* Invalid */
-  div[error] {
-    --background: var(--field-background-error);
-    --border: var(--field-border-error);
-    --borderFocusColor: var(--field-border-color-error);
-    --borderHoverColor: var(--field-border-color-error);
-  }
+    div :global(.multiSelectItem_clear) {
+        cursor: pointer;
+    }
+
+    div :global(.selectContainer.disabled .indicator) {
+        background-color: var(--text-grey-light);
+    }
+
+    /* Disabled */
+    div[disabled="true"] :global(.selectContainer input) {
+        cursor: not-allowed !important;
+    }
+
+    /* Invalid */
+    div[error] {
+        --background: var(--field-background-error);
+        --border: var(--field-border-error);
+        --borderFocusColor: var(--field-border-color-error);
+        --borderHoverColor: var(--field-border-color-error);
+    }
 </style>
 
 {#if nonEditable || disabled}

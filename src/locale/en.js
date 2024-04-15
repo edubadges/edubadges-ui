@@ -1818,7 +1818,7 @@ I18n.translations.en = {
         },
         saveAsDraft: "Save as draft",
         preview: "Preview badge",
-        tagsPlaceholder: "Add or remove badge-class tags"
+        tagsPlaceholder: "Start typing here to add new badge-class tags"
     }
 
 };

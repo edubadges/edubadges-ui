@@ -27,7 +27,7 @@
 
         &.marginBottom {
             display: block;
-            margin-bottom: 25px;
+            margin-bottom: 10px;
         }
 
         &.marginTop {
