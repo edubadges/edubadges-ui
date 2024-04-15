@@ -421,94 +421,95 @@
 </script>
 
 <style lang="scss">
-  div.form {
-    display: grid;
-    grid-template-columns: 50% 50%;
-    grid-row: auto;
-    grid-column-gap: 40px;
-    grid-row-gap: 16px;
-    padding-right: 40px;
-
-  }
-
-  @media (max-width: 820px) {
     div.form {
-      grid-template-columns: 100%;
-    }
-  }
+        display: grid;
+        grid-template-columns: 50% 50%;
+        grid-row: auto;
+        grid-column-gap: 40px;
+        grid-row-gap: 16px;
+        padding-right: 40px;
 
-  h4 {
-    color: var(--purple);
-    padding: var(--ver-padding-s) var(--ver-padding-m);
-    font-size: 20px;
-    border-left: 3px solid var(--purple-2);
-    margin: var(--ver-padding-l) 0;
-  }
-
-  span.info {
-    display: inline-block;
-    margin: 6px 0;
-    font-size: 14px;
-
-    &.not-last {
-      margin-bottom: 8px;
-    }
-  }
-
-  div.mark-down-container.disabled {
-    background-color: var(--grey-2);
-    border: 1px solid var(--text-grey-dark);
-    padding: 5px;
-    border-radius: 4px;
-  }
-
-  .issuers {
-    grid-column: span 2;
-  }
-
-  .award-options {
-    margin: 35px 0 10px 0;
-  }
-
-  .deletable-title {
-    display: inline-block;
-  }
-
-  .add-buttons {
-    margin-bottom: 30px;
-  }
-
-  .rm-icon-container {
-    border: none;
-    background-color: inherit;
-    color: purple;
-    display: inline-block;
-    height: 30px;
-    width: 30px;
-    margin: 0 0 5px 0;
-    align-self: center;
-    cursor: pointer;
-  }
-
-  .disabled {
-    cursor: not-allowed !important;
-    color: var(--grey-7);
-  }
-
-  div.input-block {
-    display: flex;
-    position: relative;
-
-    &.not-first {
-      margin-top: 20px;
     }
 
-    button.rm-icon-container {
-      position: absolute;
-      right: 90px;
-      top: 6px;
+    @media (max-width: 820px) {
+        div.form {
+            grid-template-columns: 100%;
+        }
     }
-  }
+
+    h4 {
+        color: var(--purple);
+        padding: var(--ver-padding-s) var(--ver-padding-m);
+        font-size: 20px;
+        border-left: 3px solid var(--purple-2);
+        margin: var(--ver-padding-l) 0;
+    }
+
+    span.info {
+        display: inline-block;
+        margin: 6px 0;
+        font-size: 14px;
+
+        &.not-last {
+            margin-bottom: 8px;
+        }
+    }
+
+    div.mark-down-container.disabled {
+        background-color: var(--grey-2);
+        border: 1px solid var(--text-grey-dark);
+        padding: 5px;
+        border-radius: 4px;
+    }
+
+    .issuers {
+        grid-column: span 2;
+    }
+
+    .award-options {
+        margin: 35px 0 10px 0;
+    }
+
+    .deletable-title {
+        display: inline-block;
+    }
+
+    .add-buttons {
+        margin-bottom: 30px;
+    }
+
+    .rm-icon-container {
+        border: none;
+        background-color: inherit;
+        color: purple;
+        display: inline-block;
+        height: 30px;
+        width: 30px;
+        margin: 0 0 5px 0;
+        align-self: center;
+        cursor: pointer;
+
+    }
+
+    .disabled {
+        cursor: not-allowed !important;
+        color: var(--grey-7);
+    }
+
+    div.input-block {
+        display: flex;
+        position: relative;
+
+        &.not-first {
+            margin-top: 20px;
+        }
+
+        button.rm-icon-container {
+            position: absolute;
+            right: 90px;
+            top: 6px;
+        }
+    }
 </style>
 
 <EntityForm

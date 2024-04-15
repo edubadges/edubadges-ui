@@ -529,15 +529,22 @@
     .rm-icon-container {
         border: none;
         background-color: var(--grey-2);
-        color: var(--grey-4);
+        color: var(--grey-7);
         display: inline-block;
         padding: 8px 12px;
         margin: 0 0 5px 0;
         align-self: center;
         cursor: pointer;
 
+        &.alignment {
+            position: absolute;
+            right: 0;
+            top: -10px;
+        }
+
+
         &:hover {
-            color: var(--red-dark);
+            color: var(--red-strong-dark);
         }
 
         :global(svg) {
@@ -576,7 +583,7 @@
     .required-micro-credential-framework {
         display: flex;
         flex-direction: column;
-        gap: 15px;
+        gap: 10px;
 
         p {
             font-weight: 800
@@ -946,9 +953,12 @@
         {#if badgeclass.alignments && badgeclass.alignments.length > 0}
             <h4 class="one-row">{I18n.t('models.badgeclass.headers.alignment')}</h4>
             {#each badgeclass.alignments as alignment, i}
+                {#if i > 0 && i !== badgeclass.alignments}
+                    <div class="line-separator"/>
+                {/if}
                 {#if mayRemoveAlignment(alignment) && (mayEdit || !alignment.existing) && badgeclass.alignments.length > 1}
-                    <div>
-                        <button class="rm-icon-container"
+                    <div class="one-row">
+                        <button class="rm-icon-container alignment"
                                 on:click={() => removeAlignment(i) }>{@html trash}</button>
                     </div>
                 {/if}
