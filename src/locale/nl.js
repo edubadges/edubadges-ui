@@ -701,9 +701,19 @@ I18n.translations.nl = {
             eqf: "Indicatief EQF niveau",
             educationProgramIdentifier: "ISAT",
             educationProgramIdentifierLong: "Opleidingscodes",
-            participation: "Form of participation",
-            assessment: "Type of assessment",
+            participation: "Manier van samenwerking",
+            assessment: "Assessment type",
+            url: "URL",
+            isStackable: "Stackable vooor andere credential?",
+            notStackable: "nee, stand alone microcredential",
+            stackable: "ja, stackable microcredential",
+            isGradeAchieved: "Cijfer behaald",
+            gradeAchieved: "Cijfer behaald verploicht?",
             notSet: "-",
+            qualityAssuranceName: "Naam",
+            qualityAssuranceUrl: "URL",
+            qualityAssuranceDescription: "Omschrijving",
+            internal_tags: "Interne tags",
             expirationPeriods: {
                 days: "Dagen",
                 weeks: "Weken",
@@ -1201,7 +1211,10 @@ I18n.translations.nl = {
             alignmentFramework: "Bijv. ESCO",
             alignmentDescription: "Bijv. De tak van wetenschap die aan mensen gerelateerde gebeurtenissen uit het verleden bestudeert, analyseert en beschrijft.",
             alignmentUrl: "Bijv. http://data.europa.eu/esco/skill/2b22f3b1-5de4-43f9-b6d1-b20f65871268",
-            alignmentCode: "Bijv. 2b22f3b1-5de4-43f9-b6d1-b20f65871268"
+            alignmentCode: "Bijv. 2b22f3b1-5de4-43f9-b6d1-b20f65871268",
+            qualityAssuranceName: "e.g. iets",
+            qualityAssuranceUrl: "e.g. https://data.europa.com/qa",
+            internalTags: "Selecteer tags..."
         },
         permissions: {
             notes: "Bijv. waarom heb je permissies gegeven?"
@@ -1246,8 +1259,8 @@ I18n.translations.nl = {
         //badgeClassImage: "badgeClassImage",
         badgeClassExpireSettings: "Geef hier aan of en hoelang de edubadge geldig is. Na deze datum zal een edubadge niet meer geldig zijn.",
         badgeClassName: "Vermijdt afkortingen, zorg voor herkenbare naam ook voor externen.",
-        badgeClassDescription: "Deze beschrijving ondersteund opmaak in markdown formaat. " +
-            "Zie <a target=\"_blank\" href=\"https://wiki.surfnet.nl/display/Edubadges/Edubadges+Example+BadgeClass\"> de wiki </a> voor voorbeelden.",
+        //badgeClassDescription: "Deze beschrijving ondersteund opmaak in markdown formaat. " +
+          //  "Zie <a target=\"_blank\" href=\"https://wiki.surfnet.nl/display/Edubadges/Edubadges+Example+BadgeClass\"> de wiki </a> voor voorbeelden.",
         badgeClassLanguageOfInstruction: "De voertaal die gebruikt is bij het behalen van deze edubadge. ",
         badgeClassLearningOutcome: "Beschrijf de leeruitkomsten of de leerresultaten. Vastgelegd in de Onderwijs- en examenregeling.",
         //badgeClassLearningIssuer: "badgeClassLearningIssuer",
@@ -1739,6 +1752,7 @@ I18n.translations.nl = {
         loaded: "{{name}} query loaded in {{time}}ms and ready to copy, download or show....."
     },
     newBadgeClassForm: {
+        badgeClassType: "Type",
         modal: {
             choose: "Kies een Badge class type",
             tipPre: "Tip: Je kan ook een kopie maken van een ",
@@ -1756,32 +1770,57 @@ I18n.translations.nl = {
                 micro_credential: "A badge class with all metadata following EU guidelines.",
                 regular: "A badge class based on ECTS.",
                 extra_curricular: "A badge class based on time investment."
-            },
-            form: {
-                placeHolder: "Selecteer een optie...",
-                markupExample: "Voeg een MarkDown voorbeeld in",
-                programmeInformation: "Programma informatie",
-                participation: {
-                    options: {
-                        organized: "Georganiseerde leeractiviteiten",
-                        personalized: "Gepersonaliseerde leeractiviteiten",
-                        practical: "Werk- of praktijkervaring",
-                        voluntary_work: "Vrijwilligerswerk"
-                    }
-                },
-                assessment: {
-                    options: {
-                        knowledge_test: "Kennistoets",
-                        behavioural_assessment: "Gedragsassessment",
-                        professional_product: "Beroepsproduct",
-                        application_skill: "Toepassing van een vaardigheid",
-                        portfolio_assessment: "Portfolio assessment",
-                        recognition_acquired_competences: "Erkenning van verworven competenties",
-                        personalized_assessment: "Gepersonaliseerde toetsing"
-                    }
-                }
             }
         },
+        form: {
+            placeHolder: "Selecteer een optie...",
+            markupExample: "Voeg een MarkDown voorbeeld in",
+            programmeInformation: "Programma informatie",
+            assessmentInformation: "Assessment information",
+            qualityAssurance: "Quality assurance",
+            awardSettings: "Award settings",
+            relatedEducationalFramework: "Related Educational Frameworks",
+            participation: {
+                options: {
+                    organized: "Georganiseerde leeractiviteiten",
+                    personalized: "Gepersonaliseerde leeractiviteiten",
+                    practical: "Werk- of praktijkervaring",
+                    voluntary_work: "Vrijwilligerswerk"
+                }
+            },
+            assessment: {
+                options: {
+                    knowledge_test: "Kennistoets",
+                    behavioural_assessment: "Gedragsassessment",
+                    professional_product: "Beroepsproduct",
+                    application_skill: "Toepassing van een vaardigheid",
+                    portfolio_assessment: "Portfolio assessment",
+                    recognition_acquired_competences: "Erkenning van verworven competenties",
+                    personalized_assessment: "Gepersonaliseerde toetsing"
+                },
+                supervision: "Supervision & ID verification",
+                supervised: "Was the assessment supervised?",
+                idVerification: "Was the student's identity verified?"
+            },
+            directAward: {
+                title: "Direct awards",
+                directAwardAllowed: "Direct awarding allowed?",
+                details: "Direct award details",
+                evidenceURL: "Evidence (URL) required when issuing?",
+                narrative: "Narrative required when issuing?"
+            },
+            selfEnrollment: {
+                title: "Self enrollment",
+                selfEnrollmentAllowed: "Self enrollment allowed?",
+                details: "Self enrollment details",
+                evidenceURL: "Evidence (URL) required for enrollment?",
+                narrative: "Narrative required for enrollment?"
+            }
+        },
+        saveAsDraft: "Save as draft",
+        preview: "Preview badge",
+        tagsPlaceholder: "Start typing here to add new badge-class tags"
     }
 
-};
+}
+;

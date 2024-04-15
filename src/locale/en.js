@@ -1212,7 +1212,7 @@ I18n.translations.en = {
             alignmentUrl: "e.g. http://data.europa.eu/esco/skill/2b22f3b1-5de4-43f9-b6d1-b20f65871268",
             alignmentCode: "e.g. 2b22f3b1-5de4-43f9-b6d1-b20f65871268",
             qualityAssuranceName: "e.g. something",
-            qualityAssuranceUrl: "e.g. something",
+            qualityAssuranceUrl: "e.g. https://data.europa.com/qa",
             internalTags: "Select tags..."
         },
         permissions: {
