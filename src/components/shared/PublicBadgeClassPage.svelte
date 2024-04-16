@@ -102,7 +102,6 @@
       awardAllowedInstitutions,
       name,
       description,
-      criteriaUrl,
       awardNonValidatedNameAllowed,
       archived,
       criteriaText,

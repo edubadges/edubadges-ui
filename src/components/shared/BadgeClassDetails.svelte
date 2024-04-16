@@ -250,13 +250,6 @@
                 <MarkdownField value={fallBackValue(badgeclass.criteriaText)} disabled={true}/>
             </div>
         {/if}
-        {#if badgeclass.criteriaUrl}
-            <p class="green">
-                <a href={badgeclass.criteriaUrl} target="_blank" rel="noreferrer noopener">
-                    {badgeclass.criteriaUrl}
-                </a>
-            </p>
-        {/if}
         {#if endorsementsAccepted.length > 0 && config.features.endorsements}
             <section class="endorsements">
                 <h3 class="black-header">

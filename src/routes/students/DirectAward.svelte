@@ -62,7 +62,6 @@
         description,
         entityId,
         criteriaText,
-        criteriaUrl,
         awardAllowedInstitutions,
         image,
         formal,

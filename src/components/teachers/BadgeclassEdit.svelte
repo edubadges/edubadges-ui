@@ -44,7 +44,6 @@
       image,
       description,
       createdAt,
-      criteriaUrl,
       awardNonValidatedNameAllowed,
       archived,
       criteriaText,

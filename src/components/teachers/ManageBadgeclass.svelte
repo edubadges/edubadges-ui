@@ -64,7 +64,6 @@
       ${headerStaff},
       image,
       contentTypeId,
-      criteriaUrl,
       awardNonValidatedNameAllowed,
       awardAllowedInstitutions,
       archived,

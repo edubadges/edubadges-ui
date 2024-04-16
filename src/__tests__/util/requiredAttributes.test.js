@@ -8,6 +8,12 @@ test("Required attr", () => {
     expect(attributeValue(badgeClass, "name", {})).toBe("test");
 });
 
+test("Optional attr", () => {
+    const badgeClass = {typeBadgeClass: badgeClassTypes.REGULAR, name: "test"}
+    expect(isRequired(badgeClass, "nope")).toBe(false);
+    expect(attributeValue(badgeClass, "nope", {})).toBeUndefined();
+});
+
 test("Required extension", () => {
     const badgeClass = {
         typeBadgeClass: badgeClassTypes.MICRO_CREDENTIAL

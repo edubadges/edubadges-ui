@@ -27,7 +27,7 @@ const requiredRegular = {
         ECTSExtension: true,
         EducationProgramIdentifierExtension: true
     },
-    criteriaText: true,
+    criteriaText: true
 }
 
 const requiredExtraCurricular = {
@@ -42,8 +42,10 @@ const requiredExtraCurricular = {
 
 const isRequiredAttribute = (attributeName, requiredConfig) => {
     const parts = attributeName.split(".");
-    while (parts.length && (requiredConfig = requiredConfig[parts.shift()])) ;
-    return requiredConfig;
+    while (parts.length && requiredConfig) {
+        requiredConfig = requiredConfig[parts.shift()];
+    }
+    return requiredConfig || false;
 }
 
 export const attributeValue = (badgeClass, attributeName, extensions) => {
@@ -53,12 +55,14 @@ export const attributeValue = (badgeClass, attributeName, extensions) => {
         parts.shift();
     }
     let obj = isExtension ? extensions : badgeClass;
-    while (parts.length && (obj = obj[parts.shift()])) ;
+    while (parts.length && obj) {
+        obj = obj[parts.shift()];
+    }
     return Array.isArray(obj) ? obj[0] : obj;
 }
 
 export const isRequired = (badgeClass, attributeName) => {
-    switch (badgeClass.typeBadgeClass) {
+    switch (badgeClass.badgeClassType) {
         case badgeClassTypes.MICRO_CREDENTIAL:
             return isRequiredAttribute(attributeName, requiredMicroCredentials);
         case badgeClassTypes.REGULAR:

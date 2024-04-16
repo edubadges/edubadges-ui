@@ -152,7 +152,6 @@
         image,
         description,
         entityId,
-        criteriaUrl,
         awardNonValidatedNameAllowed,
         criteriaText,
         issuer {

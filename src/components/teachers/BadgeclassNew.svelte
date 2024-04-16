@@ -52,7 +52,8 @@
         awardAllowedInstitutions: [],
         extensions: [{}],
         tags: [],
-        badgeClassType: badgeClassTypes.REGULAR,
+        badgeClassType: badgeClassTypes.EXTRA_CURRICULAR,
+        alignments: [],
         stackable: "notStackable"});
     let currentInstitution;
     let publicInstitutions;

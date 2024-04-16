@@ -315,7 +315,6 @@
             is_micro_credentials: badgeclass.isMicroCredentials,
             direct_awarding_disabled: badgeclass.directAwardingDisabled,
             self_enrollment_disabled: badgeclass.selfEnrollmentDisabled,
-            criteria_url: toHttpOrHttps(badgeclass.criteriaUrl),
         };
         setExpirationPeriod(newBadgeclass);
         if (!showAlignment) {
@@ -704,13 +703,6 @@
                 </div>
             </Field>
         </div>
-        <Field {entity} attribute="criteria_url" errors={errors.criteria_url} tipKey="badgeClassCriteriaUrl">
-            <TextInput
-                    bind:value={badgeclass.criteriaUrl}
-                    disabled={!mayEdit && !isCopy}
-                    placeholder={I18n.t("placeholders.badgeClass.criteriaUrl")}
-                    error={errors.criteria_url}/>
-        </Field>
     </div>
 
     {#if publicInstitutions.length > 0 && !showStudyLoad}

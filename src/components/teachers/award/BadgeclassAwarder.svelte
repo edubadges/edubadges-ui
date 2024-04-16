@@ -64,7 +64,6 @@
       createdAt,
       ${headerStaff},
       image,
-      criteriaUrl,
       awardNonValidatedNameAllowed,
       awardAllowedInstitutions,
       archived,
