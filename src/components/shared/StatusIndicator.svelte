@@ -59,6 +59,12 @@
     max-width: 85px;
   }
 
+  span.status-indicator.draft {
+    background-color: var(--yellow-medium);
+    color: black;
+    max-width: 85px;
+  }
+
 </style>
 {#if badge}
   {#if badge.isDirectAward}
@@ -75,7 +81,11 @@
     <span class="status-indicator imported" class:card-view={cardView}>{I18n.t("models.badge.statuses.imported")}</span>
   {/if}
 {/if}
-{#if badgeClass && badgeClass.pendingEnrollmentCount && badgeClass.pendingEnrollmentCount > 0}
+{#if badgeClass && badgeClass.isPrivate}
+    <span class="status-indicator draft" class:card-view={cardView}>
+      {I18n.t("newBadgeClassForm.draft")}
+    </span>
+{:else if badgeClass && badgeClass.pendingEnrollmentCount && badgeClass.pendingEnrollmentCount > 0}
     <span class="status-indicator pending-enrollments" class:card-view={cardView}>
       {I18n.t("models.badge.statuses.pendingEnrollmentCount", {count: badgeClass.pendingEnrollmentCount})}
     </span>

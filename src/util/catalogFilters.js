@@ -1,4 +1,5 @@
 import I18n from "i18n-js";
+import {badgeClassTypes} from "./badgeClassTypes";
 
 export const sortTargetOptions = () => [
     {value: "awarded", name: I18n.t("teacher.badgeclasses.mostAwarded")},
@@ -26,8 +27,10 @@ export const educationalLevels = {
 
 export const badgeClassFilterTypes = {
     MICRO_CREDENTIALS: "MICRO_CREDENTIALS",
+    REGULAR: "REGULAR",
+    EXTRA_CURRICULAR: "EXTRA_CURRICULAR",
     ARCHIVED: "ARCHIVED",
-    OTHER: "OTHER",
+    DRAFT: "DRAFT",
     ALL: "ALL",
 }
 
@@ -56,10 +59,14 @@ export const assignFilterTypes = badgeClass => {
     badgeClass.types = [];
     if (badgeClass.archived) {
         badgeClass.types.push(badgeClassFilterTypes.ARCHIVED);
+    } else if (badgeClass.isPrivate) {
+        badgeClass.types.push(badgeClassFilterTypes.DRAFT);
     } else if (badgeClass.isMicroCredentials) {
         badgeClass.types.push(badgeClassFilterTypes.MICRO_CREDENTIALS);
+    } else if (badgeClass.typeBadgeClass.toLowerCase() === badgeClassTypes.REGULAR) {
+        badgeClass.types.push(badgeClassFilterTypes.REGULAR);
     } else {
-        badgeClass.types.push(badgeClassFilterTypes.OTHER);
+        badgeClass.types.push(badgeClassFilterTypes.EXTRA_CURRICULAR);
     }
 
     badgeClass.institutionType = badgeClass.institution.institutionType || educationalLevels.NONE;

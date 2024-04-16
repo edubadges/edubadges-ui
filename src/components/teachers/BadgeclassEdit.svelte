@@ -55,7 +55,9 @@
       evidenceStudentRequired,
       narrativeStudentRequired,
       awardAllowedInstitutions,
-      tags,
+      tags {
+        id, name
+      },
       isMicroCredentials,
       directAwardingDisabled,
       selfEnrollmentDisabled,
@@ -113,7 +115,7 @@
     onMount(() => {
         queryData(query, {entityId}).then(res => {
             badgeclass = res.badgeClass;
-            badgeclass.badgeClassType = badgeclass.typeBadgeClass;
+            badgeclass.badgeClassType = badgeclass.typeBadgeClass.toLowerCase();
             issuers = res.issuers || [];
             translateProperties(badgeclass.issuer);
             translateProperties(badgeclass.issuer.faculty);

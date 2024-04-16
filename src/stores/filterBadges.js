@@ -2,6 +2,7 @@ import {derived, writable} from "svelte/store";
 import {badgeClassFilterTypes} from "../util/catalogFilters";
 import I18n from "i18n-js";
 import {catalogPageCount} from "../util/pagination";
+import {badgeClassTypes as allBadgeClassTypes} from "../util/badgeClassTypes";
 
 export const sortTarget = writable();
 export const faculties = writable([]);
@@ -11,6 +12,7 @@ export const facultyIds = writable([]);
 export const issuerIds = writable([]);
 export const awardFilter = writable(true);
 export const typeBadgeClassSelected = writable([]);
+export const tagBadgeClassSelected = writable([]);
 export const page = writable(1);
 
 export const filterBySearch = (badgeclasses, search) => {
@@ -56,8 +58,8 @@ export const selectedEntity = derived(
 );
 
 export const tree = derived(
-    [faculties, awardFilter, search, page, facultyIds, issuerIds, typeBadgeClassSelected, sortTarget],
-    ([faculties, awardFilter, search, page, facultyIds, issuerIds, typeBadgeClassSelected, sortTarget]) => {
+    [faculties, awardFilter, search, page, facultyIds, issuerIds, typeBadgeClassSelected, tagBadgeClassSelected, sortTarget],
+    ([faculties, awardFilter, search, page, facultyIds, issuerIds, typeBadgeClassSelected, tagBadgeClassSelected, sortTarget]) => {
         const tree = faculties.filter(
             ({entityId}) => !facultyIds.length || facultyIds.includes(entityId)
         ).reduce(
@@ -108,16 +110,37 @@ export const tree = derived(
         sortedBadgeClasses = sortedBadgeClasses.filter(badge => {
             return !typeBadgeClassSelected.length || typeBadgeClassSelected.find(typeBadge => badge.types.includes(typeBadge))
         });
+
+        sortedBadgeClasses = sortedBadgeClasses.filter(badge => {
+            return !tagBadgeClassSelected.length || tagBadgeClassSelected.find(tag => badge.tags.some(t => t.name === tag))
+        });
+
         const badgeClassTypes = tree.badgeClasses.reduce((acc, badge) => {
                 if (badge.archived) {
                     const item = acc.find(v => v.value === badgeClassFilterTypes.ARCHIVED);
-                    ++item.count;
+                    if (item) {
+                        ++item.count;
+                    }
+                } else if (badge.isPrivate) {
+                    const item = acc.find(v => v.value === badgeClassFilterTypes.DRAFT);
+                    if (item) {
+                        ++item.count;
+                    }
                 } else if (badge.isMicroCredentials) {
                     const item = acc.find(v => v.value === badgeClassFilterTypes.MICRO_CREDENTIALS);
-                    ++item.count;
+                    if (item) {
+                        ++item.count;
+                    }
+                } else if (badge.typeBadgeClass.toLowerCase() === allBadgeClassTypes.REGULAR) {
+                    const item = acc.find(v => v.value === badgeClassFilterTypes.REGULAR);
+                    if (item) {
+                        ++item.count;
+                    }
                 } else {
-                    const item = acc.find(v => v.value === badgeClassFilterTypes.OTHER);
-                    ++item.count;
+                    const item = acc.find(v => v.value === badgeClassFilterTypes.EXTRA_CURRICULAR);
+                    if (item) {
+                        ++item.count;
+                    }
                 }
                 return acc;
             },
@@ -126,8 +149,24 @@ export const tree = derived(
                 value: badgeClassType,
                 count: 0
             })));
+        const allUniqueTags = tree.badgeClasses.reduce((acc, badgeClass) => {
+            badgeClass.tags.forEach(tag => acc.add({name: tag.name, count: 0}))
+            return acc;
+        }, new Set());
+        const badgeClassTags = tree.badgeClasses.reduce((acc, badge) => {
+                badge.tags.map(tag => tag.name)
+                    .forEach(name => {
+                        const item = acc.find(v => v.name === name);
+                        if (item) {
+                            ++item.count;
+                        }
+                    });
+                return acc;
+            }, [...allUniqueTags]
+        );
 
         tree.badgeClassTypes = badgeClassTypes;
+        tree.badgeClassTags = badgeClassTags;
         const minimalPage = Math.min(page, Math.ceil(sortedBadgeClasses.length / catalogPageCount))
 
         //Default we do not show the archived
@@ -144,8 +183,9 @@ export const tree = derived(
             badgeClasses: sortedBadgeClassesFiltered,
             paginatedBadges: sortedBadgeClassesFiltered.slice((minimalPage - 1) * catalogPageCount, minimalPage * catalogPageCount),
             page: minimalPage,
-            badgeClassTypes: sort(tree.badgeClassTypes, true)
+            badgeClassTypes: sort(tree.badgeClassTypes, true),
+            badgeClassTags: sort(tree.badgeClassTags, true)
         };
     },
-    {faculties: [], issuers: [], badgeClasses: [], badgeClassTypes: []}
+    {faculties: [], issuers: [], badgeClasses: [], badgeClassTypes: [], badgeClassTags: []}
 );

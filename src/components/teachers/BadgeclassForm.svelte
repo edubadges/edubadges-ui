@@ -24,15 +24,14 @@
     import {trash} from '../../icons';
     import {entityType} from "../../util/entityTypes";
     import {toHttpOrHttps} from "../../util/Url";
-    import {CheckBox} from "../index";
     import {translateProperties} from "../../util/utils";
     import MarkdownField from "../forms/MarkdownField.svelte";
     import {microCredentialsFramework} from "../../util/microcredentials";
     import {markDownTemplate} from "../../util/markDownTemplate";
-    import {userRole} from "../../stores/user";
     import MarkDownExample from "./badgeclass/MarkDownExample.svelte";
     import Switch from "../forms/Switch.svelte";
     import {badgeClassTypes} from "../../util/badgeClassTypes";
+    import StudyLoad from "../extensions/badges/StudyLoad.svelte";
 
     export let entityId;
     export let badgeclass = {extensions: [], issuer: {}, alignments: [], criteriaText: ""};
@@ -59,7 +58,6 @@
     let isInstitutionMBO = false;
     let showEducationalIdentifiers = false;
     let showProgrammeIdentifier = false;
-    let showAlignment = false;
     let showAddAlignmentButton = true;
     let initialToggle = true;
     let participationOptions = [];
@@ -84,7 +82,7 @@
             publicInstitutionsChosen = publicInstitutions.filter(ins => badgeclass.awardAllowedInstitutions.includes(ins.identifier))
         }
         if (badgeclass.tags && badgeclass.tags.length > 0) {
-            internalTags = (institution.tags || []).filter(tag => badgeclass.tags.includes(parseInt(tag.id, 10)))
+            internalTags = (institution.tags || []).filter(tag => badgeclass.tags.some(t => parseInt(t.id, 10) === parseInt(tag.id, 10)))
         }
         badgeclass.alignments = badgeclass.alignments.map(alignment => ({
             target_name: alignment.targetName,
@@ -123,11 +121,15 @@
                     target_code: microCredentialsFramework.code,
                 }];
             }
+        } else if (badgeclass.badgeClassType === badgeClassTypes.REGULAR && isCreate) {
+            badgeclass.alignments = [{
+                target_name: "",
+                target_url: "",
+                target_description: "",
+                target_framework: "",
+                target_code: "",
+            }];
         }
-        if (!isEmpty(badgeclass.alignments)) {
-            showAlignment = true;
-        }
-
     });
 
 
@@ -224,7 +226,6 @@
     }
 
     const addEmptyAlignment = () => {
-        showAlignment = true
         badgeclass.alignments.push({
             target_name: "",
             target_url: "",
@@ -248,20 +249,13 @@
         return mayEdit && alignment.target_name !== microCredentialsFramework.name;
     }
 
-    const removeAllAlignment = () => {
-        badgeclass.alignments = badgeclass.alignments.filter(alignment => alignment.target_name === microCredentialsFramework.name);
-        showAlignment = badgeclass.alignments.length > 0;
-    }
-
     const removeAlignment = (i) => {
         badgeclass.alignments.splice(i, 1)
         if (Object.keys(errors).length > 0) {
             errors.alignments.splice(i, 1)
             errors = errors
         }
-        if (!badgeclass.alignments || badgeclass.alignments.length === 0) {
-            showAlignment = false
-        } else if (badgeclass.alignments.length < 8) {
+        if (badgeclass.alignments.length < 8) {
             showAddAlignmentButton = true
         }
         badgeclass.alignments = badgeclass.alignments
@@ -327,7 +321,7 @@
             evidence_student_required: badgeclass.evidenceStudentRequired,
             award_non_validated_name_allowed: badgeclass.awardNonValidatedNameAllowed,
             is_micro_credentials: badgeclass.isMicroCredentials,
-            badge_class_type: badgeclass.typeBadgeClass,
+            badge_class_type: badgeclass.badgeClassType.toUpperCase(),
             participation: badgeclass.participation ? badgeclass.participation.value : null,
             assessment_type: badgeclass.assessmentType ? badgeclass.assessmentType.value : null,
             assessment_supervised: badgeclass.assessmentSupervised,
@@ -612,12 +606,15 @@
         previewAction={showPreview}
         {processing}>
 
-
     <div class="form">
         <h4 class="one-row">{I18n.t("models.badgeclass.headers.basicInformation")}</h4>
 
         <div>
-            <Field {entity} attribute="name" errors={errors.name} tipKey="badgeClassName" required={true}>
+            <Field entity={entity}
+                   attribute="name"
+                   errors={errors.name}
+                   tipKey="badgeClassName"
+                   required={true}>
                 <TextInput bind:value={badgeclass.name} disabled={!mayEdit && !isCopy} error={errors.name}
                            placeholder={I18n.t("placeholders.badgeClass.name")}/>
             </Field>
@@ -636,7 +633,11 @@
             </Field>
         </div>
         <div class="two-columns">
-            <Field {entity} attribute="image" errors={errors.image} tipKey="badgeClassImage" required={true}>
+            <Field entity={entity}
+                   attribute="image"
+                   errors={errors.image}
+                   tipKey="badgeClassImage"
+                   required={true}>
                 <File
                         bind:value={badgeclass.image}
                         disabled={!mayEdit && !isCopy}
@@ -709,17 +710,31 @@
                     clearable={false}/>
         </Field>
 
-        <Field entity={entity}
-               attribute="ects.creditPoints"
-               errors={errors.ECTSExtension}
-               tipKey="badgeClassStudyLoadEcts"
-               required={true}>
-            <EctsCreditPoints
-                    isMicroCredentials={badgeclass.isMicroCredentials}
-                    bind:ectsValue={extensions[ects.name]}
-                    disabled={!mayEdit && !isCopy}
-            />
-        </Field>
+        {#if badgeclass.badgeClassType === badgeClassTypes.EXTRA_CURRICULAR}
+            <Field entity={entity}
+                   attribute="hours"
+                   errors={errors.StudyLoadExtension}
+                   tipKey="badgeClassStudyLoadNumber"
+                   required={true}>
+                <StudyLoad
+                        bind:studyLoad={extensions[studyLoad.name]}
+                        bind:ectsValue={extensions[ects.name]}
+                        disabled={!mayEdit && !isCopy}
+                />
+            </Field>
+        {:else}
+            <Field entity={entity}
+                   attribute="ects.creditPoints"
+                   errors={errors.ECTSExtension}
+                   tipKey="badgeClassStudyLoadEcts"
+                   required={true}>
+                <EctsCreditPoints
+                        isMicroCredentials={badgeclass.isMicroCredentials}
+                        bind:ectsValue={extensions[ects.name]}
+                        disabled={!mayEdit && !isCopy}
+                />
+            </Field>
+        {/if}
 
         <Field entity={entity}
                attribute="eqf"
@@ -752,8 +767,8 @@
                     optionIdentifier="value"
                     placeholder={I18n.t("newBadgeClassForm.form.placeHolder")}
                     customIndicator={indicator}
-                    showIndicator={true}
-                    showChevron={true}
+                    showIndicator={false}
+                    showChevron={false}
                     clearable={true}/>
         </Field>
 
@@ -792,7 +807,7 @@
 
         <Field entity={entity}
                attribute="assessment"
-               errors={errors.assessment}
+               errors={errors.assessment_type}
                tipKey="badgeClassIsPrivate"
                isSelect={true}
                required={true}>
@@ -823,7 +838,7 @@
 
         <Field entity={entity}
                attribute="qualityAssuranceName"
-               errors={errors.qualityAssuranceName}
+               errors={errors.quality_assurance_name}
                tipKey="qualityAssuranceName"
                required={true}>
             <TextInput bind:value={badgeclass.qualityAssuranceName}
@@ -950,13 +965,13 @@
                 question={I18n.t("models.badgeclass.gradeAchieved")}
                 onChange={() => badgeclass.gradeAchievedRequired = !badgeclass.gradeAchievedRequired}/>
 
-        {#if badgeclass.alignments && badgeclass.alignments.length > 0}
+        {#if badgeclass.alignments && badgeclass.badgeClassType !== badgeClassTypes.EXTRA_CURRICULAR}
             <h4 class="one-row">{I18n.t('models.badgeclass.headers.alignment')}</h4>
             {#each badgeclass.alignments as alignment, i}
                 {#if i > 0 && i !== badgeclass.alignments}
                     <div class="line-separator"/>
                 {/if}
-                {#if mayRemoveAlignment(alignment) && (mayEdit || !alignment.existing) && badgeclass.alignments.length > 1}
+                {#if mayRemoveAlignment(alignment) && (mayEdit || !alignment.existing)}
                     <div class="one-row">
                         <button class="rm-icon-container alignment"
                                 on:click={() => removeAlignment(i) }>{@html trash}</button>
@@ -1047,28 +1062,6 @@
         {/if}
 
 
-        <!--{#if publicInstitutions.length > 0 && badgeclass.badgeClassType === badgeClassTypes.EXTRA_CURRICULAR}-->
-        <!--    <h4 class="one-row">{I18n.t("models.badgeclass.headers.allowedInstituions")}</h4>-->
-
-        <!--    <Field entity={entity}-->
-        <!--           attribute="award_allowed_institutions"-->
-        <!--           errors={errors.award_allowed_institutions}-->
-        <!--           isSelect={true}-->
-        <!--           tipKey="badgeclassAwardAllowedInstitutions">-->
-        <!--        <Select-->
-        <!--                bind:value={publicInstitutionsChosen}-->
-        <!--                items={publicInstitutions}-->
-        <!--                isMulti={true}-->
-        <!--                customIndicator={indicator}-->
-        <!--                showIndicator={false}-->
-        <!--                showChevron={true}-->
-        <!--                clearable={true}-->
-        <!--                placeholder={I18n.t("placeholders.institution.allowedInstitutions")}-->
-        <!--                optionIdentifier="id"-->
-        <!--        />-->
-        <!--    </Field>-->
-        <!--{/if}-->
-
         <!--{#if institution.grondslagFormeel !== null || isInstitutionMBO}-->
         <!--    <div style="display: flex">-->
         <!--        <div class="deletable-title"><h4>{I18n.t('models.badgeclass.headers.studyLoad')}</h4></div>-->
@@ -1082,16 +1075,6 @@
         <!--    </div>-->
 
         <!--    <div class="form">-->
-        <!--        {#if isInstitutionMBO}-->
-        <!--            <Field {entity} attribute="hours" errors={errors.StudyLoadExtension}-->
-        <!--                   tipKey="badgeClassStudyLoadNumber">-->
-        <!--                <TextInput-->
-        <!--                        type="number"-->
-        <!--                        bind:value={extensions[studyLoad.name]}-->
-        <!--                        error={errors.StudyLoadExtension}-->
-        <!--                        disabled={!mayEdit && !isCopy}-->
-        <!--                        placeholder={I18n.t("placeholders.badgeClass.studyLoad")}/>-->
-        <!--            </Field>-->
         <!--        {:else if institution.grondslagFormeel !== null}-->
 
         <!--        {/if}-->

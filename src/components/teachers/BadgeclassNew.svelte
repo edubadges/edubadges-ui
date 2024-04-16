@@ -52,7 +52,7 @@
         awardAllowedInstitutions: [],
         extensions: [{}],
         tags: [],
-        badgeClassType: badgeClassTypes.MICRO_CREDENTIAL,
+        badgeClassType: badgeClassTypes.REGULAR,
         stackable: "notStackable"});
     let currentInstitution;
     let publicInstitutions;

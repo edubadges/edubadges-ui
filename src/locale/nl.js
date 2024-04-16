@@ -692,7 +692,7 @@ I18n.translations.nl = {
             studyLoad: "Studielast",
             timeInvestment: "Tijd investering",
             ects: {
-                creditPoints: "Studiepunten (ECTS)",
+                creditPoints: "Studiepunten in ECTS",
                 hours: "Uren"
             },
             sbu: "Study Belasting Uren",
@@ -1353,10 +1353,12 @@ I18n.translations.nl = {
             eqf: "EQF niveau {{level}}",
         },
         badgeClassType: {
-            OTHER: "Anders",
             ARCHIVED: "Gearchiveerd",
             ALL: "Alle",
-            MICRO_CREDENTIALS: "Pilot Microcredentials"
+            MICRO_CREDENTIALS: "Pilot Microcredentials",
+            DRAFT: "Draft",
+            REGULAR: "Regulier",
+            EXTRA_CURRICULAR: "Extra-curricular",
         },
         issuer: {
             contact: "Neem contact op met de issuer",
@@ -1822,6 +1824,7 @@ I18n.translations.nl = {
 
         },
         saveAsDraft: "Save as draft",
+        draft: "Draft",
         preview: "Preview badge",
         publish: "Publish",
         tagsPlaceholder: "Voeg een nieuwe tag toe, door hier te typen",

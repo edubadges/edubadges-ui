@@ -9,6 +9,7 @@ import {
 import {badgeClassFilterTypes, educationalLevels, studyLoadCategories} from "../util/catalogFilters";
 import I18n from "i18n-js";
 import {catalogPageCount} from "../util/pagination";
+import {badgeClassTypes as allBadgeClassTypes} from "../util/badgeClassTypes";
 
 
 export const sortTarget = writable();
@@ -138,13 +139,23 @@ export const tree = derived(
                     if (item) {
                         ++item.count;
                     }
+                } else if (badge.isPrivate) {
+                    const item = acc.find(v => v.value === badgeClassFilterTypes.DRAFT);
+                    if (item) {
+                        ++item.count;
+                    }
                 } else if (badge.isMicroCredentials) {
                     const item = acc.find(v => v.value === badgeClassFilterTypes.MICRO_CREDENTIALS);
                     if (item) {
                         ++item.count;
                     }
+                } else if (badge.typeBadgeClass.toLowerCase() === allBadgeClassTypes.REGULAR) {
+                    const item = acc.find(v => v.value === badgeClassFilterTypes.REGULAR);
+                    if (item) {
+                        ++item.count;
+                    }
                 } else {
-                    const item = acc.find(v => v.value === badgeClassFilterTypes.OTHER);
+                    const item = acc.find(v => v.value === badgeClassFilterTypes.EXTRA_CURRICULAR);
                     if (item) {
                         ++item.count;
                     }

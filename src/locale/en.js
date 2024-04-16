@@ -154,6 +154,7 @@ I18n.translations.en = {
                 status: "Status",
                 show_all: "Show all",
                 show_less: "Show less",
+                badgeClassTag: "Tags"
             },
         },
         breadcrumb: {
@@ -438,7 +439,7 @@ I18n.translations.en = {
         931: "There is already an unaccepted direct award for this EPPN",
         932: "This badge class requires a narrative for awarding",
         933: "This badge class requires evidence for awarding",
-        934: "The programme identifier is required when Credit points are specified.",
+        934: "The programme identifier is required when study points in ECTS are specified.",
         935: "Enter the time investment or remove this section.",
         936: "Cannot create edubadge collection with this name as it already exists.",
         937: "ECTS can not be empty or 0",
@@ -692,7 +693,7 @@ I18n.translations.en = {
             studyLoad: "Study load",
             timeInvestment: "Time investment",
             ects: {
-                creditPoints: "Credit points (according to ECTS)",
+                creditPoints: "Study load in ECTS",
                 hours: "Hours"
             },
             sbu: "Studie Belasting Uren",
@@ -1352,10 +1353,12 @@ I18n.translations.en = {
             eqf: "EQF level {{level}}",
         },
         badgeClassType: {
-            OTHER: "Other",
             ARCHIVED: "Archived",
             ALL: "All",
-            MICRO_CREDENTIALS: "Pilot Microcredentials"
+            MICRO_CREDENTIALS: "Pilot Microcredentials",
+            DRAFT: "Draft",
+            REGULAR: "Regular",
+            EXTRA_CURRICULAR: "Extra-curricular",
         },
         issuer: {
             contact: "Contact the issuer",
@@ -1820,6 +1823,7 @@ I18n.translations.en = {
             }
         },
         saveAsDraft: "Save as draft",
+        draft: "Draft",
         preview: "Preview badge",
         publish: "Publish",
         tagsPlaceholder: "Start typing here to add a new badge-class tag",

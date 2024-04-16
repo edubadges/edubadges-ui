@@ -13,6 +13,7 @@
     import Pagination from "../../components/Pagination.svelte";
     import {catalogPageCount, pageCount} from "../../util/pagination";
     import {page} from "../../stores/filterBadges";
+    import {badgeClassTypes} from "../../util/badgeClassTypes";
 
     const query = `query {
     faculties {
@@ -46,8 +47,13 @@
           permissions {
             mayAward
           },
-            directAwardedAssertionsCount,
-            selfRequestedAssertionsCount,
+          typeBadgeClass,
+          tags       {
+            id, name
+          },
+          isPrivate,
+          directAwardedAssertionsCount,
+          selfRequestedAssertionsCount,
           pendingEnrollmentCount,
         }
       },
@@ -82,10 +88,14 @@
                         badgeClass.types = [];
                         if (badgeClass.archived) {
                             badgeClass.types.push(badgeClassFilterTypes.ARCHIVED);
-                        } else if (badgeClass.isMicroCredentials) {
+                        } else if (badgeClass.isPrivate) {
+                            badgeClass.types.push(badgeClassFilterTypes.DRAFT);
+                        } else if (badgeClass.isMicroCredentials){
                             badgeClass.types.push(badgeClassFilterTypes.MICRO_CREDENTIALS);
+                        } else if (badgeClass.typeBadgeClass.toLowerCase() === badgeClassTypes.REGULAR) {
+                            badgeClass.types.push(badgeClassFilterTypes.REGULAR);
                         } else {
-                            badgeClass.types.push(badgeClassFilterTypes.OTHER);
+                            badgeClass.types.push(badgeClassFilterTypes.EXTRA_CURRICULAR);
                         }
                     });
                 });

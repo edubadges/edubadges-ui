@@ -41,6 +41,8 @@
             directAwardedAssertionsCount,
             selfRequestedAssertionsCount,
             archived,
+            isPrivate,
+            typeBadgeClass,
             createdAt,
             isMicroCredentials,
             extensions {
