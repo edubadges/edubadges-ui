@@ -42,7 +42,8 @@
   {:else if type === "text"}
     <input type="text" {placeholder} class="input-field" class:error bind:value {disabled} use:init on:blur={e => onBlur && onBlur(e)}/>
   {:else}
-    <input type="number" {placeholder} max={max} min="0" oninput="validity.valid||(value='');" class="input-field" class:error bind:value {disabled}/>
+    <input type="number" {placeholder} max={max} min="0" oninput="validity.valid||(value='');"
+           class="input-field" class:error bind:value {disabled} on:blur={e => onBlur && onBlur(e)}/>
   {/if}
   <slot/>
 </div>

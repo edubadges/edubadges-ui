@@ -1,17 +1,15 @@
-import {attributeValue, isRequired} from "../../util/requiredAttributes";
+import { isRequired, constructErrors} from "../../util/requiredAttributes";
 import {badgeClassTypes} from "../../util/badgeClassTypes";
 
 
 test("Required attr", () => {
     const badgeClass = {typeBadgeClass: badgeClassTypes.REGULAR, name: "test"}
     expect(isRequired(badgeClass, "name")).toBe(true);
-    expect(attributeValue(badgeClass, "name", {})).toBe("test");
 });
 
 test("Optional attr", () => {
     const badgeClass = {typeBadgeClass: badgeClassTypes.REGULAR, name: "test"}
     expect(isRequired(badgeClass, "nope")).toBe(false);
-    expect(attributeValue(badgeClass, "nope", {})).toBeUndefined();
 });
 
 test("Required extension", () => {
@@ -20,7 +18,6 @@ test("Required extension", () => {
     }
     const extensions = {LearningOutcomeExtension: "test"};
     expect(isRequired(badgeClass, "extensions.LearningOutcomeExtension")).toBe(true);
-    expect(attributeValue(badgeClass, "extensions.LearningOutcomeExtension", extensions)).toBe("test");
 });
 
 test("Required educationProgramIdentifier array", () => {
@@ -29,5 +26,14 @@ test("Required educationProgramIdentifier array", () => {
     }
     const extensions = {EducationProgramIdentifierExtension: [123456]};
     expect(isRequired(badgeClass, "extensions.EducationProgramIdentifierExtension")).toBe(true);
-    expect(attributeValue(badgeClass, "extensions.EducationProgramIdentifierExtension", extensions)).toBe(123456);
+});
+
+test("Construct errors", () => {
+    const badgeClass = {
+        typeBadgeClass: badgeClassTypes.MICRO_CREDENTIAL,
+        name: "name",
+    }
+    const extensions = {EducationProgramIdentifierExtension: [123456]};
+    const errors = constructErrors(badgeClass, extensions);
+    expect(errors).strictEqual(true);
 });

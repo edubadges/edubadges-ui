@@ -50,7 +50,7 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background-color: var(--grey-2);
+        background-color: #858e96;
         transition: .4s;
 
         &::before {
@@ -66,7 +66,7 @@
 
         &.disabled {
             cursor: not-allowed;
-            background-color: var(--grey-4);
+            background-color: #b2b6bd;
         }
 
         &.round {
@@ -84,15 +84,15 @@
     }
 
     input:checked + .slider.checked {
-        background-color: var(--green-medium);
+        background-color: #268939;
     }
 
     input:checked + .slider.checked.disabled {
-        background-color: var(--grey-4);
+        background-color: #b2b6bd;
     }
 
     input:focus + .slider.checked {
-        box-shadow: 0 0 1px var(--green-medium);
+        box-shadow: 0 0 1px #1c722e;
     }
 
     input:focus + .slider.checked.disabled {

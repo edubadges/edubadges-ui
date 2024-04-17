@@ -106,8 +106,10 @@
     let inFacultySelected = false;
 
     const badgeTypes = [{name: I18n.t("catalog.badgeClassType.ALL"), value: badgeClassFilterTypes.ALL},
-        {name: I18n.t("catalog.badgeClassType.OTHER"), value: badgeClassFilterTypes.OTHER},
-        {name: I18n.t("catalog.badgeClassType.MICRO_CREDENTIALS"), value: badgeClassFilterTypes.MICRO_CREDENTIALS}]
+        {name: I18n.t("catalog.badgeClassType.REGULAR"), value: badgeClassFilterTypes.REGULAR},
+        {name: I18n.t("catalog.badgeClassType.MICRO_CREDENTIALS"), value: badgeClassFilterTypes.MICRO_CREDENTIALS},
+        {name: I18n.t("catalog.badgeClassType.EXTRA_CURRICULAR"), value: badgeClassFilterTypes.EXTRA_CURRICULAR},
+        {name: I18n.t("catalog.badgeClassType.ARCHIVED"), value: badgeClassFilterTypes.ARCHIVED}]
     let badgeType = badgeTypes[0];
 
     //To calculate the X-axis

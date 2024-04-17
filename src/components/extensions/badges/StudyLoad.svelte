@@ -3,7 +3,7 @@
     import arrowDown from "../../../icons/forms/arrow-down.svg";
     import arrowUp from "../../../icons/forms/arrow-up.svg";
 
-    export let studyLoad = 0;
+    export let studyLoad = 84;
     export let disabled = false;
 
     const decrement = () => {
@@ -11,10 +11,10 @@
     }
 
     const increment = () => {
-        studyLoad = Math.min((studyLoad || 0) + 1, 4000);
+        studyLoad = Math.min(84, (studyLoad || 0) + 1, 840);
     }
 
-    const onValid = `validity.valid||(value=${'4000'})`;
+    const onValid = `validity.valid||(value=${'840'})`;
 
 </script>
 

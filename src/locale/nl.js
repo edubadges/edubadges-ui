@@ -1777,6 +1777,8 @@ I18n.translations.nl = {
             qualityAssurance: "Quality assurance",
             awardSettings: "Award settings",
             relatedEducationalFramework: "Related Educational Frameworks",
+            switchToStudyLoad: "Gebruik studie load (uren) in plaats van ECTS",
+            switchToECTS: "Gebruik Credit Points (ECTS) in plaats van uren",
             participation: {
                 options: {
                     organized: "Georganiseerde leeractiviteiten",

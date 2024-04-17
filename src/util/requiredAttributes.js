@@ -1,4 +1,5 @@
 import {badgeClassTypes} from "./badgeClassTypes";
+import {isEmpty} from "lodash";
 
 const requiredMicroCredentials = {
     name: true,
@@ -6,7 +7,7 @@ const requiredMicroCredentials = {
     description: true,
     extensions: {
         LearningOutcomeExtension: true,
-        ECTSExtension: true,
+        EQFExtension: true,
         EducationProgramIdentifierExtension: true
     },
     criteriaText: true,
@@ -25,6 +26,7 @@ const requiredRegular = {
     extensions: {
         LearningOutcomeExtension: true,
         ECTSExtension: true,
+        EQFExtension: true,
         EducationProgramIdentifierExtension: true
     },
     criteriaText: true
@@ -48,7 +50,7 @@ const isRequiredAttribute = (attributeName, requiredConfig) => {
     return requiredConfig || false;
 }
 
-export const attributeValue = (badgeClass, attributeName, extensions) => {
+const attributeValue = (badgeClass, attributeName, extensions) => {
     const isExtension = attributeName.startsWith("extensions");
     const parts = attributeName.split(".");
     if (isExtension) {
@@ -70,4 +72,21 @@ export const isRequired = (badgeClass, attributeName) => {
         case badgeClassTypes.EXTRA_CURRICULAR:
             return isRequiredAttribute(attributeName, requiredExtraCurricular);
     }
+}
+
+export const constructErrors = (badgeClass, extensions) => {
+    const type = badgeClass.badgeClassType
+    const requiredAttributes = type === badgeClassTypes.MICRO_CREDENTIAL ? requiredMicroCredentials :
+        type === badgeClassTypes.REGULAR ? requiredRegular : requiredExtraCurricular;
+    const attributes = Object.keys(requiredAttributes).reduce((acc, cur) => {
+        if (cur !== "extensions") {
+            acc.push(cur);
+        } else {
+            Object.keys(requiredAttributes[cur]).forEach(ex => acc.push(`extensions.${ex}`))
+        }
+        return acc;
+    }, []);
+    attributes.map(attr => ({name: attr, value: attributeValue(badgeClass, attr, extensions )}))
+        .filter(item => !isEmpty(itme.value))
+        .map();
 }

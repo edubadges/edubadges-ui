@@ -52,7 +52,7 @@
         awardAllowedInstitutions: [],
         extensions: [{}],
         tags: [],
-        badgeClassType: badgeClassTypes.EXTRA_CURRICULAR,
+        badgeClassType: badgeClassTypes.MICRO_CREDENTIAL,
         alignments: [],
         stackable: "notStackable"});
     let currentInstitution;

@@ -1777,6 +1777,8 @@ I18n.translations.en = {
             qualityAssurance: "Quality assurance",
             awardSettings: "Award settings",
             relatedEducationalFramework: "Related Educational Frameworks",
+            switchToStudyLoad: "Switch to using study load (hours) instead of ECTS",
+            switchToECTS: "Switch to using Credit Points (ECTS) instead of hours",
             participation: {
                 options: {
                     organized: "Organized learning activities",
@@ -1814,8 +1816,8 @@ I18n.translations.en = {
                 narrative: "Narrative required for enrollment?"
             },
             stackable: {
-                notStackable: "nee, stand alone microcredential",
-                stackable: "ja, stackable microcredential",
+                notStackable: "No, stand alone microcredential",
+                stackable: "Yes, stackable microcredential",
             }
         },
         saveAsDraft: "Save as draft",

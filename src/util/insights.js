@@ -1,5 +1,6 @@
 import I18n from "i18n-js";
 import {badgeClassFilterTypes} from "./catalogFilters";
+import {badgeClassTypes} from "./badgeClassTypes";
 
 export const lastNumber = assertions => {
     return !assertions || assertions.length === 0 ? 0 : assertions[assertions.length - 1];
@@ -116,9 +117,12 @@ export const filterSeries = (assertions, identifiers, awardType = null, badgeCla
         && (issuerId == null || assertion[identifiers['ISSUER_ID']] === issuerId)
         && (facultyId == null || assertion[identifiers['FACULTY_ID']] === facultyId)
         && ((badgeClassFilterType == null || badgeClassFilterType === badgeClassFilterTypes.ALL) ||
-            (assertion.badgeclass__is_micro_credentials && badgeClassFilterType === badgeClassFilterTypes.MICRO_CREDENTIALS) ||
-            (!assertion.badgeclass__is_micro_credentials && badgeClassFilterType === badgeClassFilterTypes.OTHER))
-    );
+            (assertion.badgeclass__archived && badgeClassFilterType === badgeClassFilterTypes.ARCHIVED) ||
+            (!assertion.badgeclass__archived &&
+                ((assertion.badgeclass__badge_class_type === badgeClassTypes.REGULAR && badgeClassFilterType === badgeClassFilterTypes.REGULAR) ||
+            (assertion.badgeclass__badge_class_type === badgeClassTypes.MICRO_CREDENTIAL && badgeClassFilterType === badgeClassFilterTypes.MICRO_CREDENTIALS) ||
+            (assertion.badgeclass__badge_class_type === badgeClassTypes.EXTRA_CURRICULAR && badgeClassFilterType === badgeClassFilterTypes.EXTRA_CURRICULAR)))));
+
 }
 
 export const extractAssertionFaculties = (assertions, directAwards, enrolments, locale) => {
