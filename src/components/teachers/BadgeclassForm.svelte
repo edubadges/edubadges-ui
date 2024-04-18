@@ -33,6 +33,7 @@
     import {badgeClassTypes} from "../../util/badgeClassTypes";
     import StudyLoad from "../extensions/badges/StudyLoad.svelte";
     import {isRequired} from "../../util/requiredAttributes";
+    import PreviewBadgeClassModal from "./PreviewBadgeClassModal.svelte";
 
     export let entityId;
     export let badgeclass = {extensions: [], issuer: {}, alignments: [], criteriaText: ""};
@@ -68,6 +69,8 @@
     let errors = {};
     let extensions = {};
     let initial = true;
+    let showPreview = false;
+    let previewBadgeCopy = {};
 
     onMount(() => {
         if (!badgeclass.alignments) {
@@ -142,7 +145,16 @@
     });
 
     const performValidation = () => {
-        return true;
+        const allErrors = constructErrors(badgeclass, extensions);
+        //Hack for micro_credentials, that has an option between StudyLoadExtension and ECTSExtension
+        if (badgeclass.badgeClassType === badgeClassTypes.MICRO_CREDENTIAL) {
+            if (showStudyLoad) {
+                delete allErrors[`extensions.${ects.name}`]
+            } else {
+                delete allErrors[`extensions.${studyLoad.name}`]
+            }
+        }
+        return allErrors;
     }
 
     const languages = [
@@ -282,22 +294,25 @@
         loaded = true;
     }
 
-
-    const showPreview = () => {
-        alert("To do");
+    const convertAlignments = () => {
+        const alignments = badgeclass.alignments.map(alignment => ({
+            targetName: alignment.target_name,
+            targetUrl : alignment.target_url,
+            targetDescription: alignment.target_description,
+            targetFramework: alignment.target_framework,
+            targetCode: alignment.target_code
+        }));
+        return alignments;
     }
 
-    const saveDraft = () => onSubmit(true);
+    const doShowPreview = () => {
+        previewBadgeCopy = constructBadgeClassForServer(false);
+        previewBadgeCopy.ignoreExtensions = true;
+        previewBadgeCopy.alignments = convertAlignments();
+        showPreview = true;
+    }
 
-    const onSubmit = (isPrivate = false) => {
-        errors = {};
-        processing = true;
-        initial = false;
-        const valid = performValidation();
-        if (!valid) {
-            processing = false;
-            return;
-        }
+    const constructBadgeClassForServer = isPrivate => {
         let newBadgeclass = {
             ...badgeclass,
             criteria_text: badgeclass.criteriaText,
@@ -380,10 +395,31 @@
             if (showTimeInvestment) {
                 newBadgeclass.extensions = {
                     ...newBadgeclass.extensions,
-                    ...extensionToJson([{name: timeInvestment.name, value: parseInt(extensions[timeInvestment.name])}])
+                    ...extensionToJson([{
+                        name: timeInvestment.name,
+                        value: parseInt(extensions[timeInvestment.name])
+                    }])
                 }
             }
         }
+        return newBadgeclass;
+    }
+
+    const saveDraft = () => onSubmit(true);
+
+    const onSubmit = (isPrivate = false) => {
+        errors = {};
+        processing = true;
+        initial = false;
+        const allErrors = performValidation();
+        errors = allErrors;
+        debugger;
+        if (Object.keys(allErrors).length > 1) {
+            processing = false;
+            return;
+        }
+
+        const newBadgeclass = constructBadgeClassForServer(isPrivate);
         if (badgeclass.issuer) {
             newBadgeclass.issuer = badgeclass.issuer.entityId;
         }
@@ -599,7 +635,7 @@
         cancel={saveDraft}
         cancelText={I18n.t("newBadgeClassForm.saveAsDraft")}
         submitText={I18n.t("newBadgeClassForm.publish")}
-        previewAction={showPreview}
+        previewAction={() => doShowPreview() }
         {processing}>
 
     <div class="form">
@@ -753,9 +789,9 @@
                    tipKey="badgeClassTimeInvestmentNumber"
                    required={isRequired(badgeclass, `extensions.${timeInvestment.name}`)}>
                 <StudyLoad
-                            bind:studyLoad={extensions[timeInvestment.name]}
-                            disabled={!mayEdit && !isCopy}
-                    />
+                        bind:studyLoad={extensions[timeInvestment.name]}
+                        disabled={!mayEdit && !isCopy}
+                />
             </Field>
 
         {/if}
@@ -1207,3 +1243,12 @@
         <!--    />-->
         <!--</div>-->
 </EntityForm>
+{#if showPreview}
+    <PreviewBadgeClassModal badgeclass={previewBadgeCopy}
+                            publicInstitutions={publicInstitutions}
+                            close={() => {
+                             showPreview = false;
+                             debugger;
+                            }
+                            }/>
+{/if}

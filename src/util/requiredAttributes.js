@@ -8,7 +8,10 @@ const requiredMicroCredentials = {
     extensions: {
         LearningOutcomeExtension: true,
         EQFExtension: true,
-        EducationProgramIdentifierExtension: true
+        EducationProgramIdentifierExtension: true,
+        //Not both of them are required, but the UI can handle this as only one is visible
+        ECTSExtension: true,
+        StudyLoadExtension: true
     },
     criteriaText: true,
     participation: true,
@@ -86,10 +89,10 @@ export const constructErrors = (badgeClass, extensions) => {
         }
         return acc;
     }, []);
-    attributes.map(attr => ({name: attr, value: attributeValue(badgeClass, attr, extensions )}))
-        .filter(item => !isEmpty(item.value))
+    return attributes.map(attr => ({name: attr, value: attributeValue(badgeClass, attr, extensions )}))
+        .filter(item => isEmpty(item.value))
         .reduce((acc,item) => {
-            acc[item.name] = [{"error_code": "903","error_message": "This field may not be blank."}]
+            acc[item.name] = [{"error_code": "903"}]
             return acc;
         },{})
 }

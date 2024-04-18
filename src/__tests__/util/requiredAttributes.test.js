@@ -1,4 +1,4 @@
-import { isRequired, constructErrors} from "../../util/requiredAttributes";
+import {isRequired, constructErrors} from "../../util/requiredAttributes";
 import {badgeClassTypes} from "../../util/badgeClassTypes";
 
 
@@ -35,5 +35,10 @@ test("Construct errors", () => {
     }
     const extensions = {EducationProgramIdentifierExtension: [123456]};
     const errors = constructErrors(badgeClass, extensions);
-    expect(errors).strictEqual(true);
+    expect(errors).toStrictEqual({
+        "image": [{"error_code": "903"}],
+        "description": [{"error_code": "903"}],
+        "extensions.TimeInvestmentExtension": [{"error_code": "903"}],
+        "criteriaText": [{"error_code": "903"}]
+    });
 });

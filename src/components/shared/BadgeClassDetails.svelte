@@ -42,6 +42,7 @@
 
     onMount(() => {
         //The component is used by public pages where the data structure is different
+        debugger;
         if (!badgeclass.ignoreExtensions) {
             badgeclass.educationProgramIdentifier = extensionValue(badgeclass.extensions, educationProgramIdentifier);
             badgeclass.learningOutcome = extensionValue(badgeclass.extensions, learningOutcome);
