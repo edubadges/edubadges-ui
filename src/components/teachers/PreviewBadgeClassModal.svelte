@@ -34,6 +34,7 @@
         max-height: calc(100vh - 4em);
         border-radius: 8px;
         background: white;
+        overflow-y: scroll;
     }
 
     .modal-header {

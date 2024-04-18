@@ -32,7 +32,7 @@
     import Switch from "../forms/Switch.svelte";
     import {badgeClassTypes} from "../../util/badgeClassTypes";
     import StudyLoad from "../extensions/badges/StudyLoad.svelte";
-    import {isRequired} from "../../util/requiredAttributes";
+    import {isRequired, constructErrors} from "../../util/requiredAttributes";
     import PreviewBadgeClassModal from "./PreviewBadgeClassModal.svelte";
 
     export let entityId;
@@ -297,7 +297,7 @@
     const convertAlignments = () => {
         const alignments = badgeclass.alignments.map(alignment => ({
             targetName: alignment.target_name,
-            targetUrl : alignment.target_url,
+            targetUrl: alignment.target_url,
             targetDescription: alignment.target_description,
             targetFramework: alignment.target_framework,
             targetCode: alignment.target_code
@@ -309,6 +309,7 @@
         previewBadgeCopy = constructBadgeClassForServer(false);
         previewBadgeCopy.ignoreExtensions = true;
         previewBadgeCopy.alignments = convertAlignments();
+        document.body.classList.add("modal-open");
         showPreview = true;
     }
 
@@ -1247,8 +1248,8 @@
     <PreviewBadgeClassModal badgeclass={previewBadgeCopy}
                             publicInstitutions={publicInstitutions}
                             close={() => {
+                             document.body.classList.remove("modal-open");
                              showPreview = false;
-                             debugger;
                             }
                             }/>
 {/if}

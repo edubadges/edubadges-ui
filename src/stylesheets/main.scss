@@ -9,18 +9,25 @@
 @import "shared/markdown";
 
 body {
-  font-size: 16px;
-  background-color: #dfe3e8;
-  color: var(--black);
+    font-size: 16px;
+    background-color: #dfe3e8;
+    color: var(--black);
+
+    &.modal-open {
+        height: 100vh;
+        overflow-y: hidden;
+        padding-right: 15px;
+    }
 }
 
 .main-content-margin {
-  margin: var(--ver-padding-xl) var(--hor-padding-xl);
+    margin: var(--ver-padding-xl) var(--hor-padding-xl);
 }
 
 .click {
-  cursor: pointer;
-  &:hover {
-    background-color: var(--grey-2);
-  }
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--grey-2);
+    }
 }
