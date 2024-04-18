@@ -1780,6 +1780,7 @@ I18n.translations.en = {
             switchToStudyLoad: "Switch to using study load (hours) instead of ECTS",
             switchToECTS: "Switch to using Credit Points (ECTS) instead of hours",
             participation: {
+                name: "Form of participation",
                 options: {
                     organized: "Organized learning activities",
                     personalized: "Personalized learning activities",
@@ -1788,6 +1789,7 @@ I18n.translations.en = {
                 }
             },
             assessment: {
+                name: "Type of assessment",
                 options: {
                     knowledge_test: "Knowledge test",
                     behavioural_assessment: "Behavioural assessment",
@@ -1799,7 +1801,13 @@ I18n.translations.en = {
                 },
                 supervision: "Supervision & ID verification",
                 supervised: "Was the assessment supervised?",
-                idVerification: "Was the student's identity verified?"
+                idVerification: "Was the student's identity verified?",
+                supervisionOptions: {
+                    o1: "Supervised with identity verification",
+                    o2: "Supervised without identity verification",
+                    o3: "Not supervised without identity verification",
+                    o4: "Not supervised with identity verification"
+                }
             },
             directAward: {
                 title: "Direct awards",
@@ -1825,7 +1833,11 @@ I18n.translations.en = {
         preview: "Preview badge",
         publish: "Publish",
         tagsPlaceholder: "Start typing here to add a new badge-class tag",
-        requiredMicroCredentialFramework: "Required: Quality framework Microcredentials for Professionals HBO and WO"
+        requiredMicroCredentialFramework: "Required: Quality framework Microcredentials for Professionals HBO and WO",
+        link: " - (link)",
+        programme: "The programme",
+        assessment: "The assessment",
+        badge: "The badge",
     }
 
 };

@@ -154,6 +154,7 @@ I18n.translations.nl = {
                 status: "Status",
                 show_all: "Toon meer",
                 show_less: "Toon minder",
+                badgeClassTag: "Tags"
             },
         },
         breadcrumb: {
@@ -1780,6 +1781,7 @@ I18n.translations.nl = {
             switchToStudyLoad: "Gebruik studie load (uren) in plaats van ECTS",
             switchToECTS: "Gebruik Credit Points (ECTS) in plaats van uren",
             participation: {
+                name: "Vorm van participatie",
                 options: {
                     organized: "Georganiseerde leeractiviteiten",
                     personalized: "Gepersonaliseerde leeractiviteiten",
@@ -1788,6 +1790,7 @@ I18n.translations.nl = {
                 }
             },
             assessment: {
+                name: "Type of assessment",
                 options: {
                     knowledge_test: "Kennistoets",
                     behavioural_assessment: "Gedragsassessment",
@@ -1799,7 +1802,13 @@ I18n.translations.nl = {
                 },
                 supervision: "Supervision & ID verification",
                 supervised: "Was the assessment supervised?",
-                idVerification: "Was the student's identity verified?"
+                idVerification: "Was the student's identity verified?",
+                supervisionOptions: {
+                    o1: "Supervised with identity verification",
+                    o2: "Supervised without identity verification",
+                    o3: "Not supervised without identity verification",
+                    o4: "Not supervised with identity verification"
+                }
             },
             directAward: {
                 title: "Direct awards",
@@ -1826,8 +1835,11 @@ I18n.translations.nl = {
         preview: "Preview badge",
         publish: "Publish",
         tagsPlaceholder: "Voeg een nieuwe tag toe, door hier te typen",
-        requiredMicroCredentialFramework: "Verplicht Kwaliteitskader Microcredentials voor Professionals HBO en WO"
+        requiredMicroCredentialFramework: "Verplicht Kwaliteitskader Microcredentials voor Professionals HBO en WO",
+        link: " - (link)",
+        programme: "The programme",
+        assessment: "The assessment",
+        badge: "The badge",
     }
 
-}
-;
+};

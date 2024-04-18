@@ -335,7 +335,7 @@ export function getPublicInstitution(entityId) {
 }
 
 export function getPublicBadgeClass(badgeId) {
-    const path = `${serverUrl}/public/badges/${badgeId}?expand=issuer&expand=awards&expand=endorsements`;
+    const path = `${serverUrl}/public/badges/${badgeId}?expand=issuer&expand=awards&expand=endorsements&expand=micro`;
     return validFetch(path, {}, "GET", false, false);
 }
 

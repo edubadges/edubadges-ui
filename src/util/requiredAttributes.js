@@ -87,6 +87,9 @@ export const constructErrors = (badgeClass, extensions) => {
         return acc;
     }, []);
     attributes.map(attr => ({name: attr, value: attributeValue(badgeClass, attr, extensions )}))
-        .filter(item => !isEmpty(itme.value))
-        .map();
+        .filter(item => !isEmpty(item.value))
+        .reduce((acc,item) => {
+            acc[item.name] = [{"error_code": "903","error_message": "This field may not be blank."}]
+            return acc;
+        },{})
 }

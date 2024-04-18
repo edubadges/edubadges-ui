@@ -69,6 +69,16 @@
       archived,
       criteriaText,
       expirationPeriod,
+      participation,
+      typeBadgeClass,
+      assessmentType,
+      assessmentIdVerified,
+      assessmentSupervised,
+      qualityAssuranceName,
+      qualityAssuranceUrl,
+      qualityAssuranceDescription,
+      gradeAchievedRequired,
+      stackable
       issuer {
         nameEnglish,
         nameDutch,
