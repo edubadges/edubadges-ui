@@ -22,7 +22,7 @@
     import Spinner from "../Spinner.svelte";
     import {pageCount} from "../../util/pagination";
     import {translateProperties} from "../../util/utils";
-    import {isEmpty} from "lodash";
+    import {isEmpty} from "../../util/utils";
     import UnclaimedDirectAwardsSideBar from "./UnclaimedDirectAwardsSideBar.svelte";
 
     export let allUnclaimed = true;

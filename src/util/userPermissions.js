@@ -1,6 +1,6 @@
 import {staffType} from "./staffTypes";
 import {entityType} from "./entityTypes";
-import {isEmpty} from "lodash";
+import {isEmpty} from "../util/utils";
 
 export const enrichUser = (institution, institutionStaffMemberships, issuerGroupStaffMemberships, issuerStaffMemberships, badgeClassStaffMemberships) => {
     const _issuerGroupStaffMemberships = [...issuerGroupStaffMemberships];

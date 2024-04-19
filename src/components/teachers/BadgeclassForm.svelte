@@ -7,7 +7,7 @@
     import {createBadgeclass, editBadgeclass} from "../../api";
     import ExpirationSettings from "./ExpirationSettings.svelte";
     import indicator from "../../icons/chevron-down-large.svg";
-    import {isEmpty} from "lodash";
+    import {isEmpty, translateProperties} from "../../util/utils";
     import {
         ects,
         educationProgramIdentifier,
@@ -24,7 +24,6 @@
     import {trash} from '../../icons';
     import {entityType} from "../../util/entityTypes";
     import {toHttpOrHttps} from "../../util/Url";
-    import {translateProperties} from "../../util/utils";
     import MarkdownField from "../forms/MarkdownField.svelte";
     import {microCredentialsFramework} from "../../util/microcredentials";
     import {markDownTemplate} from "../../util/markDownTemplate";
@@ -32,7 +31,7 @@
     import Switch from "../forms/Switch.svelte";
     import {badgeClassTypes} from "../../util/badgeClassTypes";
     import StudyLoad from "../extensions/badges/StudyLoad.svelte";
-    import {isRequired, constructErrors} from "../../util/requiredAttributes";
+    import {constructErrors, isRequired} from "../../util/requiredAttributes";
     import PreviewBadgeClassModal from "./PreviewBadgeClassModal.svelte";
 
     export let entityId;
@@ -55,11 +54,9 @@
     let publicInstitutionsChosen = undefined;
     let internalTags = undefined;
 
+    // Toggle for MicroCredentials
     let showStudyLoad = false;
-    let showTimeInvestment = false;
     let isInstitutionMBO = false;
-    let showEducationalIdentifiers = false;
-    let showProgrammeIdentifier = false;
     let showAddAlignmentButton = true;
     let participationOptions = [];
     let assessmentOptions = [];
@@ -71,6 +68,19 @@
     let initial = true;
     let showPreview = false;
     let previewBadgeCopy = {};
+
+    const languages = [
+        {value: "en_EN", name: I18n.t("language.en_EN")},
+        {value: "nl_NL", name: I18n.t("language.nl_NL")},
+        {value: "de_DE", name: I18n.t("language.de_DE")},
+        {value: "fr_FR", name: I18n.t("language.fr_FR")},
+        {value: "es_ES", name: I18n.t("language.es_ES")},
+    ];
+
+    const eqfItems = [...Array(8).keys()].map(i => {
+        return {name: `EQF ${i + 1}`, value: i + 1}
+    });
+
 
     onMount(() => {
         if (!badgeclass.alignments) {
@@ -128,7 +138,8 @@
                     target_code: microCredentialsFramework.code,
                 }];
             }
-        } else if (/*badgeclass.badgeClassType === badgeClassTypes.REGULAR &&*/ isCreate) {
+        } else if (isCreate) {
+            //All type badgeClasses can have educational frameworks
             badgeclass.alignments = [{
                 target_name: "",
                 target_url: "",
@@ -141,6 +152,19 @@
         if (!isCreate) {
             const stackable = badgeclass.stackable ? "stackable" : "notStackable";
             badgeclass.stackable = stackableOptions.find(opt => opt.value === stackable);
+        }
+
+        switch (badgeclass.badgeClassType) {
+            case badgeClassTypes.MICRO_CREDENTIAL: {
+                break;
+            }
+            case badgeClassTypes.REGULAR: {
+                badgeclass.formal = true;
+                break;
+            }
+            case badgeClassTypes.EXTRA_CURRICULAR: {
+                break;
+            }
         }
     });
 
@@ -157,13 +181,6 @@
         return allErrors;
     }
 
-    const languages = [
-        {value: "en_EN", name: I18n.t("language.en_EN")},
-        {value: "nl_NL", name: I18n.t("language.nl_NL")},
-        {value: "de_DE", name: I18n.t("language.de_DE")},
-        {value: "fr_FR", name: I18n.t("language.fr_FR")},
-        {value: "es_ES", name: I18n.t("language.es_ES")},
-    ];
     let languageSelection = languages[0];
     if (!isCreate || isCopy) {
         languageSelection = languages.find(x => x.value === extensionValue(badgeclass.extensions, language));
@@ -172,39 +189,21 @@
         languageSelection = languages.find(x => x.value === language);
     }
 
-    const eqfItems = [...Array(8).keys()].map(i => {
-        return {name: `EQF ${i + 1}`, value: i + 1}
-    });
 
     const markDownExample = attribute => {
         badgeclass[attribute] = markDownTemplate;
     }
 
-    const addStudyLoad = () => {
-        extensions[ects.name] = badgeclass.isMicroCredentials ? 5 : 2.5;
-        showStudyLoad = true;
-        extensions[timeInvestment.name] = 0;
-        showTimeInvestment = false;
-        badgeclass.awardNonValidatedNameAllowed = false;
-        let eqfValue = extensionValue(badgeclass.extensions, eqf);
-        if (isEmpty(eqfValue)) {
-            eqfValue = {name: "EQF 5", value: 5};
-        } else {
-            eqfValue = eqfItems.find(item => item.value === eqfValue)
-        }
-        extensions[eqf.name] = eqfValue;
-        if (!isInstitutionMBO) {
-            showEducationalIdentifiers = true;
-            if (isEmpty(extensions[educationProgramIdentifier.name])) {
-                extensions[educationProgramIdentifier.name] = [""];
-            }
-        }
-    }
-
     const switchStudyLoad = val => {
         showStudyLoad = !val;
-        // if (showStudyLoad)
+        if (showStudyLoad) {
+            extensions[studyLoad.name] = 28;
+            delete extensions[ects.name];
 
+        } else {
+            extensions[ects.name] = badgeclass.isMicroCredentials ? 5 : 2.5;
+            delete extensions[studyLoad.name];
+        }
     }
 
     const addEducationProgramIdentifier = () => {
@@ -275,40 +274,35 @@
         if (extensions[eqf.name] && typeof extensions[eqf.name] === "number") {
             extensions[eqf.name] = {name: `EQF ${extensions[eqf.name]}`, value: extensions[eqf.name]}
         }
-        if (!isEmpty(extensions[educationProgramIdentifier.name])) {
-            showEducationalIdentifiers = true;
-        }
-        if (institution.grondslagFormeel !== null && (ectsValue || extensions[studyLoad.name] || (isCreate && !isCopy))) {
-            showStudyLoad = true;
-            if (!isInstitutionMBO && extensions[educationProgramIdentifier.name].length > 0) {
-                showEducationalIdentifiers = true;
-            }
-        }
-        if (!showStudyLoad) {
-            const timeInvestmentValue = extensionValue(badgeclass.extensions, timeInvestment) || 0;
-            if ((isCreate && !isCopy) || timeInvestmentValue) {
-                extensions[timeInvestment.name] = timeInvestmentValue;
-                showTimeInvestment = true;
-            }
+        const timeInvestmentValue = extensionValue(badgeclass.extensions, timeInvestment) || 0;
+        if ((isCreate && !isCopy) || timeInvestmentValue) {
+            extensions[timeInvestment.name] = timeInvestmentValue;
         }
         loaded = true;
     }
 
     const convertAlignments = () => {
-        const alignments = badgeclass.alignments.map(alignment => ({
+        return badgeclass.alignments.map(alignment => ({
             targetName: alignment.target_name,
             targetUrl: alignment.target_url,
             targetDescription: alignment.target_description,
             targetFramework: alignment.target_framework,
             targetCode: alignment.target_code
         }));
-        return alignments;
     }
 
     const doShowPreview = () => {
         previewBadgeCopy = constructBadgeClassForServer(false);
-        previewBadgeCopy.ignoreExtensions = true;
         previewBadgeCopy.alignments = convertAlignments();
+        previewBadgeCopy.educationProgramIdentifier = extensions[educationProgramIdentifier.name];
+        previewBadgeCopy.learningOutcome = extensions[learningOutcome.name];
+        previewBadgeCopy.eqf = extensions[eqf.name];
+        previewBadgeCopy.studyLoad = extensions[studyLoad.name];
+        previewBadgeCopy.timeInvestment = extensions[timeInvestment.name];
+        previewBadgeCopy.ects = extensions[ects.name];
+        previewBadgeCopy.language = extensions[language.name];
+        previewBadgeCopy.ignoreExtensions = true;
+        //To enable scrolling in the modal, is removed again in the close
         document.body.classList.add("modal-open");
         showPreview = true;
     }
@@ -348,59 +342,48 @@
             {name: language.name, value: languageSelection.value}
         ]);
         const learningOutcomeValue = extensions[learningOutcome.name];
-        if (learningOutcomeValue) {
+        if (!isEmpty(learningOutcomeValue)) {
             const learningOutcomeExt = extensionToJson([
                 {name: learningOutcome.name, value: learningOutcomeValue}
             ]);
             newBadgeclass.extensions = {...newBadgeclass.extensions, ...learningOutcomeExt}
         }
-        if (showEducationalIdentifiers) {
-            const extensionValues = []
-            const programIdentifiers = extensions[educationProgramIdentifier.name] || [];
+        const extensionValues = []
+        const programIdentifiers = (extensions[educationProgramIdentifier.name] || [])
+            .filter(identifier => !isEmpty(identifier));
+        if (programIdentifiers.length > 0) {
             extensionValues.push({
                 name: educationProgramIdentifier.name,
-                value: programIdentifiers.some(identifier => identifier) ?
-                    programIdentifiers.map(identifier => parseInt(identifier, 10)) : "invalid"
-            })
-            const extension = extensions[eqf.name];
-            if (extension) {
-                extensionValues.push({name: eqf.name, value: extension.value})
-            }
+                value: programIdentifiers.map(identifier => parseInt(identifier, 10))
+            });
             const educationalIdentifiers = extensionToJson(extensionValues);
             newBadgeclass.extensions = {...newBadgeclass.extensions, ...educationalIdentifiers};
         }
-        if (showEducationalIdentifiers || badgeclass.isMicroCredentials) {
-            const extensionValues = []
-            const extension = extensions[eqf.name];
-            if (extension) {
-                extensionValues.push({name: eqf.name, value: extension.value})
-            }
+        const extension = extensions[eqf.name];
+        if (!isEmpty(extension)) {
+            extensionValues.push({name: eqf.name, value: extension.value})
             const eqfIdentifiers = extensionToJson(extensionValues);
             newBadgeclass.extensions = {...newBadgeclass.extensions, ...eqfIdentifiers};
         }
-        if (showStudyLoad) {
-            if (isInstitutionMBO) {
+        if (badgeclass.badgeClassType === badgeClassTypes.EXTRA_CURRICULAR) {
+            newBadgeclass.extensions = {
+                ...newBadgeclass.extensions,
+                ...extensionToJson([{
+                    name: timeInvestment.name,
+                    value: parseInt(extensions[timeInvestment.name])
+                }])
+            }
+        } else {
+            if (showStudyLoad || isInstitutionMBO) {
                 newBadgeclass.extensions = {
                     ...newBadgeclass.extensions,
                     ...extensionToJson([{name: studyLoad.name, value: parseInt(extensions[studyLoad.name])}])
-                }
+                };
             } else {
                 newBadgeclass.extensions = {
                     ...newBadgeclass.extensions,
                     ...extensionToJson([{name: ects.name, value: extensions[ects.name]}])
-                }
-            }
-            newBadgeclass.formal = true;
-        } else {
-            newBadgeclass.formal = false;
-            if (showTimeInvestment) {
-                newBadgeclass.extensions = {
-                    ...newBadgeclass.extensions,
-                    ...extensionToJson([{
-                        name: timeInvestment.name,
-                        value: parseInt(extensions[timeInvestment.name])
-                    }])
-                }
+                };
             }
         }
         return newBadgeclass;
@@ -414,8 +397,8 @@
         initial = false;
         const allErrors = performValidation();
         errors = allErrors;
-        debugger;
-        if (Object.keys(allErrors).length > 1) {
+        // debugger;
+        if (Object.keys(allErrors).length > 1 && false) {
             processing = false;
             return;
         }
@@ -705,7 +688,7 @@
                              tipKey="badgeClassLearningOutcome"/>
             <Field entity={entity}
                    attribute="learningOutcome"
-                   errors={errors[learningOutcome.name]}
+                   errors={errors[`extensions.${learningOutcome.name}`]}
                    tipKey="badgeClassLearningOutcome"
                    required={isRequired(badgeclass, `extensions.${learningOutcome.name}`)}>
                 <div class="mark-down-container" class:disabled={!mayEdit && !isCopy}>
@@ -752,7 +735,7 @@
             {#if showStudyLoad}
                 <Field entity={entity}
                        attribute="hours"
-                       errors={errors[studyLoad.name]}
+                       errors={errors[`extensions.${studyLoad.name}`]}
                        tipKey="badgeClassStudyLoadNumber"
                        required={isRequired(badgeclass, `extensions.${studyLoad.name}`)}>
                     <StudyLoad
@@ -768,7 +751,7 @@
             {:else}
                 <Field entity={entity}
                        attribute="ects.creditPoints"
-                       errors={errors[ects.name]}
+                       errors={errors[`extensions.${ects.name}`]}
                        tipKey="badgeClassStudyLoadEcts"
                        required={isRequired(badgeclass, `extensions.${ects.name}`)}>
                     <EctsCreditPoints
@@ -786,7 +769,7 @@
         {:else}
             <Field entity={entity}
                    attribute="hours"
-                   errors={errors[timeInvestment.name]}
+                   errors={errors[`extensions.${timeInvestment.name}`]}
                    tipKey="badgeClassTimeInvestmentNumber"
                    required={isRequired(badgeclass, `extensions.${timeInvestment.name}`)}>
                 <StudyLoad
@@ -799,7 +782,7 @@
 
         <Field entity={entity}
                attribute="eqf"
-               errors={errors[eqf.name]}
+               errors={errors[`extensions.${eqf.name}`]}
                isSelect={true}
                tipKey="badgeClassNLQFLevel"
                required={isRequired(badgeclass, `extensions.${eqf.name}`)}>
@@ -836,7 +819,7 @@
 
         <Field entity={entity}
                attribute="educationProgramIdentifierLong"
-               errors={errors[educationProgramIdentifier.name]}
+               errors={errors[`extensions.${educationProgramIdentifier.name}`]}
                tipKey="badgeClassProgrammeIdentifier"
                required={isRequired(badgeclass, `extensions.${educationProgramIdentifier.name}`)}>
             {#each extensions[educationProgramIdentifier.name] as identifier, index}
@@ -921,23 +904,25 @@
                            error={errors.qualityAssuranceUrl}
                            placeholder={I18n.t("placeholders.badgeClass.qualityAssuranceUrl")}/>
             </Field>
+
+            <div class="one-row">
+                <MarkDownExample onClick={() => markDownExample("qualityAssuranceDescription")}
+                                 tipKey="qualityAssuranceDescription"/>
+                <Field entity={entity}
+                       attribute="qualityAssuranceDescription"
+                       errors={errors.quality_assurance_description}
+                       tipKey="qualityAssuranceDescription"
+                       required={isRequired(badgeclass, "qualityAssuranceDescription")}>
+                    <div class="mark-down-container" class:disabled={!mayEdit}>
+                        <MarkdownField
+                                bind:value={badgeclass.qualityAssuranceDescription}
+                                disabled={!mayEdit}
+                        />
+                    </div>
+                </Field>
+            </div>
+
         {/if}
-        <div class="one-row">
-            <MarkDownExample onClick={() => markDownExample("qualityAssuranceDescription")}
-                             tipKey="qualityAssuranceDescription"/>
-            <Field entity={entity}
-                   attribute="qualityAssuranceDescription"
-                   errors={errors.quality_assurance_description}
-                   tipKey="qualityAssuranceDescription"
-                   required={isRequired(badgeclass, "qualityAssuranceDescription")}>
-                <div class="mark-down-container" class:disabled={!mayEdit}>
-                    <MarkdownField
-                            bind:value={badgeclass.qualityAssuranceDescription}
-                            disabled={!mayEdit}
-                    />
-                </div>
-            </Field>
-        </div>
 
         <h4 class="one-row">{I18n.t("newBadgeClassForm.form.awardSettings")}</h4>
         <Switch value={!badgeclass.directAwardingDisabled}
@@ -1146,103 +1131,6 @@
                     disabled={false}
             />
         </div>
-
-        <!--{/if}-->
-
-
-        <!--{#if institution.grondslagFormeel !== null || isInstitutionMBO}-->
-        <!--    <div style="display: flex">-->
-        <!--        <div class="deletable-title"><h4>{I18n.t('models.badgeclass.headers.studyLoad')}</h4></div>-->
-        <!--        {#if institution.grondslagInformeel !== null}-->
-        <!--            {#if mayEdit}-->
-        <!--                <button class="rm-icon-container" on:click={removeStudyLoad}>{@html trash}</button>-->
-        <!--            {:else}-->
-        <!--                <button class="rm-icon-container disabled">{@html trash}</button>-->
-        <!--            {/if}-->
-        <!--        {/if}-->
-        <!--    </div>-->
-
-        <!--    <div class="form">-->
-        <!--        {:else if institution.grondslagFormeel !== null}-->
-
-        <!--        {/if}-->
-        <!--    </div>-->
-        <!--{/if}-->
-
-        <!--{#if showTimeInvestment}-->
-        <!--    <div style="display: flex">-->
-        <!--        <div class="deletable-title"><h4>{I18n.t('models.badgeclass.headers.timeInvestment')}</h4></div>-->
-        <!--        {#if mayEdit}-->
-        <!--            <button class="rm-icon-container" on:click={removeTimeInvestment}>{@html trash}</button>-->
-        <!--        {:else}-->
-        <!--            <button class="rm-icon-container disabled">{@html trash}</button>-->
-        <!--        {/if}-->
-        <!--    </div>-->
-
-        <!--    <div class="form">-->
-        <!--    </div>-->
-        <!--{/if}-->
-
-        <!--{#if showEducationalIdentifiers && !badgeclass.isMicroCredentials}-->
-        <!--    <div style="display: flex">-->
-        <!--        <div class="deletable-title">-->
-        <!--            <h4>{I18n.t('models.badgeclass.headers.educationalIdentifiers')}</h4>-->
-        <!--        </div>-->
-        <!--        {#if mayEdit && (!showStudyLoad || isInstitutionMBO)}-->
-        <!--            <button class="rm-icon-container"-->
-        <!--                    on:click={() => {-->
-        <!--                    showEducationalIdentifiers = false;-->
-        <!--                    showProgrammeIdentifier = false;-->
-        <!--                    extensions[educationProgramIdentifier.name] = [];-->
-        <!--                }}>{@html trash}</button>-->
-        <!--        {/if}-->
-        <!--    </div>-->
-        <!--{/if}-->
-
-        <!--<h4>{I18n.t('models.badgeclass.headers.additionalSections')}</h4>-->
-
-        <!--<div class="add-buttons">-->
-        <!--    {#if badgeclass.isMicroCredentials && !showProgrammeIdentifier}-->
-        <!--        <AddButton-->
-        <!--                text={I18n.t('models.badgeclass.addButtons.programmeIdentifier')}-->
-        <!--                handleClick={addProgrammeIdentifier}-->
-        <!--                visibility={!showProgrammeIdentifier}-->
-        <!--                disabled={!mayEdit && !isCopy}-->
-        <!--        />-->
-        <!--    {:else}-->
-        <!--        <AddButton-->
-        <!--                text={I18n.t('models.badgeclass.addButtons.educationalIdentifiers')}-->
-        <!--                handleClick={() => {-->
-        <!--                extensions[educationProgramIdentifier.name] = [""];-->
-        <!--                showEducationalIdentifiers = true;}}-->
-        <!--                visibility={!showEducationalIdentifiers}-->
-        <!--                disabled={!mayEdit && !isCopy}-->
-        <!--        />-->
-        <!--    {/if}-->
-        <!--    {#if institution.grondslagFormeel !== null}-->
-        <!--        <AddButton-->
-        <!--                text={I18n.t('models.badgeclass.addButtons.studyLoad')}-->
-        <!--                handleClick={addStudyLoad}-->
-        <!--                visibility={!showStudyLoad}-->
-        <!--                disabled={!mayEdit && !isCopy}-->
-        <!--        />-->
-        <!--    {/if}-->
-        <!--    {#if !showTimeInvestment && institution.grondslagInformeel !== null}-->
-        <!--        <AddButton-->
-        <!--                text={I18n.t('models.badgeclass.addButtons.timeInvestment')}-->
-        <!--                handleClick={addTimeInvestment}-->
-        <!--                visibility={!showTimeInvestment}-->
-        <!--                disabled={!mayEdit && !isCopy}-->
-        <!--        />-->
-        <!--    {/if}-->
-
-        <!--    <AddButton-->
-        <!--            text={I18n.t('models.badgeclass.addButtons.alignment')}-->
-        <!--            handleClick={() => addEmptyAlignment()}-->
-        <!--            visibility={!showAlignment}-->
-        <!--            disabled={false}-->
-        <!--    />-->
-        <!--</div>-->
 </EntityForm>
 {#if showPreview}
     <PreviewBadgeClassModal badgeclass={previewBadgeCopy}

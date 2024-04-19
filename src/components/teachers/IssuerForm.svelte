@@ -8,7 +8,7 @@
     import {toHttpOrHttps} from "../../util/Url";
     import {onMount} from "svelte";
     import MultiLanguageField from "../forms/MultiLanguageField.svelte";
-    import {isEmpty} from "lodash";
+    import {isEmpty} from "../../util/utils";
 
     export let entityId;
     export let issuer = {faculty: {}, badgeclasses: []};

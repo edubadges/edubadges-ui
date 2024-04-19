@@ -1,6 +1,6 @@
 <script>
     import I18n from "i18n-js";
-    import {isEmpty} from "lodash";
+    import {isEmpty} from "../util/utils";
     import question from "../icons/question.svg";
 
     export let label = "";

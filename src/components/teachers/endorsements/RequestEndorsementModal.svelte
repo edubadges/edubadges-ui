@@ -3,7 +3,7 @@
     import Button from "../../../components/Button.svelte";
     import Field from "../../forms/Field.svelte";
     import {TextInput} from "../../forms";
-    import {isEmpty} from "lodash";
+    import {isEmpty} from "../../util/utils";
     import Select from "../../forms/Select.svelte";
 
     export let badgeClasses;

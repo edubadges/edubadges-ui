@@ -1,5 +1,5 @@
 <script>
-    import {isEmpty} from "lodash";
+    import {isEmpty} from "../../util/utils";
     import {stopEvent} from "../../util/forms";
     import closeIcon from "../../icons/close_smll.svg";
 

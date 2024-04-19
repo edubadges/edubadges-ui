@@ -7,7 +7,7 @@
     import {createBadgeclass, editBadgeclass} from "../../api";
     import ExpirationSettings from "./ExpirationSettings.svelte";
     import indicator from "../../icons/chevron-down-large.svg";
-    import {isEmpty} from "lodash";
+    import {isEmpty} from "../../util/utils";
     import {
         ects,
         educationProgramIdentifier,

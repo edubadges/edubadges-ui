@@ -20,7 +20,7 @@
     import PublicBreadcrumb from "./PublicBreadcrumb.svelte";
     import {translateBadgeClassProperties} from "../../util/utils";
     import Field from "../forms/Field.svelte";
-    import {isEmpty} from "lodash";
+    import {isEmpty} from "../../util/utils";
     import {isValidURL} from "../../util/validations";
     import EndorsementView from "../teachers/endorsements/EndorsementView.svelte";
     import {alignments, endorsements} from "../../api/queries";

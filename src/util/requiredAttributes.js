@@ -1,5 +1,5 @@
 import {badgeClassTypes} from "./badgeClassTypes";
-import {isEmpty} from "lodash";
+import {isEmpty} from "./utils";
 
 const requiredMicroCredentials = {
     name: true,
@@ -8,7 +8,6 @@ const requiredMicroCredentials = {
     extensions: {
         LearningOutcomeExtension: true,
         EQFExtension: true,
-        EducationProgramIdentifierExtension: true,
         //Not both of them are required, but the UI can handle this as only one is visible
         ECTSExtension: true,
         StudyLoadExtension: true

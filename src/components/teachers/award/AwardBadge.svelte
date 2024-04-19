@@ -11,7 +11,7 @@
     import {flash} from "../../../stores/flash";
     import {onMount} from "svelte";
     import AwardBadgeModal from "./AwardBadgeModal.svelte";
-    import {isEmpty} from "lodash";
+    import {isEmpty} from "../../util/utils";
     import Spinner from "../../Spinner.svelte";
     import {ltiContext} from "../../../stores/lti";
     import {roles} from "../../../util/lti";

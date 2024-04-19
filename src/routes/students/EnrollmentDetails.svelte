@@ -1,7 +1,7 @@
 <script>
     import {onMount} from "svelte";
     import {queryData} from "../../api/graphql";
-    import {isEmpty} from "lodash";
+    import {isEmpty} from "../../util/utils";
     import {Overview} from "../../components/teachers/badgeclass/";
     import I18n from "i18n-js";
     import chevronRightSmall from "../../icons/chevron-right-small.svg";

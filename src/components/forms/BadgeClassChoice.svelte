@@ -5,7 +5,7 @@
     import {badgeClassTypes} from "../../util/badgeClassTypes";
     import closeIcon from "../../icons/close_smll.svg";
     import {onMount} from "svelte";
-    import {isEmpty} from "lodash";
+    import {isEmpty} from "../../util/utils";
 
     export let create;
     export let cancel;
@@ -18,7 +18,8 @@
     onMount(() => {
         options = Object.values(badgeClassTypes).map(type => (
             {type: type, disabled: (type === badgeClassTypes.MICRO_CREDENTIAL && !currentInstitution.microCredentialsEnabled)
-                    || (type === badgeClassTypes.REGULAR && isEmpty(currentInstitution.grondslagFormeel))}
+                    || (type === badgeClassTypes.REGULAR && isEmpty(currentInstitution.grondslagFormeel))
+                    || (type === badgeClassTypes.EXTRA_CURRICULAR && isEmpty(currentInstitution.grondslagInformeel))}
         ));
     })
 

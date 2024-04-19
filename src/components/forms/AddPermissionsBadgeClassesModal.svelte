@@ -1,7 +1,7 @@
 <script>
   import I18n from "i18n-js";
   import Button from "../Button.svelte";
-  import {isEmpty} from "lodash";
+  import {isEmpty} from "../../util/utils";
   import {Field, Select, TextInput} from ".";
   import {createEventDispatcher, onMount} from "svelte";
   import {entityType} from "../../util/entityTypes";

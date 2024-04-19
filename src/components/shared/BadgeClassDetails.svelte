@@ -29,7 +29,7 @@
     import Endorsement from "../teachers/endorsements/Endorsement.svelte";
     import {endorsementStatus} from "../../util/endorsements";
     import {config} from "../../util/config";
-    import {isEmpty} from "lodash";
+    import {isEmpty} from "../../util/utils";
 
     export let badgeclass;
     export let publicInstitutions;
@@ -42,7 +42,6 @@
 
     onMount(() => {
         //The component is used by public pages where the data structure is different
-        debugger;
         if (!badgeclass.ignoreExtensions) {
             badgeclass.educationProgramIdentifier = extensionValue(badgeclass.extensions, educationProgramIdentifier);
             badgeclass.learningOutcome = extensionValue(badgeclass.extensions, learningOutcome);
@@ -425,7 +424,7 @@
                     {/if}
                 </div>
             {/if}
-            {#if badgeclass.eqf}
+            {#if !isEmpty(badgeclass.eqf)}
                 <div class="group-item">
                     {@html calendarIcon}
                     {#if badgeclass.eqf}

@@ -3,7 +3,7 @@
     import {onMount} from "svelte";
     import {Spinner} from "../components";
     import {impersonation} from "../stores/user";
-    import {isEmpty} from "lodash";
+    import {isEmpty} from "../util/utils";
 
     let isPublicBadgeNotFound = false;
     let isIssuerNotFound = false;

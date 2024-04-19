@@ -4,7 +4,7 @@
     import 'bytemd/dist/index.min.css'
     import {stopEvent} from "../../util/forms";
     import I18n from "i18n-js";
-    import {isEmpty} from "lodash";
+    import {isEmpty} from "../../util/utils";
 
     export let value = "";
     export let disabled = false;

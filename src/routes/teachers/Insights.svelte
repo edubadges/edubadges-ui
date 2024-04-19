@@ -34,7 +34,7 @@
     import Button from "../../components/Button.svelte";
     import {config} from "../../util/config";
     import {queryData} from "../../api/graphql";
-    import {isEmpty} from "lodash";
+    import {isEmpty} from "../../util/utils";
     import {badgeClassFilterTypes} from "../../util/catalogFilters";
     import CheckBox from "../../components/CheckBox.svelte";
 
