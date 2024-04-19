@@ -5,7 +5,7 @@
     import {badgeClassTypes} from "../../util/badgeClassTypes";
     import closeIcon from "../../icons/close_smll.svg";
     import {onMount} from "svelte";
-    import {isEmpty} from "../../util/utils";
+    import {isEmpty, translateProperties} from "../../util/utils";
 
     export let create;
     export let cancel;
@@ -13,14 +13,20 @@
     export let currentInstitution;
 
     let options = [];
+    let missingOptions = [];
     let showTip = false;
 
     onMount(() => {
         options = Object.values(badgeClassTypes).map(type => (
-            {type: type, disabled: (type === badgeClassTypes.MICRO_CREDENTIAL && !currentInstitution.microCredentialsEnabled)
+            {
+                type: type,
+                disabled: (type === badgeClassTypes.MICRO_CREDENTIAL && !currentInstitution.microCredentialsEnabled)
                     || (type === badgeClassTypes.REGULAR && isEmpty(currentInstitution.grondslagFormeel))
-                    || (type === badgeClassTypes.EXTRA_CURRICULAR && isEmpty(currentInstitution.grondslagInformeel))}
+                    || (type === badgeClassTypes.EXTRA_CURRICULAR && isEmpty(currentInstitution.grondslagInformeel))
+            }
         ));
+        missingOptions = options.filter(option => option.disabled).map(option => option.type);
+        translateProperties(currentInstitution);
     })
 
     const handle_keydown = e => {
@@ -77,9 +83,11 @@
             max-width: 240px;
             display: flex;
             flex-direction: column;
+
             &.disabled {
                 background: var(--grey-1);
             }
+
             h3 {
                 margin-bottom: 15px;
             }
@@ -111,6 +119,11 @@
         }
     }
 
+    ul.missing-options {
+        margin-top: 25px;
+        list-style: initial;
+        margin-left: 25px;
+    }
 
 </style>
 
@@ -140,17 +153,25 @@
             </div>
             <div class="card-container">
                 {#each options as option}
-
                     <div class="card" class:disabled={option.disabled}>
                         <h3>{I18n.t(`newBadgeClassForm.modal.types.${option.type}`)}</h3>
                         <p class="info">{I18n.t(`newBadgeClassForm.modal.info.${option.type}`)}</p>
                         <p>{I18n.t("newBadgeClassForm.modal.shortCopy")}</p>
                         <div class="action-container">
-                            <Button disabled={option.disabled} action={() => create(option.type)} text={I18n.t("newBadgeClassForm.modal.create")}/>
+                            <Button disabled={option.disabled} action={() => create(option.type)}
+                                    text={I18n.t("newBadgeClassForm.modal.create")}/>
                         </div>
                     </div>
                 {/each}
             </div>
+            {#if missingOptions.length > 0}
+                <ul class="missing-options">
+                    {#each missingOptions as type}
+                        <li>{I18n.t(`newBadgeClassForm.modal.notAvailableTypeInfo.${type}`, {name: currentInstitution.name})}</li>
+                    {/each}
+                </ul>
+            {/if}
+
         </div>
     </div>
 </div>

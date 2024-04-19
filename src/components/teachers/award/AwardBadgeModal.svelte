@@ -5,7 +5,7 @@
     import {validUrl} from "../../../util/forms";
     import {onMount} from "svelte";
     import MarkdownField from "../../forms/MarkdownField.svelte";
-    import {isEmpty} from "../../util/utils";
+    import {isEmpty} from "../../../util/utils";
 
     export let submit;
     export let cancel;

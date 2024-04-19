@@ -18,6 +18,8 @@
       nameDutch
     },
     currentInstitution {
+      nameEnglish,
+      nameDutch,
       grondslagFormeel,
       grondslagInformeel,
       institutionType,
@@ -59,8 +61,8 @@
     let publicInstitutions;
 
     let loaded = false;
-    // let choiceMade = false;
-    let choiceMade = true;
+    let choiceMade = false;
+    // let choiceMade = true;
 
     onMount(() => {
         queryData(query, {entityId: issuerEntityId}).then(res => {

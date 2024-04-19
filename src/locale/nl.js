@@ -1768,6 +1768,11 @@ I18n.translations.nl = {
                 micro_credential: "A badge class with all metadata following EU guidelines.",
                 regular: "A badge class based on ECTS.",
                 extra_curricular: "A badge class based on time investment."
+            },
+            notAvailableTypeInfo: {
+                micro_credential: "Je instelling {{name}} is niet geconfigureerd om mirco-credential badges uit te geven.",
+                regular: "Je instelling {{name}} heeft geen formele grondslag en daarom kunnen er geen reguliere badges worden uitgegeven.",
+                extra_curricular: "Je instelling {{name}} heeft geen informele grondslag en daarom kunnen er geen extra curriculare badges worden uitgegeven.",
             }
         },
         form: {
