@@ -703,7 +703,7 @@ I18n.translations.nl = {
             participation: "Manier van samenwerking",
             assessment: "Assessment type",
             url: "URL",
-            isStackable: "Stackable voor andere credential?",
+            isStackable: "Stapelbaar naar andere badge classes?",
             isGradeAchieved: "Cijfer behaald",
             gradeAchieved: "Cijfer behaald verplicht?",
             notSet: "",
@@ -1757,12 +1757,12 @@ I18n.translations.nl = {
             tipAction: "bestaande badge class",
             tip: "Klik op een bestaande badge class en kies de optie om de badge class te kopieren rechts bovenin het scherm. Ga naar het ",
             issuerLink: "overzicht van alle badge classes voor de issuer {{name}}",
-            shortCopy: "Hier kan nog wat meer informatie staan.",
+            shortCopy: "Hier kan nog wat meer informatie staan, maar dat is voor ieder type badgeclass dezelfde tekst!",
             create: "Create",
             types: {
                 micro_credential: "Microcredential",
                 regular: "Regulier",
-                extra_curricular: "Extracurriculair'"
+                extra_curricular: "Extracurriculair"
             },
             info: {
                 micro_credential: "Een badge class met alle metadata conform de EU aanbevelingen.",
@@ -1805,14 +1805,14 @@ I18n.translations.nl = {
                     recognition_acquired_competences: "Erkenning van verworven competenties",
                     personalized_assessment: "Gepersonaliseerde toetsing"
                 },
-                supervision: "Supervision & ID verification",
-                supervised: "Was the assessment supervised?",
-                idVerification: "Was the student's identity verified?",
+                supervision: "Toezicht & identiteit verificatie",
+                supervised: "Was er toezicht bij de assessment?",
+                idVerification: "Was de identiteit van de lerende geverifieerd?",
                 supervisionOptions: {
-                    o1: "Supervised with identity verification",
-                    o2: "Supervised without identity verification",
-                    o3: "Not supervised without identity verification",
-                    o4: "Not supervised with identity verification"
+                    o1: "Onder toezicht, met identiteit verificatie",
+                    o2: "Onder toezicht, zonder identiteit verificatie",
+                    o3: "Geen toezicht, zonder identiteit verificatie",
+                    o4: "Geen toezicht, met identiteit verificatie"
                 }
             },
             directAward: {
