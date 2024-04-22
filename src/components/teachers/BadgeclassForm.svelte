@@ -812,11 +812,6 @@
                         bind:ectsValue={extensions[ects.name]}
                         disabled={!mayEdit && !isCopy}
                 />
-                <a href="/#"
-                   class="info"
-                   on:click|preventDefault|stopPropagation={() => switchStudyLoad(false)}>
-                    {I18n.t("newBadgeClassForm.form.switchToStudyLoad") }
-                </a>
             </Field>
         {:else}
             <Field entity={entity}
