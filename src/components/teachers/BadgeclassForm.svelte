@@ -33,6 +33,7 @@
     import StudyLoad from "../extensions/badges/StudyLoad.svelte";
     import {constructErrors, isRequired} from "../../util/requiredAttributes";
     import PreviewBadgeClassModal from "./PreviewBadgeClassModal.svelte";
+    import TimeInvestment from "../extensions/badges/TimeInvestment.svelte";
 
     export let entityId;
     export let badgeclass = {extensions: [], issuer: {}, alignments: [], criteriaText: ""};
@@ -153,22 +154,31 @@
             const stackable = badgeclass.stackable ? "stackable" : "notStackable";
             badgeclass.stackable = stackableOptions.find(opt => opt.value === stackable);
         }
-
-        switch (badgeclass.badgeClassType) {
-            case badgeClassTypes.MICRO_CREDENTIAL: {
-                break;
-            }
-            case badgeClassTypes.REGULAR: {
-                badgeclass.formal = true;
-                break;
-            }
-            case badgeClassTypes.EXTRA_CURRICULAR: {
-                break;
+        if (isInstitutionMBO) {
+            extensions[studyLoad.name] = 84;
+        } else {
+            switch (badgeclass.badgeClassType) {
+                case badgeClassTypes.MICRO_CREDENTIAL: {
+                    badgeclass.formal = false;
+                    extensions[ects.name] = 5;
+                    break;
+                }
+                case badgeClassTypes.REGULAR: {
+                    badgeclass.formal = true;
+                    extensions[ects.name] = 3;
+                    break;
+                }
+                case badgeClassTypes.EXTRA_CURRICULAR: {
+                    badgeclass.formal = false;
+                    extensions[timeInvestment.name] = 28;
+                    break;
+                }
             }
         }
     });
 
-    const performValidation = () => {
+    const performValidation = isPrivate => {
+        badgeclass.isPrivate = isPrivate;
         const allErrors = constructErrors(badgeclass, extensions);
         //Hack for micro_credentials, that has an option between StudyLoadExtension and ECTSExtension
         if (badgeclass.badgeClassType === badgeClassTypes.MICRO_CREDENTIAL) {
@@ -201,7 +211,7 @@
             delete extensions[ects.name];
 
         } else {
-            extensions[ects.name] = badgeclass.isMicroCredentials ? 5 : 2.5;
+            extensions[ects.name] = badgeclass.isMicroCredentials ? 5 : 3;
             delete extensions[studyLoad.name];
         }
     }
@@ -265,7 +275,7 @@
         }
         extensions = {
             [language.name]: extensionValue(badgeclass.extensions, language) || "en_EN",
-            [ects.name]: ectsValue || (isCreate ? (badgeclass.isMicroCredentials ? 5 : 2.5) : ""),
+            [ects.name]: ectsValue || (isCreate ? (badgeclass.isMicroCredentials ? 5 : 3) : ""),
             [eqf.name]: eqfValue,
             [learningOutcome.name]: extensionValue(badgeclass.extensions, learningOutcome) || "",
             [educationProgramIdentifier.name]: extensionValue(badgeclass.extensions, educationProgramIdentifier) || (isCreate && !isCopy ? [""] : []),
@@ -275,7 +285,7 @@
             extensions[eqf.name] = {name: `EQF ${extensions[eqf.name]}`, value: extensions[eqf.name]}
         }
         const timeInvestmentValue = extensionValue(badgeclass.extensions, timeInvestment) || 0;
-        if ((isCreate && !isCopy) || timeInvestmentValue) {
+        if ((isCreate && !isCopy) || timeInvestmentValue !== 0) {
             extensions[timeInvestment.name] = timeInvestmentValue;
         }
         loaded = true;
@@ -333,10 +343,13 @@
         };
         setExpirationPeriod(newBadgeclass);
         if (newBadgeclass.alignments) {
-            for (let alignment of newBadgeclass.alignments) {
+            newBadgeclass.alignments = newBadgeclass.alignments.filter(alignment =>
+                !isEmpty(alignment.target_name) && !isEmpty(alignment.target_url) && !isEmpty(alignment.target_description) &&
+                !isEmpty(alignment.target_framework) && !isEmpty(alignment.target_code))
+            newBadgeclass.alignments.forEach(alignment => {
                 alignment.target_url = toHttpOrHttps(alignment.target_url)
                 delete alignment.existing
-            }
+            });
         }
         newBadgeclass.extensions = extensionToJson([
             {name: language.name, value: languageSelection.value}
@@ -395,10 +408,9 @@
         errors = {};
         processing = true;
         initial = false;
-        const allErrors = performValidation();
+        const allErrors = performValidation(isPrivate);
         errors = allErrors;
-        // debugger;
-        if (Object.keys(allErrors).length > 1 && false) {
+        if (Object.keys(allErrors).length > 1) {
             processing = false;
             return;
         }
@@ -512,7 +524,6 @@
         }
 
         &.error {
-            background-color: var(--red-medium);
             border: 1px solid var(--red-dark);
             padding: 5px;
             border-radius: 4px;
@@ -600,6 +611,16 @@
         }
     }
 
+    .warnings {
+        display: flex;
+        width: 100%;
+
+        p {
+            margin-left: auto;
+            color: var(--red-dark);
+        }
+    }
+
 </style>
 
 <EntityForm
@@ -616,10 +637,10 @@
         badgeclassName={isCreate ? " - " + I18n.t(`newBadgeClassForm.modal.types.${badgeclass.badgeClassType}`) : badgeclass.name}
         submit={onSubmit}
         create={isCreate}
-        cancel={saveDraft}
-        cancelText={I18n.t("newBadgeClassForm.saveAsDraft")}
-        submitText={I18n.t("newBadgeClassForm.publish")}
-        previewAction={() => doShowPreview() }
+        cancel={mayEdit ? saveDraft :  window.history.back}
+        cancelText={mayEdit ? I18n.t("newBadgeClassForm.saveAsDraft") : I18n.t("manage.edit.cancel")}
+        submitText={isCreate ? I18n.t("newBadgeClassForm.publish") : I18n.t("manage.edit.save")}
+        previewAction={() => doShowPreview()}
         {processing}>
 
     <div class="form">
@@ -691,7 +712,9 @@
                    errors={errors[`extensions.${learningOutcome.name}`]}
                    tipKey="badgeClassLearningOutcome"
                    required={isRequired(badgeclass, `extensions.${learningOutcome.name}`)}>
-                <div class="mark-down-container" class:disabled={!mayEdit && !isCopy}>
+                <div class="mark-down-container"
+                     class:disabled={!mayEdit && !isCopy}
+                     class:error={errors[`extensions.${learningOutcome.name}`]}>
                     <MarkdownField
                             bind:value={extensions[learningOutcome.name]}
                             disabled={!mayEdit && !isCopy}
@@ -704,10 +727,12 @@
             <MarkDownExample onClick={() => markDownExample("criteriaText")} tipKey="badgeClassCriteriaRequirements"/>
             <Field entity={entity}
                    attribute="criteria_text"
-                   errors={errors.criteria_text}
+                   errors={errors.criteriaText}
                    tipKey="badgeClassCriteriaRequirements"
                    required={isRequired(badgeclass, "criteriaText")}>
-                <div class="mark-down-container" class:disabled={!mayEdit && !isCopy}>
+                <div class="mark-down-container"
+                     class:disabled={!mayEdit && !isCopy}
+                     class:error={errors.criteriaText}>
                     <MarkdownField
                             bind:value={badgeclass.criteriaText}
                             disabled={!mayEdit && !isCopy}
@@ -730,8 +755,18 @@
                     optionIdentifier="value"
                     clearable={false}/>
         </Field>
-
-        {#if badgeclass.badgeClassType !== badgeClassTypes.EXTRA_CURRICULAR}
+        {#if isInstitutionMBO}
+            <Field entity={entity}
+                   attribute="hours"
+                   errors={errors[`extensions.${studyLoad.name}`]}
+                   tipKey="badgeClassStudyLoadNumber"
+                   required={isRequired(badgeclass, `extensions.${studyLoad.name}`)}>
+                <StudyLoad
+                        bind:studyLoad={extensions[studyLoad.name]}
+                        disabled={!mayEdit && !isCopy}
+                />
+            </Field>
+        {:else if badgeclass.badgeClassType === badgeClassTypes.MICRO_CREDENTIAL}
             {#if showStudyLoad}
                 <Field entity={entity}
                        attribute="hours"
@@ -755,7 +790,7 @@
                        tipKey="badgeClassStudyLoadEcts"
                        required={isRequired(badgeclass, `extensions.${ects.name}`)}>
                     <EctsCreditPoints
-                            isMicroCredentials={badgeclass.isMicroCredentials}
+                            isMicroCredentials={true}
                             bind:ectsValue={extensions[ects.name]}
                             disabled={!mayEdit && !isCopy}
                     />
@@ -766,14 +801,31 @@
                     </a>
                 </Field>
             {/if}
+        {:else if badgeclass.badgeClassType === badgeClassTypes.REGULAR}
+            <Field entity={entity}
+                   attribute="ects.creditPoints"
+                   errors={errors[`extensions.${ects.name}`]}
+                   tipKey="badgeClassStudyLoadEcts"
+                   required={isRequired(badgeclass, `extensions.${ects.name}`)}>
+                <EctsCreditPoints
+                        isMicroCredentials={false}
+                        bind:ectsValue={extensions[ects.name]}
+                        disabled={!mayEdit && !isCopy}
+                />
+                <a href="/#"
+                   class="info"
+                   on:click|preventDefault|stopPropagation={() => switchStudyLoad(false)}>
+                    {I18n.t("newBadgeClassForm.form.switchToStudyLoad") }
+                </a>
+            </Field>
         {:else}
             <Field entity={entity}
                    attribute="hours"
                    errors={errors[`extensions.${timeInvestment.name}`]}
                    tipKey="badgeClassTimeInvestmentNumber"
                    required={isRequired(badgeclass, `extensions.${timeInvestment.name}`)}>
-                <StudyLoad
-                        bind:studyLoad={extensions[timeInvestment.name]}
+                <TimeInvestment
+                        bind:timeInvestment={extensions[timeInvestment.name]}
                         disabled={!mayEdit && !isCopy}
                 />
             </Field>
@@ -854,7 +906,7 @@
 
             <Field entity={entity}
                    attribute="assessment"
-                   errors={errors.assessment_type}
+                   errors={errors.assessmentType}
                    tipKey="badgeClassAssessmentType"
                    isSelect={true}
                    required={isRequired(badgeclass, "assessmentType")}>
@@ -885,18 +937,18 @@
 
             <Field entity={entity}
                    attribute="qualityAssuranceName"
-                   errors={errors.quality_assurance_name}
+                   errors={errors.qualityAssuranceName}
                    tipKey="qualityAssuranceName"
                    required={isRequired(badgeclass, "qualityAssuranceName")}>
                 <TextInput bind:value={badgeclass.qualityAssuranceName}
                            disabled={!mayEdit}
-                           error={errors.quality_assurance_name}
+                           error={errors.qualityAssuranceName}
                            placeholder={I18n.t("placeholders.badgeClass.qualityAssuranceName")}/>
             </Field>
 
             <Field entity={entity}
                    attribute="qualityAssuranceUrl"
-                   errors={errors.quality_assurance_url}
+                   errors={errors.qualityAssuranceUrl}
                    tipKey="qualityAssuranceUrl"
                    required={isRequired(badgeclass, "qualityAssuranceUrl")}>
                 <TextInput bind:value={badgeclass.qualityAssuranceUrl}
@@ -910,10 +962,12 @@
                                  tipKey="qualityAssuranceDescription"/>
                 <Field entity={entity}
                        attribute="qualityAssuranceDescription"
-                       errors={errors.quality_assurance_description}
+                       errors={errors.qualityAssuranceDescription}
                        tipKey="qualityAssuranceDescription"
                        required={isRequired(badgeclass, "qualityAssuranceDescription")}>
-                    <div class="mark-down-container" class:disabled={!mayEdit}>
+                    <div class="mark-down-container"
+                         class:disabled={!mayEdit}
+                         class:error={errors.qualityAssuranceDescription}>
                         <MarkdownField
                                 bind:value={badgeclass.qualityAssuranceDescription}
                                 disabled={!mayEdit}
@@ -999,7 +1053,6 @@
             <Select
                     bind:value={badgeclass.stackable}
                     items={stackableOptions}
-                    disabled={!mayEdit}
                     optionIdentifier="value"
                     placeholder={I18n.t("newBadgeClassForm.form.placeHolder")}
                     customIndicator={indicator}
@@ -1010,7 +1063,6 @@
 
         {#if badgeclass.badgeClassType !== badgeClassTypes.EXTRA_CURRICULAR}
             <Switch value={badgeclass.gradeAchievedRequired}
-                    disabled={!mayEdit}
                     label={I18n.t("models.badgeclass.isGradeAchieved")}
                     question={I18n.t("models.badgeclass.gradeAchieved")}
                     onChange={() => badgeclass.gradeAchievedRequired = !badgeclass.gradeAchievedRequired}/>
@@ -1038,7 +1090,6 @@
         {/if}
 
 
-        <!--{#if badgeclass.alignments && badgeclass.badgeClassType !== badgeClassTypes.EXTRA_CURRICULAR}-->
         <h4 class="one-row">{I18n.t('models.badgeclass.headers.alignment')}</h4>
         {#each badgeclass.alignments as alignment, i}
             {#if i > 0 && i !== badgeclass.alignments}
@@ -1113,7 +1164,8 @@
                            errors={errors.alignments? errors.alignments[i].target_description: []}
                            tipKey="badgeClassRelatedFrameworkDescription">
                         <div class="mark-down-container"
-                             class:disabled={!mayRemoveAlignment(alignment) && !isCopy}>
+                             class:disabled={!mayRemoveAlignment(alignment) && !isCopy}
+                             class:error={errors.alignments? errors.alignments[i].target_description: null}>
                             <MarkdownField
                                     bind:value={alignment.target_description}
                                     disabled={!mayRemoveAlignment(alignment) && !isCopy}
@@ -1131,6 +1183,12 @@
                     disabled={false}
             />
         </div>
+        {#if !isEmpty(errors)}
+            <div class="warnings one-row">
+                <p>{I18n.t("newBadgeClassForm.errors")}</p>
+            </div>
+        {/if}
+
 </EntityForm>
 {#if showPreview}
     <PreviewBadgeClassModal badgeclass={previewBadgeCopy}

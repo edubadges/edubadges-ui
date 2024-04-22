@@ -5,7 +5,9 @@ const urlRegExp = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]
 
 const emailRegExp = /^.+@.+\..+$/;
 
-export const fallBackValue = val => val || I18n.t("models.badgeclass.notSet");
+export const fallBackValue = val => {
+    return val || I18n.t("models.badgeclass.notSet");
+}
 
 export const validUrl = val => urlRegExp.test(val);
 

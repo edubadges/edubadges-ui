@@ -706,7 +706,7 @@ I18n.translations.en = {
             isStackable: "Stackable towards another credential?",
             isGradeAchieved: "Grade achieved",
             gradeAchieved: "Grade achieved required?",
-            notSet: "-",
+            notSet: "",
             qualityAssuranceName: "Name",
             qualityAssuranceUrl: "URL",
             qualityAssuranceDescription: "Description",
@@ -988,7 +988,7 @@ I18n.translations.en = {
     invites: {
         title: "Invite people to request",
         copyPublicUrl: "If you want to place the link to the registration page on your intranet or electronic learning environment, you can copy the link.",
-        copyPublicUrlDisabled: "This badge class is private and can not be awarded.",
+        copyPublicUrlDisabled: "This badge class is a draft and can not be awarded.",
         copyUrl: "Copy the link"
     },
     file: {
@@ -1843,6 +1843,7 @@ I18n.translations.en = {
         programme: "The programme",
         assessment: "The assessment",
         badge: "The badge",
+        errors: "There are required attributes missing. Please review the input errors."
     }
 
 };

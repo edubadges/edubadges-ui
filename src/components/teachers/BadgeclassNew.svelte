@@ -54,7 +54,7 @@
         awardAllowedInstitutions: [],
         extensions: [{}],
         tags: [],
-        badgeClassType: badgeClassTypes.MICRO_CREDENTIAL,
+        badgeClassType: badgeClassTypes.EXTRA_CURRICULAR,
         alignments: [],
         stackable: "notStackable"});
     let currentInstitution;
@@ -62,7 +62,6 @@
 
     let loaded = false;
     let choiceMade = false;
-    // let choiceMade = true;
 
     onMount(() => {
         queryData(query, {entityId: issuerEntityId}).then(res => {

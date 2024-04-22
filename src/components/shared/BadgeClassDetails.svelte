@@ -30,6 +30,7 @@
     import {endorsementStatus} from "../../util/endorsements";
     import {config} from "../../util/config";
     import {isEmpty} from "../../util/utils";
+    import Spinner from "../Spinner.svelte";
 
     export let badgeclass;
     export let publicInstitutions;
@@ -39,6 +40,7 @@
     let showAllInstitutions = false;
     let showEndorsementDetails = [];
     let endorsementsAccepted = [];
+    let loading = true;
 
     onMount(() => {
         //The component is used by public pages where the data structure is different
@@ -66,6 +68,7 @@
             badgeclass.endorsements.forEach(endorsement => translateBadgeClassProperties(endorsement.endorser));
             endorsementsAccepted = badgeclass.endorsements.filter(e => e.status.toLowerCase() === endorsementStatus.ACCEPTED);
         }
+        loading = false;
     });
 
     const toggleEndorsement = index => {
@@ -271,216 +274,229 @@
 <div class="slots">
     <slot/>
 </div>
-<div class="badge-class-detail-container">
-    <div class="badge-class-detail">
-        <h2 class="black-header">{I18n.t('models.badgeclass.about')}</h2>
-        <div class="info markdown-body">
-            <MarkdownField value={badgeclass.description} disabled={true}/>
-        </div>
-        <h3>{I18n.t('models.badgeclass.learningOutcome')}</h3>
-        <div class="info markdown-body">
-            <MarkdownField value={fallBackValue(badgeclass.learningOutcome)} disabled={true}/>
-        </div>
-        <h3>{I18n.t('models.badgeclass.criteria_text')}</h3>
-        {#if badgeclass.criteriaText}
+{#if loading}
+    <Spinner/>
+{:else}
+    <div class="badge-class-detail-container">
+        <div class="badge-class-detail">
+            <h2 class="black-header">{I18n.t('models.badgeclass.about')}</h2>
+
             <div class="info markdown-body">
-                <MarkdownField value={fallBackValue(badgeclass.criteriaText)} disabled={true}/>
+                <MarkdownField value={badgeclass.description} disabled={true}/>
             </div>
-        {/if}
-        {#if badgeclass.qualityAssuranceName || badgeclass.qualityAssuranceUrl || badgeclass.qualityAssuranceDescription}
-            <h3 class="border">{I18n.t('newBadgeClassForm.form.qualityAssurance')}</h3>
-            <div class="quality-assurance">
-                {#if badgeclass.qualityAssuranceName}
-                    <div>
-                        <span>{badgeclass.qualityAssuranceName}</span>
-                        {#if badgeclass.qualityAssuranceUrl}
-                            <a href="{badgeclass.qualityAssuranceUrl}"
-                               target="_blank">{I18n.t("newBadgeClassForm.link") }</a>
-                        {/if}
-                    </div>
+            {#if badgeclass.typeBadgeClass}
+                <h3>{I18n.t('newBadgeClassForm.badgeClassType')}</h3>
+                <span>{I18n.t(`newBadgeClassForm.modal.types.${badgeclass.typeBadgeClass.toLowerCase()}`)}</span>
+                {#if badgeclass.isPrivate}
+                    <span>{` - ${I18n.t("newBadgeClassForm.draft")}`}</span>
                 {/if}
-                {#if badgeclass.qualityAssuranceDescription}
-                    <div class="info markdown-body">
-                        <MarkdownField value={fallBackValue(badgeclass.qualityAssuranceDescription)} disabled={true}/>
-                    </div>
-                {/if}
-
+            {/if}
+            <h3>{I18n.t('models.badgeclass.learningOutcome')}</h3>
+            <div class="info markdown-body">
+                <MarkdownField value={fallBackValue(badgeclass.learningOutcome)} disabled={true}/>
             </div>
-        {/if}
-
-        {#if endorsementsAccepted.length > 0 && config.features.endorsements}
-            <section class="endorsements">
-                <h3 class="black-header">
-                    {badgeclass.endorsements.length > 1 ? I18n.t("models.badgeclass.endorsementMultiple") : I18n.t("models.badgeclass.endorsement")}
-                </h3>
-                {#each endorsementsAccepted as endorsement, index}
-                    <section class="endorsement">
-                        <Endorsement endorsement={endorsement}
-                                     toggleEndorsement={() => toggleEndorsement(index)}
-                                     showDetails={showEndorsementDetails[index]}/>
-                    </section>
-                {/each}
-            </section>
-        {/if}
-        {#if badgeclass.alignments && badgeclass.alignments.length > 0}
-            <section class="alignments">
-                <h3 class="border">
-                    {badgeclass.alignments.length > 1 ? I18n.t("models.badgeclass.alignmentMultiple") : I18n.t("models.badgeclass.alignment")}
-                </h3>
-                {#each badgeclass.alignments as alignment}
-                    <section class="alignment">
+            <h3>{I18n.t('models.badgeclass.criteria_text')}</h3>
+            {#if badgeclass.criteriaText}
+                <div class="info markdown-body">
+                    <MarkdownField value={fallBackValue(badgeclass.criteriaText)} disabled={true}/>
+                </div>
+            {/if}
+            {#if badgeclass.qualityAssuranceName || badgeclass.qualityAssuranceUrl || badgeclass.qualityAssuranceDescription}
+                <h3 class="border">{I18n.t('newBadgeClassForm.form.qualityAssurance')}</h3>
+                <div class="quality-assurance">
+                    {#if badgeclass.qualityAssuranceName}
                         <div>
-                            <span class="name">{alignment.targetName}</span>
-                            {#if alignment.targetUrl}
-                                <a href="{alignment.targetUrl}"
+                            <span>{badgeclass.qualityAssuranceName}</span>
+                            {#if badgeclass.qualityAssuranceUrl}
+                                <a href="{badgeclass.qualityAssuranceUrl}"
                                    target="_blank">{I18n.t("newBadgeClassForm.link") }</a>
                             {/if}
-                            <table class="alignment-table">
-                                <thead/>
-                                <tbody>
-                                {#if alignment.targetFramework}
-                                    <tr>
-                                        <td class="key">{I18n.t('models.badgeclass.alignmentFramework')}:</td>
-                                        <td class="value">{alignment.targetFramework}</td>
-                                    </tr>
-                                {/if}
-                                {#if alignment.targetCode}
-                                    <tr>
-                                        <td class="key">{I18n.t('models.badgeclass.alignmentCode')}:</td>
-                                        <td class="value">{alignment.targetCode}</td>
-                                    </tr>
-                                {/if}
-                                </tbody>
-                            </table>
-                            {#if alignment.targetDescription}
-                                <div class="sub-info markdown-body">
-                                    <MarkdownField value={alignment.targetDescription} disabled={true}/>
-                                </div>
-                            {/if}
                         </div>
-                    </section>
-                {/each}
-            </section>
+                    {/if}
+                    {#if badgeclass.qualityAssuranceDescription}
+                        <div class="info markdown-body">
+                            <MarkdownField value={fallBackValue(badgeclass.qualityAssuranceDescription)}
+                                           disabled={true}/>
+                        </div>
+                    {/if}
 
-        {/if}
-    </div>
-    <div class="right-side-nav">
-        {#if badge}
-            <div class="group_items">
-                <h3>{I18n.t("newBadgeClassForm.badge")}</h3>
-                <div class="group-item">
-                    {@html badgeclassIcon}
-                    <section class="items">
-                        <span class="name">{I18n.t("models.badge.issuedOn")}</span>
-                        <span class="value">{moment(badge.issuedOn).format('MMM D, YYYY')}</span>
-                    </section>
-                </div>
-                <div class="group-item">
-                    {@html expiredIcon}
-                    <section class="items">
-                        <span class="name">{I18n.t("models.badge.expires")}</span>
-                        <span class="value">{badge.expiresAt ? moment(badge.expiresAt).format('MMM D, YYYY') : I18n.t("models.badge.expiresNever")}</span>
-                    </section>
-                </div>
-            </div>
-        {/if}
-        <div class="group_items">
-            <h3 class="margin-top">{I18n.t("newBadgeClassForm.programme")}</h3>
-            {#if badgeclass.studyLoadValue}
-                <div class="group-item">
-                    {@html schoolTrophyIcon}
-                    <section class="items">
-                        <span class="name">{I18n.t("teacher.badgeclasses.studyLoad")}</span>
-                        <span class="value">{fallBackValue(badgeclass.studyLoadValue)}</span>
-                    </section>
                 </div>
             {/if}
-            <div class="group-item">
-                {@html languageIcon}
-                <section class="items">
-                    <span class="name">{I18n.t('models.badgeclass.language')}</span>
-                    <span class="value">{I18n.t(`language.${badgeclass.language || "en_EN"}`)}</span>
+
+            {#if endorsementsAccepted.length > 0 && config.features.endorsements}
+                <section class="endorsements">
+                    <h3 class="black-header">
+                        {badgeclass.endorsements.length > 1 ? I18n.t("models.badgeclass.endorsementMultiple") : I18n.t("models.badgeclass.endorsement")}
+                    </h3>
+                    {#each endorsementsAccepted as endorsement, index}
+                        <section class="endorsement">
+                            <Endorsement endorsement={endorsement}
+                                         toggleEndorsement={() => toggleEndorsement(index)}
+                                         showDetails={showEndorsementDetails[index]}/>
+                        </section>
+                    {/each}
                 </section>
-            </div>
-            {#if badgeclass.timeInvestmentValue}
+            {/if}
+            {#if badgeclass.alignments && badgeclass.alignments.length > 0}
+                <section class="alignments">
+                    <h3 class="border">
+                        {badgeclass.alignments.length > 1 ? I18n.t("models.badgeclass.alignmentMultiple") : I18n.t("models.badgeclass.alignment")}
+                    </h3>
+                    {#each badgeclass.alignments as alignment}
+                        <section class="alignment">
+                            <div>
+                                <span class="name">{alignment.targetName}</span>
+                                {#if alignment.targetUrl}
+                                    <a href="{alignment.targetUrl}"
+                                       target="_blank">{I18n.t("newBadgeClassForm.link") }</a>
+                                {/if}
+                                <table class="alignment-table">
+                                    <thead/>
+                                    <tbody>
+                                    {#if alignment.targetFramework}
+                                        <tr>
+                                            <td class="key">{I18n.t('models.badgeclass.alignmentFramework')}:</td>
+                                            <td class="value">{alignment.targetFramework}</td>
+                                        </tr>
+                                    {/if}
+                                    {#if alignment.targetCode}
+                                        <tr>
+                                            <td class="key">{I18n.t('models.badgeclass.alignmentCode')}:</td>
+                                            <td class="value">{alignment.targetCode}</td>
+                                        </tr>
+                                    {/if}
+                                    </tbody>
+                                </table>
+                                {#if alignment.targetDescription}
+                                    <div class="sub-info markdown-body">
+                                        <MarkdownField value={alignment.targetDescription} disabled={true}/>
+                                    </div>
+                                {/if}
+                            </div>
+                        </section>
+                    {/each}
+                </section>
+
+            {/if}
+        </div>
+        <div class="right-side-nav">
+            {#if badge}
+                <div class="group_items">
+                    <h3>{I18n.t("newBadgeClassForm.badge")}</h3>
+                    <div class="group-item">
+                        {@html badgeclassIcon}
+                        <section class="items">
+                            <span class="name">{I18n.t("models.badge.issuedOn")}</span>
+                            <span class="value">{moment(badge.issuedOn).format('MMM D, YYYY')}</span>
+                        </section>
+                    </div>
+                    <div class="group-item">
+                        {@html expiredIcon}
+                        <section class="items">
+                            <span class="name">{I18n.t("models.badge.expires")}</span>
+                            <span class="value">{badge.expiresAt ? moment(badge.expiresAt).format('MMM D, YYYY') : I18n.t("models.badge.expiresNever")}</span>
+                        </section>
+                    </div>
+                </div>
+            {/if}
+            <div class="group_items">
+                <h3 class="margin-top">{I18n.t("newBadgeClassForm.programme")}</h3>
+                {#if badgeclass.studyLoadValue}
+                    <div class="group-item">
+                        {@html schoolTrophyIcon}
+                        <section class="items">
+                            <span class="name">{I18n.t("teacher.badgeclasses.studyLoad")}</span>
+                            <span class="value">{fallBackValue(badgeclass.studyLoadValue)}</span>
+                        </section>
+                    </div>
+                {/if}
                 <div class="group-item">
-                    {@html schoolTrophyIcon}
+                    {@html languageIcon}
                     <section class="items">
-                        <span class="name">{I18n.t('models.badgeclass.timeInvestment')}</span>
-                        <span class="value">{fallBackValue(badgeclass.timeInvestmentValue)}</span>
+                        <span class="name">{I18n.t('models.badgeclass.language')}</span>
+                        <span class="value">{I18n.t(`language.${badgeclass.language || "en_EN"}`)}</span>
                     </section>
                 </div>
-            {/if}
-            {#if !isEmpty(badgeclass.educationProgramIdentifier)}
-                <div class="group-item">
-                    {@html programmeIcon}
-                    {#if !isEmpty(badgeclass.educationProgramIdentifier)}
+                {#if badgeclass.timeInvestmentValue}
+                    <div class="group-item">
+                        {@html schoolTrophyIcon}
                         <section class="items">
-                            <span class="name">{I18n.t('models.badgeclass.educationProgramIdentifierLong')}</span>
-                            {#each badgeclass.educationProgramIdentifier as educationProgramIdentifier}
-                                <span class="value">{fallBackValue(educationProgramIdentifier)}</span>
-                            {/each}
+                            <span class="name">{I18n.t('models.badgeclass.timeInvestment')}</span>
+                            <span class="value">{fallBackValue(badgeclass.timeInvestmentValue)}</span>
                         </section>
-                    {/if}
-                </div>
-            {/if}
-            {#if !isEmpty(badgeclass.eqf)}
-                <div class="group-item">
-                    {@html calendarIcon}
-                    {#if badgeclass.eqf}
-                        <section class="items">
-                            <span class="name">{I18n.t("teacher.badgeclasses.educationProgramIdentifier")}</span>
-                            <span class="value">{`EQF ${badgeclass.eqf}`}</span>
-                        </section>
-                    {/if}
-                </div>
-            {/if}
-            {#if badgeclass.participation}
-                <div class="group-item">
-                    {@html participationIcon}
-                    <section class="items">
-                        <span class="name">{I18n.t("newBadgeClassForm.form.participation.name")}</span>
-                        <span class="value">{I18n.t(`newBadgeClassForm.form.participation.options.${badgeclass.participation}`)}</span>
-                    </section>
-                </div>
-            {/if}
-            {#if publicInstitutions && badgeclass.awardAllowedInstitutions && badgeclass.awardAllowedInstitutions.length > 0}
-                <div class="group-item">
-                    {@html awardIcon}
-                    <section class="items">
-                        <span class="name">{I18n.t("teacher.badgeclasses.awardAllowedInstitutions")}</span>
-                        {#each badgeclass.awardAllowedInstitutions as institution, i }
-                            {#if i < cutoffInstitutionThreshold || showAllInstitutions}
-                                <span class="value">{institution.name}</span>
-                            {/if}
-                        {/each}
-                        {#if badgeclass.awardAllowedInstitutions.length > cutoffInstitutionThreshold}
-                            <a href="/"
-                               on:click|preventDefault|stopPropagation={() => showAllInstitutions = !showAllInstitutions}>
-                                {I18n.t(`teacher.badgeclasses.${showAllInstitutions ? "showLessInstitutions" : "showMoreInstitutions"}`)}
-                            </a>
+                    </div>
+                {/if}
+                {#if !isEmpty(badgeclass.educationProgramIdentifier)}
+                    <div class="group-item">
+                        {@html programmeIcon}
+                        {#if !isEmpty(badgeclass.educationProgramIdentifier)}
+                            <section class="items">
+                                <span class="name">{I18n.t('models.badgeclass.educationProgramIdentifierLong')}</span>
+                                {#each badgeclass.educationProgramIdentifier as educationProgramIdentifier}
+                                    <span class="value">{fallBackValue(educationProgramIdentifier)}</span>
+                                {/each}
+                            </section>
                         {/if}
-                    </section>
+                    </div>
+                {/if}
+                {#if !isEmpty(badgeclass.eqf)}
+                    <div class="group-item">
+                        {@html calendarIcon}
+                        {#if badgeclass.eqf}
+                            <section class="items">
+                                <span class="name">{I18n.t("teacher.badgeclasses.educationProgramIdentifier")}</span>
+                                <span class="value">{`EQF ${badgeclass.eqf}`}</span>
+                            </section>
+                        {/if}
+                    </div>
+                {/if}
+                {#if badgeclass.participation}
+                    <div class="group-item">
+                        {@html participationIcon}
+                        <section class="items">
+                            <span class="name">{I18n.t("newBadgeClassForm.form.participation.name")}</span>
+                            <span class="value">{I18n.t(`newBadgeClassForm.form.participation.options.${badgeclass.participation}`)}</span>
+                        </section>
+                    </div>
+                {/if}
+                {#if publicInstitutions && badgeclass.awardAllowedInstitutions && badgeclass.awardAllowedInstitutions.length > 0}
+                    <div class="group-item">
+                        {@html awardIcon}
+                        <section class="items">
+                            <span class="name">{I18n.t("teacher.badgeclasses.awardAllowedInstitutions")}</span>
+                            {#each badgeclass.awardAllowedInstitutions as institution, i }
+                                {#if i < cutoffInstitutionThreshold || showAllInstitutions}
+                                    <span class="value">{institution.name}</span>
+                                {/if}
+                            {/each}
+                            {#if badgeclass.awardAllowedInstitutions.length > cutoffInstitutionThreshold}
+                                <a href="/"
+                                   on:click|preventDefault|stopPropagation={() => showAllInstitutions = !showAllInstitutions}>
+                                    {I18n.t(`teacher.badgeclasses.${showAllInstitutions ? "showLessInstitutions" : "showMoreInstitutions"}`)}
+                                </a>
+                            {/if}
+                        </section>
+                    </div>
+                {/if}
+            </div>
+            {#if badgeclass.assessmentType}
+                <div class="group_items">
+                    <h3 class="margin-top">{I18n.t("newBadgeClassForm.assessment")}</h3>
+                    <div class="group-item">
+                        {@html assessmentIcon}
+                        <section class="items">
+                            <span class="name">{I18n.t("newBadgeClassForm.form.assessment.name")}</span>
+                            <span class="value">{I18n.t(`newBadgeClassForm.form.assessment.options.${badgeclass.assessmentType}`)}</span>
+                        </section>
+                    </div>
+                    <div class="group-item">
+                        {@html supervisionIcon}
+                        <section class="items">
+                            <span class="value">{I18n.t(`newBadgeClassForm.form.assessment.supervisionOptions.${getSuperVisionOption()}`)}</span>
+                        </section>
+                    </div>
                 </div>
             {/if}
         </div>
-        {#if badgeclass.assessmentType}
-            <div class="group_items">
-                <h3 class="margin-top">{I18n.t("newBadgeClassForm.assessment")}</h3>
-                <div class="group-item">
-                    {@html assessmentIcon}
-                    <section class="items">
-                        <span class="name">{I18n.t("newBadgeClassForm.form.assessment.name")}</span>
-                        <span class="value">{I18n.t(`newBadgeClassForm.form.assessment.options.${badgeclass.assessmentType}`)}</span>
-                    </section>
-                </div>
-                <div class="group-item">
-                    {@html supervisionIcon}
-                    <section class="items">
-                        <span class="value">{I18n.t(`newBadgeClassForm.form.assessment.supervisionOptions.${getSuperVisionOption()}`)}</span>
-                    </section>
-                </div>
-            </div>
-        {/if}
     </div>
-</div>
+{/if}

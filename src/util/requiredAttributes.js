@@ -77,9 +77,10 @@ export const isRequired = (badgeClass, attributeName) => {
 }
 
 export const constructErrors = (badgeClass, extensions) => {
-    const type = badgeClass.badgeClassType
-    const requiredAttributes = type === badgeClassTypes.MICRO_CREDENTIAL ? requiredMicroCredentials :
-        type === badgeClassTypes.REGULAR ? requiredRegular : requiredExtraCurricular;
+    const type = badgeClass.badgeClassType;
+    const requiredAttributes = badgeClass.isPrivate ? {name: true} :
+        type === badgeClassTypes.MICRO_CREDENTIAL ? requiredMicroCredentials :
+            type === badgeClassTypes.REGULAR ? requiredRegular : requiredExtraCurricular;
     const attributes = Object.keys(requiredAttributes).reduce((acc, cur) => {
         if (cur !== "extensions") {
             acc.push(cur);
@@ -88,10 +89,10 @@ export const constructErrors = (badgeClass, extensions) => {
         }
         return acc;
     }, []);
-    return attributes.map(attr => ({name: attr, value: attributeValue(badgeClass, attr, extensions )}))
-        .filter(item => isEmpty(item.value))
-        .reduce((acc,item) => {
+    return attributes.map(attr => ({name: attr, value: attributeValue(badgeClass, attr, extensions)}))
+        .filter(item => isEmpty(item.value) || item.value === 0)
+        .reduce((acc, item) => {
             acc[item.name] = [{"error_code": "903"}]
             return acc;
-        },{})
+        }, {})
 }

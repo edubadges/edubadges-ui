@@ -69,15 +69,6 @@
             &.delete {
                 display: flex;
                 flex-direction: column;
-
-                span.may-not-delete {
-                    display: inline-block;
-                    margin-top: 10px;
-                    color: var(--grey-7);
-                    font-style: italic;
-                    font-size: 14px;
-                    max-width: 160px;
-                }
             }
         }
 
@@ -99,6 +90,19 @@
 
             }
         }
+    }
+
+    div.warnings {
+        max-width: 240px;
+
+        span {
+            display: inline-block;
+            margin-top: 10px;
+            color: var(--grey-7);
+            font-style: italic;
+            font-size: 14px;
+        }
+
     }
 </style>
 
@@ -125,11 +129,6 @@
                             disabled={!mayDelete || processing || deleting || hasUnrevokedAssertions}
                             action={() => showRemoveModal = true}
                             text={I18n.t("manage.delete.delete")}/>
-                    {#if mayDelete && hasUnrevokedAssertions}
-                        <span class="may-not-delete">{I18n.t(`manage.delete.info.assertionsBlock.${entityTypeName}`)}</span>
-                    {:else if !mayDelete}
-                        <span class="may-not-delete">{I18n.t(`manage.delete.info.noPermission.${entityTypeName}`)}</span>
-                    {/if}
                 </div>
             {/if}
             <div class="button-group">
@@ -156,6 +155,13 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="warnings">
+        {#if mayDelete && hasUnrevokedAssertions}
+            <span class="may-not-delete">{I18n.t(`manage.delete.info.assertionsBlock.${entityTypeName}`)}</span>
+        {:else if !mayDelete}
+            <span class="may-not-delete">{I18n.t(`manage.delete.info.noPermission.${entityTypeName}`)}</span>
+        {/if}
     </div>
 </div>
 

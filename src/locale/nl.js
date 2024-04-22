@@ -706,7 +706,7 @@ I18n.translations.nl = {
             isStackable: "Stackable vooor andere credential?",
             isGradeAchieved: "Cijfer behaald",
             gradeAchieved: "Cijfer behaald verplicht?",
-            notSet: "-",
+            notSet: "",
             qualityAssuranceName: "Naam",
             qualityAssuranceUrl: "URL",
             qualityAssuranceDescription: "Omschrijving",
@@ -989,7 +989,7 @@ I18n.translations.nl = {
     invites: {
         title: "Nodig iemand uit om zich in te schrijven",
         copyPublicUrl: "Als je de link naar de registratiepagina op je intranet of elektronische leeromgeving wilt plaatsen, kunt je de link kopiëren",
-        copyPublicUrlDisabled: "Deze badge class is privé en kan niet worden uitgereikt",
+        copyPublicUrlDisabled: "Deze badge class is een voorlopige versie en kan niet worden uitgereikt",
         copyUrl: "Kopieer URL"
     },
     file: {
@@ -1845,6 +1845,7 @@ I18n.translations.nl = {
         programme: "The programme",
         assessment: "The assessment",
         badge: "The badge",
+        errors: "Er ontbreken verplichte velden. Controleer de invoerfouten."
     }
 
 };
