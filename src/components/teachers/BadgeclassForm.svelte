@@ -307,11 +307,17 @@
         previewBadgeCopy.educationProgramIdentifier = extensions[educationProgramIdentifier.name];
         previewBadgeCopy.learningOutcome = extensions[learningOutcome.name];
         previewBadgeCopy.eqf = extensions[eqf.name];
+        if (previewBadgeCopy.eqf) {
+            previewBadgeCopy.eqf = previewBadgeCopy.eqf.value;
+        }
         previewBadgeCopy.studyLoad = extensions[studyLoad.name];
         previewBadgeCopy.timeInvestment = extensions[timeInvestment.name];
         previewBadgeCopy.ects = extensions[ects.name];
         previewBadgeCopy.language = extensions[language.name];
         previewBadgeCopy.ignoreExtensions = true;
+        if (previewBadgeCopy.assessmentType) {
+            previewBadgeCopy.assessmentType = previewBadgeCopy.assessmentType.value ;
+        }
         //To enable scrolling in the modal, is removed again in the close
         document.body.classList.add("modal-open");
         showPreview = true;
