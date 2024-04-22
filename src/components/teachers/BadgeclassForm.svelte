@@ -273,12 +273,17 @@
         } else if (eqfValue !== null) {
             eqfValue = eqfItems.find(item => item.value === eqfValue)
         }
+        let programmeIdentifiers = extensionValue(badgeclass.extensions, educationProgramIdentifier) || (isCreate && !isCopy ? [""] : []);
+        //Draft regular badge classes need a programmeIdentifier
+        if (programmeIdentifiers.length === 0 && badgeclass.badgeClassType === badgeClassTypes.REGULAR) {
+            programmeIdentifiers = [""];
+        }
         extensions = {
             [language.name]: extensionValue(badgeclass.extensions, language) || "en_EN",
             [ects.name]: ectsValue || (isCreate ? (badgeclass.isMicroCredentials ? 5 : 3) : ""),
             [eqf.name]: eqfValue,
             [learningOutcome.name]: extensionValue(badgeclass.extensions, learningOutcome) || "",
-            [educationProgramIdentifier.name]: extensionValue(badgeclass.extensions, educationProgramIdentifier) || (isCreate && !isCopy ? [""] : []),
+            [educationProgramIdentifier.name]: programmeIdentifiers,
             [studyLoad.name]: studyLoadValue || "",
         };
         if (extensions[eqf.name] && typeof extensions[eqf.name] === "number") {
@@ -416,7 +421,7 @@
         initial = false;
         const allErrors = performValidation(isPrivate);
         errors = allErrors;
-        if (Object.keys(allErrors).length > 1) {
+        if (Object.keys(allErrors).length > 0) {
             processing = false;
             return;
         }
