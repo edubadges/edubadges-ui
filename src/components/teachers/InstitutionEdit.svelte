@@ -5,7 +5,7 @@
     import indicator from "../../icons/chevron-down-large.svg";
     import {Field, File, TextInput} from "../forms";
     import {queryData} from "../../api/graphql";
-    import {editInstitution} from "../../api";
+    import {editInstitution, tagUsage} from "../../api";
     import {entityType} from "../../util/entityTypes";
     import Spinner from "../Spinner.svelte";
     import I18n from "i18n-js";
@@ -50,6 +50,7 @@
     let errors = {};
     let loaded = false;
     let processing = false;
+    let existingTags = [];
     let englishValueError = false;
     let dutchValueError = false
 
@@ -57,6 +58,7 @@
         queryData(query).then(res => {
             res.currentInstitution.tags = res.currentInstitution.tags.map(tag => tag.name).sort();
             institution = res.currentInstitution;
+            existingTags = [...institution.tags];
             publicInstitutions = res.publicInstitutions.filter(ins => ins.identifier !== institution.identifier);
             publicInstitutions.forEach(ins => translateProperties(ins));
             if (institution.awardAllowAllInstitutions) {
@@ -74,6 +76,16 @@
         institution = {...institution, tags: uniqueValues};
     }
     const removeValue = value => {
+        // if (existingTags.includes(value)) {
+        // tagUsage()
+        // } else {
+        //     doRemoveTagValue();
+        // }
+        const newTags = institution.tags.filter(tag => tag !== value);
+        institution = {...institution, tags: newTags};
+    }
+
+    const doRemoveTagValue = value => {
         const newTags = institution.tags.filter(tag => tag !== value);
         institution = {...institution, tags: newTags};
     }

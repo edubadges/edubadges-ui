@@ -4,7 +4,7 @@
     import {queryData} from "../../api/graphql";
     import {deduceExpirationPeriod} from "../extensions/badges/expiration_period";
     import Spinner from "../Spinner.svelte";
-    import {translateProperties} from "../../util/utils";
+    import {isEmpty, translateProperties} from "../../util/utils";
     import {alignments} from "../../api/queries";
 
     export let entityId;
@@ -123,17 +123,21 @@
                 badgeclass.entityId = null;
                 badgeclass.name = "";
                 badgeclass.id = null;
-                //https://stackoverflow.com/questions/25690641/img-url-to-dataurl-using-javascript
-                fetch(badgeclass.image).then(res => {
-                    res.blob().then(content => {
-                        const reader = new FileReader();
-                        reader.onload = ({target: {result}}) => {
-                            badgeclass.image = result;
-                            loaded = true;
-                        };
-                        reader.readAsDataURL(content);
-                    })
-                });
+                if (isEmpty(badgeclass.image)) {
+                    loaded = true;
+                } else {
+                    //https://stackoverflow.com/questions/25690641/img-url-to-dataurl-using-javascript
+                    fetch(badgeclass.image).then(res => {
+                        res.blob().then(content => {
+                            const reader = new FileReader();
+                            reader.onload = ({target: {result}}) => {
+                                badgeclass.image = result;
+                                loaded = true;
+                            };
+                            reader.readAsDataURL(content);
+                        })
+                    });
+                }
             }
             issuers.forEach(issuer => translateProperties(issuer));
 

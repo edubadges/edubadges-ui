@@ -1839,7 +1839,7 @@ I18n.translations.nl = {
         draft: "Draft",
         preview: "Preview badge",
         publish: "Publish",
-        tagsPlaceholder: "Voeg een nieuwe tag toe, door hier te typen",
+        tagsPlaceholder: "Voeg een nieuwe tag toe, door hier te typen en <enter> te drukken",
         requiredMicroCredentialFramework: "Verplicht Kwaliteitskader Microcredentials voor Professionals HBO en WO",
         link: " - (link)",
         programme: "The programme",

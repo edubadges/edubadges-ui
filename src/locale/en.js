@@ -1837,7 +1837,7 @@ I18n.translations.en = {
         draft: "Draft",
         preview: "Preview badge",
         publish: "Publish",
-        tagsPlaceholder: "Start typing here to add a new badge-class tag",
+        tagsPlaceholder: "Start typing here and press <enter> to add a new badge-class tag",
         requiredMicroCredentialFramework: "Required: Quality framework Microcredentials for Professionals HBO and WO",
         link: " - (link)",
         programme: "The programme",
