@@ -703,7 +703,7 @@ I18n.translations.nl = {
             participation: "Manier van samenwerking",
             assessment: "Assessment type",
             url: "URL",
-            isStackable: "Stackable vooor andere credential?",
+            isStackable: "Stackable voor andere credential?",
             isGradeAchieved: "Cijfer behaald",
             gradeAchieved: "Cijfer behaald verplicht?",
             notSet: "",
@@ -1736,10 +1736,10 @@ I18n.translations.nl = {
         title: "Management queries",
         institutionAdmins: "Institution admins",
         institutionBadges: "Badge overview",
-        institutionMicroCredentials: "Micro-credentials count",
-        countMicroCredentials: "Micro-credentials assertions per user",
-        microCredentialsBadges: "Micro-credentials badges",
-        institutionBadgeOverview: "Awarded badges overview",
+        institutionMicroCredentials: "Microcredentials count",
+        countMicroCredentials: "Microcredentials assertions per user",
+        microCredentialsBadges: "Microcredentials edubadges",
+        institutionBadgeOverview: "Awarded edubadges overview",
         issuerMembers: "Issuer members",
         clear: "Clear",
         download: "Download",
@@ -1752,25 +1752,25 @@ I18n.translations.nl = {
     newBadgeClassForm: {
         badgeClassType: "Type",
         modal: {
-            choose: "Kies een Badge class type",
+            choose: "Kies een badge class type",
             tipPre: "Tip: Je kan ook een kopie maken van een ",
-            tipAction: "bestaande badge-class",
-            tip: "Clik on an existing badge-class and choose the option to copy the badge class in the right header section. Go to the ",
-            issuerLink: "overview of all badge-classes for issuer {{name}}",
-            shortCopy: "Short copy that makes sense to choose this one.",
+            tipAction: "bestaande badge class",
+            tip: "Klik op een bestaande badge class en kies de optie om de badge class te kopieren rechts bovenin het scherm. Ga naar het ",
+            issuerLink: "overzicht van alle badge classes voor de issuer {{name}}",
+            shortCopy: "Hier kan nog wat meer informatie staan.",
             create: "Create",
             types: {
                 micro_credential: "Microcredential",
                 regular: "Regulier",
-                extra_curricular: "Extra curricular"
+                extra_curricular: "Extracurriculair'"
             },
             info: {
-                micro_credential: "A badge class with all metadata following EU guidelines.",
-                regular: "A badge class based on ECTS.",
-                extra_curricular: "A badge class based on time investment."
+                micro_credential: "Een badge class met alle metadata conform de EU aanbevelingen.",
+                regular: "Een badge class voor geaccrediteerd onderwijs met studiepunten (ECTS/SBU).",
+                extra_curricular: "Een badge class voor extracurriculair onderwijs."
             },
             notAvailableTypeInfo: {
-                micro_credential: "Je instelling {{name}} is niet geconfigureerd om mirco-credential badges uit te geven.",
+                micro_credential: "Je instelling {{name}} is niet geconfigureerd om mircocredential badges uit te geven.",
                 regular: "Je instelling {{name}} heeft geen formele grondslag en daarom kunnen er geen reguliere badges worden uitgegeven.",
                 extra_curricular: "Je instelling {{name}} heeft geen informele grondslag en daarom kunnen er geen extra curriculare badges worden uitgegeven.",
             }
@@ -1779,12 +1779,12 @@ I18n.translations.nl = {
             placeHolder: "Selecteer een optie...",
             markupExample: "Voeg een MarkDown voorbeeld in",
             programmeInformation: "Programma informatie",
-            assessmentInformation: "Assessment information",
-            qualityAssurance: "Quality assurance",
+            assessmentInformation: "Assessment informatie",
+            qualityAssurance: "Kwaliteitswaarborging",
             awardSettings: "Award settings",
-            relatedEducationalFramework: "Related Educational Frameworks",
-            switchToStudyLoad: "Gebruik studie load (uren) in plaats van ECTS",
-            switchToECTS: "Gebruik Credit Points (ECTS) in plaats van uren",
+            relatedEducationalFramework: "Gerelateerd Onderwijskundig Raamwerk",
+            switchToStudyLoad: "Gebruik studie load (uren) in plaats van ECTS/SBU",
+            switchToECTS: "Gebruik Credit Points (ECTS/SBU) in plaats van uren",
             participation: {
                 name: "Vorm van participatie",
                 options: {
@@ -1795,7 +1795,7 @@ I18n.translations.nl = {
                 }
             },
             assessment: {
-                name: "Type of assessment",
+                name: "Assessment type",
                 options: {
                     knowledge_test: "Kennistoets",
                     behavioural_assessment: "Gedragsassessment",
@@ -1817,21 +1817,21 @@ I18n.translations.nl = {
             },
             directAward: {
                 title: "Direct awards",
-                directAwardAllowed: "Direct awarding allowed?",
+                directAwardAllowed: "Direct awards toestaan?",
                 details: "Direct award details",
-                evidenceURL: "Evidence (URL) required when issuing?",
-                narrative: "Narrative required when issuing?"
+                evidenceURL: "Bewijs (URL) verplicht voor aanvraag?",
+                narrative: "Motivatie verplicht voor aanvraag?"
             },
             selfEnrollment: {
                 title: "Self enrollment",
-                selfEnrollmentAllowed: "Self enrollment allowed?",
+                selfEnrollmentAllowed: "Self enrollment toestaan?",
                 details: "Self enrollment details",
-                evidenceURL: "Evidence (URL) required for enrollment?",
-                narrative: "Narrative required for enrollment?"
+                evidenceURL: "Bewijs (URL) verplicht voor aanvraag?",
+                narrative: "Motivatie verplicht voor aanvraag?"
             },
             stackable: {
-                notStackable: "nee, stand alone microcredential",
-                stackable: "ja, stackable microcredential",
+                notStackable: "Nee, stand alone microcredential",
+                stackable: "Ja, stackable microcredential",
             }
 
         },
