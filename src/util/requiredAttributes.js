@@ -101,14 +101,18 @@ export const constructErrors = (badgeClass, extensions) => {
     }
     if (!isEmpty(badgeClass.alignments)) {
         errors.alignments = [];
-        badgeClass.alignments
+        const validAlignments = badgeClass.alignments
             .filter(alignment =>
-                !isEmpty(alignment.target_name) && !isEmpty(alignment.target_url) && !isEmpty(alignment.target_description) &&
-                !isEmpty(alignment.target_framework) && !isEmpty(alignment.target_code))
+                !isEmpty(alignment.target_name) || !isEmpty(alignment.target_url) || !isEmpty(alignment.target_description) ||
+                !isEmpty(alignment.target_framework) || !isEmpty(alignment.target_code));
+        validAlignments
             .forEach(alignment => {
                 const alignmentError = {};
                 if (isEmpty(alignment.target_name)) {
                     alignmentError.target_name = [{"error_code": "903"}]
+                }
+                if (isEmpty(alignment.target_url) && type !== badgeClassTypes.MICRO_CREDENTIAL) {
+                    alignmentError.target_url = [{"error_code": "903"}]
                 }
                 if (!isEmpty(alignment.target_url) && !validUrlRegExp.test(alignment.target_url)) {
                     alignmentError.target_url = [{"error_code": "921"}];
@@ -120,6 +124,9 @@ export const constructErrors = (badgeClass, extensions) => {
         if (isEmpty(errors.alignments)) {
             delete errors.alignments;
         }
+    }
+    if (badgeClass.expireValueSet && isEmpty(badgeClass.expirationDuration)) {
+        errors.expirationSetting = [{"error_code": "903"}];
     }
     return errors;
 }

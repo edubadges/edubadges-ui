@@ -55,8 +55,7 @@
         extensions: [{}],
         tags: [],
         badgeClassType: badgeClassTypes.EXTRA_CURRICULAR,
-        alignments: [],
-        stackable: "notStackable"});
+        alignments: []});
     let currentInstitution;
     let publicInstitutions;
 

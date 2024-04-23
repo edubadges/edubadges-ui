@@ -92,7 +92,7 @@
            max="4000"
            min="0"
            step="1"
-           onblur={onValid}
+           oninput={onValid}
            placeholder={I18n.t("placeholders.badgeClass.timeInvestment")}
            class="value"
            bind:value={timeInvestment}/>

@@ -35,6 +35,7 @@
     import PreviewBadgeClassModal from "./PreviewBadgeClassModal.svelte";
     import TimeInvestment from "../extensions/badges/TimeInvestment.svelte";
     import Spinner from "../Spinner.svelte";
+    import Error from "../forms/Error.svelte";
 
     export let entityId;
     export let badgeclass = {extensions: [], issuer: {}, alignments: [], criteriaText: ""};
@@ -199,6 +200,7 @@
             badgeclass.participation = participationOptions.find(opt => opt.value === badgeclass.participation);
             badgeclass.assessmentType = assessmentOptions.find(opt => opt.value === badgeclass.assessmentType);
         } else {
+            badgeclass.stackable = stackableOptions.find(opt => opt.value === "notStackable");
             if (isInstitutionMBO) {
                 extensions[studyLoad.name] = 84;
             } else {
@@ -327,7 +329,7 @@
     }
 
     const doShowPreview = () => {
-        previewBadgeCopy = constructBadgeClassForServer(false);
+        previewBadgeCopy = constructBadgeClassForServer(false, false);
         previewBadgeCopy.alignments = convertAlignments();
         previewBadgeCopy.educationProgramIdentifier = extensions[educationProgramIdentifier.name];
         previewBadgeCopy.learningOutcome = extensions[learningOutcome.name];
@@ -348,7 +350,7 @@
         showPreview = true;
     }
 
-    const constructBadgeClassForServer = isPrivate => {
+    const constructBadgeClassForServer = (isPrivate, removeUpperCaseAttributes=true) => {
         let newBadgeclass = {
             ...badgeclass,
             criteria_text: badgeclass.criteriaText,
@@ -375,8 +377,8 @@
         setExpirationPeriod(newBadgeclass);
         if (newBadgeclass.alignments) {
             newBadgeclass.alignments = newBadgeclass.alignments.filter(alignment =>
-                !isEmpty(alignment.target_name) && !isEmpty(alignment.target_url) && !isEmpty(alignment.target_description) &&
-                !isEmpty(alignment.target_framework) && !isEmpty(alignment.target_code))
+                !isEmpty(alignment.target_name) || !isEmpty(alignment.target_url) || !isEmpty(alignment.target_description) ||
+                !isEmpty(alignment.target_framework) || !isEmpty(alignment.target_code))
             newBadgeclass.alignments.forEach(alignment => {
                 alignment.target_url = toHttpOrHttps(alignment.target_url)
                 delete alignment.existing
@@ -430,6 +432,10 @@
                 };
             }
         }
+        if (removeUpperCaseAttributes) {
+        Object.keys(newBadgeclass).filter(key => /[A-Z]/.test(key)).forEach(key => delete newBadgeclass[key]);
+        }
+
         return newBadgeclass;
     }
 
@@ -1059,6 +1065,7 @@
                     bind:expireValueSet={badgeclass.expireValueSet}
                     disabled={false}
                     className=""
+                    errors={errors.expirationSetting}
                     bind:number={badgeclass.expirationDuration}
                     bind:period={badgeclass.expirationPeriod}/>
 
@@ -1192,7 +1199,7 @@
                     </Field>
                     <div class="one-row">
                         {#if mayRemoveAlignment(alignment)}
-                            <MarkDownExample onClick={() => markDownExample("description")}
+                            <MarkDownExample onClick={() => badgeclass.alignments[i].target_description = markDownTemplate}
                                              tipKey="badgeClassDescription"/>
                         {/if}
                         <Field entity={entity}

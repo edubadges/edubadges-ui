@@ -93,7 +93,7 @@
            max={`${isMicroCredentials ? "30" : "240"}`}
            min={`${isMicroCredentials ? "3" : "0.5"}`}
            step="0.5"
-           onblur={onValid}
+           oninput={onValid}
            class="value"
            bind:value={ectsValue}/>
     <span class="control" on:click={increment}>{@html arrowUp}</span>

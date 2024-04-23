@@ -92,7 +92,7 @@
            max="4000"
            min="0"
            step="1"
-           onblur={onValid}
+           oninput={onValid}
            placeholder={I18n.t("placeholders.badgeClass.studyLoad")}
            class="value"
            bind:value={studyLoad}/>
