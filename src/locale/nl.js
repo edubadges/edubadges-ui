@@ -1835,17 +1835,17 @@ I18n.translations.nl = {
             }
 
         },
-        saveAsDraft: "Save as draft",
-        draft: "Draft",
-        preview: "Preview badge",
-        publish: "Publish",
-        tagsPlaceholder: "Voeg een nieuwe tag toe, door hier te typen en <enter> te drukken",
+        saveAsDraft: "Bewaar concept",
+        draft: "Concept",
+        preview: "Preview badge class",
+        publish: "Publiceer",
+        tagsPlaceholder: "Voeg een nieuwe tag toe, door hier te typen en op <enter> te drukken",
         requiredMicroCredentialFramework: "Verplicht Kwaliteitskader Microcredentials voor Professionals HBO en WO",
         link: " - (link)",
-        programme: "The programme",
-        assessment: "The assessment",
-        badge: "The badge",
-        errors: "Er ontbreken verplichte velden. Controleer de invoerfouten."
+        programme: "Het programma",
+        assessment: "De assessment",
+        badge: "De badge class",
+        errors: "Er ontbreken verplichte velden of de invoer is niet correct. Controleer de invoer."
     }
 
 };

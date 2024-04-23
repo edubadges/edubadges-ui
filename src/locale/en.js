@@ -1735,9 +1735,9 @@ I18n.translations.en = {
         title: "Management queries",
         institutionAdmins: "Institution admins",
         institutionBadges: "Badge overview",
-        institutionMicroCredentials: "Micro-credentials count",
-        countMicroCredentials: "Micro-credentials assertions per user",
-        microCredentialsBadges: "Micro-credentials badges",
+        institutionMicroCredentials: "Microcredentials count",
+        countMicroCredentials: "Microcredentials assertions per user",
+        microCredentialsBadges: "Microcredentials badges",
         institutionBadgeOverview: "Awarded badges overview",
         issuerMembers: "Issuer members",
         clear: "Clear",
@@ -1751,15 +1751,15 @@ I18n.translations.en = {
     newBadgeClassForm: {
         badgeClassType: "Type",
         modal: {
-            choose: "Choose a Badge class type",
+            choose: "Choose a badge class type",
             tipPre: "Tip: You can also duplicate an ",
-            tipAction: "existing badge-class",
-            tip: "Clik on an existing badge-class and choose the option to copy the badge class in the right header section. Go to the ",
-            issuerLink: "overview of all badge-classes for issuer {{name}}",
+            tipAction: "existing badge class",
+            tip: "Clik on an existing badge class and choose the option to copy the badge class in the right header section. Go to the ",
+            issuerLink: "overview of all badge classes for issuer {{name}}",
             shortCopy: "Short copy that makes sense to choose this one.",
             create: "Create",
             types: {
-                micro_credential: "Micro-credential",
+                micro_credential: "Microcredential",
                 regular: "Regular",
                 extra_curricular: "Extra curricular"
             },
@@ -1835,14 +1835,14 @@ I18n.translations.en = {
         },
         saveAsDraft: "Save as draft",
         draft: "Draft",
-        preview: "Preview badge",
+        preview: "Preview badge class",
         publish: "Publish",
-        tagsPlaceholder: "Start typing here and press <enter> to add a new badge-class tag",
+        tagsPlaceholder: "Start typing here and press <enter> to add a new badge class tag",
         requiredMicroCredentialFramework: "Required: Quality framework Microcredentials for Professionals HBO and WO",
         link: " - (link)",
         programme: "The programme",
         assessment: "The assessment",
-        badge: "The badge",
+        badge: "The badge class",
         errors: "There are required attributes missing or invalid. Please review the input errors."
     }
 
