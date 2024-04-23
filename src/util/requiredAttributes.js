@@ -1,5 +1,6 @@
 import {badgeClassTypes} from "./badgeClassTypes";
 import {isEmpty} from "./utils";
+import {validUrlRegExp} from "./Url";
 
 const requiredMicroCredentials = {
     name: true,
@@ -89,10 +90,36 @@ export const constructErrors = (badgeClass, extensions) => {
         }
         return acc;
     }, []);
-    return attributes.map(attr => ({name: attr, value: attributeValue(badgeClass, attr, extensions)}))
+    const errors = attributes.map(attr => ({name: attr, value: attributeValue(badgeClass, attr, extensions)}))
         .filter(item => isEmpty(item.value) || item.value === 0)
         .reduce((acc, item) => {
             acc[item.name] = [{"error_code": "903"}]
             return acc;
-        }, {})
+        }, {});
+    if (!isEmpty(badgeClass.qualityAssuranceUrl) && !validUrlRegExp.test(badgeClass.qualityAssuranceUrl)) {
+        errors.qualityAssuranceUrl = [{"error_code": "921"}];
+    }
+    if (!isEmpty(badgeClass.alignments)) {
+        errors.alignments = [];
+        badgeClass.alignments
+            .filter(alignment =>
+                !isEmpty(alignment.target_name) && !isEmpty(alignment.target_url) && !isEmpty(alignment.target_description) &&
+                !isEmpty(alignment.target_framework) && !isEmpty(alignment.target_code))
+            .forEach(alignment => {
+                const alignmentError = {};
+                if (isEmpty(alignment.target_name)) {
+                    alignmentError.target_name = [{"error_code": "903"}]
+                }
+                if (!isEmpty(alignment.target_url) && !validUrlRegExp.test(alignment.target_url)) {
+                    alignmentError.target_url = [{"error_code": "921"}];
+                }
+                if (!isEmpty(alignmentError)) {
+                    errors.alignments.push(alignmentError);
+                }
+            });
+        if (isEmpty(errors.alignments)) {
+            delete errors.alignments;
+        }
+    }
+    return errors;
 }

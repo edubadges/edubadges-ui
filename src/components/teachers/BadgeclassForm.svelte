@@ -720,7 +720,9 @@
             </div>
 
             <div class="one-row">
-                <MarkDownExample onClick={() => markDownExample("description")} tipKey="badgeClassDescription"/>
+                {#if mayEdit || isCopy}
+                    <MarkDownExample onClick={() => markDownExample("description")} tipKey="badgeClassDescription"/>
+                {/if}
                 <Field entity={entity}
                        attribute="description"
                        errors={errors.description}
@@ -738,8 +740,10 @@
             </div>
 
             <div class="one-row">
-                <MarkDownExample onClick={() => extensions[learningOutcome.name] = markDownTemplate}
-                                 tipKey="badgeClassLearningOutcome"/>
+                {#if mayEdit || isCopy}
+                    <MarkDownExample onClick={() => extensions[learningOutcome.name] = markDownTemplate}
+                                     tipKey="badgeClassLearningOutcome"/>
+                {/if}
                 <Field entity={entity}
                        attribute="learningOutcome"
                        errors={errors[`extensions.${learningOutcome.name}`]}
@@ -757,8 +761,10 @@
             </div>
 
             <div class="one-row">
-                <MarkDownExample onClick={() => markDownExample("criteriaText")}
-                                 tipKey="badgeClassCriteriaRequirements"/>
+                {#if mayEdit || isCopy}
+                    <MarkDownExample onClick={() => markDownExample("criteriaText")}
+                                     tipKey="badgeClassCriteriaRequirements"/>
+                {/if}
                 <Field entity={entity}
                        attribute="criteria_text"
                        errors={errors.criteriaText}
@@ -921,12 +927,13 @@
                 <span class="info not-last">
                     {@html I18n.t('models.badgeclass.info.educationProgramIdentifier')}
                 </span>
-                <AddButton
-                        text={I18n.t('models.badgeclass.addButtons.educationProgramIdentifier')}
-                        handleClick={addEducationProgramIdentifier}
-                        visibility={true}
-                        disabled={!mayEdit}/>
-
+                {#if mayEdit || isCopy}
+                    <AddButton
+                            text={I18n.t('models.badgeclass.addButtons.educationProgramIdentifier')}
+                            handleClick={addEducationProgramIdentifier}
+                            visibility={true}
+                            disabled={!mayEdit && !isCopy}/>
+                {/if}
             </Field>
 
             {#if badgeclass.badgeClassType !== badgeClassTypes.EXTRA_CURRICULAR}
@@ -1142,44 +1149,44 @@
                 {#if alignment.target_name !== microCredentialsFramework.name || showMicroCredentialFramework}
                     <Field entity={entity}
                            attribute="alignmentName"
-                           errors={errors.alignments? errors.alignments[i].target_name: [] }
+                           errors={errors.alignments && errors.alignments[i] ? errors.alignments[i].target_name: [] }
                            tipKey="badgeClassRelatedFrameworkName">
                         <TextInput
                                 bind:value={alignment.target_name}
                                 disabled={!mayRemoveAlignment(alignment) && !isCopy}
-                                error={errors.target_name}
+                                error={errors.alignments && errors.alignments[i] ? errors.alignments[i].target_name: null}
                                 placeholder={I18n.t("placeholders.badgeClass.alignmentName")}
                         />
                     </Field>
                     <Field entity={entity}
                            attribute="alignmentFramework"
-                           errors={errors.alignments? errors.alignments[i].target_framework: [] }
+                           errors={errors.alignments && errors.alignments[i] ? errors.alignments[i].target_framework: [] }
                            tipKey="badgeClassRelatedFrameworkFramework">
                         <TextInput
                                 bind:value={alignment.target_framework}
                                 disabled={!mayRemoveAlignment(alignment) && !isCopy}
-                                error={errors.target_framework}
+                                error={errors.alignments && errors.alignments[i] ? errors.alignments[i].target_framework: null }
                                 placeholder={I18n.t("placeholders.badgeClass.alignmentFramework")}
                         />
                     </Field>
                     <Field entity={entity}
                            attribute="alignmentUrl"
-                           errors={errors.alignments? errors.alignments[i].target_url: []}
+                           errors={errors.alignments && errors.alignments[i] ? errors.alignments[i].target_url: []}
                            tipKey="badgeClassRelatedFrameworkURL">
                         <TextInput
                                 bind:value={alignment.target_url}
                                 disabled={!mayRemoveAlignment(alignment) && !isCopy}
-                                error={errors.target_url}
+                                error={errors.alignments && errors.alignments[i] ? errors.alignments[i].target_url: null}
                                 placeholder={alignment.target_name !== microCredentialsFramework.name ? I18n.t("placeholders.badgeClass.alignmentUrl") : ""}
                         />
                     </Field>
                     <Field {entity} attribute="alignmentCode"
-                           errors={errors.alignments? errors.alignments[i].target_code: []}
+                           errors={errors.alignments && errors.alignments[i] ? errors.alignments[i].target_code: []}
                            tipKey="badgeClassRelatedFrameworkCode">
                         <TextInput
                                 bind:value={alignment.target_code}
                                 disabled={!mayRemoveAlignment(alignment) && !isCopy}
-                                error={errors.target_code}
+                                error={errors.alignments && errors.alignments[i] ? errors.alignments[i].target_code: null}
                                 placeholder={I18n.t("placeholders.badgeClass.alignmentCode")}
                         />
                     </Field>
@@ -1190,11 +1197,11 @@
                         {/if}
                         <Field entity={entity}
                                attribute="alignmentDescription"
-                               errors={errors.alignments? errors.alignments[i].target_description: []}
+                               errors={errors.alignments && errors.alignments[i] ? errors.alignments[i].target_description: []}
                                tipKey="badgeClassRelatedFrameworkDescription">
                             <div class="mark-down-container"
                                  class:disabled={!mayRemoveAlignment(alignment) && !isCopy}
-                                 class:error={errors.alignments? errors.alignments[i].target_description: null}>
+                                 class:error={errors.alignments && errors.alignments[i] ? errors.alignments[i].target_description: null}>
                                 <MarkdownField
                                         bind:value={alignment.target_description}
                                         disabled={!mayRemoveAlignment(alignment) && !isCopy}
@@ -1204,14 +1211,16 @@
                     </div>
                 {/if}
             {/each}
-            <div class="one-row">
-                <AddButton
-                        text={I18n.t('models.badgeclass.addButtons.alignmentAddition')}
-                        handleClick={() => addEmptyAlignment()}
-                        visibility={showAddAlignmentButton}
-                        disabled={false}
-                />
-            </div>
+            {#if showAddAlignmentButton}
+                <div class="one-row">
+                    <AddButton
+                            text={I18n.t('models.badgeclass.addButtons.alignmentAddition')}
+                            handleClick={() => addEmptyAlignment()}
+                            visibility={showAddAlignmentButton}
+                            disabled={!mayEdit && !isCopy}
+                    />
+                </div>
+            {/if}
             {#if !isEmpty(errors)}
                 <div class="warnings one-row">
                     <p>{I18n.t("newBadgeClassForm.errors")}</p>
