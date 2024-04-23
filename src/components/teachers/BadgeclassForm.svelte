@@ -990,12 +990,12 @@
 
                 <Field entity={entity}
                        attribute="qualityAssuranceUrl"
-                       errors={errors.qualityAssuranceUrl}
+                       errors={errors.qualityAssuranceUrl || errors.quality_assurance_url}
                        tipKey="qualityAssuranceUrl"
                        required={isRequired(badgeclass, "qualityAssuranceUrl")}>
                     <TextInput bind:value={badgeclass.qualityAssuranceUrl}
                                disabled={upgradeKeysDisabled.qualityAssuranceUrl}
-                               error={errors.qualityAssuranceUrl}
+                               error={errors.qualityAssuranceUrl || errors.quality_assurance_url}
                                placeholder={I18n.t("placeholders.badgeClass.qualityAssuranceUrl")}/>
                 </Field>
 
