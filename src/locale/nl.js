@@ -743,7 +743,9 @@ I18n.translations.nl = {
                     "Raadpleeg <a target='_blank' rel='noreferrer' href='https://zakelijk.duo.nl/portaal/zoeken-en-vinden/resultaten'>het DUO CROHO register</a> of <a target='_blank' rel='noreferrer' href='https://kwalificaties.s-bb.nl/Lijsten/Groep/14'>de SBB CREBO lijsten</a> als je deze code niet weet.",
                 eqf: "Kijk op <a target='_blank' rel='noreferrer' href='https://www.nlqf.nl/daarom-nlqf/nlqf-niveaus'>https://www.nlqf.nl/daarom-nlqf/nlqf-niveaus</a> voor een overzicht",
                 ects: "Alleen hele en halve punten. <br/>Een minimum van 0,5 punt is vereist.",
-                ectsMicroCredentials: "Alleen hele en halve punten. <br/>Een waarde tussen de 3 en 30 punten is vereist."
+                ectsMicroCredentials: "Alleen hele en halve punten. Valide waarde is tussen de 3 en 30 punten.",
+                studyLoad: "Alleen hele uren. Valide waarde is tussen de 84 en 840 uren.",
+                timeInvestment: "Alleen hele uren. Valide waarde is tussen de 84 en 840 uren.",
             },
             publicUrl: "Publieke URL",
             sorting: "Sorteer:",

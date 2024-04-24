@@ -217,7 +217,7 @@
                     }
                     case badgeClassTypes.EXTRA_CURRICULAR: {
                         badgeclass.formal = false;
-                        extensions[timeInvestment.name] = 28;
+                        extensions[timeInvestment.name] = 84;
                         break;
                     }
                 }
@@ -542,7 +542,11 @@
         margin: var(--ver-padding-l) 0;
     }
 
-    span.info, a.info {
+    a.info {
+        font-size: 14px;
+    }
+
+    span.info {
         display: inline-block;
         margin: 6px 0;
         font-size: 14px;

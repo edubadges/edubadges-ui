@@ -2,20 +2,43 @@
     import I18n from "i18n-js";
     import arrowDown from "../../../icons/forms/arrow-down.svg";
     import arrowUp from "../../../icons/forms/arrow-up.svg";
+    import {onMount} from "svelte";
 
     export let ectsValue;
     export let disabled = false;
     export let isMicroCredentials = false;
 
+    let minValue = 0;
+    let maxValue = 0;
+
+    onMount(() => {
+        minValue = isMicroCredentials ? 3 : 0.5;
+        maxValue = isMicroCredentials ? 30 : 240;
+    })
+
     const decrement = () => {
-        ectsValue = Math.max((ectsValue || 0) - 0.5, isMicroCredentials ? 3 : 0.5);
+        ectsValue = Math.max((ectsValue || 0) - 0.5, minValue);
     }
 
     const increment = () => {
-        ectsValue = Math.min((ectsValue || 0) + 0.5, isMicroCredentials ? 30 : 240);
+        ectsValue = Math.min((ectsValue || 0) + 0.5, maxValue);
     }
 
-    const onValid = `validity.valid||(value=${isMicroCredentials ? '3' : '0.5'})`;
+    const onInput = e => {
+        const val = parseFloat(e.target.value, 10);
+        if (val < 0 || val > maxValue) {
+            ectsValue = minValue;
+        }
+    }
+
+    const onBlur = e => {
+        const val = parseFloat(e.target.value, 10);
+        const validDecimal = val % 1 ;
+        if (val < minValue || val > maxValue || (validDecimal !== 0 && validDecimal !== 0.5)  ) {
+            ectsValue = minValue;
+        }
+    }
+
 
 </script>
 
@@ -43,7 +66,7 @@
         cursor: pointer;
         line-height: 40px;
         border: none;
-        background:  var(--grey-2);
+        background: var(--grey-2);
 
         :global(svg path) {
             stroke: black;
@@ -55,7 +78,7 @@
     }
 
     p.info {
-        display: none;
+        margin-top: 5px;
         font-size: 14px;
     }
 
@@ -90,13 +113,13 @@
 <div class="ects-points" {disabled}>
     <span class="control" on:click={decrement}>{@html arrowDown}</span>
     <input type="number"
-           max={`${isMicroCredentials ? "30" : "240"}`}
-           min={`${isMicroCredentials ? "3" : "0.5"}`}
+           max={`${maxValue}`}
+           min={`${minValue}`}
            step="0.5"
-           oninput={onValid}
            class="value"
-           bind:value={ectsValue}/>
+           bind:value={ectsValue}
+           on:blur={onBlur}
+           on:change={onInput}/>
     <span class="control" on:click={increment}>{@html arrowUp}</span>
-    <p class="info">{@html I18n.t(`models.badgeclass.info.${isMicroCredentials ? "ectsMicroCredentials" : "ects"}`)}</p>
-
 </div>
+<p class="info">{@html I18n.t(`models.badgeclass.info.${isMicroCredentials ? "ectsMicroCredentials" : "ects"}`)}</p>

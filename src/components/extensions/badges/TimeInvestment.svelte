@@ -3,7 +3,10 @@
     import arrowDown from "../../../icons/forms/arrow-down.svg";
     import arrowUp from "../../../icons/forms/arrow-up.svg";
 
-    export let timeInvestment = 28;
+    const minValue = 84;
+    const maxValue = 840;
+
+    export let timeInvestment = 84;
     export let disabled = false;
 
     const decrement = () => {
@@ -14,7 +17,20 @@
         timeInvestment = Math.min(84, (timeInvestment || 0) + 1, 840);
     }
 
-    const onValid = `validity.valid||(value=${'28'})`;
+    const onInput = e => {
+        const val = parseInt(e.target.value, 10);
+        if (val < 0 || val > maxValue) {
+            timeInvestment = minValue;
+        }
+    }
+
+    const onBlur = e => {
+        const val = Math.round(parseInt(e.target.value, 10));
+        const valFloat = parseFloat(e.target.value);
+        if (val < minValue || val > maxValue || val !== valFloat) {
+            timeInvestment = minValue;
+        }
+    }
 
 </script>
 
@@ -42,7 +58,7 @@
         cursor: pointer;
         line-height: 40px;
         border: none;
-        background:  var(--grey-2);
+        background: var(--grey-2);
 
         :global(svg path) {
             stroke: black;
@@ -54,7 +70,7 @@
     }
 
     p.info {
-        display: none;
+        margin-top: 5px;
         font-size: 14px;
     }
 
@@ -90,12 +106,13 @@
     <span class="control" on:click={decrement}>{@html arrowDown}</span>
     <input type="number"
            max="840"
-           min="0"
+           min="84"
            step="1"
-           oninput={onValid}
            placeholder={I18n.t("placeholders.badgeClass.timeInvestment")}
            class="value"
-           bind:value={timeInvestment}/>
+           bind:value={timeInvestment}
+           on:blur={onBlur}
+           on:change={onInput}/>
     <span class="control" on:click={increment}>{@html arrowUp}</span>
-
 </div>
+<p class="info">{@html I18n.t("models.badgeclass.info.timeInvestment")}</p>

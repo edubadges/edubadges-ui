@@ -3,18 +3,34 @@
     import arrowDown from "../../../icons/forms/arrow-down.svg";
     import arrowUp from "../../../icons/forms/arrow-up.svg";
 
-    export let studyLoad = 84;
+    const minValue = 84;
+    const maxValue = 840;
+
+    export let studyLoad = minValue;
     export let disabled = false;
 
     const decrement = () => {
-        studyLoad = Math.max((studyLoad || 85) - 1, 1);
+        studyLoad = Math.max((studyLoad || minValue + 1) - 1, 1);
     }
 
     const increment = () => {
-        studyLoad = Math.min(84, (studyLoad || 0) + 1, 840);
+        studyLoad = Math.min((studyLoad || 0) + 1, maxValue);
     }
 
-    const onValid = `validity.valid||(value=${'84'})`;
+    const onInput = e => {
+        const val = parseInt(e.target.value, 10);
+        if (val < 0 || val > maxValue) {
+            studyLoad = 84;
+        }
+    }
+
+    const onBlur = e => {
+        const val = parseInt(e.target.value, 10);
+        const valFloat = parseFloat(e.target.value);
+        if (val < minValue || val > maxValue || val !== valFloat) {
+            studyLoad = 84;
+        }
+    }
 
 </script>
 
@@ -42,7 +58,7 @@
         cursor: pointer;
         line-height: 40px;
         border: none;
-        background:  var(--grey-2);
+        background: var(--grey-2);
 
         :global(svg path) {
             stroke: black;
@@ -83,6 +99,10 @@
         background-color: var(--grey-2);
     }
 
+    p.info {
+        margin-top: 5px;
+        font-size: 14px;
+    }
 
 </style>
 
@@ -92,10 +112,11 @@
            max="840"
            min="84"
            step="1"
-           oninput={onValid}
            placeholder={I18n.t("placeholders.badgeClass.studyLoad")}
            class="value"
-           bind:value={studyLoad}/>
+           bind:value={studyLoad}
+           on:blur={onBlur}
+           on:change={onInput}/>
     <span class="control" on:click={increment}>{@html arrowUp}</span>
-
 </div>
+<p class="info">{@html I18n.t("models.badgeclass.info.studyLoad")}</p>
