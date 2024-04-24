@@ -468,171 +468,176 @@
 </script>
 
 <style lang="scss">
-  .page-container {
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-  }
-
-  .stats-container {
-    display: flex;
-    width: 100%;
-    flex-direction: row;
-    padding: 30px;
-    background-color: var(--purple-background);
-  }
-
-  .content-wrapper {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-
-    h2 {
-      text-align: center;
-      font-size: 22px;
-      margin-bottom: 15px;
-    }
-  }
-
-  .content {
-    display: flex;
-    width: 100%;
-    height: 100%;
-  }
-
-  .no-content {
-    margin: 8px 0 0 50px;
-  }
-
-  div.insights {
-    padding: 0 40px 0 5px;
-    min-width: 400px;
-
-    .title-wrapper {
-      display: flex;
+    .page-container {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
     }
 
-    h2 {
-      margin: 0 0 15px 0;
+    .stats-container {
+        display: flex;
+        width: 100%;
+        flex-direction: row;
+        padding: 30px;
+        background-color: var(--purple-background);
+
+        :global(span.title) {
+            width: auto!important;
+            margin-left: auto;
+        }
     }
 
-    h3 {
-      margin: 15px 0 10px 0;
+    .content-wrapper {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+
+        h2 {
+            text-align: center;
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
     }
 
-    section.stats {
-      display: flex;
-      flex-direction: column;
+    .content {
+        display: flex;
+        width: 100%;
+        height: 100%;
+    }
 
-      span.attr {
-        font-size: 18px;
+    .no-content {
+        margin: 8px 0 0 50px;
+    }
 
-        &.orange {
-          color: #e67506;
+    div.insights {
+        padding: 0 40px 0 5px;
+        min-width: 400px;
+
+        .title-wrapper {
+            display: flex;
         }
 
-        &.green {
-          color: #3a9f2e;
+        h2 {
+            margin: 0 0 15px 0;
         }
-      }
 
-      section.stat {
+        h3 {
+            margin: 15px 0 10px 0;
+        }
+
+        section.stats {
+            display: flex;
+            flex-direction: column;
+
+            span.attr {
+                font-size: 18px;
+
+                &.orange {
+                    color: #e67506;
+                }
+
+                &.green {
+                    color: #3a9f2e;
+                }
+            }
+
+            section.stat {
+                display: flex;
+                margin-bottom: 15px;
+                align-items: center;
+
+                &.sub {
+                    margin-left: 25px;
+                }
+            }
+
+            span.value {
+                font-size: 22px;
+                margin-left: auto;
+
+                &.total {
+                    color: #782684;
+                }
+
+                &.direct-awards {
+                    color: #e67506;
+                }
+
+                &.requested {
+                    color: #3a9f2e;
+                }
+
+                &.claim-rate {
+                    color: var(--black);
+                }
+
+            }
+        }
+    }
+
+    .selectors {
+        margin-top: 25px;
+
+        .reset {
+            margin-top: 15px;
+            display: flex;
+            flex-flow: row-reverse;
+        }
+    }
+
+    .checkbox-container {
         display: flex;
         margin-bottom: 15px;
-        align-items: center;
+    }
 
-        &.sub {
-          margin-left: 25px;
-        }
-      }
+    .metadata-container {
+        display: flex;
+        flex-direction: column;
+        margin-right: 25px;
 
-      span.value {
-        font-size: 22px;
-        margin-left: auto;
-
-        &.total {
-          color: #782684;
+        :global(section.metadata div.top-icon svg) {
+            width: 96px !important;
+            height: 96px !important;
+            margin: auto;
         }
 
-        &.direct-awards {
-          color: #e67506;
+        section.metadata {
+            display: flex;
+            flex-direction: column;
+            background-color: #fff;
+            border: var(--card-border);
+            border-radius: var(--card-border-radius);
+            box-shadow: 0 3px 0 2px var(--grey-3);
+            min-width: 160px;
+            margin-bottom: 20px;
         }
 
-        &.requested {
-          color: #3a9f2e;
+        .top-icon {
+            display: flex;
+            background-color: white;
+            align-items: center;
+            padding: 25px;
         }
 
-        &.claim-rate {
-          color: var(--black);
+        .data {
+            padding: 5px 10px;
+            display: flex;
+
+            p {
+                font-size: 18px;
+                font-family: "Proxima Nova", sans-serif;
+            }
+
+            .count {
+                font-size: 22px;
+                font-family: "Proxima Nova", sans-serif;
+                color: var(--purple);
+                margin-left: auto;
+                word-break: keep-all;
+            }
         }
-
-      }
     }
-  }
-
-  .selectors {
-    margin-top: 25px;
-
-    .reset {
-      margin-top: 15px;
-      display: flex;
-      flex-flow: row-reverse;
-    }
-  }
-
-  .checkbox-container {
-    display: flex;
-    margin-bottom: 15px;
-  }
-
-  .metadata-container {
-    display: flex;
-    flex-direction: column;
-    margin-right: 25px;
-
-    :global(section.metadata div.top-icon svg) {
-      width: 96px !important;
-      height: 96px !important;
-      margin: auto;
-    }
-
-    section.metadata {
-      display: flex;
-      flex-direction: column;
-      background-color: #fff;
-      border: var(--card-border);
-      border-radius: var(--card-border-radius);
-      box-shadow: 0 3px 0 2px var(--grey-3);
-      min-width: 160px;
-      margin-bottom: 20px;
-    }
-
-    .top-icon {
-      display: flex;
-      background-color: white;
-      align-items: center;
-      padding: 25px;
-    }
-
-    .data {
-      padding: 5px 10px;
-      display: flex;
-
-      p {
-        font-size: 18px;
-        font-family: "Proxima Nova", sans-serif;
-      }
-
-      .count {
-        font-size: 22px;
-        font-family: "Proxima Nova", sans-serif;
-        color: var(--purple);
-        margin-left: auto;
-        word-break: keep-all;
-      }
-    }
-  }
 
 
 </style>
@@ -691,8 +696,7 @@
             </div>
             <div class="insights">
                 <div class="title-wrapper">
-                    <h2>{I18n.t("insights.awardedBadges")}
-                    </h2>
+                    <h2>{I18n.t("insights.awardedBadges")}</h2>
                     <Tooltip tooltipText={I18n.t("insights.tooltips.awardedBadges")} placement="right"/>
                 </div>
                 <section class="stats">

@@ -262,7 +262,7 @@
     const switchStudyLoad = val => {
         showStudyLoad = !val;
         if (showStudyLoad) {
-            extensions[studyLoad.name] = 28;
+            extensions[studyLoad.name] = 84;
             delete extensions[ects.name];
 
         } else {

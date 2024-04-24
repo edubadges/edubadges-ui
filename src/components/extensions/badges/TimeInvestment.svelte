@@ -14,7 +14,7 @@
         timeInvestment = Math.min(84, (timeInvestment || 0) + 1, 840);
     }
 
-    const onValid = `validity.valid||(value=${'840'})`;
+    const onValid = `validity.valid||(value=${'28'})`;
 
 </script>
 
@@ -89,7 +89,7 @@
 <div class="time-investment" {disabled}>
     <span class="control" on:click={decrement}>{@html arrowDown}</span>
     <input type="number"
-           max="4000"
+           max="840"
            min="0"
            step="1"
            oninput={onValid}

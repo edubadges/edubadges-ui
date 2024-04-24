@@ -7,14 +7,14 @@
     export let disabled = false;
 
     const decrement = () => {
-        studyLoad = Math.max((studyLoad || 0) - 1, 1);
+        studyLoad = Math.max((studyLoad || 85) - 1, 1);
     }
 
     const increment = () => {
         studyLoad = Math.min(84, (studyLoad || 0) + 1, 840);
     }
 
-    const onValid = `validity.valid||(value=${'840'})`;
+    const onValid = `validity.valid||(value=${'84'})`;
 
 </script>
 
@@ -89,8 +89,8 @@
 <div class="study-load" {disabled}>
     <span class="control" on:click={decrement}>{@html arrowDown}</span>
     <input type="number"
-           max="4000"
-           min="0"
+           max="840"
+           min="84"
            step="1"
            oninput={onValid}
            placeholder={I18n.t("placeholders.badgeClass.studyLoad")}

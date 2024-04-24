@@ -340,7 +340,7 @@ I18n.translations.nl = {
             create: "nieuw",
             faculty: "Nieuwe issuer groep maken",
             issuer: "Nieuwe issuer maken",
-            badgeclass: "Nieuwe badge class maken",
+            badgeclass: "Nieuwe badge class maken {{name}}",
             save: "Opslaan",
             cancel: "Annuleren",
         },
@@ -1758,7 +1758,7 @@ I18n.translations.nl = {
             tip: "Klik op een bestaande badge class en kies de optie om de badge class te kopieren rechts bovenin het scherm. Ga naar het ",
             issuerLink: "overzicht van alle badge classes voor de issuer {{name}}",
             shortCopy: "Hier kan nog wat meer informatie staan, maar dat is voor ieder type badgeclass dezelfde tekst!",
-            create: "Create",
+            create: "Aanmaken",
             types: {
                 micro_credential: "Microcredential",
                 regular: "Regulier",
