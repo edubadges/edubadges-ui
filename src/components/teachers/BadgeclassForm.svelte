@@ -682,7 +682,7 @@
             create={isCreate}
             cancel={mayEdit ? saveDraft :  window.history.back}
             cancelText={mayEdit ? I18n.t("newBadgeClassForm.saveAsDraft") : I18n.t("manage.edit.cancel")}
-            submitText={isCreate ? I18n.t("newBadgeClassForm.publish") : I18n.t("manage.edit.save")}
+            submitText={(isCreate || badgeclass.isPrivate) ? I18n.t("newBadgeClassForm.publish") : I18n.t("manage.edit.save")}
             previewAction={() => doShowPreview()}
             {processing}>
 

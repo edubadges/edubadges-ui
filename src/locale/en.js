@@ -243,7 +243,8 @@ I18n.translations.en = {
             publish: "Make this edubadge publicly visible",
             private: "Make this edubadge private",
             publishConfirmation: "Are you sure you want to make this edubadge publicly visible?<br/><br/>If you make this edubadge public then your validated name <strong>{{name}}</strong> will be displayed in the validation section of the public edubadge webpage.",
-            publishEvidenceConfirmation: "Add evidence/personal message (evidence) also to publicly available information of this edubadge.",
+            publishEvidenceConfirmation: "Add evidence/personal message (evidence) also to publicly available information of this edubadge?",
+            publishGradeConfirmation: "Add grade achieved also to publicly available information of this edubadge?",
             privateConfirmation: "Are you sure you want to make this edubadge private?",
             deleteBadgeConfirmation: "Are you sure you want to reject this edubadge?",
             acceptBadgeConfirmation: "Are you sure you want to accept this edubadge?",
@@ -449,6 +450,7 @@ I18n.translations.en = {
         941: "There is already an edubadge request from this email",
         942: "EPPN does not match the EPPN-format of your institution",
         943: "There is already a claimed assertion for this EPPN",
+        944: "This badge class requires a grade for awarding",
         unexpected: "Unexpected error occurred.",
         description: "An unexpected error has occurred. Please try again later or contact support@edubadges.nl for support.",
         close: "Close"
@@ -796,6 +798,7 @@ I18n.translations.en = {
             revoked: "Revoked",
             validUntil: "Valid until",
             addToCollection: "Add to collection",
+            grade: "Grade",
             ob3SsiAgent: "Wallet import",
             ob3SsiAgentQRCode: "Import into wallet",
             ob3SsiAgentQRCodeQuestion: "Scan this code with your electronic credentials wallet",
@@ -869,6 +872,7 @@ I18n.translations.en = {
             evidenceURL: "URL",
             evidenceDescription: "Description",
             evidenceName: "Name",
+            grade: "Grade",
             evidence_url: "Citation URL",
             narrative: "Evidence description",
             flash: {
@@ -1223,7 +1227,8 @@ I18n.translations.en = {
             evidenceNarrative: "e.g. a personal note that you would add to this edubadge",
             evidenceURL: "e.g. https://university-example.org/persistent-url-to-evidence.",
             evidenceName: "e.g. Thesis Introduction Pysychology",
-            evidenceDescription: "e.g. a description of the evidence you can add to this edubadge"
+            evidenceDescription: "e.g. a description of the evidence you can add to this edubadge",
+            grade: "e.g. the grade assigned to the student"
         }
     },
     eye: {
@@ -1309,6 +1314,7 @@ I18n.translations.en = {
         badgeclassAwardAllowedInstitutions: "Select other institutions from which<br/>students may be awarded this edubadge.",
         enrollmentEvidenceNarrative: "A personal narrative that can be added to this awarded edubadge.",
         enrollmentEvidenceURL: "The URI of a webpage presenting the evidence of this achievement.",
+        enrollmentGrade: "The grade you have assigned the student of this badge.",
         enrollmentEvidenceName: "A descriptive title of the evidence of this achievement.",
         enrollmentEvidenceDescription: "A longer description of the evidence of this achievement.",
         demoEnvironment: "All data is deleted every month.",
@@ -1383,9 +1389,11 @@ I18n.translations.en = {
             addAnother: "+ Add another",
             cancel: "Cancel",
             award: "Award",
-            addEvidence: "Narrative",
             schedulingDate: "Enable scheduling",
+            addEvidence: "Narrative",
+            addEvidenceGrade: "Narrative & Grade",
             editEvidence: "Edit narrative",
+            grade: "Grade",
             processing: "Processing {{count}} direct awards. Please be patient...",
             flash: {
                 created: "Direct awards have been sent"
@@ -1413,9 +1421,10 @@ I18n.translations.en = {
             view: "View",
             hide: "Hide",
             evidenceIncluded: "(including evidence)",
-            evidenceAndNarrativeRequired: "This badge class requires both evidence and narrative to be awarded.",
-            evidenceRequired: "This badge class requires evidence to be awarded.",
-            narrativeRequired: "This badge class requires narrative to be awarded.",
+            evidenceRequired: "Evidence",
+            narrativeRequired: "Narrative",
+            gradeRequired: "Grade",
+            additionalRequirements: "This badge class requires additional descriptive metadata to be awarded:",
             flash: {
                 created: "Bulk awards are sent"
             },

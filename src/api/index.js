@@ -3,6 +3,7 @@ import {authToken, showMainErrorDialog} from "../stores/user";
 import {config} from "../util/config";
 import {entityType} from "../util/entityTypes";
 import I18n from "i18n-js";
+import {isEmpty} from "../util/utils";
 
 //Internal API
 const serverUrl = config.serverUrl;
@@ -243,11 +244,14 @@ export function deleteAssertion(assertionEntityId) {
     );
 }
 
-export function publicAssertion(assertionEntityId, isPublic, includeEvidence) {
+export function publicAssertion(assertionEntityId, isPublic, includeEvidence, includeGradeAchieved) {
     const path = `${serverUrl}/earner/badges/${assertionEntityId}`;
     return validFetch(
         path,
-        {body: JSON.stringify({"public": isPublic, "include_evidence": includeEvidence})},
+        {body: JSON.stringify({
+                "public": isPublic,
+                "include_evidence": includeEvidence,
+            "include_grade_achieved": includeGradeAchieved})},
         "PUT"
     );
 }
@@ -765,10 +769,11 @@ export function createDirectAwards(directAwards, badgeclass, bulkAward, schedule
         direct_awards: directAwards.map(da => ({
             recipient_email: da.email,
             eppn: da.eppn,
-            evidence_url: da.evidence_url,
-            narrative: da.narrative,
-            name: da.name,
-            description: da.description
+            evidence_url: isEmpty(da.evidence_url) ? null : da.evidence_url,
+            narrative: isEmpty(da.narrative) ? null : da.narrative,
+            grade_achieved: isEmpty(da.grade_achieved) ? null : da.grade_achieved,
+            name: isEmpty(da.name) ? null : da.name,
+            description: isEmpty(da.description) ? null : da.description,
         }))
     }
     return validFetch(path, {body: JSON.stringify(payload)}, "POST", true, false);

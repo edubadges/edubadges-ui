@@ -57,11 +57,12 @@
                 res[1].forEach(user => user.role = roles(user.roles));
                 users = res[1].filter(user => user.role.indexOf("Learner") > -1 && !isEmpty(user.lis_person_sourcedid));
                 directAwards = users.map(user => {
-                    return (badgeclass.evidenceRequired || badgeclass.narrativeRequired) ?
+                    return (badgeclass.evidenceRequired || badgeclass.narrativeRequired || badgeclass.gradeAchievedRequired) ?
                         {
                             email: user.email,
                             eppn: user.lis_person_sourcedid,
                             narrative: "",
+                            grade_achieved: "",
                             evidence_url: "",
                             name: "",
                             description: ""
@@ -71,22 +72,19 @@
                 loaded = true;
             })
         } else {
-            directAwards = (badgeclass.evidenceRequired || badgeclass.narrativeRequired) ?
-                [{email: "", eppn: "", narrative: "", evidence_url: "", name: "", description: ""}] :
-                [{email: "", eppn: ""}];
+            directAwards =  [{email: "", eppn: "", narrative: "", evidence_url: "", name: "", description: "", grade_achieved: ""}]
             loaded = true;
         }
     });
 
 
     const addDirectAward = () => {
-        const newDa = (badgeclass.evidenceRequired || badgeclass.narrativeRequired) ?
-            {email: "", eppn: "", narrative: "", evidence_url: "", name: "", description: ""} : {email: "", eppn: ""}
+        const newDa = {email: "", eppn: "", narrative: "", evidence_url: "", name: "", description: "", grade_achieved: ""};
         directAwards = [...directAwards, newDa];
     }
 
     const hasEvidence = directAward => {
-        return directAward.narrative || validUrl(directAward.evidence_url);
+        return  !isEmpty(directAward.narrative) || validUrl(directAward.evidence_url);
     }
 
     const removeDirectAward = index => () => {
@@ -114,6 +112,7 @@
         selectedDirectAwardForEvidence.evidence_url = ""
         selectedDirectAwardForEvidence.name = ""
         selectedDirectAwardForEvidence.description = ""
+        selectedDirectAwardForEvidence.grade_achieved = ""
     }
 
     const init = e => e.focus();
@@ -166,6 +165,7 @@
             acc[`email_${i}`] = !validEmail(da.email);
             acc[`evidence_${i}`] = badgeclass.evidenceRequired && !da.evidence_url;
             acc[`narrative_${i}`] = badgeclass.narrativeRequired && !da.narrative;
+            acc[`grade_${i}`] = badgeclass.gradeAchievedRequired && isEmpty(da.grade_achieved);
             return acc;
         }, {});
         errorsAlreadyAwarded = newDirectAwards.reduce((acc, da, i) => {
@@ -186,121 +186,156 @@
 </script>
 
 <style lang="scss">
-  div.award-badge {
+    div.award-badge {
 
-    h2 {
-      background: var(--purple-1);
-      padding: var(--ver-padding-l) var(--hor-padding-l);
-    }
-
-    p.sub-title {
-      margin-bottom: 16px;
-      max-width: 50%;
-    }
-
-    .scheduled-at {
-      display: flex;
-      align-items: center;
-      margin: 15px 0 16px 0;
-
-      &.disable-scheduling {
-        margin: 23px 0 25px 0;
-      }
-
-      :global(input.input-field) {
-        max-width: 180px;
-        margin-left: 40px;
-      }
-
-      .svelte-picker {
-        position: relative;
-
-        span.calendar {
-          cursor: pointer;
+        h2 {
+            background: var(--purple-1);
+            padding: var(--ver-padding-l) var(--hor-padding-l);
         }
 
-        :global(svg.calendar-1) {
-          position: absolute;
-          right: 0;
-          top: 8px;
-          color: var(--purple);
-          width: 24px;
-          height: auto;
+        p.sub-title {
+            margin-bottom: 16px;
+            max-width: 50%;
         }
-      }
+
+        ul {
+            list-style: disc;
+            margin: 5px 0 0 20px;
+        }
+
+        .scheduled-at {
+            display: flex;
+            align-items: center;
+            margin: 15px 0 16px 0;
+
+            &.disable-scheduling {
+                margin: 23px 0 25px 0;
+            }
+
+            :global(input.input-field) {
+                max-width: 180px;
+                margin-left: 40px;
+            }
+
+            .svelte-picker {
+                position: relative;
+
+                span.calendar {
+                    cursor: pointer;
+                }
+
+                :global(svg.calendar-1) {
+                    position: absolute;
+                    right: 0;
+                    top: 8px;
+                    color: var(--purple);
+                    width: 24px;
+                    height: auto;
+                }
+            }
+        }
+
+        div.warning-container {
+            margin: 10px 0 20px 0;
+        }
+
+        .grouped {
+            display: flex;
+            gap: 15px;
+            position: relative;
+            margin-bottom: 8px;
+            max-width: 96%;
+
+            :global(.field) {
+                width: 42%;
+            }
+
+            @media (max-width: 946px) {
+                flex-direction: column;
+                :global(.field) {
+                    width: 75%;
+                }
+            }
+
+
+            :global(div.input) {
+                margin: 8px 0 0 0;
+            }
+
+        }
+
+        div.add-email {
+            margin: 15px 5px 30px 0;
+        }
+
+        div.imported {
+            margin-top: 15px;
+        }
+
+        .rm-icon-container {
+            color: purple;
+            border: none;
+            background-color: white;
+            align-self: center;
+            cursor: pointer;
+
+            &.disabled {
+                color: var(--grey-4);
+                cursor: not-allowed;
+            }
+
+            :global(svg) {
+                width: 24px;
+                height: auto;
+            }
+        }
+
+        div.actions {
+            display: flex;
+
+        }
+
+        div.evidence-container {
+            display: flex;
+            flex-direction: column;
+            margin-top: 28px;
+            @media (max-width: 946px) {
+                margin-top: 0;
+            }
+
+            div.evidence-subcontainer {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+            }
+        }
+
     }
-
-    div.warning-container {
-      margin: 10px 0 20px 0;
-    }
-
-    .grouped {
-      display: grid;
-      grid-template-columns: 50% 50%;
-      grid-row: auto;
-      grid-column-gap: 40px;
-      grid-row-gap: 16px;
-      padding-right: 40px;
-    }
-
-    div.add-email {
-      margin: 15px 5px 30px 0;
-    }
-
-    div.imported {
-      margin-top: 15px;
-    }
-
-    div.deletable-row {
-      display: flex;
-    }
-
-    .rm-icon-container {
-      color: purple;
-      border: none;
-      background-color: white;
-      height: 30px;
-      width: 30px;
-      align-self: center;
-      cursor: pointer;
-      margin-left: 5px;
-    }
-
-    div.actions {
-      display: flex;
-
-    }
-
-    div.evidence-container {
-      display: flex;
-      flex-direction: column;
-      padding: 27px 0 0 10px;
-
-      div.evidence-subcontainer {
-        display: flex;
-        margin: 0 auto;
-        max-width: 180px;
-      }
-    }
-
-  }
 </style>
 {#if loaded}
     <div class="award-badge">
         <h2>{I18n.t(`badgeAward.${ltiContextEnabled ? "ltiAward" : "directAward"}.title`)}</h2>
         <div class="main-content-margin">
             <p class="sub-title">{I18n.t("badgeAward.directAward.subtitle")}
-                {#if badgeclass.evidenceRequired && badgeclass.narrativeRequired}
-                    <span>{I18n.t("badgeAward.bulkAward.evidenceAndNarrativeRequired")}</span>
-                {:else if badgeclass.evidenceRequired}
-                    <span>{I18n.t("badgeAward.bulkAward.evidenceRequired")}</span>
-                {:else if badgeclass.narrativeRequired}
-                    <span>{I18n.t("badgeAward.bulkAward.narrativeRequired")}</span>
+                {#if badgeclass.evidenceRequired || badgeclass.narrativeRequired || badgeclass.gradeAchievedRequired}
+                    <span>{I18n.t("badgeAward.bulkAward.additionalRequirements")}</span>
+                    <ul>
+                        {#if badgeclass.evidenceRequired}
+                            <li>{I18n.t("badgeAward.bulkAward.evidenceRequired")}</li>
+                        {/if}
+                        {#if badgeclass.narrativeRequired}
+                            <li>{I18n.t("badgeAward.bulkAward.narrativeRequired")}</li>
+                        {/if}
+                        {#if badgeclass.gradeAchievedRequired}
+                            <li>{I18n.t("badgeAward.bulkAward.gradeRequired")}</li>
+                        {/if}
+                    </ul>
                 {/if}
             </p>
             {#if enrollments.filter(enrollment => !enrollment.denied).length > 0}
                 <div class="warning-container">
-                    <Warning msg={I18n.t("badgeAward.directAward.waringEnrollments", {count: enrollments.length})}>
+                    <Warning
+                            msg={I18n.t("badgeAward.directAward.waringEnrollments", {count: enrollments.length})}>
                         <a use:link
                            href={`/badgeclass/${badgeclass.entityId}/enrollments`}>{I18n.t("badgeAward.directAward.toToEnrollments")}</a>
                     </Warning>
@@ -332,17 +367,19 @@
                                 todayBtn={false}
                                 bind:value={scheduledAt}
                                 bind:initialDate={initialDate}/>
-                        <span class="calendar" on:click={() => document.getElementById("svelty-picker-id").focus()}>
+                        <span class="calendar"
+                              on:click={() => document.getElementById("svelty-picker-id").focus()}>
                             {@html calendarIcon}
                         </span>
 
                     </div>
                 {/if}
             </div>
-            <div class="grouped">
-                {#each directAwards as da, i}
+            {#each directAwards as da, i}
+                <div class="grouped">
                     <Field entity="badgeAward" attribute="email">
-                        <TextInput bind:value={da.email} error={errors[`email_${i}`]} {init} onBlur={emailOnBlur(i)}/>
+                        <TextInput bind:value={da.email} error={errors[`email_${i}`]} {init}
+                                   onBlur={emailOnBlur(i)}/>
                         {#if errors[`email_${i}`]}
                             <Error standAlone={true} error_code={927}/>
                         {/if}
@@ -354,45 +391,46 @@
                         {/if}
 
                     </Field>
-                    <div class="deletable-row">
-                        <Field entity="badgeAward" attribute="eppn" full={true}>
-                            <TextInput bind:value={da.eppn} error={errors[`eppn_${i}`]} onBlur={eppnOnBlur(i)}>
-                                {#if i !== 0}
-                                    <button class="rm-icon-container"
-                                            on:click={removeDirectAward(i)}>{@html trash}</button>
-                                {/if}
-                            </TextInput>
-                            {#if errors[`eppn_${i}`]}
-                                {#if isEmpty(da.eppn)}
-                                    <Error standAlone={true} error_code={928}/>
-                                {:else}
-                                    <Error standAlone={true} error_code={942}/>
-                                {/if}
+                    <Field entity="badgeAward" attribute="eppn" relative={true}>
+                        <TextInput bind:value={da.eppn} error={errors[`eppn_${i}`]} onBlur={eppnOnBlur(i)}/>
+                        {#if errors[`eppn_${i}`]}
+                            {#if isEmpty(da.eppn)}
+                                <Error standAlone={true} error_code={928}/>
+                            {:else}
+                                <Error standAlone={true} error_code={942}/>
                             {/if}
-                            {#if errorsDuplications[`eppn_${i}`]}
-                                <Error standAlone={true} error_code={930}/>
-                            {/if}
-                            {#if errorsAlreadyAwarded[`eppn_${i}`]}
-                                <Error standAlone={true}
-                                       error_code={(existingDirectAwardsEppns.find(ex => ex.eppn === da.eppn) || {}).isAssertion ? 943 : 931}/>
-                            {/if}
-                        </Field>
-                        <div class="evidence-container">
-                            <div class="evidence-subcontainer">
-                                <Button text={hasEvidence(da) ? I18n.t("badgeAward.directAward.editEvidence") :
+                        {/if}
+                        {#if errorsDuplications[`eppn_${i}`]}
+                            <Error standAlone={true} error_code={930}/>
+                        {/if}
+                        {#if errorsAlreadyAwarded[`eppn_${i}`]}
+                            <Error standAlone={true}
+                                   error_code={(existingDirectAwardsEppns.find(ex => ex.eppn === da.eppn) || {}).isAssertion ? 943 : 931}/>
+                        {/if}
+                    </Field>
+
+                    <div class="evidence-container">
+                        <div class="evidence-subcontainer">
+                            <button class="rm-icon-container" class:disabled={i === 0}
+                                    on:click={removeDirectAward(i)}>{@html trash}</button>
+                            <Button text={I18n.t("badgeAward.directAward.grade")}
+                                    action={() => addEvidence(i)}/>
+                            <Button text={hasEvidence(da) ? I18n.t("badgeAward.directAward.editEvidence") :
                               I18n.t("badgeAward.directAward.addEvidence")}
-                                        action={() => addEvidence(i)}/>
-                            </div>
-                            {#if errors[`narrative_${i}`]}
-                                <Error standAlone={true} error_code={932}/>
-                            {/if}
-                            {#if errors[`evidence_${i}`]}
-                                <Error standAlone={true} error_code={933}/>
-                            {/if}
+                                    action={() => addEvidence(i)}/>
                         </div>
+                        {#if errors[`narrative_${i}`]}
+                            <Error standAlone={true} error_code={932}/>
+                        {/if}
+                        {#if errors[`evidence_${i}`]}
+                            <Error standAlone={true} error_code={933}/>
+                        {/if}
+                        {#if errors[`grade_${i}`]}
+                            <Error standAlone={true} error_code={944}/>
+                        {/if}
                     </div>
-                {/each}
-            </div>
+                </div>
+            {/each}
             {#if ltiContextEnabled}
                 <div class="imported">
                     <p>
@@ -411,9 +449,12 @@
                    href="/add">{I18n.t("badgeAward.directAward.addAnother")}</a>
             </div>
             <div class="actions">
-                <Button action={() => history.back()} text={I18n.t("badgeAward.directAward.cancel")} secondary={true}
+                <Button action={() => history.back()} text={I18n.t("badgeAward.directAward.cancel")}
+                        secondary={true}
                         marginRight={true}/>
-                <Button action={doAward} text={I18n.t("badgeAward.directAward.award")} disabled={disableSubmit}/>
+                <Button action={doAward}
+                         text={I18n.t("badgeAward.directAward.award")}
+                        disabled={disableSubmit}/>
             </div>
         </div>
     </div>
@@ -427,8 +468,10 @@
             bind:useEvidence={narrativeOrEvidenceRequired}
             bind:name={selectedDirectAwardForEvidence.name}
             bind:description={selectedDirectAwardForEvidence.description}
+            bind:grade={selectedDirectAwardForEvidence.grade_achieved}
             narrativeRequired={badgeclass.narrativeRequired}
             evidenceRequired={badgeclass.evidenceRequired}
+            gradeAchievedRequired={badgeclass.gradeAchievedRequired}
             submit={awardModalSubmit}
             awardMode={false}
             cancel={awardModalCancel}/>

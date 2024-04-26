@@ -15,10 +15,12 @@
     export let url;
     export let name;
     export let description;
+    export let grade;
     export let useEvidence = false;
     export let evidenceRequired = false;
     export let narrativeRequired = false;
     export let narrativeAllowed = true;
+    export let gradeAchievedRequired = false;
 
     let errors = {};
     let narrativeOrEvidenceRequired = false;
@@ -36,18 +38,23 @@
         if (evidenceRequired && isEmpty(url)) {
             errors.url = [{error_code: 933}];
         }
+        if (gradeAchievedRequired && isEmpty(grade)) {
+            errors.grade = [{error_code: 944}];
+        }
         if (!isEmpty(url)) {
             if (validUrl(url)) {
-                 if (!url.startsWith("http")) {
-                     url = "https://" + url;
-                 }
+                if (!url.startsWith("http")) {
+                    url = "https://" + url;
+                }
             } else {
-                errors = {url: [{error_code: 921}]};
+                errors.url = [{error_code: 921}];
             }
         }
         if (useEvidence && isEmpty(url) && isEmpty(narrative)) {
-            errors = {narrative: [{error_code: 910}], url: [{error_code: 910}]};
+            errors.narrative= [{error_code: 910}];
+            errors.url = [{error_code: 910}];
         }
+
         if (Object.keys(errors).length === 0) {
             submit();
         }
@@ -73,58 +80,64 @@
 </script>
 
 <style lang="scss">
-  .modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 57, 128, 0.8);
-    z-index: 999;
-    display: flex;
-  }
-
-  .modal-content {
-    margin: auto;
-    width: calc(100vw - 4em);
-    max-width: 44em;
-    max-height: calc(100vh - 4em);
-    border-radius: 8px;
-    background: white;
-  }
-
-  .modal-header {
-    padding: 18px 32px;
-    background-color: #dfe3e8;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-  }
-
-  .modal-body {
-    padding: 18px 32px;
-
-    p.title {
-      padding-bottom: 10px;
+    .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 57, 128, 0.8);
+        z-index: 999;
+        display: flex;
     }
-  }
 
-  div.evidence {
-    margin-top: 10px;
-    padding-top: 10px;
-    border-top: 1px solid var(--purple);
-    :global(.bytemd) {
-        height: 150px;
-  }
-  }
-
-  div.options {
-    padding: 18px;
-    text-align: center;
-
-    :global(a:last-child) {
-      margin-left: 25px;
+    .modal-content {
+        margin: auto;
+        width: calc(100vw - 4em);
+        max-width: 44em;
+        max-height: calc(100vh - 4em);
+        border-radius: 8px;
+        background: white;
     }
-  }
+
+    .modal-header {
+        padding: 18px 32px;
+        background-color: #dfe3e8;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+    }
+
+    .modal-body {
+        padding: 18px 32px;
+
+        p.title {
+            padding-bottom: 10px;
+        }
+    }
+
+    div.evidence {
+        margin-top: 10px;
+
+        &:not(:first-child) {
+            margin-top: 20px;
+        }
+
+        padding-top: 10px;
+        border-top: 1px solid var(--purple);
+
+        :global(.bytemd) {
+            height: 150px;
+        }
+    }
+
+    div.options {
+        padding: 18px;
+        text-align: center;
+
+        :global(a:last-child) {
+            margin-left: 25px;
+        }
+    }
 </style>
 
 <svelte:window on:keydown={handleKeydown}/>
@@ -132,7 +145,7 @@
 <div class="modal">
     <div class="modal-content">
         <div class="modal-header">
-            <h3>{awardMode ? I18n.t("models.enrollment.confirmation.award") : I18n.t("badgeAward.directAward.addEvidence")}</h3>
+            <h3>{awardMode ? I18n.t("models.enrollment.confirmation.award") : I18n.t("badgeAward.directAward.addEvidenceGrade")}</h3>
         </div>
         <div class="modal-body">
             {#if awardMode}
@@ -144,16 +157,33 @@
                        on:click|preventDefault={swapUseEvidence}>{I18n.t("models.enrollment.removeEvidence")}</a>
                 {/if}
                 <div class="evidence">
-                    {#if narrativeOrEvidenceRequired}
-                        <p>{I18n.t("models.enrollment.evidenceRequired")}</p>
-                    {:else}
-                        <p>{I18n.t("models.enrollment.evidence")}</p>
-                    {/if}
-                    <Field entity={'enrollment'} errors={errors.narrative} attribute={'evidenceNarrative'}
+                    <Field entity={'enrollment'}
+                           errors={errors.grade}
+                           attribute={'grade'}
+                           required={gradeAchievedRequired}
+                           tipKey="enrollmentGrade">
+                        <TextInput bind:value={grade}
+                                   error={errors.grade}
+                                   placeholder={I18n.t("placeholders.enrollment.grade")}/>
+                    </Field>
+                </div>
+                <div class="evidence">
+                    <!--{#if narrativeOrEvidenceRequired}-->
+                    <!--    <p>{I18n.t("models.enrollment.evidenceRequired")}</p>-->
+                    <!--{:else}-->
+                    <!--    <p>{I18n.t("models.enrollment.evidence")}</p>-->
+                    <!--{/if}-->
+                    <Field entity={'enrollment'}
+                           errors={errors.narrative}
+                           attribute={'evidenceNarrative'}
+                           required={narrativeRequired}
                            tipKey="enrollmentEvidenceNarrative">
                         <MarkdownField bind:value={narrative}/>
                     </Field>
-                    <Field entity={'enrollment'} errors={errors.url} attribute={'evidenceURL'}
+                    <Field entity={'enrollment'}
+                           errors={errors.url}
+                           attribute={'evidenceURL'}
+                           required={evidenceRequired}
                            tipKey="enrollmentEvidenceURL">
                         <TextInput bind:value={url} error={errors.url}
                                    placeholder={I18n.t("placeholders.enrollment.evidenceURL")}/>

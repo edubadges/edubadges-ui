@@ -244,7 +244,8 @@ I18n.translations.nl = {
             private: "Maak deze edubadge privé",
             publishConfirmation: "Weet je zeker dat je deze edubadge publiek zichtbaar wilt maken?<b/><br/>Als je deze edubadge publiek maakt, wordt je gevalideerde naam <strong>{{name}}</strong> weergegeven in het validatiegedeelte van de openbare badge-webpagina.",
             privateConfirmation: "Weet je het zeker dat je deze edubadge privé wilt maken",
-            publishEvidenceConfirmation: "Bewijs/persoonlijk bericht (evidence) ook toevoegen aan de publiek beschikbare informatie van deze edubadge.",
+            publishEvidenceConfirmation: "Bewijs/persoonlijk bericht (evidence) ook toevoegen aan de publiek beschikbare informatie van deze edubadge?",
+            publishGradeConfirmation: "Behaald cijfer ook toevoegen aan de publiek beschikbare informatie van deze edubadge?",
             deleteBadgeConfirmation: "Weet je het zeker dat je deze edubadge wilt weigeren?",
             acceptBadgeConfirmation: "Weet je het zeker dat je deze edubadge wilt accepteren?",
         },
@@ -449,6 +450,7 @@ I18n.translations.nl = {
         941: "Er is al een badge aanvraag voor deze email",
         942: "EPPN voldoet niet aan het formaat van je instelling",
         943: "Er is al een edubadge voor deze EPPN",
+        944: "Een cijfer is verplicht voor het awarden van deze edubadge",
         unexpected: "Oeps, er is iets totaal onverwachts en onverklaarbaars gebeurd.",
         description: "Een onverwachte fout is opgetreden. Probeer het opnieuw of neem contact op met support@edubadges.nl voor ondersteuning.",
         close: "Sluit"
@@ -797,6 +799,7 @@ I18n.translations.nl = {
             revoked: "Ingetrokken",
             validUntil: "Geldig tot",
             addToCollection: "Voeg toe aan collectie",
+            grade: "Cijfer",
             ob3SsiAgent: "Wallet import",
             ob3SsiAgentQRCode: "Import into wallet",
             ob3SsiAgentQRCodeQuestion: "Scan this code with your electronic credentials wallet",
@@ -870,6 +873,7 @@ I18n.translations.nl = {
             evidenceURL: "URL",
             evidenceDescription: "Beschrijving",
             evidenceName: "Naam",
+            grade: "Cijfer",
             evidence_url: "Bronvermelding URL",
             narrative: "Motivatie",
             flash: {
@@ -1224,7 +1228,8 @@ I18n.translations.nl = {
             evidenceNarrative: "bijv. een persoonlijke boodschap wat aan deze edubadge toegevoegd kan worden",
             evidenceURL: "bijv. https://university-example.org/persistent-url-to-evidence",
             evidenceName: "e.g. Scriptie Introductie Pysychology",
-            evidenceDescription: "e.g. omschrijving van het bewijs wat aan deze edubadge is toegevoegd"
+            evidenceDescription: "e.g. omschrijving van het bewijs wat aan deze edubadge is toegevoegd",
+            grade: "e.g. het cijfer toegekend"
         }
     },
     eye: {
@@ -1310,6 +1315,7 @@ I18n.translations.nl = {
         badgeclassAwardAllowedInstitutions: "Selecteer andere instellingen waarvan de studenten<br/>ook deze edubadge kunnen ontvangen.",
         enrollmentEvidenceNarrative: "Een persoonlijke toelichting dat kan worden toegevoegd aan deze toegekende edubadge.",
         enrollmentEvidenceURL: "De URL van een webpagina met bewijs van de geleverde prestatie.",
+        enrollmentGrade: "Het cijfer wat is toegekend aan de student voor het behalen van de badge.",
         enrollmentEvidenceName: "Een beschrijvende titel van het bewijs van de geleverde prestatie.",
         enrollmentEvidenceDescription: "Een langere beschrijving van het bewijs van de geleverde prestatie.",
         demoEnvironment: "Alle data wordt iedere maand verwijderd.",
@@ -1384,9 +1390,11 @@ I18n.translations.nl = {
             addAnother: "+ Toevoegen",
             cancel: "Annuleer",
             award: "Verzenden",
-            addEvidence: "Motivatie/bewijs",
-            editEvidence: "Motivatie/bewijs bewerken",
             schedulingDate: "Planning inschakelen",
+            addEvidence: "Motivatie/bewijs",
+            addEvidenceGrade: "Motivatie/bewijs & Cijfer",
+            editEvidence: "Motivatie/bewijs bewerken",
+            grade: "Cijfer",
             processing: "Bezig om {{count}} direct awards te verwerken. Even geduld...",
             flash: {
                 created: "Direct awards zijn verzonden"
@@ -1414,9 +1422,10 @@ I18n.translations.nl = {
             view: "Bekijk",
             hide: "Verbergen",
             evidenceIncluded: "(inclusief evidence)",
-            evidenceAndNarrativeRequired: "Deze badge class vereist zowel evidence als narrative om te worden toegekend.",
-            evidenceRequired: "Deze badge class vereist evidence om te worden toegekend.",
-            narrativeRequired: "Deze badge class vereist narrative om te worden toegekend.",
+            evidenceRequired: "Evidence",
+            narrativeRequired: "Narrative",
+            gradeRequired: "Cijfer",
+            additionalRequirements: "Deze badge class vereist additionele beschrijvende metadata om te worden toegekend.",
             flash: {
                 created: "Bulk awards zijn verzonden"
             },

@@ -10,6 +10,7 @@
     export let placement = "top";
     export let required = false;
     export let isSelect = false;
+    export let absolute = true;
     export let tooltipText;
 
     const translations = I18n.translations[I18n.locale];
@@ -23,7 +24,11 @@
         font-weight: bold;
         position: relative;
         display: inline-block;
-        width: 100%;
+
+        &.absolute {
+            width: 100%;
+        }
+
 
         &.marginBottom {
             display: block;
@@ -47,6 +52,10 @@
         color: #0062b0;
         right: 0;
         top: 4px;
+
+        &:not(.absolute) {
+            position: initial;
+        }
 
         &.adjust-top {
             top: -2;
@@ -138,7 +147,7 @@
 
 </style>
 
-<span class="title" class:marginBottom class:marginTop>
+<span class="title" class:marginBottom class:marginTop class:absolute={absolute}>
     {#if label}
         {label}
         {#if required}
@@ -146,7 +155,7 @@
         {/if}
     {/if}
     {#if exists}
-        <div class="tooltip-wrapper" class:adjust-top={isSelect}>
+        <div class="tooltip-wrapper" class:adjust-top={isSelect} class:absolute={absolute}>
             <span class="tooltip-slot">
               {@html question}
             </span>

@@ -81,7 +81,7 @@
     {#if label}
         <span>{label}</span>
         {#if tipKey}
-            <Tooltip tipKey={tipKey}/>
+            <Tooltip tipKey={tipKey} absolute={false}/>
         {/if}
     {/if}
     <input type="checkbox" checked={value}

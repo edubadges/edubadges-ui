@@ -25,7 +25,7 @@
     import ShareDialog from "./ShareDialog.svelte";
     import BadgeInstanceEvidence from "../../components/shared/BadgeInstanceEvidence.svelte";
     import CheckBox from "../../components/CheckBox.svelte";
-    import {translateProperties} from "../../util/utils";
+    import {isEmpty, translateProperties} from "../../util/utils";
     import StudentBreadCrumb from "../../components/students/StudentBreadCrumb.svelte";
     import BadgeHeader from "../../components/students/BadgeHeader.svelte";
     import {alignments, endorsements} from "../../api/queries";
@@ -44,6 +44,7 @@
     let showShareFeedback = false;
     let showShareDialog = false;
     let includeEvidence = true;
+    let includeGradeAchieved = true;
     let makePublicAction = false;
 
     //Collections
@@ -140,6 +141,7 @@
       public,
       expiresAt,
       revoked,
+      gradeAchieved,
       revocationReason,
       evidences {
         evidenceUrl,
@@ -270,7 +272,7 @@
 
         } else {
             showModal = false;
-            publicAssertion(badge.entityId, isPublic, includeEvidence)
+            publicAssertion(badge.entityId, isPublic, includeEvidence, includeGradeAchieved)
                 .then(() => {
                     flash.setValue(isPublic ? I18n.t("student.flash.published") : I18n.t("student.flash.private"));
                     refreshBadgeDetails();
@@ -280,186 +282,187 @@
 </script>
 
 <style lang="scss">
-  div.badge-detail-container {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-
-  div.badge-detail {
-    padding: 20px 40px 10px 40px;
-    position: relative;
-
-    div.shield {
-      position: absolute;
-      right: 45px;
-    }
-  }
-
-  span.status-indicator {
-    display: inline-block;
-    position: absolute;
-    border-radius: 14px;
-    box-shadow: 0 1px 0 1px var(--grey-4);
-    font-weight: bold;
-    font-size: 14px;
-    padding: 4px 8px;
-    text-align: center;
-    left: 30px;
-    top: -14px;
-    background-color: var(--red-dark);
-    color: white;
-    max-width: 85px;
-    z-index: 9;
-  }
-
-  span.status-indicator.rejected {
-    background-color: var(--red-dark);
-    color: white;
-  }
-
-  span.status-indicator.revoked {
-    background-color: var(--red-strong-dark);
-  }
-
-  div.badge-card-container {
-    display: flex;
-    max-width: 320px;
-    margin: 0 auto 40px auto;
-    position: relative;
-  }
-
-  div.actions {
-    margin: 25px 0;
-    display: flex;
-    justify-content: center;
-
-    .button-container {
-      margin-left: 25px;
-      display: flex;
-      position: relative;
-    }
-
-    div.tooltip {
-      z-index: 9;
-      position: absolute;
-      border-radius: 4px;
-      padding: 4px 8px;
-      right: 22px;
-      top: 120%;
-      left: 40%;
-      width: 134px;
-      background-color: var(--grey-3);
-      font-size: 13px;
-
-      &::after {
-        content: " ";
-        position: absolute;
-        top: -15px;
-        left: 50%;
-        margin-left: -5px;
-        border-width: 8px;
-        border-style: solid;
-        border-color: transparent transparent var(--grey-3) transparent;
-      }
-    }
-
-  }
-
-  @media (max-width: 600px) {
-    div.actions {
-      flex-direction: column;
-      align-items: flex-start;
-
-      .button-container {
-        margin-left: 0;
-        margin-top: 15px;
+    div.badge-detail-container {
         display: flex;
-      }
-
-    }
-  }
-
-  h3 {
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 12px;
-  }
-
-  div.public-private {
-    background-color: var(--grey-3);
-    border-radius: 8px;
-    padding: 12px;
-
-    .header {
-      display: flex;
-      align-items: center;
-      margin-bottom: 5px;
-
-      .switch-container {
-        margin-left: auto;
-      }
-    }
-  }
-
-  p.rejected {
-    margin-top: 15px;
-  }
-
-  div.revocation {
-    display: flex;
-    flex-direction: column;
-    margin: 30px 0;
-  }
-
-  span.revocation-reason {
-    font-style: italic;
-  }
-
-  p.revoked {
-    background-color: var(--grey-2);
-    border-radius: 8px;
-    padding: 12px;
-    color: var(--red-strong-dark);
-    margin-bottom: 5px;
-
-    &:last-child {
-      margin-bottom: 0;
+        flex-direction: column;
+        width: 100%;
     }
 
-    display: inline-block;
-  }
+    div.badge-detail {
+        padding: 20px 40px 10px 40px;
+        position: relative;
 
-  @media (max-width: 1120px) {
-    .badge-detail {
-      padding: 40px 20px !important;
+        div.shield {
+            position: absolute;
+            right: 45px;
+        }
     }
-  }
 
-  div.delete {
-    display: flex;
-    margin: 25px 0;
-    justify-content: center;
-  }
-
-  img.linkedin {
-    width: auto;
-    height: 41px;
-
-    &.disabled {
-      opacity: .2;
-      cursor: not-allowed;
+    span.status-indicator {
+        display: inline-block;
+        position: absolute;
+        border-radius: 14px;
+        box-shadow: 0 1px 0 1px var(--grey-4);
+        font-weight: bold;
+        font-size: 14px;
+        padding: 4px 8px;
+        text-align: center;
+        left: 30px;
+        top: -14px;
+        background-color: var(--red-dark);
+        color: white;
+        max-width: 85px;
+        z-index: 9;
     }
-  }
 
- .qr-code-container {
-     display: flex;
-     img {
-        width: 240px;
-        height: auto;
-        margin: auto;
+    span.status-indicator.rejected {
+        background-color: var(--red-dark);
+        color: white;
     }
- }
+
+    span.status-indicator.revoked {
+        background-color: var(--red-strong-dark);
+    }
+
+    div.badge-card-container {
+        display: flex;
+        max-width: 320px;
+        margin: 0 auto 40px auto;
+        position: relative;
+    }
+
+    div.actions {
+        margin: 25px 0;
+        display: flex;
+        justify-content: center;
+
+        .button-container {
+            margin-left: 25px;
+            display: flex;
+            position: relative;
+        }
+
+        div.tooltip {
+            z-index: 9;
+            position: absolute;
+            border-radius: 4px;
+            padding: 4px 8px;
+            right: 22px;
+            top: 120%;
+            left: 40%;
+            width: 134px;
+            background-color: var(--grey-3);
+            font-size: 13px;
+
+            &::after {
+                content: " ";
+                position: absolute;
+                top: -15px;
+                left: 50%;
+                margin-left: -5px;
+                border-width: 8px;
+                border-style: solid;
+                border-color: transparent transparent var(--grey-3) transparent;
+            }
+        }
+
+    }
+
+    @media (max-width: 600px) {
+        div.actions {
+            flex-direction: column;
+            align-items: flex-start;
+
+            .button-container {
+                margin-left: 0;
+                margin-top: 15px;
+                display: flex;
+            }
+
+        }
+    }
+
+    h3 {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 12px;
+    }
+
+    div.public-private {
+        background-color: var(--grey-3);
+        border-radius: 8px;
+        padding: 12px;
+
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+
+            .switch-container {
+                margin-left: auto;
+            }
+        }
+    }
+
+    p.rejected {
+        margin-top: 15px;
+    }
+
+    div.revocation {
+        display: flex;
+        flex-direction: column;
+        margin: 30px 0;
+    }
+
+    span.revocation-reason {
+        font-style: italic;
+    }
+
+    p.revoked {
+        background-color: var(--grey-2);
+        border-radius: 8px;
+        padding: 12px;
+        color: var(--red-strong-dark);
+        margin-bottom: 5px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        display: inline-block;
+    }
+
+    @media (max-width: 1120px) {
+        .badge-detail {
+            padding: 40px 20px !important;
+        }
+    }
+
+    div.delete {
+        display: flex;
+        margin: 25px 0;
+        justify-content: center;
+    }
+
+    img.linkedin {
+        width: auto;
+        height: 41px;
+
+        &.disabled {
+            opacity: .2;
+            cursor: not-allowed;
+        }
+    }
+
+    .qr-code-container {
+        display: flex;
+
+        img {
+            width: 240px;
+            height: auto;
+            margin: auto;
+        }
+    }
 
 </style>
 
@@ -575,13 +578,19 @@
             question={modalQuestion}
             evaluateQuestion={true}
             title={modalTitle}>
-        {#if makePublicAction && (badge.evidences || []).length > 0}
-            <div class="evidence-question">
+
+        <div class="evidence-question">
+            {#if makePublicAction && (badge.evidences || []).length > 0}
                 <CheckBox value={includeEvidence} label={I18n.t("student.confirmation.publishEvidenceConfirmation")}
-                          onChange={e => includeEvidence = !includeEvidence} inForm={true} adjustTop={true}/>
-            </div>
-        {/if}
-    </Modal>
+                          onChange={() => includeEvidence = !includeEvidence} inForm={true} adjustTop={true}/>
+            {/if}
+            {#if makePublicAction && !isEmpty(badge.gradeAchieved)}
+                <CheckBox value={includeGradeAchieved}
+                          label={I18n.t("student.confirmation.publishGradeConfirmation")}
+                          onChange={() => includeGradeAchieved = !includeGradeAchieved} inForm={true} adjustTop={true}/>
+            {/if}
+        </div>
+</Modal>
 {/if}
 
 {#if showShareDialog}
@@ -614,8 +623,8 @@
             question={I18n.t("models.badge.ob3SsiAgentQRCodeQuestion")}
             title={I18n.t("models.badge.ob3SsiAgentQRCode")}
             submitLabel={I18n.t("error.close")}>
-            <div class="qr-code-container">
-                    <img alt="QR code" src={`data:image/png;base64,${qrCode}`}/>
-            </div>
+        <div class="qr-code-container">
+            <img alt="QR code" src={`data:image/png;base64,${qrCode}`}/>
+        </div>
     </Modal>
 {/if}

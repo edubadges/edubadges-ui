@@ -1,5 +1,5 @@
 import I18n from "i18n-js";
-import {isEmpty} from "../util/utils";
+import {isEmpty} from "./utils";
 
 const urlRegExp = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;
 

@@ -29,6 +29,8 @@
       badge.verfication = res.verification.type;
       badge.entityId = entityId;
       publicBadgeInformation(badge, res.badge);
+      badge.gradeAchieved = res.badge.grade_achieved;
+
       validateName(encodeURIComponent(res.recipient.identity), encodeURIComponent(res.recipient.salt))
         .then(res => {
           validatedName = res.name;
@@ -79,7 +81,7 @@
       <BadgeValidation badge={badge} validatedName={validatedName}/>
     </div>
     <div class="badge-public-detail">
-      <BadgeClassDetails badgeclass={badge}/>
+      <BadgeClassDetails badgeclass={badge} badge={badge}/>
     </div>
     <BadgeInstanceEvidence evidences={evidences}/>
   </div>

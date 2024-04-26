@@ -11,6 +11,8 @@
     export let required = false;
     export let full = false;
     export let isSelect = false;
+    export let relative = false;
+
 
 </script>
 
@@ -22,6 +24,9 @@
   div.input {
     margin: 8px 0;
     min-width: 200px;
+    &.relative {
+      position: relative;
+    }
   }
 
   /* Disabled */
@@ -37,7 +42,7 @@
            isSelect={isSelect}
            tipKey={tipKey}/>
 
-  <div class="input">
+  <div class="input" class:relative={relative}>
     <slot/>
   </div>
 

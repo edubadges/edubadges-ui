@@ -23,6 +23,7 @@
     import programmeIcon from "../../icons/forms/certified-diploma-1.svg";
     import awardIcon from "../../icons/award-ribbon-star-1.svg";
     import expiredIcon from "../../icons/connections.svg";
+    import gradeIcon from "../../icons/award-ribbon-star-1.svg";
     import {badgeclassIcon} from "../../icons";
     import {translateBadgeClassProperties, translateProperties} from "../../util/utils";
     import MarkdownField from "../forms/MarkdownField.svelte";
@@ -397,6 +398,15 @@
                             <span class="value">{badge.expiresAt ? moment(badge.expiresAt).format('MMM D, YYYY') : I18n.t("models.badge.expiresNever")}</span>
                         </section>
                     </div>
+                    {#if !isEmpty(badge.gradeAchieved)}
+                        <div class="group-item">
+                            {@html gradeIcon}
+                            <section class="items">
+                                <span class="name">{I18n.t("models.badge.grade")}</span>
+                                <span class="value">{badge.gradeAchieved}</span>
+                            </section>
+                        </div>
+                    {/if}
                 </div>
             {/if}
             <div class="group_items">
@@ -426,17 +436,16 @@
                         </section>
                     </div>
                 {/if}
-                {#if !isEmpty(badgeclass.educationProgramIdentifier)}
+                {#if !isEmpty(badgeclass.educationProgramIdentifier) &&
+                !badgeclass.educationProgramIdentifier.every(identifier => isEmpty(identifier))}
                     <div class="group-item">
                         {@html programmeIcon}
-                        {#if !isEmpty(badgeclass.educationProgramIdentifier)}
-                            <section class="items">
-                                <span class="name">{I18n.t('models.badgeclass.educationProgramIdentifierLong')}</span>
-                                {#each badgeclass.educationProgramIdentifier as educationProgramIdentifier}
-                                    <span class="value">{fallBackValue(educationProgramIdentifier)}</span>
-                                {/each}
-                            </section>
-                        {/if}
+                        <section class="items">
+                            <span class="name">{I18n.t('models.badgeclass.educationProgramIdentifierLong')}</span>
+                            {#each badgeclass.educationProgramIdentifier as educationProgramIdentifier}
+                                <span class="value">{fallBackValue(educationProgramIdentifier)}</span>
+                            {/each}
+                        </section>
                     </div>
                 {/if}
                 {#if !isEmpty(badgeclass.eqf)}

@@ -21,7 +21,7 @@
     import {translateBadgeClassProperties} from "../../util/utils";
     import Field from "../forms/Field.svelte";
     import {isEmpty} from "../../util/utils";
-    import {isValidURL} from "../../util/validations";
+    import {validUrl} from "../../util/forms";
     import EndorsementView from "../teachers/endorsements/EndorsementView.svelte";
     import {alignments, endorsements} from "../../api/queries";
 
@@ -262,7 +262,7 @@
             if (badgeClass.evidenceStudentRequired) {
                 if (isEmpty(evidence_url)) {
                     errors.evidence_url = [{error_code: 939}]
-                } else if (!isValidURL(evidence_url)) {
+                } else if (!validUrl(evidence_url)) {
                     errors.evidence_url = [{error_code: 921}]
                 }
             }
