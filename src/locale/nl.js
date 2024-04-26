@@ -1855,7 +1855,7 @@ I18n.translations.nl = {
         link: " - (link)",
         programme: "Het programma",
         assessment: "De assessment",
-        badge: "De badge class",
+        badge: "De badge",
         errors: "Er ontbreken verplichte velden of de invoer is niet correct. Controleer de invoer."
     }
 

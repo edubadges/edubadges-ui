@@ -81,7 +81,7 @@
       <BadgeValidation badge={badge} validatedName={validatedName}/>
     </div>
     <div class="badge-public-detail">
-      <BadgeClassDetails badgeclass={badge} badge={badge}/>
+      <BadgeClassDetails badgeclass={badge} badge={{gradeAchieved: badge.gradeAchieved}}/>
     </div>
     <BadgeInstanceEvidence evidences={evidences}/>
   </div>

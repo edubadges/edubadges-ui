@@ -2,7 +2,7 @@
     import I18n from "i18n-js";
     import Button from "../../Button.svelte";
     import {Field, TextInput} from "../../forms";
-    import {validUrl} from "../../../util/forms";
+    import {addProtocolToURL, validUrl} from "../../../util/forms";
     import {onMount} from "svelte";
     import MarkdownField from "../../forms/MarkdownField.svelte";
     import {isEmpty} from "../../../util/utils";
@@ -43,9 +43,7 @@
         }
         if (!isEmpty(url)) {
             if (validUrl(url)) {
-                if (!url.startsWith("http")) {
-                    url = "https://" + url;
-                }
+                url = addProtocolToURL(url);
             } else {
                 errors.url = [{error_code: 921}];
             }

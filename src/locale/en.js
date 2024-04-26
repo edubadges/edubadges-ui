@@ -1853,7 +1853,7 @@ I18n.translations.en = {
         link: " - (link)",
         programme: "The programme",
         assessment: "The assessment",
-        badge: "The badge class",
+        badge: "The badge",
         errors: "There are required attributes missing or invalid. Please review the input errors."
     }
 

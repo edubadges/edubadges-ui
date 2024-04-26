@@ -36,6 +36,7 @@
     import TimeInvestment from "../extensions/badges/TimeInvestment.svelte";
     import Spinner from "../Spinner.svelte";
     import Error from "../forms/Error.svelte";
+    import {addProtocolToURL} from "../../util/forms";
 
     export let entityId;
     export let badgeclass = {extensions: [], issuer: {}, alignments: [], criteriaText: ""};
@@ -999,6 +1000,7 @@
                        required={isRequired(badgeclass, "qualityAssuranceUrl")}>
                     <TextInput bind:value={badgeclass.qualityAssuranceUrl}
                                disabled={upgradeKeysDisabled.qualityAssuranceUrl}
+                               onBlur={e => badgeclass.qualityAssuranceUrl = addProtocolToURL(e.target.value)}
                                error={errors.qualityAssuranceUrl || errors.quality_assurance_url}
                                placeholder={I18n.t("placeholders.badgeClass.qualityAssuranceUrl")}/>
                 </Field>
@@ -1187,6 +1189,7 @@
                         <TextInput
                                 bind:value={alignment.target_url}
                                 disabled={!mayRemoveAlignment(alignment) && !isCopy}
+                                onBlur={e => alignment.target_url = addProtocolToURL(e.target.value)}
                                 error={errors.alignments && errors.alignments[i] ? errors.alignments[i].target_url: null}
                                 placeholder={alignment.target_name !== microCredentialsFramework.name ? I18n.t("placeholders.badgeClass.alignmentUrl") : ""}
                         />

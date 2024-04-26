@@ -384,20 +384,24 @@
             {#if badge}
                 <div class="group_items">
                     <h3>{I18n.t("newBadgeClassForm.badge")}</h3>
-                    <div class="group-item">
-                        {@html badgeclassIcon}
-                        <section class="items">
-                            <span class="name">{I18n.t("models.badge.issuedOn")}</span>
-                            <span class="value">{moment(badge.issuedOn).format('MMM D, YYYY')}</span>
-                        </section>
-                    </div>
-                    <div class="group-item">
-                        {@html expiredIcon}
-                        <section class="items">
-                            <span class="name">{I18n.t("models.badge.expires")}</span>
-                            <span class="value">{badge.expiresAt ? moment(badge.expiresAt).format('MMM D, YYYY') : I18n.t("models.badge.expiresNever")}</span>
-                        </section>
-                    </div>
+                    {#if !isEmpty(badge.issuedOn)}
+                        <div class="group-item">
+                            {@html badgeclassIcon}
+                            <section class="items">
+                                <span class="name">{I18n.t("models.badge.issuedOn")}</span>
+                                <span class="value">{moment(badge.issuedOn).format('MMM D, YYYY')}</span>
+                            </section>
+                        </div>
+                    {/if}
+                    {#if !isEmpty(badge.entityId)}
+                        <div class="group-item">
+                            {@html expiredIcon}
+                            <section class="items">
+                                <span class="name">{I18n.t("models.badge.expires")}</span>
+                                <span class="value">{badge.expiresAt ? moment(badge.expiresAt).format('MMM D, YYYY') : I18n.t("models.badge.expiresNever")}</span>
+                            </section>
+                        </div>
+                    {/if}
                     {#if !isEmpty(badge.gradeAchieved)}
                         <div class="group-item">
                             {@html gradeIcon}
