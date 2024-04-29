@@ -351,7 +351,7 @@
         showPreview = true;
     }
 
-    const constructBadgeClassForServer = (isPrivate, removeUpperCaseAttributes=true) => {
+    const constructBadgeClassForServer = (isPrivate, removeUpperCaseAttributes = true) => {
         let newBadgeclass = {
             ...badgeclass,
             criteria_text: badgeclass.criteriaText,
@@ -434,7 +434,7 @@
             }
         }
         if (removeUpperCaseAttributes) {
-        Object.keys(newBadgeclass).filter(key => /[A-Z]/.test(key)).forEach(key => delete newBadgeclass[key]);
+            Object.keys(newBadgeclass).filter(key => /[A-Z]/.test(key)).forEach(key => delete newBadgeclass[key]);
         }
 
         return newBadgeclass;
@@ -555,6 +555,12 @@
         &.not-last {
             margin-bottom: 8px;
         }
+    }
+
+    .separator {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
     }
 
     div.mark-down-container {
@@ -1063,6 +1069,27 @@
                         disabled={badgeclass.selfEnrollmentDisabled}
                         question={I18n.t("newBadgeClassForm.form.selfEnrollment.narrative")}
                         onChange={() => badgeclass.narrativeStudentRequired = !badgeclass.narrativeStudentRequired}/>
+                {#if publicInstitutions.length > 0 && badgeclass.badgeClassType === badgeClassTypes.EXTRA_CURRICULAR}
+                    <Field entity={entity}
+                           attribute="award_allowed_institutions"
+                           errors={errors.award_allowed_institutions}
+                           isSelect={true}
+                           tipKey="badgeclassAwardAllowedInstitutions">
+                        <Select
+                                bind:value={publicInstitutionsChosen}
+                                items={publicInstitutions}
+                                isMulti={true}
+                                customIndicator={indicator}
+                                showIndicator={false}
+                                showChevron={true}
+                                disabled={badgeclass.selfEnrollmentDisabled}
+                                clearable={true}
+                                placeholder={I18n.t("placeholders.institution.allowedInstitutions")}
+                                optionIdentifier="id"
+                        />
+                    </Field>
+                {/if}
+
             </div>
 
             <div class="line-separator"/>
@@ -1116,28 +1143,6 @@
                         question={I18n.t("models.badgeclass.gradeAchieved")}
                         onChange={() => badgeclass.gradeAchievedRequired = !badgeclass.gradeAchievedRequired}/>
             {/if}
-
-            {#if publicInstitutions.length > 0 && badgeclass.badgeClassType === badgeClassTypes.EXTRA_CURRICULAR}
-                <div></div>
-                <Field entity={entity}
-                       attribute="award_allowed_institutions"
-                       errors={errors.award_allowed_institutions}
-                       isSelect={true}
-                       tipKey="badgeclassAwardAllowedInstitutions">
-                    <Select
-                            bind:value={publicInstitutionsChosen}
-                            items={publicInstitutions}
-                            isMulti={true}
-                            customIndicator={indicator}
-                            showIndicator={false}
-                            showChevron={true}
-                            clearable={true}
-                            placeholder={I18n.t("placeholders.institution.allowedInstitutions")}
-                            optionIdentifier="id"
-                    />
-                </Field>
-            {/if}
-
 
             <h4 class="one-row">{I18n.t('models.badgeclass.headers.alignment')}</h4>
             {#each badgeclass.alignments as alignment, i}
@@ -1206,8 +1211,9 @@
                     </Field>
                     <div class="one-row">
                         {#if mayRemoveAlignment(alignment)}
-                            <MarkDownExample onClick={() => badgeclass.alignments[i].target_description = markDownTemplate}
-                                             tipKey="badgeClassDescription"/>
+                            <MarkDownExample
+                                    onClick={() => badgeclass.alignments[i].target_description = markDownTemplate}
+                                    tipKey="badgeClassDescription"/>
                         {/if}
                         <Field entity={entity}
                                attribute="alignmentDescription"
