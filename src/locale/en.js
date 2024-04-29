@@ -1760,7 +1760,7 @@ I18n.translations.en = {
         loaded: "{{name}} query loaded in {{time}}ms and ready to copy, download or show....."
     },
     newBadgeClassForm: {
-        badgeClassType: "Type",
+        badgeClassType: "Type edubadge",
         modal: {
             choose: "Choose a badge class type",
             tipPre: "Tip: You can also duplicate an ",
@@ -1842,6 +1842,11 @@ I18n.translations.en = {
             stackable: {
                 notStackable: "No, stand alone microcredential",
                 stackable: "Yes, stackable microcredential",
+            },
+            gradeAchieved: {
+                name: "Grade achieved",
+                yes: "Grade achieved required",
+                no: "Grade achieved not required"
             }
         },
         saveAsDraft: "Save as draft",
@@ -1854,7 +1859,8 @@ I18n.translations.en = {
         programme: "The programme",
         assessment: "The assessment",
         badge: "The badge",
-        errors: "There are required attributes missing or invalid. Please review the input errors."
+        errors: "There are required attributes missing or invalid. Please review the input errors.",
+        stackable: "Stackable"
     }
 
 };

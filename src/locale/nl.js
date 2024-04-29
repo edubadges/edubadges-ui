@@ -1843,8 +1843,12 @@ I18n.translations.nl = {
             stackable: {
                 notStackable: "Nee, stand alone microcredential",
                 stackable: "Ja, stackable microcredential",
+            },
+            gradeAchieved: {
+                name: "Grade achieved",
+                yes: "Grade achieved required",
+                no: "Grade achieved not required"
             }
-
         },
         saveAsDraft: "Bewaar concept",
         draft: "Concept",
@@ -1856,7 +1860,8 @@ I18n.translations.nl = {
         programme: "Het programma",
         assessment: "De assessment",
         badge: "De badge",
-        errors: "Er ontbreken verplichte velden of de invoer is niet correct. Controleer de invoer."
+        errors: "Er ontbreken verplichte velden of de invoer is niet correct. Controleer de invoer.",
+        stackable: "Stackable"
     }
 
 };

@@ -16,8 +16,10 @@
     import {fallBackValue} from "../../util/forms";
     import languageIcon from "../../icons/messages-bubble-square-text.svg";
     import schoolTrophyIcon from "../../icons/school-book-trophy.svg";
+    import badgeIcon from "../../icons/badgeclass.svg";
     import calendarIcon from "../../icons/calendar-1.svg";
     import participationIcon from "../../icons/forms/presentation-audience.svg";
+    import stackableIcon from "../../icons/overview.svg";
     import supervisionIcon from "../../icons/forms/focus-eye.svg";
     import assessmentIcon from "../../icons/forms/checklist.svg";
     import programmeIcon from "../../icons/forms/certified-diploma-1.svg";
@@ -415,6 +417,15 @@
             {/if}
             <div class="group_items">
                 <h3 class="margin-top">{I18n.t("newBadgeClassForm.programme")}</h3>
+                {#if badgeclass.typeBadgeClass}
+                    <div class="group-item">
+                        {@html badgeIcon}
+                        <section class="items">
+                            <span class="name">{I18n.t("newBadgeClassForm.badgeClassType")}</span>
+                            <span class="value">{I18n.t(`newBadgeClassForm.modal.types.${badgeclass.typeBadgeClass}`)}</span>
+                        </section>
+                    </div>
+                {/if}
                 {#if badgeclass.studyLoadValue}
                     <div class="group-item">
                         {@html schoolTrophyIcon}
@@ -472,6 +483,15 @@
                         </section>
                     </div>
                 {/if}
+                {#if badgeclass.stackable !== undefined}
+                    <div class="group-item">
+                        {@html stackableIcon}
+                        <section class="items">
+                            <span class="name">{I18n.t("newBadgeClassForm.stackable")}</span>
+                            <span class="value">{I18n.t(`newBadgeClassForm.form.stackable.${badgeclass.stackable ? "notStackable" : "stackable"}`)}</span>
+                        </section>
+                    </div>
+                {/if}
                 {#if publicInstitutions && badgeclass.awardAllowedInstitutions && badgeclass.awardAllowedInstitutions.length > 0}
                     <div class="group-item">
                         {@html awardIcon}
@@ -492,9 +512,20 @@
                     </div>
                 {/if}
             </div>
+            {#if badgeclass.assessmentType || badgeclass.gradeAchievedRequired !== undefined}
+                <h3 class="margin-top">{I18n.t("newBadgeClassForm.assessment")}</h3>
+            {/if}
+            {#if badgeclass.gradeAchievedRequired !== undefined}
+                <div class="group-item">
+                    {@html gradeIcon}
+                    <section class="items">
+                        <span class="name">{I18n.t("newBadgeClassForm.form.gradeAchieved.name")}</span>
+                        <span class="value">{I18n.t(`newBadgeClassForm.form.gradeAchieved.${badgeclass.gradeAchievedRequired ? "yes" : "no"}`)}</span>
+                    </section>
+                </div>
+            {/if}
             {#if badgeclass.assessmentType}
                 <div class="group_items">
-                    <h3 class="margin-top">{I18n.t("newBadgeClassForm.assessment")}</h3>
                     <div class="group-item">
                         {@html assessmentIcon}
                         <section class="items">
