@@ -48,7 +48,11 @@
     onMount(() => {
         //The component is used by public pages where the data structure is different
         if (!badgeclass.ignoreExtensions) {
-            badgeclass.educationProgramIdentifier = extensionValue(badgeclass.extensions, educationProgramIdentifier);
+            let identifiers = extensionValue(badgeclass.extensions, educationProgramIdentifier);
+            if (!isEmpty(identifiers) && !Array.isArray(identifiers)) {
+                identifiers = [identifiers]
+            }
+            badgeclass.educationProgramIdentifier = identifiers;
             badgeclass.learningOutcome = extensionValue(badgeclass.extensions, learningOutcome);
             badgeclass.eqf = extensionValue(badgeclass.extensions, eqf);
             badgeclass.studyLoad = extensionValue(badgeclass.extensions, studyLoad);

@@ -34,6 +34,7 @@
     let url = "";
     let name = "";
     let description = "";
+    let gradeAchieved = null;
     let useEvidence = false;
     let serverBusy = false;
 
@@ -48,7 +49,10 @@
     let showAwardModal = false;
 
     onMount(() => {
-        enrollments.forEach(enrollment => enrollment.evidenceNarrativeRequired = badgeClass.evidenceRequired || badgeClass.narrativeRequired);
+        enrollments.forEach(enrollment => {
+            enrollment.evidenceNarrativeRequired = badgeClass.evidenceRequired || badgeClass.narrativeRequired;
+            enrollment.gradeAchievedRequired = badgeClass.gradeAchievedRequired;
+        });
         filteredEnrollments = enrollments;
     });
 
@@ -66,7 +70,7 @@
         } else {
             showAwardModal = false;
             serverBusy = true;
-            awardBadges(entityId, selection, useEvidence, narrative, url, name, description).then(() => {
+            awardBadges(entityId, selection, useEvidence, narrative, url, name, description, gradeAchieved).then(() => {
                 refreshEnrollments();
                 narrative = "";
                 url = "";
@@ -353,7 +357,9 @@
             bind:useEvidence={useEvidence}
             bind:name={name}
             bind:description={description}
+            bind:grade={gradeAchieved}
             narrativeRequired={badgeClass.narrativeRequired}
+            gradeAchievedRequired={badgeClass.gradeAchievedRequired}
             evidenceRequired={badgeClass.evidenceRequired}
             submit={() => award(false)}
             narrativeAllowed={selection.length === 1}

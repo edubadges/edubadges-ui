@@ -28,7 +28,7 @@
     onMount(() => {
         narrativeOrEvidenceRequired = narrativeRequired || evidenceRequired;
         useEvidence = narrativeOrEvidenceRequired || !awardMode || !isEmpty(url) || !isEmpty(description);
-    });
+   });
 
     const doSubmit = () => {
         errors = {};

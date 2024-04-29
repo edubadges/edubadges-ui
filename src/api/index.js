@@ -165,13 +165,16 @@ export function logoutCurrentUser() {
 }
 
 // Teacher badges
-export function awardBadges(badgeId, enrollmentIds, useEvidence, narrative, url, name, description) {
+export function awardBadges(badgeId, enrollmentIds, useEvidence, narrative, url, name, description, gradeAchieved) {
     const path = `${serverUrl}/issuer/badgeclasses/award-enrollments/${badgeId}`;
     const body = {
         "issue_signed": false,
         "create_notification": true,
         "enrollments": enrollmentIds.map(el => {
-            const res = {"enrollment_entity_id": el};
+            const res = {
+                enrollment_entity_id: el,
+                grade_achieved: gradeAchieved
+            };
             if (useEvidence) {
                 res.evidence_items = [{
                     "evidence_url": url,

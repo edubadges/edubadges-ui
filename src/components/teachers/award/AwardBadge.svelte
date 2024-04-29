@@ -112,7 +112,7 @@
         selectedDirectAwardForEvidence.evidence_url = ""
         selectedDirectAwardForEvidence.name = ""
         selectedDirectAwardForEvidence.description = ""
-        selectedDirectAwardForEvidence.grade_achieved = ""
+        selectedDirectAwardForEvidence.grade_achieved = null
     }
 
     const init = e => e.focus();

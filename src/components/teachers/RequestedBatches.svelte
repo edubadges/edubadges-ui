@@ -22,12 +22,14 @@
     let selection = [];
     let narrativeRequired = false;
     let evidenceRequired = false;
+    let gradeAchievedRequired = false;
     let filteredEnrollments = [];
     let checkAllValue = false;
     let narrative = "";
     let url = "";
     let name = "";
     let description = "";
+    let gradeAchieved = null;
     let useEvidence = false;
 
     let loaded = false;
@@ -48,6 +50,7 @@
       name,
       narrativeRequired,
       evidenceRequired,
+      gradeAchievedRequired,
       evidenceStudentRequired,
       narrativeStudentRequired,
       permissions { mayUpdate, mayAward },
@@ -89,11 +92,13 @@
     onMount(loadEnrollments)
 
     const award = showConfirmation => {
+        debugger;
         if (showConfirmation) {
             const enrollment = findEnrollment(selection[0]);
             const badgeClass = enrollment.badgeClass;
             evidenceRequired = badgeClass.evidenceRequired;
             narrativeRequired = badgeClass.narrativeRequired;
+            gradeAchievedRequired = badgeClass.gradeAchievedRequired;
             description = enrollment.narrative;
             url = enrollment.evidenceUrl;
             showAwardModal = true;
@@ -112,7 +117,7 @@
                 return acc;
             }, {});
             Promise.all(Object.entries(enrollmentsGroupedByBadgeClass).map(arr => {
-                return awardBadges(arr[0], arr[1], useEvidence, narrative, url, name, description);
+                return awardBadges(arr[0], arr[1], useEvidence, narrative, url, name, description, gradeAchieved);
             })).then(() => {
                 loadEnrollments();
                 narrative = "";
@@ -378,8 +383,13 @@
             bind:useEvidence={useEvidence}
             bind:name={name}
             bind:description={description}
+            bind:grade={gradeAchieved}
             narrativeRequired={narrativeRequired}
             evidenceRequired={evidenceRequired}
-            submit={() => award(false)}
+            gradeAchievedRequired={gradeAchievedRequired}
+            submit={() => {
+                debugger;
+                award(false);
+            }}
             cancel={cancelAwardDialog}/>
 {/if}
