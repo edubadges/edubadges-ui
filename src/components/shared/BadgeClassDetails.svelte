@@ -287,13 +287,6 @@
             <div class="info markdown-body">
                 <MarkdownField value={badgeclass.description} disabled={true}/>
             </div>
-            {#if badgeclass.typeBadgeClass}
-                <h3>{I18n.t('newBadgeClassForm.badgeClassType')}</h3>
-                <span>{I18n.t(`newBadgeClassForm.modal.types.${badgeclass.typeBadgeClass.toLowerCase()}`)}</span>
-                {#if badgeclass.isPrivate}
-                    <span>{` - ${I18n.t("newBadgeClassForm.draft")}`}</span>
-                {/if}
-            {/if}
             <h3>{I18n.t('models.badgeclass.learningOutcome')}</h3>
             <div class="info markdown-body">
                 <MarkdownField value={fallBackValue(badgeclass.learningOutcome)} disabled={true}/>

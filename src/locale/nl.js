@@ -1845,9 +1845,9 @@ I18n.translations.nl = {
                 stackable: "Ja, stackable microcredential",
             },
             gradeAchieved: {
-                name: "Grade achieved",
-                yes: "Grade achieved required",
-                no: "Grade achieved not required"
+                name: "Cijfer behaald",
+                yes: "Cijfer behaald verplicht",
+                no: "Cijfer behaald niet verplicht"
             }
         },
         saveAsDraft: "Bewaar concept",

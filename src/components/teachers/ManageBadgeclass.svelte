@@ -78,7 +78,10 @@
       qualityAssuranceUrl,
       qualityAssuranceDescription,
       gradeAchievedRequired,
-      stackable
+      stackable,
+      tags {
+        name
+      },
       issuer {
         nameEnglish,
         nameDutch,
