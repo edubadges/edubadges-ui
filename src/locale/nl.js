@@ -139,6 +139,7 @@ I18n.translations.nl = {
             filterAwards: "Filter awards",
             filterUsers: "Filter gebruikers",
             filterDirectAwards: "Filter direct awards",
+            badgeTagPlaceholder: "Selecteer een tag...",
             filters: {
                 faculties: "Issuer groepen",
                 issuers: "Issuers",

@@ -72,23 +72,39 @@
                 loaded = true;
             })
         } else {
-            directAwards =  [{email: "", eppn: "", narrative: "", evidence_url: "", name: "", description: "", grade_achieved: ""}]
+            directAwards = [{
+                email: "",
+                eppn: "",
+                narrative: "",
+                evidence_url: "",
+                name: "",
+                description: "",
+                grade_achieved: ""
+            }]
             loaded = true;
         }
     });
 
 
     const addDirectAward = () => {
-        const newDa = {email: "", eppn: "", narrative: "", evidence_url: "", name: "", description: "", grade_achieved: ""};
+        const newDa = {
+            email: "",
+            eppn: "",
+            narrative: "",
+            evidence_url: "",
+            name: "",
+            description: "",
+            grade_achieved: ""
+        };
         directAwards = [...directAwards, newDa];
     }
 
     const hasEvidence = directAward => {
-        return  !isEmpty(directAward.narrative) || validUrl(directAward.evidence_url);
+        return !isEmpty(directAward.narrative) || validUrl(directAward.evidence_url);
     }
 
     const hasMetaData = directAward => {
-        return  !isEmpty(directAward.narrative) || validUrl(directAward.evidence_url) || !isEmpty(directAward.grade_achieved);
+        return !isEmpty(directAward.narrative) || validUrl(directAward.evidence_url) || !isEmpty(directAward.grade_achieved);
     }
 
     const removeDirectAward = index => () => {
@@ -303,6 +319,7 @@
             display: flex;
             flex-direction: column;
             margin-top: 28px;
+            max-width: 280px;
             @media (max-width: 946px) {
                 margin-top: 0;
             }
@@ -311,6 +328,10 @@
                 display: flex;
                 align-items: center;
                 gap: 15px;
+
+                :global(a) {
+                    flex-grow: 2;
+                }
             }
         }
 
@@ -417,12 +438,12 @@
                         <div class="evidence-subcontainer">
                             <button class="rm-icon-container" class:disabled={i === 0}
                                     on:click={removeDirectAward(i)}>{@html trash}</button>
-<!--                            <Button text={I18n.t("badgeAward.directAward.grade")}-->
-<!--                                    action={() => addEvidence(i)}/>-->
-<!--                            <Button text={hasEvidence(da) ? I18n.t("badgeAward.directAward.editEvidence") :-->
-<!--                              I18n.t("badgeAward.directAward.addEvidence")}-->
-<!--                                    action={() => addEvidence(i)}/>-->
-                             <Button text={I18n.t(`badgeAward.directAward.${hasMetaData(da) ? "editMetaData" : "metaData"}`)}
+                            <!--                            <Button text={I18n.t("badgeAward.directAward.grade")}-->
+                            <!--                                    action={() => addEvidence(i)}/>-->
+                            <!--                            <Button text={hasEvidence(da) ? I18n.t("badgeAward.directAward.editEvidence") :-->
+                            <!--                              I18n.t("badgeAward.directAward.addEvidence")}-->
+                            <!--                                    action={() => addEvidence(i)}/>-->
+                            <Button text={I18n.t(`badgeAward.directAward.${hasMetaData(da) ? "editMetaData" : "metaData"}`)}
                                     action={() => addEvidence(i)}/>
                         </div>
                         {#if errors[`narrative_${i}`]}
@@ -459,7 +480,7 @@
                         secondary={true}
                         marginRight={true}/>
                 <Button action={doAward}
-                         text={I18n.t("badgeAward.directAward.award")}
+                        text={I18n.t("badgeAward.directAward.award")}
                         disabled={disableSubmit}/>
             </div>
         </div>

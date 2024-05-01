@@ -1,7 +1,13 @@
 <script>
     import I18n from "i18n-js";
     import {FilterBlock} from "../../components/teachers";
-    import {facultyIds, issuerIds, tree, typeBadgeClassSelected, tagBadgeClassSelected} from "../../stores/filterBadges";
+    import {
+        facultyIds,
+        issuerIds,
+        tree,
+        typeBadgeClassSelected,
+        tagBadgeClassSelected
+    } from "../../stores/filterBadges";
 </script>
 
 <style lang="scss">
@@ -61,6 +67,8 @@
                 collection={$tree.badgeClassTags}
                 objectIdentifier="name"
                 maxLength={100}
-                title="badgeClassTag"/>
+                title="badgeClassTag"
+                selectModus={true}
+                placeholder={I18n.t('teacher.sidebar.badgeTagPlaceholder')}/>
     </div>
 </div>

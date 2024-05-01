@@ -139,6 +139,7 @@ I18n.translations.en = {
             filterAwards: "Filter awards",
             filterDirectAwards: "Filter direct awards",
             filterUsers: "Filter users",
+            badgeTagPlaceholder: "Select a tag...",
             filters: {
                 faculties: "Issuer groups",
                 issuers: "Issuers",
