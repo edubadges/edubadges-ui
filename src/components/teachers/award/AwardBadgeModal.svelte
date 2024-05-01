@@ -9,13 +9,14 @@
 
     export let submit;
     export let cancel;
-    export let awardMode = true;
+    export let awardMode;
 
     export let narrative;
     export let url;
     export let name;
     export let description;
     export let grade;
+
     export let useEvidence = false;
     export let evidenceRequired = false;
     export let narrativeRequired = false;
@@ -27,7 +28,7 @@
 
     onMount(() => {
         narrativeOrEvidenceRequired = narrativeRequired || evidenceRequired;
-        useEvidence = narrativeOrEvidenceRequired || !awardMode || !isEmpty(url) || !isEmpty(description);
+        useEvidence = narrativeOrEvidenceRequired || gradeAchievedRequired || !awardMode || !isEmpty(url) || !isEmpty(description);
    });
 
     const doSubmit = () => {
@@ -183,7 +184,9 @@
                            attribute={'evidenceURL'}
                            required={evidenceRequired}
                            tipKey="enrollmentEvidenceURL">
-                        <TextInput bind:value={url} error={errors.url}
+                        <TextInput bind:value={url}
+                                   error={errors.url}
+                                   onBlur={e => url = addProtocolToURL(e.target.value)}
                                    placeholder={I18n.t("placeholders.enrollment.evidenceURL")}/>
                     </Field>
                     <Field entity={'enrollment'} attribute={'evidenceName'} tipKey="enrollmentEvidenceName">

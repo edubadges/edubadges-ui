@@ -853,6 +853,7 @@ I18n.translations.nl = {
                 none: "Geen",
                 narrative: "Persoonlijke boodschap",
                 evidence: "Bewijs",
+                gradeAchieved: "Cijfer behaald",
                 narrativeStudent: "Persoonlijke boodschap student",
                 evidenceStudent: "Bewijs student",
                 badgeClass: "Badge class"

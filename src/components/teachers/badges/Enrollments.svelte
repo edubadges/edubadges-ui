@@ -117,7 +117,11 @@
 
     const onCheckOne = (val, entityId) => {
         if (val) {
-            if (badgeClass.evidenceRequired || badgeClass.narrativeRequired || badgeClass.evidenceStudentRequired || badgeClass.narrativeStudentRequired) {
+            if (badgeClass.evidenceRequired ||
+                badgeClass.narrativeRequired ||
+                badgeClass.evidenceStudentRequired ||
+                badgeClass.narrativeStudentRequired ||
+                badgeClass.gradeAchievedRequired) {
                 selection = [entityId];
             } else {
                 selection = selection.concat(entityId);
@@ -268,7 +272,7 @@
         page={minimalPage}
         onPageChange={nbr => page = nbr}
         withCheckAll={true}
-        checkAllDisabled={!badgeClass.permissions.mayAward || badgeClass.evidenceRequired || badgeClass.narrativeRequired}
+        checkAllDisabled={!badgeClass.permissions.mayAward || badgeClass.evidenceRequired || badgeClass.narrativeRequired || badgeClass.gradeAchievedRequired}
         bind:checkAllValue>
     <div class="action-buttons" slot="check-buttons">
         {#if actions.includes(ACTIONS.AWARD_ENROLLMENT)}
@@ -315,6 +319,9 @@
                     {/if}
                     {#if badgeClass.narrativeRequired}
                         <span>{I18n.t("models.enrollment.enrollmentType.narrative")}</span>
+                    {/if}
+                    {#if badgeClass.gradeAchievedRequired}
+                        <span>{I18n.t("models.enrollment.enrollmentType.gradeAchieved")}</span>
                     {/if}
                 {:else}
                     <span>-</span>
@@ -363,5 +370,6 @@
             evidenceRequired={badgeClass.evidenceRequired}
             submit={() => award(false)}
             narrativeAllowed={selection.length === 1}
+            awardMode={true}
             cancel={cancelAwardDialog}/>
 {/if}

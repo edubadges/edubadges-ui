@@ -1,5 +1,5 @@
-export const microCredentialsFramework = {
-    "name": "Kwaliteitskader Microcredentials voor Professionals HBO en WO",
+export const microCredentialsFrameworkMBO = {
+    "name": "Kwaliteitskader Microcredentials voor Professionals MBO",
     "url": "https://www.versnellingsplan.nl/en/Kennisbank/pilot-microcredentials-2/",
     "description": `
 
@@ -11,7 +11,7 @@ De microcredential is een betrouwbaar certificaat waarmee professionals kunnen a
 >
 Deze microcredential is uitgegeven in het kader samen doorbouwen aan microcredentials binnen het Nederlandse Hoger Onderwijs en staat voor kwaliteit. Door de besturen van de koepels Vereniging Hogescholen (VH) en Universiteiten Nederland (UNL) zijn de onderstaande kwaliteitsafspraken vastgesteld, waar deze microcredential aan voldoet. 
 >
-#### Kwaliteitskader Microcredentials voor Professionals HBO en WO
+#### Kwaliteitskader Microcredentials voor Professionals MBO
 >
 **Rond de minimale (interne) kwaliteitszorg van microcredentials**
 >

@@ -26,6 +26,7 @@
     import {toHttpOrHttps} from "../../util/Url";
     import MarkdownField from "../forms/MarkdownField.svelte";
     import {microCredentialsFramework} from "../../util/microcredentials";
+    import {microCredentialsFrameworkMBO} from "../../util/microcredentials_MBO";
     import {markDownTemplate} from "../../util/markDownTemplate";
     import MarkDownExample from "./badgeclass/MarkDownExample.svelte";
     import Switch from "../forms/Switch.svelte";
@@ -35,7 +36,6 @@
     import PreviewBadgeClassModal from "./PreviewBadgeClassModal.svelte";
     import TimeInvestment from "../extensions/badges/TimeInvestment.svelte";
     import Spinner from "../Spinner.svelte";
-    import Error from "../forms/Error.svelte";
     import {addProtocolToURL} from "../../util/forms";
 
     export let entityId;
@@ -107,7 +107,11 @@
         }
         let programmeIdentifiers = extensionValue(badgeclass.extensions, educationProgramIdentifier) || (isCreate && !isCopy ? [""] : []);
         //Draft regular badge classes need a programmeIdentifier
-        if (programmeIdentifiers.length === 0 && badgeclass.badgeClassType === badgeClassTypes.REGULAR) {
+        if (!isCreate && !isEmpty(programmeIdentifiers) && !Array.isArray(programmeIdentifiers)) {
+            //Bugfix for older badge classes with one, non-array programmeIdentifier
+            programmeIdentifiers = [programmeIdentifiers]
+        }
+        if (Array.isArray(programmeIdentifiers) && programmeIdentifiers.length === 0 && badgeclass.badgeClassType === badgeClassTypes.REGULAR) {
             programmeIdentifiers = [""];
         }
         extensions = {
@@ -169,19 +173,7 @@
             value: key,
             name: stackableTranslation[key]
         }));
-
-        if (badgeclass.badgeClassType === badgeClassTypes.MICRO_CREDENTIAL) {
-            badgeclass.isMicroCredentials = true;
-            if (isCreate) {
-                badgeclass.alignments = [{
-                    target_name: microCredentialsFramework.name,
-                    target_url: microCredentialsFramework.url,
-                    target_description: microCredentialsFramework.description,
-                    target_framework: microCredentialsFramework.framework,
-                    target_code: microCredentialsFramework.code,
-                }];
-            }
-        } else if (isCreate) {
+        if (isCreate) {
             //All type badgeClasses can have educational frameworks
             badgeclass.alignments = [{
                 target_name: "",
@@ -190,6 +182,15 @@
                 target_framework: "",
                 target_code: "",
             }];
+        }
+        if (badgeclass.badgeClassType === badgeClassTypes.MICRO_CREDENTIAL) {
+            badgeclass.isMicroCredentials = true;
+            if (isCreate) {
+                const framework = isInstitutionMBO ? microCredentialsFrameworkMBO : microCredentialsFramework;
+                badgeclass.qualityAssuranceName = framework.name;
+                badgeclass.qualityAssuranceUrl = framework.url;
+                badgeclass.qualityAssuranceDescription = framework.description;
+            }
         }
         badgeclass.formal = badgeclass.badgeClassType !== badgeClassTypes.EXTRA_CURRICULAR;
         if (!isCreate) {
@@ -363,6 +364,7 @@
             award_non_validated_name_allowed: badgeclass.awardNonValidatedNameAllowed,
             is_micro_credentials: badgeclass.isMicroCredentials,
             badge_class_type: badgeclass.badgeClassType,
+            typeBadgeClass: badgeclass.badgeClassType,
             participation: badgeclass.participation ? badgeclass.participation.value : null,
             assessment_type: badgeclass.assessmentType ? badgeclass.assessmentType.value : null,
             assessment_supervised: badgeclass.assessmentSupervised,

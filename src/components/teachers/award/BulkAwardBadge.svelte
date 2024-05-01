@@ -16,6 +16,7 @@
     import CheckBox from "../../CheckBox.svelte";
     import calendarIcon from "../../../icons/calendar-1.svg";
     import {onMount} from "svelte";
+    import {isEmpty} from "../../../util/utils";
 
     export let badgeclass;
     export let enrollments;
@@ -27,6 +28,7 @@
     let duplicateAwards = [];
     let alreadyEppnDirectAwards = [];
     let missingEvidenceOrNarrative = [];
+    let missingGrades = [];
     let processing = false;
     let serverProcessing = false;
     let enableScheduling = false;
@@ -57,6 +59,7 @@
                     const newDuplicateAwards = [];
                     const newAlreadyEppnDirectAwards = [];
                     const newMissingEvidenceOrNarrative = [];
+                    const newMissingGrades = [];
                     rows.forEach(row => {
                         const cells = row.split(/[,;\t]/);
                         const cellString = cells.join(" - ").trim();
@@ -71,6 +74,7 @@
                             const evidence_url = cells[3] || null;
                             const name = cells[4] || null;
                             const description = cells[5] || null;
+                            const grade_achieved = cells[6] || null;
                             if (existingDirectAwardsEppns.some(da => da.eppn === eppn)) {
                                 newAlreadyEppnDirectAwards.push(eppn);
                             } else if (alreadyInList(newDirectAwards, email, eppn)) {
@@ -80,8 +84,21 @@
                                 if (cellString.length > 0) {
                                     newMissingEvidenceOrNarrative.push(cellString);
                                 }
+                            } else if (badgeclass.gradeAchievedRequired && isEmpty(grade_achieved)) {
+                                //ignore empty line at the end
+                                if (cellString.length > 0) {
+                                    newMissingGrades.push(cellString);
+                                }
                             } else if (validEmail(email) && eppn.trim().length > 0 && (!evidence_url || validUrl(evidence_url))) {
-                                newDirectAwards.push({email, eppn, evidence_url, narrative, name, description});
+                                newDirectAwards.push({
+                                    email,
+                                    eppn,
+                                    evidence_url,
+                                    narrative,
+                                    name,
+                                    description,
+                                    grade_achieved
+                                });
                             } else {
                                 //ignore empty line at the end
                                 if (cellString.length > 0) {
@@ -96,6 +113,7 @@
                     duplicateAwards = newDuplicateAwards;
                     alreadyEppnDirectAwards = newAlreadyEppnDirectAwards;
                     missingEvidenceOrNarrative = newMissingEvidenceOrNarrative;
+                    missingGrades = newMissingGrades;
                     processing = false;
                 };
                 reader.readAsText(files[0])
@@ -124,121 +142,133 @@
 </script>
 
 <style lang="scss">
-  div.bulk-award-badge {
+    div.bulk-award-badge {
 
-    h2 {
-      background: var(--purple-1);
-      padding: var(--ver-padding-l) var(--hor-padding-l);
-    }
-
-    p.sub-title {
-      margin-bottom: 20px;
-      max-width: 50%;
-    }
-
-    div.warning-container {
-      margin: 10px 0 20px 0;
-    }
-
-    .scheduled-at {
-      display: flex;
-      align-items: center;
-      margin: 15px 0 16px 0;
-
-      &.disable-scheduling {
-        margin: 23px 0 25px 0;
-      }
-
-      :global(input.input-field) {
-        max-width: 180px;
-        margin-left: 40px;
-      }
-
-      .svelte-picker {
-        position: relative;
-
-        span.calendar {
-          cursor: pointer;
+        h2 {
+            background: var(--purple-1);
+            padding: var(--ver-padding-l) var(--hor-padding-l);
         }
 
-        :global(svg.calendar-1) {
-          position: absolute;
-          right: 0;
-          top: 8px;
-          color: var(--purple);
-          width: 24px;
-          height: auto;
+        p.sub-title {
+            margin-bottom: 16px;
+            max-width: 50%;
         }
-      }
+
+        ul {
+            list-style: disc;
+            margin: 5px 0 0 20px;
+        }
+
+        div.warning-container {
+            margin: 10px 0 20px 0;
+        }
+
+        .scheduled-at {
+            display: flex;
+            align-items: center;
+            margin: 15px 0 16px 0;
+
+            &.disable-scheduling {
+                margin: 23px 0 25px 0;
+            }
+
+            :global(input.input-field) {
+                max-width: 180px;
+                margin-left: 40px;
+            }
+
+            .svelte-picker {
+                position: relative;
+
+                span.calendar {
+                    cursor: pointer;
+                }
+
+                :global(svg.calendar-1) {
+                    position: absolute;
+                    right: 0;
+                    top: 8px;
+                    color: var(--purple);
+                    width: 24px;
+                    height: auto;
+                }
+            }
+        }
+
+        :global(.dropzone) {
+            max-width: 50%;
+            @media (max-width: 996px) {
+                max-width: 100%;
+            }
+
+
+            &:focus {
+                border-color: var(--purple-5) !important;
+            }
+
+        }
+
+        div.server-processing {
+            display: flex;
+            align-items: center;
+            margin: 45px 0;
+
+            span {
+                font-weight: bold;
+                margin-left: 15px;
+            }
+        }
+
+        div.dropzone-slot {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+
+            :global(.cloud-upload-svg svg) {
+                width: 42px;
+                height: auto;
+
+            }
+
+            span.cloud-upload-or {
+                margin: 25px 0;
+                color: var(--text-grey-dark);
+            }
+
+            span.cloud-upload-link {
+                margin-top: 5px;
+                font-weight: bold;
+                cursor: pointer;
+                color: var(--green-medium);
+                text-decoration: underline;
+            }
+        }
+
+        div.actions {
+            display: flex;
+            margin-top: 25px;
+
+        }
+
     }
-
-    :global(.dropzone) {
-      max-width: 50%;
-      @media (max-width: 996px) {
-        max-width: 100%;
-      }
-
-
-      &:focus {
-        border-color: var(--purple-5) !important;
-      }
-
-    }
-
-    div.server-processing {
-      display: flex;
-      align-items: center;
-      margin: 45px 0;
-
-      span {
-        font-weight: bold;
-        margin-left: 15px;
-      }
-    }
-
-    div.dropzone-slot {
-      display: flex;
-      flex-direction: column;
-      text-align: center;
-
-      :global(.cloud-upload-svg svg) {
-        width: 42px;
-        height: auto;
-
-      }
-
-      span.cloud-upload-or {
-        margin: 25px 0;
-        color: var(--text-grey-dark);
-      }
-
-      span.cloud-upload-link {
-        margin-top: 5px;
-        font-weight: bold;
-        cursor: pointer;
-        color: var(--green-medium);
-        text-decoration: underline;
-      }
-    }
-
-    div.actions {
-      display: flex;
-      margin-top: 25px;
-
-    }
-
-  }
 </style>
 <div class="bulk-award-badge">
     <h2>{I18n.t("badgeAward.bulkAward.title")}</h2>
     <div class="main-content-margin">
         <p class="sub-title">{@html I18n.t("badgeAward.bulkAward.subtitle", {sample: `${config.serverUrl}/static/sample_direct_award.csv`})}
-            {#if badgeclass.evidenceRequired && badgeclass.narrativeRequired}
-                <span>{I18n.t("badgeAward.bulkAward.evidenceAndNarrativeRequired")}</span>
-            {:else if badgeclass.evidenceRequired}
-                <span>{I18n.t("badgeAward.bulkAward.evidenceRequired")}</span>
-            {:else if badgeclass.narrativeRequired}
-                <span>{I18n.t("badgeAward.bulkAward.narrativeRequired")}</span>
+            {#if badgeclass.evidenceRequired || badgeclass.narrativeRequired || badgeclass.gradeAchievedRequired}
+                <span>{I18n.t("badgeAward.bulkAward.additionalRequirements")}</span>
+                <ul>
+                    {#if badgeclass.evidenceRequired}
+                        <li>{I18n.t("badgeAward.bulkAward.evidenceRequired")}</li>
+                    {/if}
+                    {#if badgeclass.narrativeRequired}
+                        <li>{I18n.t("badgeAward.bulkAward.narrativeRequired")}</li>
+                    {/if}
+                    {#if badgeclass.gradeAchievedRequired}
+                        <li>{I18n.t("badgeAward.bulkAward.gradeRequired")}</li>
+                    {/if}
+                </ul>
             {/if}
         </p>
         {#if enrollments.filter(enrollment => !enrollment.denied).length > 0}
@@ -250,39 +280,39 @@
                 </Warning>
             </div>
         {/if}
-<!--            <div class="scheduled-at" class:disable-scheduling={!enableScheduling}>-->
-<!--                <CheckBox-->
-<!--                        value={enableScheduling}-->
-<!--                        name={"enableScheduling"}-->
-<!--                        tipKey="awardScheduling"-->
-<!--                        inForm={false}-->
-<!--                        adjustTop={true}-->
-<!--                        boldLabel={false}-->
-<!--                        label={I18n.t("badgeAward.directAward.schedulingDate")}-->
-<!--                        onChange={val => {-->
-<!--                            enableScheduling = val;-->
-<!--                        }}/>-->
-<!--                {#if enableScheduling}-->
-<!--                    <div class="svelte-picker">-->
-<!--                        <SveltyPicker-->
-<!--                                inputClasses="input-field"-->
-<!--                                inputId="svelty-picker-id"-->
-<!--                                format="yyyy-mm-dd hh:ii"-->
-<!--                                startDate={startDate}-->
-<!--                                clearBtn={false}-->
-<!--                                disabled={!enableScheduling}-->
-<!--                                minuteIncrement={30}-->
-<!--                                i18n={I18n.locale === "en" ? en : nl}-->
-<!--                                todayBtn={false}-->
-<!--                                bind:value={scheduledAt}-->
-<!--                                bind:initialDate={initialDate}/>-->
-<!--                        <span class="calendar" on:click={() => document.getElementById("svelty-picker-id").focus()}>-->
-<!--                            {@html calendarIcon}-->
-<!--                        </span>-->
+        <!--            <div class="scheduled-at" class:disable-scheduling={!enableScheduling}>-->
+        <!--                <CheckBox-->
+        <!--                        value={enableScheduling}-->
+        <!--                        name={"enableScheduling"}-->
+        <!--                        tipKey="awardScheduling"-->
+        <!--                        inForm={false}-->
+        <!--                        adjustTop={true}-->
+        <!--                        boldLabel={false}-->
+        <!--                        label={I18n.t("badgeAward.directAward.schedulingDate")}-->
+        <!--                        onChange={val => {-->
+        <!--                            enableScheduling = val;-->
+        <!--                        }}/>-->
+        <!--                {#if enableScheduling}-->
+        <!--                    <div class="svelte-picker">-->
+        <!--                        <SveltyPicker-->
+        <!--                                inputClasses="input-field"-->
+        <!--                                inputId="svelty-picker-id"-->
+        <!--                                format="yyyy-mm-dd hh:ii"-->
+        <!--                                startDate={startDate}-->
+        <!--                                clearBtn={false}-->
+        <!--                                disabled={!enableScheduling}-->
+        <!--                                minuteIncrement={30}-->
+        <!--                                i18n={I18n.locale === "en" ? en : nl}-->
+        <!--                                todayBtn={false}-->
+        <!--                                bind:value={scheduledAt}-->
+        <!--                                bind:initialDate={initialDate}/>-->
+        <!--                        <span class="calendar" on:click={() => document.getElementById("svelty-picker-id").focus()}>-->
+        <!--                            {@html calendarIcon}-->
+        <!--                        </span>-->
 
-<!--                    </div>-->
-<!--                {/if}-->
-<!--            </div>-->
+        <!--                    </div>-->
+        <!--                {/if}-->
+        <!--            </div>-->
         {#if processing}
             <DotSpinner/>
         {:else if serverProcessing}

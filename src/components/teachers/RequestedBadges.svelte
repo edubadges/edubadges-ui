@@ -79,6 +79,7 @@
                         enrollment.badgeClass = badgeClass;
                         enrollment.evidenceNarrativeRequired = badgeClass.evidenceRequired || badgeClass.narrativeRequired ||
                             badgeClass.evidenceStudentRequired || badgeClass.narrativeStudentRequired;
+                        enrollment.gradeAchievedRequired = badgeClass.gradeAchievedRequired;
                         allEnrollments.push(enrollment);
                     }
                 )
@@ -92,7 +93,6 @@
     onMount(loadEnrollments)
 
     const award = showConfirmation => {
-        debugger;
         if (showConfirmation) {
             const enrollment = findEnrollment(selection[0]);
             const badgeClass = enrollment.badgeClass;
@@ -154,6 +154,7 @@
         narrative = "";
         url = "";
         name = "";
+        gradeAchieved = null;
         description = "";
     }
 
@@ -162,11 +163,11 @@
     const onCheckOne = (val, entityId) => {
         if (val) {
             const enrollment = findEnrollment(entityId);
-            if (enrollment.evidenceNarrativeRequired) {
+            if (enrollment.evidenceNarrativeRequired || enrollment.gradeAchievedRequired) {
                 selection = [entityId];
                 table.checkAllValue = false;
             } else {
-                selection = [...selection.filter(sel => !findEnrollment(sel).evidenceNarrativeRequired), entityId];
+                selection = [...selection.filter(sel => !findEnrollment(sel).evidenceNarrativeRequired && !findEnrollment(sel).gradeAchievedRequired), entityId];
             }
         } else {
             selection = selection.filter(id => id !== entityId);
@@ -177,7 +178,7 @@
     const onCheckAll = val => {
         table.checkAllValue = val;
         if (val) {
-            selection = enrollments.filter(e => !e.evidenceNarrativeRequired).map(e => e.entityId);
+            selection = enrollments.filter(e => !e.evidenceNarrativeRequired && !e.gradeAchievedRequired).map(e => e.entityId);
         } else {
             selection = [];
         }
@@ -322,7 +323,7 @@
                 </td>
                 <td>
                     <a use:link
-                       href={`/badgeclass/${enrollment.badgeClass.entityId}/enrollments`}>{enrollment.badgeClass.name}</a>
+                       href={`/badgeclass/${enrollment.badgeClass.entityId}/open-enrollments`}>{enrollment.badgeClass.name}</a>
                 </td>
                 <td class="evidenceNarrativeRequired">
                     {#if enrollment.evidenceNarrativeRequired}
@@ -338,6 +339,9 @@
                             {/if}
                             {#if enrollment.badgeClass.evidenceStudentRequired}
                                 <li>{I18n.t("models.enrollment.enrollmentType.evidenceStudent")}</li>
+                            {/if}
+                            {#if enrollment.badgeClass.gradeAchievedRequired}
+                                <li>{I18n.t("models.enrollment.enrollmentType.gradeAchieved")}</li>
                             {/if}
                         </ul>
                     {:else}
@@ -384,6 +388,7 @@
             bind:name={name}
             bind:description={description}
             bind:grade={gradeAchieved}
+            awardMode={true}
             narrativeRequired={narrativeRequired}
             evidenceRequired={evidenceRequired}
             gradeAchievedRequired={gradeAchievedRequired}

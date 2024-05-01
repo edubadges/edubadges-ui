@@ -12,7 +12,7 @@
     import {entityType} from "../../util/entityTypes"
     import {permissionsRole} from "../../util/rolesToPermissions";
     import {translateProperties} from "../../util/utils";
-    import RequestedBatches from "./RequestedBatches.svelte";
+    import RequestedBatches from "./RequestedBadges.svelte";
     import UnclaimedDirectAwards from "./UnclaimedDirectAwards.svelte";
 
     let entityId;

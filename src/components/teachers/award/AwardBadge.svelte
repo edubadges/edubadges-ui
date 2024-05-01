@@ -472,7 +472,7 @@
             narrativeRequired={badgeclass.narrativeRequired}
             evidenceRequired={badgeclass.evidenceRequired}
             gradeAchievedRequired={badgeclass.gradeAchievedRequired}
-            submit={awardModalSubmit}
             awardMode={false}
+            submit={awardModalSubmit}
             cancel={awardModalCancel}/>
 {/if}

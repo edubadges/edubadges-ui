@@ -852,6 +852,7 @@ I18n.translations.en = {
                 none: "None",
                 narrative: "Narrative",
                 evidence: "Evidence",
+                gradeAchieved: "Grade achieved",
                 narrativeStudent: "Narrative student",
                 evidenceStudent: "Evidence student",
                 badgeClass: "Badge class"
