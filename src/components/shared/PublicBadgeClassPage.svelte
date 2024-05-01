@@ -21,7 +21,7 @@
     import {translateBadgeClassProperties} from "../../util/utils";
     import Field from "../forms/Field.svelte";
     import {isEmpty} from "../../util/utils";
-    import {validUrl} from "../../util/forms";
+    import {addProtocolToURL, validUrl} from "../../util/forms";
     import EndorsementView from "../teachers/endorsements/EndorsementView.svelte";
     import {alignments, endorsements} from "../../api/queries";
 
@@ -435,6 +435,7 @@
                        tipKey="enrollmentEvidenceURL">
                     <TextInput
                             bind:value={evidence_url}
+                            onBlur={e => evidence_url = addProtocolToURL(e.target.value)}
                             placeholder={I18n.t("placeholders.enrollment.evidenceURL")}
                             error={errors.evidence_url}/>
                 </Field>

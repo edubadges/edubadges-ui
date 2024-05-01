@@ -87,6 +87,10 @@
         return  !isEmpty(directAward.narrative) || validUrl(directAward.evidence_url);
     }
 
+    const hasMetaData = directAward => {
+        return  !isEmpty(directAward.narrative) || validUrl(directAward.evidence_url) || !isEmpty(directAward.grade_achieved);
+    }
+
     const removeDirectAward = index => () => {
         const newDirectAwards = directAwards.filter((item, i) => i !== index);
         invariant(newDirectAwards);
@@ -413,10 +417,12 @@
                         <div class="evidence-subcontainer">
                             <button class="rm-icon-container" class:disabled={i === 0}
                                     on:click={removeDirectAward(i)}>{@html trash}</button>
-                            <Button text={I18n.t("badgeAward.directAward.grade")}
-                                    action={() => addEvidence(i)}/>
-                            <Button text={hasEvidence(da) ? I18n.t("badgeAward.directAward.editEvidence") :
-                              I18n.t("badgeAward.directAward.addEvidence")}
+<!--                            <Button text={I18n.t("badgeAward.directAward.grade")}-->
+<!--                                    action={() => addEvidence(i)}/>-->
+<!--                            <Button text={hasEvidence(da) ? I18n.t("badgeAward.directAward.editEvidence") :-->
+<!--                              I18n.t("badgeAward.directAward.addEvidence")}-->
+<!--                                    action={() => addEvidence(i)}/>-->
+                             <Button text={I18n.t(`badgeAward.directAward.${hasMetaData(da) ? "editMetaData" : "metaData"}`)}
                                     action={() => addEvidence(i)}/>
                         </div>
                         {#if errors[`narrative_${i}`]}

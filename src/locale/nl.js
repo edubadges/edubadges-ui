@@ -705,7 +705,6 @@ I18n.translations.nl = {
             participation: "Manier van samenwerking",
             assessment: "Assessment type",
             url: "URL",
-            isStackable: "Stapelbaar naar andere badge classes?",
             isGradeAchieved: "Cijfer behaald",
             gradeAchieved: "Cijfer behaald verplicht?",
             notSet: "",
@@ -845,6 +844,8 @@ I18n.translations.nl = {
             deny: "Weiger verzoek",
             addEvidence: "+ Voeg persoonlijke boodschap en/of bewijs toe",
             removeEvidence: "- Verwijder persoonlijke boodschap en/of bewijs",
+            addGrade: "+ Voeg toegekend cijfer toe",
+            removeGrade: "- Verwijder toegekend cijfer",
             enrollmentType: {
                 name: "Type aanvraag",
                 enrolled: "Zelf aangevraagd",
@@ -1396,6 +1397,8 @@ I18n.translations.nl = {
             addEvidenceGrade: "Motivatie/bewijs & Cijfer",
             editEvidence: "Motivatie/bewijs bewerken",
             grade: "Cijfer",
+            metaData: "Metadata",
+            editMetaData: "Metadata bewerken",
             processing: "Bezig om {{count}} direct awards te verwerken. Even geduld...",
             flash: {
                 created: "Direct awards zijn verzonden"
@@ -1862,7 +1865,8 @@ I18n.translations.nl = {
         assessment: "De assessment",
         badge: "De badge",
         errors: "Er ontbreken verplichte velden of de invoer is niet correct. Controleer de invoer.",
-        stackable: "Stackable"
+        stackable: "Stackable",
+        isStackable: "Stapelbaar naar andere badge classes?",
     }
 
 };

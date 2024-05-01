@@ -99,7 +99,7 @@
             evidenceRequired = badgeClass.evidenceRequired;
             narrativeRequired = badgeClass.narrativeRequired;
             gradeAchievedRequired = badgeClass.gradeAchievedRequired;
-            description = enrollment.narrative;
+            narrative = enrollment.narrative;
             url = enrollment.evidenceUrl;
             showAwardModal = true;
         } else {
@@ -292,7 +292,7 @@
             page={minimalPage}
             onPageChange={nbr => page = nbr}
             withCheckAll={true}
-            checkAllDisabled={enrollments.every(e => e.evidenceNarrativeRequired)}
+            checkAllDisabled={enrollments.every(e => e.evidenceNarrativeRequired || e.gradeAchievedRequired)}
             {onCheckAll}
             bind:checkAllValue>
         <div class="action-buttons" slot="check-buttons">
@@ -326,7 +326,7 @@
                        href={`/badgeclass/${enrollment.badgeClass.entityId}/open-enrollments`}>{enrollment.badgeClass.name}</a>
                 </td>
                 <td class="evidenceNarrativeRequired">
-                    {#if enrollment.evidenceNarrativeRequired}
+                    {#if enrollment.evidenceNarrativeRequired || enrollment.gradeAchievedRequired}
                         <ul>
                             {#if enrollment.badgeClass.evidenceRequired}
                                 <li>{I18n.t("models.enrollment.enrollmentType.evidence")}</li>
@@ -393,7 +393,6 @@
             evidenceRequired={evidenceRequired}
             gradeAchievedRequired={gradeAchievedRequired}
             submit={() => {
-                debugger;
                 award(false);
             }}
             cancel={cancelAwardDialog}/>

@@ -313,7 +313,7 @@
                 {I18n.t("models.enrollment.enrollmentType.enrolled")}
             </td>
             <td class="evidenceNarrativeRequired">
-                {#if enrollment.evidenceNarrativeRequired}
+                {#if enrollment.evidenceNarrativeRequired || badgeClass.gradeAchievedRequired}
                     {#if badgeClass.evidenceRequired}
                         <span>{I18n.t("models.enrollment.enrollmentType.evidence")}</span>
                     {/if}

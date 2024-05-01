@@ -416,7 +416,7 @@ I18n.translations.en = {
         907: "This is a reserved name for badge classes",
         908: "Cannot create Issuer with this English name in this issuer group. It already exists.",
         909: "Enter the programme identifier or remove this section.",
-        910: "Either url or narrative is required.",
+        910: "Either narrative or url is required.",
         911: "Cannot create Badge class with this name in this Issuer. It already exists.",
         912: "An English or Dutch name is required.",
         913: "An English or Dutch description is required.",
@@ -705,7 +705,6 @@ I18n.translations.en = {
             participation: "Form of participation",
             assessment: "Type of assessment",
             url: "URL",
-            isStackable: "Stackable towards another credential?",
             isGradeAchieved: "Grade achieved",
             gradeAchieved: "Grade achieved required?",
             notSet: "",
@@ -844,6 +843,8 @@ I18n.translations.en = {
             deny: "Deny request",
             addEvidence: "+ Add narrative and/or evidence",
             removeEvidence: "- Remove narrative and/or evidence",
+            addGrade: "+ Add grade achieved",
+            removeGrade: "- Remove grade achieved",
             enrollmentType: {
                 name: "Request type",
                 enrolled: "Self requested",
@@ -1395,6 +1396,8 @@ I18n.translations.en = {
             addEvidenceGrade: "Narrative & Grade",
             editEvidence: "Edit narrative",
             grade: "Grade",
+            metaData: "Add metadata",
+            editMetaData: "Edit metadata",
             processing: "Processing {{count}} direct awards. Please be patient...",
             flash: {
                 created: "Direct awards have been sent"
@@ -1861,7 +1864,9 @@ I18n.translations.en = {
         assessment: "The assessment",
         badge: "The badge",
         errors: "There are required attributes missing or invalid. Please review the input errors.",
-        stackable: "Stackable"
+        stackable: "Stackable",
+        isStackable: "Stackable towards another credential?",
+
     }
 
 };

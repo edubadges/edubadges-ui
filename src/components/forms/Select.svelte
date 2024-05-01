@@ -22,9 +22,8 @@
     export let getSelectionLabel = option => option.name;
 
     export let optionIdentifier = "entityId";
+    export let handleSelect = null;
 
-    export let handleSelect = () => {
-    };
 </script>
 
 <style lang="scss">
@@ -131,7 +130,7 @@
 {:else}
     <div class="select-field" {error} {disabled} class:full>
         <Select
-                on:select={() => handleSelect(value)}
+                on:select={() => handleSelect && handleSelect(value)}
                 {items}
                 bind:selectedValue={value}
                 {optionIdentifier}
@@ -143,7 +142,7 @@
                 isMulti={isMulti}
                 listOpen={listOpen}
                 isSearchable={isSearchable}
-                on:clear={() => handleSelect(null)}
+                on:clear={() => handleSelect && handleSelect(null)}
                 isDisabled={disabled}
                 indicatorSvg={customIndicator || indicator}
                 isClearable={clearable}/>

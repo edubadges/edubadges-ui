@@ -73,7 +73,6 @@
     let showAddAlignmentButton = true;
     let participationOptions = [];
     let assessmentOptions = [];
-    let stackableOptions = [];
     let showMicroCredentialFramework = false;
 
     let errors = {};
@@ -168,11 +167,6 @@
             name: assessmentTranslation[key]
         }));
 
-        const stackableTranslation = I18n.translations[I18n.locale].newBadgeClassForm.form.stackable;
-        stackableOptions = Object.keys(stackableTranslation).map(key => ({
-            value: key,
-            name: stackableTranslation[key]
-        }));
         if (isCreate) {
             //All type badgeClasses can have educational frameworks
             badgeclass.alignments = [{
@@ -194,15 +188,16 @@
         }
         badgeclass.formal = badgeclass.badgeClassType !== badgeClassTypes.EXTRA_CURRICULAR;
         if (!isCreate) {
-            const stackable = badgeclass.stackable ? "stackable" : "notStackable";
-            badgeclass.stackable = stackableOptions.find(opt => opt.value === stackable);
             if (badgeclass.badgeClassType === badgeClassTypes.MICRO_CREDENTIAL) {
                 showStudyLoad = isEmpty(extensions[ects.name]);
             }
             badgeclass.participation = participationOptions.find(opt => opt.value === badgeclass.participation);
             badgeclass.assessmentType = assessmentOptions.find(opt => opt.value === badgeclass.assessmentType);
         } else {
-            badgeclass.stackable = stackableOptions.find(opt => opt.value === "notStackable");
+            badgeclass.stackable = false;
+            badgeclass.gradeAchievedRequired = false;
+            badgeclass.selfEnrollmentDisabled = false;
+            badgeclass.directAwardingDisabled = false;
             if (isInstitutionMBO) {
                 extensions[studyLoad.name] = 84;
             } else {
@@ -256,6 +251,18 @@
         languageSelection = languages.find(x => x.value === language);
     }
 
+    const checkErrors = (e, name) => {
+        if (!initial) {
+            if (isRequired(badgeclass, name)) {
+                if (isEmpty(e.target.value)) {
+                    errors[name] = [{"error_code": "903"}];
+                } else {
+                    delete errors[name];
+                }
+                errors = {...errors};
+            }
+        }
+    }
 
     const markDownExample = attribute => {
         badgeclass[attribute] = markDownTemplate;
@@ -373,7 +380,7 @@
             quality_assurance_url: badgeclass.qualityAssuranceUrl,
             quality_assurance_description: badgeclass.qualityAssuranceDescription,
             grade_achieved_required: badgeclass.gradeAchievedRequired,
-            stackable: badgeclass.stackable.value === "stackable",
+            stackable: badgeclass.stackable,
             direct_awarding_disabled: badgeclass.directAwardingDisabled,
             self_enrollment_disabled: badgeclass.selfEnrollmentDisabled
         };
@@ -696,6 +703,9 @@
             {processing}>
 
         <div class="form">
+<!--            <p>{JSON.stringify(errors)}</p>-->
+<!--            <p></p>-->
+<!--            <p>{JSON.stringify(badgeclass.name)}</p>-->
             <h4 class="one-row">{I18n.t("models.badgeclass.headers.basicInformation")}</h4>
 
             <div>
@@ -707,7 +717,7 @@
                     <TextInput bind:value={badgeclass.name}
                                disabled={!mayEdit && !isCopy}
                                error={errors.name}
-                               onBlur={() => errors}
+                               onInput={e => checkErrors(e, "name")}
                                placeholder={I18n.t("placeholders.badgeClass.name")}/>
                 </Field>
                 <Field entity={entity}
@@ -1121,23 +1131,10 @@
                         optionIdentifier="id"
                 />
             </Field>
-
-            <Field entity={entity}
-                   attribute="isStackable"
-                   errors={errors.stackable}
-                   tipKey="badgeClassIsStackable"
-                   isSelect={true}
-                   required={true}>
-                <Select
-                        bind:value={badgeclass.stackable}
-                        items={stackableOptions}
-                        optionIdentifier="value"
-                        placeholder={I18n.t("newBadgeClassForm.form.placeHolder")}
-                        customIndicator={indicator}
-                        showIndicator={true}
-                        showChevron={true}
-                        clearable={false}/>
-            </Field>
+            <Switch value={badgeclass.stackable}
+                    label={I18n.t("newBadgeClassForm.stackable")}
+                    question={I18n.t("newBadgeClassForm.isStackable")}
+                    onChange={() => badgeclass.stackable = !badgeclass.stackable}/>
 
             {#if badgeclass.badgeClassType !== badgeClassTypes.EXTRA_CURRICULAR}
                 <Switch value={badgeclass.gradeAchievedRequired}

@@ -8,6 +8,7 @@
 
     export let value = "";
     export let disabled = false;
+    export let onChange;
 
     const plugins = [gfm()];
     const cutoffNumber = 190;
@@ -48,5 +49,9 @@
     {/if}
 
 {:else}
-    <Editor value={value || ""} {plugins} mode="split" on:change={e => value = e.detail.value}/>
+    <Editor value={value || ""} {plugins} mode="split" on:change={e => {
+     value = e.detail.value;
+     onChange && onChange(e.detail.value);
+    }
+    }/>
 {/if}

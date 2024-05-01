@@ -25,13 +25,16 @@
 
     let errors = {};
     let narrativeOrEvidenceRequired = false;
+    let showEvidence = true;
+    let showGrade = true;
 
     onMount(() => {
         narrativeOrEvidenceRequired = narrativeRequired || evidenceRequired;
-        useEvidence = narrativeOrEvidenceRequired || gradeAchievedRequired || !awardMode || !isEmpty(url) || !isEmpty(description);
-   });
+        showEvidence = narrativeOrEvidenceRequired || !isEmpty(url) || !isEmpty(description) || !awardMode;
+        showGrade = gradeAchievedRequired || !awardMode;
+    });
 
-    const doSubmit = () => {
+    const doSubmit = (dryrun = false) => {
         errors = {};
         if (narrativeRequired && isEmpty(narrative)) {
             errors.narrative = [{error_code: 932}];
@@ -42,32 +45,48 @@
         if (gradeAchievedRequired && isEmpty(grade)) {
             errors.grade = [{error_code: 944}];
         }
-        if (!isEmpty(url)) {
+        if (!isEmpty(url) && !dryrun) {
             if (validUrl(url)) {
                 url = addProtocolToURL(url);
             } else {
                 errors.url = [{error_code: 921}];
             }
         }
-        if (useEvidence && isEmpty(url) && isEmpty(narrative)) {
-            errors.narrative= [{error_code: 910}];
-            errors.url = [{error_code: 910}];
+        if ((!isEmpty(name) || !isEmpty(description)) && isEmpty(url) && isEmpty(narrative)) {
+            if (!errors.narrative) {
+                errors.narrative = [{error_code: 910}];
+            }
+            if (!errors.url) {
+                errors.url = [{error_code: 910}];
+            }
         }
 
-        if (Object.keys(errors).length === 0) {
+        if (Object.keys(errors).length === 0 && !dryrun) {
+            //Prevent server-side error for empty evidence
+            if (evidenceRequired || narrativeRequired || !isEmpty(name) || !isEmpty(description) || !isEmpty(url) || !isEmpty(narrative)) {
+                useEvidence = true;
+            } else {
+                useEvidence = false;
+            }
             submit();
         }
     }
 
     const swapUseEvidence = () => {
         errors = {};
-        if (useEvidence) {
+        if (showEvidence) {
             narrative = "";
             url = "";
             name = "";
             description = "";
         }
-        useEvidence = !useEvidence;
+        showEvidence = !showEvidence;
+    }
+
+    const swapUseGrade = () => {
+        errors = {};
+        grade = null;
+        showGrade = !showGrade;
     }
 
     const handleKeydown = e => {
@@ -114,6 +133,11 @@
         }
     }
 
+    div.add-sections {
+        display: flex;
+        gap: 40px;
+    }
+
     div.evidence {
         margin-top: 10px;
 
@@ -149,12 +173,26 @@
         <div class="modal-body">
             {#if awardMode}
                 <p class="title">{I18n.t("models.enrollment.confirmation.awardConfirmation")}</p>
+                <div class="add-sections">
+                    {#if !showEvidence}
+                        <a href="/add-evidence"
+                           on:click|preventDefault={swapUseEvidence}>{I18n.t("models.enrollment.addEvidence")}</a>
+                    {/if}
+                    {#if showEvidence && !narrativeOrEvidenceRequired}
+                        <a href="/remove-evidence" disabled={!narrativeAllowed}
+                           on:click|preventDefault={swapUseEvidence}>{I18n.t("models.enrollment.removeEvidence")}</a>
+                    {/if}
+                    {#if !showGrade}
+                        <a href="/add-grade"
+                           on:click|preventDefault={swapUseGrade}>{I18n.t("models.enrollment.addGrade")}</a>
+                    {/if}
+                    {#if showGrade && !gradeAchievedRequired}
+                        <a href="/remove-grade" disabled={!narrativeAllowed}
+                           on:click|preventDefault={swapUseGrade}>{I18n.t("models.enrollment.removeGrade")}</a>
+                    {/if}
+                </div>
             {/if}
-            {#if useEvidence}
-                {#if !narrativeOrEvidenceRequired && awardMode}
-                    <a href="/remove-evidence" disabled={!narrativeAllowed}
-                       on:click|preventDefault={swapUseEvidence}>{I18n.t("models.enrollment.removeEvidence")}</a>
-                {/if}
+            {#if gradeAchievedRequired || showGrade}
                 <div class="evidence">
                     <Field entity={'enrollment'}
                            errors={errors.grade}
@@ -163,21 +201,19 @@
                            tipKey="enrollmentGrade">
                         <TextInput bind:value={grade}
                                    error={errors.grade}
+                                   onInput={() => doSubmit(true)}
                                    placeholder={I18n.t("placeholders.enrollment.grade")}/>
                     </Field>
                 </div>
+            {/if}
+            {#if narrativeOrEvidenceRequired || showEvidence}
                 <div class="evidence">
-                    <!--{#if narrativeOrEvidenceRequired}-->
-                    <!--    <p>{I18n.t("models.enrollment.evidenceRequired")}</p>-->
-                    <!--{:else}-->
-                    <!--    <p>{I18n.t("models.enrollment.evidence")}</p>-->
-                    <!--{/if}-->
                     <Field entity={'enrollment'}
                            errors={errors.narrative}
                            attribute={'evidenceNarrative'}
                            required={narrativeRequired}
                            tipKey="enrollmentEvidenceNarrative">
-                        <MarkdownField bind:value={narrative}/>
+                        <MarkdownField bind:value={narrative} onChange={() => doSubmit(true)}/>
                     </Field>
                     <Field entity={'enrollment'}
                            errors={errors.url}
@@ -187,20 +223,25 @@
                         <TextInput bind:value={url}
                                    error={errors.url}
                                    onBlur={e => url = addProtocolToURL(e.target.value)}
+                                   onInput={() => doSubmit(true)}
                                    placeholder={I18n.t("placeholders.enrollment.evidenceURL")}/>
                     </Field>
-                    <Field entity={'enrollment'} attribute={'evidenceName'} tipKey="enrollmentEvidenceName">
-                        <TextInput bind:value={name} placeholder={I18n.t("placeholders.enrollment.evidenceName")}/>
+                    <Field entity={'enrollment'}
+                           attribute={'evidenceName'}
+                           tipKey="enrollmentEvidenceName">
+                        <TextInput bind:value={name}
+                                   onInput={() => doSubmit(true)}
+                                   placeholder={I18n.t("placeholders.enrollment.evidenceName")}/>
                     </Field>
-                    <Field entity={'enrollment'} attribute={'evidenceDescription'}
+                    <Field entity={'enrollment'}
+                           attribute={'evidenceDescription'}
                            tipKey="enrollmentEvidenceDescription">
-                        <TextInput bind:value={description} area={true}
+                        <TextInput bind:value={description}
+                                   onInput={() => doSubmit(true)}
+                                   area={true}
                                    placeholder={I18n.t("placeholders.enrollment.evidenceDescription")} size="100"/>
                     </Field>
                 </div>
-            {:else if narrativeAllowed && awardMode}
-                <a href="/add-evidence"
-                   on:click|preventDefault={swapUseEvidence}>{I18n.t("models.enrollment.addEvidence")}</a>
             {/if}
         </div>
         <div class="options">

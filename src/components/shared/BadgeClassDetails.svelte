@@ -17,6 +17,7 @@
     import languageIcon from "../../icons/messages-bubble-square-text.svg";
     import schoolTrophyIcon from "../../icons/school-book-trophy.svg";
     import badgeIcon from "../../icons/badgeclass.svg";
+    import issuedIcon from "../../icons/issued.svg";
     import calendarIcon from "../../icons/calendar-1.svg";
     import participationIcon from "../../icons/forms/presentation-audience.svg";
     import stackableIcon from "../../icons/overview.svg";
@@ -24,15 +25,13 @@
     import assessmentIcon from "../../icons/forms/checklist.svg";
     import programmeIcon from "../../icons/forms/certified-diploma-1.svg";
     import awardIcon from "../../icons/award-ribbon-star-1.svg";
-    import expiredIcon from "../../icons/connections.svg";
     import gradeIcon from "../../icons/award-ribbon-star-1.svg";
-    import {badgeclassIcon} from "../../icons";
-    import {translateBadgeClassProperties, translateProperties} from "../../util/utils";
+    import expiredIcon from "../../icons/connections.svg";
+    import {isEmpty, translateBadgeClassProperties, translateProperties} from "../../util/utils";
     import MarkdownField from "../forms/MarkdownField.svelte";
     import Endorsement from "../teachers/endorsements/Endorsement.svelte";
     import {endorsementStatus} from "../../util/endorsements";
     import {config} from "../../util/config";
-    import {isEmpty} from "../../util/utils";
     import Spinner from "../Spinner.svelte";
 
     export let badgeclass;
@@ -385,7 +384,7 @@
                     <h3>{I18n.t("newBadgeClassForm.badge")}</h3>
                     {#if !isEmpty(badge.issuedOn)}
                         <div class="group-item">
-                            {@html badgeclassIcon}
+                            {@html issuedIcon}
                             <section class="items">
                                 <span class="name">{I18n.t("models.badge.issuedOn")}</span>
                                 <span class="value">{moment(badge.issuedOn).format('MMM D, YYYY')}</span>
@@ -485,7 +484,7 @@
                         {@html stackableIcon}
                         <section class="items">
                             <span class="name">{I18n.t("newBadgeClassForm.stackable")}</span>
-                            <span class="value">{I18n.t(`newBadgeClassForm.form.stackable.${badgeclass.stackable ? "notStackable" : "stackable"}`)}</span>
+                            <span class="value">{I18n.t(`newBadgeClassForm.form.stackable.${badgeclass.stackable ? "stackable" : "notStackable"}`)}</span>
                         </section>
                     </div>
                 {/if}
