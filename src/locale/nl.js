@@ -1804,22 +1804,22 @@ I18n.translations.nl = {
             participation: {
                 name: "Vorm van participatie",
                 options: {
-                    organized: "Georganiseerde leeractiviteiten",
-                    personalized: "Gepersonaliseerde leeractiviteiten",
-                    practical: "Werk- of praktijkervaring",
-                    voluntary_work: "Vrijwilligerswerk"
+                    online: "Online",
+                    onsite: "Op locatie",
+                    blended: "Blended",
+                    work_experience: "Werkervaring"
                 }
             },
             assessment: {
                 name: "Beoordelingstype",
                 options: {
-                    knowledge_test: "Tentamen",
+                    written_exam: "Tentamen",
                     report_paper: "Rapport / paper",
                     behavioural_assessment: "Gedragsassessment",
                     professional_product: "Beroepsproduct",
-                    application_skill: "Ontwikkelverslag / reflectieverslag",
+                    development_report: "Ontwikkelverslag / reflectieverslag",
                     portfolio_assessment: "Portfolio / portfolio assessment",
-                    recognition_acquired_competences: "Presentatie / mondeling examen",
+                    oram_exam: "Presentatie / mondeling examen",
                     personalized_assessment: "Gepersonaliseerde toetsing"
                 },
                 supervision: "Toezicht & identiteit verificatie",

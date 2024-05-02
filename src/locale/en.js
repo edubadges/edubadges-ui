@@ -1803,22 +1803,22 @@ I18n.translations.en = {
             participation: {
                 name: "Form of participation",
                 options: {
-                    organized: "Organized learning activities",
-                    personalized: "Personalized learning activities",
-                    practical: "Work or practical experience",
-                    voluntary_work: "Voluntary work"
+                    online: "Online",
+                    onsite: "On-site",
+                    blended: "Blended",
+                    work_experience: "Work experience"
                 }
             },
             assessment: {
                 name: "Type of assessment",
                 options: {
-                    knowledge_test: "(Written) Exam",
-                    report_paper: "Rapport / paper",
+                    written_exam: "(Written) Exam",
+                    report_paper: "Report / paper",
                     behavioural_assessment: "Behavioural assessment",
                     professional_product: "Professional product",
-                    application_skill: "Development report / reflection report",
+                    development_report: "Development report / reflection report",
                     portfolio_assessment: "Portfolio / portfolio assessment",
-                    recognition_acquired_competences: "Presentation / Oral exam",
+                    oram_exam: "Presentation / Oral exam",
                     personalized_assessment: "Personalized type of assessment"
                 },
                 supervision: "Supervision & ID verification",
