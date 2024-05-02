@@ -1325,9 +1325,9 @@ I18n.translations.en = {
         enrollments: "Enrollments are requested by students and once approved will be new awarded edubadges. The number(s) below are enrollments that have not been approved by the teacher or are denied",
         toggleBadgeCollectionPublic: "A public collection can be shared with other whereas a private collection can not.",
         collectionBadgeInstances: "Select all the edubadges you want to put in this collection",
-        importedBadgeEmail: "Your email that was used when this badge was issued",
-        importedBadgeImageUrl: "The URL to the badge JSON data",
-        importedBadgeImage: "The png or svg badge image file",
+        importedBadgeEmail: "Your email that was used when this edubadge was issued",
+        importedBadgeImageUrl: "The URL to the edubadge JSON data",
+        importedBadgeImage: "The png or svg edubadge image file",
         endorsementDescription: "The description of the endorsement",
         endorsementClaim: "The claim describes why and how this badge class is similar to the endorsed badge",
         endorsementBadgeClass: "The badge class you would like to endorse.",
@@ -1579,7 +1579,7 @@ I18n.translations.en = {
         import: "Import badge",
         importWindow: {
             title: "Import your external badge",
-            question: "Upload a badge image that you’ve acquired from an external issuer.",
+            question: "Upload an edubadge image that you’ve acquired from an external issuer.",
             disclaimer: "Badge image must be in either .svg or .png format.",
             submit: "Import Badge",
             urlPlaceholder: "https://api.eu.badgr.io/public/assertions/-kDl8isfQoKrMHrqOx5Thw",
@@ -1594,7 +1594,7 @@ I18n.translations.en = {
         },
         error: {
             url: "The URL is not a valid badge URL",
-            image: "The uploaded image is not a valid badge image",
+            image: "The uploaded image is not a valid edubadge image",
             email: "This email does not match the email of the imported badge",
             duplicate: "You have already imported this badge. Duplicates are not allowed"
         },

@@ -35,9 +35,9 @@ I18n.translations.nl = {
         loginToEnrolInfo: "<strong>Let op!</strong> Je kan deze edubadge alleen aanvragen als je staat ingeschreven bij één van deze instellingen: <strong>{{name}}</strong>.",
         loginToEnrolInfoOne: "<strong>Let op!</strong> Je kan deze edubadge alleen aanvragen als je staat ingeschreven bij <strong>{{name}}</strong>.",
         loginToEnrolInfoAll: "<strong>Let op!</strong> Je kan deze edubadge alleen aanvragen als je instelling is aangesloten op edubadges.",
-        selfEnrollmentDisabled: "Deze badge kan niet worden aangevraagd",
+        selfEnrollmentDisabled: "Deze edubadge kan niet worden aangevraagd",
         login: "Login",
-        loginAllowedWithoutValidatedName: "Je kan deze badge aanvragen als een eduID gast gebruiker.",
+        loginAllowedWithoutValidatedName: "Je kan deze edubadge aanvragen als een eduID gast gebruiker.",
         badgeClassArchived: "Deze edubadge is gearchiveerd en kan niet langer worden aangevraagd.",
         destination: "Wat zou je willen doen?",
         description:
@@ -703,11 +703,11 @@ I18n.translations.nl = {
             eqf: "Indicatief EQF niveau",
             educationProgramIdentifier: "ISAT",
             educationProgramIdentifierLong: "Opleidingscodes",
-            participation: "Manier van samenwerking",
-            assessment: "Assessment type",
+            participation: "Vorm van deelname",
+            assessment: "Beoordelingstype",
             url: "URL",
             isGradeAchieved: "Cijfer behaald",
-            gradeAchieved: "Cijfer behaald verplicht?",
+            gradeAchieved: "Cijfer of resultaat verplicht vermelden?",
             notSet: "",
             qualityAssuranceName: "Naam",
             qualityAssuranceUrl: "URL",
@@ -1326,13 +1326,13 @@ I18n.translations.nl = {
         enrollments: "Enrollments worden door leerlingen aangevraagd en na goedkeuring worden nieuwe edubadges toegekend. De nummers hieronder zijn enrollments die niet goedgekeurd zijn door de leraar of geweigerd zijn",
         toggleBadgeCollectionPublic: "Een openbare collectie kan met anderen worden gedeeld, een privé collectie niet.",
         collectionBadgeInstances: "Selecteer alle edubadges die je in deze collectie wilt plaatsen.",
-        importedBadgeEmail: "Je email die is gebruikt op het moment dat deze badge aan je werd uitgereikt",
-        importedBadgeImageUrl: "De URL met de badge JSON informatie",
-        importedBadgeImage: "Een png of svg badge afbeelding",
+        importedBadgeEmail: "Je email die is gebruikt op het moment dat deze edubadge aan je werd uitgereikt",
+        importedBadgeImageUrl: "De URL met de edubadge JSON informatie",
+        importedBadgeImage: "Een png of svg edubadge afbeelding",
         endorsementDescription: "De omschrijving van de aanbeveling",
         endorsementClaim: "De claim beschrijft waarom en hoe deze badgeclass vergelijkbaar is met de geselecteerde badge",
         endorsementBadgeClass: "De badgeklasse die je wilt aanbevelen.",
-        awardScheduling: "Voer de datum in waarop de e-mails zullen worden verzonden naar de gebruikers aan wie de badge is toegekend.",
+        awardScheduling: "Voer de datum in waarop de e-mails zullen worden verzonden naar de gebruikers aan wie de edubadge is toegekend.",
         badgeClassIsStackable: "A stackable badge-class can be linked to another badge-class"
     },
     badgeOverview: {
@@ -1580,12 +1580,12 @@ I18n.translations.nl = {
         import: "Importeer badge",
         importWindow: {
             title: "Importeer je externe badge",
-            question: "Upload een badge afbeelding die je hebt ontvangen van een externe issuer.",
+            question: "Upload een edubadge afbeelding die je hebt ontvangen van een externe issuer.",
             disclaimer: "Badge afbeelding moet een svg of png formaat zijn.",
             submit: "Importeer badge",
             urlPlaceholder: "https://api.eu.badgr.io/public/assertions/-kDl8isfQoKrMHrqOx5Thw",
-            urlInfo: "Of paste een URL waar de badge wordt gehosted.",
-            emailInfo: "Voer je email in waarop je deze badge hebt ontvangen.",
+            urlInfo: "Of paste een URL waar de edubadge wordt gehosted.",
+            emailInfo: "Voer je email in waarop je deze edubadge hebt ontvangen.",
         },
         codeWindow: {
             title: "Validatie code",
@@ -1594,10 +1594,10 @@ I18n.translations.nl = {
             codePlaceholder: "Validatie code"
         },
         error: {
-            url: "Deze URL is geen geldige badge URL",
-            image: "De geuploade afbeelding is geen geldige badge afbeelding",
+            url: "Deze URL is geen geldige edubadge URL",
+            image: "De geuploade afbeelding is geen geldige edubadge afbeelding",
             email: "Dit email adres is niet gelijk aan de email van de geïmporteerde badge",
-            duplicate: "Je hebt deze badge al geimporteerd. Duplicate imports zijn niet toegestaan"
+            duplicate: "Je hebt deze edubadge al geimporteerd. Duplicate imports zijn niet toegestaan"
         },
         codeMismatch: "De ingevoerde code is niet geldig",
         details: {
@@ -1608,7 +1608,7 @@ I18n.translations.nl = {
             validate: "Valideer",
             validation: "Badge validatie",
             validationResults: "Badge validatie resultaten",
-            publicInfo: "Deze badge is gehost op {{url}} en is publiek beschikbaar.",
+            publicInfo: "Deze edubadge is gehost op {{url}} en is publiek beschikbaar.",
             deleteConfirmation: "Weet je zeker dat je de geïmporteerde badge {{name}} wilt verwijderen uit je backpack. Let op dat dit niet de originele badge verwijderd.",
             flashDeleted: "Verwijder geïmporteerde badge {{name}} uit je backback",
         }
@@ -1795,9 +1795,9 @@ I18n.translations.nl = {
             placeHolder: "Selecteer een optie...",
             markupExample: "Voeg een MarkDown voorbeeld in",
             programmeInformation: "Programma informatie",
-            assessmentInformation: "Assessment informatie",
+            assessmentInformation: "Informatie over de beoordeling",
             qualityAssurance: "Kwaliteitswaarborging",
-            awardSettings: "Award settings",
+            awardSettings: "Award opties",
             relatedEducationalFramework: "Gerelateerd Onderwijskundig Raamwerk",
             switchToStudyLoad: "Gebruik studie load (uren) in plaats van ECTS/SBU",
             switchToECTS: "Gebruik Credit Points (ECTS/SBU) in plaats van uren",
@@ -1811,7 +1811,7 @@ I18n.translations.nl = {
                 }
             },
             assessment: {
-                name: "Assessment type",
+                name: "Beoordelingstype",
                 options: {
                     knowledge_test: "Kennistoets",
                     behavioural_assessment: "Gedragsassessment",
@@ -1822,8 +1822,8 @@ I18n.translations.nl = {
                     personalized_assessment: "Gepersonaliseerde toetsing"
                 },
                 supervision: "Toezicht & identiteit verificatie",
-                supervised: "Was er toezicht bij de assessment?",
-                idVerification: "Was de identiteit van de lerende geverifieerd?",
+                supervised: "Toezicht bij de beoordeling?",
+                idVerification: " Identiteit lerende geverifieerd?",
                 supervisionOptions: {
                     o1: "Onder toezicht, met identiteit verificatie",
                     o2: "Onder toezicht, zonder identiteit verificatie",
@@ -1839,9 +1839,9 @@ I18n.translations.nl = {
                 narrative: "Motivatie verplicht voor aanvraag?"
             },
             selfEnrollment: {
-                title: "Self enrollment",
-                selfEnrollmentAllowed: "Self enrollment toestaan?",
-                details: "Self enrollment details",
+                title: "Zelf aanvragen",
+                selfEnrollmentAllowed: "Zelf aanvragen toestaan?",
+                details: "Zelf aanvragen details",
                 evidenceURL: "Bewijs (URL) verplicht voor aanvraag?",
                 narrative: "Motivatie verplicht voor aanvraag?"
             },
@@ -1850,9 +1850,9 @@ I18n.translations.nl = {
                 stackable: "Ja, stackable microcredential",
             },
             gradeAchieved: {
-                name: "Cijfer behaald",
-                yes: "Cijfer behaald verplicht",
-                no: "Cijfer behaald niet verplicht"
+                name: "Cijfer of resultaat behaald",
+                yes: "Cijfer of resultaat behaald verplicht",
+                no: "Cijfer of resultaat behaald niet verplicht"
             }
         },
         saveAsDraft: "Bewaar concept",
