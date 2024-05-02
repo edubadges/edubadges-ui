@@ -1813,12 +1813,13 @@ I18n.translations.nl = {
             assessment: {
                 name: "Beoordelingstype",
                 options: {
-                    knowledge_test: "Kennistoets",
+                    knowledge_test: "Tentamen",
+                    report_paper: "Rapport / paper",
                     behavioural_assessment: "Gedragsassessment",
                     professional_product: "Beroepsproduct",
-                    application_skill: "Toepassing van een vaardigheid",
-                    portfolio_assessment: "Portfolio assessment",
-                    recognition_acquired_competences: "Erkenning van verworven competenties",
+                    application_skill: "Ontwikkelverslag / reflectieverslag",
+                    portfolio_assessment: "Portfolio / portfolio assessment",
+                    recognition_acquired_competences: "Presentatie / mondeling examen",
                     personalized_assessment: "Gepersonaliseerde toetsing"
                 },
                 supervision: "Toezicht & identiteit verificatie",

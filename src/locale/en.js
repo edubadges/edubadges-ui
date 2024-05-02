@@ -1812,13 +1812,14 @@ I18n.translations.en = {
             assessment: {
                 name: "Type of assessment",
                 options: {
-                    knowledge_test: "Knowledge test",
+                    knowledge_test: "(Written) Exam",
+                    report_paper: "Rapport / paper",
                     behavioural_assessment: "Behavioural assessment",
                     professional_product: "Professional product",
-                    application_skill: "Application of a skill",
-                    portfolio_assessment: "Portfolio assessment",
-                    recognition_acquired_competences: "Recognition acquired competences",
-                    personalized_assessment: "Personalized assessment"
+                    application_skill: "Development report / reflection report",
+                    portfolio_assessment: "Portfolio / portfolio assessment",
+                    recognition_acquired_competences: "Presentation / Oral exam",
+                    personalized_assessment: "Personalized type of assessment"
                 },
                 supervision: "Supervision & ID verification",
                 supervised: "Was the assessment supervised?",
