@@ -508,7 +508,7 @@
                     </div>
                 {/if}
             </div>
-            {#if badgeclass.assessmentType || badgeclass.gradeAchievedRequired !== undefined}
+            {#if !isEmpty(badgeclass.assessmentType) || badgeclass.gradeAchievedRequired !== undefined}
                 <h3 class="margin-top">{I18n.t("newBadgeClassForm.assessment")}</h3>
             {/if}
             {#if badgeclass.gradeAchievedRequired !== undefined}
@@ -520,13 +520,15 @@
                     </section>
                 </div>
             {/if}
-            {#if badgeclass.assessmentType}
+            {#if !isEmpty(badgeclass.assessmentType)}
                 <div class="group_items">
                     <div class="group-item">
                         {@html assessmentIcon}
                         <section class="items">
                             <span class="name">{I18n.t("newBadgeClassForm.form.assessment.name")}</span>
-                            <span class="value">{I18n.t(`newBadgeClassForm.form.assessment.options.${badgeclass.assessmentType}`)}</span>
+                            {#each badgeclass.assessmentType.split(",").sort() as type}
+                                <span class="value">{I18n.t(`newBadgeClassForm.form.assessment.options.${type}`)}</span>
+                            {/each}
                         </section>
                     </div>
                     <div class="group-item">

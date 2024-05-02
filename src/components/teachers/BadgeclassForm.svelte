@@ -156,16 +156,20 @@
             existing: true
         }));
         const participationTranslation = I18n.translations[I18n.locale].newBadgeClassForm.form.participation.options;
-        participationOptions = Object.keys(participationTranslation).map(key => ({
+        participationOptions = Object.keys(participationTranslation)
+            .map(key => ({
             value: key,
             name: participationTranslation[key]
-        }));
+        }))
+        .sort((opt1 , opt2) => opt1.name.localeCompare(opt2.name));
 
         const assessmentTranslation = I18n.translations[I18n.locale].newBadgeClassForm.form.assessment.options;
-        assessmentOptions = Object.keys(assessmentTranslation).map(key => ({
-            value: key,
-            name: assessmentTranslation[key]
-        }));
+        assessmentOptions = Object.keys(assessmentTranslation)
+            .map(key => ({
+                value: key,
+                name: assessmentTranslation[key]
+            }))
+            .sort((opt1 , opt2) => opt1.name.localeCompare(opt2.name));
 
         if (isCreate) {
             //All type badgeClasses can have educational frameworks
@@ -192,7 +196,12 @@
                 showStudyLoad = isEmpty(extensions[ects.name]);
             }
             badgeclass.participation = participationOptions.find(opt => opt.value === badgeclass.participation);
-            badgeclass.assessmentType = assessmentOptions.find(opt => opt.value === badgeclass.assessmentType);
+            if (!isEmpty(badgeclass.assessmentType)) {
+                badgeclass.assessmentType = badgeclass.assessmentType.split(",")
+                    .map(type => assessmentOptions.find(opt => opt.value === type))
+                    .filter(type => !isEmpty(type));
+            }
+
         } else {
             badgeclass.stackable = false;
             badgeclass.gradeAchievedRequired = false;
@@ -351,8 +360,9 @@
         previewBadgeCopy.ects = extensions[ects.name];
         previewBadgeCopy.language = extensions[language.name];
         previewBadgeCopy.ignoreExtensions = true;
-        if (previewBadgeCopy.assessmentType) {
-            previewBadgeCopy.assessmentType = previewBadgeCopy.assessmentType.value;
+        if (!isEmpty(previewBadgeCopy.assessmentType)) {
+            previewBadgeCopy.assessmentType = previewBadgeCopy.assessmentType
+                .map(t => t.value).sort().join(",");
         }
         //To enable scrolling in the modal, is removed again in the close
         document.body.classList.add("modal-open");
@@ -373,7 +383,8 @@
             badge_class_type: badgeclass.badgeClassType,
             typeBadgeClass: badgeclass.badgeClassType,
             participation: badgeclass.participation ? badgeclass.participation.value : null,
-            assessment_type: badgeclass.assessmentType ? badgeclass.assessmentType.value : null,
+            assessment_type: isEmpty(badgeclass.assessmentType) ? null :
+                badgeclass.assessmentType.map(t => t.value).sort().join(","),
             assessment_supervised: badgeclass.assessmentSupervised,
             assessment_id_verified: badgeclass.assessmentIdVerified,
             quality_assurance_name: badgeclass.qualityAssuranceName,
@@ -703,9 +714,9 @@
             {processing}>
 
         <div class="form">
-<!--            <p>{JSON.stringify(errors)}</p>-->
-<!--            <p></p>-->
-<!--            <p>{JSON.stringify(badgeclass.name)}</p>-->
+            <!--            <p>{JSON.stringify(errors)}</p>-->
+            <!--            <p></p>-->
+            <!--            <p>{JSON.stringify(badgeclass.name)}</p>-->
             <h4 class="one-row">{I18n.t("models.badgeclass.headers.basicInformation")}</h4>
 
             <div>
@@ -980,6 +991,7 @@
                             items={assessmentOptions}
                             disabled={upgradeKeysDisabled.assessmentType}
                             optionIdentifier="value"
+                            isMulti={true}
                             placeholder={I18n.t("newBadgeClassForm.form.placeHolder")}
                             showIndicator={false}
                             customIndicator={indicator}
