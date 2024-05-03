@@ -67,13 +67,14 @@
     let internalTags = undefined;
     let loading = true;
 
-    // Toggle for MicroCredentials
+    // Toggle's for MicroCredentials
     let showStudyLoad = false;
     let isInstitutionMBO = false;
+    let isMicroCredential = false;
     let showAddAlignmentButton = true;
     let participationOptions = [];
     let assessmentOptions = [];
-    let showMicroCredentialFramework = false;
+    let showMicroCredentialQualityDescription = false;
 
     let errors = {};
     let extensions = {};
@@ -96,6 +97,7 @@
 
     onMount(() => {
         isInstitutionMBO = institution.institutionType === "MBO";
+        isMicroCredential = badgeclass.badgeClassType === badgeClassTypes.MICRO_CREDENTIAL;
         const studyLoadValue = extensionValue(badgeclass.extensions, studyLoad);
         const ectsValue = extensionValue(badgeclass.extensions, ects);
         let eqfValue = extensionValue(badgeclass.extensions, eqf);
@@ -158,10 +160,10 @@
         const participationTranslation = I18n.translations[I18n.locale].newBadgeClassForm.form.participation.options;
         participationOptions = Object.keys(participationTranslation)
             .map(key => ({
-            value: key,
-            name: participationTranslation[key]
-        }))
-        .sort((opt1 , opt2) => opt1.name.localeCompare(opt2.name));
+                value: key,
+                name: participationTranslation[key]
+            }))
+            .sort((opt1, opt2) => opt1.name.localeCompare(opt2.name));
 
         const assessmentTranslation = I18n.translations[I18n.locale].newBadgeClassForm.form.assessment.options;
         assessmentOptions = Object.keys(assessmentTranslation)
@@ -169,7 +171,7 @@
                 value: key,
                 name: assessmentTranslation[key]
             }))
-            .sort((opt1 , opt2) => opt1.name.localeCompare(opt2.name));
+            .sort((opt1, opt2) => opt1.name.localeCompare(opt2.name));
 
         if (isCreate) {
             //All type badgeClasses can have educational frameworks
@@ -181,7 +183,7 @@
                 target_code: "",
             }];
         }
-        if (badgeclass.badgeClassType === badgeClassTypes.MICRO_CREDENTIAL) {
+        if (isMicroCredential) {
             badgeclass.isMicroCredentials = true;
             if (isCreate) {
                 const framework = isInstitutionMBO ? microCredentialsFrameworkMBO : microCredentialsFramework;
@@ -192,7 +194,7 @@
         }
         badgeclass.formal = badgeclass.badgeClassType !== badgeClassTypes.EXTRA_CURRICULAR;
         if (!isCreate) {
-            if (badgeclass.badgeClassType === badgeClassTypes.MICRO_CREDENTIAL) {
+            if (isMicroCredential) {
                 showStudyLoad = isEmpty(extensions[ects.name]);
             }
             badgeclass.participation = participationOptions.find(opt => opt.value === badgeclass.participation);
@@ -242,7 +244,7 @@
         badgeclass.isPrivate = isPrivate;
         const allErrors = constructErrors(badgeclass, extensions);
         //Hack for micro_credentials, that has an option between StudyLoadExtension and ECTSExtension
-        if (badgeclass.badgeClassType === badgeClassTypes.MICRO_CREDENTIAL) {
+        if (isMicroCredential) {
             if (showStudyLoad) {
                 delete allErrors[`extensions.${ects.name}`]
             } else {
@@ -672,10 +674,10 @@
     .required-micro-credential-framework {
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        gap: 8px;
 
-        p {
-            font-weight: 800
+        a.less {
+            margin-bottom: 12px;
         }
     }
 
@@ -846,7 +848,7 @@
                             disabled={!mayEdit && !isCopy}
                     />
                 </Field>
-            {:else if badgeclass.badgeClassType === badgeClassTypes.MICRO_CREDENTIAL}
+            {:else if isMicroCredential}
                 {#if showStudyLoad}
                     <Field entity={entity}
                            attribute="hours"
@@ -1018,7 +1020,7 @@
                        tipKey="qualityAssuranceName"
                        required={isRequired(badgeclass, "qualityAssuranceName")}>
                     <TextInput bind:value={badgeclass.qualityAssuranceName}
-                               disabled={upgradeKeysDisabled.qualityAssuranceName}
+                               disabled={upgradeKeysDisabled.qualityAssuranceName || isMicroCredential}
                                error={errors.qualityAssuranceName}
                                placeholder={I18n.t("placeholders.badgeClass.qualityAssuranceName")}/>
                 </Field>
@@ -1029,14 +1031,14 @@
                        tipKey="qualityAssuranceUrl"
                        required={isRequired(badgeclass, "qualityAssuranceUrl")}>
                     <TextInput bind:value={badgeclass.qualityAssuranceUrl}
-                               disabled={upgradeKeysDisabled.qualityAssuranceUrl}
+                               disabled={upgradeKeysDisabled.qualityAssuranceUrl || isMicroCredential}
                                onBlur={e => badgeclass.qualityAssuranceUrl = addProtocolToURL(e.target.value)}
                                error={errors.qualityAssuranceUrl || errors.quality_assurance_url}
                                placeholder={I18n.t("placeholders.badgeClass.qualityAssuranceUrl")}/>
                 </Field>
 
                 <div class="one-row">
-                    {#if !upgradeKeysDisabled.qualityAssuranceDescription}
+                    {#if !upgradeKeysDisabled.qualityAssuranceDescription && !isMicroCredential }
                         <MarkDownExample onClick={() => markDownExample("qualityAssuranceDescription")}
                                          tipKey="qualityAssuranceDescription"/>
                     {/if}
@@ -1045,19 +1047,119 @@
                            errors={errors.qualityAssuranceDescription}
                            tipKey="qualityAssuranceDescription"
                            required={isRequired(badgeclass, "qualityAssuranceDescription")}>
-                        <div class="mark-down-container"
-                             class:disabled={upgradeKeysDisabled.qualityAssuranceDescription}
-                             class:error={errors.qualityAssuranceDescription}>
-                            <MarkdownField
-                                    bind:value={badgeclass.qualityAssuranceDescription}
-                                    disabled={upgradeKeysDisabled.qualityAssuranceDescription}
-                            />
-                        </div>
+                        {#if isMicroCredential}
+                            <div class="required-micro-credential-framework">
+                                <p>{I18n.t(`newBadgeClassForm.requiredMicroCredentialFramework${isInstitutionMBO ? "MBO" : ""}`)}</p>
+                                <a class:less={showMicroCredentialQualityDescription}
+                                   href="/toggle"
+                                   on:click|preventDefault|stopPropagation={() => showMicroCredentialQualityDescription = !showMicroCredentialQualityDescription}>
+                                    {I18n.t(`toggle.${!showMicroCredentialQualityDescription ? "showMore" : "showLess"}`) }
+                                </a>
+                            </div>
+                        {/if}
+                        {#if showMicroCredentialQualityDescription}
+                            <div class="mark-down-container"
+                                 class:disabled={upgradeKeysDisabled.qualityAssuranceDescription || isMicroCredential}
+                                 class:error={errors.qualityAssuranceDescription}>
+                                <MarkdownField
+                                        bind:value={badgeclass.qualityAssuranceDescription}
+                                        disableToggle={true}
+                                        disabled={upgradeKeysDisabled.qualityAssuranceDescription || isMicroCredential}
+                                />
+                            </div>
+                        {/if}
                     </Field>
                 </div>
 
             {/if}
 
+            <h4 class="one-row">{I18n.t('models.badgeclass.headers.alignment')}</h4>
+            {#each badgeclass.alignments as alignment, i}
+                {#if i > 0 && i !== badgeclass.alignments}
+                    <div class="line-separator"/>
+                {/if}
+                {#if mayRemoveAlignment(alignment) && (mayEdit || !alignment.existing)}
+                    <div class="one-row">
+                        <button class="rm-icon-container alignment"
+                                on:click={() => removeAlignment(i) }>{@html trash}</button>
+                    </div>
+                {/if}
+                {#if alignment.target_name !== microCredentialsFramework.name}
+                    <Field entity={entity}
+                           attribute="alignmentName"
+                           errors={errors.alignments && errors.alignments[i] ? errors.alignments[i].target_name: [] }
+                           tipKey="badgeClassRelatedFrameworkName">
+                        <TextInput
+                                bind:value={alignment.target_name}
+                                disabled={!mayRemoveAlignment(alignment) && !isCopy}
+                                error={errors.alignments && errors.alignments[i] ? errors.alignments[i].target_name: null}
+                                placeholder={I18n.t("placeholders.badgeClass.alignmentName")}
+                        />
+                    </Field>
+                    <Field entity={entity}
+                           attribute="alignmentFramework"
+                           errors={errors.alignments && errors.alignments[i] ? errors.alignments[i].target_framework: [] }
+                           tipKey="badgeClassRelatedFrameworkFramework">
+                        <TextInput
+                                bind:value={alignment.target_framework}
+                                disabled={!mayRemoveAlignment(alignment) && !isCopy}
+                                error={errors.alignments && errors.alignments[i] ? errors.alignments[i].target_framework: null }
+                                placeholder={I18n.t("placeholders.badgeClass.alignmentFramework")}
+                        />
+                    </Field>
+                    <Field entity={entity}
+                           attribute="alignmentUrl"
+                           errors={errors.alignments && errors.alignments[i] ? errors.alignments[i].target_url: []}
+                           tipKey="badgeClassRelatedFrameworkURL">
+                        <TextInput
+                                bind:value={alignment.target_url}
+                                disabled={!mayRemoveAlignment(alignment) && !isCopy}
+                                onBlur={e => alignment.target_url = addProtocolToURL(e.target.value)}
+                                error={errors.alignments && errors.alignments[i] ? errors.alignments[i].target_url: null}
+                                placeholder={alignment.target_name !== microCredentialsFramework.name ? I18n.t("placeholders.badgeClass.alignmentUrl") : ""}
+                        />
+                    </Field>
+                    <Field {entity} attribute="alignmentCode"
+                           errors={errors.alignments && errors.alignments[i] ? errors.alignments[i].target_code: []}
+                           tipKey="badgeClassRelatedFrameworkCode">
+                        <TextInput
+                                bind:value={alignment.target_code}
+                                disabled={!mayRemoveAlignment(alignment) && !isCopy}
+                                error={errors.alignments && errors.alignments[i] ? errors.alignments[i].target_code: null}
+                                placeholder={I18n.t("placeholders.badgeClass.alignmentCode")}
+                        />
+                    </Field>
+                    <div class="one-row">
+                        {#if mayRemoveAlignment(alignment)}
+                            <MarkDownExample
+                                    onClick={() => badgeclass.alignments[i].target_description = markDownTemplate}
+                                    tipKey="badgeClassDescription"/>
+                        {/if}
+                        <Field entity={entity}
+                               attribute="alignmentDescription"
+                               errors={errors.alignments && errors.alignments[i] ? errors.alignments[i].target_description: []}
+                               tipKey="badgeClassRelatedFrameworkDescription">
+                            <div class="mark-down-container"
+                                 class:disabled={!mayRemoveAlignment(alignment) && !isCopy}
+                                 class:error={errors.alignments && errors.alignments[i] ? errors.alignments[i].target_description: null}>
+                                <MarkdownField
+                                        bind:value={alignment.target_description}
+                                        disabled={!mayRemoveAlignment(alignment) && !isCopy}
+                                />
+                            </div>
+                        </Field>
+                        {#if showAddAlignmentButton && i === badgeclass.alignments.length - 1}
+                            <AddButton
+                                    text={I18n.t('models.badgeclass.addButtons.alignmentAddition')}
+                                    handleClick={() => addEmptyAlignment()}
+                                    visibility={showAddAlignmentButton}
+                                    disabled={!mayEdit && !isCopy}
+                            />
+                        {/if}
+
+                    </div>
+                {/if}
+            {/each}
             <h4 class="one-row">{I18n.t("newBadgeClassForm.form.awardSettings")}</h4>
             <Switch value={!badgeclass.directAwardingDisabled}
                     label={I18n.t("newBadgeClassForm.form.directAward.title")}
@@ -1155,103 +1257,6 @@
                         onChange={() => badgeclass.gradeAchievedRequired = !badgeclass.gradeAchievedRequired}/>
             {/if}
 
-            <h4 class="one-row">{I18n.t('models.badgeclass.headers.alignment')}</h4>
-            {#each badgeclass.alignments as alignment, i}
-                {#if i > 0 && i !== badgeclass.alignments}
-                    <div class="line-separator"/>
-                {/if}
-                {#if mayRemoveAlignment(alignment) && (mayEdit || !alignment.existing)}
-                    <div class="one-row">
-                        <button class="rm-icon-container alignment"
-                                on:click={() => removeAlignment(i) }>{@html trash}</button>
-                    </div>
-                {/if}
-                {#if alignment.target_name === microCredentialsFramework.name}
-                    <div class="required-micro-credential-framework one-row">
-                        <p>{I18n.t("newBadgeClassForm.requiredMicroCredentialFramework")}</p>
-                        <a href="/toggle"
-                           on:click|preventDefault|stopPropagation={() => showMicroCredentialFramework = !showMicroCredentialFramework}>
-                            {I18n.t(`toggle.${!showMicroCredentialFramework ? "showMore" : "showLess"}`) }
-                        </a>
-                    </div>
-                {/if}
-                {#if alignment.target_name !== microCredentialsFramework.name || showMicroCredentialFramework}
-                    <Field entity={entity}
-                           attribute="alignmentName"
-                           errors={errors.alignments && errors.alignments[i] ? errors.alignments[i].target_name: [] }
-                           tipKey="badgeClassRelatedFrameworkName">
-                        <TextInput
-                                bind:value={alignment.target_name}
-                                disabled={!mayRemoveAlignment(alignment) && !isCopy}
-                                error={errors.alignments && errors.alignments[i] ? errors.alignments[i].target_name: null}
-                                placeholder={I18n.t("placeholders.badgeClass.alignmentName")}
-                        />
-                    </Field>
-                    <Field entity={entity}
-                           attribute="alignmentFramework"
-                           errors={errors.alignments && errors.alignments[i] ? errors.alignments[i].target_framework: [] }
-                           tipKey="badgeClassRelatedFrameworkFramework">
-                        <TextInput
-                                bind:value={alignment.target_framework}
-                                disabled={!mayRemoveAlignment(alignment) && !isCopy}
-                                error={errors.alignments && errors.alignments[i] ? errors.alignments[i].target_framework: null }
-                                placeholder={I18n.t("placeholders.badgeClass.alignmentFramework")}
-                        />
-                    </Field>
-                    <Field entity={entity}
-                           attribute="alignmentUrl"
-                           errors={errors.alignments && errors.alignments[i] ? errors.alignments[i].target_url: []}
-                           tipKey="badgeClassRelatedFrameworkURL">
-                        <TextInput
-                                bind:value={alignment.target_url}
-                                disabled={!mayRemoveAlignment(alignment) && !isCopy}
-                                onBlur={e => alignment.target_url = addProtocolToURL(e.target.value)}
-                                error={errors.alignments && errors.alignments[i] ? errors.alignments[i].target_url: null}
-                                placeholder={alignment.target_name !== microCredentialsFramework.name ? I18n.t("placeholders.badgeClass.alignmentUrl") : ""}
-                        />
-                    </Field>
-                    <Field {entity} attribute="alignmentCode"
-                           errors={errors.alignments && errors.alignments[i] ? errors.alignments[i].target_code: []}
-                           tipKey="badgeClassRelatedFrameworkCode">
-                        <TextInput
-                                bind:value={alignment.target_code}
-                                disabled={!mayRemoveAlignment(alignment) && !isCopy}
-                                error={errors.alignments && errors.alignments[i] ? errors.alignments[i].target_code: null}
-                                placeholder={I18n.t("placeholders.badgeClass.alignmentCode")}
-                        />
-                    </Field>
-                    <div class="one-row">
-                        {#if mayRemoveAlignment(alignment)}
-                            <MarkDownExample
-                                    onClick={() => badgeclass.alignments[i].target_description = markDownTemplate}
-                                    tipKey="badgeClassDescription"/>
-                        {/if}
-                        <Field entity={entity}
-                               attribute="alignmentDescription"
-                               errors={errors.alignments && errors.alignments[i] ? errors.alignments[i].target_description: []}
-                               tipKey="badgeClassRelatedFrameworkDescription">
-                            <div class="mark-down-container"
-                                 class:disabled={!mayRemoveAlignment(alignment) && !isCopy}
-                                 class:error={errors.alignments && errors.alignments[i] ? errors.alignments[i].target_description: null}>
-                                <MarkdownField
-                                        bind:value={alignment.target_description}
-                                        disabled={!mayRemoveAlignment(alignment) && !isCopy}
-                                />
-                            </div>
-                        </Field>
-                    </div>
-                {/if}
-            {/each}
-            {#if showAddAlignmentButton}
-                <div class="one-row">
-                    <AddButton
-                            text={I18n.t('models.badgeclass.addButtons.alignmentAddition')}
-                            handleClick={() => addEmptyAlignment()}
-                            visibility={showAddAlignmentButton}
-                            disabled={!mayEdit && !isCopy}
-                    />
-                </div>
-            {/if}
             {#if !isEmpty(errors)}
                 <div class="warnings one-row">
                     <p>{I18n.t("newBadgeClassForm.errors")}</p>

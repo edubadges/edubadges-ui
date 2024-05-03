@@ -4,7 +4,7 @@
     import {badgeClasses, page, sortTarget, tree} from "../../stores/filterCatalog";
     import BadgeCard from "../../components/shared/BadgeCard.svelte";
     import Spinner from "../../components/Spinner.svelte";
-    import {ects, eqf, extensionValue, studyLoad} from "../../components/extensions/badges/extensions";
+    import {ects, eqf, extensionValue, studyLoad, timeInvestment} from "../../components/extensions/badges/extensions";
     import BadgeListView from "../../components/shared/BadgeListView.svelte";
     import SideBarCatelog from "../../components/catalog/SideBarCatelog.svelte";
     import CatalogToolBar from "../../components/catalog/CatalogToolBar.svelte";
@@ -76,13 +76,14 @@
                         faculty.publicIssuers.forEach(issuer => {
                             translateProperties(issuer);
                             issuer.publicBadgeclasses.forEach(badgeClass => {
-                                //catalog query is different then others, so we need to set the references
+                                //catalog query is different than others, so we need to set the references
                                 badgeClass.issuer = issuer;
                                 badgeClass.issuer.faculty = faculty;
                                 badgeClass.issuer.faculty.institution = institution;
                                 ++institution.count;
                                 badgeClass.institution = institution;
                                 //used in the filtering
+                                badgeClass.timeInvestment = extensionValue(badgeClass.extensions, timeInvestment);
                                 badgeClass.studyLoad = extensionValue(badgeClass.extensions, studyLoad);
                                 badgeClass.ects = extensionValue(badgeClass.extensions, ects);
                                 badgeClass.eqf = extensionValue(badgeClass.extensions, eqf);

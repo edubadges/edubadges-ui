@@ -9,6 +9,7 @@
     export let value = "";
     export let disabled = false;
     export let onChange;
+    export let disableToggle = false;
 
     const plugins = [gfm()];
     const cutoffNumber = 190;
@@ -41,8 +42,8 @@
 </style>
 
 {#if disabled}
-    <Viewer value={showMore ? value : txtToDisplay} {plugins}/>
-    {#if showToggle}
+    <Viewer value={(showMore || disableToggle) ? value : txtToDisplay} {plugins}/>
+    {#if showToggle && !disableToggle}
         <span class="more" on:click={toggleShowMore}>
             {I18n.t(`toggle.${showMore ? "showLess" : "showMore"}`)}
         </span>
