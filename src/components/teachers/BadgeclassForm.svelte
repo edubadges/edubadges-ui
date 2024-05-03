@@ -197,7 +197,11 @@
             if (isMicroCredential) {
                 showStudyLoad = isEmpty(extensions[ects.name]);
             }
-            badgeclass.participation = participationOptions.find(opt => opt.value === badgeclass.participation);
+            if (!isEmpty(badgeclass.participation)) {
+                badgeclass.participation = badgeclass.participation.split(",")
+                    .map(type => participationOptions.find(opt => opt.value === type))
+                    .filter(type => !isEmpty(type));
+            }
             if (!isEmpty(badgeclass.assessmentType)) {
                 badgeclass.assessmentType = badgeclass.assessmentType.split(",")
                     .map(type => assessmentOptions.find(opt => opt.value === type))
@@ -366,6 +370,10 @@
             previewBadgeCopy.assessmentType = previewBadgeCopy.assessmentType
                 .map(t => t.value).sort().join(",");
         }
+        if (!isEmpty(previewBadgeCopy.participation)) {
+            previewBadgeCopy.participation = previewBadgeCopy.participation
+                .map(t => t.value).sort().join(",");
+        }
         //To enable scrolling in the modal, is removed again in the close
         document.body.classList.add("modal-open");
         showPreview = true;
@@ -384,7 +392,8 @@
             is_micro_credentials: badgeclass.isMicroCredentials,
             badge_class_type: badgeclass.badgeClassType,
             typeBadgeClass: badgeclass.badgeClassType,
-            participation: badgeclass.participation ? badgeclass.participation.value : null,
+            participation: isEmpty(badgeclass.participation) ? null :
+                badgeclass.participation.map(t => t.value).sort().join(","),
             assessment_type: isEmpty(badgeclass.assessmentType) ? null :
                 badgeclass.assessmentType.map(t => t.value).sort().join(","),
             assessment_supervised: badgeclass.assessmentSupervised,
@@ -939,6 +948,7 @@
                         items={participationOptions}
                         disabled={upgradeKeysDisabled.participation}
                         optionIdentifier="value"
+                        isMulti={true}
                         placeholder={I18n.t("newBadgeClassForm.form.placeHolder")}
                         showIndicator={false}
                         customIndicator={indicator}

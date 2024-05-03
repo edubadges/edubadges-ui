@@ -1801,6 +1801,7 @@ I18n.translations.nl = {
             relatedEducationalFramework: "Gerelateerd Onderwijskundig Raamwerk",
             switchToStudyLoad: "Gebruik studie load (uren) in plaats van ECTS/SBU",
             switchToECTS: "Gebruik Credit Points (ECTS/SBU) in plaats van uren",
+            other: "Anders",
             participation: {
                 name: "Vorm van participatie",
                 options: {

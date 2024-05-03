@@ -1800,6 +1800,7 @@ I18n.translations.en = {
             relatedEducationalFramework: "Related Educational Frameworks",
             switchToStudyLoad: "Switch to using study load (hours) instead of ECTS",
             switchToECTS: "Switch to using Credit Points (ECTS) instead of hours",
+            other: "Other",
             participation: {
                 name: "Form of participation",
                 options: {

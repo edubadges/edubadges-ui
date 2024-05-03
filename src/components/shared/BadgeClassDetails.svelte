@@ -470,12 +470,18 @@
                         {/if}
                     </div>
                 {/if}
-                {#if badgeclass.participation}
+                {#if !isEmpty(badgeclass.participation)}
                     <div class="group-item">
                         {@html participationIcon}
                         <section class="items">
                             <span class="name">{I18n.t("newBadgeClassForm.form.participation.name")}</span>
-                            <span class="value">{I18n.t(`newBadgeClassForm.form.participation.options.${badgeclass.participation}`)}</span>
+                            {#each badgeclass.participation.split(",").sort() as type}
+                                {#if I18n.translations[I18n.locale].newBadgeClassForm.form.participation.options[type]}
+                                    <span class="value">{I18n.t(`newBadgeClassForm.form.participation.options.${type}`)}</span>
+                                    {:else}
+                                    <span class="value">{I18n.t("newBadgeClassForm.form.other")}</span>
+                                {/if}
+                            {/each}
                         </section>
                     </div>
                 {/if}
@@ -527,7 +533,11 @@
                         <section class="items">
                             <span class="name">{I18n.t("newBadgeClassForm.form.assessment.name")}</span>
                             {#each badgeclass.assessmentType.split(",").sort() as type}
-                                <span class="value">{I18n.t(`newBadgeClassForm.form.assessment.options.${type}`)}</span>
+                                {#if I18n.translations[I18n.locale].newBadgeClassForm.form.assessment.options[type]}
+                                    <span class="value">{I18n.t(`newBadgeClassForm.form.assessment.options.${type}`)}</span>
+                                    {:else}
+                                    <span class="value">{I18n.t("newBadgeClassForm.form.other")}</span>
+                                {/if}
                             {/each}
                         </section>
                     </div>
