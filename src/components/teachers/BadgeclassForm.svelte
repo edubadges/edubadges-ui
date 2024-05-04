@@ -370,10 +370,6 @@
             previewBadgeCopy.assessmentType = previewBadgeCopy.assessmentType
                 .map(t => t.value).sort().join(",");
         }
-        if (!isEmpty(previewBadgeCopy.participation)) {
-            previewBadgeCopy.participation = previewBadgeCopy.participation
-                .map(t => t.value).sort().join(",");
-        }
         //To enable scrolling in the modal, is removed again in the close
         document.body.classList.add("modal-open");
         showPreview = true;
@@ -1067,13 +1063,13 @@
                                 </a>
                             </div>
                         {/if}
-                        {#if showMicroCredentialQualityDescription}
+                        {#if showMicroCredentialQualityDescription || !isMicroCredential}
                             <div class="mark-down-container"
                                  class:disabled={upgradeKeysDisabled.qualityAssuranceDescription || isMicroCredential}
                                  class:error={errors.qualityAssuranceDescription}>
                                 <MarkdownField
                                         bind:value={badgeclass.qualityAssuranceDescription}
-                                        disableToggle={true}
+                                        disableToggle={isMicroCredential}
                                         disabled={upgradeKeysDisabled.qualityAssuranceDescription || isMicroCredential}
                                 />
                             </div>
