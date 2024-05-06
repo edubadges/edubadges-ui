@@ -3,7 +3,6 @@ export const microCredentialsFrameworkMBO = {
     "url": "https://npuls.nl/microcredentials-mbo/",
     "description": `
 
-*See the English text not yet below*
 >    
 >
 Onderstaand kwaliteitskader is gebaseerd op de afspraken die binnen de [Pilot van het HO](https://npuls.nl/microcredentials-in-hbo-wo/) zijn gemaakt. Op die manier zorgen we ervoor dat de microcredentials uit het mbo ook herkend worden in het HO en er niet twee losse systemen ontstaan. 
