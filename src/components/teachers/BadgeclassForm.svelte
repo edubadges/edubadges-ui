@@ -185,12 +185,10 @@
         }
         if (isMicroCredential) {
             badgeclass.isMicroCredentials = true;
-            if (isCreate) {
-                const framework = isInstitutionMBO ? microCredentialsFrameworkMBO : microCredentialsFramework;
-                badgeclass.qualityAssuranceName = framework.name;
-                badgeclass.qualityAssuranceUrl = framework.url;
-                badgeclass.qualityAssuranceDescription = framework.description;
-            }
+            const framework = isInstitutionMBO ? microCredentialsFrameworkMBO : microCredentialsFramework;
+            badgeclass.qualityAssuranceName = framework.name;
+            badgeclass.qualityAssuranceUrl = framework.url;
+            badgeclass.qualityAssuranceDescription = framework.description;
         }
         badgeclass.formal = badgeclass.badgeClassType !== badgeClassTypes.EXTRA_CURRICULAR;
         if (!isCreate) {
