@@ -1773,7 +1773,7 @@ I18n.translations.nl = {
             tipAction: "bestaande badge class",
             tip: "Klik op een bestaande badge class en kies de optie om de badge class te kopieren rechts bovenin het scherm. Ga naar het ",
             issuerLink: "overzicht van alle badge classes voor de issuer {{name}}",
-            shortCopy: "Hier kan nog wat meer informatie staan, maar dat is voor ieder type badgeclass dezelfde tekst!",
+            shortCopy: "",
             create: "Aanmaken",
             types: {
                 micro_credential: "Microcredential",
@@ -1781,9 +1781,9 @@ I18n.translations.nl = {
                 extra_curricular: "Extracurriculair"
             },
             info: {
-                micro_credential: "Een badge class met alle metadata conform de EU aanbevelingen.",
-                regular: "Een badge class voor geaccrediteerd onderwijs met studiepunten (ECTS/SBU).",
-                extra_curricular: "Een badge class voor extracurriculair onderwijs."
+                micro_credential: "Een badge class voor microcredentials met het kwaleitskader voor professionals HBO/WO of MBO en alle metadata conform de EU-aanbevelingen.",
+                regular: "Een badge class voor opgedane kennis en vaardigen die binnen het curriculum van een erkende opleiding vallen. Aan deze badgeclass zijn ECTS/SBU verbonden.",
+                extra_curricular: "Een badge class voor opgedane kennis en vaardigheden die geen onderdeel zijn van het curriculum van een erkende opleiding. Aan deze badgeclass zijn geen ECTS/ SBU verbonden."
             },
             notAvailableTypeInfo: {
                 micro_credential: "Je instelling {{name}} is niet geconfigureerd om mircocredential badges uit te geven.",

@@ -1772,7 +1772,7 @@ I18n.translations.en = {
             tipAction: "existing badge class",
             tip: "Clik on an existing badge class and choose the option to copy the badge class in the right header section. Go to the ",
             issuerLink: "overview of all badge classes for issuer {{name}}",
-            shortCopy: "Short copy that makes sense to choose this one.",
+            shortCopy: "",
             create: "Create",
             types: {
                 micro_credential: "Microcredential",
@@ -1780,9 +1780,9 @@ I18n.translations.en = {
                 extra_curricular: "Extra curricular"
             },
             info: {
-                micro_credential: "A badge class with all metadata following EU guidelines.",
-                regular: "A badge class based on ECTS.",
-                extra_curricular: "A badge class based on time investment."
+                micro_credential: "A badge class for micro-credentials with the quality framework for professionals HBO/WO or MBO and all metadata in accordance with the EU recommendations.",
+                regular: "A badge class for acquired knowledge and skills that fall within the curriculum of a recognized study program. ECTS/SBU are attached to this badge class.",
+                extra_curricular: "A badge class for acquired knowledge and skills that are not part of the curriculum of a recognized program. There are no ECTS/SBU attached to badge class."
             },
             notAvailableTypeInfo: {
                 micro_credential: "Your institution {{name}} is not configured to award mirco-credential badges.",
