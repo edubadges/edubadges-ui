@@ -685,7 +685,7 @@ I18n.translations.nl = {
             evidenceRequired: "Bewijs (URL) verplicht bij uitgeven",
             narrativeRequired: "Motivatie verplicht bij uitgeven",
             narrativeStudentRequired: "Motivatie verplicht voor aanvraag",
-            evidenceStudentRequired: "Bewijs (URL) verplicht voor aanvraag",
+            evidenceStudentRequired: "Bewijs (URL) verplicht bij uitgifte",
             awardNonValidatedNameAllowed: "Uitreiken aan niet gevalideerd account toestaan",
             isMicroCredentials: "Badge class ihkv de pilot Microcredentials",
             directAwardingDisabled: "Direct-Award niet toegestaan",
@@ -1837,15 +1837,15 @@ I18n.translations.nl = {
                 title: "Direct awards",
                 directAwardAllowed: "Direct awards toestaan?",
                 details: "Direct award details",
-                evidenceURL: "Bewijs (URL) verplicht voor aanvraag?",
-                narrative: "Motivatie verplicht voor aanvraag?"
+                evidenceURL: "Bewijs (URL) verplicht bij uitgifte?",
+                narrative: "Persoonlijke boodschap verplicht bij uitgifte?"
             },
             selfEnrollment: {
                 title: "Zelf aanvragen",
                 selfEnrollmentAllowed: "Zelf aanvragen toestaan?",
                 details: "Zelf aanvragen details",
-                evidenceURL: "Bewijs (URL) verplicht voor aanvraag?",
-                narrative: "Motivatie verplicht voor aanvraag?"
+                evidenceURL: "Bewijs (URL) verplicht bij uitgifte?",
+                narrative: "Persoonlijke boodschap verplicht bij uitgifte?"
             },
             stackable: {
                 notStackable: "Nee, stand alone microcredential",
