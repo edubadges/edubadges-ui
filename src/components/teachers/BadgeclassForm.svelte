@@ -191,7 +191,7 @@
             badgeclass.qualityAssuranceDescription = framework.description;
         }
         badgeclass.formal = badgeclass.badgeClassType !== badgeClassTypes.EXTRA_CURRICULAR;
-        if (!isCreate) {
+        if (!isCreate || isCopy) {
             if (isMicroCredential) {
                 showStudyLoad = isEmpty(extensions[ects.name]);
             }
