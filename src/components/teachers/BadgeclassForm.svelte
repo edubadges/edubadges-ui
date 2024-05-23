@@ -108,7 +108,7 @@
         }
         let programmeIdentifiers = extensionValue(badgeclass.extensions, educationProgramIdentifier) || (isCreate && !isCopy ? [""] : []);
         //Draft regular badge classes need a programmeIdentifier
-        if (!isCreate && !isEmpty(programmeIdentifiers) && !Array.isArray(programmeIdentifiers)) {
+        if ((!isCreate || isCopy) && !isEmpty(programmeIdentifiers) && !Array.isArray(programmeIdentifiers)) {
             //Bugfix for older badge classes with one, non-array programmeIdentifier
             programmeIdentifiers = [programmeIdentifiers]
         }
