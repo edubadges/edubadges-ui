@@ -44,12 +44,11 @@
     OfflineExporting(Highcharts);
 
     let serverData = null;
-    let profile = {is_superuser: false};
+    let profile = {is_superuser: false, unloaded: true};
     let loaded = false;
 
     //Superusers can select institutions
     let institutions = [];
-    let institutionSet = false;
     let countSURFInTotal = false;
 
     //All faculties, issuer and badgeclass
@@ -205,7 +204,8 @@
 
     const initialize = () => {
         const institutionEntityId = institutionId ? institutionId.identifier : "all";
-        Promise.all([insights(year.name, institutionEntityId, countSURFInTotal), getProfile()]).then(arr => {
+        const profilePromise = profile.unloaded ? getProfile() : Promise.resolve(profile);
+        Promise.all([insights(year.name, institutionEntityId, countSURFInTotal), profilePromise]).then(arr => {
             serverData = arr[0];
             profile = arr[1];
             if (profile.is_superuser && isEmpty(institutions)) {
@@ -263,12 +263,7 @@
         if (item.identifier !== "all") {
             countSURFInTotal = false;
         }
-        if (!institutionSet) {
-            institutionSet = true;
-            loaded = true;
-        } else {
-            initialize();
-        }
+        initialize();
     }
 
     const toggleCountSURFInTotal = () => {
@@ -511,8 +506,17 @@
       display: flex;
     }
 
-    h2 {
-      margin: 0 0 15px 0;
+    .stats-container {
+        display: flex;
+        width: 100%;
+        flex-direction: row;
+        padding: 30px;
+        background-color: var(--purple-background);
+
+        :global(span.title) {
+            width: auto !important;
+            margin-left: auto;
+        }
     }
 
     h3 {
