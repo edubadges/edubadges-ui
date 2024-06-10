@@ -686,7 +686,6 @@ I18n.translations.en = {
             narrativeRequired: "Narrative required when issuing",
             narrativeStudentRequired: "Motivation required for enrollment",
             evidenceStudentRequired: "Evidence (URL) required for enrollment",
-            awardNonValidatedNameAllowed: "Award to non-validated account allowed",
             isMicroCredentials: "Badge class related to Microcredentials pilot",
             directAwardingDisabled: "Direct-Award disabled",
             selfEnrollmentDisabled: "Self-enrollment disabled",
@@ -1836,6 +1835,7 @@ I18n.translations.en = {
                 title: "Direct awards",
                 directAwardAllowed: "Direct awarding allowed?",
                 details: "Direct award details",
+                awardNonValidatedNameAllowed: "Award to non-validated account allowed?",
                 evidenceURL: "Evidence (URL) required when issuing?",
                 narrative: "Narrative required when issuing?"
             },

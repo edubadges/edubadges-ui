@@ -379,10 +379,10 @@
             criteria_text: badgeclass.criteriaText,
             is_private: isPrivate,
             evidence_required: badgeclass.evidenceRequired,
+            award_non_validated_name_allowed : badgeclass.awardNonValidatedNameAllowed,
             narrative_required: badgeclass.narrativeRequired,
             narrative_student_required: badgeclass.narrativeStudentRequired,
             evidence_student_required: badgeclass.evidenceStudentRequired,
-            award_non_validated_name_allowed: badgeclass.awardNonValidatedNameAllowed,
             is_micro_credentials: badgeclass.isMicroCredentials,
             badge_class_type: badgeclass.badgeClassType,
             typeBadgeClass: badgeclass.badgeClassType,
@@ -1171,9 +1171,16 @@
                     onChange={() => badgeclass.directAwardingDisabled = !badgeclass.directAwardingDisabled}/>
 
             <div class="separator">
-                <Switch value={badgeclass.evidenceRequired}
+                {#if badgeclass.badgeClassType === badgeClassTypes.EXTRA_CURRICULAR}
+                <Switch value={badgeclass.awardNonValidatedNameAllowed}
                         disabled={badgeclass.directAwardingDisabled}
                         label={I18n.t("newBadgeClassForm.form.directAward.details")}
+                        question={I18n.t("newBadgeClassForm.form.directAward.awardNonValidatedNameAllowed")}
+                        onChange={() => badgeclass.awardNonValidatedNameAllowed = !badgeclass.awardNonValidatedNameAllowed}/>
+                {/if}
+                <Switch value={badgeclass.evidenceRequired}
+                        disabled={badgeclass.directAwardingDisabled}
+                        label={badgeclass.badgeClassType === badgeClassTypes.EXTRA_CURRICULAR ? null : I18n.t("newBadgeClassForm.form.directAward.details")}
                         question={I18n.t("newBadgeClassForm.form.directAward.evidenceURL")}
                         onChange={() => badgeclass.evidenceRequired = !badgeclass.evidenceRequired}/>
                 <Switch value={badgeclass.narrativeRequired}
