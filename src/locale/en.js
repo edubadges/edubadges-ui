@@ -1827,8 +1827,8 @@ I18n.translations.en = {
                 supervisionOptions: {
                     o1: "Supervised with identity verification",
                     o2: "Supervised without identity verification",
-                    o3: "Not supervised without identity verification",
-                    o4: "Not supervised with identity verification"
+                    o3: "Not supervised with identity verification",
+                    o4: "Not supervised without identity verification"
                 }
             },
             directAward: {
