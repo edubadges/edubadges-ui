@@ -1828,9 +1828,9 @@ I18n.translations.nl = {
                 idVerification: " Identiteit lerende geverifieerd?",
                 supervisionOptions: {
                     o1: "Onder toezicht, met identiteit verificatie",
-                    o2: "Onder toezicht, zonder identiteit verificatie",
-                    o3: "Geen toezicht, zonder identiteit verificatie",
-                    o4: "Geen toezicht, met identiteit verificatie"
+                    o2: "Onder toezicht, geen identiteit verificatie",
+                    o3: "Geen toezicht, met identiteit verificatie",
+                    o4: "Geen toezicht, geen identiteit verificatie"
                 }
             },
             directAward: {

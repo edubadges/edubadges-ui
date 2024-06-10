@@ -91,10 +91,10 @@
             return "o1";
         }
         if (badgeclass.assessmentSupervised && !badgeclass.assessmentIdVerified) {
-            return "o1";
+            return "o2";
         }
         if (!badgeclass.assessmentSupervised && badgeclass.assessmentIdVerified) {
-            return "o1";
+            return "o3";
         }
         return "o4";
     }
@@ -479,7 +479,7 @@
                             {#each badgeclass.participation.split(",").sort() as type}
                                 {#if I18n.translations[I18n.locale].newBadgeClassForm.form.participation.options[type]}
                                     <span class="value">{I18n.t(`newBadgeClassForm.form.participation.options.${type}`)}</span>
-                                    {:else}
+                                {:else}
                                     <span class="value">{I18n.t("newBadgeClassForm.form.other")}</span>
                                 {/if}
                             {/each}
@@ -527,18 +527,20 @@
                             {#each badgeclass.assessmentType.split(",").sort() as type}
                                 {#if I18n.translations[I18n.locale].newBadgeClassForm.form.assessment.options[type]}
                                     <span class="value">{I18n.t(`newBadgeClassForm.form.assessment.options.${type}`)}</span>
-                                    {:else}
+                                {:else}
                                     <span class="value">{I18n.t("newBadgeClassForm.form.other")}</span>
                                 {/if}
                             {/each}
                         </section>
                     </div>
-                    <div class="group-item">
-                        {@html supervisionIcon}
-                        <section class="items">
-                            <span class="value">{I18n.t(`newBadgeClassForm.form.assessment.supervisionOptions.${getSuperVisionOption()}`)}</span>
-                        </section>
-                    </div>
+                    {#if badgeclass.assessmentIdVerified || badgeclass.assessmentSupervised}
+                        <div class="group-item">
+                            {@html supervisionIcon}
+                            <section class="items">
+                                <span class="value">{I18n.t(`newBadgeClassForm.form.assessment.supervisionOptions.${getSuperVisionOption()}`)}</span>
+                            </section>
+                        </div>
+                    {/if}
                 </div>
             {/if}
         </div>
