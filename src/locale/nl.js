@@ -1861,7 +1861,6 @@ I18n.translations.nl = {
         draft: "Concept",
         preview: "Preview badge class",
         publish: "Publiceer",
-        tagsPlaceholder: "Voeg een nieuwe tag toe, door hier te typen en op <enter> te drukken",
         requiredMicroCredentialFramework: "Kwaliteitskader Microcredentials voor Professionals HBO en WO",
         requiredMicroCredentialFrameworkMBO: "Kwaliteitskader Microcredentials voor Professionals MBO",
         link: " - (link)",
@@ -1871,6 +1870,27 @@ I18n.translations.nl = {
         errors: "Er ontbreken verplichte velden of de invoer is niet correct. Controleer de invoer.",
         stackable: "Stackable",
         isStackable: "Stapelbaar naar andere badge classes?",
+    },
+    institutionTags : {
+        action: "Actie uitvoeren...",
+        addTag: "Voeg een tag toe",
+        noAutoFlush: "Als je tags verandert of toevoegt, zorg ervoor dat je deze wijzigingen opslaat.",
+        status: {
+            new: "Nieuw",
+            active: "Actief",
+            archived: "Gearchiveerd",
+            deleted: "Verwijderd"
+        },
+        actions: {
+            delete: "Verwijder",
+            archive: "Archiveer",
+            undelete: "Actief maken",
+            unarchive: "Dearchiveren",
+        },
+        usages: "Tag wordt gebruikt in de volgende badges: {{badges}}",
+        noUsages: "Tag wordt gebruikt in badges, je kan de tag ook verwijderen",
+        and: "en"
     }
+
 
 };

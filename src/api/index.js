@@ -132,7 +132,7 @@ export function acceptTermsForBadge(terms_entity_id) {
 
 export function tagUsage(tagName) {
     const path = `${serverUrl}/institution/tags`;
-    return validFetch(path, {body: JSON.stringify([{name, tagName}])}, "POST");
+    return validFetch(path, {body: JSON.stringify({name: tagName})}, "POST");
 }
 
 export function withdrawTermsForBadge(terms_agreement_entity_id) {

@@ -31,7 +31,7 @@
       directAwardingEnabled,
       microCredentialsEnabled,
       tags {
-        id, name
+        id, name, archived
       }
     },
     issuer(id: $entityId) {

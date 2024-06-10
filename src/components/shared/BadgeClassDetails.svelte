@@ -33,6 +33,7 @@
     import {endorsementStatus} from "../../util/endorsements";
     import {config} from "../../util/config";
     import Spinner from "../Spinner.svelte";
+    import {badgeClassTypes} from "../../util/badgeClassTypes";
 
     export let badgeclass;
     export let publicInstitutions;
@@ -418,7 +419,7 @@
                         {@html badgeIcon}
                         <section class="items">
                             <span class="name">{I18n.t("newBadgeClassForm.badgeClassType")}</span>
-                            <span class="value">{I18n.t(`newBadgeClassForm.modal.types.${badgeclass.typeBadgeClass}`)}</span>
+                            <span class="value">{I18n.t(`newBadgeClassForm.modal.types.${(badgeclass.typeBadgeClass?.toLowerCase() || badgeClassTypes.REGULAR)}`)}</span>
                         </section>
                     </div>
                 {/if}

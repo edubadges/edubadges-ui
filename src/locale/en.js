@@ -1860,7 +1860,6 @@ I18n.translations.en = {
         draft: "Draft",
         preview: "Preview badge class",
         publish: "Publish",
-        tagsPlaceholder: "Start typing here and press <enter> to add a new badge class tag",
         requiredMicroCredentialFramework: "Quality framework Microcredentials for Professionals HBO and WO",
         requiredMicroCredentialFrameworkMBO: "Quality framework Microcredentials for Professionals MBO",
         link: " - (link)",
@@ -1870,7 +1869,25 @@ I18n.translations.en = {
         errors: "There are required attributes missing or invalid. Please review the input errors.",
         stackable: "Stackable",
         isStackable: "Stackable towards another credential?",
-
+    },
+    institutionTags : {
+        action: "Perform action...",
+        addTag: "Add new tag",
+        noAutoFlush: "If you make changes to the tags or add tags, be sure to save those changes.",
+        status: {
+            new: "New",
+            active: "Active",
+            archived: "Archived",
+            deleted: "Deleted"
+        },
+        actions: {
+            delete: "Delete",
+            archive: "Archive",
+            undelete: "Undelete",
+            unarchive: "Unarchive",
+        },
+        usages: "Tag is being used in the following badges: {{badges}}",
+        noUsages: "Tag is not being used in badges, consider deleting it",
+        and: "and"
     }
-
 };

@@ -30,7 +30,7 @@
       directAwardingEnabled,
       defaultLanguage,
       tags {
-        id, name
+        id, name, archived
       }
     },
     issuers {

@@ -1239,7 +1239,7 @@
                    tipKey="badgeclassInternalTags">
                 <Select
                         bind:value={internalTags}
-                        items={(institution.tags || []).sort((t1,t2)=> t1.name.localeCompare(t2.name))}
+                        items={(institution.tags || []).filter(tag => !tag.archived).sort((t1,t2)=> t1.name.localeCompare(t2.name))}
                         isMulti={true}
                         customIndicator={indicator}
                         showIndicator={false}
