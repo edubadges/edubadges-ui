@@ -13,9 +13,10 @@
     import MultiLanguageField from "../forms/MultiLanguageField.svelte";
     import Select from "../forms/Select.svelte";
     import {isEmpty, splitListSemantically, translateProperties} from "../../util/utils";
-    import Creatable from "../forms/Creatable.svelte";
-    import {actions, convertActionToStatus, status, tagActions} from "../../util/badgeTags";
+    import {status} from "../../util/badgeTags";
     import Button from "../Button.svelte";
+    import trash from "../../icons/trash.svg";
+    import RadioButton from "../forms/RadioButton.svelte";
 
     const entity = entityType.INSTITUTION;
     const query = `query {
@@ -55,7 +56,6 @@
     let loaded = false;
     let processing = false;
     let institutionTags = [];
-    let actionValues = [];
     let tagUsages = {};
     let newTagValue = null;
     let englishValueError = false;
@@ -95,12 +95,20 @@
         newTagValue = null;
     }
 
-    const actionChanged = (action, tag) => {
+    const deleteTag = tagName => {
+        institutionTags = institutionTags.filter(tag => tag.name !== tagName);
+    }
+
+    const actionChanged = (tag, tagStatus) => {
         const tagName = tag.name;
-        if (["delete", "archive"].includes(action) && tag.status !== status.NEW) {
+        if ([status.DELETED, status.ARCHIVED].includes(tagStatus)) {
             tagUsage(tagName).then(res => {
                 const newTagUsages = {...tagUsages};
-                newTagUsages[tagName] = res;
+                if (isEmpty(res) && tagStatus === status.DELETED) {
+                    delete newTagUsages[tagName];
+                } else {
+                    newTagUsages[tagName] = res;
+                }
                 tagUsages = newTagUsages;
             })
         } else {
@@ -108,15 +116,6 @@
             delete newTagUsages[tagName];
             tagUsages = newTagUsages;
         }
-        let newTags = [...institutionTags];
-        const selectedTag = newTags.find(tag => tag.name === tagName);
-        if (action === actions.DELETE && selectedTag.status === status.NEW) {
-            newTags = newTags.filter(tag => tag !== selectedTag);
-        } else {
-            selectedTag.status = convertActionToStatus(action);
-        }
-        institutionTags = newTags;
-        setTimeout(() => actionValues = [], 75);
     }
 
     function handleSubmit() {
@@ -164,73 +163,69 @@
         }
 
         .institution-tag-container {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 4fr 3fr;
+            grid-template-rows: auto;
+            grid-row-gap: 1.1em;
+            grid-column-gap: 1.5em;
+            align-items: center;
 
-            .institution-tag {
-                margin-bottom: 25px;
+            input:disabled {
+                background-color: var(--grey-2);
             }
 
-            .institution-tag-inner {
+            .radio-buttons {
                 display: flex;
-                width: 100%;
-                gap: 25px;
+                align-items: center;
+                justify-content: space-around;
+            }
 
+            .trash {
+                grid-column: 2 / -1;
+                cursor: pointer;
 
-                input {
-                    background-color: var(--grey-2);
-                }
-
-                .select-field {
-                    width: 50%;
-                }
-
-                div.status {
-                    display: flex;
-                    padding: 4px;
-                    width: 35%;
-
-                    span {
-                        display: inline-block;
-                        margin: auto;
-                        padding: 4px 8px;
-                        border-radius: 16px;
-                        word-break: keep-all;
-
-                        &.new {
-                            color: var(--purple-3);
-                            border: 1px solid var(--purple-3);
-                        }
-
-                        &.active {
-                            color: var(--green-medium);
-                            border: 1px solid var(--green-medium);
-                        }
-
-                        &.archived {
-                            color: var(--grey-8);
-                            border: 1px solid var(--grey-8);
-                        }
-
-                        &.deleted {
-                            color: var(--red-strong-dark);
-                            border: 1px solid var(--red-strong-dark);
-                        }
-                    }
-
+                :global(svg) {
+                    width: 22px;
+                    height: auto;
+                    margin: 5px 0 0 18px;
+                    color: var(--red-strong-dark)
                 }
             }
 
-            .tag-usage em {
+            .tag-usage {
+                grid-column: 1 / -1;
                 color: var(--red-dark);
                 font-size: 15px;
-                display: inline-block;
-                margin-top: 10px;
+                margin-top: -10px;
+            }
+
+            .temp-tag-status {
+                grid-column: 1 / -1;
             }
 
             .new-tag {
+
                 margin-bottom: 25px;
             }
+
+            :global(label.container) {
+                padding: 0 0 0 35px;
+            }
+
+            :global(span.checkmark ) {
+                top: -4px;
+            }
+
         }
+
+        em.no-auto-flush {
+            display: block;
+            margin-top: 8px;
+        }
+
     }
+
 </style>
 
 {#if loaded}
@@ -321,34 +316,36 @@
                        errors={errors.badge_class_tags}
                        tipKey="institutionBadgeClassTags">
                     <div class="institution-tag-container">
-                        {#each institutionTags as tag, index }
-                            <div class="institution-tag">
-                                <div class="institution-tag-inner">
-                                    <input type="text"
-                                           value={tag.name}
-                                           disabled={true}
-                                           class="input-field"
-                                    />
-                                    <Select value={actionValues[index]}
-                                            clearable={false}
-                                            placeholder={I18n.t("institutionTags.action")}
-                                            items={tagActions(tag).map(action => ({name: I18n.t(`institutionTags.actions.${action}`), value: action}))}
-                                            handleSelect={item => actionChanged(item.value, tag)}
-                                    />
-                                    <div class="status">
-                                        <span class={tag.status}>{I18n.t(`institutionTags.status.${tag.status}`)}</span>
-                                    </div>
+                        {#each institutionTags as tag }
+                            <input type="text"
+                                   value={tag.name}
+                                   disabled={true}
+                                   class="input-field"
+                            />
+                            {#if tag.status === status.NEW}
+                                <div class="trash" on:click={() => deleteTag(tag.name)}>
+                                    {@html trash}
                                 </div>
-                                {#if tagUsages[tag.name]}
-                                    <div class="tag-usage">
-                                        {#if isEmpty(tagUsages[tag.name]) && tag.status === status.ARCHIVED}
-                                            <em>{I18n.t("institutionTags.noUsages")}</em>
-                                        {:else if !isEmpty(tagUsages[tag.name])}
-                                            <em>{I18n.t("institutionTags.usages", {badges: splitListSemantically(tagUsages[tag.name].map(t => t.name), I18n.t("institutionTags.and"))}) }</em>
-                                        {/if}
-                                    </div>
-                                {/if}
-                            </div>
+                            {:else}
+                                <div class="radio-buttons">
+                                    {#each [status.ARCHIVED, status.DELETED, status.ACTIVE] as status}
+                                        <RadioButton bind:values={tag.status}
+                                                     onChange={() => actionChanged(tag, status)}
+                                                     label={I18n.t(`institutionTags.status.${status}`)}
+                                                     value={status}/>
+                                    {/each}
+                                </div>
+
+                            {/if}
+                            {#if tagUsages[tag.name]}
+                                <div class="tag-usage">
+                                    {#if isEmpty(tagUsages[tag.name]) && tag.status === status.ARCHIVED}
+                                        <em>{I18n.t("institutionTags.noUsages")}</em>
+                                    {:else if !isEmpty(tagUsages[tag.name])}
+                                        <em>{I18n.t("institutionTags.usages", {badges: splitListSemantically(tagUsages[tag.name].map(t => t.name), I18n.t("institutionTags.and"))}) }</em>
+                                    {/if}
+                                </div>
+                            {/if}
                         {/each}
                         {#if newTagValue !== null}
                             <div class="new-tag">
@@ -359,17 +356,15 @@
                                 />
                             </div>
                         {/if}
-
-                        <Button text={I18n.t("institutionTags.addTag")}
-                                disabled={!isEmpty(newTagValue)}
-                                action={() => newTagValue = ""}
-                        />
-                        <p class="no-auto-flush">
-                            {I18n.t("institutionTags.noAutoFlush")}
-                        </p>
-
                     </div>
                 </Field>
+                <Button text={I18n.t("institutionTags.addTag")}
+                        disabled={!isEmpty(newTagValue)}
+                        action={() => newTagValue = ""}
+                />
+                <em class="no-auto-flush">
+                    {I18n.t("institutionTags.noAutoFlush")}
+                </em>
             {/if}
         </div>
     </EntityForm>

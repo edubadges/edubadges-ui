@@ -27,13 +27,13 @@ export const convertActionToStatus = action => {
 export const tagActions = tag => {
     switch (tag.status) {
         case status.NEW:
-            return [actions.DELETE];
+            return [status.DELETED];
         case status.DELETED:
-            return [actions.UNDELETE, actions.ARCHIVE];
+            return [status.ACTIVE, status.ARCHIVED];
         case status.ARCHIVED:
-            return [actions.UNARCHIVE, actions.DELETE];
+            return [status.ACTIVE, status.DELETED];
         case status.ACTIVE:
-            return [actions.ARCHIVE, actions.DELETE];
+            return [status.ARCHIVED, status.DELETED];
     }
 }
 

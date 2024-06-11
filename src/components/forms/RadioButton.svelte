@@ -4,6 +4,7 @@
   export let values;
   export let label;
   export let readOnly = false;
+  export let onChange = null;
 
 </script>
 
@@ -80,7 +81,7 @@
 </style>
 
 <label class="container" {readOnly}>
-  <input type="radio" bind:group={values} value={value} disabled={readOnly}/>
+  <input type="radio" bind:group={values} value={value} disabled={readOnly} on:change={onChange && onChange()}/>
   <span class="checkmark"></span>
   <span class="label">{label}</span>
 </label>

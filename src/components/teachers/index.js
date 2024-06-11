@@ -25,7 +25,7 @@ export { default as FilterBlock } from "./FilterBlock.svelte";
 export { default as Header } from "./Header.svelte";
 export { default as HeaderList } from "./HeaderList.svelte";
 export { default as Institution } from "./ManageInstitution.svelte";
-export { default as InstitutionEdit } from "./InstitutionEdit.svelte";
+export { default as InstitutionEdit } from "./InstitutionEditV1.svelte";
 export { default as InstitutionUserManagement } from "./InstitutionUserManagement.svelte";
 export { default as InvitationStatusWidget } from  "./InvitationStatusWidget.svelte"
 export { default as InviteEnrollments } from "./InviteEnrollments.svelte";

@@ -1878,17 +1878,11 @@ I18n.translations.nl = {
         status: {
             new: "Nieuw",
             active: "Actief",
-            archived: "Gearchiveerd",
-            deleted: "Verwijderd"
-        },
-        actions: {
-            delete: "Verwijder",
-            archive: "Archiveer",
-            undelete: "Actief maken",
-            unarchive: "Dearchiveren",
+            archived: "Archiveer",
+            deleted: "Verwijder"
         },
         usages: "Tag wordt gebruikt in de volgende badges: {{badges}}",
-        noUsages: "Tag wordt gebruikt in badges, je kan de tag ook verwijderen",
+        noUsages: "Tag wordt niet gebruikt in badges, je kan de tag ook verwijderen in plaats van te archiveren",
         and: "en"
     }
 

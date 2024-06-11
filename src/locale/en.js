@@ -1877,14 +1877,8 @@ I18n.translations.en = {
         status: {
             new: "New",
             active: "Active",
-            archived: "Archived",
-            deleted: "Deleted"
-        },
-        actions: {
-            delete: "Delete",
-            archive: "Archive",
-            undelete: "Undelete",
-            unarchive: "Unarchive",
+            archived: "Archive",
+            deleted: "Delete"
         },
         usages: "Tag is being used in the following badges: {{badges}}",
         noUsages: "Tag is not being used in badges, consider deleting it",
