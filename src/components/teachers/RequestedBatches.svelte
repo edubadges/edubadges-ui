@@ -42,46 +42,43 @@
     //AwardModal
     let showAwardModal = false;
 
-    const query = `query {
-    badgeClassesToAward {
-      entityId,
-      name,
-      narrativeRequired,
-      evidenceRequired,
-      evidenceStudentRequired,
-      narrativeStudentRequired,
-      permissions { mayUpdate, mayAward },
-      pendingEnrollments {
+    const newQuery = `query {
+    enrollmentsToAward {
         dateCreated,
         dateAwarded,
         entityId,
         evidenceUrl,
         narrative,
         user {
+            entityId,
+            firstName,
+            lastName,
+            email
+        },
+        badgeClass {
           entityId,
-          firstName,
-          lastName,
-          email
+          name,
+          image,
+          narrativeRequired,
+          evidenceRequired,
+          gradeAchievedRequired,
+          evidenceStudentRequired,
+          narrativeStudentRequired,
+          permissions { mayUpdate, mayAward }
         }
-      }
-
     }
   }`;
 
     const loadEnrollments = () => {
-        const allEnrollments = [];
-        queryData(query).then(res => {
-            res.badgeClassesToAward.forEach(badgeClass => {
-                badgeClass.pendingEnrollments.forEach(enrollment => {
-                        enrollment.badgeClass = badgeClass;
-                        enrollment.evidenceNarrativeRequired = badgeClass.evidenceRequired || badgeClass.narrativeRequired ||
+        queryData(newQuery).then(res => {
+            res.enrollmentsToAward.forEach(enrollment => {
+                const badgeClass = enrollment.badgeClass;
+                enrollment.evidenceNarrativeRequired = badgeClass.evidenceRequired || badgeClass.narrativeRequired ||
                             badgeClass.evidenceStudentRequired || badgeClass.narrativeStudentRequired;
-                        allEnrollments.push(enrollment);
-                    }
-                )
+                        enrollment.gradeAchievedRequired = badgeClass.gradeAchievedRequired;
             });
-            enrollments = allEnrollments;
-            filteredEnrollments = allEnrollments;
+            enrollments = res.enrollmentsToAward;
+            filteredEnrollments = res.enrollmentsToAward;
             loaded = true;
         })
     }
