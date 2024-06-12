@@ -670,7 +670,7 @@ I18n.translations.en = {
             name: "Name",
             description: "Description",
             about: "About this edubadge",
-            criteria_text: "Criteria & requirements to qualify",
+            criteria_text: "Criteria",
             expiresAfter: "Expires after",
             expiresAfterOption: "After",
             expiresAfterNever: "Never",
@@ -705,7 +705,7 @@ I18n.translations.en = {
             participation: "Form of participation",
             assessment: "Type of assessment",
             url: "URL",
-            isGradeAchieved: "Grade achieved",
+            isGradeAchieved: "Grade /result achieved",
             gradeAchieved: "Grade achieved required?",
             notSet: "",
             qualityAssuranceName: "Name",
@@ -1278,7 +1278,7 @@ I18n.translations.en = {
             "See <a target=\"_blank\" href=\"https://wiki.surfnet.nl/display/Edubadges/Handleiding+Metadata+ihkv+de+pilot+microcredentials\"> the wiki </a> for a manual.",
         badgeClassDirectAwardingDisabled: "If checked, then this badge class can not be direct awarded",
         badgeClassSelfEnrollmentDisabled: "If checked, then this badge class can not be requested by students",
-        //badgeClassCriteriaRequirements: "badgeClassCriteriaRequirements",
+        badgeClassCriteriaRequirements: "What criteria does the learner meet to be eligible for this edubadge?",
         //badgeClassTypeOfStudyLoad: "badgeClassTypeOfStudyLoad",
         badgeClassStudyLoadNumber: "Study Tax Hours (SBU in Hours)",
         badgeClassTimeInvestmentNumber: "How many hours have to be invested to acquire this non-formal edubadge.",
@@ -1844,14 +1844,14 @@ I18n.translations.en = {
                 selfEnrollmentAllowed: "Self enrollment allowed?",
                 details: "Self enrollment details",
                 evidenceURL: "Evidence (URL) required for enrollment?",
-                narrative: "Narrative required for enrollment?"
+                narrative: "Motivation required for enrollment?"
             },
             stackable: {
                 notStackable: "No, stand alone badge",
                 stackable: "Yes, stackable",
             },
             gradeAchieved: {
-                name: "Grade achieved",
+                name: "Grade / result achieved",
                 yes: "Grade achieved required",
                 no: "Grade achieved not required"
             }

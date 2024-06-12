@@ -670,7 +670,7 @@ I18n.translations.nl = {
             name: "Naam",
             description: "Beschrijving",
             about: "Over deze edubadge",
-            criteria_text: "Aan welke criteria moet je voldoen om in aanmerking te komen voor deze edubadge?",
+            criteria_text: "Criteria",
             expiresAfter: "Verloopt na",
             expiresAfterOption: "Na",
             expiresAfterNever: "Nooit",
@@ -705,7 +705,7 @@ I18n.translations.nl = {
             participation: "Vorm van deelname",
             assessment: "Beoordelingstype",
             url: "URL",
-            isGradeAchieved: "Cijfer behaald",
+            isGradeAchieved: "Cijfer / resultaat behaald",
             gradeAchieved: "Cijfer of resultaat verplicht vermelden?",
             notSet: "",
             qualityAssuranceName: "Naam",
@@ -854,7 +854,7 @@ I18n.translations.nl = {
                 none: "Geen",
                 narrative: "Persoonlijke boodschap",
                 evidence: "Bewijs",
-                gradeAchieved: "Cijfer behaald",
+                gradeAchieved: "Cijfer / resultaat behaald",
                 narrativeStudent: "Persoonlijke boodschap student",
                 evidenceStudent: "Bewijs student",
                 badgeClass: "Badge class"
@@ -1279,7 +1279,7 @@ I18n.translations.nl = {
             "Zie <a target=\"_blank\" href=\"https://wiki.surfnet.nl/display/Edubadges/Handleiding+Metadata+ihkv+de+pilot+microcredentials\"> de wiki </a> voor een handleiding.",
         badgeClassDirectAwardingDisabled: "Indien aangevinkt, dan is voor deze badge class het direct awarden uitgeschakeld",
         badgeClassSelfEnrollmentDisabled: "Indien aangevinkt, dan kan deze badge class niet worden aangevraagd door studenten",
-        //badgeClassCriteriaRequirements: "badgeClassCriteriaRequirements",
+        badgeClassCriteriaRequirements: "Aan welke criteria heeft de lerende voldaan, om in aanmerking te komen voor deze edubadge?",
         //badgeClassTypeOfStudyLoad: "badgeClassTypeOfStudyLoad",
         badgeClassStudyLoadNumber: "Studie Belastings Uren (SBU in uren)",
         badgeClassTimeInvestmentNumber: "Hoeveel uren geïnvesteerd moeten worden om deze non-formal edubadge te kunnen verkrijgen.",
@@ -1844,8 +1844,8 @@ I18n.translations.nl = {
                 title: "Zelf aanvragen",
                 selfEnrollmentAllowed: "Zelf aanvragen toestaan?",
                 details: "Zelf aanvragen details",
-                evidenceURL: "Bewijs (URL) verplicht bij uitgifte?",
-                narrative: "Persoonlijke boodschap verplicht bij uitgifte?"
+                evidenceURL: "Bewijs (URL) verplicht bij aanvraag?",
+                narrative: "Persoonlijke boodschap verplicht bij aanvraag?"
             },
             stackable: {
                 notStackable: "Nee, stand alone badge",
