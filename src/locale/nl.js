@@ -1332,7 +1332,7 @@ I18n.translations.nl = {
         endorsementClaim: "De claim beschrijft waarom en hoe deze badgeclass vergelijkbaar is met de geselecteerde badge",
         endorsementBadgeClass: "De badgeklasse die je wilt aanbevelen.",
         awardScheduling: "Voer de datum in waarop de e-mails zullen worden verzonden naar de gebruikers aan wie de edubadge is toegekend.",
-        badgeClassIsStackable: "A stackable badge-class can be linked to another badge-class"
+        badgeClassIsStackable: "Een stackable badge-class kan gestapeld worden aan een andere badge-class"
     },
     badgeOverview: {
         faculty: "Issuer groep",
@@ -1827,8 +1827,8 @@ I18n.translations.nl = {
                 idVerification: " Identiteit lerende geverifieerd?",
                 supervisionOptions: {
                     o1: "Onder toezicht, met identiteit verificatie",
-                    o2: "Onder toezicht, geen identiteit verificatie",
-                    o3: "Geen toezicht, met identiteit verificatie",
+                    o2: "Onder toezicht",
+                    o3: "Met identiteit verificatie",
                     o4: "Geen toezicht, geen identiteit verificatie"
                 }
             },
@@ -1848,8 +1848,8 @@ I18n.translations.nl = {
                 narrative: "Persoonlijke boodschap verplicht bij uitgifte?"
             },
             stackable: {
-                notStackable: "Nee, stand alone microcredential",
-                stackable: "Ja, stackable microcredential",
+                notStackable: "Nee, stand alone badge",
+                stackable: "Ja, stapelbaar",
             },
             gradeAchieved: {
                 name: "Cijfer of resultaat behaald",

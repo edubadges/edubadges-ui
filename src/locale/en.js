@@ -1826,8 +1826,8 @@ I18n.translations.en = {
                 idVerification: "Was the student's identity verified?",
                 supervisionOptions: {
                     o1: "Supervised with identity verification",
-                    o2: "Supervised without identity verification",
-                    o3: "Not supervised with identity verification",
+                    o2: "Supervised",
+                    o3: "With identity verification",
                     o4: "Not supervised without identity verification"
                 }
             },
@@ -1847,8 +1847,8 @@ I18n.translations.en = {
                 narrative: "Narrative required for enrollment?"
             },
             stackable: {
-                notStackable: "No, stand alone microcredential",
-                stackable: "Yes, stackable microcredential",
+                notStackable: "No, stand alone badge",
+                stackable: "Yes, stackable",
             },
             gradeAchieved: {
                 name: "Grade achieved",
@@ -1868,7 +1868,7 @@ I18n.translations.en = {
         badge: "The badge",
         errors: "There are required attributes missing or invalid. Please review the input errors.",
         stackable: "Stackable",
-        isStackable: "Stackable towards another credential?",
+        isStackable: "Stackable towards another badge?",
     },
     institutionTags : {
         action: "Perform action...",

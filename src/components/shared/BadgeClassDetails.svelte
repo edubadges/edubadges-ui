@@ -486,7 +486,7 @@
                         </section>
                     </div>
                 {/if}
-                {#if badgeclass.stackable !== undefined}
+                {#if badgeclass.stackable === true}
                     <div class="group-item">
                         {@html stackableIcon}
                         <section class="items">
