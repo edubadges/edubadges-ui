@@ -61,7 +61,6 @@
           image,
           narrativeRequired,
           evidenceRequired,
-          gradeAchievedRequired,
           evidenceStudentRequired,
           narrativeStudentRequired,
           permissions { mayUpdate, mayAward }
