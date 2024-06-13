@@ -40,6 +40,7 @@ const requiredExtraCurricular = {
     image: true,
     description: true,
     extensions: {
+        LearningOutcomeExtension: true,
         TimeInvestmentExtension: true,
     },
     criteriaText: true,

@@ -736,6 +736,7 @@ I18n.translations.nl = {
                 timeInvestment: "Tijd investering toevoegen",
                 alignment: "Gerelateerd onderwijskundig raamwerk toevoegen",
                 alignmentAddition: "Nog een gerelateerd onderwijskundig raamwerk toevoegen",
+                alignmentInitialAddition: "Een gerelateerd onderwijskundig raamwerk toevoegen",
                 programmeIdentifier: "Opleidingscode toevoegen"
 
             },

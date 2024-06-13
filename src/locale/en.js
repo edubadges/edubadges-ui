@@ -736,6 +736,7 @@ I18n.translations.en = {
                 timeInvestment: "Add time investment",
                 alignment: "Add related educational framework",
                 alignmentAddition: "Add another related educational framework",
+                alignmentInitialAddition: "Add related educational framework",
                 programmeIdentifier: "Add programme identifier"
             },
             info: {

@@ -102,7 +102,7 @@
         const ectsValue = extensionValue(badgeclass.extensions, ects);
         let eqfValue = extensionValue(badgeclass.extensions, eqf);
         if (isCreate && !isCopy) {
-            eqfValue = {name: "EQF 5", value: 5};
+            eqfValue = null; //{name: "EQF 5", value: 5};
         } else if (eqfValue !== null) {
             eqfValue = eqfItems.find(item => item.value === eqfValue)
         }
@@ -379,7 +379,7 @@
             criteria_text: badgeclass.criteriaText,
             is_private: isPrivate,
             evidence_required: badgeclass.evidenceRequired,
-            award_non_validated_name_allowed : badgeclass.awardNonValidatedNameAllowed,
+            award_non_validated_name_allowed: badgeclass.awardNonValidatedNameAllowed,
             narrative_required: badgeclass.narrativeRequired,
             narrative_student_required: badgeclass.narrativeStudentRequired,
             evidence_student_required: badgeclass.evidenceStudentRequired,
@@ -923,6 +923,7 @@
                         items={eqfItems}
                         disabled={!mayEdit && !isCopy}
                         optionIdentifier="value"
+                        placeholder={I18n.t("newBadgeClassForm.form.placeHolder")}
                         showIndicator={false}
                         customIndicator={indicator}
                         showChevron={false}
@@ -982,100 +983,96 @@
                 {/if}
             </Field>
 
-            {#if badgeclass.badgeClassType !== badgeClassTypes.EXTRA_CURRICULAR}
+            <h4 class="one-row">{I18n.t("newBadgeClassForm.form.assessmentInformation")}</h4>
 
-                <h4 class="one-row">{I18n.t("newBadgeClassForm.form.assessmentInformation")}</h4>
+            <Field entity={entity}
+                   attribute="assessment"
+                   errors={errors.assessmentType}
+                   tipKey="badgeClassAssessmentType"
+                   isSelect={true}
+                   required={isRequired(badgeclass, "assessmentType")}>
+                <Select
+                        bind:value={badgeclass.assessmentType}
+                        items={assessmentOptions}
+                        disabled={upgradeKeysDisabled.assessmentType}
+                        optionIdentifier="value"
+                        isMulti={true}
+                        placeholder={I18n.t("newBadgeClassForm.form.placeHolder")}
+                        showIndicator={false}
+                        customIndicator={indicator}
+                        showChevron={false}
+                        clearable={!isRequired(badgeclass, "assessmentType")}/>
+            </Field>
+            <div>
+                <Switch value={badgeclass.assessmentSupervised}
+                        disabled={upgradeKeysDisabled.assessmentType || isEmpty(badgeclass.assessmentType)}
+                        label={I18n.t("newBadgeClassForm.form.assessment.supervision")}
+                        question={I18n.t("newBadgeClassForm.form.assessment.supervised")}
+                        onChange={() => badgeclass.assessmentSupervised = !badgeclass.assessmentSupervised}/>
+                <Switch value={badgeclass.assessmentIdVerified}
+                        disabled={upgradeKeysDisabled.assessmentType || isEmpty(badgeclass.assessmentType)}
+                        question={I18n.t("newBadgeClassForm.form.assessment.idVerification")}
+                        onChange={() => badgeclass.assessmentIdVerified = !badgeclass.assessmentIdVerified}/>
+            </div>
 
+            <h4 class="one-row">{I18n.t("newBadgeClassForm.form.qualityAssurance")}</h4>
+
+            <Field entity={entity}
+                   attribute="qualityAssuranceName"
+                   errors={errors.qualityAssuranceName}
+                   tipKey="qualityAssuranceName"
+                   required={isRequired(badgeclass, "qualityAssuranceName")}>
+                <TextInput bind:value={badgeclass.qualityAssuranceName}
+                           disabled={upgradeKeysDisabled.qualityAssuranceName || isMicroCredential}
+                           error={errors.qualityAssuranceName}
+                           placeholder={I18n.t("placeholders.badgeClass.qualityAssuranceName")}/>
+            </Field>
+
+            <Field entity={entity}
+                   attribute="qualityAssuranceUrl"
+                   errors={errors.qualityAssuranceUrl || errors.quality_assurance_url}
+                   tipKey="qualityAssuranceUrl"
+                   required={isRequired(badgeclass, "qualityAssuranceUrl")}>
+                <TextInput bind:value={badgeclass.qualityAssuranceUrl}
+                           disabled={upgradeKeysDisabled.qualityAssuranceUrl || isMicroCredential}
+                           onBlur={e => badgeclass.qualityAssuranceUrl = addProtocolToURL(e.target.value)}
+                           error={errors.qualityAssuranceUrl || errors.quality_assurance_url}
+                           placeholder={I18n.t("placeholders.badgeClass.qualityAssuranceUrl")}/>
+            </Field>
+
+            <div class="one-row">
+                {#if !upgradeKeysDisabled.qualityAssuranceDescription && !isMicroCredential }
+                    <MarkDownExample onClick={() => markDownExample("qualityAssuranceDescription")}
+                                     tipKey="qualityAssuranceDescription"/>
+                {/if}
                 <Field entity={entity}
-                       attribute="assessment"
-                       errors={errors.assessmentType}
-                       tipKey="badgeClassAssessmentType"
-                       isSelect={true}
-                       required={isRequired(badgeclass, "assessmentType")}>
-                    <Select
-                            bind:value={badgeclass.assessmentType}
-                            items={assessmentOptions}
-                            disabled={upgradeKeysDisabled.assessmentType}
-                            optionIdentifier="value"
-                            isMulti={true}
-                            placeholder={I18n.t("newBadgeClassForm.form.placeHolder")}
-                            showIndicator={false}
-                            customIndicator={indicator}
-                            showChevron={false}
-                            clearable={!isRequired(badgeclass, "assessmentType")}/>
-                </Field>
-                <div>
-                    <Switch value={badgeclass.assessmentSupervised}
-                            disabled={upgradeKeysDisabled.assessmentType || isEmpty(badgeclass.assessmentType)}
-                            label={I18n.t("newBadgeClassForm.form.assessment.supervision")}
-                            question={I18n.t("newBadgeClassForm.form.assessment.supervised")}
-                            onChange={() => badgeclass.assessmentSupervised = !badgeclass.assessmentSupervised}/>
-                    <Switch value={badgeclass.assessmentIdVerified}
-                            disabled={upgradeKeysDisabled.assessmentType || isEmpty(badgeclass.assessmentType)}
-                            question={I18n.t("newBadgeClassForm.form.assessment.idVerification")}
-                            onChange={() => badgeclass.assessmentIdVerified = !badgeclass.assessmentIdVerified}/>
-                </div>
-
-                <h4 class="one-row">{I18n.t("newBadgeClassForm.form.qualityAssurance")}</h4>
-
-                <Field entity={entity}
-                       attribute="qualityAssuranceName"
-                       errors={errors.qualityAssuranceName}
-                       tipKey="qualityAssuranceName"
-                       required={isRequired(badgeclass, "qualityAssuranceName")}>
-                    <TextInput bind:value={badgeclass.qualityAssuranceName}
-                               disabled={upgradeKeysDisabled.qualityAssuranceName || isMicroCredential}
-                               error={errors.qualityAssuranceName}
-                               placeholder={I18n.t("placeholders.badgeClass.qualityAssuranceName")}/>
-                </Field>
-
-                <Field entity={entity}
-                       attribute="qualityAssuranceUrl"
-                       errors={errors.qualityAssuranceUrl || errors.quality_assurance_url}
-                       tipKey="qualityAssuranceUrl"
-                       required={isRequired(badgeclass, "qualityAssuranceUrl")}>
-                    <TextInput bind:value={badgeclass.qualityAssuranceUrl}
-                               disabled={upgradeKeysDisabled.qualityAssuranceUrl || isMicroCredential}
-                               onBlur={e => badgeclass.qualityAssuranceUrl = addProtocolToURL(e.target.value)}
-                               error={errors.qualityAssuranceUrl || errors.quality_assurance_url}
-                               placeholder={I18n.t("placeholders.badgeClass.qualityAssuranceUrl")}/>
-                </Field>
-
-                <div class="one-row">
-                    {#if !upgradeKeysDisabled.qualityAssuranceDescription && !isMicroCredential }
-                        <MarkDownExample onClick={() => markDownExample("qualityAssuranceDescription")}
-                                         tipKey="qualityAssuranceDescription"/>
+                       attribute="qualityAssuranceDescription"
+                       errors={errors.qualityAssuranceDescription}
+                       tipKey="qualityAssuranceDescription"
+                       required={isRequired(badgeclass, "qualityAssuranceDescription")}>
+                    {#if isMicroCredential}
+                        <div class="required-micro-credential-framework">
+                            <p>{I18n.t(`newBadgeClassForm.requiredMicroCredentialFramework${isInstitutionMBO ? "MBO" : ""}`)}</p>
+                            <a class:less={showMicroCredentialQualityDescription}
+                               href="/toggle"
+                               on:click|preventDefault|stopPropagation={() => showMicroCredentialQualityDescription = !showMicroCredentialQualityDescription}>
+                                {I18n.t(`toggle.${!showMicroCredentialQualityDescription ? "showMore" : "showLess"}`) }
+                            </a>
+                        </div>
                     {/if}
-                    <Field entity={entity}
-                           attribute="qualityAssuranceDescription"
-                           errors={errors.qualityAssuranceDescription}
-                           tipKey="qualityAssuranceDescription"
-                           required={isRequired(badgeclass, "qualityAssuranceDescription")}>
-                        {#if isMicroCredential}
-                            <div class="required-micro-credential-framework">
-                                <p>{I18n.t(`newBadgeClassForm.requiredMicroCredentialFramework${isInstitutionMBO ? "MBO" : ""}`)}</p>
-                                <a class:less={showMicroCredentialQualityDescription}
-                                   href="/toggle"
-                                   on:click|preventDefault|stopPropagation={() => showMicroCredentialQualityDescription = !showMicroCredentialQualityDescription}>
-                                    {I18n.t(`toggle.${!showMicroCredentialQualityDescription ? "showMore" : "showLess"}`) }
-                                </a>
-                            </div>
-                        {/if}
-                        {#if showMicroCredentialQualityDescription || !isMicroCredential}
-                            <div class="mark-down-container"
-                                 class:disabled={upgradeKeysDisabled.qualityAssuranceDescription || isMicroCredential}
-                                 class:error={errors.qualityAssuranceDescription}>
-                                <MarkdownField
-                                        bind:value={badgeclass.qualityAssuranceDescription}
-                                        disableToggle={isMicroCredential}
-                                        disabled={upgradeKeysDisabled.qualityAssuranceDescription || isMicroCredential}
-                                />
-                            </div>
-                        {/if}
-                    </Field>
-                </div>
-
-            {/if}
+                    {#if showMicroCredentialQualityDescription || !isMicroCredential}
+                        <div class="mark-down-container"
+                             class:disabled={upgradeKeysDisabled.qualityAssuranceDescription || isMicroCredential}
+                             class:error={errors.qualityAssuranceDescription}>
+                            <MarkdownField
+                                    bind:value={badgeclass.qualityAssuranceDescription}
+                                    disableToggle={isMicroCredential}
+                                    disabled={upgradeKeysDisabled.qualityAssuranceDescription || isMicroCredential}
+                            />
+                        </div>
+                    {/if}
+                </Field>
+            </div>
 
             <h4 class="one-row">{I18n.t('models.badgeclass.headers.alignment')}</h4>
             {#each badgeclass.alignments as alignment, i}
@@ -1164,6 +1161,15 @@
                     </div>
                 {/if}
             {/each}
+            {#if isEmpty(badgeclass.alignments)}
+                <AddButton
+                        text={I18n.t('models.badgeclass.addButtons.alignmentInitialAddition')}
+                        handleClick={() => addEmptyAlignment()}
+                        visibility={showAddAlignmentButton}
+                        disabled={!mayEdit && !isCopy}
+                />
+            {/if}
+
             <h4 class="one-row">{I18n.t("newBadgeClassForm.form.awardSettings")}</h4>
             <Switch value={!badgeclass.directAwardingDisabled}
                     label={I18n.t("newBadgeClassForm.form.directAward.title")}
@@ -1171,16 +1177,9 @@
                     onChange={() => badgeclass.directAwardingDisabled = !badgeclass.directAwardingDisabled}/>
 
             <div class="separator">
-                {#if badgeclass.badgeClassType === badgeClassTypes.EXTRA_CURRICULAR}
-                <Switch value={badgeclass.awardNonValidatedNameAllowed}
-                        disabled={badgeclass.directAwardingDisabled}
-                        label={I18n.t("newBadgeClassForm.form.directAward.details")}
-                        question={I18n.t("newBadgeClassForm.form.directAward.awardNonValidatedNameAllowed")}
-                        onChange={() => badgeclass.awardNonValidatedNameAllowed = !badgeclass.awardNonValidatedNameAllowed}/>
-                {/if}
                 <Switch value={badgeclass.evidenceRequired}
                         disabled={badgeclass.directAwardingDisabled}
-                        label={badgeclass.badgeClassType === badgeClassTypes.EXTRA_CURRICULAR ? null : I18n.t("newBadgeClassForm.form.directAward.details")}
+                        label={I18n.t("newBadgeClassForm.form.directAward.details")}
                         question={I18n.t("newBadgeClassForm.form.directAward.evidenceURL")}
                         onChange={() => badgeclass.evidenceRequired = !badgeclass.evidenceRequired}/>
                 <Switch value={badgeclass.narrativeRequired}
@@ -1197,9 +1196,17 @@
                     onChange={() => badgeclass.selfEnrollmentDisabled = !badgeclass.selfEnrollmentDisabled}/>
 
             <div class="separator">
+                {#if badgeclass.badgeClassType === badgeClassTypes.EXTRA_CURRICULAR}
+                    <Switch value={badgeclass.awardNonValidatedNameAllowed}
+                            disabled={badgeclass.selfEnrollmentDisabled}
+                            label={I18n.t("newBadgeClassForm.form.selfEnrollment.details")}
+                            question={I18n.t("newBadgeClassForm.form.directAward.awardNonValidatedNameAllowed")}
+                            onChange={() => badgeclass.awardNonValidatedNameAllowed = !badgeclass.awardNonValidatedNameAllowed}/>
+                {/if}
+
                 <Switch value={badgeclass.evidenceStudentRequired}
                         disabled={badgeclass.selfEnrollmentDisabled}
-                        label={I18n.t("newBadgeClassForm.form.selfEnrollment.details")}
+                        label={badgeclass.badgeClassType === badgeClassTypes.EXTRA_CURRICULAR ? null : I18n.t("newBadgeClassForm.form.selfEnrollment.details")}
                         question={I18n.t("newBadgeClassForm.form.selfEnrollment.evidenceURL")}
                         onChange={() => badgeclass.evidenceStudentRequired = !badgeclass.evidenceStudentRequired}/>
                 <Switch value={badgeclass.narrativeStudentRequired}
