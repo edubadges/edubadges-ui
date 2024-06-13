@@ -16,11 +16,14 @@
   let showLoginCards = true;
   let badgeInstancesCount = "?";
   let badgeClassesCount = "?";
+  let forceLogin = false;
 
   onMount(() => {
     if ($userRole && $userLoggedIn) {
       navigate('/')
     } else {
+      const urlSearchParams = new URLSearchParams(window.location.search);
+      forceLogin = urlSearchParams.has("force");
       queryData("query {badgeInstancesCount, badgeClassesCount}").then(res => {
         badgeInstancesCount = res.badgeInstancesCount;
         badgeClassesCount = res.badgeClassesCount;
@@ -28,14 +31,14 @@
     }
   });
 
-  const logIn = chosenRole => {
+  const logIn = (chosenRole, force = false) => {
     $userRole = chosenRole;
     const path = $redirectPath;
     const service = getService(chosenRole);
 
     const urlSearchParams = new URLSearchParams(window.location.search);
     const validateName = urlSearchParams.get("validateName");
-    requestLoginToken(service, validateName === "true" || path.indexOf("direct-awards") > -1);
+    requestLoginToken(service, validateName === "true" || path.indexOf("direct-awards") > -1, force);
   };
 
   const toggleLoginCreateAccount = () => (showLoginCards = !showLoginCards);
@@ -161,7 +164,7 @@
         <h4>{I18n.t('login.teacher.subtitle')}</h4>
         <LoginButton
           label={I18n.t('login.teacher.action')}
-          onClick={() => logIn(role.TEACHER)}/>
+          onClick={() => logIn(role.TEACHER, forceLogin)}/>
       </Card>
       <CardSubtext
         hidden={!showLoginCards}
@@ -203,7 +206,7 @@
         <div class="login">
           <LoginButton
             label={I18n.t('login.student.action')}
-            onClick={() => logIn(role.STUDENT)}/>
+            onClick={() => logIn(role.STUDENT, forceLogin)}/>
 
         </div>
       </Card>

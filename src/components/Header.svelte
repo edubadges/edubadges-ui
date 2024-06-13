@@ -35,10 +35,10 @@
         logoutCurrentUser()
             .then(() => {
                 doLogOut();
-                navigate("/login");
+                navigate("/login?force=true");
             }).catch(() => {
             doLogOut()
-            navigate("/login");
+            navigate("/login?force=true");
         });
     }
 
