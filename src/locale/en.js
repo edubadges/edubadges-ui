@@ -1371,7 +1371,7 @@ I18n.translations.en = {
             contact: "Contact the issuer",
             website: "Visit issuer website",
             gradingTable: "View the grading table",
-            institution: "<span>Part of <a href=\"{{link}}\" target=\"_blank\">{{name}}</a></span>"
+            institution: "<span>Part of <a href=\"{{link}}\" target=\"_blank\">{{name}}</a> ({{countryCode}})</span>"
         }
     },
     badgeAwardOptions: {

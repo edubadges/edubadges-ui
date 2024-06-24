@@ -48,7 +48,8 @@
           nameDutch,
           entityId,
           brin,
-          gradingTable
+          gradingTable,
+          countryCode
         }
       },
       publicBadgeclasses {
@@ -133,6 +134,10 @@
     padding: 40px 140px;
   }
 
+  span.institution-slot {
+      margin-top: 8px;
+  }
+
   div.page-container {
     width: 100%;
 
@@ -196,10 +201,11 @@
                 hasDescription={true}
                 visitorRole={visitorRole}
                 entityId={entityId}>
-      <span slot="institution">
+      <span slot="institution" class="institution-slot">
         {@html I18n.t("catalog.issuer.institution", {
             name: issuer.faculty.institution.name,
-            link: `/public/institutions/${issuer.faculty.institution.entityId}`
+            link: `/public/institutions/${issuer.faculty.institution.entityId}`,
+            countryCode: issuer.faculty.institution.countryCode,
         })}
 	    </span>
             <section class="icons">

@@ -1372,7 +1372,7 @@ I18n.translations.nl = {
             contact: "Neem contact op met de issuer",
             website: "Bezoek issuer website",
             gradingTable: "Bekijk de grading tabel",
-            institution: "<span>Onderdeel van <a href=\"{{link}}\" target=\"_blank\">{{name}}</a></span>"
+            institution: "<span>Onderdeel van <a href=\"{{link}}\" target=\"_blank\">{{name}}</a> ({{countryCode}})</span>"
         }
     },
     badgeAwardOptions: {
