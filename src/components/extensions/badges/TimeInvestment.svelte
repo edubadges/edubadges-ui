@@ -10,11 +10,11 @@
     export let disabled = false;
 
     const decrement = () => {
-        timeInvestment = Math.max((timeInvestment || 0) - 1, 1);
+        timeInvestment = Math.max((timeInvestment || 0) - 1, minValue);
     }
 
     const increment = () => {
-        timeInvestment = Math.min(84, (timeInvestment || 0) + 1, 840);
+        timeInvestment = Math.min((timeInvestment || 0) + 1, maxValue);
     }
 
     const onInput = e => {

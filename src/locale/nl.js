@@ -747,6 +747,7 @@ I18n.translations.nl = {
                 ects: "Alleen hele en halve punten. <br/>Een minimum van 0,5 punt is vereist.",
                 ectsMicroCredentials: "Alleen hele en halve punten. Valide waarde is tussen de 3 en 30 punten.",
                 studyLoad: "Alleen hele uren. Valide waarde is tussen de 84 en 840 uren.",
+                studyLoadMBO: "Alleen hele uren. Valide waarde is tussen de 240 en 840 uren.",
                 timeInvestment: "Alleen hele uren. Valide waarde is tussen de 84 en 840 uren.",
             },
             publicUrl: "Publieke URL",

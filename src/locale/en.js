@@ -746,6 +746,7 @@ I18n.translations.en = {
                 ects: "Whole and half points only. Valid value between 0.5 and 240 points.",
                 ectsMicroCredentials: "Whole and half points only. Valid value between 3 and 30 points.",
                 studyLoad: "Whole hours only. Valid value between 84 and 840 hours.",
+                studyLoadMBO: "Whole hours only. Valid value between 240 and 840 hours.",
                 timeInvestment: "Whole hours only. Valid value between 84 and 840 hours.",
             },
             publicUrl: "Public URL",

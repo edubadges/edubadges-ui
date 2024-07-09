@@ -2,15 +2,23 @@
     import I18n from "i18n-js";
     import arrowDown from "../../../icons/forms/arrow-down.svg";
     import arrowUp from "../../../icons/forms/arrow-up.svg";
-
-    const minValue = 84;
-    const maxValue = 840;
+    import {onMount} from "svelte";
 
     export let studyLoad = minValue;
     export let disabled = false;
+    export let isInstitutionMBO = false;
+
+    let minValue = 84;
+    let maxValue = 840;
+
+    onMount(() => {
+        minValue = isInstitutionMBO ? 240 : 84;
+        //Superfluous, but for future differentiation
+        maxValue = isInstitutionMBO ? 840 : 840;
+    });
 
     const decrement = () => {
-        studyLoad = Math.max((studyLoad || minValue + 1) - 1, 1);
+        studyLoad = Math.max((studyLoad || 0) - 1, minValue);
     }
 
     const increment = () => {
@@ -70,7 +78,6 @@
     }
 
     p.info {
-        display: none;
         font-size: 14px;
     }
 
@@ -119,4 +126,4 @@
            on:change={onInput}/>
     <span class="control" on:click={increment}>{@html arrowUp}</span>
 </div>
-<p class="info">{@html I18n.t("models.badgeclass.info.studyLoad")}</p>
+<p class="info">{@html I18n.t(`models.badgeclass.info.${isInstitutionMBO ? "studyLoadMBO" : "studyLoad"}`)}</p>

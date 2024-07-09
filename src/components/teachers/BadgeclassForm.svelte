@@ -212,7 +212,7 @@
             badgeclass.selfEnrollmentDisabled = false;
             badgeclass.directAwardingDisabled = false;
             if (isInstitutionMBO) {
-                extensions[studyLoad.name] = 84;
+                extensions[studyLoad.name] = 240;
             } else {
                 switch (badgeclass.badgeClassType) {
                     case badgeClassTypes.MICRO_CREDENTIAL: {
@@ -284,7 +284,7 @@
     const switchStudyLoad = val => {
         showStudyLoad = !val;
         if (showStudyLoad) {
-            extensions[studyLoad.name] = 84;
+            extensions[studyLoad.name] = isInstitutionMBO ? 240 : 84;
             delete extensions[ects.name];
 
         } else {
@@ -848,6 +848,7 @@
                        required={isRequired(badgeclass, `extensions.${studyLoad.name}`)}>
                     <StudyLoad
                             bind:studyLoad={extensions[studyLoad.name]}
+                            isInstitutionMBO={isInstitutionMBO}
                             disabled={!mayEdit && !isCopy}
                     />
                 </Field>
@@ -860,6 +861,7 @@
                            required={isRequired(badgeclass, `extensions.${studyLoad.name}`)}>
                         <StudyLoad
                                 bind:studyLoad={extensions[studyLoad.name]}
+                                isInstitutionMBO={isInstitutionMBO}
                                 disabled={!mayEdit && !isCopy}
                         />
                         <a href="/#"
