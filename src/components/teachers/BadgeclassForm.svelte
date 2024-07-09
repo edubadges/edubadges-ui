@@ -707,7 +707,8 @@
             issuer={badgeclass.issuer}
             faculty={badgeclass.issuer.faculty}
             badgeclass={isCreate ? null : badgeclass}
-            badgeclassName={isCreate ? " - " + I18n.t(`newBadgeClassForm.modal.types.${badgeclass.badgeClassType}`) : badgeclass.name}
+            badgeclassName={isCreate ? "" : badgeclass.name}
+            badgeclassPostfix={" - " + I18n.t(`newBadgeClassForm.modal.types.${badgeclass.badgeClassType}`)}
             submit={onSubmit}
             create={isCreate}
             cancel={mayEdit ? saveDraft :  window.history.back}

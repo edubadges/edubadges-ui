@@ -11,6 +11,7 @@
     export let issuer;
     export let badgeclass;
     export let badgeclassName = "";
+    export let badgeclassPostfix = null;
     export let mayDelete;
     export let hasUnrevokedAssertions;
     export let mayEdit = true;
@@ -111,12 +112,18 @@
         {issuer}
         {badgeclass}
         {badgeclassName}
+        badgeclassPostfix={badgeclassPostfix}
         edit={!create}
         {create}
         copy={action === "copy"}
         entity={entityTypeName}/>
 
-<h2>{I18n.t(['manage', action === "copy" ? 'copy' : create ? 'new' : 'edit', entityTypeName], {name: badgeclassName})}</h2>
+<h2>
+    {I18n.t(['manage', action === "copy" ? 'copy' : create ? 'new' : 'edit', entityTypeName], {name: badgeclassName})}
+    {#if badgeclassPostfix}
+        {badgeclassPostfix}
+    {/if}
+</h2>
 <div class="main-content-margin" class:badge-class={entityType.BADGE_CLASS === entityTypeName}>
     <div class="offset">
         <slot/>
