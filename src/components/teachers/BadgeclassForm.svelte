@@ -117,19 +117,17 @@
         }
         extensions = {
             [language.name]: extensionValue(badgeclass.extensions, language) || "en_EN",
-            [ects.name]: ectsValue || (isCreate ? (badgeclass.isMicroCredentials ? 5 : 3) : ""),
+            [ects.name]: ectsValue || (isCreate ? (badgeclass.isMicroCredentials ? 5 : badgeclass.badgeClassType !== badgeClassTypes.EXTRA_CURRICULAR ? 3 : null) : null),
             [eqf.name]: eqfValue,
             [learningOutcome.name]: extensionValue(badgeclass.extensions, learningOutcome) || "",
             [educationProgramIdentifier.name]: programmeIdentifiers,
-            [studyLoad.name]: studyLoadValue || "",
+            [studyLoad.name]: studyLoadValue || null,
         };
         if (extensions[eqf.name] && typeof extensions[eqf.name] === "number") {
             extensions[eqf.name] = {name: `EQF ${extensions[eqf.name]}`, value: extensions[eqf.name]}
         }
-        const timeInvestmentValue = extensionValue(badgeclass.extensions, timeInvestment) || 0;
-        if ((isCreate && !isCopy) || timeInvestmentValue !== 0) {
-            extensions[timeInvestment.name] = timeInvestmentValue;
-        }
+        const timeInvestmentValue = extensionValue(badgeclass.extensions, timeInvestment) || null;
+        extensions[timeInvestment.name] = timeInvestmentValue === 0 ? null : timeInvestmentValue;
 
         if (!badgeclass.alignments) {
             badgeclass.alignments = []
@@ -227,7 +225,7 @@
                     }
                     case badgeClassTypes.EXTRA_CURRICULAR: {
                         badgeclass.formal = false;
-                        extensions[timeInvestment.name] = 84;
+                        extensions[timeInvestment.name] = null;
                         break;
                     }
                 }
@@ -238,7 +236,6 @@
             const val = badgeclass[key];
             upgradeKeysDisabled[key] = !mayEdit && !isEmpty(val) && !isCopy;
         });
-
         loading = false;
     });
 
@@ -437,12 +434,13 @@
             const eqfIdentifiers = extensionToJson(extensionValues);
             newBadgeclass.extensions = {...newBadgeclass.extensions, ...eqfIdentifiers};
         }
-        if (badgeclass.badgeClassType === badgeClassTypes.EXTRA_CURRICULAR) {
+        const timeInvestmentValue = extensions[timeInvestment.name];
+        if (badgeclass.badgeClassType === badgeClassTypes.EXTRA_CURRICULAR && !isEmpty(timeInvestmentValue)) {
             newBadgeclass.extensions = {
                 ...newBadgeclass.extensions,
                 ...extensionToJson([{
                     name: timeInvestment.name,
-                    value: parseInt(extensions[timeInvestment.name])
+                    value: parseInt(timeInvestmentValue)
                 }])
             }
         } else {
@@ -451,7 +449,7 @@
                     ...newBadgeclass.extensions,
                     ...extensionToJson([{name: studyLoad.name, value: parseInt(extensions[studyLoad.name])}])
                 };
-            } else {
+            } else if (!isEmpty(extensions[ects.name])) {
                 newBadgeclass.extensions = {
                     ...newBadgeclass.extensions,
                     ...extensionToJson([{name: ects.name, value: extensions[ects.name]}])

@@ -748,6 +748,7 @@ I18n.translations.en = {
                 studyLoad: "Whole hours only. Valid value between 84 and 840 hours.",
                 studyLoadMBO: "Whole hours only. Valid value between 240 and 840 hours.",
                 timeInvestment: "Whole hours only. Valid value between 84 and 840 hours.",
+                timeInvestmentOptional: "Optional. Whole hours only, valid value between 84 and 840 hours.",
             },
             publicUrl: "Public URL",
             sorting: "Sorting:",

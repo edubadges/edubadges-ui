@@ -2,11 +2,12 @@
     import I18n from "i18n-js";
     import arrowDown from "../../../icons/forms/arrow-down.svg";
     import arrowUp from "../../../icons/forms/arrow-up.svg";
+    import {isEmpty} from "../../../util/utils";
 
     const minValue = 84;
     const maxValue = 840;
 
-    export let timeInvestment = 84;
+    export let timeInvestment = null;
     export let disabled = false;
 
     const decrement = () => {
@@ -14,21 +15,30 @@
     }
 
     const increment = () => {
-        timeInvestment = Math.min((timeInvestment || 0) + 1, maxValue);
+        timeInvestment = Math.min((timeInvestment || minValue) + 1, maxValue);
     }
 
     const onInput = e => {
-        const val = parseInt(e.target.value, 10);
-        if (val < 0 || val > maxValue) {
-            timeInvestment = minValue;
+        const value = e.target.value;
+        if (isEmpty(value)) {
+            timeInvestment = null;
+        } else {
+            const val = parseInt(value, 10);
+            if (val < 0 || val > maxValue) {
+                timeInvestment = minValue;
+            } else {
+                timeInvestment = val;
+            }
         }
     }
 
     const onBlur = e => {
-        const val = Math.round(parseInt(e.target.value, 10));
-        const valFloat = parseFloat(e.target.value);
-        if (val < minValue || val > maxValue || val !== valFloat) {
-            timeInvestment = minValue;
+        if (!isEmpty(e.target.value)) {
+            const val = Math.round(parseInt(e.target.value, 10));
+            const valFloat = parseFloat(e.target.value);
+            if (val < minValue || val > maxValue || val !== valFloat) {
+                timeInvestment = minValue;
+            }
         }
     }
 
@@ -110,9 +120,9 @@
            step="1"
            placeholder={I18n.t("placeholders.badgeClass.timeInvestment")}
            class="value"
-           bind:value={timeInvestment}
+           value={timeInvestment === 0 ? null : timeInvestment}
            on:blur={onBlur}
            on:change={onInput}/>
     <span class="control" on:click={increment}>{@html arrowUp}</span>
 </div>
-<p class="info">{@html I18n.t("models.badgeclass.info.timeInvestment")}</p>
+<p class="info">{@html I18n.t("models.badgeclass.info.timeInvestmentOptional")}</p>

@@ -749,6 +749,7 @@ I18n.translations.nl = {
                 studyLoad: "Alleen hele uren. Valide waarde is tussen de 84 en 840 uren.",
                 studyLoadMBO: "Alleen hele uren. Valide waarde is tussen de 240 en 840 uren.",
                 timeInvestment: "Alleen hele uren. Valide waarde is tussen de 84 en 840 uren.",
+                timeInvestmentOptional: "Optioneel. Alleen hele uren, valide waarde is tussen de 84 en 840 uren.",
             },
             publicUrl: "Publieke URL",
             sorting: "Sorteer:",
