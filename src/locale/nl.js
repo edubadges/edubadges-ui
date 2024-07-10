@@ -1206,6 +1206,7 @@ I18n.translations.nl = {
             learningOutcome: "Bijv. Je bent in staat antieke bronnen, maar ook moderne teksten, te lezen en interpreteren en hebt zo een overzicht van alle belangrijke ontwikkelingen.",
             criteriaText: "Bijv. online multiple choice tentamen",
             studyLoad: "Bijv. 120",
+            studyLoadMBO: "Bijv. 240",
             timeInvestment: "Bijv. 260",
             status: {
                 name: "Status",

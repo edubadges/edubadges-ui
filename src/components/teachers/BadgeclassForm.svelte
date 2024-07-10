@@ -209,7 +209,8 @@
             badgeclass.gradeAchievedRequired = false;
             badgeclass.selfEnrollmentDisabled = false;
             badgeclass.directAwardingDisabled = false;
-            if (isInstitutionMBO) {
+            // For EXTRA_CURRICULAR the study load is optional
+            if (isInstitutionMBO && badgeclass.badgeClassType !== badgeClassTypes.EXTRA_CURRICULAR) {
                 extensions[studyLoad.name] = 240;
             } else {
                 switch (badgeclass.badgeClassType) {
@@ -848,6 +849,7 @@
                     <StudyLoad
                             bind:studyLoad={extensions[studyLoad.name]}
                             isInstitutionMBO={isInstitutionMBO}
+                            isOptional={badgeclass.badgeClassType === badgeClassTypes.EXTRA_CURRICULAR}
                             disabled={!mayEdit && !isCopy}
                     />
                 </Field>

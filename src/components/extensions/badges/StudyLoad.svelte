@@ -3,10 +3,12 @@
     import arrowDown from "../../../icons/forms/arrow-down.svg";
     import arrowUp from "../../../icons/forms/arrow-up.svg";
     import {onMount} from "svelte";
+    import {isEmpty} from "../../../util/utils";
 
-    export let studyLoad = minValue;
+    export let studyLoad = null;
     export let disabled = false;
     export let isInstitutionMBO = false;
+    export let isOptional = false;
 
     let minValue = 84;
     let maxValue = 840;
@@ -26,17 +28,31 @@
     }
 
     const onInput = e => {
-        const val = parseInt(e.target.value, 10);
-        if (val < 0 || val > maxValue) {
-            studyLoad = 84;
+        const value = e.target.value;
+        if (isEmpty(value) && isOptional) {
+            studyLoad = null;
+        } else {
+            const val = isEmpty(value) ? minValue : parseInt(value, 10);
+            if (val < 0 || val > maxValue) {
+                studyLoad = minValue;
+            } else {
+                studyLoad = val;
+            }
         }
     }
 
     const onBlur = e => {
-        const val = parseInt(e.target.value, 10);
-        const valFloat = parseFloat(e.target.value);
-        if (val < minValue || val > maxValue || val !== valFloat) {
-            studyLoad = 84;
+        let emptyValue = isEmpty(e.target.value);
+        if (emptyValue && isOptional) {
+            studyLoad = null;
+        } else if (emptyValue && !isOptional) {
+            studyLoad = minValue;
+        } else {
+            const val = Math.round(parseInt(e.target.value, 10));
+            const valFloat = parseFloat(e.target.value);
+            if (val < minValue || val > maxValue || val !== valFloat) {
+                studyLoad = minValue;
+            }
         }
     }
 
@@ -119,9 +135,9 @@
            max="840"
            min="84"
            step="1"
-           placeholder={I18n.t("placeholders.badgeClass.studyLoad")}
+           placeholder={I18n.t(`placeholders.badgeClass.${isInstitutionMBO ? "studyLoadMBO" : "studyLoad"}`)}
            class="value"
-           bind:value={studyLoad}
+           value={studyLoad === 0 ? null : studyLoad}
            on:blur={onBlur}
            on:change={onInput}/>
     <span class="control" on:click={increment}>{@html arrowUp}</span>

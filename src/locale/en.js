@@ -1205,6 +1205,7 @@ I18n.translations.en = {
             learningOutcome: "e.g. is able to read and interpret ancient sources as well as modern texts, and demonstrates a good overview of the important developments of this time period.",
             criteriaText: "(Either criteria or criteria URL is required) e.g. online multiple choice exam",
             studyLoad: "e.g. 120",
+            studyLoadMBO: "e.g. 240",
             timeInvestment: "e.g. 260",
             status: {
                 name: "Status",
