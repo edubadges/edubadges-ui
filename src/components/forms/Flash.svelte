@@ -23,6 +23,12 @@
       background-color: var(--red-dark);
     }
 
+    &.warning {
+      background-color: var(--yellow-medium);
+      color:  black;
+      transition: none;
+    }
+
     .message-container p {
       padding: 10px 25px 0 20px;
       font-size: 16px;
@@ -50,9 +56,11 @@
   }
 </style>
 
-<div class="flash" class:hide={!$flash.val} class:error={$flash.level == msgLevel.ERROR}>
+<div class="flash" class:hide={!$flash.val}
+     class:error={$flash.level == msgLevel.ERROR}
+     class:warning={$flash.level == msgLevel.WARNING}>
   <span class="close" class:hide={!$flash.val} on:click={() => flash.setValue("")}>{@html closeIcon}</span>
   <div class="message-container">
-    <p>{$flash.val}</p>
+    <p>{@html $flash.val}</p>
   </div>
 </div>
