@@ -449,10 +449,16 @@
                 }])
             }
         } else {
-            if (showStudyLoad || isInstitutionMBO) {
+            if (isInstitutionMBO) {
                 newBadgeclass.extensions = {
                     ...newBadgeclass.extensions,
                     ...extensionToJson([{name: studyLoad.name, value: parseInt(extensions[studyLoad.name])}])
+                };
+            }
+            else if (showStudyLoad) {
+                newBadgeclass.extensions = {
+                    ...newBadgeclass.extensions,
+                    ...extensionToJson([{name: timeInvestment.name, value: parseInt(extensions[timeInvestment.name])}])
                 };
             } else if (!isEmpty(extensions[ects.name])) {
                 newBadgeclass.extensions = {
