@@ -3,12 +3,21 @@
     import arrowDown from "../../../icons/forms/arrow-down.svg";
     import arrowUp from "../../../icons/forms/arrow-up.svg";
     import {isEmpty} from "../../../util/utils";
-
-    const minValue = 84;
-    const maxValue = 840;
+    import {badgeClassTypes} from "../../../util/badgeClassTypes";
+    import {onMount} from "svelte";
 
     export let timeInvestment = null;
     export let disabled = false;
+    export let badgeClassType = badgeClassTypes.EXTRA_CURRICULAR;
+    export let isOptional = true;
+
+    let minValue = 84;
+    let maxValue = 840;
+
+    onMount(() => {
+        minValue = badgeClassType === badgeClassTypes.MICRO_CREDENTIAL ? 84 : 1;
+        maxValue = badgeClassType === badgeClassTypes.MICRO_CREDENTIAL ? 840 : Number.MAX_VALUE;
+    });
 
     const decrement = () => {
         timeInvestment = Math.max((timeInvestment || 0) - 1, minValue);
@@ -22,8 +31,9 @@
         const value = e.target.value;
         if (isEmpty(value)) {
             timeInvestment = null;
+            e.target.value = null;
         } else {
-            const val = parseInt(value, 10);
+            const val = isEmpty(value) ? minValue : parseInt(value, 10);
             if (val < 0 || val > maxValue) {
                 timeInvestment = minValue;
             } else {
@@ -32,12 +42,19 @@
         }
     }
 
-    const onBlur = e => {
-        if (!isEmpty(e.target.value)) {
+        const onBlur = e => {
+        let emptyValue = isEmpty(e.target.value);
+        if (emptyValue && isOptional) {
+            timeInvestment = null;
+        } else if (emptyValue && !isOptional) {
+            timeInvestment = minValue;
+            e.target.value = minValue;
+        } else {
             const val = Math.round(parseInt(e.target.value, 10));
             const valFloat = parseFloat(e.target.value);
             if (val < minValue || val > maxValue || val !== valFloat) {
                 timeInvestment = minValue;
+                e.target.value = minValue;
             }
         }
     }
@@ -125,4 +142,4 @@
            on:change={onInput}/>
     <span class="control" on:click={increment}>{@html arrowUp}</span>
 </div>
-<p class="info">{@html I18n.t("models.badgeclass.info.timeInvestmentOptional")}</p>
+<p class="info">{@html I18n.t(`models.badgeclass.info.timeInvestment${isOptional ? "Optional" : ""}`)}</p>

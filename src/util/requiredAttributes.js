@@ -11,7 +11,7 @@ const requiredMicroCredentials = {
         EQFExtension: true,
         //Not both of them are required, but the UI can handle this as only one is visible
         ECTSExtension: true,
-        StudyLoadExtension: true
+        TimeInvestmentExtension: true
     },
     criteriaText: true,
     participation: true,

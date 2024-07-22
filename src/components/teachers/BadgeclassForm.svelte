@@ -117,7 +117,7 @@
         }
         extensions = {
             [language.name]: extensionValue(badgeclass.extensions, language) || "en_EN",
-            [ects.name]: ectsValue || (isCreate ? (badgeclass.isMicroCredentials ? 5 : badgeclass.badgeClassType !== badgeClassTypes.EXTRA_CURRICULAR ? 3 : null) : null),
+            [ects.name]: ectsValue || (isCreate ? (badgeclass.isMicroCredentials ? 3 : badgeclass.badgeClassType !== badgeClassTypes.EXTRA_CURRICULAR ? 3 : null) : null),
             [eqf.name]: eqfValue,
             [learningOutcome.name]: extensionValue(badgeclass.extensions, learningOutcome) || "",
             [educationProgramIdentifier.name]: programmeIdentifiers,
@@ -188,7 +188,7 @@
             badgeclass.qualityAssuranceUrl = framework.url;
             badgeclass.qualityAssuranceDescription = framework.description;
         }
-        badgeclass.formal = badgeclass.badgeClassType !== badgeClassTypes.EXTRA_CURRICULAR;
+        badgeclass.formal = badgeclass.badgeClassType === badgeClassTypes.REGULAR;
         if (!isCreate || isCopy) {
             if (isMicroCredential) {
                 showStudyLoad = isEmpty(extensions[ects.name]);
@@ -210,13 +210,17 @@
             badgeclass.selfEnrollmentDisabled = false;
             badgeclass.directAwardingDisabled = false;
             // For EXTRA_CURRICULAR the study load is optional
-            if (isInstitutionMBO && badgeclass.badgeClassType !== badgeClassTypes.EXTRA_CURRICULAR) {
-                extensions[studyLoad.name] = 240;
+            if (isInstitutionMBO) {
+                if (badgeclass.badgeClassType === badgeClassTypes.MICRO_CREDENTIAL) {
+                    extensions[studyLoad.name] = 240;
+                } else if (badgeclass.badgeClassType === badgeClassTypes.REGULAR) {
+                    extensions[studyLoad.name] = 24;
+                }
             } else {
                 switch (badgeclass.badgeClassType) {
                     case badgeClassTypes.MICRO_CREDENTIAL: {
                         badgeclass.formal = false;
-                        extensions[ects.name] = 5;
+                        extensions[ects.name] = 3;
                         break;
                     }
                     case badgeClassTypes.REGULAR: {
@@ -243,12 +247,12 @@
     const performValidation = isPrivate => {
         badgeclass.isPrivate = isPrivate;
         const allErrors = constructErrors(badgeclass, extensions);
-        //Hack for micro_credentials, that has an option between StudyLoadExtension and ECTSExtension
+        //Hack for micro_credentials, that has an option between TimeInvestmentExtension and ECTSExtension
         if (isMicroCredential) {
             if (showStudyLoad) {
                 delete allErrors[`extensions.${ects.name}`]
             } else {
-                delete allErrors[`extensions.${studyLoad.name}`]
+                delete allErrors[`extensions.${timeInvestment.name}`]
             }
         }
         return allErrors;
@@ -282,12 +286,12 @@
     const switchStudyLoad = val => {
         showStudyLoad = !val;
         if (showStudyLoad) {
-            extensions[studyLoad.name] = isInstitutionMBO ? 240 : 84;
+            extensions[timeInvestment.name] = badgeclass.isMicroCredentials ? 84 : null;
             delete extensions[ects.name];
 
         } else {
-            extensions[ects.name] = badgeclass.isMicroCredentials ? 5 : 3;
-            delete extensions[studyLoad.name];
+            extensions[ects.name] = 3;
+            delete extensions[timeInvestment.name];
         }
     }
 
@@ -719,9 +723,9 @@
             {processing}>
 
         <div class="form">
-            <!--            <p>{JSON.stringify(errors)}</p>-->
-            <!--            <p></p>-->
-            <!--            <p>{JSON.stringify(badgeclass.name)}</p>-->
+                        <p>{JSON.stringify(errors)}</p>
+                        <p></p>
+                        <p>{JSON.stringify(badgeclass.name)}</p>
             <h4 class="one-row">{I18n.t("models.badgeclass.headers.basicInformation")}</h4>
 
             <div>
@@ -848,7 +852,7 @@
                        required={isRequired(badgeclass, `extensions.${studyLoad.name}`)}>
                     <StudyLoad
                             bind:studyLoad={extensions[studyLoad.name]}
-                            isInstitutionMBO={isInstitutionMBO}
+                            badgeClassType={badgeclass.badgeClassType}
                             isOptional={badgeclass.badgeClassType === badgeClassTypes.EXTRA_CURRICULAR}
                             disabled={!mayEdit && !isCopy}
                     />
@@ -857,13 +861,14 @@
                 {#if showStudyLoad}
                     <Field entity={entity}
                            attribute="hours"
-                           errors={errors[`extensions.${studyLoad.name}`]}
+                           errors={errors[`extensions.${timeInvestment.name}`]}
                            tipKey="badgeClassStudyLoadNumber"
-                           required={isRequired(badgeclass, `extensions.${studyLoad.name}`)}>
-                        <StudyLoad
-                                bind:studyLoad={extensions[studyLoad.name]}
-                                isInstitutionMBO={isInstitutionMBO}
-                                disabled={!mayEdit && !isCopy}
+                           required={isRequired(badgeclass, `extensions.${timeInvestment.name}`)}>
+                        <TimeInvestment
+                            bind:timeInvestment={extensions[timeInvestment.name]}
+                            badgeClassType={badgeclass.badgeClassType}
+                            isOptional={badgeclass.badgeClassType === badgeClassTypes.EXTRA_CURRICULAR}
+                            disabled={!mayEdit && !isCopy}
                         />
                         <a href="/#"
                            class="info"
@@ -907,13 +912,21 @@
                        errors={errors[`extensions.${timeInvestment.name}`]}
                        tipKey="badgeClassTimeInvestmentNumber"
                        required={isRequired(badgeclass, `extensions.${timeInvestment.name}`)}>
-                    <TimeInvestment
+                        <TimeInvestment
                             bind:timeInvestment={extensions[timeInvestment.name]}
+                            badgeClassType={badgeclass.badgeClassType}
+                            isOptional={badgeclass.badgeClassType === badgeClassTypes.EXTRA_CURRICULAR}
                             disabled={!mayEdit && !isCopy}
-                    />
+                        />
                 </Field>
-
             {/if}
+                <div>
+                        <p>isInstitutionMBO: {isInstitutionMBO.toString()}</p>
+                        <p>badgeclass.badgeClassType: {badgeclass.badgeClassType}</p>
+                        <p>Studyload: {extensions[studyLoad.name]}</p>
+                        <p>ECTS: {extensions[ects.name]}</p>
+                        <p>timeInvestment: {extensions[timeInvestment.name]}</p>
+                    </div>
 
             <Field entity={entity}
                    attribute="eqf"

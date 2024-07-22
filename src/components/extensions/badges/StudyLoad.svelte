@@ -4,19 +4,17 @@
     import arrowUp from "../../../icons/forms/arrow-up.svg";
     import {onMount} from "svelte";
     import {isEmpty} from "../../../util/utils";
+    import {badgeClassTypes} from "../../../util/badgeClassTypes";
 
     export let studyLoad = null;
     export let disabled = false;
-    export let isInstitutionMBO = false;
+    export let badgeClassType =  badgeClassTypes.EXTRA_CURRICULAR;
     export let isOptional = false;
 
-    let minValue = 84;
-    let maxValue = 840;
+    let minValue = 1;
 
     onMount(() => {
-        minValue = isInstitutionMBO ? 240 : 84;
-        //Superfluous, but for future differentiation
-        maxValue = isInstitutionMBO ? 840 : 840;
+        minValue = badgeClassType === badgeClassTypes.MICRO_CREDENTIAL ? 240 : 1;
     });
 
     const decrement = () => {
@@ -24,16 +22,17 @@
     }
 
     const increment = () => {
-        studyLoad = Math.min((studyLoad || 0) + 1, maxValue);
+        studyLoad = (studyLoad || 0) + 1;
     }
 
     const onInput = e => {
         const value = e.target.value;
         if (isEmpty(value) && isOptional) {
             studyLoad = null;
+            e.target.value = null;
         } else {
             const val = isEmpty(value) ? minValue : parseInt(value, 10);
-            if (val < 0 || val > maxValue) {
+            if (val < minValue) {
                 studyLoad = minValue;
             } else {
                 studyLoad = val;
@@ -47,11 +46,13 @@
             studyLoad = null;
         } else if (emptyValue && !isOptional) {
             studyLoad = minValue;
+            e.target.value = minValue;
         } else {
             const val = Math.round(parseInt(e.target.value, 10));
             const valFloat = parseFloat(e.target.value);
-            if (val < minValue || val > maxValue || val !== valFloat) {
+            if (val < minValue || val !== valFloat) {
                 studyLoad = minValue;
+                e.target.value = minValue;
             }
         }
     }
@@ -132,14 +133,13 @@
 <div class="study-load" {disabled}>
     <span class="control" on:click={decrement}>{@html arrowDown}</span>
     <input type="number"
-           max="840"
-           min="84"
+           min={minValue}
            step="1"
-           placeholder={I18n.t(`placeholders.badgeClass.${isInstitutionMBO ? "studyLoadMBO" : "studyLoad"}`)}
+           placeholder={I18n.t(`placeholders.badgeClass.studyLoad${badgeClassType.toUpperCase()}`)}
            class="value"
            value={studyLoad === 0 ? null : studyLoad}
            on:blur={onBlur}
            on:change={onInput}/>
     <span class="control" on:click={increment}>{@html arrowUp}</span>
 </div>
-<p class="info">{@html I18n.t(`models.badgeclass.info.${isInstitutionMBO ? "studyLoadMBO" : "studyLoad"}`)}</p>
+<p class="info">{@html I18n.t(`models.badgeclass.info.studyLoad${badgeClassType.toUpperCase()}`)}</p>
