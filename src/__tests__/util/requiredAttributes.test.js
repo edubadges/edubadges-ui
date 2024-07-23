@@ -61,7 +61,7 @@ test("Construct errors", () => {
                 "error_code": "903"
             }
         ],
-        "extensions.StudyLoadExtension": [
+        "extensions.TimeInvestmentExtension": [
             {
                 "error_code": "903"
             }
