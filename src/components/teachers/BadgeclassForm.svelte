@@ -454,8 +454,7 @@
                     ...newBadgeclass.extensions,
                     ...extensionToJson([{name: studyLoad.name, value: parseInt(extensions[studyLoad.name])}])
                 };
-            }
-            else if (showStudyLoad) {
+            } else if (showStudyLoad) {
                 newBadgeclass.extensions = {
                     ...newBadgeclass.extensions,
                     ...extensionToJson([{name: timeInvestment.name, value: parseInt(extensions[timeInvestment.name])}])
@@ -729,9 +728,6 @@
             {processing}>
 
         <div class="form">
-                        <p>{JSON.stringify(errors)}</p>
-                        <p></p>
-                        <p>{JSON.stringify(badgeclass.name)}</p>
             <h4 class="one-row">{I18n.t("models.badgeclass.headers.basicInformation")}</h4>
 
             <div>
@@ -855,7 +851,7 @@
                        attribute="hours"
                        errors={errors[`extensions.${studyLoad.name}`]}
                        tipKey="badgeClassStudyLoadNumber"
-                       required={isRequired(badgeclass, `extensions.${studyLoad.name}`)}>
+                       required={badgeclass.badgeClassType !== badgeClassTypes.EXTRA_CURRICULAR}>
                     <StudyLoad
                             bind:studyLoad={extensions[studyLoad.name]}
                             badgeClassType={badgeclass.badgeClassType}
@@ -871,10 +867,10 @@
                            tipKey="badgeClassStudyLoadNumber"
                            required={isRequired(badgeclass, `extensions.${timeInvestment.name}`)}>
                         <TimeInvestment
-                            bind:timeInvestment={extensions[timeInvestment.name]}
-                            badgeClassType={badgeclass.badgeClassType}
-                            isOptional={badgeclass.badgeClassType === badgeClassTypes.EXTRA_CURRICULAR}
-                            disabled={!mayEdit && !isCopy}
+                                bind:timeInvestment={extensions[timeInvestment.name]}
+                                badgeClassType={badgeclass.badgeClassType}
+                                isOptional={badgeclass.badgeClassType === badgeClassTypes.EXTRA_CURRICULAR}
+                                disabled={!mayEdit && !isCopy}
                         />
                         <a href="/#"
                            class="info"
@@ -918,21 +914,14 @@
                        errors={errors[`extensions.${timeInvestment.name}`]}
                        tipKey="badgeClassTimeInvestmentNumber"
                        required={isRequired(badgeclass, `extensions.${timeInvestment.name}`)}>
-                        <TimeInvestment
+                    <TimeInvestment
                             bind:timeInvestment={extensions[timeInvestment.name]}
                             badgeClassType={badgeclass.badgeClassType}
                             isOptional={badgeclass.badgeClassType === badgeClassTypes.EXTRA_CURRICULAR}
                             disabled={!mayEdit && !isCopy}
-                        />
+                    />
                 </Field>
             {/if}
-                <div>
-                        <p>isInstitutionMBO: {isInstitutionMBO.toString()}</p>
-                        <p>badgeclass.badgeClassType: {badgeclass.badgeClassType}</p>
-                        <p>Studyload: {extensions[studyLoad.name]}</p>
-                        <p>ECTS: {extensions[ects.name]}</p>
-                        <p>timeInvestment: {extensions[timeInvestment.name]}</p>
-                    </div>
 
             <Field entity={entity}
                    attribute="eqf"
