@@ -460,17 +460,18 @@
                         </section>
                     </div>
                 {/if}
-                {#if !isEmpty(badgeclass.eqf)}
-                    <div class="group-item">
-                        {@html calendarIcon}
-                        {#if badgeclass.eqf}
-                            <section class="items">
-                                <span class="name">{I18n.t("teacher.badgeclasses.educationProgramIdentifier")}</span>
-                                <span class="value">{`EQF ${badgeclass.eqf}`}</span>
-                            </section>
-                        {/if}
-                    </div>
-                {/if}
+                <!-- For now we don't display the EQF as of legal restrictions -->
+                <!--{#if !isEmpty(badgeclass.eqf)}-->
+                <!--    <div class="group-item">-->
+                <!--        {@html calendarIcon}-->
+                <!--        {#if badgeclass.eqf}-->
+                <!--            <section class="items">-->
+                <!--                <span class="name">{I18n.t("teacher.badgeclasses.educationProgramIdentifier")}</span>-->
+                <!--                <span class="value">{`EQF ${badgeclass.eqf}`}</span>-->
+                <!--            </section>-->
+                <!--        {/if}-->
+                <!--    </div>-->
+                <!--{/if}-->
                 {#if !isEmpty(badgeclass.participation)}
                     <div class="group-item">
                         {@html participationIcon}
