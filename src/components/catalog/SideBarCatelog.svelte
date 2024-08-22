@@ -90,15 +90,15 @@
       maxLength={100}
       title="studyLoads"/>
   </div>
-
-  <div>
-    <FilterBlock
-      bind:value={$eqfLevelSelected}
-      collection={$tree.eqfLevels}
-      objectIdentifier="value"
-      maxLength={100}
-      title="eqfs"/>
-  </div>
+<!-- For now we don't display the EQF as of legal restrictions -->
+<!--  <div>-->
+<!--    <FilterBlock-->
+<!--      bind:value={$eqfLevelSelected}-->
+<!--      collection={$tree.eqfLevels}-->
+<!--      objectIdentifier="value"-->
+<!--      maxLength={100}-->
+<!--      title="eqfs"/>-->
+<!--  </div>-->
 
   <div>
     <FilterBlock
