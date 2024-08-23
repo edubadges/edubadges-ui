@@ -63,7 +63,8 @@
     "svelte-json-tree": "^0.1.0",
     "svelte-routing": "^1.4.2",
     "svelte-select": "^3.10.0",
-    "svelty-picker": "^3.4.5"
+    "svelty-picker": "^3.4.5",
+    "terser-webpack-plugin": "^4.2.3"
   },
   "performance": {
     "hints": true
