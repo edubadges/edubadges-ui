@@ -66,6 +66,7 @@
     let publicInstitutionsChosen = undefined;
     let internalTags = undefined;
     let loading = true;
+    let learningOutComeEnabled = true;
 
     // Toggle's for MicroCredentials
     let showStudyLoad = false;
@@ -241,18 +242,27 @@
             const val = badgeclass[key];
             upgradeKeysDisabled[key] = !mayEdit && !isEmpty(val) && !isCopy;
         });
+        //Bugfix for now required learningOutcome
+        learningOutComeEnabled = mayEdit || isCopy ||
+            (isRequired(badgeclass, `extensions.${learningOutcome.name}`) && isEmpty(extensions[learningOutcome.name]))
         loading = false;
     });
 
     const performValidation = isPrivate => {
         badgeclass.isPrivate = isPrivate;
         const allErrors = constructErrors(badgeclass, extensions);
-        //Hack for micro_credentials, that has an option between TimeInvestmentExtension and ECTSExtension
+        //Hack for micro_credentials, that has an option between TimeInvestmentExtension and ECTSExtension,
+        //however for MBO institution only studyLoad is required and this has a default
         if (isMicroCredential) {
-            if (showStudyLoad) {
+            if (isInstitutionMBO) {
                 delete allErrors[`extensions.${ects.name}`]
-            } else {
                 delete allErrors[`extensions.${timeInvestment.name}`]
+            } else {
+                if (showStudyLoad) {
+                    delete allErrors[`extensions.${ects.name}`]
+                } else {
+                    delete allErrors[`extensions.${timeInvestment.name}`]
+                }
             }
         }
         return allErrors;
@@ -721,7 +731,9 @@
             badgeclassPostfix={" - " + I18n.t(`newBadgeClassForm.modal.types.${badgeclass.badgeClassType}`)}
             submit={onSubmit}
             create={isCreate}
-            cancel={mayEdit ? saveDraft :  window.history.back}
+            cancel={() => {
+                return mayEdit ? saveDraft() :  window.history.back()
+            }}
             cancelText={mayEdit ? I18n.t("newBadgeClassForm.saveAsDraft") : I18n.t("manage.edit.cancel")}
             submitText={(isCreate || badgeclass.isPrivate) ? I18n.t("newBadgeClassForm.publish") : I18n.t("manage.edit.save")}
             previewAction={() => doShowPreview()}
@@ -791,7 +803,7 @@
             </div>
 
             <div class="one-row">
-                {#if mayEdit || isCopy}
+                {#if learningOutComeEnabled}
                     <MarkDownExample onClick={() => extensions[learningOutcome.name] = markDownTemplate}
                                      tipKey="badgeClassLearningOutcome"/>
                 {/if}
@@ -801,11 +813,11 @@
                        tipKey="badgeClassLearningOutcome"
                        required={isRequired(badgeclass, `extensions.${learningOutcome.name}`)}>
                     <div class="mark-down-container"
-                         class:disabled={!mayEdit && !isCopy}
+                         class:disabled={!learningOutComeEnabled}
                          class:error={errors[`extensions.${learningOutcome.name}`]}>
                         <MarkdownField
                                 bind:value={extensions[learningOutcome.name]}
-                                disabled={!mayEdit && !isCopy}
+                                disabled={!learningOutComeEnabled}
                         />
                     </div>
                 </Field>
