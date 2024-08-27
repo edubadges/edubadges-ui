@@ -52,6 +52,9 @@ module.exports = {
                         preprocess: require("svelte-preprocess")({
                             paths: ["src", "src/stylesheets"],
                         }),
+                        onwarn(warning, onwarn) { // Disable "Unused CSS Selector" warnings. We should clean out the CSS instead.
+                          return warning.code === 'css-unused-selector' || onwarn(warning);
+                        },
                     },
                 },
             },
