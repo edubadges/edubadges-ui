@@ -112,7 +112,9 @@ export const tree = derived(
         });
 
         sortedBadgeClasses = sortedBadgeClasses.filter(badge => {
-            return !tagBadgeClassSelected.length || tagBadgeClassSelected.find(tag => badge.tags.some(t => t.name === tag))
+            return !tagBadgeClassSelected.length || tagBadgeClassSelected
+                .map(tag => tag.value)
+                .every(tag => badge.tags.some(t => t.name === tag))
         });
 
         const badgeClassTypes = tree.badgeClasses.reduce((acc, badge) => {

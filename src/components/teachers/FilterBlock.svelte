@@ -4,6 +4,7 @@
     import {Select} from "../forms";
     import indicator from "../../icons/chevron-down-large.svg";
     import {isEmpty} from "../../util/utils";
+
     export let collection = [];
     export let value = [];
     export let title = "";
@@ -93,21 +94,22 @@
 <div class="filter-block">
     <h3>{I18n.t(`teacher.sidebar.filters.${title}`)}</h3>
     {#if selectModus}
-        <Select value={value[0] || null}
+        <Select value={isEmpty(value) ? null : value}
                 showIndicator={false}
                 customIndicator={indicator}
                 showChevron={isEmpty(value)}
                 clearable={true}
                 isSearchable={true}
+                isMulti={true}
                 optionIdentifier="name"
                 placeholder={placeholder}
-                handleSelect={val => {
-                    value = isEmpty(val) ? [] : [val.value];
-
+                handleSelect={values => {
+                    value = isEmpty(values) ? [] : values;
                 }}
                 items={items
-                .filter(item => item.count > 0)
-                .map(item => ({name: `${item.name} (${item.count})`, value: item.name}))}/>
+                    .filter(item => item.count > 0)
+                    .map(item => ({name: `${item.name} (${item.count})`, value: item.name}))}
+        />
     {:else}
         {#each items.filter(item => item.count > 0) as item}
             <label

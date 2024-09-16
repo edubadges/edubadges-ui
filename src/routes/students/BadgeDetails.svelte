@@ -89,7 +89,6 @@
             showOb3SsiAgentModal = true
             loaded = true
             qrCode = res.qr_code_base64;
-            console.debug("QR code contents:", qrCode)
         })
 
     }
