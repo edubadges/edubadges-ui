@@ -51,7 +51,7 @@
     "@zerodevx/svelte-json-view": "^1.0.7",
     "bytemd": "^1.10.13",
     "copy-to-clipboard": "^3.3.1",
-    "dompurify": "2.0.17",
+    "dompurify": "2.5.4",
     "highcharts": "^9.2.2",
     "i18n-js": "^3.3.0",
     "js-cookie": "^2.2.1",
