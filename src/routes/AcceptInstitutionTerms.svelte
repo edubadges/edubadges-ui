@@ -102,26 +102,8 @@
     }
   }
 
-  div.agree {
-    display: flex;
-    align-content: center;
-    align-items: center;
-    margin: 12px 0;
-    padding: 12px;
-    background-color: var(--grey-1);
-    border-radius: 8px;
-
-    p {
-      margin-left: 25px;
-
-      a {
-        text-decoration: underline;
-      }
-    }
-  }
-
   div.actions {
-    margin-top: 20px;
+    margin-top: 35px;
     display: flex;
     width: 100%;
 
@@ -141,20 +123,6 @@
             </div>
             <div class="markdown-body">
                 {@html excerptMarkDown}
-            </div>
-            <div class="agree">
-                {@html termsIcon}
-                <p>
-                    <span>{I18n.t(`acceptTerms.badgeClassEnrollmentTerms.statementLinkPre`)}</span>
-                    <a href="/terms"
-                       oncontextmenu="return false;"
-                       on:click|preventDefault|stopPropagation={showTerms(
-                I18n.t(`acceptTerms.badgeClassEnrollmentTerms.statementTitle`),
-                termsUrl)}>
-                        {I18n.t(`acceptTerms.badgeClassEnrollmentTerms.statementLink`)}
-                    </a>
-                    <span>{I18n.t(`acceptTerms.badgeClassEnrollmentTerms.statementLinkPost`)}</span>
-                </p>
             </div>
             <div class="actions">
                 <div class="cancel">
