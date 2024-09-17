@@ -116,12 +116,10 @@ export const filterSeries = (assertions, identifiers, awardType = null, badgeCla
         && (badgeClassId == null || assertion[identifiers['BADGE_CLASS_ID']] === badgeClassId)
         && (issuerId == null || assertion[identifiers['ISSUER_ID']] === issuerId)
         && (facultyId == null || assertion[identifiers['FACULTY_ID']] === facultyId)
-        && ((badgeClassFilterType == null || (badgeClassFilterType === badgeClassFilterTypes.ALL && badgeClassFilterType !== badgeClassFilterTypes.ARCHIVED)) ||
-            (assertion.badgeclass__archived && badgeClassFilterType === badgeClassFilterTypes.ARCHIVED) ||
-            (!assertion.badgeclass__archived &&
-                ((assertion.badgeclass__badge_class_type === badgeClassTypes.REGULAR && badgeClassFilterType === badgeClassFilterTypes.REGULAR) ||
+        && ((badgeClassFilterType == null || badgeClassFilterType === badgeClassFilterTypes.ALL) ||
+            ((assertion.badgeclass__badge_class_type === badgeClassTypes.REGULAR && badgeClassFilterType === badgeClassFilterTypes.REGULAR) ||
             (assertion.badgeclass__badge_class_type === badgeClassTypes.MICRO_CREDENTIAL && badgeClassFilterType === badgeClassFilterTypes.MICRO_CREDENTIALS) ||
-            (assertion.badgeclass__badge_class_type === badgeClassTypes.EXTRA_CURRICULAR && badgeClassFilterType === badgeClassFilterTypes.EXTRA_CURRICULAR)))));
+            (assertion.badgeclass__badge_class_type === badgeClassTypes.EXTRA_CURRICULAR && badgeClassFilterType === badgeClassFilterTypes.EXTRA_CURRICULAR))));
 
 }
 
