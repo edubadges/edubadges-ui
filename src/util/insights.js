@@ -116,7 +116,7 @@ export const filterSeries = (assertions, identifiers, awardType = null, badgeCla
         && (badgeClassId == null || assertion[identifiers['BADGE_CLASS_ID']] === badgeClassId)
         && (issuerId == null || assertion[identifiers['ISSUER_ID']] === issuerId)
         && (facultyId == null || assertion[identifiers['FACULTY_ID']] === facultyId)
-        && ((badgeClassFilterType == null || badgeClassFilterType === badgeClassFilterTypes.ALL) ||
+        && ((badgeClassFilterType == null || (badgeClassFilterType === badgeClassFilterTypes.ALL && badgeClassFilterType !== badgeClassFilterTypes.ARCHIVED)) ||
             (assertion.badgeclass__archived && badgeClassFilterType === badgeClassFilterTypes.ARCHIVED) ||
             (!assertion.badgeclass__archived &&
                 ((assertion.badgeclass__badge_class_type === badgeClassTypes.REGULAR && badgeClassFilterType === badgeClassFilterTypes.REGULAR) ||
