@@ -2,6 +2,7 @@
     import I18n from "i18n-js";
     import {isEmpty} from "../util/utils";
     import question from "../icons/question.svg";
+    import DOMPurify from "dompurify";
 
     export let label = "";
     export let tipKey = "";
@@ -161,7 +162,7 @@
             </span>
             <div class="tooltip top" class:right={placement === "right"}>
                 {#if tooltipText}
-                    {@html tooltipText}
+                    {@html DOMPurify.sanitize(tooltipText)}
                 {:else}
                     {@html translations.tooltips[tipKey]}
                 {/if}

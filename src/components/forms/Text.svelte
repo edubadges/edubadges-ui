@@ -11,6 +11,7 @@
     export let init = () => true;
     export let onBlur;
     export let onInput;
+    export let onChange;
     export let onKeyPress;
 
     export let area;

@@ -2,6 +2,8 @@
     import Select from "svelte-select";
     import {TextInput} from "../forms";
     import indicator from "../../icons/chevron-down.svg";
+    import {isEmpty} from "../../util/utils";
+    import DOMPurify from "dompurify";
 
     export let value;
     export let items = [];
@@ -18,8 +20,8 @@
     export let showIndicator = true;
     export let placeholder = "";
     export let customIndicator = null;
-    export let getOptionLabel = option => option.name;
-    export let getSelectionLabel = option => option.name;
+    export let getOptionLabel = option => DOMPurify.sanitize(option.name);
+    export let getSelectionLabel = option => DOMPurify.sanitize(option.name);
 
     export let optionIdentifier = "entityId";
     export let handleSelect = null;
@@ -131,7 +133,7 @@
     <div class="select-field" {error} {disabled} class:full>
         <Select
                 on:select={() => handleSelect && handleSelect(value)}
-                {items}
+                items={items}
                 bind:selectedValue={value}
                 {optionIdentifier}
                 getOptionLabel={getOptionLabel}

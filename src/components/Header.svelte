@@ -20,6 +20,7 @@
     import Modal from "./forms/Modal.svelte";
     import Feedback from "./shared/Feedback.svelte";
     import {onMount} from "svelte";
+    import DOMPurify from "dompurify";
 
     const doLogOut = () => {
         $userLoggedIn = "";
@@ -169,7 +170,7 @@
 
     {#if config.isDemoEnvironment}
     <span class="demo" on:click={() => showModal = true}>
-      {I18n.t("header.demo")}{@html question}
+      {I18n.t("header.demo")}{@html DOMPurify.sanitize(question)}
     </span>
     {/if}
 
