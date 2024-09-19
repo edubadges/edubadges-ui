@@ -251,6 +251,9 @@
     const performValidation = isPrivate => {
         badgeclass.isPrivate = isPrivate;
         const allErrors = constructErrors(badgeclass, extensions);
+        if (isInstitutionMBO) {
+            delete allErrors["extensions.ECTSExtension"];
+        }
         //Hack for micro_credentials, that has an option between TimeInvestmentExtension and ECTSExtension,
         //however for MBO institution only studyLoad is required and this has a default
         if (isMicroCredential) {
@@ -740,6 +743,7 @@
             {processing}>
 
         <div class="form">
+
             <h4 class="one-row">{I18n.t("models.badgeclass.headers.basicInformation")}</h4>
 
             <div>
