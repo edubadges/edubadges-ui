@@ -81,7 +81,7 @@ export function getSocialAccountsSafe() {
     return validFetch(path);
 }
 
-export function getSocialAccount() {
+export function getSocialAccounts() {
     const path = `${serverUrl}/user/socialaccounts`;
     return validFetchNoErrorDialog(path);
 }
@@ -108,11 +108,6 @@ export function setPrimaryEmail(emailId) {
 export function deleteEmail(emailId) {
     const path = `${serverUrl}/user/emails/${emailId}`;
     return validFetchNoErrorDialog(path, {}, "DELETE");
-}
-
-export function getSocialAccounts() {
-    const path = `${serverUrl}/user/socialaccounts`;
-    return validFetch(path);
 }
 
 export function deleteUser(entityId) {
