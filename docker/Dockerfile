@@ -13,6 +13,9 @@ RUN yarn install --frozen-lockfile
 # Copy the rest of the application code
 COPY . .
 
+# Copy a docker-specific config.js over the generic one.
+COPY ./docker/config.js /app/src/utils/config.js
+
 # Expose the port the app runs on
 EXPOSE 8080
 
