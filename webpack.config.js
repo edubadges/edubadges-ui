@@ -105,7 +105,6 @@ module.exports = {
     ].filter(Boolean),
     devtool: prod ? false : "source-map",
     devServer: {
-        port: 4000,
         historyApiFallback: true,
     },
     performance: {hints: false}

@@ -1,0 +1,14 @@
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    volumes:
+      - .:/app        # Mount the current directory to /app in the container
+      - /app/node_modules   # Prevents overwriting node_modules with the empty directory
+    ports:
+      - "8080:8080"   # Maps host port 8080 to container port 8080
+    environment:
+      - NODE_ENV=development
+      - PORT=8080
+      - HOSTNAME=localhost
