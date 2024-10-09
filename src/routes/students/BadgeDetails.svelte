@@ -466,6 +466,7 @@
     img.linkedin {
         width: auto;
         height: 41px;
+        align-self: start;
 
         &.disabled {
             opacity: .2;
