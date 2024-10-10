@@ -4,117 +4,132 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [7.1.0] - 2024-10-10
+- Ran npx browserslist@latest --update-db.
+- Bugfix for invisble required fields MBO.
+- Sanitize user input before rendering.
+- Do not use archived in edubadges types in insights.
+- Do not count archived in other types.
+- Removed Link to full privacy statement.
+- Op meerdere tags kunnen filteren.
+- feat: Enable source maps in dev mode.
+- chore: Suppress Unused CSS selector warnings.
+- Save required extensions if not present.
+- Hide the EQF filter in the catalog.
+- Do not display EQF indication.
+- Bump dompurify from 2.0.17 to 2.5.4.
+
 ## [7.0.0] - 2024-08-14
-- test: Fix failing test after change to required attribute name
-- feat: Debug log the contents of the QR code before it's shown
-- Removed detail info for aligning specs badge-form
-- Only use studyload for MBO
-- Do not use StudyLoad for WO Micro badges
-- Add banner for system notifications
-- Allow for null Studyload values for MBO / Extra Curricular extensions
-- Fixed JS tests
-- Show type of badgeclaass in edit mode
-- TimeInvestmentExtension is optional for Extra Curricular
-- Minimum aantal uren MBO microcredential
-- Added country code to Issuer public page
-- Added extra optional fields for extra curriculaire badges
-- Force login after logout
-- Removed gradeAchievedRequired
-- Only show positive values for stackable and assessment info
-- Fix for switching institutions in insights
-- Added new performant query for requested edubadges
-- Refactored UI of badge tags
-- Added new performant query for requested edubadges
-- Typo fix for identity and supervision translation
-- Added Uitreiken aan niet gevalideerd persoon to EC badgeClass
-- Fix for Toezicht en identiteit verificatie
-- Refactored tags
-- Do not show badgeclass.gradeAchievedRequired
-- Fix for switching institutions in insights
-- On copy check legacy program identifiers
-- Bugfix for copy not working
-- Added NODE_OPTIONS=--openssl-legacy-provider
+- test: Fix failing test after change to required attribute name.
+- feat: Debug log the contents of the QR code before it's shown.
+- Removed detail info for aligning specs badge-form.
+- Only use studyload for MBO.
+- Do not use StudyLoad for WO Micro badges.
+- Add banner for system notifications.
+- Allow for null Studyload values for MBO / Extra Curricular extensions.
+- Fixed JS tests.
+- Show type of badgeclaass in edit mode.
+- TimeInvestmentExtension is optional for Extra Curricular.
+- Minimum aantal uren MBO microcredential.
+- Added country code to Issuer public page.
+- Added extra optional fields for extra curriculaire badges.
+- Force login after logout.
+- Removed gradeAchievedRequired.
+- Only show positive values for stackable and assessment info.
+- Fix for switching institutions in insights.
+- Added new performant query for requested edubadges.
+- Refactored UI of badge tags.
+- Added new performant query for requested edubadges.
+- Typo fix for identity and supervision translation.
+- Added Uitreiken aan niet gevalideerd persoon to EC badgeClass.
+- Fix for Toezicht en identiteit verificatie.
+- Refactored tags.
+- Do not show badgeclass.gradeAchievedRequired.
+- Fix for switching institutions in insights.
+- On copy check legacy program identifiers.
+- Bugfix for copy not working.
+- Added NODE_OPTIONS=--openssl-legacy-provider.
 - Updated Bewijs (URL) verplicht voor aanvraag?
-- Changed badgeclass option selection text
-- Expose all badgeclass metadata on the public assertion page
-- Existing micro-credentials badges have empty QA
-- No English tekst for mbo
-- Bugfix for QA description regular
-- Participation is multi-value
-- Micro QA is not editable
-- Added Kwaliteitskader mbo
-- Changed type of learning activities
-- Modified type of assesments
-- Some changes on the locales
-- Multiple assessment types
-- Show dropdown for tags in badge class filter
-- Custom icon for issued at
-- Finished showing grade required
-- WIP for asking grades
-- WIP for grades
-- Aligned overview
-- Added extra fields on badge class overview
-- https://trello.com/c/RAx5s1rl/818-verplaatsen-toegestane-instellingen
-- Add schema to URL fields in new badge class
-- Grade required flow
-- Valid time extensions
-- Various small findings
-- Align URL validation server and ui
-- Filter not needed attributes
-- Validate URLs
-- WIP for null required attributes
-- Regular draft badge class programme idenitifier hint
-- Preview badge bugfix
-- Do not show switch load for regular
-- Client side validation
-- Show the reason why badge class option is not available
-- WIP for refactoring forms
-- Ensure preview modal is scrollable
-- WIP for preview
-- Added new attributes to badge overview
-- WIP for client side error rendering
-- WIP for Extra curricular badge class
-- Added status indicator draft
-- file placeholder
-- Position delete button
-- Toggle micro-credential framework
-- Micro-credential flow
-- Synced locals
-- WIP for new badge class forms
-- WIp for badge forms
-- Institution has badge class tags
-- WIP for regular form
-- Temporary solution for cope badge-class tip
-- Modal badge class chooser
-- First commit for new badge class forms
-- Added "nl.managementQueries.issuerMembers"
-- Prevent edubadge not found while impersonating
-- Narrow search issuers
-- Management query for issuers
-- Bump follow-redirects from 1.15.4 to 1.15.6
-- Bump express from 4.18.2 to 4.19.2
-- Bump ws from 6.2.2 to 6.2.3
+- Changed badgeclass option selection text.
+- Expose all badgeclass metadata on the public assertion page.
+- Existing micro-credentials badges have empty QA.
+- No English tekst for mbo.
+- Bugfix for QA description regular.
+- Participation is multi-value.
+- Micro QA is not editable.
+- Added Kwaliteitskader mbo.
+- Changed type of learning activities.
+- Modified type of assesments.
+- Some changes on the locales.
+- Multiple assessment types.
+- Show dropdown for tags in badge class filter.
+- Custom icon for issued at.
+- Finished showing grade required.
+- WIP for asking grades.
+- WIP for grades.
+- Aligned overview.
+- Added extra fields on badge class overview.
+- https://trello.com/c/RAx5s1rl/818-verplaatsen-toegestane-instellingen.
+- Add schema to URL fields in new badge class.
+- Grade required flow.
+- Valid time extensions.
+- Various small findings.
+- Align URL validation server and ui.
+- Filter not needed attributes.
+- Validate URLs.
+- WIP for null required attributes.
+- Regular draft badge class programme idenitifier hint.
+- Preview badge bugfix.
+- Do not show switch load for regular.
+- Client side validation.
+- Show the reason why badge class option is not available.
+- WIP for refactoring forms.
+- Ensure preview modal is scrollable.
+- WIP for preview.
+- Added new attributes to badge overview.
+- WIP for client side error rendering.
+- WIP for Extra curricular badge class.
+- Added status indicator draft.
+- file placeholder.
+- Position delete button.
+- Toggle micro-credential framework.
+- Micro-credential flow.
+- Synced locals.
+- WIP for new badge class forms.
+- WIp for badge forms.
+- Institution has badge class tags.
+- WIP for regular form.
+- Temporary solution for cope badge-class tip.
+- Modal badge class chooser.
+- First commit for new badge class forms.
+- Added "nl.managementQueries.issuerMembers".
+- Prevent edubadge not found while impersonating.
+- Narrow search issuers.
+- Management query for issuers.
+- Bump follow-redirects from 1.15.4 to 1.15.6.
+- Bump express from 4.18.2 to 4.19.2.
+- Bump ws from 6.2.2 to 6.2.3.
 
 ## [6.10.0] - 2024-02-23
-- Bump ip from 1.1.5 to 1.1.9
-- Removed the backpack download button
-- New URLfor CROHO register
-- Text changes to quality framework
-- Sort badgeclass status fix
-- Added Status unpublished
-- Performance indicator for management queries
-- Change text qualifications framework Microcredentials
-- Query for awarded backpacks
-- Bump browserify-sign from 4.0.4 to 4.2.2
-- Bump follow-redirects from 1.14.8 to 1.15.4
-- Prevent null-pointer
-- Style wallet popup modal
-- Added import wallet in badge-details
-- Update microcredentials.js - Removed footnote 1
-- Bump follow-redirects from 1.14.8 to 1.15.4
-- Micro-credentials badges
-- Added raw query for counts user / assertions
-- Bump browserify-sign from 4.0.4 to 4.2.2
+- Bump ip from 1.1.5 to 1.1.9.
+- Removed the backpack download button.
+- New URLfor CROHO register.
+- Text changes to quality framework.
+- Sort badgeclass status fix.
+- Added Status unpublished.
+- Performance indicator for management queries.
+- Change text qualifications framework Microcredentials.
+- Query for awarded backpacks.
+- Bump browserify-sign from 4.0.4 to 4.2.2.
+- Bump follow-redirects from 1.14.8 to 1.15.4.
+- Prevent null-pointer.
+- Style wallet popup modal.
+- Added import wallet in badge-details.
+- Update microcredentials.js - Removed footnote 1.
+- Bump follow-redirects from 1.14.8 to 1.15.4.
+- Micro-credentials badges.
+- Added raw query for counts user / assertions.
+- Bump browserify-sign from 4.0.4 to 4.2.2.
 
 ## [6.9.0] - 2023-10-23
 - Added micro-credentials count query.
