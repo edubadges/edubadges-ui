@@ -20,7 +20,10 @@
         showMore = !showMore;
     }
     value = isEmpty(value) ? "" : value;
-    const txtToDisplay = isEmpty(value) ? "" : value.substring(0, cutoffNumber + value.substring(cutoffNumber).indexOf(" "));
+    let txtToDisplay = isEmpty(value) ? "" : value.substring(0, cutoffNumber + value.substring(cutoffNumber).indexOf(" "));
+    if (txtToDisplay.endsWith("-")) {
+        txtToDisplay = txtToDisplay.substring(0, txtToDisplay.length - 2);
+    }
     const showToggle = value.length !== txtToDisplay.length;
 
 </script>
