@@ -45,6 +45,7 @@
         onBehalfOfDisplayName,
         onBehalfOfUrl,
         entityId,
+        facultyType
       }
     },
   }`;

@@ -82,6 +82,7 @@
           onBehalfOfDisplayName,
           onBehalfOfUrl,
           entityId,
+          facultyType
         }
       },
       badgeAssertions {
