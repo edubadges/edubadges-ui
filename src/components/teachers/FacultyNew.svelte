@@ -6,7 +6,8 @@
 
  const query = `query {
     currentInstitution {
-      defaultLanguage
+      defaultLanguage,
+      institutionType
     },
   }`;
 
@@ -22,7 +23,8 @@
 
 </script>
 {#if loaded}
-  <FacultyForm defaultLanguage={currentInstitution.defaultLanguage}/>
+  <FacultyForm defaultLanguage={currentInstitution.defaultLanguage}
+               institutionType={currentInstitution.institutionType}/>
 {:else}
   <Spinner/>
 {/if}

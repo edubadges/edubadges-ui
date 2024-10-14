@@ -452,6 +452,7 @@ I18n.translations.nl = {
         942: "EPPN voldoet niet aan het formaat van je instelling",
         943: "Er is al een edubadge voor deze EPPN",
         944: "Een cijfer is verplicht voor het awarden van deze edubadge",
+        945: "Type instelling is verplicht.",
         unexpected: "Oeps, er is iets totaal onverwachts en onverklaarbaars gebeurd.",
         description: "Een onverwachte fout is opgetreden. Probeer het opnieuw of neem contact op met support@edubadges.nl voor ondersteuning.",
         close: "Sluit"
@@ -626,6 +627,7 @@ I18n.translations.nl = {
             onBehalfOf: "Uitgeven namens naam issuer groep",
             on_behalf_of_url: "URL",
             on_behalf_of_display_name: "Weergavenaam",
+            faculty_type: "Type instelling"
         },
         issuer: {
             description: "Over deze issuer",

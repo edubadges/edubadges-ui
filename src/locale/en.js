@@ -452,6 +452,7 @@ I18n.translations.en = {
         942: "EPPN does not match the EPPN-format of your institution",
         943: "There is already a claimed assertion for this EPPN",
         944: "This badge class requires a grade for awarding",
+        945: "The type of institution is required.",
         unexpected: "Unexpected error occurred.",
         description: "An unexpected error has occurred. Please try again later or contact support@edubadges.nl for support.",
         close: "Close"
@@ -626,6 +627,7 @@ I18n.translations.en = {
             onBehalfOf: "Issue on behalf of name issuer group",
             on_behalf_of_url: "URL",
             on_behalf_of_display_name: "Display name",
+            faculty_type: "Type of institution"
         },
         issuer: {
             description: "About this issuer",
@@ -1300,6 +1302,7 @@ I18n.translations.en = {
         facultyName: "Avoid abbreviations, make sure your name is recognisable, also to external parties.",
         facultyOnBehalfOf: "When checked, the badge class indicates that edubadges are issued on behalf of this issuer group. Can be used when issuing on behalf of a consortium.",
         facultyOnBehalfOfUrl: "Use the URL as a external link to the issuer group.",
+        // facultyInstitutionType: "",
         facultyOnBehalfOfDisplayName: "When Issue on behalf of name issuer group is checked, this display name will used instead of the actual name of the issuer group.",
         //facultyDescriptionEn: "facultyDescriptionEn",
         //facultyDescriptionNl: "facultyDescriptionNl",
