@@ -90,6 +90,7 @@
                       issuer={issuer} />
 {:else if loaded && choiceMade}
     <BadgeclassForm issuers={[issuer]}
+                    faculty={issuer.faculty}
                     badgeclass={badgeclass}
                     institution={currentInstitution}
                     publicInstitutions={publicInstitutions}

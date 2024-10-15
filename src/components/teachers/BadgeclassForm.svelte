@@ -41,6 +41,7 @@
     export let entityId;
     export let badgeclass = {extensions: [], issuer: {}, alignments: [], criteriaText: ""};
     export let issuers = [];
+    export let faculty = {};
     export let mayDelete;
     export let mayEdit;
     export let hasUnrevokedAssertions;
@@ -97,7 +98,12 @@
 
 
     onMount(() => {
-        isInstitutionMBO = institution.institutionType === "MBO";
+        //For hybrid institutions, the facultyType determines the MBO vs HBO/WO choices
+        if (institution.institutionType === "HBO_MBO") {
+            isInstitutionMBO = faculty.facultyType === "MBO";
+        } else {
+            isInstitutionMBO = institution.institutionType === "MBO";
+        }
         isMicroCredential = badgeclass.badgeClassType === badgeClassTypes.MICRO_CREDENTIAL;
         const studyLoadValue = extensionValue(badgeclass.extensions, studyLoad);
         const ectsValue = extensionValue(badgeclass.extensions, ects);

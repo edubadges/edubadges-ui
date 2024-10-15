@@ -159,6 +159,7 @@
 {#if loaded}
     <BadgeclassForm issuers={issuers}
                     {badgeclass}
+                    faculty={badgeclass.issuer.faculty}
                     entityId={isCopy ? null : entityId}
                     institution={currentInstitution}
                     {publicInstitutions}
