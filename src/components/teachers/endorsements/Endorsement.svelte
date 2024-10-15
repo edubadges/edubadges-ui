@@ -19,94 +19,94 @@
 
 <style lang="scss">
 
-  .content {
-    display: flex;
-
-    .img-container {
-      flex-shrink: 0;
-      height: 100px;
-      width: 100px;
-      display: flex;
-    }
-
-    .img-icon {
-      :global(img) {
-        max-width: 85px;
-        max-height: 85px;
-      }
-    }
-
-
-    .info {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .badge-class-sub-info {
-      display: flex;
-      align-content: center;
-
-      div.sub-img-container {
-        width: 50px;
-        height: auto;
-      }
-
-      div.right {
-        margin-left: 15px;
+    .content {
         display: flex;
-        flex-direction: column;
 
-        span.top {
-          display: inline-block;
-          margin-bottom: 5px;
+        .img-container {
+            flex-shrink: 0;
+            height: 100px;
+            width: 100px;
+            display: flex;
         }
 
-      }
+        .img-icon {
+            :global(img) {
+                max-width: 85px;
+                max-height: 85px;
+            }
+        }
+
+
+        .info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .badge-class-sub-info {
+            display: flex;
+            align-content: center;
+
+            div.sub-img-container {
+                width: 50px;
+                height: auto;
+            }
+
+            div.right {
+                margin-left: 15px;
+                display: flex;
+                flex-direction: column;
+
+                span.top {
+                    display: inline-block;
+                    margin-bottom: 5px;
+                }
+
+            }
+        }
+
+
     }
 
+    h4 {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 15px;
 
-  }
+        &.black {
+            color: black;
+        }
 
-  h4 {
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 15px;
+        display: flex;
+        align-content: center;
 
-    &.black {
-      color: black;
+        &.header {
+            margin-bottom: 2px;
+        }
+
+        a.external-link {
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+
+        :global(a.external-link svg) {
+            width: 16px;
+            height: auto;
+            margin: auto 0 0 8px;
+            color: var(--grey-8);
+        }
     }
 
-    display: flex;
-    align-content: center;
-
-    &.header {
-      margin-bottom: 2px;
+    p.details {
+        margin-bottom: 20px;
     }
 
-    a.external-link {
-      font-weight: bold;
-      display: inline-block;
-      margin-bottom: 5px;
+    @media (max-width: 1120px) {
+        .content {
+            flex-direction: column;
+        }
     }
-
-    :global(a.external-link svg) {
-      width: 16px;
-      height: auto;
-      margin: auto 0 0 8px;
-      color: var(--grey-8);
-    }
-  }
-
-  p.details {
-    margin-bottom: 20px;
-  }
-
-  @media (max-width: 1120px) {
-    .content {
-      flex-direction: column;
-    }
-  }
 
 
 </style>
@@ -134,7 +134,8 @@
                     {#if endorsement.endorser.issuer.faculty.onBehalfOf}
                             <span class="top">{@html I18n.t("models.badgeclass.onBehalfOf",
                                 {
-                                    name: onBehalfOfDisplayName(endorsement.endorser.issuer.faculty)
+                                    issuer: endorsement.endorser.issuer.name,
+                                    issuerGroup: onBehalfOfDisplayName(endorsement.endorser.issuer.faculty)
                                 })}
                             </span>
                     {:else}

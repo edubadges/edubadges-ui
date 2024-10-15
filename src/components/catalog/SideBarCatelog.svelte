@@ -7,6 +7,7 @@
     institutionSelected,
     studyLoadSelected,
     typeBadgeClassSelected,
+          virtualOrganisationSelected,
     tree,
     facultySelected,
     issuerSelected
@@ -64,6 +65,14 @@
       title="institutions"/>
   </div>
 
+  <div>
+    <FilterBlock
+      bind:value={$virtualOrganisationSelected}
+      collection={$tree.virtualOrganisations}
+      maxLength={10}
+      title="virtualOrganisations"/>
+  </div>
+
   {#if $institutionSelected.length > 0}
     <div>
       <FilterBlock
@@ -82,14 +91,15 @@
     </div>
   {/if}
 
-  <div>
-    <FilterBlock
-      bind:value={$studyLoadSelected}
-      collection={$tree.studyLoads}
-      objectIdentifier="value"
-      maxLength={100}
-      title="studyLoads"/>
-  </div>
+<!-- For now we don't display the StudyLoad as preparation to the server side pagination migration -->
+<!--  <div>-->
+<!--    <FilterBlock-->
+<!--      bind:value={$studyLoadSelected}-->
+<!--      collection={$tree.studyLoads}-->
+<!--      objectIdentifier="value"-->
+<!--      maxLength={100}-->
+<!--      title="studyLoads"/>-->
+<!--  </div>-->
 <!-- For now we don't display the EQF as of legal restrictions -->
 <!--  <div>-->
 <!--    <FilterBlock-->

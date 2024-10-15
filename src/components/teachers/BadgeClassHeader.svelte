@@ -21,93 +21,93 @@
 </script>
 
 <style lang="scss">
-  .entity {
-    padding: var(--ver-padding-m) var(--hor-padding-m) 0;
-    background: var(--purple-1);
+    .entity {
+        padding: var(--ver-padding-m) var(--hor-padding-m) 0;
+        background: var(--purple-1);
 
-    .content {
-      display: flex;
-      margin-bottom: var(--ver-padding-m);
+        .content {
+            display: flex;
+            margin-bottom: var(--ver-padding-m);
 
-      .img-container {
-        flex-shrink: 0;
-        height: 120px;
-        width: 120px;
-        background: white;
-        margin-right: var(--hor-padding-m);
-        display: flex;
-        justify-content: space-around;
-      }
+            .img-container {
+                flex-shrink: 0;
+                height: 120px;
+                width: 120px;
+                background: white;
+                margin-right: var(--hor-padding-m);
+                display: flex;
+                justify-content: space-around;
+            }
 
-      .img-icon {
-        height: 100px;
-        width: 100px;
-        background-color: white;
-        align-self: center;
-        display: flex;
-        justify-content: space-around;
-      }
+            .img-icon {
+                height: 100px;
+                width: 100px;
+                background-color: white;
+                align-self: center;
+                display: flex;
+                justify-content: space-around;
+            }
 
-      .info {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-      }
+            .info {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+            }
 
-      .badge-class-sub-info {
-        display: flex;
-        align-content: center;
+            .badge-class-sub-info {
+                display: flex;
+                align-content: center;
 
-        div.sub-img-container {
-          width: 50px;
-          height: auto;
+                div.sub-img-container {
+                    width: 50px;
+                    height: auto;
+                }
+
+                div.right {
+                    margin-left: 15px;
+                    display: flex;
+                    flex-direction: column;
+
+                    span.top {
+                        font-weight: bold;
+                        display: inline-block;
+                        margin-bottom: 5px;
+                    }
+
+                }
+            }
+
+            .list {
+                margin: var(--ver-padding-m) 0;
+            }
         }
 
-        div.right {
-          margin-left: 15px;
-          display: flex;
-          flex-direction: column;
-
-          span.top {
-            font-weight: bold;
-            display: inline-block;
-            margin-bottom: 5px;
-          }
-
+        @media (max-width: 1120px) {
+            .content {
+                flex-direction: column;
+            }
         }
-      }
 
-      .list {
-        margin: var(--ver-padding-m) 0;
-      }
+
     }
 
-    @media (max-width: 1120px) {
-      .content {
+    .actions {
+        display: flex;
         flex-direction: column;
-      }
+        justify-content: space-between;
+        margin: auto 0 auto calc(var(--hor-padding-xl) / 2);
+
+        .button-container:first-child {
+            margin-bottom: 15px;
+        }
     }
 
-
-  }
-
-  .actions {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    margin: auto 0 auto calc(var(--hor-padding-xl) / 2);
-
-    .button-container:first-child {
-      margin-bottom: 15px;
+    .slots {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: auto 0 auto calc(var(--hor-padding-xl) / 2);
     }
-  }
-
-  .slots {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: auto 0 auto calc(var(--hor-padding-xl) / 2);
-  }
 
 </style>
 
@@ -128,7 +128,11 @@
             <slot name="institution"/>
             {#if entity === entityType.BADGE_CLASS && object.issuer && object.issuer.faculty && object.issuer.faculty.institution}
                 <div class="badge-class-sub-info">
-                    {#if object.issuer.image}
+                    {#if object.issuer.faculty.image}
+                        <div class="sub-img-container">
+                            <img src={object.issuer.faculty.image} alt=""/>
+                        </div>
+                    {:else if object.issuer.image}
                         <div class="sub-img-container">
                             <img src={object.issuer.image} alt=""/>
                         </div>
@@ -137,7 +141,8 @@
                         {#if object.issuer.faculty.onBehalfOf || object.issuer.faculty.on_behalf_of}
                             <span class="top">{@html I18n.t("models.badgeclass.onBehalfOf",
                                 {
-                                    name: onBehalfOfDisplayName(object.issuer.faculty)
+                                    issuer: object.issuer.name,
+                                    issuerGroup: onBehalfOfDisplayName(object.issuer.faculty)
                                 })}
                             </span>
                         {:else}

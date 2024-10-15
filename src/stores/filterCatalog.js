@@ -21,15 +21,17 @@ export const educationalLevelSelected = writable([]);
 export const institutionSelected = writable([]);
 export const facultySelected = writable([]);
 export const issuerSelected = writable([]);
+export const virtualOrganisationSelected = writable([]);
 export const studyLoadSelected = writable([]);
 export const eqfLevelSelected = writable([]);
 export const typeBadgeClassSelected = writable([]);
 
 export const tree = derived(
     [badgeClasses, search, page, educationalLevelSelected, institutionSelected, facultySelected, issuerSelected,
-        studyLoadSelected, eqfLevelSelected, typeBadgeClassSelected, sortTarget],
+        studyLoadSelected, eqfLevelSelected, virtualOrganisationSelected, typeBadgeClassSelected, sortTarget],
     ([badgeClasses, search, page, educationalLevelSelected, institutionSelected, facultySelected, issuerSelected,
-         studyLoadSelected, eqfLevelSelected, typeBadgeClassSelected, sortTarget]) => {
+         studyLoadSelected, eqfLevelSelected, virtualOrganisationSelected,
+         typeBadgeClassSelected, sortTarget]) => {
         const filteredBadgeClasses = filterBySearch(badgeClasses, search)
             .filter(badge => {
                 return !educationalLevelSelected.length || educationalLevelSelected.includes(badge.institutionType);
@@ -42,6 +44,9 @@ export const tree = derived(
             })
             .filter(badge => {
                 return !issuerSelected.length || issuerSelected.includes(badge.issuer.entityId);
+            })
+            .filter(badge => {
+                return !virtualOrganisationSelected.length || virtualOrganisationSelected.includes(badge.issuer.faculty.entityId);
             })
             .filter(badge => {
                 return !studyLoadSelected.length || studyLoadSelected.includes(badge.studyLoadType);
@@ -73,6 +78,22 @@ export const tree = derived(
                 acc.push({
                     name: badge.institution.name,
                     entityId: badge.institution.entityId,
+                    count: 1
+                })
+            }
+            return acc;
+        }, []);
+
+        const virtualOrganisations = filteredBadgeClasses
+            .filter(badge => badge.issuer.faculty.onBehalfOf)
+            .reduce((acc, badge) => {
+            const item = acc.find(v => v.entityId === badge.issuer.faculty.entityId);
+            if (item) {
+                ++item.count;
+            } else {
+                acc.push({
+                    name: badge.issuer.faculty.name,
+                    entityId: badge.issuer.faculty.entityId,
                     count: 1
                 })
             }
@@ -191,6 +212,7 @@ export const tree = derived(
             issuers: sort(issuers, true),
             studyLoads: sort(studyLoads, true),
             eqfLevels: sort(eqfLevels, true),
+            virtualOrganisations: sort(virtualOrganisations, true),
             badgeClassTypes: sort(badgeClassTypes, true)
         };
     });

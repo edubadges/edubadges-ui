@@ -119,8 +119,13 @@
                 {issuer.name}
                 <br/>
                 {#if issuer.faculty.onBehalfOf || issuer.faculty.on_behalf_of}
-                    <span class="sub-text">{@html I18n.t("models.badge.onBehalfOf",
-                        {name: onBehalfOfDisplayName(issuer.faculty)})}</span>
+                    <span class="sub-text">
+                        {@html I18n.t("models.badge.onBehalfOf",
+                            {
+                                issuer: issuer.name,
+                                issuerGroup: onBehalfOfDisplayName(issuer.faculty)
+                            })}
+                    </span>
                 {:else}
                     <span class="sub-text">{issuer.faculty.name}</span>
                 {/if}

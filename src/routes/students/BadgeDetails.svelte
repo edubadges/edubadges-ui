@@ -178,6 +178,7 @@
             onBehalfOf,
             onBehalfOfDisplayName,
             onBehalfOfUrl,
+            linkedinOrgIdentifier,
             institution {
               nameDutch,
               nameEnglish,
@@ -219,9 +220,11 @@
 
             showModal = false;
             const issuedOn = new Date(badge.issuedOn);
+            const organizationId = badge.badgeclass.issuer.faculty.linkedin_org_identifier ||
+                badge.badgeclass.issuer.faculty.institution.linkedinOrgIdentifier || 206815;
             linkedInUrl = `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&` +
                 `name=${encodeURIComponent(badge.badgeclass.name)}&` +
-                `organizationId=${badge.badgeclass.issuer.faculty.institution.linkedinOrgIdentifier || 206815}&` +
+                `organizationId=${organizationId}&` +
                 `issueYear=${issuedOn.getFullYear()}&` +
                 `issueMonth=${issuedOn.getMonth()}&` +
                 `certUrl=${encodeURIComponent("https://" + window.location.hostname + "/public/assertions/")}${entityId}&` +

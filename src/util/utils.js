@@ -26,7 +26,7 @@ export const formatCreateDate = iso => {
 
 export const flatten = arr => arr.reduce((acc, cur) => acc.concat(Array.isArray(cur) ? flatten(cur) : cur), []);
 
-//The properties from graphene are different then the properties from the public endpoints
+//The properties from graphene are different from the properties from the public endpoints
 export const translateProperties = obj => {
     if (!obj) {
         return;
