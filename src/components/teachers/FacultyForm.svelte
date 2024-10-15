@@ -1,7 +1,7 @@
 <script>
     import {navigate} from "svelte-routing";
     import {EntityForm} from "../teachers";
-    import {Field, Select, TextInput} from "../forms";
+    import {Field, File, Select, TextInput} from "../forms";
     import {createFaculty, editFaculty} from "../../api";
     import {entityType} from "../../util/entityTypes";
     import I18n from "i18n-js";
@@ -14,6 +14,7 @@
     export let hasUnrevokedAssertions;
     export let defaultLanguage;
     export let institutionType;
+    export let virtualOrganizationAllowed;
 
     const entity = entityType.ISSUER_GROUP;
 
@@ -40,6 +41,16 @@
         faculty.on_behalf_of_url = faculty.onBehalfOfUrl;
         faculty.on_behalf_of_display_name = faculty.onBehalfOfDisplayName;
         faculty.faculty_type = (faculty.facultyType || {}).value;
+
+        if (faculty.image_english === '') {
+            faculty.imageEnglish = null;
+        }
+        if (faculty.image_dutch === '') {
+            faculty.imageDutch = null;
+        }
+        faculty.image_english = faculty.imageEnglish;
+        faculty.image_dutch = faculty.imageDutch;
+        faculty.linkedin_org_identifier = faculty.linkedinOrgIdentifier;
 
         const args = isCreate ? [faculty] : [entityId, faculty];
         const apiCall = isCreate ? createFaculty : editFaculty;
@@ -90,21 +101,49 @@
                             errorDutch={dutchValueError}
                             initialTab={defaultLanguage == 'en-US'? "en" : "nl"}>
             <div slot='en'>
-                <Field {entity} attribute="name_english" errors={errors.name_english} tipKey="facultyNameEn">
-                    <TextInput bind:value={faculty.nameEnglish} error={errors.name_english}
+                {#if virtualOrganizationAllowed}
+                    <Field {entity}
+                           attribute="image_english"
+                           errors={errors.image_english}
+                           tipKey="institutionImageEn">
+                        <File bind:value={faculty.imageEnglish}
+                              error={errors.image_english}
+                              removeAllowed={true}/>
+                    </Field>
+                {/if}
+                <Field {entity}
+                       attribute="name_english"
+                       errors={errors.name_english}
+                       tipKey="facultyNameEn">
+                    <TextInput bind:value={faculty.nameEnglish}
+                               error={errors.name_english}
                                placeholder={I18n.t("placeholders.faculty.name")}/>
                 </Field>
-                <Field {entity} attribute="description_english" errors={errors.description_english}
+                <Field {entity}
+                       attribute="description_english"
+                       errors={errors.description_english}
                        tipKey="facultyDescriptionEn">
-                    <TextInput bind:value={faculty.descriptionEnglish} error={errors.description_english} area
+                    <TextInput bind:value={faculty.descriptionEnglish}
+                               error={errors.description_english} area
                                size="100"
                                placeholder={I18n.t("placeholders.faculty.description")}/>
                 </Field>
             </div>
             <div slot='nl'>
+                {#if virtualOrganizationAllowed}
+                    <Field {entity}
+                           attribute="image_dutch"
+                           errors={errors.image_dutch}
+                           tipKey="institutionImageNl">
+                        <File bind:value={faculty.imageDutch}
+                              error={errors.image_dutch}
+                              removeAllowed={true}/>
+                    </Field>
+                {/if}
                 <Field {entity}
                        attribute="name_dutch"
                        errors={errors.name_dutch}
+                       required={true}
                        tipKey="facultyNameNl">
                     <TextInput bind:value={faculty.nameDutch} error={errors.name_dutch}
                                placeholder={I18n.t("placeholders.faculty.name")}/>
@@ -112,6 +151,7 @@
                 <Field {entity}
                        attribute="description_dutch"
                        errors={errors.description_dutch}
+                       required={true}
                        tipKey="facultyDescriptionNl">
                     <TextInput bind:value={faculty.descriptionDutch} error={errors.description_dutch} area size="100"
                                placeholder={I18n.t("placeholders.faculty.description")}/>
@@ -133,28 +173,42 @@
                         clearable={false}/>
             </Field>
         {/if}
-        <Switch
-                value={faculty.onBehalfOf || false}
-                label={I18n.t(['models', entity, 'onBehalfOf'])}
-                question={I18n.t("tooltips.facultyOnBehalfOfUrl")}
-                onChange={() => faculty.onBehalfOf = !faculty.onBehalfOf}/>
+        {#if virtualOrganizationAllowed}
+            <Switch
+                    value={faculty.onBehalfOf || false}
+                    label={I18n.t(['models', entity, 'onBehalfOf'])}
+                    question={I18n.t("tooltips.facultyOnBehalfOfUrl")}
+                    onChange={() => faculty.onBehalfOf = !faculty.onBehalfOf}/>
 
-        <Field {entity} attribute="on_behalf_of_url"
-               errors={errors.on_behalf_of_url}
-               tipKey="facultyOnBehalfOfUrl">
-            <TextInput bind:value={faculty.onBehalfOfUrl}
-                       error={errors.on_behalf_of_url}
-                       disabled={!faculty.onBehalfOf}
-                       placeholder={I18n.t("placeholders.faculty.onBehalfOfUrl")}/>
-        </Field>
-        <Field {entity} attribute="on_behalf_of_display_name"
-               errors={errors.on_behalf_of_display_name}
-               tipKey="facultyOnBehalfOfDisplayName">
-            <TextInput bind:value={faculty.onBehalfOfDisplayName}
-                       error={errors.on_behalf_of_display_name}
-                       disabled={!faculty.onBehalfOf}
-                       placeholder={I18n.t("placeholders.faculty.onBehalfOfDisplayName")}/>
-        </Field>
+            <Field {entity} attribute="on_behalf_of_url"
+                   errors={errors.on_behalf_of_url}
+                   tipKey="facultyOnBehalfOfUrl">
+                <TextInput bind:value={faculty.onBehalfOfUrl}
+                           error={errors.on_behalf_of_url}
+                           disabled={!faculty.onBehalfOf}
+                           placeholder={I18n.t("placeholders.faculty.onBehalfOfUrl")}/>
+            </Field>
+            <Field {entity}
+                   attribute="linkedin_org_identifier"
+                   errors={errors.linkedin_org_identifier}
+                   tipKey="institutionLinkedinOrgIdentifier">
+                <TextInput
+                        bind:value={faculty.linkedinOrgIdentifier}
+                        placeholder={I18n.t("placeholders.institution.linkedinOrgIdentifier")}
+                        disabled={!faculty.onBehalfOf}
+                        error={errors.linkedin_org_identifier}/>
+            </Field>
+
+            <Field {entity} attribute="on_behalf_of_display_name"
+                   errors={errors.on_behalf_of_display_name}
+                   tipKey="facultyOnBehalfOfDisplayName">
+                <TextInput bind:value={faculty.onBehalfOfDisplayName}
+                           error={errors.on_behalf_of_display_name}
+                           disabled={!faculty.onBehalfOf}
+                           placeholder={I18n.t("placeholders.faculty.onBehalfOfDisplayName")}/>
+            </Field>
+        {/if}
     </div>
+
 </EntityForm>
 

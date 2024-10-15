@@ -33,11 +33,6 @@
         id, name, archived
       }
     },
-    issuers {
-      nameEnglish,
-      nameDutch,
-      entityId,
-    },
     badgeClass(id: $entityId) {
       entityId,
       name,
@@ -82,7 +77,12 @@
           onBehalfOfDisplayName,
           onBehalfOfUrl,
           entityId,
-          facultyType
+          facultyType,
+          issuers {
+              nameEnglish,
+              nameDutch,
+              entityId,
+        },
         }
       },
       badgeAssertions {
@@ -116,9 +116,9 @@
         queryData(query, {entityId}).then(res => {
             badgeclass = res.badgeClass;
             badgeclass.badgeClassType = badgeclass.typeBadgeClass.toLowerCase();
-            issuers = res.issuers || [];
             translateProperties(badgeclass.issuer);
             translateProperties(badgeclass.issuer.faculty);
+            issuers = badgeclass.issuer.faculty.issuers || [];
             isCopy = action === "copy";
             if (isCopy) {
                 badgeclass.entityId = null;

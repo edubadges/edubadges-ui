@@ -9,10 +9,13 @@
 
   const query = `query ($entityId: String) {
     currentInstitution {
-      institutionType
+      institutionType,
+      virtualOrganizationAllowed
     },
     faculty(id: $entityId) {
       entityId,
+      imageEnglish,
+      imageDutch,
       nameEnglish,
       nameDutch,
       descriptionEnglish,
@@ -23,6 +26,7 @@
       onBehalfOfDisplayName,
       defaultLanguage,
       facultyType,
+      linkedinOrgIdentifier
       permissions {
         mayCreate
         mayUpdate,
@@ -57,6 +61,7 @@
                defaultLanguage={faculty.defaultLanguage}
                mayDelete={mayDelete}
                hasUnrevokedAssertions={faculty.hasUnrevokedAssertions}
+               virtualOrganizationAllowed={currentInstitution.virtualOrganizationAllowed}
                institutionType={currentInstitution.institutionType}/>
 {:else}
   <Spinner/>

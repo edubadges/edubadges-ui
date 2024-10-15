@@ -142,6 +142,9 @@
           onBehalfOf,
           onBehalfOfDisplayName,
           onBehalfOfUrl,
+          facultyType,
+          imageDutch,
+          imageEnglish,
           institution {
             identifier,
             alternativeIdentifier,

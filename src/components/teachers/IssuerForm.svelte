@@ -35,8 +35,12 @@
             newIssuer.faculty = issuer.faculty.entityId;
         }
 
-        if (newIssuer.image_english === '') newIssuer.imageEnglish = null;
-        if (newIssuer.image_dutch === '') newIssuer.imageDutch = null;
+        if (newIssuer.image_english === '') {
+            newIssuer.imageEnglish = null;
+        }
+        if (newIssuer.image_dutch === '') {
+            newIssuer.imageDutch = null;
+        }
 
         newIssuer.description_english = issuer.descriptionEnglish;
         newIssuer.description_dutch = issuer.descriptionDutch;
