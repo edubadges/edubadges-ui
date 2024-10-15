@@ -630,7 +630,7 @@ I18n.translations.nl = {
             onBehalfOf: "Uitgeven namens naam issuer groep",
             on_behalf_of_url: "URL",
             on_behalf_of_display_name: "Weergavenaam",
-            faculty_type: "Type instelling"
+            faculty_type: "Type onderwijsinstelling"
         },
         issuer: {
             description: "Over deze issuer",
