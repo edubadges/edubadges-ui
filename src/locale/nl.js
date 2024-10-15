@@ -453,6 +453,7 @@ I18n.translations.nl = {
         943: "Er is al een edubadge voor deze EPPN",
         944: "Een cijfer is verplicht voor het awarden van deze edubadge",
         945: "Type instelling is verplicht.",
+        946: "Type zichtbaarheid is verplicht voor SURF instellingen.",
         unexpected: "Oeps, er is iets totaal onverwachts en onverklaarbaars gebeurd.",
         description: "Een onverwachte fout is opgetreden. Probeer het opnieuw of neem contact op met support@edubadges.nl voor ondersteuning.",
         close: "Sluit"
@@ -630,7 +631,12 @@ I18n.translations.nl = {
             onBehalfOf: "Uitgeven namens naam issuer groep",
             on_behalf_of_url: "URL",
             on_behalf_of_display_name: "Weergavenaam",
-            faculty_type: "Type onderwijsinstelling"
+            faculty_type: "Type onderwijsinstelling",
+            visibility_type: "Type zichtbaarheid",
+            visibility: {
+                public: "Publiek",
+                test: "Test",
+            }
         },
         issuer: {
             description: "Over deze issuer",
@@ -1198,6 +1204,7 @@ I18n.translations.nl = {
             name: "(Verplicht veld) Bijv. Geschiedenis",
             description: "(Verplicht veld) Bijv. Alle issuers van de faculteit Geschiedenis",
             facultyType: "Selecteer het type instelling voor deze issuer groep...",
+            visibilityType: "Selecteer het type zichtbaarheid voor deze issuer groep...",
             onBehalfOfUrl: "(Optioneell) e.g. URL van de issuer groep of het consortium",
             onBehalfOfDisplayName: "(Optional) e.g. naam van de issuer groep of het consortium",
         },
@@ -1307,6 +1314,8 @@ I18n.translations.nl = {
         facultyName: "Vermijdt afkortingen, zorg voor herkenbare naam ook voor externen.",
         facultyOnBehalfOf: "Indien aangevinkt vermeldt de badge class dat edubadges zijn uitgereikt namens deze issuer groep. Kan gebruikt worden bij het uitgeven namens een consortium.",
         facultyOnBehalfOfUrl: "Gebruik deze URL als een externe link naar deze issuer groep.",
+        facultyInstitutionType: "Alle edubadges van deze issuer groep erven het type onderwijsinstellings. Deze wordt gebruikt om het type instelling te bepalen voor hybride instellingen.",
+        facultyVisibilityType: "Alle eduBadges van publieke issuer groepen worden weergegeven in de catalogus.",
         facultyOnBehalfOfDisplayName: "Wanneer Uitgeven namens naam issuer groep is aangevinkt, wordt deze weergavenaam gebruikt in plaats van de werkelijke naam van de issuer groep.",
         //facultyDescriptionEn: "facultyDescriptionEn",
         //facultyDescriptionNl: "facultyDescriptionNl",

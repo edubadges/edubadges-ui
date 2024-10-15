@@ -30,6 +30,11 @@
         {value: "MBO", name: "MBO"}
     ];
 
+    const visibilityTypes = [
+        {value: "PUBLIC", name: I18n.t("models.faculty.visibility.public")},
+        {value: "TEST", name: I18n.t("models.faculty.visibility.test")}
+    ];
+
     function onSubmit() {
         processing = true;
         errors = {};
@@ -42,6 +47,7 @@
         faculty.on_behalf_of_url = faculty.onBehalfOfUrl;
         faculty.on_behalf_of_display_name = faculty.onBehalfOfDisplayName;
         faculty.faculty_type = (faculty.facultyType || {}).value;
+        faculty.visibility_type = (faculty.visibilityType || {}).value;
 
         if (faculty.image_english === '') {
             faculty.imageEnglish = null;
@@ -115,7 +121,22 @@
                         clearable={false}/>
             </Field>
         {/if}
-
+        {#if institutionType === "SURF"}
+            <Field entity={entity}
+                   attribute="visibility_type"
+                   isSelect={true}
+                   errors={errors.visibility_type}
+                   tipKey="facultyVisibilityType"
+                   required={true}>
+                <Select
+                        bind:value={faculty.visibilityType}
+                        items={visibilityTypes}
+                        placeholder={I18n.t("placeholders.faculty.visibilityType")}
+                        error={!isEmpty(errors.visibility_type) }
+                        optionIdentifier="value"
+                        clearable={false}/>
+            </Field>
+        {/if}
         <MultiLanguageField errorEnglish={englishValueError}
                             errorDutch={dutchValueError}
                             initialTab={defaultLanguage == 'en-US'? "en" : "nl"}>

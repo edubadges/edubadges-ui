@@ -1,13 +1,14 @@
 <script>
-  import {onMount} from "svelte";
-  import {FacultyForm} from "../teachers";
-  import {queryData} from "../../api/graphql";
-  import Spinner from "../Spinner.svelte";
-  import {translateProperties} from "../../util/utils";
+    import {onMount} from "svelte";
+    import {FacultyForm} from "../teachers";
+    import {queryData} from "../../api/graphql";
+    import Spinner from "../Spinner.svelte";
+    import {translateProperties} from "../../util/utils";
+    import I18n from "i18n-js";
 
-  export let entityId;
+    export let entityId;
 
-  const query = `query ($entityId: String) {
+    const query = `query ($entityId: String) {
     currentInstitution {
       institutionType,
       virtualOrganizationAllowed
@@ -26,6 +27,7 @@
       onBehalfOfDisplayName,
       defaultLanguage,
       facultyType,
+      visibilityType,
       linkedinOrgIdentifier
       permissions {
         mayCreate
@@ -35,35 +37,39 @@
     },
   }`;
 
-  let faculty = {};
-  let currentInstitution = {};
-  let permissions = {};
-  let loaded = false;
-  let mayDelete = false;
+    let faculty = {};
+    let currentInstitution = {};
+    let permissions = {};
+    let loaded = false;
+    let mayDelete = false;
 
-  onMount(() => {
-    
-    queryData(query, {entityId}).then(res => {
-        faculty = res.faculty;
-        currentInstitution = res.currentInstitution;
-        translateProperties(faculty);
-        faculty.facultyType = {value: faculty.facultyType, name: faculty.facultyType},
-        permissions = res.faculty.permissions;
-        mayDelete = permissions && permissions.mayDelete;
-        loaded = true;
-      })
-  });
+    onMount(() => {
+
+        queryData(query, {entityId}).then(res => {
+            faculty = res.faculty;
+            currentInstitution = res.currentInstitution;
+            translateProperties(faculty);
+            faculty.facultyType = {value: faculty.facultyType, name: faculty.facultyType};
+            faculty.visibilityType = {
+                value: faculty.visibilityType,
+                name: I18n.t(`models.faculty.visibility.${(faculty.visibilityType || "public").toLowerCase()}`)
+            };
+            permissions = res.faculty.permissions;
+            mayDelete = permissions && permissions.mayDelete;
+            loaded = true;
+        })
+    });
 </script>
 
 {#if loaded}
-  <FacultyForm {faculty}
-               {entityId}
-               defaultLanguage={faculty.defaultLanguage}
-               mayDelete={mayDelete}
-               hasUnrevokedAssertions={faculty.hasUnrevokedAssertions}
-               virtualOrganizationAllowed={currentInstitution.virtualOrganizationAllowed}
-               institutionType={currentInstitution.institutionType}/>
+    <FacultyForm {faculty}
+                 {entityId}
+                 defaultLanguage={faculty.defaultLanguage}
+                 mayDelete={mayDelete}
+                 hasUnrevokedAssertions={faculty.hasUnrevokedAssertions}
+                 virtualOrganizationAllowed={currentInstitution.virtualOrganizationAllowed}
+                 institutionType={currentInstitution.institutionType}/>
 {:else}
-  <Spinner/>
+    <Spinner/>
 {/if}
 
