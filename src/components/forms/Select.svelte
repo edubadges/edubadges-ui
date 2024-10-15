@@ -119,11 +119,11 @@
     }
 
     /* Invalid */
-    div[error] {
-        --background: var(--field-background-error);
-        --border: var(--field-border-error);
-        --borderFocusColor: var(--field-border-color-error);
-        --borderHoverColor: var(--field-border-color-error);
+    div[error="true"] {
+        --background: var(--red-light);
+        --border: var(--red-dark);
+        --borderFocusColor: var(--red-dark);
+        --borderHoverColor: var(--red-dark);
     }
 </style>
 

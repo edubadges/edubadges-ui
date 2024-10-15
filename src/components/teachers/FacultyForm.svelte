@@ -7,6 +7,7 @@
     import I18n from "i18n-js";
     import MultiLanguageField from "../forms/MultiLanguageField.svelte";
     import Switch from "../forms/Switch.svelte";
+    import {isEmpty} from "../../util/utils";
 
     export let entityId;
     export let faculty = {};
@@ -97,6 +98,24 @@
             entityId={entityId}
             {hasUnrevokedAssertions}>
     <div class="faculty-form">
+        {#if institutionType === "HBO_MBO"}
+            <Field entity={entity}
+                   attribute="faculty_type"
+                   isSelect={true}
+                   errors={errors.faculty_type}
+                   tipKey="facultyInstitutionType"
+                   required={true}>
+                <Select
+                        bind:value={faculty.facultyType}
+                        items={facultyTypes}
+                        placeholder={I18n.t("placeholders.faculty.facultyType")}
+                        error={!isEmpty(errors.faculty_type) }
+                        disabled={hasUnrevokedAssertions}
+                        optionIdentifier="value"
+                        clearable={false}/>
+            </Field>
+        {/if}
+
         <MultiLanguageField errorEnglish={englishValueError}
                             errorDutch={dutchValueError}
                             initialTab={defaultLanguage == 'en-US'? "en" : "nl"}>
@@ -158,21 +177,6 @@
                 </Field>
             </div>
         </MultiLanguageField>
-        {#if institutionType === "HBO_MBO"}
-            <Field entity={entity}
-                   attribute="faculty_type"
-                   isSelect={true}
-                   errors={errors.faculty_type}
-                   tipKey="facultyInstitutionType"
-                   required={true}>
-                <Select
-                        bind:value={faculty.facultyType}
-                        items={facultyTypes}
-                        disabled={hasUnrevokedAssertions}
-                        optionIdentifier="value"
-                        clearable={false}/>
-            </Field>
-        {/if}
         {#if virtualOrganizationAllowed}
             <Switch
                     value={faculty.onBehalfOf || false}

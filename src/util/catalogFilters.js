@@ -68,8 +68,11 @@ export const assignFilterTypes = badgeClass => {
     } else {
         badgeClass.types.push(badgeClassFilterTypes.EXTRA_CURRICULAR);
     }
-
-    badgeClass.institutionType = badgeClass.institution.institutionType || educationalLevels.NONE;
+    if (badgeClass.institution.institutionType === "HBO_MBO") {
+        badgeClass.institutionType = badgeClass.issuer.faculty.facultyType || educationalLevels.NONE;
+    } else {
+        badgeClass.institutionType = badgeClass.institution.institutionType || educationalLevels.NONE;
+    }
 
 
 }

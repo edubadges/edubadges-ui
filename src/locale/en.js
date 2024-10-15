@@ -1196,6 +1196,7 @@ I18n.translations.en = {
         faculty: {
             name: "(Required field) e.g. History",
             description: "(Required field) e.g. all History related studies",
+            facultyType: "Select the institution type for this issuer group...",
             onBehalfOfUrl: "(Optional) e.g. URL of the issuer group or consortium",
             onBehalfOfDisplayName: "(Optional) e.g. display name of the issuer group or consortium",
         },

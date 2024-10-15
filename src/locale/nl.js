@@ -1197,6 +1197,7 @@ I18n.translations.nl = {
         faculty: {
             name: "(Verplicht veld) Bijv. Geschiedenis",
             description: "(Verplicht veld) Bijv. Alle issuers van de faculteit Geschiedenis",
+            facultyType: "Selecteer het type instelling voor deze issuer groep...",
             onBehalfOfUrl: "(Optioneell) e.g. URL van de issuer groep of het consortium",
             onBehalfOfDisplayName: "(Optional) e.g. naam van de issuer groep of het consortium",
         },

@@ -95,7 +95,7 @@
     cursor: not-allowed !important;
   }
 
-  &[error] {
+  &[error="true"] {
     --background: var(--red-light);
     --border: var(--field-border-width) var(--field-border-style)
       var(--red-dark);

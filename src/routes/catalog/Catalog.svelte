@@ -28,6 +28,9 @@
         onBehalfOf,
         onBehalfOfDisplayName,
         onBehalfOfUrl,
+        imageEnglish,
+        imageDutch,
+        facultyType,
         publicIssuers {
           nameEnglish,
           nameDutch,
