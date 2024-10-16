@@ -175,6 +175,8 @@
           faculty {
             nameDutch,
             nameEnglish,
+            imageDutch,
+            imageEnglish,
             onBehalfOf,
             onBehalfOfDisplayName,
             onBehalfOfUrl,

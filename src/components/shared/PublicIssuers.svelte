@@ -105,12 +105,16 @@
                             <img src={issuer.image} alt=""/>
                         </div>
                     </div>
+                {:else if issuer.faculty.image}
+                    <div class="img-icon">
+                        <img src={issuer.faculty.image} alt=""/>
+                    </div>
                 {:else}
                     <div class="img-container">
                         <div class="img-icon">
-              <span class="icon">
-                {@html issuerIcon}
-              </span>
+                            <span class="icon">
+                                {@html issuerIcon}
+                              </span>
                         </div>
                     </div>
                 {/if}
@@ -118,18 +122,16 @@
             <td>
                 {issuer.name}
                 <br/>
-                {#if issuer.faculty.onBehalfOf || issuer.faculty.on_behalf_of}
-                    <span class="sub-text">
-                        {@html I18n.t("models.badge.onBehalfOf",
-                            {
-                                issuer: issuer.name,
-                                issuerGroup: onBehalfOfDisplayName(issuer.faculty)
-                            })}
-                    </span>
-                {:else}
-                    <span class="sub-text">{issuer.faculty.name}</span>
-                {/if}
 
+                <span class="sub-text">
+                    {#if issuer.faculty.onBehalfOf && issuer.faculty.onBehalfOfUrl}
+                        <a href={`${issuer.faculty.onBehalfOfUrl}`} target="_blank">
+                            {issuer.faculty.name}
+                        </a>
+                    {:else}
+                        <span class="sub-text">{issuer.faculty.name}</span>
+                    {/if}
+                </span>
             </td>
             <td class="center">{issuer.badgeclassesCount === 0 ? "-" : issuer.badgeclassesCount}</td>
             <td></td>

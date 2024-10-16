@@ -19,6 +19,8 @@
     faculties {
       ${headerEntityMultiLanguage},
       ${headerStaff},
+      imageDutch,
+      imageEnglish,
       onBehalfOf,
       onBehalfOfDisplayName,
       onBehalfOfUrl,

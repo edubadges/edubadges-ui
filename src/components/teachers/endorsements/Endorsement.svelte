@@ -1,7 +1,7 @@
 <script>
     import I18n from "i18n-js";
     import {link} from "svelte-routing";
-    import {onBehalfOfDisplayName} from "../../../util/onBehalfOf";
+    import {issuerLink, onBehalfOfDisplayName} from "../../../util/onBehalfOf";
     import {translateBadgeClassProperties} from "../../../util/utils";
     import {onMount} from "svelte";
     import externalLink from "../../../icons/external-link-alt.svg";
@@ -45,7 +45,7 @@
 
         .badge-class-sub-info {
             display: flex;
-            align-content: center;
+            align-items: center;
 
             div.sub-img-container {
                 width: 50px;
@@ -131,26 +131,23 @@
                     </div>
                 {/if}
                 <div class="right">
-                    {#if endorsement.endorser.issuer.faculty.onBehalfOf}
-                            <span class="top">{@html I18n.t("models.badgeclass.onBehalfOf",
+                        <span class="top">{I18n.t("models.badgeclass.issuedBy")}</span>
+                        {#if endorsement.endorser.issuer.faculty.onBehalfOf}
+                            <span class="">{@html I18n.t("models.badgeclass.onBehalfOf",
                                 {
-                                    issuer: endorsement.endorser.issuer.name,
+                                    issuer: issuerLink(endorsement.endorser.issuer),
                                     issuerGroup: onBehalfOfDisplayName(endorsement.endorser.issuer.faculty)
                                 })}
                             </span>
-                    {:else}
-                        <span class="top">{I18n.t("models.badgeclass.issuedBy")}</span>
-                    {/if}
-
-                    <span>
-                    <a href={`/public/issuers/${endorsement.endorser.issuer.entityId}`}>
-                        {endorsement.endorser.issuer.name}
-                    </a>
-                    <span>{I18n.t("models.badgeclass.of")}</span>
-                    <a href="/public/institutions/{endorsement.endorser.issuer.faculty.institution.entityId}"
-                       use:link>{endorsement.endorser.issuer.faculty.institution.name}</a>
-                </span>
-                </div>
+                        {:else}
+                            <span class="">{@html I18n.t("models.badgeclass.onBehalfOf",
+                                {
+                                    issuer: issuerLink(endorsement.endorser.issuer),
+                                    issuerGroup: `<a href="/public/institutions/${endorsement.endorser.issuer.faculty.institution.entityId}">${endorsement.endorser.issuer.faculty.institution.name}</a>`
+                                })}
+                            </span>
+                        {/if}
+                    </div>
             </div>
         </div>
 

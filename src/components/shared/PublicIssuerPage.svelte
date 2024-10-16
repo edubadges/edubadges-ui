@@ -1,7 +1,7 @@
 <script>
     import {onMount} from "svelte";
     import I18n from "i18n-js";
-    import {BadgeClassHeader} from "../teachers";
+    import {BadgeClassHeader, object} from "../teachers";
     import {Search, Spinner} from "../index";
     import {entityType} from "../../util/entityTypes"
     import {queryData} from "../../api/graphql";
@@ -14,6 +14,7 @@
     import BadgeListView from "./BadgeListView.svelte";
     import ViewSelector from "./ViewSelector.svelte";
     import {translateProperties} from "../../util/utils";
+    import {onBehalfOfDisplayName} from "../../util/onBehalfOf";
 
     export let entityId;
     export let visitorRole;
@@ -40,6 +41,8 @@
       faculty {
         nameEnglish,
         nameDutch,
+        imageDutch,
+        imageEnglish,
         onBehalfOf,
         onBehalfOfUrl,
         onBehalfOfDisplayName,
@@ -94,102 +97,102 @@
 </script>
 
 <style lang="scss">
-  .info {
-    margin-bottom: 30px;
-    word-break: break-all;
-  }
-
-  section.icons {
-    padding: 0 25px;
-
-    div {
-      border-bottom: 1px solid var(--grey-4);
-      padding: 20px;
-      display: flex;
-      align-content: center;
-
-      &:last-child {
-        border-bottom: none;
-      }
-
-      a {
-        padding-left: 20px;
-        display: inline-block;
-      }
-    }
-  }
-
-  :global(section.icons svg) {
-    width: 24px;
-    height: auto;
-  }
-
-  @media (max-width: 1120px) {
-    .issuer-detail {
-      padding: 20px !important;
-    }
-  }
-
-  div.issuer-detail {
-    padding: 40px 140px;
-  }
-
-  span.institution-slot {
-      margin-top: 8px;
-  }
-
-  div.page-container {
-    width: 100%;
-
-    div.view-selector {
-      display: flex;
-      align-content: center;
-      @media (max-width: 1120px) {
-        flex-direction: column;
-      }
-
-      div.search {
-        margin: 4px 25px 0 auto;
-        width: 360px;
-      }
-
-      margin-left: 20px;
-      padding: 10px;
+    .info {
+        margin-bottom: 30px;
+        word-break: break-all;
     }
 
-    div.badges {
-      padding: 0 20px 30px 20px;
-      flex: 1;
+    section.icons {
+        padding: 0 25px;
 
-      &.cards {
-        display: grid;
-        grid-template-columns: 31% 31% 31%;
-        grid-row: auto;
-        grid-column-gap: 25px;
-        grid-row-gap: 25px;
-        margin-right: calc(var(--badge-margin-right) * -1);
-      }
+        div {
+            border-bottom: 1px solid var(--grey-4);
+            padding: 20px;
+            display: flex;
+            align-content: center;
 
-      &.list {
-        display: flex;
-        flex-direction: column;
-      }
+            &:last-child {
+                border-bottom: none;
+            }
 
+            a {
+                padding-left: 20px;
+                display: inline-block;
+            }
+        }
+    }
+
+    :global(section.icons svg) {
+        width: 24px;
+        height: auto;
     }
 
     @media (max-width: 1120px) {
-      div.badges.cards {
-        grid-template-columns: 48% 48%;
-      }
+        .issuer-detail {
+            padding: 20px !important;
+        }
     }
 
-    @media (max-width: 820px) {
-      div.badges.cards {
-        grid-template-columns: 97%;
-      }
+    div.issuer-detail {
+        padding: 40px 140px;
     }
 
-  }
+    span.institution-slot {
+        margin-top: 8px;
+    }
+
+    div.page-container {
+        width: 100%;
+
+        div.view-selector {
+            display: flex;
+            align-content: center;
+            @media (max-width: 1120px) {
+                flex-direction: column;
+            }
+
+            div.search {
+                margin: 4px 25px 0 auto;
+                width: 360px;
+            }
+
+            margin-left: 20px;
+            padding: 10px;
+        }
+
+        div.badges {
+            padding: 0 20px 30px 20px;
+            flex: 1;
+
+            &.cards {
+                display: grid;
+                grid-template-columns: 31% 31% 31%;
+                grid-row: auto;
+                grid-column-gap: 25px;
+                grid-row-gap: 25px;
+                margin-right: calc(var(--badge-margin-right) * -1);
+            }
+
+            &.list {
+                display: flex;
+                flex-direction: column;
+            }
+
+        }
+
+        @media (max-width: 1120px) {
+            div.badges.cards {
+                grid-template-columns: 48% 48%;
+            }
+        }
+
+        @media (max-width: 820px) {
+            div.badges.cards {
+                grid-template-columns: 97%;
+            }
+        }
+
+    }
 </style>
 
 <div class="page-container">
@@ -202,11 +205,20 @@
                 visitorRole={visitorRole}
                 entityId={entityId}>
       <span slot="institution" class="institution-slot">
-        {@html I18n.t("catalog.issuer.institution", {
-            name: issuer.faculty.institution.name,
-            link: `/public/institutions/${issuer.faculty.institution.entityId}`,
-            countryCode: issuer.faculty.institution.countryCode,
-        })}
+          {#if issuer.faculty.onBehalfOf}
+              {@html I18n.t("catalog.issuer.institution", {
+                  name: issuer.faculty.name,
+                  link: issuer.faculty.onBehalfOfUrl,
+                  countryCode: issuer.faculty.institution.countryCode,
+              })}
+          {:else}
+              {@html I18n.t("catalog.issuer.institution", {
+                  name: issuer.faculty.institution.name,
+                  link: `/public/institutions/${issuer.faculty.institution.entityId}`,
+                  countryCode: issuer.faculty.institution.countryCode,
+              })}
+          {/if}
+
 	    </span>
             <section class="icons">
                 {#if issuer.email}

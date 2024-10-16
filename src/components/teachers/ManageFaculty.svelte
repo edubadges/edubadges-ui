@@ -42,6 +42,8 @@
         faculty {
           nameEnglish,
           nameDutch,
+          imageDutch,
+          imageEnglish,
           onBehalfOf,
           onBehalfOfDisplayName,
           onBehalfOfUrl

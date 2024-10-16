@@ -31,6 +31,8 @@
       publicFaculties {
         nameEnglish,
         nameDutch,
+        imageDutch,
+        imageEnglish,
         entityId,
         onBehalfOf,
         onBehalfOfDisplayName,

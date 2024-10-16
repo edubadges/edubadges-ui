@@ -5,7 +5,7 @@
     import {role} from "../../util/role";
     import {entityType} from "../../util/entityTypes"
     import {link} from "svelte-routing";
-    import {onBehalfOfDisplayName} from "../../util/onBehalfOf";
+    import {onBehalfOfDisplayName, issuerLink} from "../../util/onBehalfOf";
 
     export let entity;
     export let object = {};
@@ -56,7 +56,7 @@
 
             .badge-class-sub-info {
                 display: flex;
-                align-content: center;
+                align-items: center;
 
                 div.sub-img-container {
                     width: 50px;
@@ -138,29 +138,22 @@
                         </div>
                     {/if}
                     <div class="right">
+                        <span class="top">{I18n.t("models.badgeclass.issuedBy")}</span>
                         {#if object.issuer.faculty.onBehalfOf || object.issuer.faculty.on_behalf_of}
-                            <span class="top">{@html I18n.t("models.badgeclass.onBehalfOf",
+                            <span class="">{@html I18n.t("models.badgeclass.onBehalfOf",
                                 {
-                                    issuer: object.issuer.name,
+                                    issuer: issuerLink(object.issuer),
                                     issuerGroup: onBehalfOfDisplayName(object.issuer.faculty)
                                 })}
                             </span>
                         {:else}
-                            <span class="top">{I18n.t("models.badgeclass.issuedBy")}</span>
+                            <span class="">{@html I18n.t("models.badgeclass.onBehalfOf",
+                                {
+                                    issuer: issuerLink(object.issuer),
+                                    issuerGroup: `<a href="/public/institutions/${object.issuer.faculty.institution.entityId}">${object.issuer.faculty.institution.name}</a>`
+                                })}
+                            </span>
                         {/if}
-
-                        <span>
-                            {#if object.issuer.id}
-                                <a href={object.issuer.id}>{object.issuer.name}</a>
-                            {:else if object.issuer.entityId}
-                                <a href={`/public/issuers/${object.issuer.entityId}`}>{object.issuer.name}</a>
-                            {:else}
-                                <span class="issuer">{object.issuer.name}</span>
-                            {/if}
-                            <span>{I18n.t("models.badgeclass.of")}</span>
-                            <a href="/public/institutions/{object.issuer.faculty.institution.entityId}"
-                               use:link>{object.issuer.faculty.institution.name}</a>
-                        </span>
                     </div>
 
                 </div>

@@ -20,101 +20,101 @@
 </script>
 
 <style lang="scss">
-  .entity {
-    padding: var(--ver-padding-m) var(--hor-padding-m) 0;
-    background: var(--purple-1);
+    .entity {
+        padding: var(--ver-padding-m) var(--hor-padding-m) 0;
+        background: var(--purple-1);
 
-    .title {
-      display: flex;
-      margin-bottom: 20px;
+        .title {
+            display: flex;
+            margin-bottom: 20px;
 
-      .logo {
-        display: block;
-        max-height: 36px;
-        max-width: 36px;
-        margin-right: 20px;
-      }
+            .logo {
+                display: block;
+                max-height: 36px;
+                max-width: 36px;
+                margin-right: 20px;
+            }
+        }
+
+        .logo-colour {
+            color: var(--purple-8);
+        }
+
+        .content {
+            display: flex;
+            margin-left: 56px;
+            margin-bottom: var(--ver-padding-m);
+            flex-wrap: wrap;
+
+            .img-container {
+                flex-shrink: 0;
+                height: 100px;
+                width: 100px;
+                background: white;
+                margin-right: var(--hor-padding-m);
+                display: flex;
+                justify-content: space-around;
+            }
+
+            .img-icon {
+                height: 90px;
+                width: 90px;
+                background-color: white;
+                align-self: center;
+                display: flex;
+                justify-content: space-around;
+            }
+
+            .icn-container {
+                flex-shrink: 0;
+                height: 100px;
+                width: 100px;
+                margin-right: var(--hor-padding-m);
+                display: flex;
+                justify-content: space-around;
+                background-color: white;
+            }
+
+            .icn-icon {
+                height: 90px;
+                width: 90px;
+                align-self: center;
+                display: flex;
+                justify-content: space-around;
+                background-color: white;
+                color: var(--grey-5);
+            }
+
+            .info {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                min-width: 600px;
+            }
+
+            .list {
+                margin: var(--ver-padding-m) 0;
+            }
+        }
     }
 
-    .logo-colour {
-      color: var(--purple-8);
-    }
-
-    .content {
-      display: flex;
-      margin-left: 56px;
-      margin-bottom: var(--ver-padding-m);
-      flex-wrap: wrap;
-
-      .img-container {
-        flex-shrink: 0;
-        height: 100px;
-        width: 100px;
-        background: white;
-        margin-right: var(--hor-padding-m);
-        display: flex;
-        justify-content: space-around;
-      }
-
-      .img-icon {
-        height: 90px;
-        width: 90px;
-        background-color: white;
-        align-self: center;
-        display: flex;
-        justify-content: space-around;
-      }
-
-      .icn-container {
-        flex-shrink: 0;
-        height: 100px;
-        width: 100px;
-        margin-right: var(--hor-padding-m);
-        display: flex;
-        justify-content: space-around;
-        background-color: white;
-      }
-
-      .icn-icon {
-        height: 90px;
-        width: 90px;
-        align-self: center;
-        display: flex;
-        justify-content: space-around;
-        background-color: white;
-        color: var(--grey-5);
-      }
-
-      .info {
-        flex: 1;
+    .actions {
         display: flex;
         flex-direction: column;
-        min-width: 600px;
-      }
+        justify-content: space-between;
+        margin: auto 0 auto calc(var(--hor-padding-xl) / 2);
 
-      .list {
-        margin: var(--ver-padding-m) 0;
-      }
+        .button-container:first-child {
+            margin-bottom: 15px;
+        }
     }
-  }
 
-  .actions {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    margin: auto 0 auto calc(var(--hor-padding-xl) / 2);
-
-    .button-container:first-child {
-      margin-bottom: 15px;
+    .slots {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: auto 0 auto calc(var(--hor-padding-xl) / 2);
     }
-  }
-
-  .slots {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: auto 0 auto calc(var(--hor-padding-xl) / 2);
-  }
 
 </style>
 
@@ -137,15 +137,15 @@
         {:else if entity === entityType.ISSUER}
             <div class="icn-container">
                 <div class="icn-icon">
-        <span class="icon">
-          {@html issuerIcon}
-        </span>
+                    <span class="icon">
+                      {@html issuerIcon}
+                    </span>
                 </div>
             </div>
         {/if}
         <div class="info">
             {#if entity !== entityType.BADGE_CLASS}
-                <p>{currentLanguage === 'en' ? object.descriptionEnglish : object.descriptionDutch}</p>
+                <p>{object.description}</p>
             {/if}
             {#if object.publicLink}
                 <p><a href={object.publicLink} rel="noreferrer noopener" target="_blank">{object.publicLink}</a></p>

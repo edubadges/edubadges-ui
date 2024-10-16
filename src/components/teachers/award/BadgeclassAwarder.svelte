@@ -93,6 +93,8 @@
         faculty {
           nameEnglish,
           nameDutch,
+          imageDutch,
+          imageEnglish,
           entityId,
           onBehalfOf,
           onBehalfOfDisplayName,

@@ -51,6 +51,8 @@ export const studentBadgeInstances = `query {
           faculty {
             nameDutch,
             nameEnglish,
+            imageDutch,
+            imageEnglish,
             onBehalfOf,
             onBehalfOfDisplayName,
             onBehalfOfUrl,
@@ -263,6 +265,8 @@ export const endorsed = `
           nameDutch,
           nameEnglish,
           entityId,
+          imageDutch,
+          imageEnglish,
           onBehalfOf,
           onBehalfOfDisplayName,
           onBehalfOfUrl,

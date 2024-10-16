@@ -38,6 +38,8 @@
       faculty {
         nameDutch,
         nameEnglish,
+        imageDutch,
+        imageEnglish,
         onBehalfOf,
         onBehalfOfDisplayName,
         onBehalfOfUrl,
@@ -74,7 +76,6 @@
         loaded = false;
         queryData(query, {entityId}).then(res => {
             issuer = res.issuer;
-
             translateProperties(issuer);
             translateProperties(issuer.faculty);
             translateProperties(issuer.faculty.institution);

@@ -259,7 +259,7 @@
                     {#if badgeClass.issuer.faculty}
                         {#if badgeClass.issuer.faculty.onBehalfOf || badgeClass.issuer.faculty.on_behalf_of}
                             <span class="faculty">
-                                {@html I18n.t("models.badge.onBehalfOf",
+                                {@html I18n.t("models.badgeclass.onBehalfOf",
                                     {
                                         issuer: badgeClass.issuer.name,
                                         issuerGroup: onBehalfOfDisplayName(badgeClass.issuer.faculty)
