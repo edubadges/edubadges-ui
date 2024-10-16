@@ -1393,7 +1393,8 @@ I18n.translations.nl = {
             website: "Bezoek issuer website",
             gradingTable: "Bekijk de grading tabel",
             institution: "<span>Onderdeel van <a href=\"{{link}}\" target=\"_blank\">{{name}}</a> ({{countryCode}})</span>"
-        }
+        },
+        busy: "Alle informatie wordt opgehaald. Dat kan even duren.... Neem een ☕️",
     },
     badgeAwardOptions: {
         directAward: "Reik edubadge(s) uit",

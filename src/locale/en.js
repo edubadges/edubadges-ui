@@ -1392,7 +1392,8 @@ I18n.translations.en = {
             website: "Visit issuer website",
             gradingTable: "View the grading table",
             institution: "<span>Part of <a href=\"{{link}}\" target=\"_blank\">{{name}}</a> ({{countryCode}})</span>"
-        }
+        },
+        busy: "Fetching all information. This might take a while.... Take a ☕️",
     },
     badgeAwardOptions: {
         directAward: "Award edubadge(s)",
