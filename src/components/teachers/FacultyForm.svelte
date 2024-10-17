@@ -23,7 +23,8 @@
     let isCreate = !entityId;
     let processing = false;
     let englishValueError = false;
-    let dutchValueError = false
+    let dutchValueError = false;
+    let activeMultiLanguageTab;
 
     const facultyTypes = [
         {value: "HBO", name: "HBO"},
@@ -139,18 +140,9 @@
         {/if}
         <MultiLanguageField errorEnglish={englishValueError}
                             errorDutch={dutchValueError}
-                            initialTab={defaultLanguage == 'en-US'? "en" : "nl"}>
+                            initialTab={defaultLanguage == 'en-US'? "en" : "nl"}
+                            tabSwitchNotify={newTab => activeMultiLanguageTab = newTab}>
             <div slot='en'>
-                {#if virtualOrganizationAllowed}
-                    <Field {entity}
-                           attribute="image_english"
-                           errors={errors.image_english}
-                           tipKey="institutionImageEn">
-                        <File bind:value={faculty.imageEnglish}
-                              error={errors.image_english}
-                              removeAllowed={true}/>
-                    </Field>
-                {/if}
                 <Field {entity}
                        attribute="name_english"
                        errors={errors.name_english}
@@ -170,16 +162,6 @@
                 </Field>
             </div>
             <div slot='nl'>
-                {#if virtualOrganizationAllowed}
-                    <Field {entity}
-                           attribute="image_dutch"
-                           errors={errors.image_dutch}
-                           tipKey="institutionImageNl">
-                        <File bind:value={faculty.imageDutch}
-                              error={errors.image_dutch}
-                              removeAllowed={true}/>
-                    </Field>
-                {/if}
                 <Field {entity}
                        attribute="name_dutch"
                        errors={errors.name_dutch}
@@ -204,6 +186,35 @@
                     label={I18n.t(['models', entity, 'onBehalfOf'])}
                     question={I18n.t("tooltips.facultyOnBehalfOfUrl")}
                     onChange={() => faculty.onBehalfOf = !faculty.onBehalfOf}/>
+
+            <MultiLanguageField errorEnglish={englishValueError}
+                                errorDutch={dutchValueError}
+                                initialTab={defaultLanguage == 'en-US'? "en" : "nl"}
+                                activeTab={activeMultiLanguageTab}
+                                showTabSwitch={false}>
+                <div slot='en'>
+                    <Field {entity}
+                           attribute="image_english"
+                           errors={errors.image_english}
+                           tipKey="institutionImageEn">
+                        <File bind:value={faculty.imageEnglish}
+                              error={errors.image_english}
+                              disabled={!faculty.onBehalfOf}
+                              removeAllowed={true}/>
+                    </Field>
+                </div>
+                <div slot='nl'>
+                    <Field {entity}
+                           attribute="image_dutch"
+                           errors={errors.image_dutch}
+                           tipKey="institutionImageNl">
+                        <File bind:value={faculty.imageDutch}
+                              error={errors.image_dutch}
+                              disabled={!faculty.onBehalfOf}
+                              removeAllowed={true}/>
+                    </Field>
+                </div>
+            </MultiLanguageField>
 
             <Field {entity} attribute="on_behalf_of_url"
                    errors={errors.on_behalf_of_url}

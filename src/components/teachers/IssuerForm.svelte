@@ -88,7 +88,8 @@
             {hasUnrevokedAssertions}
             issuer={isCreate ? null : issuer} submit={onSubmit} create={isCreate} {processing}>
     <div class="issuer-form">
-        <MultiLanguageField errorEnglish={englishValueError} errorDutch={dutchValueError}
+        <MultiLanguageField errorEnglish={englishValueError}
+                            errorDutch={dutchValueError}
                             initialTab={defaultLanguage == 'en-US'? "en" : "nl"}>
 
             <div slot='before'>
