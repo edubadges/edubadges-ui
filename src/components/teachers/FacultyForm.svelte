@@ -183,7 +183,6 @@
         {#if virtualOrganizationAllowed}
             <Switch
                     value={faculty.onBehalfOf || false}
-                    label={I18n.t(['models', entity, 'onBehalfOf'])}
                     question={I18n.t("tooltips.facultyOnBehalfOfUrl")}
                     onChange={() => faculty.onBehalfOf = !faculty.onBehalfOf}/>
 
@@ -230,19 +229,21 @@
                    tipKey="institutionLinkedinOrgIdentifier">
                 <TextInput
                         bind:value={faculty.linkedinOrgIdentifier}
-                        placeholder={I18n.t("placeholders.institution.linkedinOrgIdentifier")}
+                        placeholder={I18n.t("placeholders.faculty.linkedinOrgIdentifier")}
                         disabled={!faculty.onBehalfOf}
                         error={errors.linkedin_org_identifier}/>
             </Field>
-
-            <Field {entity} attribute="on_behalf_of_display_name"
-                   errors={errors.on_behalf_of_display_name}
-                   tipKey="facultyOnBehalfOfDisplayName">
-                <TextInput bind:value={faculty.onBehalfOfDisplayName}
-                           error={errors.on_behalf_of_display_name}
-                           disabled={!faculty.onBehalfOf}
-                           placeholder={I18n.t("placeholders.faculty.onBehalfOfDisplayName")}/>
-            </Field>
+            {#if !isEmpty(faculty.onBehalfOfDisplayName) &&
+                (faculty.onBehalfOfDisplayName !== faculty.nameDutch || faculty.onBehalfOfDisplayName !== faculty.nameEnglish)}
+                <Field {entity} attribute="on_behalf_of_display_name"
+                       errors={errors.on_behalf_of_display_name}
+                       tipKey="facultyOnBehalfOfDisplayName">
+                    <TextInput bind:value={faculty.onBehalfOfDisplayName}
+                               error={errors.on_behalf_of_display_name}
+                               disabled={!faculty.onBehalfOf}
+                               placeholder={I18n.t("placeholders.faculty.onBehalfOfDisplayName")}/>
+                </Field>
+            {/if}
         {/if}
     </div>
 

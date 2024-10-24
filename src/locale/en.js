@@ -455,6 +455,8 @@ I18n.translations.en = {
         944: "This badge class requires a grade for awarding",
         945: "The type of institution is required.",
         946: "Type of visibility is required for SURF institutions.",
+        947: "An English or Dutch image is required when issued on behalf of other organisation.",
+
         unexpected: "Unexpected error occurred.",
         description: "An unexpected error has occurred. Please try again later or contact support@edubadges.nl for support.",
         close: "Close"
@@ -1135,6 +1137,7 @@ I18n.translations.en = {
         verify: "Verify",
         validations: {
             institution: "From institution {{val}}",
+            faculty: "By {{val}}",
             hosted: "Hosted on {{val}}",
             imported: "Imported on {{val}}",
             issuedOn: "Issued on {{val}}",
@@ -1204,7 +1207,8 @@ I18n.translations.en = {
             description: "(Required field) e.g. all History related studies",
             facultyType: "Select the institution type for this issuer group...",
             visibilityType: "Select the visibility type for this issuer group...",
-            onBehalfOfUrl: "(Optional) e.g. URL of the issuer group or consortium",
+            onBehalfOfUrl: "(Optional) e.g. URL of the other organisation",
+            linkedinOrgIdentifier: "(Optional) e.g. the linkedin identifier of the other organisation",
             onBehalfOfDisplayName: "(Optional) e.g. display name of the issuer group or consortium",
         },
         issuer: {
@@ -1312,7 +1316,7 @@ I18n.translations.en = {
         //badgeClassRelatedFrameworkDescription: "badgeClassRelatedFrameworkDescription",
         facultyName: "Avoid abbreviations, make sure your name is recognisable, also to external parties.",
         facultyOnBehalfOf: "When checked, the badge class indicates that edubadges are issued on behalf of this issuer group. Can be used when issuing on behalf of a consortium.",
-        facultyOnBehalfOfUrl: "Use the URL as a external link to the issuer group.",
+        facultyOnBehalfOfUrl: "Issue on behalf of other organisation",
         facultyInstitutionType: "All edubadges of this issuer group will inherit the institution type. This is to determine the educational level of a badgeclass for hybrid institutions",
         facultyVisibilityType: "All eduBadges of Public issuer groups are displayed in the Catalog",
         facultyOnBehalfOfDisplayName: "When Issue on behalf of name issuer group is checked, this display name will used instead of the actual name of the issuer group.",

@@ -71,7 +71,9 @@
     </div>
 </div>
 {#if fetchingValidation}
-    <ValidationSpinners badge={badge} importedBadge={importedBadge} validatedName={validatedName}
+    <ValidationSpinners badge={badge}
+                        importedBadge={importedBadge}
+                        validatedName={validatedName}
                         close={() => fetchingValidation = false}/>
 {/if}
 
