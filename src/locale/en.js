@@ -815,7 +815,11 @@ I18n.translations.en = {
             validUntil: "Valid until",
             addToCollection: "Add to collection",
             grade: "Grade",
-            ob3SsiAgent: "Wallet import",
+            ob3SsiAgent: "Wallet import {{name}}",
+            ob3SsiAgentNames: {
+              unime: "unime",
+              sphereon: "sphereon",
+            },
             ob3SsiAgentQRCode: "Import into wallet",
             ob3SsiAgentQRCodeQuestion: "Scan this code with your electronic credentials wallet",
             ok: "Ok",
