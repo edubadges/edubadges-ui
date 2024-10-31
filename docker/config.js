@@ -5,6 +5,7 @@ export const config = {
   teacherDomain: "surf_conext",
   extensionsRootUrl: "http://localhost:8000/static",
   eduId: "https://mijn.test.eduid.nl",
+  isProdEnvironment: false,
   isDemoEnvironment: true,
   importBadgeAllowed: true,
   welcomeBadgeClassName: "Edubadge account complete",
