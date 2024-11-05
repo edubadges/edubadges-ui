@@ -13,11 +13,13 @@
     import BadgeCard from "../../components/shared/BadgeCard.svelte";
     import BadgeClassDetails from "../../components/shared/BadgeClassDetails.svelte";
     import {Modal, Select} from "../../components/forms";
+    import SsiAgentModal from "../../components/students/SsiAgentModal.svelte";
     import {
         acceptAssertion,
         claimAssertion,
         deleteAssertion,
-        editBadgeInstanceCollection, ob3WalletImport,
+        editBadgeInstanceCollection,
+        ob3WalletImport,
         publicAssertion
     } from "../../api";
     import {flash} from "../../stores/flash";
@@ -54,7 +56,8 @@
 
     //ob3
     let showOb3SsiAgentModal = false;
-    let qrCode = null;
+    let ssiAgentOffer = null;
+    let ssiAgentName = "";
 
     const cancel = () => {
         showModal = false;
@@ -67,7 +70,6 @@
         showShareDialog = false;
         showShareFeedback = true;
         setTimeout(() => showShareFeedback = false, 2500)
-
     }
 
     const publicUrl = () => {
@@ -86,11 +88,11 @@
     const startOb3SsiAgentImport = (variant) => {
         loaded = false
         ob3WalletImport(badge, variant).then(res => {
-            showOb3SsiAgentModal = true
-            loaded = true
-            qrCode = res.qr_code_base64;
+            showOb3SsiAgentModal = true;
+            loaded = true;
+            ssiAgentName = variant;
+            ssiAgentOffer = res.offer;
         })
-
     }
 
     const addToCollection = () => {
@@ -473,17 +475,6 @@
             cursor: not-allowed;
         }
     }
-
-    .qr-code-container {
-        display: flex;
-
-        img {
-            width: 240px;
-            height: auto;
-            margin: auto;
-        }
-    }
-
 </style>
 
 <div class="badge-detail-container">
@@ -643,14 +634,9 @@
     </Modal>
 {/if}
 
-{#if showOb3SsiAgentModal}
-    <Modal
-            submit={() => showOb3SsiAgentModal = false}
-            question={I18n.t("models.badge.ob3SsiAgentQRCodeQuestion")}
-            title={I18n.t("models.badge.ob3SsiAgentQRCode")}
-            submitLabel={I18n.t("error.close")}>
-        <div class="qr-code-container">
-            <img alt="QR code" src={`data:image/png;base64,${qrCode}`}/>
-        </div>
-    </Modal>
-{/if}
+<SsiAgentModal
+   submit={() => showOb3SsiAgentModal = false}
+   showModal={showOb3SsiAgentModal}
+   walletName={ssiAgentName}
+   offer={ssiAgentOffer}>
+</SsiAgentModal>
