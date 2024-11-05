@@ -40,6 +40,7 @@
     let users;
     let loaded = false;
     let enableScheduling = false;
+    let enableAwardOnEmail = false;
     let scheduledAt = null;
     let initialDate = new Date();
     let startDate = null;
@@ -168,7 +169,8 @@
         if (Object.values(errors).some(val => val)) {
             return;
         }
-        createDirectAwards(directAwards, badgeclass, false, enableScheduling ? new Date(scheduledAt) : null, ltiContextEnabled)
+        createDirectAwards(directAwards, badgeclass, false, enableScheduling ? new Date(scheduledAt) : null,
+            ltiContextEnabled, enableAwardOnEmail)
             .then(() => {
                 refresh(() => setTimeout(() => navigate(`/badgeclass/${badgeclass.entityId}/awarded`), 75));
                 flash.setValue(I18n.t("badgeAward.directAward.flash.created"));
@@ -181,19 +183,32 @@
     //Need to rebuild the errors as in-between values might be removed
     const invariant = newDirectAwards => {
         errors = newDirectAwards.reduce((acc, da, i) => {
-            acc[`eppn_${i}`] = da.eppn.trim().length === 0 || !validEppn(da.eppn, badgeclass);
+            if (!enableAwardOnEmail) {
+                acc[`eppn_${i}`] = da.eppn.trim().length === 0 || !validEppn(da.eppn, badgeclass);
+            } else {
+                acc[`eppn_${i}`] = false;
+            }
             acc[`email_${i}`] = !validEmail(da.email);
             acc[`evidence_${i}`] = badgeclass.evidenceRequired && !da.evidence_url;
             acc[`narrative_${i}`] = badgeclass.narrativeRequired && !da.narrative;
             acc[`grade_${i}`] = badgeclass.gradeAchievedRequired && isEmpty(da.grade_achieved);
             return acc;
         }, {});
-        errorsAlreadyAwarded = newDirectAwards.reduce((acc, da, i) => {
-            acc[`eppn_${i}`] = existingDirectAwardsEppns.some(inst => inst.eppn === da.eppn);
-            return acc;
-        }, {});
+        if (!enableAwardOnEmail) {
+            errorsAlreadyAwarded = newDirectAwards.reduce((acc, da, i) => {
+                acc[`eppn_${i}`] = existingDirectAwardsEppns.some(inst => inst.eppn === da.eppn);
+                return acc;
+            }, {});
+        } else {
+            errorsAlreadyAwarded = {};
+        }
+
         errorsDuplications = newDirectAwards.reduce((acc, da, i) => {
-            acc[`eppn_${i}`] = newDirectAwards.filter(other => other.eppn === da.eppn && other.eppn.trim().length > 0).length > 1;
+            if (!enableAwardOnEmail) {
+                acc[`eppn_${i}`] = newDirectAwards.filter(other => other.eppn === da.eppn && other.eppn.trim().length > 0).length > 1;
+            } else {
+                acc[`eppn_${i}`] = false;
+            }
             acc[`email_${i}`] = newDirectAwards.filter(other => other.email === da.email && other.email.trim().length > 0).length > 1;
             return acc;
         }, {});
@@ -223,7 +238,7 @@
             margin: 5px 0 0 20px;
         }
 
-        .scheduled-at {
+        .scheduled-at, .award-on-email {
             display: flex;
             align-items: center;
             margin: 15px 0 16px 0;
@@ -400,6 +415,18 @@
                     </div>
                 {/if}
             </div>
+            <div class="award-on-email">
+                <CheckBox
+                        value={enableAwardOnEmail}
+                        name={"enableAwardOnEmail"}
+                        tipKey="enableAwardOnEmail"
+                        inForm={false}
+                        adjustTop={true}
+                        boldLabel={false}
+                        label={I18n.t("badgeAward.directAward.enableAwardOnEmail")}
+                        onChange={val => enableAwardOnEmail = val}
+                />
+            </div>
             {#each directAwards as da, i}
                 <div class="grouped">
                     <Field entity="badgeAward" attribute="email">
@@ -416,33 +443,29 @@
                         {/if}
 
                     </Field>
-                    <Field entity="badgeAward" attribute="eppn" relative={true}>
-                        <TextInput bind:value={da.eppn} error={errors[`eppn_${i}`]} onBlur={eppnOnBlur(i)}/>
-                        {#if errors[`eppn_${i}`]}
-                            {#if isEmpty(da.eppn)}
-                                <Error standAlone={true} error_code={928}/>
-                            {:else}
-                                <Error standAlone={true} error_code={942}/>
+                    {#if !enableAwardOnEmail}
+                        <Field entity="badgeAward" attribute="eppn" relative={true}>
+                            <TextInput bind:value={da.eppn} error={errors[`eppn_${i}`]} onBlur={eppnOnBlur(i)}/>
+                            {#if errors[`eppn_${i}`]}
+                                {#if isEmpty(da.eppn)}
+                                    <Error standAlone={true} error_code={928}/>
+                                {:else}
+                                    <Error standAlone={true} error_code={942}/>
+                                {/if}
                             {/if}
-                        {/if}
-                        {#if errorsDuplications[`eppn_${i}`]}
-                            <Error standAlone={true} error_code={930}/>
-                        {/if}
-                        {#if errorsAlreadyAwarded[`eppn_${i}`]}
-                            <Error standAlone={true}
-                                   error_code={(existingDirectAwardsEppns.find(ex => ex.eppn === da.eppn) || {}).isAssertion ? 943 : 931}/>
-                        {/if}
-                    </Field>
-
+                            {#if errorsDuplications[`eppn_${i}`]}
+                                <Error standAlone={true} error_code={930}/>
+                            {/if}
+                            {#if errorsAlreadyAwarded[`eppn_${i}`]}
+                                <Error standAlone={true}
+                                       error_code={(existingDirectAwardsEppns.find(ex => ex.eppn === da.eppn) || {}).isAssertion ? 943 : 931}/>
+                            {/if}
+                        </Field>
+                    {/if}
                     <div class="evidence-container">
                         <div class="evidence-subcontainer">
                             <button class="rm-icon-container" class:disabled={i === 0}
                                     on:click={removeDirectAward(i)}>{@html trash}</button>
-                            <!--                            <Button text={I18n.t("badgeAward.directAward.grade")}-->
-                            <!--                                    action={() => addEvidence(i)}/>-->
-                            <!--                            <Button text={hasEvidence(da) ? I18n.t("badgeAward.directAward.editEvidence") :-->
-                            <!--                              I18n.t("badgeAward.directAward.addEvidence")}-->
-                            <!--                                    action={() => addEvidence(i)}/>-->
                             <Button text={I18n.t(`badgeAward.directAward.${hasMetaData(da) ? "editMetaData" : "metaData"}`)}
                                     action={() => addEvidence(i)}/>
                         </div>
