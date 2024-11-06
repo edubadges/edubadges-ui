@@ -10,7 +10,7 @@
     import BadgeClassDetails from "../../components/shared/BadgeClassDetails.svelte";
     import moment from "moment";
     import {Modal} from "../../components/forms";
-    import {translateProperties} from "../../util/utils";
+    import {isEmpty, translateProperties} from "../../util/utils";
     import Button from "../../components/Button.svelte";
     import {acceptRejectDirectAward, acceptTermsForBadge} from "../../api";
     import {flash} from "../../stores/flash";
@@ -27,7 +27,7 @@
 
     let showAcceptTerms = false;
     let termsAccepted = false;
-    let noValidInstitution = false;
+    let noValidatedName = false;
 
     //Modal
     let showModal = false;
@@ -158,16 +158,8 @@
     }
 
     const claimDirectAward = showConfirmation => {
-        const schacHomes = currentUser.schacHomes;
-        const institution = directAward.badgeclass.issuer.faculty.institution
-        const identifiers = [institution.identifier].concat(directAward.badgeclass.awardAllowedInstitutions);
-        if (institution.alternativeIdentifier) {
-            identifiers.push(institution.alternativeIdentifier);
-        }
-        const allowedInstitution = identifiers.some(identifier => schacHomes.includes(identifier));
-        const allowClaim = currentUser.validatedName && !directAward.badgeclass.formal;
-        if (!allowedInstitution && !allowClaim) {
-            noValidInstitution = true;
+        if (isEmpty(currentUser.validatedName)) {
+            noValidatedName = true;
             return;
         }
         if (!termsAccepted) {
@@ -331,9 +323,7 @@
             <span>{moment(directAward.createdAt).format('MMM D, YYYY')}</span>
           </div>
         </div>
-
         <BadgeClassDetails badgeclass={directAward.badgeclass}/>
-
       </div>
     </div>
   {/if}
@@ -341,13 +331,13 @@
   <Spinner/>
 {/if}
 
-{#if noValidInstitution}
+{#if noValidatedName}
   <Modal
     submit={logInForceAuthn}
-    title={I18n.t("acceptTerms.noValidInstitution")}
-    question={I18n.t("acceptTerms.noValidInstitutionInfoForEnrollment", {name: directAward.badgeclass.issuer.faculty.institution.name})}
+    title={I18n.t("acceptTerms.noValidatedNameTitle")}
+    question={I18n.t("acceptTerms.noValidatedName")}
     evaluateQuestion={true}
-    cancel={() => noValidInstitution = false}
+    cancel={() => noValidatedName = false}
     submitLabel={I18n.t("acceptTerms.goToSurfConext")}/>
 {/if}
 

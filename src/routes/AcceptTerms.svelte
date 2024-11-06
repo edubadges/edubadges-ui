@@ -196,7 +196,7 @@
   <Modal
     submit={logInForceAuthn}
     title={I18n.t("acceptTerms.noValidInstitution")}
-    question={schacHomeOrganisations[0] ?
+    question={!schacHomeOrganisations[0] ?
         I18n.t("acceptTerms.noValidInstitutionInfoNoInstitution") :
         I18n.t("acceptTerms.noValidInstitutionInfo.teacher", {name: schacHomeOrganisations[0]})}
     evaluateQuestion={true}

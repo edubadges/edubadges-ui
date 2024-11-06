@@ -1258,11 +1258,11 @@ I18n.translations.en = {
             verified: "<strong>Verified<strong> {{val}}",
         },
         noValidatedNameModal: {
-            noLinkedInstitution: "No linked verfied institution",
+            noLinkedInstitution: "No linked verified institution",
             question:
-                "Your eduID account is not linked to any verfied institution. This is required to request edubadges.<br><br>Please press <span style='color: #540b6c'>Link institution</span> to be redirected to eduID. After that you will be redirected back to this page.",
+                "Your eduID account is not linked to any verified institution. This is required to request edubadges.<br><br>Please press <span style='color: #540b6c'>Link institution</span> to be redirected to eduID. After that you will be redirected back to this page.",
             directAwards:
-                "Your eduID account is not linked to any verfied institution. This is required to claim your direct awards.<br><br>Please press <span style='color: #540b6c'>Link institution</span> to be redirected to eduID. After that you will be redirected back to this page.",
+                "Your eduID account is not linked to any verified institution. This is required to claim your direct awards.<br><br>Please press <span style='color: #540b6c'>Link institution</span> to be redirected to eduID. After that you will be redirected back to this page.",
             goToEduID: "Link institution",
         },
     },
