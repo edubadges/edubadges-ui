@@ -1,26 +1,26 @@
 <script>
-  import I18n from "i18n-js";
+    import I18n from "i18n-js";
 
-  import {onMount} from "svelte";
-  import {link, navigate} from "svelte-routing";
-  import {queryData} from "../../api/graphql";
-  import chevronRightSmall from "../../icons/chevron-right-small.svg";
-  import Spinner from "../../components/Spinner.svelte";
-  import BadgeCard from "../../components/shared/BadgeCard.svelte";
-  import BadgeClassDetails from "../../components/shared/BadgeClassDetails.svelte";
-  import moment from "moment";
-  import {Modal} from "../../components/forms";
-  import {translateProperties} from "../../util/utils";
-  import Button from "../../components/Button.svelte";
-  import {acceptRejectDirectAward, acceptTermsForBadge} from "../../api";
-  import {flash} from "../../stores/flash";
-  import {authToken, redirectPath, userLoggedIn, userRole, validatedUserName} from "../../stores/user";
-  import {config} from "../../util/config";
-  import AcceptInstitutionTerms from "../AcceptInstitutionTerms.svelte";
-  import StudentBreadCrumb from "../../components/students/StudentBreadCrumb.svelte";
-  import BadgeHeader from "../../components/students/BadgeHeader.svelte";
+    import {onMount} from "svelte";
+    import {link, navigate} from "svelte-routing";
+    import {queryData} from "../../api/graphql";
+    import chevronRightSmall from "../../icons/chevron-right-small.svg";
+    import Spinner from "../../components/Spinner.svelte";
+    import BadgeCard from "../../components/shared/BadgeCard.svelte";
+    import BadgeClassDetails from "../../components/shared/BadgeClassDetails.svelte";
+    import moment from "moment";
+    import {Modal} from "../../components/forms";
+    import {translateProperties} from "../../util/utils";
+    import Button from "../../components/Button.svelte";
+    import {acceptRejectDirectAward, acceptTermsForBadge} from "../../api";
+    import {flash} from "../../stores/flash";
+    import {authToken, redirectPath, userLoggedIn, userRole, validatedUserName} from "../../stores/user";
+    import {config} from "../../util/config";
+    import AcceptInstitutionTerms from "../AcceptInstitutionTerms.svelte";
+    import StudentBreadCrumb from "../../components/students/StudentBreadCrumb.svelte";
+    import BadgeHeader from "../../components/students/BadgeHeader.svelte";
 
-  export let entityId;
+    export let entityId;
 
     let directAward = {};
     let currentUser = {};
