@@ -203,158 +203,159 @@
 </script>
 
 <style lang="scss">
-  div.badge-detail-container {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-
-  div.badge-detail {
-    padding: 20px 40px 10px 40px;
-    position: relative;
-  }
-
-  span.status-indicator {
-    display: inline-block;
-    position: absolute;
-    border-radius: 14px;
-    box-shadow: 0 1px 0 1px var(--grey-4);
-    font-weight: bold;
-    font-size: 14px;
-    padding: 4px 8px;
-    text-align: center;
-    left: 30px;
-    top: -14px;
-    background-color: var(--red-dark);
-    color: white;
-    max-width: 85px;
-    z-index: 9;
-  }
-
-  span.status-indicator.unclaimed {
-    background-color: var(--green-dark);
-    color: white;
-  }
-
-  div.badge-card-container {
-    display: flex;
-    max-width: 320px;
-    margin: 0 auto 40px auto;
-    position: relative;
-  }
-
-  div.actions {
-    margin: 25px 0;
-    display: flex;
-    justify-content: center;
-
-    .button-container {
-      margin-left: 25px;
-      display: flex;
-      position: relative;
-    }
-
-  }
-
-  @media (max-width: 600px) {
-    div.actions {
-      flex-direction: column;
-      align-items: flex-start;
-
-      .button-container {
-        margin-left: 0;
-        margin-top: 15px;
+    div.badge-detail-container {
         display: flex;
-      }
-
-    }
-  }
-
-  h3 {
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 12px;
-  }
-
-  div.dates {
-    display: flex;
-    width: 100%;
-    align-content: space-between;
-
-    div.issued-on {
-      flex-grow: 1;
+        flex-direction: column;
+        width: 100%;
     }
 
-    margin-bottom: 40px;
-  }
-
-  @media (max-width: 1120px) {
-    .badge-detail {
-      padding: 40px 20px !important;
+    div.badge-detail {
+        padding: 20px 40px 10px 40px;
+        position: relative;
     }
-  }
+
+    span.status-indicator {
+        display: inline-block;
+        position: absolute;
+        border-radius: 14px;
+        box-shadow: 0 1px 0 1px var(--grey-4);
+        font-weight: bold;
+        font-size: 14px;
+        padding: 4px 8px;
+        text-align: center;
+        left: 30px;
+        top: -14px;
+        background-color: var(--red-dark);
+        color: white;
+        max-width: 85px;
+        z-index: 9;
+    }
+
+    span.status-indicator.unclaimed {
+        background-color: var(--green-dark);
+        color: white;
+    }
+
+    div.badge-card-container {
+        display: flex;
+        max-width: 320px;
+        margin: 0 auto 40px auto;
+        position: relative;
+    }
+
+    div.actions {
+        margin: 25px 0;
+        display: flex;
+        justify-content: center;
+
+        .button-container {
+            margin-left: 25px;
+            display: flex;
+            position: relative;
+        }
+
+    }
+
+    @media (max-width: 600px) {
+        div.actions {
+            flex-direction: column;
+            align-items: flex-start;
+
+            .button-container {
+                margin-left: 0;
+                margin-top: 15px;
+                display: flex;
+            }
+
+        }
+    }
+
+    h3 {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 12px;
+    }
+
+    div.dates {
+        display: flex;
+        width: 100%;
+        align-content: space-between;
+
+        div.issued-on {
+            flex-grow: 1;
+        }
+
+        margin-bottom: 40px;
+    }
+
+    @media (max-width: 1120px) {
+        .badge-detail {
+            padding: 40px 20px !important;
+        }
+    }
 
 </style>
 
 {#if loaded}
-  {#if !showAcceptTerms}
-    <div class="badge-detail-container">
-      <StudentBreadCrumb>
-        <a use:link href={`/backpack`}>{I18n.t("student.badges")}</a>
-        <span class="icon">{@html chevronRightSmall}</span>
-        <span class="current">{directAward.badgeclass.name}</span>
-      </StudentBreadCrumb>
-      <BadgeHeader title={directAward.badgeclass.name}/>
-      <div class="badge-detail">
-        <div class="badge-card-container">
-          <span class="status-indicator unclaimed">{I18n.t("models.badge.statuses.unclaimed")}</span>
-          <BadgeCard badgeClass={directAward.badgeclass} standAlone={true} withHeaderData={false}/>
+    {#if !showAcceptTerms}
+        <div class="badge-detail-container">
+            <StudentBreadCrumb>
+                <a use:link href={`/backpack`}>{I18n.t("student.badges")}</a>
+                <span class="icon">{@html chevronRightSmall}</span>
+                <span class="current">{directAward.badgeclass.name}</span>
+            </StudentBreadCrumb>
+            <BadgeHeader title={directAward.badgeclass.name}/>
+            <div class="badge-detail">
+                <div class="badge-card-container">
+                    <span class="status-indicator unclaimed">{I18n.t("models.badge.statuses.unclaimed")}</span>
+                    <BadgeCard badgeClass={directAward.badgeclass} standAlone={true} withHeaderData={false}/>
+                </div>
+                <div class="actions">
+                    <div class="button-container">
+                        <Button text={I18n.t("models.badgeAward.reject")} action={() => rejectDirectAward(true)}
+                                secondary={true}
+                                marginRight={true}/>
+                        <Button text={I18n.t("models.badgeAward.claim")} action={() => claimDirectAward(true)}/>
+                    </div>
+                </div>
+                <div class="dates">
+                    <div class="issued-on">
+                        <h3>{I18n.t("models.badge.issuedOn")}</h3>
+                        <span>{moment(directAward.createdAt).format('MMM D, YYYY')}</span>
+                    </div>
+                </div>
+                <BadgeClassDetails badgeclass={directAward.badgeclass}/>
+            </div>
         </div>
-        <div class="actions">
-          <div class="button-container">
-            <Button text={I18n.t("models.badgeAward.reject")} action={() => rejectDirectAward(true)} secondary={true}
-                    marginRight={true}/>
-            <Button text={I18n.t("models.badgeAward.claim")} action={() => claimDirectAward(true)}/>
-          </div>
-        </div>
-        <div class="dates">
-          <div class="issued-on">
-            <h3>{I18n.t("models.badge.issuedOn")}</h3>
-            <span>{moment(directAward.createdAt).format('MMM D, YYYY')}</span>
-          </div>
-        </div>
-        <BadgeClassDetails badgeclass={directAward.badgeclass}/>
-      </div>
-    </div>
-  {/if}
+    {/if}
 {:else}
-  <Spinner/>
+    <Spinner/>
 {/if}
 
 {#if noValidatedName}
-  <Modal
-    submit={logInForceAuthn}
-    title={I18n.t("acceptTerms.noValidatedNameTitle")}
-    question={I18n.t("acceptTerms.noValidatedName")}
-    evaluateQuestion={true}
-    cancel={() => noValidatedName = false}
-    submitLabel={I18n.t("acceptTerms.goToSurfConext")}/>
+    <Modal
+            submit={logInForceAuthn}
+            title={I18n.t("acceptTerms.noValidatedNameTitle")}
+            question={I18n.t("acceptTerms.noValidatedName")}
+            evaluateQuestion={true}
+            cancel={() => noValidatedName = false}
+            submitLabel={I18n.t("acceptTerms.goToSurfConext")}/>
 {/if}
 
 {#if showAcceptTerms}
-  <AcceptInstitutionTerms
-    badgeClass={directAward.badgeclass}
-    userHasAgreed={userHasAgreed}
-    userDisagreed={userDisagreed}/>
+    <AcceptInstitutionTerms
+            badgeClass={directAward.badgeclass}
+            userHasAgreed={userHasAgreed}
+            userDisagreed={userDisagreed}/>
 {/if}
 
 {#if showModal}
-  <Modal
-    submit={modalAction}
-    cancel={cancel}
-    warning={warning}
-    question={modalQuestion}
-    evaluateQuestion={true}
-    title={modalTitle}>
-  </Modal>
+    <Modal
+            submit={modalAction}
+            cancel={cancel}
+            warning={warning}
+            question={modalQuestion}
+            evaluateQuestion={true}
+            title={modalTitle}>
+    </Modal>
 {/if}
