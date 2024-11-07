@@ -97,11 +97,22 @@
             description: "",
             grade_achieved: ""
         };
+        if (enableAwardOnEmail) {
+            delete newDa.eppn;
+        }
         directAwards = [...directAwards, newDa];
     }
 
-    const hasEvidence = directAward => {
-        return !isEmpty(directAward.narrative) || validUrl(directAward.evidence_url);
+    const enableAwardOnEmailToggle = val => {
+        enableAwardOnEmail = val;
+        if (val) {
+            //Remove eppn
+            directAwards = directAwards.map(da => {
+                delete da.eppn;
+                return da;
+            })
+        }
+        invariant(directAwards);
     }
 
     const hasMetaData = directAward => {
@@ -109,7 +120,7 @@
     }
 
     const removeDirectAward = index => () => {
-        const newDirectAwards = directAwards.filter((item, i) => i !== index);
+        const newDirectAwards = directAwards.filter((_, i) => i !== index);
         invariant(newDirectAwards);
     }
 
@@ -166,7 +177,7 @@
     const doAward = () => {
         beforeCommit = false;
         invariant(directAwards);
-        if (Object.values(errors).some(val => val)) {
+        if (disableSubmit) {
             return;
         }
         createDirectAwards(directAwards, badgeclass, false, enableScheduling ? new Date(scheduledAt) : null,
@@ -174,10 +185,11 @@
             .then(() => {
                 refresh(() => setTimeout(() => navigate(`/badgeclass/${badgeclass.entityId}/awarded`), 75));
                 flash.setValue(I18n.t("badgeAward.directAward.flash.created"));
-            }).catch(e => {
-            refresh(() => setTimeout(() => navigate(`/badgeclass/${badgeclass.entityId}/awarded`), 75));
-            flash.error(e.message);
-        });
+            })
+            .catch(() => {
+                refresh(() => setTimeout(() => navigate(`/badgeclass/${badgeclass.entityId}/awarded`), 75));
+                flash.error(I18n.t("error.unexpected"));
+            });
     };
 
     //Need to rebuild the errors as in-between values might be removed
@@ -238,13 +250,19 @@
             margin: 5px 0 0 20px;
         }
 
-        .scheduled-at, .award-on-email {
+        .award-on-email {
             display: flex;
             align-items: center;
-            margin: 15px 0 16px 0;
+            margin: 0 0 22px 0;
+        }
+
+        .scheduled-at {
+            display: flex;
+            align-items: center;
+            margin: 0 0 8px 0;
 
             &.disable-scheduling {
-                margin: 23px 0 25px 0;
+                margin: 24px 0 17px 0;
             }
 
             :global(input.input-field) {
@@ -424,7 +442,7 @@
                         adjustTop={true}
                         boldLabel={false}
                         label={I18n.t("badgeAward.directAward.enableAwardOnEmail")}
-                        onChange={val => enableAwardOnEmail = val}
+                        onChange={val => enableAwardOnEmailToggle(val)}
                 />
             </div>
             {#each directAwards as da, i}

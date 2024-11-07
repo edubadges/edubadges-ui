@@ -17,7 +17,7 @@ const createFlash = () => {
             setTimeout(() => set({val: "", level}), 3500);
         }, 125),
         error: details => setTimeout(() => {
-            const msg = details && details.fields ? details.fields.error_message : I18n.t("error.unexpected");
+            const msg = details?.fields?.error_message || I18n.t("error.unexpected");
             set({val: msg, level: msgLevel.ERROR});
         }, 125),
         notification: (message, level = msgLevel.WARNING) => setTimeout(() => {
