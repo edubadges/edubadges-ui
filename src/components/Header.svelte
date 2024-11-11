@@ -160,6 +160,7 @@
 </style>
 
 <header>
+
     <a href="/" use:link class:demo={config.isDemoEnvironment}>
         {#if uaLower.indexOf("safari") > -1 && uaLower.indexOf("chrome") < 0}
             <img class="logo" src="img/logo.png" alt="logo"/>
@@ -169,9 +170,9 @@
     </a>
 
     {#if config.isDemoEnvironment}
-    <span class="demo" on:click={() => showModal = true}>
-      {I18n.t("header.demo")}{@html DOMPurify.sanitize(question)}
-    </span>
+        <span class="demo" on:click={() => showModal = true}>
+            {I18n.t("header.demo")}{@html DOMPurify.sanitize(question)}
+        </span>
     {/if}
 
     <div class="slot-container">

@@ -6,6 +6,7 @@
     import AcceptTerms from "./routes/AcceptTerms.svelte";
     import {Badges, Impersonate, Manage, UserPermissions, Users} from "./routes/teachers";
     import {Footer, Header, Spinner, SubscribeToPath} from "./components";
+    import {config} from "./util/config";
     import {
         BadgeclassAwarder,
         Header as TeacherHeader,
@@ -43,6 +44,7 @@
     import Notifications from "./components/teachers/Notifications.svelte";
     import {constructUserName} from "./util/users";
     import ManagementQueries from "./routes/teachers/ManagementQueries.svelte";
+    import {initializePiwik} from "./util/piwik";
 
 
     const homepage = {
@@ -79,43 +81,46 @@
         } else {
             loaded = true;
         }
+        if (config.isProdEnvironment) {
+            initializePiwik();
+        }
     });
 
     $: visitorRole = $userLoggedIn ? $userRole : "guest";
 </script>
 
 <style global lang="scss">
-  @import "stylesheets/main";
+    @import "stylesheets/main";
 
-  .app {
-    max-width: 1480px;
-    min-height: 100vh;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-  }
+    .app {
+        max-width: 1480px;
+        min-height: 100vh;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+    }
 
-  div.page {
-    flex: 1;
-    border-radius: 8px;
-    background-color: white;
-    box-shadow: 0 3px 0 2px #abb4bd;
-    position: relative;
-    display: flex;
-  }
+    div.page {
+        flex: 1;
+        border-radius: 8px;
+        background-color: white;
+        box-shadow: 0 3px 0 2px #abb4bd;
+        position: relative;
+        display: flex;
+    }
 
-  div.page-container {
-    height: auto;
-    width: 100%;
-  }
+    div.page-container {
+        height: auto;
+        width: 100%;
+    }
 
-  input::placeholder {
-    color: var(--grey-7);
-  }
+    input::placeholder {
+        color: var(--grey-7);
+    }
 
-  :global(body.modal-open) {
-    overflow: hidden;
-  }
+    :global(body.modal-open) {
+        overflow: hidden;
+    }
 
 </style>
 
@@ -171,7 +176,7 @@
                         <DirectAward entityId={params.entityId}/>
                     </Route>
                 {/if}
-                
+
                 <!-- Teacher -->
                 {#if visitorRole === role.TEACHER}
                     <Route path="/users" component={Users}/>
