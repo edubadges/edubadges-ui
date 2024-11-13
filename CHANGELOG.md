@@ -4,6 +4,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [7.2.0] - 2024-11-13
+- Bugfix for single value educationProgramIdentifier
+- Refactored to run once
+- Add metadata fields for SEO optimization
+- Formatter
+- Issue #964: direct-award-geen-check-onderwijsinstelling
+- Added prov env variable and moved JS to svelte header
+- Added script for piwik
+- Updated some locals to end sentence with a dot
+- feat: Move Linkedin button back to the top when we have import buttons.
+- feat: Allow Wallet Import from multiple Agents.
+- In anticipation of the catalog refactoring
+- Issue #942 usecase-uitgeven-surf
+- Dutch locale for faculty_type
+- Issue #944 advanced-issuergroup-functionaliteit
+- Fetch faculty type for badge class form
+- Issue #940: Sector-kunnen-selecteren-in-de-issuergroup-case-aeres
+- Fix voor criteria-text-wrong-formatting.
+
 ## [7.1.0] - 2024-10-10
 - Ran npx browserslist@latest --update-db.
 - Bugfix for invisble required fields MBO.
