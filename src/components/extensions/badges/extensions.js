@@ -106,7 +106,8 @@ export const publicBadgeInformation = (badgeClass, res) => {
     badgeClass.learningOutcome = res['extensions:LearningOutcomeExtension']['LearningOutcome'];
   }
   if (res['extensions:EducationProgramIdentifierExtension']) {
-    badgeClass.educationProgramIdentifier = res['extensions:EducationProgramIdentifierExtension']['EducationProgramIdentifier'];
+    const reElement = res['extensions:EducationProgramIdentifierExtension']['EducationProgramIdentifier'];
+    badgeClass.educationProgramIdentifier = Array.isArray(reElement) ? reElement : [reElement];
   }
   //When using graphQL the extensions field is an array - for compatibility we set an empty array as we already populated the badgeClass
   badgeClass.extensions = [];
