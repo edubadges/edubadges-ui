@@ -19,6 +19,7 @@
     import AcceptInstitutionTerms from "../AcceptInstitutionTerms.svelte";
     import StudentBreadCrumb from "../../components/students/StudentBreadCrumb.svelte";
     import BadgeHeader from "../../components/students/BadgeHeader.svelte";
+    import {isEmpty} from "../../util/utils";
 
     export let entityId;
 

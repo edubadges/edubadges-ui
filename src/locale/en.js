@@ -1644,7 +1644,7 @@ I18n.translations.en = {
       eppnExisting:
         "Your upload contains {{count}} EPPN's (StudentID'd) with outstanding unaccepted or scheduled direct awards which are removed from the upload.",
       emailExisting:
-        "Your upload contains {{count}} emails that have already recieved this badgeclass which are removed from the upload",
+        "Your upload contains {{count}} emails that have already received this badgeclass which are removed from the upload",
       missingEvidenceOrNarrative:
         "Your upload contains {{count}} entries missing narrative and / or evidence which are removed from the upload.",
       good: "Parsed {{count}} entries for upload.",
