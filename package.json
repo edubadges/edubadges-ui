@@ -40,7 +40,8 @@
   },
   "scripts": {
     "build-old": "cross-env NODE_ENV=production webpack",
-    "build": "cross-env webpack",
+    "build:prod": "NODE_OPTIONS=--openssl-legacy-provider cross-env webpack -p",
+    "build": "NODE_ENV=production NODE_OPTIONS=--openssl-legacy-provider cross-env webpack",
     "dev": "webpack-dev-server --open --content-base public --port 4000",
     "test": "jest src",
     "test:watch": "npm run test -- --watch",
