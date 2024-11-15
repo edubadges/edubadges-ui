@@ -84,7 +84,7 @@ I18n.translations.nl = {
   authError: {
     title: "Sorry, je hebt geen toegang",
     adminEmail:
-      "Indien je wilt kan je toegang tot deze dienst vragen aan je instellingsadmin via dit e-mailadres: {{email}}",
+      "Indien je wilt kan je toegang tot deze dienst vragen aan je instellingsadmin via dit e-mailadres: <a href='mailto:{{email}}'>{{email}}</a>",
     tip: "TIP",
     code: {
       "1": "Een onverwachte fout is opgetreden. Neem contact op met support@edubadges.nl voor ondersteuning.",
@@ -686,6 +686,7 @@ I18n.translations.nl = {
       description_dutch: "Beschrijving in het Nederlands",
       grading_table: "Grading table",
       linkedin_org_identifier: "LinkedIn organisatie id",
+      email: "Contact e-mailadres",
       image_english: "Logo in het Engels",
       image_dutch: "Logo in het Nederlands",
       name_english: "Naam in het Engels",
@@ -1344,6 +1345,7 @@ I18n.translations.nl = {
       brin: "(Verplicht veld) Instellingscode (voorheen BRIN code)",
       gradingTable: "URL van de grading table",
       linkedinOrgIdentifier: "LinkedIn organisatie id",
+      email: "(Optioneel veld) Bijv. john.doe@example.com",
       description:
         "(Verplicht veld) Bijv. De Universiteit van Harderwijk is gesticht in 1977.",
       allowedInstitutions: "Selecteer 1 of meer instellingen...",

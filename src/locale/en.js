@@ -83,7 +83,7 @@ I18n.translations.en = {
   authError: {
     title: "Sorry, you don't have access",
     adminEmail:
-      "If you want, you can request access to this service by contacting your institution admin via email: {{email}}",
+      "If you want, you can request access to this service by contacting your institution admin via email: <a href='mailto:{{email}}'>{{email}}</a>",
     tip: "TIP",
     code: {
       "1": "An unexpected error has occurred. Please contact support@edubadges.nl for support.",
@@ -445,7 +445,7 @@ I18n.translations.en = {
     506: "This invite is for a teacher.",
     507: "You do not have permission to invite user for this entity.",
     508: "You cannot edit an invitation that has been rejected.",
-    509: "Not a vaild email address.",
+    509: "Not a valid email address.",
     510: "You entered this email address multiple times.",
     601: "You do not have permission. Check your assigned role in the issuer portal.",
     701: "Unspecified share provider.",
@@ -680,6 +680,7 @@ I18n.translations.en = {
       description_dutch: "Description in Dutch",
       grading_table: "Grading table",
       linkedin_org_identifier: "LinkedIn organisation identifier",
+      email: "Contact email address",
       image_english: "Institution logo English",
       image_dutch: "Institution logo Dutch",
       name_english: "Institution name in English",
@@ -1328,6 +1329,7 @@ I18n.translations.en = {
       brin: "(Required field) Institution code (used to be the BRIN code)",
       gradingTable: "URL of the grading table",
       linkedinOrgIdentifier: "LinkedIn organisation identifier",
+      email: "(Optional field) e.g. john.doe@example.com",
       description:
         "(Required field) e.g. The University of Harderwijk was founded in 1977",
       allowedInstitutions: "Select one or more institutions...",

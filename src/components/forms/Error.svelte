@@ -1,10 +1,18 @@
 <script>
     import I18n from "i18n-js";
     import {warningIcon} from "../../icons";
+    import {isEmpty} from "../../util/utils";
+    import {onMount} from "svelte";
 
     export let error_code;
     export let error_message;
     export let standAlone;
+
+    onMount(() => {
+        if (!isEmpty(error_message) && error_message.indexOf("mail") > 0) {
+            error_code = 509;
+        }
+    })
 
 </script>
 

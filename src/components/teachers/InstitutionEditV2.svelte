@@ -32,6 +32,7 @@
       defaultLanguage,
       nameEnglish,
       nameDutch,
+      email,
       descriptionEnglish,
       descriptionDutch
       imageEnglish,
@@ -284,6 +285,13 @@
                                 bind:value={institution.gradingTable}
                                 placeholder={I18n.t("placeholders.institution.gradingTable")}
                                 error={errors.grading_table}/>
+                    </Field>
+                    <Field {entity} attribute="email"
+                           errors={errors.email}
+                           tipKey="issuerEmail">
+                        <TextInput bind:value={institution.email}
+                                   error={errors.email}
+                                   placeholder={I18n.t("placeholders.institution.email")}/>
                     </Field>
                     <Field {entity}
                            attribute="linkedin_org_identifier"
