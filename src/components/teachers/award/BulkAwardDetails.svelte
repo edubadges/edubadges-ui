@@ -7,6 +7,7 @@
     import {assertionStatusClass} from "../../../util/assertions";
     import moment from "moment";
     import {pageCount} from "../../../util/pagination";
+    import {isEmpty} from "../../../util/utils";
 
     export let directAwardBundle;
 
@@ -19,7 +20,7 @@
             name: null,
         },
         {
-            name: I18n.t("badgeAward.bulkAward.details.email"),
+            name: I18n.t("badgeAward.bulkAward.details.mail"),
             attribute: "recipientEmail",
             reverse: false,
             sortType: sortType.ALPHA,
@@ -66,17 +67,25 @@
 </script>
 
 <style lang="scss">
-  div.bulk-award-details {
+    div.bulk-award-details {
 
-    h2 {
-      background: var(--purple-1);
-      padding: var(--ver-padding-l) var(--hor-padding-l);
+        h2 {
+            background: var(--purple-1);
+            padding: var(--ver-padding-l) var(--hor-padding-l);
+        }
+
+        p.info {
+            padding: var(--ver-padding-l) var(--hor-padding-l) 0 var(--hor-padding-l);
+        }
+
     }
-
-  }
 </style>
 <div class="bulk-award-details">
     <h2>{I18n.t("badgeAward.bulkAward.details.header")}</h2>
+    <p class="info">{I18n.t("badgeAward.bulkAward.details.info", {
+        identifier:
+            I18n.t(`badgeAward.bulkAward.details.${directAwardBundle.identifierType.toLowerCase()}`)
+    })}</p>
     <Table
             {...table}
             bind:search={assertionSearch}
@@ -97,7 +106,7 @@
                     <span>{assertion.recipientEmail}</span>
                 </td>
                 <td>
-                    <span>{assertion.eppn}</span>
+                    <span>{isEmpty(assertion.eppn) ? "-" : assertion.eppn}</span>
                 </td>
                 <td class="assertion-status center">
                     <span class={assertionStatusClass(assertion)}>{I18n.t(`models.badge.statuses.${assertion.statusDisplay}`)}</span>

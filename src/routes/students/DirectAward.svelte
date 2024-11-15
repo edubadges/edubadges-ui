@@ -10,7 +10,7 @@
     import BadgeClassDetails from "../../components/shared/BadgeClassDetails.svelte";
     import moment from "moment";
     import {Modal} from "../../components/forms";
-    import {translateProperties} from "../../util/utils";
+    import {isEmpty, translateProperties} from "../../util/utils";
     import Button from "../../components/Button.svelte";
     import {acceptRejectDirectAward, acceptTermsForBadge} from "../../api";
     import {flash} from "../../stores/flash";
@@ -325,9 +325,7 @@
                         <span>{moment(directAward.createdAt).format('MMM D, YYYY')}</span>
                     </div>
                 </div>
-
                 <BadgeClassDetails badgeclass={directAward.badgeclass}/>
-
             </div>
         </div>
     {/if}

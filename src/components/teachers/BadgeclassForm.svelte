@@ -1229,17 +1229,9 @@
                     onChange={() => badgeclass.selfEnrollmentDisabled = !badgeclass.selfEnrollmentDisabled}/>
 
             <div class="separator">
-                {#if badgeclass.badgeClassType === badgeClassTypes.EXTRA_CURRICULAR}
-                    <Switch value={badgeclass.awardNonValidatedNameAllowed}
-                            disabled={badgeclass.selfEnrollmentDisabled}
-                            label={I18n.t("newBadgeClassForm.form.selfEnrollment.details")}
-                            question={I18n.t("newBadgeClassForm.form.directAward.awardNonValidatedNameAllowed")}
-                            onChange={() => badgeclass.awardNonValidatedNameAllowed = !badgeclass.awardNonValidatedNameAllowed}/>
-                {/if}
-
                 <Switch value={badgeclass.evidenceStudentRequired}
                         disabled={badgeclass.selfEnrollmentDisabled}
-                        label={badgeclass.badgeClassType === badgeClassTypes.EXTRA_CURRICULAR ? null : I18n.t("newBadgeClassForm.form.selfEnrollment.details")}
+                        label={I18n.t("newBadgeClassForm.form.selfEnrollment.details")}
                         question={I18n.t("newBadgeClassForm.form.selfEnrollment.evidenceURL")}
                         onChange={() => badgeclass.evidenceStudentRequired = !badgeclass.evidenceStudentRequired}/>
                 <Switch value={badgeclass.narrativeStudentRequired}

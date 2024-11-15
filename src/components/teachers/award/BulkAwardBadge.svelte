@@ -5,16 +5,13 @@
     import {link, navigate} from "svelte-routing";
     import {validEmail, validUrl} from "../../../util/forms";
     import {createDirectAwards} from "../../../api";
-    import {flash} from "../../../stores/flash";
+    import {flash, msgLevel} from "../../../stores/flash";
     import Dropzone from "svelte-file-dropzone";
     import upload from "../../../icons/cloud-upload.svg";
     import Warning from "../../forms/Warning.svelte";
     import DotSpinner from "../../DotSpinner.svelte";
     import BulkAwardResult from "./BulkAwardResult.svelte";
-    import {en, nl} from 'svelty-picker/i18n';
-    import SveltyPicker from 'svelty-picker';
     import CheckBox from "../../CheckBox.svelte";
-    import calendarIcon from "../../../icons/calendar-1.svg";
     import {onMount} from "svelte";
     import {isEmpty} from "../../../util/utils";
 
@@ -35,6 +32,7 @@
     let scheduledAt = null;
     let initialDate = new Date();
     let startDate = null;
+    let enableAwardOnEmail = false;
 
     onMount(() => {
         initialDate.setDate(initialDate.getDate() + 1);
@@ -43,7 +41,9 @@
     });
 
     const alreadyInList = (newDirectAwards, email, eppn) =>
-        newDirectAwards.some(da => da.email === email || da.eppn === eppn);
+        newDirectAwards.some(da => da.email === email || (da.eppn === eppn && !isEmpty(eppn)));
+
+    const displayEPPN = directAward => enableAwardOnEmail ? "" : `- ${directAward.eppn}`;
 
     const handleFilesSelect = e => {
         processing = true;
@@ -60,22 +60,25 @@
                     const newAlreadyEppnDirectAwards = [];
                     const newMissingEvidenceOrNarrative = [];
                     const newMissingGrades = [];
+                    const requiredCels = enableAwardOnEmail ? 1 : 2;
+                    const celAdjustment = enableAwardOnEmail ? 1 : 0;
                     rows.forEach(row => {
                         const cells = row.split(/[,;\t]/);
                         const cellString = cells.join(" - ").trim();
+
                         if (cells.length > 0 && cells[0].indexOf('Recipient') > -1) {
                             //Header line, simply ignore
-                        } else if (cells.length < 2 && cellString.length > 0) {
+                        } else if (cells.length < requiredCels && cellString.length > 0) {
                             newErrorAwards.push(cellString);
                         } else {
                             const email = cells[0];
-                            const eppn = cells[1];
-                            const narrative = cells[2] || null;
-                            const evidence_url = cells[3] || null;
-                            const name = cells[4] || null;
-                            const description = cells[5] || null;
-                            const grade_achieved = cells[6] || null;
-                            if (existingDirectAwardsEppns.some(da => da.eppn === eppn)) {
+                            const eppn = enableAwardOnEmail ? null : cells[1];
+                            const narrative = cells[2 - celAdjustment] || null;
+                            const evidence_url = cells[3 - celAdjustment] || null;
+                            const name = cells[4 - celAdjustment] || null;
+                            const description = cells[5 - celAdjustment] || null;
+                            const grade_achieved = cells[6 - celAdjustment] || null;
+                            if (existingDirectAwardsEppns.some(da => da.eppn === eppn && !isEmpty(eppn))) {
                                 newAlreadyEppnDirectAwards.push(eppn);
                             } else if (alreadyInList(newDirectAwards, email, eppn)) {
                                 newDuplicateAwards.push(cellString)
@@ -89,7 +92,8 @@
                                 if (cellString.length > 0) {
                                     newMissingGrades.push(cellString);
                                 }
-                            } else if (validEmail(email) && eppn.trim().length > 0 && (!evidence_url || validUrl(evidence_url))) {
+                            } else if (validEmail(email) && ((!isEmpty(eppn) && eppn.trim().length > 0) || enableAwardOnEmail)
+                                && (!evidence_url || validUrl(evidence_url))) {
                                 newDirectAwards.push({
                                     email,
                                     eppn,
@@ -123,18 +127,20 @@
 
     const doAward = () => {
         serverProcessing = true;
-        createDirectAwards(directAwards, badgeclass, true, enableScheduling ? new Date(scheduledAt) : null, false)
+        createDirectAwards(directAwards, badgeclass, true, enableScheduling ? new Date(scheduledAt) : null, false, enableAwardOnEmail)
             .then(() => {
                 refresh();
                 navigate(`/badgeclass/${badgeclass.entityId}/awarded`);
                 flash.setValue(I18n.t("badgeAward.bulkAward.flash.created"));
                 serverProcessing = false;
-            }).catch(() => {
-            refresh();
-            navigate(`/badgeclass/${badgeclass.entityId}/awarded`);
-            flash.setValue(I18n.t("badgeAward.bulkAward.flash.created"));
-            serverProcessing = false;
-        });
+            })
+            .catch(() => {
+                refresh();
+                navigate(`/badgeclass/${badgeclass.entityId}/awarded`);
+                flash.setValue(I18n.t("badgeAward.bulkAward.flash.created"));
+                flash.error(I18n.t("error.unexpected"));
+                serverProcessing = false;
+            });
     };
 
     $: maySubmit = directAwards.length > 0 && !processing && !serverProcessing;
@@ -163,13 +169,19 @@
             margin: 10px 0 20px 0;
         }
 
+        .award-on-email {
+            display: flex;
+            align-items: center;
+            margin: 0 0 22px 0;
+        }
+
         .scheduled-at {
             display: flex;
             align-items: center;
-            margin: 15px 0 16px 0;
+            margin: 0 0 8px 0;
 
             &.disable-scheduling {
-                margin: 23px 0 25px 0;
+                margin: 24px 0 17px 0;
             }
 
             :global(input.input-field) {
@@ -255,7 +267,11 @@
 <div class="bulk-award-badge">
     <h2>{I18n.t("badgeAward.bulkAward.title")}</h2>
     <div class="main-content-margin">
-        <p class="sub-title">{@html I18n.t("badgeAward.bulkAward.subtitle", {sample: `${config.serverUrl}/static/sample_direct_award.csv`})}
+        <p class="sub-title">{@html I18n.t("badgeAward.bulkAward.subtitle",
+            {
+                sample: enableAwardOnEmail ? `${config.serverUrl}/static/sample_direct_award_email_only.csv`
+                    : `${config.serverUrl}/static/sample_direct_award.csv`
+            })}
             {#if badgeclass.evidenceRequired || badgeclass.narrativeRequired || badgeclass.gradeAchievedRequired}
                 <span>{I18n.t("badgeAward.bulkAward.additionalRequirements")}</span>
                 <ul>
@@ -280,39 +296,18 @@
                 </Warning>
             </div>
         {/if}
-        <!--            <div class="scheduled-at" class:disable-scheduling={!enableScheduling}>-->
-        <!--                <CheckBox-->
-        <!--                        value={enableScheduling}-->
-        <!--                        name={"enableScheduling"}-->
-        <!--                        tipKey="awardScheduling"-->
-        <!--                        inForm={false}-->
-        <!--                        adjustTop={true}-->
-        <!--                        boldLabel={false}-->
-        <!--                        label={I18n.t("badgeAward.directAward.schedulingDate")}-->
-        <!--                        onChange={val => {-->
-        <!--                            enableScheduling = val;-->
-        <!--                        }}/>-->
-        <!--                {#if enableScheduling}-->
-        <!--                    <div class="svelte-picker">-->
-        <!--                        <SveltyPicker-->
-        <!--                                inputClasses="input-field"-->
-        <!--                                inputId="svelty-picker-id"-->
-        <!--                                format="yyyy-mm-dd hh:ii"-->
-        <!--                                startDate={startDate}-->
-        <!--                                clearBtn={false}-->
-        <!--                                disabled={!enableScheduling}-->
-        <!--                                minuteIncrement={30}-->
-        <!--                                i18n={I18n.locale === "en" ? en : nl}-->
-        <!--                                todayBtn={false}-->
-        <!--                                bind:value={scheduledAt}-->
-        <!--                                bind:initialDate={initialDate}/>-->
-        <!--                        <span class="calendar" on:click={() => document.getElementById("svelty-picker-id").focus()}>-->
-        <!--                            {@html calendarIcon}-->
-        <!--                        </span>-->
-
-        <!--                    </div>-->
-        <!--                {/if}-->
-        <!--            </div>-->
+        <div class="award-on-email">
+            <CheckBox
+                    value={enableAwardOnEmail}
+                    name={"enableAwardOnEmail"}
+                    tipKey="enableAwardOnEmail"
+                    inForm={false}
+                    adjustTop={true}
+                    boldLabel={false}
+                    label={I18n.t("badgeAward.directAward.enableAwardOnEmail")}
+                    onChange={val => enableAwardOnEmail = val}
+            />
+        </div>
         {#if processing}
             <DotSpinner/>
         {:else if serverProcessing}
@@ -334,7 +329,7 @@
         <BulkAwardResult warning={true} localeName="duplicate" results={duplicateAwards}/>
         <BulkAwardResult warning={true} localeName="missingEvidenceOrNarrative" results={missingEvidenceOrNarrative}/>
         <BulkAwardResult warning={false} localeName="good"
-                         results={directAwards.map(da => `${da.email} - ${da.eppn} ${(da.evidence_url || da.narrative) ? I18n.t("badgeAward.bulkAward.evidenceIncluded") :""}`)}/>
+                         results={directAwards.map(da => `${da.email} - ${displayEPPN(da)} ${(da.evidence_url || da.narrative) ? I18n.t("badgeAward.bulkAward.evidenceIncluded") :""}`)}/>
 
         <div class="actions">
             <Button action={() => history.back()} text={I18n.t("badgeAward.directAward.cancel")} secondary={true}

@@ -58,6 +58,5 @@
 
   <h1>{I18n.t('login.createEduId.welcome')}</h1>
   <p>{I18n.t('login.createEduId.info')}</p>
-  <p>{I18n.t('login.createEduId.awarded')}</p>
 
 </div>

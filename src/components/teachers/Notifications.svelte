@@ -21,7 +21,6 @@
 
     let currentUser;
     let badgeClassSearch = '';
-    let badgeClasses = [];
 
     let staffs = [];
     let filteredStaffs = [];
@@ -191,7 +190,10 @@
         } else {
             showModal = false;
             loaded = false;
-            const deletions = originalNotifications.filter(notification => !notifications.find(n => n.entityId === notification.badgeclass.entityId).selected);
+            const deletions = originalNotifications.filter(notification => {
+                const existingNotification = notifications.find(n => n.entityId === notification.badgeclass.entityId);
+                return !existingNotification || !existingNotification.selected;
+            });
             const creations = notifications.filter(notification => notification.selected && originalNotifications.every(n => n.badgeclass.entityId !== notification.entityId));
             updateNotifications({
                 deletions: deletions.map(notification => ({entity_id: notification.badgeclass.entityId})),
