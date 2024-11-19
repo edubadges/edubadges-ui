@@ -12,7 +12,7 @@
         getProfile
     } from "../../api";
     import {Spinner} from "../../components";
-    import {JsonView} from '@zerodevx/svelte-json-view'
+    import {JsonView} from '@zerodevx/svelte-json-view/dist'
     import {copyText} from 'svelte-copy';
     import {Select} from "../../components/forms";
     import {onMount} from "svelte";

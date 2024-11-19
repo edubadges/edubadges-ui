@@ -4,7 +4,7 @@
     import {navigate, Route, Router} from "svelte-routing";
     import {Login, NotFound, ProcessToken, Student} from "./routes";
     import AcceptTerms from "./routes/AcceptTerms.svelte";
-    import {Badges, Impersonate, Manage, UserPermissions, Users} from "./routes/teachers";
+    import {Badges, Impersonate, Manage, ManagementQueries, UserPermissions, Users} from "./routes/teachers";
     import {Footer, Header, Spinner, SubscribeToPath} from "./components";
     import {config} from "./util/config";
     import {
@@ -43,8 +43,6 @@
     import LTILaunch from "./components/teachers/lti/LTILaunch.svelte";
     import Notifications from "./components/teachers/Notifications.svelte";
     import {constructUserName} from "./util/users";
-    import ManagementQueries from "./routes/teachers/ManagementQueries.svelte";
-
     const homepage = {
         guest: Login,
         [role.STUDENT]: Student,
