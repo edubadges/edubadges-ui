@@ -6,7 +6,7 @@ I18n.translations.nl = {
         "badge-requests": "Aanvragen voor edubadges",
         collections: "Collecties",
         archived: "Archief",
-        "import": "Imports",
+        import: "Imports",
         profile: "Account",
     },
     header: {
@@ -26,43 +26,53 @@ I18n.translations.nl = {
             users: "Gebruikers",
             catalog: "Catalogus",
             insights: "Inzicht",
-            lti: "LTI"
+            lti: "LTI",
         },
     },
     login: {
         title: "Never stop learning",
         loginToEnrol: "Login om deze edubadge aan te vragen",
-        loginToEnrolInfo: "<strong>Let op!</strong> Je kan deze edubadge alleen aanvragen als je staat ingeschreven bij één van deze instellingen: <strong>{{name}}</strong>.",
-        loginToEnrolInfoOne: "<strong>Let op!</strong> Je kan deze edubadge alleen aanvragen als je staat ingeschreven bij <strong>{{name}}</strong>.",
-        loginToEnrolInfoAll: "<strong>Let op!</strong> Je kan deze edubadge alleen aanvragen als je instelling is aangesloten op edubadges.",
+        loginToEnrolInfo:
+            "<strong>Let op!</strong> Je kan deze edubadge alleen aanvragen als je staat ingeschreven bij één van deze instellingen: <strong>{{name}}</strong>.",
+        loginToEnrolInfoOne:
+            "<strong>Let op!</strong> Je kan deze edubadge alleen aanvragen als je staat ingeschreven bij <strong>{{name}}</strong>.",
+        loginToEnrolInfoAll:
+            "<strong>Let op!</strong> Je kan deze edubadge alleen aanvragen als je instelling is aangesloten op edubadges.",
         selfEnrollmentDisabled: "Deze edubadge kan niet worden aangevraagd",
         login: "Login",
-        loginAllowedWithoutValidatedName: "Je kan deze edubadge aanvragen als een eduID gast gebruiker.",
-        badgeClassArchived: "Deze edubadge is gearchiveerd en kan niet langer worden aangevraagd.",
+        loginAllowedWithoutValidatedName:
+            "Je kan deze edubadge aanvragen als een eduID gast gebruiker.",
+        badgeClassArchived:
+            "Deze edubadge is gearchiveerd en kan niet langer worden aangevraagd.",
         destination: "Wat zou je willen doen?",
         description:
             "Edubadges zijn digitale certificaten die aantonen dat de eigenaar bepaalde vaardigheden of kennis heeft verworven. Edubadges kunnen worden uitgereikt voor zowel geaccrediteerd onderwijs als voor extracurriculaire activiteiten.",
         student: {
             title: "<strong style='font-size: 38px'>C</strong>ollect",
-            subtitle: "De backpack is de plek om  edubadges te ontvangen en verzamelen",
-            noEduId: "Een eduID is nodig om je backpack aan te maken en te gebruiken. Het maken van een eduID duurt minder dan 30 seconden.",
+            subtitle:
+                "De backpack is de plek om  edubadges te ontvangen en verzamelen",
+            noEduId:
+                "Een eduID is nodig om je backpack aan te maken en te gebruiken. Het maken van een eduID duurt minder dan 30 seconden.",
             action: "Open je backpack",
         },
         catalog: {
             title: "<strong style='font-size: 38px'>B</strong>rowse",
-            subtitle: "Momenteel zijn er {{badgeInstancesCount}} edubadges uitgegeven door de instellingen.",
+            subtitle:
+                "Momenteel zijn er {{badgeInstancesCount}} edubadges uitgegeven door de instellingen.",
             info: "De catalogus toont alle badge classes van alle instellingen die edubadges gebruiken.",
             beta: "{{badgeClassesCount}} Badge Classes",
             action: "Open de catalogus",
         },
         teacher: {
             title: "<strong style='font-size: 38px'>A</strong>ward",
-            subtitle: "Ken edubadges, de microcredentials van de toekomst, toe aan je studenten.",
+            subtitle:
+                "Ken edubadges, de microcredentials van de toekomst, toe aan je studenten.",
             action: "Open het issuer portaal",
             accountCreation: {
-                askAccount: "De issuer portaal is alleen beschikbaar op uitnodiging. Als je binnen wilt komen, maar nog geen toegang hebt, neem dan contact op met je beheerder bij jouw instelling.",
+                askAccount:
+                    "De issuer portaal is alleen beschikbaar op uitnodiging. Als je binnen wilt komen, maar nog geen toegang hebt, neem dan contact op met je beheerder bij jouw instelling.",
             },
-            byInviteOnly: "Alleen op uitnodiging"
+            byInviteOnly: "Alleen op uitnodiging",
         },
         createEduId: {
             welcome: "Welkom bij je edubadges backpack",
@@ -73,12 +83,13 @@ I18n.translations.nl = {
     searchPlaceholder: "Zoek...",
     authError: {
         title: "Sorry, je hebt geen toegang",
-        adminEmail: "Indien je wilt kan je toegang tot deze dienst vragen aan je instellingsadmin via dit e-mailadres: {{email}}",
+        adminEmail:
+            "Indien je wilt kan je toegang tot deze dienst vragen aan je instellingsadmin via dit e-mailadres: <a href='mailto:{{email}}'>{{email}}</a>",
         tip: "TIP",
         code: {
             "1": "Een onverwachte fout is opgetreden. Neem contact op met support@edubadges.nl voor ondersteuning.",
-            "2": "Toegang tot de edubadges issuer portaal is alleen mogelijk met een geldige uitnodiging. We kunnen je nu dus niets laten zien."
-        }
+            "2": "Toegang tot de edubadges issuer portaal is alleen mogelijk met een geldige uitnodiging. We kunnen je nu dus niets laten zien.",
+        },
     },
     profile: {
         profile: "Account",
@@ -91,32 +102,43 @@ I18n.translations.nl = {
         makePrimary: "Maak primair",
         memberSince: "Lid sinds",
         memberSinceDate: "{{date}} om {{hours}}:{{minutes}}",
-        makePrimaryConfirmation: "Weet je zeker dat je dit e-mailadres primair wilt maken?",
+        makePrimaryConfirmation:
+            "Weet je zeker dat je dit e-mailadres primair wilt maken?",
         addEmail: "Voeg e-mailadres toe",
-        addEmailInfo: "Je ontvangt een e-mail met een link om je e-mailadres te verifiëren.",
+        addEmailInfo:
+            "Je ontvangt een e-mail met een link om je e-mailadres te verifiëren.",
         unverified: "Niet geverifieerd",
         validatedByYourInstitution: "Geleverd door je instelling",
         validatedByEduId: "Geleverd door eduID",
         permissionsHeader: "Jouw gegeven akkoordverklaring(en)",
         permissionsInfo: "Je kan je gegeven akkoordverklaring(en) intrekken.",
-        noPermissions: "Er zijn op dit moment geen kennisinstellingen waar je een akkoordverklaring aan hebt gegeven.",
-        consentWithdrawn: "Akkoordverklaring voor instelling {{institution}} ingetrokken.",
+        noPermissions:
+            "Er zijn op dit moment geen kennisinstellingen waar je een akkoordverklaring aan hebt gegeven.",
+        consentWithdrawn:
+            "Akkoordverklaring voor instelling {{institution}} ingetrokken.",
         deleteHeader: "Je edubadges account verwijderen",
         deleteInfo1: "Je kunt je edubadges account verwijderen als je dat wilt.",
-        deleteInfo2: "Wees je dan wel bewust dat hierna al je edubadges niet meer gevalideerd kunnen worden.",
-        deleteInfo3: "Het verwijderen van je edubadges account betekent overigens niet dat je eduID ook verwijderd wordt.",
-        deleteInfo4: "Om het proces van het verwijderen van je edubadges account te voltooien, moet je je browser sluiten nadat je account is verwijderd.",
+        deleteInfo2:
+            "Wees je dan wel bewust dat hierna al je edubadges niet meer gevalideerd kunnen worden.",
+        deleteInfo3:
+            "Het verwijderen van je edubadges account betekent overigens niet dat je eduID ook verwijderd wordt.",
+        deleteInfo4:
+            "Om het proces van het verwijderen van je edubadges account te voltooien, moet je je browser sluiten nadat je account is verwijderd.",
         submit: "Voeg toe",
         deleteEmail: "Verwijder dit e-mailadres",
-        deleteEmailConfirmation: "Weet je zeker dat je dit e-mailadres wilt verwijderen?",
+        deleteEmailConfirmation:
+            "Weet je zeker dat je dit e-mailadres wilt verwijderen?",
         delete: "Verwijder",
         account: "Account",
         eduid: "#eduid",
-        accountInfo: "Als je je account verwijdert zullen al je edubadges ongeldig worden.",
+        accountInfo:
+            "Als je je account verwijdert zullen al je edubadges ongeldig worden.",
         deleteAccount: "Verwijder mijn backpack",
-        deleteAccountConfirmation: "Weet je zeker dat je je backpack wilt verwijderen?",
+        deleteAccountConfirmation:
+            "Weet je zeker dat je je backpack wilt verwijderen?",
         withdrawPermission: "Mijn akkoordverklaring intrekken",
-        withdrawPermissionConfirmation: "Weet je zeker dat je je akkoordverklaring wil intrekken voor {{name}}?",
+        withdrawPermissionConfirmation:
+            "Weet je zeker dat je je akkoordverklaring wil intrekken voor {{name}}?",
     },
     modal: {
         cancel: "Annuleer",
@@ -130,8 +152,9 @@ I18n.translations.nl = {
     },
     notFound: {
         main: "Edubadge niet gevonden",
-        publicBadge: "Deze edubadge is niet meer publiek zichtbaar of is ingetrokken.",
-        issuer: "Deze issuer is verwijderd."
+        publicBadge:
+            "Deze edubadge is niet meer publiek zichtbaar of is ingetrokken.",
+        issuer: "Deze issuer is verwijderd.",
     },
     teacher: {
         sidebar: {
@@ -156,7 +179,7 @@ I18n.translations.nl = {
                 status: "Status",
                 show_all: "Toon meer",
                 show_less: "Toon minder",
-                badgeClassTag: "Tags"
+                badgeClassTag: "Tags",
             },
         },
         breadcrumb: {
@@ -199,11 +222,11 @@ I18n.translations.nl = {
             revoke: "Trek edubadge in",
         },
         roles: {
-            title: "Rollen (hoogste)"
+            title: "Rollen (hoogste)",
         },
         users: {
-            title: "Gebruikers"
-        }
+            title: "Gebruikers",
+        },
     },
     student: {
         enroll: "Aanvragen",
@@ -211,12 +234,16 @@ I18n.translations.nl = {
         withdraw: "Aanvraag intrekken",
         flash: {
             enrolled: "Successvol een aanvraag gedaan voor deze edubadge: {{name}}.",
-            published: "Deze edubadge is nu publiek zichtbaar gemaakt. Je kunt deze nu delen met anderen.",
-            private: "Deze edubadge is nu privé gemaakt. Je kunt deze niet langer delen met anderen.",
-            deleted: "Deze edubadge is verwijderd. Je kunt deze niet langer downloaden of delen met anderen.",
-            accepted: "Deze edubadge is geaccepteerd. Je kan deze nu delen met anderen.",
+            published:
+                "Deze edubadge is nu publiek zichtbaar gemaakt. Je kunt deze nu delen met anderen.",
+            private:
+                "Deze edubadge is nu privé gemaakt. Je kunt deze niet langer delen met anderen.",
+            deleted:
+                "Deze edubadge is verwijderd. Je kunt deze niet langer downloaden of delen met anderen.",
+            accepted:
+                "Deze edubadge is geaccepteerd. Je kan deze nu delen met anderen.",
             claimed: "Deze edubadge is succesvol aangevraagd.",
-            withdrawn: "Aanvraag teruggetrokken."
+            withdrawn: "Aanvraag teruggetrokken.",
         },
         enrollments: "Aangevraagde edubadges",
         badges: "Jouw edubadges",
@@ -225,42 +252,56 @@ I18n.translations.nl = {
         share: "Deel",
         copyUrl: "Kopieer URL",
         shareYourBadge: "Deel jouw edubadge",
-        shareYourBadgeQuestion: "Jouw publieke edubadge URL is voor iedereen toegankelijk",
-        badgeRevoked: "Deze edubadge is ingetrokken. Je ziet deze nog wel, maar deze edubadge kan je niet langer delen",
+        shareYourBadgeQuestion:
+            "Jouw publieke edubadge URL is voor iedereen toegankelijk",
+        badgeRevoked:
+            "Deze edubadge is ingetrokken. Je ziet deze nog wel, maar deze edubadge kan je niet langer delen",
         revocationReason: "De reden voor intrekking:",
-        badgeExpired: "Deze edubadge is verlopen. Je ziet deze nog wel, maar deze edubadge kan je niet langer delen",
+        badgeExpired:
+            "Deze edubadge is verlopen. Je ziet deze nog wel, maar deze edubadge kan je niet langer delen",
         privateBadge: "Privé edubadge",
-        publicPrivate: "Je edubadge staat op privé, alleen jij kan deze edubadge zien.",
-        publicPrivatePublic: "Je edubadge staat niet op privé, iedereen met de publieke link kan deze edubadge zien en downloaden.",
-        publicPrivateRejected: "Voordat je deze edubadge publiek zichtbaar kan maken, moet je deze edubadge eerst accepteren.",
+        publicPrivate:
+            "Je edubadge staat op privé, alleen jij kan deze edubadge zien.",
+        publicPrivatePublic:
+            "Je edubadge staat niet op privé, iedereen met de publieke link kan deze edubadge zien en downloaden.",
+        publicPrivateRejected:
+            "Voordat je deze edubadge publiek zichtbaar kan maken, moet je deze edubadge eerst accepteren.",
         revoked: "Deze edubadge is ingetrokken door de uitgever",
-        revokedWithReason: "Deze edubadge is ingetrokken door de uitgever met als reden: '{{revocationReason}}'",
+        revokedWithReason:
+            "Deze edubadge is ingetrokken door de uitgever met als reden: '{{revocationReason}}'",
         collections: {
             title: "Voe toe aan collectie",
             question: "Selecteer een collectie om deze edubadge aan toe te voegen",
             placeholder: "Selecteer...",
-            flash: "Edubadge {{name}} toegevoegd aan de collectie {{col}}"
+            flash: "Edubadge {{name}} toegevoegd aan de collectie {{col}}",
         },
         confirmation: {
             publish: "Maak deze edubadge publiekelijk zichtbaar",
             private: "Maak deze edubadge privé",
-            publishConfirmation: "Weet je zeker dat je deze edubadge publiek zichtbaar wilt maken?<b/><br/>Als je deze edubadge publiek maakt, wordt je gevalideerde naam <strong>{{name}}</strong> weergegeven in het validatiegedeelte van de openbare badge-webpagina.",
-            privateConfirmation: "Weet je het zeker dat je deze edubadge privé wilt maken",
-            publishEvidenceConfirmation: "Bewijs/persoonlijk bericht (evidence) ook toevoegen aan de publiek beschikbare informatie van deze edubadge?",
-            publishGradeConfirmation: "Behaald cijfer ook toevoegen aan de publiek beschikbare informatie van deze edubadge?",
-            deleteBadgeConfirmation: "Weet je het zeker dat je deze edubadge wilt weigeren?",
-            acceptBadgeConfirmation: "Weet je het zeker dat je deze edubadge wilt accepteren?",
+            publishConfirmation:
+                "Weet je zeker dat je deze edubadge publiek zichtbaar wilt maken?<b/><br/>Als je deze edubadge publiek maakt, wordt je gevalideerde naam <strong>{{name}}</strong> weergegeven in het validatiegedeelte van de openbare badge-webpagina.",
+            privateConfirmation:
+                "Weet je het zeker dat je deze edubadge privé wilt maken",
+            publishEvidenceConfirmation:
+                "Bewijs/persoonlijk bericht (evidence) ook toevoegen aan de publiek beschikbare informatie van deze edubadge?",
+            publishGradeConfirmation:
+                "Behaald cijfer ook toevoegen aan de publiek beschikbare informatie van deze edubadge?",
+            deleteBadgeConfirmation:
+                "Weet je het zeker dat je deze edubadge wilt weigeren?",
+            acceptBadgeConfirmation:
+                "Weet je het zeker dat je deze edubadge wilt accepteren?",
         },
         validation: {
             loading: "Edubadge wordt gevalideerd...",
             valid: "Geldige edubadge",
             invalid: "Ongeldige edubadge",
-            validatedName: "Gevalideerde naam van de edubadge ontvanger: <strong>{{name}}</strong>"
-        }
+            validatedName:
+                "Gevalideerde naam van de edubadge ontvanger: <strong>{{name}}</strong>",
+        },
     },
     badgeRequests: {
         none: "Je hebt geen openstaande edubadge aanvragen op dit moment.",
-        noneArchived: "Je hebt nog geen gearchiveerde edubadges."
+        noneArchived: "Je hebt nog geen gearchiveerde edubadges.",
     },
     manage: {
         tabs: {
@@ -287,7 +328,7 @@ I18n.translations.nl = {
             ltiUsers: "Gebruikers",
             ltiGrades: "Cijfers",
             endorsements: "Endorsements",
-            endorsed: "Endorsed"
+            endorsed: "Endorsed",
         },
         edit: {
             edit: "wijzig",
@@ -297,7 +338,7 @@ I18n.translations.nl = {
             badgeclass: "Wijzig badge class",
             save: "Opslaan",
             cancel: "Annuleren",
-            archive: "Archieveren"
+            archive: "Archieveren",
         },
         copy: {
             badgeclass: "Kopiëer badge class",
@@ -306,37 +347,45 @@ I18n.translations.nl = {
             delete: "verwijder",
             info: {
                 assertionsBlock: {
-                    faculty: "Issuer groep bevat edubadges die niet ingetrokken zijn en kan niet verwijderd worden.",
-                    issuer: "Issuer bevat edubadges die niet ingetrokken zijn. De issuer kan daarom niet verwijderd worden.",
-                    badgeclass: "Er zijn voor deze badge class reeds edubadges uitgereikt. De badge class kan daarom niet verwijderd worden."
+                    faculty:
+                        "Issuer groep bevat edubadges die niet ingetrokken zijn en kan niet verwijderd worden.",
+                    issuer:
+                        "Issuer bevat edubadges die niet ingetrokken zijn. De issuer kan daarom niet verwijderd worden.",
+                    badgeclass:
+                        "Er zijn voor deze badge class reeds edubadges uitgereikt. De badge class kan daarom niet verwijderd worden.",
                 },
                 noPermission: {
-                    institution: "Instellingen kunnen niet verwijderd worden in het issuer portaal.",
-                    faculty: "Je hebt geen bevoegdheid om deze issuer groep te verwijderen.",
+                    institution:
+                        "Instellingen kunnen niet verwijderd worden in het issuer portaal.",
+                    faculty:
+                        "Je hebt geen bevoegdheid om deze issuer groep te verwijderen.",
                     issuer: "Je hebt geen bevoegdheid om deze issuer te verwijderen.",
-                    badgeclass: "Je hebt geen bevoegdheid om deze badge class te verwijderen."
-                }
+                    badgeclass:
+                        "Je hebt geen bevoegdheid om deze badge class te verwijderen.",
+                },
             },
             flash: "{{type}} is verwijderd",
             institution: {
                 name: "Instelling",
                 title: "Verwijder instelling",
-                question: "Wil je deze instelling echt verwijderen?"
+                question: "Wil je deze instelling echt verwijderen?",
             },
             faculty: {
                 name: "issuer groep",
                 title: "Verwijder issuer groep",
-                question: "Wil je deze issuer groep echt verwijderen? Alle issuers en badge classes worden dan ook verwijderd."
+                question:
+                    "Wil je deze issuer groep echt verwijderen? Alle issuers en badge classes worden dan ook verwijderd.",
             },
             issuer: {
                 name: "Issuer",
                 title: "Verwijder issuer",
-                question: "Wil je deze issuer echt verwijderen? Alle badge classes worden ook verwijderd."
+                question:
+                    "Wil je deze issuer echt verwijderen? Alle badge classes worden ook verwijderd.",
             },
             badgeclass: {
                 name: "Badge class",
                 title: "Verwijder badge class",
-                question: "Wil je deze badge class echt verwijderen?"
+                question: "Wil je deze badge class echt verwijderen?",
             },
         },
         new: {
@@ -357,14 +406,15 @@ I18n.translations.nl = {
         },
         bulkAward: {
             title: "Voeg meerdere ontvangers tegelijk toe",
-            description: "Kopieer en plak e-mailadressen in het onderstaande formulierveld",
+            description:
+                "Kopieer en plak e-mailadressen in het onderstaande formulierveld",
             submit: "Voeg ontvangers toe",
         },
     },
     footer: {
         poweredBy: "Trots aangeboden door",
         about: "Over edubadges",
-        aboutLink: "https://wiki.surfnet.nl/display/Edubadges"
+        aboutLink: "https://wiki.surfnet.nl/display/Edubadges",
     },
     modalTerms: {
         agree: "Akkoord",
@@ -439,30 +489,34 @@ I18n.translations.nl = {
         928: "EPPN is verplicht",
         929: "Email is een duplicaat",
         930: "EPPN is een duplicaat",
-        931: "Er is al een nog niet geaccepteerde direct award voor deze EPPN",
-        932: "Een narratief is verplicht voor het awarden van deze edubadge",
-        933: "Een URL is verplicht voor het awarden van deze edubadge",
+        931: "Er is al een nog niet geaccepteerde direct award voor deze EPPN.",
+        932: "Een narratief is verplicht voor het awarden van deze edubadge.",
+        933: "Een URL is verplicht voor het awarden van deze edubadge.",
         934: "De opleidingscode is verplicht als er studiepunten zijn opgegeven.",
         935: "Vul de tijdsinvestering of verwijder deze rubriek.",
         936: "Kan geen collectie aanmaken met deze naam. Er bestaat al een collectie met deze naam.",
-        937: "ECTS mag niet leeg of 0 zijn",
+        937: "ECTS mag niet leeg of 0 zijn.",
         938: "Een motivatie is verplicht voor het aanvragen van deze edubadge.",
         939: "Een bronvermelding is verplicht voor het aanvragen van deze edubadge.",
-        940: "Er is al een edubadge voor deze email",
-        941: "Er is al een badge aanvraag voor deze email",
-        942: "EPPN voldoet niet aan het formaat van je instelling",
-        943: "Er is al een edubadge voor deze EPPN",
-        944: "Een cijfer is verplicht voor het awarden van deze edubadge",
+        940: "Er is al een edubadge voor deze email.",
+        941: "Er is al een badge aanvraag voor deze email.",
+        942: "EPPN voldoet niet aan het formaat van je instelling.",
+        943: "Er is al een edubadge voor deze EPPN.",
+        944: "Een cijfer is verplicht voor het awarden van deze edubadge.",
         945: "Type instelling is verplicht.",
         946: "Type zichtbaarheid is verplicht voor SURF instellingen.",
-        unexpected: "Oeps, er is iets totaal onverwachts en onverklaarbaars gebeurd.",
-        description: "Een onverwachte fout is opgetreden. Probeer het opnieuw of neem contact op met support@edubadges.nl voor ondersteuning.",
-        close: "Sluit"
+        947: "Invullen van een Engels of Nederlandse logo is verplicht wanneer uitgegeven namens andere organisatie.",
+        unexpected:
+            "Oeps, er is iets totaal onverwachts en onverklaarbaars gebeurd.",
+        description:
+            "Een onverwachte fout is opgetreden. Probeer het opnieuw of neem contact op met support@edubadges.nl voor ondersteuning.",
+        close: "Sluit",
     },
     inviteUsers: {
         addUser: {
             title: "Voeg gebruiker toe",
-            description: "Vul het e-mailadres in van de personen die je wilt uitnodigen.",
+            description:
+                "Vul het e-mailadres in van de personen die je wilt uitnodigen.",
             success: "Gebruiker succesvol uitgenodigd",
         },
         cancel: "Annuleer",
@@ -470,8 +524,8 @@ I18n.translations.nl = {
         sent: "Uitnodiging verstuurd",
         accepted: "Geaccepteerd",
         flash: {
-            confirm: "{{emails}} succesvol uitgenodigd"
-        }
+            confirm: "{{emails}} succesvol uitgenodigd",
+        },
     },
     editUsers: {
         institutionPermissions: "Permissies op {{instance}} niveau",
@@ -479,7 +533,8 @@ I18n.translations.nl = {
             header: "Gebruiker",
         },
         delete: "Verwijder gebruiker",
-        deleteConfirmation: "Weet je zeker dat je gebruiker {{name}} wilt verwijderen?",
+        deleteConfirmation:
+            "Weet je zeker dat je gebruiker {{name}} wilt verwijderen?",
         deleteFlash: "Gebruiker {{name}} is verwijderd",
         headerControl: "Gebruikers in ",
         roles: {
@@ -496,23 +551,37 @@ I18n.translations.nl = {
             viewer: "Badge raadpleger",
         },
         flash: {
-            makeUserInstitutionAdmin: "{{name}} heeft de instellingsadmin-rechten gekregen",
-            removeUserInstitutionAdmin: "De instellingsadmin-rechten zijn verwijderd van {{name}}",
-            makeUserIssuerGroupAdmin: "{{name}} heeft de issuer groep admin rechten gekregen",
-            makeUserIssuerGroupAwarder: "{{name}} heeft de issuer groep awarder rechten gekregen",
-            removeUserIssuerGroupAdmin: "De issuer groep admin rechten zijn verwijderd van {{name}}",
+            makeUserInstitutionAdmin:
+                "{{name}} heeft de instellingsadmin-rechten gekregen",
+            removeUserInstitutionAdmin:
+                "De instellingsadmin-rechten zijn verwijderd van {{name}}",
+            makeUserIssuerGroupAdmin:
+                "{{name}} heeft de issuer groep admin rechten gekregen",
+            makeUserIssuerGroupAwarder:
+                "{{name}} heeft de issuer groep awarder rechten gekregen",
+            removeUserIssuerGroupAdmin:
+                "De issuer groep admin rechten zijn verwijderd van {{name}}",
             makeUserIssuerAdmin: "{{name}} heeft de issuer admin rechten gekregen",
-            makeUserIssuerAwarder: "{{name}} heeft de issuer awarder rechten gekregen",
-            removeUserIssuerAdmin: "De issuer admin rechten zijn verwijderd van {{name}}",
-            makeUserBadgeClassAdmin: "{{name}} heeft badge class admin rechten gekregen",
-            removeUserBadgeClassAdmin: "De badge class admin rechten zijn verwijderd van {{name}}",
-            makeUserBadgeClassEditor: "{{name}} heeft badge class editor rechten gekregen",
-            removeUserBadgeClassEditor: "De badge class editor rechten zijn verwijderd van {{name}}",
-            makeUserBadgeClassAwarder: "{{name}} heeft badge class awarder rechten gekregen",
-            removeUserBadgeClassAwarder: "De badge class awarder rechten zijn verwijderd van {{name}}",
-            removeUserBadgeClassRole: "De badge class rechten zijn verwijderd van {{name}}",
+            makeUserIssuerAwarder:
+                "{{name}} heeft de issuer awarder rechten gekregen",
+            removeUserIssuerAdmin:
+                "De issuer admin rechten zijn verwijderd van {{name}}",
+            makeUserBadgeClassAdmin:
+                "{{name}} heeft badge class admin rechten gekregen",
+            removeUserBadgeClassAdmin:
+                "De badge class admin rechten zijn verwijderd van {{name}}",
+            makeUserBadgeClassEditor:
+                "{{name}} heeft badge class editor rechten gekregen",
+            removeUserBadgeClassEditor:
+                "De badge class editor rechten zijn verwijderd van {{name}}",
+            makeUserBadgeClassAwarder:
+                "{{name}} heeft badge class awarder rechten gekregen",
+            removeUserBadgeClassAwarder:
+                "De badge class awarder rechten zijn verwijderd van {{name}}",
+            removeUserBadgeClassRole:
+                "De badge class rechten zijn verwijderd van {{name}}",
             invite: "Uitnodiging is succesvol verwijderd.",
-            removed: "Rechten zijn succesvol verwijderd."
+            removed: "Rechten zijn succesvol verwijderd.",
         },
         institution: {
             admin: "Instellingsadmin",
@@ -520,19 +589,24 @@ I18n.translations.nl = {
             allRights: "Instellingsadmin",
             noRights: "Geen rechten",
             permissions: "Permissies op instellingsniveau",
-            makeUserInstitutionAdmin: "Ken gebruiker {{name}} instellingsadmin-rechten toe",
-            makeUserInstitutionAdminQuestion: "Weet je het zeker dat je {{name}} instellingsadmin wilt maken?",
-            removeUserInstitutionAdmin: "Verwijder de instellingsadmin-rechten van {{name}}",
-            removeUserInstitutionAdminQuestion: "Weet je het zeker dat je de instellingsadmin-rechten van {{name}} wilt verwijderen?",
+            makeUserInstitutionAdmin:
+                "Ken gebruiker {{name}} instellingsadmin-rechten toe",
+            makeUserInstitutionAdminQuestion:
+                "Weet je het zeker dat je {{name}} instellingsadmin wilt maken?",
+            removeUserInstitutionAdmin:
+                "Verwijder de instellingsadmin-rechten van {{name}}",
+            removeUserInstitutionAdminQuestion:
+                "Weet je het zeker dat je de instellingsadmin-rechten van {{name}} wilt verwijderen?",
         },
         faculty: {
             admin: "Issuer groep admin",
             awarder: "Issuer groep awarder",
             switchToOwner: "Permissie succesvol aangepast naar issuer groep admin.",
-            switchToAwarder: "Permissie succesvol aangepast naar issuer groep awarder.",
+            switchToAwarder:
+                "Permissie succesvol aangepast naar issuer groep awarder.",
             header: "Issuer groep",
             allRights: "Issuer groep admin",
-            permissions: "Permissies op issuer groep niveau"
+            permissions: "Permissies op issuer groep niveau",
         },
         issuer: {
             admin: "Issuer admin",
@@ -541,7 +615,7 @@ I18n.translations.nl = {
             switchToAwarder: "Permissie succesvol aangepast naar issuer awarder.",
             header: "Issuer",
             allRights: "Issuer admin",
-            permissions: "Permissies op issuer niveau"
+            permissions: "Permissies op issuer niveau",
         },
         badgeclass: {
             header: "Badge class",
@@ -555,8 +629,9 @@ I18n.translations.nl = {
             awarder: "Awarder",
             switchToOwner: "Permissie succesvol aangepast naar badge class admin.",
             switchToEditor: "Permissie succesvol aangepast naar badge class editor.",
-            switchToAwarder: "Permissie succesvol aangepast naar badge class awarder.",
-            permissions: "Permissies op badge class niveau"
+            switchToAwarder:
+                "Permissie succesvol aangepast naar badge class awarder.",
+            permissions: "Permissies op badge class niveau",
         },
         permissions: {
             header: "Jouw Permissies",
@@ -570,31 +645,33 @@ I18n.translations.nl = {
             issuerAwarderRights: "(vanwege issuer awarder)",
             addPermissions: "Voeg permissies toe",
             remove: {
-                institution: "Weet je zeker dat je de instellingsadmin-rechten wilt verwijderen?",
-                faculty: "Weet je zeker dat je de issuer groep rechten wilt verwijderen?",
+                institution:
+                    "Weet je zeker dat je de instellingsadmin-rechten wilt verwijderen?",
+                faculty:
+                    "Weet je zeker dat je de issuer groep rechten wilt verwijderen?",
                 issuer: "Weet je zeker dat je de issuer-rechten wilt verwijderen?",
-                badgeclass: "Weet je zeker dat je deze rechten wilt verwijderen?"
+                badgeclass: "Weet je zeker dat je deze rechten wilt verwijderen?",
             },
             removePermissions: "Verwijder permissies",
             setInstitutionAdmin: "Maak gebruiker instellingsadmin",
             removeInstitutionAdmin: "Verwijder instellingsadmin",
-            inviteNewUser: "Nodig nieuwe gebruiker uit"
+            inviteNewUser: "Nodig nieuwe gebruiker uit",
         },
         usersPermissions: "Gebruikers met permissies",
         modal: {
-            add: 'Voeg toe'
+            add: "Voeg toe",
         },
         role: "Rol",
     },
     models: {
         inviteUsers: {
-            email: "e-mailadres"
+            email: "e-mailadres",
         },
         editUsers: {
             memberSince: "Lid sinds",
             email: "e-mailadres",
-            role: 'Rol',
-            notes: 'Persoonlijke boodschap',
+            role: "Rol",
+            notes: "Persoonlijke boodschap",
             badgeclass: "Selecteer badge classes",
             badgeClassPlaceholder: "Zoek en selecteer badge classes",
             issuerGroup: "Selecteer een issuer groep",
@@ -609,13 +686,14 @@ I18n.translations.nl = {
             description_dutch: "Beschrijving in het Nederlands",
             grading_table: "Grading table",
             linkedin_org_identifier: "LinkedIn organisatie id",
+            email: "Contact e-mailadres",
             image_english: "Logo in het Engels",
             image_dutch: "Logo in het Nederlands",
             name_english: "Naam in het Engels",
             name_dutch: "Naam in het Nederlands",
             award_allowed_institutions: "Toegestane edubadge instellingen",
             badge_class_tags: "Badge class tags",
-            requestedBadges: "Aangevraagde edubadges"
+            requestedBadges: "Aangevraagde edubadges",
         },
         faculty: {
             created: "Aangemaakt",
@@ -637,7 +715,7 @@ I18n.translations.nl = {
             visibility: {
                 public: "Publiek",
                 test: "Test",
-            }
+            },
         },
         issuer: {
             description: "Over deze issuer",
@@ -658,7 +736,7 @@ I18n.translations.nl = {
             faculty: "Groep",
             gradingTable: "Instelling grading table URL",
             institutionName: "Instelling naam",
-            institutionIdentifier: "Instelling identifier"
+            institutionIdentifier: "Instelling identifier",
         },
         badgeclass: {
             issuer: "Issuer",
@@ -706,7 +784,7 @@ I18n.translations.nl = {
             timeInvestment: "Tijd investering",
             ects: {
                 creditPoints: "Studiepunten in ECTS",
-                hours: "Uren"
+                hours: "Uren",
             },
             sbu: "Study Belasting Uren",
             ectsLong: "European Credit Transfer and Accumulation System",
@@ -732,14 +810,15 @@ I18n.translations.nl = {
             },
             headers: {
                 basicInformation: "Basisinformatie",
-                earningCriteria: "Criteria om in aanmerking te komen voor deze edubadge",
+                earningCriteria:
+                    "Criteria om in aanmerking te komen voor deze edubadge",
                 additionalSections: "Extra toevoegingen",
                 educationalIdentifiers: "Opleidingscode",
                 qualificationLevel: "Kwalificatie niveau",
                 studyLoad: "Studielast",
                 timeInvestment: "Tijd investering",
                 alignment: "Gerelateerd onderwijskundig raamwerk",
-                allowedInstituions: "Toegestane instellingen"
+                allowedInstituions: "Toegestane instellingen",
             },
             addButtons: {
                 educationalIdentifiers: "Opleidingscode(s) toevoegen",
@@ -747,21 +826,25 @@ I18n.translations.nl = {
                 studyLoad: "Studielast toevoegen",
                 timeInvestment: "Tijd investering toevoegen",
                 alignment: "Gerelateerd onderwijskundig raamwerk toevoegen",
-                alignmentAddition: "Nog een gerelateerd onderwijskundig raamwerk toevoegen",
-                alignmentInitialAddition: "Een gerelateerd onderwijskundig raamwerk toevoegen",
-                programmeIdentifier: "Opleidingscode toevoegen"
-
+                alignmentAddition:
+                    "Nog een gerelateerd onderwijskundig raamwerk toevoegen",
+                alignmentInitialAddition:
+                    "Een gerelateerd onderwijskundig raamwerk toevoegen",
+                programmeIdentifier: "Opleidingscode toevoegen",
             },
             info: {
                 educationProgramIdentifier:
                     "Raadpleeg <a target='_blank' rel='noreferrer' href='https://zakelijk.duo.nl/portaal/zoeken-en-vinden/resultaten'>het DUO CROHO register</a> of <a target='_blank' rel='noreferrer' href='https://kwalificaties.s-bb.nl/Lijsten/Groep/14'>de SBB CREBO lijsten</a> als je deze code niet weet.",
                 eqf: "Kijk op <a target='_blank' rel='noreferrer' href='https://www.nlqf.nl/daarom-nlqf/nlqf-niveaus'>https://www.nlqf.nl/daarom-nlqf/nlqf-niveaus</a> voor een overzicht",
                 ects: "Alleen hele en halve punten. <br/>Een minimum van 0,5 punt is vereist.",
-                ectsMicroCredentials: "Alleen hele en halve punten. Valide waarde is tussen de 3 en 30 punten.",
-                studyLoadMICRO_CREDENTIAL: "Alleen hele uren. De minimum waarde  is 240 uur.",
+                ectsMicroCredentials:
+                    "Alleen hele en halve punten. Valide waarde is tussen de 3 en 30 punten.",
+                studyLoadMICRO_CREDENTIAL:
+                    "Alleen hele uren. De minimum waarde  is 240 uur.",
                 studyLoadREGULAR: "Alleen hele uren.",
                 studyLoadEXTRA_CURRICULAR: "Optioneel. Alleen hele uren.",
-                timeInvestment: "Alleen hele uren. Valide waarde is tussen de 84 en 840 uren.",
+                timeInvestment:
+                    "Alleen hele uren. Valide waarde is tussen de 84 en 840 uren.",
                 timeInvestmentOptional: "Optioneel.",
             },
             publicUrl: "Publieke URL",
@@ -769,17 +852,19 @@ I18n.translations.nl = {
             award_allowed_institutions: "Toegestane edubadge instellingen",
             archive: {
                 confirmation: "Badge class archiveren",
-                confirmationQuestion: "Weet je zeker dat je deze badge class wilt archiveren?",
+                confirmationQuestion:
+                    "Weet je zeker dat je deze badge class wilt archiveren?",
                 flash: "Badge class {{name}} is gearchiveerd",
-                action: "Archiveer"
+                action: "Archiveer",
             },
             unarchive: {
                 confirmation: "Badgec lass dearchiveren",
-                confirmationQuestion: "Weet je zeker dat je deze badge class wilt dearchiveren?",
+                confirmationQuestion:
+                    "Weet je zeker dat je deze badge class wilt dearchiveren?",
                 flash: "Badge class {{name}} is gedearchiveerd",
-                action: "Dearchiveer"
+                action: "Dearchiveer",
             },
-            copyBadgeClass: "Kopieer badge class"
+            copyBadgeClass: "Kopieer badge class",
         },
         badge: {
             emailAddress: "E-mailadres",
@@ -795,7 +880,7 @@ I18n.translations.nl = {
             awardType: {
                 name: "Type aanvraag",
                 REQUESTED: "Aangevraagd",
-                DIRECT_AWARD: "Direct toegekend"
+                DIRECT_AWARD: "Direct toegekend",
             },
             claimDirectAward: "Bekijk de details om deze edubadge te claimen",
             associatedInstitution: "Van instelling",
@@ -814,9 +899,14 @@ I18n.translations.nl = {
             validUntil: "Geldig tot",
             addToCollection: "Voeg toe aan collectie",
             grade: "Cijfer",
-            ob3SsiAgent: "Wallet import",
+            ob3SsiAgent: "Wallet import {{name}}",
+            ob3SsiAgentNames: {
+                unime: "unime",
+                sphereon: "sphereon",
+            },
             ob3SsiAgentQRCode: "Import into wallet",
-            ob3SsiAgentQRCodeQuestion: "Scan this code with your electronic credentials wallet",
+            ob3SsiAgentQRCodeQuestion:
+                "Scan this code with your electronic credentials wallet",
             ok: "Ok",
             statuses: {
                 new: "Nieuw",
@@ -837,11 +927,12 @@ I18n.translations.nl = {
             confirmation: {
                 revocationReason: "Reden voor intrekking (verplicht)",
                 revoke: "Trek edubadge in",
-                revokeConfirmation: "Weet je zeker dat je deze edubadge wilt intrekken?"
+                revokeConfirmation:
+                    "Weet je zeker dat je deze edubadge wilt intrekken?",
             },
             flash: {
-                revoked: "De edubadge(s) zijn ingetrokken."
-            }
+                revoked: "De edubadge(s) zijn ingetrokken.",
+            },
         },
         enrollment: {
             title: "Personen die een edubadge hebben aangevraagd",
@@ -850,7 +941,8 @@ I18n.translations.nl = {
             enrolled: "Aangevraagd",
             enrolledOn: "Aangevraagd op",
             deleteEnrollment: "Verwijder aanvraag",
-            deleteEnrollmentConfirmation: "Weet je zeker dat je deze aanvraag wilt verwijderen?",
+            deleteEnrollmentConfirmation:
+                "Weet je zeker dat je deze aanvraag wilt verwijderen?",
             award: "Ken toe",
             status: "Status",
             open: "Open",
@@ -872,19 +964,24 @@ I18n.translations.nl = {
                 gradeAchieved: "Cijfer / resultaat behaald",
                 narrativeStudent: "Persoonlijke boodschap student",
                 evidenceStudent: "Bewijs student",
-                badgeClass: "Badge class"
+                badgeClass: "Badge class",
             },
             confirmation: {
                 award: "Ken inschrijving toe",
-                awardConfirmation: "Weet je zeker dat je deze inschrijving wilt toekennen?",
+                awardConfirmation:
+                    "Weet je zeker dat je deze inschrijving wilt toekennen?",
                 deny: "Wijs inschrijving af",
-                denyConfirmation: "Weet je zeker dat je deze inschrijving wilt afwijzen?",
-                denyReason: "Wat is reden voor om deze inschrijving af te wijzen (optioneel)?"
+                denyConfirmation:
+                    "Weet je zeker dat je deze inschrijving wilt afwijzen?",
+                denyReason:
+                    "Wat is reden voor om deze inschrijving af te wijzen (optioneel)?",
             },
             awardButton: "Toekennen",
             showDenied: "Toon afgewezen inschrijvingen ({{count}})",
-            evidence: "Optionele beschrijvende metadata over het bewijs met betrekking tot de uitgifte van de edubadge.",
-            evidenceRequired: "Verplichte beschrijvende metadata over het bewijs met betrekking tot de uitgifte van de edubadge.",
+            evidence:
+                "Optionele beschrijvende metadata over het bewijs met betrekking tot de uitgifte van de edubadge.",
+            evidenceRequired:
+                "Verplichte beschrijvende metadata over het bewijs met betrekking tot de uitgifte van de edubadge.",
             evidenceHeader: "Metadata over het bewijs gerelateerd aan deze edubadge",
             evidenceNarrative: "Persoonlijke boodschap",
             evidenceURL: "URL",
@@ -895,9 +992,10 @@ I18n.translations.nl = {
             narrative: "Motivatie",
             flash: {
                 denied: "De inschrijving(en) zijn afgewezen.",
-                awarded: "De inschrijving(en) zijn toegekend."
+                awarded: "De inschrijving(en) zijn toegekend.",
             },
-            studentEvidenceRequired: "Om deze edubadge aan te vragen dien je bewijs / motivatie toe te voegen waarom het verzoek gegrond is."
+            studentEvidenceRequired:
+                "Om deze edubadge aan te vragen dien je bewijs / motivatie toe te voegen waarom het verzoek gegrond is.",
         },
         badgeAward: {
             email: "E-mail",
@@ -905,13 +1003,15 @@ I18n.translations.nl = {
             reject: "Weigeren",
             claim: "Claim en voeg toe aan je backpack",
             confirmation: {
-                claim: "Nadat deze edubadge is geclaimd, wordt deze toegevoegd aan je backpack en kan je de edubadge openbaar maken en delen.",
-                reject: "Weet u absoluut zeker dat u deze edubadge wilt afwijzen? Deze edubadge wordt na afwijzing verwijderd en deze actie kan niet ongedaan worden gemaakt."
+                claim:
+                    "Nadat deze edubadge is geclaimd, wordt deze toegevoegd aan je backpack en kan je de edubadge openbaar maken en delen.",
+                reject:
+                    "Weet u absoluut zeker dat u deze edubadge wilt afwijzen? Deze edubadge wordt na afwijzing verwijderd en deze actie kan niet ongedaan worden gemaakt.",
             },
             flash: {
                 claim: "Edubadge is succesvol geclaimed",
                 reject: "Edubadge is afgewezen",
-            }
+            },
         },
         directAwardBundle: {
             title: "Direct Award statussen",
@@ -945,18 +1045,18 @@ I18n.translations.nl = {
             description: "Omschrijving",
             privatePublic: "Privé / publiek",
             badge_instances: "Edubadges",
-            createdAt: "Aangemaakt op"
+            createdAt: "Aangemaakt op",
         },
         importedBadges: {
             image: "Afbeelding",
             url: "Badge URL",
             email: "Email",
-            code: "Verificatie code"
+            code: "Verificatie code",
         },
         endorsements: {
             description: "Omschrijving",
             claim: "Claim",
-            badgeClass: "Badge class"
+            badgeClass: "Badge class",
         },
         directAwards: {
             title: "Direct awards nog niet geclaimed",
@@ -964,7 +1064,8 @@ I18n.translations.nl = {
             revoke: "Trek in",
             resend: "Opnieuw versturen",
             delete: "Awards verwijderen",
-            zeroState: "Er zijn geen directe awards die nog moeten worden geclaimed voor badge classes die jij mag toekennen",
+            zeroState:
+                "Er zijn geen directe awards die nog moeten worden geclaimed voor badge classes die jij mag toekennen",
             recipient: "Ontvanger",
             eppn: "EPPN",
             status: "States",
@@ -978,42 +1079,52 @@ I18n.translations.nl = {
                 revocationReason: "Reden voor het intrekken (verplicht)",
                 deletionReason: "Reden voor het intrekken (verplicht)",
                 revoke: "Intrekken edubadge",
-                revokeConfirmation: "Weet je zeker dat je deze edubadge wilt intrekken? Dit kan <strong>niet</strong> ongedaan worden gemaakt.",
+                revokeConfirmation:
+                    "Weet je zeker dat je deze edubadge wilt intrekken? Dit kan <strong>niet</strong> ongedaan worden gemaakt.",
                 delete: "Verwijderen edubadge",
-                deleteConfirmation: "Weet je zeker dat je deze edubadge wilt verwijderen? Dit kan <strong>niet</strong> ongedaan worden gemaakt.",
+                deleteConfirmation:
+                    "Weet je zeker dat je deze edubadge wilt verwijderen? Dit kan <strong>niet</strong> ongedaan worden gemaakt.",
                 resend: "Opnieuw versturen edubadge",
-                resendConfirmation: "Weet je zeker dat je deze edubadge opnieuw wilt versturen? De ontvanger zal een e-mail ontvangen."
+                resendConfirmation:
+                    "Weet je zeker dat je deze edubadge opnieuw wilt versturen? De ontvanger zal een e-mail ontvangen.",
             },
             flash: {
                 revoked: "De edubadge(s) zijn ingetrokken.",
                 resend: "De edubadge(s) zijn opnieuw verstuurd.",
-                deleted: "De edubadge(s) zijn verwijderd."
-            }
-        }
+                deleted: "De edubadge(s) zijn verwijderd.",
+            },
+        },
     },
     inviteDialog: {
         title: "Nodig iemand uit om zich in te schrijven",
-        publicBadgePage: "Studenten kunnen zich inschrijven voor deze edubadge op de <a href=\"{{publicBadgePage}}\" target=\"_blank\">publieke badge class pagina</a>.",
-        intranet: "Als je de link naar de registratiepagina op je intranet of elektronische leeromgeving wilt plaatsen, kunt je de link kopiëren.",
-        copy: "Kopieer de link"
+        publicBadgePage:
+            'Studenten kunnen zich inschrijven voor deze edubadge op de <a href="{{publicBadgePage}}" target="_blank">publieke badge class pagina</a>.',
+        intranet:
+            "Als je de link naar de registratiepagina op je intranet of elektronische leeromgeving wilt plaatsen, kunt je de link kopiëren.",
+        copy: "Kopieer de link",
     },
     shareDialog: {
         title: "Deel je edubadge",
-        copyPublicUrl: "Als je de link naar de publieke pagina van deze edubadge wilt delen, kan je de link kopiëren",
+        copyPublicUrl:
+            "Als je de link naar de publieke pagina van deze edubadge wilt delen, kan je de link kopiëren",
         copy: "Kopieer de link",
         titleCollections: "Deel je collectie",
-        copyPublicUrlCollections: "Als je de link naar de publieke pagina van deze collectie van edubadge wilt delen, kan je de link kopiëren<br/><br/>Alleen je publieke en niet ingetrokken edubadges worden getoond op de publieke collectie pagina.",
+        copyPublicUrlCollections:
+            "Als je de link naar de publieke pagina van deze collectie van edubadge wilt delen, kan je de link kopiëren<br/><br/>Alleen je publieke en niet ingetrokken edubadges worden getoond op de publieke collectie pagina.",
     },
     copyDialog: {
         title: "SIS integrate",
-        sisIntegration: "Voor SIS-integratie kan je de entityID van deze edubadge in je SIS registreren, je kan deze identifier kopiëren naar je clipboard",
-        copy: "Kopieer de entityID"
+        sisIntegration:
+            "Voor SIS-integratie kan je de entityID van deze edubadge in je SIS registreren, je kan deze identifier kopiëren naar je clipboard",
+        copy: "Kopieer de entityID",
     },
     invites: {
         title: "Nodig iemand uit om zich in te schrijven",
-        copyPublicUrl: "Als je de link naar de registratiepagina op je intranet of elektronische leeromgeving wilt plaatsen, kunt je de link kopiëren",
-        copyPublicUrlDisabled: "Deze badge class is een voorlopige versie en kan niet worden uitgereikt",
-        copyUrl: "Kopieer URL"
+        copyPublicUrl:
+            "Als je de link naar de registratiepagina op je intranet of elektronische leeromgeving wilt plaatsen, kunt je de link kopiëren",
+        copyPublicUrlDisabled:
+            "Deze badge class is een voorlopige versie en kan niet worden uitgereikt",
+        copyUrl: "Kopieer URL",
     },
     file: {
         noFileSelected: "Geen bestand geselecteerd",
@@ -1023,15 +1134,17 @@ I18n.translations.nl = {
             "Afbeelding moet van het type .png zijn, tenminste 90x90 pixels bevatten, 300 dpi en kleiner zijn dan 256KB.",
     },
     copyToClipboard: {
-        copied: "Naar klembord gekopieerd"
+        copied: "Naar klembord gekopieerd",
     },
     acceptTerms: {
         welcome: "Hoi {{name}}",
         acceptTerms: "Onze Gebruiksvoorwaarden",
-        renewTerms: "De edubadge-voorwaarden zijn gewijzigd. Raadpleeg onze nieuwe voorwaarden.",
+        renewTerms:
+            "De edubadge-voorwaarden zijn gewijzigd. Raadpleeg onze nieuwe voorwaarden.",
         teacher: {
             accept: "Ik ga akkoord",
-            termsInfo: "Hieronder staan de belangrijkste punten over edubadges en jouw privacy. " +
+            termsInfo:
+                "Hieronder staan de belangrijkste punten over edubadges en jouw privacy. " +
                 " De volledige versie van de Gebruiksvoorwaarden tussen SURF en jou is onder deze tekst te vinden. " +
                 "Het aanmaken van het account en het koppelen van dit account aan eduID is noodzakelijk om edubadges " +
                 "te kunnen ontvangen. Het account valt onder de verwerkingsverantwoordelijkheid van SURF.",
@@ -1042,12 +1155,13 @@ I18n.translations.nl = {
             privacyTitle: "Privacy",
             privacyLinkPre: " Voor meer informatie kun je ook onze ",
             privacyLink: "Privacyverklaring",
-            privacyLinkPost: "bekijken."
+            privacyLinkPost: "bekijken.",
         },
         student: {
             accept: "Ik ga akkoord",
             read: "Ik heb dit gelezen",
-            termsInfo: "Hieronder staan de belangrijkste punten over edubadges en jouw privacy. " +
+            termsInfo:
+                "Hieronder staan de belangrijkste punten over edubadges en jouw privacy. " +
                 " De volledige versie van de Gebruiksvoorwaarden tussen SURF en jou is onder deze tekst te vinden. " +
                 "Het aanmaken van het account en het koppelen van dit account aan eduID is noodzakelijk om edubadges " +
                 "te kunnen ontvangen. Het account valt onder de verwerkingsverantwoordelijkheid van SURF.",
@@ -1064,49 +1178,57 @@ I18n.translations.nl = {
             version: "versie ",
             agreedOn: "Akkoord op ",
             readOn: "Gelezen op ",
-            withdrawConsent: "intrekken"
+            withdrawConsent: "intrekken",
         },
         termsBullets: {
-            teacher:
-                [
-                    "SURF maakt een account voor je aan op basis van je eduID. Dit account blijft bestaan tot je dit account verwijdert.",
-                    "SURF verwerkt hiervoor persoonsgegevens: voornaam, achternaam, e-mailadres, instellingsnaam en eduID.",
-                    "Met vragen over jouw account en/of privacy kun je ons bereiken via support@edubadges.nl."
-                ],
-            student:
-                [
-                    "SURF maakt een account voor je op basis van je eduID. Dit account blijft bestaan tot je dit account verwijdert.",
-                    "SURF verwerkt hiervoor persoonsgegevens: voornaam, achternaam, e-mailadres, instellingsnaam en eduID.",
-                    "Met vragen over jouw account en/of privacy kun je ons bereiken via support@edubadges.nl."
-                ]
+            teacher: [
+                "SURF maakt een account voor je aan op basis van je eduID. Dit account blijft bestaan tot je dit account verwijdert.",
+                "SURF verwerkt hiervoor persoonsgegevens: voornaam, achternaam, e-mailadres, instellingsnaam en eduID.",
+                "Met vragen over jouw account en/of privacy kun je ons bereiken via support@edubadges.nl.",
+            ],
+            student: [
+                "SURF maakt een account voor je op basis van je eduID. Dit account blijft bestaan tot je dit account verwijdert.",
+                "SURF verwerkt hiervoor persoonsgegevens: voornaam, achternaam, e-mailadres, instellingsnaam en eduID.",
+                "Met vragen over jouw account en/of privacy kun je ons bereiken via support@edubadges.nl.",
+            ],
         },
         noValidInstitution: "Geen geldige instelling",
         noValidInstitutionInfo: {
-            student: "De onderwijsinstelling <strong>{{name}}</strong> die gekoppeld is aan je eduID account, heeft de edubadges dienst niet afgenomen.<br/><br/>" +
+            student:
+                "De onderwijsinstelling <strong>{{name}}</strong> die gekoppeld is aan je eduID account, heeft de edubadges dienst niet afgenomen.<br/><br/>" +
                 "Neem contact op met support@edubadges.nl voor ondersteuning of probeer een andere onderwijsinstelling aan je eduID account te koppelen.",
-            teacher: "De onderwijsinstelling <strong>{{name}}</strong> waarmee je via SURFconext ingelogd bent, gebruikt edubadges momenteel niet.<br/><br/>" +
-                "Neem contact op met support@edubadges.nl voor ondersteuning of probeer via een andere onderwijsinstelling in te loggen."
+            teacher:
+                "De onderwijsinstelling <strong>{{name}}</strong> waarmee je via SURFconext ingelogd bent, gebruikt edubadges momenteel niet.<br/><br/>" +
+                "Neem contact op met support@edubadges.nl voor ondersteuning of probeer via een andere onderwijsinstelling in te loggen.",
         },
-        noValidInstitutionInfoNoInstitution: "Je hebt geen geldige onderwijsinstelling gekoppeld aan je account. <br/>" +
+        noValidInstitutionInfoNoInstitution:
+            "Je hebt geen geldige onderwijsinstelling gekoppeld aan je account. <br/>" +
             "Om deze dienst te kunnen gebruiken moet je account gekoppeld zijn aan een onderwijsinstelling die de edubadges dienst afneemt.",
-        noValidInstitutionInfoForEnrollment: "Onderwijsinstelling {{name}} is niet gekoppeld aan je eduID account. " +
+        noValidInstitutionInfoForEnrollment:
+            "Onderwijsinstelling {{name}} is niet gekoppeld aan je eduID account. " +
             "Om deze edubadge aan te kunnen vragen zal je eduID account gekoppeld moeten zijn met de onderwijsinstelling: <strong>{{name}}</strong>.<br/><br/>" +
             "Neem contact op met <a href='mailto:support@edubadges.nl'>support@edubadges.nl</a> voor ondersteuning of probeer je eduID account te koppelen met {{name}}.",
-        noValidatedNameAnymoreTitle: "Je eduID account is niet langer gekoppeld met een onderwijsinstelling",
-        noValidatedNameAnymore: "Je eduID account is niet langer gekoppeld aan een onderwijsinstelling. " +
+        noValidatedNameAnymoreTitle:
+            "Je eduID account is niet langer gekoppeld met een onderwijsinstelling",
+        noValidatedNameAnymore:
+            "Je eduID account is niet langer gekoppeld aan een onderwijsinstelling. " +
             "Je kan je eduID account opnieuw koppelen in de mijn omgeving van eduID.<br/><br/>" +
             "Neem contact op met <a href='mailto:support@edubadges.nl'>support@edubadges.nl</a> voor ondersteuning of probeer je eduID account te koppelen.",
         noValidatedNameTitle: "eduID account not linked",
-        noValidatedName: "Je eduID account is niet langer gekoppeld aan een onderwijsinstelling en daarom kan je toegekende badges niet claimen. " +
+        noValidatedName:
+            "Je eduID account is niet langer gekoppeld aan een onderwijsinstelling en daarom kan je toegekende badges niet claimen. " +
             "Je kan je eduID account koppelen in de mijn omgeving van eduID.<br/><br/>" +
             "Neem contact op met <a href='mailto:support@edubadges.nl'>support@edubadges.nl</a> voor ondersteuning of probeer je eduID account te koppelen.",
         goToSurfConext: "Ga door naar eduID",
         multipleValidInstitutions: "Meerdere geldige onderwijsinstellingen",
-        multipleValidInstitutionsInfo: "Je hebt meerdere geldige onderwijsinstellingen gekoppeld aan je eduID account.<br/><br/>" +
+        multipleValidInstitutionsInfo:
+            "Je hebt meerdere geldige onderwijsinstellingen gekoppeld aan je eduID account.<br/><br/>" +
             "Maak een keuze van welke onderwijsinstelling je edubadges wilt ontvangen.",
         badgeClassEnrollmentTerms: {
-            formalBadges: "Formele edubadges - Gelieve kennis te nemen van onze voorwaarden",
-            inFormalBadges: "Non-formele edubadges - Gelieve kennis te nemen van onze voorwaarden",
+            formalBadges:
+                "Formele edubadges - Gelieve kennis te nemen van onze voorwaarden",
+            inFormalBadges:
+                "Non-formele edubadges - Gelieve kennis te nemen van onze voorwaarden",
             statementTitle: "Verklaring",
             statementLinkPre: "Je kunt ",
             statementLink: "de volledige verklaring hier ",
@@ -1114,7 +1236,7 @@ I18n.translations.nl = {
             privacyTitle: "Privacy",
             privacyLinkPre: "Je gaat ook akkoord met de ",
             privacyLink: "privacyverklaring.",
-            privacyLinkPost: ""
+            privacyLinkPost: "",
         },
     },
     language: {
@@ -1124,18 +1246,21 @@ I18n.translations.nl = {
         Nl_Nl: "Nederlands",
         es_ES: "Spaans",
         fr_FR: "Frans",
-        de_DE: "Duits"
+        de_DE: "Duits",
     },
     publicBadge: {
         verification: "Verificatie",
-        issuedTo: "Deze edubadge is uitgereikt aan <strong>{{name}}</strong> op {{date}}",
-        noValidatedName: "Deze edubadge is uitgereikt aan een gebruiker wiens naam <strong>niet</strong> is gevalideerd door een instelling op {{date}}",
+        issuedTo:
+            "Deze edubadge is uitgereikt aan <strong>{{name}}</strong> op {{date}}",
+        noValidatedName:
+            "Deze edubadge is uitgereikt aan een gebruiker wiens naam <strong>niet</strong> is gevalideerd door een instelling op {{date}}",
         expires: "Deze edubadge verloopt op {{date}}",
         neverExpires: "Deze edubadge heeft geen expiratie datum.",
         hasExpired: "Deze edubadge is verlopen op {{date}}",
         verify: "Verifieer",
         validations: {
             institution: "Van instelling {{val}}",
+            faculty: "Namens {{val}}",
             hosted: "Hosted bij {{val}}",
             imported: "Geïmporteerd op {{val}}",
             issuedOn: "Uitgereikt op {{val}}",
@@ -1146,16 +1271,31 @@ I18n.translations.nl = {
             claimedOn: "Geaccepteerd op {{val}}",
             expiresOn: "Verloopt op {{val}}",
             never: "nooit",
-            verified: "<strong>Gevalideerd!<strong> {{val}}"
+            verified: "<strong>Gevalideerd!<strong> {{val}}",
         },
         noValidatedNameModal: {
             noLinkedInstitution: "Geen gekoppelde instelling",
-            question: "Je eduID account is niet gekoppeld aan een onderwijsinstelling. Dit is vereist om edubadges aan te vragen.<br><br>Druk op <span style='color: #540b6c'>koppel instelling</span> om doorgestuurd te worden naar eduID. Daarna wordt je terug gestuurd naar deze pagina.",
-            directAwards: "Je eduID account is niet gekoppeld aan een onderwijsinstelling. Dit is vereist om direct awards te claimen.<br><br>Druk op <span style='color: #540b6c'>koppel instelling</span> om doorgestuurd te worden naar eduID. Daarna wordt je terug gestuurd naar deze pagina.",
-            goToEduID: "Koppel onderwijsinstelling"
+            question:
+                "Je eduID account is niet gekoppeld aan een onderwijsinstelling. Dit is vereist om edubadges aan te vragen.<br><br>Druk op <span style='color: #540b6c'>koppel instelling</span> om doorgestuurd te worden naar eduID. Daarna wordt je terug gestuurd naar deze pagina.",
+            directAwards:
+                "Je eduID account is niet gekoppeld aan een onderwijsinstelling. Dit is vereist om direct awards te claimen.<br><br>Druk op <span style='color: #540b6c'>koppel instelling</span> om doorgestuurd te worden naar eduID. Daarna wordt je terug gestuurd naar deze pagina.",
+            goToEduID: "Koppel onderwijsinstelling",
         },
     },
-    monthNames: ["Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "Oktober", "November", "December"],
+    monthNames: [
+        "Januari",
+        "Februari",
+        "Maart",
+        "April",
+        "Mei",
+        "Juni",
+        "Juli",
+        "Augustus",
+        "September",
+        "Oktober",
+        "November",
+        "December",
+    ],
     zeroState: {
         badgeClasses: "Er zijn geen badge classes voor issuer {{name}}.",
         issuers: "Er zijn geen issuers voor {{name}}.",
@@ -1163,16 +1303,23 @@ I18n.translations.nl = {
         users: "Er zijn geen gebruikers voor instelling {{name}}.",
         assertions: "Er zijn geen uitreikingen voor edubadge {{name}}.",
         enrollments: "Er zijn geen aanvragen voor edubadge {{name}}.",
-        enrollmentsDenied: "Er zijn geen gewijgerde aanvragen voor edubadge {{name}}.",
-        permissions: "Er zijn geen permissies voor deze gebruiker {{entity}} niveau.",
-        selfPermissions: "Deze gebruiker heeft geen permissies op {{entity}} niveau.",
-        userPermissions: "Deze gebruiker heeft geen permissies op {{entity}} niveau.",
+        enrollmentsDenied:
+            "Er zijn geen gewijgerde aanvragen voor edubadge {{name}}.",
+        permissions:
+            "Er zijn geen permissies voor deze gebruiker {{entity}} niveau.",
+        selfPermissions:
+            "Deze gebruiker heeft geen permissies op {{entity}} niveau.",
+        userPermissions:
+            "Deze gebruiker heeft geen permissies op {{entity}} niveau.",
         directAwardBundles: "Er is geen direct award status voor edubadge {{name}}",
-        directAwards: "Alle direct awards zijn geclaimed. Er zijn geen uitstaande direct awards meer voor deze bundel.",
-        requestedBatches: "Er zijn geen openstaande edubadge-verzoeken die je mag uitreiken.",
-        notifications: "Je hebt geen permissies om edubadges te awarden en daarom kan je geen notificaties instellen.",
+        directAwards:
+            "Alle direct awards zijn geclaimed. Er zijn geen uitstaande direct awards meer voor deze bundel.",
+        requestedBatches:
+            "Er zijn geen openstaande edubadge-verzoeken die je mag uitreiken.",
+        notifications:
+            "Je hebt geen permissies om edubadges te awarden en daarom kan je geen notificaties instellen.",
         endorsements: "Er zijn geen endorsements voor {{name}}.",
-        endorsed: "{{name}} heeft geen andere badge class endorsed."
+        endorsed: "{{name}} heeft geen andere badge class endorsed.",
     },
     userManagement: {
         permissions: "Permissies voor {{name}}",
@@ -1180,7 +1327,7 @@ I18n.translations.nl = {
         issuer_group_staff: "issuer groep staff",
         issuer_staff: "issuer staff",
         badge_class_staff: "badge class staff",
-        user_provisionment: "uitnodigingen gebruikers"
+        user_provisionment: "uitnodigingen gebruikers",
     },
     user: {
         home: "Home",
@@ -1188,8 +1335,9 @@ I18n.translations.nl = {
         notifications: "Je notificatie instellingen",
         banner: "Hallo {{firstName}} {{lastName}}",
         profile: "Account",
-        loggedIn: "Je bent momenteel ingelogd met je instellingsaccount, via SURFconext",
-        lti: "LTI"
+        loggedIn:
+            "Je bent momenteel ingelogd met je instellingsaccount, via SURFconext",
+        lti: "LTI",
     },
     placeholders: {
         institution: {
@@ -1197,27 +1345,37 @@ I18n.translations.nl = {
             brin: "(Verplicht veld) Instellingscode (voorheen BRIN code)",
             gradingTable: "URL van de grading table",
             linkedinOrgIdentifier: "LinkedIn organisatie id",
-            description: "(Verplicht veld) Bijv. De Universiteit van Harderwijk is gesticht in 1977.",
-            allowedInstitutions: "Selecteer 1 of meer instellingen..."
+            email: "(Optioneel veld) Bijv. john.doe@example.com",
+            description:
+                "(Verplicht veld) Bijv. De Universiteit van Harderwijk is gesticht in 1977.",
+            allowedInstitutions: "Selecteer 1 of meer instellingen...",
         },
         faculty: {
             name: "(Verplicht veld) Bijv. Geschiedenis",
-            description: "(Verplicht veld) Bijv. Alle issuers van de faculteit Geschiedenis",
+            description:
+                "(Verplicht veld) Bijv. Alle issuers van de faculteit Geschiedenis",
             facultyType: "Selecteer het type instelling voor deze issuer groep...",
-            visibilityType: "Selecteer het type zichtbaarheid voor deze issuer groep...",
-            onBehalfOfUrl: "(Optioneell) e.g. URL van de issuer groep of het consortium",
-            onBehalfOfDisplayName: "(Optional) e.g. naam van de issuer groep of het consortium",
+            visibilityType:
+                "Selecteer het type zichtbaarheid voor deze issuer groep...",
+            onBehalfOfUrl: "(Optioneel) e.g. URL van de andere organisatie",
+            linkedinOrgIdentifier:
+                "(Optioneel) e.g. de linkedin identifier van de andere organisatie",
+            onBehalfOfDisplayName:
+                "(Optional) e.g. naam van de issuer groep of het consortium",
         },
         issuer: {
             name: "(Verplicht veld) Bijv. Economische en Sociale geschiedenis",
-            description: "(Verplicht veld) Bijv. Economische en sociale geschiedenis houdt zich bezig met langetermijn ontwikkelingen in de wereldeconomie en samenlevingen, van de late Middeleeuwen tot nu.",
+            description:
+                "(Verplicht veld) Bijv. Economische en sociale geschiedenis houdt zich bezig met langetermijn ontwikkelingen in de wereldeconomie en samenlevingen, van de late Middeleeuwen tot nu.",
             email: "(Verplicht veld) Bijv. john.doe@example.com",
-            url: "(Verplicht veld) Bijv. https://universiteitvanharderwijk.nl"
+            url: "(Verplicht veld) Bijv. https://universiteitvanharderwijk.nl",
         },
         badgeClass: {
             name: "(Verplicht veld) Bijv. Geschiedenis van de middeleeuwen",
-            description: "(Verplicht veld) Bijv. Een overzicht van de geschiedenis vanaf de late oudheid tot de vijftiende eeuw.",
-            learningOutcome: "Bijv. Je bent in staat antieke bronnen, maar ook moderne teksten, te lezen en interpreteren en hebt zo een overzicht van alle belangrijke ontwikkelingen.",
+            description:
+                "(Verplicht veld) Bijv. Een overzicht van de geschiedenis vanaf de late oudheid tot de vijftiende eeuw.",
+            learningOutcome:
+                "Bijv. Je bent in staat antieke bronnen, maar ook moderne teksten, te lezen en interpreteren en hebt zo een overzicht van alle belangrijke ontwikkelingen.",
             criteriaText: "Bijv. online multiple choice tentamen",
             studyLoadMICRO_CREDENTIAL: "Bijv. 240",
             studyLoadREGULAR: "Bijv. 24",
@@ -1227,133 +1385,188 @@ I18n.translations.nl = {
                 name: "Status",
                 archived: "Gearchiveerd",
                 private: "Niet gepubliceerd",
-                active: "Actief"
+                active: "Actief",
             },
             educationProgramIdentifier: "Bijv. 12111990",
             alignmentName: "Bijv. Geschiedenis",
             alignmentFramework: "Bijv. ESCO",
-            alignmentDescription: "Bijv. De tak van wetenschap die aan mensen gerelateerde gebeurtenissen uit het verleden bestudeert, analyseert en beschrijft.",
-            alignmentUrl: "Bijv. http://data.europa.eu/esco/skill/2b22f3b1-5de4-43f9-b6d1-b20f65871268",
+            alignmentDescription:
+                "Bijv. De tak van wetenschap die aan mensen gerelateerde gebeurtenissen uit het verleden bestudeert, analyseert en beschrijft.",
+            alignmentUrl:
+                "Bijv. http://data.europa.eu/esco/skill/2b22f3b1-5de4-43f9-b6d1-b20f65871268",
             alignmentCode: "Bijv. 2b22f3b1-5de4-43f9-b6d1-b20f65871268",
             qualityAssuranceName: "e.g. iets",
             qualityAssuranceUrl: "e.g. https://data.europa.com/qa",
-            internalTags: "Selecteer tags..."
+            internalTags: "Selecteer tags...",
         },
         permissions: {
-            notes: "Bijv. waarom heb je permissies gegeven?"
+            notes: "Bijv. waarom heb je permissies gegeven?",
         },
         userManagement: {
-            email: "Bijv. john.doe@example.com"
+            email: "Bijv. john.doe@example.com",
         },
         enrollment: {
-            evidenceNarrative: "bijv. een persoonlijke boodschap wat aan deze edubadge toegevoegd kan worden",
-            evidenceURL: "bijv. https://university-example.org/persistent-url-to-evidence",
+            evidenceNarrative:
+                "bijv. een persoonlijke boodschap wat aan deze edubadge toegevoegd kan worden",
+            evidenceURL:
+                "bijv. https://university-example.org/persistent-url-to-evidence",
             evidenceName: "e.g. Scriptie Introductie Pysychology",
-            evidenceDescription: "e.g. omschrijving van het bewijs wat aan deze edubadge is toegevoegd",
-            grade: "e.g. het cijfer toegekend"
-        }
+            evidenceDescription:
+                "e.g. omschrijving van het bewijs wat aan deze edubadge is toegevoegd",
+            grade: "e.g. het cijfer toegekend",
+        },
     },
     eye: {
         awardView: "Ga naar de Award view",
-        adminView: "Ga naar de Admin view"
+        adminView: "Ga naar de Admin view",
     },
     studentEnroll: {
         confirmation: {
             title: "Aanvragen",
-            question: "Weet je zeker dat je de edubadge <strong>{{name}}</strong> wil aanvragen?"
-        }
+            question:
+                "Weet je zeker dat je de edubadge <strong>{{name}}</strong> wil aanvragen?",
+        },
     },
     terms: {
         overviewTitle: "Overzicht van alle voorwaarden",
         termsTitle: "Gebruiksvoorwaarden",
         privacyPolicyTitle: "Privacyverklaring",
         student: {
-            serviceAgreementRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-agreement-nl.md",
-            termsOfUseRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-terms-nl.md",
-            privacyPolicyRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-statement-nl.md",
+            serviceAgreementRaw:
+                "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-agreement-nl.md",
+            termsOfUseRaw:
+                "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-terms-nl.md",
+            privacyPolicyRaw:
+                "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-statement-nl.md",
         },
         teacher: {
-            serviceAgreementRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-agreement-nl.md",
-            termsOfUseRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-terms-nl.md",
-            privacyPolicyRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-statement-nl.md",
-        }
+            serviceAgreementRaw:
+                "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-agreement-nl.md",
+            termsOfUseRaw:
+                "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-terms-nl.md",
+            privacyPolicyRaw:
+                "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-statement-nl.md",
+        },
     },
     tooltips: {
         // If you don't want a tooltip to be displayed, just comment out (or delete) the line (like this line;-)
         //badgeClassImage: "badgeClassImage",
-        badgeClassExpireSettings: "Geef hier aan of en hoelang de edubadge geldig is. Na deze datum zal een edubadge niet meer geldig zijn.",
-        badgeClassName: "Vermijdt afkortingen, zorg voor herkenbare naam ook voor externen.",
+        badgeClassExpireSettings:
+            "Geef hier aan of en hoelang de edubadge geldig is. Na deze datum zal een edubadge niet meer geldig zijn.",
+        badgeClassName:
+            "Vermijdt afkortingen, zorg voor herkenbare naam ook voor externen.",
         //badgeClassDescription: "Deze beschrijving ondersteund opmaak in markdown formaat. " +
         //  "Zie <a target=\"_blank\" href=\"https://wiki.surfnet.nl/display/Edubadges/Edubadges+Example+BadgeClass\"> de wiki </a> voor voorbeelden.",
-        badgeClassLanguageOfInstruction: "De voertaal die gebruikt is bij het behalen van deze edubadge. ",
-        badgeClassLearningOutcome: "Beschrijf de leeruitkomsten of de leerresultaten. Vastgelegd in de Onderwijs- en examenregeling.",
+        badgeClassLanguageOfInstruction:
+            "De voertaal die gebruikt is bij het behalen van deze edubadge. ",
+        badgeClassLearningOutcome:
+            "Beschrijf de leeruitkomsten of de leerresultaten. Vastgelegd in de Onderwijs- en examenregeling.",
         //badgeClassLearningIssuer: "badgeClassLearningIssuer",
-        badgeClassIsPrivate: "Indien aangevinkt zal deze badge class niet in de catalogus verschijnen. Houd er rekening mee dat er van privé badge classes geen edubadges kunnen worden uitgegeven.",
-        badgeClassEvidenceRequired: "Indien aangevinkt, moet voor alle onderscheidingen op basis van deze badge class een bewijs van de geleverde prestatie worden ingevuld.",
-        badgeClassNarrativeRequired: "Indien aangevinkt, moet voor alle onderscheidingen op basis van deze badge class een persoonlijke toelichting worden ingevuld.",
-        badgeClassNarrativeStudentRequired: "Indien aangevinkt, moet voor alle aanvragen van deze badge class een persoonlijke motivatie worden ingevuld.",
-        badgeClassEvidenceStudentRequired: "Indien aangevinkt, moet voor alle aanvragen van deze badge class een bronvermelding URL worden ingevuld.",
-        badgeClassAwardNonValidatedNameAllowed: "Indien aangevinkt, mogen non-formal edubadges (edubadges zonder Studielast) uitgereikt worden aan niet-gevalideerde accounts.",
-        badgeClassIsMicroCredentials: "Indien aangevinkt, dan wordt deze badge class ihkv de Microcredentials pilot uitgegeven." +
-            "Zie <a target=\"_blank\" href=\"https://wiki.surfnet.nl/display/Edubadges/Handleiding+Metadata+ihkv+de+pilot+microcredentials\"> de wiki </a> voor een handleiding.",
-        badgeClassDirectAwardingDisabled: "Indien aangevinkt, dan is voor deze badge class het direct awarden uitgeschakeld",
-        badgeClassSelfEnrollmentDisabled: "Indien aangevinkt, dan kan deze badge class niet worden aangevraagd door studenten",
-        badgeClassCriteriaRequirements: "Aan welke criteria heeft de lerende voldaan, om in aanmerking te komen voor deze edubadge?",
+        badgeClassIsPrivate:
+            "Indien aangevinkt zal deze badge class niet in de catalogus verschijnen. Houd er rekening mee dat er van privé badge classes geen edubadges kunnen worden uitgegeven.",
+        badgeClassEvidenceRequired:
+            "Indien aangevinkt, moet voor alle onderscheidingen op basis van deze badge class een bewijs van de geleverde prestatie worden ingevuld.",
+        badgeClassNarrativeRequired:
+            "Indien aangevinkt, moet voor alle onderscheidingen op basis van deze badge class een persoonlijke toelichting worden ingevuld.",
+        badgeClassNarrativeStudentRequired:
+            "Indien aangevinkt, moet voor alle aanvragen van deze badge class een persoonlijke motivatie worden ingevuld.",
+        badgeClassEvidenceStudentRequired:
+            "Indien aangevinkt, moet voor alle aanvragen van deze badge class een bronvermelding URL worden ingevuld.",
+        badgeClassAwardNonValidatedNameAllowed:
+            "Indien aangevinkt, mogen non-formal edubadges (edubadges zonder Studielast) uitgereikt worden aan niet-gevalideerde accounts.",
+        badgeClassIsMicroCredentials:
+            "Indien aangevinkt, dan wordt deze badge class ihkv de Microcredentials pilot uitgegeven." +
+            'Zie <a target="_blank" href="https://wiki.surfnet.nl/display/Edubadges/Handleiding+Metadata+ihkv+de+pilot+microcredentials"> de wiki </a> voor een handleiding.',
+        badgeClassDirectAwardingDisabled:
+            "Indien aangevinkt, dan is voor deze badge class het direct awarden uitgeschakeld",
+        badgeClassSelfEnrollmentDisabled:
+            "Indien aangevinkt, dan kan deze badge class niet worden aangevraagd door studenten",
+        badgeClassCriteriaRequirements:
+            "Aan welke criteria heeft de lerende voldaan, om in aanmerking te komen voor deze edubadge?",
         //badgeClassTypeOfStudyLoad: "badgeClassTypeOfStudyLoad",
         badgeClassStudyLoadNumber: "Studie Belastings Uren (SBU in uren)",
-        badgeClassTimeInvestmentNumber: "Hoeveel uren geïnvesteerd moeten worden om deze non-formal edubadge te kunnen verkrijgen.",
+        badgeClassTimeInvestmentNumber:
+            "Hoeveel uren geïnvesteerd moeten worden om deze non-formal edubadge te kunnen verkrijgen.",
         //badgeClassSBUNumber: "badgeClassSBULoadNumber",
-        badgeClassStudyLoadEcts: "Het European Credit Transfer System (ECTS) is een puntensysteem dat wordt gebruikt door universiteiten en is goedgekeurd door overheden, waardoor internationaal onderwijs beter vergelijkbaar is over de grenzen heen.",
+        badgeClassStudyLoadEcts:
+            "Het European Credit Transfer System (ECTS) is een puntensysteem dat wordt gebruikt door universiteiten en is goedgekeurd door overheden, waardoor internationaal onderwijs beter vergelijkbaar is over de grenzen heen.",
         //badgeClassProgrammeIdentifier: "badgeClassProgrammeIdentifier",
-        badgeClassNLQFLevel: "Geef aan op welk kwalificatie niveau deze edubadge is afgeleid.",
+        badgeClassNLQFLevel:
+            "Geef aan op welk kwalificatie niveau deze edubadge is afgeleid.",
         //badgeClassRelatedFrameworkName: "badgeClassRelatedFrameworkName",
         //badgeClassRelatedFrameworkFramework: "badgeClassRelatedFrameworkFramework",
         //badgeClassRelatedFrameworkURL: "badgeClassRelatedFrameworkURL",
         //badgeClassRelatedFrameworkCode: "badgeClassRelatedFrameworkCode",
         //badgeClassRelatedFrameworkDescription: "badgeClassRelatedFrameworkDescription",
-        facultyName: "Vermijdt afkortingen, zorg voor herkenbare naam ook voor externen.",
-        facultyOnBehalfOf: "Indien aangevinkt vermeldt de badge class dat edubadges zijn uitgereikt namens deze issuer groep. Kan gebruikt worden bij het uitgeven namens een consortium.",
-        facultyOnBehalfOfUrl: "Gebruik deze URL als een externe link naar deze issuer groep.",
-        facultyInstitutionType: "Alle edubadges van deze issuer groep erven het type onderwijsinstellings. Deze wordt gebruikt om het type instelling te bepalen voor hybride instellingen.",
-        facultyVisibilityType: "Alle eduBadges van publieke issuer groepen worden weergegeven in de catalogus.",
-        facultyOnBehalfOfDisplayName: "Wanneer Uitgeven namens naam issuer groep is aangevinkt, wordt deze weergavenaam gebruikt in plaats van de werkelijke naam van de issuer groep.",
+        facultyName:
+            "Vermijdt afkortingen, zorg voor herkenbare naam ook voor externen.",
+        facultyOnBehalfOf:
+            "Indien aangevinkt vermeldt de badge class dat edubadges zijn uitgereikt namens deze issuer groep. Kan gebruikt worden bij het uitgeven namens een consortium.",
+        facultyOnBehalfOfUrl: "Uitgeven namens andere organisatie",
+        facultyInstitutionType:
+            "Alle edubadges van deze issuer groep erven het type onderwijsinstellings. Deze wordt gebruikt om het type instelling te bepalen voor hybride instellingen.",
+        facultyVisibilityType:
+            "Alle eduBadges van publieke issuer groepen worden weergegeven in de catalogus.",
+        facultyOnBehalfOfDisplayName:
+            "Wanneer Uitgeven namens naam issuer groep is aangevinkt, wordt deze weergavenaam gebruikt in plaats van de werkelijke naam van de issuer groep.",
         //facultyDescriptionEn: "facultyDescriptionEn",
         //facultyDescriptionNl: "facultyDescriptionNl",
         //issuerFaculty: "issuerFaculty",
         //issuerImage: "issuerImage",
-        issuerName: "Vermijdt afkortingen, zorg voor herkenbare naam ook voor externen.",
+        issuerName:
+            "Vermijdt afkortingen, zorg voor herkenbare naam ook voor externen.",
         //issuerDescriptionEn: "issuerDescriptionEn",
         //issuerDescriptionNl: "issuerDescriptionNl",
-        issuerURL: "Gebruik hier een URL die niet zal veranderen. (persistent URL).",
+        issuerURL:
+            "Gebruik hier een URL die niet zal veranderen. (persistent URL).",
         //issuerEmail: "issuerEmail",
         //institutionImage: "institutionImage",
         //institutionName: "institutionName",
         //institutionDescriptionEn: "institutionDescriptionEn",
         //institutionDescriptionNl: "institutionDescriptionNl",
         institutionBrin: "Instellingscode uitgegeven door DUO. Voorheen BRIN code.",
-        institutionGradingTable: "Gebruik hier een URL die niet zal veranderen. (Persistent URL).",
-        institutionLinkedinOrgIdentifier: "LinkedIn id voor deze organisatie / instelling",
-        institutionAwardAllowedInstitutions: "Selecteer andere instellingen waarvan de studenten<br/>ook edubadges kunnen ontvangen.",
-        institutionBadgeClassTags: "Verwijder of voeg een tag toe. De tags kunnen worden gekoppeld aan badge classes",
-        badgeclassAwardAllowedInstitutions: "Selecteer andere instellingen waarvan de studenten<br/>ook deze edubadge kunnen ontvangen.",
-        enrollmentEvidenceNarrative: "Een persoonlijke toelichting dat kan worden toegevoegd aan deze toegekende edubadge.",
-        enrollmentEvidenceURL: "De URL van een webpagina met bewijs van de geleverde prestatie.",
-        enrollmentGrade: "Het cijfer wat is toegekend aan de student voor het behalen van de badge.",
-        enrollmentEvidenceName: "Een beschrijvende titel van het bewijs van de geleverde prestatie.",
-        enrollmentEvidenceDescription: "Een langere beschrijving van het bewijs van de geleverde prestatie.",
+        institutionGradingTable:
+            "Gebruik hier een URL die niet zal veranderen. (Persistent URL).",
+        institutionLinkedinOrgIdentifier:
+            "LinkedIn id voor deze organisatie / instelling",
+        institutionAwardAllowedInstitutions:
+            "Selecteer andere instellingen waarvan de studenten<br/>ook edubadges kunnen ontvangen.",
+        institutionBadgeClassTags:
+            "Verwijder of voeg een tag toe. De tags kunnen worden gekoppeld aan badge classes",
+        badgeclassAwardAllowedInstitutions:
+            "Selecteer andere instellingen waarvan de studenten<br/>ook deze edubadge kunnen ontvangen.",
+        enrollmentEvidenceNarrative:
+            "Een persoonlijke toelichting dat kan worden toegevoegd aan deze toegekende edubadge.",
+        enrollmentEvidenceURL:
+            "De URL van een webpagina met bewijs van de geleverde prestatie.",
+        enrollmentGrade:
+            "Het cijfer wat is toegekend aan de student voor het behalen van de badge.",
+        enrollmentEvidenceName:
+            "Een beschrijvende titel van het bewijs van de geleverde prestatie.",
+        enrollmentEvidenceDescription:
+            "Een langere beschrijving van het bewijs van de geleverde prestatie.",
         demoEnvironment: "Alle data wordt iedere maand verwijderd.",
-        directAwards: "Direct awards zijn edubadges die door de leraar per e-mail aan leerlingen worden uitgereikt. De onderstaande nummers zijn rechtstreekse toekenningen die nog niet aanvaard, geweigerd of ingetrokken zijn",
-        enrollments: "Enrollments worden door leerlingen aangevraagd en na goedkeuring worden nieuwe edubadges toegekend. De nummers hieronder zijn enrollments die niet goedgekeurd zijn door de leraar of geweigerd zijn",
-        toggleBadgeCollectionPublic: "Een openbare collectie kan met anderen worden gedeeld, een privé collectie niet.",
-        collectionBadgeInstances: "Selecteer alle edubadges die je in deze collectie wilt plaatsen.",
-        importedBadgeEmail: "Je email die is gebruikt op het moment dat deze edubadge aan je werd uitgereikt",
+        directAwards:
+            "Direct awards zijn edubadges die door de leraar per e-mail aan leerlingen worden uitgereikt. De onderstaande nummers zijn rechtstreekse toekenningen die nog niet aanvaard, geweigerd of ingetrokken zijn",
+        enrollments:
+            "Enrollments worden door leerlingen aangevraagd en na goedkeuring worden nieuwe edubadges toegekend. De nummers hieronder zijn enrollments die niet goedgekeurd zijn door de leraar of geweigerd zijn",
+        toggleBadgeCollectionPublic:
+            "Een openbare collectie kan met anderen worden gedeeld, een privé collectie niet.",
+        collectionBadgeInstances:
+            "Selecteer alle edubadges die je in deze collectie wilt plaatsen.",
+        importedBadgeEmail:
+            "Je email die is gebruikt op het moment dat deze edubadge aan je werd uitgereikt",
         importedBadgeImageUrl: "De URL met de edubadge JSON informatie",
         importedBadgeImage: "Een png of svg edubadge afbeelding",
         endorsementDescription: "De omschrijving van de aanbeveling",
-        endorsementClaim: "De claim beschrijft waarom en hoe deze badgeclass vergelijkbaar is met de geselecteerde badge",
+        endorsementClaim:
+            "De claim beschrijft waarom en hoe deze badgeclass vergelijkbaar is met de geselecteerde badge",
         endorsementBadgeClass: "De badgeklasse die je wilt aanbevelen.",
-        awardScheduling: "Voer de datum in waarop de e-mails zullen worden verzonden naar de gebruikers aan wie de edubadge is toegekend.",
-        badgeClassIsStackable: "Een stackable badge-class kan gestapeld worden aan een andere badge-class"
+        awardScheduling:
+            "Voer de datum in waarop de e-mails zullen worden verzonden naar de gebruikers aan wie de edubadge is toegekend.",
+        enableAwardOnEmail: "Indien geselecteerd, kan je deze badge ook op basis van de e-mail toekennen. De e-mail wordt vergeleken met de eduID-e-mail van de gebruiker.<br/><br/> De gebruiker moet een gevalideerde naam hebben, maar er is geen verbinding met een onderwijsinstelling vereist.",
+        badgeClassIsStackable:
+            "Een stackable badge-class kan gestapeld worden aan een andere badge-class",
     },
     badgeOverview: {
         faculty: "Issuer groep",
@@ -1365,7 +1578,7 @@ I18n.translations.nl = {
             WO: "WO",
             HBO: "HBO",
             MBO: "MBO",
-            NONE: "SURF"
+            NONE: "SURF",
         },
         studyLoad: {
             NO_STUDYLOAD: "Geen studyload",
@@ -1374,7 +1587,7 @@ I18n.translations.nl = {
             ECTS_10_MORE: "> 10 ECTS (WO/HBO)",
             HOURS_0_60: "0-60 uren (MBO)",
             HOURS_61_120: "61-120 uren (MBO)",
-            HOURS_120_MORE: "> 120 uren (MBO)"
+            HOURS_120_MORE: "> 120 uren (MBO)",
         },
         eqf: {
             eqfNone: "Geen EQF niveau",
@@ -1392,7 +1605,8 @@ I18n.translations.nl = {
             contact: "Neem contact op met de issuer",
             website: "Bezoek issuer website",
             gradingTable: "Bekijk de grading tabel",
-            institution: "<span>Onderdeel van <a href=\"{{link}}\" target=\"_blank\">{{name}}</a> ({{countryCode}})</span>"
+            institution:
+                '<span>Onderdeel van <a href="{{link}}" target="_blank">{{name}}</a> ({{countryCode}})</span>',
         },
         busy: "Alle informatie wordt opgehaald. Dat kan even duren.... Neem een ☕️",
     },
@@ -1402,48 +1616,60 @@ I18n.translations.nl = {
         or: "-of-",
         inviteEnrollements: "Nodig gebruikers uit om in te schrijven",
         copyBadgeClassId: "Kopieer de ID voor SIS integration",
-        badgeClassArchived: "Kan geen uitreikingen doen op een gearrchiveerde badge class",
+        badgeClassArchived:
+            "Kan geen uitreikingen doen op een gearrchiveerde badge class",
         ltiAward: "Uitreiken van LTI import",
     },
     badgeAward: {
         directAward: {
             title: "Direct edubadges uitreiken",
-            subtitle: "Je verzoek is verzonden en je krijgt een melding wanneer het is geaccepteerd of geweigerd.",
+            subtitle:
+                "Je verzoek zal worden verzonden en je krijgt een melding wanneer het is geaccepteerd of geweigerd.",
             waringEnrollments: "Er zijn {{count}} aanmeldingen voor deze edubadge. ",
             toToEnrollments: "Controleer ze misschien eerst?",
             addAnother: "+ Toevoegen",
             cancel: "Annuleer",
             award: "Verzenden",
             schedulingDate: "Planning inschakelen",
+            enableAwardOnEmail: "Schakel uitreiken op basis van email in",
             addEvidence: "Motivatie/bewijs",
             addEvidenceGrade: "Motivatie/bewijs & Cijfer",
             editEvidence: "Motivatie/bewijs bewerken",
             grade: "Cijfer",
             metaData: "Metadata",
             editMetaData: "Metadata bewerken",
-            processing: "Bezig om {{count}} direct awards te verwerken. Even geduld...",
+            processing:
+                "Bezig om {{count}} direct awards te verwerken. Even geduld...",
             flash: {
-                created: "Direct awards zijn verzonden"
-            }
+                created: "Direct awards zijn verzonden",
+            },
         },
         ltiAward: {
             title: "Reik direct edubadges uit vanuit de LTI import",
-            noUsers: "Geen studenten met een geldige <em>lis_person_sourcedid</em> konden worden geimporteerd vanuit <strong>{{name}}</strong>. ",
-            usersImported: "{{nbr}} studenten met een valide <em>lis_person_sourcedid</em> zijn geimporteerd vanuit <strong>{{name}}</strong>. ",
-            checkContext: " Zie alle gebruikers in de LTI context."
+            noUsers:
+                "Geen studenten met een geldige <em>lis_person_sourcedid</em> konden worden geimporteerd vanuit <strong>{{name}}</strong>. ",
+            usersImported:
+                "{{nbr}} studenten met een valide <em>lis_person_sourcedid</em> zijn geimporteerd vanuit <strong>{{name}}</strong>. ",
+            checkContext: " Zie alle gebruikers in de LTI context.",
         },
         bulkAward: {
             title: "Bulk award vanuit CSV",
-            subtitle: "Dit bestand moet in het exacte formaat van edubadges passen. Als je het niet zeker weet, download dan eerst onze " +
-                "<a href=\"{{sample}}\" download=\"sample_direct_award.csv\">Voorbeeld CSV Awardfile</a>.",
+            subtitle:
+                "Dit bestand moet in het exacte formaat van edubadges passen. Als je het niet zeker weet, download dan eerst onze " +
+                '<a href="{{sample}}" download="sample_direct_award.csv">Voorbeeld CSV Awardfile</a>.',
             or: "- of -",
             browse: "Browse",
             award: "Upload je Awardfile",
-            wrong: "De upload bevat {{count}} ongeldige entries die uit de upload zijn verwijderd.",
-            duplicate: "De upload bevat {{count}} dubbele entries die uit de upload zijn verwijderd.",
-            eppnExisting: "De upload bevat {{count}} EPPN's (student-ID's) met bestaande niet-geaccepteerde or ingeplande direct awards die uit de upload zijn verwijderd.",
-            emailExisting: "De upload bevat {{count}} emails die al deze edubadge hebben ontvangen die uit de upload zijn verwijderd.",
-            missingEvidenceOrNarrative: "De upload bevat {{count}} entries die geen narrative en / of evidence bevatten en die uit de upload zijn verwijderd.",
+            wrong:
+                "De upload bevat {{count}} ongeldige entries die uit de upload zijn verwijderd.",
+            duplicate:
+                "De upload bevat {{count}} dubbele entries die uit de upload zijn verwijderd.",
+            eppnExisting:
+                "De upload bevat {{count}} EPPN's (student-ID's) met bestaande niet-geaccepteerde or ingeplande direct awards die uit de upload zijn verwijderd.",
+            emailExisting:
+                "De upload bevat {{count}} emails die al deze edubadge hebben ontvangen die uit de upload zijn verwijderd.",
+            missingEvidenceOrNarrative:
+                "De upload bevat {{count}} entries die geen narrative en / of evidence bevatten en die uit de upload zijn verwijderd.",
             good: "Verwerkte entries voor de upload: {{count}} ",
             view: "Bekijk",
             hide: "Verbergen",
@@ -1451,19 +1677,23 @@ I18n.translations.nl = {
             evidenceRequired: "Evidence",
             narrativeRequired: "Narrative",
             gradeRequired: "Cijfer",
-            additionalRequirements: "Deze badge class vereist additionele beschrijvende metadata om te worden toegekend.",
+            additionalRequirements:
+                "Deze badge class vereist additionele beschrijvende metadata om te worden toegekend.",
             flash: {
-                created: "Bulk awards zijn verzonden"
+                created: "Bulk awards zijn verzonden",
             },
             details: {
                 breadCrumb: "Direct award details",
                 header: "Direct award bundle",
                 title: "Award status (issued {{issued})",
-                email: "Email",
+                mail: "Email",
                 studentId: "Student ID",
-                status: "Status"
-            }
-        }
+                status: "Status",
+                info: "De identificatie voor deze direct award bundle is de student {{identifier}}",
+                eppn: "ID (EPPN)",
+                email: "e-mail",
+            },
+        },
     },
     assertions: {
         issued: {
@@ -1481,24 +1711,26 @@ I18n.translations.nl = {
             PENDING: "In afwachting",
             CLAIMED: "Geclaimd",
             REVOKED: "Ingetrokken",
-            REJECTED: "Geweigerd"
-        }
+            REJECTED: "Geweigerd",
+        },
     },
     demo: {
-        info: "Dit is de demo-omgeving van edubadges. <br/> <br/> Alle gegevens worden maandelijks gewist en na elke nieuwe" +
+        info:
+            "Dit is de demo-omgeving van edubadges. <br/> <br/> Alle gegevens worden maandelijks gewist en na elke nieuwe" +
             "uitrol. <br/>" +
             "Heeft u vragen over de demo-omgeving neem dan contact met ons op " +
-            "via <a href='mailto:support@edubadges.nl'> support@edubadges.nl </a>"
+            "via <a href='mailto:support@edubadges.nl'> support@edubadges.nl </a>",
     },
     feedback: {
         title: "Feedback geven",
         subTitle: "Deel je mening",
         info: "Werkt dit goed voor je? Heb je een suggestie? Laat ons hier weten wat je ervan vindt!",
-        disclaimer: "Het SURF edubadges team zal deze informatie, in combinatie met andere informatie die we mogelijk hebben over je account, gebruiken om problemen op te lossen, ons product te verbeteren en je te helpen. " +
+        disclaimer:
+            "Het SURF edubadges team zal deze informatie, in combinatie met andere informatie die we mogelijk hebben over je account, gebruiken om problemen op te lossen, ons product te verbeteren en je te helpen. " +
             "We kunnen contact met je opnemen over je feedback via het e-mailadres dat is gekoppeld met je account. " +
             "Je bent ervoor verantwoordelijk dat je feedback geen vertrouwelijke, gevoelige of persoonlijke informatie bevat. ",
         send: "Verstuur feedback",
-        flash: "Je feedback is succesvol verzonden. Bedankt!"
+        flash: "Je feedback is succesvol verzonden. Bedankt!",
     },
     insights: {
         awardedBadges: "Edubadges in backpack",
@@ -1538,27 +1770,38 @@ I18n.translations.nl = {
         allYears: "alle jaren",
         allInstitutions: "alle instellingen",
         tooltips: {
-            awardedBadges: "Hier ziet u totaal van alle edubadges die bij de ontvangers in de backpack zijn opgenomen.<br/><br/>" +
+            awardedBadges:
+                "Hier ziet u totaal van alle edubadges die bij de ontvangers in de backpack zijn opgenomen.<br/><br/>" +
                 "Deze zijn onderverdeeld in edubadges die door de onderwijsinstelling direct zijn uitgereikt en door de ontvanger zijn geaccepteerd en edubadges die zijn aangevraagd en door de onderwijsinstelling zijn toegekend.<br/><br/> " +
                 "Ten slotte ziet u hoeveel edubadges in de backpack gedeeld worden.",
-            directAwards: "Hier ziet u het totaal van alle edubadges die door de instelling direct zijn uitgereikt. Vervolgens ziet u het aantal per status.<br/><br/>" +
+            directAwards:
+                "Hier ziet u het totaal van alle edubadges die door de instelling direct zijn uitgereikt. Vervolgens ziet u het aantal per status.<br/><br/>" +
                 "De claim rate is het percentage edubadges dat door de instelling direct is uitgereikt en geaccepteerd.<br/><br/>" +
                 "Claim rate = (geaccepteerd)/totaal verstuurd) x 100%",
-            enrollments: "Hier ziet u het totaal van alle edubadges die door studenten zijn aangevraagd.",
-            totalAwarded: "Het totale aantal toegekende badgeklassen resulterend in edubadge-instanties",
-            directAwarded: "Het aantal toegekende badges dat door studenten is aangevraagd en door docenten is geaccepteerd",
-            requested: "Het aantal toegekende badges dat door studenten is aangevraagd en door docenten is geaccepteerd",
+            enrollments:
+                "Hier ziet u het totaal van alle edubadges die door studenten zijn aangevraagd.",
+            totalAwarded:
+                "Het totale aantal toegekende badgeklassen resulterend in edubadge-instanties",
+            directAwarded:
+                "Het aantal toegekende badges dat door studenten is aangevraagd en door docenten is geaccepteerd",
+            requested:
+                "Het aantal toegekende badges dat door studenten is aangevraagd en door docenten is geaccepteerd",
             public: "Het aantal badges dat door studenten publiek is gemaakt",
             totalDirectAwards: "Totaal aantal aangemaakte direct awards",
             unclaimed: "Direct awards die niet zijn geaccepteerd door studenten",
-            claimRate: "Het claimpercentage is het totale aantal geaccepteerde direct toegekende badges als percentage van het totaal aan direct toegekende badges.",
-            revoked: "Direct awards die zijn ingetrokken door een docent en als zodanig niet meer kunnen worden gebruikt door de student",
-            revokedBefore: "Direct awards die zijn ingetrokken door een docent en als zodaning niet zijn toegekend aand e student",
+            claimRate:
+                "Het claimpercentage is het totale aantal geaccepteerde direct toegekende badges als percentage van het totaal aan direct toegekende badges.",
+            revoked:
+                "Direct awards die zijn ingetrokken door een docent en als zodanig niet meer kunnen worden gebruikt door de student",
+            revokedBefore:
+                "Direct awards die zijn ingetrokken door een docent en als zodaning niet zijn toegekend aand e student",
             directAwardDenied: "Direct awards die zijn geweigerd door de student",
             totalEnrollments: "Totaal aantal aangemaakte inschrijvingen",
-            pendingEnrollments: "Studenteninschrijvingen die niet zijn geaccepteerd / geweigerd door een docent",
-            requestedDenied: "Studenteninschrijvingen die zijn geweigerd door een docent"
-        }
+            pendingEnrollments:
+                "Studenteninschrijvingen die niet zijn geaccepteerd / geweigerd door een docent",
+            requestedDenied:
+                "Studenteninschrijvingen die zijn geweigerd door een docent",
+        },
     },
     collections: {
         title: "Collecties",
@@ -1567,32 +1810,36 @@ I18n.translations.nl = {
         zeroStateBadges: "Je hebt nog geen edubadges toegevoegd...",
         create: "Maak een nieuwe collectie",
         shareable: "Collecties die je kan delen",
-        requiresPublicBadgePresent: "Een publieke collectie vereist op zijn minst 1 publieke edubadge",
+        requiresPublicBadgePresent:
+            "Een publieke collectie vereist op zijn minst 1 publieke edubadge",
         all: "Al je collecties",
         byRecent: "Meest recent",
         bySize: "Aantal edubadges",
         byPublic: "Publiek / privé",
         deleteConfirmation: "Verwijder collectie {{name}}",
-        deleteConfirmationQuestion: "Weet je zeker dat je de collectie {{name}} wilt verwijderen?",
+        deleteConfirmationQuestion:
+            "Weet je zeker dat je de collectie {{name}} wilt verwijderen?",
         deleteFlash: "Collectie {{name}] verwijderd.",
         privatePublic: "Vink aan om deze collectie openbaar te maken",
         share: {
             title: "Niet deelbaar",
             publish: "Maak deze collectie openbaar zichtbaar",
-            publishConfirmation: "Weet je zeker dat je deze collectie openbaar zichtbaar wilt maken?<br/><br/>Als je deze collectie openbaar maakt, is deze voor iedereen zichtbaar met de link.",
+            publishConfirmation:
+                "Weet je zeker dat je deze collectie openbaar zichtbaar wilt maken?<br/><br/>Als je deze collectie openbaar maakt, is deze voor iedereen zichtbaar met de link.",
             private: "Maak deze collectie privé",
-            privateConfirmation: "Weet je zeker dat je deze collectie privé wilt maken?",
+            privateConfirmation:
+                "Weet je zeker dat je deze collectie privé wilt maken?",
         },
         placeholders: {
             name: "Naam van de collectie",
             description: "Beschrijving van de collectie",
-            chosenBadges: "Edubadges in deze collectie"
+            chosenBadges: "Edubadges in deze collectie",
         },
-        new: "Nieuwe collectie"
+        new: "Nieuwe collectie",
     },
     impersonate: {
         confirmation: "Weet je zeker dat je je wilt voordoen als {{name}}?",
-        title: "Impersonate"
+        title: "Impersonate",
     },
     importedBadges: {
         title: "Geïmporteerde badges",
@@ -1601,24 +1848,29 @@ I18n.translations.nl = {
         import: "Importeer badge",
         importWindow: {
             title: "Importeer je externe badge",
-            question: "Upload een edubadge afbeelding die je hebt ontvangen van een externe issuer.",
+            question:
+                "Upload een edubadge afbeelding die je hebt ontvangen van een externe issuer.",
             disclaimer: "Badge afbeelding moet een svg of png formaat zijn.",
             submit: "Importeer badge",
-            urlPlaceholder: "https://api.eu.badgr.io/public/assertions/-kDl8isfQoKrMHrqOx5Thw",
+            urlPlaceholder:
+                "https://api.eu.badgr.io/public/assertions/-kDl8isfQoKrMHrqOx5Thw",
             urlInfo: "Of paste een URL waar de edubadge wordt gehosted.",
             emailInfo: "Voer je email in waarop je deze edubadge hebt ontvangen.",
         },
         codeWindow: {
             title: "Validatie code",
-            question: "Eem email is verstuurd naar {{email}}. Voer de 6 karakters van de validatie code uit email in om de badge import af te ronden",
+            question:
+                "Eem email is verstuurd naar {{email}}. Voer de 6 karakters van de validatie code uit email in om de badge import af te ronden",
             submit: "Verifiëer",
-            codePlaceholder: "Validatie code"
+            codePlaceholder: "Validatie code",
         },
         error: {
             url: "Deze URL is geen geldige edubadge URL",
             image: "De geuploade afbeelding is geen geldige edubadge afbeelding",
-            email: "Dit email adres is niet gelijk aan de email van de geïmporteerde badge",
-            duplicate: "Je hebt deze edubadge al geimporteerd. Duplicate imports zijn niet toegestaan"
+            email:
+                "Dit email adres is niet gelijk aan de email van de geïmporteerde badge",
+            duplicate:
+                "Je hebt deze edubadge al geimporteerd. Duplicate imports zijn niet toegestaan",
         },
         codeMismatch: "De ingevoerde code is niet geldig",
         details: {
@@ -1629,46 +1881,55 @@ I18n.translations.nl = {
             validate: "Valideer",
             validation: "Badge validatie",
             validationResults: "Badge validatie resultaten",
-            publicInfo: "Deze edubadge is gehost op {{url}} en is publiek beschikbaar.",
-            deleteConfirmation: "Weet je zeker dat je de geïmporteerde badge {{name}} wilt verwijderen uit je backpack. Let op dat dit niet de originele badge verwijderd.",
+            publicInfo:
+                "Deze edubadge is gehost op {{url}} en is publiek beschikbaar.",
+            deleteConfirmation:
+                "Weet je zeker dat je de geïmporteerde badge {{name}} wilt verwijderen uit je backpack. Let op dat dit niet de originele badge verwijderd.",
             flashDeleted: "Verwijder geïmporteerde badge {{name}} uit je backback",
-        }
+        },
     },
     ltiBadgeClass: {
         title: "LTI Cursus informate",
-        linked: "Badge class <strong>{{name}}</strong> is gekoppeld aan LTI cursus <strong>{{lti}}</strong>.",
-        notLinked: "Badge class <strong>{{name}}</strong> is momenteel niet gekoppeld aan een LTI cursus.",
-        linkPossible: "Je kan badge class <strong>{{name}}</strong> koppelen aan LTI course {{lti}}.",
-        linkNotPossible: "Om badge classes te koppelen aan een LTI cursus moet je edubadges in de context van een LTI platform gebruiken.",
-        unlinkNotPossible: "De koppeling tussen badge class {{name}} en LTI cursus {{lti}} kan verwijderd worden als je edubadges in de context van het LTI platform {{platform}} gebruikt.",
+        linked:
+            "Badge class <strong>{{name}}</strong> is gekoppeld aan LTI cursus <strong>{{lti}}</strong>.",
+        notLinked:
+            "Badge class <strong>{{name}}</strong> is momenteel niet gekoppeld aan een LTI cursus.",
+        linkPossible:
+            "Je kan badge class <strong>{{name}}</strong> koppelen aan LTI course {{lti}}.",
+        linkNotPossible:
+            "Om badge classes te koppelen aan een LTI cursus moet je edubadges in de context van een LTI platform gebruiken.",
+        unlinkNotPossible:
+            "De koppeling tussen badge class {{name}} en LTI cursus {{lti}} kan verwijderd worden als je edubadges in de context van het LTI platform {{platform}} gebruikt.",
         course: {
             title: "Titel",
             label: "Label",
             createdAt: "gekoppeld op",
             platform: "Platform",
-            identifier: "LTI id"
+            identifier: "LTI id",
         },
         tool: {
             info: "Je bent momenteel ingelogd met het LTI platform <strong>{{platform}}</strong> van de instelling <strong>{{institution}}</strong> met LTI context cursus {{lti}}.",
         },
         actions: {
             link: "Koppel",
-            unlink: "Ontkoppel"
+            unlink: "Ontkoppel",
         },
         confirmations: {
             link: "Weet je zeker dat je badge class {{name}} wilt koppelen met LTI cursus {{lti}}?",
-            unlink: "Weet je zker dat je de koppeling tussen badge class {{name}} en LTI cursus {{lti}} wilt verwijderen?"
+            unlink:
+                "Weet je zker dat je de koppeling tussen badge class {{name}} en LTI cursus {{lti}} wilt verwijderen?",
         },
         flash: {
             link: "Badge class {{name}} is gekoppeld aan LTI cursus {{lti}}",
             unlink: "Badge class {{name}} is ontkoppeld van LTI cursus {{lti}}",
-        }
+        },
     },
     lti: {
         path: "LTI",
         title: "LTI Information",
         info: "The edubadges applications currently runs within a LMS LTI context.",
-        login: "You are logged in as <strong>{{name}}</strong> in LMS <strong>{{lti}}</strong>.",
+        login:
+            "You are logged in as <strong>{{name}}</strong> in LMS <strong>{{lti}}</strong>.",
         context: {
             title: "LTI message launch",
             issuer: "Issuer",
@@ -1680,7 +1941,7 @@ I18n.translations.nl = {
                 vendor: "Vendor",
             },
             roles: "Roles",
-            placement: "Placement"
+            placement: "Placement",
         },
         users: {
             title: "LTI members",
@@ -1689,7 +1950,7 @@ I18n.translations.nl = {
             email: "Email",
             sisId: "SIS Id",
             status: "Status",
-            roles: "Roles"
+            roles: "Roles",
         },
         grades: {
             title: "LTI grades",
@@ -1697,20 +1958,21 @@ I18n.translations.nl = {
             user: "user",
             assignment: "Assignment",
             resultScore: "Results score",
-            resultMaximum: "Max result"
-        }
+            resultMaximum: "Max result",
+        },
     },
     notifications: {
         update: "Bijwerken",
         title: "Je notificatie instellingen",
         info: "Voor elke geselecteerde badge class ontvang je een e-mailmelding als een student zich inschrijft voor deze edubadge.",
         confirmationTitle: "Confirmatie",
-        confirmationQuestion: "Weet je zeker dat je je notificatie instellingen wilt wijzigen?",
-        updated: "Je notificatie instellingen zijn bijgewerkt"
+        confirmationQuestion:
+            "Weet je zeker dat je je notificatie instellingen wilt wijzigen?",
+        updated: "Je notificatie instellingen zijn bijgewerkt",
     },
     toggle: {
         showMore: "Toon meer...",
-        showLess: "Toon minder..."
+        showLess: "Toon minder...",
     },
     endorsements: {
         request: "Endorsement aanvragen",
@@ -1751,14 +2013,15 @@ I18n.translations.nl = {
             reject: "Keur endorsement verzoek af",
             revoke: "Keur endorsement af",
             delete: "Verwijder endorsement",
-            resend: "Verstuur endorsement verzoek opnieuw"
+            resend: "Verstuur endorsement verzoek opnieuw",
         },
         confirmations: {
             accept: "Weet je zeker dat je dit endorsement verzoek wil accepteren?",
             reject: "Weet je zeker dat je dit endorsement verzoek wil weigeren?",
             revoke: "Weet je zeker dat je dit endorsement verzoek wil afkeuren?",
             delete: "Weet je zeker dat je dit endorsement verzoek wil verwijderen?",
-            resend: "Weet je zeker dat je dit endorsement verzoek opnieuw wil versturen?",
+            resend:
+                "Weet je zeker dat je dit endorsement verzoek opnieuw wil versturen?",
         },
         flash: {
             created: "Endorsement verzoek is verstuurd",
@@ -1767,7 +2030,7 @@ I18n.translations.nl = {
             revoke: "Endorsement verzoek is ingetrokken",
             delete: "Endorsement is verwijderd",
             resend: "Endorsement verzoek is opnieuw verstuurd",
-        }
+        },
     },
     managementQueries: {
         title: "Management queries",
@@ -1784,7 +2047,8 @@ I18n.translations.nl = {
         show: "Show",
         hide: "Hide",
         select: "Select the query to run...",
-        loaded: "{{name}} query loaded in {{time}}ms and ready to copy, download or show....."
+        loaded:
+            "{{name}} query loaded in {{time}}ms and ready to copy, download or show.....",
     },
     newBadgeClassForm: {
         badgeClassType: "Type",
@@ -1799,18 +2063,24 @@ I18n.translations.nl = {
             types: {
                 micro_credential: "Microcredential",
                 regular: "Regulier",
-                extra_curricular: "Extracurriculair"
+                extra_curricular: "Extracurriculair",
             },
             info: {
-                micro_credential: "Een badge class voor microcredentials met het kwaleitskader voor professionals HBO/WO of MBO en alle metadata conform de EU-aanbevelingen.",
-                regular: "Een badge class voor opgedane kennis en vaardigen die binnen het curriculum van een erkende opleiding vallen. Aan deze badgeclass zijn ECTS/SBU verbonden.",
-                extra_curricular: "Een badge class voor opgedane kennis en vaardigheden die geen onderdeel zijn van het curriculum van een erkende opleiding. Aan deze badgeclass zijn geen ECTS/ SBU verbonden."
+                micro_credential:
+                    "Een badge class voor microcredentials met het kwaleitskader voor professionals HBO/WO of MBO en alle metadata conform de EU-aanbevelingen.",
+                regular:
+                    "Een badge class voor opgedane kennis en vaardigen die binnen het curriculum van een erkende opleiding vallen. Aan deze badgeclass zijn ECTS/SBU verbonden.",
+                extra_curricular:
+                    "Een badge class voor opgedane kennis en vaardigheden die geen onderdeel zijn van het curriculum van een erkende opleiding. Aan deze badgeclass zijn geen ECTS/ SBU verbonden.",
             },
             notAvailableTypeInfo: {
-                micro_credential: "Je instelling {{name}} is niet geconfigureerd om mircocredential badges uit te geven.",
-                regular: "Je instelling {{name}} heeft geen formele grondslag en daarom kunnen er geen reguliere badges worden uitgegeven.",
-                extra_curricular: "Je instelling {{name}} heeft geen informele grondslag en daarom kunnen er geen extra curriculare badges worden uitgegeven.",
-            }
+                micro_credential:
+                    "Je instelling {{name}} is niet geconfigureerd om mircocredential badges uit te geven.",
+                regular:
+                    "Je instelling {{name}} heeft geen formele grondslag en daarom kunnen er geen reguliere badges worden uitgegeven.",
+                extra_curricular:
+                    "Je instelling {{name}} heeft geen informele grondslag en daarom kunnen er geen extra curriculare badges worden uitgegeven.",
+            },
         },
         form: {
             placeHolder: "Selecteer een optie...",
@@ -1829,8 +2099,8 @@ I18n.translations.nl = {
                     online: "Online",
                     onsite: "Op locatie",
                     blended: "Blended",
-                    work_experience: "Werkervaring"
-                }
+                    work_experience: "Werkervaring",
+                },
             },
             assessment: {
                 name: "Beoordelingstype",
@@ -1842,7 +2112,7 @@ I18n.translations.nl = {
                     development_report: "Ontwikkelverslag / reflectieverslag",
                     portfolio_assessment: "Portfolio / portfolio assessment",
                     oram_exam: "Presentatie / mondeling examen",
-                    personalized_assessment: "Gepersonaliseerde toetsing"
+                    personalized_assessment: "Gepersonaliseerde toetsing",
                 },
                 supervision: "Toezicht & identiteit verificatie",
                 supervised: "Toezicht bij de beoordeling?",
@@ -1851,23 +2121,24 @@ I18n.translations.nl = {
                     o1: "Onder toezicht, met identiteit verificatie",
                     o2: "Onder toezicht",
                     o3: "Met identiteit verificatie",
-                    o4: "Geen toezicht, geen identiteit verificatie"
-                }
+                    o4: "Geen toezicht, geen identiteit verificatie",
+                },
             },
             directAward: {
                 title: "Direct awards",
                 directAwardAllowed: "Direct awards toestaan?",
                 details: "Direct award details",
-                awardNonValidatedNameAllowed: "Uitreiken aan niet gevalideerd account toestaan?",
+                awardNonValidatedNameAllowed:
+                    "Uitreiken aan niet gevalideerd account toestaan?",
                 evidenceURL: "Bewijs (URL) verplicht bij uitgifte?",
-                narrative: "Persoonlijke boodschap verplicht bij uitgifte?"
+                narrative: "Persoonlijke boodschap verplicht bij uitgifte?",
             },
             selfEnrollment: {
                 title: "Zelf aanvragen",
                 selfEnrollmentAllowed: "Zelf aanvragen toestaan?",
                 details: "Zelf aanvragen details",
                 evidenceURL: "Bewijs (URL) verplicht bij aanvraag?",
-                narrative: "Persoonlijke boodschap verplicht bij aanvraag?"
+                narrative: "Persoonlijke boodschap verplicht bij aanvraag?",
             },
             stackable: {
                 notStackable: "Nee, stand alone badge",
@@ -1876,37 +2147,40 @@ I18n.translations.nl = {
             gradeAchieved: {
                 name: "Cijfer of resultaat behaald",
                 yes: "Cijfer of resultaat behaald verplicht",
-                no: "Cijfer of resultaat behaald niet verplicht"
-            }
+                no: "Cijfer of resultaat behaald niet verplicht",
+            },
         },
         saveAsDraft: "Bewaar concept",
         draft: "Concept",
         preview: "Preview badge class",
         publish: "Publiceer",
-        requiredMicroCredentialFramework: "Kwaliteitskader Microcredentials voor Professionals HBO en WO",
-        requiredMicroCredentialFrameworkMBO: "Kwaliteitskader Microcredentials voor Professionals MBO",
+        requiredMicroCredentialFramework:
+            "Kwaliteitskader Microcredentials voor Professionals HBO en WO",
+        requiredMicroCredentialFrameworkMBO:
+            "Kwaliteitskader Microcredentials voor Professionals MBO",
         link: " - (link)",
         programme: "Het programma",
         assessment: "De assessment",
         badge: "De badge",
-        errors: "Er ontbreken verplichte velden of de invoer is niet correct. Controleer de invoer.",
+        errors:
+            "Er ontbreken verplichte velden of de invoer is niet correct. Controleer de invoer.",
         stackable: "Stackable",
         isStackable: "Stapelbaar naar andere badge classes?",
     },
-    institutionTags : {
+    institutionTags: {
         action: "Actie uitvoeren...",
         addTag: "Voeg een tag toe",
-        noAutoFlush: "Als je tags verandert of toevoegt, zorg ervoor dat je deze wijzigingen opslaat.",
+        noAutoFlush:
+            "Als je tags verandert of toevoegt, zorg ervoor dat je deze wijzigingen opslaat.",
         status: {
             new: "Nieuw",
             active: "Actief",
             archived: "Archiveer",
-            deleted: "Verwijder"
+            deleted: "Verwijder",
         },
         usages: "Tag wordt gebruikt in de volgende badges: {{badges}}",
-        noUsages: "Tag wordt niet gebruikt in badges, je kan de tag ook verwijderen in plaats van te archiveren",
-        and: "en"
-    }
-
-
+        noUsages:
+            "Tag wordt niet gebruikt in badges, je kan de tag ook verwijderen in plaats van te archiveren",
+        and: "en",
+    },
 };

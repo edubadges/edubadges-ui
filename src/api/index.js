@@ -252,10 +252,13 @@ export function publicAssertion(assertionEntityId, isPublic, includeEvidence, in
     const path = `${serverUrl}/earner/badges/${assertionEntityId}`;
     return validFetch(
         path,
-        {body: JSON.stringify({
+        {
+            body: JSON.stringify({
                 "public": isPublic,
                 "include_evidence": includeEvidence,
-            "include_grade_achieved": includeGradeAchieved})},
+                "include_grade_achieved": includeGradeAchieved
+            })
+        },
         "PUT"
     );
 }
@@ -762,7 +765,8 @@ export function disinviteUser(provisionmentId) {
     return validFetch(path, {}, "DELETE");
 }
 
-export function createDirectAwards(directAwards, badgeclass, bulkAward, scheduled_at = null, ltiImport = false) {
+export function createDirectAwards(directAwards, badgeclass, bulkAward, scheduled_at = null, ltiImport = false,
+                                   enableAwardOnEmail = false) {
     const path = `${serverUrl}/directaward/create`;
     const payload = {
         notify_recipients: true,
@@ -770,6 +774,7 @@ export function createDirectAwards(directAwards, badgeclass, bulkAward, schedule
         lti_import: ltiImport,
         scheduled_at: scheduled_at,
         badgeclass: badgeclass.entityId,
+        identifier_type: enableAwardOnEmail ? "email" : "eppn",
         direct_awards: directAwards.map(da => ({
             recipient_email: da.email,
             eppn: da.eppn,
@@ -960,9 +965,9 @@ export function resendEndorsement(endorsement, message) {
 }
 
 //ob3
-export function ob3WalletImport(badgeInstance) {
+export function ob3WalletImport(badgeInstance, variant) {
     const path = `${serverUrl}/ob3/v1/ob3`;
-    const data = {badge_id: badgeInstance.id}
+    const data = {badge_id: badgeInstance.id, variant}
     return validFetch(path, {body: JSON.stringify(data)}, "POST");
 }
 

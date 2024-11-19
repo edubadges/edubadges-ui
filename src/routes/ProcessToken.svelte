@@ -9,6 +9,7 @@
     import {role} from "../util/role";
     import {getService} from "../util/getService";
     import {requestLoginToken} from "../api";
+import DOMPurify from "dompurify";
 
     let authError;
     let code = 1;
@@ -116,7 +117,7 @@
                 <div class="info">
                     <span>{@html tip}</span>
                     <span class="tip">{I18n.t("authError.tip")}</span>
-                    <span>{I18n.t("authError.adminEmail", {email: adminEmail})}</span>
+                    <span>{@html I18n.t("authError.adminEmail", {email: DOMPurify.sanitize(adminEmail)})}</span>
 
                 </div>
             {/if}

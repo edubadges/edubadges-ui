@@ -74,15 +74,15 @@
 
 <style lang="scss">
 
-  .header {
-    display: flex;
-    align-content: center;
-  }
+    .header {
+        display: flex;
+        align-content: center;
+    }
 
-  h3 {
-    font-size: 22px;
-    margin-bottom: 30px;
-  }
+    h3 {
+        font-size: 22px;
+        margin-bottom: 30px;
+    }
 
 </style>
 

@@ -83,9 +83,9 @@
         showCollectionsModal = true;
     }
 
-    const startOb3SsiAgentImport = () => {
+    const startOb3SsiAgentImport = (variant) => {
         loaded = false
-        ob3WalletImport(badge).then(res => {
+        ob3WalletImport(badge, variant).then(res => {
             showOb3SsiAgentModal = true
             loaded = true
             qrCode = res.qr_code_base64;
@@ -356,6 +356,10 @@
             display: flex;
             position: relative;
         }
+        .button-container.vertical {
+            flex-direction: column;
+            row-gap: 8px;
+        }
 
         div.tooltip {
             z-index: 9;
@@ -462,6 +466,7 @@
     img.linkedin {
         width: auto;
         height: 41px;
+        align-self: start;
 
         &.disabled {
             opacity: .2;
@@ -548,10 +553,16 @@
                                 action={copyToClipboard}
                                 disabled={!badge.public}/>
                     </div>
-                    <div class="button-container">
+                    <div class="button-container vertical">
                         {#if ob3SsiAgentEnabled}
-                            <Button text={I18n.t("models.badge.ob3SsiAgent")}
-                                    action={startOb3SsiAgentImport}/>
+                            <Button text={I18n.t("models.badge.ob3SsiAgent", {
+                                name: I18n.t("models.badge.ob3SsiAgentNames.unime")
+                              })}
+                                    action={() => startOb3SsiAgentImport('unime')}/>
+                            <Button text={I18n.t("models.badge.ob3SsiAgent", {
+                                name: I18n.t("models.badge.ob3SsiAgentNames.sphereon")
+                              })}
+                                    action={() => startOb3SsiAgentImport('sphereon')}/>
                         {/if}
                     </div>
                     <div class="button-container">
