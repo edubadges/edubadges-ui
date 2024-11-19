@@ -44,7 +44,6 @@
     import Notifications from "./components/teachers/Notifications.svelte";
     import {constructUserName} from "./util/users";
     import ManagementQueries from "./routes/teachers/ManagementQueries.svelte";
-    import {initializePiwik} from "./util/piwik";
 
 
     const homepage = {
@@ -80,9 +79,6 @@
                 });
         } else {
             loaded = true;
-        }
-        if (config.isProdEnvironment) {
-            initializePiwik();
         }
     });
 

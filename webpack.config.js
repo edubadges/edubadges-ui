@@ -1,11 +1,12 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const webpack = require("webpack")
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+const webpack = require("webpack");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
-const GitRevisionPlugin = require('git-revision-webpack-plugin');
-const gitRevisionPlugin = new GitRevisionPlugin({lightweightTags: true});
+const GitRevisionPlugin = require("git-revision-webpack-plugin");
+const gitRevisionPlugin = new GitRevisionPlugin({ lightweightTags: true });
 
 const mode = process.env.NODE_ENV || "development";
 const prod = mode === "production";
@@ -24,7 +25,7 @@ module.exports = {
         mainFields: ["svelte", "browser", "module", "main"],
     },
     output: {
-        path: __dirname + "/public",
+        path: path.resolve(__dirname, "public"),
         filename: "[name].[hash].js",
         chunkFilename: "[name].[hash].js",
         publicPath: "/",
@@ -35,14 +36,13 @@ module.exports = {
                 test: /\.(?:js|mjs|cjs)$/,
                 exclude: /node_modules/,
                 use: {
-                    loader: 'babel-loader',
+                    loader: "babel-loader",
                     options: {
-                        presets: [
-                            ['@babel/preset-env', {targets: "defaults"}]
-                        ]
-                    }
-                }
-            }, {
+                        presets: [["@babel/preset-env", { targets: "defaults" }]],
+                    },
+                },
+            },
+            {
                 test: /\.svelte$/,
                 use: {
                     loader: "svelte-loader",
@@ -52,18 +52,16 @@ module.exports = {
                         preprocess: require("svelte-preprocess")({
                             paths: ["src", "src/stylesheets"],
                         }),
-                        onwarn(warning, onwarn) { // Disable "Unused CSS Selector" warnings. We should clean out the CSS instead.
-                          return warning.code === 'css-unused-selector' || onwarn(warning);
+                        onwarn(warning, onwarn) {
+                            // Disable "Unused CSS Selector" warnings. We should clean out the CSS instead.
+                            return warning.code === "css-unused-selector" || onwarn(warning);
                         },
                     },
                 },
             },
             {
                 test: /\.css$/,
-                use: [
-                    prod || true ? MiniCssExtractPlugin.loader : "style-loader",
-                    "css-loader",
-                ],
+                use: [prod ? MiniCssExtractPlugin.loader : "style-loader", "css-loader"],
             },
             {
                 test: /\.svg$/,
@@ -74,9 +72,7 @@ module.exports = {
             },
             {
                 test: /\.(png|jpg|gif)$/,
-                use: [
-                    'file-loader',
-                ],
+                use: ["file-loader"],
             },
         ],
     },
@@ -86,14 +82,14 @@ module.exports = {
             filename: "[name].[hash].css",
         }),
         new webpack.DefinePlugin({
-            'VERSION': JSON.stringify(gitRevisionPlugin.version()),
-            'COMMITHASH': JSON.stringify(gitRevisionPlugin.commithash()),
-            'BRANCH': JSON.stringify(gitRevisionPlugin.branch()),
+            VERSION: JSON.stringify(gitRevisionPlugin.version()),
+            COMMITHASH: JSON.stringify(gitRevisionPlugin.commithash()),
+            BRANCH: JSON.stringify(gitRevisionPlugin.branch()),
         }),
         // load only `moment/locale/en.js` and `moment/locale/nl.js`
         new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en|nl/),
         new HtmlWebpackPlugin({
-            template: "src/index.html.ejs",
+            template: prod ? "src/index.html.prod.ejs" : "src/index.html.ejs",
             favicon: "src/favicon.ico",
             hash: true,
         }),
@@ -105,7 +101,19 @@ module.exports = {
     ].filter(Boolean),
     devtool: prod ? false : "source-map",
     devServer: {
+        static: {
+            directory: path.join(__dirname, "./public"),
+        },
         historyApiFallback: true,
+        hot: false,
+        compress: true,
+        client: {
+            overlay: false,
+        },
     },
-    performance: {hints: false}
+    performance: { hints: false },
+    optimization: {
+        minimize: prod,
+        minimizer: [new UglifyJsPlugin()],
+    },
 };
