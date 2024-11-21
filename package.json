@@ -42,7 +42,7 @@
   "scripts": {
     "build:prod": "cross-env NODE_ENV=production webpack",
     "build": "cross-env webpack",
-    "dev": "webpack serve --port 4000",
+    "dev": "webpack serve --open --port 4000",
     "test": "jest src",
     "test:watch": "npm run test -- --watch",
     "stats": "webpack-bundle-analyzer public/stats.json"
