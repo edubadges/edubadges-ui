@@ -23,7 +23,7 @@
         validatedUserName
     } from "./stores/user";
     import {role} from "./util/role";
-    import {getSocialAccount} from "./api";
+    import {getSocialAccounts} from "./api";
     import PublicBadgeClassPage from "./components/shared/PublicBadgeClassPage.svelte"
     import EnrollmentDetails from "./routes/students/EnrollmentDetails.svelte";
     import {Flash} from "./components/forms/";
@@ -59,7 +59,7 @@
         const path = window.location.pathname;
         const publicPaths = ["public", "/auth/login", "signup", "version/info", "launch/lti"]
         if (!publicPaths.some(p => path.indexOf(p) > -1)) {
-            getSocialAccount()
+            getSocialAccounts()
                 .then(res => {
                     loaded = true;
                     $userLoggedIn = true;
