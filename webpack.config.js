@@ -2,6 +2,8 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+const HtmlWebpackPartialsPlugin = require('html-webpack-partials-plugin');
+
 const webpack = require("webpack");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
@@ -89,10 +91,15 @@ module.exports = {
         // load only `moment/locale/en.js` and `moment/locale/nl.js`
         new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en|nl/),
         new HtmlWebpackPlugin({
-            template: prod ? "src/index.html.prod.ejs" : "src/index.html.ejs",
+            template: "src/index.html.ejs",
             favicon: "src/favicon.ico",
             hash: true,
         }),
+        prod ? new HtmlWebpackPartialsPlugin({
+            path: 'src/piwik.html',
+            location: 'head',
+            priority: 'low'
+        }) : false,
         // prod ? new BundleAnalyzerPlugin({
         //     analyzerMode: "disabled",
         //     generateStatsFile: false,
