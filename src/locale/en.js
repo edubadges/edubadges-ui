@@ -895,7 +895,7 @@ I18n.translations.en = {
                 unime: "unime",
                 sphereon: "sphereon",
             },
-            ob3SsiAgentQRCode: "Import into wallet",
+            ob3SsiAgentQRCode: "Import into {{name}} wallet",
             ob3SsiAgentQRCodeQuestion:
                 "Scan this code with your electronic credentials wallet",
             ok: "Ok",
