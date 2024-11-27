@@ -20,4 +20,4 @@ COPY ./docker/config.js /app/src/utils/config.js
 EXPOSE 8080
 
 # Command to run the development server
-CMD ["yarn", "run", "webpack-dev-server", "--no-open", "--content-base", "public", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["yarn", "run", "webpack-dev-server", "--no-open", "--host", "0.0.0.0", "--port", "8080"]
