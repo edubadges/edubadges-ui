@@ -344,17 +344,14 @@
 
     {#if loaded}
         <div class="bread-crumb">
-            <a use:link href={`/`}>
-                {badgeclass.issuer.faculty.institution.name}
-            </a>
+            <a use:link href="/manage/institution">{badgeclass.issuer.faculty.institution.name}</a>
+
             <span class="crumb">{@html chevronRightSmall}</span>
-            <a on:click|preventDefault|stopPropagation={navigateWithFilter(false)} href={`/`}>
-                {badgeclass.issuer.faculty.name}
-            </a>
+            <a use:link href={`/manage/faculty/${badgeclass.issuer.faculty.entityId}`}>{badgeclass.issuer.faculty.name}</a>
+
             <span class="crumb">{@html chevronRightSmall}</span>
-            <a on:click|preventDefault|stopPropagation={navigateWithFilter(true)} href={`/`}>
-                {badgeclass.issuer.name}
-            </a>
+            <a use:link href={`/manage/issuer/${badgeclass.issuer.entityId}`}>{badgeclass.issuer.name}</a>
+
             <span class="crumb">{@html chevronRightSmall}</span>
             <a use:link
                href={`/badgeclass/${badgeclass.entityId}${$currentPath.indexOf("award-details") > 0 ? "/direct-awards-bundles" : ""}`}>
@@ -413,6 +410,7 @@
             <BadgeClassHeader
                     object={badgeclass}
                     entity={entityType.BADGE_CLASS}
+                    isPublic={false}
                     {tabs}
                     {headerItems}
                     mayUpdate={false}>

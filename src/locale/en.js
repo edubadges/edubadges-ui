@@ -194,6 +194,7 @@ I18n.translations.en = {
             requestedBadges: "Requested edubadges",
             noRequestedBadges: "No open requests",
             requestedBadgesCount: "{{count}} Open requests",
+            virtualOrganisation: "Virtual organisation",
             created: "Date created",
             enrollments: "Open requests",
             recipients: "Recipients",

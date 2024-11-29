@@ -304,6 +304,7 @@
             object={badgeclass}
             entity={entityType.BADGE_CLASS}
             entityId={entityId}
+            isPublic={false}
             {tabs}
             {headerItems}
             mayUpdate={mayUpdateBadgeclass && !badgeclass.archived}>

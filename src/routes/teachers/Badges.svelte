@@ -73,7 +73,11 @@
                 faculty.issuers.forEach(issuer => {
                     issuer.faculty = faculty;
                     if (!issuer.image) {
-                        issuer.image = faculty.institution.image;
+                        if (faculty.image) {
+                            issuer.image = faculty.image;
+                        } else {
+                            issuer.image = faculty.institution.image;
+                        }
                     }
                     translateProperties(issuer);
                     issuer.badgeclasses.forEach(badgeClass => {
@@ -92,7 +96,7 @@
                             badgeClass.types.push(badgeClassFilterTypes.ARCHIVED);
                         } else if (badgeClass.isPrivate) {
                             badgeClass.types.push(badgeClassFilterTypes.DRAFT);
-                        } else if (badgeClass.isMicroCredentials){
+                        } else if (badgeClass.isMicroCredentials) {
                             badgeClass.types.push(badgeClassFilterTypes.MICRO_CREDENTIALS);
                         } else if (badgeClass.typeBadgeClass.toLowerCase() === badgeClassTypes.REGULAR) {
                             badgeClass.types.push(badgeClassFilterTypes.REGULAR);
@@ -111,45 +115,45 @@
 </script>
 
 <style lang="scss">
-  .page-container {
-    display: flex;
-  }
-
-  .content {
-    flex: 1;
-    padding: 30px 20px;
-  }
-
-  div.badges {
-    --badge-margin-right: 20px;
-
-    &.cards {
-      display: grid;
-      grid-template-columns: 31% 31% 31%;
-      grid-row: auto;
-      grid-column-gap: 25px;
-      grid-row-gap: 25px;
-      margin-right: calc(var(--badge-margin-right) * -1);
+    .page-container {
+        display: flex;
     }
 
-    &.list {
-      display: flex;
-      flex-direction: column;
+    .content {
+        flex: 1;
+        padding: 30px 20px;
     }
 
-  }
-
-  @media (max-width: 1120px) {
     div.badges {
-      grid-template-columns: 48% 48%;
-    }
-  }
+        --badge-margin-right: 20px;
 
-  @media (max-width: 820px) {
-    div.badges {
-      grid-template-columns: 97%;
+        &.cards {
+            display: grid;
+            grid-template-columns: 31% 31% 31%;
+            grid-row: auto;
+            grid-column-gap: 25px;
+            grid-row-gap: 25px;
+            margin-right: calc(var(--badge-margin-right) * -1);
+        }
+
+        &.list {
+            display: flex;
+            flex-direction: column;
+        }
+
     }
-  }
+
+    @media (max-width: 1120px) {
+        div.badges {
+            grid-template-columns: 48% 48%;
+        }
+    }
+
+    @media (max-width: 820px) {
+        div.badges {
+            grid-template-columns: 97%;
+        }
+    }
 
 
 </style>

@@ -1,7 +1,7 @@
 <script>
     import {onMount} from "svelte";
     import I18n from "i18n-js";
-    import {BadgeClassHeader, object} from "../teachers";
+    import {BadgeClassHeader} from "../teachers";
     import {Search, Spinner} from "../index";
     import {entityType} from "../../util/entityTypes"
     import {queryData} from "../../api/graphql";
@@ -14,7 +14,6 @@
     import BadgeListView from "./BadgeListView.svelte";
     import ViewSelector from "./ViewSelector.svelte";
     import {translateProperties} from "../../util/utils";
-    import {onBehalfOfDisplayName} from "../../util/onBehalfOf";
 
     export let entityId;
     export let visitorRole;
@@ -201,6 +200,7 @@
         <BadgeClassHeader
                 entity={entityType.ISSUER}
                 object={issuer}
+                isPublic={true}
                 hasDescription={true}
                 visitorRole={visitorRole}
                 entityId={entityId}>

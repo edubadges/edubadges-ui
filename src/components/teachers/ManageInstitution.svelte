@@ -47,6 +47,7 @@
       nameEnglish,
       entityId,
       issuerCount,
+      onBehalfOf,
       pendingEnrollmentCount
 		},
 		issuers {

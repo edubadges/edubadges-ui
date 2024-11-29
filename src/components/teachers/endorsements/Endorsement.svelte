@@ -1,7 +1,7 @@
 <script>
     import I18n from "i18n-js";
     import {link} from "svelte-routing";
-    import {issuerLink, onBehalfOfDisplayName} from "../../../util/onBehalfOf";
+    import {issuerLink, onBehalfOfDisplayNameIssuerGroup} from "../../../util/onBehalfOf";
     import {translateBadgeClassProperties} from "../../../util/utils";
     import {onMount} from "svelte";
     import externalLink from "../../../icons/external-link-alt.svg";
@@ -132,21 +132,12 @@
                 {/if}
                 <div class="right">
                         <span class="top">{I18n.t("models.badgeclass.issuedBy")}</span>
-                        {#if endorsement.endorser.issuer.faculty.onBehalfOf}
-                            <span class="">{@html I18n.t("models.badgeclass.onBehalfOf",
-                                {
-                                    issuer: issuerLink(endorsement.endorser.issuer),
-                                    issuerGroup: onBehalfOfDisplayName(endorsement.endorser.issuer.faculty)
-                                })}
-                            </span>
-                        {:else}
-                            <span class="">{@html I18n.t("models.badgeclass.onBehalfOf",
-                                {
-                                    issuer: issuerLink(endorsement.endorser.issuer),
-                                    issuerGroup: `<a href="/public/institutions/${endorsement.endorser.issuer.faculty.institution.entityId}">${endorsement.endorser.issuer.faculty.institution.name}</a>`
-                                })}
-                            </span>
-                        {/if}
+                        <span class="">{@html I18n.t("models.badgeclass.onBehalfOf",
+                            {
+                                issuer: issuerLink(endorsement.endorser.issuer, false),
+                                issuerGroup: onBehalfOfDisplayNameIssuerGroup(endorsement.endorser.issuer.faculty, false)
+                            })}
+                        </span>
                     </div>
             </div>
         </div>

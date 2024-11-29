@@ -82,6 +82,7 @@
       object={institution}
       visitorRole={visitorRole}
       hasDescription={true}
+      isPublic={true}
       entityId={entityId}>
     </BadgeClassHeader>
 

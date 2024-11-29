@@ -80,7 +80,7 @@
                         faculty.publicIssuers.forEach(issuer => {
                             translateProperties(issuer);
                             issuer.publicBadgeclasses.forEach(badgeClass => {
-                                //catalog query is different than others, so we need to set the references
+                                //catalog query is different from others, so we need to set the references
                                 badgeClass.issuer = issuer;
                                 badgeClass.issuer.faculty = faculty;
                                 badgeClass.issuer.faculty.institution = institution;

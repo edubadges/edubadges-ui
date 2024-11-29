@@ -364,6 +364,7 @@
             <BadgeClassHeader
                     entity={entityType.BADGE_CLASS}
                     object={badgeClass}
+                    isPublic={true}
                     visitorRole={visitorRole}>
                 {#if visitorRole === role.GUEST}
                     <div class="slots enrol">

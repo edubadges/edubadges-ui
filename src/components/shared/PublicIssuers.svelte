@@ -5,7 +5,6 @@
     import {search} from "../../util/searchData";
     import {sort, sortType} from "../../util/sortData";
     import {issuerIcon} from "../../icons";
-    import {onBehalfOfDisplayName} from "../../util/onBehalfOf";
 
     export let issuers = [];
     export let institution = {};

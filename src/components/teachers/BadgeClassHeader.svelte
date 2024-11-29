@@ -4,13 +4,13 @@
     import {Button} from "../../components";
     import {role} from "../../util/role";
     import {entityType} from "../../util/entityTypes"
-    import {link} from "svelte-routing";
-    import {onBehalfOfDisplayName, issuerLink} from "../../util/onBehalfOf";
+    import {issuerLink, onBehalfOfDisplayNameIssuerGroup} from "../../util/onBehalfOf";
 
     export let entity;
     export let object = {};
     export let mayUpdate;
     export let hasDescription = false;
+    export let isPublic = true;
 
     export let tabs;
     export let headerItems;
@@ -128,32 +128,24 @@
             <slot name="institution"/>
             {#if entity === entityType.BADGE_CLASS && object.issuer && object.issuer.faculty && object.issuer.faculty.institution}
                 <div class="badge-class-sub-info">
-                    {#if object.issuer.faculty.image}
-                        <div class="sub-img-container">
-                            <img src={object.issuer.faculty.image} alt=""/>
-                        </div>
-                    {:else if object.issuer.image}
-                        <div class="sub-img-container">
+                    <div class="sub-img-container">
+                        {#if object.issuer.image}
                             <img src={object.issuer.image} alt=""/>
-                        </div>
-                    {/if}
+                        {:else if object.issuer.faculty.image}
+                            <img src={object.issuer.faculty.image} alt=""/>
+                        {:else}
+                            <img src={object.issuer.faculty.institution.image} alt=""/>
+                        {/if}
+                    </div>
                     <div class="right">
                         <span class="top">{I18n.t("models.badgeclass.issuedBy")}</span>
-                        {#if object.issuer.faculty.onBehalfOf || object.issuer.faculty.on_behalf_of}
-                            <span class="">{@html I18n.t("models.badgeclass.onBehalfOf",
-                                {
-                                    issuer: issuerLink(object.issuer),
-                                    issuerGroup: onBehalfOfDisplayName(object.issuer.faculty)
-                                })}
-                            </span>
-                        {:else}
-                            <span class="">{@html I18n.t("models.badgeclass.onBehalfOf",
-                                {
-                                    issuer: issuerLink(object.issuer),
-                                    issuerGroup: `<a href="/public/institutions/${object.issuer.faculty.institution.entityId}">${object.issuer.faculty.institution.name}</a>`
-                                })}
-                            </span>
-                        {/if}
+                        //TODO create separate component to be re-used also in endorsments
+                        <span class="">{@html I18n.t("models.badgeclass.onBehalfOf",
+                            {
+                                issuer: issuerLink(object.issuer, isPublic),
+                                issuerGroup: onBehalfOfDisplayNameIssuerGroup(object.issuer.faculty, isPublic)
+                            })}
+                        </span>
                     </div>
 
                 </div>

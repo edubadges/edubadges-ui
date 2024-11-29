@@ -3,10 +3,8 @@
     import moment from "moment";
     import I18n from "i18n-js";
     import {navigate} from "svelte-routing";
-    import {issuerIcon} from "../../icons";
     import StatusIndicator from "./StatusIndicator.svelte";
     import BadgeShield from "./BadgeShield.svelte";
-    import {onBehalfOfDisplayName} from "../../util/onBehalfOf";
     import placeholder from "../../icons/forms/image-placeholder.svg";
 
     export let badge;
@@ -249,26 +247,18 @@
                     <div class="issuer-img">
                         {#if badgeClass.issuer.image}
                             <img src={badgeClass.issuer.image} alt=""/>
+                        {:else if badgeClass.issuer.faculty.image}
+                            <img src={badgeClass.issuer.faculty.image} alt=""/>
                         {:else}
-                            <span class="issuer-icon">{@html issuerIcon}</span>
+                            <img src={badgeClass.issuer.faculty.institution.image} alt=""/>
                         {/if}
                     </div>
                 </div>
                 <div class="issued">
                     <span class="issued-by">{I18n.t("models.badge.issuedBy")}</span>
                     {#if badgeClass.issuer.faculty}
-                        {#if badgeClass.issuer.faculty.onBehalfOf || badgeClass.issuer.faculty.on_behalf_of}
-                            <span class="faculty">
-                                {@html I18n.t("models.badgeclass.onBehalfOf",
-                                    {
-                                        issuer: badgeClass.issuer.name,
-                                        issuerGroup: onBehalfOfDisplayName(badgeClass.issuer.faculty)
-                                    })}
-                            </span>
-                        {:else}
-                            <span class="issuer">{badgeClass.issuer.name}</span>
-                            <span class="faculty">({badgeClass.issuer.faculty.name})</span>
-                        {/if}
+                        <span class="issuer">{badgeClass.issuer.name}</span>
+                        <span class="faculty">({badgeClass.issuer.faculty.name})</span>
                     {/if}
                 </div>
                 {#if badgeClass.studyLoadValue}

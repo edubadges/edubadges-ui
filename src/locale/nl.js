@@ -195,6 +195,7 @@ I18n.translations.nl = {
             requestedBadges: "Open aanvragen",
             noRequestedBadges: "Geen open aanvragen",
             requestedBadgesCount: "{{count}} Open aanvragen",
+            virtualOrganisation: "Virtuele organisatie",
             created: "Datum gecreëerd",
             recipients: "Ontvangers",
             enrollments: "Open aanvragen",

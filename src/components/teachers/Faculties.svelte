@@ -7,6 +7,7 @@
     import {entityType} from "../../util/entityTypes";
     import {facultyIcon} from "../../icons";
     import {pageCount} from "../../util/pagination";
+    import CheckBox from "../CheckBox.svelte";
 
     export let faculties = [];
     export let mayCreate;
@@ -41,8 +42,16 @@
             center: true
         },
         {
+            name: I18n.t("teacher.badgeclasses.virtualOrganisation"),
+            attribute: "onBehalfOf",
+            reverse: false,
+            sortType: sortType.BOOLEAN,
+            width: "15%",
+            center: true
+        },
+        {
             name: "",
-            width: "40%"
+            width: "25%"
         }
     ];
 
@@ -69,10 +78,21 @@
 
 </script>
 
-<style>
+<style lang="scss">
     .icon {
         display: block;
         height: 20px;
+    }
+
+    .checkbox-container {
+        width: 100%;
+        display: flex;
+        align-items: center;
+
+        :global(label.checkboxed) {
+            margin: auto;
+        }
+
     }
 </style>
 
@@ -96,6 +116,11 @@
             <td>{faculty.name}</td>
             <td class="center">{faculty.issuerCount === 0 ? "-" : faculty.issuerCount}</td>
             <td class="center">{faculty.pendingEnrollmentCount === 0 ? "-" : faculty.pendingEnrollmentCount}</td>
+            <td class="center">
+                <div class="checkbox-container">
+                    <CheckBox value={faculty.onBehalfOf} disabled={true}/>
+                </div>
+            </td>
             <td></td>
         </tr>
     {/each}

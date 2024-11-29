@@ -15,65 +15,75 @@
 </script>
 <style lang="scss">
 
-  label.checkboxed {
-    display: block;
-    position: relative;
-    padding-left: 28px;
-    cursor: pointer;
-    user-select: none;
+    label.checkboxed {
+        display: block;
+        position: relative;
+        padding-left: 28px;
+        cursor: pointer;
+        user-select: none;
 
-    &.bold-label {
-      font-weight: 600;
+        &.bold-label {
+            font-weight: 600;
+        }
+
+
+        &.disabled {
+            cursor: not-allowed;
+        }
+
+        &.in-form {
+            margin-top: 15px;
+        }
     }
 
+    .checkboxed input {
+        position: absolute;
+        opacity: 0;
+        height: 0;
+        width: 0;
 
-    &.disabled {
-      cursor: not-allowed;
     }
 
-    &.in-form {
-      margin-top: 15px;
+    .checkmarked {
+        position: absolute;
+        top: -10px;
+        left: 0;
+        height: 18px;
+        width: 18px;
+        border: 1px solid var(--purple);
+        border-radius: 2px;
+
+        &.adjust-top {
+            top: 5px;
+        }
+
+        &.adjust-top-flex {
+            top: -1px;
+        }
+
+        &:hover {
+            background-color: #ebebeb;
+        }
+
+        &.active {
+            background-color: var(--purple);
+        }
+
+        :global(svg) {
+            color: white;
+        }
+
+        &.disabled {
+            background-color: var(--grey-3);
+            border: none;
+
+            :global(svg) {
+                color: black;
+            }
+        }
+
+
     }
-  }
-
-  .checkboxed input {
-    position: absolute;
-    opacity: 0;
-    height: 0;
-    width: 0;
-
-  }
-
-  .checkmarked {
-    position: absolute;
-    top: -10px;
-    left: 0;
-    height: 18px;
-    width: 18px;
-    border: 1px solid var(--purple);
-    border-radius: 2px;
-
-    &.adjust-top {
-      top: 5px;
-    }
-
-    &.adjust-top-flex {
-      top: -1px;
-    }
-
-    &:hover {
-      background-color: #ebebeb;
-    }
-
-    &.active {
-      background-color: var(--purple);
-    }
-
-    &.disabled {
-      background-color: var(--grey-3);
-      border: none;
-    }
-  }
 
 
 </style>
@@ -89,7 +99,7 @@
            disabled={disabled}>
     <span class="checkmarked" class:adjust-top={adjustTop} class:adjust-top-flex={adjustTopFlex} class:active={value}
           class:disabled={disabled}>
-    {#if value && !disabled}
+    {#if value}
       {@html check}
     {/if}
   </span>
