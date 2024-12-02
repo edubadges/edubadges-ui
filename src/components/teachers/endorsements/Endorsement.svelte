@@ -1,11 +1,10 @@
 <script>
     import I18n from "i18n-js";
-    import {link} from "svelte-routing";
-    import {issuerLink, onBehalfOfDisplayNameIssuerGroup} from "../../../util/onBehalfOf";
     import {translateBadgeClassProperties} from "../../../util/utils";
     import {onMount} from "svelte";
     import externalLink from "../../../icons/external-link-alt.svg";
     import MarkdownField from "../../forms/MarkdownField.svelte";
+    import BadgeClassIssuerGroupLink from "../BadgeClassIssuerGroupLink.svelte";
 
     export let endorsement;
     export let toggleEndorsement;
@@ -130,15 +129,7 @@
                         <img src={endorsement.endorser.issuer.image} alt=""/>
                     </div>
                 {/if}
-                <div class="right">
-                        <span class="top">{I18n.t("models.badgeclass.issuedBy")}</span>
-                        <span class="">{@html I18n.t("models.badgeclass.onBehalfOf",
-                            {
-                                issuer: issuerLink(endorsement.endorser.issuer, false),
-                                issuerGroup: onBehalfOfDisplayNameIssuerGroup(endorsement.endorser.issuer.faculty, false)
-                            })}
-                        </span>
-                    </div>
+                <BadgeClassIssuerGroupLink isPublic={false} badgeClass={endorsement.endorser}/>
             </div>
         </div>
 

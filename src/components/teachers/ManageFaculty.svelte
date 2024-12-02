@@ -9,7 +9,7 @@
   import {entityType} from "../../util/entityTypes"
   import Spinner from "../Spinner.svelte";
   import {permissionsRole} from "../../util/rolesToPermissions";
-  import {translateProperties} from "../../util/utils";
+  import {isEmpty, translateProperties} from "../../util/utils";
 
   export let entityId;
   export let subEntity;
@@ -25,6 +25,9 @@
     faculty(id: $entityId) {
       ${headerEntityMultiLanguage},
       ${headerStaff},
+      imageDutch,
+      imageEnglish,
+      onBehalfOfUrl
       contentTypeId,
       institution {
         nameEnglish,
@@ -102,8 +105,14 @@
       attr: "admin",
       type: "adminNames",
       value: faculty
-    }
-  ];
+    }, isEmpty(faculty.onBehalfOfUrl) ? null :
+    {
+      attr: "on_behalf_of_url",
+      type: "link",
+      value: faculty.onBehalfOfUrl
+    },
+
+  ].filter(item => item !== null);
 
   const permissionsRoles = [
     {value: permissionsRole.AWARDER, name: I18n.t("editUsers.faculty.awarder")},

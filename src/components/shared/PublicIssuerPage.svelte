@@ -45,6 +45,7 @@
         onBehalfOf,
         onBehalfOfUrl,
         onBehalfOfDisplayName,
+        entityId,
         institution {
           nameEnglish,
           nameDutch,
@@ -205,20 +206,14 @@
                 visitorRole={visitorRole}
                 entityId={entityId}>
       <span slot="institution" class="institution-slot">
-          {#if issuer.faculty.onBehalfOf}
-              {@html I18n.t("catalog.issuer.institution", {
-                  name: issuer.faculty.name,
-                  link: issuer.faculty.onBehalfOfUrl,
-                  countryCode: issuer.faculty.institution.countryCode,
-              })}
-          {:else}
-              {@html I18n.t("catalog.issuer.institution", {
-                  name: issuer.faculty.institution.name,
-                  link: `/public/institutions/${issuer.faculty.institution.entityId}`,
-                  countryCode: issuer.faculty.institution.countryCode,
-              })}
-          {/if}
-
+           <span>{I18n.t("catalog.issuer.institution")}
+               {#if issuer.faculty.onBehalfOf}
+                   <a href={`/public/faculties/${issuer.faculty.entityId}`}>{issuer.faculty.name}</a>
+                            {:else}
+                   <a href={`/public/institutions/${issuer.faculty.institution.entityId}`}>{issuer.faculty.institution.name}</a>
+                      {/if}
+               <span class="country-code">({issuer.faculty.institution.countryCode})</span>
+                         </span>
 	    </span>
             <section class="icons">
                 {#if issuer.email}

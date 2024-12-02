@@ -108,6 +108,10 @@
                     <div class="img-icon">
                         <img src={issuer.faculty.image} alt=""/>
                     </div>
+                {:else if institution.image}
+                    <div class="img-icon">
+                        <img src={institution.image} alt=""/>
+                    </div>
                 {:else}
                     <div class="img-container">
                         <div class="img-icon">
@@ -123,13 +127,7 @@
                 <br/>
 
                 <span class="sub-text">
-                    {#if issuer.faculty.onBehalfOf && issuer.faculty.onBehalfOfUrl}
-                        <a href={`${issuer.faculty.onBehalfOfUrl}`} target="_blank">
-                            {issuer.faculty.name}
-                        </a>
-                    {:else}
-                        <span class="sub-text">{issuer.faculty.name}</span>
-                    {/if}
+                    <span class="sub-text">{issuer.faculty.name}</span>
                 </span>
             </td>
             <td class="center">{issuer.badgeclassesCount === 0 ? "-" : issuer.badgeclassesCount}</td>

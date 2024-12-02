@@ -26,7 +26,7 @@
 
     let issuer;
     let faculty;
-    let badgeclass = {extensions: [], issuer: {}, endorsements: [], endorsed: []};
+    let badgeclass = {extensions: [], issuer: {faculty: {institution: {}}}, endorsements: [], endorsed: []};
     let permissions;
     let publicInstitutions = [];
     let allowedIssuers;

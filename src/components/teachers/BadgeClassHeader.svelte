@@ -4,7 +4,7 @@
     import {Button} from "../../components";
     import {role} from "../../util/role";
     import {entityType} from "../../util/entityTypes"
-    import {issuerLink, onBehalfOfDisplayNameIssuerGroup} from "../../util/onBehalfOf";
+    import BadgeClassIssuerGroupLink from "./BadgeClassIssuerGroupLink.svelte";
 
     export let entity;
     export let object = {};
@@ -15,8 +15,6 @@
     export let tabs;
     export let headerItems;
     export let visitorRole = role.TEACHER;
-
-    let imageId = "";
 
 </script>
 
@@ -137,17 +135,7 @@
                             <img src={object.issuer.faculty.institution.image} alt=""/>
                         {/if}
                     </div>
-                    <div class="right">
-                        <span class="top">{I18n.t("models.badgeclass.issuedBy")}</span>
-                        //TODO create separate component to be re-used also in endorsments
-                        <span class="">{@html I18n.t("models.badgeclass.onBehalfOf",
-                            {
-                                issuer: issuerLink(object.issuer, isPublic),
-                                issuerGroup: onBehalfOfDisplayNameIssuerGroup(object.issuer.faculty, isPublic)
-                            })}
-                        </span>
-                    </div>
-
+                    <BadgeClassIssuerGroupLink isPublic={isPublic} badgeClass={object}/>
                 </div>
             {/if}
             {#if object.publicLink}

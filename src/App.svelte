@@ -44,6 +44,7 @@
     import Notifications from "./components/teachers/Notifications.svelte";
     import {constructUserName} from "./util/users";
     import ManagementQueries from "./routes/teachers/ManagementQueries.svelte";
+    import PublicFacultyPage from "./components/shared/PublicFacultyPage.svelte";
 
 
     const homepage = {
@@ -218,6 +219,9 @@
                 </Route>
                 <Route path="/public/issuers/:entityId/" let:params>
                     <PublicIssuerPage visitorRole={visitorRole} entityId={params.entityId}/>
+                </Route>
+                <Route path="/public/faculties/:entityId/" let:params>
+                    <PublicFacultyPage visitorRole={visitorRole} entityId={params.entityId}/>
                 </Route>
                 <Route path="/public/collections/:entityId/" let:params>
                     <PublicCollectionPage entityId={params.entityId}/>

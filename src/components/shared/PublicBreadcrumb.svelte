@@ -6,6 +6,7 @@
 
   export let badgeClass;
   export let institution;
+  export let faculty;
   export let issuer;
 
 </script>
@@ -58,18 +59,26 @@
     <a use:link
        href={`/public/institutions/${badgeClass.issuer.faculty.institution.entityId}`}>{badgeClass.issuer.faculty.institution.name}</a>
     <span class="crumb">{@html chevronRightSmall}</span>
-    <span class="path">{badgeClass.issuer.faculty.name}</span>
+    <a use:link
+       href={`/public/faculties/${badgeClass.issuer.faculty.entityId}`}>{badgeClass.issuer.faculty.name}</a>
     <span class="crumb">{@html chevronRightSmall}</span>
     <a use:link href={`/public/issuers/${badgeClass.issuer.entityId}`}>{badgeClass.issuer.name}</a>
     <span class="crumb">{@html chevronRightSmall}</span>
     <a use:link href={`/public/${badgeClass.entityId}`}>{badgeClass.name}</a>
   {:else if institution}
     <a use:link href={`/public/institutions/${institution.entityId}`}>{institution.name}</a>
+  {:else if faculty}
+    <a use:link
+       href={`/public/institutions/${faculty.institution.entityId}`}>{faculty.institution.name}</a>
+    <span class="crumb">{@html chevronRightSmall}</span>
+    <a use:link
+       href={`/public/faculties/${faculty.entityId}`}>{faculty.name}</a>
   {:else if issuer}
     <a use:link
        href={`/public/institutions/${issuer.faculty.institution.entityId}`}>{issuer.faculty.institution.name}</a>
     <span class="crumb">{@html chevronRightSmall}</span>
-    <span class="path">{issuer.faculty.name}</span>
+    <a use:link
+       href={`/public/faculties/${issuer.faculty.entityId}`}>{issuer.faculty.name}</a>
     <span class="crumb">{@html chevronRightSmall}</span>
     <a use:link href={`/public/issuers/${issuer.entityId}`}>{issuer.name}</a>
   {/if}

@@ -209,12 +209,6 @@
 
     });
 
-    const navigateWithFilter = includeIssuer => () => {
-        $facultyIds = [badgeclass.issuer.faculty.entityId]
-        $issuerIds = includeIssuer ? [badgeclass.issuer.entityId] : [];
-        navigate("/");
-    }
-
     $: tabs = [
         {
             entity: "badgeclassOverview",

@@ -14,9 +14,6 @@
     export let headerItems;
     export let visitorRole = role.TEACHER;
 
-    let imageId = "";
-
-    const currentLanguage = I18n.locale;
 </script>
 
 <style lang="scss">
@@ -135,11 +132,13 @@
                 </div>
             </div>
         {:else if entity === entityType.ISSUER}
-            <div class="icn-container">
-                <div class="icn-icon">
-                    <span class="icon">
-                      {@html issuerIcon}
-                    </span>
+            <div class="img-container">
+                <div class="img-icon">
+                    {#if object?.faculty?.image}
+                        <img src={object.faculty.image} alt=""/>
+                    {:else}
+                        <img src={object?.faculty?.institution?.image} alt=""/>
+                    {/if}
                 </div>
             </div>
         {/if}

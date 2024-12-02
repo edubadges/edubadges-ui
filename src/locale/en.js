@@ -659,6 +659,7 @@ I18n.translations.en = {
         role: "Role",
     },
     models: {
+        visitWebsite: "Visit website",
         inviteUsers: {
             email: "Email address",
         },
@@ -703,7 +704,7 @@ I18n.translations.en = {
             image_english: "Issuer group logo English",
             image_dutch: "Issuer group logo Dutch",
             onBehalfOf: "Issue on behalf of name issuer group",
-            on_behalf_of_url: "URL",
+            on_behalf_of_url: "Virtual organization",
             on_behalf_of_display_name: "Display name",
             faculty_type: "Type of institution",
             visibility_type: "Type of visibility",
@@ -1588,8 +1589,10 @@ I18n.translations.en = {
             contact: "Contact the issuer",
             website: "Visit issuer website",
             gradingTable: "View the grading table",
-            institution:
-                '<span>Part of <a href="{{link}}" target="_blank">{{name}}</a> ({{countryCode}})</span>',
+            institution: "Part of "
+        },
+        faculty: {
+            website: "Website virtual organization",
         },
         busy: "Fetching all information. This might take a while.... Take a ☕️",
     },

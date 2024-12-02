@@ -665,6 +665,7 @@ I18n.translations.nl = {
         role: "Rol",
     },
     models: {
+        visitWebsite: "Bezoek website",
         inviteUsers: {
             email: "e-mailadres",
         },
@@ -709,7 +710,7 @@ I18n.translations.nl = {
             image_english: "Issuer groep logo Engels",
             image_dutch: "Issuer groep logo Nederlands",
             onBehalfOf: "Uitgeven namens naam issuer groep",
-            on_behalf_of_url: "URL",
+            on_behalf_of_url: "Virtuele organisatie",
             on_behalf_of_display_name: "Weergavenaam",
             faculty_type: "Type onderwijsinstelling",
             visibility_type: "Type zichtbaarheid",
@@ -1606,8 +1607,10 @@ I18n.translations.nl = {
             contact: "Neem contact op met de issuer",
             website: "Bezoek issuer website",
             gradingTable: "Bekijk de grading tabel",
-            institution:
-                '<span>Onderdeel van <a href="{{link}}" target="_blank">{{name}}</a> ({{countryCode}})</span>',
+            institution:"Onderdeel van "
+        },
+        faculty: {
+            website: "Website virtuele organisatie",
         },
         busy: "Alle informatie wordt opgehaald. Dat kan even duren.... Neem een ☕️",
     },

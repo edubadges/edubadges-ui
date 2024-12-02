@@ -45,7 +45,7 @@
           <p>{formatAdminNames(value)}</p>
       {:else if type === 'link'}
           {#if value}
-              <p><a class="is-link" href={value} rel="noreferrer noopener" target="_blank">visit website</a></p>
+              <p><a class="is-link" href={value} rel="noreferrer noopener" target="_blank">{I18n.t("models.visitWebsite")}</a></p>
           {:else}<p>-</p>{/if}
       {:else if type === 'email'}
           {#if value}
