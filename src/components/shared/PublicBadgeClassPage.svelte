@@ -195,7 +195,8 @@
                 badgeClass = res;
                 translateBadgeClassProperties(badgeClass);
 
-                const institution = badgeClass.issuer.faculty.institution;
+                const faculty = badgeClass.issuer.faculty;
+                const institution = faculty.institution;
                 let allowedNames = [institution.name]
                 if (!badgeClass.formal) {
                     allowedNames = allowedNames.concat(badgeClass.award_allowed_institutions);
@@ -208,6 +209,9 @@
                 //need to ensure the links work
                 badgeClass.entityId = badgeClass.id.substring(badgeClass.id.lastIndexOf("/") + 1);
                 badgeClass.issuer.entityId = badgeClass.issuer.id.substring(badgeClass.issuer.id.lastIndexOf("/") + 1);
+                faculty.onBehalfOf = faculty.on_behalf_of;
+                faculty.onBehalfOfDisplayName = faculty.on_behalf_of_display_name;
+                faculty.onBehalfOfUrl = faculty.on_behalf_of_url;
                 loaded = true;
             })
                 .catch(() => {

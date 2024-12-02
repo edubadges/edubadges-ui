@@ -1610,7 +1610,7 @@ I18n.translations.nl = {
             institution:"Onderdeel van "
         },
         faculty: {
-            website: "Website virtuele organisatie",
+            website: "Website organisatie",
         },
         busy: "Alle informatie wordt opgehaald. Dat kan even duren.... Neem een ☕️",
     },

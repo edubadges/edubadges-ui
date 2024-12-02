@@ -1592,7 +1592,7 @@ I18n.translations.en = {
             institution: "Part of "
         },
         faculty: {
-            website: "Website virtual organization",
+            website: "Website organization",
         },
         busy: "Fetching all information. This might take a while.... Take a ☕️",
     },
