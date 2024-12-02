@@ -23,7 +23,6 @@
     let search = "";
     let loaded;
 
-    const currentLanguage = I18n.locale;
     const query = `query ($entityId: String){
     publicIssuer(id: $entityId) {
       nameEnglish,
@@ -49,6 +48,8 @@
         institution {
           nameEnglish,
           nameDutch,
+          imageDutch,
+          imageEnglish,
           entityId,
           brin,
           gradingTable,
@@ -78,6 +79,10 @@
             translateProperties(issuer);
             translateProperties(issuer.faculty);
             translateProperties(issuer.faculty.institution);
+
+            if (!issuer.image) {
+                issuer.image = issuer.faculty.image || issuer.faculty.institution.image;
+            }
 
             issuer.publicBadgeclasses.forEach(badgeClass => {
                 badgeClass.issuer = issuer;
