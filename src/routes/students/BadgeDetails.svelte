@@ -224,7 +224,7 @@
 
             showModal = false;
             const issuedOn = new Date(badge.issuedOn);
-            const organizationId = badge.badgeclass.issuer.faculty.linkedin_org_identifier ||
+            const organizationId = badge.badgeclass.issuer.faculty.linkedinOrgIdentifier ||
                 badge.badgeclass.issuer.faculty.institution.linkedinOrgIdentifier || 206815;
             linkedInUrl = `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&` +
                 `name=${encodeURIComponent(badge.badgeclass.name)}&` +
