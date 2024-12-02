@@ -63,6 +63,12 @@
                 issuer.faculty = faculty
             });
             issuers = faculty.publicIssuers;
+
+            if (!faculty.image) {
+                faculty.image = faculty.institution.image;
+            }
+
+
             loaded = true;
         });
     });
