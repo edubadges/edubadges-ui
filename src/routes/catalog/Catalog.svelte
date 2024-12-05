@@ -13,6 +13,7 @@
     import Pagination from "../../components/Pagination.svelte";
     import {catalogPageCount} from "../../util/pagination";
     import I18n from "i18n-js";
+    import lazySizes from "lazysizes";
 
     const query = `query {
     publicInstitutions {
@@ -61,6 +62,8 @@
 
     let loaded = false;
     let view = "cards";
+
+    lazySizes.init()
 
     onMount(() => {
         const alreadyLoaded = $badgeClasses.length > 0;

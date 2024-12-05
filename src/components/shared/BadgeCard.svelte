@@ -227,7 +227,7 @@
             {/if}
             <div class="image-center-v" class:direct-award={badge && badge.isDirectAward}>
                 {#if badgeClass.image}
-                    <img src={badgeClass.image} alt=""/>
+                    <img src="img/issuer_badgeclass.png" class="lazyload" data-src={badgeClass.image} alt="{badgeClass.name}"/>
                 {:else}
                     {@html placeholder}
                 {/if}
@@ -248,7 +248,7 @@
                 <div class="vert-center">
                     <div class="issuer-img">
                         {#if badgeClass.issuer.image}
-                            <img src={badgeClass.issuer.image} alt=""/>
+                            <img class="lazyload" src="img/issuer_badgeclass.png" data-src={badgeClass.issuer.image} alt=""/>
                         {:else}
                             <span class="issuer-icon">{@html issuerIcon}</span>
                         {/if}

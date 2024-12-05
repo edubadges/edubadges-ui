@@ -117,7 +117,7 @@
 {#if badge || badgeClass}
   <tr class="badge" class:links-enabled={linksEnabled} on:click|preventDefault|stopPropagation={detailLink}>
     <td class="badge-class-img">
-      <img src={badgeClass.image} alt=""/>
+      <img src="img/issuer_badgeclass.png" data-src={badgeClass.image} class="lazyload" alt="{badgeClass.name}"/>
     </td>
     <td class="meta-data">
       <span class="name">{badgeClass.name}</span>
@@ -145,7 +145,7 @@
     </td>
     <td class="issuer">
       {#if badgeClass.issuer.image}
-        <img class="issuer-img" src={badgeClass.issuer.image} alt=""/>
+        <img class="issuer-img lazyload" src="img/issuer_badgeclass.png" data-src={badgeClass.issuer.image} alt=""/>
       {:else}
         <span class="issuer-icon">{@html issuerIcon}</span>
       {/if}
