@@ -248,7 +248,7 @@
                 <div class="vert-center">
                     <div class="issuer-img">
                         {#if badgeClass.issuer.image}
-                            <img class="lazyload" src="img/issuer_badgeclass.png" data-src={badgeClass.issuer.image} alt=""/>
+                            <img class="lazyload" src="img/issuer.png" data-src={badgeClass.issuer.image} alt=""/>
                         {:else}
                             <span class="issuer-icon">{@html issuerIcon}</span>
                         {/if}

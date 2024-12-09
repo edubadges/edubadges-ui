@@ -145,7 +145,7 @@
     </td>
     <td class="issuer">
       {#if badgeClass.issuer.image}
-        <img class="issuer-img lazyload" src="img/issuer_badgeclass.png" data-src={badgeClass.issuer.image} alt=""/>
+        <img class="issuer-img lazyload" src="img/issuer.png" data-src={badgeClass.issuer.image} alt=""/>
       {:else}
         <span class="issuer-icon">{@html issuerIcon}</span>
       {/if}
