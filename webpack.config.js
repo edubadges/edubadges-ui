@@ -95,7 +95,7 @@ module.exports = {
             favicon: "src/favicon.ico",
             hash: true,
         }),
-        prod ? new HtmlWebpackPartialsPlugin({
+        false ? new HtmlWebpackPartialsPlugin({
             path: 'src/piwik.html',
             location: 'head',
             priority: 'low'
