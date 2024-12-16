@@ -1,4 +1,8 @@
 <script>
+  // This should eventually go into config.wwwalletBaseUrl. But that would require us to add
+  // configuration to the global config which is also required in production and other environments
+  // that don't use this feature at all yet. Hence we hardcode it here. For now.
+  const WWWALLET_BASE_URL = "https://wwwallet.dev.eduwallet.nl/cb/"
   import I18n from "i18n-js";
   import {Modal} from '../../components/forms';
   import QRCode from 'qrcode';
@@ -8,12 +12,21 @@
   export let walletName = "";
   export let submit;
 
+  let importWwwalletText = I18n.t("models.badge.ob3SsiAgentQRCode", {
+    name: I18n.t("models.badge.ob3SsiAgentNames.wwwallet")
+  })
+  let wwwalletLink = new URL(WWWALLET_BASE_URL);
+  let linkClass = 'disabled';
   let qrCodeDataUrl = '';
 
   $: if (offer) updateQRCode();
 
   async function updateQRCode() {
     console.debug(`Generate QR for offer: ${offer}`);
+    wwwalletLink.searchParams.set('credential_offer', offer);
+
+    linkClass = '';
+
     qrCodeDataUrl = await QRCode.toDataURL(offer);
   }
 
@@ -22,11 +35,19 @@
 <style lang="scss">
     .qr-code-container {
         display: flex;
+        flex-flow: column;
 
         img {
             width: 240px;
             height: auto;
             margin: auto;
+        }
+        a {
+            display: block;
+            margin: auto;
+        }
+        a.disabled {
+           display: none;
         }
     }
 </style>
@@ -39,6 +60,7 @@
         submitLabel={I18n.t("error.close")}>
     <div class="qr-code-container">
         <img alt="QR code" src={qrCodeDataUrl}/>
+        <a href="{wwwalletLink}" target="_blank" rel="noopener noreferrer" class="{linkClass}" title="{importWwwalletText}">{importWwwalletText}</a>
     </div>
 </Modal>
 {/if}
