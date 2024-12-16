@@ -85,6 +85,8 @@
       issuer {
         nameEnglish,
         nameDutch,
+        imageDutch,
+        imageEnglish,
         entityId,
         faculty {
           nameEnglish,

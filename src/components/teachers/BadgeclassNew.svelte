@@ -32,6 +32,9 @@
       microCredentialsEnabled,
       tags {
         id, name, archived
+      },
+      terms {
+        termsType
       }
     },
     issuer(id: $entityId) {

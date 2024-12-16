@@ -226,7 +226,7 @@
             } else {
                 switch (badgeclass.badgeClassType) {
                     case badgeClassTypes.MICRO_CREDENTIAL: {
-                        badgeclass.formal = false;
+                        badgeclass.formal = true;
                         extensions[ects.name] = 3;
                         break;
                     }
