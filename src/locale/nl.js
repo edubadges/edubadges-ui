@@ -905,6 +905,7 @@ I18n.translations.nl = {
             ob3SsiAgentNames: {
                 unime: "unime",
                 sphereon: "sphereon",
+                wwwallet: "WWWallet",
             },
             ob3SsiAgentQRCode: "Import into {{name}} wallet",
             ob3SsiAgentQRCodeQuestion:
