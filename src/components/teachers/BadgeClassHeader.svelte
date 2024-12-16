@@ -138,9 +138,6 @@
                     <BadgeClassIssuerGroupLink isPublic={isPublic} badgeClass={object}/>
                 </div>
             {/if}
-            {#if object.publicLink}
-                <p><a href={object.publicLink} rel="noreferrer noopener" target="_blank">{object.publicLink}</a></p>
-            {/if}
             <div class="list">
                 <HeaderList {entity} {headerItems}/>
             </div>

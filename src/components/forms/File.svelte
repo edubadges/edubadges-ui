@@ -10,7 +10,7 @@
     export let disclaimer;
 
     let input;
-    let src = "";
+    let src = null;
 
     $: if (value) {
         src = value;
@@ -26,9 +26,9 @@
         if (file) {
             reader.readAsDataURL(file);
         } else {
-            value = "";
-            src = "";
-            input.value = "";
+            value = null;
+            src = null;
+            input.value = null;
         }
     };
 </script>
@@ -88,7 +88,6 @@
         {:else}
             <div class="no-file">
                 {@html placeholder}
-<!--                <p>{I18n.t('file.noFileSelected')}</p>-->
             </div>
         {/if}
     </div>

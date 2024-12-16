@@ -13,6 +13,7 @@
     import {ects, extensionValue, studyLoad, timeInvestment} from "../extensions/badges/extensions";
     import {translateProperties} from "../../util/utils";
     import {permissionsRole} from "../../util/rolesToPermissions";
+    import Spinner from "../Spinner.svelte";
 
     export let entityId;
     export let subEntity;
@@ -45,8 +46,11 @@
         onBehalfOfUrl,
         entityId,
         institution {
+          nameDutch,
+          nameEnglish,
           imageDutch,
           imageEnglish,
+          countryCode
         }
       },
       badgeclasses {
@@ -145,39 +149,42 @@
     ];
 
 </script>
+{#if loaded}
+    <Breadcrumb {faculty} {issuer}/>
+    <EntityHeader
+            {tabs}
+            {headerItems}
+            object={issuer}
+            entity={entityType.ISSUER}
+            entityId={entityId}
+            mayUpdate={mayUpdate}
+    />
 
-<Breadcrumb {faculty} {issuer}/>
-<EntityHeader
-        {tabs}
-        {headerItems}
-        object={issuer}
-        entity={entityType.ISSUER}
-        entityId={entityId}
-        mayUpdate={mayUpdate}
-/>
-
-<Router>
-    <Route path="/badgeclasses">
-        <Badgeclasses
-                {badgeclasses}
-                mayCreate={mayCreate}
-                loaded={loaded}
-                issuer={issuer}/>
-    </Route>
-    <Route path="/user-management/invite-new-user">
-        <InviteUser
-                permissionsRoles={permissionsRoles}
-                defaultValue={0}
-                entityId={entityId}
-                disabledRole={false}
-                contentType={contentType}
-        />
-    </Route>
-    <Route path="/user-management">
-        <IssuerUserManagement
-                entity={entityType.ISSUER}
-                entityId={entityId}
-                loaded={loaded}
-        />
-    </Route>
-</Router>
+    <Router>
+        <Route path="/badgeclasses">
+            <Badgeclasses
+                    {badgeclasses}
+                    mayCreate={mayCreate}
+                    loaded={loaded}
+                    issuer={issuer}/>
+        </Route>
+        <Route path="/user-management/invite-new-user">
+            <InviteUser
+                    permissionsRoles={permissionsRoles}
+                    defaultValue={0}
+                    entityId={entityId}
+                    disabledRole={false}
+                    contentType={contentType}
+            />
+        </Route>
+        <Route path="/user-management">
+            <IssuerUserManagement
+                    entity={entityType.ISSUER}
+                    entityId={entityId}
+                    loaded={loaded}
+            />
+        </Route>
+    </Router>
+{:else}
+    <Spinner/>
+{/if}

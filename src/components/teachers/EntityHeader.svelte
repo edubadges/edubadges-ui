@@ -5,6 +5,9 @@
     import {role} from "../../util/role";
     import {entityType} from "../../util/entityTypes"
     import {facultyIcon, institutionIcon, issuerIcon} from "../../icons";
+    import {link} from "svelte-routing";
+    import {onMount} from "svelte";
+    import {isEmpty} from "../../util/utils";
 
     export let entity;
     export let object = {};
@@ -13,6 +16,7 @@
     export let tabs;
     export let headerItems;
     export let visitorRole = role.TEACHER;
+
 
 </script>
 
@@ -146,8 +150,16 @@
             {#if entity !== entityType.BADGE_CLASS}
                 <p>{object.description}</p>
             {/if}
-            {#if object.publicLink}
-                <p><a href={object.publicLink} rel="noreferrer noopener" target="_blank">{object.publicLink}</a></p>
+            {#if entity === entityType.ISSUER}
+                <span>{I18n.t("catalog.issuer.institution")}
+                    {#if object.faculty?.onBehalfOf}
+                        <a use:link
+                            href={`/manage/faculty/${object.faculty?.entityId}/issuers`}>{object.faculty?.name}</a>
+                    {:else}
+                        <a use:link href={`/manage/institution/issuers`}>{object.faculty?.institution?.name}</a>
+                    {/if}
+                    <span class="country-code">({object.faculty?.institution?.countryCode})</span>
+                </span>
             {/if}
             <div class="list">
                 <HeaderList {entity} {headerItems}/>

@@ -214,11 +214,11 @@
            <span>{I18n.t("catalog.issuer.institution")}
                {#if issuer.faculty.onBehalfOf}
                    <a href={`/public/faculties/${issuer.faculty.entityId}`}>{issuer.faculty.name}</a>
-                            {:else}
+                    {:else}
                    <a href={`/public/institutions/${issuer.faculty.institution.entityId}`}>{issuer.faculty.institution.name}</a>
-                      {/if}
+               {/if}
                <span class="country-code">({issuer.faculty.institution.countryCode})</span>
-                         </span>
+           </span>
 	    </span>
             <section class="icons">
                 {#if issuer.email}
