@@ -23,9 +23,20 @@
 
   async function updateQRCode() {
     console.debug(`Generate QR for offer: ${offer}`);
-    wwwalletLink.searchParams.set('credential_offer', offer);
 
-    linkClass = '';
+    // extract the actual URL from the offer, wwwallet cannot handle actual credential_offers yet.
+    // So only if we have this uri, can we show an import link
+    const offerURI = new URL(offer);
+    const offerURIParams = offerURI.searchParams;
+    console.debug(`params: ${offerURIParams}`);
+
+    if (offerURIParams.get("credential_offer_uri") !== null) {
+      wwwalletLink.searchParams.set('credential_offer_uri', offerURIParams.get("credential_offer_uri"));
+      linkClass = '';
+    } else {
+      linkClass = 'disabled';
+      wwwalletLink = new URL("#");
+    }
 
     qrCodeDataUrl = await QRCode.toDataURL(offer);
   }
