@@ -833,7 +833,7 @@ I18n.translations.en = {
                 ectsMicroCredentials:
                     "Whole and half points only. Valid value between 3 and 30 points.",
                 studyLoadMICRO_CREDENTIAL:
-                    "Whole hours only. Minimal value is 240 hours.",
+                    "Whole hours only. Minimal value is 80 hours.",
                 studyLoadREGULAR: "Whole hours only.",
                 studyLoadEXTRA_CURRICULAR: "Optional. Whole hours only.",
                 timeInvestment:

@@ -14,15 +14,15 @@
     let minValue = 1;
 
     onMount(() => {
-        minValue = badgeClassType === badgeClassTypes.MICRO_CREDENTIAL ? 240 : 1;
+        minValue = badgeClassType === badgeClassTypes.MICRO_CREDENTIAL ? 80 : 1;
     });
 
     const decrement = () => {
-        studyLoad = Math.max((studyLoad || 0) - 1, minValue);
+        studyLoad = Math.max((studyLoad || 0) - (badgeClassType === badgeClassTypes.MICRO_CREDENTIAL ? 80 : 1), minValue);
     }
 
     const increment = () => {
-        studyLoad = (studyLoad || 0) + 1;
+        studyLoad = (studyLoad || 0) + (badgeClassType === badgeClassTypes.MICRO_CREDENTIAL ? 80 : 1);
     }
 
     const onInput = e => {

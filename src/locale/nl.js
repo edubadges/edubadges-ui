@@ -842,7 +842,7 @@ I18n.translations.nl = {
                 ectsMicroCredentials:
                     "Alleen hele en halve punten. Valide waarde is tussen de 3 en 30 punten.",
                 studyLoadMICRO_CREDENTIAL:
-                    "Alleen hele uren. De minimum waarde  is 240 uur.",
+                    "Alleen hele uren. De minimum waarde  is 80 uur.",
                 studyLoadREGULAR: "Alleen hele uren.",
                 studyLoadEXTRA_CURRICULAR: "Optioneel. Alleen hele uren.",
                 timeInvestment:
