@@ -249,8 +249,10 @@
                             <img src={badgeClass.issuer.image} alt=""/>
                         {:else if badgeClass.issuer.faculty.image}
                             <img src={badgeClass.issuer.faculty.image} alt=""/>
-                        {:else}
+                        {:else if badgeClass.issuer.faculty.institution.image}
                             <img src={badgeClass.issuer.faculty.institution.image} alt=""/>
+                        {:else}
+                            {@html placeholder}
                         {/if}
                     </div>
                 </div>

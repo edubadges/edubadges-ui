@@ -6,8 +6,7 @@
     import {entityType} from "../../util/entityTypes"
     import {facultyIcon, institutionIcon, issuerIcon} from "../../icons";
     import {link} from "svelte-routing";
-    import {onMount} from "svelte";
-    import {isEmpty} from "../../util/utils";
+    import placeholder from "../../icons/forms/image-placeholder.svg";
 
     export let entity;
     export let object = {};
@@ -140,8 +139,10 @@
                 <div class="img-icon">
                     {#if object?.faculty?.image}
                         <img src={object.faculty.image} alt=""/>
+                    {:else if object?.faculty?.institution?.image}
+                        <img src={object.faculty.institution.image} alt=""/>
                     {:else}
-                        <img src={object?.faculty?.institution?.image} alt=""/>
+                        {@html placeholder}
                     {/if}
                 </div>
             </div>
@@ -154,7 +155,7 @@
                 <span>{I18n.t("catalog.issuer.institution")}
                     {#if object.faculty?.onBehalfOf}
                         <a use:link
-                            href={`/manage/faculty/${object.faculty?.entityId}/issuers`}>{object.faculty?.name}</a>
+                           href={`/manage/faculty/${object.faculty?.entityId}/issuers`}>{object.faculty?.name}</a>
                     {:else}
                         <a use:link href={`/manage/institution/issuers`}>{object.faculty?.institution?.name}</a>
                     {/if}
