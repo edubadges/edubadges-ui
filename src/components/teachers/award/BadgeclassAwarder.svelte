@@ -20,7 +20,6 @@
     import {entityType} from "../../../util/entityTypes"
     import Spinner from "../../Spinner.svelte";
     import LinkEye from "../LinkEye.svelte";
-    import {facultyIds, issuerIds} from "../../../stores/filterBadges";
     import {translateBadgeClassProperties} from "../../../util/utils";
     import BadgeAwardOptions from "./BadgeAwardOptions.svelte";
     import {currentPath} from "../../../stores/currentPath";
@@ -343,7 +342,8 @@
             <a use:link href="/manage/institution">{badgeclass.issuer.faculty.institution.name}</a>
 
             <span class="crumb">{@html chevronRightSmall}</span>
-            <a use:link href={`/manage/faculty/${badgeclass.issuer.faculty.entityId}`}>{badgeclass.issuer.faculty.name}</a>
+            <a use:link
+               href={`/manage/faculty/${badgeclass.issuer.faculty.entityId}`}>{badgeclass.issuer.faculty.name}</a>
 
             <span class="crumb">{@html chevronRightSmall}</span>
             <a use:link href={`/manage/issuer/${badgeclass.issuer.entityId}`}>{badgeclass.issuer.name}</a>

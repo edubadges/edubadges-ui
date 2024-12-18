@@ -5,6 +5,7 @@
     import {role} from "../../util/role";
     import {entityType} from "../../util/entityTypes"
     import BadgeClassIssuerGroupLink from "./BadgeClassIssuerGroupLink.svelte";
+    import placeholder from "../../icons/forms/image-placeholder.svg";
 
     export let entity;
     export let object = {};
@@ -131,8 +132,10 @@
                             <img src={object.issuer.image} alt=""/>
                         {:else if object.issuer.faculty.image}
                             <img src={object.issuer.faculty.image} alt=""/>
-                        {:else}
+                        {:else if object.issuer.faculty.institution.image}
                             <img src={object.issuer.faculty.institution.image} alt=""/>
+                        {:else}
+                            {@html placeholder}
                         {/if}
                     </div>
                     <BadgeClassIssuerGroupLink isPublic={isPublic} badgeClass={object}/>
