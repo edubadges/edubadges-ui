@@ -20,8 +20,7 @@
         options = Object.values(badgeClassTypes).map(type => (
             {
                 type: type,
-                disabled: (type === badgeClassTypes.MICRO_CREDENTIAL && (!currentInstitution.microCredentialsEnabled
-                        || currentInstitution.terms.every(term => term.termsType !== "FORMAL_BADGE")))
+                disabled: (type === badgeClassTypes.MICRO_CREDENTIAL && !currentInstitution.microCredentialsEnabled)
                     || (type === badgeClassTypes.REGULAR && (isEmpty(currentInstitution.grondslagFormeel)
                         || currentInstitution.terms.every(term => term.termsType !== "FORMAL_BADGE")))
                     || (type === badgeClassTypes.EXTRA_CURRICULAR && (isEmpty(currentInstitution.grondslagInformeel)
