@@ -2165,7 +2165,7 @@ I18n.translations.nl = {
             "Kwaliteitskader Microcredentials voor Professionals MBO",
         link: " - (link)",
         programme: "Het programma",
-        assessment: "De assessment",
+        assessment: "De beoordeling",
         badge: "De badge",
         errors:
             "Er ontbreken verplichte velden of de invoer is niet correct. Controleer de invoer.",
