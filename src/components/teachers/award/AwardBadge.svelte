@@ -112,7 +112,6 @@
                 return da;
             })
         }
-        invariant(directAwards);
     }
 
     const hasMetaData = directAward => {
@@ -152,7 +151,7 @@
     const emailOnBlur = i => e => {
         const val = e.target.value;
         const isValid = (beforeCommit && isEmpty(val)) || validEmail(val);
-        setTimeout(() => errors = {...errors, [`email_${i}`]: !isValid}, 150);
+        errors = {...errors, [`email_${i}`]: !isValid};
         errorsDuplications = {
             ...errorsDuplications,
             [`email_${i}`]: directAwards.filter(da => da.email === val).length > 1 && val.trim().length > 0
@@ -162,8 +161,7 @@
     const eppnOnBlur = i => e => {
         const val = e.target.value;
         const isValid = (beforeCommit && isEmpty(val)) || validEppn(val, badgeclass);
-
-        errors = {...errors, [`eppn_${i}`]: val.trim().length === 0 || !isValid}
+        setTimeout(() => errors = {...errors, [`eppn_${i}`]: !isValid}, 150);
         errorsDuplications = {
             ...errorsDuplications,
             [`eppn_${i}`]: directAwards.filter(da => da.eppn === val).length > 1 && val.trim().length > 0
@@ -176,8 +174,7 @@
 
     const doAward = () => {
         beforeCommit = false;
-        invariant(directAwards);
-        if (disableSubmit) {
+        if (invariant(directAwards)) {
             return;
         }
         createDirectAwards(directAwards, badgeclass, false, enableScheduling ? new Date(scheduledAt) : null,
@@ -194,7 +191,8 @@
 
     //Need to rebuild the errors as in-between values might be removed
     const invariant = newDirectAwards => {
-        errors = newDirectAwards.reduce((acc, da, i) => {
+        const newErrors = newDirectAwards.reduce((acc, da, i) => {
+            console.log(!validEmail(da.email));
             if (!enableAwardOnEmail) {
                 acc[`eppn_${i}`] = da.eppn.trim().length === 0 || !validEppn(da.eppn, badgeclass);
             } else {
@@ -206,16 +204,17 @@
             acc[`grade_${i}`] = badgeclass.gradeAchievedRequired && isEmpty(da.grade_achieved);
             return acc;
         }, {});
+        let newErrorsAlreadyAwarded;
         if (!enableAwardOnEmail) {
-            errorsAlreadyAwarded = newDirectAwards.reduce((acc, da, i) => {
+            newErrorsAlreadyAwarded = newDirectAwards.reduce((acc, da, i) => {
                 acc[`eppn_${i}`] = existingDirectAwardsEppns.some(inst => inst.eppn === da.eppn);
                 return acc;
             }, {});
         } else {
-            errorsAlreadyAwarded = {};
+            newErrorsAlreadyAwarded = {};
         }
 
-        errorsDuplications = newDirectAwards.reduce((acc, da, i) => {
+        const newErrorsDuplications = newDirectAwards.reduce((acc, da, i) => {
             if (!enableAwardOnEmail) {
                 acc[`eppn_${i}`] = newDirectAwards.filter(other => other.eppn === da.eppn && other.eppn.trim().length > 0).length > 1;
             } else {
@@ -224,11 +223,19 @@
             acc[`email_${i}`] = newDirectAwards.filter(other => other.email === da.email && other.email.trim().length > 0).length > 1;
             return acc;
         }, {});
+        const inValid = Object.values(newErrors).some(val => val) || Object.values(newErrorsDuplications).some(val => val) ||
+                Object.values(newErrorsAlreadyAwarded).some(val => val);
+
         directAwards = newDirectAwards;
+        errors = newErrors;
+        errorsDuplications = newErrorsDuplications;
+        errorsAlreadyAwarded = newErrorsAlreadyAwarded;
+
+        return inValid;
     }
 
-    $: disableSubmit = !beforeCommit && Object.values(errors).some(val => val) || Object.values(errorsDuplications).some(val => val) ||
-        Object.values(errorsAlreadyAwarded).some(val => val);
+    $: disableSubmit = !beforeCommit && (Object.values(errors).some(val => val) || Object.values(errorsDuplications).some(val => val) ||
+        Object.values(errorsAlreadyAwarded).some(val => val));
 
 </script>
 
@@ -448,7 +455,9 @@
             {#each directAwards as da, i}
                 <div class="grouped">
                     <Field entity="badgeAward" attribute="email">
-                        <TextInput bind:value={da.email} error={errors[`email_${i}`]} {init}
+                        <TextInput bind:value={da.email}
+                                   error={errors[`email_${i}`]}
+                                   {init}
                                    onBlur={emailOnBlur(i)}/>
                         {#if errors[`email_${i}`]}
                             <Error standAlone={true} error_code={927}/>
@@ -463,7 +472,9 @@
                     </Field>
                     {#if !enableAwardOnEmail}
                         <Field entity="badgeAward" attribute="eppn" relative={true}>
-                            <TextInput bind:value={da.eppn} error={errors[`eppn_${i}`]} onBlur={eppnOnBlur(i)}/>
+                            <TextInput bind:value={da.eppn}
+                                       error={errors[`eppn_${i}`]}
+                                       onBlur={eppnOnBlur(i)}/>
                             {#if errors[`eppn_${i}`]}
                                 {#if isEmpty(da.eppn)}
                                     <Error standAlone={true} error_code={928}/>
