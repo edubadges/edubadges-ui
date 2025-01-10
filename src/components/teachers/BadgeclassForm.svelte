@@ -468,7 +468,7 @@
                 }])
             }
         } else {
-            if (isInstitutionMBO) {
+            if (isInstitutionMBO && !isEmpty(extensions[studyLoad.name])) {
                 newBadgeclass.extensions = {
                     ...newBadgeclass.extensions,
                     ...extensionToJson([{name: studyLoad.name, value: parseInt(extensions[studyLoad.name])}])
@@ -768,6 +768,7 @@
                        attribute="issuer"
                        errors={errors.issuer}
                        isSelect={true}
+                       required={true}
                        tipKey="badgeClassLearningIssuer">
                     <Select
                             bind:value={badgeclass.issuer}
