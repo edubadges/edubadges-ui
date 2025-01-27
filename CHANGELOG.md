@@ -4,6 +4,31 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [7.3.1] - 2025-01-27
+#### Full GitHub changelogs:
+  Backend: https://github.com/edubadges/edubadges-server/compare/v7.3.0...v7.3.1</br>
+  Frontend: https://github.com/edubadges/edubadges-ui/compare/V7.3.0...v7.3.1
+
+- Changes in the locales for issuing on email address.
+- Extend user search for institution name and role.
+- https://trello.com/c/TRSJkbPt/988-foutmelding-uitreiken-via-priv%C3%A9-e-mailadres.
+- Merge pull request #141 from edubadges/dependabot/npm_and_yarn/nanoid-3.3.8.
+- Fix for https://trello.com/c/OdjsIznb/987-opvoeren-uren-extra-curriculaire-edubadge-ten-onrechte-verplicht.
+
+## [7.3.0] - 2024-12-18
+#### Full GitHub changelogs:
+  Backend: https://github.com/edubadges/edubadges-server/compare/v7.2.0...v7.3.0</br>
+  Frontend: https://github.com/edubadges/edubadges-ui/compare/V7.2.0...v7.3.0
+
+- Added the option to award edubadges to learners using their mailaddress. This mailaddress should match the one used for eduID.
+- Added an option to change the contact mailaddress of the institution.
+- Changed mimimal SBU hours (for MBO only) to 80, in steps of 80 with a default of 240 SBU.
+- Improved the options to issue on behalf of other organisations.
+- New options in the issuergroup functionality to better support virtual organisations.
+- Remodelled the placement of logo's of institution, issuergroup and issuer.
+- Improved application performance by reducing UI-bundle size.
+- Fixed bug when claiming edubadges from other organisations.
+  
 ## [7.2.0] - 2024-11-13
 - Bugfix for single value educationProgramIdentifier
 - Refactored to run once
