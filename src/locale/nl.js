@@ -414,7 +414,7 @@ I18n.translations.nl = {
     },
     footer: {
         poweredBy: "Trots aangeboden door",
-        about: "Gebruikershandleiding edubadges",
+        about: "Handleiding edubadges",
         aboutLink: "https://servicedesk.surf.nl/wiki/display/WIKI/edubadges",
     },
     modalTerms: {
