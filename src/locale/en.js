@@ -406,8 +406,8 @@ I18n.translations.en = {
     },
     footer: {
         poweredBy: "Proudly powered by",
-        about: "About edubadges",
-        aboutLink: "https://wiki.surfnet.nl/display/Edubadges/Edubadges#English",
+        about: "User manual edubadges",
+        aboutLink: "https://servicedesk.surf.nl/wiki/display/WIKI/edubadges",
     },
     modalTerms: {
         agree: "Agree",
@@ -1618,7 +1618,7 @@ I18n.translations.en = {
             cancel: "Cancel",
             award: "Award",
             schedulingDate: "Enable scheduling",
-            enableAwardOnEmail: "Enable awarding badges solely based on email",
+            enableAwardOnEmail: "Enable awarding based on private email",
             addEvidence: "Narrative",
             addEvidenceGrade: "Narrative & Grade",
             editEvidence: "Edit narrative",

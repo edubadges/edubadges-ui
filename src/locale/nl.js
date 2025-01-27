@@ -414,8 +414,8 @@ I18n.translations.nl = {
     },
     footer: {
         poweredBy: "Trots aangeboden door",
-        about: "Over edubadges",
-        aboutLink: "https://wiki.surfnet.nl/display/Edubadges",
+        about: "Gebruikershandleiding edubadges",
+        aboutLink: "https://servicedesk.surf.nl/wiki/display/WIKI/edubadges",
     },
     modalTerms: {
         agree: "Akkoord",
@@ -1636,7 +1636,7 @@ I18n.translations.nl = {
             cancel: "Annuleer",
             award: "Verzenden",
             schedulingDate: "Planning inschakelen",
-            enableAwardOnEmail: "Schakel uitreiken op basis van email in",
+            enableAwardOnEmail: "Schakel uitreiken op basis van privé email in",
             addEvidence: "Motivatie/bewijs",
             addEvidenceGrade: "Motivatie/bewijs & Cijfer",
             editEvidence: "Motivatie/bewijs bewerken",
