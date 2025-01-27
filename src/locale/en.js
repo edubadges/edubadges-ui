@@ -1549,7 +1549,7 @@ I18n.translations.en = {
         endorsementBadgeClass: "The badge class you would like to endorse.",
         awardScheduling:
             "Enter a scheduling date to set the date / time when the emails will be send out to the users who are awarded the badge",
-        enableAwardOnEmail: "When selected you can award this badge solely based on the email. The email will be matched against the eduID email of the user.<br/><br/> The user needs to have a validated name, but  no connection to an educational institution is required.",
+        enableAwardOnEmail: "If selected, you can also issue this edubadge based on the private e-mail address. This private e-mail address must match the e-mail address the user used to create their eduID.",
         badgeClassIsStackable:
             "A stackable badge-class can be linked to another badge-class",
     },

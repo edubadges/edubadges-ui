@@ -1567,7 +1567,7 @@ I18n.translations.nl = {
         endorsementBadgeClass: "De badgeklasse die je wilt aanbevelen.",
         awardScheduling:
             "Voer de datum in waarop de e-mails zullen worden verzonden naar de gebruikers aan wie de edubadge is toegekend.",
-        enableAwardOnEmail: "Indien geselecteerd, kan je deze badge ook op basis van de e-mail toekennen. De e-mail wordt vergeleken met de eduID-e-mail van de gebruiker.<br/><br/> De gebruiker moet een gevalideerde naam hebben, maar er is geen verbinding met een onderwijsinstelling vereist.",
+        enableAwardOnEmail: "Indien geselecteerd, kan je deze edubadge ook op basis van het privé e-mail adres uitreiken. Dit privé e-mail adres moet overeenkomen met het e-mail adres dat de gebruiker heeft gebruikt om diens eduID aan te maken.",
         badgeClassIsStackable:
             "Een stackable badge-class kan gestapeld worden aan een andere badge-class",
     },
