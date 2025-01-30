@@ -80,3 +80,22 @@ export const splitListSemantically = (arr, lastSeparator) => {
     return [arr.slice(0, -1).join(", "), arr.slice(-1)[0]].join(arr.length < 2 ? "" : ` ${lastSeparator} `);
 }
 
+//See edubadges-server/apps/queries/api.py
+export const translatePropertiesRawQueries = obj => {
+    if (!obj) {
+        return;
+    }
+    const isEnglish = I18n.locale === "en";
+    ["name", "description", "image", "url"].forEach(attr => {
+        ["i_", "f_", "ins_"].forEach(prefix => {
+        if (obj[`${prefix}${attr}_english`] || obj[`${prefix}${attr}_dutch`]) {
+            obj[prefix + attr] = isEnglish ? (obj[`${prefix}${attr}_english`] || obj[`${prefix}${attr}_dutch`])
+                : (obj[`${prefix}${attr}_dutch`] || obj[`${prefix}${attr}_english`]);
+        }
+
+        })
+    });
+    return obj;
+}
+
+

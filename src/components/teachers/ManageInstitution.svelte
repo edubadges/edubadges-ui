@@ -14,6 +14,7 @@
     import {translateProperties} from "../../util/utils";
     import RequestedBatches from "./RequestedBadges.svelte";
     import UnclaimedDirectAwards from "./UnclaimedDirectAwards.svelte";
+    import UnclaimedDirectAwardsNew from "./UnclaimedDirectAwardsNew.svelte";
 
     let entityId;
     export let subEntity;
@@ -195,7 +196,8 @@
       <RequestedBatches />
     </Route>
     <Route path="/direct-awards">
-      <UnclaimedDirectAwards allUnclaimed={true} />
+<!--      <UnclaimedDirectAwards allUnclaimed={true} />-->
+      <UnclaimedDirectAwardsNew />
     </Route>
     <Route path="/deleted-direct-awards">
       <UnclaimedDirectAwards allUnclaimed={false}/>
