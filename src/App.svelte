@@ -181,7 +181,6 @@
                     <Route path="/notifications" component={Notifications}/>
                     <Route path="/manage/*mainEntity" component={Manage}/>
                     <Route path="/badgeclass/:entityId/*subEntity" component={BadgeclassAwarder}/>
-                    <Route path="/badgeclass/:entityId/*subEntity" component={BadgeclassAwarder}/>
                     <Route path="/invite-enrollements/:entityId/" let:params>
                         <InviteEnrollments entityId={params.entityId}/>
                     </Route>

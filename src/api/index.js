@@ -843,6 +843,12 @@ export function fetchMicroCredentialsBadges() {
     return validFetchNoErrorDialog(path, {}, "GET");
 }
 
+//Queries
+export function fetchRawDirectAwards() {
+    const path = `${serverUrl}/queries/direct-awards`;
+    return validFetchNoErrorDialog(path, {}, "GET");
+}
+
 
 //BadgeInstanceCollections
 export function createBadgeInstanceCollection(badgeInstanceCollection) {
