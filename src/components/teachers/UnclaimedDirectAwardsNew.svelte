@@ -45,7 +45,7 @@
         $facultySelected = [];
         $issuerSelected = [];
         $badgeClassSelected = [];
-        fetchRawDirectAwards().then(res => {
+        fetchRawDirectAwards(allUnclaimed ? "unclaimed" : "deleted").then(res => {
             res.forEach(obj => {
                 translatePropertiesRawQueries(obj);
                 obj.created_at_millis = new Date(obj.created_at).getTime();
