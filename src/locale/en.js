@@ -827,7 +827,7 @@ I18n.translations.en = {
             },
             info: {
                 educationProgramIdentifier:
-                    "Consult <a target='_blank' rel='noreferrer' href='https://zakelijk.duo.nl/portaal/zoeken-en-vinden/resultaten'>the DUO CROHO register</a> or <a target='_blank' rel='noreferrer' href='https://kwalificaties.s-bb.nl/Lijsten/Groep/14'>the SBB CREBO lists</a> if you don’t know the code.",
+                    "Consult <a target='_blank' rel='noreferrer' href='https://duo.nl/zakelijk/hoger-onderwijs/studentenadministratie/opleidingsgegevens-in-croho/raadplegen-en-downloaden.jsp'>the DUO CROHO register</a> or <a target='_blank' rel='noreferrer' href='https://duo.nl/open_onderwijsdata/middelbaar-beroepsonderwijs/erkende-opleidingen/erkende-opleidingscode-en-beroep.jsp'>the SBB CREBO lists</a> if you don’t know the code.",
                 eqf: "Check <a target='_blank' rel='noreferrer' href='https://www.nlqf.nl/daarom-nlqf/nlqf-niveaus'>https://www.nlqf.nl/daarom-nlqf/nlqf-niveaus</a> for help",
                 ects: "Whole and half points only. Valid value between 0.5 and 240 points.",
                 ectsMicroCredentials:

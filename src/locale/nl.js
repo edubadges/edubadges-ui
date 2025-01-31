@@ -836,7 +836,7 @@ I18n.translations.nl = {
             },
             info: {
                 educationProgramIdentifier:
-                    "Raadpleeg <a target='_blank' rel='noreferrer' href='https://zakelijk.duo.nl/portaal/zoeken-en-vinden/resultaten'>het DUO CROHO register</a> of <a target='_blank' rel='noreferrer' href='https://kwalificaties.s-bb.nl/Lijsten/Groep/14'>de SBB CREBO lijsten</a> als je deze code niet weet.",
+                    "Raadpleeg <a target='_blank' rel='noreferrer' href='https://duo.nl/zakelijk/hoger-onderwijs/studentenadministratie/opleidingsgegevens-in-croho/raadplegen-en-downloaden.jsp'>het DUO CROHO register</a> of <a target='_blank' rel='noreferrer' href='https://duo.nl/open_onderwijsdata/middelbaar-beroepsonderwijs/erkende-opleidingen/erkende-opleidingscode-en-beroep.jsp'>de SBB CREBO lijsten</a> als je deze code niet weet.",
                 eqf: "Kijk op <a target='_blank' rel='noreferrer' href='https://www.nlqf.nl/daarom-nlqf/nlqf-niveaus'>https://www.nlqf.nl/daarom-nlqf/nlqf-niveaus</a> voor een overzicht",
                 ects: "Alleen hele en halve punten. <br/>Een minimum van 0,5 punt is vereist.",
                 ectsMicroCredentials:
