@@ -196,11 +196,10 @@
       <RequestedBatches />
     </Route>
     <Route path="/direct-awards">
-<!--      <UnclaimedDirectAwards allUnclaimed={true} />-->
-      <UnclaimedDirectAwardsNew />
+      <UnclaimedDirectAwardsNew allUnclaimed={true}/>
     </Route>
     <Route path="/deleted-direct-awards">
-      <UnclaimedDirectAwards allUnclaimed={false}/>
+      <UnclaimedDirectAwardsNew allUnclaimed={false}/>
     </Route>
 
   </Router>

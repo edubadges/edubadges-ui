@@ -844,8 +844,8 @@ export function fetchMicroCredentialsBadges() {
 }
 
 //Queries
-export function fetchRawDirectAwards() {
-    const path = `${serverUrl}/queries/direct-awards`;
+export function fetchRawDirectAwards(status) {
+    const path = `${serverUrl}/queries/direct-awards?status=${status}`;
     return validFetchNoErrorDialog(path, {}, "GET");
 }
 
