@@ -14,7 +14,9 @@ RUN yarn install --frozen-lockfile
 COPY . .
 
 # Copy a docker-specific config.js over the generic one.
-COPY ./docker/config.js /app/src/utils/config.js
+# NOTE: in docker-compose we mount over this file again, so there the version on the 
+# host machine in ./docker/config.js is used at /app/src/util/config.js
+COPY ./docker/config.js /app/src/util/config.js
 
 # Expose the port the app runs on
 EXPOSE 8080
