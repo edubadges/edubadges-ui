@@ -38,7 +38,6 @@
         reSign = urlParams.get("re_sign") === "True";
         role = urlParams.get("role");
         validatedName = urlParams.get("validated_name");
-        debugger;
         claims = jwt_decode(idToken);
         $userRole = role;
         schacHomeOrganisations = $userRole === roleConstants.STUDENT ? [] : [DOMPurify.sanitize(claims.schac_home_organization)];
@@ -65,14 +64,6 @@
     const agree = () => {
         window.location.href = `${config.serverUrl}/account/${encodeURIComponent(provider)}/login/terms_accepted/${encodeURIComponent(state)}/${idToken}/${accessToken}`;
     };
-
-    const goToEduId = () => {
-        $userRole = role.STUDENT;
-        $redirectPath = window.location.pathname;
-        const service = getService(role.STUDENT);
-        requestLoginToken(service, true);
-    };
-
 
     const showTerms = (title, url) => () => {
         showModalTerms = true;

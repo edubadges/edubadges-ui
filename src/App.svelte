@@ -6,7 +6,6 @@
     import AcceptTerms from "./routes/AcceptTerms.svelte";
     import {Badges, Impersonate, Manage, UserPermissions, Users} from "./routes/teachers";
     import {Footer, Header, Spinner, SubscribeToPath} from "./components";
-    import {config} from "./util/config";
     import {
         BadgeclassAwarder,
         Header as TeacherHeader,
@@ -45,6 +44,7 @@
     import {constructUserName} from "./util/users";
     import ManagementQueries from "./routes/teachers/ManagementQueries.svelte";
     import PublicFacultyPage from "./components/shared/PublicFacultyPage.svelte";
+    import ValidateName from "./routes/ValidateName.svelte";
 
 
     const homepage = {
@@ -58,7 +58,7 @@
     onMount(() => {
         //if we are heading to any of the public path we don't fetch the profile
         const path = window.location.pathname;
-        const publicPaths = ["public", "/auth/login", "signup", "version/info", "launch/lti"]
+        const publicPaths = ["public", "/auth/login", "signup", "validate", "version/info", "launch/lti"]
         if (!publicPaths.some(p => path.indexOf(p) > -1)) {
             getSocialAccounts()
                 .then(res => {
@@ -205,6 +205,7 @@
                 <Route path="/auth/login/*" component={ProcessToken}/>
                 <Route path="/catalog" component={Catalog}/>
                 <Route path="/signup" component={AcceptTerms}/>
+                <Route path="/validate" component={ValidateName}/>
                 <Route path="/public/:entityId/" let:params>
                     <PublicBadgeClassPage entityId={params.entityId}/>
                 </Route>

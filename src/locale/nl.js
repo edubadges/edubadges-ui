@@ -2188,4 +2188,12 @@ I18n.translations.nl = {
             "Tag wordt niet gebruikt in edubadges, je kan de tag ook verwijderen in plaats van te archiveren",
         and: "en",
     },
+    validateName: {
+        welcome: "Hi {{name}}",
+        info: "Helaas kan er geen toegang verleend worden tot de Edubadges backpack, want je hebt geen gevalideerde naam binnen eduID en daarmee hebben we niet voldoende zekerheid over je identiteit. " +
+            "Als je je naam wilt valideren, moet je in eduID een account koppelen via jouw instelling of via iDIN of eIDAS.",
+        proceedInfo: "Klik op onderstaande knop om terug te keren naar eduID en volg daar de instructies om je naam te valideren.",
+        proceed: "Ga door naar eduID",
+    }
+
 };
