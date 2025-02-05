@@ -20,7 +20,7 @@
     import {onMount} from "svelte";
     import Spinner from "../Spinner.svelte";
     import {pageCount} from "../../util/pagination";
-    import {isEmpty, translatePropertiesRawQueries} from "../../util/utils";
+    import {isEmpty, translatePropertiesRawQueriesDirectAward} from "../../util/utils";
     import UnclaimedDirectAwardsSideBarNew from "./UnclaimedDirectAwardsSideBarNew.svelte";
 
     export let allUnclaimed = true;
@@ -47,7 +47,7 @@
         $badgeClassSelected = [];
         fetchRawDirectAwards(allUnclaimed ? "unclaimed" : "deleted").then(res => {
             res.forEach(obj => {
-                translatePropertiesRawQueries(obj);
+                translatePropertiesRawQueriesDirectAward(obj);
                 obj.created_at_millis = new Date(obj.created_at).getTime();
                 obj.resend_at_millis = new Date(obj.resend_at).getTime();
                 obj.delete_at_millis = new Date(obj.delete_at).getTime();
@@ -269,13 +269,13 @@
                     <td>
                         <a use:link
                            href={`/manage/issuer/${directAward.i_entity_id}/badgeclasses`}>
-                            {directAward.i_name_english}
+                            {directAward.i_name}
                         </a>
                     </td>
                     <td>
                         <a use:link
                            href={`/manage/faculty/${directAward.f_entity_id}/issuers`}>
-                            {directAward.f_name_english}
+                            {directAward.f_name}
                         </a>
                     </td>
                     <td class="center">

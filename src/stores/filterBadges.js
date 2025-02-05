@@ -43,20 +43,6 @@ export const sortBadgePendingEnrollments = collection => {
     return !collection ? [] : collection.sort((a, b) => b.pendingEnrollmentCount - a.pendingEnrollmentCount)
 }
 
-export const selectedEntity = derived(
-    [faculties, facultyIds, issuerIds],
-    ([faculties, facultyIds, issuerIds]) => {
-        if (issuerIds.length) {
-            const issuers = faculties.flatMap((fac) => fac.issuers);
-            return issuers.find((iss) => issuerIds.includes(iss.entityId));
-        }
-
-        if (facultyIds.length) {
-            return faculties.find((fac) => facultyIds.includes(fac.entityId));
-        }
-    }
-);
-
 export const tree = derived(
     [faculties, awardFilter, search, page, facultyIds, issuerIds, typeBadgeClassSelected, tagBadgeClassSelected, sortTarget],
     ([faculties, awardFilter, search, page, facultyIds, issuerIds, typeBadgeClassSelected, tagBadgeClassSelected, sortTarget]) => {

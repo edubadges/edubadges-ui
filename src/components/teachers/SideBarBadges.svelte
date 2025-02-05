@@ -7,7 +7,7 @@
         tree,
         typeBadgeClassSelected,
         tagBadgeClassSelected
-    } from "../../stores/filterBadges";
+    } from "../../stores/filterBadgesNew";
 </script>
 
 <style lang="scss">

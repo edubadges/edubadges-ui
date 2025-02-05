@@ -1,4 +1,7 @@
 import I18n from "i18n-js";
+import {config} from "../util/config";
+
+const serverMediaUrl = `${config.serverUrl}/media`;
 
 export const isObject = val => {
     if (val === null || val === undefined) {
@@ -43,7 +46,7 @@ export const translateProperties = obj => {
     return obj;
 }
 
-//The properties from graphene are different then the properties from the public endpoints
+//The properties from graphene are different from the properties from the public endpoints
 export const translateBadgeClassProperties = badgeClass => {
     translateProperties(badgeClass);
     if (badgeClass.issuer) {
@@ -81,21 +84,109 @@ export const splitListSemantically = (arr, lastSeparator) => {
 }
 
 //See edubadges-server/apps/queries/api.py
-export const translatePropertiesRawQueries = obj => {
+export const translatePropertiesRawQueriesDirectAward = obj => {
     if (!obj) {
         return;
     }
     const isEnglish = I18n.locale === "en";
     ["name", "description", "image", "url"].forEach(attr => {
         ["i_", "f_", "ins_"].forEach(prefix => {
-        if (obj[`${prefix}${attr}_english`] || obj[`${prefix}${attr}_dutch`]) {
-            obj[prefix + attr] = isEnglish ? (obj[`${prefix}${attr}_english`] || obj[`${prefix}${attr}_dutch`])
-                : (obj[`${prefix}${attr}_dutch`] || obj[`${prefix}${attr}_english`]);
-        }
-
+            if (obj[`${prefix}${attr}_english`] || obj[`${prefix}${attr}_dutch`]) {
+                obj[prefix + attr] = translateProperty(obj, prefix, attr, isEnglish)
+            }
         })
     });
+    if (obj.image) {
+        obj.image = `${serverMediaUrl}/${obj.image}`;
+    }
     return obj;
 }
+
+const translateProperty = (obj, prefix, attr, isEnglish) => {
+    if (obj[`${prefix}${attr}_english`] || obj[`${prefix}${attr}_dutch`]) {
+        return isEnglish ? (obj[`${prefix}${attr}_english`] || obj[`${prefix}${attr}_dutch`])
+            : (obj[`${prefix}${attr}_dutch`] || obj[`${prefix}${attr}_english`]);
+    }
+    return null;
+}
+
+/*
+ * See edubadges-server/apps/queries/api.py. For now - ideally we'll change this in the future - we mimic the original
+ * structure for backward compatibility
+ */
+export const translatePropertiesRawQueriesBadgeClass = badgeClasses => {
+    const isEnglish = I18n.locale === "en";
+
+    const issuers = [];
+    const faculties = [];
+    const institutions = [];
+
+    badgeClasses.forEach(badgeClass => {
+        if (badgeClass.image) {
+            badgeClass.image = `${serverMediaUrl}/${badgeClass.image}`;
+        }
+        const issuer = issuers.find(iss => iss.entityId === badgeClass.i_entity_id);
+        if (issuer) {
+            ++issuer.count;
+            badgeClass.issuer = issuer;
+        } else {
+            badgeClass.issuer = issuers.find(issuer => issuer.entityId === badgeClass.i_entity_id) || {
+                name: translateProperty(badgeClass, "i_", "name", isEnglish),
+                description: translateProperty(badgeClass, "i_", "description", isEnglish),
+                url: translateProperty(badgeClass, "i_", "url", isEnglish),
+                image: translateProperty(badgeClass, "i_", "image", isEnglish),
+                entityId: badgeClass.i_entity_id,
+                count: 0
+            }
+            if (badgeClass.issuer.image) {
+                badgeClass.issuer.image = `${serverMediaUrl}/${badgeClass.issuer.image}`;
+            }
+            issuers.push(badgeClass.issuer)
+        }
+        const faculty = faculties.find(fac => fac.entityId === badgeClass.f_entity_id);
+        if (faculty) {
+            ++faculty.count;
+            badgeClass.issuer.faculty = faculty;
+        } else {
+            badgeClass.issuer.faculty = {
+                name: translateProperty(badgeClass, "f_", "name", isEnglish),
+                description: translateProperty(badgeClass, "f_", "description", isEnglish),
+                image: translateProperty(badgeClass, "f_", "image", isEnglish),
+                entityId: badgeClass.f_entity_id,
+                count: 0
+            }
+            if (badgeClass.issuer.faculty.image) {
+                badgeClass.issuer.faculty.image = `${serverMediaUrl}/${badgeClass.issuer.faculty.image}`;
+            }
+            faculties.push(badgeClass.issuer.faculty);
+        }
+        const institution = institutions.find(ins => ins.entityId === badgeClass.ins_entity_id);
+        if (institution) {
+            ++institution.count;
+            badgeClass.issuer.faculty.institution = institution;
+        } else {
+            badgeClass.issuer.faculty.institution = {
+                name: translateProperty(badgeClass, "ins_", "name", isEnglish),
+                description: translateProperty(badgeClass, "ins_", "description", isEnglish),
+                image: translateProperty(badgeClass, "ins_", "image", isEnglish),
+                entityId: badgeClass.ins_entity_id,
+                count: 0
+            }
+            if (badgeClass.issuer.faculty.institution.image) {
+                badgeClass.issuer.faculty.institution.image = `${serverMediaUrl}/${badgeClass.issuer.faculty.institution.image}`;
+            }
+            institutions.push(badgeClass.issuer.faculty.institution);
+        }
+        if (!badgeClass.issuer.image) {
+            if (badgeClass.issuer.faculty.image) {
+                badgeClass.issuer.image = badgeClass.issuer.faculty.image;
+            } else {
+                badgeClass.issuer.image = badgeClass.issuer.faculty.institution.image;
+            }
+        }
+
+    })
+}
+
 
 

@@ -14,10 +14,6 @@
     import {catalogPageCount, pageCount} from "../../util/pagination";
     import {page} from "../../stores/filterBadges";
     import {badgeClassTypes} from "../../util/badgeClassTypes";
-    import {fetchRawBadgeClasses, fetchRawCurrentInstitution} from "../../api";
-
-    let currentInstitution = {}
-    let badgeClasses = []
 
     const query = `query {
     faculties {
@@ -70,12 +66,6 @@
     let view = "cards";
 
     onMount(() => {
-        Promise.all(fetchRawCurrentInstitution(), fetchRawBadgeClasses()).then(res => {
-
-        })
-        fetchRawCurrentInstitution().then(res => {
-           currentInstitution = res;
-        });
         queryData(query).then(res => {
             res.faculties.forEach(faculty => {
                 translateProperties(faculty);

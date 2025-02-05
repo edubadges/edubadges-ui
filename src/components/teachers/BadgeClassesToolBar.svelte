@@ -1,7 +1,7 @@
 <script>
     import I18n from "i18n-js";
     import {Search} from "../../components";
-    import {awardFilter, facultyIds, issuerIds, search, tree} from "../../stores/filterBadges";
+    import {awardFilter, facultyIds, issuerIds, search, tree} from "../../stores/filterBadgesNew";
     import {MinimalisticSelect} from "../forms";
     import ViewSelector from "../shared/ViewSelector.svelte";
     import {sortTargetOptions} from "../../util/catalogFilters";

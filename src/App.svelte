@@ -4,9 +4,9 @@
     import {navigate, Route, Router} from "svelte-routing";
     import {Login, NotFound, ProcessToken, Student} from "./routes";
     import AcceptTerms from "./routes/AcceptTerms.svelte";
-    import {Badges, Impersonate, Manage, UserPermissions, Users} from "./routes/teachers";
+    import {Impersonate, Manage, UserPermissions, Users} from "./routes/teachers";
+    import BadgesNew from "./routes/teachers/BadgesNew.svelte";
     import {Footer, Header, Spinner, SubscribeToPath} from "./components";
-    import {config} from "./util/config";
     import {
         BadgeclassAwarder,
         Header as TeacherHeader,
@@ -50,7 +50,7 @@
     const homepage = {
         guest: Login,
         [role.STUDENT]: Student,
-        [role.TEACHER]: Badges
+        [role.TEACHER]: BadgesNew
     };
 
     let loaded = false;
