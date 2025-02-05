@@ -849,6 +849,15 @@ export function fetchRawDirectAwards(status) {
     return validFetchNoErrorDialog(path, {}, "GET");
 }
 
+export function fetchRawCurrentInstitution() {
+    const path = `${serverUrl}/queries/current-institution`;
+    return validFetchNoErrorDialog(path, {}, "GET");
+}
+
+export function fetchRawBadgeClasses() {
+    const path = `${serverUrl}/queries/badge-classes`;
+    return validFetchNoErrorDialog(path, {}, "GET");
+}
 
 //BadgeInstanceCollections
 export function createBadgeInstanceCollection(badgeInstanceCollection) {
