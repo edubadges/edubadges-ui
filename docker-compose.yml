@@ -5,6 +5,7 @@ services:
       dockerfile: ./docker/Dockerfile
     volumes:
       - .:/app        # Mount the current directory to /app in the container
+      - ./docker/config.js:/app/src/util/config.js
       - /app/node_modules   # Prevents overwriting node_modules with the empty directory
     ports:
       - "8080:8080"   # Maps host port 8080 to container port 8080
