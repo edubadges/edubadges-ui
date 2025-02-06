@@ -2157,4 +2157,12 @@ I18n.translations.en = {
         noUsages: "Tag is not being used in edubadges, consider deleting it",
         and: "and",
     },
+    validateName: {
+        welcome: "Hi {{name}}",
+        info: "Unfortunately, access to the Edubadges backpack cannot be granted, because you do not have a validated name within eduID and therefore we do not have sufficient certainty about your identity. " +
+            "If you want to validate your name, you must link your account in eduID or via your institution or via iDIN or eIDAS.",
+        proceedInfo: "Click on the button below to return to eduID and follow the instructions there to validate your name.",
+        proceed: "Proceed to eduID",
+    }
+
 };
