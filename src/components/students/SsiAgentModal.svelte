@@ -35,7 +35,7 @@
       linkClass = '';
     } else {
       linkClass = 'disabled';
-      wwwalletLink = new URL("#");
+      wwwalletLink = new URL("about:blank");
     }
 
     qrCodeDataUrl = await QRCode.toDataURL(offer);
