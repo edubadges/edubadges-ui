@@ -1,27 +1,30 @@
 <script>
     import {onMount} from "svelte";
-    import {BadgeClassesToolBar, BadgesHeader, SideBarBadges} from "../../components/teachers";
-    import {badgeClasses, page, sortTarget, tree} from "../../stores/filterBadgesNew";
+    import {badgeClasses, page, sortTarget, tree} from "../../stores/filterCatalog";
     import BadgeCard from "../../components/shared/BadgeCard.svelte";
     import Spinner from "../../components/Spinner.svelte";
     import BadgeListView from "../../components/shared/BadgeListView.svelte";
+    import SideBarCatelog from "../../components/catalog/SideBarCatelog.svelte";
+    import CatalogToolBar from "../../components/catalog/CatalogToolBar.svelte";
+    import {sortTargetOptions} from "../../util/catalogFilters";
     import {translatePropertiesRawQueriesBadgeClass} from "../../util/utils";
-    import {badgeClassFilterTypes, sortTargetOptions} from "../../util/catalogFilters";
     import Pagination from "../../components/Pagination.svelte";
     import {catalogPageCount} from "../../util/pagination";
-    import {badgeClassTypes} from "../../util/badgeClassTypes";
-    import {fetchRawBadgeClasses} from "../../api";
+    import I18n from "i18n-js";
+    import {fetchRawCatalogBadgeClasses} from "../../api";
 
-    let loaded;
+    let loaded = false;
     let view = "cards";
 
     onMount(() => {
-        fetchRawBadgeClasses().then(res => {
+        const alreadyLoaded = $badgeClasses.length > 0;
+        if (alreadyLoaded) {
+            loaded = true;
+            return;
+        }
+        fetchRawCatalogBadgeClasses().then(res => {
             translatePropertiesRawQueriesBadgeClass(res);
-            res.forEach(badgeClass => {
-                badgeClass.mayAward = badgeClass.bc_staff || badgeClass.iss_staff || badgeClass.fac_staff || badgeClass.ins_staff;
-                badgeClass.tags = badgeClass.tags ? badgeClass.tags.split(",") : [];
-            });
+            debugger;
             $badgeClasses = res;
             $sortTarget = sortTargetOptions()[0];
             loaded = true;
@@ -33,6 +36,10 @@
 <style lang="scss">
     .page-container {
         display: flex;
+        @media (max-width: 820px) {
+            flex-direction: column;
+        }
+
     }
 
     .content {
@@ -60,13 +67,13 @@
     }
 
     @media (max-width: 1120px) {
-        div.badges {
+        div.badges.cards {
             grid-template-columns: 48% 48%;
         }
     }
 
     @media (max-width: 820px) {
-        div.badges {
+        div.badges.cards {
             grid-template-columns: 97%;
         }
     }
@@ -76,19 +83,16 @@
 
 <div class="page-container">
     {#if loaded}
-        <SideBarBadges/>
-
+        <SideBarCatelog/>
         <div class="content">
-            <BadgesHeader/>
-
-            <BadgeClassesToolBar bind:sorting={$sortTarget} bind:view={view}/>
+            <CatalogToolBar bind:sorting={$sortTarget} bind:view={view}/>
 
             <div class={`badges ${view === "list" ? "list" : "cards"}`}>
                 {#if view === "list"}
-                    <BadgeListView badges={$tree.paginatedBadges} isBadgesClass={true}/>
+                    <BadgeListView badges={$tree.paginatedBadges} isBadgesClass={true} isPublic={true}/>
                 {:else}
                     {#each $tree.paginatedBadges as badge}
-                        <BadgeCard withPendingEnrollments={true} badgeClass={badge} withHeaderData={false}/>
+                        <BadgeCard isPublic={true} badgeClass={badge} withHeaderData={false}/>
                     {/each}
                 {/if}
             </div>
@@ -98,7 +102,7 @@
                         pageCount={catalogPageCount}/>
         </div>
     {:else}
-        <Spinner/>
+        <Spinner message={I18n.t("catalog.busy")}/>
     {/if}
 
 </div>

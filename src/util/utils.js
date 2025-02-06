@@ -1,5 +1,7 @@
 import I18n from "i18n-js";
 import {config} from "../util/config";
+import {badgeClassFilterTypes} from "./catalogFilters";
+import {badgeClassTypes} from "./badgeClassTypes";
 
 const serverMediaUrl = `${config.serverUrl}/media`;
 
@@ -122,6 +124,19 @@ export const translatePropertiesRawQueriesBadgeClass = badgeClasses => {
     const institutions = [];
 
     badgeClasses.forEach(badgeClass => {
+        badgeClass.types = [];
+        if (badgeClass.archived) {
+            badgeClass.types.push(badgeClassFilterTypes.ARCHIVED);
+        } else if (badgeClass.isPrivate) {
+            badgeClass.types.push(badgeClassFilterTypes.DRAFT);
+        } else if (badgeClass.isMicroCredentials) {
+            badgeClass.types.push(badgeClassFilterTypes.MICRO_CREDENTIALS);
+        } else if (badgeClass.typeBadgeClass.toLowerCase() === badgeClassTypes.REGULAR) {
+            badgeClass.types.push(badgeClassFilterTypes.REGULAR);
+        } else {
+            badgeClass.types.push(badgeClassFilterTypes.EXTRA_CURRICULAR);
+        }
+
         if (badgeClass.image) {
             badgeClass.image = `${serverMediaUrl}/${badgeClass.image}`;
         }
@@ -185,7 +200,11 @@ export const translatePropertiesRawQueriesBadgeClass = badgeClasses => {
             }
         }
 
-    })
+        if (badgeClass.issuer?.faculty?.institution?.institutionType === "HBO_MBO") {
+            badgeClass.issuer.faculty.institution.institutionType = badgeClass.issuer.faculty.facultyType || educationalLevels.NONE;
+        }
+        }
+    )
 }
 
 

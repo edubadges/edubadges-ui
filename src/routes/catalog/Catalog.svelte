@@ -8,7 +8,6 @@
     import BadgeListView from "../../components/shared/BadgeListView.svelte";
     import SideBarCatelog from "../../components/catalog/SideBarCatelog.svelte";
     import CatalogToolBar from "../../components/catalog/CatalogToolBar.svelte";
-    import {assignFilterTypes} from "../../util/catalogFilters";
     import {translateProperties} from "../../util/utils";
     import Pagination from "../../components/Pagination.svelte";
     import {catalogPageCount} from "../../util/pagination";
@@ -91,7 +90,6 @@
                                 badgeClass.studyLoad = extensionValue(badgeClass.extensions, studyLoad);
                                 badgeClass.ects = extensionValue(badgeClass.extensions, ects);
                                 badgeClass.eqf = extensionValue(badgeClass.extensions, eqf);
-                                assignFilterTypes(badgeClass);
                                 acc.push(badgeClass);
                             })
                         })

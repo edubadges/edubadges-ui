@@ -33,7 +33,7 @@
     import PublicIssuerPage from "./components/shared/PublicIssuerPage.svelte";
     import PublicInstitutionPage from "./components/shared/PublicInstitutionPage.svelte";
     import VersionInfo from "./routes/VersionInfo.svelte";
-    import Catalog from "./routes/catalog/Catalog.svelte";
+    import CatalogNew from "./routes/catalog/CatalogNew.svelte";
     import DirectAward from "./routes/students/DirectAward.svelte";
     import Insights from "./routes/teachers/Insights.svelte";
     import CollectionForm from "./components/students/CollectionForm.svelte";
@@ -204,7 +204,7 @@
                 <Route path="/" component={homepage[visitorRole]}/>
                 <Route path="/login" component={Login}/>
                 <Route path="/auth/login/*" component={ProcessToken}/>
-                <Route path="/catalog" component={Catalog}/>
+                <Route path="/catalog" component={CatalogNew}/>
                 <Route path="/signup" component={AcceptTerms}/>
                 <Route path="/validate" component={ValidateName}/>
                 <Route path="/public/:entityId/" let:params>

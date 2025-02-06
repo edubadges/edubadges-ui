@@ -859,6 +859,11 @@ export function fetchRawBadgeClasses() {
     return validFetchNoErrorDialog(path, {}, "GET");
 }
 
+export function fetchRawCatalogBadgeClasses() {
+    const path = `${serverUrl}/queries/catalog/badge-classes`;
+    return validFetchNoErrorDialog(path, {}, "GET");
+}
+
 //BadgeInstanceCollections
 export function createBadgeInstanceCollection(badgeInstanceCollection) {
     const path = `${serverUrl}/issuer/collections/create`;
