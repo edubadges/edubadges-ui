@@ -1,6 +1,6 @@
 import I18n from "i18n-js";
 import {config} from "../util/config";
-import {badgeClassFilterTypes} from "./catalogFilters";
+import {badgeClassFilterTypes, educationalLevels} from "./catalogFilters";
 import {badgeClassTypes} from "./badgeClassTypes";
 
 const serverMediaUrl = `${config.serverUrl}/media`;
@@ -124,85 +124,90 @@ export const translatePropertiesRawQueriesBadgeClass = badgeClasses => {
     const institutions = [];
 
     badgeClasses.forEach(badgeClass => {
-        badgeClass.types = [];
-        if (badgeClass.archived) {
-            badgeClass.types.push(badgeClassFilterTypes.ARCHIVED);
-        } else if (badgeClass.isPrivate) {
-            badgeClass.types.push(badgeClassFilterTypes.DRAFT);
-        } else if (badgeClass.isMicroCredentials) {
-            badgeClass.types.push(badgeClassFilterTypes.MICRO_CREDENTIALS);
-        } else if (badgeClass.typeBadgeClass.toLowerCase() === badgeClassTypes.REGULAR) {
-            badgeClass.types.push(badgeClassFilterTypes.REGULAR);
-        } else {
-            badgeClass.types.push(badgeClassFilterTypes.EXTRA_CURRICULAR);
-        }
-
-        if (badgeClass.image) {
-            badgeClass.image = `${serverMediaUrl}/${badgeClass.image}`;
-        }
-        const issuer = issuers.find(iss => iss.entityId === badgeClass.i_entity_id);
-        if (issuer) {
-            ++issuer.count;
-            badgeClass.issuer = issuer;
-        } else {
-            badgeClass.issuer = issuers.find(issuer => issuer.entityId === badgeClass.i_entity_id) || {
-                name: translateProperty(badgeClass, "i_", "name", isEnglish),
-                description: translateProperty(badgeClass, "i_", "description", isEnglish),
-                url: translateProperty(badgeClass, "i_", "url", isEnglish),
-                image: translateProperty(badgeClass, "i_", "image", isEnglish),
-                entityId: badgeClass.i_entity_id,
-                count: 0
-            }
-            if (badgeClass.issuer.image) {
-                badgeClass.issuer.image = `${serverMediaUrl}/${badgeClass.issuer.image}`;
-            }
-            issuers.push(badgeClass.issuer)
-        }
-        const faculty = faculties.find(fac => fac.entityId === badgeClass.f_entity_id);
-        if (faculty) {
-            ++faculty.count;
-            badgeClass.issuer.faculty = faculty;
-        } else {
-            badgeClass.issuer.faculty = {
-                name: translateProperty(badgeClass, "f_", "name", isEnglish),
-                description: translateProperty(badgeClass, "f_", "description", isEnglish),
-                image: translateProperty(badgeClass, "f_", "image", isEnglish),
-                entityId: badgeClass.f_entity_id,
-                count: 0
-            }
-            if (badgeClass.issuer.faculty.image) {
-                badgeClass.issuer.faculty.image = `${serverMediaUrl}/${badgeClass.issuer.faculty.image}`;
-            }
-            faculties.push(badgeClass.issuer.faculty);
-        }
-        const institution = institutions.find(ins => ins.entityId === badgeClass.ins_entity_id);
-        if (institution) {
-            ++institution.count;
-            badgeClass.issuer.faculty.institution = institution;
-        } else {
-            badgeClass.issuer.faculty.institution = {
-                name: translateProperty(badgeClass, "ins_", "name", isEnglish),
-                description: translateProperty(badgeClass, "ins_", "description", isEnglish),
-                image: translateProperty(badgeClass, "ins_", "image", isEnglish),
-                entityId: badgeClass.ins_entity_id,
-                count: 0
-            }
-            if (badgeClass.issuer.faculty.institution.image) {
-                badgeClass.issuer.faculty.institution.image = `${serverMediaUrl}/${badgeClass.issuer.faculty.institution.image}`;
-            }
-            institutions.push(badgeClass.issuer.faculty.institution);
-        }
-        if (!badgeClass.issuer.image) {
-            if (badgeClass.issuer.faculty.image) {
-                badgeClass.issuer.image = badgeClass.issuer.faculty.image;
+            badgeClass.types = [];
+            if (badgeClass.archived) {
+                badgeClass.types.push(badgeClassFilterTypes.ARCHIVED);
+            } else if (badgeClass.isPrivate) {
+                badgeClass.types.push(badgeClassFilterTypes.DRAFT);
+            } else if (badgeClass.isMicroCredentials) {
+                badgeClass.types.push(badgeClassFilterTypes.MICRO_CREDENTIALS);
+            } else if (badgeClass.typeBadgeClass.toLowerCase() === badgeClassTypes.REGULAR) {
+                badgeClass.types.push(badgeClassFilterTypes.REGULAR);
             } else {
-                badgeClass.issuer.image = badgeClass.issuer.faculty.institution.image;
+                badgeClass.types.push(badgeClassFilterTypes.EXTRA_CURRICULAR);
             }
-        }
 
-        if (badgeClass.issuer?.faculty?.institution?.institutionType === "HBO_MBO") {
-            badgeClass.issuer.faculty.institution.institutionType = badgeClass.issuer.faculty.facultyType || educationalLevels.NONE;
-        }
+            if (badgeClass.image) {
+                badgeClass.image = `${serverMediaUrl}/${badgeClass.image}`;
+            }
+            const issuer = issuers.find(iss => iss.entityId === badgeClass.i_entity_id);
+            if (issuer) {
+                ++issuer.count;
+                badgeClass.issuer = issuer;
+            } else {
+                badgeClass.issuer = issuers.find(issuer => issuer.entityId === badgeClass.i_entity_id) || {
+                    name: translateProperty(badgeClass, "i_", "name", isEnglish),
+                    description: translateProperty(badgeClass, "i_", "description", isEnglish),
+                    url: translateProperty(badgeClass, "i_", "url", isEnglish),
+                    image: translateProperty(badgeClass, "i_", "image", isEnglish),
+                    entityId: badgeClass.i_entity_id,
+                    count: 0
+                }
+                if (badgeClass.issuer.image) {
+                    badgeClass.issuer.image = `${serverMediaUrl}/${badgeClass.issuer.image}`;
+                }
+                issuers.push(badgeClass.issuer)
+            }
+            const faculty = faculties.find(fac => fac.entityId === badgeClass.f_entity_id);
+            if (faculty) {
+                ++faculty.count;
+                badgeClass.issuer.faculty = faculty;
+            } else {
+                badgeClass.issuer.faculty = {
+                    name: translateProperty(badgeClass, "f_", "name", isEnglish),
+                    description: translateProperty(badgeClass, "f_", "description", isEnglish),
+                    image: translateProperty(badgeClass, "f_", "image", isEnglish),
+                    entityId: badgeClass.f_entity_id,
+                    onBehalfOf: badgeClass.onBehalfOf,
+                    facultyType: badgeClass.facultyType,
+                    count: 0
+                }
+                if (badgeClass.issuer.faculty.image) {
+                    badgeClass.issuer.faculty.image = `${serverMediaUrl}/${badgeClass.issuer.faculty.image}`;
+                }
+                faculties.push(badgeClass.issuer.faculty);
+            }
+            const institution = institutions.find(ins => ins.entityId === badgeClass.ins_entity_id);
+            if (institution) {
+                ++institution.count;
+                badgeClass.issuer.faculty.institution = institution;
+            } else {
+                badgeClass.issuer.faculty.institution = {
+                    name: translateProperty(badgeClass, "ins_", "name", isEnglish),
+                    description: translateProperty(badgeClass, "ins_", "description", isEnglish),
+                    image: translateProperty(badgeClass, "ins_", "image", isEnglish),
+                    entityId: badgeClass.ins_entity_id,
+                    institutionType: badgeClass.institutionType,
+                    count: 0
+                }
+                if (badgeClass.issuer.faculty.institution.image) {
+                    badgeClass.issuer.faculty.institution.image = `${serverMediaUrl}/${badgeClass.issuer.faculty.institution.image}`;
+                }
+                institutions.push(badgeClass.issuer.faculty.institution);
+            }
+            if (!badgeClass.issuer.image) {
+                if (badgeClass.issuer.faculty.image) {
+                    badgeClass.issuer.image = badgeClass.issuer.faculty.image;
+                } else {
+                    badgeClass.issuer.image = badgeClass.issuer.faculty.institution.image;
+                }
+            }
+
+            if (badgeClass.issuer?.faculty?.institution?.institutionType === "HBO/MBO") {
+                badgeClass.institutionType = badgeClass.issuer.faculty.facultyType || educationalLevels.NONE;
+            } else {
+                badgeClass.institutionType = badgeClass.issuer?.faculty?.institution?.institutionType;
+            }
         }
     )
 }

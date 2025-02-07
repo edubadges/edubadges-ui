@@ -31,7 +31,7 @@ export const tree = derived(
          typeBadgeClassSelected, sortTarget]) => {
         const filteredBadgeClasses = filterBySearch(badgeClasses, search)
             .filter(badge => {
-                return !educationalLevelSelected.length || educationalLevelSelected.includes(badge.issuer.faculty.institution.institutionType);
+                return !educationalLevelSelected.length || educationalLevelSelected.includes(badge.institutionType);
             })
             .filter(badge => {
                 return !institutionSelected.length || institutionSelected.includes(badge.issuer.faculty.institution.entityId);
@@ -49,7 +49,7 @@ export const tree = derived(
                 return !typeBadgeClassSelected.length || typeBadgeClassSelected.find(typeBadge => badge.types.includes(typeBadge))
             });
         const educationLevels = filteredBadgeClasses.reduce((acc, badge) => {
-                const item = acc.find(v => v.value === badge.issuer.faculty.institution.institutionType);
+                const item = acc.find(v => v.value === badge.institutionType);
                 if (item) {
                     ++item.count;
                 }

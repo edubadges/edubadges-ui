@@ -24,7 +24,6 @@
         }
         fetchRawCatalogBadgeClasses().then(res => {
             translatePropertiesRawQueriesBadgeClass(res);
-            debugger;
             $badgeClasses = res;
             $sortTarget = sortTargetOptions()[0];
             loaded = true;
