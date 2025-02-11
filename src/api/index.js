@@ -47,7 +47,6 @@ function validFetch(path, options = {}, method = "GET", useToken = true, showErr
             "x-requested-with": "client",
         },
     };
-
     if (useToken) {
         const token = get(authToken);
         if (!token) {
@@ -861,7 +860,7 @@ export function fetchRawBadgeClasses() {
 
 export function fetchRawCatalogBadgeClasses() {
     const path = `${serverUrl}/queries/catalog/badge-classes`;
-    return validFetchNoErrorDialog(path, {}, "GET");
+    return validFetchNoErrorDialog(path, {}, "GET", false);
 }
 
 //BadgeInstanceCollections
