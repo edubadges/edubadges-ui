@@ -3,7 +3,8 @@ import {isEmpty} from "./utils";
 
 const urlRegExp = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;
 
-const emailRegExp = /^.+@.+\..+$/;
+//const emailRegExp = /^.+@.+\..+$/;
+const emailRegExp = /^((([!#$%&'*+\-/=?^_`{|}~\w])|([!#$%&'*+\-/=?^_`{|}~\w][!#$%&'*+\-/=?^_`{|}~\.\w]{0,}[!#$%&'*+\-/=?^_`{|}~\w]))[@]\w+([-.]\w+)*\.\w+([-.]\w+)*)$/;
 
 export const fallBackValue = val => {
     return val || I18n.t("models.badgeclass.notSet");
