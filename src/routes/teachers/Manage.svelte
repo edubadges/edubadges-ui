@@ -5,13 +5,13 @@
         BadgeclassNew,
         FacultyEdit,
         FacultyNew,
-        Institution,
         IssuerEdit,
         IssuerNew,
         ManageBadgeclass,
         ManageFaculty,
         ManageIssuer
     } from "../../components/teachers";
+    import ManageInstitutionNew from "../../components/teachers/ManageInstitutionNew.svelte";
     import InstitutionEditV2 from "../../components/teachers/InstitutionEditV2.svelte";
     import InstitutionEditV1 from "../../components/teachers/InstitutionEditV1.svelte";
 
@@ -32,7 +32,7 @@
     <Router>
         <Route path="/institution/edit" component={InstitutionEditV2}/>
         <Route path="/institution/edit-old" component={InstitutionEditV1}/>
-        <Route path="/institution/*subEntity" component={Institution}/>
+        <Route path="/institution/*subEntity" component={ManageInstitutionNew}/>
 
         <Route path="/faculty/new" component={FacultyNew}/>
         <Route path="/faculty/:entityId/edit" component={FacultyEdit}/>

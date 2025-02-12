@@ -92,7 +92,7 @@ export const translatePropertiesRawQueriesDirectAward = obj => {
     }
     const isEnglish = I18n.locale === "en";
     ["name", "description", "image", "url"].forEach(attr => {
-        ["i_", "f_", "ins_"].forEach(prefix => {
+        ["", "i_", "f_", "ins_"].forEach(prefix => {
             if (obj[`${prefix}${attr}_english`] || obj[`${prefix}${attr}_dutch`]) {
                 obj[prefix + attr] = translateProperty(obj, prefix, attr, isEnglish)
             }
