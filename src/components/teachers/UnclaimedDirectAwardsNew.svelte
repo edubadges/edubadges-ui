@@ -294,7 +294,7 @@
             {/each}
             {#if $tree.directAwards.length === 0}
                 <tr>
-                    <td colspan="6">{I18n.t("models.directAwards.zeroState")}</td>
+                    <td colspan="6">{I18n.t(`models.directAwards.zeroState${allUnclaimed ? "" : "Deleted"}`)}</td>
                 </tr>
             {/if}
         </Table>

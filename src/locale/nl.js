@@ -1068,7 +1068,9 @@ I18n.translations.nl = {
             resend: "Opnieuw versturen",
             delete: "Awards verwijderen",
             zeroState:
-                "Er zijn geen directe awards die nog moeten worden geclaimed voor badge classes die jij mag toekennen",
+                "Er zijn geen direct awards die nog moeten worden geclaimed voor badge classes die jij mag toekennen",
+            zeroStateDeleted:
+                "Er zijn geen verwjderde direct awards voor badge classes die jij mag toekennen",
             recipient: "Ontvanger",
             eppn: "EPPN",
             status: "States",

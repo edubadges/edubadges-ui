@@ -1057,6 +1057,8 @@ I18n.translations.en = {
             delete: "Delete awards",
             zeroState:
                 "There are no unclaimed direct awards for badge classes you are allowed to award",
+            zeroStateDeleted:
+                "There are no deleted direct awards for badge classes you are allowed to award",
             recipient: "Recipient",
             eppn: "EPPN",
             status: "Status",
