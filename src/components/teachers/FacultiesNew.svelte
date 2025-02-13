@@ -11,11 +11,13 @@
     import {onMount} from "svelte";
     import {fetchRawFaculties, fetchRawIssuers} from "../../api";
     import {translatePropertiesRawQueriesDirectAward} from "../../util/utils";
+    import Spinner from "../Spinner.svelte";
 
     export let institutionName;
 
     let faculties = [];
     let mayCreate;
+    let loaded = false;
 
     onMount(() => {
         fetchRawFaculties().then(res => {
@@ -24,6 +26,7 @@
             });
             mayCreate = res.some(faculty => faculty.may_create);
             faculties = res;
+            loaded = true;
         });
     });
 
@@ -128,53 +131,57 @@
 
     }
 </style>
+{#if !loaded}
+    <Spinner/>
+{:else}
 
-<Table
-        {...table}
-        bind:search={facultySearch}
-        bind:sort={facultySort}
-        isEmpty={faculties.length === 0}
-        filteredCount={sortedFilteredFaculties.length}
-        page={minimalPage}
-        onPageChange={nbr => page = nbr}
+    <Table
+            {...table}
+            bind:search={facultySearch}
+            bind:sort={facultySort}
+            isEmpty={faculties.length === 0}
+            filteredCount={sortedFilteredFaculties.length}
+            page={minimalPage}
+            onPageChange={nbr => page = nbr}
 
-        {mayCreate}>
-    {#each sortedFilteredFaculties.slice((minimalPage - 1) * pageCount, minimalPage * pageCount) as faculty (faculty.entityId)}
-        <tr
-                class="click"
-                on:click={() => navigate(`/manage/faculty/${faculty.entityId}`)}>
-            <td>
-                {#if faculty.image}
-                    <div class="img-container">
-                        <div class="img-icon">
-                            <img src={faculty.image} alt=""/>
+            {mayCreate}>
+        {#each sortedFilteredFaculties.slice((minimalPage - 1) * pageCount, minimalPage * pageCount) as faculty (faculty.entityId)}
+            <tr
+                    class="click"
+                    on:click={() => navigate(`/manage/faculty/${faculty.entityId}`)}>
+                <td>
+                    {#if faculty.image}
+                        <div class="img-container">
+                            <div class="img-icon">
+                                <img src={faculty.image} alt=""/>
+                            </div>
                         </div>
-                    </div>
-                {:else}
-                    <div class="img-container">
-                        <div class="img-icon">
+                    {:else}
+                        <div class="img-container">
+                            <div class="img-icon">
                             <span class="icon">
                                 {@html facultyIcon}
                             </span>
+                            </div>
                         </div>
+                    {/if}
+                </td>
+                <td>{faculty.name}</td>
+                <td class="center">{faculty.issuerCount === 0 ? "-" : faculty.issuerCount}</td>
+                <td class="center">{faculty.pendingEnrollmentCount === 0 ? "-" : faculty.pendingEnrollmentCount}</td>
+                <td class="center">
+                    <div class="checkbox-container">
+                        <CheckBox value={faculty.onBehalfOf} disabled={true}/>
                     </div>
-                {/if}
-            </td>
-            <td>{faculty.name}</td>
-            <td class="center">{faculty.issuerCount === 0 ? "-" : faculty.issuerCount}</td>
-            <td class="center">{faculty.pendingEnrollmentCount === 0 ? "-" : faculty.pendingEnrollmentCount}</td>
-            <td class="center">
-                <div class="checkbox-container">
-                    <CheckBox value={faculty.onBehalfOf} disabled={true}/>
-                </div>
-            </td>
-            <td></td>
-        </tr>
-    {/each}
-    {#if faculties.length === 0}
-        <tr>
-            <td colspan="3">{I18n.t("zeroState.faculties", {name: institutionName})}</td>
-        </tr>
-    {/if}
+                </td>
+                <td></td>
+            </tr>
+        {/each}
+        {#if faculties.length === 0}
+            <tr>
+                <td colspan="3">{I18n.t("zeroState.faculties", {name: institutionName})}</td>
+            </tr>
+        {/if}
 
-</Table>
+    </Table>
+{/if}

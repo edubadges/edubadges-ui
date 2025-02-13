@@ -9,21 +9,24 @@
     import {onMount} from "svelte";
     import {fetchRawIssuers} from "../../api";
     import {translatePropertiesRawQueriesDirectAward} from "../../util/utils";
+    import Spinner from "../Spinner.svelte";
 
     export let institutionName;
 
     let mayCreate = false;
     let issuers = [];
+    let loaded = false;
 
-     onMount(() => {
-         fetchRawIssuers().then(res => {
-             res.forEach(issuer => {
-                 translatePropertiesRawQueriesDirectAward(issuer)
-             });
-             mayCreate = res.some(issuer => issuer.may_create);
-             issuers = res;
-         });
-     });
+    onMount(() => {
+        fetchRawIssuers().then(res => {
+            res.forEach(issuer => {
+                translatePropertiesRawQueriesDirectAward(issuer)
+            });
+            mayCreate = res.some(issuer => issuer.may_create);
+            issuers = res;
+            loaded = true;
+        });
+    });
 
     const tableHeaders = [
         {
@@ -130,54 +133,57 @@
         text-align: center;
     }
 </style>
-
-<Table
-        {...table}
-        bind:search={issuerSearch}
-        bind:sort={issuerSort}
-        isEmpty={issuers.length === 0}
-        filteredCount={sortedFilteredIssuers.length}
-        page={minimalPage}
-        onPageChange={nbr => page = nbr}
-        pathParameters={[]}
-        {mayCreate}>
-    {#each sortedFilteredIssuers.slice((minimalPage - 1) * pageCount, minimalPage * pageCount) as issuer (issuer.entityId)}
-        <tr
-                class="click"
-                on:click={() => navigate(`/manage/issuer/${issuer.entityId}`)}>
-            <td>
-                {#if issuer.image}
-                    <div class="img-container">
-                        <div class="img-icon">
-                            <img src={issuer.image} alt=""/>
+{#if !loaded}
+    <Spinner/>
+{:else}
+    <Table
+            {...table}
+            bind:search={issuerSearch}
+            bind:sort={issuerSort}
+            isEmpty={issuers.length === 0}
+            filteredCount={sortedFilteredIssuers.length}
+            page={minimalPage}
+            onPageChange={nbr => page = nbr}
+            pathParameters={[]}
+            {mayCreate}>
+        {#each sortedFilteredIssuers.slice((minimalPage - 1) * pageCount, minimalPage * pageCount) as issuer (issuer.entityId)}
+            <tr
+                    class="click"
+                    on:click={() => navigate(`/manage/issuer/${issuer.entityId}`)}>
+                <td>
+                    {#if issuer.image}
+                        <div class="img-container">
+                            <div class="img-icon">
+                                <img src={issuer.image} alt=""/>
+                            </div>
                         </div>
-                    </div>
-                {:else}
-                    <div class="img-container">
-                        <div class="img-icon">
+                    {:else}
+                        <div class="img-container">
+                            <div class="img-icon">
                             <span class="icon">
                                 {@html issuerIcon}
                             </span>
+                            </div>
                         </div>
-                    </div>
-                {/if}
-            </td>
-            <td>
-                {issuer.name}
-                <br/>
-                <span class="sub-text">({issuer.f_name})</span>
-            </td>
-            <td class="center">{issuer.badgeclassCount === 0 ? "-" : issuer.badgeclassCount}</td>
-            <td class="center">{issuer.assertionCount === 0 ? "-" : issuer.assertionCount}</td>
-            <td class="center">{issuer.pendingEnrollmentCount === 0 ? "-" : issuer.pendingEnrollmentCount}</td>
-            <td>{I18n.t(`placeholders.badgeClass.status.${issuer.archived ? "archived" : "active"}`) }</td>
-            <td></td>
-        </tr>
-    {/each}
-    {#if issuers.length === 0}
-        <tr>
-            <td colspan="4">{I18n.t("zeroState.issuers", {name: institutionName})}</td>
-        </tr>
-    {/if}
+                    {/if}
+                </td>
+                <td>
+                    {issuer.name}
+                    <br/>
+                    <span class="sub-text">({issuer.f_name})</span>
+                </td>
+                <td class="center">{issuer.badgeclassCount === 0 ? "-" : issuer.badgeclassCount}</td>
+                <td class="center">{issuer.assertionCount === 0 ? "-" : issuer.assertionCount}</td>
+                <td class="center">{issuer.pendingEnrollmentCount === 0 ? "-" : issuer.pendingEnrollmentCount}</td>
+                <td>{I18n.t(`placeholders.badgeClass.status.${issuer.archived ? "archived" : "active"}`) }</td>
+                <td></td>
+            </tr>
+        {/each}
+        {#if issuers.length === 0}
+            <tr>
+                <td colspan="4">{I18n.t("zeroState.issuers", {name: institutionName})}</td>
+            </tr>
+        {/if}
 
-</Table>
+    </Table>
+{/if}
