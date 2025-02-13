@@ -1,16 +1,19 @@
 <script>
     import {onMount} from "svelte";
-    import {BadgeClassesToolBar, BadgesHeader, SideBarBadges} from "../../components/teachers";
+    import {BadgeClassesToolBar, SideBarBadges} from "../../components/teachers";
     import {badgeClasses, page, sortTarget, tree} from "../../stores/filterBadgesNew";
     import BadgeCard from "../../components/shared/BadgeCard.svelte";
     import Spinner from "../../components/Spinner.svelte";
     import BadgeListView from "../../components/shared/BadgeListView.svelte";
     import {translatePropertiesRawQueriesBadgeClass} from "../../util/utils";
-    import {badgeClassFilterTypes, sortTargetOptions} from "../../util/catalogFilters";
+    import {sortTargetOptions} from "../../util/catalogFilters";
     import Pagination from "../../components/Pagination.svelte";
     import {catalogPageCount} from "../../util/pagination";
-    import {badgeClassTypes} from "../../util/badgeClassTypes";
     import {fetchRawBadgeClasses} from "../../api";
+    import BadgesHeaderNew from "../../components/teachers/BadgesHeaderNew.svelte";
+    import {
+        currentInstitution,
+    } from "../../stores/user";
 
     let loaded;
     let view = "cards";
@@ -79,7 +82,7 @@
         <SideBarBadges/>
 
         <div class="content">
-            <BadgesHeader/>
+            <BadgesHeaderNew institution={$currentInstitution}/>
 
             <BadgeClassesToolBar bind:sorting={$sortTarget} bind:view={view}/>
 

@@ -4,7 +4,7 @@
     import {navigate, Route, Router} from "svelte-routing";
     import {Login, NotFound, ProcessToken, Student} from "./routes";
     import AcceptTerms from "./routes/AcceptTerms.svelte";
-    import {Impersonate, Manage, UserPermissions, Users} from "./routes/teachers";
+    import {Impersonate, Manage, UserPermissions} from "./routes/teachers";
     import BadgesNew from "./routes/teachers/BadgesNew.svelte";
     import {Footer, Header, Spinner, SubscribeToPath} from "./components";
     import {
@@ -20,10 +20,11 @@
         userLoggedIn,
         userName,
         userRole,
+        currentInstitution,
         validatedUserName
     } from "./stores/user";
     import {role} from "./util/role";
-    import {getSocialAccounts} from "./api";
+    import {fetchRawCurrentInstitution, getSocialAccounts} from "./api";
     import PublicBadgeClassPage from "./components/shared/PublicBadgeClassPage.svelte"
     import EnrollmentDetails from "./routes/students/EnrollmentDetails.svelte";
     import {Flash} from "./components/forms/";
@@ -46,6 +47,8 @@
     import ManagementQueries from "./routes/teachers/ManagementQueries.svelte";
     import PublicFacultyPage from "./components/shared/PublicFacultyPage.svelte";
     import ValidateName from "./routes/ValidateName.svelte";
+    import UsersNew from "./routes/teachers/UsersNew.svelte";
+    import {translateProperties, translatePropertiesRawQueries} from "./util/utils";
 
 
     const homepage = {
@@ -66,6 +69,12 @@
                     loaded = true;
                     $userLoggedIn = true;
                     $userName = constructUserName({user: {firstName: res[0].firstName, lastName: res[0].lastName}});
+                    if ($userRole === role.TEACHER) {
+                         fetchRawCurrentInstitution()
+                             .then(res => {
+                                 $currentInstitution = translatePropertiesRawQueries(res);
+                             })
+                    }
                 })
                 .catch(e => {
                     $redirectPath = path;
@@ -177,7 +186,7 @@
 
                 <!-- Teacher -->
                 {#if visitorRole === role.TEACHER}
-                    <Route path="/users" component={Users}/>
+                    <Route path="/users" component={UsersNew}/>
                     <Route path="/users/:userId/:entity" component={UserPermissions}/>
                     <Route path="/notifications" component={Notifications}/>
                     <Route path="/manage/*mainEntity" component={Manage}/>

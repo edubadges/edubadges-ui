@@ -10,7 +10,7 @@
     import CheckBox from "../CheckBox.svelte";
     import {onMount} from "svelte";
     import {fetchRawFaculties, fetchRawIssuers} from "../../api";
-    import {translatePropertiesRawQueriesDirectAward} from "../../util/utils";
+    import {translatePropertiesRawQueries} from "../../util/utils";
     import Spinner from "../Spinner.svelte";
 
     export let institutionName;
@@ -22,7 +22,7 @@
     onMount(() => {
         fetchRawFaculties().then(res => {
             res.forEach(faculty => {
-                translatePropertiesRawQueriesDirectAward(faculty)
+                translatePropertiesRawQueries(faculty)
             });
             mayCreate = res.some(faculty => faculty.may_create);
             faculties = res;

@@ -20,7 +20,7 @@
     import {onMount} from "svelte";
     import Spinner from "../Spinner.svelte";
     import {pageCount} from "../../util/pagination";
-    import {isEmpty, translatePropertiesRawQueriesDirectAward} from "../../util/utils";
+    import {isEmpty, translatePropertiesRawQueries} from "../../util/utils";
     import UnclaimedDirectAwardsSideBarNew from "./UnclaimedDirectAwardsSideBarNew.svelte";
 
     export let allUnclaimed = true;
@@ -47,7 +47,7 @@
         $badgeClassSelected = [];
         fetchRawDirectAwards(allUnclaimed ? "unclaimed" : "deleted").then(res => {
             res.forEach(obj => {
-                translatePropertiesRawQueriesDirectAward(obj);
+                translatePropertiesRawQueries(obj);
                 obj.created_at_millis = new Date(obj.created_at).getTime();
                 obj.resend_at_millis = new Date(obj.resend_at).getTime();
                 obj.delete_at_millis = new Date(obj.delete_at).getTime();

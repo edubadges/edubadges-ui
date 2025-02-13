@@ -1,14 +1,14 @@
 import {expirationValueToPeriod} from "../components/extensions/badges/expiration_period";
 import I18n from "i18n-js";
 
-export const formatAdminNames = (staffContainer) => {
-  const staff = staffContainer.staff || [];
-  let names = staff
-    .map((u) => u.user.firstName + " " + u.user.lastName)
+export const formatAdminNames = institution => {
+  const admins = institution.admins || [];
+  let names = admins
+    .map((u) => u.name)
     .slice(0, 1)
     .join(", ");
-  if (staff.length > 1) {
-    names += ` (+${staff.length - 1})`;
+  if (admins.length > 1) {
+    names += ` (+${admins.length - 1})`;
   }
   return names || "-";
 };

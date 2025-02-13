@@ -8,104 +8,18 @@
     import {sort, sortType} from "../../util/sortData";
     import {navigate} from "svelte-routing";
     import Spinner from "../../components/Spinner.svelte";
-    import {translateProperties} from "../../util/utils";
+    import {translateProperties, translatePropertiesRawQueries} from "../../util/utils";
     import {pageCount} from "../../util/pagination";
-
-    const query = `query {
-    currentInstitution {
-      nameDutch,
-      nameEnglish,
-      entityId,
-      staff {
-        user {
-          firstName,
-          lastName,
-          email,
-          entityId
-        }
-      },
-      faculties {
-        nameDutch,
-        nameEnglish,
-        entityId,
-        staff {
-          mayAdministrateUsers,
-          mayUpdate,
-          mayAward,
-          user {
-            firstName,
-            lastName,
-            email,
-            entityId
-          }
-        },
-        issuers {
-          entityId,
-          nameDutch,
-          nameEnglish,
-          staff {
-            mayAdministrateUsers,
-            mayUpdate,
-            mayAward,
-            user {
-              firstName,
-              lastName,
-              email,
-              entityId
-            },
-          },
-          badgeclasses {
-            entityId,
-            name,
-            staff {
-              user {
-                firstName,
-                lastName,
-                email,
-                entityId
-              },
-              mayAdministrateUsers,
-              mayUpdate,
-              mayAward
-            },
-          }
-        }
-      }
-    },
-    users {
-      firstName,
-      lastName,
-      email,
-      entityId,
-      institutionStaff {
-        mayAdministrateUsers
-      },
-      facultyStaffs {
-        entityId
-      },
-      issuerStaffs {
-        entityId
-      },
-      badgeclassStaffs {
-        entityId
-      },
-    }
-   }`;
+    import {fetchRawIssuers, fetchRawUsers} from "../../api";
 
     let loaded = false;
 
     onMount(() => {
-        queryData(query).then(res => {
-            const inst = res.currentInstitution;
+        fetchRawUsers().then(res => {
+            debugger;
+            res.forEach(user => {
+            });
 
-            translateProperties(inst);
-            inst.faculties.forEach(faculty => {
-                translateProperties(faculty);
-                faculty.issuers.forEach(issuer => translateProperties(issuer));
-            })
-
-            $institution = inst;
-            $users = res.users;
             loaded = true;
         });
     });

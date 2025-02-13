@@ -86,7 +86,7 @@ export const splitListSemantically = (arr, lastSeparator) => {
 }
 
 //See edubadges-server/apps/queries/api.py
-export const translatePropertiesRawQueriesDirectAward = obj => {
+export const translatePropertiesRawQueries = obj => {
     if (!obj) {
         return;
     }
