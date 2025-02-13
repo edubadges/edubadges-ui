@@ -863,6 +863,11 @@ export function fetchRawIssuers() {
     return validFetchNoErrorDialog(path, {}, "GET");
 }
 
+export function fetchRawFaculties() {
+    const path = `${serverUrl}/queries/faculties`;
+    return validFetchNoErrorDialog(path, {}, "GET");
+}
+
 export function fetchRawCatalogBadgeClasses() {
     const path = `${serverUrl}/queries/catalog/badge-classes`;
     return validFetchNoErrorDialog(path, {}, "GET", false);

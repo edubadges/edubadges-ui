@@ -12,21 +12,18 @@
 
     export let institutionName;
 
-    //TODO from the results get if the user may create new issuers
     let mayCreate = false;
     let issuers = [];
-    let facultyEntityId;
 
      onMount(() => {
          fetchRawIssuers().then(res => {
              res.forEach(issuer => {
                  translatePropertiesRawQueriesDirectAward(issuer)
-             })
+             });
+             mayCreate = res.some(issuer => issuer.may_create);
              issuers = res;
-             facultyEntityId = issuers.length > 0 ? issuers[0].f_entity_id : null;
          });
      });
-
 
     const tableHeaders = [
         {
@@ -142,7 +139,7 @@
         filteredCount={sortedFilteredIssuers.length}
         page={minimalPage}
         onPageChange={nbr => page = nbr}
-        pathParameters={facultyEntityId ? [facultyEntityId] : []}
+        pathParameters={[]}
         {mayCreate}>
     {#each sortedFilteredIssuers.slice((minimalPage - 1) * pageCount, minimalPage * pageCount) as issuer (issuer.entityId)}
         <tr
@@ -158,9 +155,9 @@
                 {:else}
                     <div class="img-container">
                         <div class="img-icon">
-              <span class="icon">
-                {@html issuerIcon}
-              </span>
+                            <span class="icon">
+                                {@html issuerIcon}
+                            </span>
                         </div>
                     </div>
                 {/if}

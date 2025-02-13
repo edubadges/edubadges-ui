@@ -1,30 +1,27 @@
 <script>
-    import {onMount} from "svelte";
-    import I18n from "i18n-js";
+  import {onMount} from "svelte";
+  import I18n from "i18n-js";
 
-    import {navigate, Route, Router} from "svelte-routing";
-    import {Breadcrumb, EntityHeader, Faculties, InviteUser, Issuers} from "../teachers";
-    import {badgeclassIcon, facultyIcon, issuerIcon, userManagementIcon, directAwardIcon} from "../../icons";
-    import {queryData} from "../../api/graphql";
-    import {headerEntityMultiLanguage, headerStaff} from "../../api/queries";
-    import {Spinner} from "../index";
-    import {InstitutionUserManagement} from "../teachers/";
-    import {entityType} from "../../util/entityTypes"
-    import {permissionsRole} from "../../util/rolesToPermissions";
-    import {translateProperties, translatePropertiesRawQueriesDirectAward} from "../../util/utils";
-    import RequestedBatches from "./RequestedBadges.svelte";
-    import UnclaimedDirectAwards from "./UnclaimedDirectAwards.svelte";
-    import UnclaimedDirectAwardsNew from "./UnclaimedDirectAwardsNew.svelte";
-    import {fetchRawIssuers} from "../../api";
-    import ManageIssuersNew from "./ManageIssuersNew.svelte";
+  import {navigate, Route, Router} from "svelte-routing";
+  import {Breadcrumb, EntityHeader, InviteUser} from "../teachers";
+  import {badgeclassIcon, directAwardIcon, facultyIcon, issuerIcon, userManagementIcon} from "../../icons";
+  import {queryData} from "../../api/graphql";
+  import {headerEntityMultiLanguage, headerStaff} from "../../api/queries";
+  import {Spinner} from "../index";
+  import {InstitutionUserManagement} from "../teachers/";
+  import {entityType} from "../../util/entityTypes"
+  import {permissionsRole} from "../../util/rolesToPermissions";
+  import {translateProperties} from "../../util/utils";
+  import RequestedBatches from "./RequestedBadges.svelte";
+  import UnclaimedDirectAwardsNew from "./UnclaimedDirectAwardsNew.svelte";
+  import ManageIssuersNew from "./ManageIssuersNew.svelte";
+  import FacultiesNew from "./FacultiesNew.svelte";
 
     let entityId;
     export let subEntity;
 
     let institution = {staff: []};
     let permissions;
-    let faculties = [];
-    let issuers = [];
     let loaded = false;
 
     let contentType;
@@ -141,10 +138,10 @@
 
   <Router>
     <Route path="/issuers">
-      <ManageIssuersNew issuers={[]} mayCreate={true} institutionName={institution.name}/>
+      <ManageIssuersNew institutionName={institution.name}/>
     </Route>
     <Route path="/groups">
-      <Faculties faculties={[]} mayCreate={true} institutionName={institution.name}/>
+      <FacultiesNew institutionName={institution.name}/>
     </Route>
     <Route path="/user-management/invite-new-user">
       <InviteUser
