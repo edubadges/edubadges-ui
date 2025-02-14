@@ -104,7 +104,10 @@ export const translatePropertiesRawQueries = obj => {
     return obj;
 }
 
-const translateProperty = (obj, prefix, attr, isEnglish) => {
+export const translateProperty = (obj, prefix, attr, isEnglish) => {
+    if (isEmpty(obj)) {
+        return null;
+    }
     if (obj[`${prefix}${attr}_english`] || obj[`${prefix}${attr}_dutch`]) {
         return isEnglish ? (obj[`${prefix}${attr}_english`] || obj[`${prefix}${attr}_dutch`])
             : (obj[`${prefix}${attr}_dutch`] || obj[`${prefix}${attr}_english`]);

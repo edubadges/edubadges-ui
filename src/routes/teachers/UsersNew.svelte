@@ -1,25 +1,32 @@
 <script>
     import {SideBarUsers, UsersHeader} from "../../components/teachers/";
-    import {institution, users, userSearch, userTree} from "../../stores/filterUsers";
+    import {users, userSearch, userTree} from "../../stores/filterUsersNew";
+    // import {users, userSearch, userTree} from "../../stores/filterUsers";
+    import {currentInstitution} from "../../stores/user";
     import {onMount} from "svelte";
-    import {queryData} from "../../api/graphql";
     import I18n from "i18n-js";
     import {Table} from "../../components/teachers";
     import {sort, sortType} from "../../util/sortData";
     import {navigate} from "svelte-routing";
     import Spinner from "../../components/Spinner.svelte";
-    import {translateProperties, translatePropertiesRawQueries} from "../../util/utils";
+    import {translatePropertiesRawQueries, translateProperty} from "../../util/utils";
     import {pageCount} from "../../util/pagination";
-    import {fetchRawIssuers, fetchRawUsers} from "../../api";
+    import {fetchRawUsers} from "../../api";
 
     let loaded = false;
 
     onMount(() => {
         fetchRawUsers().then(res => {
-            debugger;
+            const isEnglish = I18n.locale === "en";
             res.forEach(user => {
+                user.permissions.forEach(permission => {
+                    translatePropertiesRawQueries(permission.institution)
+                    translatePropertiesRawQueries(permission.faculty)
+                    translatePropertiesRawQueries(permission.issuer)
+                    translatePropertiesRawQueries(permission.badge_class)
+                });
             });
-
+            $users = res;
             loaded = true;
         });
     });
@@ -62,14 +69,14 @@
 </script>
 
 <style lang="scss">
-  .page-container {
-    display: flex;
-  }
+    .page-container {
+        display: flex;
+    }
 
-  .content {
-    flex: 1;
-    padding: 30px 20px;
-  }
+    .content {
+        flex: 1;
+        padding: 30px 20px;
+    }
 
 </style>
 
@@ -88,12 +95,12 @@
                     onPageChange={nbr => page = nbr}
                     isEmpty={users.length === 0}
                     mayCreate={false}>
-                {#each sortedFilteredUsers.slice((minimalPage - 1) * pageCount, minimalPage * pageCount) as user (user.entityId)}
+                {#each sortedFilteredUsers.slice((minimalPage - 1) * pageCount, minimalPage * pageCount) as user (user.entity_id)}
                     <tr
                             class="click"
-                            on:click={() => navigate(`/users/${user.entityId}/institution`)}>
+                            on:click={() => navigate(`/users/${user.entity_id}/institution`)}>
                         <td>
-                            {user.firstName} {user.lastName}
+                            {user.first_name} {user.last_name}
                             <br/>
                             <span class="sub-text">{user.email}</span>
                         </td>
@@ -102,7 +109,7 @@
                 {/each}
                 {#if users.length === 0}
                     <tr>
-                        <td colspan="2">{I18n.t("zeroState.users", {name: institution.name})}</td>
+                        <td colspan="2">{I18n.t("zeroState.users", {name: currentInstitution.name})}</td>
                     </tr>
                 {/if}
             </Table>

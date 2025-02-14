@@ -11,9 +11,7 @@
     import {catalogPageCount} from "../../util/pagination";
     import {fetchRawBadgeClasses} from "../../api";
     import BadgesHeaderNew from "../../components/teachers/BadgesHeaderNew.svelte";
-    import {
-        currentInstitution,
-    } from "../../stores/user";
+    import {currentInstitution} from "../../stores/user";
 
     let loaded;
     let view = "cards";
