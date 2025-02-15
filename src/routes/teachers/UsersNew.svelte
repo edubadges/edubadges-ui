@@ -18,14 +18,18 @@
     onMount(() => {
         fetchRawUsers().then(res => {
             const isEnglish = I18n.locale === "en";
+            const attributes = ["name"]
+            const prefixes = [""];
             res.forEach(user => {
                 user.permissions.forEach(permission => {
-                    translatePropertiesRawQueries(permission.institution)
-                    translatePropertiesRawQueries(permission.faculty)
-                    translatePropertiesRawQueries(permission.issuer)
-                    translatePropertiesRawQueries(permission.badge_class)
+                    translatePropertiesRawQueries(permission.institution, attributes, prefixes)
+                    translatePropertiesRawQueries(permission.faculty, attributes, prefixes)
+                    translatePropertiesRawQueries(permission.issuer, attributes, prefixes)
+                    translatePropertiesRawQueries(permission.badge_class, attributes, prefixes)
                 });
             });
+            //TODO all static logic, like all issuers, faculties and derivation of usser_role can be done here / one
+            //Only filter logic and updating of counts in the filterUsersNew.js
             $users = res;
             loaded = true;
         });
