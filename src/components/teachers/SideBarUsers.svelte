@@ -1,8 +1,11 @@
 <script>
     import I18n from "i18n-js";
     import {FilterBlock} from "../../components/teachers";
-    import {facultyIds, issuerIds, selectedRole, userTree} from "../../stores/filterUsers";
+    import {facultyIds, issuerIds, selectedRole, userTree} from "../../stores/filterUsersNew";
     import FilterBlockRoles from "./FilterBlockRoles.svelte";
+
+    export let objectIdentifier = "entity_id";
+
 </script>
 
 <style lang="scss">
@@ -33,6 +36,7 @@
         <FilterBlock
                 bind:value={$facultyIds}
                 collection={$userTree.faculties}
+                objectIdentifier={objectIdentifier}
                 title="faculties"/>
     </div>
 
@@ -40,6 +44,7 @@
         <FilterBlock
                 bind:value={$issuerIds}
                 collection={$userTree.issuers}
+                objectIdentifier={objectIdentifier}
                 title="issuers"/>
     </div>
 

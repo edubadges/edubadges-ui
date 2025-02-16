@@ -9,27 +9,69 @@
     import {sort, sortType} from "../../util/sortData";
     import {navigate} from "svelte-routing";
     import Spinner from "../../components/Spinner.svelte";
-    import {translatePropertiesRawQueries, translateProperty} from "../../util/utils";
+    import {isEmpty, translatePropertiesRawQueries, translateProperty} from "../../util/utils";
     import {pageCount} from "../../util/pagination";
     import {fetchRawUsers} from "../../api";
+    import {staffType} from "../../util/staffTypes";
 
     let loaded = false;
 
     onMount(() => {
         fetchRawUsers().then(res => {
-            const isEnglish = I18n.locale === "en";
             const attributes = ["name"]
             const prefixes = [""];
             res.forEach(user => {
+                translatePropertiesRawQueries(user, ["institution_name"], prefixes)
                 user.permissions.forEach(permission => {
                     translatePropertiesRawQueries(permission.institution, attributes, prefixes)
                     translatePropertiesRawQueries(permission.faculty, attributes, prefixes)
                     translatePropertiesRawQueries(permission.issuer, attributes, prefixes)
                     translatePropertiesRawQueries(permission.badge_class, attributes, prefixes)
                 });
+                if (isEmpty(user.permissions)) {
+                    user.role = staffType.VIEWER;
+                    user.unit_name = user.institution_name;
+                    return;
+                }
+                const permission = user.permissions.find(permission => permission.highest);
+                switch (permission.permission) {
+                    case "institution": {
+                        user.role = staffType.INSTITUTION_STAFF;
+                        user.unit_name = user.institution_name;
+                        break;
+                    }
+                    case "faculty": {
+                        user.unit_name = permission.faculty.name;
+                        if (permission.level === "awarder") {
+                            user.role = staffType.ISSUER_GROUP_AWARDER;
+                        } else {
+                            user.role = staffType.ISSUER_GROUP_ADMIN;
+                        }
+                        break;
+                    }
+                    case "issuer": {
+                        user.unit_name = permission.issuer.name;
+                        if (permission.level === "awarder") {
+                            user.role = staffType.ISSUER_AWARDER;
+                        } else {
+                            user.role = staffType.ISSUER_ADMIN;
+                        }
+                        break;
+                    }
+                    case "badge_class": {
+                        user.unit_name = permission.badge_class.name;
+                        if (permission.level === "awarder") {
+                            user.role = staffType.BADGE_CLASS_AWARDER;
+                        } else if (permission.level === "admin") {
+                            user.role = staffType.BADGE_CLASS_OWNER;
+                        } else {
+                            user.role = staffType.BADGE_CLASS_EDITOR;
+                        }
+                        break;
+                    }
+                }
+
             });
-            //TODO all static logic, like all issuers, faculties and derivation of usser_role can be done here / one
-            //Only filter logic and updating of counts in the filterUsersNew.js
             $users = res;
             loaded = true;
         });
@@ -38,7 +80,7 @@
     const tableHeaders = [
         {
             name: I18n.t("teacher.nameEmail"),
-            attribute: "firstName",
+            attribute: "first_name",
             reverse: false,
             sortType: sortType.ALPHA,
             width: "70%"
@@ -47,7 +89,7 @@
             name: I18n.t("teacher.roles.title"),
             attribute: "role",
             reverse: false,
-            sortType: sortType.ROLES,
+            sortType: sortType.ALPHA,
             width: "30%"
         }
     ];
@@ -86,7 +128,7 @@
 
 <div class="page-container">
     {#if loaded}
-        <SideBarUsers/>
+        <SideBarUsers objectIdentifier="entity_id"/>
 
         <div class="content">
             <UsersHeader/>
@@ -108,7 +150,11 @@
                             <br/>
                             <span class="sub-text">{user.email}</span>
                         </td>
-                        <td>{I18n.t(['editUsers', 'roles', user.role])}</td>
+                        <td>{
+                            I18n.t(['editUsers', 'roles', user.role])}
+                            <br/>
+                            <span class="sub-text">{user.unit_name}</span>
+                        </td>
                     </tr>
                 {/each}
                 {#if users.length === 0}

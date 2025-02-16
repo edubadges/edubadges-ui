@@ -1,6 +1,7 @@
 <script>
     import I18n from "i18n-js";
     import {currentInstitution} from "../../stores/user";
+
 </script>
 
 <style lang="scss">
@@ -10,5 +11,5 @@
 </style>
 
 <h2>
-    {I18n.t('editUsers.headerControl')} {currentInstitution.name}
+    {I18n.t('editUsers.headerControl')} {$currentInstitution.name}
 </h2>
