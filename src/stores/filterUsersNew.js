@@ -26,8 +26,11 @@ function findFacultiesByIssuerEntityId(allUsers, issuerEntityId) {
 }
 
 function findIssuersByFacultyEntityId(allUsers, facultyEntityId) {
-    const permission = allUsers.map(u => u.permissions).flat().find(permission => permission.faculty?.entity_id === facultyEntityId);
-    return permission?.issuer;
+    const permissions = allUsers
+        .map(u => u.permissions)
+        .flat()
+        .filter(permission => permission.faculty?.entity_id === facultyEntityId && permission.issuer)
+    return permissions.map(permission => permission.issuer.entity_id)
 }
 
 function sort(collection, count = false) {
@@ -68,8 +71,9 @@ export const userTree = derived(
         const newFacultyIds = [...facultyIds];
         const newIssuerIds = [...issuerIds];
         if (newFacultyIds.length > 0 && newIssuerIds.length === 0) {
-            const findIssuerByFaculty = findIssuersByFacultyEntityId(users, newFacultyIds[0]);
-            newIssuerIds.push(findIssuerByFaculty?.entity_id || "nope")}
+            const issuersByFaculty = findIssuersByFacultyEntityId(users, newFacultyIds[0]);
+            issuersByFaculty.forEach(entityId => newIssuerIds.push(entityId));
+        }
         if (newFacultyIds.length === 0 && newIssuerIds.length > 0) {
             const facultyByIssuer = findFacultiesByIssuerEntityId(users, newIssuerIds[0]);
             newFacultyIds.push(facultyByIssuer?.entity_id || "nope")
@@ -85,40 +89,48 @@ export const userTree = derived(
                 roles.find(el => el.role === staffType.VIEWER).count++
                 return true;
             }
-            let includeByFaculty = false;
-            let includeByIssuer = false;
+            let includeUser = false;
             user.permissions.forEach(permission => {
                 if (permission.permission === "institution") {
-                    includeByFaculty = true;
-                    includeByIssuer = true;
-                } else {
-                    const facultyEntityId = permission.faculty?.entity_id;
-                    if (newFacultyIds.length === 0 || newFacultyIds.includes(facultyEntityId)) {
-                        faculties[facultyEntityId] = faculties[facultyEntityId] || {...permission.faculty, count: 0};
-                        faculties[facultyEntityId].count++;
-                        includeByFaculty = true;
-                    }
-                    const issuerEntityId = permission.issuer?.entity_id;
-                    if (issuerEntityId && (newIssuerIds.length === 0 || newIssuerIds.includes(issuerEntityId))) {
-                        issuers[issuerEntityId] = issuers[issuerEntityId] || {...permission.issuer, count: 0};
-                        issuers[issuerEntityId].count++;
-                        includeByIssuer = true;
-                    }
+                    includeUser = true;
                 }
+                const facultyEntityId = permission.faculty?.entity_id;
+                if (facultyEntityId && (newFacultyIds.length === 0 || newFacultyIds.includes(facultyEntityId))) {
+                    faculties[facultyEntityId] = faculties[facultyEntityId] || {...permission.faculty, count: 0};
+                    faculties[facultyEntityId].count++;
+                    includeUser = true;
+                }
+                const issuerEntityId = permission.issuer?.entity_id;
+                    if (issuerEntityId && (newIssuerIds.length === 0 || newIssuerIds.includes(issuerEntityId))) {
+                        issuers[issuerEntityId] = issuers[issuerEntityId] || {
+                            ...permission.issuer,
+                            count: 0,
+                            f_entity_id: permission.faculty.entity_id
+                        };
+                        issuers[issuerEntityId].count++;
+                        includeUser = true;
+                    }
             });
-            if (includeByFaculty && includeByIssuer) {
+            if (includeUser) {
                 roles.find(el => el.role === user.role).count++
             }
-            return includeByFaculty && includeByIssuer
+            return includeUser;
         });
 
         const allFaculties = Object.values(faculties);
         const allIssuers = Object.values(issuers);
 
-        const superUserCount = users.filter(user => user.permissions.some(permission => permission.permission === "institution")).length;
+        //Now we need to add the counts of faculties to all issuers belonging to that faculty
+        // allIssuers.forEach(issuer => {
+        //     const facultyStaff = users.filter(user => user.permissions.some(p => p.permission === "faculty" && p.faculty.entity_id === issuer.f_entity_id));
+        //     issuer.count += facultyStaff.length;
+        //
+        // })
 
-        allFaculties.forEach(faculty => faculty.count += superUserCount);
-        allIssuers.forEach(issuer => issuer.count += superUserCount);
+        //And institution admins can access everything
+        const institutionAdminCount = users.filter(user => user.permissions.some(p => p.permission === "institution")).length;
+        allFaculties.forEach(faculty => faculty.count += institutionAdminCount);
+        allIssuers.forEach(issuer => issuer.count += institutionAdminCount);
 
         return {
             faculties: sort(allFaculties, true),
