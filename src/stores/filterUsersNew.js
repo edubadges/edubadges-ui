@@ -120,13 +120,6 @@ export const userTree = derived(
         const allFaculties = Object.values(faculties);
         const allIssuers = Object.values(issuers);
 
-        //Now we need to add the counts of faculties to all issuers belonging to that faculty
-        // allIssuers.forEach(issuer => {
-        //     const facultyStaff = users.filter(user => user.permissions.some(p => p.permission === "faculty" && p.faculty.entity_id === issuer.f_entity_id));
-        //     issuer.count += facultyStaff.length;
-        //
-        // })
-
         //And institution admins can access everything
         const institutionAdminCount = users.filter(user => user.permissions.some(p => p.permission === "institution")).length;
         allFaculties.forEach(faculty => faculty.count += institutionAdminCount);
