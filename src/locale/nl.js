@@ -2076,7 +2076,7 @@ I18n.translations.nl = {
             },
             info: {
                 micro_credential:
-                    "Een badge class voor microcredentials met het kwaleitskader voor professionals HBO/WO of MBO en alle metadata conform de EU-aanbevelingen.",
+                    "Een badge class voor microcredentials met het kwaliteitskader voor professionals HBO/WO of MBO en alle metadata conform de EU-aanbevelingen.",
                 regular:
                     "Een badge class voor opgedane kennis en vaardigen die binnen het curriculum van een erkende opleiding vallen. Aan deze badge class zijn ECTS/SBU verbonden.",
                 extra_curricular:
