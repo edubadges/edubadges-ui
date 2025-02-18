@@ -2,12 +2,15 @@
     import {navigate} from "svelte-routing";
     import {EntityForm} from "../teachers";
     import {Field, File, Select, TextInput} from "../forms";
-    import {createFaculty, editFaculty} from "../../api";
+    import {createFaculty, editFaculty, fetchRawCurrentInstitution} from "../../api";
     import {entityType} from "../../util/entityTypes";
     import I18n from "i18n-js";
     import MultiLanguageField from "../forms/MultiLanguageField.svelte";
     import Switch from "../forms/Switch.svelte";
-    import {isEmpty} from "../../util/utils";
+    import {isEmpty, translatePropertiesRawQueries} from "../../util/utils";
+    import {
+        currentInstitution,
+    } from "../../stores/user";
 
     export let entityId;
     export let faculty = {};
@@ -66,7 +69,14 @@
         apiCall(...args)
             .then(res => {
                 entityId = isCreate ? res.entity_id : entityId;
-                navigate(`/manage/faculty/${entityId}`)
+                navigate(`/manage/faculty/${entityId}`);
+                fetchRawCurrentInstitution()
+                    .then(res => {
+                        const institution = res.current_institution;
+                        institution.permissions = res.permissions;
+                        $currentInstitution = translatePropertiesRawQueries(institution);
+                    })
+
             })
             .catch(err => err.then(({fields}) => {
                 errors = fields.error_message;
@@ -234,7 +244,7 @@
                         error={errors.linkedin_org_identifier}/>
             </Field>
             {#if !isEmpty(faculty.onBehalfOfDisplayName) &&
-                (faculty.onBehalfOfDisplayName !== faculty.nameDutch || faculty.onBehalfOfDisplayName !== faculty.nameEnglish)}
+            (faculty.onBehalfOfDisplayName !== faculty.nameDutch || faculty.onBehalfOfDisplayName !== faculty.nameEnglish)}
                 <Field {entity} attribute="on_behalf_of_display_name"
                        errors={errors.on_behalf_of_display_name}
                        tipKey="facultyOnBehalfOfDisplayName">

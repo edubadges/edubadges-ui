@@ -23,7 +23,8 @@
             res.forEach(issuer => {
                 translatePropertiesRawQueries(issuer)
             });
-            mayCreate = $currentInstitution.permissions.ins_may_create || $currentInstitution.permissions.f_may_create;
+            const permissions = $currentInstitution.permissions;
+            mayCreate = permissions.fac_count > 0 && (permissions.ins_may_create || $currentInstitution.permissions.f_may_create);
             issuers = res;
             loaded = true;
         });
