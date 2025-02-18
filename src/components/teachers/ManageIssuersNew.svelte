@@ -10,6 +10,7 @@
     import {fetchRawIssuers} from "../../api";
     import {translatePropertiesRawQueries} from "../../util/utils";
     import Spinner from "../Spinner.svelte";
+    import {currentInstitution} from "../../stores/user";
 
     export let institutionName;
 
@@ -22,7 +23,7 @@
             res.forEach(issuer => {
                 translatePropertiesRawQueries(issuer)
             });
-            mayCreate = res.some(issuer => issuer.may_create);
+            mayCreate = $currentInstitution.permissions.ins_may_create || $currentInstitution.permissions.f_may_create;
             issuers = res;
             loaded = true;
         });

@@ -72,7 +72,9 @@
                     if ($userRole === role.TEACHER) {
                          fetchRawCurrentInstitution()
                              .then(res => {
-                                 $currentInstitution = translatePropertiesRawQueries(res);
+                                 const institution = res.current_institution;
+                                 institution.permissions = res.permissions;
+                                 $currentInstitution = translatePropertiesRawQueries(institution);
                              })
                     }
                 })

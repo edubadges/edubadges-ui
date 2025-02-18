@@ -12,6 +12,7 @@
     import {fetchRawFaculties, fetchRawIssuers} from "../../api";
     import {translatePropertiesRawQueries} from "../../util/utils";
     import Spinner from "../Spinner.svelte";
+    import {currentInstitution} from "../../stores/user";
 
     export let institutionName;
 
@@ -24,7 +25,7 @@
             res.forEach(faculty => {
                 translatePropertiesRawQueries(faculty)
             });
-            mayCreate = res.some(faculty => faculty.may_create);
+            mayCreate = $currentInstitution.permissions.ins_may_create;
             faculties = res;
             loaded = true;
         });
