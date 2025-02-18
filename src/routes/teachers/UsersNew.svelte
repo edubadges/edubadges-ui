@@ -153,7 +153,8 @@
                         <td>{
                             I18n.t(['editUsers', 'roles', user.role])}
                             <br/>
-                            <span class="sub-text">{user.unit_name}</span>
+                            <span class="sub-text">{user.unit_name} {I18n.t(`teacher.permission${user.permissions.length === 1 ? "" : "s"}`,
+                                {count: user.permissions.length})}</span>
                         </td>
                     </tr>
                 {/each}
