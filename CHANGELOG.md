@@ -5,6 +5,31 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [7.4.1] - 2025-02-18
+
+#### Full GitHub changelogs:
+
+Backend: https://github.com/edubadges/edubadges-server/compare/v7.4.0...v7.4.1</br>
+Frontend: https://github.com/edubadges/edubadges-ui/compare/V7.4.0...v7.4.1
+
+- kwaliteitskader ipv kwaleitskader
+- Bugfix for archived badges - M8uYvMsp
+- Avoid undefined in institution.permissions
+- Bugfix for Gi19IFS8
+- Bugfix for Gi19IFS8
+- Merge branch 'master' into develop
+- Merge pull request #148 from edubadges/feature/users-performance
+- Upgraded dom-purify
+- Added number of permissions
+- Count roles double
+- Trying to get the count correct
+- Updated changelog.md for release 7.4.0
+- WIP for /users
+- Merge branch 'develop' into feature/users-performance
+- WIP for users
+- WIP for performance users
+- WIP for https://trello.com/b/eQ0oyJy4/do-edubadges    
+
 ## [7.4.0] - 2025-02-17
 
 #### Full GitHub changelogs:
