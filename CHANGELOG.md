@@ -1,13 +1,47 @@
 # Changelog
+
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [7.3.1] - 2025-01-27
+## [7.4.0] - 2025-02-17
+
 #### Full GitHub changelogs:
-  Backend: https://github.com/edubadges/edubadges-server/compare/v7.3.0...v7.3.1</br>
-  Frontend: https://github.com/edubadges/edubadges-ui/compare/V7.3.0...v7.3.1
+
+Backend: https://github.com/edubadges/edubadges-server/compare/v7.3.1...v7.4.0</br>
+Frontend: https://github.com/edubadges/edubadges-ui/compare/V7.3.1...v7.4.0
+
+- Display super_user logo
+- Added user endpoint
+- WIP for Users
+- Added new faculties page
+- WIP for https://trello.com/c/FRjJrQJ4
+- Differentiate between unclaimed and deleted zeroState
+- Do not require token for catalog
+- More strict (and complicated) email regexp
+- WIP on catalog performance
+- WIP on catalog raw query
+- Merge pull request #145 from berkes/feature/import-unime-fix
+- Merge pull request #143 from edubadges/feature/unvalidated-backpack-users-QBYKFZVm
+- WIP for Badges homepage
+- fix: Fix import unime dialog not showing the QR code
+- Merge pull request #144 from berkes/feature/docker-config-fix
+- WIP for more raw queries
+- fix: Ensure that the version running in docker(compose) has the docker config.js
+- New validate name page with redirect to eduID
+- WIP for QBYKFZVm
+- Use new UnclaimedDirectAwards for both views
+- PoC for raw queries instead of graphQL
+- New URLs for Croho and Crebo
+- Some locale changes
+
+## [7.3.1] - 2025-01-27
+
+#### Full GitHub changelogs:
+
+Backend: https://github.com/edubadges/edubadges-server/compare/v7.3.0...v7.3.1</br>
+Frontend: https://github.com/edubadges/edubadges-ui/compare/V7.3.0...v7.3.1
 
 - Changes in the locales for issuing on email address.
 - Extend user search for institution name and role.
@@ -16,9 +50,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fix for https://trello.com/c/OdjsIznb/987-opvoeren-uren-extra-curriculaire-edubadge-ten-onrechte-verplicht.
 
 ## [7.3.0] - 2024-12-18
+
 #### Full GitHub changelogs:
-  Backend: https://github.com/edubadges/edubadges-server/compare/v7.2.0...v7.3.0</br>
-  Frontend: https://github.com/edubadges/edubadges-ui/compare/V7.2.0...v7.3.0
+
+Backend: https://github.com/edubadges/edubadges-server/compare/v7.2.0...v7.3.0</br>
+Frontend: https://github.com/edubadges/edubadges-ui/compare/V7.2.0...v7.3.0
 
 - Added the option to award edubadges to learners using their mailaddress. This mailaddress should match the one used for eduID.
 - Added an option to change the contact mailaddress of the institution.
@@ -28,8 +64,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Remodelled the placement of logo's of institution, issuergroup and issuer.
 - Improved application performance by reducing UI-bundle size.
 - Fixed bug when claiming edubadges from other organisations.
-  
+
 ## [7.2.0] - 2024-11-13
+
 - Bugfix for single value educationProgramIdentifier
 - Refactored to run once
 - Add metadata fields for SEO optimization
@@ -49,6 +86,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fix voor criteria-text-wrong-formatting.
 
 ## [7.1.0] - 2024-10-10
+
 - Ran npx browserslist@latest --update-db.
 - Bugfix for invisble required fields MBO.
 - Sanitize user input before rendering.
@@ -64,6 +102,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Bump dompurify from 2.0.17 to 2.5.4.
 
 ## [7.0.0] - 2024-08-14
+
 - test: Fix failing test after change to required attribute name.
 - feat: Debug log the contents of the QR code before it's shown.
 - Removed detail info for aligning specs badge-form.
@@ -155,6 +194,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Bump ws from 6.2.2 to 6.2.3.
 
 ## [6.10.0] - 2024-02-23
+
 - Bump ip from 1.1.5 to 1.1.9.
 - Removed the backpack download button.
 - New URLfor CROHO register.
@@ -176,6 +216,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Bump browserify-sign from 4.0.4 to 4.2.2.
 
 ## [6.9.0] - 2023-10-23
+
 - Added micro-credentials count query.
 - Use Select for picking management query.
 - Refactored management queries output to CSV.
@@ -204,8 +245,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Bump word-wrap from 1.2.3 to 1.2.4
 - Minor locale changes.
 
-
 ## [6.8.1] - 2023-06-29
+
 - fix problem with remote image.
 - Do not use remote image.
 - Make the resend button visible again.
@@ -214,6 +255,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Default to all institutions.
 
 ## [6.8.0] - 2023-06-05
+
 - Disabled scheduling direct awards.
 - Minor locale changes.
 - Only bring focused select in foreground.
@@ -243,6 +285,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Changed Tijdsinvestering to Tijd investering.
 
 ## [6.7.0] - 2023-02-27
+
 - Removed debugger statement.
 - Bugfix for direct award with incomplete URL.
 - Wiki URL changed.
@@ -263,6 +306,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Ask the user for revalidation of the name.
 
 ## [6.6.0] - 2023-01-16
+
 - Bugfix for undefined code.
 - Bugfix unknown error revoke a Direct Award.
 - Bump express from 4.17.1 to 4.18.2.
@@ -277,6 +321,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Bugfix for ignoring alternativeIdentifier of institution.
 
 ## [6.5.0] - 2022-10-31
+
 - Filter out revoked badges in the public count.
 - Sum of Award type Direct Award/Requested not always correct.
 - Another typo in null faculty names.
@@ -308,12 +353,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Bugfix for broken validation.
 
 ## [6.4.0] - 2022-08-22
+
 - Do not commit insights.
 - Detect used emails in direct awards.
 - Badgclass option to disable Invite people to enroll.
 - Added 300 dpi note to locales.
 
 ## [6.3.0] - 2022-07-18
+
 - A change of email of the eduID account will now show in your profile.
 - Minor Locale changes.
 - After build favicon.ico changed.
@@ -338,6 +385,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Added an option to award requested edubadges over multiple badgeclasses.
 
 ## [6.2.0] - 2022-05-16
+
 - Empty alignment URL placeholder for micro-credentials badgeclass.
 - Added English text to the Pilot Microcredentials framework.
 - Studyload is a value between 3-30 when pilot microcredentials is checked.
@@ -362,6 +410,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Bugfix for criteria text is null in markdown field.
 
 ## [6.1.0] - 2022-03-21
+
 - Align items center in table header.
 - Added notifications to get informed when an edubadge is requested.
 - Ensure all is checked when all are checked.
@@ -375,6 +424,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Updated url-parse from 1.5.3 to 1.5.10, follow-redirects from 1.14.7 to 1.14.8.
 
 ## [6.0.0] - 2022-02-21
+
 - Option added to issuer groups to make awarding on behalf of (consortia) possible.
 - Study load metadatafield in the badgeclass can not have the value '0'.
 - Several interface additions to support LTI connections to a LMS.
@@ -386,9 +436,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Updated dependencies postcss, bump, nanoid, marked, follow-redirects.
 
 ## [5.4.0] - 2022-01-17
+
 - Narrative supports markdown.
 
 ## [5.3.0] - 2021-12-20
+
 - Requested badges have status awarded if not rejected or revoked.
 - Minor changes in the locales.
 - Enable adding alignment for badgeclass with assertions.
@@ -396,6 +448,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Bugfix for show more (and not displays 0 values).
 
 ## [5.2.0] - 2021-11-15
+
 - Hide SURF welcome awarded badges.
 - No default studyload if in copy-mode.
 - Check for publicInstitutions.
@@ -409,14 +462,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Duplicated imports are not allowed.
 
 ## [5.1.0] - 2021-10-18
+
 - Badgeclass metadata now shows a list of other institutions that could be awarded to. Only in the manage screens, not in the public badgeclass.
-- Added the deletion of an issuerportal user, but only when this user hasn't  issued any edubadges yet.
+- Added the deletion of an issuerportal user, but only when this user hasn't issued any edubadges yet.
 - Changed badgeclass metadata logic when an institution only awards the formal type of edubadges.
 - Added support for SVG images in the badgeclass.
 - Added insights functionality: a dashboard showing statistics about awarded edubadges and badgeclasses.
 - Added import functionality to import other hosted open badges in your backpack.
 - Added option to award non-formal edubadge to an user with no validated name.
-- Added new roles issuer group admin, issuer group awarder, issuer admin, issuer awarder. 
+- Added new roles issuer group admin, issuer group awarder, issuer admin, issuer awarder.
 - Added archive badgeclass option when no open Direct Awards and no open enrollments are present.
 - Refactored student bread crumbes.
 - Added evidence and narrative option for bulk awarding.
@@ -426,6 +480,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Updated dependencies tar, tmpl.
 
 ## [5.0.0] - 2021-08-30
+
 - Show required attributes for awarding enrollments.
 - Added feedback dialog.
 - Show spinner when busy.
@@ -447,10 +502,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Updated dependencies url-parse, path-parse, tar, minimist.
 
 ## [4.2.0] - 2021-07-19
+
 - Added missing date
 - Updated dependency Acorn
 
 ## [4.1.0] - 2021-06-21
+
 - Fixed date direct awarded in badgeclass award view.
 - Disable direct awards if evidence or narraive is required.
 - Added narative and evidence required option to the badgeclass.
@@ -459,6 +516,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Updated the locales.
 
 ## [4.0.0] - 2021-05-31
+
 - Fixed wrong header on terms non-formal badges.
 - Updated several dependencies.
 - Do not fail on no terms.
@@ -476,6 +534,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Show institution names on profile student.
 
 ## [3.1.0] - 2021-05-03
+
 - Updated ssri.
 - Added public catalog for an overview of all badge classes in edubadges.\
 - Show demo modal info.
@@ -500,6 +559,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fixed typo MBP in NL interface. Changed to MBO.
 
 ## [3.0.0] - 2021-03-15
+
 - Added public catalog for an overview of all badge classes in edubadges.
 - Adds multilanguage fields for Institution, Issuer Group & Issuer.
 - Can now add multiple (max 8) Related Educational Frameworks to a badge class.
@@ -511,28 +571,32 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Backpack: Option to make the narrative/evidence metadata public or not.
 
 ## [2.1.3] - 2021-03-01
+
 - Added listview in overview of badgeclasses.
 - Added breadcrumbs on top of several pages.
 - Added tooltips in add badgeclass metedata screen.
 
 ## [2.1.2] - 2021-02-11
- - Can now archive Issuer Groups when all assertions have been revoked.
- - Bugfix for showing the correct creation date for Badgeclasses.
+
+- Can now archive Issuer Groups when all assertions have been revoked.
+- Bugfix for showing the correct creation date for Badgeclasses.
 
 ## [2.1.1] - 2021-01-18
- - About link in the footer.
- - Git version page at /version/info
- - Changed validated name status in user profile.
- - Can now archive Issuers and Badgeclasses when all assertions have been revoked.
- - Added name check when creating a new badgeclass. If name already excists in issuer it will raise an error.
- - Bugfix for language of instruction in badgeclass metadata: will keep its state now.
+
+- About link in the footer.
+- Git version page at /version/info
+- Changed validated name status in user profile.
+- Can now archive Issuers and Badgeclasses when all assertions have been revoked.
+- Added name check when creating a new badgeclass. If name already excists in issuer it will raise an error.
+- Bugfix for language of instruction in badgeclass metadata: will keep its state now.
 
 ## [2.1.0] - 2020-12-28
- - URL to the public institution page is added to the awarded edubadge.
- - Added markdown support for descriptions.
- - Students can view their validated name in their profile.
- - Multi language support for the institution. issuer group and issuer metadata.
- - The study load metadata (in ECTS or hours) is now visible in the overview of the formal badgeclasses and edubadges.
- - When an institution does not awards formal edubadges, the study load field is not available.
- - Added overview of requested edubadges in Manage screens.
- - Several bugfixes.
+
+- URL to the public institution page is added to the awarded edubadge.
+- Added markdown support for descriptions.
+- Students can view their validated name in their profile.
+- Multi language support for the institution. issuer group and issuer metadata.
+- The study load metadata (in ECTS or hours) is now visible in the overview of the formal badgeclasses and edubadges.
+- When an institution does not awards formal edubadges, the study load field is not available.
+- Added overview of requested edubadges in Manage screens.
+- Several bugfixes.
