@@ -86,13 +86,15 @@ export const splitListSemantically = (arr, lastSeparator) => {
 }
 
 //See edubadges-server/apps/queries/api.py
-export const translatePropertiesRawQueriesDirectAward = obj => {
+export const translatePropertiesRawQueries = (obj,
+                                               attributes = ["name", "description", "image", "url"],
+                                               prefixes = ["", "i_", "f_", "ins_"]) => {
     if (!obj) {
         return;
     }
     const isEnglish = I18n.locale === "en";
-    ["name", "description", "image", "url"].forEach(attr => {
-        ["", "i_", "f_", "ins_"].forEach(prefix => {
+    attributes.forEach(attr => {
+        prefixes.forEach(prefix => {
             if (obj[`${prefix}${attr}_english`] || obj[`${prefix}${attr}_dutch`]) {
                 obj[prefix + attr] = translateProperty(obj, prefix, attr, isEnglish)
             }
@@ -104,7 +106,10 @@ export const translatePropertiesRawQueriesDirectAward = obj => {
     return obj;
 }
 
-const translateProperty = (obj, prefix, attr, isEnglish) => {
+export const translateProperty = (obj, prefix, attr, isEnglish) => {
+    if (isEmpty(obj)) {
+        return null;
+    }
     if (obj[`${prefix}${attr}_english`] || obj[`${prefix}${attr}_dutch`]) {
         return isEnglish ? (obj[`${prefix}${attr}_english`] || obj[`${prefix}${attr}_dutch`])
             : (obj[`${prefix}${attr}_dutch`] || obj[`${prefix}${attr}_english`]);

@@ -8,7 +8,7 @@
     import {pageCount} from "../../util/pagination";
     import {onMount} from "svelte";
     import {fetchRawIssuers} from "../../api";
-    import {translatePropertiesRawQueriesDirectAward} from "../../util/utils";
+    import {translatePropertiesRawQueries} from "../../util/utils";
     import Spinner from "../Spinner.svelte";
 
     export let institutionName;
@@ -20,7 +20,7 @@
     onMount(() => {
         fetchRawIssuers().then(res => {
             res.forEach(issuer => {
-                translatePropertiesRawQueriesDirectAward(issuer)
+                translatePropertiesRawQueries(issuer)
             });
             mayCreate = res.some(issuer => issuer.may_create);
             issuers = res;

@@ -187,6 +187,8 @@ I18n.translations.nl = {
         },
         name: "Naam",
         nameEmail: "Naam/E-mailadres",
+        permission: "({{count}} permissie)",
+        permissions: "({{count}} permissies)",
         badgeclasses: {
             title: "Badge classes",
             badges: "Edubadges",

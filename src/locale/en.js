@@ -186,6 +186,8 @@ I18n.translations.en = {
         },
         name: "Name",
         nameEmail: "Name/Email address",
+        permission: "({{count}} permission)",
+        permissions: "({{count}} permissions)",
         badgeclasses: {
             title: "Badge classes",
             badges: "Edubadges",

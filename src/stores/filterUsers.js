@@ -10,11 +10,11 @@ export const issuerIds = writable([]);
 
 const userSearchAttributes = ["firstName", "lastName", "email", "roleAt"];
 
-export function filterBySearch(users, search) {
+export function filterBySearch(users, search, searchAttributes = userSearchAttributes) {
     if (search && search.length > 0) {
         return users.filter(user => {
             const lowerSearch = search.toLowerCase();
-            return userSearchAttributes.some(attr => user[attr] && user[attr].toLowerCase().indexOf(lowerSearch) > -1)
+            return searchAttributes.some(attr => user[attr] && user[attr].toLowerCase().indexOf(lowerSearch) > -1)
         })
     }
     return users;

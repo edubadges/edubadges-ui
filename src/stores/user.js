@@ -18,6 +18,9 @@ export const authToken = writable(localStorage.getItem("authToken") || "");
 export const userHasClosedWelcome = writable(
   localStorage.getItem("userHasClosedWelcome") || ""
 );
+export const currentInstitution = writable(
+  JSON.parse(localStorage.getItem("currentInstitution") || "{}")
+);
 
 redirectPath.subscribe((val) => localStorage.setItem("redirectPath", val));
 userRole.subscribe((val) => localStorage.setItem("userRole", val));
@@ -29,4 +32,7 @@ validatedUserName.subscribe((val) => localStorage.setItem("validatedUserName", v
 authToken.subscribe((val) => localStorage.setItem("authToken", val));
 userHasClosedWelcome.subscribe((val) =>
   localStorage.setItem("userHasClosedWelcome", val)
+);
+currentInstitution.subscribe((val) =>
+  localStorage.setItem("currentInstitution", JSON.stringify(val))
 );
