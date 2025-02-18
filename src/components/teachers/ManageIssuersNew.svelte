@@ -24,7 +24,7 @@
                 translatePropertiesRawQueries(issuer)
             });
             const permissions = $currentInstitution.permissions;
-            mayCreate = permissions.fac_count > 0 && (permissions.ins_may_create || $currentInstitution.permissions.f_may_create);
+            mayCreate = permissions?.fac_count > 0 && (permissions?.ins_may_create || permissions?.f_may_create);
             issuers = res;
             loaded = true;
         });

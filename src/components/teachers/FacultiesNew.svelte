@@ -25,7 +25,7 @@
             res.forEach(faculty => {
                 translatePropertiesRawQueries(faculty)
             });
-            mayCreate = $currentInstitution.permissions.ins_may_create;
+            mayCreate = $currentInstitution.permissions?.ins_may_create;
             faculties = res;
             loaded = true;
         });
