@@ -43,13 +43,13 @@ export const sortBadgeAssertionsSelfRequested = collection => {
 export const tree = derived(
     [badgeClasses, awardFilter, search, page, facultyIds, issuerIds, typeBadgeClassSelected, tagBadgeClassSelected, sortTarget],
     ([badgeClasses, awardFilter, search, page, facultyIds, issuerIds, typeBadgeClassSelected, tagBadgeClassSelected, sortTarget]) => {
-
+        const filterArchived = typeBadgeClassSelected.includes(badgeClassFilterTypes.ARCHIVED);
+        typeBadgeClassSelected = typeBadgeClassSelected.filter(typeBadge => typeBadge !== badgeClassFilterTypes.ARCHIVED);
         let sortedBadgeClasses = filterBySearch(badgeClasses, search)
             .filter(badgeClass => !awardFilter || (awardFilter && badgeClass.mayAward))
             .filter(badgeClass => !facultyIds.length || facultyIds.includes(badgeClass.issuer.faculty.entityId))
             .filter(badgeClass => !issuerIds.length || issuerIds.includes(badgeClass.issuer.entityId))
-            .filter(badge => !typeBadgeClassSelected.length || typeBadgeClassSelected.find(typeBadge => badge.types.includes(typeBadge)))
-            .filter(badge => !typeBadgeClassSelected.includes(badgeClassFilterTypes.ARCHIVED) || !badge.archived);
+            .filter(badge => !typeBadgeClassSelected.length || typeBadgeClassSelected.find(typeBadge => badge.types.includes(typeBadge)));
 
         if (sortTarget?.value === "request") {
             sortedBadgeClasses = sortBadgeAssertionsSelfRequested(sortedBadgeClasses);
@@ -142,6 +142,8 @@ export const tree = derived(
             }
             return acc;
         }, new Set());
+
+        sortedBadgeClasses = sortedBadgeClasses.filter(badge => filterArchived ? badge.archived : !badge.archived);
 
         const results = {
             faculties: sort(faculties, true),
