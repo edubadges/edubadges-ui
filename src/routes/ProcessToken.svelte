@@ -1,6 +1,6 @@
 <script>
     import I18n from "i18n-js";
-    import {authToken, redirectPath, userLoggedIn, userRole} from "../stores/user";
+    import {authToken, redirectPath, userLoggedIn, userRole, currentInstitution} from "../stores/user";
     import {navigate} from "svelte-routing";
     import {onMount} from "svelte";
     import tip from "../icons/tip.svg";
@@ -8,8 +8,9 @@
     import Modal from "../components/forms/Modal.svelte";
     import {role} from "../util/role";
     import {getService} from "../util/getService";
-    import {requestLoginToken} from "../api";
-import DOMPurify from "dompurify";
+    import {fetchRawCurrentInstitution, requestLoginToken} from "../api";
+    import DOMPurify from "dompurify";
+    import {translatePropertiesRawQueries} from "../util/utils";
 
     let authError;
     let code = 1;
@@ -37,16 +38,22 @@ import DOMPurify from "dompurify";
             $authToken = token;
             $userLoggedIn = true;
             redirectTo = $redirectPath || "/";
-            if (redirectTo === "/login") {
-                redirectTo = "/";
-            }
-            let revalidateName = urlSearchParams.get("revalidate-name");
-            if (revalidateName) {
-                //server side signal that the eduID account is not linked anymore
-                showNoValidatedName = true;
-            } else {
-                navigate(redirectTo);
-            }
+            fetchRawCurrentInstitution()
+                .then(res => {
+                    const institution = res.current_institution;
+                    institution.permissions = res.permissions;
+                    $currentInstitution = translatePropertiesRawQueries(institution);
+                    if (redirectTo === "/login") {
+                        redirectTo = "/";
+                    }
+                    let revalidateName = urlSearchParams.get("revalidate-name");
+                    if (revalidateName) {
+                        //server side signal that the eduID account is not linked anymore
+                        showNoValidatedName = true;
+                    } else {
+                        navigate(redirectTo);
+                    }
+                })
         } else {
             $userLoggedIn = "";
             code = urlSearchParams.get("code") || "1";

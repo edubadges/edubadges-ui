@@ -62,8 +62,8 @@
     onMount(() => {
         //if we are heading to any of the public path we don't fetch the profile
         const path = window.location.pathname;
-        const publicPaths = ["public", "/auth/login", "signup", "validate", "version/info", "launch/lti"]
-        if (!publicPaths.some(p => path.indexOf(p) > -1)) {
+        const publicPaths = ["public", "auth/login", "signup", "validate", "version/info", "launch/lti"]
+        if (path === "/" || !publicPaths.some(p => path.indexOf(p) > -1)) {
             getSocialAccounts()
                 .then(res => {
                     loaded = true;
@@ -78,7 +78,7 @@
                              })
                     }
                 })
-                .catch(e => {
+                .catch(() => {
                     $redirectPath = path;
                     if (path.indexOf("catalog") === -1) {
                         navigate("/login");
