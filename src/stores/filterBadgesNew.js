@@ -123,7 +123,7 @@ export const tree = derived(
             if (acc.has(badgeClass.issuer.entityId)) {
                 ++badgeClass.issuer.count;
             } else {
-                badgeClass.issuer.count = 0;
+                badgeClass.issuer.count = 1;
                 issuers.push(badgeClass.issuer);
                 acc.add(badgeClass.issuer.entityId);
             }
@@ -136,7 +136,7 @@ export const tree = derived(
             if (acc.has(badgeClass.issuer.faculty.entityId)) {
                 ++badgeClass.issuer.faculty.count;
             } else {
-                badgeClass.issuer.faculty.count = 0;
+                badgeClass.issuer.faculty.count = 1;
                 faculties.push(badgeClass.issuer.faculty);
                 acc.add(badgeClass.issuer.faculty.entityId);
             }
@@ -144,7 +144,6 @@ export const tree = derived(
         }, new Set());
 
         sortedBadgeClasses = sortedBadgeClasses.filter(badge => filterArchived ? badge.archived : !badge.archived);
-
         const results = {
             faculties: sort(faculties, true),
             issuers: sort(issuers, true),
