@@ -37,6 +37,7 @@
     import TimeInvestment from "../extensions/badges/TimeInvestment.svelte";
     import Spinner from "../Spinner.svelte";
     import {addProtocolToURL} from "../../util/forms";
+    import CheckBox from "../CheckBox.svelte";
 
     export let entityId;
     export let badgeclass = {extensions: [], issuer: {}, alignments: [], criteriaText: ""};
@@ -417,6 +418,7 @@
             quality_assurance_url: badgeclass.qualityAssuranceUrl,
             quality_assurance_description: badgeclass.qualityAssuranceDescription,
             grade_achieved_required: badgeclass.gradeAchievedRequired,
+            eqf_nlqf_level_verified: badgeclass.eqfNlqfLevelVerified,
             stackable: badgeclass.stackable,
             direct_awarding_disabled: badgeclass.directAwardingDisabled,
             self_enrollment_disabled: badgeclass.selfEnrollmentDisabled
@@ -613,6 +615,10 @@
         display: flex;
         flex-direction: column;
         gap: 5px;
+    }
+
+    div.inner-component {
+        margin-top: 20px;
     }
 
     div.mark-down-container {
@@ -962,6 +968,13 @@
                         customIndicator={indicator}
                         showChevron={false}
                         clearable={!isRequired(badgeclass, `extensions.${eqf.name}`)}/>
+                <div class="inner-component">
+                <Switch value={badgeclass.eqfNlqfLevelVerified}
+                        disabled={isEmpty(extensions[eqf.name])}
+                        label={I18n.t("newBadgeClassForm.form.eqfNlqfLevelVerified")}
+                        question={I18n.t("newBadgeClassForm.form.eqfNlqfLevelVerifiedQuestion")}
+                        onChange={() => badgeclass.eqfNlqfLevelVerified = !badgeclass.eqfNlqfLevelVerified}/>
+                </div>
                 <span class="info">
                     {@html I18n.t('models.badgeclass.info.eqf')}
                 </span>

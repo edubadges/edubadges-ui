@@ -2158,6 +2158,8 @@ I18n.translations.nl = {
                 yes: "Cijfer of resultaat behaald verplicht",
                 no: "Cijfer of resultaat behaald niet verplicht",
             },
+            eqfNlqfLevelVerified: "EQF niveau vastgesteld",
+            eqfNlqfLevelVerifiedQuestion: "Het EQF/NLQF niveau is officieel vastgesteld"
         },
         saveAsDraft: "Bewaar concept",
         draft: "Concept",

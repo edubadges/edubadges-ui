@@ -2128,6 +2128,8 @@ I18n.translations.en = {
                 yes: "Grade achieved required",
                 no: "Grade achieved not required",
             },
+            eqfNlqfLevelVerified: "EQF level confirmed",
+            eqfNlqfLevelVerifiedQuestion: "The EQF/NLQF level is officially confirmed"
         },
         saveAsDraft: "Save as draft",
         draft: "Draft",
