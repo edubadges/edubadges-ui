@@ -40,6 +40,7 @@
         qualityAssuranceUrl,
         qualityAssuranceDescription,
         gradeAchievedRequired,
+        eqfNlqfLevelVerified,
         stackable,
         issuer {
           nameDutch,

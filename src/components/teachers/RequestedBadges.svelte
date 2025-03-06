@@ -64,6 +64,7 @@
           narrativeRequired,
           evidenceRequired,
           gradeAchievedRequired,
+          eqfNlqfLevelVerified,
           evidenceStudentRequired,
           narrativeStudentRequired,
           permissions { mayUpdate, mayAward }

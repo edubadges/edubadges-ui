@@ -78,6 +78,7 @@
       qualityAssuranceUrl,
       qualityAssuranceDescription,
       gradeAchievedRequired,
+      eqfNlqfLevelVerified,
       stackable,
       tags {
         name

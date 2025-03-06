@@ -64,6 +64,7 @@
       qualityAssuranceUrl,
       qualityAssuranceDescription,
       gradeAchievedRequired,
+      eqfNlqfLevelVerified,
       stackable,
       ${alignments},
       issuer {

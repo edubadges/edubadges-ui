@@ -75,6 +75,7 @@
         qualityAssuranceUrl,
         qualityAssuranceDescription,
         gradeAchievedRequired,
+        eqfNlqfLevelVerified,
         stackable,
         terms {
           entityId,
