@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [8.0.0] - 2025-03-10
+
+Backend: https://github.com/edubadges/edubadges-server/compare/v7.4.2...v8.0.0</br>
+Frontend: https://github.com/edubadges/edubadges-ui/compare/V7.4.2...v8.0.0
+
+- Minor locale changes: EQF/NLQF
+- 1XcPzMWl: Optie wel tonen EQF/NLQF
+- Trello eQ0oyJy4
+- niet-alle-issuergroepen-en-issuers-worden-getoond trello U7nNt4ao
+
 ## [7.4.2] - 2025-02-19
 
 #### Full GitHub changelogs:
@@ -12,8 +22,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 Backend: https://github.com/edubadges/edubadges-server/compare/v7.4.1...v7.4.2</br>
 Frontend: https://github.com/edubadges/edubadges-ui/compare/V7.4.1...v7.4.2
 
- - Fix for undefined name institution
- - Update CHANGELOG.md
+- Fix for undefined name institution
+- Update CHANGELOG.md
 
 ## [7.4.1] - 2025-02-18
 
@@ -38,7 +48,7 @@ Frontend: https://github.com/edubadges/edubadges-ui/compare/V7.4.0...v7.4.1
 - Merge branch 'develop' into feature/users-performance
 - WIP for users
 - WIP for performance users
-- WIP for https://trello.com/b/eQ0oyJy4/do-edubadges    
+- WIP for https://trello.com/b/eQ0oyJy4/do-edubadges
 
 ## [7.4.0] - 2025-02-17
 
