@@ -19,6 +19,7 @@ export const headerStaff = `
     	user { 
 			firstName, 
 			lastName,
+			fullName,
 			email,
 			entityId
 		}
@@ -142,6 +143,7 @@ export const enrollmentsQuery = `
           entityId,
           firstName,
           lastName,
+          fullName,
           email
         }
       }
@@ -161,6 +163,7 @@ export const assertionsQuery = `
           entityId,
           firstName,
           lastName,
+          fullName,
           email,
           eppns
         }

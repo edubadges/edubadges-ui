@@ -93,6 +93,7 @@
   user(id: $userId) {
     firstName,
     lastName,
+    fullName,
     entityId,
     issuerStaffs {
       entityId,

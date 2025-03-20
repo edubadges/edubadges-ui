@@ -21,6 +21,7 @@
             const attributes = ["name"]
             const prefixes = [""];
             res.forEach(user => {
+                user.full_name = `${user.first_name} ${user.last_name}`
                 translatePropertiesRawQueries(user, ["institution_name"], prefixes)
                 user.permissions.forEach(permission => {
                     translatePropertiesRawQueries(permission.institution, attributes, prefixes)

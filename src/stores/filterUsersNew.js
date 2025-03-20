@@ -8,12 +8,12 @@ export const selectedRole = writable([]);
 export const facultyIds = writable([]);
 export const issuerIds = writable([]);
 
-const userSearchAttributes = ["first_name", "last_name", "email", "role", "unit_name"];
+const userSearchAttributes = ["first_name", "last_name", "full_name", "email", "role", "unit_name"];
 
 export function filterBySearch(users, search, searchAttributes = userSearchAttributes) {
-    if (search && search.length > 0) {
+    if (!isEmpty(search)) {
+        const lowerSearch = search.toLowerCase().trim();
         return users.filter(user => {
-            const lowerSearch = search.toLowerCase();
             return searchAttributes.some(attr => user[attr] && user[attr].toLowerCase().indexOf(lowerSearch) > -1)
         })
     }

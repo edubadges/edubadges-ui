@@ -111,6 +111,7 @@
   user(id: $userId) {
     firstName,
     lastName,
+    fullName,
     badgeclassStaffs {
       entityId,
       mayAdministrateUsers,

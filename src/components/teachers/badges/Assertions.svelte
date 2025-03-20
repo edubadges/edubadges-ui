@@ -313,7 +313,7 @@
     };
 
     let assertionSearch = "";
-    $: searchedAssertionIds = searchMultiple(filteredAssertions, assertionSearch, "entityId", "user.firstName", "user.lastName",
+    $: searchedAssertionIds = searchMultiple(filteredAssertions, assertionSearch, "entityId", "user.fullName",
         "user.email", "eppn", "recipientEmail");
 
     let assertionsSort = tableHeaders[2];

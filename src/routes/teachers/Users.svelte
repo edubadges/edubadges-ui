@@ -20,6 +20,7 @@
         user {
           firstName,
           lastName,
+          fullName,
           email,
           entityId
         }
@@ -35,6 +36,7 @@
           user {
             firstName,
             lastName,
+            fullName,
             email,
             entityId
           }
@@ -50,6 +52,7 @@
             user {
               firstName,
               lastName,
+              fullName,
               email,
               entityId
             },
@@ -61,6 +64,7 @@
               user {
                 firstName,
                 lastName,
+                fullName,
                 email,
                 entityId
               },
@@ -75,6 +79,7 @@
     users {
       firstName,
       lastName,
+      fullName,
       email,
       entityId,
       institutionStaff {

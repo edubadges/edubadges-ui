@@ -33,6 +33,7 @@
         user {
           firstName,
           lastName,
+          fullName,
           entityId,
           email
         }

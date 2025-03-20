@@ -1,5 +1,6 @@
 import {writable, derived} from "svelte/store";
 import {staffType} from "../util/staffTypes";
+import {isEmpty} from "../util/utils";
 
 export const institution = writable();
 export const users = writable([]);
@@ -8,12 +9,12 @@ export const selectedRole = writable([]);
 export const facultyIds = writable([]);
 export const issuerIds = writable([]);
 
-const userSearchAttributes = ["firstName", "lastName", "email", "roleAt"];
+const userSearchAttributes = ["firstName", "lastName", "fullName", "email", "roleAt"];
 
 export function filterBySearch(users, search, searchAttributes = userSearchAttributes) {
-    if (search && search.length > 0) {
+    if (!isEmpty(search)) {
+        const lowerSearch = search.toLowerCase().trim();
         return users.filter(user => {
-            const lowerSearch = search.toLowerCase();
             return searchAttributes.some(attr => user[attr] && user[attr].toLowerCase().indexOf(lowerSearch) > -1)
         })
     }

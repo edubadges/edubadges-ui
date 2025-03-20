@@ -101,7 +101,8 @@
 
     let page = 1;
 
-    $: badgeClasses = search.trim().length === 0 ? issuer.publicBadgeclasses : issuer.publicBadgeclasses.filter(bc => bc.name.toLowerCase().indexOf(search.toLowerCase()) > -1);
+    $: badgeClasses = search.trim().length === 0 ? issuer.publicBadgeclasses : issuer.publicBadgeclasses
+        .filter(bc => bc.name.toLowerCase().indexOf(search.toLowerCase()) > -1);
     $: paginatedBadgeClasses = badgeClasses.slice((minimalPage - 1) * pageCount, minimalPage * pageCount)
     $: minimalPage = Math.min(page, Math.ceil(badgeClasses.length / pageCount))
 

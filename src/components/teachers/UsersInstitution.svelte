@@ -48,6 +48,7 @@
     user(id: $userId) {
       firstName,
       lastName,
+      fullName,
       institutionStaff {
         entityId,
         mayAdministrateUsers

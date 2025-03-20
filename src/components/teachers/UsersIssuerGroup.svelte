@@ -96,6 +96,7 @@
   user(id: $userId) {
     firstName,
     lastName,
+    fullName,
     facultyStaffs {
       entityId,
       mayUpdate,

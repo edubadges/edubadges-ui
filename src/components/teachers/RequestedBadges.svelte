@@ -55,6 +55,7 @@
             entityId,
             firstName,
             lastName,
+            fullName,
             email
         },
         badgeClass {
@@ -230,7 +231,7 @@
     };
 
     let enrollmentSearch = "";
-    $: searchedEnrollmentsIds = searchMultiple(filteredEnrollments, enrollmentSearch, "entityId", "user.firstName", "user.lastName", "user.email");
+    $: searchedEnrollmentsIds = searchMultiple(filteredEnrollments, enrollmentSearch, "entityId", "user.fullName", "user.email");
 
     let enrollmentSort = tableHeaders[1];
 

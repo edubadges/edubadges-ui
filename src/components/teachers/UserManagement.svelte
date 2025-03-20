@@ -253,7 +253,7 @@
     let staffSearch = '';
     let staffSort = tableHeaders[3];
 
-    $: searchedStaffIds = searchMultiple(staffs, staffSearch, "entityId", "user.firstName", "email", "user.lastName", "user.email");
+    $: searchedStaffIds = searchMultiple(staffs, staffSearch, "entityId", "user.fullName", "email", "user.email");
 
     $: sortedFilteredStaffs = sort(
         staffs.filter(el => searchedStaffIds.includes(el.entityId)),

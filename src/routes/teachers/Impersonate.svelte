@@ -21,6 +21,7 @@
     allUsers {
       firstName,
       lastName,
+      fullName,
       email,
       id,
       entityId,

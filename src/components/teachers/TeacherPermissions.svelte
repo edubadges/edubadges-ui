@@ -50,6 +50,7 @@
       entityId,
       firstName,
       lastName,
+      fullName,
       email,
       institutionStaff {
         entityId,

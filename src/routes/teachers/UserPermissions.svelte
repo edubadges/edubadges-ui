@@ -21,6 +21,7 @@
     user(id: $userId) {
       firstName,
       lastName,
+      lastName,
       entityId,
       email,
       hasIssuedDirectAwardBundle
