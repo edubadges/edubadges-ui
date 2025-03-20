@@ -1,6 +1,5 @@
 # Use the official Node.js image with the specified version
 FROM node:16.13.2 AS builder
-USER node
 
 # Set the working directory in the container
 WORKDIR /app
@@ -8,15 +7,20 @@ WORKDIR /app
 # Copy package.json and yarn.lock first for better caching
 COPY package.json yarn.lock ./
 
+RUN yarn install
+
 # Copy the rest of the application code
-COPY --chown=node:node . .
+COPY . .
 
 # Copy a docker-specific config.js over the generic one.
 # NOTE: in docker-compose we mount over this file again, so there the version on the 
 # host machine in ./docker/config.js is used at /app/src/util/config.js
 COPY ./docker/config.js /app/src/util/config.js
 
-RUN yarn build:prod && yarn cache clean 
+RUN yarn build:prod
+
+RUN yarn cache clean 
+
 
 FROM nginx:alpine
 
