@@ -3,7 +3,7 @@
     import Button from "../../Button.svelte";
     import {config} from "../../../util/config";
     import {link, navigate} from "svelte-routing";
-    import {validEmail, validUrl} from "../../../util/forms";
+    import {validEmail, validEppn, validUrl} from "../../../util/forms";
     import {createDirectAwards} from "../../../api";
     import {flash, msgLevel} from "../../../stores/flash";
     import Dropzone from "svelte-file-dropzone";
@@ -92,7 +92,7 @@
                                 if (cellString.length > 0) {
                                     newMissingGrades.push(cellString);
                                 }
-                            } else if (validEmail(email) && ((!isEmpty(eppn) && eppn.trim().length > 0) || enableAwardOnEmail)
+                            } else if (validEmail(email) && ((!isEmpty(eppn) && validEppn(eppn, badgeclass)) || enableAwardOnEmail)
                                 && (!evidence_url || validUrl(evidence_url))) {
                                 newDirectAwards.push({
                                     email,
