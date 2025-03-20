@@ -5,6 +5,7 @@
     import {search} from "../../util/searchData";
     import {sort, sortType} from "../../util/sortData";
     import {issuerIcon} from "../../icons";
+    import {pageCount} from "../../util/pagination";
 
     export let issuers = [];
     export let institution = {};
@@ -55,6 +56,10 @@
         issuerSort.reverse,
         issuerSort.sortType
     );
+
+    let page = 1;
+    $: minimalPage = Math.min(page, Math.ceil(sortedFilteredIssuers.length / pageCount));
+
 </script>
 
 <style>
@@ -86,11 +91,13 @@
         text-align: center;
     }
 </style>
-
 <Table
         {...table}
         bind:search={issuerSearch}
         bind:sort={issuerSort}
+        filteredCount={sortedFilteredIssuers.length}
+        page={minimalPage}
+        onPageChange={nbr => page = nbr}
         isEmpty={issuers.length === 0}
         pathParameters={[]}>
     {#each sortedFilteredIssuers as issuer (issuer.entityId)}

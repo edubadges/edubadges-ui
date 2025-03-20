@@ -14,6 +14,8 @@
     import BadgeListView from "./BadgeListView.svelte";
     import ViewSelector from "./ViewSelector.svelte";
     import {translateProperties} from "../../util/utils";
+    import {catalogPageCount, pageCount} from "../../util/pagination";
+    import Pagination from "../Pagination.svelte";
 
     export let entityId;
     export let visitorRole;
@@ -97,7 +99,11 @@
         });
     });
 
+    let page = 1;
+
     $: badgeClasses = search.trim().length === 0 ? issuer.publicBadgeclasses : issuer.publicBadgeclasses.filter(bc => bc.name.toLowerCase().indexOf(search.toLowerCase()) > -1);
+    $: paginatedBadgeClasses = badgeClasses.slice((minimalPage - 1) * pageCount, minimalPage * pageCount)
+    $: minimalPage = Math.min(page, Math.ceil(badgeClasses.length / pageCount))
 
 </script>
 
@@ -252,15 +258,18 @@
             </div>
             <div class={`badges ${view === "list" ? "list" : "cards"}`}>
                 {#if view === "list"}
-                    <BadgeListView badges={badgeClasses} isBadgesClass={true} isPublic={true}/>
+                    <BadgeListView badges={paginatedBadgeClasses} isBadgesClass={true} isPublic={true}/>
                 {:else}
-                    {#each badgeClasses as badge}
+                    {#each paginatedBadgeClasses as badge}
                         <BadgeCard isPublic={true} badgeClass={badge} withHeaderData={false}/>
                     {/each}
                 {/if}
             </div>
         </div>
-
+        <Pagination currentPage={page}
+                    total={badgeClasses.length}
+                    onChange={nbr => page = nbr}
+                    pageCount={pageCount}/>
     {:else}
         <Spinner/>
     {/if}
