@@ -1778,6 +1778,7 @@ I18n.translations.nl = {
         tableHeader: "Edubadges voor {{institution}} in {{year}}",
         allYears: "alle jaren",
         allInstitutions: "alle instellingen",
+        exportTitle: "Inzicht edubadges",
         tooltips: {
             awardedBadges:
                 "Hier ziet u totaal van alle edubadges die bij de ontvangers in de backpack zijn opgenomen.<br/><br/>" +

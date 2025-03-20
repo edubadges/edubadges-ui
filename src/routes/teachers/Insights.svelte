@@ -425,6 +425,11 @@
                 libURL: config.extensionsRootUrl + '/static/js',
                 allowHTML: true,
                 fallbackToExportServer: false,
+                chartOptions: {
+                   title: {
+            	        text: I18n.t("insights.exportTitle"),
+                   }
+                },
                 buttons: {
                     contextButton: {
                         symbolStroke: '#772583',

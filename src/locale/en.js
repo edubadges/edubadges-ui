@@ -1029,7 +1029,7 @@ I18n.translations.en = {
             badgeClassPlaceholder: "Select a badge class...",
             year: "Year",
             yearPlaceholder: "Select a year...",
-            badgeClassType: "Type edubadge",
+            badgeClassType: "Type edubadge"
         },
         collections: {
             number: "Number",
@@ -1754,6 +1754,7 @@ I18n.translations.en = {
         tableHeader: "Edubadges for {{institution}} in {{year}}",
         allYears: "all years",
         allInstitutions: "all institutions",
+        exportTitle: "Insights edubadges",
         tooltips: {
             awardedBadges:
                 "Here you can see the total of all edubadges that are included in the backpack with the recipients.<br/><br/> " +
