@@ -6,6 +6,7 @@
     import {rolesToPermissions} from "../../util/rolesToPermissions";
     import {trash} from "../../icons";
     import {flash} from "../../stores/flash";
+    import {validEmail} from "../../util/forms";
 
     export let contentType;
     export let entityId;
@@ -16,8 +17,6 @@
     let newUsers = [{"email": "", "chosenRole": permissionsRoles[defaultValue]}];
     let errors = [];
     let working = false;
-
-    const emailRegExp = /(.+)@(.+){1,}/
 
     const addEmailField = () => {
         newUsers = [...newUsers, {
@@ -39,7 +38,7 @@
 
     const submit = () => {
         working = true;
-        const userProvisionments = newUsers.filter(user => emailRegExp.test(user.email))
+        const userProvisionments = newUsers.filter(user => validEmail(user.email))
             .map(user => ({'userEmail': user.email, 'permissions': rolesToPermissions(user.chosenRole.value)}));
         inviteUser(contentType, entityId, userProvisionments).then(res => {
             let hasFailures = res.some(el => el.status === "failure");
@@ -181,7 +180,7 @@
 
   <div class="options">
     <Button secondary={true} action={cancel} text={I18n.t("inviteUsers.cancel")}/>
-    <Button disabled={working || newUsers.some(user => !emailRegExp.test(user.email))}
+    <Button disabled={working || newUsers.some(user => !validEmail(user.email))}
             action={submit} text={I18n.t(['editUsers', 'modal', 'add'])}/>
   </div>
 </div>
