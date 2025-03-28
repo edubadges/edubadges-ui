@@ -12,6 +12,8 @@ RUN yarn install
 # Copy the rest of the application code
 COPY . .
 
+RUN find public/ -maxdepth 1 -type f -delete
+
 # Copy a docker-specific config.js over the generic one.
 # NOTE: in docker-compose we mount over this file again, so there the version on the 
 # host machine in ./docker/config.js is used at /app/src/util/config.js
@@ -21,15 +23,10 @@ RUN yarn build:prod
 
 RUN yarn cache clean 
 
+FROM joseluisq/static-web-server:2-alpine
 
-FROM nginx:alpine
+COPY --from=builder /app/public /public
 
-# Remove default Nginx website
-RUN rm -rf /usr/share/nginx/html/*
+EXPOSE 80
 
-COPY --from=builder /app/public /usr/share/nginx/html
-
-EXPOSE 8080
-
-# Command to run the server
-CMD ["/bin/sh", "-c", "sed -i 's/listen .*/listen 8080;/g' /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"]
+CMD ["static-web-server", "--health", "-g", "info", "--log-remote-address=true"]
