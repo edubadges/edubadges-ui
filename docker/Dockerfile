@@ -14,11 +14,6 @@ COPY . .
 
 RUN find public/ -maxdepth 1 -type f -delete
 
-# Copy a docker-specific config.js over the generic one.
-# NOTE: in docker-compose we mount over this file again, so there the version on the 
-# host machine in ./docker/config.js is used at /app/src/util/config.js
-COPY ./docker/config.js /app/src/util/config.js
-
 RUN yarn build:prod
 
 RUN yarn cache clean 
