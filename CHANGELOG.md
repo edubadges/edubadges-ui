@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [8.1.0] - 2025-04-01
+
+Backend: https://github.com/edubadges/edubadges-server/compare/v8.0.1...v8.1.0</br>
+Frontend: https://github.com/edubadges/edubadges-ui/compare/v.8.0.0...v8.1.0
+
+- Updating dockerfile to run ui with static-web-server
+- Use of existing correct regex for checking email address
+- Set page count to 12 for pagination
+- Refactored search for users attributes https://trello.com/c/zUeAmX3l/1058-zoeken-met-spatie-resulteert-in-geen-resultaten
+- Added pagination for public issuer page
+- Validate EPPN inbulk upload https://trello.com/c/ztNm4cRi/1037-if-wrong-eppn-format-is-used-with-bulk-upload-generic-error-is-shown
+- 86e30WkS Fix for title export insights https://trello.com/c/86e30WkS/1039-export-graph-from-insights-as-pdf-or-png-has-no-title-but-just-states-chart-title
+- Added Dockerfile for prod-like build, moved dev to dev.Dockerfile
+- Create docker-image.yml
+- Enable codeql-analysis.yml
+
 ## [8.0.0] - 2025-03-10
 
 Backend: https://github.com/edubadges/edubadges-server/compare/v7.4.2...v8.0.0</br>
