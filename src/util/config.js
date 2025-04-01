@@ -1,8 +1,8 @@
 import env from "env-var";
 
 export const config = {
-    local: env.get("LOCAL").default("true").asBool(),
-    serverUrl: env.get("SERVER_URL").default("http://localhost:8000").asUrlString(),
+    local: window._env_?.LOCAL || "true",
+    serverUrl: window._env_?.SERVER_URL || "http://localhost",
     studentDomain: env.get("STUDENT_DOMAIN").default("edu_id").asString(),
     teacherDomain: env.get("TEACHER_DOMAIN").default("surf_conext").asString(),
     extensionsRootUrl: env.get("EXTENSIONS_ROOT_URL").default("http://localhost:8000/static").asUrlString(),
@@ -14,5 +14,5 @@ export const config = {
     features: {
         endorsements: env.get("FEATURES_ENDORSEMENTS").default("true").asBool(),
     },
-    hostname: env.get("HOSTNAME").default("localhost").asString(),
+    hostname: window._env_?.HOSTNAME || "http://localhost",
 };
