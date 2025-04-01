@@ -11,6 +11,7 @@
     "@babel/core": "^7.26.0",
     "@babel/plugin-transform-optional-chaining": "^7.25.9",
     "@babel/preset-env": "^7.26.0",
+    "@sveltejs/adapter-static": "^3.0.8",
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.1.0",
     "core-js": "^3.6.4",

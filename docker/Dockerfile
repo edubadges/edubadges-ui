@@ -18,10 +18,12 @@ RUN yarn build:prod
 
 RUN yarn cache clean 
 
-FROM joseluisq/static-web-server:2-alpine
+FROM nginxinc/nginx-unprivileged
 
-COPY --from=builder /app/public /public
+COPY --from=builder /app/public /usr/share/nginx/html
+COPY docker/nginx.conf /etc/nginx/nginx.conf
 
-EXPOSE 80
+USER 101  # Run as non-root user
+EXPOSE 8080
 
-CMD ["static-web-server", "--health", "-g", "info", "--log-remote-address=true"]
+CMD ["nginx", "-g", "daemon off;"]
