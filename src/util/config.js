@@ -1,18 +1,16 @@
-import env from "env-var";
-
 export const config = {
-    local: window._env_?.LOCAL || "true",
-    serverUrl: window._env_?.SERVER_URL || "http://localhost",
-    studentDomain: env.get("STUDENT_DOMAIN").default("edu_id").asString(),
-    teacherDomain: env.get("TEACHER_DOMAIN").default("surf_conext").asString(),
-    extensionsRootUrl: env.get("EXTENSIONS_ROOT_URL").default("http://localhost:8000/static").asUrlString(),
-    eduId: env.get("EDU_ID").default("https://mijn.test.eduid.nl").asUrlString(),
-    isProdEnvironment: env.get("IS_PROD_ENVIRONMENT").default("false").asBool(),
-    isDemoEnvironment: env.get("IS_DEMO_ENVIRONMENT").default("true").asBool(),
-    importBadgeAllowed: env.get("IMPORT_BADGE_ALLOWED").default("true").asBool(),
-    welcomeBadgeClassName: env.get("WELCOME_BADGE_CLASS_NAME").default("Edubadge account complete").asString(),
+    local: window.LOCAL || "true",
+    serverUrl: window.SERVER_URL || "http://localhost",
+    studentDomain: window.STUDENT_DOMAIN || "edu_id",
+    teacherDomain: window.TEACHER_DOMAIN || "surf_conext",
+    extensionsRootUrl: window.EXTENSIONS_ROOT_URL || "http://localhost:8000/static",
+    eduId: window.EDU_ID || "https://mijn.test.eduid.nl",
+    isProdEnvironment: window.IS_PROD_ENVIRONMENT || false,
+    isDemoEnvironment: window.IS_DEMO_ENVIRONMENT || true,
+    importBadgeAllowed: window.IMPORT_BADGE_ALLOWED || true,
+    welcomeBadgeClassName: window.WELCOME_BADGE_CLASS_NAME || "Edubadge account complete",
     features: {
-        endorsements: env.get("FEATURES_ENDORSEMENTS").default("true").asBool(),
+        endorsements: window.FEATURES_ENDORSEMENTS || true,
     },
-    hostname: window._env_?.HOSTNAME || "http://localhost",
+    hostname: window.HOSTNAME || "http://localhost",
 };
