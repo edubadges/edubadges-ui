@@ -12,7 +12,7 @@
   import {entityType} from "../../util/entityTypes"
   import {permissionsRole} from "../../util/rolesToPermissions";
   import {translateProperties} from "../../util/utils";
-  import RequestedBatches from "./RequestedBadges.svelte";
+  import RequestedBadges from "./RequestedBadges.svelte";
   import UnclaimedDirectAwardsNew from "./UnclaimedDirectAwardsNew.svelte";
   import ManageIssuersNew from "./ManageIssuersNew.svelte";
   import FacultiesNew from "./FacultiesNew.svelte";
@@ -155,7 +155,7 @@
       <InstitutionUserManagement entity={entityType.INSTITUTION}/>
     </Route>
     <Route path="/requested-batches">
-      <RequestedBatches />
+      <RequestedBadges />
     </Route>
     <Route path="/direct-awards">
       <UnclaimedDirectAwardsNew allUnclaimed={true}/>
