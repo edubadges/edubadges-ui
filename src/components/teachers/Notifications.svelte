@@ -195,7 +195,8 @@
                 const existingNotification = notifications.find(n => n.entityId === notification.badgeclass.entityId);
                 return !existingNotification || !existingNotification.selected;
             });
-            const creations = notifications.filter(notification => notification.selected && originalNotifications.every(n => n.badgeclass.entityId !== notification.entityId));
+            const creations = notifications.filter(notification => notification.selected &&
+                originalNotifications.every(n => n.badgeclass.entityId !== notification.entityId));
             updateNotifications({
                 deletions: deletions.map(notification => ({entity_id: notification.badgeclass.entityId})),
                 creations: creations.map(notification => ({entity_id: notification.entityId}))
