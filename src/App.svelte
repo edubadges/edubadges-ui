@@ -50,6 +50,7 @@
     import UsersNew from "./routes/teachers/UsersNew.svelte";
     import {translatePropertiesRawQueries} from "./util/utils";
     import ImpersonateNew from "./routes/teachers/ImpersonateNew.svelte";
+    import NotificationsNew from "./components/teachers/NotificationsNew.svelte";
 
 
     const homepage = {
@@ -191,7 +192,7 @@
                 {#if visitorRole === role.TEACHER}
                     <Route path="/users" component={UsersNew}/>
                     <Route path="/users/:userId/:entity" component={UserPermissions}/>
-                    <Route path="/notifications" component={Notifications}/>
+                    <Route path="/notifications" component={NotificationsNew}/>
                     <Route path="/manage/*mainEntity" component={Manage}/>
                     <Route path="/badgeclass/:entityId/*subEntity" component={BadgeclassAwarder}/>
                     <Route path="/invite-enrollements/:entityId/" let:params>

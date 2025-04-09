@@ -39,21 +39,9 @@ export const constructUserEmail = assertion => {
     return assertion.recipientEmail ? assertion.recipientEmail : (assertion.user ? assertion.user.email : "")
 }
 
-export const addUserPermissions = (user, attributes = ["name"], prefixes = [""]) => {
-    user.full_name = `${user.first_name} ${user.last_name}`
-    translatePropertiesRawQueries(user, ["institution_name"], prefixes)
-    user.permissions.forEach(permission => {
-        translatePropertiesRawQueries(permission.institution, attributes, prefixes)
-        translatePropertiesRawQueries(permission.faculty, attributes, prefixes)
-        translatePropertiesRawQueries(permission.issuer, attributes, prefixes)
-        translatePropertiesRawQueries(permission.badge_class, attributes, prefixes)
-    });
-    if (isEmpty(user.permissions)) {
-        user.role = staffType.VIEWER;
-        user.unit_name = user.institution_name;
-        return;
-    }
+export const addPermissions = user => {
     const permission = user.permissions.find(permission => permission.highest);
+    user.level = permission.level
     switch (permission.permission) {
         case "institution": {
             user.role = staffType.INSTITUTION_STAFF;
@@ -91,6 +79,23 @@ export const addUserPermissions = (user, attributes = ["name"], prefixes = [""])
         }
     }
 
+}
+
+export const addUserPermissions = (user, attributes = ["name"], prefixes = [""]) => {
+    user.full_name = `${user.first_name} ${user.last_name}`
+    translatePropertiesRawQueries(user, ["institution_name"], prefixes)
+    user.permissions.forEach(permission => {
+        translatePropertiesRawQueries(permission.institution, attributes, prefixes)
+        translatePropertiesRawQueries(permission.faculty, attributes, prefixes)
+        translatePropertiesRawQueries(permission.issuer, attributes, prefixes)
+        translatePropertiesRawQueries(permission.badge_class, attributes, prefixes)
+    });
+    if (isEmpty(user.permissions)) {
+        user.role = staffType.VIEWER;
+        user.unit_name = user.institution_name;
+        return;
+    }
+    addPermissions(user);
     return user;
 
 }

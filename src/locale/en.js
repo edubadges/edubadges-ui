@@ -640,6 +640,8 @@ I18n.translations.en = {
             issuerGroupAwarderRights: "(Because of status as issuer group awarder)",
             issuerAllRights: "(Because of status as issuer admin)",
             issuerAwarderRights: "(Because of status as issuer awarder)",
+            badgeClassAllRights: "(Because of status as badge admin)",
+            badgeClassAwarderRights: "(Because of status as badge awarder)",
             addPermissions: "Add permissions",
             remove: {
                 institution:

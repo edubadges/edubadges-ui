@@ -646,6 +646,8 @@ I18n.translations.nl = {
             issuerGroupAwarderRights: "(vanwege issuer groep awarder)",
             issuerAllRights: "(vanwege issuer admin)",
             issuerAwarderRights: "(vanwege issuer awarder)",
+            badgeClassAllRights: "(vanwege badge admin)",
+            badgeClassAwarderRights: "(vanwege badge awarder)",
             addPermissions: "Voeg permissies toe",
             remove: {
                 institution:
