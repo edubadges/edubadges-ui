@@ -230,7 +230,9 @@
 </style>
 
 {#if loaded}
-    <EntityForm entityTypeName={entity} submit={handleSubmit} {processing}>
+    <EntityForm entityTypeName={entity}
+                submit={handleSubmit}
+                {processing}>
         <div class="institution-form">
             <MultiLanguageField errorEnglish={englishValueError} errorDutch={dutchValueError}
                                 initialTab={institution.defaultLanguage == 'en-US'? "en" : "nl"}>

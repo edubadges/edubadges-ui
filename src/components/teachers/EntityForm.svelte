@@ -14,6 +14,8 @@
     export let badgeclassPostfix = null;
     export let mayDelete;
     export let hasUnrevokedAssertions;
+    export let hasAnyAssertions;
+    export let archived;
     export let mayEdit = true;
 
     export let create;
@@ -133,9 +135,9 @@
                 <div class="button-container delete">
                     <Button
                             warning={true}
-                            disabled={!mayDelete || processing || deleting || hasUnrevokedAssertions}
+                            disabled={!mayDelete || processing || deleting || hasUnrevokedAssertions || archived}
                             action={() => showRemoveModal = true}
-                            text={I18n.t("manage.delete.delete")}/>
+                            text={I18n.t(`manage.${(!hasUnrevokedAssertions && hasAnyAssertions && !archived) ? "archive.archive" : "delete.delete"}`)}/>
                 </div>
             {/if}
             <div class="button-group">
@@ -166,6 +168,8 @@
     <div class="warnings">
         {#if mayDelete && hasUnrevokedAssertions}
             <span class="may-not-delete">{I18n.t(`manage.delete.info.assertionsBlock.${entityTypeName}`)}</span>
+        {:else if mayDelete && hasAnyAssertions && archived}
+            <span class="may-not-delete">{I18n.t(`manage.archive.info.assertionsBlock.${entityTypeName}`)}</span>
         {:else if !mayDelete}
             <span class="may-not-delete">{I18n.t(`manage.delete.info.noPermission.${entityTypeName}`)}</span>
         {/if}
@@ -173,8 +177,13 @@
 </div>
 
 {#if mayDelete && hasUnrevokedAssertions === false}
-    <RemovalConfirmation {entityTypeName} entityId={entityId} parentId={parentId} {showRemoveModal}
-                         cancel={() => showRemoveModal=false} deleting={v => deleting = v}/>
+    <RemovalConfirmation {entityTypeName}
+                         entityId={entityId}
+                         parentId={parentId}
+                         archived={hasAnyAssertions}
+                         {showRemoveModal}
+                         cancel={() => showRemoveModal=false}
+                         deleting={v => deleting = v}/>
 {/if}
 {#if processing || deleting}
     <Spinner/>

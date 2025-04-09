@@ -14,8 +14,9 @@
     export let issuer = {faculty: {}, badgeclasses: []};
     export let faculties = [];
     export let facultyChooseAllowed;
-    export let mayDelete;
-    export let hasUnrevokedAssertions;
+    export let mayDelete = false;
+    export let hasUnrevokedAssertions = false;
+    export let hasAnyAssertions = false;
     export let defaultLanguage;
 
     const entity = entityType.ISSUER;
@@ -84,9 +85,17 @@
 
 </style>
 
-<EntityForm entityTypeName={entity} faculty={isCreate ? null : issuer.faculty} {mayDelete} {entityId}
+<EntityForm entityTypeName={entity}
+            faculty={isCreate ? null : issuer.faculty}
+            {mayDelete}
+            {entityId}
             {hasUnrevokedAssertions}
-            issuer={isCreate ? null : issuer} submit={onSubmit} create={isCreate} {processing}>
+            {hasAnyAssertions}
+            archived={isCreate ? false : issuer.archived}
+            issuer={isCreate ? null : issuer}
+            submit={onSubmit}
+            create={isCreate}
+            {processing}>
     <div class="issuer-form">
         <MultiLanguageField errorEnglish={englishValueError}
                             errorDutch={dutchValueError}

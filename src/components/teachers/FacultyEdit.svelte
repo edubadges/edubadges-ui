@@ -22,6 +22,8 @@
       descriptionEnglish,
       descriptionDutch,
       hasUnrevokedAssertions,
+      hasAssertions,
+      archived,
       onBehalfOf,
       onBehalfOfUrl,
       onBehalfOfDisplayName,
@@ -67,6 +69,7 @@
                  defaultLanguage={faculty.defaultLanguage}
                  mayDelete={mayDelete}
                  hasUnrevokedAssertions={faculty.hasUnrevokedAssertions}
+                 hasAnyAssertions={faculty.hasAssertions}
                  virtualOrganizationAllowed={currentInstitution.virtualOrganizationAllowed}
                  institutionType={currentInstitution.institutionType}/>
 {:else}

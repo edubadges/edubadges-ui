@@ -384,6 +384,42 @@ I18n.translations.en = {
                 question: "Do you really want to delete this badge class?",
             },
         },
+        archive: {
+            archive: "Archive",
+            info: {
+                assertionsBlock: {
+                    faculty:
+                        "Issuer group is archived and contains edubadges, and therefore can't be deleted",
+                    issuer:
+                        "Issuer is archived and contains edubadges, and therefore can't be deleted.",
+                    badgeclass:
+                        "Edubadges belonging to this badge class have already been awarded. Therefore the badge class can’t be deleted.",
+                },
+            },
+            flash: "Successfully archived {{type}}",
+            institution: {
+                name: "institution",
+                title: "Archive institution",
+                question: "Do you really want to archive this institution?",
+            },
+            faculty: {
+                name: "issuer group",
+                title: "Archive issuer group",
+                question:
+                    "Do you really want to archive this issuer group? All issuers and badge classes within will also be archived.",
+            },
+            issuer: {
+                name: "issuer",
+                title: "Archive issuer",
+                question:
+                    "Do you really want to archive this issuer? All the badge classes within will also be archived.",
+            },
+            badgeclass: {
+                name: "Badge class",
+                title: "Archive badge class",
+                question: "Do you really want to archive this badge class?",
+            },
+        },
         new: {
             create: "new",
             faculty: "Add new issuer group",

@@ -391,6 +391,42 @@ I18n.translations.nl = {
                 question: "Wil je deze badge class echt verwijderen?",
             },
         },
+        archive: {
+            archive: "archiveer",
+            info: {
+                assertionsBlock: {
+                    faculty:
+                        "Issuer groep is gearchiveerd en bevat edubadges, daarom kan de issuer froep niet verwijderd worden.",
+                    issuer:
+                        "Issuer is gearchiveerd en bevat edubadges, daarom kan de issuer niet verwijderd worden.",
+                    badgeclass:
+                        "Er zijn voor deze badge class reeds edubadges uitgereikt. De badge class kan daarom niet verwijderd worden.",
+                },
+            },
+            flash: "{{type}} is gearchiveerd",
+            institution: {
+                name: "Instelling",
+                title: "Archiveer instelling",
+                question: "Wil je deze instelling echt archiveren?",
+            },
+            faculty: {
+                name: "issuer groep",
+                title: "Archiveer issuer groep",
+                question:
+                    "Wil je deze issuer groep echt archiveren? Alle issuers en badge classes worden dan ook gearchiveerd.",
+            },
+            issuer: {
+                name: "Issuer",
+                title: "Archiveer issuer",
+                question:
+                    "Wil je deze issuer echt archiveren? Alle badge classes worden ook gearchiveerd.",
+            },
+            badgeclass: {
+                name: "Badge class",
+                title: "Archiveer badge class",
+                question: "Wil je deze badge class echt archiveren?",
+            },
+        },
         new: {
             create: "nieuw",
             faculty: "Nieuwe issuer groep maken",

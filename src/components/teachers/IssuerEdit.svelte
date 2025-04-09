@@ -3,7 +3,7 @@
   import {IssuerForm} from "../teachers";
   import {queryData} from "../../api/graphql";
   import Spinner from "../Spinner.svelte";
-  import {translateProperties} from "../../util/utils";
+  import {isEmpty, translateProperties} from "../../util/utils";
 
   export let entityId;
 
@@ -20,6 +20,9 @@
       urlEnglish,
       urlDutch,
       email,
+      archived,
+      hasUnrevokedAssertions,
+      hasAssertions
       faculty {
         nameDutch,
         nameEnglish,
@@ -27,13 +30,6 @@
         onBehalfOfDisplayName,
         onBehalfOfUrl,
         entityId
-      },
-      badgeclasses {
-        entityId,
-        badgeAssertions {
-          entityId
-          revoked
-        }
       },
       permissions {
         mayCreate
@@ -46,7 +42,6 @@
   let issuer = {};
   let permissions = {};
   let loaded = false;
-  let hasUnrevokedAssertions;
   let mayDelete = false;
 
   onMount(() => {
@@ -56,8 +51,6 @@
 
       permissions = res.issuer.permissions;
 
-      hasUnrevokedAssertions = issuer.badgeclasses
-        .some(badgeclass => badgeclass.badgeAssertions.some(assertion => !assertion.revoked));
       mayDelete = permissions && permissions.mayDelete;
       loaded = true;
     })
@@ -65,8 +58,14 @@
 </script>
 
 {#if loaded}
-  <IssuerForm {issuer} {entityId} facultyChooseAllowed={false} defaultLanguage={issuer.defaultLanguage}
-              mayDelete={mayDelete} hasUnrevokedAssertions={hasUnrevokedAssertions}/>
+  <IssuerForm {issuer}
+              {entityId}
+              facultyChooseAllowed={false}
+              defaultLanguage={issuer.defaultLanguage}
+              mayDelete={mayDelete}
+              hasUnrevokedAssertions={issuer.hasUnrevokedAssertions}
+              hasAnyAssertions={issuer.hasAssertions}
+  />
 {:else}
   <Spinner/>
 {/if}
