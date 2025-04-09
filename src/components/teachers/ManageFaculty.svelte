@@ -42,6 +42,7 @@
         pendingEnrollmentCount,
         badgeclassCount,
         assertionCount,
+        archived,
         faculty {
           nameEnglish,
           nameDutch,

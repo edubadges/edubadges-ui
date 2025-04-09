@@ -868,6 +868,11 @@ export function fetchRawFaculties() {
     return validFetchNoErrorDialog(path, {}, "GET");
 }
 
+export function fetchRawNotifications() {
+    const path = `${serverUrl}/queries/notifications`;
+    return validFetchNoErrorDialog(path, {}, "GET");
+}
+
 export function fetchRawUsers(all=false) {
     const path = `${serverUrl}/queries/users${all ? "?all=true" : ""}`;
     return validFetchNoErrorDialog(path, {}, "GET");

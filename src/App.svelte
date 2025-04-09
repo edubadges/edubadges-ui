@@ -4,7 +4,7 @@
     import {navigate, Route, Router} from "svelte-routing";
     import {Login, NotFound, ProcessToken, Student} from "./routes";
     import AcceptTerms from "./routes/AcceptTerms.svelte";
-    import {Impersonate, Manage, UserPermissions} from "./routes/teachers";
+    import {Manage, UserPermissions} from "./routes/teachers";
     import BadgesNew from "./routes/teachers/BadgesNew.svelte";
     import {Footer, Header, Spinner, SubscribeToPath} from "./components";
     import {
@@ -15,12 +15,12 @@
         TeacherProfile
     } from "./components/teachers";
     import {
+        currentInstitution,
         redirectPath,
         showMainErrorDialog,
         userLoggedIn,
         userName,
         userRole,
-        currentInstitution,
         validatedUserName
     } from "./stores/user";
     import {role} from "./util/role";
@@ -48,7 +48,9 @@
     import PublicFacultyPage from "./components/shared/PublicFacultyPage.svelte";
     import ValidateName from "./routes/ValidateName.svelte";
     import UsersNew from "./routes/teachers/UsersNew.svelte";
-    import {translateProperties, translatePropertiesRawQueries} from "./util/utils";
+    import {translatePropertiesRawQueries} from "./util/utils";
+    import ImpersonateNew from "./routes/teachers/ImpersonateNew.svelte";
+    import NotificationsNew from "./components/teachers/NotificationsNew.svelte";
 
 
     const homepage = {
@@ -70,12 +72,12 @@
                     $userLoggedIn = true;
                     $userName = constructUserName({user: {firstName: res[0].firstName, lastName: res[0].lastName}});
                     if ($userRole === role.TEACHER) {
-                         fetchRawCurrentInstitution()
-                             .then(res => {
-                                 const institution = res.current_institution;
-                                 institution.permissions = res.permissions;
-                                 $currentInstitution = translatePropertiesRawQueries(institution);
-                             })
+                        fetchRawCurrentInstitution()
+                            .then(res => {
+                                const institution = res.current_institution;
+                                institution.permissions = res.permissions;
+                                $currentInstitution = translatePropertiesRawQueries(institution);
+                            })
                     }
                 })
                 .catch(() => {
@@ -190,14 +192,14 @@
                 {#if visitorRole === role.TEACHER}
                     <Route path="/users" component={UsersNew}/>
                     <Route path="/users/:userId/:entity" component={UserPermissions}/>
-                    <Route path="/notifications" component={Notifications}/>
+                    <Route path="/notifications" component={NotificationsNew}/>
                     <Route path="/manage/*mainEntity" component={Manage}/>
                     <Route path="/badgeclass/:entityId/*subEntity" component={BadgeclassAwarder}/>
                     <Route path="/invite-enrollements/:entityId/" let:params>
                         <InviteEnrollments entityId={params.entityId}/>
                     </Route>
                     <Route path="/permissions/:entity" component={TeacherPermissions}/>
-                    <Route path="/impersonate" component={Impersonate}/>
+                    <Route path="/impersonate" component={ImpersonateNew}/>
                     <Route path="/management-queries" component={ManagementQueries}/>
                     <Route path="/insights" component={Insights}/>
                     <Route path="/launch/lti" component={LTILaunch}/>
