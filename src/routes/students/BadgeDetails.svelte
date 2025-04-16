@@ -550,13 +550,13 @@
                     <div class="button-container vertical">
                         {#if ob3SsiAgentEnabled}
                             <Button text={I18n.t("models.badge.ob3SsiAgent", {
-                                name: I18n.t("models.badge.ob3SsiAgentNames.unime")
+                                name: I18n.t("models.badge.ob3SsiAgentNames.preauthorized")
                               })}
-                                    action={() => startOb3SsiAgentImport('unime')}/>
+                                    action={() => startOb3SsiAgentImport('preauthorized')}/>
                             <Button text={I18n.t("models.badge.ob3SsiAgent", {
-                                name: I18n.t("models.badge.ob3SsiAgentNames.sphereon")
+                                name: I18n.t("models.badge.ob3SsiAgentNames.authorization")
                               })}
-                                    action={() => startOb3SsiAgentImport('sphereon')}/>
+                                    action={() => startOb3SsiAgentImport('authorization')}/>
                         {/if}
                     </div>
                     <div class="button-container">

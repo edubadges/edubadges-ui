@@ -973,11 +973,10 @@ I18n.translations.nl = {
             grade: "Cijfer",
             ob3SsiAgent: "Wallet import {{name}}",
             ob3SsiAgentNames: {
-                unime: "unime",
-                sphereon: "sphereon",
+                preauthorized: "zonder autorisatie",
+                authorization: "met autorisatie",
                 wwwallet: "WWWallet",
             },
-            ob3SsiAgentQRCode: "Import into {{name}} wallet",
             ob3SsiAgentQRCodeQuestion:
                 "Scan this code with your electronic credentials wallet",
             ok: "Ok",
