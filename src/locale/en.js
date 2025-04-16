@@ -76,6 +76,7 @@ I18n.translations.en = {
         },
     },
     searchPlaceholder: "Search...",
+    navigateBack: "Go back",
     authError: {
         title: "Sorry, you don't have access",
         adminEmail:
