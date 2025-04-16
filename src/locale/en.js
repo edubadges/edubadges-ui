@@ -896,11 +896,10 @@ I18n.translations.en = {
             grade: "Grade",
             ob3SsiAgent: "Wallet import {{name}}",
             ob3SsiAgentNames: {
-                unime: "unime",
-                sphereon: "sphereon",
+                preauthorized: "without authorization",
+                authorization: "with authorization",
                 wwwallet: "WWWallet",
             },
-            ob3SsiAgentQRCode: "Import into {{name}} wallet",
             ob3SsiAgentQRCodeQuestion:
                 "Scan this code with your electronic credentials wallet",
             ok: "Ok",
