@@ -1,13 +1,7 @@
 <script>
   import I18n from "i18n-js";
   import Cookies from "js-cookie";
-  import {userRole} from "../stores/user";
   import surf from "../img/logo-surf.svg";
-  import {ModalTerms} from "./forms";
-
-  let showModal = false;
-  let termsUrl;
-  let termsTitle;
 
   const changeLanguage = lang => () => {
     lang = ["en", "nl"].indexOf(lang) > -1 ? lang : "en";
@@ -16,13 +10,6 @@
     Cookies.set("lang", lang, {expires: 365, secure: true});
     window.location.search = urlSearchParams.toString();
   };
-
-  const showTerms = (title, url) => () => {
-    showModal = true;
-    termsUrl = url;
-    termsTitle = title;
-  };
-
 </script>
 
 <style>
@@ -89,16 +76,8 @@
 
 <footer class="footer">
   <div class="help">
-    <a href="/terms"
-       on:click|preventDefault|stopPropagation={showTerms(I18n.t("terms.termsTitle"),
-        I18n.t(`terms.${$userRole || "student"}.termsOfUseRaw`))}>
-      {I18n.t("terms.termsTitle")}
-    </a>
-    <a href="/privacy"
-       on:click|preventDefault|stopPropagation={showTerms(I18n.t("terms.privacyPolicyTitle"),
-        I18n.t(`terms.${$userRole || "student"}.privacyPolicyRaw`))}>
-      {I18n.t("terms.privacyPolicyTitle")}
-    </a>
+    <a href="/terms">{I18n.t("terms.termsTitle")}</a>
+    <a href="/privacy">{I18n.t("terms.privacyPolicyTitle")}</a>
   </div>
 
   <div class="lang">
@@ -130,11 +109,3 @@
     </div>
   </div>
 </footer>
-
-{#if showModal}
-  <ModalTerms
-    title={termsTitle}
-    submit={() => showModal = false}
-    cancel={() => showModal = false}
-    url={termsUrl}/>
-{/if}
