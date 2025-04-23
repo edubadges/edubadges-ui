@@ -1067,7 +1067,8 @@ I18n.translations.en = {
             badgeClassPlaceholder: "Select a badge class...",
             year: "Year",
             yearPlaceholder: "Select a year...",
-            badgeClassType: "Type edubadge"
+            badgeClassType: "Type edubadge",
+            sectorType: "Sector",
         },
         collections: {
             number: "Number",
@@ -1602,6 +1603,7 @@ I18n.translations.en = {
     catalog: {
         name: "Catalog",
         education: {
+            ALL: "All",
             WO: "WO",
             HBO: "HBO",
             MBO: "MBO",
