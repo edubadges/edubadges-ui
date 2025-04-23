@@ -6,12 +6,9 @@
   import {fetchMarkdown} from "../../api/markdown";
 
   export let title;
-  export let submit;
   export let cancel;
   export let url;
-  export let showAgree = false;
 
-  let modal;
   let htmlTerms;
   let loaded = false;
 
@@ -90,18 +87,9 @@
         {@html htmlTerms}
       </div>
       <div class="actions">
-        {#if showAgree}
-          <div class="first">
-            <Button secondary={true} action={cancel} text={I18n.t("modalTerms.disagree")}/>
-          </div>
-          <div class="last">
-            <Button action={submit} text={I18n.t("modalTerms.agree")}/>
-          </div>
-        {:else}
-          <div class="first">
-            <Button action={cancel} text={I18n.t("modalTerms.ok")}/>
-          </div>
-        {/if}
+        <div class="first">
+          <Button action={cancel} text={I18n.t("modalTerms.ok")}/>
+        </div>
       </div>
     {:else}
       <Spinner/>

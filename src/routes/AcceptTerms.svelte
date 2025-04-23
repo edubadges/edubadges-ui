@@ -185,7 +185,6 @@
 {#if showModalTerms}
     <ModalTerms
             title={termsTitle}
-            submit={closeTerms}
             cancel={closeTerms}
             url={termsUrl}/>
 {/if}

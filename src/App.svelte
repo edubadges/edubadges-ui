@@ -49,6 +49,7 @@
     import ValidateName from "./routes/ValidateName.svelte";
     import UsersNew from "./routes/teachers/UsersNew.svelte";
     import {translateProperties, translatePropertiesRawQueries} from "./util/utils";
+    import PublicMarkdownPage from "./routes/PublicMarkdownPage.svelte";
 
 
     const homepage = {
@@ -62,7 +63,7 @@
     onMount(() => {
         //if we are heading to any of the public path we don't fetch the profile
         const path = window.location.pathname;
-        const publicPaths = ["public", "auth/login", "signup", "validate", "version/info", "launch/lti"]
+        const publicPaths = ["public", "auth/login", "signup", "validate", "version/info", "launch/lti", "terms", "privacy"];
         if (path === "/" || !publicPaths.some(p => path.indexOf(p) > -1)) {
             getSocialAccounts()
                 .then(res => {
@@ -149,6 +150,7 @@
                 <Route path="/version/info">
                     <VersionInfo/>
                 </Route>
+
                 <!-- Student -->
                 {#if visitorRole === role.STUDENT}
                     <Route path="/backpack">
@@ -239,6 +241,19 @@
                 <Route path="/public/collections/:entityId/" let:params>
                     <PublicCollectionPage entityId={params.entityId}/>
                 </Route>
+                <Route path="/terms/">
+                    <PublicMarkdownPage
+                        title={I18n.t("terms.termsTitle")}
+                        url={I18n.t(`terms.${$userRole || "student"}.termsOfUseRaw`)}
+                    />
+                </Route>
+                <Route path="/privacy/">
+                    <PublicMarkdownPage
+                        title={I18n.t("terms.privacyPolicyTitle")}
+                        url={I18n.t(`terms.${$userRole || "student"}.privacyPolicyRaw`)}
+                    />
+                </Route>
+
                 <Route component={NotFound}/>
 
                 <!-- Expose current path through store -->
