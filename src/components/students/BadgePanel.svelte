@@ -45,8 +45,11 @@
     <BadgeListView badges={badges} linksEnabled={linksEnabled} isPublic={isPublic}/>
   {:else}
     {#each badges as badge}
-      <BadgeCard badge={badge} badgeClass={badge.badgeclass} linksEnabled={linksEnabled}
-                 withHeaderData={true} isPublic={isPublic}/>
+      <BadgeCard badge={badge}
+                 badgeClass={badge.badgeclass}
+                 linksEnabled={linksEnabled}
+                 withHeaderData={true}
+                 isPublic={isPublic}/>
     {/each}
   {/if}
 </div>

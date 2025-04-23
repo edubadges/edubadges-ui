@@ -189,7 +189,9 @@
               nameEnglish,
               entityId,
               linkedinOrgIdentifier,
-              ob3SsiAgentEnabled
+              ob3SsiAgentEnabled,
+              imageDutch,
+              imageEnglish
             }
           }
         },

@@ -60,6 +60,8 @@ export const studentBadgeInstances = `query {
             institution {
               nameDutch,
               nameEnglish,
+              imageDutch,
+              imageEnglish
             }
           }
         }
@@ -123,6 +125,8 @@ export const revokedStudentBadgeInstances = `query {
             institution {
               nameDutch,
               nameEnglish,
+              imageDutch,
+              imageEnglish
             }
           }
         }
