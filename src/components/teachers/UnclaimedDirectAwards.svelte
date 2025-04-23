@@ -186,6 +186,14 @@
             sortType: sortType.DATE,
             width: "10%",
             center: true
+        },
+        {
+            name: I18n.t("models.directAwards.expirationDate"),
+            attribute: "expirationDate",
+            reverse: false,
+            sortType: sortType.DATE,
+            width: "10%",
+            center: true
         }
     ];
 
@@ -316,6 +324,9 @@
                             {directAward.deleteAt ? moment(directAward.deleteAt).format('MMM D, YYYY') : "-"}
                         </td>
                     {/if}
+                     <td class="center">
+                        {directAward.expirationDate ? moment(directAward.expirationDate).format('MMM D, YYYY') : "-"}
+                    </td>
                 </tr>
             {/each}
             {#if $tree.directAwards.length === 0}

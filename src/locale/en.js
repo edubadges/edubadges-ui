@@ -1106,6 +1106,7 @@ I18n.translations.en = {
             resendAt: "Reminder",
             expires: "Expires",
             badgeClass: "Badge class",
+            expirationDate: "End date",
             issuer: "Issuer",
             faculty: "Issuer group",
             confirmation: {
