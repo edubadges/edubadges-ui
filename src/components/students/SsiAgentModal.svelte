@@ -66,7 +66,10 @@
 {#if showModal}
 <Modal
         question={I18n.t("models.badge.ob3SsiAgentQRCodeQuestion")}
-        title={I18n.t("models.badge.ob3SsiAgentQRCode", { name: walletName })}
+        title={I18n.t("models.badge.ob3SsiAgent", {
+          name: I18n.t(`models.badge.ob3SsiAgentNames.${walletName}`)
+        })}
+
         submit={() => submit()}
         submitLabel={I18n.t("error.close")}>
     <div class="qr-code-container">
