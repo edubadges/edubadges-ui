@@ -92,6 +92,10 @@
     let facultyId = null;
     let institutionId = null;
     let currentInstitution = {};
+    let sectorSelectOptions = ["ALL", "WO","HBO","MBO"].map(sector => ({
+        name: I18n.t(`catalog.education.${sector}`), value: sector
+    }))
+    let sector = sectorSelectOptions[0];
     const currentYear = new Date().getFullYear();
     const number = currentYear - 2017
     let yearSelectOptions = new Array(number).fill(0).map((a, i) => ({name: currentYear - i}));
@@ -125,6 +129,7 @@
     const query = `query {
       publicInstitutions {
         id,
+        institutionType,
         nameEnglish,
         identifier,
         nameDutch,
@@ -132,6 +137,7 @@
         },
       currentInstitution {
         entityId,
+        institutionType,
         identifier,
         nameEnglish,
         nameDutch,
@@ -148,16 +154,16 @@
 
     const reload = res => {
         loaded = false;
-        const filteredDA = filterSeries(res['assertions'], entityTypeLookup.ASSERTION, 'direct_award', badgeClassId, issuerId, facultyId, badgeType.value);
+        const filteredDA = filterSeries(res['assertions'], entityTypeLookup.ASSERTION, 'direct_award', badgeClassId, issuerId, facultyId, badgeType.value, sector.value);
         const filteredDaNotRevoked = filteredDA.filter(assertion => assertion.revoked === false);
         let daAssertions = assertionSeries(filteredDaNotRevoked);
 
-        const filteredReq = filterSeries(res['assertions'], entityTypeLookup.ASSERTION, 'requested', badgeClassId, issuerId, facultyId, badgeType.value);
+        const filteredReq = filterSeries(res['assertions'], entityTypeLookup.ASSERTION, 'requested', badgeClassId, issuerId, facultyId, badgeType.value, sector.value);
         const filteredReqNotRevoked = filteredReq.filter(assertion => assertion.revoked === false);
         let reqAssertions = assertionSeries(filteredReqNotRevoked);
 
-        directAwards = filterSeries(res['direct_awards'], entityTypeLookup.DIRECT_AWARD, null, badgeClassId, issuerId, facultyId, badgeType.value);
-        enrollments = filterSeries(res['enrollments'], entityTypeLookup.ENROLMENT, null, badgeClassId, issuerId, facultyId, badgeType.value);
+        directAwards = filterSeries(res['direct_awards'], entityTypeLookup.DIRECT_AWARD, null, badgeClassId, issuerId, facultyId, badgeType.value, sector.value);
+        enrollments = filterSeries(res['enrollments'], entityTypeLookup.ENROLMENT, null, badgeClassId, issuerId, facultyId, badgeType.value, sector.value);
         const equalized = equalizeAssertionsSize(daAssertions, reqAssertions);
         daAssertions = equalized[0];
         reqAssertions = equalized[1];
@@ -270,6 +276,11 @@
     const toggleCountSURFInTotal = () => {
         countSURFInTotal = !countSURFInTotal;
         initialize();
+    }
+
+    const sectorSelected = item => {
+        sector = item;
+        reload(serverData);
     }
 
     const facultySelected = item => {
@@ -587,7 +598,7 @@
 
     .checkbox-container {
         display: flex;
-        margin-bottom: 15px;
+        margin: 10px 0 15px 0;
     }
 
     .metadata-container {
@@ -801,6 +812,15 @@
                                     clearable={false}
                                     optionIdentifier="identifier"/>
                         </Field>
+                        <Field entity="insights" attribute="sectorType">
+                            <Select
+                                value={sector}
+                                handleSelect={sectorSelected}
+                                clearable={false}
+                                items={sectorSelectOptions}
+                                optionIdentifier="value"/>
+                    </Field>
+
                         <div class="checkbox-container">
                             <CheckBox value={countSURFInTotal && institutionId && institutionId.identifier === "all"}
                                       label={I18n.t("models.insights.countSURF")}

@@ -1080,6 +1080,7 @@ I18n.translations.nl = {
             year: "Jaar",
             yearPlaceholder: "Selecteer een jaar...",
             badgeClassType: "Type edubadge",
+            sectorType: "Sector",
         },
         collections: {
             number: "Nummer",
@@ -1620,6 +1621,7 @@ I18n.translations.nl = {
     catalog: {
         name: "Catalogus",
         education: {
+            ALL: "Alle",
             WO: "WO",
             HBO: "HBO",
             MBO: "MBO",
