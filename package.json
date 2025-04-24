@@ -27,7 +27,7 @@
     "prettier": "^2.0.4",
     "regenerator-runtime": "^0.13.5",
     "sass": "^1.55.0",
-    "serialize-javascript": "^3.1.0",
+    "serialize-javascript": "^6.0.2",
     "serve": "^14.2.4",
     "style-loader": "^1.0.0",
     "svelte": "^3.49.0",
