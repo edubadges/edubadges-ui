@@ -1119,6 +1119,7 @@ I18n.translations.nl = {
             resendAt: "Reminder",
             expires: "Verloopt",
             badgeClass: "Badge class",
+            expirationDate: "Eind datum",
             issuer: "Issuer",
             faculty: "Issuer groep",
             confirmation: {
