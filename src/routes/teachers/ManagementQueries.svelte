@@ -105,7 +105,7 @@
 
     const download = () => {
         const a = document.createElement("a");
-        a.href = "data:Application/octet-stream," + toCSV(queryData);
+        a.href = "data:text/csv;charset=utf-8," + toCSV(queryData);
         a.download = `${currentQueryObject.value}.csv`;
         a.style.display = "none";
         document.body.appendChild(a);
