@@ -97,7 +97,6 @@
     const toCSV = content => {
         const keys = Object.keys(content[0]);
         const header = keys.join(",") + "\r\n"
-        console.log(header)
         return encodeURIComponent(header + content
             .map(item => keys.map(key => item[key] ? item[key].toString().replaceAll(",", " ") : "").join(","))
             .join("\r\n"));

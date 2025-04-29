@@ -128,7 +128,6 @@ export const filterSeries = (assertions, identifiers, awardType = null, badgeCla
             const assertionFacType = assertion[`${identifiers['FACULTY']}faculty_type`];
             const applies = (sectorType === "ALL" || assertionSector === sectorType
                     || (assertionSector === "HBO/MBO" && assertionFacType === assertionSector))
-            console.log(`${window.crypto.randomUUID()} Applies: ${applies}   sector: ${assertionSector}    faculty:${assertionFacType}`)
             return (awardType == null || assertion.award_type === awardType)
                 && (badgeClassId == null || assertion[identifiers['BADGE_CLASS_ID']] === badgeClassId)
                 && (issuerId == null || assertion[identifiers['ISSUER_ID']] === issuerId)
