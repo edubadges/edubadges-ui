@@ -431,7 +431,7 @@
                                     refresh={refresh}
                                     directAwards={true}
                                     filterOptions={[filterTypes.ISSUED, filterTypes.STATUS]}
-                                    actions={[ACTIONS.DELETE_DIRECT_AWARD, ACTIONS.RESEND_DIRECT_AWARD]}
+                                    actions={[ACTIONS.DELETE_DIRECT_AWARD]}
                                     title={I18n.t("models.badge.openAwarded")}
                         />
                     </Route>
