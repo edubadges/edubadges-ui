@@ -5,9 +5,6 @@
 </script>
 
 <style>
-  th {
-    text-transform: capitalize;
-  }
 </style>
 
 {#each tableHeaders as th}

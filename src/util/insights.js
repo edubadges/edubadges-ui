@@ -224,7 +224,8 @@ export const assertionSeries = assertions => {
             if (val.year === prevAssertion.year) {
                 numberOfFills = val.month - prevAssertion.month - 1;
             } else {
-                numberOfFills = 12 - prevAssertion.month + val.month - 1;
+                //There is a possibility that the difference is more than one year
+                numberOfFills = (12 * (val.year - prevAssertion.year)) - prevAssertion.month + val.month - 1;
             }
             acc = acc.concat(new Array(numberOfFills).fill({nbr: prevAssertion.nbr}));
         }

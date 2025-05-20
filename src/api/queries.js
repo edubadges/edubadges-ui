@@ -183,7 +183,10 @@ export const directAwardBundleQuery = `
         directAwardCount,
         directAwardRejectedCount,
         directAwardScheduledCount,
-        directAwardRevokedCount
+        directAwardExpiredCount,
+        directAwardRemovedCount,
+        directAwardDeletedCount,
+        directAwardRevokedCount,
         initialTotal,
         directAwards {
             entityId,

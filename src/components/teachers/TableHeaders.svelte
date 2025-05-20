@@ -6,10 +6,6 @@
 </script>
 
 <style lang="scss">
-  th.table-header {
-    text-transform: capitalize;
-  }
-
   :global(th.table-header svg) {
     width: 16px;
   }

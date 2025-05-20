@@ -77,6 +77,7 @@
     let directAwardDenied = 0;
     let directAwardsOpen = 0;
     let directAwardsRevoked = 0;
+    let directAwardsExpired = 0;
     let claimRate = 0;
 
     //Requested
@@ -92,7 +93,7 @@
     let facultyId = null;
     let institutionId = null;
     let currentInstitution = {};
-    let sectorSelectOptions = ["ALL", "WO","HBO","MBO"].map(sector => ({
+    let sectorSelectOptions = ["ALL", "WO", "HBO", "MBO"].map(sector => ({
         name: I18n.t(`catalog.education.${sector}`), value: sector
     }))
     let sector = sectorSelectOptions[0];
@@ -156,8 +157,8 @@
         loaded = false;
         const filteredDA = filterSeries(res['assertions'], entityTypeLookup.ASSERTION, 'direct_award', badgeClassId, issuerId, facultyId, badgeType.value, sector.value);
         const filteredDaNotRevoked = filteredDA.filter(assertion => assertion.revoked === false);
+        debugger;
         let daAssertions = assertionSeries(filteredDaNotRevoked);
-
         const filteredReq = filterSeries(res['assertions'], entityTypeLookup.ASSERTION, 'requested', badgeClassId, issuerId, facultyId, badgeType.value, sector.value);
         const filteredReqNotRevoked = filteredReq.filter(assertion => assertion.revoked === false);
         let reqAssertions = assertionSeries(filteredReqNotRevoked);
@@ -180,8 +181,14 @@
         directAwardDenied = totalNbrByAttributeValue(directAwards, 'status', 'Rejected');
         directAwardsOpen = totalNbrByAttributeValue(directAwards, 'status', 'Unaccepted');
         directAwardsRevoked = totalNbrByAttributeValue(filteredDA, 'revoked', true);
-        totalDirectAwards = directAwardedAccepted + directAwardDenied + directAwardsOpen + directAwardsRevoked;
+        const directAwardBundles = filterSeries(res['direct_award_bundles'] || [], entityTypeLookup.DIRECT_AWARD, null, badgeClassId, issuerId, facultyId, badgeType.value, sector.value);
+        directAwardsExpired = directAwardBundles.reduce((acc, bundle) => {
+            acc += bundle.direct_award_expired_count;
+            return acc;
+        }, 0)
+        totalDirectAwards = directAwardedAccepted + directAwardDenied + directAwardsOpen + directAwardsRevoked + directAwardsExpired;
         claimRate = claimRatePercentage(directAwardedAccepted, (totalDirectAwards - directAwardsRevoked));
+
         //Requested
         acceptedAndApproved = totalRequestedAssertions;
         enrollmentsDenied = totalNbrByAttributeValue(enrollments, 'denied', true);
@@ -437,9 +444,9 @@
                 allowHTML: true,
                 fallbackToExportServer: false,
                 chartOptions: {
-                   title: {
-            	        text: I18n.t("insights.exportTitle"),
-                   }
+                    title: {
+                        text: I18n.t("insights.exportTitle"),
+                    }
                 },
                 buttons: {
                     contextButton: {
@@ -756,12 +763,17 @@
                     <section class="stat sub">
                         <span class="attr">{I18n.t("insights.unclaimed")}
                         </span>
-                        <span class="value">{directAwardsOpen}</span>
+                        <span class="value">{Number(directAwardsOpen).toLocaleString()}</span>
                     </section>
                     <section class="stat sub">
                         <span class="attr">{I18n.t("insights.revoked")}
                         </span>
                         <span class="value">{directAwardsRevoked}</span>
+                    </section>
+                    <section class="stat sub">
+                        <span class="attr">{I18n.t("insights.directAwardedExpired")}
+                        </span>
+                        <span class="value">{Number(directAwardsExpired).toLocaleString()}</span>
                     </section>
                     <section class="stat">
                         <span class="attr">{I18n.t("insights.claimRate")}
@@ -803,6 +815,14 @@
                 </section>
                 <section class="selectors">
                     {#if profile.is_superuser}
+                        <Field entity="insights" attribute="sectorType">
+                            <Select
+                                    value={sector}
+                                    handleSelect={sectorSelected}
+                                    clearable={false}
+                                    items={sectorSelectOptions}
+                                    optionIdentifier="value"/>
+                        </Field>
                         <Field entity="insights" attribute="institution">
                             <Select
                                     value={institutionId}
@@ -812,15 +832,6 @@
                                     clearable={false}
                                     optionIdentifier="identifier"/>
                         </Field>
-                        <Field entity="insights" attribute="sectorType">
-                            <Select
-                                value={sector}
-                                handleSelect={sectorSelected}
-                                clearable={false}
-                                items={sectorSelectOptions}
-                                optionIdentifier="value"/>
-                    </Field>
-
                         <div class="checkbox-container">
                             <CheckBox value={countSURFInTotal && institutionId && institutionId.identifier === "all"}
                                       label={I18n.t("models.insights.countSURF")}

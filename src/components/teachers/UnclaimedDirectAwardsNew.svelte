@@ -71,6 +71,8 @@
             deleteDirectAwards(selection, revocationReason)
                 .then(() => {
                     loadDirectAwards();
+                    selection = [];
+                    checkAllValue = false;
                     flash.setValue(I18n.t("models.directAwards.flash.deleted"));
                     revocationReason = "";
                 });
@@ -135,9 +137,10 @@
             width: "9%",
             center: true
         },
+        allUnclaimed ? null :
         {
-            name: I18n.t(`models.${allUnclaimed ? "directAwards.resendAt" : "badge.deleted"}`),
-            attribute: allUnclaimed ? "resend_at_millis" : "delete_at_millis",
+            name: I18n.t("models.badge.deleted"),
+            attribute: "delete_at_millis",
             reverse: false,
             sortType: sortType.DATE,
             width: "9%",
@@ -151,7 +154,7 @@
             width: "9%",
             center: true
         }
-    ];
+    ].filter(header => header !== null);
 
     $: table = {
         entity: "directAwards",
@@ -267,11 +270,7 @@
                     <td class="center">
                         {moment(directAward.created_at_millis).format('MMM D, YYYY')}
                     </td>
-                    {#if allUnclaimed}
-                        <td class="center">
-                            {directAward.resend_at ? moment(directAward.resend_at_millis).format('MMM D, YYYY') : "-"}
-                        </td>
-                    {:else}
+                    {#if !allUnclaimed}
                         <td class="center">
                             {directAward.delete_at ? moment(directAward.delete_at_millis).format('MMM D, YYYY') : "-"}
                         </td>
