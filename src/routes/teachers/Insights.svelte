@@ -157,7 +157,6 @@
         loaded = false;
         const filteredDA = filterSeries(res['assertions'], entityTypeLookup.ASSERTION, 'direct_award', badgeClassId, issuerId, facultyId, badgeType.value, sector.value);
         const filteredDaNotRevoked = filteredDA.filter(assertion => assertion.revoked === false);
-        debugger;
         let daAssertions = assertionSeries(filteredDaNotRevoked);
         const filteredReq = filterSeries(res['assertions'], entityTypeLookup.ASSERTION, 'requested', badgeClassId, issuerId, facultyId, badgeType.value, sector.value);
         const filteredReqNotRevoked = filteredReq.filter(assertion => assertion.revoked === false);
