@@ -97,7 +97,9 @@
         name: I18n.t(`catalog.education.${sector}`), value: sector
     }))
     let sector = sectorSelectOptions[0];
-    const currentYear = new Date().getFullYear();
+    const today = new Date();
+    const currentYear = today.getFullYear();
+    const currentMonth = today.getMonth();
     const number = currentYear - 2017
     let yearSelectOptions = new Array(number).fill(0).map((_, i) => ({name: currentYear - i})).toReversed();
     let yearStart = yearSelectOptions[0];
@@ -105,7 +107,7 @@
     const translation = I18n.locale === "en" ? I18n.translations.en : I18n.translations.nl;
     let monthSelectOptions = translation.monthNames.map((month, index) => ({name: month, value: index + 1}))
     let monthStart = monthSelectOptions[0];
-    let monthEnd = monthSelectOptions[new Date().getMonth() + 1];
+    let monthEnd = monthSelectOptions[currentMonth];
 
     let facultySelectOptions = [];
     let issuerSelectOptions = [];
@@ -449,7 +451,7 @@
         yearStart = yearSelectOptions[0];
         yearEnd = yearSelectOptions[yearSelectOptions.length - 1];
         monthStart = monthSelectOptions[0];
-        monthEnd = monthSelectOptions[new Date().getMonth() + 1];
+        monthEnd = monthSelectOptions[currentMonth];
 
         facultySelectOptions = facultyOptions(faculties);
         issuerSelectOptions = issuerOptions(faculties, null);
@@ -1033,9 +1035,10 @@
                                     value={monthEnd}
                                     handleSelect={monthEndSelected}
                                     clearable={false}
-                                    items={yearStart.name === yearEnd.name ?
-                                        monthSelectOptions.filter(option => option.value >= monthStart.value)
-                                        : monthSelectOptions}
+                                    items={monthSelectOptions
+                                        .filter(option => (yearEnd.name < currentYear || option.value <= (currentMonth+1)) &&
+                                        (yearStart.name < yearEnd.name ||
+                                        (yearStart.name === yearEnd.name && option.value >= monthStart.value)))}
                                     optionIdentifier="value"/>
                             <Select
                                     value={yearEnd}
