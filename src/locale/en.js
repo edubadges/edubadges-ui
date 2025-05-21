@@ -16,7 +16,7 @@ I18n.translations.en = {
         permissions: "My permissions",
         notifications: "My notifications",
         feedback: "Send feedback",
-        demo: "Demo environment",
+        demo: "Eduwallet Incubator environment",
         impersonate: "Impersonate",
         queries: "Management queries",
         clearImpersonation: "Clear impersonation",
@@ -1604,7 +1604,7 @@ I18n.translations.en = {
             "A descriptive title of the evidence of this achievement.",
         enrollmentEvidenceDescription:
             "A longer description of the evidence of this achievement.",
-        demoEnvironment: "All data is deleted every month.",
+        demoEnvironment: "All data is reset every deployment.",
         directAwards:
             "Direct awards are edubadges that are awarded by the teacher to students by email. The number(s) below are direct awards that are either still not accepted, rejected or revoked",
         enrollments:
@@ -1772,10 +1772,9 @@ I18n.translations.en = {
     },
     demo: {
         info:
-            "This is the demo environment of edubadges.<br/><br/>All of the data is cleared each month and after each new " +
+            "This is the Eduwallet Incubator environment of edubadges.<br/><br/>All of the data is cleared after each new " +
             "deployment.<br/><br/>" +
-            "If you have any question about the demo environment please contact us" +
-            " at <a href='mailto:support@edubadges.nl'>support@edubadges.nl</a> ",
+            "More info about the Eduwallet Incubator can be found on <a href='https://wiki.surfnet.nl/spaces/EWI/pages/128124830/Eduwallet+Incubator'>the internal SURF wiki</a>",
     },
     feedback: {
         title: "Provide Feedback",
