@@ -1819,10 +1819,12 @@ I18n.translations.nl = {
         noContent: "Geen edubadges zijn uitgegeven met de gekozen filters",
         term: "Kwartaal",
         month: "Maand",
-        tableHeader: "Edubadges voor {{institution}} in {{year}}",
+        tableHeader: "Edubadges voor {{institution}} tussen start {{from}} en einde {{until}}",
         allYears: "alle jaren",
         allInstitutions: "alle instellingen",
         exportTitle: "Inzicht edubadges",
+        from: "Van",
+        until: "Tot",
         tooltips: {
             awardedBadges:
                 "Hier ziet u totaal van alle edubadges die bij de ontvangers in de backpack zijn opgenomen.<br/><br/>" +
@@ -1854,7 +1856,7 @@ I18n.translations.nl = {
             pendingEnrollments:
                 "Studenteninschrijvingen die niet zijn geaccepteerd / geweigerd door een docent",
             requestedDenied:
-                "Studenteninschrijvingen die zijn geweigerd door een docent",
+                "Studenteninschrijvingen die zijn geweigerd door een docent"
         },
     },
     collections: {

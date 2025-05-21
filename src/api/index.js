@@ -4,7 +4,7 @@ import {config} from "../util/config";
 import {entityType} from "../util/entityTypes";
 import I18n from "i18n-js";
 import {isEmpty} from "../util/utils";
-
+import {data} from "./insights_minimal";
 //Internal API
 const serverUrl = config.serverUrl;
 
@@ -784,17 +784,20 @@ export function sendFeedback(message) {
 }
 
 //Insights
-export function insights(year, institutionId, countSURFInTotal) {
+export function insights(institutionId, countSURFInTotal) {
     const path = `${serverUrl}/insights/insight`;
     const data = {
-        lang: I18n.locale,
-        year: year
+        lang: I18n.locale
     }
     if (institutionId) {
         data["institution_id"] = institutionId;
         data["include_surf"] = countSURFInTotal;
     }
     return validFetch(path, {body: JSON.stringify(data)}, "POST");
+}
+
+export function insightsMock(institutionId, countSURFInTotal) {
+    return Promise.resolve(data);
 }
 
 export function fetchInstitutionAdmins() {

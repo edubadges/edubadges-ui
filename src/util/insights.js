@@ -117,17 +117,28 @@ export const entityTypeLookup = {
     }
 }
 
+export const assertionInDateRange = (assertion, monthStart, yearStart, monthEnd, yearEnd) => {
+    if (!assertion.year || !assertion.month) {
+        return true;
+    }
+    // Convert to comparable numbers
+    const value = assertion.year * 100 + assertion.month;
+    const start = yearStart * 100 + monthStart;
+    const end = yearEnd * 100 + monthEnd;
+
+    return value >= start && value <= end;
+}
+
 export const filterSeries = (assertions, identifiers, awardType = null, badgeClass = null,
                              issuer = null, faculty = null, badgeClassFilterType = badgeClassFilterTypes.ALL,
-                             sectorType = "ALL") => {
+                             sectorType = "ALL",
+                             monthStart, yearStart, monthEnd, yearEnd) => {
     const badgeClassId = badgeClass ? badgeClass.identifier : null;
     const issuerId = issuer ? issuer.identifier : null;
     const facultyId = faculty ? faculty.identifier : null;
     return assertions.filter(assertion => {
             const assertionSector = assertion[`${identifiers['FACULTY']}institution__institution_type`];
             const assertionFacType = assertion[`${identifiers['FACULTY']}faculty_type`];
-            const applies = (sectorType === "ALL" || assertionSector === sectorType
-                    || (assertionSector === "HBO/MBO" && assertionFacType === assertionSector))
             return (awardType == null || assertion.award_type === awardType)
                 && (badgeClassId == null || assertion[identifiers['BADGE_CLASS_ID']] === badgeClassId)
                 && (issuerId == null || assertion[identifiers['ISSUER_ID']] === issuerId)
@@ -136,6 +147,7 @@ export const filterSeries = (assertions, identifiers, awardType = null, badgeCla
                     ((assertion.badgeclass__badge_class_type === badgeClassTypes.REGULAR && badgeClassFilterType === badgeClassFilterTypes.REGULAR) ||
                         (assertion.badgeclass__badge_class_type === badgeClassTypes.MICRO_CREDENTIAL && badgeClassFilterType === badgeClassFilterTypes.MICRO_CREDENTIALS) ||
                         (assertion.badgeclass__badge_class_type === badgeClassTypes.EXTRA_CURRICULAR && badgeClassFilterType === badgeClassFilterTypes.EXTRA_CURRICULAR)))
+                && (assertionInDateRange(assertion, monthStart, yearStart, monthEnd, yearEnd))
                 && (sectorType === "ALL" || assertionSector === sectorType
                     || (assertionSector === "HBO/MBO" && assertionFacType === sectorType))
         }
@@ -292,5 +304,7 @@ export const equalizeAssertionsSize = (daAssertions, reqAssertions) => {
     }
     return [daResults || daAssertions, reqResults || reqAssertions]
 }
+
+export const padTrailingZero = nbr => nbr < 10 ? `0${nbr}` : nbr;
 
 

@@ -1,4 +1,5 @@
 import {
+    assertionInDateRange,
     assertionSeries, claimRatePercentage,
     entityTypeLookup,
     equalizeAssertionsSize,
@@ -111,5 +112,10 @@ test("minMaxDateOfAssertionSeries max date", () => {
 
     expect(minDate.getMonth()).toEqual(1 - 1);
     expect(minDate.getFullYear()).toEqual(2021);
+});
+
+test("assertionInDateRange", () => {
+    const inRange = assertionInDateRange({month: 6, year: 2023}, 6, 2023, 6, 2023);
+    expect(inRange).toEqual(true);
 })
 

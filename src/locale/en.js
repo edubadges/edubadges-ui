@@ -1795,10 +1795,12 @@ I18n.translations.en = {
         noContent: "No edubadges were awarded with the provided filters",
         term: "Term",
         month: "Month",
-        tableHeader: "Edubadges for {{institution}} in {{year}}",
+        tableHeader: "Edubadges for {{institution}} between start {{from}} and end {{until}}",
         allYears: "all years",
         allInstitutions: "all institutions",
         exportTitle: "Insights edubadges",
+        from: "From",
+        until: "Until",
         tooltips: {
             awardedBadges:
                 "Here you can see the total of all edubadges that are included in the backpack with the recipients.<br/><br/> " +
