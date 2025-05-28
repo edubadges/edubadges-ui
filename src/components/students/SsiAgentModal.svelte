@@ -12,7 +12,7 @@
   export let walletName = "";
   export let submit;
 
-  let importWwwalletText = I18n.t("models.badge.ob3SsiAgentQRCode", {
+  let importWwwalletText = I18n.t("models.badge.ob3SsiAgentOpen", {
     name: I18n.t("models.badge.ob3SsiAgentNames.wwwallet")
   })
   let wwwalletLink = new URL(WWWALLET_BASE_URL);
