@@ -553,10 +553,6 @@
                                 name: I18n.t("models.badge.ob3SsiAgentNames.unime")
                               })}
                                     action={() => startOb3SsiAgentImport('unime')}/>
-                            <Button text={I18n.t("models.badge.ob3SsiAgent", {
-                                name: I18n.t("models.badge.ob3SsiAgentNames.sphereon")
-                              })}
-                                    action={() => startOb3SsiAgentImport('sphereon')}/>
                         {/if}
                     </div>
                     <div class="button-container">
