@@ -4,7 +4,7 @@ import {config} from "../util/config";
 import {entityType} from "../util/entityTypes";
 import I18n from "i18n-js";
 import {isEmpty} from "../util/utils";
-
+import {data} from "./insights_minimal";
 //Internal API
 const serverUrl = config.serverUrl;
 
@@ -220,16 +220,6 @@ export function deleteDirectAwards(directAwardEntityIds, revocationReason) {
         path,
         {body: JSON.stringify({revocation_reason: revocationReason, direct_awards: directAwards})},
         "PUT"
-    );
-}
-
-export function resendDirectAwards(directAwardEntityIds) {
-    const path = `${serverUrl}/directaward/resend-direct-awards`;
-    const directAwards = directAwardEntityIds.map(entityId => ({entity_id: entityId}));
-    return validFetch(
-        path,
-        {body: JSON.stringify({direct_awards: directAwards})},
-        "POST"
     );
 }
 
@@ -794,17 +784,20 @@ export function sendFeedback(message) {
 }
 
 //Insights
-export function insights(year, institutionId, countSURFInTotal) {
+export function insights(institutionId, countSURFInTotal) {
     const path = `${serverUrl}/insights/insight`;
     const data = {
-        lang: I18n.locale,
-        year: year
+        lang: I18n.locale
     }
     if (institutionId) {
         data["institution_id"] = institutionId;
         data["include_surf"] = countSURFInTotal;
     }
     return validFetch(path, {body: JSON.stringify(data)}, "POST");
+}
+
+export function insightsMock(institutionId, countSURFInTotal) {
+    return Promise.resolve(data);
 }
 
 export function fetchInstitutionAdmins() {
@@ -865,6 +858,11 @@ export function fetchRawIssuers() {
 
 export function fetchRawFaculties() {
     const path = `${serverUrl}/queries/faculties`;
+    return validFetchNoErrorDialog(path, {}, "GET");
+}
+
+export function fetchRawNotifications() {
+    const path = `${serverUrl}/queries/notifications`;
     return validFetchNoErrorDialog(path, {}, "GET");
 }
 

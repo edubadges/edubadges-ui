@@ -68,8 +68,16 @@
             center: true
         },
         {
+            name: I18n.t("placeholders.badgeClass.status.name"),
+            attribute: "archived",
+            reverse: false,
+            sortType: sortType.BOOLEAN,
+            width: "10%",
+            center: false
+        },
+        {
             name: "",
-            width: "25%"
+            width: "15%"
         }
     ];
 
@@ -175,6 +183,7 @@
                         <CheckBox value={faculty.onBehalfOf} disabled={true}/>
                     </div>
                 </td>
+                <td>{I18n.t(`placeholders.badgeClass.status.${faculty.archived ? "archived" : "active"}`) }</td>
                 <td></td>
             </tr>
         {/each}

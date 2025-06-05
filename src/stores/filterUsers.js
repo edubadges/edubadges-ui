@@ -1,4 +1,4 @@
-import {writable, derived} from "svelte/store";
+import {derived, writable} from "svelte/store";
 import {staffType} from "../util/staffTypes";
 import {isEmpty} from "../util/utils";
 
@@ -14,9 +14,8 @@ const userSearchAttributes = ["firstName", "lastName", "fullName", "email", "rol
 export function filterBySearch(users, search, searchAttributes = userSearchAttributes) {
     if (!isEmpty(search)) {
         const lowerSearch = search.toLowerCase().trim();
-        return users.filter(user => {
-            return searchAttributes.some(attr => user[attr] && user[attr].toLowerCase().indexOf(lowerSearch) > -1)
-        })
+        return users.filter(user => searchAttributes
+            .some(attr => user[attr] && user[attr].toLowerCase().indexOf(lowerSearch) > -1));
     }
     return users;
 }

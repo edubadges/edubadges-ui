@@ -17,3 +17,4 @@ stats.json
 yarn-error.log
 insights.json
 src/data/
+insigths_prod_original.js

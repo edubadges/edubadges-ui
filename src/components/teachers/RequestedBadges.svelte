@@ -117,6 +117,7 @@
                 return awardBadges(arr[0], arr[1], useEvidence, narrative, url, name, description, gradeAchieved);
             })).then(() => {
                 loadEnrollments();
+                selection = [];
                 narrative = "";
                 url = "";
                 name = "";
@@ -139,6 +140,7 @@
             loaded = false;
             Promise.all(selection.map(entityID => denyBadge(entityID, denyReason)))
                 .then(() => {
+                    selection = [];
                     loadEnrollments();
                     flash.setValue(I18n.t("models.enrollment.flash.denied"));
                     denyReason = "";

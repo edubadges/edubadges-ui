@@ -1,6 +1,7 @@
 import I18n from "i18n-js";
 import {badgeClassFilterTypes} from "./catalogFilters";
 import {badgeClassTypes} from "./badgeClassTypes";
+import {isEmpty} from "./utils";
 
 export const lastNumber = assertions => {
     return !assertions || assertions.length === 0 ? 0 : assertions[assertions.length - 1];
@@ -26,11 +27,11 @@ export const issuerOptions = (faculties, facultyId) => {
         const facIssuers = faculties.get(facultyId).issuers;
         return Array.from(facIssuers.keys())
             .map(key => ({
-            identifier: key,
-            name: facIssuers.get(key).name,
-            facultyId: facultyId
-        }))
-        .sort((i1, i2) => i1.name.localeCompare(i2.name));
+                identifier: key,
+                name: facIssuers.get(key).name,
+                facultyId: facultyId
+            }))
+            .sort((i1, i2) => i1.name.localeCompare(i2.name));
     } else {
         return Array.from(faculties.keys()).map(facultyKey => {
             const faculty = faculties.get(facultyKey);
@@ -40,7 +41,8 @@ export const issuerOptions = (faculties, facultyId) => {
                 name: issuers.get(issuerKey).name,
                 facultyId: facultyKey
             }))
-        }).flat().sort((i1, i2) => i1.name.localeCompare(i2.name));;
+        }).flat().sort((i1, i2) => i1.name.localeCompare(i2.name));
+        ;
     }
 }
 
@@ -94,32 +96,62 @@ export const claimRatePercentage = (filteredDANotRevoked, totalNbrDirectWards) =
 }
 
 export const entityTypeLookup = {
-    ASSERTION: {BADGE_CLASS_ID: 'badgeclass_id', ISSUER_ID: 'issuer_id', FACULTY_ID: 'issuer__faculty_id'},
+    ASSERTION: {
+        FACULTY: 'issuer__faculty__',
+        BADGE_CLASS_ID: 'badgeclass_id',
+        ISSUER_ID: 'issuer_id',
+        FACULTY_ID: 'issuer__faculty_id'
+    },
     DIRECT_AWARD: {
+        FACULTY: 'badgeclass__issuer__faculty__',
         BADGE_CLASS_ID: 'badgeclass_id',
         ISSUER_ID: 'badgeclass__issuer__id',
         FACULTY_ID: 'badgeclass__issuer__faculty_id'
     },
     ENROLMENT: {
+        FACULTY: 'badge_class__issuer__faculty__',
+        BADGE_CLASS: 'badge_class',
         BADGE_CLASS_ID: 'badge_class_id',
         ISSUER_ID: 'badge_class__issuer__id',
         FACULTY_ID: 'badge_class__issuer__faculty_id'
     }
 }
 
+export const assertionInDateRange = (assertion, monthStart, yearStart, monthEnd, yearEnd) => {
+    if (!assertion.year || !assertion.month) {
+        return true;
+    }
+    // Convert to comparable numbers
+    const value = assertion.year * 100 + assertion.month;
+    const start = yearStart * 100 + monthStart;
+    const end = yearEnd * 100 + monthEnd;
+
+    return value >= start && value <= end;
+}
+
 export const filterSeries = (assertions, identifiers, awardType = null, badgeClass = null,
-                             issuer = null, faculty = null, badgeClassFilterType = badgeClassFilterTypes.ALL) => {
+                             issuer = null, faculty = null, badgeClassFilterType = badgeClassFilterTypes.ALL,
+                             sectorType = "ALL",
+                             monthStart, yearStart, monthEnd, yearEnd) => {
     const badgeClassId = badgeClass ? badgeClass.identifier : null;
     const issuerId = issuer ? issuer.identifier : null;
     const facultyId = faculty ? faculty.identifier : null;
-    return assertions.filter(assertion => (awardType == null || assertion.award_type === awardType)
-        && (badgeClassId == null || assertion[identifiers['BADGE_CLASS_ID']] === badgeClassId)
-        && (issuerId == null || assertion[identifiers['ISSUER_ID']] === issuerId)
-        && (facultyId == null || assertion[identifiers['FACULTY_ID']] === facultyId)
-        && ((badgeClassFilterType == null || badgeClassFilterType === badgeClassFilterTypes.ALL) ||
-            ((assertion.badgeclass__badge_class_type === badgeClassTypes.REGULAR && badgeClassFilterType === badgeClassFilterTypes.REGULAR) ||
-            (assertion.badgeclass__badge_class_type === badgeClassTypes.MICRO_CREDENTIAL && badgeClassFilterType === badgeClassFilterTypes.MICRO_CREDENTIALS) ||
-            (assertion.badgeclass__badge_class_type === badgeClassTypes.EXTRA_CURRICULAR && badgeClassFilterType === badgeClassFilterTypes.EXTRA_CURRICULAR))));
+    return assertions.filter(assertion => {
+            const assertionSector = assertion[`${identifiers['FACULTY']}institution__institution_type`];
+            const assertionFacType = assertion[`${identifiers['FACULTY']}faculty_type`];
+            return (awardType == null || assertion.award_type === awardType)
+                && (badgeClassId == null || assertion[identifiers['BADGE_CLASS_ID']] === badgeClassId)
+                && (issuerId == null || assertion[identifiers['ISSUER_ID']] === issuerId)
+                && (facultyId == null || assertion[identifiers['FACULTY_ID']] === facultyId)
+                && ((badgeClassFilterType == null || badgeClassFilterType === badgeClassFilterTypes.ALL) ||
+                    ((assertion.badgeclass__badge_class_type === badgeClassTypes.REGULAR && badgeClassFilterType === badgeClassFilterTypes.REGULAR) ||
+                        (assertion.badgeclass__badge_class_type === badgeClassTypes.MICRO_CREDENTIAL && badgeClassFilterType === badgeClassFilterTypes.MICRO_CREDENTIALS) ||
+                        (assertion.badgeclass__badge_class_type === badgeClassTypes.EXTRA_CURRICULAR && badgeClassFilterType === badgeClassFilterTypes.EXTRA_CURRICULAR)))
+                && (assertionInDateRange(assertion, monthStart, yearStart, monthEnd, yearEnd))
+                && (sectorType === "ALL" || assertionSector === sectorType
+                    || (assertionSector === "HBO/MBO" && assertionFacType === sectorType))
+        }
+    );
 
 }
 
@@ -204,7 +236,8 @@ export const assertionSeries = assertions => {
             if (val.year === prevAssertion.year) {
                 numberOfFills = val.month - prevAssertion.month - 1;
             } else {
-                numberOfFills = 12 - prevAssertion.month + val.month - 1;
+                //There is a possibility that the difference is more than one year
+                numberOfFills = (12 * (val.year - prevAssertion.year)) - prevAssertion.month + val.month - 1;
             }
             acc = acc.concat(new Array(numberOfFills).fill({nbr: prevAssertion.nbr}));
         }
@@ -271,5 +304,7 @@ export const equalizeAssertionsSize = (daAssertions, reqAssertions) => {
     }
     return [daResults || daAssertions, reqResults || reqAssertions]
 }
+
+export const padTrailingZero = nbr => nbr < 10 ? `0${nbr}` : nbr;
 
 

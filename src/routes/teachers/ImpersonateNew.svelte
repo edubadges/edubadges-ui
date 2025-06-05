@@ -1,29 +1,46 @@
 <script>
-    import {SideBarUsers, UsersHeader} from "../../components/teachers/";
-    import {users, userSearch, userTree} from "../../stores/filterUsersNew";
-    // import {users, userSearch, userTree} from "../../stores/filterUsers";
-    import {currentInstitution} from "../../stores/user";
+    import {filterBySearch} from "../../stores/filterUsers";
     import {onMount} from "svelte";
     import I18n from "i18n-js";
     import {Table} from "../../components/teachers";
     import {sort, sortType} from "../../util/sortData";
-    import {navigate} from "svelte-routing";
     import Spinner from "../../components/Spinner.svelte";
+    import {fetchRawUsers, impersonate} from "../../api";
+    import Modal from "../../components/forms/Modal.svelte";
+    import {authToken, impersonation, userImpersonated, userLoggedIn} from "../../stores/user";
     import {pageCount} from "../../util/pagination";
-    import {fetchRawUsers} from "../../api";
     import {addUserPermissions} from "../../util/users";
+
+    let allUsers = [];
+    let showConfirmationModal = false;
+    let selectedUser = {};
 
     let loaded = false;
 
     onMount(() => {
-        fetchRawUsers().then(res => {
+        fetchRawUsers(true).then(res => {
             const attributes = ["name"]
             const prefixes = [""];
             res.forEach(user => addUserPermissions(user, attributes, prefixes));
-            $users = res;
+            allUsers = res;
             loaded = true;
         });
     });
+
+    const impersonateUser = (user, showConfirmation) => {
+        selectedUser = user;
+        if (showConfirmation) {
+            showConfirmationModal = true;
+        } else {
+            $impersonation = "true";
+            impersonate(user.id).then(res => {
+                $authToken = "";
+                $userImpersonated = "true";
+                $userLoggedIn = false;
+                window.location.href = res.url;
+            })
+        }
+    }
 
     const tableHeaders = [
         {
@@ -44,14 +61,15 @@
 
     $: table = {
         entity: "user",
-        title: `${I18n.t("teacher.users.title")} (${$userTree.users.length})`,
+        title: `${I18n.t("teacher.users.title")} (${sortedFilteredUsers.length})`,
         tableHeaders: tableHeaders
     };
 
     let userSort = tableHeaders[0];
 
-    $: sortedFilteredUsers = sort(
-        $userTree.users,
+    let searchUsers = "";
+
+    $: sortedFilteredUsers = sort(filterBySearch(allUsers, searchUsers, ["first_name", "last_name", "full_name", "email", "role"]),
         userSort.attribute,
         userSort.reverse,
         userSort.sortType
@@ -76,44 +94,41 @@
 
 <div class="page-container">
     {#if loaded}
-        <SideBarUsers objectIdentifier="entity_id"/>
-
         <div class="content">
-            <UsersHeader/>
+            <h2>All users</h2>
             <Table
                     {...table}
-                    bind:search={$userSearch}
+                    bind:search={searchUsers}
                     bind:sort={userSort}
+                    isEmpty={sortedFilteredUsers.length === 0}
                     filteredCount={sortedFilteredUsers.length}
                     page={minimalPage}
                     onPageChange={nbr => page = nbr}
-                    isEmpty={users.length === 0}
                     mayCreate={false}>
-                {#each sortedFilteredUsers.slice((minimalPage - 1) * pageCount, minimalPage * pageCount) as user (user.entity_id)}
-                    <tr
-                            class="click"
-                            on:click={() => navigate(`/users/${user.entity_id}/institution`)}>
+                {#each sortedFilteredUsers.slice((minimalPage - 1) * pageCount, minimalPage * pageCount) as user}
+                    <tr class="click" on:click={() => impersonateUser(user, true)}>
                         <td>
                             {user.first_name} {user.last_name}
                             <br/>
                             <span class="sub-text">{user.email}</span>
                         </td>
-                        <td>{
-                            I18n.t(['editUsers', 'roles', user.role])}
+                        <td>
+                            {I18n.t(`editUsers.roles.${user.role}`)}
                             <br/>
-                            <span class="sub-text">{user.unit_name} {I18n.t(`teacher.permission${user.permissions.length === 1 ? "" : "s"}`,
-                                {count: user.permissions.length})}</span>
+                            <span class="sub-text">{user.unit_name} ({user.institution_name})</span>
                         </td>
                     </tr>
                 {/each}
-                {#if users.length === 0}
-                    <tr>
-                        <td colspan="2">{I18n.t("zeroState.users", {name: currentInstitution.name})}</td>
-                    </tr>
-                {/if}
             </Table>
         </div>
     {:else}
         <Spinner/>
     {/if}
 </div>
+{#if showConfirmationModal}
+    <Modal
+            submit={() => impersonateUser(selectedUser, false)}
+            cancel={() => showConfirmationModal = false}
+            question={I18n.t("impersonate.confirmation", {name: `${selectedUser.first_name} ${selectedUser.last_name}`})}
+            title={I18n.t("impersonate.title")}/>
+{/if}

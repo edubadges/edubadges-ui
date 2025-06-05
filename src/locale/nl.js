@@ -391,6 +391,42 @@ I18n.translations.nl = {
                 question: "Wil je deze badge class echt verwijderen?",
             },
         },
+        archive: {
+            archive: "archiveer",
+            info: {
+                assertionsBlock: {
+                    faculty:
+                        "Issuer groep is gearchiveerd en bevat edubadges, daarom kan de issuer froep niet verwijderd worden.",
+                    issuer:
+                        "Issuer is gearchiveerd en bevat edubadges, daarom kan de issuer niet verwijderd worden.",
+                    badgeclass:
+                        "Er zijn voor deze badge class reeds edubadges uitgereikt. De badge class kan daarom niet verwijderd worden.",
+                },
+            },
+            flash: "{{type}} is gearchiveerd",
+            institution: {
+                name: "Instelling",
+                title: "Archiveer instelling",
+                question: "Wil je deze instelling echt archiveren?",
+            },
+            faculty: {
+                name: "issuer groep",
+                title: "Archiveer issuer groep",
+                question:
+                    "Wil je deze issuer groep echt archiveren? Alle issuers en badge classes worden dan ook gearchiveerd.",
+            },
+            issuer: {
+                name: "Issuer",
+                title: "Archiveer issuer",
+                question:
+                    "Wil je deze issuer echt archiveren? Alle badge classes worden ook gearchiveerd.",
+            },
+            badgeclass: {
+                name: "Badge class",
+                title: "Archiveer badge class",
+                question: "Wil je deze badge class echt archiveren?",
+            },
+        },
         new: {
             create: "nieuw",
             faculty: "Nieuwe issuer groep maken",
@@ -646,6 +682,8 @@ I18n.translations.nl = {
             issuerGroupAwarderRights: "(vanwege issuer groep awarder)",
             issuerAllRights: "(vanwege issuer admin)",
             issuerAwarderRights: "(vanwege issuer awarder)",
+            badgeClassAllRights: "(vanwege badge admin)",
+            badgeClassAwarderRights: "(vanwege badge awarder)",
             addPermissions: "Voeg permissies toe",
             remove: {
                 institution:
@@ -1024,6 +1062,8 @@ I18n.translations.nl = {
             directAwardRejectedCount: "Geweigerd",
             directAwardRevokedCount: "Revoked",
             directAwardScheduledCount: "Ingepland",
+            directAwardExpiredCount: "Verlopen",
+            directAwardDeletedCount: "Verwijderd",
             assertionCount: "Claimed",
             initialTotal: "Totaal",
             rateClaim: "Claim rate",
@@ -1042,6 +1082,7 @@ I18n.translations.nl = {
             year: "Jaar",
             yearPlaceholder: "Selecteer een jaar...",
             badgeClassType: "Type edubadge",
+            sectorType: "Sector",
         },
         collections: {
             number: "Nummer",
@@ -1080,6 +1121,7 @@ I18n.translations.nl = {
             resendAt: "Reminder",
             expires: "Verloopt",
             badgeClass: "Badge class",
+            expirationDate: "Verloopt op",
             issuer: "Issuer",
             faculty: "Issuer groep",
             confirmation: {
@@ -1120,7 +1162,7 @@ I18n.translations.nl = {
             "Als je de link naar de publieke pagina van deze collectie van edubadge wilt delen, kan je de link kopiëren<br/><br/>Alleen je publieke en niet ingetrokken edubadges worden getoond op de publieke collectie pagina.",
     },
     copyDialog: {
-        title: "SIS integrate",
+        title: "SIS integratie",
         sisIntegration:
             "Voor SIS-integratie kan je de entityID van deze edubadge in je SIS registreren, je kan deze identifier kopiëren naar je clipboard",
         copy: "Kopieer de entityID",
@@ -1582,6 +1624,7 @@ I18n.translations.nl = {
     catalog: {
         name: "Catalogus",
         education: {
+            ALL: "Alle",
             WO: "WO",
             HBO: "HBO",
             MBO: "MBO",
@@ -1771,14 +1814,17 @@ I18n.translations.nl = {
         totalDirectAwards: "Totaal verstuurd",
         totalRequested: "Totaal aangevraagd",
         directAwardedAccepted: "Direct toegekend en geaccepteerd",
+        directAwardedExpired: "Verlopen",
         public: "Publiek gemaakte edubadges",
         noContent: "Geen edubadges zijn uitgegeven met de gekozen filters",
         term: "Kwartaal",
         month: "Maand",
-        tableHeader: "Edubadges voor {{institution}} in {{year}}",
+        tableHeader: "Edubadges voor {{institution}} tussen start {{from}} en einde {{until}}",
         allYears: "alle jaren",
         allInstitutions: "alle instellingen",
         exportTitle: "Inzicht edubadges",
+        from: "Van",
+        until: "Tot",
         tooltips: {
             awardedBadges:
                 "Hier ziet u totaal van alle edubadges die bij de ontvangers in de backpack zijn opgenomen.<br/><br/>" +
@@ -1810,7 +1856,7 @@ I18n.translations.nl = {
             pendingEnrollments:
                 "Studenteninschrijvingen die niet zijn geaccepteerd / geweigerd door een docent",
             requestedDenied:
-                "Studenteninschrijvingen die zijn geweigerd door een docent",
+                "Studenteninschrijvingen die zijn geweigerd door een docent"
         },
     },
     collections: {

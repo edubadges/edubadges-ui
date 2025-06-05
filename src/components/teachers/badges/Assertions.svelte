@@ -4,7 +4,7 @@
     import {Table} from "../../teachers";
     import {sort, sortType} from "../../../util/sortData";
     import {Button, CheckBox} from "../../../components";
-    import {deleteDirectAwards, resendDirectAwards, revokeAssertions, revokeDirectAwards} from "../../../api";
+    import {deleteDirectAwards, revokeAssertions, revokeDirectAwards} from "../../../api";
     import singleNeutralCheck from "../../../icons/single-neutral-check.svg";
     import {constructUserEmail, constructUserName} from "../../../util/users";
     import {searchMultiple} from "../../../util/searchData";
@@ -21,7 +21,7 @@
     export let badgeclass;
     export let refresh;
     export let filterOptions = [filterTypes.ISSUED, filterTypes.AWARD_TYPE, filterTypes.STATUS];
-    export let actions = [ACTIONS.DELETE_DIRECT_AWARD, ACTIONS.REVOKE_ASSERTION, ACTIONS.RESEND_DIRECT_AWARD];
+    export let actions = [ACTIONS.DELETE_DIRECT_AWARD, ACTIONS.REVOKE_ASSERTION];
     export let title;
     export let type = "awarded";
     export let directAwards = false;
@@ -195,28 +195,6 @@
         }
     }
 
-    const resend = showConfirmation => {
-        if (showConfirmation) {
-            revocationReasonRequired = false;
-            modalTitle = I18n.t("models.directAwards.confirmation.resend");
-            modalQuestion = I18n.t("models.directAwards.confirmation.resendConfirmation");
-            modalAction = () => resend(false);
-            showModal = true;
-        } else {
-            showModal = false;
-            serverBusy = true;
-            const selectedAssertions = filteredAssertions
-                .filter(assertion => selection.includes(assertion.entityId))
-                .map(assertion => assertion.entityId);
-            resendDirectAwards(selectedAssertions)
-                .then(() => {
-                    refreshAssertions();
-                    serverBusy = false;
-                    flash.setValue(I18n.t("models.directAwards.flash.resend"));
-                });
-        }
-    }
-
     const refreshAssertions = () => {
         selection = [];
         revocationReason = "";
@@ -251,7 +229,7 @@
             attribute: "user.email",
             reverse: false,
             sortType: sortType.ALPHA,
-            width: "40%"
+            width: "34%"
         },
         {
             name: I18n.t("models.badge.awardType.name"),
@@ -259,7 +237,7 @@
             reverse: false,
             icon: filter,
             sortType: sortType.ALPHA,
-            width: "12%",
+            width: "18%",
             center: true
         },
         {
@@ -279,14 +257,7 @@
             center: true
         },
         directAwards ?
-            {
-                name: I18n.t(`models.directAwards.resendAt`),
-                attribute: "resendAt",
-                reverse: false,
-                sortType: sortType.DATE,
-                width: "12%",
-                center: true
-            } :
+            null :
             {
                 name: updatedTitle,
                 attribute: "updatedOn",
@@ -303,7 +274,7 @@
             width: "12%",
             right: true
         }
-    ].filter(tab => showStatus || tab.attribute !== "statusSort");
+    ].filter(tab => tab !== null && (showStatus || tab.attribute !== "statusSort"));
 
     $: table = {
         entity: "badgeclass",
@@ -428,11 +399,6 @@
             onPageChange={nbr => page = nbr}
             bind:checkAllValue>
         <div class="action-buttons" slot="check-buttons">
-            {#if actions.includes(ACTIONS.RESEND_DIRECT_AWARD)}
-                <Button small disabled={selection.length === 0 || serverBusy}
-                        action={() => resend(true)}
-                        text={I18n.t('models.directAwards.resend')}/>
-            {/if}
             {#if actions.includes(ACTIONS.REVOKE_ASSERTION)}
                 <Button small disabled={selection.length === 0 || serverBusy}
                         action={() => revoke(true)}
@@ -483,11 +449,7 @@
                         <span class={assertionStatusClass(assertion)}>{I18n.t(`models.badge.statuses.${assertion.statusDisplay}`)}</span>
                     </td>
                 {/if}
-                {#if directAwards}
-                    <td class="center">
-                        {assertion.resendAt ? moment(assertion.resendAt).format('MMM D, YYYY') : "-"}
-                    </td>
-                {:else}
+                {#if !directAwards}
                     <td class="center">
                         {assertion.updatedAt && (!assertion.isDirectAward || assertion.acceptance === "ACCEPTED") ?
                             moment(assertion.updatedAt).format('MMM D, YYYY') : ""}
@@ -495,11 +457,15 @@
                 {/if}
                 {#if type === "awarded"}
                     <td class="right">
-                        {assertion.expiresAt ? moment(assertion.expiresAt).format('MMM D, YYYY') : ""}
+                        {#if directAwards}
+                            {assertion.expirationDate ? moment(assertion.expirationDate).format('MMM D, YYYY') : "-"}
+                        {:else}
+                            {assertion.expiresAt ? moment(assertion.expiresAt).format('MMM D, YYYY') : "-"}
+                        {/if}
                     </td>
                 {:else}
                     <td class="right">
-                        {assertion.deleteAt ? moment(assertion.deleteAt).format('MMM D, YYYY') : ""}
+                        {assertion.deleteAt ? moment(assertion.deleteAt).format('MMM D, YYYY') : "-"}
                     </td>
                 {/if}
             </tr>

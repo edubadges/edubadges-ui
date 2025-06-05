@@ -384,6 +384,42 @@ I18n.translations.en = {
                 question: "Do you really want to delete this badge class?",
             },
         },
+        archive: {
+            archive: "Archive",
+            info: {
+                assertionsBlock: {
+                    faculty:
+                        "Issuer group is archived and contains edubadges, and therefore can't be deleted",
+                    issuer:
+                        "Issuer is archived and contains edubadges, and therefore can't be deleted.",
+                    badgeclass:
+                        "Edubadges belonging to this badge class have already been awarded. Therefore the badge class can’t be deleted.",
+                },
+            },
+            flash: "Successfully archived {{type}}",
+            institution: {
+                name: "institution",
+                title: "Archive institution",
+                question: "Do you really want to archive this institution?",
+            },
+            faculty: {
+                name: "issuer group",
+                title: "Archive issuer group",
+                question:
+                    "Do you really want to archive this issuer group? All issuers and badge classes within will also be archived.",
+            },
+            issuer: {
+                name: "issuer",
+                title: "Archive issuer",
+                question:
+                    "Do you really want to archive this issuer? All the badge classes within will also be archived.",
+            },
+            badgeclass: {
+                name: "Badge class",
+                title: "Archive badge class",
+                question: "Do you really want to archive this badge class?",
+            },
+        },
         new: {
             create: "new",
             faculty: "Add new issuer group",
@@ -640,6 +676,8 @@ I18n.translations.en = {
             issuerGroupAwarderRights: "(Because of status as issuer group awarder)",
             issuerAllRights: "(Because of status as issuer admin)",
             issuerAwarderRights: "(Because of status as issuer awarder)",
+            badgeClassAllRights: "(Because of status as badge admin)",
+            badgeClassAwarderRights: "(Because of status as badge awarder)",
             addPermissions: "Add permissions",
             remove: {
                 institution:
@@ -1012,6 +1050,8 @@ I18n.translations.en = {
             directAwardRejectedCount: "Rejected",
             directAwardRevokedCount: "Revoked",
             directAwardScheduledCount: "Scheduled",
+            directAwardExpiredCount: "Expired",
+            directAwardDeletedCount: "Deleted",
             assertionCount: "Claimed",
             initialTotal: "Total",
             rateClaim: "Claim rate",
@@ -1029,7 +1069,8 @@ I18n.translations.en = {
             badgeClassPlaceholder: "Select a badge class...",
             year: "Year",
             yearPlaceholder: "Select a year...",
-            badgeClassType: "Type edubadge"
+            badgeClassType: "Type edubadge",
+            sectorType: "Sector",
         },
         collections: {
             number: "Number",
@@ -1068,6 +1109,7 @@ I18n.translations.en = {
             resendAt: "Reminder",
             expires: "Expires",
             badgeClass: "Badge class",
+            expirationDate: "Expires",
             issuer: "Issuer",
             faculty: "Issuer group",
             confirmation: {
@@ -1564,6 +1606,7 @@ I18n.translations.en = {
     catalog: {
         name: "Catalog",
         education: {
+            ALL: "All",
             WO: "WO",
             HBO: "HBO",
             MBO: "MBO",
@@ -1747,14 +1790,17 @@ I18n.translations.en = {
         totalDirectAwards: "Total send",
         totalRequested: "Total requested",
         directAwardedAccepted: "Direct awarded and claimed",
+        directAwardedExpired: "Expired",
         public: "Public edubadges",
         noContent: "No edubadges were awarded with the provided filters",
         term: "Term",
         month: "Month",
-        tableHeader: "Edubadges for {{institution}} in {{year}}",
+        tableHeader: "Edubadges for {{institution}} between start {{from}} and end {{until}}",
         allYears: "all years",
         allInstitutions: "all institutions",
         exportTitle: "Insights edubadges",
+        from: "From",
+        until: "Until",
         tooltips: {
             awardedBadges:
                 "Here you can see the total of all edubadges that are included in the backpack with the recipients.<br/><br/> " +

@@ -192,7 +192,6 @@
     //Need to rebuild the errors as in-between values might be removed
     const invariant = newDirectAwards => {
         const newErrors = newDirectAwards.reduce((acc, da, i) => {
-            console.log(!validEmail(da.email));
             if (!enableAwardOnEmail) {
                 acc[`eppn_${i}`] = da.eppn.trim().length === 0 || !validEppn(da.eppn, badgeclass);
             } else {

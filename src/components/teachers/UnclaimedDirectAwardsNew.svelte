@@ -13,7 +13,7 @@
     } from "../../stores/filterUnclaimedDirectAwardsNew"
     import {sort, sortType} from "../../util/sortData";
     import {Button, CheckBox} from "../../components";
-    import {deleteDirectAwards, fetchRawDirectAwards, resendDirectAwards} from "../../api";
+    import {deleteDirectAwards, fetchRawDirectAwards} from "../../api";
     import {flash} from "../../stores/flash";
     import singleNeutralCheck from "../../icons/single-neutral-check.svg";
     import {Modal} from "../forms";
@@ -31,7 +31,6 @@
 
     //Modal
     let showModal = false;
-    let showResendModal = false;
     let modalTitle;
     let modalQuestion;
     let modalAction;
@@ -72,25 +71,10 @@
             deleteDirectAwards(selection, revocationReason)
                 .then(() => {
                     loadDirectAwards();
+                    selection = [];
+                    checkAllValue = false;
                     flash.setValue(I18n.t("models.directAwards.flash.deleted"));
                     revocationReason = "";
-                });
-        }
-    }
-
-    const resend = showConfirmation => {
-        if (showConfirmation) {
-            modalTitle = I18n.t("models.directAwards.confirmation.resend");
-            modalQuestion = I18n.t("models.directAwards.confirmation.resendConfirmation");
-            modalAction = () => resend(false);
-            showResendModal = true;
-        } else {
-            showResendModal = false;
-            loaded = false;
-            resendDirectAwards(selection)
-                .then(() => {
-                    loadDirectAwards();
-                    flash.setValue(I18n.t("models.directAwards.flash.resend"));
                 });
         }
     }
@@ -122,7 +106,7 @@
             attribute: "recipientEmail",
             reverse: false,
             sortType: sortType.ALPHA,
-            width: "30%"
+            width: "25%"
         },
         {
             name: I18n.t("models.directAwards.badgeClass"),
@@ -136,32 +120,41 @@
             attribute: "i_name",
             reverse: false,
             sortType: sortType.ALPHA,
-            width: "15%"
+            width: "12%"
         },
         {
             name: I18n.t("models.directAwards.faculty"),
             attribute: "f_name",
             reverse: false,
             sortType: sortType.ALPHA,
-            width: "15%"
+            width: "12%"
         },
         {
             name: I18n.t("models.directAwards.createdAt"),
             attribute: "created_at_millis",
             reverse: false,
             sortType: sortType.NUMERIC,
-            width: "10%",
+            width: "9%",
+            center: true
+        },
+        allUnclaimed ? null :
+        {
+            name: I18n.t("models.badge.deleted"),
+            attribute: "delete_at_millis",
+            reverse: false,
+            sortType: sortType.DATE,
+            width: "9%",
             center: true
         },
         {
-            name: I18n.t(`models.${allUnclaimed ? "directAwards.resendAt" : "badge.deleted"}`),
-            attribute: allUnclaimed ? "resend_at_millis" : "delete_at_millis",
+            name: I18n.t("models.directAwards.expirationDate"),
+            attribute: "expiration_date",
             reverse: false,
             sortType: sortType.DATE,
-            width: "10%",
+            width: "9%",
             center: true
         }
-    ];
+    ].filter(header => header !== null);
 
     $: table = {
         entity: "directAwards",
@@ -234,10 +227,6 @@
                             text={I18n.t('models.directAwards.delete')}
                             disabled={selection.length === 0}
                             secondary={true}/>
-                    <Button small action={() => resend(true)}
-                            text={I18n.t('models.directAwards.resend')}
-                            disabled={selection.length === 0}
-                            secondary={true}/>
                 {/if}
             </div>
             {#each sortedFilteredDirectAwards.slice((minimalPage - 1) * pageCount, minimalPage * pageCount) as directAward}
@@ -281,15 +270,15 @@
                     <td class="center">
                         {moment(directAward.created_at_millis).format('MMM D, YYYY')}
                     </td>
-                    {#if allUnclaimed}
-                        <td class="center">
-                            {directAward.resend_at ? moment(directAward.resend_at_millis).format('MMM D, YYYY') : "-"}
-                        </td>
-                    {:else}
+                    {#if !allUnclaimed}
                         <td class="center">
                             {directAward.delete_at ? moment(directAward.delete_at_millis).format('MMM D, YYYY') : "-"}
                         </td>
                     {/if}
+                    <td class="center">
+                        {directAward.expiration_date ? moment(directAward.expiration_date).format('MMM D, YYYY') : "-"}
+                    </td>
+
                 </tr>
             {/each}
             {#if $tree.directAwards.length === 0}
@@ -315,16 +304,6 @@
             <label for="revocation-reason">{I18n.t("models.directAwards.confirmation.deletionReason")}</label>
             <input id="revocation-reason" class="input-field" bind:value={revocationReason}/>
         </div>
-    </Modal>
-{/if}
-
-{#if showResendModal}
-    <Modal
-            submit={modalAction}
-            cancel={() => showResendModal = false}
-            evaluateQuestion={true}
-            question={modalQuestion}
-            title={modalTitle}>
     </Modal>
 {/if}
 

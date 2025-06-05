@@ -96,15 +96,15 @@
 
     const toCSV = content => {
         const keys = Object.keys(content[0]);
-        const header = keys.join(",") + "\n"
-        return header + content
+        const header = keys.join(",") + "\r\n"
+        return encodeURIComponent(header + content
             .map(item => keys.map(key => item[key] ? item[key].toString().replaceAll(",", " ") : "").join(","))
-            .join("\n");
+            .join("\r\n"));
     }
 
     const download = () => {
         const a = document.createElement("a");
-        a.href = "data:text/plain;charset=utf-8," + toCSV(queryData);
+        a.href = "data:text/csv;charset=utf-8," + toCSV(queryData);
         a.download = `${currentQueryObject.value}.csv`;
         a.style.display = "none";
         document.body.appendChild(a);

@@ -12,7 +12,9 @@
 
     onMount(() => {
         directAwardBundles.forEach(dab => {
-            dab.rateClaim = `${Math.round(dab.assertionCount / dab.initialTotal * 100)}%`;
+            //The initialTotal is the initial number of DA's when the bundle was created
+            let totalCorrected = dab.initialTotal - (dab.directAwardDeletedCount + dab.directAwardRemovedCount);
+            dab.rateClaim = totalCorrected === 0 ? "0%" : `${Math.round(dab.assertionCount  / totalCorrected * 100)}%`;
         });
     })
 
@@ -30,7 +32,7 @@
             reverse: false,
             center: true,
             sortType: sortType.NUMERIC,
-            width: "12%"
+            width: "8%"
         },
         {
             name: I18n.t("models.directAwardBundle.directAwardRejectedCount"),
@@ -38,7 +40,7 @@
             reverse: false,
             center: true,
             sortType: sortType.NUMERIC,
-            width: "12%"
+            width: "8%"
         },
         {
             name: I18n.t("models.directAwardBundle.directAwardRevokedCount"),
@@ -46,7 +48,7 @@
             reverse: false,
             center: true,
             sortType: sortType.NUMERIC,
-            width: "12%"
+            width: "8%"
         },
         {
             name: I18n.t("models.directAwardBundle.directAwardScheduledCount"),
@@ -54,7 +56,7 @@
             reverse: false,
             center: true,
             sortType: sortType.NUMERIC,
-            width: "12%"
+            width: "8%"
         },
         {
             name: I18n.t("models.directAwardBundle.assertionCount"),
@@ -62,7 +64,23 @@
             reverse: false,
             center: true,
             sortType: sortType.NUMERIC,
-            width: "12%"
+            width: "8%"
+        },
+        {
+            name: I18n.t("models.directAwardBundle.directAwardExpiredCount"),
+            attribute: "directAwardExpiredCount",
+            center: true,
+            reverse: false,
+            sortType: sortType.NUMERIC,
+            width: "8%"
+        },
+        {
+            name: I18n.t("models.directAwardBundle.directAwardDeletedCount"),
+            attribute: "directAwardDeletedCount",
+            center: true,
+            reverse: false,
+            sortType: sortType.NUMERIC,
+            width: "8%"
         },
         {
             name: I18n.t("models.directAwardBundle.initialTotal"),
@@ -70,7 +88,7 @@
             center: true,
             reverse: false,
             sortType: sortType.NUMERIC,
-            width: "12%"
+            width: "8%"
         },
         {
             name: I18n.t("models.directAwardBundle.rateClaim"),
@@ -133,6 +151,12 @@
             </td>
             <td class="center">
                 {dab.assertionCount}
+            </td>
+            <td class="center">
+                {dab.directAwardExpiredCount}
+            </td>
+            <td class="center">
+                {dab.directAwardDeletedCount + dab.directAwardRemovedCount}
             </td>
             <td class="center">
                 {dab.initialTotal}

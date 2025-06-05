@@ -60,6 +60,8 @@ export const studentBadgeInstances = `query {
             institution {
               nameDutch,
               nameEnglish,
+              imageDutch,
+              imageEnglish
             }
           }
         }
@@ -123,6 +125,8 @@ export const revokedStudentBadgeInstances = `query {
             institution {
               nameDutch,
               nameEnglish,
+              imageDutch,
+              imageEnglish
             }
           }
         }
@@ -179,13 +183,17 @@ export const directAwardBundleQuery = `
         directAwardCount,
         directAwardRejectedCount,
         directAwardScheduledCount,
-        directAwardRevokedCount
+        directAwardExpiredCount,
+        directAwardRemovedCount,
+        directAwardDeletedCount,
+        directAwardRevokedCount,
         initialTotal,
         directAwards {
             entityId,
             eppn,
             status,
             recipientEmail,
+            expirationDate,
             resendAt,
             createdAt,
             updatedAt,

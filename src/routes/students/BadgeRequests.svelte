@@ -39,7 +39,14 @@
             imageEnglish,
             onBehalfOf,
             onBehalfOfDisplayName,
-            onBehalfOfUrl
+            onBehalfOfUrl,
+            institution {
+                nameDutch,
+                nameEnglish,
+                imageDutch,
+                imageEnglish
+              }
+
           }
         }
       },

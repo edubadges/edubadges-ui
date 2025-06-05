@@ -16,6 +16,7 @@
     export let faculty = {};
     export let mayDelete;
     export let hasUnrevokedAssertions;
+    export let hasAnyAssertions;
     export let defaultLanguage;
     export let institutionType;
     export let virtualOrganizationAllowed;
@@ -113,7 +114,9 @@
             {mayDelete}
             entityTypeName={entity}
             entityId={entityId}
-            {hasUnrevokedAssertions}>
+            {hasUnrevokedAssertions}
+            archived={isCreate ? false : faculty.archived}
+            {hasAnyAssertions}>
     <div class="faculty-form">
         {#if institutionType === "HBO_MBO"}
             <Field entity={entity}

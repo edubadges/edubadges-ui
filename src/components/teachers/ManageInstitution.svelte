@@ -1,22 +1,21 @@
 <script>
-    import {onMount} from "svelte";
-    import I18n from "i18n-js";
+  import {onMount} from "svelte";
+  import I18n from "i18n-js";
 
-    import {navigate, Route, Router} from "svelte-routing";
-    import {Breadcrumb, EntityHeader, Faculties, InviteUser, Issuers} from "../teachers";
-    import {badgeclassIcon, facultyIcon, issuerIcon, userManagementIcon, directAwardIcon} from "../../icons";
-    import {queryData} from "../../api/graphql";
-    import {headerEntityMultiLanguage, headerStaff} from "../../api/queries";
-    import {Spinner} from "../index";
-    import {InstitutionUserManagement} from "../teachers/";
-    import {entityType} from "../../util/entityTypes"
-    import {permissionsRole} from "../../util/rolesToPermissions";
-    import {translateProperties} from "../../util/utils";
-    import RequestedBatches from "./RequestedBadges.svelte";
-    import UnclaimedDirectAwards from "./UnclaimedDirectAwards.svelte";
-    import UnclaimedDirectAwardsNew from "./UnclaimedDirectAwardsNew.svelte";
+  import {navigate, Route, Router} from "svelte-routing";
+  import {Breadcrumb, EntityHeader, Faculties, InviteUser, Issuers} from "../teachers";
+  import {badgeclassIcon, directAwardIcon, facultyIcon, issuerIcon, userManagementIcon} from "../../icons";
+  import {queryData} from "../../api/graphql";
+  import {headerEntityMultiLanguage, headerStaff} from "../../api/queries";
+  import {Spinner} from "../index";
+  import {InstitutionUserManagement} from "../teachers/";
+  import {entityType} from "../../util/entityTypes"
+  import {permissionsRole} from "../../util/rolesToPermissions";
+  import {translateProperties} from "../../util/utils";
+  import RequestedBatches from "./RequestedBadges.svelte";
+  import UnclaimedDirectAwardsNew from "./UnclaimedDirectAwardsNew.svelte";
 
-    let entityId;
+  let entityId;
     export let subEntity;
 
     let institution = {staff: []};
@@ -163,45 +162,45 @@
 </script>
 
 {#if !loaded}
-  <Spinner/>
+    <Spinner/>
 {:else}
-  <Breadcrumb/>
-  <EntityHeader
-    {tabs}
-    {headerItems}
-    object={institution}
-    entity={entityType.INSTITUTION}
-    mayUpdate={mayUpdate}>
-  </EntityHeader>
+    <Breadcrumb/>
+    <EntityHeader
+            {tabs}
+            {headerItems}
+            object={institution}
+            entity={entityType.INSTITUTION}
+            mayUpdate={mayUpdate}>
+    </EntityHeader>
 
-  <Router>
-    <Route path="/issuers">
-      <Issuers {issuers} mayCreate={mayCreateIssuer} institutionName={institution.name}/>
-    </Route>
-    <Route path="/groups">
-      <Faculties {faculties} mayCreate={mayCreateFaculty} institutionName={institution.name}/>
-    </Route>
-    <Route path="/user-management/invite-new-user">
-      <InviteUser
-        permissionsRoles={permissionsRoles}
-        disabledRole={true}
-        entityId={entityId}
-        contentType={contentType}
-      />
-    </Route>
-    <Route path="/user-management">
-      <InstitutionUserManagement entity={entityType.INSTITUTION}/>
-    </Route>
-    <Route path="/requested-batches">
-      <RequestedBatches />
-    </Route>
-    <Route path="/direct-awards">
-      <UnclaimedDirectAwardsNew allUnclaimed={true}/>
-    </Route>
-    <Route path="/deleted-direct-awards">
-      <UnclaimedDirectAwardsNew allUnclaimed={false}/>
-    </Route>
+    <Router>
+        <Route path="/issuers">
+            <Issuers {issuers} mayCreate={mayCreateIssuer} institutionName={institution.name}/>
+        </Route>
+        <Route path="/groups">
+            <Faculties {faculties} mayCreate={mayCreateFaculty} institutionName={institution.name}/>
+        </Route>
+        <Route path="/user-management/invite-new-user">
+            <InviteUser
+                    permissionsRoles={permissionsRoles}
+                    disabledRole={true}
+                    entityId={entityId}
+                    contentType={contentType}
+            />
+        </Route>
+        <Route path="/user-management">
+            <InstitutionUserManagement entity={entityType.INSTITUTION}/>
+        </Route>
+        <Route path="/requested-batches">
+            <RequestedBatches/>
+        </Route>
+        <Route path="/direct-awards">
+            <UnclaimedDirectAwardsNew allUnclaimed={true}/>
+        </Route>
+        <Route path="/deleted-direct-awards">
+            <UnclaimedDirectAwardsNew allUnclaimed={false}/>
+        </Route>
 
-  </Router>
+    </Router>
 {/if}
 

@@ -25,7 +25,7 @@
         filterSeries,
         institutionOptions,
         issuerOptions,
-        minMaxDateOfAssertionSeries,
+        minMaxDateOfAssertionSeries, padTrailingZero,
         totalNbrByAttributeValue
     } from "../../util/insights";
     import Tooltip from "../../components/Tooltip.svelte";
@@ -77,6 +77,7 @@
     let directAwardDenied = 0;
     let directAwardsOpen = 0;
     let directAwardsRevoked = 0;
+    let directAwardsExpired = 0;
     let claimRate = 0;
 
     //Requested
@@ -92,11 +93,22 @@
     let facultyId = null;
     let institutionId = null;
     let currentInstitution = {};
-    const currentYear = new Date().getFullYear();
+    let sectorSelectOptions = ["ALL", "WO", "HBO", "MBO"].map(sector => ({
+        name: I18n.t(`catalog.education.${sector}`), value: sector
+    }))
+    let sector = sectorSelectOptions[0];
+    const today = new Date();
+    const currentYear = today.getFullYear();
+    const currentMonth = today.getMonth();
     const number = currentYear - 2017
-    let yearSelectOptions = new Array(number).fill(0).map((a, i) => ({name: currentYear - i}));
-    yearSelectOptions.push({name: I18n.t("insights.total")})
-    let year = yearSelectOptions[yearSelectOptions.length - 1];
+    let yearSelectOptions = new Array(number).fill(0).map((_, i) => ({name: currentYear - i})).toReversed();
+    let yearStart = yearSelectOptions[0];
+    let yearEnd = yearSelectOptions[yearSelectOptions.length - 1];
+    const translation = I18n.locale === "en" ? I18n.translations.en : I18n.translations.nl;
+    let monthSelectOptions = translation.monthNames.map((month, index) => ({name: month, value: index + 1}))
+    let monthStart = monthSelectOptions[0];
+    let monthEnd = monthSelectOptions[currentMonth];
+
     let facultySelectOptions = [];
     let issuerSelectOptions = [];
     let badgeClassSelectOptions = [];
@@ -125,6 +137,7 @@
     const query = `query {
       publicInstitutions {
         id,
+        institutionType,
         nameEnglish,
         identifier,
         nameDutch,
@@ -132,6 +145,7 @@
         },
       currentInstitution {
         entityId,
+        institutionType,
         identifier,
         nameEnglish,
         nameDutch,
@@ -148,16 +162,59 @@
 
     const reload = res => {
         loaded = false;
-        const filteredDA = filterSeries(res['assertions'], entityTypeLookup.ASSERTION, 'direct_award', badgeClassId, issuerId, facultyId, badgeType.value);
+        const filteredDA = filterSeries(res['assertions'],
+            entityTypeLookup.ASSERTION,
+            'direct_award',
+            badgeClassId,
+            issuerId,
+            facultyId,
+            badgeType.value,
+            sector.value,
+            monthStart.value,
+            yearStart.name,
+            monthEnd.value,
+            yearEnd.name);
         const filteredDaNotRevoked = filteredDA.filter(assertion => assertion.revoked === false);
         let daAssertions = assertionSeries(filteredDaNotRevoked);
-
-        const filteredReq = filterSeries(res['assertions'], entityTypeLookup.ASSERTION, 'requested', badgeClassId, issuerId, facultyId, badgeType.value);
+        const filteredReq = filterSeries(res['assertions'],
+            entityTypeLookup.ASSERTION,
+            'requested',
+            badgeClassId,
+            issuerId,
+            facultyId,
+            badgeType.value,
+            sector.value,
+            monthStart.value,
+            yearStart.name,
+            monthEnd.value,
+            yearEnd.name);
         const filteredReqNotRevoked = filteredReq.filter(assertion => assertion.revoked === false);
         let reqAssertions = assertionSeries(filteredReqNotRevoked);
 
-        directAwards = filterSeries(res['direct_awards'], entityTypeLookup.DIRECT_AWARD, null, badgeClassId, issuerId, facultyId, badgeType.value);
-        enrollments = filterSeries(res['enrollments'], entityTypeLookup.ENROLMENT, null, badgeClassId, issuerId, facultyId, badgeType.value);
+        directAwards = filterSeries(res['direct_awards'],
+            entityTypeLookup.DIRECT_AWARD,
+            null,
+            badgeClassId,
+            issuerId,
+            facultyId,
+            badgeType.value,
+            sector.value,
+            monthStart.value,
+            yearStart.name,
+            monthEnd.value,
+            yearEnd.name);
+        enrollments = filterSeries(res['enrollments'],
+            entityTypeLookup.ENROLMENT,
+            null,
+            badgeClassId,
+            issuerId,
+            facultyId,
+            badgeType.value,
+            sector.value,
+            monthStart.value,
+            yearStart.name,
+            monthEnd.value,
+            yearEnd.name);
         const equalized = equalizeAssertionsSize(daAssertions, reqAssertions);
         daAssertions = equalized[0];
         reqAssertions = equalized[1];
@@ -174,8 +231,25 @@
         directAwardDenied = totalNbrByAttributeValue(directAwards, 'status', 'Rejected');
         directAwardsOpen = totalNbrByAttributeValue(directAwards, 'status', 'Unaccepted');
         directAwardsRevoked = totalNbrByAttributeValue(filteredDA, 'revoked', true);
-        totalDirectAwards = directAwardedAccepted + directAwardDenied + directAwardsOpen + directAwardsRevoked;
+        const directAwardBundles = filterSeries(res['direct_award_bundles'] || [],
+            entityTypeLookup.DIRECT_AWARD,
+            null,
+            badgeClassId,
+            issuerId,
+            facultyId,
+            badgeType.value,
+            sector.value,
+            monthStart.value,
+            yearStart.name,
+            monthEnd.value,
+            yearEnd.name);
+        directAwardsExpired = directAwardBundles.reduce((acc, bundle) => {
+            acc += bundle.direct_award_expired_count;
+            return acc;
+        }, 0)
+        totalDirectAwards = directAwardedAccepted + directAwardDenied + directAwardsOpen + directAwardsRevoked + directAwardsExpired;
         claimRate = claimRatePercentage(directAwardedAccepted, (totalDirectAwards - directAwardsRevoked));
+
         //Requested
         acceptedAndApproved = totalRequestedAssertions;
         enrollmentsDenied = totalNbrByAttributeValue(enrollments, 'denied', true);
@@ -197,7 +271,7 @@
             const monthF = formatter.format(firstDate);
             const yF = useMonths ? "" : firstDate.getFullYear() + "-"
             firstDate.setMonth(firstDate.getMonth() + 1)
-            return yF + monthF.substr(0, 1).toUpperCase() + monthF.substr(1, monthF.length - 1);
+            return yF + monthF.substring(0, 1).toUpperCase() + monthF.substring(1, monthF.length - 1);
         });
 
         loaded = true;
@@ -206,7 +280,7 @@
     const initialize = () => {
         const institutionEntityId = institutionId ? institutionId.identifier : "all";
         const profilePromise = profile.unloaded ? getProfile() : Promise.resolve(profile);
-        Promise.all([insights(year.name, institutionEntityId, countSURFInTotal), profilePromise]).then(arr => {
+        Promise.all([insights(institutionEntityId, countSURFInTotal), profilePromise]).then(arr => {
             serverData = arr[0];
             profile = arr[1];
             if (profile.is_superuser && isEmpty(institutions)) {
@@ -255,7 +329,6 @@
     }
 
     $: selectedInstitutionName = whichSelectedInstitution(institutionId, currentInstitution);
-    $: selectedYear = year ? (year.name === I18n.t("insights.total") ? I18n.t("insights.allYears") : year.name) : "";
 
     const institutionSelected = item => {
         loaded = false;
@@ -270,6 +343,11 @@
     const toggleCountSURFInTotal = () => {
         countSURFInTotal = !countSURFInTotal;
         initialize();
+    }
+
+    const sectorSelected = item => {
+        sector = item;
+        reload(serverData);
     }
 
     const facultySelected = item => {
@@ -318,9 +396,46 @@
         reload(serverData);
     }
 
-    const yearSelected = item => {
-        year = item;
-        initialize();
+    const fromToInvariant = startChanged => {
+        /**
+         * Enforce constraint
+         * (year_start < year_end) OR
+         * (year_start == year_end AND month_start <= month_end)
+         */
+        if (yearStart.name > yearEnd.name) {
+            if (startChanged) {
+                yearEnd = yearSelectOptions.find(option => option.name === yearStart.name);
+            } else {
+                yearStart = yearSelectOptions.find(option => option.name === yearEnd.name);
+            }
+        } else if (yearStart.name === yearEnd.name && monthStart.value > monthEnd.value) {
+            if (startChanged) {
+                monthEnd = monthSelectOptions.find(option => option.value === monthStart.value);
+            } else {
+                monthStart = monthSelectOptions.find(option => option.value === monthEnd.value);
+            }
+        }
+        reload(serverData);
+    }
+
+    const yearStartSelected = item => {
+        yearStart = item;
+        fromToInvariant(true);
+    }
+
+    const monthStartSelected = item => {
+        monthStart = item;
+        fromToInvariant(true);
+    }
+
+    const yearEndSelected = item => {
+        yearEnd = item;
+        fromToInvariant(false);
+    }
+
+    const monthEndSelected = item => {
+        monthEnd = item;
+        fromToInvariant(false);
     }
 
     const badgeTypeSelected = item => {
@@ -333,7 +448,10 @@
         issuerId = null;
         facultyId = null;
         institutionId = institutions.find(institution => institution.identifier === "all");
-        year = yearSelectOptions[0];
+        yearStart = yearSelectOptions[0];
+        yearEnd = yearSelectOptions[yearSelectOptions.length - 1];
+        monthStart = monthSelectOptions[0];
+        monthEnd = monthSelectOptions[currentMonth];
 
         facultySelectOptions = facultyOptions(faculties);
         issuerSelectOptions = issuerOptions(faculties, null);
@@ -426,9 +544,9 @@
                 allowHTML: true,
                 fallbackToExportServer: false,
                 chartOptions: {
-                   title: {
-            	        text: I18n.t("insights.exportTitle"),
-                   }
+                    title: {
+                        text: I18n.t("insights.exportTitle"),
+                    }
                 },
                 buttons: {
                     contextButton: {
@@ -587,7 +705,7 @@
 
     .checkbox-container {
         display: flex;
-        margin-bottom: 15px;
+        margin: 10px 0 15px 0;
     }
 
     .metadata-container {
@@ -634,6 +752,32 @@
                 color: var(--purple);
                 margin-left: auto;
                 word-break: keep-all;
+            }
+        }
+    }
+
+    .year-month-selection-container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 8px;
+
+        span.header {
+            font-weight: bold;
+        }
+
+        .year-month-selection {
+            display: flex;
+            gap: 15px;
+
+            :global(.select-field) {
+                &:first-child {
+                    flex-grow: 2;
+                }
+
+                &:nth-child(2) {
+                    width: 50%;
+                }
             }
         }
     }
@@ -745,12 +889,17 @@
                     <section class="stat sub">
                         <span class="attr">{I18n.t("insights.unclaimed")}
                         </span>
-                        <span class="value">{directAwardsOpen}</span>
+                        <span class="value">{Number(directAwardsOpen).toLocaleString()}</span>
                     </section>
                     <section class="stat sub">
                         <span class="attr">{I18n.t("insights.revoked")}
                         </span>
                         <span class="value">{directAwardsRevoked}</span>
+                    </section>
+                    <section class="stat sub">
+                        <span class="attr">{I18n.t("insights.directAwardedExpired")}
+                        </span>
+                        <span class="value">{Number(directAwardsExpired).toLocaleString()}</span>
                     </section>
                     <section class="stat">
                         <span class="attr">{I18n.t("insights.claimRate")}
@@ -792,6 +941,14 @@
                 </section>
                 <section class="selectors">
                     {#if profile.is_superuser}
+                        <Field entity="insights" attribute="sectorType">
+                            <Select
+                                    value={sector}
+                                    handleSelect={sectorSelected}
+                                    clearable={false}
+                                    items={sectorSelectOptions}
+                                    optionIdentifier="value"/>
+                        </Field>
                         <Field entity="insights" attribute="institution">
                             <Select
                                     value={institutionId}
@@ -850,22 +1007,54 @@
                                 items={badgeClassSelectOptions}
                                 optionIdentifier="identifier"/>
                     </Field>
-                    <Field entity="insights" attribute="year">
-                        <Select
-                                value={year}
-                                handleSelect={yearSelected}
-                                clearable={false}
-                                placeholder={I18n.t("models.insights.yearPlaceholder")}
-                                items={yearSelectOptions}
-                                optionIdentifier="name"/>
-                    </Field>
+                    <div class="year-month-selection-container">
+                        <span class="header">{I18n.t("insights.from")}</span>
+                        <div class="year-month-selection">
+                            <Select
+                                    value={monthStart}
+                                    handleSelect={monthStartSelected}
+                                    clearable={false}
+                                    items={yearStart.name === yearEnd.name ?
+                                        monthSelectOptions.filter(option => option.value <= monthEnd.value)
+                                        : monthSelectOptions}
+                                    optionIdentifier="value"/>
+                            <Select
+                                    value={yearStart}
+                                    handleSelect={yearStartSelected}
+                                    clearable={false}
+                                    items={yearSelectOptions
+                                    .filter(option => option.name < yearEnd.name || (option.name === yearEnd.name &&
+                                    monthEnd.value >= monthStart.value))}
+                                    optionIdentifier="name"/>
+                        </div>
+                    </div>
+                    <div class="year-month-selection-container">
+                        <span class="header">{I18n.t("insights.until")}</span>
+                        <div class="year-month-selection">
+                            <Select
+                                    value={monthEnd}
+                                    handleSelect={monthEndSelected}
+                                    clearable={false}
+                                    items={monthSelectOptions
+                                        .filter(option => (yearEnd.name < currentYear || option.value <= (currentMonth+1)) &&
+                                        (yearStart.name < yearEnd.name ||
+                                        (yearStart.name === yearEnd.name && option.value >= monthStart.value)))}
+                                    optionIdentifier="value"/>
+                            <Select
+                                    value={yearEnd}
+                                    handleSelect={yearEndSelected}
+                                    clearable={false}
+                                    items={yearSelectOptions
+                                    .filter(option => option.name > yearStart.name || (option.name === yearStart.name &&
+                                    monthEnd.value >= monthStart.value))}
+                                    optionIdentifier="name"/>
+                        </div>
+                    </div>
                     <section class="reset">
                         <Button text={I18n.t("insights.reset")}
                                 action={reset}
                                 secondary={true}
-                                disabled={!badgeClassId && !issuerId && !facultyId &&
-                    (isEmpty( institutionId) || institutionId.identifier === currentInstitution.entityId) &&
-                    (isEmpty(year) || year.name === new Date().getFullYear())}/>
+                        />
                     </section>
 
                 </section>
@@ -877,7 +1066,8 @@
             {:else}
                 <div class="content-wrapper">
                     <h2>{I18n.t("insights.tableHeader", {
-                        year: selectedYear,
+                        from: `${padTrailingZero(monthStart.value)}-${yearStart.name}`,
+                        until: `${padTrailingZero(monthEnd.value)}-${yearEnd.name}`,
                         institution: selectedInstitutionName
                     })}</h2>
                     <div id="content" class="content"></div>
