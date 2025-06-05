@@ -1162,7 +1162,7 @@ I18n.translations.nl = {
             "Als je de link naar de publieke pagina van deze collectie van edubadge wilt delen, kan je de link kopiëren<br/><br/>Alleen je publieke en niet ingetrokken edubadges worden getoond op de publieke collectie pagina.",
     },
     copyDialog: {
-        title: "SIS integrate",
+        title: "SIS integratie",
         sisIntegration:
             "Voor SIS-integratie kan je de entityID van deze edubadge in je SIS registreren, je kan deze identifier kopiëren naar je clipboard",
         copy: "Kopieer de entityID",
