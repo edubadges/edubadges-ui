@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [8.2.0] - 2025-06-06
+
+Backend: https://github.com/edubadges/edubadges-server/compare/v8.1.0...v8.2.0</br>
+Frontend: https://github.com/edubadges/edubadges-ui/compare/v.8.1.0...v8.2.0
+
+- Impersonate by @oharsta in #150
+- Fix for b0SuWoNC/1072-uitbeiden-insights by @oharsta in #153
+- Also fetch expiration_date for DA's by @oharsta in #154
+- build(deps-dev): bump serialize-javascript from 3.1.0 to 6.0.2 by @dependabot in #146
+- build(deps): bump http-proxy-middleware from 2.0.7 to 2.0.9 by @dependabot in #155
+- Feature/fix csv export by @Iso5786 in #156
+- Fix for kdipvqXf by @oharsta in #157
+
 ## [8.1.0] - 2025-04-01
 
 Backend: https://github.com/edubadges/edubadges-server/compare/v8.0.1...v8.1.0</br>
