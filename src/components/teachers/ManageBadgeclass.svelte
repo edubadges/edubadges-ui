@@ -88,6 +88,7 @@
         nameDutch,
         imageDutch,
         imageEnglish,
+        archived,
         entityId,
         faculty {
           nameEnglish,
@@ -207,7 +208,7 @@
             const hasPendingDirectAwards = badgeclass.directAwardBundles.some(bundle => bundle.directAwardCount > 0);
             mayUpdatePermission = badgeclass.permissions && badgeclass.permissions.mayUpdate
             mayUpdateBadgeclass = mayUpdatePermission;
-            mayArchiveBadgeclass = mayUpdatePermission && !hasOpenEnrollments && !hasPendingDirectAwards;
+            mayArchiveBadgeclass = !res.badgeClass.issuer.archived && mayUpdatePermission && !hasOpenEnrollments && !hasPendingDirectAwards;
             loaded = true;
         });
     }

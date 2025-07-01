@@ -11,9 +11,13 @@
 
 
     import {ects, extensionValue, studyLoad, timeInvestment} from "../extensions/badges/extensions";
-    import {translateProperties} from "../../util/utils";
+    import {isEmpty, translateProperties} from "../../util/utils";
     import {permissionsRole} from "../../util/rolesToPermissions";
     import Spinner from "../Spinner.svelte";
+    import {archiveFaculty, archiveIssuer} from "../../api";
+    import {flash} from "../../stores/flash";
+    import {Modal} from "../forms";
+    import Button from "../Button.svelte";
 
     export let entityId;
     export let subEntity;
@@ -21,7 +25,13 @@
     let issuer = {staff: []};
     let faculty = {};
     let badgeclasses = [];
-    let permissions;
+    let mayCreate = false;
+    let mayUpdate = false;
+
+    let mayArchiveIssuer = false;
+    let showArchiveModal = false;
+    let archiveTitle = null;
+    let archiveQuestion = null;
 
     let contentType;
     let loaded = false;
@@ -36,6 +46,7 @@
       urlDutch,
       urlEnglish,
       contentTypeId,
+      archived,
       faculty {
         nameDutch,
         nameEnglish,
@@ -44,6 +55,7 @@
         onBehalfOf,
         onBehalfOfDisplayName,
         onBehalfOfUrl,
+        archived,
         entityId,
         institution {
           nameDutch,
@@ -76,7 +88,7 @@
   	}
   }`;
 
-    onMount(() => {
+    const refresh = () => {
         loaded = false;
         queryData(query, {entityId}).then(res => {
             issuer = res.issuer;
@@ -97,11 +109,33 @@
                 badgeClass.status = I18n.t(`placeholders.badgeClass.status.${badgeClass.archived ? "archived" : badgeClass.isPrivate ? "private" : "active"}`);
                 badgeClass.badgeClassType = badgeClass.typeBadgeClass;
             });
-            permissions = res.issuer.permissions;
+            const permissions = res.issuer.permissions;
+            mayCreate = permissions && permissions.mayCreate;
+            mayUpdate = permissions && permissions.mayUpdate;
+
             contentType = res.issuer.contentTypeId;
+            mayArchiveIssuer = mayUpdate && !res.issuer.faculty.archived && (isEmpty(res.issuer.badgeclasses) || res.issuer.badgeclasses.every(bc => bc.archived));
             loaded = true;
         });
-    });
+    }
+
+    onMount(refresh);
+
+    const doArchiveIssuer = showConfirmation => () => {
+        const action = issuer.archived ? 'unarchive' : 'archive';
+        if (showConfirmation) {
+            archiveTitle = I18n.t(`models.issuer.${action}.confirmation`);
+            archiveQuestion = I18n.t(`models.issuer.${action}.confirmationQuestion`);
+            showArchiveModal = true;
+        } else {
+            showArchiveModal = false;
+            loaded = false;
+            archiveIssuer(issuer.entityId, issuer.archived).then(() => {
+                flash.setValue(I18n.t(`models.issuer.${action}.flash`, {name: issuer.name}));
+                refresh();
+            });
+        }
+    }
 
     const tabs = [
         {
@@ -117,8 +151,6 @@
     ];
 
     $: if (!subEntity) navigate(tabs[0].href, {replace: true});
-    $: mayCreate = permissions && permissions.mayCreate;
-    $: mayUpdate = permissions && permissions.mayUpdate;
 
     $: headerItems = [
         {
@@ -158,7 +190,15 @@
             entity={entityType.ISSUER}
             entityId={entityId}
             mayUpdate={mayUpdate}
-    />
+    >
+        <div slot="additional-actions">
+            {#if mayArchiveIssuer}
+                <Button fill={true} secondary action={doArchiveIssuer(true, !issuer.archived)}
+                        marginBottom={true}
+                        text={I18n.t(`models.badgeclass.${!issuer.archived ? "archive" : "unarchive"}.action`)}/>
+            {/if}
+        </div>
+    </EntityHeader>
 
     <Router>
         <Route path="/badgeclasses">
@@ -187,4 +227,11 @@
     </Router>
 {:else}
     <Spinner/>
+{/if}
+{#if showArchiveModal}
+    <Modal
+            submit={doArchiveIssuer(false)}
+            cancel={() => showArchiveModal = false}
+            question={archiveQuestion}
+            title={archiveTitle}/>
 {/if}

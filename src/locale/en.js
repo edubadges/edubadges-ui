@@ -752,6 +752,20 @@ I18n.translations.en = {
                 public: "Public",
                 test: "Test",
             },
+            archive: {
+                confirmation: "Issuer group archive",
+                confirmationQuestion:
+                    "Are you sure you want to archive this issuer group?",
+                flash: "Issuer group {{name}} is archived",
+                action: "Archive",
+            },
+            unarchive: {
+                confirmation: "Issuer group unarchive",
+                confirmationQuestion:
+                    "Are you sure you wannt to unarchive this Issuer group?",
+                flash: "Issuer group {{name}} is unarchived",
+                action: "Unarchive",
+            },
         },
         issuer: {
             description: "About this issuer",
@@ -773,6 +787,20 @@ I18n.translations.en = {
             gradingTable: "Institution grading table URL",
             institutionName: "Institution name",
             institutionIdentifier: "Institution identifier",
+            archive: {
+                confirmation: "Issuer archive",
+                confirmationQuestion:
+                    "Are you sure you want to archive this issuer?",
+                flash: "Issuer {{name}} is archived",
+                action: "Archive",
+            },
+            unarchive: {
+                confirmation: "Issuer unarchive",
+                confirmationQuestion:
+                    "Are you sure you want to unarchive this Issuer ?",
+                flash: "Issuer  {{name}} is unarchived",
+                action: "Unarchive",
+            },
         },
         badgeclass: {
             issuer: "Issuer",

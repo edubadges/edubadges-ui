@@ -758,6 +758,20 @@ I18n.translations.nl = {
                 public: "Publiek",
                 test: "Test",
             },
+            archive: {
+                confirmation: "Issuer groep class archiveren",
+                confirmationQuestion:
+                    "Weet je zeker dat je deze issuer groep wilt archiveren?",
+                flash: "Issuer groep {{name}} is gearchiveerd",
+                action: "Archiveer",
+            },
+            unarchive: {
+                confirmation: "Issuer groep dearchiveren",
+                confirmationQuestion:
+                    "Weet je zeker dat je deze Issuer groep wilt dearchiveren?",
+                flash: "Issuer groep {{name}} is gedearchiveerd",
+                action: "Dearchiveer",
+            },
         },
         issuer: {
             description: "Over deze issuer",
@@ -779,6 +793,21 @@ I18n.translations.nl = {
             gradingTable: "Instelling grading table URL",
             institutionName: "Instelling naam",
             institutionIdentifier: "Instelling identifier",
+            archive: {
+                confirmation: "Issuer class archiveren",
+                confirmationQuestion:
+                    "Weet je zeker dat je deze issuer wilt archiveren?",
+                flash: "Issuer {{name}} is gearchiveerd",
+                action: "Archiveer",
+            },
+            unarchive: {
+                confirmation: "Issuer dearchiveren",
+                confirmationQuestion:
+                    "Weet je zeker dat je deze Issuer wilt dearchiveren?",
+                flash: "Issuer {{name}} is gedearchiveerd",
+                action: "Dearchiveer",
+            },
+
         },
         badgeclass: {
             issuer: "Issuer",
@@ -1655,7 +1684,7 @@ I18n.translations.nl = {
             contact: "Neem contact op met de issuer",
             website: "Bezoek issuer website",
             gradingTable: "Bekijk de grading tabel",
-            institution:"Onderdeel van "
+            institution: "Onderdeel van "
         },
         faculty: {
             website: "Website organisatie",

@@ -10,11 +10,11 @@ test("UniqueBadgesByNameAndLatestCreatedAt", () => {
     ];
     const results = uniqueBadgesByNameAndLatestCreatedAt(
         badgeClasses, "name", "createdAt", "ins_entity_id")
-    const badgeClassNames = results.map(bc => bc.name).toSorted();
+    const badgeClassNames = results.map(bc => bc.name).sort();
     expect(badgeClassNames).toEqual(["BC1", "BC1", "BC2"]);
 
     const resultsByIssuer = uniqueBadgesByNameAndLatestCreatedAt(
         badgeClasses, "name", "createdAt", "i_entity_id")
-    const badgeClassNamesByIssuer = resultsByIssuer.map(bc => bc.name).toSorted();
+    const badgeClassNamesByIssuer = resultsByIssuer.map(bc => bc.name).sort();
     expect(badgeClassNamesByIssuer).toEqual(["BC1", "BC2", "bc2"]);
 });

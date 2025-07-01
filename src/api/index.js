@@ -309,6 +309,16 @@ export function archiveBadgeclass(entityId, archive) {
     return validFetchNoErrorDialog(path, {body: JSON.stringify({archive: archive})}, "PUT");
 }
 
+export function archiveIssuer(entityId, archive) {
+    const path = `${serverUrl}/issuer/issuers/archive/${entityId}`;
+    return validFetchNoErrorDialog(path, {body: JSON.stringify({archive: archive})}, "PUT");
+}
+
+export function archiveFaculty(entityId, archive) {
+    const path = `${serverUrl}/institution/faculties/archive/${entityId}`;
+    return validFetchNoErrorDialog(path, {body: JSON.stringify({archive: archive})}, "PUT");
+}
+
 // Entities
 export function deleteEntity(entityTypeName, entityId) {
     let path;
