@@ -38,136 +38,149 @@
 </script>
 
 <style lang="scss">
-  tr.badge {
-    position: relative;
+    tr.badge {
+        position: relative;
 
-    &.links-enabled {
-      cursor: pointer;
-    }
-
-    margin-bottom: 15px;
-    border-top: 1px solid var(--grey-4);
-
-    &:last-child {
-      border-bottom: 1px solid var(--grey-4);
-    }
-
-    &:first-child {
-      border-top: 2px solid var(--purple);
-    }
-
-    td {
-      padding: 15px 0;
-
-      @media (max-width: 820px) {
-        display: block;
-      }
-    }
-
-    td.badge-status {
-      width: 115px;
-      text-align: center;
-    }
-
-    :global(td.badge-status div.shield) {
-      margin-top: 10px;
-    }
-
-    td.badge-class-img {
-      width: 95px;
-
-      img {
-        border-radius: 8px;
-        height: 72px;
-        width: auto;
-      }
-    }
-
-    td.issuer {
-      width: 40px;
-
-      img {
-        border-radius: 8px;
-        width: 35px;
-        height: 35px;
-
-      }
-    }
-
-    td.meta-data, td.institution {
-      display: flex;
-      flex-direction: column;
-      margin-left: 25px;
-
-      span {
-        margin-bottom: 8px;
-        display: inline-block;
-
-        &.name {
-          font-size: 18px;
-          font-weight: bold;
+        &.links-enabled {
+            cursor: pointer;
         }
 
-      }
+        margin-bottom: 15px;
+        border-top: 1px solid var(--grey-4);
+
+        &:last-child {
+            border-bottom: 1px solid var(--grey-4);
+        }
+
+        &:first-child {
+            border-top: 2px solid var(--purple);
+        }
+
+        td {
+            padding: 15px 0;
+
+            @media (max-width: 820px) {
+                display: block;
+            }
+        }
+
+        td.badge-status {
+            width: 115px;
+            text-align: center;
+        }
+
+        :global(td.badge-status div.shield) {
+            margin-top: 10px;
+        }
+
+        td.badge-class-img {
+            width: 95px;
+
+            img {
+                border-radius: 8px;
+                height: 72px;
+                width: auto;
+            }
+        }
+
+        td.issuer {
+            width: 40px;
+
+            img {
+                border-radius: 8px;
+                width: 35px;
+                height: 35px;
+
+            }
+        }
+
+        td.meta-data, td.institution {
+            display: flex;
+            flex-direction: column;
+            margin-left: 25px;
+
+            span {
+                margin-bottom: 8px;
+                display: inline-block;
+
+                &.name {
+                    font-size: 18px;
+                    font-weight: bold;
+                }
+
+            }
+
+            div.created-at span {
+                font-size: 13px;
+                color: var(--grey-8);
+                font-weight: 600;
+            }
+
+        }
     }
-  }
 
 </style>
 
 {#if badge || badgeClass}
-  <tr class="badge" class:links-enabled={linksEnabled} on:click|preventDefault|stopPropagation={detailLink}>
-    <td class="badge-class-img">
-      <img src={badgeClass.image} alt=""/>
-    </td>
-    <td class="meta-data">
-      <span class="name">{badgeClass.name}</span>
-      {#if badgeClass.studyLoadValue}
-        <div class="study-load">
-          <span class="label">{I18n.t('models.badgeclass.studyLoad')}:</span>
-          <span class="value">{badgeClass.studyLoadValue}</span>
-        </div>
-      {/if}
-      {#if badgeClass.timeInvestmentValue}
-        <div class="study-load">
-          <span class="label">{I18n.t('models.badgeclass.timeInvestment')}:</span>
-          <span class="value">{badgeClass.timeInvestmentValue}</span>
-        </div>
-      {/if}
-      {#if badgeClass.eqf}
-        <div class="eqf">
-          <span class="label">{I18n.t('models.badgeclass.eqf')}:</span>
-          <span class="value">{badgeClass.eqf}</span>
-        </div>
-      {/if}
-      {#if badge}
-        <span class="issued">{moment(badge.issuedOn).format('MMM D, YYYY')}</span>
-      {/if}
-    </td>
-    <td class="issuer">
-      {#if badgeClass.issuer.image}
-        <img class="issuer-img" src={badgeClass.issuer.image} alt=""/>
-      {:else}
-        <span class="issuer-icon">{@html issuerIcon}</span>
-      {/if}
-    </td>
-    <td class="institution">
-      {#if badgeClass.issuer.faculty}
-        <span class="name">{badgeClass.issuer.faculty.institution.name}</span>
-        <span class="issuer">{badgeClass.issuer.name}</span>
-        <span class="faculty">{badgeClass.issuer.faculty.name}</span>
-      {:else}
-        <span class="issuer">{badgeClass.issuer.name}</span>
-      {/if}
-    </td>
-    {#if badge || badgeClass}
-      <td class="badge-status">
-        <StatusIndicator badge={badge} badgeClass={badgeClass} cardView={false}/>
-        {#if badge}
-          <BadgeShield badge={badge} cardView={false}/>
-        {/if}
-      </td>
-    {/if}
+    <tr class="badge" class:links-enabled={linksEnabled} on:click|preventDefault|stopPropagation={detailLink}>
+        <td class="badge-class-img">
+            <img src={badgeClass.image} alt=""/>
+        </td>
+        <td class="meta-data">
+            <span class="name">{badgeClass.name}</span>
+            {#if badgeClass.studyLoadValue}
+                <div class="study-load">
+                    <span class="label">{I18n.t('models.badgeclass.studyLoad')}:</span>
+                    <span class="value">{badgeClass.studyLoadValue}</span>
+                </div>
+            {/if}
+            {#if badgeClass.timeInvestmentValue}
+                <div class="study-load">
+                    <span class="label">{I18n.t('models.badgeclass.timeInvestment')}:</span>
+                    <span class="value">{badgeClass.timeInvestmentValue}</span>
+                </div>
+            {/if}
+            {#if badgeClass.eqf}
+                <div class="eqf">
+                    <span class="label">{I18n.t('models.badgeclass.eqf')}:</span>
+                    <span class="value">{badgeClass.eqf}</span>
+                </div>
+            {/if}
+            {#if badge}
+                <span class="issued">{moment(badge.issuedOn).format('MMM D, YYYY')}</span>
+            {/if}
+        </td>
+        <td class="issuer">
+            {#if badgeClass.issuer.image}
+                <img class="issuer-img" src={badgeClass.issuer.image} alt=""/>
+            {:else}
+                <span class="issuer-icon">{@html issuerIcon}</span>
+            {/if}
+        </td>
+        <td class="institution">
+            {#if badgeClass.issuer.faculty}
+                <span class="name">{badgeClass.issuer.faculty.institution.name}</span>
+                <span class="issuer">{badgeClass.issuer.name}</span>
+                <span class="faculty">{badgeClass.issuer.faculty.name}</span>
+            {:else}
+                <span class="issuer">{badgeClass.issuer.name}</span>
+            {/if}
+            {#if !badge && badgeClass && badgeClass.createdAt}
+                <div class="created-at">
+                    <span>{moment(badgeClass.createdAt).format('MMMM D, YYYY')}</span>
+                </div>
+            {/if}
 
-  </tr>
+        </td>
+        {#if badge || badgeClass}
+            <td class="badge-status">
+                <StatusIndicator badge={badge} badgeClass={badgeClass} cardView={false}/>
+                {#if badge}
+                    <BadgeShield badge={badge} cardView={false}/>
+                {/if}
+            </td>
+        {/if}
+
+    </tr>
 
 {/if}

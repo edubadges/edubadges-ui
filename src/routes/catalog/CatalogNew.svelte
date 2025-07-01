@@ -6,7 +6,7 @@
     import BadgeListView from "../../components/shared/BadgeListView.svelte";
     import SideBarCatelog from "../../components/catalog/SideBarCatelog.svelte";
     import CatalogToolBar from "../../components/catalog/CatalogToolBar.svelte";
-    import {sortTargetOptions} from "../../util/catalogFilters";
+    import {sortTargetOptions, uniqueBadgesByNameAndLatestCreatedAt} from "../../util/catalogFilters";
     import {translatePropertiesRawQueriesBadgeClass} from "../../util/utils";
     import Pagination from "../../components/Pagination.svelte";
     import {catalogPageCount} from "../../util/pagination";
@@ -24,7 +24,7 @@
         }
         fetchRawCatalogBadgeClasses().then(res => {
             translatePropertiesRawQueriesBadgeClass(res);
-            $badgeClasses = res;
+            $badgeClasses = uniqueBadgesByNameAndLatestCreatedAt(res,"name","createdAt","ins_entity_id");
             $sortTarget = sortTargetOptions()[0];
             loaded = true;
         })

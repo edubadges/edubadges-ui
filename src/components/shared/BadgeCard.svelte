@@ -193,6 +193,16 @@
         flex-direction: column;
     }
 
+    .details div.created-at {
+        font-size: 13px;
+        color: var(--grey-8);
+
+        span {
+            white-space: nowrap;
+            font-weight: 600;
+        }
+    }
+
     .details div.study-load span.study-load-label {
         font-size: 16px;
         color: var(--purple);
@@ -261,6 +271,11 @@
                     {#if badgeClass.issuer.faculty}
                         <span class="issuer">{badgeClass.issuer.name}</span>
                         <span class="faculty">({badgeClass.issuer.faculty.name})</span>
+                    {/if}
+                    {#if !badge && badgeClass && badgeClass.createdAt}
+                        <div class="created-at">
+                            <span>{moment(badgeClass.createdAt).format('MMMM D, YYYY')}</span>
+                        </div>
                     {/if}
                 </div>
                 {#if badgeClass.studyLoadValue}
