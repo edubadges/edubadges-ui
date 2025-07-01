@@ -6,6 +6,7 @@
     import Spinner from "../Spinner.svelte";
     import {isEmpty, translateProperties} from "../../util/utils";
     import {alignments} from "../../api/queries";
+    import {fetchRawIssuersOverview} from "../../api";
 
     export let entityId;
     export let action = "edit";
@@ -113,6 +114,22 @@
     let mayEdit = false;
     let hasUnrevokedAssertions = true;
 
+    const initialAdditionalProperties = (res) => {
+        issuers.forEach(issuer => translateProperties(issuer));
+
+        deduceExpirationPeriod(badgeclass);
+
+        publicInstitutions = res.publicInstitutions;
+        permissions = res.badgeClass.permissions;
+        currentInstitution = res.currentInstitution;
+        hasUnrevokedAssertions = badgeclass.badgeAssertions.some(assertion => !assertion.revoked);
+        mayDelete = permissions && permissions.mayDelete;
+        mayEdit = permissions && permissions.mayUpdate && !hasUnrevokedAssertions;
+        if (!isCopy) {
+            loaded = true;
+        }
+    }
+
     onMount(() => {
         queryData(query, {entityId}).then(res => {
             badgeclass = res.badgeClass;
@@ -122,43 +139,39 @@
             issuers = badgeclass.issuer.faculty.issuers || [];
             isCopy = action === "copy";
             if (isCopy) {
+                //We want to be able to copy over issuer groups and issuers and refetch all issuers with a raw query
                 badgeclass.entityId = null;
                 badgeclass.name = "";
                 badgeclass.id = null;
-                if (isEmpty(badgeclass.image)) {
-                    loaded = true;
-                } else {
-                    //https://stackoverflow.com/questions/25690641/img-url-to-dataurl-using-javascript
-                    fetch(badgeclass.image).then(res => {
-                        res.blob().then(content => {
-                            const reader = new FileReader();
-                            reader.onload = ({target: {result}}) => {
-                                badgeclass.image = result;
-                                loaded = true;
-                            };
-                            reader.readAsDataURL(content);
-                        })
-                    });
-                }
+                fetchRawIssuersOverview().then(issuersOverview => {
+                    issuers = issuersOverview;
+                    if (isEmpty(badgeclass.image)) {
+                        initialAdditionalProperties(res);
+                        loaded = true;
+                    } else {
+                        //https://stackoverflow.com/questions/25690641/img-url-to-dataurl-using-javascript
+                        fetch(badgeclass.image).then(imgData => {
+                            imgData.blob().then(content => {
+                                const reader = new FileReader();
+                                reader.onload = ({target: {result}}) => {
+                                    badgeclass.image = result;
+                                    initialAdditionalProperties(res);
+                                    loaded = true;
+                                };
+                                reader.readAsDataURL(content);
+                            })
+                        });
+                    }
+                })
+            } else {
+                initialAdditionalProperties(res);
             }
-            issuers.forEach(issuer => translateProperties(issuer));
 
-            deduceExpirationPeriod(badgeclass);
-
-            publicInstitutions = res.publicInstitutions;
-            permissions = res.badgeClass.permissions;
-            currentInstitution = res.currentInstitution;
-            hasUnrevokedAssertions = badgeclass.badgeAssertions.some(assertion => !assertion.revoked);
-            mayDelete = permissions && permissions.mayDelete;
-            mayEdit = permissions && permissions.mayUpdate && !hasUnrevokedAssertions;
-            if (!isCopy) {
-                loaded = true;
-            }
         });
     });
 </script>
 {#if loaded}
-    <BadgeclassForm issuers={issuers}
+    <BadgeclassForm issuers={(issuers || []).sort((iss1, iss2) => iss1.name.localeCompare(iss2.name))}
                     {badgeclass}
                     faculty={badgeclass.issuer.faculty}
                     entityId={isCopy ? null : entityId}

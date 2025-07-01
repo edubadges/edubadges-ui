@@ -866,6 +866,11 @@ export function fetchRawIssuers() {
     return validFetchNoErrorDialog(path, {}, "GET");
 }
 
+export function fetchRawIssuersOverview() {
+    const path = `${serverUrl}/queries/overview-issuers`;
+    return validFetchNoErrorDialog(path, {}, "GET");
+}
+
 export function fetchRawFaculties() {
     const path = `${serverUrl}/queries/faculties`;
     return validFetchNoErrorDialog(path, {}, "GET");
