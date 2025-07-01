@@ -384,7 +384,7 @@
         previewBadgeCopy.studyLoad = extensions[studyLoad.name];
         previewBadgeCopy.timeInvestment = extensions[timeInvestment.name];
         previewBadgeCopy.ects = extensions[ects.name];
-        previewBadgeCopy.language = extensions[language.name];
+        previewBadgeCopy.language = languageSelection.value;
         previewBadgeCopy.ignoreExtensions = true;
         if (!isEmpty(previewBadgeCopy.assessmentType)) {
             previewBadgeCopy.assessmentType = previewBadgeCopy.assessmentType
