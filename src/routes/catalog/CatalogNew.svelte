@@ -24,7 +24,7 @@
         }
         fetchRawCatalogBadgeClasses().then(res => {
             translatePropertiesRawQueriesBadgeClass(res);
-            $badgeClasses = uniqueBadgesByNameAndLatestCreatedAt(res,"name","createdAt","ins_entity_id");
+            $badgeClasses = uniqueBadgesByNameAndLatestCreatedAt(res,"name","createdAt","i_entity_id");
             $sortTarget = sortTargetOptions()[0];
             loaded = true;
         })
