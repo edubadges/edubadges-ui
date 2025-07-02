@@ -1,17 +1,15 @@
 <script>
     import {onMount} from "svelte";
-    import {queryData} from "../../../api/graphql";
     import I18n from "i18n-js";
-    import {addStaffType, expandStaffsBadgeClass, staffType} from "../../../util/staffTypes";
-    import {translateProperties} from "../../../util/utils";
+    import {isEmpty} from "../../../util/utils";
     import Button from "../../Button.svelte";
     import RequestEndorsementModal from "./RequestEndorsementModal.svelte";
     import loader from "../../../icons/loader.svg"
-    import {createEndorsement} from "../../../api";
+    import {createEndorsement, fetchRawEndorsementsBadgeClasses} from "../../../api";
     import {flash} from "../../../stores/flash";
+    import {config} from "../../../util/config";
 
     export let badgeClass = {issuer: {faculty: {institution}}};
-    let currentUser;
     let showModal = false;
     let badgeClasses = [];
 
@@ -19,120 +17,26 @@
     let description = "";
     let selectedBadgeClass;
 
-    let hasStaff = false;
     let loaded = false;
     let otherInstitution = false;
 
-    const query = `query {
-        currentInstitution {
-          id,
-          entityId,
-          nameDutch,
-          nameEnglish,
-          faculties {
-            nameDutch,
-            nameEnglish,
-            entityId,
-            issuers {
-              nameDutch,
-              nameEnglish,
-              entityId,
-              badgeclasses {
-                name,
-                entityId,
-                image
-              },
-            }
-          }
-        },
-        currentUser {
-          entityId,
-          firstName,
-          lastName,
-          fullName,
-          email,
-          institutionStaff {
-            entityId,
-            mayAdministrateUsers
-          },
-          facultyStaffs {
-            entityId,
-            mayUpdate,
-            faculty {
-              entityId
-            }
-          }
-          issuerStaffs {
-            entityId,
-            mayAdministrateUsers,
-            mayUpdate,
-            mayAward,
-            issuer {
-              entityId
-            }
-          }
-          badgeclassStaffs {
-            entityId,
-            mayAdministrateUsers,
-            mayUpdate,
-            mayAward,
-            badgeclass {
-              entityId
-            }
-          },
-        }
-    }`;
-
     const reload = entityIdentifiers => {
-        queryData(query).then(res => {
-            const currentInstitution = res.currentInstitution;
-            translateProperties(currentInstitution);
+        fetchRawEndorsementsBadgeClasses().then(res => {
+            const serverMediaUrl = `${config.serverUrl}/media`;
+            if (isEmpty(res)) {
+                loaded = true;
+                return;
+            }
 
-            const facultyMap = {};
-            const issuerMap = {};
-            const badgeClassMap = {};
-
-            currentInstitution.faculties.forEach(faculty => {
-                translateProperties(faculty);
-                faculty.institution = currentInstitution;
-                facultyMap[faculty.entityId] = faculty;
-                faculty.issuers.forEach(issuer => {
-                    translateProperties(issuer);
-                    issuerMap[issuer.entityId] = issuer;
-                    issuer.faculty = faculty;
-                    issuer.badgeclasses.forEach(badgeclass => {
-                        badgeclass.issuer = issuer
-                        badgeClassMap[badgeclass.entityId] = badgeclass;
-                    })
-                })
-            });
-            currentUser = res.currentUser;
-            const institutionStaffs = currentUser.institutionStaff ? addStaffType([currentUser.institutionStaff], staffType.INSTITUTION_STAFF) : [];
-            const issuerGroupStaffs = addStaffType(currentUser.facultyStaffs, staffType.ISSUER_GROUP_STAFF);
-            const issuerStaffs = addStaffType(currentUser.issuerStaffs, staffType.ISSUER_STAFF);
-            const badgeClassStaffs = addStaffType(currentUser.badgeclassStaffs, staffType.BADGE_CLASS_STAFF);
-
-            institutionStaffs.forEach(staff => staff.institution = currentInstitution);
-            issuerGroupStaffs.forEach(staff => staff.faculty = facultyMap[staff.faculty.entityId]);
-            issuerStaffs.forEach(staff => staff.issuer = issuerMap[staff.issuer.entityId]);
-            badgeClassStaffs.forEach(staff => staff.badgeclass = badgeClassMap[staff.badgeclass.entityId]);
-
-            const staffs = expandStaffsBadgeClass(institutionStaffs, issuerGroupStaffs, issuerStaffs, badgeClassStaffs);
-            badgeClasses = staffs
-                .map(staff => ({
-                    name: staff.badgeClass.name,
-                    image: staff.badgeClass.image,
-                    entityId: staff.badgeClass.entityId,
-                }))
-                .filter(bc => !entityIdentifiers.includes(bc.entityId) && !(badgeClass.endorsed || []).some(s => s === bc.entityId));
-            hasStaff = staffs.length > 0;
-            otherInstitution = badgeClass.issuer.faculty.institution.entityId !== currentInstitution.entityId;
+            otherInstitution = badgeClass.issuer.faculty.institution.entityId !== res[0].institution_entity_id;
             claim = "";
             description = "";
             selectedBadgeClass = null;
-
+            res.forEach(bc => bc.image = `${serverMediaUrl}/${bc.image}`)
+            badgeClasses = res.filter(bc => !entityIdentifiers.includes(bc.entityId) && !(badgeClass.endorsed || []).some(s => s === bc.entityId));
             loaded = true;
-        });
+        })
+
     }
 
     onMount(() => reload([]));
@@ -172,8 +76,10 @@
     {#if !loaded}
         <span class="svg">{@html loader}</span>
     {:else}
-        {#if hasStaff && otherInstitution}
-            <Button action={() => endorse()} text={I18n.t("endorsements.request")}/>
+        {#if !isEmpty(badgeClasses) && otherInstitution}
+            <Button action={() => endorse()}
+                    text={I18n.t("endorsements.request")}
+                    secondary={true}/>
         {/if}
         {#if showModal}
             <RequestEndorsementModal badgeClass={badgeClass}

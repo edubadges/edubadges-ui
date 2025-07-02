@@ -334,7 +334,11 @@
         &.student {
             margin-right: 315px;
         }
-
+        &.teacher {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
         @media (max-width: 1490px) {
             margin-right: 0 !important;
         }
@@ -412,10 +416,19 @@
                             <Button label="alreadyEnrolled" disabled={true} text={I18n.t('student.enrolled')}/>
                         {/if}
                     </div>
-                {:else if visitorRole === role.TEACHER && config.features.endorsements}
+                {:else if visitorRole === role.TEACHER}
                     <div class="slots teacher">
-                        <EndorsementView badgeClass={badgeClass}/>
+                    <Button text={I18n.t("models.badgeclass.copyBadgeClass")}
+                            secondary={true}
+                            action={() => navigate(`/manage/badgeclass/${badgeClass.entityId}/edit/copy`)}
+                            />
+
+                        {#if config.features.endorsements}
+                            <EndorsementView badgeClass={badgeClass}/>
+                        {/if}
+
                     </div>
+
                 {/if}
             </BadgeClassHeader>
 

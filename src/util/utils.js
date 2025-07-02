@@ -1,5 +1,5 @@
 import I18n from "i18n-js";
-import {config} from "../util/config";
+import {config} from "./config";
 import {badgeClassFilterTypes, educationalLevels} from "./catalogFilters";
 import {badgeClassTypes} from "./badgeClassTypes";
 

@@ -856,6 +856,11 @@ export function fetchRawCurrentInstitution() {
     return validFetchNoErrorDialog(path, {}, "GET");
 }
 
+export function fetchRawEndorsementsBadgeClasses() {
+    const path = `${serverUrl}/queries/endorsement-badge-classes`;
+    return validFetchNoErrorDialog(path, {}, "GET");
+}
+
 export function fetchRawBadgeClasses() {
     const path = `${serverUrl}/queries/badge-classes`;
     return validFetchNoErrorDialog(path, {}, "GET");
