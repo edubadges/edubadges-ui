@@ -144,7 +144,17 @@
                 badgeclass.name = "";
                 badgeclass.id = null;
                 fetchRawIssuersOverview().then(issuersOverview => {
-                    issuers = issuersOverview;
+                    issuers = issuersOverview.map(iss => ({
+                        ...iss,
+                        faculty: {
+                            facultyType: iss.facultyType
+                        }
+                    }));
+                    const issuerEntityId = badgeclass.issuer.entityId;
+                    if (!issuersOverview.some(issuer => issuer.entityId === issuerEntityId)) {
+                        //Copy from catalog, replace the issuer
+                        badgeclass.issuer = issuersOverview[0];
+                    }
                     if (isEmpty(badgeclass.image)) {
                         initialAdditionalProperties(res);
                         loaded = true;
