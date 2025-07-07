@@ -102,7 +102,8 @@
         badgeclasses.filter(el => searchedBadgeclassIds.includes(el.entityId)),
         badgeclassSort.attribute,
         badgeclassSort.reverse,
-        badgeclassSort.sortType
+        badgeclassSort.sortType,
+        true
     );
 
     let page = 1;

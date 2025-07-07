@@ -141,7 +141,6 @@
             if (isCopy) {
                 //We want to be able to copy over issuer groups and issuers and refetch all issuers with a raw query
                 badgeclass.entityId = null;
-                badgeclass.name = "";
                 badgeclass.id = null;
                 fetchRawIssuersOverview().then(issuersOverview => {
                     issuers = issuersOverview.map(iss => ({

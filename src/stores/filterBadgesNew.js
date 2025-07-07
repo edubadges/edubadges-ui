@@ -25,6 +25,10 @@ export const filterBySearch = (badgeclasses, search) => {
     );
 }
 
+const overrideSortName = (a, b) => {
+    return a.createdAt && b.createdAt && a.name && b.name && a.name.toLowerCase() === b.name.toLowerCase();
+}
+
 export const sort = (collection, count = false) => {
     return !collection ? [] : collection.sort((a, b) => count ? b.count - a.count : a.name.localeCompare(b.name));
 }
@@ -32,11 +36,13 @@ export const sort = (collection, count = false) => {
 export const sortCreatedAt = collection => !collection ? [] : collection.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
 export const sortBadgeAssertionsDirectAwarded = collection => {
-    return !collection ? [] : collection.sort((a, b) => b.directAwardedAssertionsCount - a.directAwardedAssertionsCount)
+    return !collection ? [] : collection.sort((a, b) => overrideSortName(a,b) ? new Date(b.createdAt) - new Date(a.createdAt) :
+        b.directAwardedAssertionsCount - a.directAwardedAssertionsCount)
 }
 
 export const sortBadgeAssertionsSelfRequested = collection => {
-    return !collection ? [] : collection.sort((a, b) => b.selfRequestedAssertionsCount - a.selfRequestedAssertionsCount)
+    return !collection ? [] : collection.sort((a, b) => overrideSortName(a,b) ? new Date(b.createdAt) - new Date(a.createdAt) :
+        b.selfRequestedAssertionsCount - a.selfRequestedAssertionsCount)
 }
 
 // Be sure to read up on derived stores as this is essential to understand this (and remember: Premature optimization is the root of all evil)

@@ -51,7 +51,7 @@ const getNestedValue = (obj, attr, howToSort) => {
 
 export {getNestedValue as nestedValue};
 
-export function sort(collection, attribute, reversed, howToSort = sortType.ALPHA) {
+export function sort(collection, attribute, reversed, howToSort = sortType.ALPHA, overrideByName = false) {
   if (!attribute) {
     return reversed ? collection.reverse() : collection;
   }
@@ -59,6 +59,9 @@ export function sort(collection, attribute, reversed, howToSort = sortType.ALPHA
   const col = collection.sort((a, b) => {
     let valA = getNestedValue(a, attribute, howToSort);
     let valB = getNestedValue(b, attribute, howToSort);
+    if (overrideByName && a.createdAt && b.createdAt && valA.toString().toLowerCase() === valB.toString().toLowerCase()) {
+      return new Date(b.createdAt) - new Date(a.createdAt);
+    }
     switch (howToSort) {
       case sortType.ALPHA:
         return valA.localeCompare(valB);
