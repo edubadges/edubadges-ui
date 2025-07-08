@@ -1156,7 +1156,7 @@ I18n.translations.en = {
             flash: {
                 revoked: "The edubadge(s) have been revoked.",
                 deleted: "The direct awards(s) have been deleted.",
-                resend: "The edubadge(s) have been resend.",
+                resend: "The edubadge(s) have been resent.",
             },
         },
     },
@@ -1622,7 +1622,7 @@ I18n.translations.en = {
             "The claim describes why and how this badge class is similar to the endorsed badge",
         endorsementBadgeClass: "The badge class you would like to endorse.",
         awardScheduling:
-            "Enter a scheduling date to set the date / time when the emails will be send out to the users who are awarded the edubadge",
+            "Enter a scheduling date to set the date / time when the emails will be sent out to the users who are awarded the edubadge",
         enableAwardOnEmail: "If selected, you can also issue this edubadge based on the private e-mail address. This private e-mail address must match the e-mail address the user used to create their eduID.",
         badgeClassIsStackable:
             "A stackable badge class can be linked to another badge class",
@@ -1786,7 +1786,7 @@ I18n.translations.en = {
             "We may follow up with you regarding your feedback using the email address associated with your account. " +
             "You are responsible for ensuring that your feedback does not contain any confidential, sensitive, or personal information.",
         send: "Send feedback",
-        flash: "Your feedback has successfully been send. Thanks!",
+        flash: "Your feedback has successfully been sent. Thanks!",
     },
     insights: {
         awardedBadges: "Edubadges in backpack",
@@ -1918,7 +1918,7 @@ I18n.translations.en = {
         codeWindow: {
             title: "Validation code",
             question:
-                "An email has been send to {{email}}. Please enter the 6 characters code from the email to finish the import.",
+                "An email has been sent to {{email}}. Please enter the 6 characters code from the email to finish the import.",
             submit: "Verify",
             codePlaceholder: "Enter the verification code",
         },
@@ -2032,7 +2032,7 @@ I18n.translations.en = {
     },
     endorsements: {
         request: "Request endorsement",
-        info: "The endorsement request will be send to all awarders of the badge class for approval.",
+        info: "The endorsement request will be sent to all awarders of the badge class for approval.",
         description: "Description",
         descriptionPlaceholder: "Description of the endorsement",
         badgeClassDescription: "Description badge class",
@@ -2079,12 +2079,12 @@ I18n.translations.en = {
             resend: "Are you sure you want to resend this endorsement request?",
         },
         flash: {
-            created: "Endorsement request has been send",
+            created: "Endorsement request has been sent",
             accept: "Endorsement request has been accepted",
             reject: "Endorsement request has been rejected",
             revoke: "Endorsement has been revoked",
             delete: "Endorsement has been deleted",
-            resend: "Endorsement request has been resend",
+            resend: "Endorsement request has been resent",
         },
     },
     managementQueries: {
