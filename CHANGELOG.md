@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [8.3.0] - 2025-07-14
+
+Backend: https://github.com/edubadges/edubadges-server/compare/v8.2.1...v8.3.0</br>
+Frontend: https://github.com/edubadges/edubadges-ui/compare/v.8.2.0...v8.3.0
+
+- To sent or not to send
+- Fixed stories: https://trello.com/c/vYYp8bCr/1094-bij-kopi%C3%ABren-badge-class-naam-laten-staan https://trello.com/c/B5Vy6EYJ/1095-meeste-actuele-badge-class-als-eerste-tonen
+- If the issuer is from a different institution, replace the issuer
+- Copy badge class from catalog https://trello.com/c/iGVf4Y0o/1090-kopieren-badge-class-vanuit-de-catalogus
+- WIP for copy badgeclasses and choose issuer https://trello.com/c/nhHtksaO/1089-kopieren-badge-classes-over-issuers-en-issuergroepen-heen
+- Bugfix for wrong language preview in badge class
+- Archiveren van issuer groepen en issuers https://trello.com/c/e8BlRkvf/1088-kunnen-archiveren-issuergroepen-en-issuers
+- Remove duplicates per issuer
+- Merge pull request #160 from edubadges/dependabot/npm_and_yarn/pbkdf2-3.1.3
+- Badgeclass met dezelfde naam toestaan https://trello.com/c/PyAwVAyJ/1087-badgeclass-met-dezelfde-naam-toestaan-binnen-issuer
+- build(deps): bump pbkdf2 from 3.1.2 to 3.1.3
+- Update CHANGELOG.md
+
 ## [8.2.0] - 2025-06-06
 
 Backend: https://github.com/edubadges/edubadges-server/compare/v8.1.0...v8.2.0</br>
