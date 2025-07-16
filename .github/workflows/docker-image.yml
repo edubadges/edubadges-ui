@@ -31,7 +31,9 @@ jobs:
         context: .
         file: ./docker/Dockerfile
         push: true
-        tags: ${{ secrets.CR_SURF_USERNAME }}/edubadges-ui:latest
+        # tags are nested on cr.surf.nl
+        # e.g. docker pull cr.surf.nl/edubadges-edubadges/edubadges/edubadges-ui@sha256:38cd92f80ec30352245126e8894ea1925ac7f4b1e0c43766a2f0f9007bb1c05a
+        tags: edubadges-edubadges/edubadges/edubadges-ui:latest
 
     - name: Generate artifact attestation
       uses: actions/attest-build-provenance@v2
