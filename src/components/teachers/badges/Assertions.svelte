@@ -442,7 +442,7 @@
                     {I18n.t(`models.badge.awardType.${assertion.isDirectAward ? "DIRECT_AWARD" : assertion.awardType}`)}
                 </td>
                 <td class="center">
-                    {moment(assertion.isDirectAward ? assertion.createdAt : assertion.issuedOn).format('MMM D, YYYY')}
+                    {moment(assertion.issuedOn || assertion.createdAt).format('MMM D, YYYY')}
                 </td>
                 {#if showStatus}
                     <td class="assertion-status center">
