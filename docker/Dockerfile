@@ -16,8 +16,6 @@ RUN find public/ -maxdepth 1 -type f -delete
 
 RUN yarn build:prod
 
-RUN yarn cache clean 
-
 FROM nginxinc/nginx-unprivileged
 
 COPY --from=builder /app/public /usr/share/nginx/html
