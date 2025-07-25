@@ -21,12 +21,4 @@ FROM nginxinc/nginx-unprivileged
 COPY --from=builder /app/public /usr/share/nginx/html
 COPY docker/nginx.conf /etc/nginx/nginx.conf
 
-COPY --chown=101 docker/entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-
-EXPOSE 8080
-
-ENTRYPOINT ["sh", "/entrypoint.sh"]
-
-USER 101  # Run as non-root user
-CMD ["nginx", "-g", "daemon off;"]
+COPY --chmod=0755 docker/40-envjs-file.sh /docker-entrypoint.d/40-envjs-file.sh
