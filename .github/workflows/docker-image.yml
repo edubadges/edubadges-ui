@@ -64,10 +64,11 @@ jobs:
           # tags are nested on cr.surf.nl
           # e.g. docker pull cr.surf.nl/edubadges-edubadges/edubadges/edubadges-server
           tags: cr.surf.nl/edubadges-edubadges/edubadges/edubadges-ui:${{ steps.previoustag.outputs.tag }}
+
       - name: Generate artifact attestation for tag
         if: ${{ startsWith(github.ref, 'refs/tags/') }}
         uses: actions/attest-build-provenance@v2
         with:
-          subject-name: cr.surf.nl/edubadges-edubadges/edubadges/edubadges-server
+          subject-name: cr.surf.nl/edubadges-edubadges/edubadges/edubadges-ui
           subject-digest: ${{ steps.push-tag.outputs.digest }}
           push-to-registry: true
