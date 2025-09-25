@@ -1,5 +1,30 @@
 #### [edubages-ui](#edubages-ui)
 
+# Product Overview
+
+Edubadges is a digital badge platform for educational institutions, built as a web application that allows students and teachers to manage educational credentials and achievements.
+
+## Key Features
+
+- **Student Portal**: Badge collection, enrollment management, direct awards, and collections
+- **Teacher Portal**: Badge class creation, user management, award management, and institutional oversight
+- **Public Pages**: Public badge verification and institutional profiles
+- **Multi-language Support**: English and Dutch localization
+- **Role-based Access**: Student, Teacher, and Guest roles with different permissions
+- **LTI Integration**: Learning Tools Interoperability support for educational platforms
+
+## User Roles
+
+- **Students**: Manage badge collections, view enrollments, import badges
+- **Teachers**: Create and manage badge classes, award badges, manage users and institutions
+- **Guests**: Browse public catalog and badge information
+
+## Architecture
+
+Single Page Application (SPA) built with Svelte, communicating with a backend API server for data management and authentication.
+
+## Build Status
+
 [![Build Status](https://travis-ci.com/edubadges/edubadges-ui.svg?branch=master)](https://travis-ci.com/edubadges/edubadges-ui)
 [![codecov](https://codecov.io/gh/edubadges/edubadges-ui/branch/master/graph/badge.svg)](https://codecov.io/gh/edubadges/edubadges-ui)
 
