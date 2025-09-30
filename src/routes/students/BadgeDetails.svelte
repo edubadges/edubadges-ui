@@ -574,7 +574,7 @@
             {/if}
             <BadgeClassDetails badgeclass={badge.badgeclass} badge={badge}/>
 
-            <BadgeInstanceEvidence evidences={badge.evidences} isPrivate={true}/>
+            <BadgeInstanceEvidence evidences={badge.evidences}/>
         </div>
         {#if !badge.revoked && (!badge.expiresAt || new Date(badge.expiresAt) > new Date())}
             <div class="delete">
