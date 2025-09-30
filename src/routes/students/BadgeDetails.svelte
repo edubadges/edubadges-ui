@@ -29,8 +29,6 @@
     import StudentBreadCrumb from "../../components/students/StudentBreadCrumb.svelte";
     import BadgeHeader from "../../components/students/BadgeHeader.svelte";
     import {alignments, endorsements} from "../../api/queries";
-    import linkedInEn from "../../img/en_US.png";
-    import linkedInNl from "../../img/nl_NL.png";
 
     export let entityId;
 
@@ -160,12 +158,10 @@
             onBehalfOf,
             onBehalfOfDisplayName,
             onBehalfOfUrl,
-            linkedinOrgIdentifier,
             institution {
               nameDutch,
               nameEnglish,
               entityId,
-              linkedinOrgIdentifier,
               ob3SsiAgentEnabled,
               imageDutch,
               imageEnglish
@@ -183,7 +179,6 @@
   }`;
 
     let loaded;
-    let linkedInUrl;
     let ob3SsiAgentEnabled;
 
     const refreshBadgeDetails = () => {
@@ -204,16 +199,6 @@
 
             showModal = false;
             const issuedOn = new Date(badge.issuedOn);
-            const organizationId = badge.badgeclass.issuer.faculty.linkedinOrgIdentifier ||
-                badge.badgeclass.issuer.faculty.institution.linkedinOrgIdentifier || 206815;
-            linkedInUrl = `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&` +
-                `name=${encodeURIComponent(badge.badgeclass.name)}&` +
-                `organizationId=${organizationId}&` +
-                `issueYear=${issuedOn.getFullYear()}&` +
-                `issueMonth=${issuedOn.getMonth()}&` +
-                `certUrl=${encodeURIComponent("https://" + window.location.hostname + "/public/assertions/")}${entityId}&` +
-                `certId=${entityId}&` +
-                `original_referer=${encodeURIComponent("https://" + window.location.hostname)}`;
             ob3SsiAgentEnabled = badge.badgeclass.issuer.faculty.institution.ob3SsiAgentEnabled
             loaded = true;
 
@@ -409,17 +394,6 @@
         display: flex;
         margin: 25px 0;
         justify-content: center;
-    }
-
-    img.linkedin {
-        width: auto;
-        height: 41px;
-        align-self: start;
-
-        &.disabled {
-            opacity: .2;
-            cursor: not-allowed;
-        }
     }
 </style>
 
