@@ -232,21 +232,6 @@ export function deleteAssertion(assertionEntityId) {
     );
 }
 
-export function publicAssertion(assertionEntityId, isPublic, includeEvidence, includeGradeAchieved) {
-    const path = `${serverUrl}/earner/badges/${assertionEntityId}`;
-    return validFetch(
-        path,
-        {
-            body: JSON.stringify({
-                "public": isPublic,
-                "include_evidence": includeEvidence,
-                "include_grade_achieved": includeGradeAchieved
-            })
-        },
-        "PUT"
-    );
-}
-
 export function acceptAssertion(assertionEntityId) {
     const path = `${serverUrl}/earner/badges/${assertionEntityId}`;
     return validFetch(

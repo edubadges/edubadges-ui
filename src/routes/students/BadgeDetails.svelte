@@ -19,12 +19,10 @@
         claimAssertion,
         deleteAssertion,
         editBadgeInstanceCollection,
-        ob3WalletImport,
-        publicAssertion
+        ob3WalletImport
     } from "../../api";
     import {flash} from "../../stores/flash";
     import ToggleSwitch from "../../components/ToggleSwitch.svelte";
-    import ShareDialog from "./ShareDialog.svelte";
     import BadgeInstanceEvidence from "../../components/shared/BadgeInstanceEvidence.svelte";
     import CheckBox from "../../components/CheckBox.svelte";
     import {isEmpty, translateProperties} from "../../util/utils";
@@ -43,11 +41,8 @@
     let modalTitle;
     let modalQuestion;
     let modalAction;
-    let showShareFeedback = false;
-    let showShareDialog = false;
     let includeEvidence = true;
     let includeGradeAchieved = true;
-    let makePublicAction = false;
 
     //Collections
     let badgeInstanceCollections = [];
@@ -61,24 +56,8 @@
 
     const cancel = () => {
         showModal = false;
-        showShareDialog = false;
         showCollectionsModal = false;
         showOb3SsiAgentModal = false;
-    }
-
-    const copiedLink = () => {
-        showShareDialog = false;
-        showShareFeedback = true;
-        setTimeout(() => showShareFeedback = false, 2500)
-    }
-
-    const publicUrl = () => {
-        const currentUrl = window.location.href;
-        return currentUrl.replace("/details/", "/public/assertions/");
-    }
-
-    const copyToClipboard = () => {
-        showShareDialog = true;
     }
 
     const showCollectionModal = () => {
@@ -123,7 +102,6 @@
       badgeInstanceCollections {
         entityId,
         name,
-        public,
         description,
         createdAt,
         badgeInstances {
@@ -140,7 +118,6 @@
       issuedOn,
       createdAt,
       acceptance,
-      public,
       expiresAt,
       revoked,
       gradeAchieved,
@@ -213,7 +190,7 @@
         loaded = false;
         queryData(query, {entityId}).then(res => {
             const theBadge = res.badgeInstance;
-            if (!theBadge.public && theBadge.acceptance === 'UNACCEPTED') {
+            if (theBadge.acceptance === 'UNACCEPTED') {
                 claimAssertion(theBadge.entityId);
                 theBadge.acceptance = "ACCEPTED";
             }
@@ -277,24 +254,6 @@
             acceptAssertion(badge.entityId)
                 .then(() => {
                     flash.setValue(I18n.t("student.flash.accepted"));
-                    refreshBadgeDetails();
-                });
-        }
-    }
-
-    const makePublic = (showConfirmation, isPublic) => {
-        makePublicAction = isPublic;
-        if (showConfirmation) {
-            modalTitle = isPublic ? I18n.t("student.confirmation.publish") : I18n.t("student.confirmation.private");
-            modalQuestion = isPublic ? I18n.t("student.confirmation.publishConfirmation", {name: $userName}) : I18n.t("student.confirmation.privateConfirmation");
-            modalAction = () => makePublic(false, isPublic);
-            showModal = true;
-
-        } else {
-            showModal = false;
-            publicAssertion(badge.entityId, isPublic, includeEvidence, includeGradeAchieved)
-                .then(() => {
-                    flash.setValue(isPublic ? I18n.t("student.flash.published") : I18n.t("student.flash.private"));
                     refreshBadgeDetails();
                 });
         }
@@ -412,22 +371,6 @@
         margin-bottom: 12px;
     }
 
-    div.public-private {
-        background-color: var(--grey-3);
-        border-radius: 8px;
-        padding: 12px;
-
-        .header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 5px;
-
-            .switch-container {
-                margin-left: auto;
-            }
-        }
-    }
-
     p.rejected {
         margin-top: 15px;
     }
@@ -489,13 +432,6 @@
         </StudentBreadCrumb>
         <BadgeHeader title={badge.badgeclass.name}/>
         <div class="badge-detail">
-            <div class="shield">
-                {#if badge.public}
-                    {@html shieldUnlocked}
-                {:else}
-                    {@html shieldLocked}
-                {/if}
-            </div>
             <div class="badge-card-container">
                 {#if badge && badge.revoked}
                     <span class="status-indicator revoked">{I18n.t("models.badge.statuses.revoked")}</span>
@@ -515,37 +451,12 @@
             {:else if badge && badge.expiresAt && new Date(badge.expiresAt) < new Date()}
                 <p class="revoked">{ I18n.t("student.badgeExpired")}</p>
             {:else}
-                <div class="public-private">
-                    <div class="header">
-                        <h3>{I18n.t("student.privateBadge")}</h3>
-                        <div class="switch-container">
-                            <ToggleSwitch disabled={badge && badge.acceptance === "REJECTED"}
-                                          value={!badge.public} onChange={val => makePublic(true, !val)}/>
-                        </div>
-                    </div>
-
-                    <p>{I18n.t(badge.public ? "student.publicPrivatePublic" : "student.publicPrivate")}</p>
-                    {#if badge && badge.acceptance === "REJECTED"}
-                        <p class="rejected">{I18n.t("student.publicPrivateRejected")}</p>
-                    {/if}
-
-                </div>
                 <div class="actions">
                     <div class="button-container">
                         <Button text={I18n.t("models.badge.addToCollection")}
                                 secondary={true}
                                 disabled={badgeInstanceCollections.length === 0}
                                 action={showCollectionModal}/>
-                    </div>
-                    <div class="button-container">
-                        {#if showShareFeedback}
-                            <div class="tooltip">
-                                {I18n.t("copyToClipboard.copied")}
-                            </div>
-                        {/if}
-                        <Button text={I18n.t("models.badge.share")}
-                                action={copyToClipboard}
-                                disabled={!badge.public}/>
                     </div>
                     <div class="button-container vertical">
                         {#if ob3SsiAgentEnabled}
@@ -557,17 +468,6 @@
                                 name: I18n.t("models.badge.ob3SsiAgentNames.authorization")
                               })}
                                     action={() => startOb3SsiAgentImport('authorization')}/>
-                        {/if}
-                    </div>
-                    <div class="button-container">
-                        {#if badge.public}
-                            <a href={linkedInUrl} target="_blank">
-                                <img class="linkedin" src={I18n.locale === "nl" ? linkedInNl:linkedInEn}
-                                     alt="LinkedIn Add to Profile button"/>
-                            </a>
-                        {:else}
-                            <img class="linkedin disabled" src={I18n.locale === "nl" ? linkedInNl:linkedInEn}
-                                 alt="LinkedIn Add to Profile button"/>
                         {/if}
                     </div>
                 </div>
@@ -598,26 +498,7 @@
             question={modalQuestion}
             evaluateQuestion={true}
             title={modalTitle}>
-
-        <div class="evidence-question">
-            {#if makePublicAction && (badge.evidences || []).length > 0}
-                <CheckBox value={includeEvidence} label={I18n.t("student.confirmation.publishEvidenceConfirmation")}
-                          onChange={() => includeEvidence = !includeEvidence} inForm={true} adjustTop={true}/>
-            {/if}
-            {#if makePublicAction && !isEmpty(badge.gradeAchieved)}
-                <CheckBox value={includeGradeAchieved}
-                          label={I18n.t("student.confirmation.publishGradeConfirmation")}
-                          onChange={() => includeGradeAchieved = !includeGradeAchieved} inForm={true} adjustTop={true}/>
-            {/if}
-        </div>
 </Modal>
-{/if}
-
-{#if showShareDialog}
-    <ShareDialog
-            copied={copiedLink}
-            cancel={cancel}
-            publicUrl={publicUrl()}/>
 {/if}
 
 {#if showCollectionsModal}

@@ -235,10 +235,6 @@ I18n.translations.en = {
         withdraw: "Withdraw request",
         flash: {
             enrolled: "Successfully requested edubadge {{name}}.",
-            published:
-                "This edubadge has been made publicly visible. You can share this edubadge now",
-            private:
-                "This edubadge has been made private. You can no longer share this edubadge",
             deleted:
                 "This edubadge has been removed. You can no longer download or share this edubadge",
             accepted:
@@ -250,22 +246,11 @@ I18n.translations.en = {
         badges: "Your edubadges",
         deleteBadge: "Reject this edubadge",
         acceptBadge: "Accept this edubadge",
-        share: "Share",
-        copyUrl: "Copy URL",
-        shareYourBadge: "Share your edubadge",
-        shareYourBadgeQuestion:
-            "Your public edubadge URL is accessible for everyone",
         badgeRevoked:
             "This edubadge has been revoked. You can see the details, but this edubadge can no longer be shared",
         revocationReason: "The revocation reason:",
         badgeExpired:
             "This edubadge has been expired. You can see the details, but this edubadge can no longer be shared",
-        privateBadge: "Private edubadge",
-        publicPrivate: "Your edubadge is set to private, only you can see it.",
-        publicPrivatePublic:
-            "Your edubadge is not set to private, everyone with your sharelink will be able to see it.",
-        publicPrivateRejected:
-            "In order for you to make this edubadge public, you'll first have to accept this edubadge",
         revoked: "This edubadge has been revoked",
         revokedWithReason:
             "This edubadge has been revoked by the issuer for the reason: '{{revocationReason}}'",
@@ -276,16 +261,6 @@ I18n.translations.en = {
             flash: "Badge {{name}} added to collection {{col}}",
         },
         confirmation: {
-            publish: "Make this edubadge publicly visible",
-            private: "Make this edubadge private",
-            publishConfirmation:
-                "Are you sure you want to make this edubadge publicly visible?<br/><br/>If you make this edubadge public then your validated name <strong>{{name}}</strong> will be displayed in the validation section of the public edubadge webpage.",
-            publishEvidenceConfirmation:
-                "Add evidence/personal message (evidence) also to publicly available information of this edubadge?",
-            publishGradeConfirmation:
-                "Add grade achieved also to publicly available information of this edubadge?",
-            privateConfirmation:
-                "Are you sure you want to make this edubadge private?",
             deleteBadgeConfirmation: "Are you sure you want to reject this edubadge?",
             acceptBadgeConfirmation: "Are you sure you want to accept this edubadge?",
         },

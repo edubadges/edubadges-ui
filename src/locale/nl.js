@@ -236,10 +236,6 @@ I18n.translations.nl = {
         withdraw: "Aanvraag intrekken",
         flash: {
             enrolled: "Successvol een aanvraag gedaan voor deze edubadge: {{name}}.",
-            published:
-                "Deze edubadge is nu publiek zichtbaar gemaakt. Je kunt deze nu delen met anderen.",
-            private:
-                "Deze edubadge is nu privé gemaakt. Je kunt deze niet langer delen met anderen.",
             deleted:
                 "Deze edubadge is verwijderd. Je kunt deze niet langer downloaden of delen met anderen.",
             accepted:
@@ -251,23 +247,11 @@ I18n.translations.nl = {
         badges: "Jouw edubadges",
         deleteBadge: "Weiger deze edubadge",
         acceptBadge: "Accepteer deze edubadge",
-        share: "Deel",
-        copyUrl: "Kopieer URL",
-        shareYourBadge: "Deel jouw edubadge",
-        shareYourBadgeQuestion:
-            "Jouw publieke edubadge URL is voor iedereen toegankelijk",
         badgeRevoked:
             "Deze edubadge is ingetrokken. Je ziet deze nog wel, maar deze edubadge kan je niet langer delen",
         revocationReason: "De reden voor intrekking:",
         badgeExpired:
             "Deze edubadge is verlopen. Je ziet deze nog wel, maar deze edubadge kan je niet langer delen",
-        privateBadge: "Privé edubadge",
-        publicPrivate:
-            "Je edubadge staat op privé, alleen jij kan deze edubadge zien.",
-        publicPrivatePublic:
-            "Je edubadge staat niet op privé, iedereen met de publieke link kan deze edubadge zien en downloaden.",
-        publicPrivateRejected:
-            "Voordat je deze edubadge publiek zichtbaar kan maken, moet je deze edubadge eerst accepteren.",
         revoked: "Deze edubadge is ingetrokken door de uitgever",
         revokedWithReason:
             "Deze edubadge is ingetrokken door de uitgever met als reden: '{{revocationReason}}'",
@@ -278,16 +262,6 @@ I18n.translations.nl = {
             flash: "Edubadge {{name}} toegevoegd aan de collectie {{col}}",
         },
         confirmation: {
-            publish: "Maak deze edubadge publiekelijk zichtbaar",
-            private: "Maak deze edubadge privé",
-            publishConfirmation:
-                "Weet je zeker dat je deze edubadge publiek zichtbaar wilt maken?<b/><br/>Als je deze edubadge publiek maakt, wordt je gevalideerde naam <strong>{{name}}</strong> weergegeven in het validatiegedeelte van de openbare edubadge-webpagina.",
-            privateConfirmation:
-                "Weet je het zeker dat je deze edubadge privé wilt maken",
-            publishEvidenceConfirmation:
-                "Bewijs/persoonlijk bericht (evidence) ook toevoegen aan de publiek beschikbare informatie van deze edubadge?",
-            publishGradeConfirmation:
-                "Behaald cijfer ook toevoegen aan de publiek beschikbare informatie van deze edubadge?",
             deleteBadgeConfirmation:
                 "Weet je het zeker dat je deze edubadge wilt weigeren?",
             acceptBadgeConfirmation:
@@ -1180,15 +1154,6 @@ I18n.translations.nl = {
             "Als je de link naar de registratiepagina op je intranet of elektronische leeromgeving wilt plaatsen, kunt je de link kopiëren.",
         copy: "Kopieer de link",
     },
-    shareDialog: {
-        title: "Deel je edubadge",
-        copyPublicUrl:
-            "Als je de link naar de publieke pagina van deze edubadge wilt delen, kan je de link kopiëren",
-        copy: "Kopieer de link",
-        titleCollections: "Deel je collectie",
-        copyPublicUrlCollections:
-            "Als je de link naar de publieke pagina van deze collectie van edubadge wilt delen, kan je de link kopiëren<br/><br/>Alleen je publieke en niet ingetrokken edubadges worden getoond op de publieke collectie pagina.",
-    },
     copyDialog: {
         title: "SIS integratie",
         sisIntegration:
@@ -1324,40 +1289,6 @@ I18n.translations.nl = {
         es_ES: "Spaans",
         fr_FR: "Frans",
         de_DE: "Duits",
-    },
-    publicBadge: {
-        verification: "Verificatie",
-        issuedTo:
-            "Deze edubadge is uitgereikt aan <strong>{{name}}</strong> op {{date}}",
-        noValidatedName:
-            "Deze edubadge is uitgereikt aan een gebruiker wiens naam <strong>niet</strong> is gevalideerd door een instelling op {{date}}",
-        expires: "Deze edubadge verloopt op {{date}}",
-        neverExpires: "Deze edubadge heeft geen expiratie datum.",
-        hasExpired: "Deze edubadge is verlopen op {{date}}",
-        verify: "Verifieer",
-        validations: {
-            institution: "Van instelling {{val}}",
-            faculty: "Namens {{val}}",
-            hosted: "Hosted bij {{val}}",
-            imported: "Geïmporteerd op {{val}}",
-            issuedOn: "Uitgereikt op {{val}}",
-            issuedBy: "Uitgereikt door {{val}}",
-            issuedUsing: "Gebruikt platform {{val}}",
-            issuedTo: "Uitgereikt aan <strong>{{val}}</strong>",
-            noValidatedName: "ongevalideerde naam",
-            claimedOn: "Geaccepteerd op {{val}}",
-            expiresOn: "Verloopt op {{val}}",
-            never: "nooit",
-            verified: "<strong>Gevalideerd!<strong> {{val}}",
-        },
-        noValidatedNameModal: {
-            noLinkedInstitution: "Geen gekoppelde instelling",
-            question:
-                "Je eduID account is niet gekoppeld aan een onderwijsinstelling. Dit is vereist om edubadges aan te vragen.<br><br>Druk op <span style='color: #540b6c'>koppel instelling</span> om doorgestuurd te worden naar eduID. Daarna wordt je terug gestuurd naar deze pagina.",
-            directAwards:
-                "Je eduID account is niet gekoppeld aan een onderwijsinstelling. Dit is vereist om direct awards te claimen.<br><br>Druk op <span style='color: #540b6c'>koppel instelling</span> om doorgestuurd te worden naar eduID. Daarna wordt je terug gestuurd naar deze pagina.",
-            goToEduID: "Koppel onderwijsinstelling",
-        },
     },
     monthNames: [
         "Januari",
