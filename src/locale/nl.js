@@ -153,8 +153,6 @@ I18n.translations.nl = {
     },
     notFound: {
         main: "Edubadge niet gevonden",
-        publicBadge:
-            "Deze edubadge is niet meer publiek zichtbaar of is ingetrokken.",
         issuer: "Deze issuer is verwijderd.",
     },
     teacher: {

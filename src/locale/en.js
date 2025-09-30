@@ -152,8 +152,6 @@ I18n.translations.en = {
     },
     notFound: {
         main: "Edubadge not found",
-        publicBadge:
-            "The edubadge is either not publicly visible anymore or has been revoked.",
         issuer: "This issuer has been deleted.",
     },
     teacher: {
