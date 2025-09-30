@@ -29,7 +29,6 @@
     import EnrollmentDetails from "./routes/students/EnrollmentDetails.svelte";
     import {Flash} from "./components/forms/";
     import BadgeDetails from "./routes/students/BadgeDetails.svelte";
-    import PublicBadgePage from "./components/shared/PublicBadgePage.svelte";
     import {Modal} from "./components/forms";
     import PublicIssuerPage from "./components/shared/PublicIssuerPage.svelte";
     import PublicInstitutionPage from "./components/shared/PublicInstitutionPage.svelte";
@@ -226,9 +225,6 @@
                 </Route>
                 <Route path="/public/badges/:entityId/" let:params>
                     <PublicBadgeClassPage entityId={params.entityId}/>
-                </Route>
-                <Route path="/public/assertions/:entityId/" let:params>
-                    <PublicBadgePage entityId={params.entityId}/>
                 </Route>
                 <Route path="/public/institutions/:entityId" let:params>
                     <PublicInstitutionPage entityId={params.entityId}/>
