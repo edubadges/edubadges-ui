@@ -117,9 +117,11 @@
 <section class="collection-card">
     <div class="header">
         {#if !readOnly}
-            <div class="inner-header" on:click={() => showDetails = !showDetails}>
-                {@html showDetails ? chevronUp : chevronDown}
-                <h3>{collection.name}</h3>
+            <div class="inner-header" 
+                on:click={() => showDetails = !showDetails}
+                on:keypress={() => showDetails = !showDetails}>
+                    {@html showDetails ? chevronUp : chevronDown}
+                    <h3>{collection.name}</h3>
             </div>
             <section class="buttons-container">
                 <section class="buttons">
