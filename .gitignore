@@ -18,3 +18,7 @@ yarn-error.log
 insights.json
 src/data/
 insigths_prod_original.js
+
+## Potential secrets
+.env
+public/env.js
