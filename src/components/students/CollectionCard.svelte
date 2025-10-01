@@ -7,7 +7,6 @@
     import {deleteBadgeInstanceCollection, editBadgeInstanceCollection} from "../../api";
     import {flash} from "../../stores/flash";
     import Modal from "../forms/Modal.svelte";
-    import ShareDialog from "../../routes/students/ShareDialog.svelte";
 
     export let collection = {};
     export let view;
@@ -15,41 +14,7 @@
     export let readOnly = false;
 
     let showDetails = true;
-    let showShareDialog = false;
     let showDeleteModal = false;
-    let showTogglePublicModal = false;
-    let showPublicCollectionRequiresModal = false;
-
-    const togglePublic = showConfirmation => () => {
-        //Show informative modal explaining that public badges are required
-        if (collection.badgeInstances.filter(badge => badge.public).length === 0) {
-            showPublicCollectionRequiresModal = true;
-            return;
-        }
-        if (showConfirmation) {
-            showTogglePublicModal = true;
-        } else {
-            const newCollection = {
-                public: !collection.public,
-                name: collection.name,
-                description: collection.description,
-                badge_instances: collection.badgeInstances.map(bi => bi.id),
-                entity_id: collection.entityId
-            }
-            editBadgeInstanceCollection(newCollection).then(() => {
-                flash.setValue(I18n.t("collections.editFlash", {
-                    name: collection.name,
-                    status: collection.public ? "collections.private" : "collections.public"
-                }));
-                refresh();
-            });
-        }
-    }
-
-    const publicUrl = () => {
-        const currentUrl = window.location.href;
-        return currentUrl.replace("/collections", `/public/collections/${collection.entityId}`);
-    }
 
     const deleteCollection = showConfirmation => () => {
         if (showConfirmation) {
@@ -61,9 +26,6 @@
             });
         }
     }
-
-    const copiedLink = () => showShareDialog = false;
-
 </script>
 <style lang="scss">
   .collection-card {
@@ -161,16 +123,16 @@
             </div>
             <section class="buttons-container">
                 <section class="buttons">
-                    <div class="trash collection-action" on:click={deleteCollection(true)}>
-                        {@html trash}
-                    </div>
-                    <div class="pencil collection-action"
-                         on:click={() => navigate(`/edit-collection/${collection.entityId}`)}>
-                        {@html pencilIcon}
-                    </div>
-                    <div class="shield collection-action" on:click={togglePublic(true)}>
-                        {@html collection.public ? shieldUnlock : shieldLock}
-                    </div>
+                    <div class="trash collection-action" 
+                        on:click={deleteCollection(true)}
+                        on:keypress={deleteCollection(true)}>
+                            {@html trash}
+                        </div>
+                        <div class="pencil collection-action"
+                            on:click={() => navigate(`/edit-collection/${collection.entityId}`)}
+                            on:keypress={() => navigate(`/edit-collection/${collection.entityId}`)}>
+                                {@html pencilIcon}
+                            </div>
                 </section>
             </section>
         {/if}
@@ -180,10 +142,6 @@
             <section class="card-content-header">
                 {#if !readOnly}
                     <p>{collection.description}</p>
-                    <div class="share-container">
-                        <Button text={I18n.t("student.share")} action={() => showShareDialog = true}
-                                disabled={!collection.public || collection.badgeInstances.filter(badge => badge.public).length === 0}/>
-                    </div>
                 {/if}
             </section>
             <BadgePanel badges={collection.badgeInstances} view={view} linksEnabled={readOnly} isPublic={readOnly}/>
@@ -200,31 +158,4 @@
             cancel={() => showDeleteModal = false}
             question={I18n.t("collections.deleteConfirmationQuestion", {name: collection.name})}
             title={I18n.t("collections.deleteConfirmation", {name: collection.name})}/>
-{/if}
-{#if showTogglePublicModal}
-    <Modal
-            submit={togglePublic(false)}
-            cancel={() => showTogglePublicModal = false}
-            evaluateQuestion={true}
-            question={I18n.t(`collections.share.${collection.public ? "privateConfirmation" : "publishConfirmation"}`, {name: collection.name})}
-            title={I18n.t(`collections.share.${collection.public ? "private" : "publish"}`, {name: collection.name})}
-    />
-{/if}
-{#if showPublicCollectionRequiresModal}
-    <Modal
-            submit={() => showPublicCollectionRequiresModal = false}
-            cancel={() => showPublicCollectionRequiresModal = false}
-            question={I18n.t("collections.requiresPublicBadgePresent")}
-            cancelLabel={"Ok"}
-            hideSubmit={true}
-            title={I18n.t("collections.share.title")}
-    />
-{/if}
-{#if showShareDialog}
-    <ShareDialog
-            copied={copiedLink}
-            cancel={copiedLink}
-            publicUrl={publicUrl()}
-            title={I18n.t("shareDialog.titleCollections")}
-            copyPublicUrl={I18n.t("shareDialog.copyPublicUrlCollections")}/>
 {/if}

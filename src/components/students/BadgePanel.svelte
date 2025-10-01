@@ -5,8 +5,6 @@
     export let badges = [];
     export let view = "cards";
     export let linksEnabled = true;
-    export let isPublic = false;
-
 </script>
 
 <style lang="scss">
@@ -42,14 +40,14 @@
 
 <div class={`content ${view === "list" ? "list" : "cards"}`}>
   {#if view === "list"}
-    <BadgeListView badges={badges} linksEnabled={linksEnabled} isPublic={isPublic}/>
+    <BadgeListView badges={badges} linksEnabled={linksEnabled}/>
   {:else}
     {#each badges as badge}
       <BadgeCard badge={badge}
                  badgeClass={badge.badgeclass}
                  linksEnabled={linksEnabled}
                  withHeaderData={true}
-                 isPublic={isPublic}/>
+                 />
     {/each}
   {/if}
 </div>

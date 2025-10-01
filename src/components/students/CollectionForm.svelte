@@ -20,7 +20,6 @@
       badgeInstanceCollection(id: $entityId) {
         entityId,
         name,
-        public,
         description,
         createdAt,
         badgeInstances {
@@ -31,7 +30,6 @@
     const queryBadges = `query {
       badgeInstances {
         id,
-        public,
         badgeclass {
           name,
           image,
@@ -90,7 +88,6 @@
         processing = true;
         const promise = isNew ? createBadgeInstanceCollection : editBadgeInstanceCollection;
         const newCollection = {
-            public: collection.public,
             name: collection.name || null,
             description: collection.description,
             badge_instances: (collection.badgeInstances || []).map(bi => bi.id),
@@ -114,9 +111,6 @@
             });
         }
     }
-
-    $: publicBadgePresent = collection.badgeInstances && collection.badgeInstances.filter(badge => badge.public).length > 0
-
 </script>
 <style lang="scss">
   div.collection-form-container {
@@ -184,16 +178,6 @@
             <Field {entity} attribute="description" errors={errors.description}>
                 <TextInput bind:value={collection.description} error={errors.description}
                            placeholder={I18n.t("collections.placeholders.description")}/>
-            </Field>
-            <Field {entity} attribute="privatePublic" tipKey="toggleBadgeCollectionPublic">
-                <CheckBox
-                        value={(publicBadgePresent && collection.public) || false}
-                        inForm={true}
-                        adjustTopFlex={true}
-                        disabled={!publicBadgePresent}
-                        label={I18n.t("collections.privatePublic")}
-                        onChange={val => collection.public = val}/>
-                <span class="info">{I18n.t("collections.requiresPublicBadgePresent")}</span>
             </Field>
 
             <Field {entity} attribute="badge_instances" errors={errors.badge_instances}

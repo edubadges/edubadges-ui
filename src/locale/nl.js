@@ -937,7 +937,6 @@ I18n.translations.nl = {
             expiresNever: "Nooit",
             download: "Download",
             open: "Open",
-            share: "Deel",
             status: "Status",
             revoked: "Ingetrokken",
             validUntil: "Geldig tot",
@@ -1091,7 +1090,6 @@ I18n.translations.nl = {
             lastUpdated: "Laatste gemaakt",
             name: "Naam",
             description: "Omschrijving",
-            privatePublic: "Privé / publiek",
             badge_instances: "Edubadges",
             createdAt: "Aangemaakt op",
         },
@@ -1822,27 +1820,13 @@ I18n.translations.nl = {
         zeroState: "Je hebt nog geen collectie van edubadges gemaakt...",
         zeroStateBadges: "Je hebt nog geen edubadges toegevoegd...",
         create: "Maak een nieuwe collectie",
-        shareable: "Collecties die je kan delen",
-        requiresPublicBadgePresent:
-            "Een publieke collectie vereist op zijn minst 1 publieke edubadge",
         all: "Al je collecties",
         byRecent: "Meest recent",
         bySize: "Aantal edubadges",
-        byPublic: "Publiek / privé",
         deleteConfirmation: "Verwijder collectie {{name}}",
         deleteConfirmationQuestion:
             "Weet je zeker dat je de collectie {{name}} wilt verwijderen?",
         deleteFlash: "Collectie {{name}] verwijderd.",
-        privatePublic: "Vink aan om deze collectie openbaar te maken",
-        share: {
-            title: "Niet deelbaar",
-            publish: "Maak deze collectie openbaar zichtbaar",
-            publishConfirmation:
-                "Weet je zeker dat je deze collectie openbaar zichtbaar wilt maken?<br/><br/>Als je deze collectie openbaar maakt, is deze voor iedereen zichtbaar met de link.",
-            private: "Maak deze collectie privé",
-            privateConfirmation:
-                "Weet je zeker dat je deze collectie privé wilt maken?",
-        },
         placeholders: {
             name: "Naam van de collectie",
             description: "Beschrijving van de collectie",

@@ -928,7 +928,6 @@ I18n.translations.en = {
             expiresNever: "Never",
             download: "Download",
             open: "Open",
-            share: "Share",
             status: "Status",
             revoked: "Revoked",
             validUntil: "Valid until",
@@ -1079,7 +1078,6 @@ I18n.translations.en = {
             lastUpdated: "Last one created",
             name: "Name",
             description: "Description",
-            privatePublic: "Private / public",
             badge_instances: "Edubadges",
             createdAt: "Created at",
         },
@@ -1141,15 +1139,6 @@ I18n.translations.en = {
         intranet:
             "You can place this link to the public badge page on your intranet or ELO, or share it via email.",
         copy: "Copy the link",
-    },
-    shareDialog: {
-        title: "Share your edubadge",
-        copyPublicUrl:
-            "If you want to share the public page link of this edubadge, you can copy the link to your clipboard.",
-        copy: "Copy the link",
-        titleCollections: "Share your collection",
-        copyPublicUrlCollections:
-            "If you want to share the public page link of this collection of edubadges, you can copy the link to your clipboard.<br/><br/>Note that only public edubadges which are not revoked are shown on the public collection page.",
     },
     copyDialog: {
         title: "SIS integration",
@@ -1840,27 +1829,13 @@ I18n.translations.en = {
         zeroState: "You have not created any collections of edubadges yet...",
         zeroStateBadges: "You have not added any edubadges yet...",
         create: "Create a new collection",
-        shareable: "Collections that you can share",
-        requiresPublicBadgePresent:
-            "A public collection requires at least one public edubadge",
         all: "All your collections",
         byRecent: "Most recent",
         bySize: "Number of edubadges",
-        byPublic: "Public / private",
         deleteConfirmation: "Delete collection {{name}}",
         deleteConfirmationQuestion:
             "Are you sure you want to delete collection {{name}}.",
         deleteFlash: "Collection {{name}] deleted.",
-        privatePublic: "Check to make this collection public",
-        share: {
-            title: "Not shareable",
-            publish: "Make this collection publicly visible",
-            publishConfirmation:
-                "Are you sure you want to make this collection publicly visible?<br/><br/>If you make this collection public then it is viewable for everyone with the link.",
-            private: "Make this collection private",
-            privateConfirmation:
-                "Are you sure you want to make this collection private?",
-        },
         placeholders: {
             name: "Name of the collection",
             description: "Description of the collection",
