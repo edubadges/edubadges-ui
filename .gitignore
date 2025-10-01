@@ -6,4 +6,6 @@ node_modules
 index.html
 src/data/
 
+## Potential secrets
+.env
 public/env.js
