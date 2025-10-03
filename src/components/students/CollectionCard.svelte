@@ -11,7 +11,6 @@
     export let collection = {};
     export let view;
     export let refresh;
-    export let readOnly = false;
 
     let showDetails = true;
     let showDeleteModal = false;
@@ -116,37 +115,33 @@
 </style>
 <section class="collection-card">
     <div class="header">
-        {#if !readOnly}
-            <div class="inner-header" 
-                on:click={() => showDetails = !showDetails}
-                on:keypress={() => showDetails = !showDetails}>
-                    {@html showDetails ? chevronUp : chevronDown}
-                    <h3>{collection.name}</h3>
-            </div>
-            <section class="buttons-container">
-                <section class="buttons">
-                    <div class="trash collection-action" 
-                        on:click={deleteCollection(true)}
-                        on:keypress={deleteCollection(true)}>
-                            {@html trash}
+        <div class="inner-header" 
+            on:click={() => showDetails = !showDetails}
+            on:keypress={() => showDetails = !showDetails}>
+                {@html showDetails ? chevronUp : chevronDown}
+                <h3>{collection.name}</h3>
+        </div>
+        <section class="buttons-container">
+            <section class="buttons">
+                <div class="trash collection-action" 
+                    on:click={deleteCollection(true)}
+                    on:keypress={deleteCollection(true)}>
+                        {@html trash}
+                    </div>
+                    <div class="pencil collection-action"
+                        on:click={() => navigate(`/edit-collection/${collection.entityId}`)}
+                        on:keypress={() => navigate(`/edit-collection/${collection.entityId}`)}>
+                            {@html pencilIcon}
                         </div>
-                        <div class="pencil collection-action"
-                            on:click={() => navigate(`/edit-collection/${collection.entityId}`)}
-                            on:keypress={() => navigate(`/edit-collection/${collection.entityId}`)}>
-                                {@html pencilIcon}
-                            </div>
-                </section>
             </section>
-        {/if}
+        </section>
     </div>
     {#if showDetails}
         <section class="card-content">
             <section class="card-content-header">
-                {#if !readOnly}
-                    <p>{collection.description}</p>
-                {/if}
+                <p>{collection.description}</p>
             </section>
-            <BadgePanel badges={collection.badgeInstances} view={view} linksEnabled={readOnly} isPublic={readOnly}/>
+            <BadgePanel badges={collection.badgeInstances} view={view} linksEnabled={true}/>
             {#if collection.badgeInstances.length === 0}
                 <p>{I18n.t("collections.zeroStateBadges")}</p>
             {/if}
