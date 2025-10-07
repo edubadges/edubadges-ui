@@ -152,8 +152,6 @@ I18n.translations.en = {
     },
     notFound: {
         main: "Edubadge not found",
-        publicBadge:
-            "The edubadge is either not publicly visible anymore or has been revoked.",
         issuer: "This issuer has been deleted.",
     },
     teacher: {
@@ -237,10 +235,6 @@ I18n.translations.en = {
         withdraw: "Withdraw request",
         flash: {
             enrolled: "Successfully requested edubadge {{name}}.",
-            published:
-                "This edubadge has been made publicly visible. You can share this edubadge now",
-            private:
-                "This edubadge has been made private. You can no longer share this edubadge",
             deleted:
                 "This edubadge has been removed. You can no longer download or share this edubadge",
             accepted:
@@ -252,22 +246,11 @@ I18n.translations.en = {
         badges: "Your edubadges",
         deleteBadge: "Reject this edubadge",
         acceptBadge: "Accept this edubadge",
-        share: "Share",
-        copyUrl: "Copy URL",
-        shareYourBadge: "Share your edubadge",
-        shareYourBadgeQuestion:
-            "Your public edubadge URL is accessible for everyone",
         badgeRevoked:
             "This edubadge has been revoked. You can see the details, but this edubadge can no longer be shared",
         revocationReason: "The revocation reason:",
         badgeExpired:
             "This edubadge has been expired. You can see the details, but this edubadge can no longer be shared",
-        privateBadge: "Private edubadge",
-        publicPrivate: "Your edubadge is set to private, only you can see it.",
-        publicPrivatePublic:
-            "Your edubadge is not set to private, everyone with your sharelink will be able to see it.",
-        publicPrivateRejected:
-            "In order for you to make this edubadge public, you'll first have to accept this edubadge",
         revoked: "This edubadge has been revoked",
         revokedWithReason:
             "This edubadge has been revoked by the issuer for the reason: '{{revocationReason}}'",
@@ -278,16 +261,6 @@ I18n.translations.en = {
             flash: "Badge {{name}} added to collection {{col}}",
         },
         confirmation: {
-            publish: "Make this edubadge publicly visible",
-            private: "Make this edubadge private",
-            publishConfirmation:
-                "Are you sure you want to make this edubadge publicly visible?<br/><br/>If you make this edubadge public then your validated name <strong>{{name}}</strong> will be displayed in the validation section of the public edubadge webpage.",
-            publishEvidenceConfirmation:
-                "Add evidence/personal message (evidence) also to publicly available information of this edubadge?",
-            publishGradeConfirmation:
-                "Add grade achieved also to publicly available information of this edubadge?",
-            privateConfirmation:
-                "Are you sure you want to make this edubadge private?",
             deleteBadgeConfirmation: "Are you sure you want to reject this edubadge?",
             acceptBadgeConfirmation: "Are you sure you want to accept this edubadge?",
         },
@@ -955,7 +928,6 @@ I18n.translations.en = {
             expiresNever: "Never",
             download: "Download",
             open: "Open",
-            share: "Share",
             status: "Status",
             revoked: "Revoked",
             validUntil: "Valid until",
@@ -1106,7 +1078,6 @@ I18n.translations.en = {
             lastUpdated: "Last one created",
             name: "Name",
             description: "Description",
-            privatePublic: "Private / public",
             badge_instances: "Edubadges",
             createdAt: "Created at",
         },
@@ -1168,15 +1139,6 @@ I18n.translations.en = {
         intranet:
             "You can place this link to the public badge page on your intranet or ELO, or share it via email.",
         copy: "Copy the link",
-    },
-    shareDialog: {
-        title: "Share your edubadge",
-        copyPublicUrl:
-            "If you want to share the public page link of this edubadge, you can copy the link to your clipboard.",
-        copy: "Copy the link",
-        titleCollections: "Share your collection",
-        copyPublicUrlCollections:
-            "If you want to share the public page link of this collection of edubadges, you can copy the link to your clipboard.<br/><br/>Note that only public edubadges which are not revoked are shown on the public collection page.",
     },
     copyDialog: {
         title: "SIS integration",
@@ -1867,27 +1829,13 @@ I18n.translations.en = {
         zeroState: "You have not created any collections of edubadges yet...",
         zeroStateBadges: "You have not added any edubadges yet...",
         create: "Create a new collection",
-        shareable: "Collections that you can share",
-        requiresPublicBadgePresent:
-            "A public collection requires at least one public edubadge",
         all: "All your collections",
         byRecent: "Most recent",
         bySize: "Number of edubadges",
-        byPublic: "Public / private",
         deleteConfirmation: "Delete collection {{name}}",
         deleteConfirmationQuestion:
             "Are you sure you want to delete collection {{name}}.",
         deleteFlash: "Collection {{name}] deleted.",
-        privatePublic: "Check to make this collection public",
-        share: {
-            title: "Not shareable",
-            publish: "Make this collection publicly visible",
-            publishConfirmation:
-                "Are you sure you want to make this collection publicly visible?<br/><br/>If you make this collection public then it is viewable for everyone with the link.",
-            private: "Make this collection private",
-            privateConfirmation:
-                "Are you sure you want to make this collection private?",
-        },
         placeholders: {
             name: "Name of the collection",
             description: "Description of the collection",

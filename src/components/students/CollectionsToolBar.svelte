@@ -6,7 +6,6 @@
     export let sortOptions;
     export let sorting;
     export let view;
-    export let shareableFilter;
     export let readOnly = false;
 
 </script>
@@ -81,15 +80,6 @@
 </style>
 
 <div class="buttons">
-    {#if !readOnly}
-  <span class="filters">
-    <span class="badge-filter-button {shareableFilter ? 'active' : 'inactive'}"
-          on:click={() => shareableFilter = true}>{I18n.t('collections.shareable')}</span>
-    <span>|</span>
-    <span class="badge-filter-button {shareableFilter ? 'inactive' : 'active'}"
-          on:click={() => shareableFilter = false}>{I18n.t('collections.all')}</span>
-  </span>
-    {/if}
     <ViewSelector bind:view={view}/>
 </div>
 {#if !readOnly}

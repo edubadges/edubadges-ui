@@ -14,20 +14,17 @@
     const sortOptions = [
         {value: "recent", name: I18n.t("collections.byRecent")},
         {value: "size", name: I18n.t("collections.bySize")},
-        {value: "public", name: I18n.t("collections.byPublic")},
     ]
 
     let loaded = false;
     let badgeInstanceCollections = [];
     let view = "cards";
-    let shareableFilter = false;
     let sorting = sortOptions[0];
 
     const query = `query {
       badgeInstanceCollections {
         entityId,
         name,
-        public,
         description,
         createdAt,
         badgeInstances {
@@ -40,7 +37,6 @@
         image,
         issuedOn,
         createdAt,
-        public,
         revoked,
         expiresAt,
         acceptance,
@@ -95,9 +91,6 @@
                 collection.badgeInstances = collection.badgeInstances.map(bi => badgeInstances.find(b => b.id === bi.id));
             });
             badgeInstanceCollections = res.badgeInstanceCollections;
-            if (badgeInstanceCollections.filter(coll => coll.public).length === 0) {
-                shareableFilter = false;
-            }
             loaded = true;
         })
     }
@@ -105,7 +98,6 @@
     onMount(refresh);
 
     $: filteredAndSortedCollections = badgeInstanceCollections
-        .filter(coll => shareableFilter ? (coll.public && coll.badgeInstances.filter(badge => badge.public).length > 0) : true)
         .sort((a, b) => {
         const val = sorting.value;
         switch (val) {
@@ -114,9 +106,6 @@
             }
             case "size": {
                 return b.badgeInstances.length - a.badgeInstances.length;
-            }
-            case "public": {
-                return (a.public === b.public)? 0 : b.public ? 1 : -1;
             }
         }
     })
@@ -145,7 +134,7 @@
       {#if badgeInstanceCollections.length === 0}
         <p>{I18n.t("collections.zeroState")}</p>
       {:else}
-        <CollectionsToolBar bind:shareableFilter={shareableFilter} bind:sorting={sorting} bind:view={view}
+        <CollectionsToolBar bind:sorting={sorting} bind:view={view}
                             sortOptions={sortOptions}/>
         <div class="content">
           {#each filteredAndSortedCollections as collection}

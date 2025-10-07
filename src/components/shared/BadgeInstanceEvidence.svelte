@@ -3,20 +3,13 @@
     import MarkdownField from "../forms/MarkdownField.svelte";
 
     export let evidences = [];
-    export let isPrivate = false;
-
-
 </script>
 
 <style lang="scss">
 
   div.badge-public-evidence-container {
-    padding: 10px 40px 30px 40px;
-
-    &.is-private {
-      padding: 0;
-    }
-
+    padding: 0;
+    
     div.badge-public-evidence {
       display: flex;
     }
@@ -43,11 +36,7 @@
   @media (max-width: 1120px) {
     div.badge-public-evidence-container {
       flex-direction: column;
-      padding: 0 20px 30px 20px !important;
-
-      &.is-private {
-        padding: 0 !important;
-      }
+      padding: 0 !important;
 
       div.badge-public-evidence {
         flex-direction: column;
@@ -83,7 +72,7 @@
 
 </style>
 {#if evidences && evidences.length > 0}
-    <div class="badge-public-evidence-container" class:is-private={isPrivate}>
+    <div class="badge-public-evidence-container">
         <h3>{I18n.t('models.enrollment.evidenceHeader')}</h3>
         {#each evidences as evidence}
             <div class="badge-public-evidence">

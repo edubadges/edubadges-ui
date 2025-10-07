@@ -4,13 +4,11 @@
     import I18n from "i18n-js";
     import {navigate} from "svelte-routing";
     import StatusIndicator from "./StatusIndicator.svelte";
-    import BadgeShield from "./BadgeShield.svelte";
     import placeholder from "../../icons/forms/image-placeholder.svg";
 
     export let badge;
     export let badgeClass;
     export let standAlone = false;
-    export let isPublic = false;
     export let withHeaderData;
     export let withPendingEnrollments = false;
     export let linksEnabled = true;
@@ -25,8 +23,6 @@
         }
         if (badge && badge.isDirectAward) {
             navigate(`/direct-award/${badge.entityId}`);
-        } else if (isPublic) {
-            navigate(`/public/${badgeClass.entityId}`);
         } else if (badge && badge.importedBadge) {
             navigate(`/import/${badge.entity_id}`);
         } else if (!standAlone) {
@@ -219,9 +215,10 @@
 
 {#if badge || badgeClass}
     <div class="card badge" class:links-enabled={linksEnabled} class:stand-alone={standAlone}
-         on:click|preventDefault|stopPropagation={detailLink}>
+         on:click|preventDefault|stopPropagation={detailLink}
+         on:keydown|preventDefault|stopPropagation={detailLink}>
 
-        {#if withPendingEnrollments || isPublic}
+        {#if withPendingEnrollments}
             <StatusIndicator badge={badge} badgeClass={badgeClass}/>
         {:else }
             <StatusIndicator badge={badge}/>
@@ -231,7 +228,6 @@
         <div class="header {withHeaderData ? 'header-extra-height' : 'header-regular-height'}">
             {#if badge}
                 <span>{badge.isDirectAward ? moment(badge.createdAt).format('MMM D, YYYY') : moment(badge.issuedOn).format('MMM D, YYYY')}</span>
-                <BadgeShield badge={badge}/>
             {/if}
             <div class="image-center-v" class:direct-award={badge && badge.isDirectAward}>
                 {#if badgeClass.image}

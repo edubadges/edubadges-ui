@@ -5,15 +5,11 @@
     import {impersonation} from "../stores/user";
     import {isEmpty} from "../util/utils";
 
-    let isPublicBadgeNotFound = false;
     let isIssuerNotFound = false;
     let loaded = false;
 
     onMount(() => {
         const urlSearchParams = new URLSearchParams(window.location.search);
-        if (urlSearchParams.has("public")) {
-            isPublicBadgeNotFound = true;
-        }
         if (urlSearchParams.has("issuer")) {
             isIssuerNotFound = true;
         }
@@ -47,9 +43,6 @@
 <div class="not-found">
     {#if loaded && isEmpty($impersonation)}
         <h1>{I18n.t('notFound.main')}</h1>
-        {#if isPublicBadgeNotFound}
-            <p>{I18n.t("notFound.publicBadge")}</p>
-        {/if}
         {#if isIssuerNotFound}
             <p>{I18n.t("notFound.issuer")}</p>
         {/if}

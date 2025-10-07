@@ -232,21 +232,6 @@ export function deleteAssertion(assertionEntityId) {
     );
 }
 
-export function publicAssertion(assertionEntityId, isPublic, includeEvidence, includeGradeAchieved) {
-    const path = `${serverUrl}/earner/badges/${assertionEntityId}`;
-    return validFetch(
-        path,
-        {
-            body: JSON.stringify({
-                "public": isPublic,
-                "include_evidence": includeEvidence,
-                "include_grade_achieved": includeGradeAchieved
-            })
-        },
-        "PUT"
-    );
-}
-
 export function acceptAssertion(assertionEntityId) {
     const path = `${serverUrl}/earner/badges/${assertionEntityId}`;
     return validFetch(
@@ -354,19 +339,9 @@ export function getPublicIssuer(entityId) {
     return validFetch(path, {}, "GET", false, false);
 }
 
-export function getPublicBadge(entityId) {
-    const path = `${serverUrl}/public/assertions/${entityId}?expand=badge&expand=badge.issuer&expand=badge.user`;
-    return validFetch(path, {}, "GET", false, false);
-}
-
 export function validateBadge(entityId) {
     const path = `${serverUrl}/public/assertions/validate/${entityId}`;
     return validFetchNoErrorDialog(path, {}, "GET", false);
-}
-
-export function validateName(identityHash, salt) {
-    const path = `${serverUrl}/public/assertions/identity/${identityHash}/${salt}`;
-    return validFetch(path, {}, "GET", false);
 }
 
 export function getValidatorInfo() {
