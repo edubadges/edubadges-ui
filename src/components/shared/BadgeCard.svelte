@@ -9,6 +9,7 @@
     export let badge;
     export let badgeClass;
     export let standAlone = false;
+    export let isPublic = false;
     export let withHeaderData;
     export let withPendingEnrollments = false;
     export let linksEnabled = true;
@@ -23,6 +24,8 @@
         }
         if (badge && badge.isDirectAward) {
             navigate(`/direct-award/${badge.entityId}`);
+        } else if (badgeClass && isPublic) {
+            navigate(`/public/${badgeClass.entityId}`);
         } else if (badge && badge.importedBadge) {
             navigate(`/import/${badge.entity_id}`);
         } else if (!standAlone) {
