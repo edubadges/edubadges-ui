@@ -154,7 +154,7 @@
                 <br/>
                 <span class="sub-text">({issuer.faculty.name})</span>
             </td>
-            <td class="center">{issuer.badgeclassCount === 0 ? "-" : issuer.badgeclassCount}</td>
+            <td class="center">{issuer.badgeclassCount === 0 || issuer.badgeclassCount === null ? "-" : issuer.badgeclassCount}</td>
             <td class="center">{issuer.assertionCount === 0 ? "-" : issuer.assertionCount}</td>
             <td class="center">{issuer.pendingEnrollmentCount === 0 ? "-" : issuer.pendingEnrollmentCount}</td>
             <td>{I18n.t(`placeholders.badgeClass.status.${issuer.archived ? "archived" : "active"}`) }</td>
