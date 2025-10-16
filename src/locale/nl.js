@@ -204,7 +204,7 @@ I18n.translations.nl = {
             studyLoad: "Studielast",
             timeInvestment: "Tijd investering",
             educationProgramIdentifier: "(Indicatief) EQF/NLQF",
-            ects: "{{value}} ECTS",
+            ects: "{{value}} ECTS/EC",
             hours: "{{value}} uren",
             canAward: "Badge classes die je kunt uitreiken",
             allBadges: "Alle badge classes",
@@ -534,7 +534,7 @@ I18n.translations.nl = {
         934: "De opleidingscode is verplicht als er studiepunten zijn opgegeven.",
         935: "Vul de tijdsinvestering of verwijder deze rubriek.",
         936: "Kan geen collectie aanmaken met deze naam. Er bestaat al een collectie met deze naam.",
-        937: "ECTS mag niet leeg of 0 zijn.",
+        937: "ECTS/EC mag niet leeg of 0 zijn.",
         938: "Een motivatie is verplicht voor het aanvragen van deze edubadge.",
         939: "Een bronvermelding is verplicht voor het aanvragen van deze edubadge.",
         940: "Er is al een edubadge voor deze email.",
@@ -759,7 +759,7 @@ I18n.translations.nl = {
                 test: "Test",
             },
             archive: {
-                confirmation: "Issuer groep class archiveren",
+                confirmation: "Issuer groep archiveren",
                 confirmationQuestion:
                     "Weet je zeker dat je deze issuer groep wilt archiveren?",
                 flash: "Issuer groep {{name}} is gearchiveerd",
@@ -794,7 +794,7 @@ I18n.translations.nl = {
             institutionName: "Instelling naam",
             institutionIdentifier: "Instelling identifier",
             archive: {
-                confirmation: "Issuer class archiveren",
+                confirmation: "Issuer archiveren",
                 confirmationQuestion:
                     "Weet je zeker dat je deze issuer wilt archiveren?",
                 flash: "Issuer {{name}} is gearchiveerd",
@@ -854,7 +854,7 @@ I18n.translations.nl = {
             studyLoad: "Studielast",
             timeInvestment: "Tijd investering",
             ects: {
-                creditPoints: "Studiepunten in ECTS",
+                creditPoints: "Studiepunten in ECTS/EC",
                 hours: "Uren",
             },
             sbu: "Study Belasting Uren",
@@ -905,7 +905,7 @@ I18n.translations.nl = {
             },
             info: {
                 educationProgramIdentifier:
-                    "Raadpleeg <a target='_blank' rel='noreferrer' href='https://duo.nl/zakelijk/hoger-onderwijs/studentenadministratie/opleidingsgegevens-in-croho/raadplegen-en-downloaden.jsp'>het DUO CROHO register</a> of <a target='_blank' rel='noreferrer' href='https://duo.nl/open_onderwijsdata/middelbaar-beroepsonderwijs/erkende-opleidingen/erkende-opleidingscode-en-beroep.jsp'>de SBB CREBO lijsten</a> als je deze code niet weet.",
+                    "Raadpleeg <a target='_blank' rel='noreferrer' href='https://zakelijk.duo.nl/portaal/zoeken-en-vinden/resultaten?zoekterm=null&pagina=1'>het DUO RIO register</a> of <a target='_blank' rel='noreferrer' href='https://duo.nl/open_onderwijsdata/middelbaar-beroepsonderwijs/erkende-opleidingen/erkende-opleidingscode-en-beroep.jsp'>de SBB CREBO lijsten</a> als je deze code niet weet.",
                 eqf: "Kijk op <a target='_blank' rel='noreferrer' href='https://www.nlqf.nl/daarom-nlqf/nlqf-niveaus'>https://www.nlqf.nl/daarom-nlqf/nlqf-niveaus</a> voor een overzicht",
                 ects: "Alleen hele en halve punten. <br/>Een minimum van 0,5 punt is vereist.",
                 ectsMicroCredentials:
@@ -1661,9 +1661,9 @@ I18n.translations.nl = {
         },
         studyLoad: {
             NO_STUDYLOAD: "Geen studyload",
-            ECTS_0_5: "0-5 ECTS (WO/HBO)",
-            ECTS_6_10: "6-10 ECTS (WO/HBO)",
-            ECTS_10_MORE: "> 10 ECTS (WO/HBO)",
+            ECTS_0_5: "0-5 ECTS/EC (WO/HBO)",
+            ECTS_6_10: "6-10 ECTS/EC (WO/HBO)",
+            ECTS_10_MORE: "> 10 ECTS/EC (WO/HBO)",
             HOURS_0_60: "0-60 uren (MBO)",
             HOURS_61_120: "61-120 uren (MBO)",
             HOURS_120_MORE: "> 120 uren (MBO)",
@@ -2154,9 +2154,9 @@ I18n.translations.nl = {
                 micro_credential:
                     "Een badge class voor microcredentials met het kwaliteitskader voor professionals HBO/WO of MBO en alle metadata conform de EU-aanbevelingen.",
                 regular:
-                    "Een badge class voor opgedane kennis en vaardigen die binnen het curriculum van een erkende opleiding vallen. Aan deze badge class zijn ECTS/SBU verbonden.",
+                    "Een badge class voor opgedane kennis en vaardigen die binnen het curriculum van een erkende opleiding vallen. Aan deze badge class zijn ECTS/EC/SBU verbonden.",
                 extra_curricular:
-                    "Een badge class voor opgedane kennis en vaardigheden die geen onderdeel zijn van het curriculum van een erkende opleiding. Aan deze badge class zijn geen ECTS/ SBU verbonden.",
+                    "Een badge class voor opgedane kennis en vaardigheden die geen onderdeel zijn van het curriculum van een erkende opleiding. Aan deze badge class zijn geen ECTS/EC/SBU verbonden.",
             },
             notAvailableTypeInfo: {
                 micro_credential:
@@ -2175,8 +2175,8 @@ I18n.translations.nl = {
             qualityAssurance: "Kwaliteitswaarborging",
             awardSettings: "Award opties",
             relatedEducationalFramework: "Gerelateerd Onderwijskundig Raamwerk",
-            switchToStudyLoad: "Gebruik studie load (uren) in plaats van ECTS/SBU",
-            switchToECTS: "Gebruik Credit Points (ECTS/SBU) in plaats van uren",
+            switchToStudyLoad: "Gebruik studie load (uren) in plaats van ECTS/EC/SBU",
+            switchToECTS: "Gebruik Credit Points (ECTS/EC/SBU) in plaats van uren",
             other: "Anders",
             participation: {
                 name: "Vorm van participatie",
