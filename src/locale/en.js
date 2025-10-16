@@ -202,7 +202,7 @@ I18n.translations.en = {
             studyLoad: "Study load",
             timeInvestment: "Time investment",
             educationProgramIdentifier: "(Indicative) EQF/NLQF",
-            ects: "{{value}} ECTS",
+            ects: "{{value}} ECTS/EC",
             hours: "{{value}} hours",
             canAward: "Badge classes you can award",
             allBadges: "All badge classes",
@@ -497,10 +497,10 @@ I18n.translations.en = {
         931: "There is already an unaccepted direct award for this EPPN.",
         932: "This badge class requires a narrative for awarding.",
         933: "This badge class requires evidence for awarding.",
-        934: "The programme identifier is required when study points in ECTS are specified.",
+        934: "The programme identifier is required when study points in ECTS/EC are specified.",
         935: "Enter the time investment or remove this section.",
         936: "Cannot create edubadge collection with this name as it already exists.",
-        937: "ECTS can not be empty or 0.",
+        937: "ECTS/EC can not be empty or 0.",
         938: "This edubadge requires a motivation for enrollment.",
         939: "This edubadge requires an evidence URL for enrollment.",
         940: "There is already an edubadge or unaccepted direct award for this email.",
@@ -821,7 +821,7 @@ I18n.translations.en = {
             studyLoad: "Study load",
             timeInvestment: "Time investment",
             ects: {
-                creditPoints: "Study load in ECTS",
+                creditPoints: "Study load in ECTS/EC",
                 hours: "Hours",
             },
             sbu: "Studie Belasting Uren",
@@ -869,7 +869,7 @@ I18n.translations.en = {
             },
             info: {
                 educationProgramIdentifier:
-                    "Consult <a target='_blank' rel='noreferrer' href='https://duo.nl/zakelijk/hoger-onderwijs/studentenadministratie/opleidingsgegevens-in-croho/raadplegen-en-downloaden.jsp'>the DUO CROHO register</a> or <a target='_blank' rel='noreferrer' href='https://duo.nl/open_onderwijsdata/middelbaar-beroepsonderwijs/erkende-opleidingen/erkende-opleidingscode-en-beroep.jsp'>the SBB CREBO lists</a> if you don’t know the code.",
+                    "Consult <a target='_blank' rel='noreferrer' href='https://zakelijk.duo.nl/portaal/zoeken-en-vinden/resultaten?zoekterm=null&pagina=1'>the DUO RIO register</a> or <a target='_blank' rel='noreferrer' href='https://duo.nl/open_onderwijsdata/middelbaar-beroepsonderwijs/erkende-opleidingen/erkende-opleidingscode-en-beroep.jsp'>the SBB CREBO lists</a> if you don’t know the code.",
                 eqf: "Check <a target='_blank' rel='noreferrer' href='https://www.nlqf.nl/daarom-nlqf/nlqf-niveaus'>https://www.nlqf.nl/daarom-nlqf/nlqf-niveaus</a> for help",
                 ects: "Whole and half points only. Valid value between 0.5 and 240 points.",
                 ectsMicroCredentials:
@@ -1510,7 +1510,7 @@ I18n.translations.en = {
             "How many hours have to be invested to acquire this non-formal edubadge.",
         //badgeClassSBUNumber: "badgeClassSBULoadNumber",
         badgeClassStudyLoadEcts:
-            "The European Credit Transfer System (ECTS) is a points system used by universities and agreed by governments, that makes international education more easily comparable across borders.",
+            "The European Credit Transfer System (ECTS/EC) is a points system used by universities and agreed by governments, that makes international education more easily comparable across borders.",
         //badgeClassProgrammeIdentifier: "badgeClassProgrammeIdentifier",
         badgeClassNLQFLevel:
             "Indicate at which qualification level this edubadge is derived.",
@@ -1603,9 +1603,9 @@ I18n.translations.en = {
         },
         studyLoad: {
             NO_STUDYLOAD: "No studyload",
-            ECTS_0_5: "0-5 ECTS (WO/HBO)",
-            ECTS_6_10: "6-10 ECTS (WO/HBO)",
-            ECTS_10_MORE: "> 10 ECTS (WO/HBO)",
+            ECTS_0_5: "0-5 ECTS/EC (WO/HBO)",
+            ECTS_6_10: "6-10 ECTS/EC (WO/HBO)",
+            ECTS_10_MORE: "> 10 ECTS/EC (WO/HBO)",
             HOURS_0_60: "0-60 hours (MBO)",
             HOURS_61_120: "61-120 hours (MBO)",
             HOURS_120_MORE: "> 120 hours (MBO)",
@@ -2070,9 +2070,9 @@ I18n.translations.en = {
                 micro_credential:
                     "A badge class for micro-credentials with the quality framework for professionals HBO/WO or MBO and all metadata in accordance with the EU recommendations.",
                 regular:
-                    "A badge class for acquired knowledge and skills that fall within the curriculum of a recognized study program. ECTS/SBU are attached to this badge class.",
+                    "A badge class for acquired knowledge and skills that fall within the curriculum of a recognized study program. ECTS/EC/SBU are attached to this badge class.",
                 extra_curricular:
-                    "A badge class for acquired knowledge and skills that are not part of the curriculum of a recognized program. There are no ECTS/SBU attached to badge class.",
+                    "A badge class for acquired knowledge and skills that are not part of the curriculum of a recognized program. There are no ECTS/EC/SBU attached to badge class.",
             },
             notAvailableTypeInfo: {
                 micro_credential:
@@ -2091,8 +2091,8 @@ I18n.translations.en = {
             qualityAssurance: "Quality assurance",
             awardSettings: "Award settings",
             relatedEducationalFramework: "Related Educational Frameworks",
-            switchToStudyLoad: "Switch to using study load (hours) instead of ECTS",
-            switchToECTS: "Switch to using Credit Points (ECTS) instead of hours",
+            switchToStudyLoad: "Switch to using study load (hours) instead of ECTS/EC",
+            switchToECTS: "Switch to using Credit Points (ECTS/EC) instead of hours",
             other: "Other",
             participation: {
                 name: "Form of participation",
