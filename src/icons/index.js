@@ -24,4 +24,4 @@ export { default as pencilIcon } from "./pencil-write.svg";
 export { default as shieldUnlock } from "./shield-unlock.svg";
 export { default as shieldLock } from "./lock-shield.svg";
 export { default as importIcon } from "./import.svg";
-
+export { default as walletIcon } from "./wallet.svg";
