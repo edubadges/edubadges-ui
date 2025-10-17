@@ -1,10 +1,7 @@
 <script>
     import I18n from "i18n-js";
-    import {userName} from "../../stores/user";
 
     import {onMount} from "svelte";
-    import shieldUnlocked from "../../icons/shield-unlock.svg";
-    import shieldLocked from "../../icons/lock-shield.svg";
     import {link} from "svelte-routing";
     import {queryData} from "../../api/graphql";
     import chevronRightSmall from "../../icons/chevron-right-small.svg";
@@ -22,10 +19,8 @@
         ob3WalletImport
     } from "../../api";
     import {flash} from "../../stores/flash";
-    import ToggleSwitch from "../../components/ToggleSwitch.svelte";
     import BadgeInstanceEvidence from "../../components/shared/BadgeInstanceEvidence.svelte";
-    import CheckBox from "../../components/CheckBox.svelte";
-    import {isEmpty, translateProperties} from "../../util/utils";
+    import {translateProperties} from "../../util/utils";
     import StudentBreadCrumb from "../../components/students/StudentBreadCrumb.svelte";
     import BadgeHeader from "../../components/students/BadgeHeader.svelte";
     import {alignments, endorsements} from "../../api/queries";
