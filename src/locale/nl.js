@@ -965,13 +965,9 @@ I18n.translations.nl = {
             validUntil: "Geldig tot",
             addToCollection: "Voeg toe aan collectie",
             grade: "Cijfer",
-            ob3SsiAgent: "Wallet import {{name}}",
-            ob3SsiAgentNames: {
-                preauthorized: "zonder autorisatie",
-                authorization: "met autorisatie",
-            },
+            ob3SsiAgent: "Toevoegen aan Wallet",
             ob3SsiAgentQRCodeQuestion:
-                "Scan this code with your electronic credentials wallet",
+                "Scan deze code met je elektronische credentials wallet",
             ok: "Ok",
             statuses: {
                 new: "Nieuw",
