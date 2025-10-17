@@ -946,11 +946,9 @@ I18n.translations.nl = {
             ob3SsiAgentNames: {
                 preauthorized: "zonder autorisatie",
                 authorization: "met autorisatie",
-                wwwallet: "WWWallet",
             },
             ob3SsiAgentQRCodeQuestion:
                 "Scan this code with your electronic credentials wallet",
-            ob3SsiAgentOpen: "Open in je wallet",
             ok: "Ok",
             statuses: {
                 new: "Nieuw",

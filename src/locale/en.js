@@ -937,11 +937,9 @@ I18n.translations.en = {
             ob3SsiAgentNames: {
                 preauthorized: "without authorization",
                 authorization: "with authorization",
-                wwwallet: "WWWallet",
             },
             ob3SsiAgentQRCodeQuestion:
                 "Scan this code with your electronic credentials wallet",
-            ob3SsiAgentOpen: "Open in your wallet",
             ok: "Ok",
             statuses: {
                 new: "New",
