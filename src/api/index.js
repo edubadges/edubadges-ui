@@ -800,6 +800,11 @@ export function fetchInstitutionBadgeOverview() {
     return validFetchNoErrorDialog(path, {}, "GET");
 }
 
+export function fetchSectorBadgeOverview() {
+    const path = `${serverUrl}/insights/institution/sector-overview`;
+    return validFetchNoErrorDialog(path, {}, "GET");
+}
+
 export function fetchIssuerMembers() {
     const path = `${serverUrl}/insights/institution/issuer-members`;
     return validFetchNoErrorDialog(path, {}, "GET");
