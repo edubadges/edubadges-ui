@@ -4,7 +4,6 @@
     import {onMount} from "svelte";
     import {link} from "svelte-routing";
     import {queryData} from "../../api/graphql";
-    import chevronRightSmall from "../../icons/chevron-right-small.svg";
     import Button from "../../components/Button.svelte";
     import Spinner from "../../components/Spinner.svelte";
     import BadgeCard from "../../components/shared/BadgeCard.svelte";
@@ -24,6 +23,9 @@
     import StudentBreadCrumb from "../../components/students/StudentBreadCrumb.svelte";
     import BadgeHeader from "../../components/students/BadgeHeader.svelte";
     import {alignments, endorsements} from "../../api/queries";
+
+    import chevronRightSmall from "../../icons/chevron-right-small.svg";
+    import walletIcon from "../../icons/wallet.svg";
 
     export let entityId;
 
@@ -428,7 +430,10 @@
                     </div>
                     <div class="button-container vertical">
                         {#if ob3SsiAgentEnabled}
-                            <Button text={I18n.t("models.badge.ob3SsiAgent")}  action={startOb3SsiAgentImport}/>
+                            <Button
+                                text={I18n.t("models.badge.ob3SsiAgent")}
+                                icon={walletIcon}
+                                action={startOb3SsiAgentImport}/>
                         {/if}
                     </div>
                 </div>
