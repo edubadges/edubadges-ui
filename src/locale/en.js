@@ -2095,6 +2095,7 @@ I18n.translations.en = {
         countMicroCredentials: "Microcredentials assertions per user",
         microCredentialsBadges: "Microcredentials edubadges",
         institutionBadgeOverview: "Awarded edubadges overview",
+        sectorBadgeOverview: "Sector badgeclass type overview",
         issuerMembers: "Issuer members",
         clear: "Clear",
         download: "Download",

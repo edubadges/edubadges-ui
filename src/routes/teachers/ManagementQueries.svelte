@@ -5,6 +5,7 @@
         fetchCountMicroCredentials,
         fetchInstitutionAdmins,
         fetchInstitutionBadgeOverview,
+        fetchSectorBadgeOverview,
         fetchInstitutionBadges,
         fetchInstitutionMicroCredentials,
         fetchIssuerMembers,
@@ -57,6 +58,10 @@
                         api: fetchInstitutionBadgeOverview
                     },
                     {
+                        name: "sectorBadgeOverview",
+                        api: fetchSectorBadgeOverview
+                    },
+                    {
                         name: "issuerMembers",
                         api: fetchIssuerMembers
                     },
@@ -73,6 +78,12 @@
                     }
                 ]
             }
+            queryObjects = queryObjects
+                .map(queryObject => ({
+                    name: I18n.t(`managementQueries.${queryObject.name}`),
+                    api: queryObject.api
+                }))
+                .sort((q1, q2) => q1.name.localeCompare(q2.name))
         });
     });
 
@@ -168,8 +179,9 @@
                     <div class="controls">
                         <Select value={currentQueryObject}
                                 handleSelect={value => fetchObjects(value)}
-                                items={queryObjects.map(queryObject => ({name: I18n.t(`managementQueries.${queryObject.name}`), value: queryObject.name}))}
+                                items={queryObjects.map(queryObject => ({name: queryObject.name, value: queryObject.name}))}
                                 optionIdentifier="value"
+                                isSearchable={true}
                                 placeholder={I18n.t("managementQueries.select")}
                                 clearable={true}/>
                         <Button action={() => download()}
@@ -187,7 +199,7 @@
                     </div>
                     {#if queryData.length > 0 }
                         <p class="info">{I18n.t("managementQueries.loaded", {
-                            name: I18n.t(`managementQueries.${currentQueryObject.value}`),
+                            name: currentQueryObject.name,
                             time: timeMs
                         })}</p>
                     {/if}
