@@ -24,6 +24,7 @@
     export let enrollments;
     export let refresh;
     export let existingDirectAwardsEppns;
+    export let existingDirectAwardsEmails;
     export let ltiContextEnabled = false;
 
     let errors = {};
@@ -111,6 +112,7 @@
                 delete da.eppn;
                 return da;
             })
+            invariant(directAwards)
         }
     }
 
@@ -155,6 +157,10 @@
         errorsDuplications = {
             ...errorsDuplications,
             [`email_${i}`]: directAwards.filter(da => da.email === val).length > 1 && val.trim().length > 0
+        },
+        errorsAlreadyAwarded = {
+            ...errorsAlreadyAwarded,
+            [`email_${i}`]: existingDirectAwardsEmails.some(da => da.email === val)
         }
     }
 
@@ -204,13 +210,17 @@
             return acc;
         }, {});
         let newErrorsAlreadyAwarded;
-        if (!enableAwardOnEmail) {
+        if (enableAwardOnEmail) {
             newErrorsAlreadyAwarded = newDirectAwards.reduce((acc, da, i) => {
-                acc[`eppn_${i}`] = existingDirectAwardsEppns.some(inst => inst.eppn === da.eppn);
+                acc[`email_${i}`] = existingDirectAwardsEmails.some(inst => inst.email === da.email);
                 return acc;
             }, {});
         } else {
-            newErrorsAlreadyAwarded = {};
+            newErrorsAlreadyAwarded = newDirectAwards.reduce((acc, da, i) => {
+                acc[`eppn_${i}`] = existingDirectAwardsEppns.some(inst => inst.eppn === da.eppn);
+                acc[`email_${i}`] = existingDirectAwardsEmails.some(inst => inst.email === da.email);
+                return acc;
+            }, {});
         }
 
         const newErrorsDuplications = newDirectAwards.reduce((acc, da, i) => {

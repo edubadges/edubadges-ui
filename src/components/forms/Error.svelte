@@ -7,9 +7,10 @@
     export let error_code;
     export let error_message;
     export let standAlone;
+    export let ignoreEmail = false;
 
     onMount(() => {
-        if (!isEmpty(error_message) && error_message.indexOf("mail") > 0) {
+        if (!ignoreEmail && !isEmpty(error_message) && error_message.indexOf("mail") > 0) {
             error_code = 509;
         }
     })
