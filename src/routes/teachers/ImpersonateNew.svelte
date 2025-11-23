@@ -5,26 +5,36 @@
     import {Table} from "../../components/teachers";
     import {sort, sortType} from "../../util/sortData";
     import Spinner from "../../components/Spinner.svelte";
-    import {fetchRawUsers, impersonate} from "../../api";
+    import {fetchRawUsers, getProfile, impersonate} from "../../api";
     import Modal from "../../components/forms/Modal.svelte";
     import {authToken, impersonation, userImpersonated, userLoggedIn} from "../../stores/user";
     import {pageCount} from "../../util/pagination";
     import {addUserPermissions} from "../../util/users";
+    import {navigate} from "svelte-routing";
 
     let allUsers = [];
     let showConfirmationModal = false;
     let selectedUser = {};
-
     let loaded = false;
 
     onMount(() => {
-        fetchRawUsers(true).then(res => {
-            const attributes = ["name"]
-            const prefixes = [""];
-            res.forEach(user => addUserPermissions(user, attributes, prefixes));
-            allUsers = res;
-            loaded = true;
+        getProfile().then(res => {
+            if (res.is_superuser) {
+                fetchRawUsers(true).then(res => {
+                    const attributes = ["name"]
+                    const prefixes = [""];
+                    res.forEach(user => addUserPermissions(user, attributes, prefixes));
+                    allUsers = res;
+                    loaded = true;
+                });
+            } else {
+                navigate("/");
+            }
+        }).catch(() => {
+
         });
+
+
     });
 
     const impersonateUser = (user, showConfirmation) => {
