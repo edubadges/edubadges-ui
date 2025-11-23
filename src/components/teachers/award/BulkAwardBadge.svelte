@@ -19,11 +19,13 @@
     export let enrollments;
     export let refresh;
     export let existingDirectAwardsEppns;
+    export let existingDirectAwardsEmails;
 
     let directAwards = [];
     let errorAwards = [];
     let duplicateAwards = [];
     let alreadyEppnDirectAwards = [];
+    let alreadyEmailDirectAwards = [];
     let missingEvidenceOrNarrative = [];
     let missingGrades = [];
     let processing = false;
@@ -58,6 +60,7 @@
                     const newErrorAwards = [];
                     const newDuplicateAwards = [];
                     const newAlreadyEppnDirectAwards = [];
+                    const newAlreadyEmailDirectAwards = [];
                     const newMissingEvidenceOrNarrative = [];
                     const newMissingGrades = [];
                     const requiredCels = enableAwardOnEmail ? 1 : 2;
@@ -78,7 +81,9 @@
                             const name = cells[4 - celAdjustment] || null;
                             const description = cells[5 - celAdjustment] || null;
                             const grade_achieved = cells[6 - celAdjustment] || null;
-                            if (existingDirectAwardsEppns.some(da => da.eppn === eppn && !isEmpty(eppn))) {
+                            if (enableAwardOnEmail && existingDirectAwardsEmails.some(da => da.email === email && !isEmpty(email))) {
+                                newAlreadyEmailDirectAwards.push(email);
+                            } else if (!enableAwardOnEmail && existingDirectAwardsEppns.some(da => da.eppn === eppn && !isEmpty(eppn))) {
                                 newAlreadyEppnDirectAwards.push(eppn);
                             } else if (alreadyInList(newDirectAwards, email, eppn)) {
                                 newDuplicateAwards.push(cellString)
@@ -116,6 +121,7 @@
                     errorAwards = newErrorAwards;
                     duplicateAwards = newDuplicateAwards;
                     alreadyEppnDirectAwards = newAlreadyEppnDirectAwards;
+                    alreadyEmailDirectAwards = newAlreadyEmailDirectAwards;
                     missingEvidenceOrNarrative = newMissingEvidenceOrNarrative;
                     missingGrades = newMissingGrades;
                     processing = false;
@@ -326,6 +332,7 @@
         {/if}
         <BulkAwardResult warning={true} localeName="wrong" results={errorAwards}/>
         <BulkAwardResult warning={true} localeName="eppnExisting" results={alreadyEppnDirectAwards}/>
+        <BulkAwardResult warning={true} localeName="emailExisting" results={alreadyEmailDirectAwards}/>
         <BulkAwardResult warning={true} localeName="duplicate" results={duplicateAwards}/>
         <BulkAwardResult warning={true} localeName="missingEvidenceOrNarrative" results={missingEvidenceOrNarrative}/>
         <BulkAwardResult warning={false} localeName="good"
