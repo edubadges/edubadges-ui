@@ -31,7 +31,6 @@
 <div>
     <Router>
         <Route path="/institution/edit" component={InstitutionEditV2}/>
-        <Route path="/institution/edit-old" component={InstitutionEditV1}/>
         <Route path="/institution/*subEntity" component={ManageInstitutionNew}/>
 
         <Route path="/faculty/new" component={FacultyNew}/>
