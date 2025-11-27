@@ -42,7 +42,6 @@
     import BadgeImported from "./routes/students/BadgeImported.svelte";
     import LTI from "./components/teachers/lti/LTI.svelte";
     import LTILaunch from "./components/teachers/lti/LTILaunch.svelte";
-    import Notifications from "./components/teachers/Notifications.svelte";
     import {constructUserName} from "./util/users";
     import ManagementQueries from "./routes/teachers/ManagementQueries.svelte";
     import PublicFacultyPage from "./components/shared/PublicFacultyPage.svelte";
