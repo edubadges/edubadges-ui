@@ -5,6 +5,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [8.3.3] - 2025-12-02
+
+Backend: https://github.com/edubadges/edubadges-server/compare/v8.3.2...v8.3.3</br>
+Frontend: https://github.com/edubadges/edubadges-ui/compare/v.8.3.1...v8.3.3
+
+- Bugfix for email invalid msg When switching to awarding only on email, there is a invalid email message which must be supressed for initial rendering
+- Secure /manage/institution/edit See U0r7AbSE/1121-broken-access-control-super-user-paginas
+- Removed old endpoint
+- Fix for RO0PiDTk Email duplicates DA
+- Only allow for super-users to perform impersonation
+- WIP for 8zmfgqmL - edubadges per sector
+
+## [8.3.1] - 2025-10-28
+
+- Minor changes in the locales: ECTS/EC and RIO instead of CROHO
+- Bugfix for null display
+- Create structure.md
+- Create tech.md
+- Update README.md
+- Merge pull request #158 from edubadges/feature/disable-veramo
+- Show the issued_on date for accepted assertions The issued date of an assertion is the date of the enrollment created for requested badges or the creation date of the direct award.
+- Update CHANGELOG.md
+- feat: For demo, use only one agent, the unime agent
+
 ## [8.3.0] - 2025-07-14
 
 Backend: https://github.com/edubadges/edubadges-server/compare/v8.2.1...v8.3.0</br>
