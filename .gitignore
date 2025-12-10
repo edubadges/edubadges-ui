@@ -5,3 +5,5 @@ bundle*
 node_modules
 index.html
 src/data/
+
+public/env.js
