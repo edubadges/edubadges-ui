@@ -79,7 +79,7 @@
 
     $: table = {
         entity: "directawardaudittrail",
-        title: `DirectAward audittrail`,
+        title: `DirectAward audit trail`,
         tableHeaders: tableHeaders
     };
 
