@@ -24,6 +24,7 @@
     export let enrollments;
     export let refresh;
     export let existingDirectAwardsEppns;
+    export let existingDirectAwardsEmails;
     export let ltiContextEnabled = false;
 
     let errors = {};
@@ -111,6 +112,7 @@
                 delete da.eppn;
                 return da;
             })
+            invariant(directAwards, false)
         }
     }
 
@@ -155,7 +157,11 @@
         errorsDuplications = {
             ...errorsDuplications,
             [`email_${i}`]: directAwards.filter(da => da.email === val).length > 1 && val.trim().length > 0
-        }
+        },
+            errorsAlreadyAwarded = {
+                ...errorsAlreadyAwarded,
+                [`email_${i}`]: existingDirectAwardsEmails.some(da => da.email === val)
+            }
     }
 
     const eppnOnBlur = i => e => {
@@ -190,27 +196,31 @@
     };
 
     //Need to rebuild the errors as in-between values might be removed
-    const invariant = newDirectAwards => {
+    const invariant = (newDirectAwards, failOnEmpty = true) => {
         const newErrors = newDirectAwards.reduce((acc, da, i) => {
             if (!enableAwardOnEmail) {
                 acc[`eppn_${i}`] = da.eppn.trim().length === 0 || !validEppn(da.eppn, badgeclass);
             } else {
                 acc[`eppn_${i}`] = false;
             }
-            acc[`email_${i}`] = !validEmail(da.email);
+            acc[`email_${i}`] = !validEmail(da.email) && (failOnEmpty && isEmpty(da.email));
             acc[`evidence_${i}`] = badgeclass.evidenceRequired && !da.evidence_url;
             acc[`narrative_${i}`] = badgeclass.narrativeRequired && !da.narrative;
             acc[`grade_${i}`] = badgeclass.gradeAchievedRequired && isEmpty(da.grade_achieved);
             return acc;
         }, {});
         let newErrorsAlreadyAwarded;
-        if (!enableAwardOnEmail) {
+        if (enableAwardOnEmail) {
             newErrorsAlreadyAwarded = newDirectAwards.reduce((acc, da, i) => {
-                acc[`eppn_${i}`] = existingDirectAwardsEppns.some(inst => inst.eppn === da.eppn);
+                acc[`email_${i}`] = existingDirectAwardsEmails.some(inst => inst.email === da.email);
                 return acc;
             }, {});
         } else {
-            newErrorsAlreadyAwarded = {};
+            newErrorsAlreadyAwarded = newDirectAwards.reduce((acc, da, i) => {
+                acc[`eppn_${i}`] = existingDirectAwardsEppns.some(inst => inst.eppn === da.eppn);
+                acc[`email_${i}`] = existingDirectAwardsEmails.some(inst => inst.email === da.email);
+                return acc;
+            }, {});
         }
 
         const newErrorsDuplications = newDirectAwards.reduce((acc, da, i) => {
@@ -223,13 +233,12 @@
             return acc;
         }, {});
         const inValid = Object.values(newErrors).some(val => val) || Object.values(newErrorsDuplications).some(val => val) ||
-                Object.values(newErrorsAlreadyAwarded).some(val => val);
+            Object.values(newErrorsAlreadyAwarded).some(val => val);
 
         directAwards = newDirectAwards;
         errors = newErrors;
         errorsDuplications = newErrorsDuplications;
         errorsAlreadyAwarded = newErrorsAlreadyAwarded;
-
         return inValid;
     }
 

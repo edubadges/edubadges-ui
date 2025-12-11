@@ -46,6 +46,7 @@
     let revokedBadgeAssertions = [];
     let deletedDirectAwards = [];
     let existingDirectAwardsEppns = [];
+    let existingDirectAwardsEmails = [];
     let directAwardBundles = [];
     let loaded;
 
@@ -182,6 +183,10 @@
         existingDirectAwardsEppns = directAwards
             .filter(da => da.status.toLowerCase() === "unaccepted" || da.status.toLowerCase() === "scheduled")
             .concat(badgeAssertions.map(ba => ba.user.eppns).flat().map(eppn => ({eppn: eppn, isAssertion: true})));
+        existingDirectAwardsEmails = directAwards
+            .filter(da => da.status.toLowerCase() === "unaccepted" || da.status.toLowerCase() === "scheduled")
+            .map(da => ({email: da.recipientEmail, isAssertion: false}))
+            .concat(badgeAssertions.map(ba => ba.user.email).map(email => ({email: email, isAssertion: true})));
         loaded = true;
         callback && callback();
     }
@@ -380,18 +385,21 @@
                                 ltiContextEnabled={false}
                                 enrollments={openEnrollments}
                                 existingDirectAwardsEppns={existingDirectAwardsEppns}
+                                existingDirectAwardsEmails={existingDirectAwardsEmails}
                                 refresh={refresh}/>
                 </Route>
                 <Route path="/lti-award">
                     <AwardBadge badgeclass={badgeclass}
                                 ltiContextEnabled={true}
                                 existingDirectAwardsEppns={existingDirectAwardsEppns}
+                                existingDirectAwardsEmails={existingDirectAwardsEmails}
                                 enrollments={openEnrollments}
                                 refresh={refresh}/>
                 </Route>
                 <Route path="/bulk-award">
                     <BulkAwardBadge badgeclass={badgeclass}
                                     existingDirectAwardsEppns={existingDirectAwardsEppns}
+                                    existingDirectAwardsEmails={existingDirectAwardsEmails}
                                     enrollments={openEnrollments}
                                     refresh={refresh}/>
                 </Route>

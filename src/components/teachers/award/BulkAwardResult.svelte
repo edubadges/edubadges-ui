@@ -6,7 +6,6 @@
   export let results = [];
   export let warning = false;
   export let localeName;
-
   let view = false;
 
 </script>
@@ -44,7 +43,7 @@
 {#if results.length > 0}
   <div class="toggle-container">
     {#if warning}
-      <Error standAlone={true} error_message={I18n.t(`badgeAward.bulkAward.${localeName}`, {count: results.length})}/>
+      <Error standAlone={true} ignoreEmail={true} error_message={I18n.t(`badgeAward.bulkAward.${localeName}`, {count: results.length})}/>
     {:else}
       {@html check}
       <span>{I18n.t(`badgeAward.bulkAward.${localeName}`, {count: results.length})}</span>

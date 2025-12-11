@@ -42,6 +42,9 @@
       awardAllowedInstitutions,
       awardAllowAllInstitutions,
       linkedinOrgIdentifier,
+      permissions {
+          mayUpdate
+      },
       tags {
         id,
         name,
@@ -64,6 +67,10 @@
 
     onMount(() => {
         queryData(query).then(res => {
+            if (!res.currentInstitution.permissions?.mayUpdate) {
+                navigate("/");
+                return;
+            }
             institution = res.currentInstitution;
             publicInstitutions = res.publicInstitutions.filter(ins => ins.identifier !== institution.identifier);
             publicInstitutions.forEach(ins => translateProperties(ins));
