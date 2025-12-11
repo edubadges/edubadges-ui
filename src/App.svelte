@@ -50,6 +50,7 @@
     import {translatePropertiesRawQueries} from "./util/utils";
     import ImpersonateNew from "./routes/teachers/ImpersonateNew.svelte";
     import NotificationsNew from "./components/teachers/NotificationsNew.svelte";
+    import DirectAwardAuditTrail from "./routes/teachers/DirectAwardAuditTrail.svelte";
 
 
     const homepage = {
@@ -199,6 +200,7 @@
                     </Route>
                     <Route path="/permissions/:entity" component={TeacherPermissions}/>
                     <Route path="/impersonate" component={ImpersonateNew}/>
+                    <Route path="/directaward-audittrail" component={DirectAwardAuditTrail}/>
                     <Route path="/management-queries" component={ManagementQueries}/>
                     <Route path="/insights" component={Insights}/>
                     <Route path="/launch/lti" component={LTILaunch}/>
