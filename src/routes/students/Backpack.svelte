@@ -1,5 +1,6 @@
 <script>
     import I18n from "i18n-js";
+    import {link} from "svelte-routing";
     import Spinner from "../../components/Spinner.svelte";
     import {onMount} from "svelte";
     import {redirectPath, userHasClosedWelcome} from "../../stores/user";
@@ -23,10 +24,16 @@
     let view = "cards";
     let showStepupDialog = false;
     let showNoValidatedNameDialog = false;
+    let badgeClassIds = [];
 
     const goToEduId = () => {
         $redirectPath = window.location.pathname;
         requestLoginToken(getService(role.STUDENT), true);
+    };
+
+    const readBadgeClassIdsFromUrl = () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.getAll('filter.badgeclass_id');
     };
 
     const secureQuery = `query {
@@ -36,7 +43,9 @@
   }`;
 
     onMount(() => {
-        const promises = [queryData(studentBadgeInstances), queryData(secureQuery)];
+        badgeClassIds = readBadgeClassIdsFromUrl();
+        
+        const promises = [queryData(studentBadgeInstances(badgeClassIds)), queryData(secureQuery)];
 
         Promise.all(promises).then(all => {
             const res = all[0];
@@ -84,11 +93,28 @@
         margin-bottom: 30px;
     }
 
+    .show-all-link {
+        font-size: 14px;
+        margin-top: 6px;
+        margin-left: 1em;
+        text-decoration: none;
+        color: var(--purple);
+        
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
 </style>
 
 <div>
     <div class="header">
         <h3>{I18n.t('backpack.title')}</h3>
+        {#if badgeClassIds.length > 0}
+            <a href="/backpack" use:link class="show-all-link">
+                {I18n.t('backpack.showAllBadges')}
+            </a>
+        {/if}
         <ViewSelector bind:view={view}/>
     </div>
     {#if showWelcome}

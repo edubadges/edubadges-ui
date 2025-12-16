@@ -26,8 +26,8 @@ export const headerStaff = `
   }
 `;
 
-export const studentBadgeInstances = `query {
-    badgeInstances {
+export const studentBadgeInstances = (badgeclassEntityIds) => `query {
+    badgeInstances(badgeclassEntityIds: ${JSON.stringify(badgeclassEntityIds)}) {
       entityId,
       image,
       issuedOn,
