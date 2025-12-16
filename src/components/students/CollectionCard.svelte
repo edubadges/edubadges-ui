@@ -186,7 +186,10 @@
                     </div>
                 {/if}
             </section>
-            <BadgePanel badges={collection.badgeInstances} view={view} linksEnabled={readOnly} isPublic={readOnly}/>
+            <BadgePanel badges={collection.badgeInstances}
+                        view={view}
+                        linksEnabled={readOnly}
+                        isPublic={readOnly}/>
             {#if collection.badgeInstances.length === 0}
                 <p>{I18n.t("collections.zeroStateBadges")}</p>
             {/if}
