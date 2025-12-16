@@ -8,7 +8,6 @@
 
     export let validatedName;
     export let badge;
-    export let importedBadge = false;
 
     let fetchingValidation = false;
     let validation;
@@ -72,7 +71,6 @@
 </div>
 {#if fetchingValidation}
     <ValidationSpinners badge={badge}
-                        importedBadge={importedBadge}
                         validatedName={validatedName}
                         close={() => fetchingValidation = false}/>
 {/if}
