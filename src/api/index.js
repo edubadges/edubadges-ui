@@ -909,37 +909,6 @@ export function impersonate(userId) {
     return validFetch(path, {});
 }
 
-//Import assertions
-export function importedAssertions() {
-    const path = `${serverUrl}/earner/imported/assertions`;
-    return validFetch(path, {});
-}
-
-export function importAssertion(body) {
-    const path = `${serverUrl}/earner/imported/assertions`;
-    return validFetch(path, {body: JSON.stringify(body)}, "POST", true, false);
-}
-
-export function confirmImportedAssertion(body) {
-    const path = `${serverUrl}/earner/imported/assertions/edit/${body.entity_id}`;
-    return validFetch(path, {body: JSON.stringify(body)}, "PUT", true, false);
-}
-
-export function importedAssertionByEntityId(entityId) {
-    const path = `${serverUrl}/earner/imported/assertions/detail/${entityId}`;
-    return validFetch(path, {});
-}
-
-export function importedAssertionValidate(entityId) {
-    const path = `${serverUrl}/earner/imported/assertions/validate/${entityId}`;
-    return validFetch(path, {});
-}
-
-export function deleteImportedAssertion(entityId) {
-    const path = `${serverUrl}/earner/imported/assertions/delete/${entityId}`;
-    return validFetch(path, {}, "DELETE", true);
-}
-
 //LTI
 export function getLTIContext(launchId) {
     const path = `${serverUrl}/lti/context/${launchId}/`;
