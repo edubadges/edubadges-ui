@@ -42,7 +42,10 @@
 
 <div class={`content ${view === "list" ? "list" : "cards"}`}>
   {#if view === "list"}
-    <BadgeListView badges={badges} linksEnabled={linksEnabled} isPublic={isPublic}/>
+    <BadgeListView badges={badges}
+                   linksEnabled={linksEnabled}
+                   isPublic={isPublic}
+              />
   {:else}
     {#each badges as badge}
       <BadgeCard badge={badge}
