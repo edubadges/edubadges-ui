@@ -14,42 +14,47 @@
     import {isEmpty} from "../util/utils";
     import SystemNotification from "../components/SystemNotification.svelte";
 
-    let accountCreationStep = 1;
     let showLoginCards = true;
     let badgeInstancesCount = "?";
     let badgeClassesCount = "?";
-    let forceLogin = false;
     let systemNotifications = [];
+
+    const getPublicStats = async () => {
+        const res = await queryData(`query {
+          badgeInstancesCount,
+          badgeClassesCount,
+          systemNotifications {
+            notificationEn, notificationNl, displayStart, displayEnd, notificationType
+          }
+        }`);
+        
+        return {
+          badgeInstancesCount: res.badgeInstancesCount,
+          badgeClassesCount: res.badgeClassesCount,
+          systemNotifications: res.systemNotifications
+        };
+    };
 
     onMount(() => {
         if ($userRole && $userLoggedIn) {
             navigate($redirectPath || "/");
             $redirectPath = "";
         } else {
-            const urlSearchParams = new URLSearchParams(window.location.search);
-            forceLogin = urlSearchParams.has("force");
-            queryData(`query {
-          badgeInstancesCount,
-          badgeClassesCount,
-          systemNotifications {
-            notificationEn, notificationNl, displayStart, displayEnd, notificationType
-          }
-        }`).then(res => {
-                badgeInstancesCount = res.badgeInstancesCount;
-                badgeClassesCount = res.badgeClassesCount;
-                systemNotifications = res.systemNotifications;
+            getPublicStats().then((stats) => {
+              badgeInstancesCount = stats.badgeInstancesCount;
+              badgeClassesCount = stats.badgeClassesCount;
+              systemNotifications = stats.systemNotifications;
             });
         }
     });
 
-    const logIn = (chosenRole, force = false) => {
-        $userRole = chosenRole;
-        const path = $redirectPath;
+    const logIn = (chosenRole) => {
         const service = getService(chosenRole);
-
+        $userRole = chosenRole;
         const urlSearchParams = new URLSearchParams(window.location.search);
-        const validateName = urlSearchParams.get("validateName");
-        requestLoginToken(service, validateName === "true" || path.indexOf("direct-awards") > -1, force);
+        const forceLogin = urlSearchParams.has("force");
+        const validateName = (urlSearchParams.get("validateName") === "true" || $redirectPath.includes("direct-awards"));
+        requestLoginToken(service, validateName, forceLogin);
     };
 
 </script>
@@ -180,7 +185,7 @@
                     <h4>{I18n.t('login.teacher.subtitle')}</h4>
                     <LoginButton
                             label={I18n.t('login.teacher.action')}
-                            onClick={() => logIn(role.TEACHER, forceLogin)}/>
+                            onClick={() => logIn(role.TEACHER)}/>
                 </Card>
                 <CardSubtext
                         hidden={!showLoginCards}
@@ -222,7 +227,7 @@
                     <div class="login">
                         <LoginButton
                                 label={I18n.t('login.student.action')}
-                                onClick={() => logIn(role.STUDENT, forceLogin)}/>
+                                onClick={() => logIn(role.STUDENT)}/>
 
                     </div>
                 </Card>
