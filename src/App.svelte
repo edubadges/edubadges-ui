@@ -59,41 +59,47 @@
     };
 
     let loaded = false;
+    
+    const isPublic = (path) => {
+        // "/" is always public
+        if (path === "/") return true;
+        
+        const publicPaths = ["public", "login", "auth/login", "signup", "validate", "version/info", "launch/lti", "terms", "privacy"];
+        return publicPaths.some(p => path.includes(p));
+    }
 
     onMount(() => {
-        //if we are heading to any of the public path we don't fetch the profile
-        const path = window.location.pathname;
-        const publicPaths = ["public", "auth/login", "signup", "validate", "version/info", "launch/lti"]
-        if (path === "/" || !publicPaths.some(p => path.indexOf(p) > -1)) {
-            getSocialAccounts()
-                .then(res => {
-                    loaded = true;
-                    $userLoggedIn = true;
-                    $userName = constructUserName({user: {firstName: res[0].firstName, lastName: res[0].lastName}});
-                    if ($userRole === role.TEACHER) {
-                        fetchRawCurrentInstitution()
-                            .then(res => {
-                                const institution = res.current_institution;
-                                institution.permissions = res.permissions;
-                                $currentInstitution = translatePropertiesRawQueries(institution);
-                            })
-                    }
-                })
-                .catch(() => {
-                    $redirectPath = path;
-                    if (path.indexOf("catalog") === -1) {
-                        navigate("/login");
-                    } else {
-                        navigate("/catalog");
-                    }
-                    $userLoggedIn = "";
-                    $userName = "";
-                    $validatedUserName = "";
-                    loaded = true;
-                });
-        } else {
+      const path = window.location.pathname;
+      if (isPublic(path)) {
+        loaded = true;
+      } else {
+        getSocialAccounts()
+          .then(res => {
             loaded = true;
-        }
+            $userLoggedIn = true;
+            $userName = constructUserName({user: {firstName: res[0].firstName, lastName: res[0].lastName}});
+            if ($userRole === role.TEACHER) {
+              fetchRawCurrentInstitution()
+                .then(res => {
+                  const institution = res.current_institution;
+                  institution.permissions = res.permissions;
+                  $currentInstitution = translatePropertiesRawQueries(institution);
+                })
+            }
+          })
+          .catch(() => {
+            $redirectPath = path;
+            $userLoggedIn = "";
+            $userName = "";
+            $validatedUserName = "";
+            loaded = true;
+            if (path.includes("catalog")) {
+              navigate("/catalog");
+            } else {
+              navigate("/login");
+            }
+          });
+      }
     });
 
     $: visitorRole = $userLoggedIn ? $userRole : "guest";
