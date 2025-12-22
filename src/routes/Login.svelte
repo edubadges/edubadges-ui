@@ -2,7 +2,7 @@
     import I18n from "i18n-js";
     import {Card, CardSubtext, LoginButton} from "../components/guests";
     import {redirectPath, userLoggedIn, userRole} from "../stores/user";
-    import {role} from "../util/role";
+    import {role, roleFromString} from "../util/role";
     import {getService} from "../util/getService";
     import {requestLoginToken} from "../api";
     import schoolbag from "../icons/school-bag.svg";
@@ -35,6 +35,27 @@
         };
     };
 
+    const allowSkipLoginPage = () => {
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        return urlSearchParams.has("redirectPath") && urlSearchParams.has("role");
+    };
+    
+    const storeRedirectPathFromSearchParams = () => {
+        const redirectPathParam = new URLSearchParams(window.location.search).get("redirectPath");
+        if (redirectPathParam) {
+          // Ensure we always have a leading slash
+          const normalizedRedirectPath = redirectPathParam.startsWith("/") ? redirectPathParam : `/${redirectPathParam}`;
+          // Store in localStorage. Overriding existing values
+          $redirectPath = decodeURIComponent(normalizedRedirectPath);
+        }
+    };
+    
+    const roleFromSearchParams = () => {
+        const roleParam = new URLSearchParams(window.location.search).get("role")
+        console.debug("roleFromString", roleFromString(roleParam));
+        return roleFromString(roleParam);
+    };
+    
     onMount(() => {
         if ($userRole && $userLoggedIn) {
             navigate($redirectPath || "/");
@@ -45,6 +66,16 @@
               badgeClassesCount = stats.badgeClassesCount;
               systemNotifications = stats.systemNotifications;
             });
+            
+            if (allowSkipLoginPage()) {
+              storeRedirectPathFromSearchParams();
+              // NOTE: Ideally, we'd get the role from the page that a user
+              // tried to access. But we lack the categorisation of the pages:
+              // App.svelte has only flat routes and no role hierarchy or
+              // information attached to routes So we required the role to be
+              // added as a query parameter.
+              logIn(roleFromSearchParams());
+            }
         }
     });
 

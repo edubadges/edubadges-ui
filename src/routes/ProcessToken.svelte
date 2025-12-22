@@ -6,7 +6,7 @@
     import tip from "../icons/tip.svg";
     import Spinner from "../components/Spinner.svelte";
     import Modal from "../components/forms/Modal.svelte";
-    import {role} from "../util/role";
+    import {role, roleFromString} from "../util/role";
     import {getService} from "../util/getService";
     import {fetchRawCurrentInstitution, requestLoginToken} from "../api";
     import DOMPurify from "dompurify";
@@ -28,7 +28,7 @@
         authError = urlSearchParams.get("authError");
         const roleParam = urlSearchParams.get("role");
         if (roleParam) {
-            $userRole = roleParam;
+            $userRole = roleFromString(roleParam);
         }
 
         if (!authError) {
@@ -54,7 +54,6 @@
             code = urlSearchParams.get("code") || "1";
             adminEmail = urlSearchParams.get("admin_email");
         }
-
     });
 </script>
 
