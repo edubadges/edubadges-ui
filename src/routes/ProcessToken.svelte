@@ -15,12 +15,10 @@
     let authError;
     let code = 1;
     let adminEmail;
-    let redirectTo;
     let showNoValidatedName = false;
 
     const goToEduId = () => {
         $userRole = role.STUDENT;
-        $redirectPath = redirectTo;
         const service = getService(role.STUDENT);
         requestLoginToken(service, true);
     };
@@ -37,21 +35,18 @@
             const token = urlSearchParams.get("authToken");
             $authToken = token;
             $userLoggedIn = true;
-            redirectTo = $redirectPath || "/";
             fetchRawCurrentInstitution()
                 .then(res => {
                     const institution = res.current_institution;
                     institution.permissions = res.permissions;
                     $currentInstitution = translatePropertiesRawQueries(institution);
-                    if (redirectTo === "/login") {
-                        redirectTo = "/";
-                    }
                     let revalidateName = urlSearchParams.get("revalidate-name");
                     if (revalidateName) {
                         //server side signal that the eduID account is not linked anymore
                         showNoValidatedName = true;
                     } else {
-                        navigate(redirectTo);
+                        navigate($redirectPath || "/");
+                        $redirectPath = "";
                     }
                 })
         } else {
@@ -106,7 +101,7 @@
             title={I18n.t("acceptTerms.noValidatedNameAnymoreTitle")}
             question={I18n.t("acceptTerms.noValidatedNameAnymore")}
             evaluateQuestion={true}
-            cancel={() => navigate(redirectTo)    }
+            cancel={() => navigate($redirectPath)    }
             submitLabel={I18n.t("publicBadge.noValidatedNameModal.goToEduID")}/>
 {/if}
 {#if !authError}

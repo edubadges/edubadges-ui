@@ -23,7 +23,8 @@
 
     onMount(() => {
         if ($userRole && $userLoggedIn) {
-            navigate('/')
+            navigate($redirectPath || "/");
+            $redirectPath = "";
         } else {
             const urlSearchParams = new URLSearchParams(window.location.search);
             forceLogin = urlSearchParams.has("force");
