@@ -27,9 +27,9 @@
     onMount(() => {
         const urlSearchParams = new URLSearchParams(window.location.search);
         authError = urlSearchParams.get("authError");
-        const role = urlSearchParams.get("role");
-        if (role) {
-            $userRole = role;
+        const roleParam = urlSearchParams.get("role");
+        if (roleParam) {
+            $userRole = roleParam;
         }
 
         if (!authError) {
