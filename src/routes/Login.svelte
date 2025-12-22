@@ -51,8 +51,6 @@
         requestLoginToken(service, validateName === "true" || path.indexOf("direct-awards") > -1, force);
     };
 
-    const toggleLoginCreateAccount = () => (showLoginCards = !showLoginCards);
-
 </script>
 
 <style lang="scss">
