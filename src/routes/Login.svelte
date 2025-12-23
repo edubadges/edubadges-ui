@@ -2,9 +2,8 @@
     import I18n from "i18n-js";
     import {Card, CardSubtext, LoginButton} from "../components/guests";
     import {redirectPath, userLoggedIn, userRole} from "../stores/user";
-    import {role, roleFromString} from "../util/role";
-    import {getService} from "../util/getService";
-    import {requestLoginToken} from "../api";
+    import {role} from "../util/role";
+    import {logIn} from "../util/login";
     import schoolbag from "../icons/school-bag.svg";
     import hand from "../icons/hand.svg";
     import catalog from "../icons/catalog.svg";
@@ -18,6 +17,8 @@
     let badgeInstancesCount = "?";
     let badgeClassesCount = "?";
     let systemNotifications = [];
+    let forceLogin = false;
+    let validateName = false;
 
     const getPublicStats = async () => {
         const res = await queryData(`query {
@@ -35,59 +36,24 @@
         };
     };
 
-    const allowSkipLoginPage = () => {
-        const urlSearchParams = new URLSearchParams(window.location.search);
-        return urlSearchParams.has("redirectPath") && urlSearchParams.has("role");
-    };
-    
-    const storeRedirectPathFromSearchParams = () => {
-        const redirectPathParam = new URLSearchParams(window.location.search).get("redirectPath");
-        if (redirectPathParam) {
-          // Ensure we always have a leading slash
-          const normalizedRedirectPath = redirectPathParam.startsWith("/") ? redirectPathParam : `/${redirectPathParam}`;
-          // Store in localStorage. Overriding existing values
-          $redirectPath = decodeURIComponent(normalizedRedirectPath);
-        }
-    };
-    
-    const roleFromSearchParams = () => {
-        const roleParam = new URLSearchParams(window.location.search).get("role")
-        console.debug("roleFromString", roleFromString(roleParam));
-        return roleFromString(roleParam);
-    };
-    
+
     onMount(() => {
-        if ($userRole && $userLoggedIn) {
-            navigate($redirectPath || "/");
-            $redirectPath = "";
-        } else {
-            getPublicStats().then((stats) => {
-              badgeInstancesCount = stats.badgeInstancesCount;
-              badgeClassesCount = stats.badgeClassesCount;
-              systemNotifications = stats.systemNotifications;
-            });
-            
-            if (allowSkipLoginPage()) {
-              storeRedirectPathFromSearchParams();
-              // NOTE: Ideally, we'd get the role from the page that a user
-              // tried to access. But we lack the categorisation of the pages:
-              // App.svelte has only flat routes and no role hierarchy or
-              // information attached to routes So we required the role to be
-              // added as a query parameter.
-              logIn(roleFromSearchParams());
-            }
-        }
+      const urlSearchParams = new URLSearchParams(window.location.search);
+      forceLogin = urlSearchParams.has("force");
+      const currentRedirectPath = get(redirectPath);
+      validateName = (urlSearchParams.get("validateName") === "true" || currentRedirectPath.includes("direct-awards"));
+      
+      if ($userRole && $userLoggedIn) {
+        navigate($redirectPath || "/");
+        $redirectPath = "";
+      } else {
+        getPublicStats().then((stats) => {
+          badgeInstancesCount = stats.badgeInstancesCount;
+          badgeClassesCount = stats.badgeClassesCount;
+          systemNotifications = stats.systemNotifications;
+        });
+      }
     });
-
-    const logIn = (chosenRole) => {
-        const service = getService(chosenRole);
-        $userRole = chosenRole;
-        const urlSearchParams = new URLSearchParams(window.location.search);
-        const forceLogin = urlSearchParams.has("force");
-        const validateName = (urlSearchParams.get("validateName") === "true" || $redirectPath.includes("direct-awards"));
-        requestLoginToken(service, validateName, forceLogin);
-    };
-
 </script>
 
 <style lang="scss">
@@ -216,7 +182,7 @@
                     <h4>{I18n.t('login.teacher.subtitle')}</h4>
                     <LoginButton
                             label={I18n.t('login.teacher.action')}
-                            onClick={() => logIn(role.TEACHER)}/>
+                            onClick={() => logIn(role.TEACHER, validateName, forceLogin)}/>
                 </Card>
                 <CardSubtext
                         hidden={!showLoginCards}
@@ -258,7 +224,7 @@
                     <div class="login">
                         <LoginButton
                                 label={I18n.t('login.student.action')}
-                                onClick={() => logIn(role.STUDENT)}/>
+                                onClick={() => logIn(role.STUDENT, validateName, forceLogin)}/>
 
                     </div>
                 </Card>

@@ -25,6 +25,8 @@
     } from "./stores/user";
     import {role} from "./util/role";
     import {fetchRawCurrentInstitution, getSocialAccounts} from "./api";
+    import {logIn} from "./util/login";
+    import {getRequiredRole, isPublic} from "./util/authorize";
     import PublicBadgeClassPage from "./components/shared/PublicBadgeClassPage.svelte"
     import EnrollmentDetails from "./routes/students/EnrollmentDetails.svelte";
     import {Flash} from "./components/forms/";
@@ -59,14 +61,6 @@
     };
 
     let loaded = false;
-    
-    const isPublic = (path) => {
-        // "/" is always public
-        if (path === "/") return true;
-        
-        const publicPaths = ["public", "login", "auth/login", "signup", "validate", "version/info", "launch/lti", "terms", "privacy"];
-        return publicPaths.some(p => path.includes(p));
-    }
 
     onMount(() => {
       const path = window.location.pathname;
@@ -93,10 +87,18 @@
             $userName = "";
             $validatedUserName = "";
             loaded = true;
+            // TODO: Move this exception of the catalog into the catalog component.
             if (path.includes("catalog")) {
               navigate("/catalog");
             } else {
-              navigate("/login");
+              // Get required role for this path and auto-login
+              const requiredRole = getRequiredRole(path);
+              if (requiredRole) {
+                // Force Login, but don't validate name
+                logIn(requiredRole, false, true);
+              } else {
+                navigate("/login");
+              }
             }
           });
       }
