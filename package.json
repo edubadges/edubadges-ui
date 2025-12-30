@@ -50,7 +50,6 @@
     "stats": "webpack-bundle-analyzer public/stats.json"
   },
   "dependencies": {
-    "@bytemd/plugin-gfm": "^1.10.13",
     "@zerodevx/svelte-json-view": "^1.0.7",
     "bytemd": "^1.10.13",
     "copy-to-clipboard": "^3.3.1",
