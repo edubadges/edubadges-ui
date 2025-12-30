@@ -807,7 +807,7 @@ I18n.translations.nl = {
             criteria_text: "Criteria",
             expiresAfter: "Verloopt na",
             expiresAfterOption: "Na",
-            expiresAfterNever: "Nooit",
+            expiresAfterNever: "Pilot Einddatum",
             expiresAfterValue: "{{nbr}} weken",
             expireSettings: "Standaard vervaldatum",
             status: "Status",
@@ -1456,7 +1456,7 @@ I18n.translations.nl = {
         // If you don't want a tooltip to be displayed, just comment out (or delete) the line (like this line;-)
         //badgeClassImage: "badgeClassImage",
         badgeClassExpireSettings:
-            "Geef hier aan of en hoelang de edubadge geldig is. Na deze datum zal een edubadge niet meer geldig zijn.",
+            "Geef hier aan of en hoelang de edubadge geldig is. Na deze datum zal een edubadge niet meer geldig zijn. <br />Voor de pilot geldt dat badges altijd verlopen op het eind van de pilot, of eerder",
         badgeClassName:
             "Vermijdt afkortingen, zorg voor herkenbare naam ook voor externen.",
         //badgeClassDescription: "Deze beschrijving ondersteund opmaak in markdown formaat. " +

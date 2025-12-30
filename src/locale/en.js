@@ -801,7 +801,7 @@ I18n.translations.en = {
             criteria_text: "Criteria",
             expiresAfter: "Expires after",
             expiresAfterOption: "After",
-            expiresAfterNever: "Never",
+            expiresAfterNever: "Pilot Enddate",
             expiresAfterValue: "{{nbr}} weeks",
             status: "Status",
             expireSettings: "Default expiration setting",
@@ -1472,8 +1472,8 @@ I18n.translations.en = {
     tooltips: {
         // If you don't want a tooltip to be displayed, just comment out (or delete) the line (like this line;-)
         //badgeClassImage: "badgeClassImage",
-        badgeClassExpireSettings:
-            "After this period edubadges will expiry and will be no longer valid.",
+        badgeClassExpireSettings: 
+            "After this period edubadges will expiry and will be no longer valid. <br />For the pilot, badges will always expire at the end of the pilot, or earlier",
         badgeClassName:
             "Avoid abbreviations, make sure the name is recognisable for others.",
         // badgeClassDescription: "This description supports markdown. " +
