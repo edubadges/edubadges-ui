@@ -16,7 +16,29 @@ I18n.translations.nl = {
         permissions: "Mijn permissies",
         notifications: "Mijn notificaties",
         feedback: "Verstuur feedback",
-        demo: "Eduwallet Incubator omgeving",
+        environment: {
+          demo: {
+            title: "Demo omgeving",
+            info: "Dit is de demo-omgeving van edubadges. <br/> <br/> Alle gegevens worden maandelijks gewist en na elke nieuwe" +
+                  "uitrol. <br/>" +
+                  "Heeft u vragen over de demo-omgeving neem dan contact met ons op " +
+                  "via <a href='mailto:support@edubadges.nl'> support@edubadges.nl </a>",
+          },
+          development: {
+              title: "Ontwikkelomgeving",
+              info: "Dit is de Eduwallet ontwikkelomgeving. <br/> <br/>Alle gegevens worden gewist na elke nieuwe uitrol. <br/>"
+          },
+          pilot: {
+              title: "Eduwallet Pilot",
+              info: "Dit is de Eduwallet Pilot van edubadges. <br/> <br/> TODO: Add actual information and links to details when known"
+          },
+          playground: {
+              title: "Eduwallet Playground",
+              info: "Dit is de Eduwallet Incubator omgeving van edubadges. <br/> <br/>" +
+                    "Alle gegevens worden gewist na elke nieuwe uitrol. <br/>" +
+                    "Meer informatie over de Eduwallet Incubator vind je op <a href='https://wiki.surfnet.nl/spaces/EWI/pages/128124830/Eduwallet+Incubator'>de interne SURF wiki</a>",
+          },
+        },
         impersonate: "Impersoneer",
         queries: "Management queries",
         clearImpersonation: "Stop impersonatie",
@@ -1720,11 +1742,6 @@ I18n.translations.nl = {
             REVOKED: "Ingetrokken",
             REJECTED: "Geweigerd",
         },
-    },
-    demo: {
-        info: "Dit is de Eduwallet Incubator omgeving van edubadges. <br/> <br/>" +
-            "Alle gegevens worden gewist na elke nieuwe uitrol. <br/>" +
-            "Meer informatie over de Eduwallet Incubator vind je op <a href='https://wiki.surfnet.nl/spaces/EWI/pages/128124830/Eduwallet+Incubator'>de interne SURF wiki</a>",
     },
     feedback: {
         title: "Feedback geven",
