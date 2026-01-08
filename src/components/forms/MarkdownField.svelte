@@ -1,6 +1,5 @@
 <script>
     import {Editor, Viewer} from 'bytemd';
-    import gfm from '@bytemd/plugin-gfm';
     import 'bytemd/dist/index.min.css'
     import {stopEvent} from "../../util/forms";
     import I18n from "i18n-js";
@@ -11,7 +10,7 @@
     export let onChange;
     export let disableToggle = false;
 
-    const plugins = [gfm()];
+    const plugins = [];
     const cutoffNumber = 190;
     let showMore = false;
 

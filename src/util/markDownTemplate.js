@@ -23,8 +23,6 @@ ___
 
 *This is italic text*
 
-~~Strikethrough~~
-
 ## Blockquotes
 
 > Blockquotes can also be nested...
@@ -47,23 +45,4 @@ ___
 2. Second item
 3. Third item
 4. Very easy!
-
-
-## Code
-
-Inline \`code\`
-
-Indented code
-
-// Some comments
-line 1 of code
-line 2 of code
-line 3 of code
-
-
-Block code "fences"
-
-\`\`\`
-Sample text here...
-\`\`\` 
 `;
