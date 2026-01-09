@@ -6,7 +6,7 @@
     import tip from "../icons/tip.svg";
     import Spinner from "../components/Spinner.svelte";
     import Modal from "../components/forms/Modal.svelte";
-    import {role} from "../util/role";
+    import {role, roleFromString} from "../util/role";
     import {getService} from "../util/getService";
     import {fetchRawCurrentInstitution, requestLoginToken} from "../api";
     import DOMPurify from "dompurify";
@@ -15,12 +15,10 @@
     let authError;
     let code = 1;
     let adminEmail;
-    let redirectTo;
     let showNoValidatedName = false;
 
     const goToEduId = () => {
         $userRole = role.STUDENT;
-        $redirectPath = redirectTo;
         const service = getService(role.STUDENT);
         requestLoginToken(service, true);
     };
@@ -28,30 +26,27 @@
     onMount(() => {
         const urlSearchParams = new URLSearchParams(window.location.search);
         authError = urlSearchParams.get("authError");
-        const role = urlSearchParams.get("role");
-        if (role) {
-            $userRole = role;
+        const roleParam = urlSearchParams.get("role");
+        if (roleParam) {
+            $userRole = roleFromString(roleParam);
         }
 
         if (!authError) {
             const token = urlSearchParams.get("authToken");
             $authToken = token;
             $userLoggedIn = true;
-            redirectTo = $redirectPath || "/";
             fetchRawCurrentInstitution()
                 .then(res => {
                     const institution = res.current_institution;
                     institution.permissions = res.permissions;
                     $currentInstitution = translatePropertiesRawQueries(institution);
-                    if (redirectTo === "/login") {
-                        redirectTo = "/";
-                    }
                     let revalidateName = urlSearchParams.get("revalidate-name");
                     if (revalidateName) {
                         //server side signal that the eduID account is not linked anymore
                         showNoValidatedName = true;
                     } else {
-                        navigate(redirectTo);
+                        navigate($redirectPath || "/");
+                        $redirectPath = "";
                     }
                 })
         } else {
@@ -59,7 +54,6 @@
             code = urlSearchParams.get("code") || "1";
             adminEmail = urlSearchParams.get("admin_email");
         }
-
     });
 </script>
 
@@ -106,7 +100,7 @@
             title={I18n.t("acceptTerms.noValidatedNameAnymoreTitle")}
             question={I18n.t("acceptTerms.noValidatedNameAnymore")}
             evaluateQuestion={true}
-            cancel={() => navigate(redirectTo)    }
+            cancel={() => navigate($redirectPath)    }
             submitLabel={I18n.t("publicBadge.noValidatedNameModal.goToEduID")}/>
 {/if}
 {#if !authError}

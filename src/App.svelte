@@ -25,6 +25,8 @@
     } from "./stores/user";
     import {role} from "./util/role";
     import {fetchRawCurrentInstitution, getSocialAccounts} from "./api";
+    import {logIn} from "./util/login";
+    import {getRequiredRole, isPublic} from "./util/authorize";
     import PublicBadgeClassPage from "./components/shared/PublicBadgeClassPage.svelte"
     import EnrollmentDetails from "./routes/students/EnrollmentDetails.svelte";
     import {Flash} from "./components/forms/";
@@ -61,39 +63,45 @@
     let loaded = false;
 
     onMount(() => {
-        //if we are heading to any of the public path we don't fetch the profile
-        const path = window.location.pathname;
-        const publicPaths = ["public", "auth/login", "signup", "validate", "version/info", "launch/lti", "terms", "privacy"];
-        if (path === "/" || !publicPaths.some(p => path.indexOf(p) > -1)) {
-            getSocialAccounts()
-                .then(res => {
-                    loaded = true;
-                    $userLoggedIn = true;
-                    $userName = constructUserName({user: {firstName: res[0].firstName, lastName: res[0].lastName}});
-                    if ($userRole === role.TEACHER) {
-                        fetchRawCurrentInstitution()
-                            .then(res => {
-                                const institution = res.current_institution;
-                                institution.permissions = res.permissions;
-                                $currentInstitution = translatePropertiesRawQueries(institution);
-                            })
-                    }
-                })
-                .catch(() => {
-                    $redirectPath = path;
-                    if (path.indexOf("catalog") === -1) {
-                        navigate("/login");
-                    } else {
-                        navigate("/catalog");
-                    }
-                    $userLoggedIn = "";
-                    $userName = "";
-                    $validatedUserName = "";
-                    loaded = true;
-                });
-        } else {
+      const path = window.location.pathname;
+      if (isPublic(path)) {
+        loaded = true;
+      } else {
+        getSocialAccounts()
+          .then(res => {
             loaded = true;
-        }
+            $userLoggedIn = true;
+            $userName = constructUserName({user: {firstName: res[0].firstName, lastName: res[0].lastName}});
+            if ($userRole === role.TEACHER) {
+              fetchRawCurrentInstitution()
+                .then(res => {
+                  const institution = res.current_institution;
+                  institution.permissions = res.permissions;
+                  $currentInstitution = translatePropertiesRawQueries(institution);
+                })
+            }
+          })
+          .catch(() => {
+            $redirectPath = path;
+            $userLoggedIn = "";
+            $userName = "";
+            $validatedUserName = "";
+            loaded = true;
+            // TODO: Move this exception of the catalog into the catalog component.
+            if (path.includes("catalog")) {
+              navigate("/catalog");
+            } else {
+              // Get required role for this path and auto-login
+              const requiredRole = getRequiredRole(path);
+              if (requiredRole) {
+                // Force Login, but don't validate name
+                logIn(requiredRole, false, true);
+              } else {
+                navigate("/login");
+              }
+            }
+          });
+      }
     });
 
     $: visitorRole = $userLoggedIn ? $userRole : "guest";

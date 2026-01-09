@@ -3,8 +3,7 @@
     import {Card, CardSubtext, LoginButton} from "../components/guests";
     import {redirectPath, userLoggedIn, userRole} from "../stores/user";
     import {role} from "../util/role";
-    import {getService} from "../util/getService";
-    import {requestLoginToken} from "../api";
+    import {logIn} from "../util/login";
     import schoolbag from "../icons/school-bag.svg";
     import hand from "../icons/hand.svg";
     import catalog from "../icons/catalog.svg";
@@ -14,45 +13,47 @@
     import {isEmpty} from "../util/utils";
     import SystemNotification from "../components/SystemNotification.svelte";
 
-    let accountCreationStep = 1;
     let showLoginCards = true;
     let badgeInstancesCount = "?";
     let badgeClassesCount = "?";
-    let forceLogin = false;
     let systemNotifications = [];
+    let forceLogin = false;
+    let validateName = false;
 
-    onMount(() => {
-        if ($userRole && $userLoggedIn) {
-            navigate('/')
-        } else {
-            const urlSearchParams = new URLSearchParams(window.location.search);
-            forceLogin = urlSearchParams.has("force");
-            queryData(`query {
+    const getPublicStats = async () => {
+        const res = await queryData(`query {
           badgeInstancesCount,
           badgeClassesCount,
           systemNotifications {
             notificationEn, notificationNl, displayStart, displayEnd, notificationType
           }
-        }`).then(res => {
-                badgeInstancesCount = res.badgeInstancesCount;
-                badgeClassesCount = res.badgeClassesCount;
-                systemNotifications = res.systemNotifications;
-            });
-        }
-    });
-
-    const logIn = (chosenRole, force = false) => {
-        $userRole = chosenRole;
-        const path = $redirectPath;
-        const service = getService(chosenRole);
-
-        const urlSearchParams = new URLSearchParams(window.location.search);
-        const validateName = urlSearchParams.get("validateName");
-        requestLoginToken(service, validateName === "true" || path.indexOf("direct-awards") > -1, force);
+        }`);
+        
+        return {
+          badgeInstancesCount: res.badgeInstancesCount,
+          badgeClassesCount: res.badgeClassesCount,
+          systemNotifications: res.systemNotifications
+        };
     };
 
-    const toggleLoginCreateAccount = () => (showLoginCards = !showLoginCards);
 
+    onMount(() => {
+      const urlSearchParams = new URLSearchParams(window.location.search);
+      forceLogin = urlSearchParams.has("force");
+      const currentRedirectPath = get(redirectPath);
+      validateName = (urlSearchParams.get("validateName") === "true" || currentRedirectPath.includes("direct-awards"));
+      
+      if ($userRole && $userLoggedIn) {
+        navigate($redirectPath || "/");
+        $redirectPath = "";
+      } else {
+        getPublicStats().then((stats) => {
+          badgeInstancesCount = stats.badgeInstancesCount;
+          badgeClassesCount = stats.badgeClassesCount;
+          systemNotifications = stats.systemNotifications;
+        });
+      }
+    });
 </script>
 
 <style lang="scss">
@@ -181,7 +182,7 @@
                     <h4>{I18n.t('login.teacher.subtitle')}</h4>
                     <LoginButton
                             label={I18n.t('login.teacher.action')}
-                            onClick={() => logIn(role.TEACHER, forceLogin)}/>
+                            onClick={() => logIn(role.TEACHER, validateName, forceLogin)}/>
                 </Card>
                 <CardSubtext
                         hidden={!showLoginCards}
@@ -223,7 +224,7 @@
                     <div class="login">
                         <LoginButton
                                 label={I18n.t('login.student.action')}
-                                onClick={() => logIn(role.STUDENT, forceLogin)}/>
+                                onClick={() => logIn(role.STUDENT, validateName, forceLogin)}/>
 
                     </div>
                 </Card>
