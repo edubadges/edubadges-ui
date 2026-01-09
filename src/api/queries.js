@@ -26,8 +26,13 @@ export const headerStaff = `
   }
 `;
 
-export const studentBadgeInstances = `query {
-    badgeInstances {
+export const studentBadgeInstances = (badgeclassEntityIds) => {
+ // Validate badgeclassEntityIds is an array of strings
+ if (!Array.isArray(badgeclassEntityIds) || !badgeclassEntityIds.every(id => typeof id === 'string')) {
+   throw new Error('badgeclassEntityIds must be an array of strings');
+ }
+ return `query {
+    badgeInstances(badgeclassEntityIds: ${JSON.stringify(badgeclassEntityIds)}) {
       entityId,
       image,
       issuedOn,
@@ -93,7 +98,8 @@ export const studentBadgeInstances = `query {
         }
       }
     }
-  }`;
+  }`
+};
 
 export const revokedStudentBadgeInstances = `query {
     revokedBadgeInstances {

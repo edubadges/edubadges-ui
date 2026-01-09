@@ -147,6 +147,7 @@ I18n.translations.nl = {
     },
     backpack: {
         title: "Behaalde edubadges",
+        showAllBadges: "je ziet een selectie - toon alles",
     },
     archived: {
         title: "Je gearchiveerde edubadges",

@@ -146,6 +146,7 @@ I18n.translations.en = {
     },
     backpack: {
         title: "Your edubadges",
+        showAllBadges: "you're viewing some badges - show all",
     },
     archived: {
         title: "Your archived edubadges",
