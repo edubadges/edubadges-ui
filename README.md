@@ -44,10 +44,27 @@ This will:
 ## Development on local machine
 
 Alternative to Docker is to run it locally on the machine. This requires yarn
-and the right nodejs versions (TODO: what are these?)
+and the right nodejs versions (TODO: what are these?).
 
 ```
 yarn install
+```
+
+Before we start the dev server, we should create an env.js file that can be served by the dev server.
+
+Create a file `public/env.js` with content matching your own values. Refer to
+`src/util/config.js` for the variables and their defaults.
+
+For example:
+```
+var SERVER_URL = "http://localhost:8000";
+var EXTENSIONS_ROOT_URL = "http://localhost:8000";
+var EDU_ID = "https://mijn.test.eduid.nl";
+```
+
+Then run the dev server:
+
+```
 yarn dev
 ```
 
