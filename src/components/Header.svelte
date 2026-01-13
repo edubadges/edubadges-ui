@@ -50,6 +50,10 @@
         requestLoginToken(config.teacherDomain);
     }
 
+    const isProduction = () => {
+       return config.runtimeEnvironment === undefined || config.runtimeEnvironment === 'production' 
+    }
+
     let menuOpen = false;
     let showModal = false;
     let showFeedback = false;
@@ -160,8 +164,7 @@
 </style>
 
 <header>
-
-    <a href="/" use:link class:demo={config.isDemoEnvironment}>
+    <a href="/" use:link class:demo={ !isProduction() }>
         {#if uaLower.indexOf("safari") > -1 && uaLower.indexOf("chrome") < 0}
             <img class="logo" src="img/logo.png" alt="logo"/>
         {:else}
@@ -169,9 +172,9 @@
         {/if}
     </a>
 
-    {#if config.isDemoEnvironment}
+    {#if !isProduction() }
         <span class="demo" on:click={() => showModal = true}>
-            {I18n.t("header.demo")}{@html DOMPurify.sanitize(question)}
+            {I18n.t(`header.environment.${config.runtimeEnvironment}.title`)}{@html DOMPurify.sanitize(question)}
         </span>
     {/if}
 
@@ -220,9 +223,9 @@
 {#if showModal}
     <Modal
             submit={() => showModal = false}
-            question={I18n.t("header.demo")}
-            title={I18n.t("header.demo")}>
-        <span>{@html I18n.t("demo.info")}</span>
+            question={I18n.t(`header.environment.${config.runtimeEnvironment}.title`)}
+            title={I18n.t(`header.environment.${config.runtimeEnvironment}.title`)}>
+        <span>{@html I18n.t(`header.environment.${config.runtimeEnvironment}.info`)}</span>
     </Modal>
 {/if}
 

@@ -16,7 +16,30 @@ I18n.translations.en = {
         permissions: "My permissions",
         notifications: "My notifications",
         feedback: "Send feedback",
-        demo: "Eduwallet Incubator environment",
+        environment: {
+          demo: {
+            title: "Demo environment",
+            info: "This is the demo environment of edubadges.<br/><br/>All of the data is cleared each month and after each new " +
+                  "deployment.<br/><br/>" +
+                  "If you have any question about the demo environment please contact us" +
+                  " at <a href='mailto:support@edubadges.nl'>support@edubadges.nl</a> "
+          },
+          development: {
+            title: "Development environment",
+            info: "This is the Eduwallet Incubator environment of edubadges.<br/><br/>All of the data is cleared after each new " +
+                  "deployment.<br/><br/>"
+          },
+          pilot: {
+            title: "Eduwallet Pilot",
+            info: "This is the Eduwallet Pilot for Edubadges.<br/><br/> TODO: Add actual information and links to details when known"
+          },
+          playground: {
+            title: "Eduwallet Playground",
+            info: "This is the Eduwallet Incubator environment of edubadges.<br/><br/>All of the data is cleared after each new " +
+                  "deployment.<br/><br/>" +
+                  "More info about the Eduwallet Incubator can be found on <a href='https://wiki.surfnet.nl/spaces/EWI/pages/128124830/Eduwallet+Incubator'>the internal SURF wiki</a>"
+          },
+        },
         impersonate: "Impersonate",
         queries: "Management queries",
         clearImpersonation: "Clear impersonation",
@@ -1731,12 +1754,6 @@ I18n.translations.en = {
             REVOKED: "Revoked",
             REJECTED: "Rejected",
         },
-    },
-    demo: {
-        info:
-            "This is the Eduwallet Incubator environment of edubadges.<br/><br/>All of the data is cleared after each new " +
-            "deployment.<br/><br/>" +
-            "More info about the Eduwallet Incubator can be found on <a href='https://wiki.surfnet.nl/spaces/EWI/pages/128124830/Eduwallet+Incubator'>the internal SURF wiki</a>",
     },
     feedback: {
         title: "Provide Feedback",
