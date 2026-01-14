@@ -82,7 +82,7 @@
             }
           })
           .catch(() => {
-            $redirectPath = path;
+            $redirectPath = path + window.location.search + window.location.hash;
             $userLoggedIn = "";
             $userName = "";
             $validatedUserName = "";
