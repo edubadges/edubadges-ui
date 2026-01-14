@@ -20,9 +20,14 @@
   <tbody>
   {#each badges as badge}
     {#if isBadgesClass}
-      <BadgeListItem badgeClass={badge} isPublic={isPublic} linksEnabled={linksEnabled}/>
+      <BadgeListItem badgeClass={badge}
+                     isPublic={isPublic}
+                     linksEnabled={linksEnabled}/>
     {:else}
-      <BadgeListItem badge={badge} badgeClass={badge.badgeclass} linksEnabled={linksEnabled}/>
+      <BadgeListItem badge={badge}
+                     isPublic={isPublic}
+                     badgeClass={badge.badgeclass}
+                     linksEnabled={linksEnabled}/>
     {/if}
 
   {/each}

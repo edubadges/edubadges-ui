@@ -5,14 +5,13 @@
     import DotSpinner from "../../components/DotSpinner.svelte";
     import checkP from "../../icons/check-purple.svg";
     import {onMount} from "svelte";
-    import {importedAssertionValidate, validateBadge} from "../../api";
+    import {validateBadge} from "../../api";
     import DOMPurify from 'dompurify';
     import {validatedUserName} from "../../util/users";
 
     export let close;
     export let badge = {issuer: {}};
     export let validatedName;
-    export let importedBadge = false;
 
     const timer = 375;
     let validationResult = {valid: false};
@@ -20,31 +19,28 @@
 
     const validations = [
         {key: "issuedOn", val: formatDate(badge.issuedOn)},
-        {key: "institution", val: badge.issuer.faculty ? badge.issuer.faculty.institution.name : "-", eduBadge: true},
-        {key: "faculty", val: badge.issuer.faculty ? badge.issuer.faculty.name : "-", eduBadge: true},
-        {key: "imported", val: formatDate(badge.created_at), eduBadge: false},
+        {key: "institution", val: badge.issuer.faculty ? badge.issuer.faculty.institution.name : "-"},
+        {key: "faculty", val: badge.issuer.faculty ? badge.issuer.faculty.name : "-"},
         {key: "issuedBy", val: badge.issuer.name},
-        {key: "issuedUsing", val: "edubadges", eduBadge: true},
-        {key: "hosted", val: importedBadge ? new URL(badge.import_url).hostname : "", eduBadge: false},
+        {key: "issuedUsing", val: "edubadges"},
         {
             key: "issuedTo",
             val: validatedName ? validatedUserName(validatedName) : I18n.t("publicBadge.validations.noValidatedName"),
             invalid: !validatedName
         },
-        {key: "claimedOn", val: formatDate(badge.updatedAt), eduBadge: true},
+        {key: "claimedOn", val: formatDate(badge.updatedAt)},
         {
             key: "expiresOn", val: badge.expires ? formatDate(badge.expires) : I18n.t("publicBadge.validations.never"),
             invalid: badge.expires && new Date(badge.expires) < new Date()
         },
         {key: "verified", val: "", last: true}
-    ].filter(item => item.eduBadge === undefined || item.eduBadge === !importedBadge)
-        .map(item => ({
-            key: item.key,
-            last: item.last,
-            pre: I18n.t(`publicBadge.validations.${item.key}`, {val: "..."}),
-            post: I18n.t(`publicBadge.validations.${item.key}`, {val: item.val}),
-            invalid: item.invalid
-        }));
+    ].map(item => ({
+        key: item.key,
+        last: item.last,
+        pre: I18n.t(`publicBadge.validations.${item.key}`, {val: "..."}),
+        post: I18n.t(`publicBadge.validations.${item.key}`, {val: item.val}),
+        invalid: item.invalid
+    }));
 
 
     let timeOuts = validations.reduce((acc, validation) => {
@@ -53,8 +49,7 @@
     }, {});
 
     onMount(() => {
-        const promise = importedBadge ? importedAssertionValidate(badge.entityId) : validateBadge(badge.entityId)
-        promise.then(res => {
+        validateBadge(badge.entityId).then(res => {
             validationResult = res.report;
             done = true;
         }).catch(() => done = true);
