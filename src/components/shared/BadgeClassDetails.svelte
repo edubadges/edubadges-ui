@@ -383,7 +383,7 @@
             {#if badge}
                 <div class="group_items">
                     <h3>{I18n.t("newBadgeClassForm.badge")}</h3>
-                    {#if !isEmpty(badge.issuedOn)}
+                        {#if !isEmpty(badge.issuedOn)}
                         <div class="group-item">
                             {@html issuedIcon}
                             <section class="items">
