@@ -1,13 +1,9 @@
 <script>
     import I18n from "i18n-js";
-    import {userName} from "../../stores/user";
 
     import {onMount} from "svelte";
-    import shieldUnlocked from "../../icons/shield-unlock.svg";
-    import shieldLocked from "../../icons/lock-shield.svg";
     import {link} from "svelte-routing";
     import {queryData} from "../../api/graphql";
-    import chevronRightSmall from "../../icons/chevron-right-small.svg";
     import Button from "../../components/Button.svelte";
     import Spinner from "../../components/Spinner.svelte";
     import BadgeCard from "../../components/shared/BadgeCard.svelte";
@@ -22,13 +18,14 @@
         ob3WalletImport
     } from "../../api";
     import {flash} from "../../stores/flash";
-    import ToggleSwitch from "../../components/ToggleSwitch.svelte";
     import BadgeInstanceEvidence from "../../components/shared/BadgeInstanceEvidence.svelte";
-    import CheckBox from "../../components/CheckBox.svelte";
-    import {isEmpty, translateProperties} from "../../util/utils";
+    import {translateProperties} from "../../util/utils";
     import StudentBreadCrumb from "../../components/students/StudentBreadCrumb.svelte";
     import BadgeHeader from "../../components/students/BadgeHeader.svelte";
     import {alignments, endorsements} from "../../api/queries";
+
+    import chevronRightSmall from "../../icons/chevron-right-small.svg";
+    import walletIcon from "../../icons/wallet.svg";
 
     export let entityId;
 
@@ -62,12 +59,11 @@
         showCollectionsModal = true;
     }
 
-    const startOb3SsiAgentImport = (variant) => {
+    const startOb3SsiAgentImport = () => {
         loaded = false
-        ob3WalletImport(badge, variant).then(res => {
+        ob3WalletImport(badge).then(res => {
             showOb3SsiAgentModal = true;
             loaded = true;
-            ssiAgentName = variant;
             ssiAgentOffer = res.offer;
         })
     }
@@ -434,14 +430,10 @@
                     </div>
                     <div class="button-container vertical">
                         {#if ob3SsiAgentEnabled}
-                            <Button text={I18n.t("models.badge.ob3SsiAgent", {
-                                name: I18n.t("models.badge.ob3SsiAgentNames.preauthorized")
-                              })}
-                                    action={() => startOb3SsiAgentImport('preauthorized')}/>
-                            <Button text={I18n.t("models.badge.ob3SsiAgent", {
-                                name: I18n.t("models.badge.ob3SsiAgentNames.authorization")
-                              })}
-                                    action={() => startOb3SsiAgentImport('authorization')}/>
+                            <Button
+                                text={I18n.t("models.badge.ob3SsiAgent")}
+                                icon={walletIcon}
+                                action={startOb3SsiAgentImport}/>
                         {/if}
                     </div>
                 </div>

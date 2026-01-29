@@ -5,7 +5,6 @@
 
   export let offer = "";
   export let showModal = false;
-  export let walletName = "";
   export let submit;
 
   let qrCodeDataUrl = '';
@@ -42,10 +41,7 @@
 {#if showModal}
 <Modal
         question={I18n.t("models.badge.ob3SsiAgentQRCodeQuestion")}
-        title={I18n.t("models.badge.ob3SsiAgent", {
-          name: I18n.t(`models.badge.ob3SsiAgentNames.${walletName}`)
-        })}
-
+        title={I18n.t("models.badge.ob3SsiAgent")}
         submit={() => submit()}
         submitLabel={I18n.t("error.close")}>
     <div class="qr-code-container">
