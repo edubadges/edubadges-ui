@@ -307,7 +307,7 @@ I18n.translations.en = {
         },
         edit: {
             edit: "edit",
-            institution: "Edit educational institution",
+            institution: "Educational institution details",
             faculty: "Edit issuer group",
             issuer: "Edit issuer",
             badgeclass: "Edit badge class",
@@ -784,7 +784,7 @@ I18n.translations.en = {
             narrativeRequired: "Narrative required when issuing",
             narrativeStudentRequired: "Motivation required for enrollment",
             evidenceStudentRequired: "Evidence (URL) required for enrollment",
-            isMicroCredentials: "Badge class related to Microcredentials pilot",
+            isMicroCredentials: "Microcredential Badge class",
             directAwardingDisabled: "Direct-Award disabled",
             selfEnrollmentDisabled: "Self-enrollment disabled",
             learningOutcome: "Learning outcomes",
@@ -1439,8 +1439,8 @@ I18n.translations.en = {
         badgeClassAwardNonValidatedNameAllowed:
             "If checked, non-formal edubadges (edubadges without Study load) can be awarded to non-validated accounts.",
         badgeClassIsMicroCredentials:
-            "If checked, then this badge class is participating in the Microcredentials pilot." +
-            'See <a target="_blank" href="https://wiki.surfnet.nl/display/Edubadges/Handleiding+metadata+microcredentials"> the wiki </a> for a manual.',
+            "If checked, then this badge class is a Microcredential." +
+            'See <a target="_blank" href="https://servicedesk.surf.nl/wiki/spaces/WIKI/pages/142574081/Manual+metadata+microcredentials"> the wiki </a> for a manual.',
         badgeClassDirectAwardingDisabled: "If checked, then this badge class can not be direct awarded",
         badgeClassSelfEnrollmentDisabled: "If checked, then this badge class can not be requested by students",
         badgeClassCriteriaRequirements: "What criteria does the learner meet to be eligible for this edubadge?",
@@ -1541,7 +1541,7 @@ I18n.translations.en = {
         badgeClassType: {
             ARCHIVED: "Archived",
             ALL: "All",
-            MICRO_CREDENTIALS: "Pilot Microcredentials",
+            MICRO_CREDENTIALS: "Microcredentials",
             DRAFT: "Draft",
             REGULAR: "Regular",
             EXTRA_CURRICULAR: "Extra-curricular",

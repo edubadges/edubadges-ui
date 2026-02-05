@@ -308,7 +308,7 @@ I18n.translations.nl = {
         },
         edit: {
             edit: "wijzig",
-            institution: "Wijzig onderwijsinstelling",
+            institution: "Gegevens onderwijsinstelling",
             faculty: "Wijzig issuer groep",
             issuer: "Wijzig issuer",
             badgeclass: "Wijzig badge class",
@@ -782,7 +782,7 @@ I18n.translations.nl = {
             narrativeRequired: "Motivatie verplicht bij uitgeven",
             narrativeStudentRequired: "Motivatie verplicht voor aanvraag",
             evidenceStudentRequired: "Bewijs (URL) verplicht bij uitgifte",
-            isMicroCredentials: "Badge class ihkv de pilot Microcredentials",
+            isMicroCredentials: "Microcredential Badge class",
             directAwardingDisabled: "Direct-Award niet toegestaan",
             selfEnrollmentDisabled: "Self-enrollment niet toegestaan",
             learningOutcome: "Leeruitkomsten",
@@ -1440,8 +1440,8 @@ I18n.translations.nl = {
         badgeClassAwardNonValidatedNameAllowed:
             "Indien aangevinkt, mogen non-formal edubadges (edubadges zonder Studielast) uitgereikt worden aan niet-gevalideerde accounts.",
         badgeClassIsMicroCredentials:
-            "Indien aangevinkt, dan wordt deze badge class ihkv de Microcredentials pilot uitgegeven." +
-            'Zie <a target="_blank" href="https://wiki.surfnet.nl/display/Edubadges/Handleiding+metadata+microcredentials"> de wiki </a> voor een handleiding.',
+            "Indien aangevinkt, dan wordt deze badge class als Microcredential uitgegeven." +
+            'Zie <a target="_blank" href="https://servicedesk.surf.nl/wiki/spaces/WIKI/pages/142573971/Handleiding+metadata+microcredentials"> de wiki </a> voor een handleiding.',
         badgeClassDirectAwardingDisabled:
             "Indien aangevinkt, dan is voor deze badge class het direct awarden uitgeschakeld",
         badgeClassSelfEnrollmentDisabled:
@@ -1547,7 +1547,7 @@ I18n.translations.nl = {
         badgeClassType: {
             ARCHIVED: "Gearchiveerd",
             ALL: "Alle",
-            MICRO_CREDENTIALS: "Pilot Microcredentials",
+            MICRO_CREDENTIALS: "Microcredentials",
             DRAFT: "Draft",
             REGULAR: "Regulier",
             EXTRA_CURRICULAR: "Extra-curricular",

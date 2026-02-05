@@ -223,6 +223,9 @@
                 <Route path="/public/badges/:entityId/" let:params>
                     <PublicBadgeClassPage entityId={params.entityId}/>
                 </Route>
+                <Route path="/public/catalog/:entityId/" let:params>
+                    <PublicBadgeClassPage entityId={params.entityId}/>
+                </Route>
                 <Route path="/public/assertions/:entityId/" let:params>
                     <PublicBadgePage entityId={params.entityId}/>
                 </Route>
