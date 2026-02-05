@@ -25,7 +25,7 @@
     import {alignments, endorsements} from "../../api/queries";
 
     import chevronRightSmall from "../../icons/chevron-right-small.svg";
-    import walletIcon from "../../icons/wallet.svg";
+    import { walletIcon } from "../../icons";
 
     export let entityId;
 
@@ -430,10 +430,9 @@
                     </div>
                     <div class="button-container vertical">
                         {#if ob3SsiAgentEnabled}
-                            <Button
-                                text={I18n.t("models.badge.ob3SsiAgent")}
-                                icon={walletIcon}
-                                action={startOb3SsiAgentImport}/>
+                            <Button text={I18n.t("models.badge.ob3SsiAgent")}
+                                    icon={walletIcon}
+                                    action={startOb3SsiAgentImport}/>
                         {/if}
                     </div>
                 </div>
