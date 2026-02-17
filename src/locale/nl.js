@@ -509,6 +509,8 @@ I18n.translations.nl = {
         945: "Type instelling is verplicht.",
         946: "Type zichtbaarheid is verplicht voor SURF instellingen.",
         947: "Invullen van een Engels of Nederlandse logo is verplicht wanneer uitgegeven namens andere organisatie.",
+        948: "Voornaam is verplicht.",
+        949: "Achternaam is verplicht.",
         unexpected: "Oeps, er is iets totaal onverwachts en onverklaarbaars gebeurd.",
         description:
             "Een onverwachte fout is opgetreden. Probeer het opnieuw of neem contact op met support@edubadges.nl voor ondersteuning.",
@@ -992,6 +994,8 @@ I18n.translations.nl = {
         },
         badgeAward: {
             email: "E-mail",
+            first_name: "Voornaam",
+            surname: "Achternaam",
             eppn: "Student nummer (EPPN)",
             reject: "Weigeren",
             claim: "Claim en voeg toe aan je backpack",

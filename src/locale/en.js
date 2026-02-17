@@ -509,7 +509,8 @@ I18n.translations.en = {
         945: "The type of institution is required.",
         946: "Type of visibility is required for SURF institutions.",
         947: "An English or Dutch image is required when issued on behalf of other organisation.",
-
+        948: "First name is required.",
+        949: "Surname is required.",
         unexpected: "Unexpected error occurred.",
         description:
             "An unexpected error has occurred. Please try again later or contact support@edubadges.nl for support.",
@@ -993,6 +994,8 @@ I18n.translations.en = {
         },
         badgeAward: {
             email: "Email address",
+            first_name: "First name",
+            surname: "Surname",
             eppn: "Student number (EPPN)",
             reject: "Reject",
             claim: "Claim & Add to your backpack",
