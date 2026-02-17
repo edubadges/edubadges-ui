@@ -753,6 +753,8 @@ export function createDirectAwards(
         identifier_type: enableAwardOnEmail ? "email" : "eppn",
         direct_awards: directAwards.map((da) => ({
             recipient_email: da.email,
+            first_name: da.first_name,
+            surname: da.surname,
             eppn: da.eppn,
             evidence_url: isEmpty(da.evidence_url) ? null : da.evidence_url,
             narrative: isEmpty(da.narrative) ? null : da.narrative,
