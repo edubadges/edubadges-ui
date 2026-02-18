@@ -17,6 +17,7 @@
 
     let validation = {};
     let validatedName;
+    let recipientName;
     let loaded;
 
     onMount(() => {
@@ -33,7 +34,8 @@
 
             getRecipientName(encodeURIComponent(res.recipient.identity), encodeURIComponent(res.recipient.salt))
                 .then(res => {
-                    validatedName = res.name;
+                    validatedName = res.validated_name;
+                    recipientName = res.recipient_name;
                     loaded = true
                 });
         }).catch(() => navigate("/404?public=true"));
@@ -78,7 +80,7 @@
             </div>
         </div>
         <div class="badge-validation">
-            <BadgeValidation badge={badge} validatedName={validatedName}/>
+            <BadgeValidation badge={badge} recipientName={recipientName} validatedName={validatedName}/>
         </div>
         <div class="badge-public-detail">
             <BadgeClassDetails badgeclass={badge}

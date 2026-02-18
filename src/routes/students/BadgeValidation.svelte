@@ -7,6 +7,7 @@
     import {validatedUserName} from "../../util/users";
 
     export let validatedName;
+    export let recipientName;
     export let badge;
 
     let fetchingValidation = false;
@@ -15,6 +16,8 @@
     const validate = () => {
         fetchingValidation = true;
     }
+
+    const displayName = recipientName || validatedName || badge.user
 
 </script>
 
@@ -47,13 +50,13 @@
         <div class="info">
             {#if validatedName}
                 <p>{@html I18n.t("publicBadge.issuedTo", {
-                    name: validatedUserName(validatedName),
-                    date: formatDate(badge.issuedOn)
+                    name: validatedUserName(displayName),
+                    date: formatDate(badge.issuedOn),
                 })}</p>
             {:else}
                 <p>{@html I18n.t("publicBadge.noValidatedName", {
+                    name: validatedUserName(displayName),
                     date: formatDate(badge.issuedOn),
-                    name: badge.user
                 })}</p>
             {/if}
             {#if badge.expires && new Date(badge.expires) < new Date()}
@@ -74,4 +77,3 @@
                         validatedName={validatedName}
                         close={() => fetchingValidation = false}/>
 {/if}
-
