@@ -4,7 +4,7 @@
     import Spinner from "../../components/Spinner.svelte";
     import BadgeCard from "../../components/shared/BadgeCard.svelte";
     import BadgeClassDetails from "../../components/shared/BadgeClassDetails.svelte";
-    import {getPublicBadge, validateName} from "../../api";
+    import {getPublicBadge, getRecipientName} from "../../api";
     import {publicBadgeInformation} from "../extensions/badges/extensions";
     import BadgeValidation from "../../routes/students/BadgeValidation.svelte";
     import BadgeInstanceEvidence from "./BadgeInstanceEvidence.svelte";
@@ -31,7 +31,7 @@
             publicBadgeInformation(badge, res.badge);
             badge.gradeAchieved = res.badge.grade_achieved;
 
-            validateName(encodeURIComponent(res.recipient.identity), encodeURIComponent(res.recipient.salt))
+            getRecipientName(encodeURIComponent(res.recipient.identity), encodeURIComponent(res.recipient.salt))
                 .then(res => {
                     validatedName = res.name;
                     loaded = true

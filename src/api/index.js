@@ -341,7 +341,7 @@ export function validateBadge(entityId) {
     return validFetchNoErrorDialog(path, {}, "GET", false);
 }
 
-export function validateName(identityHash, salt) {
+export function getRecipientName(identityHash, salt) {
     const path = `${serverUrl}/public/assertions/identity/${identityHash}/${salt}`;
     return validFetch(path, {}, "GET", false);
 }
