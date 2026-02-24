@@ -75,5 +75,6 @@
 {#if fetchingValidation}
     <ValidationSpinners badge={badge}
                         validatedName={validatedName}
+                        recipientName={recipientName}
                         close={() => fetchingValidation = false}/>
 {/if}

@@ -1261,6 +1261,7 @@ I18n.translations.en = {
             issuedTo: "Issued to <strong>{{val}}</strong>",
             noValidatedName: "unvalidated name",
             claimedOn: "Claimed on {{val}}",
+            claimedBy: "Claimed by <strong>{{val}}</strong>",
             expiresOn: "Expires on {{val}}",
             never: "never",
             verified: "<strong>Verified<strong> {{val}}",
