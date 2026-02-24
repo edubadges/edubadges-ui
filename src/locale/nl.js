@@ -1262,6 +1262,7 @@ I18n.translations.nl = {
             issuedTo: "Uitgereikt aan <strong>{{val}}</strong>",
             noValidatedName: "ongevalideerde naam",
             claimedOn: "Geaccepteerd op {{val}}",
+            claimedBy: "Geaccepteerd door <strong>{{val}}</strong>",
             expiresOn: "Verloopt op {{val}}",
             never: "nooit",
             verified: "<strong>Gevalideerd!<strong> {{val}}",

@@ -12,6 +12,7 @@
     export let close;
     export let badge = {issuer: {}};
     export let validatedName;
+    export let recipientName;
 
     const timer = 375;
     let validationResult = {valid: false};
@@ -28,6 +29,7 @@
             val: validatedName ? validatedUserName(validatedName) : I18n.t("publicBadge.validations.noValidatedName"),
             invalid: !validatedName
         },
+        {key: "claimedBy", val: validatedUserName(recipientName)},
         {key: "claimedOn", val: formatDate(badge.updatedAt)},
         {
             key: "expiresOn", val: badge.expires ? formatDate(badge.expires) : I18n.t("publicBadge.validations.never"),
@@ -168,4 +170,3 @@
         </div>
     </div>
 </div>
-
