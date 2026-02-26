@@ -1,4 +1,4 @@
-import {constructUserName, validatedUserName} from "../../util/users";
+import {constructUserName, displayUserName} from "../../util/users";
 
 const constructUser = (firstName, lastName) => ({user: {firstName, lastName}})
 
@@ -18,5 +18,5 @@ test("User name double comma's", () => {
 });
 
 test("Validated user name", () => {
-    expect(validatedUserName("Rob Leeuwen, van")).toStrictEqual("Rob van Leeuwen");
+    expect(displayUserName("Rob Leeuwen, van")).toStrictEqual("Rob van Leeuwen");
 });
