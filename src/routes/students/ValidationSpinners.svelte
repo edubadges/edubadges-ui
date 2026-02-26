@@ -7,7 +7,7 @@
     import {onMount} from "svelte";
     import {validateBadge} from "../../api";
     import DOMPurify from 'dompurify';
-    import {validatedUserName} from "../../util/users";
+    import {displayUserName} from "../../util/users";
 
     export let close;
     export let badge = {issuer: {}};
@@ -26,10 +26,10 @@
         {key: "issuedUsing", val: "edubadges"},
         {
             key: "issuedTo",
-            val: validatedName ? validatedUserName(validatedName) : I18n.t("publicBadge.validations.noValidatedName"),
+            val: validatedName ? displayUserName(validatedName) : I18n.t("publicBadge.validations.noValidatedName"),
             invalid: !validatedName
         },
-        {key: "claimedBy", val: validatedUserName(recipientName)},
+        {key: "claimedBy", val: displayUserName(recipientName)},
         {key: "claimedOn", val: formatDate(badge.updatedAt)},
         {
             key: "expiresOn", val: badge.expires ? formatDate(badge.expires) : I18n.t("publicBadge.validations.never"),

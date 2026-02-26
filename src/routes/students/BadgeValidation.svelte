@@ -4,7 +4,7 @@
     import {formatDate} from "../../util/utils";
     import {Button} from "../../components";
     import ValidationSpinners from "./ValidationSpinners.svelte";
-    import {validatedUserName} from "../../util/users";
+    import {displayUserName} from "../../util/users";
 
     export let validatedName;
     export let recipientName;
@@ -50,12 +50,12 @@
         <div class="info">
             {#if validatedName}
                 <p>{@html I18n.t("publicBadge.issuedTo", {
-                    name: validatedUserName(displayName),
+                    name: displayUserName(displayName),
                     date: formatDate(badge.issuedOn),
                 })}</p>
             {:else}
                 <p>{@html I18n.t("publicBadge.noValidatedName", {
-                    name: validatedUserName(displayName),
+                    name: displayUserName(displayName),
                     date: formatDate(badge.issuedOn),
                 })}</p>
             {/if}
