@@ -16,18 +16,9 @@
     import Modal from "../../components/forms/Modal.svelte";
     import BadgePanel from "../../components/students/BadgePanel.svelte";
 
-    export let revalidateName;
-
     let loaded = false;
     let badges = [];
     let view = "cards";
-    let showStepupDialog = false;
-    let showNoValidatedNameDialog = false;
-
-    const goToEduId = () => {
-        $redirectPath = window.location.pathname;
-        requestLoginToken(getService(role.STUDENT), true);
-    };
 
     const secureQuery = `query {
     currentUser {
@@ -42,12 +33,6 @@
             const res = all[0];
             const directAwards = res.directAwards || [];
 
-            const validatedName = all[1].currentUser.validatedName;
-            if (directAwards.length > 0 && !validatedName) {
-                showStepupDialog = true;
-            } else if (!validatedName && revalidateName) {
-                showNoValidatedNameDialog = true;
-            }
             directAwards.forEach(da => da.isDirectAward = true);
 
             const badgeInstances = sortCreatedAt(directAwards.concat(res.badgeInstances.filter(bi => !bi.revoked)));
@@ -100,23 +85,3 @@
         <Spinner/>
     {/if}
 </div>
-{#if showStepupDialog}
-    <Modal
-            submit={goToEduId}
-            title={I18n.t("publicBadge.noValidatedNameModal.noLinkedInstitution")}
-            question={I18n.t("publicBadge.noValidatedNameModal.directAwards")}
-            evaluateQuestion={true}
-            cancel={() => showStepupDialog = false}
-            submitLabel={I18n.t("publicBadge.noValidatedNameModal.goToEduID")}/>
-{/if}
-
-{#if showNoValidatedNameDialog}
-    <Modal
-            submit={goToEduId}
-            title={I18n.t("acceptTerms.noValidatedNameTitle")}
-            question={I18n.t("acceptTerms.noValidatedName")}
-            evaluateQuestion={true}
-            cancel={() => showNoValidatedNameDialog = false }
-            submitLabel={I18n.t("publicBadge.noValidatedNameModal.goToEduID")}/>
-{/if}
-
