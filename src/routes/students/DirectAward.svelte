@@ -27,7 +27,6 @@
 
     let showAcceptTerms = false;
     let termsAccepted = false;
-    let noValidatedName = false;
 
     //Modal
     let showModal = false;
@@ -159,10 +158,6 @@
     }
 
     const claimDirectAward = showConfirmation => {
-        if (isEmpty(currentUser.validatedName)) {
-            noValidatedName = true;
-            return;
-        }
         if (!termsAccepted) {
             showAcceptTerms = true;
             return;
@@ -189,18 +184,6 @@
             claimDirectAward(true);
         });
     };
-
-
-    const logInForceAuthn = () => {
-        $userLoggedIn = "";
-        $userRole = "";
-        $authToken = "";
-        $validatedUserName = "";
-        $redirectPath = window.location.pathname;
-        window.location.href = config.eduId;
-    };
-
-
 </script>
 
 <style lang="scss">
@@ -331,16 +314,6 @@
     {/if}
 {:else}
     <Spinner/>
-{/if}
-
-{#if noValidatedName}
-    <Modal
-            submit={logInForceAuthn}
-            title={I18n.t("acceptTerms.noValidatedNameTitle")}
-            question={I18n.t("acceptTerms.noValidatedName")}
-            evaluateQuestion={true}
-            cancel={() => noValidatedName = false}
-            submitLabel={I18n.t("acceptTerms.goToSurfConext")}/>
 {/if}
 
 {#if showAcceptTerms}
