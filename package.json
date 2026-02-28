@@ -30,7 +30,7 @@
     "serialize-javascript": "^6.0.2",
     "serve": "^14.2.4",
     "style-loader": "^1.0.0",
-    "svelte": "^3.49.0",
+    "svelte": "^5.53.5",
     "svelte-loader": "2.13.6",
     "svelte-preprocess": "^3.9.10",
     "svg-inline-loader": "^0.8.0",
