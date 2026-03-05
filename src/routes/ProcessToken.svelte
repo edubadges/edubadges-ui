@@ -10,7 +10,7 @@
     import {getService} from "../util/getService";
     import {fetchRawCurrentInstitution, requestLoginToken} from "../api";
     import DOMPurify from "dompurify";
-    import {translatePropertiesRawQueries} from "../util/utils";
+    import {isEmpty, translatePropertiesRawQueries} from "../util/utils";
 
     let authError;
     let code = 1;
@@ -52,8 +52,11 @@
         } else {
             $userLoggedIn = "";
             code = urlSearchParams.get("code") || "1";
-            adminEmail = urlSearchParams.get("admin_email");
+            adminEmail = urlSearchParams.get("admin_email") || "";
+            adminEmailHTML = I18n.t("authError.adminEmail", {email: adminEmail});
+
         }
+
     });
 </script>
 
@@ -114,12 +117,11 @@
         <div class="content-auth-error">
             <h1>{I18n.t("authError.title")}</h1>
             <p>{I18n.t(`authError.code.${code}`)}</p>
-            {#if adminEmail && code === "2"}
+            {#if !isEmpty(adminEmail) && code === "2"}
                 <div class="info">
                     <span>{@html tip}</span>
                     <span class="tip">{I18n.t("authError.tip")}</span>
-                    <span>{@html I18n.t("authError.adminEmail", {email: DOMPurify.sanitize(adminEmail)})}</span>
-
+                    <span>{@html DOMPurify.sanitize(adminEmailHTML)}</span>
                 </div>
             {/if}
 

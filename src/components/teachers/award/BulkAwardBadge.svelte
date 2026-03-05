@@ -63,7 +63,7 @@
                     const newAlreadyEmailDirectAwards = [];
                     const newMissingEvidenceOrNarrative = [];
                     const newMissingGrades = [];
-                    const requiredCels = enableAwardOnEmail ? 1 : 2;
+                    const requiredCels = enableAwardOnEmail ? 3 : 2;
                     const celAdjustment = enableAwardOnEmail ? 1 : 0;
                     rows.forEach(row => {
                         const cells = row.split(/[,;\t]/);
@@ -76,11 +76,13 @@
                         } else {
                             const email = cells[0];
                             const eppn = enableAwardOnEmail ? null : cells[1];
-                            const narrative = cells[2 - celAdjustment] || null;
-                            const evidence_url = cells[3 - celAdjustment] || null;
-                            const name = cells[4 - celAdjustment] || null;
-                            const description = cells[5 - celAdjustment] || null;
-                            const grade_achieved = cells[6 - celAdjustment] || null;
+                            const first_name = enableAwardOnEmail ? cells[1] : null;
+                            const surname = enableAwardOnEmail ? cells[2] : null;
+                            const narrative = cells[2 + celAdjustment] || null;
+                            const evidence_url = cells[3 + celAdjustment] || null;
+                            const name = cells[4 + celAdjustment] || null;
+                            const description = cells[5 + celAdjustment] || null;
+                            const grade_achieved = cells[6 + celAdjustment] || null;
                             if (enableAwardOnEmail && existingDirectAwardsEmails.some(da => da.email === email && !isEmpty(email))) {
                                 newAlreadyEmailDirectAwards.push(email);
                             } else if (!enableAwardOnEmail && existingDirectAwardsEppns.some(da => da.eppn === eppn && !isEmpty(eppn))) {
@@ -101,6 +103,8 @@
                                 && (!evidence_url || validUrl(evidence_url))) {
                                 newDirectAwards.push({
                                     email,
+                                    first_name,
+                                    surname,
                                     eppn,
                                     evidence_url,
                                     narrative,
@@ -346,8 +350,3 @@
     </div>
 
 </div>
-
-
-
-
-

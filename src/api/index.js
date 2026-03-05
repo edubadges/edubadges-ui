@@ -28,11 +28,11 @@ function validateResponse(res, method, showErrorDialog) {
 }
 
 function validFetchNoErrorDialog(path, options = {}, method = "GET", useToken = true) {
-    return validFetch(path, options, method, useToken, false)
+    return validFetch(path, options, method, useToken, false);
 }
 
 function badgeClassToJson(badgeclass) {
-    return JSON.stringify(badgeclass).replace(/[\x00-\x09\x0B-\x0C\x0E-\x1F\x7F-\x9F]/g, '');
+    return JSON.stringify(badgeclass).replace(/[\x00-\x09\x0B-\x0C\x0E-\x1F\x7F-\x9F]/g, "");
 }
 
 function validFetch(path, options = {}, method = "GET", useToken = true, showErrorDialog = true) {
@@ -55,7 +55,7 @@ function validFetch(path, options = {}, method = "GET", useToken = true, showErr
         fetchOptions.headers.Authorization = "Bearer " + token;
     }
 
-    return fetch(path, fetchOptions).then(res => validateResponse(res, method, showErrorDialog));
+    return fetch(path, fetchOptions).then((res) => validateResponse(res, method, showErrorDialog));
 }
 
 // External API
@@ -92,11 +92,7 @@ export function getEmails() {
 
 export function addEmail(newEmail) {
     const path = `${serverUrl}/user/emails`;
-    return validFetchNoErrorDialog(
-        path,
-        {body: JSON.stringify({email: newEmail})},
-        "POST"
-    );
+    return validFetchNoErrorDialog(path, {body: JSON.stringify({email: newEmail})}, "POST");
 }
 
 export function setPrimaryEmail(emailId) {
@@ -139,20 +135,12 @@ export function withdrawTermsForBadge(terms_agreement_entity_id) {
 export function requestBadge(id, narrative, evidence_url) {
     const path = `${serverUrl}/lti_edu/enroll`;
     const body = {badgeclass_slug: id, narrative: narrative, evidence_url: evidence_url};
-    return validFetchNoErrorDialog(
-        path,
-        {body: JSON.stringify(body)},
-        "POST"
-    );
+    return validFetchNoErrorDialog(path, {body: JSON.stringify(body)}, "POST");
 }
 
 export function withdrawRequestBadge(enrollmentID) {
     const path = `${serverUrl}/lti_edu/student/enrollments`;
-    return validFetchNoErrorDialog(
-        path,
-        {body: JSON.stringify({enrollmentID: enrollmentID})},
-        "DELETE"
-    );
+    return validFetchNoErrorDialog(path, {body: JSON.stringify({enrollmentID: enrollmentID})}, "DELETE");
 }
 
 export function logoutCurrentUser() {
@@ -165,24 +153,26 @@ export function awardBadges(badgeId, enrollmentIds, useEvidence, narrative, url,
     const body = {
         "issue_signed": false,
         "create_notification": true,
-        "enrollments": enrollmentIds.map(el => {
+        "enrollments": enrollmentIds.map((el) => {
             const res = {
                 enrollment_entity_id: el,
-                grade_achieved: gradeAchieved
+                grade_achieved: gradeAchieved,
             };
             if (useEvidence) {
-                res.evidence_items = [{
-                    "evidence_url": url,
-                    "narrative": narrative,
-                    "name": name,
-                    "description": description
-                }];
+                res.evidence_items = [
+                    {
+                        "evidence_url": url,
+                        "narrative": narrative,
+                        "name": name,
+                        "description": description,
+                    },
+                ];
                 if (narrative) {
                     res.narrative = narrative;
                 }
             }
             return res;
-        })
+        }),
     };
     return validFetch(path, {body: JSON.stringify(body)}, "POST");
 }
@@ -190,12 +180,11 @@ export function awardBadges(badgeId, enrollmentIds, useEvidence, narrative, url,
 export function denyBadge(enrollmentEntityId, denyReason) {
     const path = `${serverUrl}/lti_edu/enrollment/${enrollmentEntityId}/deny`;
     return validFetch(path, {body: JSON.stringify({denyReason})}, "PUT");
-
 }
 
 export function revokeAssertions(assertionEntityIds, revocationReason) {
     const path = `${serverUrl}/issuer/revoke-assertions`;
-    const assertions = assertionEntityIds.map(entityId => ({entity_id: entityId}));
+    const assertions = assertionEntityIds.map((entityId) => ({entity_id: entityId}));
     return validFetch(
         path,
         {body: JSON.stringify({revocation_reason: revocationReason, assertions: assertions})},
@@ -205,7 +194,7 @@ export function revokeAssertions(assertionEntityIds, revocationReason) {
 
 export function revokeDirectAwards(directAwardEntityIds, revocationReason) {
     const path = `${serverUrl}/directaward/revoke-direct-awards`;
-    const directAwards = directAwardEntityIds.map(entityId => ({entity_id: entityId}));
+    const directAwards = directAwardEntityIds.map((entityId) => ({entity_id: entityId}));
     return validFetch(
         path,
         {body: JSON.stringify({revocation_reason: revocationReason, direct_awards: directAwards})},
@@ -215,7 +204,7 @@ export function revokeDirectAwards(directAwardEntityIds, revocationReason) {
 
 export function deleteDirectAwards(directAwardEntityIds, revocationReason) {
     const path = `${serverUrl}/directaward/delete-direct-awards`;
-    const directAwards = directAwardEntityIds.map(entityId => ({entity_id: entityId}));
+    const directAwards = directAwardEntityIds.map((entityId) => ({entity_id: entityId}));
     return validFetch(
         path,
         {body: JSON.stringify({revocation_reason: revocationReason, direct_awards: directAwards})},
@@ -225,29 +214,17 @@ export function deleteDirectAwards(directAwardEntityIds, revocationReason) {
 
 export function deleteAssertion(assertionEntityId) {
     const path = `${serverUrl}/earner/badges/${assertionEntityId}`;
-    return validFetch(
-        path,
-        {body: JSON.stringify({})},
-        "DELETE"
-    );
+    return validFetch(path, {body: JSON.stringify({})}, "DELETE");
 }
 
 export function acceptAssertion(assertionEntityId) {
     const path = `${serverUrl}/earner/badges/${assertionEntityId}`;
-    return validFetch(
-        path,
-        {body: JSON.stringify({"acceptance": "Accepted"})},
-        "PUT"
-    );
+    return validFetch(path, {body: JSON.stringify({"acceptance": "Accepted"})}, "PUT");
 }
 
 export function claimAssertion(assertionEntityId) {
     const path = `${serverUrl}/earner/badges/${assertionEntityId}`;
-    return validFetch(
-        path,
-        {body: JSON.stringify({"public": false, "acceptance": "Accepted"})},
-        "PUT"
-    );
+    return validFetch(path, {body: JSON.stringify({"public": false, "acceptance": "Accepted"})}, "PUT");
 }
 
 // Institution
@@ -318,7 +295,7 @@ export function deleteEntity(entityTypeName, entityId) {
             path = `${serverUrl}/issuer/badgeclasses/delete/${entityId}`;
             break;
         default:
-            throw new Error(`Unsupported delete ${entityTypeName}`)
+            throw new Error(`Unsupported delete ${entityTypeName}`);
     }
     return validFetch(path, {}, "DELETE");
 }
@@ -342,6 +319,11 @@ export function getPublicIssuer(entityId) {
 export function validateBadge(entityId) {
     const path = `${serverUrl}/public/assertions/validate/${entityId}`;
     return validFetchNoErrorDialog(path, {}, "GET", false);
+}
+
+export function getRecipientName(identityHash, salt) {
+    const path = `${serverUrl}/public/assertions/identity/${identityHash}/${salt}`;
+    return validFetch(path, {}, "GET", false);
 }
 
 export function getValidatorInfo() {
@@ -417,7 +399,7 @@ export function makeUserIssuerGroupAwarder(facultyId, userId, notes) {
         "may_administrate_users": 0,
         "user": userId,
         "faculty": facultyId,
-        "notes": notes
+        "notes": notes,
     };
     return validFetch(path, {body: JSON.stringify(payload)}, "POST");
 }
@@ -467,7 +449,7 @@ export function makeUserIssuerAdmin(issuerId, userId, notes) {
         "may_administrate_users": 1,
         "user": userId,
         "issuer": issuerId,
-        "notes": notes
+        "notes": notes,
     };
     return validFetch(path, {body: JSON.stringify(payload)}, "POST");
 }
@@ -484,7 +466,7 @@ export function makeUserIssuerAwarder(issuerId, userId, notes) {
         "may_administrate_users": 0,
         "user": userId,
         "issuer": issuerId,
-        "notes": notes
+        "notes": notes,
     };
     return validFetch(path, {body: JSON.stringify(payload)}, "POST");
 }
@@ -506,7 +488,7 @@ export function makeUserBadgeclassOwner(badgeclassId, userId, notes) {
         "may_administrate_users": 1,
         "user": userId,
         "badgeclass": badgeclassId,
-        "notes": notes
+        "notes": notes,
     };
     return validFetch(path, {body: JSON.stringify(payload)}, "POST");
 }
@@ -523,7 +505,7 @@ export function makeUserBadgeclassEditor(badgeclassId, userId, notes) {
         "may_administrate_users": 0,
         "user": userId,
         "badgeclass": badgeclassId,
-        "notes": notes
+        "notes": notes,
     };
     return validFetch(path, {body: JSON.stringify(payload)}, "POST");
 }
@@ -540,7 +522,7 @@ export function makeUserBadgeclassAwarder(badgeclassId, userId, notes) {
         "may_administrate_users": 0,
         "user": userId,
         "badgeclass": badgeclassId,
-        "notes": notes
+        "notes": notes,
     };
     return validFetch(path, {body: JSON.stringify(payload)}, "POST");
 }
@@ -577,7 +559,6 @@ export function changeUserToIssuerGroupAwarder(issuerMembershipId) {
     };
     return validFetch(path, {body: JSON.stringify(payload)}, "PUT");
 }
-
 
 export function changeUserToIssuerOwner(issuerMembershipId) {
     const path = `${serverUrl}/staff-membership/issuer/change/${issuerMembershipId}`;
@@ -651,19 +632,19 @@ export function changeUserToBadgeclassAwarder(badgeclassMembershipId) {
 
 //Following methods all re-use the changeProvisionmentToBadgeclass${Role} as this is generic based on the provisionment ID
 export function changeProvisionmentToIssuerOwner(provisionmentId) {
-    return changeProvisionmentToBadgeclassOwner(provisionmentId)
+    return changeProvisionmentToBadgeclassOwner(provisionmentId);
 }
 
 export function changeProvisionmentToIssuerAwarder(provisionmentId) {
-    return changeProvisionmentToBadgeclassAwarder(provisionmentId)
+    return changeProvisionmentToBadgeclassAwarder(provisionmentId);
 }
 
 export function changeProvisionmentToIssuerGroupOwner(provisionmentId) {
-    return changeProvisionmentToBadgeclassOwner(provisionmentId)
+    return changeProvisionmentToBadgeclassOwner(provisionmentId);
 }
 
 export function changeProvisionmentToIssuerGroupAwarder(provisionmentId) {
-    return changeProvisionmentToBadgeclassAwarder(provisionmentId)
+    return changeProvisionmentToBadgeclassAwarder(provisionmentId);
 }
 
 export function changeProvisionmentToBadgeclassOwner(provisionmentId) {
@@ -677,7 +658,7 @@ export function changeProvisionmentToBadgeclassOwner(provisionmentId) {
             "may_sign": 1,
             "may_award": 1,
             "may_administrate_users": 1,
-        }
+        },
     };
     return validFetch(path, {body: JSON.stringify(payload)}, "PUT");
 }
@@ -693,7 +674,7 @@ export function changeProvisionmentToBadgeclassEditor(provisionmentId) {
             "may_sign": 1,
             "may_award": 1,
             "may_administrate_users": 0,
-        }
+        },
     };
     return validFetch(path, {body: JSON.stringify(payload)}, "PUT");
 }
@@ -709,7 +690,7 @@ export function changeProvisionmentToBadgeclassAwarder(provisionmentId) {
             "may_sign": 1,
             "may_award": 1,
             "may_administrate_users": 0,
-        }
+        },
     };
     return validFetch(path, {body: JSON.stringify(payload)}, "PUT");
 }
@@ -718,13 +699,13 @@ export function inviteUser(entityType, entityId, userProvisonments) {
     const path = `${serverUrl}/user/provision/create`;
     const payload = userProvisonments.map(({userEmail, permissions}) => {
         return {
-            'content_type': entityType,
-            'object_id': entityId,
-            'email': userEmail,
-            'for_teacher': true,
-            'data': permissions,
-            'type': 'Invitation'
-        }
+            "content_type": entityType,
+            "object_id": entityId,
+            "email": userEmail,
+            "for_teacher": true,
+            "data": permissions,
+            "type": "Invitation",
+        };
     });
     return validFetch(path, {body: JSON.stringify(payload)}, "POST");
 }
@@ -734,8 +715,14 @@ export function disinviteUser(provisionmentId) {
     return validFetch(path, {}, "DELETE");
 }
 
-export function createDirectAwards(directAwards, badgeclass, bulkAward, scheduled_at = null, ltiImport = false,
-                                   enableAwardOnEmail = false) {
+export function createDirectAwards(
+    directAwards,
+    badgeclass,
+    bulkAward,
+    scheduled_at = null,
+    ltiImport = false,
+    enableAwardOnEmail = false
+) {
     const path = `${serverUrl}/directaward/create`;
     const payload = {
         notify_recipients: true,
@@ -744,16 +731,18 @@ export function createDirectAwards(directAwards, badgeclass, bulkAward, schedule
         scheduled_at: scheduled_at,
         badgeclass: badgeclass.entityId,
         identifier_type: enableAwardOnEmail ? "email" : "eppn",
-        direct_awards: directAwards.map(da => ({
+        direct_awards: directAwards.map((da) => ({
             recipient_email: da.email,
+            first_name: da.first_name,
+            surname: da.surname,
             eppn: da.eppn,
             evidence_url: isEmpty(da.evidence_url) ? null : da.evidence_url,
             narrative: isEmpty(da.narrative) ? null : da.narrative,
             grade_achieved: isEmpty(da.grade_achieved) ? null : da.grade_achieved,
             name: isEmpty(da.name) ? null : da.name,
             description: isEmpty(da.description) ? null : da.description,
-        }))
-    }
+        })),
+    };
     return validFetch(path, {body: JSON.stringify(payload)}, "POST", true, false);
 }
 
@@ -772,8 +761,8 @@ export function sendFeedback(message) {
 export function insights(institutionId, countSURFInTotal) {
     const path = `${serverUrl}/insights/insight`;
     const data = {
-        lang: I18n.locale
-    }
+        lang: I18n.locale,
+    };
     if (institutionId) {
         data["institution_id"] = institutionId;
         data["include_surf"] = countSURFInTotal;
@@ -866,7 +855,7 @@ export function fetchRawNotifications() {
     return validFetchNoErrorDialog(path, {}, "GET");
 }
 
-export function fetchRawUsers(all=false) {
+export function fetchRawUsers(all = false) {
     const path = `${serverUrl}/queries/users${all ? "?all=true" : ""}`;
     return validFetchNoErrorDialog(path, {}, "GET");
 }
@@ -874,6 +863,11 @@ export function fetchRawUsers(all=false) {
 export function fetchRawCatalogBadgeClasses() {
     const path = `${serverUrl}/queries/catalog/badge-classes`;
     return validFetchNoErrorDialog(path, {}, "GET", false);
+}
+
+export function fetchDirectAwardAuditTrail() {
+    const path = `${serverUrl}/directaward/audittrail`;
+    return validFetchNoErrorDialog(path, {}, "GET");
 }
 
 //BadgeInstanceCollections
@@ -895,37 +889,6 @@ export function deleteBadgeInstanceCollection(badgeInstanceCollection) {
 export function impersonate(userId) {
     const path = `${serverUrl}/account/impersonate/${userId}`;
     return validFetch(path, {});
-}
-
-//Import assertions
-export function importedAssertions() {
-    const path = `${serverUrl}/earner/imported/assertions`;
-    return validFetch(path, {});
-}
-
-export function importAssertion(body) {
-    const path = `${serverUrl}/earner/imported/assertions`;
-    return validFetch(path, {body: JSON.stringify(body)}, "POST", true, false);
-}
-
-export function confirmImportedAssertion(body) {
-    const path = `${serverUrl}/earner/imported/assertions/edit/${body.entity_id}`;
-    return validFetch(path, {body: JSON.stringify(body)}, "PUT", true, false);
-}
-
-export function importedAssertionByEntityId(entityId) {
-    const path = `${serverUrl}/earner/imported/assertions/detail/${entityId}`;
-    return validFetch(path, {});
-}
-
-export function importedAssertionValidate(entityId) {
-    const path = `${serverUrl}/earner/imported/assertions/validate/${entityId}`;
-    return validFetch(path, {});
-}
-
-export function deleteImportedAssertion(entityId) {
-    const path = `${serverUrl}/earner/imported/assertions/delete/${entityId}`;
-    return validFetch(path, {}, "DELETE", true);
 }
 
 //LTI

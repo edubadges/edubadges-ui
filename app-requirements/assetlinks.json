@@ -1,0 +1,15 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "nl.surf.edubadges",
+      "sha256_cert_fingerprints": [
+        "3F:33:6F:50:AA:2F:47:D1:A8:75:56:C5:85:8B:DE:9E:1B:29:C0:3F:8A:2F:2E:88:DD:13:3F:BB:A5:C9:DA:C9",
+        "77:0B:37:AF:8E:ED:7D:02:1D:70:25:DF:CC:E4:0B:01:DE:04:02:E5:64:0F:A8:6E:E8:51:BA:E3:6C:89:34:87"
+      ]
+    }
+  }
+]
