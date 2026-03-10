@@ -77,6 +77,7 @@ I18n.translations.nl = {
         },
     },
     searchPlaceholder: "Zoek...",
+    navigateBack: "Ga terug",
     authError: {
         title: "Sorry, je hebt geen toegang",
         adminEmail:
