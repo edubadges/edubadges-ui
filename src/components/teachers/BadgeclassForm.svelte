@@ -73,6 +73,7 @@
     // Toggle's for MicroCredentials
     let showStudyLoad = false;
     let isInstitutionMBO = false;
+    let isInstitutionWO = false;
     let isMicroCredential = false;
     let showAddAlignmentButton = true;
     let participationOptions = [];
@@ -105,6 +106,7 @@
         } else {
             isInstitutionMBO = institution.institutionType === "MBO";
         }
+        isInstitutionWO = institution.institutionType === "WO";
         isMicroCredential = badgeclass.badgeClassType === badgeClassTypes.MICRO_CREDENTIAL;
         const studyLoadValue = extensionValue(badgeclass.extensions, studyLoad);
         const ectsValue = extensionValue(badgeclass.extensions, ects);
@@ -917,6 +919,7 @@
                                 isMicroCredentials={true}
                                 bind:ectsValue={extensions[ects.name]}
                                 disabled={!mayEdit && !isCopy}
+                                isInstitutionWO={isInstitutionWO}
                         />
                         <a href="/#"
                            class="info"
@@ -935,6 +938,7 @@
                             isMicroCredentials={false}
                             bind:ectsValue={extensions[ects.name]}
                             disabled={!mayEdit && !isCopy}
+                            isInstitutionWO={isInstitutionWO}
                     />
                 </Field>
             {:else}

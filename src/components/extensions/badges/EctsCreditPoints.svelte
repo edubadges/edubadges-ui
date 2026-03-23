@@ -7,12 +7,13 @@
     export let ectsValue;
     export let disabled = false;
     export let isMicroCredentials = false;
+    export let isInstitutionWO = false;
 
     let minValue = 0;
     let maxValue = 0;
 
     onMount(() => {
-        minValue = isMicroCredentials ? 3 : 0.5;
+        minValue = isMicroCredentials ? (isInstitutionWO ? 1 : 3) : 0.5;
         maxValue = isMicroCredentials ? 30 : 240;
     })
 
@@ -33,8 +34,8 @@
 
     const onBlur = e => {
         const val = parseFloat(e.target.value, 10);
-        const validDecimal = val % 1 ;
-        if (val < minValue || val > maxValue || (validDecimal !== 0 && validDecimal !== 0.5)  ) {
+        const validDecimal = val % 1;
+        if (val < minValue || val > maxValue || (validDecimal !== 0 && validDecimal !== 0.5)) {
             ectsValue = minValue;
         }
     }
@@ -122,4 +123,5 @@
            on:change={onInput}/>
     <span class="control" on:click={increment}>{@html arrowUp}</span>
 </div>
-<p class="info">{@html I18n.t(`models.badgeclass.info.${isMicroCredentials ? "ectsMicroCredentials" : "ects"}`)}</p>
+<p class="info">{@html I18n.t(`models.badgeclass.info.${isMicroCredentials ? "ectsMicroCredentials" : "ects"}`,
+    {ectsMinimal: minValue})}</p>
