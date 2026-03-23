@@ -34,8 +34,8 @@
 
     const onBlur = e => {
         const val = parseFloat(e.target.value, 10);
-        const validDecimal = val % 1 ;
-        if (val < minValue || val > maxValue || (validDecimal !== 0 && validDecimal !== 0.5)  ) {
+        const validDecimal = val % 1;
+        if (val < minValue || val > maxValue || (validDecimal !== 0 && validDecimal !== 0.5)) {
             ectsValue = minValue;
         }
     }
@@ -124,4 +124,4 @@
     <span class="control" on:click={increment}>{@html arrowUp}</span>
 </div>
 <p class="info">{@html I18n.t(`models.badgeclass.info.${isMicroCredentials ? "ectsMicroCredentials" : "ects"}`,
-                    {ectsMinimal: minValue})}</p>
+    {ectsMinimal: minValue})}</p>
