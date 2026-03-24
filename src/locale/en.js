@@ -1001,7 +1001,7 @@ I18n.translations.en = {
             reject: "Reject",
             claim: "Claim & Add to your backpack",
             confirmation: {
-                claim: "After this edubadge is claimed, it will be added to your backpack and you can make the edubadge public and share it.",
+                claim: "After this edubadge is claimed, it will be added to your backpack and you can make the edubadge public and share it. <br><br> Please note: This is the name that will be visible in the edubadge: <strong>{{val}}</strong>. If this is not correct, please contact the institution.",
                 reject: "Are you absolutely sure you want to reject this edubadge? This edubadge will be deleted after rejection and this action cannot be undone.",
             },
             flash: {

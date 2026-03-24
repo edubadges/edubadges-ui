@@ -56,6 +56,8 @@
       entityId,
       createdAt,
       status,
+      recipientFirstName,
+      recipientSurname,
       badgeclass {
         name,
         description,
@@ -164,7 +166,7 @@
         }
         if (showConfirmation) {
             modalTitle = I18n.t("models.badgeAward.claim");
-            modalQuestion = I18n.t("models.badgeAward.confirmation.claim");
+            modalQuestion = I18n.t("models.badgeAward.confirmation.claim", {val: `${directAward.recipientFirstName} ${directAward.recipientSurname}`});
             modalAction = () => claimDirectAward(false);
             warning = false;
             showModal = true;
