@@ -1001,7 +1001,7 @@ I18n.translations.nl = {
             reject: "Weigeren",
             claim: "Claim en voeg toe aan je backpack",
             confirmation: {
-                claim: "Nadat deze edubadge is geclaimd, wordt deze toegevoegd aan je backpack en kan je de edubadge openbaar maken en delen.",
+                claim: "Nadat deze edubadge is geclaimd, wordt deze toegevoegd aan je backpack en kan je de edubadge openbaar maken en delen. <br><br> Let op: dit is de naam die in de edubadge komt te staan: <strong>{{val}}</strong>. Als dit niet klopt, neem contact op met de instelling.",
                 reject: "Weet u absoluut zeker dat u deze edubadge wilt afwijzen? Deze edubadge wordt na afwijzing verwijderd en deze actie kan niet ongedaan worden gemaakt.",
             },
             flash: {
