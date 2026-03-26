@@ -19,23 +19,24 @@
     let done = false;
 
     const validations = [
+        {key: "issuedTo", val: displayUserName(recipientName)},
         {key: "issuedOn", val: formatDate(badge.issuedOn)},
         {key: "institution", val: badge.issuer.faculty ? badge.issuer.faculty.institution.name : "-"},
         {key: "faculty", val: badge.issuer.faculty ? badge.issuer.faculty.name : "-"},
         {key: "issuedBy", val: badge.issuer.name},
         {key: "issuedUsing", val: "edubadges"},
-        {key: "issuedTo", val: displayUserName(recipientName)},
+        ...(badge.expires ? [{
+        key: "expiresOn",
+        val: formatDate(badge.expires),
+        invalid: new Date(badge.expires) < new Date()
+        }] : []),
         {
-            key: "claimedBy",
-            val: validatedName ? displayUserName(validatedName) : `${displayUserName(badge.user)} (${I18n.t("publicBadge.validations.noValidatedName")})`,
-            invalid: !validatedName
+            key: "holderName",
+            val: validatedName ? displayUserName(validatedName) : `${displayUserName(badge.user)}`,
         },
-        {key: "claimedOn", val: formatDate(badge.updatedAt)},
         {
-            key: "expiresOn", val: badge.expires ? formatDate(badge.expires) : I18n.t("publicBadge.validations.never"),
-            invalid: badge.expires && new Date(badge.expires) < new Date()
-        },
-        {key: "verified", val: "", last: true}
+            key: "holderNameVerification",
+            val: validatedName ? I18n.t("publicBadge.validations.holderNameValidated") : I18n.t("publicBadge.validations.holderNameNotValidated"), last:true}
     ].map(item => ({
         key: item.key,
         last: item.last,
@@ -156,8 +157,9 @@
                         <div class="spinner-container">
                             <DotSpinner/>
                         </div>
-                    {:else if validation.last && done && (!validationResult.valid || !validatedName)}
-                        {@html closeIcon}
+                    {:else if validation.last && done}
+                        <div class="spinner-container">
+                        </div>
                     {:else if validation.invalid}
                         {@html closeIcon}
                     {:else}
