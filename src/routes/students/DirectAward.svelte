@@ -43,6 +43,7 @@
     const query = `query ($entityId: String) {
     currentUser {
       validatedName,
+      fullName,
       schacHomes,
       termsAgreements {
         terms {
@@ -165,8 +166,18 @@
             return;
         }
         if (showConfirmation) {
+            const getDisplayName = () => {
+                if (directAward.recipientFirstName && directAward.recipientSurname) {
+                    return `${directAward.recipientFirstName} ${directAward.recipientSurname}`
+                } else if (currentUser.validatedName) {
+                    return currentUser.validatedName
+                } else {
+                    return currentUser.fullName
+                }
+
+            }
             modalTitle = I18n.t("models.badgeAward.claim");
-            modalQuestion = I18n.t("models.badgeAward.confirmation.claim", {val: `${directAward.recipientFirstName} ${directAward.recipientSurname}`});
+            modalQuestion = I18n.t("models.badgeAward.confirmation.claim", {val: getDisplayName()});
             modalAction = () => claimDirectAward(false);
             warning = false;
             showModal = true;
