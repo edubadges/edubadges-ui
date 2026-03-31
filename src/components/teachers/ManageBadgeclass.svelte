@@ -104,6 +104,8 @@
             entityId,
             nameEnglish,
             nameDutch,
+            imageDutch,
+            imageEnglish,
             ltiEnabled,
             sisIntegrationEnabled
           }

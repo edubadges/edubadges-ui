@@ -5,7 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [8.4] - 2026-01-04
+## [8.4.1] - 2026-02-04
+
+Backend: https://github.com/edubadges/edubadges-server/compare/v8.4...v8.4.1</br>
+Frontend: https://github.com/edubadges/edubadges-ui/compare/v.8.4...v8.4.1
+
+-   Merge pull request #188 from edubadges/feature/add-route-for-public-catalog-badgeclass-page-for-deeplinking-with-mobile-app
+-   Add extra route for catalog badgeclass page
+-   Added app-requirements
+-   Added changelog for release 8.4
+-   Update CHANGELOG for release 8.3.3
+-   Small changes related to Microcredentials
+-   Formatter
+
+## [8.4] - 2026-01-14
 
 Backend: https://github.com/edubadges/edubadges-server/compare/v8.3.3...v8.4</br>
 Frontend: https://github.com/edubadges/edubadges-ui/compare/v.8.3.3...v8.4

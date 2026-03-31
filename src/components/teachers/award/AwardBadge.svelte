@@ -62,6 +62,8 @@
                     return (badgeclass.evidenceRequired || badgeclass.narrativeRequired || badgeclass.gradeAchievedRequired) ?
                         {
                             email: user.email,
+                            first_name: "",
+                            surname: "",
                             eppn: user.lis_person_sourcedid,
                             narrative: "",
                             grade_achieved: "",
@@ -76,6 +78,8 @@
         } else {
             directAwards = [{
                 email: "",
+                first_name: "",
+                surname: "",
                 eppn: "",
                 narrative: "",
                 evidence_url: "",
@@ -91,6 +95,8 @@
     const addDirectAward = () => {
         const newDa = {
             email: "",
+            first_name: "",
+            surname: "",
             eppn: "",
             narrative: "",
             evidence_url: "",
@@ -110,6 +116,14 @@
             //Remove eppn
             directAwards = directAwards.map(da => {
                 delete da.eppn;
+                return da;
+            })
+            invariant(directAwards, false)
+        } else {
+            //Remove first name and surname
+            directAwards = directAwards.map(da => {
+                delete da.first_name;
+                delete da.surname
                 return da;
             })
             invariant(directAwards, false)
@@ -164,6 +178,18 @@
             }
     }
 
+    const firstNameOnBlur = i => e => {
+        const val = e.target.value;
+        const isValid = enableAwardOnEmail ? !isEmpty(val) : true;
+        errors = {...errors, [`first_name_${i}`]: !isValid};
+    }
+
+    const surnameOnBlur = i => e => {
+        const val = e.target.value;
+        const isValid = enableAwardOnEmail ? !isEmpty(val) : true;
+        errors = {...errors, [`surname_${i}`]: !isValid};
+    }
+
     const eppnOnBlur = i => e => {
         const val = e.target.value;
         const isValid = (beforeCommit && isEmpty(val)) || validEppn(val, badgeclass);
@@ -200,9 +226,14 @@
         const newErrors = newDirectAwards.reduce((acc, da, i) => {
             if (!enableAwardOnEmail) {
                 acc[`eppn_${i}`] = da.eppn.trim().length === 0 || !validEppn(da.eppn, badgeclass);
+                acc[`first_name_${i}`] = false;
+                acc[`surname_${i}`] = false;
             } else {
                 acc[`eppn_${i}`] = false;
+                acc[`first_name_${i}`] = failOnEmpty && isEmpty(da.first_name);
+                acc[`surname_${i}`] = failOnEmpty && isEmpty(da.surname);
             }
+
             acc[`email_${i}`] = !validEmail(da.email) && (failOnEmpty && isEmpty(da.email));
             acc[`evidence_${i}`] = badgeclass.evidenceRequired && !da.evidence_url;
             acc[`narrative_${i}`] = badgeclass.narrativeRequired && !da.narrative;
@@ -496,6 +527,28 @@
                             {#if errorsAlreadyAwarded[`eppn_${i}`]}
                                 <Error standAlone={true}
                                        error_code={(existingDirectAwardsEppns.find(ex => ex.eppn === da.eppn) || {}).isAssertion ? 943 : 931}/>
+                            {/if}
+                        </Field>
+                    {/if}
+                    {#if enableAwardOnEmail}
+                        <Field entity="badgeAward" attribute="first_name" relative={true}>
+                            <TextInput bind:value={da.first_name}
+                                       error={errors[`first_name_${i}`]}
+                                       onBlur={firstNameOnBlur(i)}/>
+                            {#if errors[`first_name_${i}`]}
+                                {#if isEmpty(da.first_name)}
+                                    <Error standAlone={true} error_code={948}/>
+                                {/if}
+                            {/if}
+                        </Field>
+                        <Field entity="badgeAward" attribute="surname" relative={true}>
+                            <TextInput bind:value={da.surname}
+                                       error={errors[`surname_${i}`]}
+                                       onBlur={surnameOnBlur(i)}/>
+                            {#if errors[`surname_${i}`]}
+                                {#if isEmpty(da.surname)}
+                                    <Error standAlone={true} error_code={949}/>
+                                {/if}
                             {/if}
                         </Field>
                     {/if}

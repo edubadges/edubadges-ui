@@ -4,9 +4,10 @@
     import {formatDate} from "../../util/utils";
     import {Button} from "../../components";
     import ValidationSpinners from "./ValidationSpinners.svelte";
-    import {validatedUserName} from "../../util/users";
+    import {displayUserName} from "../../util/users";
 
     export let validatedName;
+    export let recipientName;
     export let badge;
 
     let fetchingValidation = false;
@@ -15,6 +16,8 @@
     const validate = () => {
         fetchingValidation = true;
     }
+
+    const displayName = recipientName || validatedName || badge.user
 
 </script>
 
@@ -47,13 +50,13 @@
         <div class="info">
             {#if validatedName}
                 <p>{@html I18n.t("publicBadge.issuedTo", {
-                    name: validatedUserName(validatedName),
-                    date: formatDate(badge.issuedOn)
+                    name: displayUserName(displayName),
+                    date: formatDate(badge.issuedOn),
                 })}</p>
             {:else}
                 <p>{@html I18n.t("publicBadge.noValidatedName", {
+                    name: displayUserName(displayName),
                     date: formatDate(badge.issuedOn),
-                    name: badge.user
                 })}</p>
             {/if}
             {#if badge.expires && new Date(badge.expires) < new Date()}
@@ -72,6 +75,6 @@
 {#if fetchingValidation}
     <ValidationSpinners badge={badge}
                         validatedName={validatedName}
+                        recipientName={recipientName}
                         close={() => fetchingValidation = false}/>
 {/if}
-

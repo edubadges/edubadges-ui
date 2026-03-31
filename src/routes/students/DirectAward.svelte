@@ -27,7 +27,6 @@
 
     let showAcceptTerms = false;
     let termsAccepted = false;
-    let noValidatedName = false;
 
     //Modal
     let showModal = false;
@@ -44,6 +43,7 @@
     const query = `query ($entityId: String) {
     currentUser {
       validatedName,
+      fullName,
       schacHomes,
       termsAgreements {
         terms {
@@ -57,6 +57,8 @@
       entityId,
       createdAt,
       status,
+      recipientFirstName,
+      recipientSurname,
       badgeclass {
         name,
         description,
@@ -159,17 +161,23 @@
     }
 
     const claimDirectAward = showConfirmation => {
-        if (isEmpty(currentUser.validatedName)) {
-            noValidatedName = true;
-            return;
-        }
         if (!termsAccepted) {
             showAcceptTerms = true;
             return;
         }
         if (showConfirmation) {
+            const getDisplayName = () => {
+                if (directAward.recipientFirstName && directAward.recipientSurname) {
+                    return `${directAward.recipientFirstName} ${directAward.recipientSurname}`
+                } else if (currentUser.validatedName) {
+                    return currentUser.validatedName
+                } else {
+                    return currentUser.fullName
+                }
+
+            }
             modalTitle = I18n.t("models.badgeAward.claim");
-            modalQuestion = I18n.t("models.badgeAward.confirmation.claim");
+            modalQuestion = I18n.t("models.badgeAward.confirmation.claim", {val: getDisplayName()});
             modalAction = () => claimDirectAward(false);
             warning = false;
             showModal = true;
@@ -189,18 +197,6 @@
             claimDirectAward(true);
         });
     };
-
-
-    const logInForceAuthn = () => {
-        $userLoggedIn = "";
-        $userRole = "";
-        $authToken = "";
-        $validatedUserName = "";
-        $redirectPath = window.location.pathname;
-        window.location.href = config.eduId;
-    };
-
-
 </script>
 
 <style lang="scss">
@@ -331,16 +327,6 @@
     {/if}
 {:else}
     <Spinner/>
-{/if}
-
-{#if noValidatedName}
-    <Modal
-            submit={logInForceAuthn}
-            title={I18n.t("acceptTerms.noValidatedNameTitle")}
-            question={I18n.t("acceptTerms.noValidatedName")}
-            evaluateQuestion={true}
-            cancel={() => noValidatedName = false}
-            submitLabel={I18n.t("acceptTerms.goToSurfConext")}/>
 {/if}
 
 {#if showAcceptTerms}

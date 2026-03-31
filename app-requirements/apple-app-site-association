@@ -4,8 +4,8 @@
       "details": [
           {
               "appID": "ZYJ4TZX4UU.nl.surf.edubadges",
-              "paths": [
-                  "*"
+              "paths": [ 
+                "*/public/catalog/*"
               ]
           }
       ]
