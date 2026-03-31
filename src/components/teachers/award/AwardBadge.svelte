@@ -119,6 +119,14 @@
                 return da;
             })
             invariant(directAwards, false)
+        } else {
+            //Remove first name and surname
+            directAwards = directAwards.map(da => {
+                delete da.first_name;
+                delete da.surname
+                return da;
+            })
+            invariant(directAwards, false)
         }
     }
 
