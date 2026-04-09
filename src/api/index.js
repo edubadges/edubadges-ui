@@ -192,16 +192,6 @@ export function revokeAssertions(assertionEntityIds, revocationReason) {
     );
 }
 
-export function revokeDirectAwards(directAwardEntityIds, revocationReason) {
-    const path = `${serverUrl}/directaward/revoke-direct-awards`;
-    const directAwards = directAwardEntityIds.map((entityId) => ({entity_id: entityId}));
-    return validFetch(
-        path,
-        {body: JSON.stringify({revocation_reason: revocationReason, direct_awards: directAwards})},
-        "POST"
-    );
-}
-
 export function deleteDirectAwards(directAwardEntityIds, revocationReason) {
     const path = `${serverUrl}/directaward/delete-direct-awards`;
     const directAwards = directAwardEntityIds.map((entityId) => ({entity_id: entityId}));
