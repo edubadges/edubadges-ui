@@ -40,7 +40,6 @@
     import Insights from "./routes/teachers/Insights.svelte";
     import CollectionForm from "./components/students/CollectionForm.svelte";
     import PublicCollectionPage from "./routes/students/PublicCollectionPage.svelte";
-    import BadgeImported from "./routes/students/BadgeImported.svelte";
     import LTI from "./components/teachers/lti/LTI.svelte";
     import LTILaunch from "./components/teachers/lti/LTILaunch.svelte";
     import {constructUserName} from "./util/users";
@@ -51,6 +50,7 @@
     import {translatePropertiesRawQueries} from "./util/utils";
     import ImpersonateNew from "./routes/teachers/ImpersonateNew.svelte";
     import NotificationsNew from "./components/teachers/NotificationsNew.svelte";
+    import DirectAwardAuditTrail from "./routes/teachers/DirectAwardAuditTrail.svelte";
     import PublicMarkdownPage from "./routes/PublicMarkdownPage.svelte";
 
 
@@ -187,9 +187,6 @@
                     <Route path="/details/:entityId/" let:params>
                         <BadgeDetails entityId={params.entityId}/>
                     </Route>
-                    <Route path="/import/:entityId/" let:params>
-                        <BadgeImported entityId={params.entityId}/>
-                    </Route>
                     <Route path="/direct-award/:entityId/" let:params>
                         <DirectAward entityId={params.entityId}/>
                     </Route>
@@ -207,6 +204,7 @@
                     </Route>
                     <Route path="/permissions/:entity" component={TeacherPermissions}/>
                     <Route path="/impersonate" component={ImpersonateNew}/>
+                    <Route path="/directaward-audittrail" component={DirectAwardAuditTrail}/>
                     <Route path="/management-queries" component={ManagementQueries}/>
                     <Route path="/insights" component={Insights}/>
                     <Route path="/launch/lti" component={LTILaunch}/>

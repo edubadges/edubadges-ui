@@ -26,8 +26,6 @@
             navigate(`/direct-award/${badge.entityId}`);
         } else if (badgeClass && isPublic) {
             navigate(`/public/${badgeClass.entityId}`);
-        } else if (badge && badge.importedBadge) {
-            navigate(`/import/${badge.entity_id}`);
         } else if (!standAlone) {
             navigate(badge ? `/details/${badge.entityId}` : `/badgeclass/${badgeClass.entityId}`);
         }

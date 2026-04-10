@@ -41,6 +41,7 @@ I18n.translations.en = {
           },
         },
         impersonate: "Impersonate",
+        daaudittrail: "DA audit trail",
         queries: "Management queries",
         clearImpersonation: "Clear impersonation",
         nav: {
@@ -63,32 +64,27 @@ I18n.translations.en = {
             "<strong>Attention!</strong> You can only request this edubadge if your institution is registered with edubadges.",
         selfEnrollmentDisabled: "This edubadge can not be requested",
         login: "Login",
-        loginAllowedWithoutValidatedName:
-            "You can request this edubadge as an eduID guest user.",
-        badgeClassArchived:
-            "This edubadge has been archived and can no longer be requested.",
+        loginAllowedWithoutValidatedName: "You can request this edubadge as an eduID guest user.",
+        badgeClassArchived: "This edubadge has been archived and can no longer be requested.",
         destination: "What would you like to do?",
         description:
             "Edubadges are digital certificates which show that the owner has acquired certain skills or knowledge. Edubadges can be issued for both accredited education and extracurriculair activities.",
         student: {
             title: "<strong style='font-size: 38px'>C</strong>ollect",
             subtitle: "A backpack is the place to receive and collect edubadges.",
-            noEduId:
-                "An eduID is needed to create and use your backpack. Creating an eduID takes less than 30 seconds",
+            noEduId: "An eduID is needed to create and use your backpack. Creating an eduID takes less than 30 seconds",
             action: "Open your backpack",
         },
         catalog: {
             title: "<strong style='font-size: 38px'>B</strong>rowse",
-            subtitle:
-                "At this moment {{badgeInstancesCount}} edubadges have been awarded by the institutions.",
+            subtitle: "At this moment {{badgeInstancesCount}} edubadges have been awarded by the institutions.",
             info: "The catalog shows all the badge classes of all institutions using edubadges.",
             beta: "{{badgeClassesCount}} Badge Classes",
             action: "Open the catalog",
         },
         teacher: {
             title: "<strong style='font-size: 38px'>A</strong>ward",
-            subtitle:
-                "Award your students with edubadges, the microcredentials of the future.",
+            subtitle: "Award your students with edubadges, the microcredentials of the future.",
             action: "Open the issuer portal",
             accountCreation: {
                 askAccount:
@@ -125,43 +121,33 @@ I18n.translations.en = {
         makePrimary: "Make primary",
         memberSince: "Member since",
         memberSinceDate: "{{date}} at {{hours}}:{{minutes}}",
-        makePrimaryConfirmation:
-            "Are you sure you want to make this email your primary email address?",
+        makePrimaryConfirmation: "Are you sure you want to make this email your primary email address?",
         addEmail: "Add e-mail",
-        addEmailInfo:
-            "You will receive an email with a link to verify your new email address",
+        addEmailInfo: "You will receive an email with a link to verify your new email address",
         unverified: "unverified",
         validatedByYourInstitution: "Provided by your institution",
         validatedByEduId: "Provided by eduID",
         permissionsHeader: "Your given statement(s) of agreement",
-        permissionsInfo:
-            "You can withdraw any statement of agreement you have given.",
-        noPermissions:
-            "You currently have not given a statement of agreement to any institution.",
-        consentWithdrawn:
-            "Statement of agreement withdrawn for institution {{institution}}",
+        permissionsInfo: "You can withdraw any statement of agreement you have given.",
+        noPermissions: "You currently have not given a statement of agreement to any institution.",
+        consentWithdrawn: "Statement of agreement withdrawn for institution {{institution}}",
         deleteHeader: "Deleting your edubadges account",
         deleteInfo1: "You can delete your account whenever you want.",
-        deleteInfo2:
-            "Proceed with care, as it would be no longer possible to validate all your edubadges.",
-        deleteInfo3:
-            "Please note that deleting your edubadges account does not mean you delete your eduID.",
+        deleteInfo2: "Proceed with care, as it would be no longer possible to validate all your edubadges.",
+        deleteInfo3: "Please note that deleting your edubadges account does not mean you delete your eduID.",
         deleteInfo4:
             "To fully complete the process of deleting your edubadges account you must close your browser after your account has been removed.",
         submit: "Add",
         deleteEmail: "Delete this email address",
-        deleteEmailConfirmation:
-            "Are you sure you want to delete this email address?",
+        deleteEmailConfirmation: "Are you sure you want to delete this email address?",
         delete: "Delete",
         account: "Account",
         eduid: "#eduid",
-        accountInfo:
-            "If you remove your account all your edubadges will become invalid.",
+        accountInfo: "If you remove your account all your edubadges will become invalid.",
         deleteAccount: "Delete your backpack",
         deleteAccountConfirmation: "Are you sure you want to delete your backpack?",
         withdrawPermission: "Withdraw your statements",
-        withdrawPermissionConfirmation:
-            "Are you sure you want to withdraw your statement of agreement for {{name}}?",
+        withdrawPermissionConfirmation: "Are you sure you want to withdraw your statement of agreement for {{name}}?",
     },
     modal: {
         cancel: "Cancel",
@@ -259,10 +245,8 @@ I18n.translations.en = {
         withdraw: "Withdraw request",
         flash: {
             enrolled: "Successfully requested edubadge {{name}}.",
-            deleted:
-                "This edubadge has been removed. You can no longer download or share this edubadge",
-            accepted:
-                "This edubadge has been accepted. You can share this edubadge now",
+            deleted: "This edubadge has been removed. You can no longer download or share this edubadge",
+            accepted: "This edubadge has been accepted. You can share this edubadge now",
             claimed: "Successfully claimed this edubadge.",
             withdrawn: "Request withdrawn.",
         },
@@ -276,8 +260,7 @@ I18n.translations.en = {
         badgeExpired:
             "This edubadge has been expired. You can see the details, but this edubadge can no longer be shared",
         revoked: "This edubadge has been revoked",
-        revokedWithReason:
-            "This edubadge has been revoked by the issuer for the reason: '{{revocationReason}}'",
+        revokedWithReason: "This edubadge has been revoked by the issuer for the reason: '{{revocationReason}}'",
         collections: {
             title: "Add to collection",
             question: "Select a collection to add this edubadge to",
@@ -292,8 +275,7 @@ I18n.translations.en = {
             loading: "Validating edubadge...",
             valid: "Valid edubadge",
             invalid: "Invalid edubadge",
-            validatedName:
-                "Validated name of the edubadge recipient: <strong>{{name}}</strong>",
+            validatedName: "Validated name of the edubadge recipient: <strong>{{name}}</strong>",
         },
     },
     badgeRequests: {
@@ -329,7 +311,7 @@ I18n.translations.en = {
         },
         edit: {
             edit: "edit",
-            institution: "Edit educational institution",
+            institution: "Educational institution details",
             faculty: "Edit issuer group",
             issuer: "Edit issuer",
             badgeclass: "Edit badge class",
@@ -344,10 +326,8 @@ I18n.translations.en = {
             delete: "Delete",
             info: {
                 assertionsBlock: {
-                    faculty:
-                        "Issuer group contains edubadges that haven't been revoked and can't be deleted",
-                    issuer:
-                        "Issuer contains edubadges that haven't been revoked. Therefore the issuer can't be deleted.",
+                    faculty: "Issuer group contains edubadges that haven't been revoked and can't be deleted",
+                    issuer: "Issuer contains edubadges that haven't been revoked. Therefore the issuer can't be deleted.",
                     badgeclass:
                         "Edubadges belonging to this badge class have already been awarded. Therefore the badge class can’t be deleted.",
                 },
@@ -386,10 +366,8 @@ I18n.translations.en = {
             archive: "Archive",
             info: {
                 assertionsBlock: {
-                    faculty:
-                        "Issuer group is archived and contains edubadges, and therefore can't be deleted",
-                    issuer:
-                        "Issuer is archived and contains edubadges, and therefore can't be deleted.",
+                    faculty: "Issuer group is archived and contains edubadges, and therefore can't be deleted",
+                    issuer: "Issuer is archived and contains edubadges, and therefore can't be deleted.",
                     badgeclass:
                         "Edubadges belonging to this badge class have already been awarded. Therefore the badge class can’t be deleted.",
                 },
@@ -535,7 +513,8 @@ I18n.translations.en = {
         945: "The type of institution is required.",
         946: "Type of visibility is required for SURF institutions.",
         947: "An English or Dutch image is required when issued on behalf of other organisation.",
-
+        948: "First name is required.",
+        949: "Surname is required.",
         unexpected: "Unexpected error occurred.",
         description:
             "An unexpected error has occurred. Please try again later or contact support@edubadges.nl for support.",
@@ -579,34 +558,21 @@ I18n.translations.en = {
             viewer: "Viewer",
         },
         flash: {
-            makeUserInstitutionAdmin:
-                "{{name}} has been granted institution admin rights",
-            removeUserInstitutionAdmin:
-                "Institution admin rights have been removed from {{name}}",
-            makeUserIssuerGroupAdmin:
-                "{{name}} has been granted issuer group admin rights",
-            makeUserIssuerGroupAwarder:
-                "{{name}} has been granted issuer group awarder rights",
-            removeUserIssuerGroupAdmin:
-                "Issuer group admin rights have been removed from {{name}}",
+            makeUserInstitutionAdmin: "{{name}} has been granted institution admin rights",
+            removeUserInstitutionAdmin: "Institution admin rights have been removed from {{name}}",
+            makeUserIssuerGroupAdmin: "{{name}} has been granted issuer group admin rights",
+            makeUserIssuerGroupAwarder: "{{name}} has been granted issuer group awarder rights",
+            removeUserIssuerGroupAdmin: "Issuer group admin rights have been removed from {{name}}",
             makeUserIssuerAdmin: "{{name}} has been granted issuer admin rights",
             makeUserIssuerAwarder: "{{name}} has been granted issuer awarder rights",
-            removeUserIssuerAdmin:
-                "Issuer admin rights have been removed from {{name}}",
-            makeUserBadgeClassAdmin:
-                "{{name}} has been granted badge class admin rights",
-            removeUserBadgeClassAdmin:
-                "Badge class admin rights have been removed from {{name}}",
-            makeUserBadgeClassEditor:
-                "{{name}} has been granted badge class editor rights",
-            removeUserBadgeClassEditor:
-                "Badge class editor rights have been removed from {{name}}",
-            makeUserBadgeClassAwarder:
-                "{{name}} has been granted badge class awarder rights",
-            removeUserBadgeClassAwarder:
-                "Badge class awarder rights have been removed from {{name}}",
-            removeUserBadgeClassRole:
-                "Badge class rights have been removed from {{name}}",
+            removeUserIssuerAdmin: "Issuer admin rights have been removed from {{name}}",
+            makeUserBadgeClassAdmin: "{{name}} has been granted badge class admin rights",
+            removeUserBadgeClassAdmin: "Badge class admin rights have been removed from {{name}}",
+            makeUserBadgeClassEditor: "{{name}} has been granted badge class editor rights",
+            removeUserBadgeClassEditor: "Badge class editor rights have been removed from {{name}}",
+            makeUserBadgeClassAwarder: "{{name}} has been granted badge class awarder rights",
+            removeUserBadgeClassAwarder: "Badge class awarder rights have been removed from {{name}}",
+            removeUserBadgeClassRole: "Badge class rights have been removed from {{name}}",
             invite: "Successfully removed invite.",
             removed: "Successfully removed rights",
         },
@@ -617,20 +583,16 @@ I18n.translations.en = {
             noRights: "No rights",
             permissions: "Permissions on institution level",
             makeUserInstitutionAdmin: "Grant user {{name}} institution admin rights",
-            makeUserInstitutionAdminQuestion:
-                "Are you sure you want to promote {{name}} to institution admin?",
-            removeUserInstitutionAdmin:
-                "Remove user institution admin rights from {{name}}",
+            makeUserInstitutionAdminQuestion: "Are you sure you want to promote {{name}} to institution admin?",
+            removeUserInstitutionAdmin: "Remove user institution admin rights from {{name}}",
             removeUserInstitutionAdminQuestion:
                 "Are you sure you want to remove the institution admin rights from {{name}}?",
         },
         faculty: {
             admin: "Issuer group admin",
             awarder: "Issuer group awarder",
-            switchToOwner:
-                "Successfully changed user permissions to issuer group admin role.",
-            switchToAwarder:
-                "Successfully changed user permissions to issuer group awarder role.",
+            switchToOwner: "Successfully changed user permissions to issuer group admin role.",
+            switchToAwarder: "Successfully changed user permissions to issuer group awarder role.",
             header: "Issuer group",
             allRights: "Issuer group admin",
             permissions: "Permissions on issuer group level",
@@ -638,10 +600,8 @@ I18n.translations.en = {
         issuer: {
             admin: "Issuer admin",
             awarder: "Issuer awarder",
-            switchToOwner:
-                "Successfully changed user permissions to issuer admin role.",
-            switchToAwarder:
-                "Successfully changed user permissions to issuer awarder role.",
+            switchToOwner: "Successfully changed user permissions to issuer admin role.",
+            switchToAwarder: "Successfully changed user permissions to issuer awarder role.",
             header: "Issuer",
             allRights: "Issuer admin",
             permissions: "Permissions on issuer level",
@@ -656,12 +616,9 @@ I18n.translations.en = {
             owner: "Admin",
             editor: "Editor",
             awarder: "Awarder",
-            switchToOwner:
-                "Successfully changed user permissions to badge class admin role.",
-            switchToEditor:
-                "Successfully changed user permissions to badge class editor role.",
-            switchToAwarder:
-                "Successfully changed user permissions to badge class awarder role.",
+            switchToOwner: "Successfully changed user permissions to badge class admin role.",
+            switchToEditor: "Successfully changed user permissions to badge class editor role.",
+            switchToAwarder: "Successfully changed user permissions to badge class awarder role.",
             permissions: "Permissions on badge class level",
         },
         permissions: {
@@ -678,10 +635,8 @@ I18n.translations.en = {
             badgeClassAwarderRights: "(Because of status as badge awarder)",
             addPermissions: "Add permissions",
             remove: {
-                institution:
-                    "Are you sure you want to remove institution admin permission?",
-                faculty:
-                    "Are you sure you want to remove this issuer group admin permission?",
+                institution: "Are you sure you want to remove institution admin permission?",
+                faculty: "Are you sure you want to remove this issuer group admin permission?",
                 issuer: "Are you sure you want to remove this issuer admin permission?",
                 badgeclass: "Are you sure you want to remove this role?",
             },
@@ -752,15 +707,13 @@ I18n.translations.en = {
             },
             archive: {
                 confirmation: "Issuer group archive",
-                confirmationQuestion:
-                    "Are you sure you want to archive this issuer group?",
+                confirmationQuestion: "Are you sure you want to archive this issuer group?",
                 flash: "Issuer group {{name}} is archived",
                 action: "Archive",
             },
             unarchive: {
                 confirmation: "Issuer group unarchive",
-                confirmationQuestion:
-                    "Are you sure you wannt to unarchive this Issuer group?",
+                confirmationQuestion: "Are you sure you wannt to unarchive this Issuer group?",
                 flash: "Issuer group {{name}} is unarchived",
                 action: "Unarchive",
             },
@@ -787,15 +740,13 @@ I18n.translations.en = {
             institutionIdentifier: "Institution identifier",
             archive: {
                 confirmation: "Issuer archive",
-                confirmationQuestion:
-                    "Are you sure you want to archive this issuer?",
+                confirmationQuestion: "Are you sure you want to archive this issuer?",
                 flash: "Issuer {{name}} is archived",
                 action: "Archive",
             },
             unarchive: {
                 confirmation: "Issuer unarchive",
-                confirmationQuestion:
-                    "Are you sure you want to unarchive this Issuer ?",
+                confirmationQuestion: "Are you sure you want to unarchive this Issuer ?",
                 flash: "Issuer  {{name}} is unarchived",
                 action: "Unarchive",
             },
@@ -825,7 +776,7 @@ I18n.translations.en = {
             criteria_text: "Criteria",
             expiresAfter: "Expires after",
             expiresAfterOption: "After",
-            expiresAfterNever: "Pilot Enddate",
+            expiresAfterNever: "Never",
             expiresAfterValue: "{{nbr}} weeks",
             status: "Status",
             expireSettings: "Default expiration setting",
@@ -838,7 +789,7 @@ I18n.translations.en = {
             narrativeRequired: "Narrative required when issuing",
             narrativeStudentRequired: "Motivation required for enrollment",
             evidenceStudentRequired: "Evidence (URL) required for enrollment",
-            isMicroCredentials: "Badge class related to Microcredentials pilot",
+            isMicroCredentials: "Microcredential Badge class",
             directAwardingDisabled: "Direct-Award disabled",
             selfEnrollmentDisabled: "Self-enrollment disabled",
             learningOutcome: "Learning outcomes",
@@ -896,14 +847,11 @@ I18n.translations.en = {
                     "Consult <a target='_blank' rel='noreferrer' href='https://zakelijk.duo.nl/portaal/zoeken-en-vinden/resultaten?zoekterm=null&pagina=1'>the DUO RIO register</a> or <a target='_blank' rel='noreferrer' href='https://duo.nl/open_onderwijsdata/middelbaar-beroepsonderwijs/erkende-opleidingen/erkende-opleidingscode-en-beroep.jsp'>the SBB CREBO lists</a> if you don’t know the code.",
                 eqf: "Check <a target='_blank' rel='noreferrer' href='https://www.nlqf.nl/daarom-nlqf/nlqf-niveaus'>https://www.nlqf.nl/daarom-nlqf/nlqf-niveaus</a> for help",
                 ects: "Whole and half points only. Valid value between 0.5 and 240 points.",
-                ectsMicroCredentials:
-                    "Whole and half points only. Valid value between 3 and 30 points.",
-                studyLoadMICRO_CREDENTIAL:
-                    "Whole hours only. Minimal value is 80 hours.",
+                ectsMicroCredentials: "Whole and half points only. Valid value between 3 and 30 points.",
+                studyLoadMICRO_CREDENTIAL: "Whole hours only. Minimal value is 80 hours.",
                 studyLoadREGULAR: "Whole hours only.",
                 studyLoadEXTRA_CURRICULAR: "Optional. Whole hours only.",
-                timeInvestment:
-                    "Whole hours only. Valid value between 84 and 840 hours.",
+                timeInvestment: "Whole hours only. Valid value between 84 and 840 hours.",
                 timeInvestmentOptional: "Optional.",
             },
             publicUrl: "Public URL",
@@ -911,15 +859,13 @@ I18n.translations.en = {
             award_allowed_institutions: "Award allowed institutions",
             archive: {
                 confirmation: "Badge class archive",
-                confirmationQuestion:
-                    "Are you sure you want to archive this badge class?",
+                confirmationQuestion: "Are you sure you want to archive this badge class?",
                 flash: "Badge class {{name}} is archived",
                 action: "Archive",
             },
             unarchive: {
                 confirmation: "Badge class unarchive",
-                confirmationQuestion:
-                    "Are you sure you wannt to unarchive this badge class?",
+                confirmationQuestion: "Are you sure you wannt to unarchive this badge class?",
                 flash: "Badge class {{name}} is unarchived",
                 action: "Unarchive",
             },
@@ -952,14 +898,20 @@ I18n.translations.en = {
             expiresNever: "Never",
             download: "Download",
             open: "Open",
+            share: "Share",
             status: "Status",
             revoked: "Revoked",
             validUntil: "Valid until",
             addToCollection: "Add to collection",
             grade: "Grade",
-            ob3SsiAgent: "Add to Wallet",
-            ob3SsiAgentQRCodeQuestion:
-                "Scan this code with your electronic credentials wallet",
+            ob3SsiAgent: "Wallet import {{name}}",
+            ob3SsiAgentNames: {
+                unime: "unime",
+                sphereon: "sphereon",
+                wwwallet: "WWWallet",
+            },
+            ob3SsiAgentQRCode: "Import into {{name}} wallet",
+            ob3SsiAgentQRCodeQuestion: "Scan this code with your electronic credentials wallet",
             ok: "Ok",
             statuses: {
                 new: "New",
@@ -994,8 +946,7 @@ I18n.translations.en = {
             enrolled: "Requested",
             enrolledOn: "Requested on",
             deleteEnrollment: "Delete request",
-            deleteEnrollmentConfirmation:
-                "Are you sure you want to withdraw this request?",
+            deleteEnrollmentConfirmation: "Are you sure you want to withdraw this request?",
             award: "Award",
             status: "Status",
             open: "Open",
@@ -1028,10 +979,8 @@ I18n.translations.en = {
             },
             awardButton: "Award",
             showDenied: "Show denied enrollments ({{count}})",
-            evidence:
-                "Optional descriptive metadata about evidence related to the issuance of an edubadge.",
-            evidenceRequired:
-                "Required descriptive metadata about evidence related to the issuance of an edubadge.",
+            evidence: "Optional descriptive metadata about evidence related to the issuance of an edubadge.",
+            evidenceRequired: "Required descriptive metadata about evidence related to the issuance of an edubadge.",
             evidenceHeader: "Metadata about the evidence related for this edubadge",
             evidenceNarrative: "Narrative",
             evidenceURL: "URL",
@@ -1049,14 +998,14 @@ I18n.translations.en = {
         },
         badgeAward: {
             email: "Email address",
+            first_name: "First name",
+            surname: "Surname",
             eppn: "Student number (EPPN)",
             reject: "Reject",
             claim: "Claim & Add to your backpack",
             confirmation: {
-                claim:
-                    "After this edubadge is claimed, it will be added to your backpack and you can make the edubadge public and share it.",
-                reject:
-                    "Are you absolutely sure you want to reject this edubadge? This edubadge will be deleted after rejection and this action cannot be undone.",
+                claim: "After this edubadge is claimed, it will be added to your backpack and you can make the edubadge public and share it.",
+                reject: "Are you absolutely sure you want to reject this edubadge? This edubadge will be deleted after rejection and this action cannot be undone.",
             },
             flash: {
                 claim: "Successfully claimed edubadge",
@@ -1096,6 +1045,7 @@ I18n.translations.en = {
             lastUpdated: "Last one created",
             name: "Name",
             description: "Description",
+            privatePublic: "Private / public",
             badge_instances: "Edubadges",
             createdAt: "Created at",
         },
@@ -1116,10 +1066,8 @@ I18n.translations.en = {
             revoke: "Revoke",
             resend: "Resend",
             delete: "Delete awards",
-            zeroState:
-                "There are no unclaimed direct awards for badge classes you are allowed to award",
-            zeroStateDeleted:
-                "There are no deleted direct awards for badge classes you are allowed to award",
+            zeroState: "There are no unclaimed direct awards for badge classes you are allowed to award",
+            zeroStateDeleted: "There are no deleted direct awards for badge classes you are allowed to award",
             recipient: "Recipient",
             eppn: "EPPN",
             status: "Status",
@@ -1154,8 +1102,7 @@ I18n.translations.en = {
         title: "Invite people to enroll",
         publicBadgePage:
             'People can enroll for this edubadge from the <a href="{{publicBadgePage}}" target="_blank">public badge page</a>.',
-        intranet:
-            "You can place this link to the public badge page on your intranet or ELO, or share it via email.",
+        intranet: "You can place this link to the public badge page on your intranet or ELO, or share it via email.",
         copy: "Copy the link",
     },
     copyDialog: {
@@ -1168,8 +1115,7 @@ I18n.translations.en = {
         title: "Invite people to request",
         copyPublicUrl:
             "If you want to place the link to the registration page on your intranet or electronic learning environment, you can copy the link.",
-        copyPublicUrlDisabled:
-            "This badge class is a draft and can not be awarded.",
+        copyPublicUrlDisabled: "This badge class is a draft and can not be awarded.",
         copyUrl: "Copy the link",
     },
     file: {
@@ -1185,8 +1131,7 @@ I18n.translations.en = {
     acceptTerms: {
         welcome: "Hi {{name}}",
         acceptTerms: "Please take notice of our terms",
-        renewTerms:
-            "The edubadges terms have changed. Please take notice of our new terms.",
+        renewTerms: "The edubadges terms have changed. Please take notice of our new terms.",
         teacher: {
             accept: "I agree",
             termsInfo:
@@ -1293,8 +1238,7 @@ I18n.translations.en = {
     },
     publicBadge: {
         verification: "Verification",
-        issuedTo:
-            "This edubadge was issued to <strong>{{name}}</strong> on {{date}}",
+        issuedTo: "This edubadge was issued to <strong>{{name}}</strong> on {{date}}",
         noValidatedName:
             "This edubadge was issued to {{name}} whose name was <strong>not</strong> validated by an Institution on {{date}}",
         expires: "It expires on {{date}}",
@@ -1312,6 +1256,7 @@ I18n.translations.en = {
             issuedTo: "Issued to <strong>{{val}}</strong>",
             noValidatedName: "unvalidated name",
             claimedOn: "Claimed on {{val}}",
+            claimedBy: "Claimed by <strong>{{val}}</strong>",
             expiresOn: "Expires on {{val}}",
             never: "never",
             verified: "<strong>Verified<strong> {{val}}",
@@ -1347,17 +1292,13 @@ I18n.translations.en = {
         assertions: "There are no awarded edubadges for {{name}}.",
         enrollments: "There are no requests for edubadge {{name}}.",
         enrollmentsDenied: "There are no denied requests for edubadge {{name}}.",
-        permissions:
-            "There are no permissions for this user on the {{entity}} level.",
-        selfPermissions:
-            "There are no permissions for you on the {{entity}} level.",
-        userPermissions:
-            "This user does not have any permissions for {{entity}} {{name}}.",
+        permissions: "There are no permissions for this user on the {{entity}} level.",
+        selfPermissions: "There are no permissions for you on the {{entity}} level.",
+        userPermissions: "This user does not have any permissions for {{entity}} {{name}}.",
         directAwardBundles: "There is no direct award status for edubadge {{name}}",
         directAwards:
             "All direct awards have been claimed. There are no more outstanding direct awards for this bundle.",
-        requestedBatches:
-            "There are no outstanding edubadge requests you are allowed to award.",
+        requestedBatches: "There are no outstanding edubadge requests you are allowed to award.",
         notifications:
             "You don't have permissions to award edubadges and therefore you can not configure any notifications.",
         endorsements: "There are no endorsements for {{name}}.",
@@ -1377,8 +1318,7 @@ I18n.translations.en = {
         notifications: "Your notification settings",
         banner: "Hi {{firstName}} {{lastName}}",
         profile: "Account",
-        loggedIn:
-            "You are currently logged in with your institutional account, via SURFconext",
+        loggedIn: "You are currently logged in with your institutional account, via SURFconext",
         lti: "LTI",
     },
     placeholders: {
@@ -1388,8 +1328,7 @@ I18n.translations.en = {
             gradingTable: "URL of the grading table",
             email: "(Optional field) e.g. john.doe@example.com",
             linkedinOrgIdentifier: "LinkedIn organisation identifier",
-            description:
-                "(Required field) e.g. The University of Harderwijk was founded in 1977",
+            description: "(Required field) e.g. The University of Harderwijk was founded in 1977",
             allowedInstitutions: "Select one or more institutions...",
         },
         faculty: {
@@ -1398,26 +1337,21 @@ I18n.translations.en = {
             facultyType: "Select the institution type for this issuer group...",
             visibilityType: "Select the visibility type for this issuer group...",
             onBehalfOfUrl: "(Optional) e.g. URL of the other organisation",
-            linkedinOrgIdentifier:
-                "(Optional) e.g. the linkedin identifier of the other organisation",
-            onBehalfOfDisplayName:
-                "(Optional) e.g. display name of the issuer group or consortium",
+            linkedinOrgIdentifier: "(Optional) e.g. the linkedin identifier of the other organisation",
+            onBehalfOfDisplayName: "(Optional) e.g. display name of the issuer group or consortium",
         },
         issuer: {
             name: "(Required field) e.g. Social History Studies",
-            description:
-                "(Required field) e.g. the study of social behaviour in the Middle Ages",
+            description: "(Required field) e.g. the study of social behaviour in the Middle Ages",
             email: "(Required field) e.g. john.doe@example.com",
             url: "(Required field) e.g. https://www.universityofharderwijk.nl",
         },
         badgeClass: {
             name: "(Required field) e.g. Renaissance",
-            description:
-                "(Required field) e.g. Political infuence of the Church during the Renaissance",
+            description: "(Required field) e.g. Political infuence of the Church during the Renaissance",
             learningOutcome:
                 "e.g. is able to read and interpret ancient sources as well as modern texts, and demonstrates a good overview of the important developments of this time period.",
-            criteriaText:
-                "(Either criteria or criteria URL is required) e.g. online multiple choice exam",
+            criteriaText: "(Either criteria or criteria URL is required) e.g. online multiple choice exam",
             studyLoadMICRO_CREDENTIAL: "e.g. 240",
             studyLoadREGULAR: "e.g. 24",
             studyLoadEXTRA_CURRICULAR: "e.g. 24",
@@ -1433,8 +1367,7 @@ I18n.translations.en = {
             alignmentFramework: "e.g. ESCO",
             alignmentDescription:
                 "e.g. The discipline that studies, analyses and presents the events of the past related to humans.",
-            alignmentUrl:
-                "e.g. http://data.europa.eu/esco/skill/2b22f3b1-5de4-43f9-b6d1-b20f65871268",
+            alignmentUrl: "e.g. http://data.europa.eu/esco/skill/2b22f3b1-5de4-43f9-b6d1-b20f65871268",
             alignmentCode: "e.g. 2b22f3b1-5de4-43f9-b6d1-b20f65871268",
             qualityAssuranceName: "e.g. something",
             qualityAssuranceUrl: "e.g. https://data.europa.com/qa",
@@ -1447,13 +1380,10 @@ I18n.translations.en = {
             email: "e.g. john.doe@example.com",
         },
         enrollment: {
-            evidenceNarrative:
-                "e.g. a personal note that you would add to this edubadge",
-            evidenceURL:
-                "e.g. https://university-example.org/persistent-url-to-evidence.",
+            evidenceNarrative: "e.g. a personal note that you would add to this edubadge",
+            evidenceURL: "e.g. https://university-example.org/persistent-url-to-evidence.",
             evidenceName: "e.g. Thesis Introduction Pysychology",
-            evidenceDescription:
-                "e.g. a description of the evidence you can add to this edubadge",
+            evidenceDescription: "e.g. a description of the evidence you can add to this edubadge",
             grade: "e.g. the grade assigned to the student",
         },
     },
@@ -1464,8 +1394,7 @@ I18n.translations.en = {
     studentEnroll: {
         confirmation: {
             title: "Request",
-            question:
-                "Are you sure you want to request this edubadge: <strong>{{name}}</strong>?",
+            question: "Are you sure you want to request this edubadge: <strong>{{name}}</strong>?",
         },
     },
     terms: {
@@ -1475,31 +1404,24 @@ I18n.translations.en = {
         student: {
             serviceAgreementRaw:
                 "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-agreement-en.md",
-            termsOfUseRaw:
-                "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-terms-en.md",
-            privacyPolicyRaw:
-                "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-statement-en.md",
+            termsOfUseRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-terms-en.md",
+            privacyPolicyRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-statement-en.md",
         },
         teacher: {
             serviceAgreementRaw:
                 "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-agreement-en.md",
-            termsOfUseRaw:
-                "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-terms-en.md",
-            privacyPolicyRaw:
-                "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-statement-en.md",
+            termsOfUseRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-terms-en.md",
+            privacyPolicyRaw: "https://raw.githubusercontent.com/edubadges/privacy/master/surf/account-statement-en.md",
         },
     },
     tooltips: {
         // If you don't want a tooltip to be displayed, just comment out (or delete) the line (like this line;-)
         //badgeClassImage: "badgeClassImage",
-        badgeClassExpireSettings: 
-            "After this period edubadges will expiry and will be no longer valid. <br />For the pilot, badges will always expire at the end of the pilot, or earlier",
-        badgeClassName:
-            "Avoid abbreviations, make sure the name is recognisable for others.",
+        badgeClassExpireSettings: "After this period edubadges will expiry and will be no longer valid. <br />For the pilot, badges will always expire at the end of the pilot, or earlier",
+        badgeClassName: "Avoid abbreviations, make sure the name is recognisable for others.",
         // badgeClassDescription: "This description supports markdown. " +
         //     "See <a target=\"_blank\" href=\"https://wiki.surfnet.nl/display/Edubadges/Edubadges+Example+BadgeClass\"> the wiki </a> for examples.",
-        badgeClassLanguageOfInstruction:
-            "The language used in obtaining this edubadge.",
+        badgeClassLanguageOfInstruction: "The language used in obtaining this edubadge.",
         badgeClassLearningOutcome:
             "Describe the learning outcomes or learning goals. Recorded in the Teaching and Examination Regulations.",
         //badgeClassLearningIssuer: "badgeClassLearningIssuer",
@@ -1516,46 +1438,38 @@ I18n.translations.en = {
         badgeClassAwardNonValidatedNameAllowed:
             "If checked, non-formal edubadges (edubadges without Study load) can be awarded to non-validated accounts.",
         badgeClassIsMicroCredentials:
-            "If checked, then this badge class is participating in the Microcredentials pilot." +
-            'See <a target="_blank" href="https://wiki.surfnet.nl/display/Edubadges/Handleiding+metadata+microcredentials"> the wiki </a> for a manual.',
-        badgeClassDirectAwardingDisabled:
-            "If checked, then this badge class can not be direct awarded",
-        badgeClassSelfEnrollmentDisabled:
-            "If checked, then this badge class can not be requested by students",
-        badgeClassCriteriaRequirements:
-            "What criteria does the learner meet to be eligible for this edubadge?",
+            "If checked, then this badge class is a Microcredential." +
+            'See <a target="_blank" href="https://servicedesk.surf.nl/wiki/spaces/WIKI/pages/142574081/Manual+metadata+microcredentials"> the wiki </a> for a manual.',
+        badgeClassDirectAwardingDisabled: "If checked, then this badge class can not be direct awarded",
+        badgeClassSelfEnrollmentDisabled: "If checked, then this badge class can not be requested by students",
+        badgeClassCriteriaRequirements: "What criteria does the learner meet to be eligible for this edubadge?",
         //badgeClassTypeOfStudyLoad: "badgeClassTypeOfStudyLoad",
         badgeClassStudyLoadNumber: "Study Tax Hours (SBU in Hours)",
-        badgeClassTimeInvestmentNumber:
-            "How many hours have to be invested to acquire this non-formal edubadge.",
+        badgeClassTimeInvestmentNumber: "How many hours have to be invested to acquire this non-formal edubadge.",
         //badgeClassSBUNumber: "badgeClassSBULoadNumber",
         badgeClassStudyLoadEcts:
             "The European Credit Transfer System (ECTS/EC) is a points system used by universities and agreed by governments, that makes international education more easily comparable across borders.",
         //badgeClassProgrammeIdentifier: "badgeClassProgrammeIdentifier",
-        badgeClassNLQFLevel:
-            "Indicate at which qualification level this edubadge is derived.",
+        badgeClassNLQFLevel: "Indicate at which qualification level this edubadge is derived.",
         //badgeClassRelatedFrameworkName: "badgeClassRelatedFrameworkName",
         //badgeClassRelatedFrameworkFramework: "badgeClassRelatedFrameworkFramework",
         //badgeClassRelatedFrameworkURL: "badgeClassRelatedFrameworkURL",
         //badgeClassRelatedFrameworkCode: "badgeClassRelatedFrameworkCode",
         //badgeClassRelatedFrameworkDescription: "badgeClassRelatedFrameworkDescription",
-        facultyName:
-            "Avoid abbreviations, make sure your name is recognisable, also to external parties.",
+        facultyName: "Avoid abbreviations, make sure your name is recognisable, also to external parties.",
         facultyOnBehalfOf:
             "When checked, the badge class indicates that edubadges are issued on behalf of this issuer group. Can be used when issuing on behalf of a consortium.",
         facultyOnBehalfOfUrl: "Issue on behalf of other organisation",
         facultyInstitutionType:
             "All edubadges of this issuer group will inherit the institution type. This is to determine the educational level of a badge class for hybrid institutions",
-        facultyVisibilityType:
-            "All eduBadges of Public issuer groups are displayed in the Catalog",
+        facultyVisibilityType: "All eduBadges of Public issuer groups are displayed in the Catalog",
         facultyOnBehalfOfDisplayName:
             "When Issue on behalf of name issuer group is checked, this display name will used instead of the actual name of the issuer group.",
         //facultyDescriptionEn: "facultyDescriptionEn",
         //facultyDescriptionNl: "facultyDescriptionNl",
         //issuerFaculty: "issuerFaculty",
         //issuerImage: "issuerImage",
-        issuerName:
-            "Avoid abbreviations, make sure your name is recognisable, also to external parties.",
+        issuerName: "Avoid abbreviations, make sure your name is recognisable, also to external parties.",
         //issuerDescriptionEn: "issuerDescriptionEn",
         //issuerDescriptionNl: "issuerDescriptionNl",
         issuerURL: "Use a URL that will not change. (Persistent URL).",
@@ -1564,49 +1478,38 @@ I18n.translations.en = {
         //institutionName: "institutionName",
         //institutionDescriptionEn: "institutionDescriptionEn",
         //institutionDescriptionNl: "institutionDescriptionNl",
-        institutionBrin:
-            "Institution code issued by DUO. (used to be the BRIN code)",
-        institutionGradingTable:
-            "Use a URL that will not change. (Persistent URL).",
-        institutionLinkedinOrgIdentifier:
-            "LinkedIn identifier for this institution / organisation",
+        institutionBrin: "Institution code issued by DUO. (used to be the BRIN code)",
+        institutionGradingTable: "Use a URL that will not change. (Persistent URL).",
+        institutionLinkedinOrgIdentifier: "LinkedIn identifier for this institution / organisation",
         institutionAwardAllowedInstitutions:
             "Select other institutions from which<br/>students potentially may be awarded edubadges.",
-        institutionBadgeClassTags:
-            "Select or add tags. The tags can be linked to badge classes",
+        institutionBadgeClassTags: "Select or add tags. The tags can be linked to badge classes",
         badgeclassAwardAllowedInstitutions:
             "Select other institutions from which<br/>students may be awarded this edubadge.",
-        enrollmentEvidenceNarrative:
-            "A personal narrative that can be added to this awarded edubadge.",
-        enrollmentEvidenceURL:
-            "The URI of a webpage presenting the evidence of this achievement.",
+        enrollmentEvidenceNarrative: "A personal narrative that can be added to this awarded edubadge.",
+        enrollmentEvidenceURL: "The URI of a webpage presenting the evidence of this achievement.",
         enrollmentGrade: "The grade you have assigned the student of this edubadge.",
-        enrollmentEvidenceName:
-            "A descriptive title of the evidence of this achievement.",
-        enrollmentEvidenceDescription:
-            "A longer description of the evidence of this achievement.",
-        demoEnvironment: "All data is reset every deployment.",
+        enrollmentEvidenceName: "A descriptive title of the evidence of this achievement.",
+        enrollmentEvidenceDescription: "A longer description of the evidence of this achievement.",
+        demoEnvironment: "All data is deleted every month.",
         directAwards:
             "Direct awards are edubadges that are awarded by the teacher to students by email. The number(s) below are direct awards that are either still not accepted, rejected or revoked",
         enrollments:
             "Enrollments are requested by students and once approved will be new awarded edubadges. The number(s) below are enrollments that have not been approved by the teacher or are denied",
         toggleBadgeCollectionPublic:
             "A public collection can be shared with other whereas a private collection can not.",
-        collectionBadgeInstances:
-            "Select all the edubadges you want to put in this collection",
-        importedBadgeEmail:
-            "Your email that was used when this edubadge was issued",
+        collectionBadgeInstances: "Select all the edubadges you want to put in this collection",
+        importedBadgeEmail: "Your email that was used when this edubadge was issued",
         importedBadgeImageUrl: "The URL to the edubadge JSON data",
         importedBadgeImage: "The png or svg edubadge image file",
         endorsementDescription: "The description of the endorsement",
-        endorsementClaim:
-            "The claim describes why and how this badge class is similar to the endorsed badge",
+        endorsementClaim: "The claim describes why and how this badge class is similar to the endorsed badge",
         endorsementBadgeClass: "The badge class you would like to endorse.",
         awardScheduling:
             "Enter a scheduling date to set the date / time when the emails will be sent out to the users who are awarded the edubadge",
-        enableAwardOnEmail: "If selected, you can also issue this edubadge based on the private e-mail address. This private e-mail address must match the e-mail address the user used to create their eduID.",
-        badgeClassIsStackable:
-            "A stackable badge class can be linked to another badge class",
+        enableAwardOnEmail:
+            "If selected, you can also issue this edubadge based on the private e-mail address. This private e-mail address must match the e-mail address the user used to create their eduID.",
+        badgeClassIsStackable: "A stackable badge class can be linked to another badge class",
     },
     badgeOverview: {
         faculty: "Issuer Group",
@@ -1637,7 +1540,7 @@ I18n.translations.en = {
         badgeClassType: {
             ARCHIVED: "Archived",
             ALL: "All",
-            MICRO_CREDENTIALS: "Pilot Microcredentials",
+            MICRO_CREDENTIALS: "Microcredentials",
             DRAFT: "Draft",
             REGULAR: "Regular",
             EXTRA_CURRICULAR: "Extra-curricular",
@@ -1646,7 +1549,7 @@ I18n.translations.en = {
             contact: "Contact the issuer",
             website: "Visit issuer website",
             gradingTable: "View the grading table",
-            institution: "Part of "
+            institution: "Part of ",
         },
         faculty: {
             website: "Website organization",
@@ -1665,10 +1568,8 @@ I18n.translations.en = {
     badgeAward: {
         directAward: {
             title: "Award edubadges directly",
-            subtitle:
-                "Your request will be sent, and you'll be notified when it's accepted or denied.",
-            waringEnrollments:
-                "There are {{count}} enrollments for this badge class. ",
+            subtitle: "Your request will be sent, and you'll be notified when it's accepted or denied.",
+            waringEnrollments: "There are {{count}} enrollments for this badge class. ",
             toToEnrollments: "Maybe check them first?",
             addAnother: "+ Add another",
             cancel: "Cancel",
@@ -1704,9 +1605,12 @@ I18n.translations.en = {
             award: "Upload your Awardfile",
             wrong: "Your upload contains {{count}} invalid entries which are removed from the upload.",
             duplicate: "Your upload contains {{count}} duplicate entries which are removed from the upload.",
-            eppnExisting: "Your upload contains {{count}} EPPN's (StudentID'd) with outstanding unaccepted or scheduled direct awards which are removed from the upload.",
-            emailExisting: "Your upload contains {{count}} emails that have already received this badge class which are removed from the upload",
-            missingEvidenceOrNarrative: "Your upload contains {{count}} entries missing narrative and / or evidence which are removed from the upload.",
+            eppnExisting:
+                "Your upload contains {{count}} EPPN's (StudentID'd) with outstanding unaccepted or scheduled direct awards which are removed from the upload.",
+            emailExisting:
+                "Your upload contains {{count}} emails that have already received this badge class which are removed from the upload",
+            missingEvidenceOrNarrative:
+                "Your upload contains {{count}} entries missing narrative and / or evidence which are removed from the upload.",
             good: "Parsed {{count}} entries for upload.",
             view: "View",
             hide: "Hide",
@@ -1714,8 +1618,7 @@ I18n.translations.en = {
             evidenceRequired: "Evidence",
             narrativeRequired: "Narrative",
             gradeRequired: "Grade",
-            additionalRequirements:
-                "This badge class requires additional descriptive metadata to be awarded:",
+            additionalRequirements: "This badge class requires additional descriptive metadata to be awarded:",
             flash: {
                 created: "Bulk awards are sent",
             },
@@ -1812,26 +1715,21 @@ I18n.translations.en = {
                 "Here you can see the total of all edubadges issued directly by the institution. Then you will see the number per status.<br/><br/>" +
                 "The claim rate is the percentage of edubadges that have been awarded and accepted directly by the institution.<br/><br/>" +
                 "Claim rate = (claimed)/total sent) x 100%",
-            enrollments:
-                "Here you can see the total of all edubadges that have been requested by students.",
-            totalAwarded:
-                "The total number of awarded badge classes resulting in edubadge instances",
+            enrollments: "Here you can see the total of all edubadges that have been requested by students.",
+            totalAwarded: "The total number of awarded badge classes resulting in edubadge instances",
             directAwarded: "The number of the awarded edubadges through direct awarding",
-            requested:
-                "The number of the awarded edubadges requested by students and accepted by teachers",
+            requested: "The number of the awarded edubadges requested by students and accepted by teachers",
             public: "The number of edubadges that are made public available by students",
             totalDirectAwards: "Total number of direct awards created",
             unclaimed: "Direct awards that have not been accepted by students",
             claimRate:
                 "The claim rate is the total number of accepted direct awarded edubadges as a percentage of the total of direct awards.",
-            revoked:
-                "Awarded edubadges that has been revoked by the teacher and as such are no longer valid",
+            revoked: "Awarded edubadges that has been revoked by the teacher and as such are no longer valid",
             revokedBefore:
                 "Direct awards that have been revoked by a teacher and as such have not been awarded the student",
             directAwardDenied: "Direct awards that have been denied by the student",
             totalEnrollments: "Total number of enrollments created",
-            pendingEnrollments:
-                "Student enrollments that have not been accepted / denied by a teacher",
+            pendingEnrollments: "Student enrollments that have not been accepted / denied by a teacher",
             requestedDenied: "Student enrollments that have been denied by a teacher",
         },
     },
@@ -1845,8 +1743,7 @@ I18n.translations.en = {
         byRecent: "Most recent",
         bySize: "Number of edubadges",
         deleteConfirmation: "Delete collection {{name}}",
-        deleteConfirmationQuestion:
-            "Are you sure you want to delete collection {{name}}.",
+        deleteConfirmationQuestion: "Are you sure you want to delete collection {{name}}.",
         deleteFlash: "Collection {{name}] deleted.",
         placeholders: {
             name: "Name of the collection",
@@ -1866,12 +1763,10 @@ I18n.translations.en = {
         import: "Import badge",
         importWindow: {
             title: "Import your external badge",
-            question:
-                "Upload an edubadge image that you’ve acquired from an external issuer.",
+            question: "Upload an edubadge image that you’ve acquired from an external issuer.",
             disclaimer: "Badge image must be in either .svg or .png format.",
             submit: "Import Badge",
-            urlPlaceholder:
-                "https://api.eu.badgr.io/public/assertions/-kDl8isfQoKrMHrqOx5Thw",
+            urlPlaceholder: "https://api.eu.badgr.io/public/assertions/-kDl8isfQoKrMHrqOx5Thw",
             urlInfo: "Or paste the URL where the badge is hosted.",
             emailInfo: "Enter the email which this badge was issued to.",
         },
@@ -1886,8 +1781,7 @@ I18n.translations.en = {
             url: "The URL is not a valid badge URL",
             image: "The uploaded image is not a valid edubadge image",
             email: "This email does not match the email of the imported badge",
-            duplicate:
-                "You have already imported this badge. Duplicates are not allowed",
+            duplicate: "You have already imported this badge. Duplicates are not allowed",
         },
         codeMismatch: "The entered code is invalid",
         details: {
@@ -1906,12 +1800,9 @@ I18n.translations.en = {
     },
     ltiBadgeClass: {
         title: "LTI Course information",
-        linked:
-            "Badgeclass <strong>{{name}}</strong> is linked to LTI course <strong>{{lti}}</strong>.",
-        notLinked:
-            "Badgeclass <strong>{{name}}</strong> is currently not linked to a LTI course.",
-        linkPossible:
-            "You can link badge class <strong>{{name}}</strong> to LTI course {{lti}}.",
+        linked: "Badgeclass <strong>{{name}}</strong> is linked to LTI course <strong>{{lti}}</strong>.",
+        notLinked: "Badgeclass <strong>{{name}}</strong> is currently not linked to a LTI course.",
+        linkPossible: "You can link badge class <strong>{{name}}</strong> to LTI course {{lti}}.",
         linkNotPossible:
             "To link badge classes to a LTI course you need to access Edubadges from within a LTI platform.",
         unlinkNotPossible:
@@ -1932,8 +1823,7 @@ I18n.translations.en = {
         },
         confirmations: {
             link: "Are you sure you want to link badge class {{name}} to LTI course {{lti}}?",
-            unlink:
-                "Are you sure you want to remove the link between badge class {{name}} and LTI course {{lti}}?",
+            unlink: "Are you sure you want to remove the link between badge class {{name}} and LTI course {{lti}}?",
         },
         flash: {
             link: "Linked badge class {{name}} to LTI course {{lti}}",
@@ -1944,8 +1834,7 @@ I18n.translations.en = {
         path: "LTI",
         title: "LTI Information",
         info: "The edubadges applications currently runs within a LMS LTI context.",
-        login:
-            "You are logged in as <strong>{{name}}</strong> in LMS <strong>{{lti}}</strong>.",
+        login: "You are logged in as <strong>{{name}}</strong> in LMS <strong>{{lti}}</strong>.",
         context: {
             title: "LTI message launch",
             issuer: "Issuer",
@@ -1982,8 +1871,7 @@ I18n.translations.en = {
         title: "Your notifications settings",
         info: "For each selected badge class you will receive a mail notification if a student enrolls for this edubadge or if someone requests an endorsement for this edubadge.",
         confirmationTitle: "Confirmation",
-        confirmationQuestion:
-            "Are you sure you want to update your notification settings?",
+        confirmationQuestion: "Are you sure you want to update your notification settings?",
         updated: "Your notification settings were updated",
     },
     toggle: {
@@ -2063,8 +1951,7 @@ I18n.translations.en = {
         show: "Show",
         hide: "Hide",
         select: "Select the query to run...",
-        loaded:
-            "{{name}} query loaded in {{time}}ms and ready to copy, download or show.....",
+        loaded: "{{name}} query loaded in {{time}}ms and ready to copy, download or show.....",
     },
     newBadgeClassForm: {
         badgeClassType: "Type edubadge",
@@ -2090,8 +1977,7 @@ I18n.translations.en = {
                     "A badge class for acquired knowledge and skills that are not part of the curriculum of a recognized program. There are no ECTS/EC/SBU attached to badge class.",
             },
             notAvailableTypeInfo: {
-                micro_credential:
-                    "Your institution {{name}} is not configured to award mirco-credential edubadges.",
+                micro_credential: "Your institution {{name}} is not configured to award mirco-credential edubadges.",
                 regular:
                     "Your institution {{name}} is missing the formal 'grondslag' and therefore can't issue regular edubadges.",
                 extra_curricular:
@@ -2165,30 +2051,26 @@ I18n.translations.en = {
                 no: "Grade achieved not required",
             },
             eqfNlqfLevelVerified: "EQF/NLQF level confirmed",
-            eqfNlqfLevelVerifiedQuestion: "The EQF/NLQF level is officially confirmed"
+            eqfNlqfLevelVerifiedQuestion: "The EQF/NLQF level is officially confirmed",
         },
         saveAsDraft: "Save as draft",
         draft: "Draft",
         preview: "Preview badge class",
         publish: "Publish",
-        requiredMicroCredentialFramework:
-            "Quality framework Microcredentials for Professionals HBO and WO",
-        requiredMicroCredentialFrameworkMBO:
-            "Quality framework Microcredentials for Professionals MBO",
+        requiredMicroCredentialFramework: "Quality framework Microcredentials for Professionals HBO and WO",
+        requiredMicroCredentialFrameworkMBO: "Quality framework Microcredentials for Professionals MBO",
         link: " - (link)",
         programme: "The programme",
         assessment: "The assessment",
         badge: "The edubadge",
-        errors:
-            "There are required attributes missing or invalid. Please review the input errors.",
+        errors: "There are required attributes missing or invalid. Please review the input errors.",
         stackable: "Stackable",
         isStackable: "Stackable towards another edubadge?",
     },
     institutionTags: {
         action: "Perform action...",
         addTag: "Add new tag",
-        noAutoFlush:
-            "If you make changes to the tags or add tags, be sure to save those changes.",
+        noAutoFlush: "If you make changes to the tags or add tags, be sure to save those changes.",
         status: {
             new: "New",
             active: "Active",
@@ -2201,10 +2083,11 @@ I18n.translations.en = {
     },
     validateName: {
         welcome: "Hi {{name}}",
-        info: "Unfortunately, access to the Edubadges backpack cannot be granted, because you do not have a validated name within eduID and therefore we do not have sufficient certainty about your identity. " +
+        info:
+            "Unfortunately, access to the Edubadges backpack cannot be granted, because you do not have a validated name within eduID and therefore we do not have sufficient certainty about your identity. " +
             "If you want to validate your name, you must link your account in eduID or via your institution or via iDIN or eIDAS.",
-        proceedInfo: "Click on the button below to return to eduID and follow the instructions there to validate your name.",
+        proceedInfo:
+            "Click on the button below to return to eduID and follow the instructions there to validate your name.",
         proceed: "Proceed to eduID",
-    }
-
+    },
 };

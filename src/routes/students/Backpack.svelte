@@ -17,13 +17,9 @@
     import Modal from "../../components/forms/Modal.svelte";
     import BadgePanel from "../../components/students/BadgePanel.svelte";
 
-    export let revalidateName;
-
     let loaded = false;
     let badges = [];
     let view = "cards";
-    let showStepupDialog = false;
-    let showNoValidatedNameDialog = false;
     let badgeClassIds = [];
 
     const goToEduId = () => {
@@ -93,19 +89,8 @@
           loaded = true;
         });
         
-        getValidatedName().then((response) => {
-          validatedName = response;
-        });
-        
-        if (directAwards.length > 0 && !validatedName) {
-          showStepupDialog = true;
-        } else if (!validatedName && revalidateName) {
-          showNoValidatedNameDialog = true;
-        }
-        
         loaded = true;
     });
-    
 
     $: showWelcome = loaded && !badges.some(badge => badge.acceptance !== "UNACCEPTED") && !$userHasClosedWelcome;
 
@@ -156,23 +141,4 @@
         <Spinner/>
     {/if}
 </div>
-{#if showStepupDialog}
-    <Modal
-            submit={goToEduId}
-            title={I18n.t("publicBadge.noValidatedNameModal.noLinkedInstitution")}
-            question={I18n.t("publicBadge.noValidatedNameModal.directAwards")}
-            evaluateQuestion={true}
-            cancel={() => showStepupDialog = false}
-            submitLabel={I18n.t("publicBadge.noValidatedNameModal.goToEduID")}/>
-{/if}
-
-{#if showNoValidatedNameDialog}
-    <Modal
-            submit={goToEduId}
-            title={I18n.t("acceptTerms.noValidatedNameTitle")}
-            question={I18n.t("acceptTerms.noValidatedName")}
-            evaluateQuestion={true}
-            cancel={() => showNoValidatedNameDialog = false }
-            submitLabel={I18n.t("publicBadge.noValidatedNameModal.goToEduID")}/>
-{/if}
 

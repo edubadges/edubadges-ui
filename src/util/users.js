@@ -11,7 +11,7 @@ const transformUsername = (firstName, lastName) => {
     return `${firstName || ""} ${insertion} ${firstPart}`;
 }
 
-export const validatedUserName = validatedName => {
+export const displayUserName = validatedName => {
     const indexOfSpace = validatedName.indexOf(" ");
     return constructUserName({
         user: {
