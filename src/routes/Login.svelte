@@ -28,7 +28,7 @@
             notificationEn, notificationNl, displayStart, displayEnd, notificationType
           }
         }`);
-        
+
         return {
           badgeInstancesCount: res.badgeInstancesCount,
           badgeClassesCount: res.badgeClassesCount,
@@ -40,9 +40,9 @@
     onMount(() => {
       const urlSearchParams = new URLSearchParams(window.location.search);
       forceLogin = urlSearchParams.has("force");
-      const currentRedirectPath = get(redirectPath);
+      const currentRedirectPath = urlSearchParams.get("redirectPath") || "";
       validateName = (urlSearchParams.get("validateName") === "true" || currentRedirectPath.includes("direct-awards"));
-      
+
       if ($userRole && $userLoggedIn) {
         navigate($redirectPath || "/");
         $redirectPath = "";
