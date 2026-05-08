@@ -7,12 +7,49 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [9.0.1] - 2026-05-07
 
--   Backend: https://github.com/edubadges/edubadges-server/releases/tag/v9.0.1
+Backend: https://github.com/edubadges/edubadges-server/releases/tag/v9.0.1
+
+-   Mobile: Add push notifications on direct award and request accepted
+-   Mobile: Add push notifications support to server
+-   Adjust issuer members management query
+-   SIS integration: Remove `"lti_import": false` from Swagger definition
+-   SIS integration: POST `/directaward/revoke-direct-awards` no longer works
 
 ## [9.0.0] - 2026-03-31
 
--   Backend: https://github.com/edubadges/edubadges-server/releases/tag/v9.0.0
--   Frontend: https://github.com/edubadges/edubadges-ui/releases/tag/v9.0.0
+Backend: https://github.com/edubadges/edubadges-server/releases/tag/v9.0.0</br>
+Frontend: https://github.com/edubadges/edubadges-ui/releases/tag/v9.0.0
+
+-   Mobile API: Remove validated name check in mobile auth backend
+-   Verify other display
+-   Mobile: Remove revoked badges from API
+-   Bug: LinkedIn certificate links to wrong URL
+-   Issuing to learners without institutional accounts: Differentiate emails for learners when badge is awarded
+-   Issuing to learners without institutional accounts: Show warning if user wants to claim but has no validated name
+-   EC for Microcredentials
+-   Mobile: Missing data in mobile API
+-   Mobile API: Remove 'link-account' step after login without validated name
+-   Mobile: LinkedIn URL not returned in badge instance API
+-   Management query for permissions overview
+-   Mobile API: Add API endpoint to retrieve registered device
+-   Issuing to learners without institutional accounts: Use unvalidated name when issuing via email address
+-   Add enrollment permissions to mobile API
+-   Issuing to learners without institutional accounts: Remove frontend validations on validated name
+-   Issuing to learners without institutional accounts: Enable issuing badges to users without validated names
+-   Mobile: Add evidence and narrative to badge instance API
+-   Issuing to learners without institutional accounts: Data migration for historical recipient names
+-   Issuing to learners without institutional accounts: Re-enable login with unvalidated eduID accounts
+-   Issuing to learners without institutional accounts: Adjust validator
+-   Issuing to learners without institutional accounts: Adjust publicly available Edubadge page
+-   Issuing to learners without institutional accounts: Save recipient name in DB
+-   Issuing to learners without institutional accounts: Adjust bulk upload CSV
+-   Issuing to learners without institutional accounts: Adjust frontend UI
+-   Mobile: Sorting for catalog and instances
+-   Mobile: Add terms agreed date to serializer of termsagreement_set
+-   Mobile: Fix inconsistencies in mobile API (Coffe IT document)
+-   Fix error in DA_reminder job
+-   Issuing to learners without institutional accounts
+-   Logo not displayed correctly for SURF
 
 ## [8.4.1] - 2026-02-04
 
