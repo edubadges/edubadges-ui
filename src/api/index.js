@@ -730,14 +730,12 @@ export function createDirectAwards(
     badgeclass,
     bulkAward,
     scheduled_at = null,
-    ltiImport = false,
     enableAwardOnEmail = false
 ) {
     const path = `${serverUrl}/directaward/create`;
     const payload = {
         notify_recipients: true,
         batch_mode: bulkAward,
-        lti_import: ltiImport,
         scheduled_at: scheduled_at,
         badgeclass: badgeclass.entityId,
         identifier_type: enableAwardOnEmail ? "email" : "eppn",
