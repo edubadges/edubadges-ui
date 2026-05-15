@@ -1,6 +1,5 @@
 <script>
     import I18n from "i18n-js";
-    import {link} from "svelte-routing";
     import Spinner from "../../components/Spinner.svelte";
     import {onMount} from "svelte";
     import {redirectPath, userHasClosedWelcome} from "../../stores/user";
@@ -20,26 +19,29 @@
     let loaded = false;
     let badges = [];
     let view = "cards";
-    let badgeClassIds = [];
+    let filterBadgeClassIds = [];
+    const STORAGE_KEY = 'filterBadgeClassIds';
 
     const goToEduId = () => {
         $redirectPath = window.location.pathname;
         requestLoginToken(getService(role.STUDENT), true);
     };
 
-    const readBadgeClassIdsFromUrl = () => {
+    const initializeBadgeClassFilter = () => {
+        // URL params always take precedence (allows overriding)
         const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.getAll('filter.badgeclass_id');
-    };
+        const urlFilter = urlParams.getAll('filter.badgeclass_id');
 
-    const handleShowAllBadges = () => {
-        badgeClassIds = [];
-        loaded = false;
-        getBadges().then((response) => {
-            badges = response.badgeInstances;
-            loaded = true;
-        });
-    }
+        if (urlFilter.length > 0) {
+            // URL has filter - use it and persist
+            filterBadgeClassIds = urlFilter;
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(filterBadgeClassIds));
+        } else {
+            // No URL filter - use localStorage (persistent)
+            const stored = localStorage.getItem(STORAGE_KEY);
+            filterBadgeClassIds = stored ? JSON.parse(stored) : [];
+        }
+    };
     
     const secureQuery = `query {
       currentUser {
@@ -48,7 +50,7 @@
     }`;
 
     const getBadges = async () => {
-      return queryData(studentBadgeInstances(badgeClassIds))
+      return queryData(studentBadgeInstances(filterBadgeClassIds))
         .then((response) => {
           const directAwards = response.directAwards || [];
           directAwards.forEach(da => da.isDirectAward = true);
@@ -78,7 +80,7 @@
     }
     
     onMount(() => {
-        badgeClassIds = readBadgeClassIdsFromUrl();
+        initializeBadgeClassFilter();
         let validatedName = null;
         let directAwards = [];
         
@@ -108,28 +110,11 @@
         margin-bottom: 30px;
     }
 
-    .show-all-link {
-        font-size: 14px;
-        margin-top: 6px;
-        margin-left: 1em;
-        text-decoration: none;
-        color: var(--purple);
-        
-        &:hover {
-            text-decoration: underline;
-        }
-    }
-
 </style>
 
 <div>
     <div class="header">
         <h3>{I18n.t('backpack.title')}</h3>
-        {#if badgeClassIds.length > 0}
-            <a href="/backpack" use:link on:click={handleShowAllBadges} class="show-all-link">
-                {I18n.t('backpack.showAllBadges')}
-            </a>
-        {/if}
         <ViewSelector bind:view={view}/>
     </div>
     {#if showWelcome}
