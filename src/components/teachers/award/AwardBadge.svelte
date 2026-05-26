@@ -210,7 +210,7 @@
             return;
         }
         createDirectAwards(directAwards, badgeclass, false, enableScheduling ? new Date(scheduledAt) : null,
-            ltiContextEnabled, enableAwardOnEmail)
+            enableAwardOnEmail)
             .then(() => {
                 refresh(() => setTimeout(() => navigate(`/badgeclass/${badgeclass.entityId}/awarded`), 75));
                 flash.setValue(I18n.t("badgeAward.directAward.flash.created"));

@@ -137,7 +137,7 @@
 
     const doAward = () => {
         serverProcessing = true;
-        createDirectAwards(directAwards, badgeclass, true, enableScheduling ? new Date(scheduledAt) : null, false, enableAwardOnEmail)
+        createDirectAwards(directAwards, badgeclass, true, enableScheduling ? new Date(scheduledAt) : null, enableAwardOnEmail)
             .then(() => {
                 refresh();
                 navigate(`/badgeclass/${badgeclass.entityId}/awarded`);
