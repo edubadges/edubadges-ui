@@ -5,7 +5,6 @@
     import DotSpinner from "../../components/DotSpinner.svelte";
     import checkP from "../../icons/check-purple.svg";
     import {onMount} from "svelte";
-    import {validateBadge} from "../../api";
     import DOMPurify from 'dompurify';
     import {displayUserName} from "../../util/users";
 
@@ -15,8 +14,6 @@
     export let recipientName;
 
     const timer = 375;
-    let validationResult = {valid: false};
-    let done = false;
 
     const validations = [
         {key: "issuedTo", val: displayUserName(recipientName)},
@@ -52,10 +49,6 @@
     }, {});
 
     onMount(() => {
-        validateBadge(badge.entityId).then(res => {
-            validationResult = res.report;
-            done = true;
-        }).catch(() => done = true);
         validations.forEach((validation, i) => {
             setTimeout(() => timeOuts = {...timeOuts, [validation.key]: false}, (i + 1) * timer)
         })
@@ -153,11 +146,11 @@
         <div class="body">
             {#each validations as validation}
                 <section class="validation">
-                    {#if timeOuts[validation.key] || (validation.last && !done)}
+                    {#if timeOuts[validation.key]}
                         <div class="spinner-container">
                             <DotSpinner/>
                         </div>
-                    {:else if validation.last && done}
+                    {:else if validation.last}
                         <div class="spinner-container">
                         </div>
                     {:else if validation.invalid}
