@@ -6,6 +6,7 @@
     import {Button, CheckBox} from "../../../components";
     import singleNeutralCheck from "../../../icons/single-neutral-check.svg";
     import {constructUserEmail, constructUserName} from "../../../util/users";
+    import {deleteDirectAwards, revokeAssertions} from "../../../api";
     import {searchMultiple} from "../../../util/searchData";
     import {Modal} from "../../forms";
     import {flash} from "../../../stores/flash";
