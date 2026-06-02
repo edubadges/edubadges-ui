@@ -754,6 +754,7 @@
             cancelText={mayEdit ? I18n.t("newBadgeClassForm.saveAsDraft") : I18n.t("manage.edit.cancel")}
             submitText={(isCreate || badgeclass.isPrivate) ? I18n.t("newBadgeClassForm.publish") : I18n.t("manage.edit.save")}
             previewAction={() => doShowPreview()}
+            isCopy={isCopy}
             {processing}>
 
         <div class="form">
@@ -1336,4 +1337,3 @@
                             }
                             }/>
 {/if}
-
