@@ -848,7 +848,7 @@ I18n.translations.en = {
                 studyLoadMICRO_CREDENTIAL: "Whole hours only. Minimal value is 80 hours.",
                 studyLoadREGULAR: "Whole hours only.",
                 studyLoadEXTRA_CURRICULAR: "Optional. Whole hours only.",
-                timeInvestment: "Whole hours only. Valid value between 84 and 840 hours.",
+                timeInvestment: "Whole hours only. Valid value between {{timeInvestmentMinimal}} and 840 hours.",
                 timeInvestmentOptional: "Optional.",
             },
             publicUrl: "Public URL",

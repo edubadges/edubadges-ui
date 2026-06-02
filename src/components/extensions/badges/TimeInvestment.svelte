@@ -10,12 +10,15 @@
     export let disabled = false;
     export let badgeClassType = badgeClassTypes.EXTRA_CURRICULAR;
     export let isOptional = true;
+    export let isInstitutionWO = false;
 
-    let minValue = 84;
+    let minValue = isInstitutionWO ? 28 : 84;
     let maxValue = 840;
 
     onMount(() => {
-        minValue = badgeClassType === badgeClassTypes.MICRO_CREDENTIAL ? 84 : 1;
+        minValue = badgeClassType === badgeClassTypes.MICRO_CREDENTIAL ?
+            isInstitutionWO ? 28 : 84
+            : 1;
         maxValue = badgeClassType === badgeClassTypes.MICRO_CREDENTIAL ? 840 : Number.MAX_VALUE;
     });
 
@@ -132,8 +135,8 @@
 <div class="time-investment" {disabled}>
     <span class="control" on:click={decrement}>{@html arrowDown}</span>
     <input type="number"
-           max="840"
-           min="84"
+           max={`${maxValue}`}
+           min={`${minValue}`}
            step="1"
            placeholder={I18n.t("placeholders.badgeClass.timeInvestment")}
            class="value"
@@ -142,4 +145,5 @@
            on:change={onInput}/>
     <span class="control" on:click={increment}>{@html arrowUp}</span>
 </div>
-<p class="info">{@html I18n.t(`models.badgeclass.info.timeInvestment${isOptional ? "Optional" : ""}`)}</p>
+<p class="info">{@html I18n.t(`models.badgeclass.info.timeInvestment${isOptional ? "Optional" : ""}`,
+    {timeInvestmentMinimal: minValue})}</p>
