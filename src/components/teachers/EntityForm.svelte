@@ -17,6 +17,7 @@
     export let hasAnyAssertions;
     export let archived;
     export let mayEdit = true;
+    export let isCopy = false;
 
     export let create;
     export let cancel = () => window.history.back();
@@ -166,7 +167,7 @@
         </div>
     </div>
     <div class="warnings">
-        {#if mayDelete && hasUnrevokedAssertions}
+        {#if mayDelete && hasUnrevokedAssertions && !isCopy}
             <span class="may-not-delete">{I18n.t(`manage.delete.info.assertionsBlock.${entityTypeName}`)}</span>
         {:else if mayDelete && hasAnyAssertions && archived}
             <span class="may-not-delete">{I18n.t(`manage.archive.info.assertionsBlock.${entityTypeName}`)}</span>
