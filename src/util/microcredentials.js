@@ -1,6 +1,6 @@
 export const microCredentialsFramework = {
     "name": "Kwaliteitskader Microcredentials voor Professionals HBO en WO",
-    "url": "https://www.versnellingsplan.nl/en/Kennisbank/pilot-microcredentials-2/",
+    "url": "https://npuls.nl/doorbouwen-aan-microcredentials",
     "description": `
 
 *See the English text below*
