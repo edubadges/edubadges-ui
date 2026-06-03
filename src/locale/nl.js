@@ -847,7 +847,7 @@ I18n.translations.nl = {
                 studyLoadMICRO_CREDENTIAL: "Alleen hele uren. De minimum waarde  is 80 uur.",
                 studyLoadREGULAR: "Alleen hele uren.",
                 studyLoadEXTRA_CURRICULAR: "Optioneel. Alleen hele uren.",
-                timeInvestment: "Alleen hele uren. Valide waarde is tussen de 84 en 840 uren.",
+                timeInvestment: "Alleen hele uren. Valide waarde is tussen de {{timeInvestmentMinimal}} en 840 uren.",
                 timeInvestmentOptional: "Optioneel.",
             },
             publicUrl: "Publieke URL",

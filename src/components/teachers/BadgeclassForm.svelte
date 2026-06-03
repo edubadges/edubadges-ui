@@ -902,6 +902,7 @@
                                 badgeClassType={badgeclass.badgeClassType}
                                 isOptional={badgeclass.badgeClassType === badgeClassTypes.EXTRA_CURRICULAR}
                                 disabled={!mayEdit && !isCopy}
+                                isInstitutionWO={isInstitutionWO}
                         />
                         <a href="/#"
                            class="info"
@@ -1336,4 +1337,3 @@
                             }
                             }/>
 {/if}
-
