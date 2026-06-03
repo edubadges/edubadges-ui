@@ -749,9 +749,9 @@
             submit={onSubmit}
             create={isCreate}
             cancel={() => {
-                return mayEdit ? saveDraft() :  window.history.back()
+                return mayEdit || isCopy ? saveDraft() :  window.history.back()
             }}
-            cancelText={mayEdit ? I18n.t("newBadgeClassForm.saveAsDraft") : I18n.t("manage.edit.cancel")}
+            cancelText={mayEdit || isCopy ? I18n.t("newBadgeClassForm.saveAsDraft") : I18n.t("manage.edit.cancel")}
             submitText={(isCreate || badgeclass.isPrivate) ? I18n.t("newBadgeClassForm.publish") : I18n.t("manage.edit.save")}
             previewAction={() => doShowPreview()}
             isCopy={isCopy}
