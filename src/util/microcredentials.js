@@ -91,7 +91,7 @@ De experimenteerruimte loopt voor de periode van 2 jaar van 1 mei 2025 tot 30 ap
 >
 The microcredential is a reliable certificate that allows professionals to demonstrate what they know, can do, and understand after successfully completing an educational unit in higher education. In other words, a microcredential gives a measured value to a small educational unit. 
 >
-This micro-credential has been issued in the context of jointly developing micro-credentials within higher education institutions in the Netherlands. The microcredential insures quality. The boards of the Association of Universities of Applied Sciences (VH) and the Universities in the Netherlands (UNL) have established the following quality agreements, to which this microcredential complies. 
+This micro-credential has been issued in the context of jointly developing micro-credentials within higher education institutions in the Netherlands. The microcredential ensures quality. The boards of the Association of Universities of Applied Sciences (VH) and the Universities in the Netherlands (UNL) have established the following quality agreements, to which this microcredential complies. 
 >
 #### Quality Framework for Micro-credentials
 >
@@ -101,7 +101,7 @@ This micro-credential has been issued in the context of jointly developing micro
 2. The Executive Board is familiar with and consciously chooses to offer micro-credentials on the basis of the institution’s Lifelong Learning (LLL) vision.
 3. The institution has set up an internal quality assurance process for the design, recognition and assurance of the quality of micro-credentials.
 4. The institution has designated a body or bodies that can guarantee the final level of micro-credential-certified education.
-5. A form of educational evaluation, participation and the possibility of submitting complaints has been organised for participants in mico-credental-certified education.
+5. A form of educational evaluation, participation and the possibility of submitting complaints has been organised for participants in mico-credential-certified education.
 
 **What are the conditions for participating institutions in the education?**
 
@@ -110,12 +110,12 @@ This micro-credential has been issued in the context of jointly developing micro
 3. It is clear who the intended target group of the education is, what prior knowledge is required from the participants, what the entry requirements are (if any), and how these are tested.
 4. The educational programme, the educational environment and the quality of the teaching team enable the incoming participants to achieve the intended learning outcomes.
 5. The learning outcomes, the educational level, and the size of the micro-credential are made transparent. The participating institutions describe this in a consistent manner, in line with European agreements (Bologna) and developments in Brussels. On this point, the boards of the umbrella organisations VH and UNL have adopted an addendum. You can find this addendum to the quality framework under these conditions.
-6. Institutions in principle recognise the (validated) learning outcomes of micro-credentials already obtained and/or obtained elsewhere. Whether this leads to admission and/orexemption remains under the mandate of the Examination Board or another body designated for this purpose by the institution.
+6. Institutions in principle recognise the (validated) learning outcomes of micro-credentials already obtained and/or obtained elsewhere. Whether this leads to admission and/or exemption remains under the mandate of the Examination Board or another body designated for this purpose by the institution.
 7. The assessments support the learning process of the participant, and the evaluation is valid, reliable, transparent for participants and sufficiently independent.
 >
 **The adopted supplement to the quality framework regarding the description of the content of micro-credentials**
 
-To describe the content of micro-credentials, we adopt the European framework that is based on learning outcomes formulated independently of the learning pathway. Learning outcomes can be translated in Dutch as leeruitkomsten and/or leerresulaten. The methodology for formulating learning outcomes is up to the institution.
+To describe the content of micro-credentials, we adopt the European framework that is based on learning outcomes formulated independently of the learning pathway. Learning outcomes can be translated in Dutch as leeruitkomsten and/or leerresultaten. The methodology for formulating learning outcomes is up to the institution.
 >
 In the framework of the European Bologna agreements, learning outcomes are defined as follows [2]:
 >
