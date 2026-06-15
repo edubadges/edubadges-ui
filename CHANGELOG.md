@@ -5,6 +5,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [9.1.0] - 2026-06-15
+
+Frontend: https://github.com/edubadges/edubadges-ui/releases/tag/v9.1.0</br>
+Backend: https://github.com/edubadges/edubadges-server/releases/tag/v9.1.0
+
+-  Remove unused revoke direct awards call
+-  Update nlqf url
+-  Remove lti import field from direct award creation
+-  Add guard for deleted da eppn
+-  Add wrongfully removed import statement back
+-  Remove validate badge call
+-  build(deps): bump dompurify from 3.3.1 to 3.4.0
+-  uild(deps): bump lodash from 4.17.23 to 4.18.1
+-  build(deps): bump lodash-es from 4.17.23 to 4.18.1
+-  build(deps): bump node-forge from 1.3.2 to 1.4.0
+-  Remove lti context argument in create direct award calls
+-  Update url for the micro credentials framework
+-  Update minimum time investment to 28 hours
+-  Remove warning when entity form is a copy
+-  Allow save draft for copied badge classes
+-  Update the micro credential quality assurance text
+  
+
 ## [9.0.1] - 2026-05-07
 
 Backend: https://github.com/edubadges/edubadges-server/releases/tag/v9.0.1
