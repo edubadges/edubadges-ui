@@ -4,9 +4,9 @@
     import {Table} from "../../teachers";
     import {sort, sortType} from "../../../util/sortData";
     import {Button, CheckBox} from "../../../components";
-    import {deleteDirectAwards, revokeAssertions, revokeDirectAwards} from "../../../api";
     import singleNeutralCheck from "../../../icons/single-neutral-check.svg";
     import {constructUserEmail, constructUserName} from "../../../util/users";
+    import {deleteDirectAwards, revokeAssertions} from "../../../api";
     import {searchMultiple} from "../../../util/searchData";
     import {Modal} from "../../forms";
     import {flash} from "../../../stores/flash";
@@ -144,18 +144,11 @@
                     (!assertion.isDirectAward || assertion.status === "ACCEPTED"))
                 .map(assertion => assertion.entityId);
 
-            const selectedDirectAwards = filteredAssertions
-                .filter(assertion => selection.includes(assertion.entityId) &&
-                    (assertion.isDirectAward && assertion.status !== "ACCEPTED"))
-                .map(assertion => assertion.entityId);
-
             const promises = [];
             if (selectedAssertions.length > 0) {
                 promises.push(revokeAssertions(selectedAssertions, revocationReason));
             }
-            if (selectedDirectAwards.length > 0) {
-                promises.push(revokeDirectAwards(selectedDirectAwards, revocationReason));
-            }
+
             if (promises.length > 0) {
                 serverBusy = true;
                 Promise.all(promises).then(() => {

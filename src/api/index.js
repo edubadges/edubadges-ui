@@ -192,16 +192,6 @@ export function revokeAssertions(assertionEntityIds, revocationReason) {
     );
 }
 
-export function revokeDirectAwards(directAwardEntityIds, revocationReason) {
-    const path = `${serverUrl}/directaward/revoke-direct-awards`;
-    const directAwards = directAwardEntityIds.map((entityId) => ({entity_id: entityId}));
-    return validFetch(
-        path,
-        {body: JSON.stringify({revocation_reason: revocationReason, direct_awards: directAwards})},
-        "POST"
-    );
-}
-
 export function deleteDirectAwards(directAwardEntityIds, revocationReason) {
     const path = `${serverUrl}/directaward/delete-direct-awards`;
     const directAwards = directAwardEntityIds.map((entityId) => ({entity_id: entityId}));
@@ -334,11 +324,6 @@ export function getPublicIssuer(entityId) {
 export function getPublicBadge(entityId) {
     const path = `${serverUrl}/public/assertions/${entityId}?expand=badge&expand=badge.issuer&expand=badge.user`;
     return validFetch(path, {}, "GET", false, false);
-}
-
-export function validateBadge(entityId) {
-    const path = `${serverUrl}/public/assertions/validate/${entityId}`;
-    return validFetchNoErrorDialog(path, {}, "GET", false);
 }
 
 export function getRecipientName(identityHash, salt) {
@@ -740,14 +725,12 @@ export function createDirectAwards(
     badgeclass,
     bulkAward,
     scheduled_at = null,
-    ltiImport = false,
     enableAwardOnEmail = false
 ) {
     const path = `${serverUrl}/directaward/create`;
     const payload = {
         notify_recipients: true,
         batch_mode: bulkAward,
-        lti_import: ltiImport,
         scheduled_at: scheduled_at,
         badgeclass: badgeclass.entityId,
         identifier_type: enableAwardOnEmail ? "email" : "eppn",

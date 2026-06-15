@@ -210,7 +210,7 @@
             return;
         }
         createDirectAwards(directAwards, badgeclass, false, enableScheduling ? new Date(scheduledAt) : null,
-            ltiContextEnabled, enableAwardOnEmail)
+            enableAwardOnEmail)
             .then(() => {
                 refresh(() => setTimeout(() => navigate(`/badgeclass/${badgeclass.entityId}/awarded`), 75));
                 flash.setValue(I18n.t("badgeAward.directAward.flash.created"));
@@ -225,7 +225,8 @@
     const invariant = (newDirectAwards, failOnEmpty = true) => {
         const newErrors = newDirectAwards.reduce((acc, da, i) => {
             if (!enableAwardOnEmail) {
-                acc[`eppn_${i}`] = da.eppn.trim().length === 0 || !validEppn(da.eppn, badgeclass);
+                const eppn = da.eppn || ""
+                acc[`eppn_${i}`] = eppn.trim().length === 0 || !validEppn(eppn, badgeclass);
                 acc[`first_name_${i}`] = false;
                 acc[`surname_${i}`] = false;
             } else {
