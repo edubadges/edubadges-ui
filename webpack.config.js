@@ -18,6 +18,7 @@ process.traceDeprecation = true;
 module.exports = {
     entry: {
         bundle: ["./src/main.js"],
+        landing: ["./src/landing.js"],
     },
     resolve: {
         alias: {
@@ -94,6 +95,12 @@ module.exports = {
             template: "src/index.html.ejs",
             favicon: "src/favicon.ico",
             hash: true,
+            chunks: ["bundle"],
+        }),
+        new HtmlWebpackPlugin({
+            filename: "landing.html",
+            template: "src/landing.html.ejs",
+            chunks: ["landing"],
         }),
         false ? new HtmlWebpackPartialsPlugin({
             path: 'src/piwik.html',
@@ -111,7 +118,12 @@ module.exports = {
         static: {
             directory: path.join(__dirname, "./public"),
         },
-        historyApiFallback: true,
+        historyApiFallback: {
+             rewrites: [
+                { from: /^\/login$/, to: "/index.html" },
+                { from: /./, to: "/landing.html" },
+            ],
+        },
         hot: false,
         compress: true,
         client: {
