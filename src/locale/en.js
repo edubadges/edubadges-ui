@@ -30,6 +30,24 @@ I18n.translations.en = {
             lti: "LTI",
         },
     },
+    landing: {
+        bewaren: {
+            title: "[to be translated] Verzamel, bewaar en deel jouw <strong>edubadges</strong>",
+            body: "[to be translated] Edubadges is hét nationale platform voor digitale certificaten in het Nederlandse onderwijs. Met een edubadge laat je zien welke kennis en vaardigheden je in huis hebt, officieel erkend door je onderwijsinstelling. Bewaar ze op één plek, deel ze met werkgevers of op LinkedIn, en maak de overstap van studie naar werk een stuk makkelijker.",
+            backpack: "Open my backpack",
+            app: "Download the app",
+            login: "[to be translated] Inloggen met je eduID via SURFconext",
+        },
+        hand: {
+            title: "[to be translated] Je <strong>edubadges</strong> altijd bij de hand",
+            body: "[to be translated] Met de app heb je je backpack gewoon op zak. Claim nieuwe edubadges zodra je ze ontvangt, houd overzicht over alles wat je hebt behaald en deel ze direct op LinkedIn, waar en wanneer je wil.",
+        },
+        portal: {
+            title: "[to be translated] Voor docenten en beheerders: <strong>de issuerportal</strong>",
+            body: "[to be translated] In de issuerportal reiken docenten edubadges uit aan studenten, maken beheerders nieuwe edubadges aan en regel je het gebruikersbeheer van je instelling. Overzichtelijk, veilig en volledig onder eigen regie.",
+            login: "[to be translated] Log in op het issuerportaal",
+        },
+    },
     login: {
         title: "Never stop learning",
         loginToEnrol: "Login to request this edubadge",
