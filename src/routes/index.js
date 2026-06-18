@@ -1,3 +1,4 @@
+export { default as Landing } from "./Landing.svelte";
 export { default as Login } from "./Login.svelte";
 export { default as NotFound } from "./NotFound.svelte";
 export { default as ProcessToken } from "./ProcessToken.svelte";
