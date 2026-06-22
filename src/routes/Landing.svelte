@@ -5,6 +5,8 @@
     import app_badge from "../img/app_badge.png";
     import app_apple from "../img/app_apple.png";
     import app_google from "../img/app_google.png";
+
+    import medal from "../img/medal.svg";
 </script>
 
 <style global lang="css">
@@ -80,6 +82,41 @@
         flex-direction: column;
     }
     
+    .medals {
+        position: relative;
+        left: 50vw;
+
+        @media (max-width: 1000px) {
+            display: none;
+        }
+
+        & > div {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+        }
+
+        & #medal-bottomleft {
+            top: 450px;
+            left: -600px;
+        }
+
+        & #medal-topright {
+            top: -80px;
+            left: 200px;
+            transform: rotate(25deg);
+            z-index: 0;
+        }
+
+        & #medal-bottomright {
+            top: 400px;
+            left: 700px;
+            transform: rotate(30deg);
+            width: 100px;
+            height: 100px;
+        }
+    }
+
     section {
         padding: 100px 0;
         width: 100%;
@@ -102,6 +139,7 @@
         }
     
         &.section-hand {
+            overflow: hidden;
             background-size: cover;
             background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 20' fill='none'><path d='M 0 12 C 25 8, 30 20, 50 8 S 60 8, 100 12 V 00 H 0 Z' fill='white' /></svg>");
             background-repeat: no-repeat;
@@ -161,6 +199,10 @@
                 display: flex;
                 flex-direction: column;
                 gap: 16px;
+            }
+
+            & > div {
+                z-index: 1;
             }
         }
     }
@@ -296,6 +338,11 @@
             </article>
         </section>
         <section class="section-hand">
+            <div class="medals">
+                <div id="medal-bottomleft">{@html medal}</div>
+                <div id="medal-topright">{@html medal}</div>
+                <div id="medal-bottomright">{@html medal}</div>
+            </div>
             <article>
                 <article>
                     <h2>
