@@ -325,7 +325,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                             <path d="M 5.5 5.5 V 3.5 C 5.5 2.836 5.763 2.201 6.232 1.732 C 6.701 1.263 7.336 1 8 1 C 8.663 1 9.298 1.263 9.767 1.732 C 10.23 2.201 10.5 2.836 10.5 3.5 V 5.5" stroke="#525252" stroke-linecap="round" stroke-linejoin="round"/>
                             <rect width="12" height="9" x="2" y="5" rx="1" ry="1" fill="#525252" />
-                            <rect width="10" height="7" x="3" y="6" rx="0" ry="0" fill="white" />
+                            <rect width="10" height="7" x="3" y="6" rx="0" ry="0" fill="#F7F4FA" />
                             <circle r="0.75" cx="8" cy="9.5" fill="#525252" />
                         </svg>
                         <span class="login-info">
