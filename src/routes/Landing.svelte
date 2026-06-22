@@ -139,11 +139,18 @@
 
         &.section-hand {
             overflow: hidden;
-            background-size: cover;
-            background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 20' fill='none'><path d='M 0 12 C 25 8, 30 20, 50 8 S 60 8, 100 12 V 00 H 0 Z' fill='white' /></svg>");
+            background:
+                url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-700 0 4000 300' fill='none'><path d='M -700 0.5 H 571 q 40 0 40 40 V 135 q 0 40 40 40 H 5000' stroke='%23772583' stroke-opacity='0.5'/></svg>") top center / 4000px auto,
+                url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 18' fill='none'><path d='M 0 12 C 25 8, 30 20, 50 8 S 60 8, 100 12 V 0 H 0 Z' fill='white' /></svg>") center / cover,
+                #F6F0F9;
             background-repeat: no-repeat;
-            background-color: #F6F0F9;
-            background-position: center;
+
+            @media (max-width: 1000px) {
+                /* Remove line background */
+                background:
+                    url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 20' fill='none'><path d='M 0 12 C 25 8, 30 20, 50 8 S 60 8, 100 12 V 0 H 0 Z' fill='white' /></svg>") center / cover,
+                    #F6F0F9;
+            }
         }
 
         &.section-portal {
@@ -186,6 +193,7 @@
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
+            align-items: center;
             max-width: 1400px;
 
             @media (max-width: 1000px) {
