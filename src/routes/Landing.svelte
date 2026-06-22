@@ -77,11 +77,11 @@
         color: #0A0A0A;
         font-family: Nunito, sans-serif;
         font-style: normal;
-    
+
         display: flex;
         flex-direction: column;
     }
-    
+
     .medals {
         position: relative;
         left: 50vw;
@@ -120,10 +120,9 @@
     section {
         padding: 100px 0;
         width: 100%;
-    
+
         &.section-bewaren {
             background: linear-gradient(180deg, #F6F0F9 52.23%, #FFF 89.19%);
-            
 
             & .login-container {
                 display: flex;
@@ -137,7 +136,7 @@
                 line-height: 16px;
             }
         }
-    
+
         &.section-hand {
             overflow: hidden;
             background-size: cover;
@@ -146,30 +145,30 @@
             background-color: #F6F0F9;
             background-position: center;
         }
-    
+
         &.section-portal {
             background: #F6F0F9;
-    
+
             & > article {
                 flex-direction: row-reverse;
-    
+
                 @media (max-width: 1000px) {
                     flex-direction: column-reverse;
                 }
             }
         }
-    
+
         & .section-buttons {
             display: flex;
             align-items: flex-start;
             gap: 16px;
             align-self: stretch;
-        
+
             & button:first-child {
                 color: white;
                 background: #772583;
             }
-        
+
             & button {
                 color: #772583;
                 font-family: Source Sans Pro, Nunito, sans-serif;
@@ -188,12 +187,12 @@
             display: flex;
             justify-content: space-between;
             max-width: 1400px;
-    
+
             @media (max-width: 1000px) {
                 flex-direction: column-reverse;
                 align-items: center;
             }
-    
+
             & > article {
                 width: 580px;
                 display: flex;
@@ -203,37 +202,38 @@
 
             & > div {
                 z-index: 1;
+
+                & > img {
+                    max-width: 644px;
+                }
             }
         }
-    }
-    
-    section h2 {
-        font-size: 48px;
-        font-weight: 700;
-        line-height: 125%;
-        letter-spacing: -1px;
-        margin-bottom: 16px;
-    
-        & strong {
-            color: #772583;
+
+        & h2 {
+            font-size: 48px;
             font-weight: 700;
+            line-height: 125%;
+            letter-spacing: -1px;
+            margin-bottom: 16px;
+
+            & strong {
+                color: #772583;
+                font-weight: 700;
+            }
         }
-    }
-    
-    section p {
-        font-size: 16px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 24px;
-        margin-bottom: 24px;
-    }
-    
-    section a img {
-        height: 40px;
-    }
-    
-    div > img {
-        max-width: 644px;
+
+        & p {
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 24px;
+            margin-bottom: 24px;
+        }
+
+        & a img {
+            height: 40px;
+        }
+
     }
 
     .footer-powered-by {
