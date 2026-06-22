@@ -87,26 +87,6 @@
         &.section-bewaren {
             background: linear-gradient(180deg, #F6F0F9 52.23%, #FFF 89.19%);
             
-            & .section-buttons {
-                display: flex;
-                align-items: flex-start;
-                gap: 16px;
-                align-self: stretch;
-            }
-
-            & button:first-child {
-                color: white;
-                background: #772583;
-            }
-
-            & button {
-                flex-grow: 1;
-                height: 36px;
-                padding: 8px 10px;
-                border-radius: 8px;
-                border: 1px solid #772583;
-                background: transparent;
-            }
 
             & .login-container {
                 display: flex;
@@ -141,6 +121,30 @@
             }
         }
     
+        & .section-buttons {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            align-self: stretch;
+        
+            & button:first-child {
+                color: white;
+                background: #772583;
+            }
+        
+            & button {
+                color: #772583;
+                font-family: Source Sans Pro, Nunito, sans-serif;
+                flex-grow: 1;
+                line-height: 1em;
+                height: 36px;
+                padding: 8px 10px;
+                border-radius: 8px;
+                border: 1px solid #772583;
+                background: transparent;
+            }
+        }
+
         & > article {
             margin: 0 auto;
             display: flex;
@@ -170,6 +174,7 @@
     
         & strong {
             color: #772583;
+            font-weight: 700;
         }
     }
     
@@ -322,6 +327,9 @@
                     <p>
                         {I18n.t('landing.portal.body')}
                     </p>
+                    <div class="section-buttons">
+                        <button>{I18n.t('landing.portal.login')}</button>
+                    </div>
                 </article>
                 <div>
                     <img alt="Overzicht van de issuerportal" src={app_badge}>
