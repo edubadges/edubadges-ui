@@ -1,1 +1,30 @@
 @import "normalize.css";
+
+@font-face {
+  font-family: "Nunito";
+  src: url("/fonts/nunito/Nunito-VariableFont_wght.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("/fonts/nunito/Nunito-Italic-VariableFont_wght.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+html, body {
+  font-family: "Nunito", system-ui, sans-serif;
+  font-weight: 400;
+}
+
+button, input, textarea, select {
+  font: inherit;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+}
