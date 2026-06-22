@@ -2,7 +2,7 @@
     import {onMount} from "svelte";
     import I18n from "i18n-js";
     import {navigate, Route, Router} from "svelte-routing";
-    import {Landing, Login, NotFound, ProcessToken, Student} from "./routes";
+    import {Login, NotFound, ProcessToken, Student} from "./routes";
     import AcceptTerms from "./routes/AcceptTerms.svelte";
     import {Manage, UserPermissions} from "./routes/teachers";
     import BadgesNew from "./routes/teachers/BadgesNew.svelte";
@@ -54,18 +54,17 @@
 
 
     const homepage = {
-        guest: Landing,
+        guest: Login,
         [role.STUDENT]: Student,
         [role.TEACHER]: BadgesNew
     };
 
     let loaded = false;
-    let path = window.location.pathname;
 
     onMount(() => {
         //if we are heading to any of the public path we don't fetch the profile
-        path = window.location.pathname;
-        const publicPaths = ["welcome", "public", "auth/login", "signup", "validate", "version/info", "launch/lti", "terms", "privacy"];
+        const path = window.location.pathname;
+        const publicPaths = ["public", "auth/login", "signup", "validate", "version/info", "launch/lti", "terms", "privacy"];
         if (path === "/" || !publicPaths.some(p => path.indexOf(p) > -1)) {
             getSocialAccounts()
                 .then(res => {
@@ -100,12 +99,6 @@
 
     $: visitorRole = $userLoggedIn ? $userRole : "guest";
 </script>
-
-{#if path === "/welcome"}
-<Router>
-    <Route path="/welcome" component={Landing} />
-</Router>
-{:else}
 
 <style global lang="scss">
     @import "stylesheets/main";
@@ -281,4 +274,3 @@
         {/if}
     {/if}
 </div>
-{/if}
