@@ -5,7 +5,6 @@
     import app_badge from "../img/app_badge.png";
     import app_apple from "../img/app_apple.png";
     import app_google from "../img/app_google.png";
-    import app_swirl from "../img/app_swirl.png";
 </script>
 
 <style global lang="css">
@@ -82,17 +81,55 @@
     }
     
     section {
+        padding: 100px 0;
         width: 100%;
     
-        &.bewaren {
+        &.section-bewaren {
             background: linear-gradient(180deg, #F6F0F9 52.23%, #FFF 89.19%);
+            
+            & .section-buttons {
+                display: flex;
+                align-items: flex-start;
+                gap: 16px;
+                align-self: stretch;
+            }
+
+            & button:first-child {
+                color: white;
+                background: #772583;
+            }
+
+            & button {
+                flex-grow: 1;
+                height: 36px;
+                padding: 8px 10px;
+                border-radius: 8px;
+                border: 1px solid #772583;
+                background: transparent;
+            }
+
+            & .login-container {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+            }
+
+            & .login-info {
+                color: #525252;
+                font-size: 12px;
+                line-height: 16px;
+            }
         }
     
-        &.hand {
+        &.section-hand {
+            background-size: cover;
+            background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 20' fill='none'><path d='M 0 12 C 25 8, 30 20, 50 8 S 60 8, 100 12 V 00 H 0 Z' fill='white' /></svg>");
             background-repeat: no-repeat;
+            background-color: #F6F0F9;
+            background-position: center;
         }
     
-        &.portal {
+        &.section-portal {
             background: #F6F0F9;
     
             & > article {
@@ -111,18 +148,20 @@
             max-width: 1400px;
     
             @media (max-width: 1000px) {
-                flex-direction: column;
+                flex-direction: column-reverse;
                 align-items: center;
             }
     
             & > article {
                 width: 580px;
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
             }
         }
     }
     
-    
-    h2 {
+    section h2 {
         font-size: 48px;
         font-weight: 700;
         line-height: 125%;
@@ -134,7 +173,7 @@
         }
     }
     
-    p {
+    section p {
         font-size: 16px;
         font-style: normal;
         font-weight: 400;
@@ -142,20 +181,8 @@
         margin-bottom: 24px;
     }
     
-    a img {
+    section a img {
         height: 40px;
-    }
-    
-    .bewaren div {
-        display: flex;
-        
-        & button {
-            flex-grow: 1;
-        }
-    }
-    
-    .bewaren img {
-        height: 600px;
     }
     
     div > img {
@@ -183,7 +210,6 @@
         text-decoration: none;
         font-weight: 400;
     }
-
 </style>
 
 <div>
@@ -235,7 +261,7 @@
         </div>
     </nav>
     <main>
-        <section class="bewaren">
+        <section class="section-bewaren">
             <article>
                 <article>
                     <h2>
@@ -244,18 +270,27 @@
                     <p>
                         {I18n.t('landing.bewaren.body')}
                     </p>
-                    <div>
+                    <div class="section-buttons">
                         <button>{I18n.t('landing.bewaren.backpack')}</button>
                         <button>{I18n.t('landing.bewaren.app')}</button>
                     </div>
-                    <span>{I18n.t('landing.bewaren.login')}</span>
+                    <div class="login-container">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M 5.5 5.5 V 3.5 C 5.5 2.836 5.763 2.201 6.232 1.732 C 6.701 1.263 7.336 1 8 1 C 8.663 1 9.298 1.263 9.767 1.732 C 10.23 2.201 10.5 2.836 10.5 3.5 V 5.5" stroke="#525252" stroke-linecap="round" stroke-linejoin="round"/>
+                            <rect width="12" height="9" x="2" y="5" rx="1" ry="1" fill="#525252" />
+                            <rect width="10" height="7" x="3" y="6" rx="0" ry="0" fill="white" />
+                            <circle r="0.75" cx="8" cy="9.5" fill="#525252" />
+                        </svg>
+                        <span class="login-info">
+                            {I18n.t('landing.bewaren.login')}
+                        </span>
                 </article>
                 <div>
                     <img alt="Behaalde edubadges in de mobiele app"  src={app_backpack}>
                 </div>
             </article>
         </section>
-        <section class="hand">
+        <section class="section-hand">
             <article>
                 <article>
                     <h2>
@@ -278,7 +313,7 @@
                 </div>
             </article>
         </section>
-        <section class="portal">
+        <section class="section-portal">
             <article>
                 <article>
                     <h2>
