@@ -165,18 +165,23 @@
             }
         }
 
-        & .section-buttons {
+        & .buttons-container {
             display: flex;
             align-items: flex-start;
             gap: 16px;
             align-self: stretch;
+            flex-wrap: wrap;
 
-            & button:first-child {
+            & a:first-child {
                 color: white;
                 background: #772583;
             }
 
-            & button {
+            & a {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                max-width: 270px;
                 color: #772583;
                 font-family: Source Sans Pro, Nunito, sans-serif;
                 flex-grow: 1;
@@ -186,6 +191,7 @@
                 border-radius: 8px;
                 border: 1px solid #772583;
                 background: transparent;
+                text-wrap: nowrap;
             }
         }
 
@@ -325,9 +331,9 @@
                     <p>
                         {I18n.t('landing.bewaren.body')}
                     </p>
-                    <div class="section-buttons">
-                        <button>{I18n.t('landing.bewaren.backpack')}</button>
-                        <button>{I18n.t('landing.bewaren.app')}</button>
+                    <div class="buttons-container">
+                        <a href="/">{I18n.t('landing.bewaren.backpack')}</a>
+                        <a href="/">{I18n.t('landing.bewaren.app')}</a>
                     </div>
                     <div class="login-container">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -382,8 +388,8 @@
                     <p>
                         {I18n.t('landing.portal.body')}
                     </p>
-                    <div class="section-buttons">
-                        <button>{I18n.t('landing.portal.login')}</button>
+                    <div class="buttons-container">
+                        <a href="/">{I18n.t('landing.portal.login')}</a>
                     </div>
                 </article>
                 <div>
