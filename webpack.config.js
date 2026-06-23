@@ -120,8 +120,8 @@ module.exports = {
         },
         historyApiFallback: {
              rewrites: [
-                { from: /^\/login$/, to: "/index.html" },
-                { from: /./, to: "/landing.html" },
+                { from: /^\/welcome$/, to: "/landing.html" },
+                { from: /./, to: "/index.html" },
             ],
         },
         hot: false,
