@@ -8,12 +8,12 @@
     import app_swirl from "../img/app_swirl.png";
 
     const changeLanguage = lang => () => {
-    lang = ["en", "nl"].indexOf(lang) > -1 ? lang : "en";
-    const urlSearchParams = new URLSearchParams(window.location.search);
-    urlSearchParams.set("lang", lang);
-    Cookies.set("lang", lang, {expires: 365, secure: true});
-    window.location.search = urlSearchParams.toString();
-  };
+        lang = ["en", "nl"].indexOf(lang) > -1 ? lang : "en";
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        urlSearchParams.set("lang", lang);
+        Cookies.set("lang", lang, {expires: 365, secure: true});
+        window.location.search = urlSearchParams.toString();
+    };
 </script>
 
 <style global lang="css">
