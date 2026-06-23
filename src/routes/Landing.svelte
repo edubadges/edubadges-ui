@@ -7,12 +7,27 @@
     import app_google from "../img/app_google.png";
     import app_swirl from "../img/app_swirl.png";
 
+    import {getService} from "../util/getService";
+    import {requestLoginToken} from "../api";
+    import {redirectPath, userRole} from "../stores/user";
+    import {role} from "../util/role";
+
     const changeLanguage = lang => () => {
         lang = ["en", "nl"].indexOf(lang) > -1 ? lang : "en";
         const urlSearchParams = new URLSearchParams(window.location.search);
         urlSearchParams.set("lang", lang);
         Cookies.set("lang", lang, {expires: 365, secure: true});
         window.location.search = urlSearchParams.toString();
+    };
+
+    const logIn = (chosenRole, force = false) => {
+        $userRole = chosenRole;
+        const path = $redirectPath;
+        const service = getService(chosenRole);
+
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        const validateName = urlSearchParams.get("validateName");
+        requestLoginToken(service, validateName === "true" || path.indexOf("direct-awards") > -1, force);
     };
 </script>
 
@@ -229,7 +244,7 @@
             <a href="https://servicedesk.surf.nl/wiki/display/WIKI/edubadges" class="nav-item nav-link">
                 {I18n.t('landing.nav.support')}
             </a>
-            <a href="#" class="nav-item button--outline">
+            <a href="#" class="nav-item button--outline" on:click={() => logIn(role.TEACHER, true)}>
               {I18n.t('landing.portal.login')}
             </a>
             <div class="toggle">
