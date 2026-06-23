@@ -223,14 +223,14 @@
               </defs>
             </svg>
             </a>
-            <a href="#" class="nav-item nav-link">
-                Catalogus
+            <a href="/catalog" class="nav-item nav-link">
+                {I18n.t('landing.nav.catalog')}
             </a>
-            <a href="/login" class="nav-item nav-link">
-                Support
+            <a href="https://servicedesk.surf.nl/wiki/display/WIKI/edubadges" class="nav-item nav-link">
+                {I18n.t('landing.nav.support')}
             </a>
             <a href="#" class="nav-item button--outline">
-              Inloggen issuerportal
+              {I18n.t('landing.portal.login')}
             </a>
             <div class="toggle">
               <a href="/" class="toggle__button" class:is-active={I18n.locale === 'nl'} on:click|preventDefault|stopPropagation={changeLanguage("nl")}>
@@ -321,12 +321,12 @@
                     </svg>
                 </div>
             </div>
-            <a href="/login" class="footer-item nav-link">
-                Gebruiksvoorwaarden
+            <a href="/terms" class="footer-item nav-link">
+                {I18n.t('landing.footer.terms')}
             </a>
             ·
-            <a href="/login" class="footer-item nav-link">
-                Privacyvoorwaarden
+            <a href="/privacy" class="footer-item nav-link">
+                {I18n.t('landing.footer.privacy')}
             </a>
         </div>
     </footer>
