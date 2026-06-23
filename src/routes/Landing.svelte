@@ -121,6 +121,10 @@
         padding: 100px 0;
         width: 100%;
 
+        @media (max-width: 1000px) {
+            padding: 40px 0;
+        }
+
         &.section-bewaren {
             background: linear-gradient(180deg, #F6F0F9 52.23%, #FFF 89.19%);
 
@@ -197,14 +201,17 @@
 
         & > article {
             margin: 0 auto;
+            padding: 0 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             max-width: 1400px;
+            gap: 40px;
 
             @media (max-width: 1000px) {
                 flex-direction: column-reverse;
                 align-items: center;
+                gap: 24px;
             }
 
             & > article {
@@ -212,6 +219,10 @@
                 display: flex;
                 flex-direction: column;
                 gap: 16px;
+
+                @media (max-width: 1000px) {
+                    width: 95%;
+                }
             }
 
             & > div {
@@ -219,6 +230,10 @@
 
                 & > img {
                     max-width: 644px;
+
+                    @media (max-width: 1000px) {
+                        width: 100%;
+                    }
                 }
             }
         }
@@ -229,6 +244,10 @@
             line-height: 125%;
             letter-spacing: -1px;
             margin-bottom: 16px;
+
+            @media (max-width: 1000px) {
+                font-size: 30px;
+            }
 
             & strong {
                 color: #772583;
@@ -242,10 +261,16 @@
             font-weight: 400;
             line-height: 24px;
             margin-bottom: 24px;
+
+            @media (max-width: 1000px) {
+                font-size: 14px;
+            }
         }
 
         & a img {
             height: 40px;
+            position: relative;
+            z-index: 1;
         }
 
     }
