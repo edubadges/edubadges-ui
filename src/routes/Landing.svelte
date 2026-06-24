@@ -6,6 +6,7 @@
     import app_badge from "../img/app_badge.png";
     import app_apple from "../img/app_apple.png";
     import app_google from "../img/app_google.png";
+    import portal from "../img/portal.png";
     import medal from "../img/medal.svg";
 
     import {getService} from "../util/getService";
@@ -189,6 +190,11 @@
 
                 @media (max-width: 1000px) {
                     flex-direction: column-reverse;
+                }
+
+                & > div > img {
+                    border-radius: 24px;
+                    border: 2px var(--color-primary) solid;
                 }
             }
         }
@@ -442,7 +448,7 @@
                     </div>
                 </article>
                 <div>
-                    <img alt="Overzicht van de issuerportal" src={app_badge}>
+                    <img alt="Overzicht van de issuerportal" src={portal}>
                 </div>
             </article>
         </section>
