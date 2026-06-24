@@ -54,7 +54,7 @@
 
 
     const homepage = {
-        guest: Login,
+        guest: "",
         [role.STUDENT]: Student,
         [role.TEACHER]: BadgesNew
     };
@@ -209,7 +209,6 @@
                     {/if}
                 </Route>
                 <Route path="/" component={homepage[visitorRole]}/>
-                <Route path="/login" component={Login}/>
                 <Route path="/auth/login/*" component={ProcessToken}/>
                 <Route path="/catalog" component={CatalogNew}/>
                 <Route path="/signup" component={AcceptTerms}/>

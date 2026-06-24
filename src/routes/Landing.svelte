@@ -381,7 +381,7 @@
                         {I18n.t('landing.bewaren.body')}
                     </p>
                     <div class="buttons-container">
-                        <a href="/">{I18n.t('landing.bewaren.backpack')}</a>
+                        <a href="#" on:click={() => logIn(role.STUDENT, true)}>{I18n.t('landing.bewaren.backpack')}</a>
                         <a href="/">{I18n.t('landing.bewaren.app')}</a>
                     </div>
                     <div class="login-container">
@@ -394,6 +394,7 @@
                         <span class="login-info">
                             {I18n.t('landing.bewaren.login')}
                         </span>
+                    </div>
                 </article>
                 <div>
                     <img alt="Behaalde edubadges in de mobiele app"  src={app_backpack}>
@@ -438,7 +439,7 @@
                         {I18n.t('landing.portal.body')}
                     </p>
                     <div class="buttons-container">
-                        <a href="/">{I18n.t('landing.portal.login')}</a>
+                        <a href="#" on:click={() => logIn(role.TEACHER, true)}>{I18n.t('landing.portal.login')}</a>
                     </div>
                 </article>
                 <div>
