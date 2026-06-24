@@ -394,6 +394,7 @@
                         <span class="login-info">
                             {I18n.t('landing.bewaren.login')}
                         </span>
+                    </div>
                 </article>
                 <div>
                     <img alt="Behaalde edubadges in de mobiele app"  src={app_backpack}>
