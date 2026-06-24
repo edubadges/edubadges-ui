@@ -68,6 +68,7 @@
 
     .button--outline {
         border: 1px solid var(--color-primary);
+        color: var(--color-primary);
     }
 
     .toggle {
