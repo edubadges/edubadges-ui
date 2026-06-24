@@ -1,11 +1,12 @@
 <script>
     import I18n from "i18n-js";
     import Cookies from "js-cookie";
+
     import app_backpack from "../img/app_backpack.png";
     import app_badge from "../img/app_badge.png";
     import app_apple from "../img/app_apple.png";
     import app_google from "../img/app_google.png";
-    import app_swirl from "../img/app_swirl.png";
+    import medal from "../img/medal.svg";
 
     import {getService} from "../util/getService";
     import {requestLoginToken} from "../api";
@@ -100,90 +101,202 @@
         color: #0A0A0A;
         font-family: Nunito, sans-serif;
         font-style: normal;
-    
+
         display: flex;
         flex-direction: column;
     }
-    
+
+    .medals {
+        position: relative;
+        left: 50vw;
+
+        @media (max-width: 1000px) {
+            display: none;
+        }
+
+        & > div {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+        }
+
+        & #medal-bottomleft {
+            top: 450px;
+            left: -600px;
+        }
+
+        & #medal-topright {
+            top: -80px;
+            left: 200px;
+            transform: rotate(25deg);
+            z-index: 0;
+        }
+
+        & #medal-bottomright {
+            top: 400px;
+            left: 700px;
+            transform: rotate(30deg);
+            width: 100px;
+            height: 100px;
+        }
+    }
+
     section {
+        padding: 100px 0;
         width: 100%;
-    
-        &.bewaren {
+
+        @media (max-width: 1000px) {
+            padding: 40px 0;
+        }
+
+        &.section-bewaren {
             background: linear-gradient(180deg, #F6F0F9 52.23%, #FFF 89.19%);
+
+            & .login-container {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+            }
+
+            & .login-info {
+                color: #525252;
+                font-size: 12px;
+                line-height: 16px;
+            }
         }
-    
-        &.hand {
+
+        &.section-hand {
+            overflow: hidden;
+            background:
+                url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-700 0 4000 300' fill='none'><path d='M -700 0.5 H 571 q 40 0 40 40 V 135 q 0 40 40 40 H 5000' stroke='%23772583' stroke-opacity='0.5'/></svg>") top center / 4000px auto,
+                url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 18' fill='none'><path d='M 0 12 C 25 8, 30 20, 50 8 S 60 8, 100 12 V 0 H 0 Z' fill='white' /></svg>") center / cover,
+                #F6F0F9;
             background-repeat: no-repeat;
+
+            @media (max-width: 1000px) {
+                /* Remove line background */
+                background:
+                    url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 20' fill='none'><path d='M 0 12 C 25 8, 30 20, 50 8 S 60 8, 100 12 V 0 H 0 Z' fill='white' /></svg>") center / cover,
+                    #F6F0F9;
+            }
         }
-    
-        &.portal {
+
+        &.section-portal {
             background: #F6F0F9;
-    
+
             & > article {
                 flex-direction: row-reverse;
-    
+
                 @media (max-width: 1000px) {
                     flex-direction: column-reverse;
                 }
             }
         }
-    
+
+        & .buttons-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            align-self: stretch;
+            flex-wrap: wrap;
+
+            & a:first-child {
+                color: white;
+                background: #772583;
+            }
+
+            & a {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                max-width: 270px;
+                color: #772583;
+                font-family: Source Sans Pro, Nunito, sans-serif;
+                flex-grow: 1;
+                line-height: 1em;
+                height: 36px;
+                padding: 8px 10px;
+                border-radius: 8px;
+                border: 1px solid #772583;
+                background: transparent;
+                text-wrap: nowrap;
+            }
+        }
+
         & > article {
             margin: 0 auto;
+            padding: 0 24px;
             display: flex;
             justify-content: space-between;
+            align-items: center;
             max-width: 1400px;
-    
+            gap: 40px;
+
             @media (max-width: 1000px) {
-                flex-direction: column;
+                flex-direction: column-reverse;
                 align-items: center;
+                gap: 24px;
             }
-    
+
             & > article {
                 width: 580px;
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+
+                @media (max-width: 1000px) {
+                    width: 95%;
+                }
+            }
+
+            & > div {
+                z-index: 1;
+
+                & > img {
+                    max-width: 644px;
+
+                    @media (max-width: 1000px) {
+                        width: 100%;
+                    }
+                }
             }
         }
-    }
-    
-    
-    h2 {
-        font-size: 48px;
-        font-weight: 700;
-        line-height: 125%;
-        letter-spacing: -1px;
-        margin-bottom: 16px;
-    
-        & strong {
-            color: #772583;
+
+        & h2 {
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 125%;
+            letter-spacing: -1px;
+            margin-bottom: 16px;
+
+            @media (max-width: 1000px) {
+                font-size: 30px;
+            }
+
+            & strong {
+                color: #772583;
+                font-weight: 700;
+            }
         }
-    }
-    
-    p {
-        font-size: 16px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 24px;
-        margin-bottom: 24px;
-    }
-    
-    a img {
-        height: 40px;
-    }
-    
-    .bewaren div {
-        display: flex;
-        
-        & button {
-            flex-grow: 1;
+
+        & p {
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 24px;
+            margin-bottom: 24px;
+
+            @media (max-width: 1000px) {
+                font-size: 14px;
+            }
         }
-    }
-    
-    .bewaren img {
-        height: 600px;
-    }
-    
-    div > img {
-        max-width: 644px;
+
+        & a img {
+            height: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
     }
 
     .footer-powered-by {
@@ -207,7 +320,6 @@
         text-decoration: none;
         font-weight: 400;
     }
-
 </style>
 
 <div>
@@ -259,7 +371,7 @@
         </div>
     </nav>
     <main>
-        <section class="bewaren">
+        <section class="section-bewaren">
             <article>
                 <article>
                     <h2>
@@ -268,18 +380,32 @@
                     <p>
                         {I18n.t('landing.bewaren.body')}
                     </p>
-                    <div>
-                        <button>{I18n.t('landing.bewaren.backpack')}</button>
-                        <button>{I18n.t('landing.bewaren.app')}</button>
+                    <div class="buttons-container">
+                        <a href="/">{I18n.t('landing.bewaren.backpack')}</a>
+                        <a href="/">{I18n.t('landing.bewaren.app')}</a>
                     </div>
-                    <span>{I18n.t('landing.bewaren.login')}</span>
+                    <div class="login-container">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M 5.5 5.5 V 3.5 C 5.5 2.836 5.763 2.201 6.232 1.732 C 6.701 1.263 7.336 1 8 1 C 8.663 1 9.298 1.263 9.767 1.732 C 10.23 2.201 10.5 2.836 10.5 3.5 V 5.5" stroke="#525252" stroke-linecap="round" stroke-linejoin="round"/>
+                            <rect width="12" height="9" x="2" y="5" rx="1" ry="1" fill="#525252" />
+                            <rect width="10" height="7" x="3" y="6" rx="0" ry="0" fill="#F7F4FA" />
+                            <circle r="0.75" cx="8" cy="9.5" fill="#525252" />
+                        </svg>
+                        <span class="login-info">
+                            {I18n.t('landing.bewaren.login')}
+                        </span>
                 </article>
                 <div>
                     <img alt="Behaalde edubadges in de mobiele app"  src={app_backpack}>
                 </div>
             </article>
         </section>
-        <section class="hand">
+        <section class="section-hand">
+            <div class="medals">
+                <div id="medal-bottomleft">{@html medal}</div>
+                <div id="medal-topright">{@html medal}</div>
+                <div id="medal-bottomright">{@html medal}</div>
+            </div>
             <article>
                 <article>
                     <h2>
@@ -302,7 +428,7 @@
                 </div>
             </article>
         </section>
-        <section class="portal">
+        <section class="section-portal">
             <article>
                 <article>
                     <h2>
@@ -311,6 +437,9 @@
                     <p>
                         {I18n.t('landing.portal.body')}
                     </p>
+                    <div class="buttons-container">
+                        <a href="/">{I18n.t('landing.portal.login')}</a>
+                    </div>
                 </article>
                 <div>
                     <img alt="Overzicht van de issuerportal" src={app_badge}>

@@ -32,20 +32,20 @@ I18n.translations.en = {
     },
     landing: {
         bewaren: {
-            title: "[to be translated] Verzamel, bewaar en deel jouw <strong>edubadges</strong>",
-            body: "[to be translated] Edubadges is hét nationale platform voor digitale certificaten in het Nederlandse onderwijs. Met een edubadge laat je zien welke kennis en vaardigheden je in huis hebt, officieel erkend door je onderwijsinstelling. Bewaar ze op één plek, deel ze met werkgevers of op LinkedIn, en maak de overstap van studie naar werk een stuk makkelijker.",
+            title: "[todo] Collect, store, and share your <strong>edubadges</strong>",
+            body: "[todo] Edubadges is the national platform for digital certificates in the Dutch education system. With an edubadge you can show which knowledge and skills you have, officially recognized by institutions. Keep them in one place, share them with employers or on LinkedIn, and make the transition from studying to work more easily.",
             backpack: "Open my backpack",
             app: "Download the app",
-            login: "[to be translated] Inloggen met je eduID via SURFconext",
+            login: "[todo] Login with your eduID via SURFconext",
         },
         hand: {
-            title: "[to be translated] Je <strong>edubadges</strong> altijd bij de hand",
-            body: "[to be translated] Met de app heb je je backpack gewoon op zak. Claim nieuwe edubadges zodra je ze ontvangt, houd overzicht over alles wat je hebt behaald en deel ze direct op LinkedIn, waar en wanneer je wil.",
+            title: "[todo] Your <strong>edubadges</strong> always at hand",
+            body: "[todo] With the app you'll have your backpack with you. Claim new edubadges when you receive them, keep an overview of all your achievements and share them directly on LinkedIn, where and whenever you want.",
         },
         portal: {
-            title: "[to be translated] Voor docenten en beheerders: <strong>de issuerportal</strong>",
-            body: "[to be translated] In de issuerportal reiken docenten edubadges uit aan studenten, maken beheerders nieuwe edubadges aan en regel je het gebruikersbeheer van je instelling. Overzichtelijk, veilig en volledig onder eigen regie.",
-            login: "[to be translated] Log in op het issuerportaal",
+            title: "[todo] For teachers and admins: <strong>the issuerportal</strong>",
+            body: "[todo] In the issuerportal teachers can award edubadges to students, admins can create new edubadges and manage the users of the institution. Clear, safe, and fully under your own control.",
+            login: "Login to the issuerportal",
         },
         nav: {
             support: "[todo] Support",
