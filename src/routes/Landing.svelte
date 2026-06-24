@@ -1,11 +1,19 @@
 <script>
     import I18n from "i18n-js";
-
+    import Cookies from "js-cookie";
     import app_backpack from "../img/app_backpack.png";
     import app_badge from "../img/app_badge.png";
     import app_apple from "../img/app_apple.png";
     import app_google from "../img/app_google.png";
     import app_swirl from "../img/app_swirl.png";
+
+    const changeLanguage = lang => () => {
+        lang = ["en", "nl"].indexOf(lang) > -1 ? lang : "en";
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        urlSearchParams.set("lang", lang);
+        Cookies.set("lang", lang, {expires: 365, secure: true});
+        window.location.search = urlSearchParams.toString();
+    };
 </script>
 
 <style global lang="css">
@@ -225,10 +233,10 @@
               Inloggen issuerportal
             </a>
             <div class="toggle">
-              <a href="#" class="toggle__button">
+              <a href="/" class="toggle__button" class:is-active={I18n.locale === 'nl'} on:click|preventDefault|stopPropagation={changeLanguage("nl")}>
                 NL
               </a>
-              <a href="#" class="toggle__button is-active">
+              <a href="/" class="toggle__button" class:is-active={I18n.locale === 'en'} on:click|preventDefault|stopPropagation={changeLanguage("en")}>
                 EN
               </a>
             </div>
