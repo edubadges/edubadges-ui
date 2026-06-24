@@ -25,6 +25,7 @@
 html, body {
   font-family: "Nunito", system-ui, sans-serif;
   font-weight: 400;
+  min-width: 375px;
 }
 
 button, input, textarea, select {

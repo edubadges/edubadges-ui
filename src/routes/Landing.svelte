@@ -36,20 +36,21 @@
     @import "../stylesheets/landing.css";
 
     .nav-bar {
-        height: 80px;
+        margin: 20px 0;
         padding-inline: var(--space-xl);
         display: flex;
         align-items: center;
     }
 
-    .nav-container {
+    .nav-container, .footer-container {
         display: flex;
         align-items: center;
         gap: var(--space-lg);
+        flex-wrap: wrap;
     }
 
-    .nav-container > :first-child {
-        margin-right: auto;
+    .nav-logo {
+        flex-grow: 1;
     }
 
     .nav-item {
@@ -61,15 +62,26 @@
         border-radius: var(--radius-sm);
         text-decoration: none;
         font-weight: 500;
+        text-wrap: nowrap;
     }
 
     .nav-link {
         color: var(--color-muted);
     }
 
+    .nav-links {
+        @media (max-width: 497px) {
+            order: 5;
+        }
+    }
+
     .button--outline {
         border: 1px solid var(--color-primary);
         color: var(--color-primary);
+
+        @media (max-width: 1000px) {
+            display: none;
+        }
     }
 
     .toggle {
@@ -320,6 +332,18 @@
         text-decoration: none;
         font-weight: 400;
     }
+
+    .footer-links {
+        display: flex;
+        gap: var(--space-sm);
+    }
+
+    .footer-container {
+        @media (max-width: 1000px) {
+            flex-direction: column-reverse;
+            justify-content: center;
+        }
+    }
 </style>
 
 <div>
@@ -351,22 +375,24 @@
               </defs>
             </svg>
             </a>
-            <a href="/catalog" class="nav-item nav-link">
+            <div class="nav-links">
+                <a href="/catalog" class="nav-item nav-link">
                 {I18n.t('landing.nav.catalog')}
-            </a>
-            <a href="https://servicedesk.surf.nl/wiki/display/WIKI/edubadges" class="nav-item nav-link">
-                {I18n.t('landing.nav.support')}
-            </a>
-            <a href="#" class="nav-item button--outline" on:click={() => logIn(role.TEACHER, true)}>
-              {I18n.t('landing.portal.login')}
-            </a>
+                </a>
+                <a href="https://servicedesk.surf.nl/wiki/display/WIKI/edubadges" class="nav-item nav-link">
+                    {I18n.t('landing.nav.support')}
+                </a>
+                <a href="#" class="nav-item button--outline" on:click={() => logIn(role.TEACHER, true)}>
+                  {I18n.t('landing.portal.login')}
+                </a>
+            </div>
             <div class="toggle">
-              <a href="/" class="toggle__button" class:is-active={I18n.locale === 'nl'} on:click|preventDefault|stopPropagation={changeLanguage("nl")}>
+                <a href="/" class="toggle__button" class:is-active={I18n.locale === 'nl'} on:click|preventDefault|stopPropagation={changeLanguage("nl")}>
                 NL
-              </a>
-              <a href="/" class="toggle__button" class:is-active={I18n.locale === 'en'} on:click|preventDefault|stopPropagation={changeLanguage("en")}>
+                </a>
+                <a href="/" class="toggle__button" class:is-active={I18n.locale === 'en'} on:click|preventDefault|stopPropagation={changeLanguage("en")}>
                 EN
-              </a>
+                </a>
             </div>
         </div>
     </nav>
@@ -448,7 +474,7 @@
         </section>
     </main>
     <footer class="nav-bar">
-        <div class="container nav-container">
+        <div class="container footer-container">
             <div class="footer-powered-by">
                 Powered by
                 <div class="footer-logo">
@@ -466,13 +492,15 @@
                     </svg>
                 </div>
             </div>
-            <a href="/terms" class="footer-item nav-link">
-                {I18n.t('landing.footer.terms')}
-            </a>
-            ·
-            <a href="/privacy" class="footer-item nav-link">
-                {I18n.t('landing.footer.privacy')}
-            </a>
+            <div class="footer-links">
+                <a href="/terms" class="footer-item nav-link">
+                    {I18n.t('landing.footer.terms')}
+                </a>
+                ·
+                <a href="/privacy" class="footer-item nav-link">
+                    {I18n.t('landing.footer.privacy')}
+                </a>
+            </div>
         </div>
     </footer>
 </div>
