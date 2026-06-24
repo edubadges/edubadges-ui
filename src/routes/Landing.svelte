@@ -326,6 +326,7 @@
         gap: var(--space-sm);
         font-size: 12px;
         font-weight: 600;
+        flex-grow: 1;
     }
 
     .footer-logo {
