@@ -32,28 +32,28 @@ I18n.translations.en = {
     },
     landing: {
         bewaren: {
-            title: "[todo] Collect, store, and share your <strong>edubadges</strong>",
-            body: "[todo] Edubadges is the national platform for digital certificates in the Dutch education system. With an edubadge you can show which knowledge and skills you have, officially recognized by institutions. Keep them in one place, share them with employers or on LinkedIn, and make the transition from studying to work more easily.",
+            title: "Collect, store, and share your <strong>edubadges</strong>",
+            body: "Edubadges is the national platform for digital certificates in the Dutch education system. With an edubadge you can show which knowledge and skills you have, officially recognized by institutions. Keep them in one place, share them with employers or on LinkedIn, and make the transition from studying to work more easily.",
             backpack: "Open my backpack",
             app: "Download the app",
-            login: "[todo] Login with your eduID via SURFconext",
+            login: "Login with your eduID via SURFconext",
         },
         hand: {
-            title: "[todo] Your <strong>edubadges</strong> always at hand",
-            body: "[todo] With the app you'll have your backpack with you. Claim new edubadges when you receive them, keep an overview of all your achievements and share them directly on LinkedIn, where and whenever you want.",
+            title: "Your <strong>edubadges</strong> always at hand",
+            body: "With the app you'll have your backpack with you. Claim new edubadges when you receive them, keep an overview of all your achievements and share them directly on LinkedIn, where and whenever you want.",
         },
         portal: {
-            title: "[todo] For teachers and admins: <strong>the issuerportal</strong>",
-            body: "[todo] In the issuerportal teachers can award edubadges to students, admins can create new edubadges and manage the users of the institution. Clear, safe, and fully under your own control.",
+            title: "For teachers and admins: <strong>the issuerportal</strong>",
+            body: "In the issuerportal teachers can award edubadges to students, admins can create new edubadges and manage the users of the institution. Clear, safe, and fully under your own control.",
             login: "Login to the issuerportal",
         },
         nav: {
-            support: "[todo] Support",
-            catalog: "[todo] Catalog",
+            support: "Support",
+            catalog: "Catalog",
         },
         footer: {
-            terms: "[todo] Terms of Service",
-            privacy: "[todo] Privacy Statement",
+            terms: "Terms of Service",
+            privacy: "Privacy Statement",
         },
     },
     login: {
