@@ -47,6 +47,14 @@ I18n.translations.nl = {
             body: "In de issuerportal reiken docenten edubadges uit aan studenten, maken beheerders nieuwe edubadges aan en regel je het gebruikersbeheer van je instelling. Overzichtelijk, veilig en volledig onder eigen regie.",
             login: "Log in op het issuerportaal",
         },
+        nav: {
+            support: "Support",
+            catalog: "Catalogus",
+        },
+        footer: {
+            terms: "Gebruiksvoorwaarden",
+            privacy: "Privacyvoorwaarden",
+        },
     },
     login: {
         title: "Never stop learning",
