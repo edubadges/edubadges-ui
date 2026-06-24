@@ -381,7 +381,7 @@
                         {I18n.t('landing.bewaren.body')}
                     </p>
                     <div class="buttons-container">
-                        <a href="/">{I18n.t('landing.bewaren.backpack')}</a>
+                        <a href="#" on:click={() => logIn(role.STUDENT, true)}>{I18n.t('landing.bewaren.backpack')}</a>
                         <a href="/">{I18n.t('landing.bewaren.app')}</a>
                     </div>
                     <div class="login-container">
