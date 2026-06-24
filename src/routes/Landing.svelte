@@ -438,7 +438,7 @@
                         {I18n.t('landing.portal.body')}
                     </p>
                     <div class="buttons-container">
-                        <a href="/">{I18n.t('landing.portal.login')}</a>
+                        <a href="#" on:click={() => logIn(role.TEACHER, true)}>{I18n.t('landing.portal.login')}</a>
                     </div>
                 </article>
                 <div>
