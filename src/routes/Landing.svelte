@@ -1,12 +1,35 @@
 <script>
     import I18n from "i18n-js";
+    import Cookies from "js-cookie";
 
     import app_backpack from "../img/app_backpack.png";
     import app_badge from "../img/app_badge.png";
     import app_apple from "../img/app_apple.png";
     import app_google from "../img/app_google.png";
-
     import medal from "../img/medal.svg";
+
+    import {getService} from "../util/getService";
+    import {requestLoginToken} from "../api";
+    import {redirectPath, userRole} from "../stores/user";
+    import {role} from "../util/role";
+
+    const changeLanguage = lang => () => {
+        lang = ["en", "nl"].indexOf(lang) > -1 ? lang : "en";
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        urlSearchParams.set("lang", lang);
+        Cookies.set("lang", lang, {expires: 365, secure: true});
+        window.location.search = urlSearchParams.toString();
+    };
+
+    const logIn = (chosenRole, force = false) => {
+        $userRole = chosenRole;
+        const path = $redirectPath;
+        const service = getService(chosenRole);
+
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        const validateName = urlSearchParams.get("validateName");
+        requestLoginToken(service, validateName === "true" || path.indexOf("direct-awards") > -1, force);
+    };
 </script>
 
 <style global lang="css">
@@ -46,6 +69,7 @@
 
     .button--outline {
         border: 1px solid var(--color-primary);
+        color: var(--color-primary);
     }
 
     .toggle {
@@ -327,20 +351,20 @@
               </defs>
             </svg>
             </a>
-            <a href="#" class="nav-item nav-link">
-                Catalogus
+            <a href="/catalog" class="nav-item nav-link">
+                {I18n.t('landing.nav.catalog')}
             </a>
-            <a href="/login" class="nav-item nav-link">
-                Support
+            <a href="https://servicedesk.surf.nl/wiki/display/WIKI/edubadges" class="nav-item nav-link">
+                {I18n.t('landing.nav.support')}
             </a>
-            <a href="#" class="nav-item button--outline">
-              Inloggen issuerportal
+            <a href="#" class="nav-item button--outline" on:click={() => logIn(role.TEACHER, true)}>
+              {I18n.t('landing.portal.login')}
             </a>
             <div class="toggle">
-              <a href="#" class="toggle__button">
+              <a href="/" class="toggle__button" class:is-active={I18n.locale === 'nl'} on:click|preventDefault|stopPropagation={changeLanguage("nl")}>
                 NL
               </a>
-              <a href="#" class="toggle__button is-active">
+              <a href="/" class="toggle__button" class:is-active={I18n.locale === 'en'} on:click|preventDefault|stopPropagation={changeLanguage("en")}>
                 EN
               </a>
             </div>
@@ -442,12 +466,12 @@
                     </svg>
                 </div>
             </div>
-            <a href="/login" class="footer-item nav-link">
-                Gebruiksvoorwaarden
+            <a href="/terms" class="footer-item nav-link">
+                {I18n.t('landing.footer.terms')}
             </a>
             ·
-            <a href="/login" class="footer-item nav-link">
-                Privacyvoorwaarden
+            <a href="/privacy" class="footer-item nav-link">
+                {I18n.t('landing.footer.privacy')}
             </a>
         </div>
     </footer>

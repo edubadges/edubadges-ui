@@ -47,6 +47,14 @@ I18n.translations.en = {
             body: "[todo] In the issuerportal teachers can award edubadges to students, admins can create new edubadges and manage the users of the institution. Clear, safe, and fully under your own control.",
             login: "Login to the issuerportal",
         },
+        nav: {
+            support: "[todo] Support",
+            catalog: "[todo] Catalog",
+        },
+        footer: {
+            terms: "[todo] Terms of Service",
+            privacy: "[todo] Privacy Statement",
+        },
     },
     login: {
         title: "Never stop learning",
