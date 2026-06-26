@@ -903,7 +903,7 @@ I18n.translations.en = {
             validUntil: "Valid until",
             addToCollection: "Add to collection",
             grade: "Grade",
-            ob3SsiAgent: "Wallet import {{name}}",
+            ob3SsiAgent: "Import in Wallet",
             ob3SsiAgentNames: {
                 unime: "unime",
                 sphereon: "sphereon",
