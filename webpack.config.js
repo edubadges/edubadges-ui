@@ -2,13 +2,13 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
-const HtmlWebpackPartialsPlugin = require('html-webpack-partials-plugin');
+const HtmlWebpackPartialsPlugin = require("html-webpack-partials-plugin");
 
 const webpack = require("webpack");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 const GitRevisionPlugin = require("git-revision-webpack-plugin");
-const gitRevisionPlugin = new GitRevisionPlugin({ lightweightTags: true });
+const gitRevisionPlugin = new GitRevisionPlugin({lightweightTags: true});
 
 const mode = process.env.NODE_ENV || "development";
 const prod = mode === "production";
@@ -40,7 +40,7 @@ module.exports = {
                 use: {
                     loader: "babel-loader",
                     options: {
-                        presets: [["@babel/preset-env", { targets: "defaults" }]],
+                        presets: [["@babel/preset-env", {targets: "defaults"}]],
                     },
                 },
             },
@@ -95,7 +95,7 @@ module.exports = {
             favicon: "src/favicon.ico",
             hash: true,
         }),
-        prod
+        true
             ? new HtmlWebpackPartialsPlugin({
                   path: "src/piwik.html",
                   location: "head",
@@ -120,7 +120,7 @@ module.exports = {
             overlay: false,
         },
     },
-    performance: { hints: false },
+    performance: {hints: false},
     optimization: {
         minimize: prod,
         minimizer: [new UglifyJsPlugin()],
