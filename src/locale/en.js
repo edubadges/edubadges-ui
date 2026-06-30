@@ -17,28 +17,31 @@ I18n.translations.en = {
         notifications: "My notifications",
         feedback: "Send feedback",
         environment: {
-          demo: {
-            title: "Demo environment",
-            info: "This is the demo environment of edubadges.<br/><br/>All of the data is cleared each month and after each new " +
-                  "deployment.<br/><br/>" +
-                  "If you have any question about the demo environment please contact us" +
-                  " at <a href='mailto:support@edubadges.nl'>support@edubadges.nl</a> "
-          },
-          development: {
-            title: "Development environment",
-            info: "This is the Eduwallet Incubator environment of edubadges.<br/><br/>All of the data is cleared after each new " +
-                  "deployment.<br/><br/>"
-          },
-          pilot: {
-            title: "Eduwallet Pilot",
-            info: "This is the Eduwallet Pilot for Edubadges.<br/><br/> TODO: Add actual information and links to details when known"
-          },
-          playground: {
-            title: "Eduwallet Playground",
-            info: "This is the Eduwallet Incubator environment of edubadges.<br/><br/>All of the data is cleared after each new " +
-                  "deployment.<br/><br/>" +
-                  "More info about the Eduwallet Incubator can be found on <a href='https://wiki.surfnet.nl/spaces/EWI/pages/128124830/Eduwallet+Incubator'>the internal SURF wiki</a>"
-          },
+            demo: {
+                title: "Demo environment",
+                info:
+                    "This is the demo environment of edubadges.<br/><br/>All of the data is cleared each month and after each new " +
+                    "deployment.<br/><br/>" +
+                    "If you have any question about the demo environment please contact us" +
+                    " at <a href='mailto:support@edubadges.nl'>support@edubadges.nl</a> ",
+            },
+            development: {
+                title: "Development environment",
+                info:
+                    "This is the Eduwallet Incubator environment of edubadges.<br/><br/>All of the data is cleared after each new " +
+                    "deployment.<br/><br/>",
+            },
+            pilot: {
+                title: "Eduwallet Pilot",
+                info: "This is the Eduwallet Pilot for Edubadges.<br/><br/> TODO: Add actual information and links to details when known",
+            },
+            playground: {
+                title: "Eduwallet Playground",
+                info:
+                    "This is the Eduwallet Incubator environment of edubadges.<br/><br/>All of the data is cleared after each new " +
+                    "deployment.<br/><br/>" +
+                    "More info about the Eduwallet Incubator can be found on <a href='https://wiki.surfnet.nl/spaces/EWI/pages/128124830/Eduwallet+Incubator'>the internal SURF wiki</a>",
+            },
         },
         impersonate: "Impersonate",
         daaudittrail: "DA audit trail",
@@ -903,7 +906,7 @@ I18n.translations.en = {
             validUntil: "Valid until",
             addToCollection: "Add to collection",
             grade: "Grade",
-            ob3SsiAgent: "Wallet import {{name}}",
+            ob3SsiAgent: "Wallet import",
             ob3SsiAgentNames: {
                 unime: "unime",
                 sphereon: "sphereon",
@@ -1416,7 +1419,8 @@ I18n.translations.en = {
     tooltips: {
         // If you don't want a tooltip to be displayed, just comment out (or delete) the line (like this line;-)
         //badgeClassImage: "badgeClassImage",
-        badgeClassExpireSettings: "After this period edubadges will expiry and will be no longer valid. <br />For the pilot, badges will always expire at the end of the pilot, or earlier",
+        badgeClassExpireSettings:
+            "After this period edubadges will expiry and will be no longer valid. <br />For the pilot, badges will always expire at the end of the pilot, or earlier",
         badgeClassName: "Avoid abbreviations, make sure the name is recognisable for others.",
         // badgeClassDescription: "This description supports markdown. " +
         //     "See <a target=\"_blank\" href=\"https://wiki.surfnet.nl/display/Edubadges/Edubadges+Example+BadgeClass\"> the wiki </a> for examples.",
