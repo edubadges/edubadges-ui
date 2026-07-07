@@ -451,14 +451,15 @@ I18n.translations.nl = {
         500: "Kan niet de laatste permissie van de instelling verwijderen.",
         501: "Je kunt maar één uitnodiging hebben per emailadres.",
         502: "Kan de gebruiker niet uitnodigen voor deze entiteit: er is een conflicterende permissie.",
-        503: "Kan de gebruiker niet uitnodigen voor deze entiteit: er is een conflicterende uitnodiging.",
-        504: "Kan niet een gebruiker van een andere instelling uitnodigen.",
+        503: "Kan de gebruiker niet uitnodigen voor deze entiteit: er is een conflicterende uitnodiging.",
+        504: "Kan niet een gebruiker van een andere instelling uitnodigen.",
         505: "Deze uitnodiging is voor een student.",
-        506: "Deze uitnodiging is voor een docent.",
+        506: "Deze uitnodiging is voor een docent.",
         507: "Je hebt geen bevoegdheid om een gebruiker voor deze entiteit uit te nodigen.",
         508: "Je kunt geen uitnodiging aanpassen die afgewezen is.",
-        509: "Geen geldig e-mailadres.",
+        509: "Geen geldig e-mailadres.",
         510: "Je hebt dit e-mailadres meerdere keren toegevoegd.",
+        511: "Er bestaat al een gebruiker met dit emailadres, probeer rechten toe te kennen via het Gebruikers tabblad.",
         601: "Geen toegang. Controleer je permissie in deze issuer.",
         701: "Ongespecifieerde share provider.",
         702: "Ongeldige share provider.",

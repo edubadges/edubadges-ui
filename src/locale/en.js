@@ -459,6 +459,7 @@ I18n.translations.en = {
         508: "You cannot edit an invitation that has been rejected.",
         509: "Not a valid email address.",
         510: "You entered this email address multiple times.",
+        511: "User with this email already exists, try adding permissions via the Users tab.",
         601: "You do not have permission. Check your assigned role in the issuer portal.",
         701: "Unspecified share provider.",
         702: "Invalid share provider.",
