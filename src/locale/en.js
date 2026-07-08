@@ -33,19 +33,19 @@ I18n.translations.en = {
     landing: {
         bewaren: {
             title: "Collect, store, and share your <strong>edubadges</strong>",
-            body: "Edubadges is the national platform for digital certificates in the Dutch education system. With an edubadge you can show which knowledge and skills you have, officially recognized by institutions. Keep them in one place, share them with employers or on LinkedIn, and make the transition from studying to work more easily.",
+            body: "Edubadges is the national platform for digital certificates in the Dutch education system. With an edubadge you can show which knowledge and skills you have, officially recognized by institutions. Keep them in one place, share them with employers or on LinkedIn, and make the transition from study to work more easily.",
             backpack: "Open my backpack",
             app: "Download the app",
             login: "Login with your eduID via SURFconext",
         },
         hand: {
             title: "Your <strong>edubadges</strong> always at hand",
-            body: "With the app you'll have your backpack with you. Claim new edubadges when you receive them, keep an overview of all your achievements and share them directly on LinkedIn, where and whenever you want.",
+            body: "With the app you have your backpack with you. Claim new edubadges when you receive them, keep an overview of all your achievements and share them directly on LinkedIn, where and whenever you want.",
         },
         portal: {
             title: "For teachers and admins: <strong>the issuerportal</strong>",
-            body: "In the issuerportal teachers can award edubadges to students, admins can create new edubadges and manage the users of the institution. Clear, safe, and fully under your own control.",
-            login: "Login to the issuerportal",
+            body: "In the issuerportal teachers can award edubadges to learners, admins can create new edubadges and manage the users of the institution. Clear, safe, and fully under your own control.",
+            login: "Log into the issuerportal",
         },
         nav: {
             support: "Support",
