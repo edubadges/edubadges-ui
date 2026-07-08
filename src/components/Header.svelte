@@ -36,10 +36,10 @@
         logoutCurrentUser()
             .then(() => {
                 doLogOut();
-                navigate("/login?force=true");
+                window.location.replace("/welcome");
             }).catch(() => {
             doLogOut()
-            navigate("/login?force=true");
+            window.location.replace("/welcome");
         });
     }
 
