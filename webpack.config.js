@@ -95,11 +95,13 @@ module.exports = {
             favicon: "src/favicon.ico",
             hash: true,
         }),
-        false ? new HtmlWebpackPartialsPlugin({
-            path: 'src/piwik.html',
-            location: 'head',
-            priority: 'low'
-        }) : false,
+        prod
+            ? new HtmlWebpackPartialsPlugin({
+                  path: "src/piwik.html",
+                  location: "head",
+                  priority: "low",
+              })
+            : false,
         // prod ? new BundleAnalyzerPlugin({
         //     analyzerMode: "disabled",
         //     generateStatsFile: false,
