@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [9.2.0] - 2026-07-22
+
+Frontend: https://github.com/edubadges/edubadges-ui/releases/tag/v9.2.0</br>
+Backend: https://github.com/edubadges/edubadges-server/releases/tag/v9.2.0
+
+- Disable edit button for archived entities
+- Using prod bool to determine whether to enable piwik
+
 ## [9.1.0] - 2026-06-15
 
 Frontend: https://github.com/edubadges/edubadges-ui/releases/tag/v9.1.0</br>
@@ -26,7 +34,6 @@ Backend: https://github.com/edubadges/edubadges-server/releases/tag/v9.1.0
 -  Remove warning when entity form is a copy
 -  Allow save draft for copied badge classes
 -  Update the micro credential quality assurance text
-  
 
 ## [9.0.1] - 2026-05-07
 
