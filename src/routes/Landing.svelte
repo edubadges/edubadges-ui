@@ -367,6 +367,17 @@
             justify-content: center;
         }
     }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        html {
+            scroll-behavior: auto;
+        }
+    }
+
 </style>
 
 <div>
@@ -431,7 +442,7 @@
                     </p>
                     <div class="buttons-container">
                         <a href="#" on:click={() => logIn(role.STUDENT, true)}>{I18n.t('landing.bewaren.backpack')}</a>
-                        <a href="/">{I18n.t('landing.bewaren.app')}</a>
+                        <a href="#app-download">{I18n.t('landing.bewaren.app')}</a>
                     </div>
                     <div class="login-container">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -448,7 +459,7 @@
                 <img id="image-backpack" alt="Behaalde edubadges in de mobiele app" fetchpriority="high" src={app_backpack}>
             </article>
         </section>
-        <section class="section-hand">
+        <section class="section-hand" id="app-download">
             <div class="medals">
                 <div id="medal-bottomleft">{@html medal}</div>
                 <div id="medal-topright">{@html medal}</div>
@@ -463,10 +474,10 @@
                         {I18n.t('landing.hand.body')}
                     </p>
                     <p>
-                        <a href="/">
+                        <a href="https://apps.apple.com/us/app/edubadges-surf/id6756307079">
                             <img alt="Download in de Apple app store" src={app_apple}>
                         </a>
-                        <a href="/">
+                        <a href="https://play.google.com/store/apps/details?id=nl.surf.edubadges">
                             <img alt="Download in de Google Play store" src={app_google}>
                         </a>
                     <p>
