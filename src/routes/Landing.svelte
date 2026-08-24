@@ -370,10 +370,8 @@
 
     html {
         scroll-behavior: smooth;
-    }
 
-    @media (prefers-reduced-motion: reduce) {
-        html {
+        @media (prefers-reduced-motion: reduce) {
             scroll-behavior: auto;
         }
     }
