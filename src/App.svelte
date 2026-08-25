@@ -54,7 +54,7 @@
 
 
     const homepage = {
-        guest: Login,
+        guest: "",
         [role.STUDENT]: Student,
         [role.TEACHER]: BadgesNew
     };
@@ -64,7 +64,7 @@
     onMount(() => {
         //if we are heading to any of the public path we don't fetch the profile
         const path = window.location.pathname;
-        const publicPaths = ["public", "auth/login", "signup", "validate", "version/info", "launch/lti", "terms", "privacy"];
+        const publicPaths = ["welcome", "catalog", "public", "auth/login", "signup", "validate", "version/info", "launch/lti", "terms", "privacy"];
         if (path === "/" || !publicPaths.some(p => path.indexOf(p) > -1)) {
             getSocialAccounts()
                 .then(res => {
@@ -82,15 +82,11 @@
                 })
                 .catch(() => {
                     $redirectPath = path;
-                    if (path.indexOf("catalog") === -1) {
-                        navigate("/login");
-                    } else {
-                        navigate("/catalog");
-                    }
                     $userLoggedIn = "";
                     $userName = "";
                     $validatedUserName = "";
                     loaded = true;
+                    window.location.replace("/welcome")
                 });
         } else {
             loaded = true;
@@ -213,7 +209,6 @@
                     {/if}
                 </Route>
                 <Route path="/" component={homepage[visitorRole]}/>
-                <Route path="/login" component={Login}/>
                 <Route path="/auth/login/*" component={ProcessToken}/>
                 <Route path="/catalog" component={CatalogNew}/>
                 <Route path="/signup" component={AcceptTerms}/>
