@@ -161,7 +161,7 @@
 
 <header>
 
-    <a href="/" use:link class:demo={config.isDemoEnvironment}>
+    <a href="#" use:link class:demo={config.isDemoEnvironment} on:click={() => (window.location.replace("/welcome"))}>
         {#if uaLower.indexOf("safari") > -1 && uaLower.indexOf("chrome") < 0}
             <img class="logo" src="img/logo.png" alt="logo"/>
         {:else}
