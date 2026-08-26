@@ -52,7 +52,7 @@ I18n.translations.en = {
             catalog: "Catalog",
         },
         footer: {
-            terms: "Terms of Service",
+            terms: "Terms of Use",
             privacy: "Privacy Statement",
         },
     },

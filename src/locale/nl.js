@@ -43,8 +43,8 @@ I18n.translations.nl = {
             body: "Met de app heb je je backpack gewoon op zak. Claim nieuwe edubadges zodra je ze ontvangt, houd overzicht over alles wat je hebt behaald en deel ze direct op LinkedIn, waar en wanneer je wil.",
         },
         portal: {
-            title: "Voor docenten en beheerders: <strong>de issuerportal</strong>",
-            body: "In de issuerportal reiken docenten edubadges uit aan studenten, maken beheerders nieuwe edubadges aan en regel je het gebruikersbeheer van je instelling. Overzichtelijk, veilig en volledig onder eigen regie.",
+            title: "Voor docenten en beheerders: <strong>het issuerportaal</strong>",
+            body: "In het issuerportaal reiken docenten edubadges uit aan studenten, maken beheerders nieuwe edubadges aan en regel je het gebruikersbeheer van je instelling. Overzichtelijk, veilig en volledig onder eigen regie.",
             login: "Log in op het issuerportaal",
         },
         nav: {
@@ -53,7 +53,7 @@ I18n.translations.nl = {
         },
         footer: {
             terms: "Gebruiksvoorwaarden",
-            privacy: "Privacyvoorwaarden",
+            privacy: "Privacyverklaring",
         },
     },
     login: {
