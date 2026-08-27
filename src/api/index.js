@@ -331,11 +331,6 @@ export function getRecipientName(identityHash, salt) {
     return validFetch(path, {}, "GET", false);
 }
 
-export function getValidatorInfo() {
-    const path = `${serverUrl}/public/validator/info`;
-    return validFetch(path, {}, "GET", false);
-}
-
 // Manage users
 export function newStaffMembership(entityType, entityId, perms, userId, notes) {
     const path = `${serverUrl}/staff-membership/${entityType}/${entityId}/create`;
