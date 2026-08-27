@@ -927,13 +927,13 @@ I18n.translations.en = {
             validUntil: "Valid until",
             addToCollection: "Add to collection",
             grade: "Grade",
-            ob3SsiAgent: "Wallet import {{name}}",
+            ob3SsiAgent: "Wallet import",
             ob3SsiAgentNames: {
                 unime: "unime",
                 sphereon: "sphereon",
                 wwwallet: "WWWallet",
             },
-            ob3SsiAgentQRCode: "Import into {{name}} wallet",
+            ob3SsiAgentQRCode: "Import into wallet",
             ob3SsiAgentQRCodeQuestion: "Scan this code with your electronic credentials wallet",
             ok: "Ok",
             statuses: {
@@ -1028,7 +1028,8 @@ I18n.translations.en = {
             claim: "Claim & Add to your backpack",
             confirmation: {
                 claim: "After this edubadge is claimed, it will be added to your backpack and you can make the edubadge public and share it. <br><br> Please note: This is the name that will be visible in the edubadge: <strong>{{val}}</strong>. If this is not correct, please contact the institution.",
-                claimNoName: "After this edubadge is claimed, it will be added to your backpack and you can make the edubadge public and share it.",
+                claimNoName:
+                    "After this edubadge is claimed, it will be added to your backpack and you can make the edubadge public and share it.",
                 reject: "Are you absolutely sure you want to reject this edubadge? This edubadge will be deleted after rejection and this action cannot be undone.",
             },
             flash: {

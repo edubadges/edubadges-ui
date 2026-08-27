@@ -869,7 +869,8 @@ I18n.translations.nl = {
                     "Raadpleeg <a target='_blank' rel='noreferrer' href='https://zakelijk.duo.nl/portaal/zoeken-en-vinden/resultaten?zoekterm=null&pagina=1'>het DUO RIO register</a> of <a target='_blank' rel='noreferrer' href='https://duo.nl/open_onderwijsdata/middelbaar-beroepsonderwijs/erkende-opleidingen/erkende-opleidingscode-en-beroep.jsp'>de SBB CREBO lijsten</a> als je deze code niet weet.",
                 eqf: "Kijk op <a target='_blank' rel='noreferrer' href='https://www.nlqf.nl/impact-nlqf/nlqf-niveaus-waaier/'>https://www.nlqf.nl/impact-nlqf/nlqf-niveaus-waaier/</a> voor een overzicht",
                 ects: "Alleen hele en halve punten. <br/>Een minimum van 0,5 punt is vereist.",
-                ectsMicroCredentials: "Alleen hele en halve punten. Valide waarde is tussen de {{ectsMinimal}} en 30 punten.",
+                ectsMicroCredentials:
+                    "Alleen hele en halve punten. Valide waarde is tussen de {{ectsMinimal}} en 30 punten.",
                 studyLoadMICRO_CREDENTIAL: "Alleen hele uren. De minimum waarde  is 80 uur.",
                 studyLoadREGULAR: "Alleen hele uren.",
                 studyLoadEXTRA_CURRICULAR: "Optioneel. Alleen hele uren.",
@@ -926,13 +927,13 @@ I18n.translations.nl = {
             validUntil: "Geldig tot",
             addToCollection: "Voeg toe aan collectie",
             grade: "Cijfer",
-            ob3SsiAgent: "Wallet import {{name}}",
+            ob3SsiAgent: "Wallet import",
             ob3SsiAgentNames: {
                 unime: "unime",
                 sphereon: "sphereon",
                 wwwallet: "WWWallet",
             },
-            ob3SsiAgentQRCode: "Import into {{name}} wallet",
+            ob3SsiAgentQRCode: "Import into wallet",
             ob3SsiAgentQRCodeQuestion: "Scan this code with your electronic credentials wallet",
             ok: "Ok",
             statuses: {
@@ -1028,7 +1029,8 @@ I18n.translations.nl = {
             claim: "Claim en voeg toe aan je backpack",
             confirmation: {
                 claim: "Nadat deze edubadge is geclaimd, wordt deze toegevoegd aan je backpack en kan je de edubadge openbaar maken en delen. <br><br> Let op: dit is de naam die in de edubadge komt te staan: <strong>{{val}}</strong>. Als dit niet klopt, neem contact op met de instelling.",
-                claimNoName: "Nadat deze edubadge is geclaimd, wordt deze toegevoegd aan je backpack en kan je de edubadge openbaar maken en delen.",
+                claimNoName:
+                    "Nadat deze edubadge is geclaimd, wordt deze toegevoegd aan je backpack en kan je de edubadge openbaar maken en delen.",
                 reject: "Weet u absoluut zeker dat u deze edubadge wilt afwijzen? Deze edubadge wordt na afwijzing verwijderd en deze actie kan niet ongedaan worden gemaakt.",
             },
             flash: {
