@@ -38,7 +38,7 @@ export const tree = derived(
                     && (!institutionSelected.length || institutionSelected.includes(badge.issuer.faculty.institution.entityId))
                     && (!facultySelected.length || facultySelected.includes(badge.issuer.faculty.entityId))
                     && (!issuerSelected.length || issuerSelected.includes(badge.issuer.entityId))
-                    && (!virtualOrganisationSelected.length || virtualOrganisationSelected.includes(badge.issuer.faculty.entityId))
+                    && (!virtualOrganisationSelected.length || virtualOrganisationSelected.includes(badge.issuer.faculty.name))
                     && (!typeBadgeClassSelected.length || typeBadgeClassSelected.find(typeBadge => badge.types.includes(typeBadge)))
             });
 
@@ -72,13 +72,13 @@ export const tree = derived(
         const virtualOrganisations = filteredBadgeClasses
             .filter(badge => badge.issuer.faculty.onBehalfOf)
             .reduce((acc, badge) => {
-            const item = acc.find(v => v.entityId === badge.issuer.faculty.entityId);
+            const item = acc.find(v => v.name === badge.issuer.faculty.name);
             if (item) {
                 ++item.count;
             } else {
                 acc.push({
                     name: badge.issuer.faculty.name,
-                    entityId: badge.issuer.faculty.entityId,
+                    entityId: badge.issuer.faculty.name,
                     count: 1
                 })
             }
