@@ -1,5 +1,5 @@
 # Use the official Node.js image with the specified version
-FROM node:16.13.2 AS builder
+FROM node:24.16.0 AS builder
 
 # Set the working directory in the container
 WORKDIR /app
@@ -7,6 +7,7 @@ WORKDIR /app
 # Copy package.json and yarn.lock first for better caching
 COPY package.json yarn.lock ./
 
+# Install dependencies
 RUN yarn install
 
 # Copy the rest of the application code
