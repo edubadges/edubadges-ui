@@ -24,30 +24,31 @@ export const virtualOrganisationSelected = writable([]);
 export const typeBadgeClassSelected = writable([]);
 
 export const tree = derived(
-    [badgeClasses, search, page, educationalLevelSelected, institutionSelected, facultySelected, issuerSelected,
-        virtualOrganisationSelected, typeBadgeClassSelected, sortTarget],
-    ([badgeClasses, search, page, educationalLevelSelected, institutionSelected, facultySelected, issuerSelected,
-          virtualOrganisationSelected,
-         typeBadgeClassSelected, sortTarget]) => {
-        const filteredBadgeClasses = filterBySearch(badgeClasses, search)
+    [
+        badgeClasses, search, page, educationalLevelSelected, institutionSelected, facultySelected, issuerSelected,
+        virtualOrganisationSelected, typeBadgeClassSelected, sortTarget,
+    ],
+    ([
+        badgeClasses, search, page, educationalLevelSelected, institutionSelected, facultySelected, issuerSelected,
+        virtualOrganisationSelected, typeBadgeClassSelected, sortTarget,
+    ]) => {
+        const filteredBadgeClassesInitial = filterBySearch(badgeClasses, search)
             .filter(badge => {
-                return !educationalLevelSelected.length || educationalLevelSelected.includes(badge.institutionType);
-            })
-            .filter(badge => {
-                return !institutionSelected.length || institutionSelected.includes(badge.issuer.faculty.institution.entityId);
-            })
-            .filter(badge => {
-                return !facultySelected.length || facultySelected.includes(badge.issuer.faculty.entityId);
-            })
-            .filter(badge => {
-                return !issuerSelected.length || issuerSelected.includes(badge.issuer.entityId);
-            })
-            .filter(badge => {
-                return !virtualOrganisationSelected.length || virtualOrganisationSelected.includes(badge.issuer.faculty.entityId);
-            })
-            .filter(badge => {
-                return !typeBadgeClassSelected.length || typeBadgeClassSelected.find(typeBadge => badge.types.includes(typeBadge))
+                return (!educationalLevelSelected.length || educationalLevelSelected.includes(badge.institutionType))
+                    && (!institutionSelected.length || institutionSelected.includes(badge.issuer.faculty.institution.entityId))
+                    && (!facultySelected.length || facultySelected.includes(badge.issuer.faculty.entityId))
+                    && (!issuerSelected.length || issuerSelected.includes(badge.issuer.entityId))
+                    && (!virtualOrganisationSelected.length || virtualOrganisationSelected.includes(badge.issuer.faculty.name))
+                    && (!typeBadgeClassSelected.length || typeBadgeClassSelected.find(typeBadge => badge.types.includes(typeBadge)))
             });
+
+        // Archived badges are hidden unless explicitly filtered for
+        // Also exclude these hidden badges from counts in other categories
+        let filteredBadgeClasses = filteredBadgeClassesInitial.slice();
+        if (!typeBadgeClassSelected.includes(badgeClassFilterTypes.ARCHIVED)) {
+            filteredBadgeClasses = filteredBadgeClassesInitial.filter(badge => !badge.archived);
+        };
+
         const educationLevels = filteredBadgeClasses.reduce((acc, badge) => {
                 const item = acc.find(v => v.value === badge.institutionType);
                 if (item) {
@@ -78,13 +79,13 @@ export const tree = derived(
         const virtualOrganisations = filteredBadgeClasses
             .filter(badge => badge.issuer.faculty.onBehalfOf)
             .reduce((acc, badge) => {
-            const item = acc.find(v => v.entityId === badge.issuer.faculty.entityId);
+            const item = acc.find(v => v.name === badge.issuer.faculty.name);
             if (item) {
                 ++item.count;
             } else {
                 acc.push({
                     name: badge.issuer.faculty.name,
-                    entityId: badge.issuer.faculty.entityId,
+                    entityId: badge.issuer.faculty.name,
                     count: 1
                 })
             }
@@ -119,7 +120,8 @@ export const tree = derived(
             return acc;
         }, []);
 
-        const badgeClassTypes = filteredBadgeClasses.reduce((acc, badge) => {
+        const badgeClassTypes = filteredBadgeClassesInitial.reduce(
+            (acc, badge) => {
                 if (badge.archived) {
                     const item = acc.find(v => v.value === badgeClassFilterTypes.ARCHIVED);
                     if (item) {
@@ -152,24 +154,18 @@ export const tree = derived(
                 name: I18n.t(`catalog.badgeClassType.${badgeClassType}`),
                 value: badgeClassType,
                 count: 0
-            })));
+            }))
+        );
 
         const sortedBadgeClasses = (sortTarget && sortTarget.value === "recent") ? sortCreatedAt(filteredBadgeClasses) :
-            (sortTarget && sortTarget.value === "awarded") ? sortBadgeAssertionsDirectAwarded(filteredBadgeClasses) : sortBadgeAssertionsSelfRequested(filteredBadgeClasses);
+            (sortTarget && sortTarget.value === "awarded") ? sortBadgeAssertionsDirectAwarded(filteredBadgeClasses) :
+            sortBadgeAssertionsSelfRequested(filteredBadgeClasses);
 
         const minimalPage = Math.min(page, Math.ceil(sortedBadgeClasses.length / catalogPageCount))
 
-        //Default we do not show the archived
-        const sortedBadgeClassesFiltered = sortedBadgeClasses.filter(badge => {
-            if (!typeBadgeClassSelected.includes(badgeClassFilterTypes.ARCHIVED)) {
-                return !badge.archived;
-            }
-            return true
-        });
-
         return {
-            badgeClasses: sortedBadgeClassesFiltered,
-            paginatedBadges: sortedBadgeClassesFiltered.slice((minimalPage - 1) * catalogPageCount, minimalPage * catalogPageCount),
+            badgeClasses: sortedBadgeClasses,
+            paginatedBadges: sortedBadgeClasses.slice((minimalPage - 1) * catalogPageCount, minimalPage * catalogPageCount),
             page: minimalPage,
             educationLevels: sort(educationLevels, true),
             institutions: sort(institutions, true),
