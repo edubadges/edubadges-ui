@@ -57,6 +57,7 @@
       entityId,
       createdAt,
       status,
+      eppn,
       recipientFirstName,
       recipientSurname,
       badgeclass {
@@ -174,10 +175,15 @@
                 } else {
                     return currentUser.fullName
                 }
-
             }
+
+            if (directAward.eppn == null) {
+                modalQuestion = I18n.t("models.badgeAward.confirmation.claim", {val: getDisplayName()});
+            } else {
+                modalQuestion = I18n.t("models.badgeAward.confirmation.claimNoName");
+            }
+
             modalTitle = I18n.t("models.badgeAward.claim");
-            modalQuestion = I18n.t("models.badgeAward.confirmation.claim", {val: getDisplayName()});
             modalAction = () => claimDirectAward(false);
             warning = false;
             showModal = true;

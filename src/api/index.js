@@ -331,11 +331,6 @@ export function getRecipientName(identityHash, salt) {
     return validFetch(path, {}, "GET", false);
 }
 
-export function getValidatorInfo() {
-    const path = `${serverUrl}/public/validator/info`;
-    return validFetch(path, {}, "GET", false);
-}
-
 // Manage users
 export function newStaffMembership(entityType, entityId, perms, userId, notes) {
     const path = `${serverUrl}/staff-membership/${entityType}/${entityId}/create`;
@@ -960,6 +955,6 @@ export function resendEndorsement(endorsement, message) {
 //ob3
 export function ob3WalletImport(badgeInstance, variant) {
     const path = `${serverUrl}/ob3/v1/ob3`;
-    const data = {badge_id: badgeInstance.id, variant};
+    const data = {badge_entity_id: badgeInstance.entityId, variant};
     return validFetch(path, {body: JSON.stringify(data)}, "POST");
 }

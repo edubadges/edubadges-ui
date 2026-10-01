@@ -30,6 +30,32 @@ I18n.translations.en = {
             lti: "LTI",
         },
     },
+    landing: {
+        bewaren: {
+            title: "Collect, store, and share your <strong>edubadges</strong>",
+            body: "Edubadges is the national platform for digital certificates in the Dutch education system. With an edubadge you can show which knowledge and skills you have, officially recognized by institutions. Keep them in one place, share them with employers or on LinkedIn, and make the transition from study to work more easily.",
+            backpack: "Open my backpack",
+            app: "Download the app",
+            login: "Login with your eduID via SURFconext",
+        },
+        hand: {
+            title: "Your <strong>edubadges</strong> always at hand",
+            body: "With the app you have your backpack with you. Claim new edubadges when you receive them, keep an overview of all your achievements and share them directly on LinkedIn, where and whenever you want.",
+        },
+        portal: {
+            title: "For teachers and admins: <strong>the issuerportal</strong>",
+            body: "In the issuerportal teachers can award edubadges to learners, admins can create new edubadges and manage the users of the institution. Clear, safe, and fully under your own control.",
+            login: "Log into the issuerportal",
+        },
+        nav: {
+            support: "Support",
+            catalog: "Catalog",
+        },
+        footer: {
+            terms: "Terms of Use",
+            privacy: "Privacy Statement",
+        },
+    },
     login: {
         title: "Never stop learning",
         loginToEnrol: "Login to request this edubadge",
@@ -901,13 +927,13 @@ I18n.translations.en = {
             validUntil: "Valid until",
             addToCollection: "Add to collection",
             grade: "Grade",
-            ob3SsiAgent: "Wallet import {{name}}",
+            ob3SsiAgent: "Wallet import",
             ob3SsiAgentNames: {
                 unime: "unime",
                 sphereon: "sphereon",
                 wwwallet: "WWWallet",
             },
-            ob3SsiAgentQRCode: "Import into {{name}} wallet",
+            ob3SsiAgentQRCode: "Import into wallet",
             ob3SsiAgentQRCodeQuestion: "Scan this code with your electronic credentials wallet",
             ok: "Ok",
             statuses: {
@@ -1002,6 +1028,8 @@ I18n.translations.en = {
             claim: "Claim & Add to your backpack",
             confirmation: {
                 claim: "After this edubadge is claimed, it will be added to your backpack and you can make the edubadge public and share it. <br><br> Please note: This is the name that will be visible in the edubadge: <strong>{{val}}</strong>. If this is not correct, please contact the institution.",
+                claimNoName:
+                    "After this edubadge is claimed, it will be added to your backpack and you can make the edubadge public and share it.",
                 reject: "Are you absolutely sure you want to reject this edubadge? This edubadge will be deleted after rejection and this action cannot be undone.",
             },
             flash: {
