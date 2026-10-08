@@ -953,8 +953,8 @@ export function resendEndorsement(endorsement, message) {
 }
 
 //ob3
-export function ob3WalletImport(badgeInstance, variant) {
+export function ob3WalletImport(badgeInstance, credentialType) {
     const path = `${serverUrl}/ob3/v1/ob3`;
-    const data = {badge_entity_id: badgeInstance.entityId, variant};
+    const data = {badge_entity_id: badgeInstance.entityId, credential_type: credentialType};
     return validFetch(path, {body: JSON.stringify(data)}, "POST");
 }

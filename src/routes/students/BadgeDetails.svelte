@@ -85,12 +85,12 @@
         showCollectionsModal = true;
     }
 
-    const startOb3SsiAgentImport = (variant) => {
+    const startOb3SsiAgentImport = (credentialType) => {
         loaded = false
-        ob3WalletImport(badge, variant).then(res => {
+        ob3WalletImport(badge, credentialType).then(res => {
             showOb3SsiAgentModal = true;
             loaded = true;
-            ssiAgentName = variant;
+            ssiAgentName = credentialType;
             ssiAgentOffer = res.offer;
         })
     }
@@ -549,10 +549,10 @@
                     </div>
                     <div class="button-container vertical">
                         {#if ob3SsiAgentEnabled}
-                            <Button text={I18n.t("models.badge.ob3SsiAgent", {
-                                name: I18n.t("models.badge.ob3SsiAgentNames.unime")
-                              })}
-                                    action={() => startOb3SsiAgentImport('unime')}/>
+                            <Button text={I18n.t("models.badge.ob3WalletImportOB3")}
+                                    action={() => startOb3SsiAgentImport('ob3')}/>
+                            <Button text={I18n.t("models.badge.ob3WalletImportEDC")}
+                                    action={() => startOb3SsiAgentImport('edc')}/>
                         {/if}
                     </div>
                     <div class="button-container">

@@ -933,6 +933,8 @@ I18n.translations.en = {
                 sphereon: "sphereon",
                 wwwallet: "WWWallet",
             },
+            ob3WalletImportOB3: "Wallet Import (OB3)",
+            ob3WalletImportEDC: "Wallet Import (EDC)",
             ob3SsiAgentQRCode: "Import into wallet",
             ob3SsiAgentQRCodeQuestion: "Scan this code with your electronic credentials wallet",
             ok: "Ok",
