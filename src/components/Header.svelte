@@ -162,11 +162,7 @@
 <header>
 
     <a href="/" use:link class:demo={config.isDemoEnvironment}>
-        {#if uaLower.indexOf("safari") > -1 && uaLower.indexOf("chrome") < 0}
-            <img class="logo" src="img/logo.png" alt="logo"/>
-        {:else}
-            {@html logo}
-        {/if}
+        {@html logo}
     </a>
 
     {#if config.isDemoEnvironment}
