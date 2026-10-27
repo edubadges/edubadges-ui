@@ -1,5 +1,5 @@
 # Use the official Node.js image with the specified version
-FROM node:16.13.2
+FROM node:24.22.1
 
 # Set the working directory in the container
 WORKDIR /app
@@ -14,7 +14,7 @@ RUN yarn install --frozen-lockfile
 COPY . .
 
 # Copy a docker-specific config.js over the generic one.
-# NOTE: in docker-compose we mount over this file again, so there the version on the 
+# NOTE: in docker-compose we mount over this file again, so there the version on the
 # host machine in ./docker/config.js is used at /app/src/util/config.js
 COPY ./docker/config.js /app/src/util/config.js
 
