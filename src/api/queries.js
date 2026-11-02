@@ -16,8 +16,8 @@ export const headerEntityMultiLanguage = `
 
 export const headerStaff = `
 	staff {
-    	user { 
-			firstName, 
+    	user {
+			firstName,
 			lastName,
 			fullName,
 			email,
@@ -27,12 +27,13 @@ export const headerStaff = `
 `;
 
 export const studentBadgeInstances = (badgeclassEntityIds) => {
- // Validate badgeclassEntityIds is an array of strings
- if (!Array.isArray(badgeclassEntityIds) || !badgeclassEntityIds.every(id => typeof id === 'string')) {
-   throw new Error('badgeclassEntityIds must be an array of strings');
- }
- return `query {
-    badgeInstances(badgeclassEntityIds: ${JSON.stringify(badgeclassEntityIds)}) {
+    // Validate badgeclassEntityIds is an array of strings
+    if (!Array.isArray(badgeclassEntityIds) || !badgeclassEntityIds.every((id) => typeof id === "string")) {
+        throw new Error("badgeclassEntityIds must be an array of strings");
+    }
+    const badgeclassEntitityIdFilter = JSON.stringify(badgeclassEntityIds);
+    return `query {
+    badgeInstances(badgeclassEntityIds: ${badgeclassEntitityIdFilter}) {
       entityId,
       image,
       issuedOn,
@@ -71,7 +72,7 @@ export const studentBadgeInstances = (badgeclassEntityIds) => {
         }
       }
     },
-    directAwards {
+    directAwards(badgeclassEntityIds: ${badgeclassEntitityIdFilter}) {
       entityId,
       createdAt,
       badgeclass {
@@ -98,7 +99,7 @@ export const studentBadgeInstances = (badgeclassEntityIds) => {
         }
       }
     }
-  }`
+  }`;
 };
 
 export const revokedStudentBadgeInstances = `query {
