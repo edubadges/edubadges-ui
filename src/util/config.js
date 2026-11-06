@@ -5,6 +5,7 @@ export const config = {
     teacherDomain: "surf_conext",
     extensionsRootUrl: "http://127.0.0.1:8000/static",
     eduId: "https://mijn.test.eduid.nl",
+    backpackUrl: "https://backpack.edubadges.nl/",
     isDemoEnvironment: 0,
     isProdEnvironment: 0,
     importBadgeAllowed: !0,
