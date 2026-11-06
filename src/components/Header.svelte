@@ -36,10 +36,10 @@
         logoutCurrentUser()
             .then(() => {
                 doLogOut();
-                navigate("/login?force=true");
+                window.location.replace("/welcome");
             }).catch(() => {
             doLogOut()
-            navigate("/login?force=true");
+            window.location.replace("/welcome");
         });
     }
 
@@ -161,8 +161,12 @@
 
 <header>
 
-    <a href="/" use:link class:demo={config.isDemoEnvironment}>
-        {@html logo}
+    <a href="#" use:link class:demo={config.isDemoEnvironment} on:click={() => (window.location.replace("/welcome"))}>
+        {#if uaLower.indexOf("safari") > -1 && uaLower.indexOf("chrome") < 0}
+            <img class="logo" src="img/logo.png" alt="logo"/>
+        {:else}
+            {@html logo}
+        {/if}
     </a>
 
     {#if config.isDemoEnvironment}
