@@ -78,7 +78,7 @@
         $userRole = "";
         $authToken = "";
         $redirectPath = window.location.pathname;
-        window.location.href = config.eduId
+        window.location.href = config.backpackUrl;
     };
 </script>
 

@@ -9,6 +9,7 @@
     import portal from "../img/portal.png";
     import medal from "../img/medal.svg";
 
+    import {config} from "../util/config";
     import {getService} from "../util/getService";
     import {requestLoginToken} from "../api";
     import {redirectPath, userRole} from "../stores/user";
@@ -23,6 +24,10 @@
     };
 
     const logIn = (chosenRole, force = false) => {
+        if (chosenRole === role.STUDENT) {
+            window.location.href = config.backpackUrl;
+            return;
+        }
         $userRole = chosenRole;
         const path = $redirectPath;
         const service = getService(chosenRole);
