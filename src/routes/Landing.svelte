@@ -33,7 +33,7 @@
     };
 </script>
 
-<style global lang="css">
+<style lang="css">
     @import "../stylesheets/landing.css";
 
     .nav-bar {
