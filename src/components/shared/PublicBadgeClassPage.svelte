@@ -22,8 +22,7 @@
     import Field from "../forms/Field.svelte";
     import {isEmpty} from "../../util/utils";
     import {addProtocolToURL, validUrl} from "../../util/forms";
-    import EndorsementView from "../teachers/endorsements/EndorsementView.svelte";
-    import {alignments, endorsements} from "../../api/queries";
+    import {alignments} from "../../api/queries";
 
     export let entityId;
 
@@ -163,8 +162,7 @@
         name,
         originalJson
       },
-      ${alignments},
-      ${endorsements}
+      ${alignments}
     }
   }`;
 
@@ -422,10 +420,6 @@
                             secondary={true}
                             action={() => navigate(`/manage/badgeclass/${badgeClass.entityId}/edit/copy`)}
                             />
-
-                        {#if config.features.endorsements}
-                            <EndorsementView badgeClass={badgeClass}/>
-                        {/if}
 
                     </div>
 

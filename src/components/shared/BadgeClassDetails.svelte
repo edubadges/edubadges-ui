@@ -27,11 +27,8 @@
     import awardIcon from "../../icons/award-ribbon-star-1.svg";
     import gradeIcon from "../../icons/award-ribbon-star-1.svg";
     import expiredIcon from "../../icons/connections.svg";
-    import {isEmpty, translateBadgeClassProperties, translateProperties} from "../../util/utils";
+    import {isEmpty, translateProperties} from "../../util/utils";
     import MarkdownField from "../forms/MarkdownField.svelte";
-    import Endorsement from "../teachers/endorsements/Endorsement.svelte";
-    import {endorsementStatus} from "../../util/endorsements";
-    import {config} from "../../util/config";
     import Spinner from "../Spinner.svelte";
     import {badgeClassTypes} from "../../util/badgeClassTypes";
 
@@ -41,8 +38,6 @@
 
     let cutoffInstitutionThreshold = 5;
     let showAllInstitutions = false;
-    let showEndorsementDetails = [];
-    let endorsementsAccepted = [];
     let loading = true;
 
     onMount(() => {
@@ -71,20 +66,8 @@
         badgeclass.studyLoadValue = badgeclass.studyLoad ? I18n.t("teacher.badgeclasses.hours", {value: badgeclass.studyLoad}) : badgeclass.ects ?
             I18n.t("teacher.badgeclasses.ects", {value: badgeclass.ects}) : null;
         badgeclass.timeInvestmentValue = badgeclass.timeInvestment ? I18n.t("teacher.badgeclasses.hours", {value: badgeclass.timeInvestment}) : null;
-        if (badgeclass.endorsements) {
-            badgeclass.endorsements.forEach(endorsement => translateBadgeClassProperties(endorsement.endorser));
-            endorsementsAccepted = badgeclass.endorsements.filter(e => e.status.toLowerCase() === endorsementStatus.ACCEPTED);
-        }
         loading = false;
     });
-
-    const toggleEndorsement = index => {
-        const newShowEndorsementDetails = [...showEndorsementDetails];
-        newShowEndorsementDetails[index] = !newShowEndorsementDetails[index];
-        showEndorsementDetails = newShowEndorsementDetails;
-        // Force re-render
-        badgeclass = {...badgeclass}
-    }
 
     const getSuperVisionOption = () => {
         if (badgeclass.assessmentSupervised && badgeclass.assessmentIdVerified) {
@@ -212,7 +195,7 @@
         word-break: break-all;
     }
 
-    section.alignments, section.endorsements {
+    section.alignments {
         margin-top: 10px;
         padding-top: 10px;
     }
@@ -221,14 +204,6 @@
         margin-bottom: 25px;
     }
 
-
-    section.endorsement {
-        margin-top: 15px;
-        padding: 15px;
-        border: 1px solid var(--grey-5);
-        box-shadow: 0 1px 1px var(--grey-5);
-        border-radius: 8px;
-    }
 
     section.alignment {
         margin-top: 7px;
@@ -323,20 +298,6 @@
                 </div>
             {/if}
 
-            {#if endorsementsAccepted.length > 0 && config.features.endorsements}
-                <section class="endorsements">
-                    <h3 class="black-header">
-                        {badgeclass.endorsements.length > 1 ? I18n.t("models.badgeclass.endorsementMultiple") : I18n.t("models.badgeclass.endorsement")}
-                    </h3>
-                    {#each endorsementsAccepted as endorsement, index}
-                        <section class="endorsement">
-                            <Endorsement endorsement={endorsement}
-                                         toggleEndorsement={() => toggleEndorsement(index)}
-                                         showDetails={showEndorsementDetails[index]}/>
-                        </section>
-                    {/each}
-                </section>
-            {/if}
             {#if badgeclass.alignments && badgeclass.alignments.length > 0}
                 <section class="alignments">
                     <h3 class="border">
