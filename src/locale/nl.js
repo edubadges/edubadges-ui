@@ -443,7 +443,7 @@ I18n.translations.nl = {
     },
     footer: {
         poweredBy: "Trots aangeboden door",
-        about: "Handleiding edubadges",
+        about: "Handleiding",
         aboutLink: "https://servicedesk.surf.nl/wiki/display/WIKI/edubadges",
     },
     modalTerms: {
