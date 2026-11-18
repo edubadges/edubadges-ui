@@ -151,7 +151,6 @@ export function logoutCurrentUser() {
 export function awardBadges(badgeId, enrollmentIds, useEvidence, narrative, url, name, description, gradeAchieved) {
     const path = `${serverUrl}/issuer/badgeclasses/award-enrollments/${badgeId}`;
     const body = {
-        "issue_signed": false,
         "create_notification": true,
         "enrollments": enrollmentIds.map((el) => {
             const res = {
@@ -312,7 +311,7 @@ export function getPublicInstitution(entityId) {
 }
 
 export function getPublicBadgeClass(badgeId) {
-    const path = `${serverUrl}/public/badges/${badgeId}?expand=issuer&expand=awards&expand=endorsements&expand=micro`;
+    const path = `${serverUrl}/public/badges/${badgeId}?expand=issuer&expand=awards&expand=micro`;
     return validFetch(path, {}, "GET", false, false);
 }
 
@@ -823,11 +822,6 @@ export function fetchRawCurrentInstitution() {
     return validFetchNoErrorDialog(path, {}, "GET");
 }
 
-export function fetchRawEndorsementsBadgeClasses() {
-    const path = `${serverUrl}/queries/endorsement-badge-classes`;
-    return validFetchNoErrorDialog(path, {}, "GET");
-}
-
 export function fetchRawBadgeClasses() {
     const path = `${serverUrl}/queries/badge-classes`;
     return validFetchNoErrorDialog(path, {}, "GET");
@@ -919,37 +913,6 @@ export function deleteLtiCourse(ltiCourse) {
 export function updateNotifications(delta) {
     const path = `${serverUrl}/notifications/notifications`;
     return validFetch(path, {body: JSON.stringify(delta)}, "PUT");
-}
-
-//Endorsements
-export function createEndorsement(endorsement) {
-    const path = `${serverUrl}/endorsement/create`;
-    return validFetch(path, {body: JSON.stringify(endorsement)}, "POST", true, false);
-}
-
-export function acceptEndorsement(endorsement) {
-    const path = `${serverUrl}/endorsement/edit/${endorsement.entityId}`;
-    return validFetch(path, {body: JSON.stringify({status: "Accepted"})}, "PUT", true, false);
-}
-
-export function rejectEndorsement(endorsement, reason) {
-    const path = `${serverUrl}/endorsement/edit/${endorsement.entityId}`;
-    return validFetch(path, {body: JSON.stringify({status: "Rejected", rejection_reason: reason})}, "PUT", true, false);
-}
-
-export function revokeEndorsement(endorsement, reason) {
-    const path = `${serverUrl}/endorsement/edit/${endorsement.entityId}`;
-    return validFetch(path, {body: JSON.stringify({status: "Revoked", revocation_reason: reason})}, "PUT", true, false);
-}
-
-export function deleteEndorsement(endorsement) {
-    const path = `${serverUrl}/endorsement/delete/${endorsement.entityId}`;
-    return validFetch(path, {}, "DELETE", true, false);
-}
-
-export function resendEndorsement(endorsement, message) {
-    const path = `${serverUrl}/endorsement/resend/${endorsement.entityId}`;
-    return validFetch(path, {body: JSON.stringify({message: message})}, "POST", true, false);
 }
 
 //ob3

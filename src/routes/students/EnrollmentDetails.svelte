@@ -9,7 +9,7 @@
     import {translateProperties} from "../../util/utils";
     import StudentBreadCrumb from "../../components/students/StudentBreadCrumb.svelte";
     import BadgeHeader from "../../components/students/BadgeHeader.svelte";
-    import {alignments, endorsements} from "../../api/queries";
+    import {alignments} from "../../api/queries";
 
     export let enrollmentId;
     let enrollment;
@@ -66,8 +66,7 @@
           name,
           originalJson
         },
-      ${alignments},
-      ${endorsements}
+      ${alignments}
       }
     }
   }`;
