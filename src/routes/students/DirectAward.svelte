@@ -19,6 +19,7 @@
     import AcceptInstitutionTerms from "../AcceptInstitutionTerms.svelte";
     import StudentBreadCrumb from "../../components/students/StudentBreadCrumb.svelte";
     import BadgeHeader from "../../components/students/BadgeHeader.svelte";
+    import DOMPurify from 'dompurify';
 
     export let entityId;
 
@@ -169,7 +170,7 @@
         if (showConfirmation) {
             const getDisplayName = () => {
                 if (directAward.recipientFirstName && directAward.recipientSurname) {
-                    return `${directAward.recipientFirstName} ${directAward.recipientSurname}`
+                    return `${DOMPurify.sanitize(directAward.recipientFirstName)} ${DOMPurify.sanitize(directAward.recipientSurname)}`
                 } else if (currentUser.validatedName) {
                     return currentUser.validatedName
                 } else {
