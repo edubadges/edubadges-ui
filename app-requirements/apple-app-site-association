@@ -6,6 +6,10 @@
         "appID": "ZYJ4TZX4UU.nl.surf.edubadges",
         "components": [
           { "/": "/public/collections/*", "exclude": true },
+          { "/": "/public/assertions/*", "exclude": true },
+          { "/": "/public/institutions/*", "exclude": true },
+          { "/": "/public/faculties/*", "exclude": true },
+          { "/": "/public/issuers/*", "exclude": true },
           { "/": "/public/*" }
         ]
       }

@@ -18,6 +18,7 @@ process.traceDeprecation = true;
 module.exports = {
     entry: {
         bundle: ["./src/main.js"],
+        landing: ["./src/landing.js"],
     },
     resolve: {
         alias: {
@@ -94,6 +95,12 @@ module.exports = {
             template: "src/index.html.ejs",
             favicon: "src/favicon.ico",
             hash: true,
+            chunks: ["bundle"],
+        }),
+        new HtmlWebpackPlugin({
+            filename: "landing.html",
+            template: "src/landing.html.ejs",
+            chunks: ["landing"],
         }),
         prod
             ? new HtmlWebpackPartialsPlugin({
@@ -113,7 +120,12 @@ module.exports = {
         static: {
             directory: path.join(__dirname, "./public"),
         },
-        historyApiFallback: true,
+        historyApiFallback: {
+             rewrites: [
+                { from: /^\/welcome$/, to: "/landing.html" },
+                { from: /./, to: "/index.html" },
+            ],
+        },
         hot: false,
         compress: true,
         client: {
